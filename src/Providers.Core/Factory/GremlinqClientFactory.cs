@@ -53,7 +53,12 @@ namespace ExRam.Gremlinq.Providers.Core
                                 : throw new ObjectDisposedException(nameof(Slot));
                         }
 
-                        Interlocked.CompareExchange(ref _subClient, _poolClient._baseFactory.Create(_poolClient._environment), null);
+                        var newClient = _poolClient._baseFactory
+                            .Create(_poolClient._environment)
+                            .Throttle(_poolClient._maxInProcessPerConnection);
+
+                        if (Interlocked.CompareExchange(ref _subClient, newClient, null) != null)
+                            newClient.Dispose();
 
                         return GetClient();
                     }
@@ -65,55 +70,29 @@ namespace ExRam.Gremlinq.Providers.Core
 
                     public void Dispose()
                     {
-                        if (Interlocked.Exchange(ref _subClient, GremlinqClient.Disposed) is { } subClient)
-                            subClient.Dispose();
+                        Interlocked.Exchange(ref _subClient, GremlinqClient.Disposed)?.Dispose();
                     }
                 }
 
-                private readonly struct SlotLease : IDisposable
-                {
-                    public SlotLease(ConcurrentStack<Slot> slots, Slot slot)
-                    {
-                        Slot = slot;
-                        Slots = slots;
-                    }
-
-                    public void Dispose()
-                    {
-                        Slots.Push(Slot);
-                    }
-
-                    public PoolGremlinqClientFactory<TBaseFactory>.PoolGremlinqClient.Slot Slot { get; }
-                    public ConcurrentStack<PoolGremlinqClientFactory<TBaseFactory>.PoolGremlinqClient.Slot> Slots { get; }
-                }
-
+                private readonly Slot[] _slots;
+                private readonly int _maxInProcessPerConnection;
                 private readonly IGremlinqClientFactory _baseFactory;
                 private readonly IGremlinQueryEnvironment _environment;
 
-                private readonly Slot[] _allSlots;
-                private readonly ConcurrentStack<Slot>[] _pages;
+                private int _maxRequestsInUse = 1;
+                private int _currentSlotIndex = -1;
+                private int _currentRequestsInUse = 0;
 
-                public PoolGremlinqClient(IGremlinqClientFactory baseFactory, uint poolSize, uint maxInProcessPerConnection, IGremlinQueryEnvironment environment)
+                public PoolGremlinqClient(IGremlinqClientFactory baseFactory, int poolSize, int maxInProcessPerConnection, IGremlinQueryEnvironment environment)
                 {
                     _baseFactory = baseFactory;
                     _environment = environment;
-
-                    _allSlots = new Slot[poolSize];
-                    _pages = new ConcurrentStack<Slot>[maxInProcessPerConnection];
+                    _slots = new Slot[poolSize];
+                    _maxInProcessPerConnection = maxInProcessPerConnection;
 
                     for (var i = 0 ; i < poolSize; i++)
                     {
-                        _allSlots[i] = new Slot(this);
-                    }
-
-                    for (var i = 0; i < maxInProcessPerConnection; i++)
-                    {
-                        _pages[i] = new ();
-
-                        for (var j = 0 ; j < poolSize; j++)
-                        {
-                            _pages[i].Push(_allSlots[j]);
-                        }
+                        _slots[i] = new Slot(this);
                     }
                 }
 
@@ -123,69 +102,68 @@ namespace ExRam.Gremlinq.Providers.Core
 
                     static async IAsyncEnumerable<ResponseMessage<T>> Core(RequestMessage message, PoolGremlinqClient @this, [EnumeratorCancellation] CancellationToken ct = default)
                     {
-                        using (var lease = @this.GetSlot())
+                        var currentRequestsInUse = Interlocked.Increment(ref @this._currentRequestsInUse);
+
+                        try
                         {
-                            var slot = lease.Slot;
-
-                            var client = slot.GetClient();
-
                             while (true)
                             {
-                                await using (var e = client.SubmitAsync<T>(message).WithCancellation(ct).GetAsyncEnumerator())
+                                var maxRequestsInUse = Volatile.Read(ref @this._maxRequestsInUse);
+
+                                if (currentRequestsInUse < 0 || currentRequestsInUse <= maxRequestsInUse || Interlocked.CompareExchange(ref @this._maxRequestsInUse, Math.Min(currentRequestsInUse, @this._slots.Length), maxRequestsInUse) == maxRequestsInUse)
                                 {
-                                    while (true)
+                                    var slot = @this._slots[Math.Abs(Interlocked.Increment(ref @this._currentSlotIndex) % maxRequestsInUse)];
+                                    var client = slot.GetClient();
+
+                                    await using (var e = client.SubmitAsync<T>(message).WithCancellation(ct).GetAsyncEnumerator())
                                     {
-                                        try
+                                        while (true)
                                         {
-                                            if (!await e.MoveNextAsync())
-                                                break;
-                                        }
-                                        catch
-                                        {
-                                            slot.Invalidate(client);
+                                            try
+                                            {
+                                                if (!await e.MoveNextAsync())
+                                                    break;
+                                            }
+                                            catch
+                                            {
+                                                slot.Invalidate(client);
 
-                                            throw;
-                                        }
+                                                throw;
+                                            }
 
-                                        yield return e.Current;
+                                            yield return e.Current;
+                                        }
                                     }
-                                }
 
-                                yield break;
+                                    break;
+                                }
                             }
+                        }
+                        finally
+                        {
+                            Interlocked.Decrement(ref @this._currentRequestsInUse);
                         }
                     }
                 }
 
                 public void Dispose()
                 {
-                    foreach (var slot in _allSlots)
+                    foreach (var slot in _slots)
                     {
                         slot.Dispose();
                     }
                 }
-
-                private SlotLease GetSlot()
-                {
-                    for (var i = 0; i < _pages.Length; i++)
-                    {
-                        if (_pages[i].TryPop(out var slot))
-                            return new SlotLease(_pages[i], slot);
-                    }
-
-                    throw new InvalidOperationException();
-                }
             }
 
-            private readonly uint _poolSize;
+            private readonly int _poolSize;
             private readonly TBaseFactory _baseFactory;
-            private readonly uint _maxInProcessPerConnection;
+            private readonly int _maxInProcessPerConnection;
 
             public PoolGremlinqClientFactory(TBaseFactory baseFactory) : this(baseFactory, 8, 16)
             {
             }
 
-            public PoolGremlinqClientFactory(TBaseFactory baseFactory, uint poolSize, uint maxInProcessPerConnection)
+            public PoolGremlinqClientFactory(TBaseFactory baseFactory, int poolSize, int maxInProcessPerConnection)
             {
                 _poolSize = poolSize;
                 _baseFactory = baseFactory;
@@ -194,11 +172,11 @@ namespace ExRam.Gremlinq.Providers.Core
 
             public IPoolGremlinqClientFactory<TBaseFactory> ConfigureBaseFactory(Func<TBaseFactory, TBaseFactory> transformation) => new PoolGremlinqClientFactory<TBaseFactory>(transformation(_baseFactory));
 
-            public IPoolGremlinqClientFactory<TBaseFactory> WithMaxInProcessPerConnection(uint maxInProcessPerConnection) => maxInProcessPerConnection <= 64
+            public IPoolGremlinqClientFactory<TBaseFactory> WithMaxInProcessPerConnection(int maxInProcessPerConnection) => maxInProcessPerConnection > 0 && maxInProcessPerConnection <= 64
                 ? new PoolGremlinqClientFactory<TBaseFactory>(_baseFactory, _poolSize, maxInProcessPerConnection)
                 : throw new ArgumentOutOfRangeException(nameof(maxInProcessPerConnection));
 
-            public IPoolGremlinqClientFactory<TBaseFactory> WithPoolSize(uint poolSize) => poolSize <= 8
+            public IPoolGremlinqClientFactory<TBaseFactory> WithPoolSize(int poolSize) => poolSize > 0 && poolSize <= 8
                 ? new PoolGremlinqClientFactory<TBaseFactory>(_baseFactory, poolSize, _maxInProcessPerConnection)
                 : throw new ArgumentOutOfRangeException(nameof(poolSize));
 
