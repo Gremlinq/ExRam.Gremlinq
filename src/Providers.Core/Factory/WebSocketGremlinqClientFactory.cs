@@ -184,6 +184,34 @@ namespace ExRam.Gremlinq.Providers.Core
                     }
                 }
 
+                private async Task SendCore(RequestMessage requestMessage, CancellationToken ct)
+                {
+                    await _sendLock.WaitAsync(ct);
+
+                    try
+                    {
+                        if (_client.State == WebSocketState.None)
+                        {
+                            await _client.ConnectAsync(_server.Uri, ct);
+
+                            _loopTcs.SetResult(Loop(_cts.Token));
+                        }
+
+                        if (_environment.Serializer.TryTransform(requestMessage, _environment, out byte[]? serializedRequest))
+                            await _client.SendAsync(serializedRequest, WebSocketMessageType.Binary, true, ct);
+                    }
+                    catch
+                    {
+                        Dispose();
+
+                        throw;
+                    }
+                    finally
+                    {
+                        _sendLock.Release();
+                    }
+                }
+
                 private async Task Loop(CancellationToken ct)
                 {
                     using (this)
@@ -217,34 +245,6 @@ namespace ExRam.Gremlinq.Providers.Core
                                 }
                             }
                         }
-                    }
-                }
-
-                private async Task SendCore(RequestMessage requestMessage, CancellationToken ct)
-                {
-                    await _sendLock.WaitAsync(ct);
-
-                    try
-                    {
-                        if (_client.State == WebSocketState.None)
-                        {
-                            await _client.ConnectAsync(_server.Uri, ct);
-
-                            _loopTcs.SetResult(Loop(_cts.Token));
-                        }
-
-                        if (_environment.Serializer.TryTransform(requestMessage, _environment, out byte[]? serializedRequest))
-                            await _client.SendAsync(serializedRequest, WebSocketMessageType.Binary, true, ct);
-                    }
-                    catch
-                    {
-                        Dispose();
-
-                        throw;
-                    }
-                    finally
-                    {
-                        _sendLock.Release();
                     }
                 }
             }
