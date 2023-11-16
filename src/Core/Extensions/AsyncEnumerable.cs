@@ -1,5 +1,7 @@
 ﻿using System.Runtime.CompilerServices;
 
+using ExRam.Gremlinq.Core.Execution;
+
 namespace ExRam.Gremlinq.Core
 {
     internal static class AsyncEnumerable
@@ -113,6 +115,32 @@ namespace ExRam.Gremlinq.Core
             }
 
             return list.ToArray();
+        }
+
+        public static IAsyncEnumerable<T> Catch<T>(this IAsyncEnumerable<T> source, Func<Exception, Exception> exceptionTransformation)
+        {
+            return Core(source, exceptionTransformation);
+
+            static async IAsyncEnumerable<T> Core(IAsyncEnumerable<T> source, Func<Exception, Exception> exceptionTransformation, [EnumeratorCancellation] CancellationToken ct = default)
+            {
+                await using (var enumerator = source.WithCancellation(ct).GetAsyncEnumerator())
+                {
+                    while (true)
+                    {
+                        try
+                        {
+                            if (!await enumerator.MoveNextAsync())
+                                yield break;
+                        }
+                        catch (Exception ex)
+                        {
+                            throw exceptionTransformation(ex);
+                        }
+
+                        yield return enumerator.Current;
+                    }
+                }
+            }
         }
     }
 }
