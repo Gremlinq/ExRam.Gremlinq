@@ -191,35 +191,16 @@ namespace ExRam.Gremlinq.Providers.Core
                         .OverrideRequestId(context.ExecutionId)
                         .Create();
 
-                    await using (var e = client.SubmitAsync<List<T>>(requestMessage).GetAsyncEnumerator(ct))
+                    await foreach (var response in client.SubmitAsync<List<T>>(requestMessage).Catch(ex => ex is not ArgumentException ? new GremlinQueryExecutionException(context, ex) : ex))
                     {
-                        while (true)
+                        if (response is { Status: { Code: { } code } status } && code is not Success and not NoContent and not PartialContent and not Authenticate)
+                            throw new GremlinQueryExecutionException(context, new ResponseException(code, status.Attributes, $"{status.Code}: {status.Message}"));
+
+                        if (response is { Result.Data: { } data })
                         {
-                            try
+                            foreach (var obj in data)
                             {
-                                if (!await e.MoveNextAsync())
-                                    break;
-                            }
-                            catch (ConnectionClosedException ex)
-                            {
-                                throw new GremlinQueryExecutionException(context, ex);
-                            }
-                            catch (NoConnectionAvailableException ex)
-                            {
-                                throw new GremlinQueryExecutionException(context, ex);
-                            }
-
-                            var response = e.Current;
-
-                            if (response is { Status: { Code: { } code } status } && code is not Success and not NoContent and not PartialContent and not Authenticate)
-                                throw new GremlinQueryExecutionException(context, new ResponseException(code, status.Attributes, $"{status.Code}: {status.Message}"));
-
-                            if (response is { Result.Data: { } data })
-                            {
-                                foreach (var obj in data)
-                                {
-                                    yield return obj;
-                                }
+                                yield return obj;
                             }
                         }
                     }
