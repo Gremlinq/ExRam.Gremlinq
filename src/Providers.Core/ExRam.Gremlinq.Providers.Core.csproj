@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="..\Core\Extensions\AsyncEnumerable.cs" Link="Extensions\AsyncEnumerable.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Core\ExRam.Gremlinq.Core.csproj" />
   </ItemGroup>
 
