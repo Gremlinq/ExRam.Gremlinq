@@ -47,10 +47,10 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
             {
                 var maybeCompatibleInterface = typeof(TTarget)
                     .GetInterfaces().Prepend(typeof(TTarget))
-                    .Select(iface => iface.IsGenericType && iface.GenericTypeArguments is [var keyType, var valueType] && typeof(TTarget).IsAssignableFrom(typeof(Dictionary<,>).MakeGenericType(keyType, valueType))
+                    .Select(static iface => iface is { IsGenericType: true, GenericTypeArguments: [var keyType, var valueType] } && typeof(TTarget).IsAssignableFrom(typeof(Dictionary<,>).MakeGenericType(keyType, valueType))
                         ? (keyType, valueType)
                         : default((Type keyType, Type valueType)?))
-                    .FirstOrDefault(x => x != null);
+                    .FirstOrDefault(static x => x != null);
 
                 if (maybeCompatibleInterface is ({ } keyType, { } valueType))
                     return (IConverter<TSource, TTarget>?)Activator.CreateInstance(typeof(MapToDictionaryConverter<,,>).MakeGenericType(keyType, valueType, typeof(TTarget)), environment);

@@ -13,10 +13,10 @@ namespace ExRam.Gremlinq.Core
                 //"containing" when p.Value is string str && str.Length == 0 => value,
                 "within" => !value && p.Value is IEnumerable enumerable && !enumerable.InternalAny(),
                 "without" => value && p.Value is IEnumerable enumerable && !enumerable.InternalAny(),
-                "and" when p.Value is P pValue && p.Other is { } otherP => value
+                "and" when p is { Value: P pValue, Other: { } otherP } => value
                     ? pValue.EqualsConstant(true) && otherP.EqualsConstant(true)
                     : pValue.EqualsConstant(false) || otherP.EqualsConstant(false),
-                "or" when p.Value is P pValue && p.Other is { } otherP => value
+                "or" when p is { Value: P pValue, Other: { } otherP } => value
                     ? pValue.EqualsConstant(true) || otherP.EqualsConstant(true)
                     : pValue.EqualsConstant(false) && otherP.EqualsConstant(false),
                 "true" => value,

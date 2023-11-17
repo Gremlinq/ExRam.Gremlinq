@@ -263,9 +263,7 @@ namespace ExRam.Gremlinq.Core.Serialization
                                 AddStep(hasPredicateStep1, byteCode, isSourceStep, env, recurse);
                                 i = j - 1;
                             }
-                            else if (step is InjectStep { Elements.Length: 1 } && i == 0 && steps.Length > 1 && (steps[1] is VStep || steps[1] is EStep))
-                                continue;
-                            else
+                            else if (!(step is InjectStep { Elements.Length: 1 } && i == 0 && steps.Length > 1 && (steps[1] is VStep || steps[1] is EStep)))
                                 AddStep(step, byteCode, isSourceStep, env, recurse);
                         }
                     }
@@ -436,7 +434,7 @@ namespace ExRam.Gremlinq.Core.Serialization
                 recurse,
                 env,
                 step.Key,
-                step.Predicate.OperatorName == "eq" && step.Predicate.Value is { } predicateValue
+                step.Predicate is { OperatorName: "eq", Value: { } predicateValue }
                     ? predicateValue
                     : step.Predicate))
             .Add<HasTraversalStep>((step, env, _, recurse) => CreateInstruction("has", recurse, env, step.Key, step.Traversal))
@@ -459,7 +457,7 @@ namespace ExRam.Gremlinq.Core.Serialization
                 "is",
                 recurse,
                 env,
-                step.Predicate.OperatorName == "eq" && step.Predicate.Value is { } predicateValue
+                step.Predicate is { OperatorName: "eq", Value: { } predicateValue }
                     ? predicateValue
                     : step.Predicate))
             .Add<KeyStep>((_, _, _, _) => key)

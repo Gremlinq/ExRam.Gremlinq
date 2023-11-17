@@ -20,16 +20,14 @@ namespace ExRam.Gremlinq.Providers.Core
             {
                 private abstract class Channel
                 {
-                    protected Channel(Guid requestId, IGremlinQueryEnvironment environment)
+                    protected Channel(IGremlinQueryEnvironment environment)
                     {
-                        RequestId = requestId;
                         Environment = environment;
                     }
 
                     public abstract void Signal(ReadOnlyMemory<byte> bytes);
 
-                    public Guid RequestId { get; }
-                    public IGremlinQueryEnvironment Environment { get; }
+                    protected IGremlinQueryEnvironment Environment { get; }
                 }
 
                 private sealed class Channel<T> : Channel, IAsyncEnumerable<ResponseMessage<T>>, IDisposable
@@ -48,7 +46,7 @@ namespace ExRam.Gremlinq.Providers.Core
 
                     private readonly TaskCompletionSource<object> _tcs = new ();
 
-                    public Channel(Guid requestId, IGremlinQueryEnvironment environment) : base(requestId, environment)
+                    public Channel(IGremlinQueryEnvironment environment) : base(environment)
                     {
                     }
 
@@ -77,8 +75,8 @@ namespace ExRam.Gremlinq.Providers.Core
                     {
                         var obj = await _tcs.Task;
 
-                        if (obj is ResponseMessage<T> reponseMessage)
-                            yield return reponseMessage;
+                        if (obj is ResponseMessage<T> responseMessage)
+                            yield return responseMessage;
                         else if (obj is MessageQueue { Queue: var queue, Semaphore: var semaphore})
                         {
                             while (true)
@@ -145,7 +143,7 @@ namespace ExRam.Gremlinq.Providers.Core
                         if (@this._loopTcs.Task is { IsCompleted: true } loopTask)
                             await loopTask;
 
-                        using (var channel = new Channel<T>(message.RequestId, @this._environment))
+                        using (var channel = new Channel<T>(@this._environment))
                         {
                             using (var linkedCts = CancellationTokenSource.CreateLinkedTokenSource(ct, @this._cts.Token))
                             {

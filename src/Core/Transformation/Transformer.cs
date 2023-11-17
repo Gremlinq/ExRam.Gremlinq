@@ -73,7 +73,7 @@ namespace ExRam.Gremlinq.Core.Transformation
                 _converterFactories = converterFactories;
             }
 
-            public TransformerImpl(ImmutableStack<IConverterFactory> converterFactories, TransformerImpl recurse) : this(converterFactories)
+            private TransformerImpl(ImmutableStack<IConverterFactory> converterFactories, TransformerImpl recurse) : this(converterFactories)
             {
                 _recurse = recurse;
             }
