@@ -75,7 +75,7 @@ namespace ExRam.Gremlinq.Core.Models
                 {
                     var newMetadata = metaDataTransformation(elementType, this.GetMetadata(elementType));
 
-                    overrides = newMetadata.Label != elementType.Name   //TODO: Equality operators
+                    overrides = newMetadata != new ElementMetadata(elementType.Name)
                         ? overrides.SetItem(elementType, newMetadata)
                         : overrides.Remove(elementType);
                 }
