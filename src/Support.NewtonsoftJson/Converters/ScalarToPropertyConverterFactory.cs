@@ -27,7 +27,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                         .Compile();
                 }
                 else
-                    throw new ArgumentException();
+                    throw new ArgumentException($"{typeof(TTargetProperty).Name} does not contain a constructor that takes a value of type {typeof(TTargetPropertyValue).Name}.");
             }
 
             public bool TryConvert(JValue serialized, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTargetProperty? value)
