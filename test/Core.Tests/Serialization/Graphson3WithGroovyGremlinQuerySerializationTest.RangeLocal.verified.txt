@@ -3,20 +3,24 @@
   "op": "eval",
   "processor": "",
   "args": {
-    "gremlin": "g.V().range(local,_a,_b).project(_c,_d,_e).by(id).by(label).by(__.properties().group().by(label).by(__.project(_c,_d,_f,_e).by(id).by(label).by(value).by(__.valueMap()).fold()))",
+    "gremlin": "g.inject(_a,_b).fold().range(local,_c,_d)",
     "bindings": {
       "_a": {
+        "@type": "g:Int32",
+        "@value": 42
+      },
+      "_b": {
+        "@type": "g:Int32",
+        "@value": 43
+      },
+      "_c": {
         "@type": "g:Int64",
         "@value": 1
       },
-      "_b": {
+      "_d": {
         "@type": "g:Int64",
         "@value": 3
-      },
-      "_c": "id",
-      "_d": "label",
-      "_e": "properties",
-      "_f": "value"
+      }
     },
     "aliases": {
       "g": "g"

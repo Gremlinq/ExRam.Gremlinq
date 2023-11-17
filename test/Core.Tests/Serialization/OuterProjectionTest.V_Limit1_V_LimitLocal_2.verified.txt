@@ -1,30 +1,7 @@
 ﻿[
   {
-    Projections: [
-      id,
-      label,
-      properties
-    ]
-  },
-  {
-    Key: {
-      RawKey: {
-        EnumName: T,
-        EnumValue: id
-      }
-    }
-  },
-  {
-    Key: {
-      RawKey: {
-        EnumName: T,
-        EnumValue: label
-      }
-    }
-  },
-  {
     Traversal: {
-      Count: 4,
+      Count: 6,
       Projection: {
         Name: ExRam.Gremlinq.Core.Projections.EmptyProjection
       }

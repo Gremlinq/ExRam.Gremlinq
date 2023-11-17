@@ -1046,7 +1046,8 @@ namespace ExRam.Gremlinq.Tests.TestCases
 
         [Fact]
         public virtual Task LimitLocal() => _g
-            .V()
+            .Inject(42, 43)
+            .Fold()
             .LimitLocal(1)
             .Verify();
 
@@ -2315,7 +2316,8 @@ namespace ExRam.Gremlinq.Tests.TestCases
 
         [Fact]
         public virtual Task RangeLocal() => _g
-            .V()
+            .Inject(42, 43)
+            .Fold()
             .RangeLocal(1, 3)
             .Verify();
 
@@ -2532,7 +2534,8 @@ namespace ExRam.Gremlinq.Tests.TestCases
 
         [Fact]
         public virtual Task SkipLocal() => _g
-            .V()
+            .Inject(42, 43)
+            .Fold()
             .SkipLocal(1)
             .Verify();
 
@@ -2630,7 +2633,8 @@ namespace ExRam.Gremlinq.Tests.TestCases
 
         [Fact]
         public virtual Task TailLocal() => _g
-            .V()
+            .Inject(42, 43)
+            .Fold()
             .TailLocal(1)
             .Verify();
 
@@ -3029,6 +3033,7 @@ namespace ExRam.Gremlinq.Tests.TestCases
         public virtual Task V_Limit0_V_LimitLocal_0() => _g
             .V()
             .Limit(0)
+            .Fold()
             .LimitLocal(0)
             .Verify();
 
@@ -3036,6 +3041,7 @@ namespace ExRam.Gremlinq.Tests.TestCases
         public virtual Task V_Limit0_V_LimitLocal_1() => _g
             .V()
             .Limit(0)
+            .Fold()
             .LimitLocal(1)
             .Verify();
 
@@ -3043,6 +3049,7 @@ namespace ExRam.Gremlinq.Tests.TestCases
         public virtual Task V_Limit0_V_LimitLocal_2() => _g
              .V()
              .Limit(0)
+             .Fold()
              .LimitLocal(2)
              .Verify();
 
@@ -3050,6 +3057,7 @@ namespace ExRam.Gremlinq.Tests.TestCases
         public virtual Task V_Limit0_V_RangeLocal_0() => _g
             .V()
             .Limit(0)
+            .Fold()
             .RangeLocal(0, 0)
             .Verify();
 
@@ -3057,6 +3065,7 @@ namespace ExRam.Gremlinq.Tests.TestCases
         public virtual Task V_Limit0_V_RangeLocal_1() => _g
             .V()
             .Limit(0)
+            .Fold()
             .RangeLocal(0, 1)
             .Verify();
 
@@ -3064,6 +3073,7 @@ namespace ExRam.Gremlinq.Tests.TestCases
         public virtual Task V_Limit0_V_RangeLocal_2() => _g
             .V()
             .Limit(0)
+            .Fold()
             .RangeLocal(0, 2)
             .Verify();
 
@@ -3071,6 +3081,7 @@ namespace ExRam.Gremlinq.Tests.TestCases
         public virtual Task V_Limit0_V_TailLocal_0() => _g
             .V()
             .Limit(0)
+            .Fold()
             .TailLocal(0)
             .Verify();
 
@@ -3078,6 +3089,7 @@ namespace ExRam.Gremlinq.Tests.TestCases
         public virtual Task V_Limit0_V_TailLocal_1() => _g
             .V()
             .Limit(0)
+            .Fold()
             .TailLocal(1)
             .Verify();
 
@@ -3085,6 +3097,7 @@ namespace ExRam.Gremlinq.Tests.TestCases
         public virtual Task V_Limit0_V_TailLocal_2() => _g
             .V()
             .Limit(0)
+            .Fold()
             .TailLocal(2)
             .Verify();
 
@@ -3164,6 +3177,7 @@ namespace ExRam.Gremlinq.Tests.TestCases
         public virtual Task V_Limit1_V_LimitLocal_0() => _g
             .V()
             .Limit(1)
+            .Fold()
             .LimitLocal(0)
             .Verify();
 
@@ -3171,6 +3185,7 @@ namespace ExRam.Gremlinq.Tests.TestCases
         public virtual Task V_Limit1_V_LimitLocal_1() => _g
             .V()
             .Limit(1)
+            .Fold()
             .LimitLocal(1)
             .Verify();
 
@@ -3178,6 +3193,7 @@ namespace ExRam.Gremlinq.Tests.TestCases
         public virtual Task V_Limit1_V_LimitLocal_2() => _g
             .V()
             .Limit(1)
+            .Fold()
             .LimitLocal(2)
             .Verify();
 
@@ -3185,6 +3201,7 @@ namespace ExRam.Gremlinq.Tests.TestCases
         public virtual Task V_Limit1_V_RangeLocal_0() => _g
             .V()
             .Limit(1)
+            .Fold()
             .RangeLocal(0, 0)
             .Verify();
 
@@ -3192,6 +3209,7 @@ namespace ExRam.Gremlinq.Tests.TestCases
         public virtual Task V_Limit1_V_RangeLocal_1() => _g
             .V()
             .Limit(1)
+            .Fold()
             .RangeLocal(0, 1)
             .Verify();
 
@@ -3199,6 +3217,7 @@ namespace ExRam.Gremlinq.Tests.TestCases
         public virtual Task V_Limit1_V_RangeLocal_2() => _g
             .V()
             .Limit(1)
+            .Fold()
             .RangeLocal(0, 2)
             .Verify();
 
@@ -3206,6 +3225,7 @@ namespace ExRam.Gremlinq.Tests.TestCases
         public virtual Task V_Limit1_V_TailLocal_0() => _g
             .V()
             .Limit(1)
+            .Fold()
             .TailLocal(0)
             .Verify();
 
@@ -3213,6 +3233,7 @@ namespace ExRam.Gremlinq.Tests.TestCases
         public virtual Task V_Limit1_V_TailLocal_1() => _g
             .V()
             .Limit(1)
+            .Fold()
             .TailLocal(1)
             .Verify();
 
@@ -3220,6 +3241,7 @@ namespace ExRam.Gremlinq.Tests.TestCases
         public virtual Task V_Limit1_V_TailLocal_2() => _g
             .V()
             .Limit(1)
+            .Fold()
             .TailLocal(2)
             .Verify();
 
@@ -3299,6 +3321,7 @@ namespace ExRam.Gremlinq.Tests.TestCases
         public virtual Task V_Limit2_V_LimitLocal_0() => _g
             .V()
             .Limit(2)
+            .Fold()
             .LimitLocal(0)
             .Verify();
 
@@ -3306,6 +3329,7 @@ namespace ExRam.Gremlinq.Tests.TestCases
         public virtual Task V_Limit2_V_LimitLocal_1() => _g
             .V()
             .Limit(2)
+            .Fold()
             .LimitLocal(1)
             .Verify();
 
@@ -3313,6 +3337,7 @@ namespace ExRam.Gremlinq.Tests.TestCases
         public virtual Task V_Limit2_V_LimitLocal_2() => _g
             .V()
             .Limit(2)
+            .Fold()
             .LimitLocal(2)
             .Verify();
 
@@ -3320,6 +3345,7 @@ namespace ExRam.Gremlinq.Tests.TestCases
         public virtual Task V_Limit2_V_RangeLocal_0() => _g
             .V()
             .Limit(2)
+            .Fold()
             .RangeLocal(0, 0)
             .Verify();
 
@@ -3327,6 +3353,7 @@ namespace ExRam.Gremlinq.Tests.TestCases
         public virtual Task V_Limit2_V_RangeLocal_1() => _g
             .V()
             .Limit(2)
+            .Fold()
             .RangeLocal(0, 1)
             .Verify();
 
@@ -3334,6 +3361,7 @@ namespace ExRam.Gremlinq.Tests.TestCases
         public virtual Task V_Limit2_V_RangeLocal_2() => _g
             .V()
             .Limit(2)
+            .Fold()
             .RangeLocal(0, 2)
             .Verify();
 
@@ -3341,6 +3369,7 @@ namespace ExRam.Gremlinq.Tests.TestCases
         public virtual Task V_Limit2_V_TailLocal_0() => _g
             .V()
             .Limit(2)
+            .Fold()
             .TailLocal(0)
             .Verify();
 
@@ -3348,6 +3377,7 @@ namespace ExRam.Gremlinq.Tests.TestCases
         public virtual Task V_Limit2_V_TailLocal_1() => _g
             .V()
             .Limit(2)
+            .Fold()
             .TailLocal(1)
             .Verify();
 
@@ -3355,6 +3385,7 @@ namespace ExRam.Gremlinq.Tests.TestCases
         public virtual Task V_Limit2_V_TailLocal_2() => _g
             .V()
             .Limit(2)
+            .Fold()
             .TailLocal(2)
             .Verify();
 

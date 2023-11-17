@@ -1,10 +1,8 @@
 ﻿{
-  Script: g.V().skip(local,_a).project(_b,_c,_d).by(id).by(label).by(__.properties().group().by(label).by(__.project(_b,_c,_e,_d).by(id).by(label).by(value).by(__.valueMap()).fold())),
+  Script: g.inject(_a,_b).fold().skip(local,_c),
   Bindings: {
-    _a: 1,
-    _b: id,
-    _c: label,
-    _d: properties,
-    _e: value
+    _a: 42,
+    _b: 43,
+    _c: 1
   }
 }

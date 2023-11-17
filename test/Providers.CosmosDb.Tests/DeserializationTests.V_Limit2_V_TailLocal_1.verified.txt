@@ -1,19 +1,9 @@
 ﻿[
-  {
-    CountryCallingCode: +49,
-    LocalizableDescription: {
+  [
+    {
+      IetfLanguageTag: en,
       Id: 00000000-0000-0000-0000-000000000000,
-      Properties: {
-        someKey: value
-      },
-      Value: 
-    },
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Country
-  },
-  {
-    IetfLanguageTag: en,
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Language
-  }
+      Label: Language
+    }
+  ]
 ]

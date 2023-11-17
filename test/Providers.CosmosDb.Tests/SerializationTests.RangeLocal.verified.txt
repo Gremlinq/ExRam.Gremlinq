@@ -1,7 +1,9 @@
 ﻿{
-  Script: g.V().range(local,_a,_b),
+  Script: g.inject(_a,_b).fold().range(local,_c,_d),
   Bindings: {
-    _a: 1,
-    _b: 3
+    _a: 42,
+    _b: 43,
+    _c: 1,
+    _d: 3
   }
 }

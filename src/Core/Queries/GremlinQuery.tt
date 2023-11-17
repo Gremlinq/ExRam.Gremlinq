@@ -76,8 +76,6 @@ namespace ExRam.Gremlinq.Core
         
         <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.Limit(long count) => LimitGlobal(count);
 
-        <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.LimitLocal(long count) => LimitLocal(count);
-
         TTargetQuery IGremlinQueryBaseRec<<#= iface #>>.Local<TTargetQuery>(Func<<#= iface #> , TTargetQuery> localTraversal) => Local(localTraversal);
 
         <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.Loop(Func<IStartLoopBuilder<<#= iface #>>, IFinalLoopBuilder<<#= iface #>>> loopBuilderTransformation) => Loop(loopBuilderTransformation);
@@ -104,19 +102,13 @@ namespace ExRam.Gremlinq.Core
 
         <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.Range(long low, long high) => RangeGlobal(low, high);
 
-        <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.RangeLocal(long low, long high) => RangeLocal(low, high);
-
         <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.SideEffect(Func<<#= iface #>, IGremlinQueryBase> sideEffectTraversal) => SideEffect(sideEffectTraversal);
 
         <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.SimplePath() => SimplePath();
 
         <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.Skip(long count) => Skip(count, Scope.Global);
 
-        <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.SkipLocal(long count) => Skip(count, Scope.Local);
-
         <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.Tail(long count) => TailGlobal(count);
-
-        <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.TailLocal(long count) => TailLocal(count);
 
         TTargetQuery IGremlinQueryBaseRec<<#= iface #>>.Union<TTargetQuery>(params Func<<#= iface #>, TTargetQuery>[] unionTraversals) => Union<TTargetQuery, TTargetQuery>(unionTraversals);
         IValueGremlinQuery<object> IGremlinQueryBaseRec<<#= iface #>>.Union(params Func<<#= iface #>, IGremlinQueryBase>[] unionTraversals) => Union<IGremlinQueryBase, IValueGremlinQuery<object>>(unionTraversals);

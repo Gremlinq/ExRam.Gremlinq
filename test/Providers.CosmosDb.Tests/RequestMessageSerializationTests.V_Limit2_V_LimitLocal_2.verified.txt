@@ -9,6 +9,6 @@
     bindings: {
       _a: 2
     },
-    gremlin: g.V().limit(_a).limit(local,_a)
+    gremlin: g.V().limit(_a).fold().limit(local,_a)
   }
 }

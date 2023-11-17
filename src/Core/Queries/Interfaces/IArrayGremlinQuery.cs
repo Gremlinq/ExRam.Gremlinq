@@ -32,6 +32,14 @@
 
         TOriginalQuery MeanLocal();
 
+        IArrayGremlinQueryBase<TArray, TArrayItem, TOriginalQuery> LimitLocal(long count);
+
+        IArrayGremlinQueryBase<TArray, TArrayItem, TOriginalQuery> RangeLocal(long low, long high);
+
+        IArrayGremlinQueryBase<TArray, TArrayItem, TOriginalQuery> SkipLocal(long count);
+
+        IArrayGremlinQueryBase<TArray, TArrayItem, TOriginalQuery> TailLocal(long count);
+
         new TOriginalQuery Unfold();
 
         new IValueGremlinQuery<TArray> Lower();

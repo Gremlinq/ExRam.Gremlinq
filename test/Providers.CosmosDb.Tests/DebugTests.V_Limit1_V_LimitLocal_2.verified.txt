@@ -1,1 +1,1 @@
-﻿g.V().limit(1).limit(local,2)
+﻿g.V().limit(1).fold().limit(local,2)

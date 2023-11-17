@@ -10,6 +10,9 @@
       ]
     },
     {
+      OperatorName: fold
+    },
+    {
       OperatorName: range,
       Arguments: [
         {
@@ -21,41 +24,29 @@
       ]
     },
     {
-      OperatorName: project,
-      Arguments: [
-        id,
-        label,
-        properties
-      ]
-    },
-    {
-      OperatorName: by,
-      Arguments: [
-        {
-          EnumName: T,
-          EnumValue: id
-        }
-      ]
-    },
-    {
-      OperatorName: by,
-      Arguments: [
-        {
-          EnumName: T,
-          EnumValue: label
-        }
-      ]
-    },
-    {
-      OperatorName: by,
+      OperatorName: map,
       Arguments: [
         {
           StepInstructions: [
             {
-              OperatorName: properties
+              OperatorName: unfold
             },
             {
-              OperatorName: group
+              OperatorName: project,
+              Arguments: [
+                id,
+                label,
+                properties
+              ]
+            },
+            {
+              OperatorName: by,
+              Arguments: [
+                {
+                  EnumName: T,
+                  EnumValue: id
+                }
+              ]
             },
             {
               OperatorName: by,
@@ -72,21 +63,10 @@
                 {
                   StepInstructions: [
                     {
-                      OperatorName: project,
-                      Arguments: [
-                        id,
-                        label,
-                        value
-                      ]
+                      OperatorName: properties
                     },
                     {
-                      OperatorName: by,
-                      Arguments: [
-                        {
-                          EnumName: T,
-                          EnumValue: id
-                        }
-                      ]
+                      OperatorName: group
                     },
                     {
                       OperatorName: by,
@@ -101,17 +81,55 @@
                       OperatorName: by,
                       Arguments: [
                         {
-                          EnumName: T,
-                          EnumValue: value
+                          StepInstructions: [
+                            {
+                              OperatorName: project,
+                              Arguments: [
+                                id,
+                                label,
+                                value
+                              ]
+                            },
+                            {
+                              OperatorName: by,
+                              Arguments: [
+                                {
+                                  EnumName: T,
+                                  EnumValue: id
+                                }
+                              ]
+                            },
+                            {
+                              OperatorName: by,
+                              Arguments: [
+                                {
+                                  EnumName: T,
+                                  EnumValue: label
+                                }
+                              ]
+                            },
+                            {
+                              OperatorName: by,
+                              Arguments: [
+                                {
+                                  EnumName: T,
+                                  EnumValue: value
+                                }
+                              ]
+                            },
+                            {
+                              OperatorName: fold
+                            }
+                          ]
                         }
                       ]
-                    },
-                    {
-                      OperatorName: fold
                     }
                   ]
                 }
               ]
+            },
+            {
+              OperatorName: fold
             }
           ]
         }

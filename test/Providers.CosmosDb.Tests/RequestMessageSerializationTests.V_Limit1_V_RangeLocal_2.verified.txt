@@ -11,6 +11,6 @@
       _b: 0,
       _c: 2
     },
-    gremlin: g.V().limit(_a).range(local,_b,_c)
+    gremlin: g.V().limit(_a).fold().range(local,_b,_c)
   }
 }
