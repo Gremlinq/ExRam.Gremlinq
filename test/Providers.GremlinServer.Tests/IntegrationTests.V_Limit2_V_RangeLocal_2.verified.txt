@@ -1,65 +1,70 @@
 ﻿[
   {
-    "@type": "g:Map",
+    "@type": "g:List",
     "@value": [
-      "id",
-      {
-        "@type": "g:Int64",
-        "@value": 0
-      },
-      "label",
-      "Country",
-      "properties",
       {
         "@type": "g:Map",
         "@value": [
-          "CountryCallingCode",
+          "id",
           {
-            "@type": "g:List",
-            "@value": [
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "id",
-                  {
-                    "@type": "g:Int64",
-                    "@value": 1
-                  },
-                  "label",
-                  "CountryCallingCode",
-                  "value",
-                  "+49",
-                  "properties",
-                  {
-                    "@type": "g:Map",
-                    "@value": []
-                  }
-                ]
-              }
-            ]
+            "@type": "g:Int64",
+            "@value": 0
           },
-          "LocalizableDescription",
+          "label",
+          "Country",
+          "properties",
           {
-            "@type": "g:List",
+            "@type": "g:Map",
             "@value": [
+              "CountryCallingCode",
               {
-                "@type": "g:Map",
+                "@type": "g:List",
                 "@value": [
-                  "id",
-                  {
-                    "@type": "g:Int64",
-                    "@value": 127
-                  },
-                  "label",
-                  "LocalizableDescription",
-                  "value",
-                  "",
-                  "properties",
                   {
                     "@type": "g:Map",
                     "@value": [
-                      "someKey",
-                      "value"
+                      "id",
+                      {
+                        "@type": "g:Int64",
+                        "@value": 1
+                      },
+                      "label",
+                      "CountryCallingCode",
+                      "value",
+                      "+49",
+                      "properties",
+                      {
+                        "@type": "g:Map",
+                        "@value": []
+                      }
+                    ]
+                  }
+                ]
+              },
+              "LocalizableDescription",
+              {
+                "@type": "g:List",
+                "@value": [
+                  {
+                    "@type": "g:Map",
+                    "@value": [
+                      "id",
+                      {
+                        "@type": "g:Int64",
+                        "@value": 127
+                      },
+                      "label",
+                      "LocalizableDescription",
+                      "value",
+                      "",
+                      "properties",
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "someKey",
+                          "value"
+                        ]
+                      }
                     ]
                   }
                 ]
@@ -67,43 +72,43 @@
             ]
           }
         ]
-      }
-    ]
-  },
-  {
-    "@type": "g:Map",
-    "@value": [
-      "id",
-      {
-        "@type": "g:Int64",
-        "@value": 65
       },
-      "label",
-      "Language",
-      "properties",
       {
         "@type": "g:Map",
         "@value": [
-          "IetfLanguageTag",
+          "id",
           {
-            "@type": "g:List",
+            "@type": "g:Int64",
+            "@value": 65
+          },
+          "label",
+          "Language",
+          "properties",
+          {
+            "@type": "g:Map",
             "@value": [
+              "IetfLanguageTag",
               {
-                "@type": "g:Map",
+                "@type": "g:List",
                 "@value": [
-                  "id",
-                  {
-                    "@type": "g:Int64",
-                    "@value": 66
-                  },
-                  "label",
-                  "IetfLanguageTag",
-                  "value",
-                  "en",
-                  "properties",
                   {
                     "@type": "g:Map",
-                    "@value": []
+                    "@value": [
+                      "id",
+                      {
+                        "@type": "g:Int64",
+                        "@value": 66
+                      },
+                      "label",
+                      "IetfLanguageTag",
+                      "value",
+                      "en",
+                      "properties",
+                      {
+                        "@type": "g:Map",
+                        "@value": []
+                      }
+                    ]
                   }
                 ]
               }

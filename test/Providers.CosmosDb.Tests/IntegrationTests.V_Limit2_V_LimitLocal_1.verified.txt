@@ -26,24 +26,5 @@
         }
       ]
     }
-  },
-  {
-    "id": "00000000-0000-0000-0000-000000000000",
-    "label": "Language",
-    "type": "vertex",
-    "properties": {
-      "PartitionKey": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-          "value": "PartitionKey"
-        }
-      ],
-      "IetfLanguageTag": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "en"
-        }
-      ]
-    }
   }
 ]

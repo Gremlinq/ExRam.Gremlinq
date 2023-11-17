@@ -7,9 +7,11 @@
       g: g
     },
     bindings: {
-      _a: 1,
-      _b: -1
+      _a: 42,
+      _b: 43,
+      _c: 1,
+      _d: -1
     },
-    gremlin: g.V().range(local,_a,_b)
+    gremlin: g.inject(_a,_b).fold().range(local,_c,_d)
   }
 }

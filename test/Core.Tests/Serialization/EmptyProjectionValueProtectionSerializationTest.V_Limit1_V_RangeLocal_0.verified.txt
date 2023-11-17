@@ -10,6 +10,9 @@
       ]
     },
     {
+      OperatorName: fold
+    },
+    {
       OperatorName: range,
       Arguments: [
         {
@@ -21,41 +24,29 @@
       ]
     },
     {
-      OperatorName: project,
-      Arguments: [
-        id,
-        label,
-        properties
-      ]
-    },
-    {
-      OperatorName: by,
-      Arguments: [
-        {
-          EnumName: T,
-          EnumValue: id
-        }
-      ]
-    },
-    {
-      OperatorName: by,
-      Arguments: [
-        {
-          EnumName: T,
-          EnumValue: label
-        }
-      ]
-    },
-    {
-      OperatorName: by,
+      OperatorName: map,
       Arguments: [
         {
           StepInstructions: [
             {
-              OperatorName: properties
+              OperatorName: unfold
             },
             {
-              OperatorName: group
+              OperatorName: project,
+              Arguments: [
+                id,
+                label,
+                properties
+              ]
+            },
+            {
+              OperatorName: by,
+              Arguments: [
+                {
+                  EnumName: T,
+                  EnumValue: id
+                }
+              ]
             },
             {
               OperatorName: by,
@@ -72,22 +63,10 @@
                 {
                   StepInstructions: [
                     {
-                      OperatorName: project,
-                      Arguments: [
-                        id,
-                        label,
-                        value,
-                        properties
-                      ]
+                      OperatorName: properties
                     },
                     {
-                      OperatorName: by,
-                      Arguments: [
-                        {
-                          EnumName: T,
-                          EnumValue: id
-                        }
-                      ]
+                      OperatorName: group
                     },
                     {
                       OperatorName: by,
@@ -102,29 +81,68 @@
                       OperatorName: by,
                       Arguments: [
                         {
-                          EnumName: T,
-                          EnumValue: value
-                        }
-                      ]
-                    },
-                    {
-                      OperatorName: by,
-                      Arguments: [
-                        {
                           StepInstructions: [
                             {
-                              OperatorName: valueMap
+                              OperatorName: project,
+                              Arguments: [
+                                id,
+                                label,
+                                value,
+                                properties
+                              ]
+                            },
+                            {
+                              OperatorName: by,
+                              Arguments: [
+                                {
+                                  EnumName: T,
+                                  EnumValue: id
+                                }
+                              ]
+                            },
+                            {
+                              OperatorName: by,
+                              Arguments: [
+                                {
+                                  EnumName: T,
+                                  EnumValue: label
+                                }
+                              ]
+                            },
+                            {
+                              OperatorName: by,
+                              Arguments: [
+                                {
+                                  EnumName: T,
+                                  EnumValue: value
+                                }
+                              ]
+                            },
+                            {
+                              OperatorName: by,
+                              Arguments: [
+                                {
+                                  StepInstructions: [
+                                    {
+                                      OperatorName: valueMap
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              OperatorName: fold
                             }
                           ]
                         }
                       ]
-                    },
-                    {
-                      OperatorName: fold
                     }
                   ]
                 }
               ]
+            },
+            {
+              OperatorName: fold
             }
           ]
         }

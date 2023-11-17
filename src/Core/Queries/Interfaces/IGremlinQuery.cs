@@ -105,7 +105,6 @@ namespace ExRam.Gremlinq.Core
         TSelf Identity();
 
         TSelf Limit(long count);
-        TSelf LimitLocal(long count);
         TTargetQuery Local<TTargetQuery>(Func<TSelf, TTargetQuery> localTraversal) where TTargetQuery : IGremlinQueryBase;
 
         TTargetQuery Map<TTargetQuery>(Func<TSelf, TTargetQuery> mapping) where TTargetQuery : IGremlinQueryBase;
@@ -120,7 +119,6 @@ namespace ExRam.Gremlinq.Core
         TSelf OrderLocal(Func<IOrderBuilder<TSelf>, IOrderBuilderWithBy<TSelf>> projection);
 
         TSelf Range(long low, long high);
-        TSelf RangeLocal(long low, long high);
 
         TSelf Loop(Func<IStartLoopBuilder<TSelf>, IFinalLoopBuilder<TSelf>> loopBuilderTransformation);
 
@@ -129,10 +127,8 @@ namespace ExRam.Gremlinq.Core
         TSelf SimplePath();
 
         TSelf Skip(long count);
-        TSelf SkipLocal(long count);
 
         TSelf Tail(long count);
-        TSelf TailLocal(long count);
 
         TTargetQuery Union<TTargetQuery>(params Func<TSelf, TTargetQuery>[] unionTraversals) where TTargetQuery : IGremlinQueryBase;
         IValueGremlinQuery<object> Union(params Func<TSelf, IGremlinQueryBase>[] traversals);

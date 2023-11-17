@@ -7,8 +7,10 @@
       g: g
     },
     bindings: {
-      _a: 1
+      _a: 42,
+      _b: 43,
+      _c: 1
     },
-    gremlin: g.V().limit(local,_a)
+    gremlin: g.inject(_a,_b).fold().limit(local,_c)
   }
 }

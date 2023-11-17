@@ -1,1 +1,1 @@
-﻿g.V().range(local,1,3)
+﻿g.inject(42,43).fold().range(local,1,3)

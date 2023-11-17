@@ -7,6 +7,9 @@ using ExRam.Gremlinq.Core.Execution;
 using ExRam.Gremlinq.Core.GraphElements;
 using ExRam.Gremlinq.Core.Projections;
 using ExRam.Gremlinq.Core.Steps;
+
+using Gremlin.Net.Process.Traversal;
+
 using Path = ExRam.Gremlinq.Core.GraphElements.Path;
 
 namespace ExRam.Gremlinq.Core
@@ -456,5 +459,13 @@ namespace ExRam.Gremlinq.Core
         IInEdgeGremlinQuery<TElement, TInVertex> IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.AsInEdge() => this;
 
         IOutEdgeGremlinQuery<TElement, TOutVertex> IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.AsOutEdge() => this;
+
+        IArrayGremlinQueryBase<TElement, TScalar, TFoldedQuery> IArrayGremlinQueryBase<TElement, TScalar, TFoldedQuery>.LimitLocal(long count) => LimitLocal(count);
+
+        IArrayGremlinQueryBase<TElement, TScalar, TFoldedQuery> IArrayGremlinQueryBase<TElement, TScalar, TFoldedQuery>.RangeLocal(long low, long high) => RangeLocal(low, high);
+
+        IArrayGremlinQueryBase<TElement, TScalar, TFoldedQuery> IArrayGremlinQueryBase<TElement, TScalar, TFoldedQuery>.SkipLocal(long count) => Skip(count, Scope.Local);
+
+        IArrayGremlinQueryBase<TElement, TScalar, TFoldedQuery> IArrayGremlinQueryBase<TElement, TScalar, TFoldedQuery>.TailLocal(long count) => TailLocal(count);
     }
 }

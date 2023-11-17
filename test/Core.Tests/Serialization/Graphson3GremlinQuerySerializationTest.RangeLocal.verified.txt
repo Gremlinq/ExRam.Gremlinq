@@ -8,7 +8,18 @@
       "@value": {
         "step": [
           [
-            "V"
+            "inject",
+            {
+              "@type": "g:Int32",
+              "@value": 42
+            },
+            {
+              "@type": "g:Int32",
+              "@value": 43
+            }
+          ],
+          [
+            "fold"
           ],
           [
             "range",
@@ -23,103 +34,6 @@
             {
               "@type": "g:Int64",
               "@value": 3
-            }
-          ],
-          [
-            "project",
-            "id",
-            "label",
-            "properties"
-          ],
-          [
-            "by",
-            {
-              "@type": "g:T",
-              "@value": "id"
-            }
-          ],
-          [
-            "by",
-            {
-              "@type": "g:T",
-              "@value": "label"
-            }
-          ],
-          [
-            "by",
-            {
-              "@type": "g:Bytecode",
-              "@value": {
-                "step": [
-                  [
-                    "properties"
-                  ],
-                  [
-                    "group"
-                  ],
-                  [
-                    "by",
-                    {
-                      "@type": "g:T",
-                      "@value": "label"
-                    }
-                  ],
-                  [
-                    "by",
-                    {
-                      "@type": "g:Bytecode",
-                      "@value": {
-                        "step": [
-                          [
-                            "project",
-                            "id",
-                            "label",
-                            "value",
-                            "properties"
-                          ],
-                          [
-                            "by",
-                            {
-                              "@type": "g:T",
-                              "@value": "id"
-                            }
-                          ],
-                          [
-                            "by",
-                            {
-                              "@type": "g:T",
-                              "@value": "label"
-                            }
-                          ],
-                          [
-                            "by",
-                            {
-                              "@type": "g:T",
-                              "@value": "value"
-                            }
-                          ],
-                          [
-                            "by",
-                            {
-                              "@type": "g:Bytecode",
-                              "@value": {
-                                "step": [
-                                  [
-                                    "valueMap"
-                                  ]
-                                ]
-                              }
-                            }
-                          ],
-                          [
-                            "fold"
-                          ]
-                        ]
-                      }
-                    }
-                  ]
-                ]
-              }
             }
           ]
         ]

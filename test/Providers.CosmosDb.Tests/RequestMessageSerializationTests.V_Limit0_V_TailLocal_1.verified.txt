@@ -10,6 +10,6 @@
       _a: 0,
       _b: 1
     },
-    gremlin: g.V().limit(_a).tail(local,_b)
+    gremlin: g.V().limit(_a).fold().tail(local,_b)
   }
 }

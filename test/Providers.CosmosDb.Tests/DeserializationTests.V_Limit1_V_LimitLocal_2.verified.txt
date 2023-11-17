@@ -1,14 +1,16 @@
 ﻿[
-  {
-    CountryCallingCode: +49,
-    LocalizableDescription: {
-      Id: 00000000-0000-0000-0000-000000000000,
-      Properties: {
-        someKey: value
+  [
+    {
+      CountryCallingCode: +49,
+      LocalizableDescription: {
+        Id: 00000000-0000-0000-0000-000000000000,
+        Properties: {
+          someKey: value
+        },
+        Value: 
       },
-      Value: 
-    },
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Country
-  }
+      Id: 00000000-0000-0000-0000-000000000000,
+      Label: Country
+    }
+  ]
 ]

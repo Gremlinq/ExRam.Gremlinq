@@ -1,6 +1,8 @@
 ﻿{
-  Script: g.V().tail(local,_a),
+  Script: g.inject(_a,_b).fold().tail(local,_c),
   Bindings: {
-    _a: 1
+    _a: 42,
+    _b: 43,
+    _c: 1
   }
 }
