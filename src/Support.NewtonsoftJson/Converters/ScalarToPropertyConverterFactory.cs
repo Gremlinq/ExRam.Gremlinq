@@ -3,6 +3,7 @@ using ExRam.Gremlinq.Core.GraphElements;
 using System.Diagnostics.CodeAnalysis;
 using ExRam.Gremlinq.Core.Transformation;
 using ExRam.Gremlinq.Core;
+using System.Linq.Expressions;
 
 namespace ExRam.Gremlinq.Support.NewtonsoftJson
 {
@@ -18,8 +19,12 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
             {
                 if (typeof(TTargetProperty).GetConstructor(new[] { typeof(TTargetPropertyValue) }) is { } constructor)
                 {
+                    var lambdaParam = Expression.Parameter(typeof(TTargetPropertyValue));
+
                     _environment = environment;
-                    _constructor = value => constructor.Invoke(new object?[] { value }) as TTargetProperty; //TODO: Create Func generically
+                    _constructor = Expression
+                        .Lambda<Func<TTargetPropertyValue, TTargetProperty?>>(Expression.New(constructor, lambdaParam), lambdaParam)
+                        .Compile();
                 }
                 else
                     throw new ArgumentException();
