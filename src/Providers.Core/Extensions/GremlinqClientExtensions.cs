@@ -14,9 +14,9 @@ namespace ExRam.Gremlinq.Providers.Core
         private sealed class RequestInterceptingGremlinqClient : IGremlinqClient
         {
             private readonly IGremlinqClient _baseClient;
-            private readonly Func<RequestMessage, Task<RequestMessage>> _transformation;
+            private readonly Func<RequestMessage, CancellationToken, Task<RequestMessage>> _transformation;
 
-            public RequestInterceptingGremlinqClient(IGremlinqClient baseClient, Func<RequestMessage, Task<RequestMessage>> transformation)//TODO: CancellationToken
+            public RequestInterceptingGremlinqClient(IGremlinqClient baseClient, Func<RequestMessage, CancellationToken, Task<RequestMessage>> transformation)
             {
                 _baseClient = baseClient;
                 _transformation = transformation;
@@ -28,7 +28,7 @@ namespace ExRam.Gremlinq.Providers.Core
 
                 static async IAsyncEnumerable<ResponseMessage<TResult>> Core(RequestMessage requestMessage, RequestInterceptingGremlinqClient @this, [EnumeratorCancellation] CancellationToken ct = default)
                 {
-                    await foreach(var item in @this._baseClient.SubmitAsync<TResult>(await @this._transformation(requestMessage)))
+                    await foreach(var item in @this._baseClient.SubmitAsync<TResult>(await @this._transformation(requestMessage, ct)).WithCancellation(ct))
                     {
                         yield return item;
                     }
@@ -191,7 +191,7 @@ namespace ExRam.Gremlinq.Providers.Core
             }
         }
 
-        public static IGremlinqClient TransformRequest(this IGremlinqClient client, Func<RequestMessage, Task<RequestMessage>> transformation) => new RequestInterceptingGremlinqClient(client, transformation);
+        public static IGremlinqClient TransformRequest(this IGremlinqClient client, Func<RequestMessage, CancellationToken, Task<RequestMessage>> transformation) => new RequestInterceptingGremlinqClient(client, transformation);
 
         public static IGremlinqClient ObserveResultStatusAttributes(this IGremlinqClient client, Action<RequestMessage, IReadOnlyDictionary<string, object>> observer) => new ObserveResultStatusAttributesGremlinqClient(client, observer);
 
