@@ -8,7 +8,7 @@ namespace ExRam.Gremlinq.Core.ExpressionParsing
         {
             private static readonly P PNeqNull = P.Neq(null);
 
-            public P? TryGetP(ExpressionSemantics semantics, object? maybeValue, IGremlinQueryEnvironment environment)
+            public P TryGetP(ExpressionSemantics semantics, object? maybeValue, IGremlinQueryEnvironment environment)
             {
                 switch (semantics)
                 {
@@ -16,13 +16,13 @@ namespace ExRam.Gremlinq.Core.ExpressionParsing
                     {
                         return new P("eq", maybeValue);
                     }
-                    case IntersectsExpressionSemantics when maybeValue is { } value:
+                    case IntersectsExpressionSemantics when maybeValue != null:
                     {
-                        return P.Within(value);
+                        return P.Within(maybeValue);
                     }
-                    case IsContainedInExpressionSemantics when maybeValue is { } value:
+                    case IsContainedInExpressionSemantics when maybeValue != null:
                     {
-                        return P.Within(value);
+                        return P.Within(maybeValue);
                     }
                     case StringExpressionSemantics stringExpressionSemantics when maybeValue is string stringValue:
                     {

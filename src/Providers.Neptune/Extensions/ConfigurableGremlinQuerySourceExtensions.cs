@@ -42,7 +42,7 @@ namespace ExRam.Gremlinq.Providers.Neptune
                             .ToExecutor())));
         }
 
-        private record struct NeptuneErrorResponse(string? requestId, string? code, string? detailedMessage);
+        private record struct NeptuneErrorResponse(string? Code, string? DetailedMessage);
 
         public static IGremlinQuerySource UseNeptune<TVertexBase, TEdgeBase>(this IGremlinQuerySource source, Func<INeptuneConfigurator, IGremlinQuerySourceTransformation> configuratorTransformation)
         {
@@ -91,9 +91,9 @@ namespace ExRam.Gremlinq.Providers.Neptune
                                     {
                                         var response = JsonSerializer.Deserialize<NeptuneErrorResponse>(responseException.Message.AsSpan()[(statusCodeString.Length + 1)..], serializerOptions);
 
-                                        if (response.code is { Length: > 0 } errorCode && NeptuneErrorCode.From(errorCode) is { } neptuneErrorCode)
+                                        if (response.Code is { Length: > 0 } errorCode && NeptuneErrorCode.From(errorCode) is var neptuneErrorCode)
                                         {
-                                            return response.detailedMessage is { Length: > 0 } detailedMessage
+                                            return response.DetailedMessage is { Length: > 0 } detailedMessage
                                                 ? new NeptuneGremlinQueryExecutionException(neptuneErrorCode, ex.ExecutionContext, detailedMessage, ex)
                                                 : new NeptuneGremlinQueryExecutionException(neptuneErrorCode, ex.ExecutionContext, ex);
                                         }

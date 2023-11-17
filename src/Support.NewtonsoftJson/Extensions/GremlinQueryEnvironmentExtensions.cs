@@ -59,7 +59,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                             {
                                 if (member.Name == nameof(VertexProperty<object>.Id) || member.Name == nameof(VertexProperty<object>.Label))
                                     property.Writable = true;
-                                else if (member is PropertyInfo propertyInfo && propertyInfo.Name == nameof(VertexProperty<object>.Properties) && !typeof(IDictionary<string, object>).IsAssignableFrom(propertyInfo.PropertyType))
+                                else if (member is PropertyInfo { Name: nameof(VertexProperty<object>.Properties) } propertyInfo && !typeof(IDictionary<string, object>).IsAssignableFrom(propertyInfo.PropertyType))
                                     property.Converter = (JsonConverter?)Activator.CreateInstance(typeof(VertexPropertyPropertiesConverter<>).MakeGenericType(propertyInfo.PropertyType));
                             }
                         }

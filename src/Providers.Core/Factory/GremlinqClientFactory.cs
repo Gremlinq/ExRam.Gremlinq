@@ -138,7 +138,7 @@ namespace ExRam.Gremlinq.Providers.Core
             {
             }
 
-            public PoolGremlinqClientFactory(TBaseFactory baseFactory, int poolSize, int maxInProcessPerConnection)
+            private PoolGremlinqClientFactory(TBaseFactory baseFactory, int poolSize, int maxInProcessPerConnection)
             {
                 _poolSize = poolSize;
                 _baseFactory = baseFactory;
@@ -147,11 +147,11 @@ namespace ExRam.Gremlinq.Providers.Core
 
             public IPoolGremlinqClientFactory<TBaseFactory> ConfigureBaseFactory(Func<TBaseFactory, TBaseFactory> transformation) => new PoolGremlinqClientFactory<TBaseFactory>(transformation(_baseFactory));
 
-            public IPoolGremlinqClientFactory<TBaseFactory> WithMaxInProcessPerConnection(int maxInProcessPerConnection) => maxInProcessPerConnection > 0 && maxInProcessPerConnection <= 64
+            public IPoolGremlinqClientFactory<TBaseFactory> WithMaxInProcessPerConnection(int maxInProcessPerConnection) => maxInProcessPerConnection is > 0 and <= 64
                 ? new PoolGremlinqClientFactory<TBaseFactory>(_baseFactory, _poolSize, maxInProcessPerConnection)
                 : throw new ArgumentOutOfRangeException(nameof(maxInProcessPerConnection));
 
-            public IPoolGremlinqClientFactory<TBaseFactory> WithPoolSize(int poolSize) => poolSize > 0 && poolSize <= 8
+            public IPoolGremlinqClientFactory<TBaseFactory> WithPoolSize(int poolSize) => poolSize is > 0 and <= 8
                 ? new PoolGremlinqClientFactory<TBaseFactory>(_baseFactory, poolSize, _maxInProcessPerConnection)
                 : throw new ArgumentOutOfRangeException(nameof(poolSize));
 
@@ -191,16 +191,20 @@ namespace ExRam.Gremlinq.Providers.Core
                         .OverrideRequestId(context.ExecutionId)
                         .Create();
 
-                    await foreach (var response in client.SubmitAsync<List<T>>(requestMessage).Catch(ex => ex is not ArgumentException ? new GremlinQueryExecutionException(context, ex) : ex))
+                    await foreach (var response in client.SubmitAsync<List<T>>(requestMessage).Catch(ex => ex is not ArgumentException ? new GremlinQueryExecutionException(context, ex) : ex).WithCancellation(ct))
                     {
-                        if (response is { Status: { Code: { } code } status } && code is not Success and not NoContent and not PartialContent and not Authenticate)
-                            throw new GremlinQueryExecutionException(context, new ResponseException(code, status.Attributes, $"{status.Code}: {status.Message}"));
-
-                        if (response is { Result.Data: { } data })
+                        switch (response)
                         {
-                            foreach (var obj in data)
+                            case { Status: { Code: { } code and not Success and not NoContent and not PartialContent and not Authenticate } status }:
+                                throw new GremlinQueryExecutionException(context, new ResponseException(code, status.Attributes, $"{status.Code}: {status.Message}"));
+                            case { Result.Data: { } data }:
                             {
-                                yield return obj;
+                                foreach (var obj in data)
+                                {
+                                    yield return obj;
+                                }
+
+                                break;
                             }
                         }
                     }

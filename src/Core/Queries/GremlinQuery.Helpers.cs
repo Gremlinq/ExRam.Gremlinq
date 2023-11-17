@@ -37,7 +37,7 @@ namespace ExRam.Gremlinq.Core
 
         private PropertyStep? TryGetPropertyStep(Key key, object value, Cardinality? cardinality)
         {
-            object? actualValue = value;
+            var actualValue = value;
             var metaProperties = ImmutableArray<KeyValuePair<string, object>>.Empty;
 
             if (actualValue is Property property)
@@ -46,8 +46,7 @@ namespace ExRam.Gremlinq.Core
                 {
                     metaProperties = vertexProperty
                         .GetProperties(Environment)
-                        .Where(static kvp => kvp.Value != null)
-                        .Select(static kvp => new KeyValuePair<string, object>(kvp.Key, kvp.Value!))
+                        .Select(static kvp => new KeyValuePair<string, object>(kvp.Key, kvp.Value))
                         .ToImmutableArray();
                 }
 

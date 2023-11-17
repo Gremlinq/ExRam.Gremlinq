@@ -55,7 +55,7 @@ namespace ExRam.Gremlinq.Providers.Core
 
                 static async IAsyncEnumerable<ResponseMessage<TResult>> Core(RequestMessage requestMessage, ObserveResultStatusAttributesGremlinqClient @this, [EnumeratorCancellation] CancellationToken ct = default)
                 {
-                    await foreach (var responseMessage in @this._baseClient.SubmitAsync<TResult>(requestMessage))
+                    await foreach (var responseMessage in @this._baseClient.SubmitAsync<TResult>(requestMessage).WithCancellation(ct))
                     {
                         @this._observer(requestMessage, responseMessage.Status.Attributes);
 

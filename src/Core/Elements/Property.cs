@@ -1,6 +1,4 @@
-﻿#pragma warning disable IDE0060
-
-namespace ExRam.Gremlinq.Core.GraphElements
+﻿namespace ExRam.Gremlinq.Core.GraphElements
 {
     public abstract class Property
     {
