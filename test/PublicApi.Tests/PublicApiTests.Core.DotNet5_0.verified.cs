@@ -1470,12 +1470,17 @@ namespace ExRam.Gremlinq.Core.Models
         ExRam.Gremlinq.Core.Models.IMemberMetadataConfigurator<TElement> ResetSerializationBehaviour<TProperty>(System.Linq.Expressions.Expression<System.Func<TElement, TProperty>> propertyExpression);
         ExRam.Gremlinq.Core.Models.IGraphElementModel Transform(ExRam.Gremlinq.Core.Models.IGraphElementModel model);
     }
-    public readonly struct MemberMetadata
+    public readonly struct MemberMetadata : System.IEquatable<ExRam.Gremlinq.Core.Models.MemberMetadata>
     {
         public MemberMetadata(ExRam.Gremlinq.Core.Key key, ExRam.Gremlinq.Core.Models.SerializationBehaviour serializationBehaviour = 0) { }
         public ExRam.Gremlinq.Core.Key Key { get; }
         public ExRam.Gremlinq.Core.Models.SerializationBehaviour SerializationBehaviour { get; }
+        public bool Equals(ExRam.Gremlinq.Core.Models.MemberMetadata other) { }
+        public override bool Equals(object? obj) { }
+        public override int GetHashCode() { }
         public static ExRam.Gremlinq.Core.Models.MemberMetadata Default(string key) { }
+        public static bool operator !=(ExRam.Gremlinq.Core.Models.MemberMetadata left, ExRam.Gremlinq.Core.Models.MemberMetadata right) { }
+        public static bool operator ==(ExRam.Gremlinq.Core.Models.MemberMetadata left, ExRam.Gremlinq.Core.Models.MemberMetadata right) { }
     }
     [System.Flags]
     public enum SerializationBehaviour
