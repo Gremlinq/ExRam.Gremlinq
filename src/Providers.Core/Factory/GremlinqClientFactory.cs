@@ -37,9 +37,9 @@ namespace ExRam.Gremlinq.Providers.Core
                 private readonly IGremlinqClientFactory _baseFactory;
                 private readonly IGremlinQueryEnvironment _environment;
 
+                private int _currentRequestsInUse;
                 private int _maxRequestsInUse = 1;
                 private int _currentSlotIndex = -1;
-                private int _currentRequestsInUse = 0;
 
                 public PoolGremlinqClient(IGremlinqClientFactory baseFactory, int poolSize, int maxInProcessPerConnection, IGremlinQueryEnvironment environment)
                 {
@@ -172,7 +172,7 @@ namespace ExRam.Gremlinq.Providers.Core
             {
                 return Core(this, context);
 
-                async static IAsyncEnumerable<T> Core(GremlinQueryExecutorImpl @this, GremlinQueryExecutionContext context, [EnumeratorCancellation] CancellationToken ct = default)
+                static async IAsyncEnumerable<T> Core(GremlinQueryExecutorImpl @this, GremlinQueryExecutionContext context, [EnumeratorCancellation] CancellationToken ct = default)
                 {
                     var environment = context.Query
                         .AsAdmin()
@@ -195,7 +195,7 @@ namespace ExRam.Gremlinq.Providers.Core
                     {
                         switch (response)
                         {
-                            case { Status: { Code: { } code and not Success and not NoContent and not PartialContent and not Authenticate } status }:
+                            case { Status: { Code: var code and not Success and not NoContent and not PartialContent and not Authenticate } status }:
                                 throw new GremlinQueryExecutionException(context, new ResponseException(code, status.Attributes, $"{status.Code}: {status.Message}"));
                             case { Result.Data: { } data }:
                             {
