@@ -70,14 +70,15 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
         public static ITransformer UseNewtonsoftJson(this ITransformer transformer)
         {
             return transformer
-                .Add(new ByteArrayDeferralConverterFactory())
-                .Add(new MemoryDeferralConverterFactory())
+                .Add(new ByteArrayDeferralConverterFactory())   //
+                .Add(new MemoryDeferralConverterFactory())      //
+                .Add(new SingleItemArrayFallbackConverterFactory()) //
+
                 .Add(new DeferToNewtonsoftConverterFactory())
                 .Add(new NewtonsoftJsonSerializerConverterFactory())
                 .Add(new VertexPropertyPropertiesConverterFactory())
                 .Add(new DictionaryConverterFactory())
                 .Add(new DynamicObjectConverterFactory())
-                .Add(new SingleItemArrayFallbackConverterFactory())
 
                 .Add(new ExtractPropertyValueConverterFactory())
                 .Add(new ScalarToPropertyConverterFactory())
