@@ -1,1 +1,1 @@
-﻿g.V().limit(2).fold().range(local,0,1).map(__.unfold().project('id','label','properties').by(id).by(label).by(__.properties().group().by(label).by(__.project('id','label','value','properties').by(id).by(label).by(value).by(__.valueMap()).fold())).fold())
+﻿g.V().limit(2).fold().map(__.range(local,0,1).choose(__.count(local).is(eq(1)),__.fold())).map(__.unfold().project('id','label','properties').by(id).by(label).by(__.properties().group().by(label).by(__.project('id','label','value','properties').by(id).by(label).by(value).by(__.valueMap()).fold())).fold())

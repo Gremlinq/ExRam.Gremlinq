@@ -8,8 +8,9 @@
     },
     bindings: {
       _a: 0,
-      _b: 1
+      _b: 1,
+      _c: 1
     },
-    gremlin: g.V().limit(_a).fold().limit(local,_b)
+    gremlin: g.V().limit(_a).fold().map(__.limit(local,_b).choose(__.count(local).is(eq(_c)),__.fold()))
   }
 }

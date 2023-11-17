@@ -1,6 +1,9 @@
 ﻿using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Models;
+using ExRam.Gremlinq.Core.Steps;
 using ExRam.Gremlinq.Providers.Core;
+
+using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Providers.GremlinServer
 {
@@ -48,7 +51,9 @@ namespace ExRam.Gremlinq.Providers.GremlinServer
                             .ConfigureVertexFeatures(vertexFeatures => vertexFeatures & ~(VertexFeatures.Upsert | VertexFeatures.CustomIds))
                             .ConfigureVertexPropertyFeatures(vPropertiesFeatures => vPropertiesFeatures & ~(VertexPropertyFeatures.CustomIds))
                             .ConfigureEdgeFeatures(edgeProperties => edgeProperties & ~(EdgeFeatures.Upsert | EdgeFeatures.CustomIds)))
-                        .UseGraphSon3()));
+                        .UseGraphSon3()
+                        .ConfigureSerializer(ser => ser
+                            .WorkaroundRangeInconsistency())));
         }
     }
 }
