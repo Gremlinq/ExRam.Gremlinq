@@ -1420,10 +1420,15 @@ namespace ExRam.Gremlinq.Core.GraphElements
 }
 namespace ExRam.Gremlinq.Core.Models
 {
-    public readonly struct ElementMetadata
+    public readonly struct ElementMetadata : System.IEquatable<ExRam.Gremlinq.Core.Models.ElementMetadata>
     {
         public ElementMetadata(string label) { }
         public string Label { get; }
+        public bool Equals(ExRam.Gremlinq.Core.Models.ElementMetadata other) { }
+        public override bool Equals(object? obj) { }
+        public override int GetHashCode() { }
+        public static bool operator !=(ExRam.Gremlinq.Core.Models.ElementMetadata left, ExRam.Gremlinq.Core.Models.ElementMetadata right) { }
+        public static bool operator ==(ExRam.Gremlinq.Core.Models.ElementMetadata left, ExRam.Gremlinq.Core.Models.ElementMetadata right) { }
     }
     public static class GraphElementModel
     {
