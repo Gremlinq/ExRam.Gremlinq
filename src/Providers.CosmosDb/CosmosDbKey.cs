@@ -1,6 +1,6 @@
 ﻿namespace ExRam.Gremlinq.Providers.CosmosDb
 {
-    public readonly struct CosmosDbKey
+    public readonly struct CosmosDbKey : IEquatable<CosmosDbKey>
     {
         private readonly string _id;
 
@@ -27,5 +27,15 @@
         }
 
         public string? PartitionKey { get; }
+
+        public override bool Equals(object? obj) => obj is CosmosDbKey key && Equals(key);
+
+        public bool Equals(CosmosDbKey other) => _id == other._id && PartitionKey == other.PartitionKey;
+
+        public override int GetHashCode() => HashCode.Combine(_id, PartitionKey);
+
+        public static bool operator ==(CosmosDbKey left, CosmosDbKey right) => left.Equals(right);
+
+        public static bool operator !=(CosmosDbKey left, CosmosDbKey right) => !(left == right);
     }
 }
