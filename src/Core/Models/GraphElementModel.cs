@@ -102,7 +102,7 @@ namespace ExRam.Gremlinq.Core.Models
                 {
                     var newMetadata = transformation(member, this.GetMetadata(member));
 
-                    overrides = newMetadata.Key != member.Name || newMetadata.SerializationBehaviour != SerializationBehaviour.Default  //TODO: Equality operators
+                    overrides = newMetadata != new MemberMetadata(member.Name)
                         ? overrides.SetItem(member, newMetadata)
                         : overrides.Remove(member);
                 }

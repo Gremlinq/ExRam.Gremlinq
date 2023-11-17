@@ -16,10 +16,7 @@ namespace ExRam.Gremlinq.Core
             _key = name;
         }
 
-        public bool Equals(Key other)
-        {
-            return Equals(_key, other._key);
-        }
+        public bool Equals(Key other) => Equals(_key, other._key);
 
         public int CompareTo(Key other)
         {
@@ -34,35 +31,17 @@ namespace ExRam.Gremlinq.Core
             };
         }
 
-        public override bool Equals(object? obj)
-        {
-            return obj is Key other && Equals(other);
-        }
+        public override bool Equals(object? obj) => obj is Key other && Equals(other);
 
-        public override int GetHashCode()
-        {
-            return _key != null ? _key.GetHashCode() : 0;
-        }
+        public override int GetHashCode() => _key != null ? _key.GetHashCode() : 0;
 
-        public static bool operator == (Key key1, Key key2)
-        {
-            return key1.RawKey == key2.RawKey;
-        }
+        public static bool operator ==(Key key1, Key key2) => key1.RawKey == key2.RawKey;
 
-        public static bool operator !=(Key key1, Key key2)
-        {
-            return !(key1 == key2);
-        }
+        public static bool operator !=(Key key1, Key key2) => !(key1 == key2);
 
-        public static implicit operator Key(T t)
-        {
-            return new(t);
-        }
+        public static implicit operator Key(T t) => new(t);
 
-        public static implicit operator Key(string name)
-        {
-            return new(name);
-        }
+        public static implicit operator Key(string name) => new(name);
 
         public object RawKey
         {

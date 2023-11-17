@@ -2,7 +2,7 @@
 
 namespace ExRam.Gremlinq.Core.Models
 {
-    public readonly struct MemberMetadata
+    public readonly struct MemberMetadata : IEquatable<MemberMetadata>
     {
         private readonly Key? _key;
 
@@ -21,5 +21,15 @@ namespace ExRam.Gremlinq.Core.Models
             : "label".Equals(key, StringComparison.OrdinalIgnoreCase)
                 ? T.Label
                 : key);
+
+        public bool Equals(MemberMetadata other) => _key == other._key && SerializationBehaviour == other.SerializationBehaviour;
+
+        public override bool Equals(object? obj) => obj is MemberMetadata metadata && Equals(metadata);
+
+        public override int GetHashCode() => HashCode.Combine(_key, SerializationBehaviour);
+
+        public static bool operator ==(MemberMetadata left, MemberMetadata right) => left.Equals(right);
+
+        public static bool operator !=(MemberMetadata left, MemberMetadata right) => !(left == right);
     }
 }
