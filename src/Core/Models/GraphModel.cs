@@ -21,7 +21,7 @@ namespace ExRam.Gremlinq.Core.Models
                 transformation(EdgesModel));
 
             public IGraphModel AddAssemblies(params Assembly[] assemblies) => this
-                .ConfigureElements(__ => __.AddAssemblies(assemblies));
+                .ConfigureElements(_ => _.AddAssemblies(assemblies));
 
             public IGraphElementModel EdgesModel { get; }
             public IGraphElementModel VerticesModel { get; }

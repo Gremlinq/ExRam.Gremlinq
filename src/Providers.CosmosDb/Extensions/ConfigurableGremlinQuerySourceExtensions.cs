@@ -24,7 +24,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb
             private readonly Func<IGremlinQuerySource, IGremlinQuerySource> _querySourceTransformation;
             private readonly IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory> _clientFactory;
 
-            private CosmosDbConfigurator(string? databaseName, string? graphName, Expression<Func<TVertexBase, object>>? partitionKeyExpression, IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory> clientFactory, Func<IGremlinQuerySource, IGremlinQuerySource> querySourceTransformation) : base()
+            private CosmosDbConfigurator(string? databaseName, string? graphName, Expression<Func<TVertexBase, object>>? partitionKeyExpression, IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory> clientFactory, Func<IGremlinQuerySource, IGremlinQuerySource> querySourceTransformation)
             {
                 _graphName = graphName;
                 _databaseName = databaseName;

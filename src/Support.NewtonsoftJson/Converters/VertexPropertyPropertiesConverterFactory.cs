@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json.Linq;
-using System.Diagnostics.CodeAnalysis;
 using ExRam.Gremlinq.Core.Transformation;
 using ExRam.Gremlinq.Core;
 
@@ -17,7 +16,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                 _environment = environment;
             }
 
-            public bool TryConvert(TSource source, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out VertexPropertyPropertiesWrapper<TOption> value)
+            public bool TryConvert(TSource source, ITransformer defer, ITransformer recurse, out VertexPropertyPropertiesWrapper<TOption> value)
             {
                 if (source is JObject { Count: 0 })
                 {

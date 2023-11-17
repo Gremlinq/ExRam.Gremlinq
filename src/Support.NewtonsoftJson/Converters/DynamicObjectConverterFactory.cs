@@ -51,7 +51,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
 
                 IEnumerator<KeyValuePair<string, object?>> IEnumerable<KeyValuePair<string, object?>>.GetEnumerator() => _dictionary.GetEnumerator();
 
-                bool IReadOnlyDictionary<string, object?>.TryGetValue(string key, [MaybeNullWhen(false)] out object? value) => _dictionary.TryGetValue(key, out value);
+                bool IReadOnlyDictionary<string, object?>.TryGetValue(string key, out object? value) => _dictionary.TryGetValue(key, out value);
 
                 IEnumerator IEnumerable.GetEnumerator() => ((IEnumerable)_dictionary).GetEnumerator();
 
@@ -61,7 +61,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
 
                 bool IDictionary<string, object?>.Remove(string key) => _dictionary.Remove(key);
 
-                bool IDictionary<string, object?>.TryGetValue(string key, [MaybeNullWhen(false)] out object? value) => _dictionary.TryGetValue(key, out value);
+                bool IDictionary<string, object?>.TryGetValue(string key, out object? value) => _dictionary.TryGetValue(key, out value);
 
                 void ICollection<KeyValuePair<string, object?>>.Add(KeyValuePair<string, object?> item) => _dictionary.Add(item);
 
