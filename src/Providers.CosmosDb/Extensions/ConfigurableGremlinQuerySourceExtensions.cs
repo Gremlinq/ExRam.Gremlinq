@@ -5,6 +5,7 @@ using ExRam.Gremlinq.Core.Models;
 using ExRam.Gremlinq.Core.Steps;
 using ExRam.Gremlinq.Core.Transformation;
 using ExRam.Gremlinq.Providers.Core;
+using ExRam.Gremlinq.Providers.GremlinServer;
 
 using Gremlin.Net.Process.Traversal;
 
@@ -188,7 +189,8 @@ namespace ExRam.Gremlinq.Providers.CosmosDb
                                     : order.Equals(Order.Desc)
                                         ? WorkaroundOrder.Decr
                                         : default)
-                                .AutoRecurse<WorkaroundOrder>()))));
+                                .AutoRecurse<WorkaroundOrder>())
+                            .WorkaroundRangeInconsistency())));
         }
     }
 }

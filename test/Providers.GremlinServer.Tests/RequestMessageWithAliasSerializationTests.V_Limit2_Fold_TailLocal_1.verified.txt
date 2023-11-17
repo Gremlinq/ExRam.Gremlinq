@@ -21,13 +21,56 @@
           OperatorName: fold
         },
         {
-          OperatorName: tail,
+          OperatorName: map,
           Arguments: [
             {
-              EnumName: Scope,
-              EnumValue: local
-            },
-            1
+              StepInstructions: [
+                {
+                  OperatorName: tail,
+                  Arguments: [
+                    {
+                      EnumName: Scope,
+                      EnumValue: local
+                    },
+                    1
+                  ]
+                },
+                {
+                  OperatorName: choose,
+                  Arguments: [
+                    {
+                      StepInstructions: [
+                        {
+                          OperatorName: count,
+                          Arguments: [
+                            {
+                              EnumName: Scope,
+                              EnumValue: local
+                            }
+                          ]
+                        },
+                        {
+                          OperatorName: is,
+                          Arguments: [
+                            {
+                              OperatorName: eq,
+                              Value: 1
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      StepInstructions: [
+                        {
+                          OperatorName: fold
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
           ]
         },
         {

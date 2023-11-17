@@ -1,8 +1,9 @@
 ﻿{
-  Script: g.inject(_a,_b).fold().tail(local,_c),
+  Script: g.inject(_a,_b).fold().map(__.tail(local,_c).choose(__.count(local).is(eq(_d)),__.fold())),
   Bindings: {
     _a: 42,
     _b: 43,
-    _c: 1
+    _c: 1,
+    _d: 1
   }
 }

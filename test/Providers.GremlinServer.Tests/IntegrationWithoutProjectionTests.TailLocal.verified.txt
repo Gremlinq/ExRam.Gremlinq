@@ -1,6 +1,11 @@
 ﻿[
   {
-    "@type": "g:Int32",
-    "@value": 43
+    "@type": "g:List",
+    "@value": [
+      {
+        "@type": "g:Int32",
+        "@value": 43
+      }
+    ]
   }
 ]

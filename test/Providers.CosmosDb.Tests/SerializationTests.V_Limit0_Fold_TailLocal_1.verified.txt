@@ -1,7 +1,8 @@
 ﻿{
-  Script: g.V().limit(_a).fold().tail(local,_b),
+  Script: g.V().limit(_a).fold().map(__.tail(local,_b).choose(__.count(local).is(eq(_c)),__.fold())),
   Bindings: {
     _a: 0,
-    _b: 1
+    _b: 1,
+    _c: 1
   }
 }
