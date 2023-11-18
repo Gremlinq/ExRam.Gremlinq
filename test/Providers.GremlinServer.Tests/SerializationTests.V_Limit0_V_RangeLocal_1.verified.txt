@@ -13,8 +13,51 @@
       OperatorName: fold
     },
     {
-      OperatorName: map,
+      OperatorName: choose,
       Arguments: [
+        {
+          StepInstructions: [
+            {
+              OperatorName: as,
+              Arguments: [
+                Guid_1
+              ]
+            },
+            {
+              OperatorName: unfold
+            },
+            {
+              OperatorName: limit,
+              Arguments: [
+                1
+              ]
+            },
+            {
+              OperatorName: where,
+              Arguments: [
+                {
+                  OperatorName: eq,
+                  Value: Guid_1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          StepInstructions: [
+            {
+              OperatorName: range,
+              Arguments: [
+                {
+                  EnumName: Scope,
+                  EnumValue: local
+                },
+                0,
+                1
+              ]
+            }
+          ]
+        },
         {
           StepInstructions: [
             {
@@ -29,38 +72,7 @@
               ]
             },
             {
-              OperatorName: choose,
-              Arguments: [
-                {
-                  StepInstructions: [
-                    {
-                      OperatorName: count,
-                      Arguments: [
-                        {
-                          EnumName: Scope,
-                          EnumValue: local
-                        }
-                      ]
-                    },
-                    {
-                      OperatorName: is,
-                      Arguments: [
-                        {
-                          OperatorName: eq,
-                          Value: 1
-                        }
-                      ]
-                    }
-                  ]
-                },
-                {
-                  StepInstructions: [
-                    {
-                      OperatorName: fold
-                    }
-                  ]
-                }
-              ]
+              OperatorName: fold
             }
           ]
         }
