@@ -26,33 +26,34 @@ namespace ExRam.Gremlinq.Providers.GremlinServer
                         : deferred;
                 });
 
-        private static Instruction WorkaroundRangeInconsistency(this Instruction instruction) => new (
-            "map",
+        //choose(__.as('a').unfold().limit(1).where(eq('a')), limit(1), limit(local, 1).fold())
+        private static Instruction WorkaroundRangeInconsistency(this Instruction instruction) => new(
+            "choose",
+            new Bytecode
+            {
+                StepInstructions =
+                {
+                    new Instruction("as", "{D6510306-4F19-4638-A68B-4C1486D886BC}"),
+                    new Instruction("unfold"),
+                    new Instruction("limit", 1),
+                    new Instruction("where", P.Eq("{D6510306-4F19-4638-A68B-4C1486D886BC}")),
+                }
+            },
+            new Bytecode
+            {
+                StepInstructions =
+                {
+                    instruction
+                }
+            },
             new Bytecode
             {
                 StepInstructions =
                 {
                     instruction,
-                    new Instruction(
-                        "choose",
-                        new Bytecode
-                        {
-                            StepInstructions =
-                            {
-                                new Instruction("count", Scope.Local),
-                                new Instruction("is", P.Eq(1))
-                            }
-                        },
-                        new Bytecode
-                        {
-                            StepInstructions =
-                            {
-                                new Instruction("fold")
-                            }
-                        })
+                    new Instruction("fold")
                 }
             });
-
 
         private static ITransformer Add<TSource>(this ITransformer serializer, Func<TSource, IGremlinQueryEnvironment, ITransformer, ITransformer, Instruction?> converter) => serializer
             .Add(ConverterFactory.Create(converter));
