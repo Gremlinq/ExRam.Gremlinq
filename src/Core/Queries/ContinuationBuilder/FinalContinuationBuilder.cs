@@ -24,8 +24,8 @@ namespace ExRam.Gremlinq.Core
         }
 
         public FinalContinuationBuilder<TOuterQuery> AddStep(Step step) => With(
-            static (outer, steps, labelProjections, tuple) => new FinalContinuationBuilder<TOuterQuery>(outer, steps.Push(tuple.step), labelProjections),
-            (@this: this, step));
+            static (outer, steps, labelProjections, step) => new FinalContinuationBuilder<TOuterQuery>(outer, steps.Push(step), labelProjections),
+            step);
 
         public FinalContinuationBuilder<TOuterQuery> WithSteps(Traversal newSteps) => With(
             static (outer, _, labelProjections, newSteps) => new FinalContinuationBuilder<TOuterQuery>(outer, newSteps, labelProjections),
@@ -65,12 +65,9 @@ namespace ExRam.Gremlinq.Core
                 labelProjections),
             0);
 
-        private TResult With<TState, TResult>(Func<TOuterQuery, Traversal, IImmutableDictionary<StepLabel, LabelProjections>, TState, TResult> continuation, TState state)
-        {
-            return (_outer is { } outer && _steps is { } steps && _labelProjections is { } labelProjections)
-                ? continuation(outer, steps, labelProjections, state)
-                : throw new InvalidOperationException();
-        }
+        private TResult With<TState, TResult>(Func<TOuterQuery, Traversal, IImmutableDictionary<StepLabel, LabelProjections>, TState, TResult> continuation, TState state) => (_outer is { } outer && _steps is { } steps && _labelProjections is { } labelProjections)
+            ? continuation(outer, steps, labelProjections, state)
+            : throw new InvalidOperationException();
 
         public TOuterQuery OuterQuery => With(
             static (outer, _, _, _) => outer,
