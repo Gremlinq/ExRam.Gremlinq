@@ -1,1 +1,1 @@
-﻿g.V().limit(2).fold().map(__.limit(local,1).choose(__.count(local).is(eq(1)),__.fold()))
+﻿g.V().limit(2).fold().map(__.unfold().limit(1).fold())

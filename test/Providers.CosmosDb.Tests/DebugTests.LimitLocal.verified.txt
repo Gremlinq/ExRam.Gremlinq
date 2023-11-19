@@ -1,1 +1,1 @@
-﻿g.inject(42,43).fold().map(__.limit(local,1).choose(__.count(local).is(eq(1)),__.fold()))
+﻿g.inject(42,43).fold().map(__.unfold().limit(1).fold())
