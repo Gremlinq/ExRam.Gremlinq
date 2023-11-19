@@ -84,7 +84,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
         public Task IsDescribedIn() => Verify<WorksFor>(GetJson("Single_WorksFor"));
 
         [Fact]
-        public Task DynamicData() => Verify<dynamic>(JToken.Parse("{ \"values\": [ ], \"count\": { \"@type\": \"g:Int32\", \"@value\": 36 } }"));
+        public Task DynamicData() => Verify<dynamic>(JToken.Parse("[ { \"values\": [ ], \"count\": { \"@type\": \"g:Int32\", \"@value\": 36 } } ]"));
 
         [Fact]
         public Task Empty1() => Verify<object>(JToken.Parse("[]"));
@@ -153,19 +153,13 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
         public Task NamedTuple() => Verify<PersonLanguageTuple>(GetJson("Named_tuple_of_Person_Language"));
 
         [Fact]
-        public Task SingleVertex_as_array() => Verify<Person[]>(JToken.Parse("[ { \"id\": \"3110d0db-17c0-4f82-89d8-0a7e9ae41c27\", \"label\": \"vertex\", \"type\": \"vertex\", \"properties\": { \"PartitionKey\": [ { \"id\": \"3110d0db-17c0-4f82-89d8-0a7e9ae41c27|PartitionKey\", \"value\": \"p\" } ] } } ]"));
+        public Task Graphson2Path() => Verify<Path>(GetJson("Graphson2_Paths"));
 
         [Fact]
-        public Task SingleVertex_as_array_of_arrays() => Verify<Person[][]>(JToken.Parse("[ { \"id\": \"3110d0db-17c0-4f82-89d8-0a7e9ae41c27\", \"label\": \"vertex\", \"type\": \"vertex\", \"properties\": { \"PartitionKey\": [ { \"id\": \"3110d0db-17c0-4f82-89d8-0a7e9ae41c27|PartitionKey\", \"value\": \"p\" } ] } } ]"));
+        public Task Graphson3Path() => Verify<Path>(GetJson("Graphson3_Paths"));
 
         [Fact]
-        public Task Graphson2Path() => Verify<Path[]>(GetJson("Graphson2_Paths"));
-
-        [Fact]
-        public Task Graphson3Path() => Verify<Path[]>(GetJson("Graphson3_Paths"));
-
-        [Fact]
-        public Task LargeGraphson3Path() => Verify<Path[]>(GetJson("Large_Graphson3_Paths"));
+        public Task LargeGraphson3Path() => Verify<Path>(GetJson("Large_Graphson3_Paths"));
 
         [Fact]
         public Task Array() => Verify<Language[]>(GetJson("Array_of_Languages"));
