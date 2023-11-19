@@ -20,25 +20,19 @@ namespace ExRam.Gremlinq.Core
 
         public static TNewQuery Build<TOuterQuery, TAnonymousQuery, TNewQuery>(this ContinuationBuilder<TOuterQuery, TAnonymousQuery> continuationBuilder, Func<FinalContinuationBuilder<TOuterQuery>, TNewQuery> builderTransformation)
             where TOuterQuery : GremlinQueryBase, IGremlinQueryBase
-            where TAnonymousQuery : GremlinQueryBase, IGremlinQueryBase
-        {
-            return continuationBuilder.Build(static (builder, state) => state(builder), builderTransformation);
-        }
+            where TAnonymousQuery : GremlinQueryBase, IGremlinQueryBase => continuationBuilder
+                .Build(static (builder, state) => state(builder), builderTransformation);
 
         public static TNewQuery Build<TOuterQuery, TAnonymousQuery, TNewQuery>(this SingleContinuationBuilder<TOuterQuery, TAnonymousQuery> continuationBuilder, Func<FinalContinuationBuilder<TOuterQuery>, Traversal, TNewQuery> builderTransformation)
             where TOuterQuery : GremlinQueryBase, IGremlinQueryBase
-            where TAnonymousQuery : GremlinQueryBase, IGremlinQueryBase
-        {
-            return continuationBuilder.Build(static (builder, continuation, state) => state(builder, continuation), builderTransformation);
-        }
+            where TAnonymousQuery : GremlinQueryBase, IGremlinQueryBase => continuationBuilder
+                .Build(static (builder, continuation, state) => state(builder, continuation), builderTransformation);
 
         public static TNewQuery Build<TOuterQuery, TAnonymousQuery, TNewQuery>(this MultiContinuationBuilder<TOuterQuery, TAnonymousQuery> continuationBuilder, FinalContinuationBuilderTransformation<TOuterQuery, TNewQuery> builderTransformation)
             where TOuterQuery : GremlinQueryBase, IGremlinQueryBase
             where TAnonymousQuery : GremlinQueryBase, IGremlinQueryBase
-            where TNewQuery : IGremlinQueryBase
-        {
-            return continuationBuilder.Build(static (builder, continuations, state) => state(builder, continuations), builderTransformation);
-        }
+            where TNewQuery : IGremlinQueryBase => continuationBuilder
+                .Build(static (builder, continuations, state) => state(builder, continuations), builderTransformation);
 
         public static SingleContinuationBuilder<TOuterQuery, TAnonymousQuery> With<TOuterQuery, TAnonymousQuery, TProjectedQuery>(this ContinuationBuilder<TOuterQuery, TAnonymousQuery> continuationBuilder, Func<TAnonymousQuery, TProjectedQuery> continuation)
             where TOuterQuery : GremlinQueryBase, IGremlinQueryBase
