@@ -11,16 +11,11 @@ namespace ExRam.Gremlinq.Core
             where TProjectedQuery : IGremlinQueryBase
         {
             var continuedQuery = continuation(anonymous, state);
-
-            //if (continuedQuery is GremlinQueryBase queryBase && (queryBase.Flags & QueryFlags.IsAnonymous) == QueryFlags.None)
-            //    throw new InvalidOperationException("A query continuation must originate from the query that was passed to the continuation function. Did you accidentally use 'g' in the continuation?");
-
             var admin = continuedQuery.AsAdmin();
 
-            if (admin.Steps.Count == 0)
-                return admin.ConfigureSteps<TProjectedQuery>(static traversal => IdentityTraversal.WithProjection(traversal.Projection));
-
-            return continuedQuery;
+            return admin.Steps.Count == 0
+                ? admin.ConfigureSteps<TProjectedQuery>(static traversal => IdentityTraversal.WithProjection(traversal.Projection))
+                : continuedQuery;
         }
 
         public static TNewQuery Build<TOuterQuery, TAnonymousQuery, TNewQuery>(this ContinuationBuilder<TOuterQuery, TAnonymousQuery> continuationBuilder, Func<FinalContinuationBuilder<TOuterQuery>, TNewQuery> builderTransformation)
