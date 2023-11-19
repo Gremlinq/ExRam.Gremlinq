@@ -19,59 +19,16 @@
           OperatorName: fold
         },
         {
-          OperatorName: choose,
+          OperatorName: map,
           Arguments: [
             {
               StepInstructions: [
                 {
-                  OperatorName: as,
-                  Arguments: [
-                    Guid_2
-                  ]
-                },
-                {
                   OperatorName: unfold
                 },
                 {
-                  OperatorName: limit,
-                  Arguments: [
-                    1
-                  ]
-                },
-                {
-                  OperatorName: where,
-                  Arguments: [
-                    {
-                      OperatorName: eq,
-                      Value: Guid_2
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              StepInstructions: [
-                {
                   OperatorName: tail,
                   Arguments: [
-                    {
-                      EnumName: Scope,
-                      EnumValue: local
-                    },
-                    1
-                  ]
-                }
-              ]
-            },
-            {
-              StepInstructions: [
-                {
-                  OperatorName: tail,
-                  Arguments: [
-                    {
-                      EnumName: Scope,
-                      EnumValue: local
-                    },
                     1
                   ]
                 },

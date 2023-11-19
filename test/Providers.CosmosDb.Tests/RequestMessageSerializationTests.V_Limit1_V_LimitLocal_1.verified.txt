@@ -7,9 +7,8 @@
       g: g
     },
     bindings: {
-      _a: 1,
-      _b: 1
+      _a: 1
     },
-    gremlin: g.V().limit(_a).fold().map(__.limit(local,_a).choose(__.count(local).is(eq(_b)),__.fold()))
+    gremlin: g.V().limit(_a).fold().map(__.unfold().limit(_a).fold())
   }
 }

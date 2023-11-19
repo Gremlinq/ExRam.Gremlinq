@@ -28,30 +28,14 @@ namespace ExRam.Gremlinq.Providers.GremlinServer
 
         //choose(__.as('a').unfold().limit(1).where(eq('a')), limit(1), limit(local, 1).fold())
         private static Instruction WorkaroundRangeInconsistency(this Instruction instruction) => new(
-            "choose",
+            "map",
             new Bytecode
             {
                 StepInstructions =
                 {
-                    new Instruction("as", "{D6510306-4F19-4638-A68B-4C1486D886BC}"),
                     new Instruction("unfold"),
-                    new Instruction("limit", 1),
-                    new Instruction("where", P.Eq("{D6510306-4F19-4638-A68B-4C1486D886BC}")),
-                }
-            },
-            new Bytecode
-            {
-                StepInstructions =
-                {
-                    instruction
-                }
-            },
-            new Bytecode
-            {
-                StepInstructions =
-                {
-                    instruction,
-                    new Instruction("fold")
+                    new Instruction(instruction.OperatorName, instruction.Arguments[1..]),
+                    new Instruction("fold"),
                 }
             });
 
