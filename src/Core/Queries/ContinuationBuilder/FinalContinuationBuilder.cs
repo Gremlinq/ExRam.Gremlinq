@@ -23,10 +23,9 @@ namespace ExRam.Gremlinq.Core
             _labelProjections = labelProjections;
         }
 
-        public FinalContinuationBuilder<TOuterQuery> AddStep<TStep>(TStep step)
-             where TStep : Step => With(
-                static (outer, steps, labelProjections, tuple) => new FinalContinuationBuilder<TOuterQuery>(outer, steps.Push(tuple.step), labelProjections),
-                (@this: this, step));
+        public FinalContinuationBuilder<TOuterQuery> AddStep(Step step) => With(
+            static (outer, steps, labelProjections, tuple) => new FinalContinuationBuilder<TOuterQuery>(outer, steps.Push(tuple.step), labelProjections),
+            (@this: this, step));
 
         public FinalContinuationBuilder<TOuterQuery> WithSteps(Traversal newSteps) => With(
             static (outer, _, labelProjections, newSteps) => new FinalContinuationBuilder<TOuterQuery>(outer, newSteps, labelProjections),
