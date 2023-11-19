@@ -606,10 +606,7 @@ namespace ExRam.Gremlinq.Core
                 static (builder, count) => builder
                     .AddStep<Step>(count == 1
                         ? builder.OuterQuery.Environment.Options.GetValue(GremlinqOption.WorkaroundRangeInconsistencies)
-                            ? new MapStep(Traversal.Empty.Push(
-                                UnfoldStep.Instance,
-                                LimitStep.LimitGlobal1,
-                                FoldStep.Instance))
+                            ? LimitStep.LimitLocal1Workaround
                             : LimitStep.LimitLocal1
                         : new LimitStep(count, Scope.Local))
                     .Build(),
@@ -1029,10 +1026,7 @@ namespace ExRam.Gremlinq.Core
                 static (builder, count) => builder
                     .AddStep<Step>(count == 1
                         ? builder.OuterQuery.Environment.Options.GetValue(GremlinqOption.WorkaroundRangeInconsistencies)
-                            ? new MapStep(Traversal.Empty.Push(
-                                UnfoldStep.Instance,
-                                TailStep.TailGlobal1,
-                                FoldStep.Instance))
+                            ? TailStep.TailLocal1Workaround
                             : TailStep.TailLocal1
                         : new TailStep(count, Scope.Local))
                     .Build(),
