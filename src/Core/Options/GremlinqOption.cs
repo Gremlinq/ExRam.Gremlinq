@@ -75,6 +75,8 @@ namespace ExRam.Gremlinq.Core
             }
             .ToImmutableDictionary());
 
+        public static readonly GremlinqOption<bool> WorkaroundRangeInconsistencies = Create(false);
+
         public static readonly GremlinqOption<string> Alias = Create("g");
 
         public static readonly GremlinqOption<bool> EnableEmptyProjectionValueProtection = Create(false);

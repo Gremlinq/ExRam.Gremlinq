@@ -604,8 +604,13 @@ namespace ExRam.Gremlinq.Core
             .Continue()
             .Build(
                 static (builder, count) => builder
-                    .AddStep(count == 1
-                        ? LimitStep.LimitLocal1
+                    .AddStep<Step>(count == 1
+                        ? builder.OuterQuery.Environment.Options.GetValue(GremlinqOption.WorkaroundRangeInconsistencies)
+                            ? new MapStep(Traversal.Empty.Push(
+                                UnfoldStep.Instance,
+                                LimitStep.LimitGlobal1,
+                                FoldStep.Instance))
+                            : LimitStep.LimitLocal1
                         : new LimitStep(count, Scope.Local))
                     .Build(),
                 count);
@@ -935,7 +940,12 @@ namespace ExRam.Gremlinq.Core
             .Continue()
             .Build(
                 static (builder, tuple) => builder
-                    .AddStep(new RangeStep(tuple.low, tuple.high, tuple.scope))
+                    .AddStep<Step>(Scope.Local.Equals(tuple.scope) && tuple.high - tuple.low == 1 && builder.OuterQuery.Environment.Options.GetValue(GremlinqOption.WorkaroundRangeInconsistencies)
+                        ? new MapStep(Traversal.Empty.Push(
+                            UnfoldStep.Instance,
+                            new RangeStep(tuple.low, tuple.high, Scope.Global),
+                            FoldStep.Instance))
+                        : new RangeStep(tuple.low, tuple.high, tuple.scope))
                     .Build(),
                 (low, high, scope));
 
@@ -1017,8 +1027,13 @@ namespace ExRam.Gremlinq.Core
             .Continue()
             .Build(
                 static (builder, count) => builder
-                    .AddStep(count == 1
-                        ? TailStep.TailLocal1
+                    .AddStep<Step>(count == 1
+                        ? builder.OuterQuery.Environment.Options.GetValue(GremlinqOption.WorkaroundRangeInconsistencies)
+                            ? new MapStep(Traversal.Empty.Push(
+                                UnfoldStep.Instance,
+                                TailStep.TailGlobal1,
+                                FoldStep.Instance))
+                            : TailStep.TailLocal1
                         : new TailStep(count, Scope.Local))
                     .Build(),
                 count);
