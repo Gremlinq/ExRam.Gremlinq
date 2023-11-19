@@ -72,7 +72,6 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
             return transformer
                 .Add(new ByteArrayDeferralConverterFactory())   //
                 .Add(new MemoryDeferralConverterFactory())      //
-                .Add(new SingleItemArrayFallbackConverterFactory()) //
 
                 .Add(new DeferToNewtonsoftConverterFactory())
                 .Add(new NewtonsoftJsonSerializerConverterFactory())
