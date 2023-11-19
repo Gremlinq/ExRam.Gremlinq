@@ -314,7 +314,7 @@ namespace ExRam.Gremlinq.Core
                                         var (chooseTraversal, trueTraversal) = state;
 
                                         return builder
-                                            .AddStep<Step>(chooseTraversal is [IsStep isStep]
+                                            .AddStep(chooseTraversal is [IsStep isStep]
                                                 ? new ChoosePredicateStep(
                                                     isStep.Predicate,
                                                     trueTraversal,
@@ -332,7 +332,7 @@ namespace ExRam.Gremlinq.Core
                         }
 
                         return builder
-                            .AddStep<Step>(chooseTraversal is [IsStep isStep]
+                            .AddStep(chooseTraversal is [IsStep isStep]
                                 ? new ChoosePredicateStep(
                                     isStep.Predicate,
                                     trueTraversal)
@@ -604,7 +604,7 @@ namespace ExRam.Gremlinq.Core
             .Continue()
             .Build(
                 static (builder, count) => builder
-                    .AddStep<Step>(count == 1
+                    .AddStep(count == 1
                         ? builder.OuterQuery.Environment.Options.GetValue(GremlinqOption.WorkaroundRangeInconsistencies)
                             ? LimitStep.LimitLocal1Workaround
                             : LimitStep.LimitLocal1
@@ -937,7 +937,7 @@ namespace ExRam.Gremlinq.Core
             .Continue()
             .Build(
                 static (builder, tuple) => builder
-                    .AddStep<Step>(Scope.Local.Equals(tuple.scope) && tuple.high - tuple.low == 1 && builder.OuterQuery.Environment.Options.GetValue(GremlinqOption.WorkaroundRangeInconsistencies)
+                    .AddStep(Scope.Local.Equals(tuple.scope) && tuple.high - tuple.low == 1 && builder.OuterQuery.Environment.Options.GetValue(GremlinqOption.WorkaroundRangeInconsistencies)
                         ? new MapStep(Traversal.Empty.Push(
                             UnfoldStep.Instance,
                             new RangeStep(tuple.low, tuple.high, Scope.Global),
@@ -1024,7 +1024,7 @@ namespace ExRam.Gremlinq.Core
             .Continue()
             .Build(
                 static (builder, count) => builder
-                    .AddStep<Step>(count == 1
+                    .AddStep(count == 1
                         ? builder.OuterQuery.Environment.Options.GetValue(GremlinqOption.WorkaroundRangeInconsistencies)
                             ? TailStep.TailLocal1Workaround
                             : TailStep.TailLocal1
