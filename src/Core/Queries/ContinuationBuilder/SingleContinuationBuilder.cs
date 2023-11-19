@@ -17,37 +17,31 @@
             _continuation = continuation;
         }
 
-        public MultiContinuationBuilder<TOuterQuery, TAnonymousQuery> With<TState>(Func<TAnonymousQuery, TState, IGremlinQueryBase> continuation, TState state)
-        {
-            return With(
-                static (outer, anonymous, existingContinuation, flags, state) => new MultiContinuationBuilder<TOuterQuery, TAnonymousQuery>(outer, anonymous, FastImmutableList<IGremlinQueryBase>.Empty.Push(existingContinuation).Push(state.continuation.Apply(anonymous, state.state)), flags),
-                (continuation, state));
-        }
+        public MultiContinuationBuilder<TOuterQuery, TAnonymousQuery> With<TState>(Func<TAnonymousQuery, TState, IGremlinQueryBase> continuation, TState state) => With(
+            static (outer, anonymous, existingContinuation, flags, state) => new MultiContinuationBuilder<TOuterQuery, TAnonymousQuery>(outer, anonymous, FastImmutableList<IGremlinQueryBase>.Empty.Push(existingContinuation).Push(state.continuation.Apply(anonymous, state.state)), flags),
+            (continuation, state));
 
-        public TNewQuery Build<TNewQuery, TState>(Func<FinalContinuationBuilder<TOuterQuery>, Traversal, TState, TNewQuery> builderTransformation, TState state)
-        {
-            return With(
-                static (outer, _, continuation, flags, state) =>
+        public TNewQuery Build<TNewQuery, TState>(Func<FinalContinuationBuilder<TOuterQuery>, Traversal, TState, TNewQuery> builderTransformation, TState state) => With(
+            static (outer, _, continuation, flags, state) =>
+            {
+                var (builderTransformation, innerState) = state;
+                var builder = new FinalContinuationBuilder<TOuterQuery>(outer);
+
+                if (continuation is GremlinQueryBase queryBase)
                 {
-                    var (builderTransformation, innerState) = state;
-                    var builder = new FinalContinuationBuilder<TOuterQuery>(outer);
+                    builder = builder.WithNewLabelProjections(
+                        static (existingProjections, additionalProjections) => existingProjections.MergeSideEffectLabelProjections(additionalProjections),
+                        queryBase.LabelProjections);
+                }
 
-                    if (continuation is GremlinQueryBase queryBase)
-                    {
-                        builder = builder.WithNewLabelProjections(
-                            static (existingProjections, additionalProjections) => existingProjections.MergeSideEffectLabelProjections(additionalProjections),
-                            queryBase.LabelProjections);
-                    }
-
-                    return builderTransformation(
-                        builder,
-                        continuation
-                            .ToTraversal()
-                            .Rewrite(flags),
-                        innerState);
-                },
-                (builderTransformation, state));
-        }
+                return builderTransformation(
+                    builder,
+                    continuation
+                        .ToTraversal()
+                        .Rewrite(flags),
+                    innerState);
+            },
+            (builderTransformation, state));
 
         private TResult With<TState, TResult>(Func<TOuterQuery, TAnonymousQuery, IGremlinQueryBase, ContinuationFlags, TState, TResult> continuation, TState state) => _outer is { } outer && _anonymous is { } anonymous && _continuation is { } existingContinuation
             ? continuation(outer, anonymous, existingContinuation, _flags, state)
