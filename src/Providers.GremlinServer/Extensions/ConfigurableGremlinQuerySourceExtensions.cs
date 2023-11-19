@@ -46,14 +46,14 @@ namespace ExRam.Gremlinq.Providers.GremlinServer
                     .ConfigureEnvironment(environment => environment
                         .UseModel(GraphModel
                             .FromBaseTypes<TVertexBase, TEdgeBase>())
+                        .ConfigureOptions(options => options
+                            .SetValue(GremlinqOption.WorkaroundRangeInconsistencies, true))
                         .ConfigureFeatureSet(featureSet => featureSet
                             .ConfigureGraphFeatures(graphFeatures => graphFeatures & ~(GraphFeatures.Transactions | GraphFeatures.ThreadedTransactions | GraphFeatures.ConcurrentAccess))
                             .ConfigureVertexFeatures(vertexFeatures => vertexFeatures & ~(VertexFeatures.Upsert | VertexFeatures.CustomIds))
                             .ConfigureVertexPropertyFeatures(vPropertiesFeatures => vPropertiesFeatures & ~(VertexPropertyFeatures.CustomIds))
                             .ConfigureEdgeFeatures(edgeProperties => edgeProperties & ~(EdgeFeatures.Upsert | EdgeFeatures.CustomIds)))
-                        .UseGraphSon3()
-                        .ConfigureSerializer(ser => ser
-                            .WorkaroundRangeInconsistency())));
+                        .UseGraphSon3()));
         }
     }
 }

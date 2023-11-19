@@ -5,7 +5,6 @@ using ExRam.Gremlinq.Core.Models;
 using ExRam.Gremlinq.Core.Steps;
 using ExRam.Gremlinq.Core.Transformation;
 using ExRam.Gremlinq.Providers.Core;
-using ExRam.Gremlinq.Providers.GremlinServer;
 
 using Gremlin.Net.Process.Traversal;
 
@@ -136,6 +135,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb
                             .ConfigureEdgeFeatures(_ => EdgeFeatures.AddEdges | EdgeFeatures.RemoveEdges | EdgeFeatures.StringIds | EdgeFeatures.UserSuppliedIds | EdgeFeatures.AddProperty | EdgeFeatures.RemoveProperty)
                             .ConfigureEdgePropertyFeatures(_ => EdgePropertyFeatures.Properties | EdgePropertyFeatures.BooleanValues | EdgePropertyFeatures.ByteValues | EdgePropertyFeatures.DoubleValues | EdgePropertyFeatures.FloatValues | EdgePropertyFeatures.IntegerValues | EdgePropertyFeatures.LongValues | EdgePropertyFeatures.StringValues))
                         .ConfigureOptions(options => options
+                            .SetValue(GremlinqOption.WorkaroundRangeInconsistencies, true)
                             .SetValue(GremlinqOption.VertexProjectionSteps, Traversal.Empty)
                             .SetValue(GremlinqOption.EdgeProjectionSteps, Traversal.Empty)
                             .SetValue(GremlinqOption.VertexPropertyProjectionSteps, Traversal.Empty)
@@ -189,8 +189,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb
                                     : order.Equals(Order.Desc)
                                         ? WorkaroundOrder.Decr
                                         : default)
-                                .AutoRecurse<WorkaroundOrder>())
-                            .WorkaroundRangeInconsistency())));
+                                .AutoRecurse<WorkaroundOrder>()))));
         }
     }
 }

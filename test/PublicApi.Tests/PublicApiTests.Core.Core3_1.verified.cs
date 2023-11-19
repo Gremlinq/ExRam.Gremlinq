@@ -167,6 +167,7 @@
         public static readonly ExRam.Gremlinq.Core.GremlinqOption<ExRam.Gremlinq.Core.Traversal> VertexProjectionWithoutMetaPropertiesSteps;
         public static readonly ExRam.Gremlinq.Core.GremlinqOption<ExRam.Gremlinq.Core.Traversal> VertexPropertyProjectionSteps;
         public static readonly ExRam.Gremlinq.Core.GremlinqOption<ExRam.Gremlinq.Core.Traversal> VertexPropertyProjectionWithoutMetaPropertiesSteps;
+        public static readonly ExRam.Gremlinq.Core.GremlinqOption<bool> WorkaroundRangeInconsistencies;
         public static ExRam.Gremlinq.Core.GremlinqOption<TValue> Create<TValue>(TValue defaultValue) { }
     }
     public sealed class GremlinqOption<TValue>
