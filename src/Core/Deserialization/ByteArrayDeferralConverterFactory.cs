@@ -1,9 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-using ExRam.Gremlinq.Core;
-using ExRam.Gremlinq.Core.Transformation;
-
-namespace ExRam.Gremlinq.Support.NewtonsoftJson
+namespace ExRam.Gremlinq.Core.Transformation
 {
     internal sealed class ByteArrayDeferralConverterFactory : IConverterFactory
     {
