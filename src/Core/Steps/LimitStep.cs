@@ -7,6 +7,11 @@ namespace ExRam.Gremlinq.Core.Steps
         public static readonly LimitStep LimitLocal1 = new(1, Scope.Local);
         public static readonly LimitStep LimitGlobal1 = new(1, Scope.Global);
 
+        internal static readonly MapStep LimitLocal1Workaround = new (Traversal.Empty.Push(
+            UnfoldStep.Instance,
+            LimitGlobal1,
+            FoldStep.Instance));
+
         public LimitStep(long count, Scope scope)
         {
             if (count < 0)
