@@ -21,14 +21,25 @@
           OperatorName: fold
         },
         {
-          OperatorName: range,
+          OperatorName: map,
           Arguments: [
             {
-              EnumName: Scope,
-              EnumValue: local
-            },
-            0,
-            1
+              StepInstructions: [
+                {
+                  OperatorName: unfold
+                },
+                {
+                  OperatorName: range,
+                  Arguments: [
+                    0,
+                    1
+                  ]
+                },
+                {
+                  OperatorName: fold
+                }
+              ]
+            }
           ]
         },
         {
