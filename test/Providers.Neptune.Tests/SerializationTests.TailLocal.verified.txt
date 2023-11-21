@@ -11,13 +11,24 @@
       OperatorName: fold
     },
     {
-      OperatorName: tail,
+      OperatorName: map,
       Arguments: [
         {
-          EnumName: Scope,
-          EnumValue: local
-        },
-        1
+          StepInstructions: [
+            {
+              OperatorName: unfold
+            },
+            {
+              OperatorName: tail,
+              Arguments: [
+                1
+              ]
+            },
+            {
+              OperatorName: fold
+            }
+          ]
+        }
       ]
     }
   ]
