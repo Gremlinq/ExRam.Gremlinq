@@ -109,6 +109,12 @@ namespace ExRam.Gremlinq.Core
 
         TTargetQuery Map<TTargetQuery>(Func<TSelf, TTargetQuery> mapping) where TTargetQuery : IGremlinQueryBase;
 
+        TSelf Max();
+
+        TSelf Mean();
+
+        TSelf Min();
+
         TSelf Not(Func<TSelf, IGremlinQueryBase> notTraversal);
         TSelf None();
 
@@ -128,20 +134,14 @@ namespace ExRam.Gremlinq.Core
 
         TSelf Skip(long count);
 
+        TSelf Sum();
+
         TSelf Tail(long count);
 
         TTargetQuery Union<TTargetQuery>(params Func<TSelf, TTargetQuery>[] unionTraversals) where TTargetQuery : IGremlinQueryBase;
         IValueGremlinQuery<object> Union(params Func<TSelf, IGremlinQueryBase>[] traversals);
 
         TSelf Where(Func<TSelf, IGremlinQueryBase> filterTraversal);
-
-        TSelf Sum();
-
-        TSelf Min();
-
-        TSelf Max();
-
-        TSelf Mean();
     }
 
     public interface IGremlinQueryBaseRec<TElement, TSelf> :
