@@ -11,11 +11,11 @@ namespace ExRam.Gremlinq.Core
 
         IGremlinQuery<string> Label();
 
-        IGremlinQuery<TTarget> Values<TTarget>();
         IGremlinQuery<object> Values();
+        IGremlinQuery<TValue> Values<TValue>();
 
-        IGremlinQuery<IDictionary<string, TTarget>> ValueMap<TTarget>();
         IGremlinQuery<IDictionary<string, object>> ValueMap();
+        IGremlinQuery<IDictionary<string, TValue>> ValueMap<TValue>();
     }
 
     public interface IElementGremlinQueryBaseRec<TSelf> :
