@@ -26,11 +26,25 @@
         new IValueGremlinQuery<TArrayItem[]> Lower();
     }
 
+    public interface IArrayGremlinQueryBaseRec<TArrayItem, TSelf> :
+        IArrayGremlinQueryBase<TArrayItem>,
+        IArrayGremlinQueryBaseRec<TSelf> where TSelf : IArrayGremlinQueryBaseRec<TArrayItem, TSelf>
+    {
+
+    }
+
     public interface IArrayGremlinQueryBase<TArray, TArrayItem> :
         IArrayGremlinQueryBase<TArrayItem>,
         IGremlinQueryBase<TArray>
     {
         new IValueGremlinQuery<TArray> Lower();
+    }
+
+    public interface IArrayGremlinQueryBaseRec<TArray, TArrayItem, TSelf> :
+        IArrayGremlinQueryBase<TArray, TArrayItem>,
+        IArrayGremlinQueryBaseRec<TArrayItem, TSelf>,
+        IGremlinQueryBaseRec<TArray, TSelf> where TSelf : IArrayGremlinQueryBaseRec<TArray, TArrayItem, TSelf>
+    {
     }
 
     public interface IArrayGremlinQueryBase<TArray, TArrayItem, out TOriginalQuery> :
@@ -49,10 +63,15 @@
         new IValueGremlinQuery<TArray> Lower();
     }
 
-    public interface IArrayGremlinQuery<TArray, TArrayItem, TOriginalQuery> :
-        IArrayGremlinQueryBaseRec<IArrayGremlinQuery<TArray, TArrayItem, TOriginalQuery>>,
+    public interface IArrayGremlinQueryBaseRec<TArray, TArrayItem, out TOriginalQuery, TSelf> :
         IArrayGremlinQueryBase<TArray, TArrayItem, TOriginalQuery>,
-        IGremlinQueryBaseRec<TArray, IArrayGremlinQuery<TArray, TArrayItem, TOriginalQuery>>
+        IArrayGremlinQueryBaseRec<TArray, TArrayItem, TSelf>  where TSelf : IArrayGremlinQueryBaseRec<TArray, TArrayItem,  TOriginalQuery, TSelf>
+    {
+     
+    }
+
+    public interface IArrayGremlinQuery<TArray, TArrayItem, TOriginalQuery> :
+        IArrayGremlinQueryBaseRec<TArray, TArrayItem, TOriginalQuery, IArrayGremlinQuery<TArray, TArrayItem, TOriginalQuery>>
     {
 
     }
