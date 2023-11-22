@@ -54,7 +54,7 @@ namespace ExRam.Gremlinq.Core
     {
         new GremlinQueryAwaiter<TElement> GetAwaiter();
 
-        IGremlinQuery<IDictionary<TElement, TElement[]>> Group();
+        IMapGremlinQuery<IDictionary<TElement, TElement[]>> Group();
 
         IGremlinQuery<TElement> ForceBase();
         IEdgeGremlinQuery<TElement> ForceEdge();
@@ -166,8 +166,8 @@ namespace ExRam.Gremlinq.Core
 
         new IArrayGremlinQuery<TElement[], TElement, TSelf> ForceArray();
 
-        IGremlinQuery<IDictionary<TNewKey, TNewValue>> Group<TNewKey, TNewValue>(Func<IGroupBuilder<TSelf>, IGroupBuilderWithKeyAndValue<TNewKey, TNewValue>> groupBuilder);
-        IGremlinQuery<IDictionary<TNewKey, TElement[]>> Group<TNewKey>(Func<IGroupBuilder<TSelf>, IGroupBuilderWithKey<TSelf, TNewKey>> groupBuilder);
+        IMapGremlinQuery<IDictionary<TNewKey, TNewValue>> Group<TNewKey, TNewValue>(Func<IGroupBuilder<TSelf>, IGroupBuilderWithKeyAndValue<TNewKey, TNewValue>> groupBuilder);
+        IMapGremlinQuery<IDictionary<TNewKey, TElement[]>> Group<TNewKey>(Func<IGroupBuilder<TSelf>, IGroupBuilderWithKey<TSelf, TNewKey>> groupBuilder);
 
         TSelf Inject(params TElement[] elements);
 

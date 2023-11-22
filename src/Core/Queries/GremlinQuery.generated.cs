@@ -101,8 +101,8 @@ namespace ExRam.Gremlinq.Core
 
         IArrayGremlinQuery<TElement[], TElement, IGremlinQuery<TElement>> IGremlinQueryBaseRec<TElement, IGremlinQuery<TElement>>.Fold() => Fold<IGremlinQuery<TElement>>();
 
-        IGremlinQuery<IDictionary<TNewKey, TNewValue>> IGremlinQueryBaseRec<TElement, IGremlinQuery<TElement>>.Group<TNewKey, TNewValue>(Func<IGroupBuilder<IGremlinQuery<TElement>>, IGroupBuilderWithKeyAndValue<TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);
-        IGremlinQuery<IDictionary<TNewKey, TElement[]>> IGremlinQueryBaseRec<TElement, IGremlinQuery<TElement>>.Group<TNewKey>(Func<IGroupBuilder<IGremlinQuery<TElement>>, IGroupBuilderWithKey<IGremlinQuery<TElement>, TNewKey>> groupBuilder) => Group(groupBuilder);
+        IMapGremlinQuery<IDictionary<TNewKey, TNewValue>> IGremlinQueryBaseRec<TElement, IGremlinQuery<TElement>>.Group<TNewKey, TNewValue>(Func<IGroupBuilder<IGremlinQuery<TElement>>, IGroupBuilderWithKeyAndValue<TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);
+        IMapGremlinQuery<IDictionary<TNewKey, TElement[]>> IGremlinQueryBaseRec<TElement, IGremlinQuery<TElement>>.Group<TNewKey>(Func<IGroupBuilder<IGremlinQuery<TElement>>, IGroupBuilderWithKey<IGremlinQuery<TElement>, TNewKey>> groupBuilder) => Group(groupBuilder);
 
         IGremlinQuery<TElement> IGremlinQueryBaseRec<IGremlinQuery<TElement>>.Identity() => Identity();
 
@@ -199,8 +199,8 @@ namespace ExRam.Gremlinq.Core
 
         IArrayGremlinQuery<TElement[], TElement, IMapGremlinQuery<TElement>> IGremlinQueryBaseRec<TElement, IMapGremlinQuery<TElement>>.Fold() => Fold<IMapGremlinQuery<TElement>>();
 
-        IGremlinQuery<IDictionary<TNewKey, TNewValue>> IGremlinQueryBaseRec<TElement, IMapGremlinQuery<TElement>>.Group<TNewKey, TNewValue>(Func<IGroupBuilder<IMapGremlinQuery<TElement>>, IGroupBuilderWithKeyAndValue<TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);
-        IGremlinQuery<IDictionary<TNewKey, TElement[]>> IGremlinQueryBaseRec<TElement, IMapGremlinQuery<TElement>>.Group<TNewKey>(Func<IGroupBuilder<IMapGremlinQuery<TElement>>, IGroupBuilderWithKey<IMapGremlinQuery<TElement>, TNewKey>> groupBuilder) => Group(groupBuilder);
+        IMapGremlinQuery<IDictionary<TNewKey, TNewValue>> IGremlinQueryBaseRec<TElement, IMapGremlinQuery<TElement>>.Group<TNewKey, TNewValue>(Func<IGroupBuilder<IMapGremlinQuery<TElement>>, IGroupBuilderWithKeyAndValue<TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);
+        IMapGremlinQuery<IDictionary<TNewKey, TElement[]>> IGremlinQueryBaseRec<TElement, IMapGremlinQuery<TElement>>.Group<TNewKey>(Func<IGroupBuilder<IMapGremlinQuery<TElement>>, IGroupBuilderWithKey<IMapGremlinQuery<TElement>, TNewKey>> groupBuilder) => Group(groupBuilder);
 
         IMapGremlinQuery<TElement> IGremlinQueryBaseRec<IMapGremlinQuery<TElement>>.Identity() => Identity();
 
@@ -297,8 +297,8 @@ namespace ExRam.Gremlinq.Core
 
         IArrayGremlinQuery<TElement[], TElement, IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>> IGremlinQueryBaseRec<TElement, IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>.Fold() => Fold<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>();
 
-        IGremlinQuery<IDictionary<TNewKey, TNewValue>> IGremlinQueryBaseRec<TElement, IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>.Group<TNewKey, TNewValue>(Func<IGroupBuilder<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>, IGroupBuilderWithKeyAndValue<TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);
-        IGremlinQuery<IDictionary<TNewKey, TElement[]>> IGremlinQueryBaseRec<TElement, IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>.Group<TNewKey>(Func<IGroupBuilder<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>, IGroupBuilderWithKey<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>, TNewKey>> groupBuilder) => Group(groupBuilder);
+        IMapGremlinQuery<IDictionary<TNewKey, TNewValue>> IGremlinQueryBaseRec<TElement, IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>.Group<TNewKey, TNewValue>(Func<IGroupBuilder<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>, IGroupBuilderWithKeyAndValue<TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);
+        IMapGremlinQuery<IDictionary<TNewKey, TElement[]>> IGremlinQueryBaseRec<TElement, IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>.Group<TNewKey>(Func<IGroupBuilder<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>, IGroupBuilderWithKey<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>, TNewKey>> groupBuilder) => Group(groupBuilder);
 
         IArrayGremlinQuery<TElement, TScalar, TFoldedQuery> IGremlinQueryBaseRec<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>.Identity() => Identity();
 
@@ -395,8 +395,8 @@ namespace ExRam.Gremlinq.Core
 
         IArrayGremlinQuery<TElement[], TElement, IElementGremlinQuery<TElement>> IGremlinQueryBaseRec<TElement, IElementGremlinQuery<TElement>>.Fold() => Fold<IElementGremlinQuery<TElement>>();
 
-        IGremlinQuery<IDictionary<TNewKey, TNewValue>> IGremlinQueryBaseRec<TElement, IElementGremlinQuery<TElement>>.Group<TNewKey, TNewValue>(Func<IGroupBuilder<IElementGremlinQuery<TElement>>, IGroupBuilderWithKeyAndValue<TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);
-        IGremlinQuery<IDictionary<TNewKey, TElement[]>> IGremlinQueryBaseRec<TElement, IElementGremlinQuery<TElement>>.Group<TNewKey>(Func<IGroupBuilder<IElementGremlinQuery<TElement>>, IGroupBuilderWithKey<IElementGremlinQuery<TElement>, TNewKey>> groupBuilder) => Group(groupBuilder);
+        IMapGremlinQuery<IDictionary<TNewKey, TNewValue>> IGremlinQueryBaseRec<TElement, IElementGremlinQuery<TElement>>.Group<TNewKey, TNewValue>(Func<IGroupBuilder<IElementGremlinQuery<TElement>>, IGroupBuilderWithKeyAndValue<TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);
+        IMapGremlinQuery<IDictionary<TNewKey, TElement[]>> IGremlinQueryBaseRec<TElement, IElementGremlinQuery<TElement>>.Group<TNewKey>(Func<IGroupBuilder<IElementGremlinQuery<TElement>>, IGroupBuilderWithKey<IElementGremlinQuery<TElement>, TNewKey>> groupBuilder) => Group(groupBuilder);
 
         IElementGremlinQuery<TElement> IGremlinQueryBaseRec<IElementGremlinQuery<TElement>>.Identity() => Identity();
 
@@ -493,8 +493,8 @@ namespace ExRam.Gremlinq.Core
 
         IArrayGremlinQuery<TElement[], TElement, IEdgeOrVertexGremlinQuery<TElement>> IGremlinQueryBaseRec<TElement, IEdgeOrVertexGremlinQuery<TElement>>.Fold() => Fold<IEdgeOrVertexGremlinQuery<TElement>>();
 
-        IGremlinQuery<IDictionary<TNewKey, TNewValue>> IGremlinQueryBaseRec<TElement, IEdgeOrVertexGremlinQuery<TElement>>.Group<TNewKey, TNewValue>(Func<IGroupBuilder<IEdgeOrVertexGremlinQuery<TElement>>, IGroupBuilderWithKeyAndValue<TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);
-        IGremlinQuery<IDictionary<TNewKey, TElement[]>> IGremlinQueryBaseRec<TElement, IEdgeOrVertexGremlinQuery<TElement>>.Group<TNewKey>(Func<IGroupBuilder<IEdgeOrVertexGremlinQuery<TElement>>, IGroupBuilderWithKey<IEdgeOrVertexGremlinQuery<TElement>, TNewKey>> groupBuilder) => Group(groupBuilder);
+        IMapGremlinQuery<IDictionary<TNewKey, TNewValue>> IGremlinQueryBaseRec<TElement, IEdgeOrVertexGremlinQuery<TElement>>.Group<TNewKey, TNewValue>(Func<IGroupBuilder<IEdgeOrVertexGremlinQuery<TElement>>, IGroupBuilderWithKeyAndValue<TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);
+        IMapGremlinQuery<IDictionary<TNewKey, TElement[]>> IGremlinQueryBaseRec<TElement, IEdgeOrVertexGremlinQuery<TElement>>.Group<TNewKey>(Func<IGroupBuilder<IEdgeOrVertexGremlinQuery<TElement>>, IGroupBuilderWithKey<IEdgeOrVertexGremlinQuery<TElement>, TNewKey>> groupBuilder) => Group(groupBuilder);
 
         IEdgeOrVertexGremlinQuery<TElement> IGremlinQueryBaseRec<IEdgeOrVertexGremlinQuery<TElement>>.Identity() => Identity();
 
@@ -591,8 +591,8 @@ namespace ExRam.Gremlinq.Core
 
         IArrayGremlinQuery<TElement[], TElement, IVertexGremlinQuery<TElement>> IGremlinQueryBaseRec<TElement, IVertexGremlinQuery<TElement>>.Fold() => Fold<IVertexGremlinQuery<TElement>>();
 
-        IGremlinQuery<IDictionary<TNewKey, TNewValue>> IGremlinQueryBaseRec<TElement, IVertexGremlinQuery<TElement>>.Group<TNewKey, TNewValue>(Func<IGroupBuilder<IVertexGremlinQuery<TElement>>, IGroupBuilderWithKeyAndValue<TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);
-        IGremlinQuery<IDictionary<TNewKey, TElement[]>> IGremlinQueryBaseRec<TElement, IVertexGremlinQuery<TElement>>.Group<TNewKey>(Func<IGroupBuilder<IVertexGremlinQuery<TElement>>, IGroupBuilderWithKey<IVertexGremlinQuery<TElement>, TNewKey>> groupBuilder) => Group(groupBuilder);
+        IMapGremlinQuery<IDictionary<TNewKey, TNewValue>> IGremlinQueryBaseRec<TElement, IVertexGremlinQuery<TElement>>.Group<TNewKey, TNewValue>(Func<IGroupBuilder<IVertexGremlinQuery<TElement>>, IGroupBuilderWithKeyAndValue<TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);
+        IMapGremlinQuery<IDictionary<TNewKey, TElement[]>> IGremlinQueryBaseRec<TElement, IVertexGremlinQuery<TElement>>.Group<TNewKey>(Func<IGroupBuilder<IVertexGremlinQuery<TElement>>, IGroupBuilderWithKey<IVertexGremlinQuery<TElement>, TNewKey>> groupBuilder) => Group(groupBuilder);
 
         IVertexGremlinQuery<TElement> IGremlinQueryBaseRec<IVertexGremlinQuery<TElement>>.Identity() => Identity();
 
@@ -689,8 +689,8 @@ namespace ExRam.Gremlinq.Core
 
         IArrayGremlinQuery<TElement[], TElement, IEdgeGremlinQuery<TElement>> IGremlinQueryBaseRec<TElement, IEdgeGremlinQuery<TElement>>.Fold() => Fold<IEdgeGremlinQuery<TElement>>();
 
-        IGremlinQuery<IDictionary<TNewKey, TNewValue>> IGremlinQueryBaseRec<TElement, IEdgeGremlinQuery<TElement>>.Group<TNewKey, TNewValue>(Func<IGroupBuilder<IEdgeGremlinQuery<TElement>>, IGroupBuilderWithKeyAndValue<TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);
-        IGremlinQuery<IDictionary<TNewKey, TElement[]>> IGremlinQueryBaseRec<TElement, IEdgeGremlinQuery<TElement>>.Group<TNewKey>(Func<IGroupBuilder<IEdgeGremlinQuery<TElement>>, IGroupBuilderWithKey<IEdgeGremlinQuery<TElement>, TNewKey>> groupBuilder) => Group(groupBuilder);
+        IMapGremlinQuery<IDictionary<TNewKey, TNewValue>> IGremlinQueryBaseRec<TElement, IEdgeGremlinQuery<TElement>>.Group<TNewKey, TNewValue>(Func<IGroupBuilder<IEdgeGremlinQuery<TElement>>, IGroupBuilderWithKeyAndValue<TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);
+        IMapGremlinQuery<IDictionary<TNewKey, TElement[]>> IGremlinQueryBaseRec<TElement, IEdgeGremlinQuery<TElement>>.Group<TNewKey>(Func<IGroupBuilder<IEdgeGremlinQuery<TElement>>, IGroupBuilderWithKey<IEdgeGremlinQuery<TElement>, TNewKey>> groupBuilder) => Group(groupBuilder);
 
         IEdgeGremlinQuery<TElement> IGremlinQueryBaseRec<IEdgeGremlinQuery<TElement>>.Identity() => Identity();
 
@@ -787,8 +787,8 @@ namespace ExRam.Gremlinq.Core
 
         IArrayGremlinQuery<TElement[], TElement, IInOrOutEdgeGremlinQuery<TElement, TOutVertex>> IGremlinQueryBaseRec<TElement, IInOrOutEdgeGremlinQuery<TElement, TOutVertex>>.Fold() => Fold<IInOrOutEdgeGremlinQuery<TElement, TOutVertex>>();
 
-        IGremlinQuery<IDictionary<TNewKey, TNewValue>> IGremlinQueryBaseRec<TElement, IInOrOutEdgeGremlinQuery<TElement, TOutVertex>>.Group<TNewKey, TNewValue>(Func<IGroupBuilder<IInOrOutEdgeGremlinQuery<TElement, TOutVertex>>, IGroupBuilderWithKeyAndValue<TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);
-        IGremlinQuery<IDictionary<TNewKey, TElement[]>> IGremlinQueryBaseRec<TElement, IInOrOutEdgeGremlinQuery<TElement, TOutVertex>>.Group<TNewKey>(Func<IGroupBuilder<IInOrOutEdgeGremlinQuery<TElement, TOutVertex>>, IGroupBuilderWithKey<IInOrOutEdgeGremlinQuery<TElement, TOutVertex>, TNewKey>> groupBuilder) => Group(groupBuilder);
+        IMapGremlinQuery<IDictionary<TNewKey, TNewValue>> IGremlinQueryBaseRec<TElement, IInOrOutEdgeGremlinQuery<TElement, TOutVertex>>.Group<TNewKey, TNewValue>(Func<IGroupBuilder<IInOrOutEdgeGremlinQuery<TElement, TOutVertex>>, IGroupBuilderWithKeyAndValue<TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);
+        IMapGremlinQuery<IDictionary<TNewKey, TElement[]>> IGremlinQueryBaseRec<TElement, IInOrOutEdgeGremlinQuery<TElement, TOutVertex>>.Group<TNewKey>(Func<IGroupBuilder<IInOrOutEdgeGremlinQuery<TElement, TOutVertex>>, IGroupBuilderWithKey<IInOrOutEdgeGremlinQuery<TElement, TOutVertex>, TNewKey>> groupBuilder) => Group(groupBuilder);
 
         IInOrOutEdgeGremlinQuery<TElement, TOutVertex> IGremlinQueryBaseRec<IInOrOutEdgeGremlinQuery<TElement, TOutVertex>>.Identity() => Identity();
 
@@ -885,8 +885,8 @@ namespace ExRam.Gremlinq.Core
 
         IArrayGremlinQuery<TElement[], TElement, IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>> IGremlinQueryBaseRec<TElement, IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>>.Fold() => Fold<IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>>();
 
-        IGremlinQuery<IDictionary<TNewKey, TNewValue>> IGremlinQueryBaseRec<TElement, IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>>.Group<TNewKey, TNewValue>(Func<IGroupBuilder<IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>>, IGroupBuilderWithKeyAndValue<TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);
-        IGremlinQuery<IDictionary<TNewKey, TElement[]>> IGremlinQueryBaseRec<TElement, IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>>.Group<TNewKey>(Func<IGroupBuilder<IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>>, IGroupBuilderWithKey<IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>, TNewKey>> groupBuilder) => Group(groupBuilder);
+        IMapGremlinQuery<IDictionary<TNewKey, TNewValue>> IGremlinQueryBaseRec<TElement, IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>>.Group<TNewKey, TNewValue>(Func<IGroupBuilder<IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>>, IGroupBuilderWithKeyAndValue<TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);
+        IMapGremlinQuery<IDictionary<TNewKey, TElement[]>> IGremlinQueryBaseRec<TElement, IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>>.Group<TNewKey>(Func<IGroupBuilder<IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>>, IGroupBuilderWithKey<IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>, TNewKey>> groupBuilder) => Group(groupBuilder);
 
         IEdgeGremlinQuery<TElement, TOutVertex, TInVertex> IGremlinQueryBaseRec<IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>>.Identity() => Identity();
 
@@ -983,8 +983,8 @@ namespace ExRam.Gremlinq.Core
 
         IArrayGremlinQuery<TElement[], TElement, IInEdgeGremlinQuery<TElement, TInVertex>> IGremlinQueryBaseRec<TElement, IInEdgeGremlinQuery<TElement, TInVertex>>.Fold() => Fold<IInEdgeGremlinQuery<TElement, TInVertex>>();
 
-        IGremlinQuery<IDictionary<TNewKey, TNewValue>> IGremlinQueryBaseRec<TElement, IInEdgeGremlinQuery<TElement, TInVertex>>.Group<TNewKey, TNewValue>(Func<IGroupBuilder<IInEdgeGremlinQuery<TElement, TInVertex>>, IGroupBuilderWithKeyAndValue<TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);
-        IGremlinQuery<IDictionary<TNewKey, TElement[]>> IGremlinQueryBaseRec<TElement, IInEdgeGremlinQuery<TElement, TInVertex>>.Group<TNewKey>(Func<IGroupBuilder<IInEdgeGremlinQuery<TElement, TInVertex>>, IGroupBuilderWithKey<IInEdgeGremlinQuery<TElement, TInVertex>, TNewKey>> groupBuilder) => Group(groupBuilder);
+        IMapGremlinQuery<IDictionary<TNewKey, TNewValue>> IGremlinQueryBaseRec<TElement, IInEdgeGremlinQuery<TElement, TInVertex>>.Group<TNewKey, TNewValue>(Func<IGroupBuilder<IInEdgeGremlinQuery<TElement, TInVertex>>, IGroupBuilderWithKeyAndValue<TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);
+        IMapGremlinQuery<IDictionary<TNewKey, TElement[]>> IGremlinQueryBaseRec<TElement, IInEdgeGremlinQuery<TElement, TInVertex>>.Group<TNewKey>(Func<IGroupBuilder<IInEdgeGremlinQuery<TElement, TInVertex>>, IGroupBuilderWithKey<IInEdgeGremlinQuery<TElement, TInVertex>, TNewKey>> groupBuilder) => Group(groupBuilder);
 
         IInEdgeGremlinQuery<TElement, TInVertex> IGremlinQueryBaseRec<IInEdgeGremlinQuery<TElement, TInVertex>>.Identity() => Identity();
 
@@ -1081,8 +1081,8 @@ namespace ExRam.Gremlinq.Core
 
         IArrayGremlinQuery<TElement[], TElement, IOutEdgeGremlinQuery<TElement, TOutVertex>> IGremlinQueryBaseRec<TElement, IOutEdgeGremlinQuery<TElement, TOutVertex>>.Fold() => Fold<IOutEdgeGremlinQuery<TElement, TOutVertex>>();
 
-        IGremlinQuery<IDictionary<TNewKey, TNewValue>> IGremlinQueryBaseRec<TElement, IOutEdgeGremlinQuery<TElement, TOutVertex>>.Group<TNewKey, TNewValue>(Func<IGroupBuilder<IOutEdgeGremlinQuery<TElement, TOutVertex>>, IGroupBuilderWithKeyAndValue<TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);
-        IGremlinQuery<IDictionary<TNewKey, TElement[]>> IGremlinQueryBaseRec<TElement, IOutEdgeGremlinQuery<TElement, TOutVertex>>.Group<TNewKey>(Func<IGroupBuilder<IOutEdgeGremlinQuery<TElement, TOutVertex>>, IGroupBuilderWithKey<IOutEdgeGremlinQuery<TElement, TOutVertex>, TNewKey>> groupBuilder) => Group(groupBuilder);
+        IMapGremlinQuery<IDictionary<TNewKey, TNewValue>> IGremlinQueryBaseRec<TElement, IOutEdgeGremlinQuery<TElement, TOutVertex>>.Group<TNewKey, TNewValue>(Func<IGroupBuilder<IOutEdgeGremlinQuery<TElement, TOutVertex>>, IGroupBuilderWithKeyAndValue<TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);
+        IMapGremlinQuery<IDictionary<TNewKey, TElement[]>> IGremlinQueryBaseRec<TElement, IOutEdgeGremlinQuery<TElement, TOutVertex>>.Group<TNewKey>(Func<IGroupBuilder<IOutEdgeGremlinQuery<TElement, TOutVertex>>, IGroupBuilderWithKey<IOutEdgeGremlinQuery<TElement, TOutVertex>, TNewKey>> groupBuilder) => Group(groupBuilder);
 
         IOutEdgeGremlinQuery<TElement, TOutVertex> IGremlinQueryBaseRec<IOutEdgeGremlinQuery<TElement, TOutVertex>>.Identity() => Identity();
 
@@ -1179,8 +1179,8 @@ namespace ExRam.Gremlinq.Core
 
         IArrayGremlinQuery<TElement[], TElement, IVertexPropertyGremlinQuery<TElement, TScalar>> IGremlinQueryBaseRec<TElement, IVertexPropertyGremlinQuery<TElement, TScalar>>.Fold() => Fold<IVertexPropertyGremlinQuery<TElement, TScalar>>();
 
-        IGremlinQuery<IDictionary<TNewKey, TNewValue>> IGremlinQueryBaseRec<TElement, IVertexPropertyGremlinQuery<TElement, TScalar>>.Group<TNewKey, TNewValue>(Func<IGroupBuilder<IVertexPropertyGremlinQuery<TElement, TScalar>>, IGroupBuilderWithKeyAndValue<TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);
-        IGremlinQuery<IDictionary<TNewKey, TElement[]>> IGremlinQueryBaseRec<TElement, IVertexPropertyGremlinQuery<TElement, TScalar>>.Group<TNewKey>(Func<IGroupBuilder<IVertexPropertyGremlinQuery<TElement, TScalar>>, IGroupBuilderWithKey<IVertexPropertyGremlinQuery<TElement, TScalar>, TNewKey>> groupBuilder) => Group(groupBuilder);
+        IMapGremlinQuery<IDictionary<TNewKey, TNewValue>> IGremlinQueryBaseRec<TElement, IVertexPropertyGremlinQuery<TElement, TScalar>>.Group<TNewKey, TNewValue>(Func<IGroupBuilder<IVertexPropertyGremlinQuery<TElement, TScalar>>, IGroupBuilderWithKeyAndValue<TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);
+        IMapGremlinQuery<IDictionary<TNewKey, TElement[]>> IGremlinQueryBaseRec<TElement, IVertexPropertyGremlinQuery<TElement, TScalar>>.Group<TNewKey>(Func<IGroupBuilder<IVertexPropertyGremlinQuery<TElement, TScalar>>, IGroupBuilderWithKey<IVertexPropertyGremlinQuery<TElement, TScalar>, TNewKey>> groupBuilder) => Group(groupBuilder);
 
         IVertexPropertyGremlinQuery<TElement, TScalar> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar>>.Identity() => Identity();
 
@@ -1277,8 +1277,8 @@ namespace ExRam.Gremlinq.Core
 
         IArrayGremlinQuery<TElement[], TElement, IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>> IGremlinQueryBaseRec<TElement, IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.Fold() => Fold<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>();
 
-        IGremlinQuery<IDictionary<TNewKey, TNewValue>> IGremlinQueryBaseRec<TElement, IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.Group<TNewKey, TNewValue>(Func<IGroupBuilder<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>, IGroupBuilderWithKeyAndValue<TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);
-        IGremlinQuery<IDictionary<TNewKey, TElement[]>> IGremlinQueryBaseRec<TElement, IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.Group<TNewKey>(Func<IGroupBuilder<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>, IGroupBuilderWithKey<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>, TNewKey>> groupBuilder) => Group(groupBuilder);
+        IMapGremlinQuery<IDictionary<TNewKey, TNewValue>> IGremlinQueryBaseRec<TElement, IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.Group<TNewKey, TNewValue>(Func<IGroupBuilder<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>, IGroupBuilderWithKeyAndValue<TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);
+        IMapGremlinQuery<IDictionary<TNewKey, TElement[]>> IGremlinQueryBaseRec<TElement, IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.Group<TNewKey>(Func<IGroupBuilder<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>, IGroupBuilderWithKey<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>, TNewKey>> groupBuilder) => Group(groupBuilder);
 
         IVertexPropertyGremlinQuery<TElement, TScalar, TMeta> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.Identity() => Identity();
 
@@ -1375,8 +1375,8 @@ namespace ExRam.Gremlinq.Core
 
         IArrayGremlinQuery<TElement[], TElement, IPropertyGremlinQuery<TElement>> IGremlinQueryBaseRec<TElement, IPropertyGremlinQuery<TElement>>.Fold() => Fold<IPropertyGremlinQuery<TElement>>();
 
-        IGremlinQuery<IDictionary<TNewKey, TNewValue>> IGremlinQueryBaseRec<TElement, IPropertyGremlinQuery<TElement>>.Group<TNewKey, TNewValue>(Func<IGroupBuilder<IPropertyGremlinQuery<TElement>>, IGroupBuilderWithKeyAndValue<TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);
-        IGremlinQuery<IDictionary<TNewKey, TElement[]>> IGremlinQueryBaseRec<TElement, IPropertyGremlinQuery<TElement>>.Group<TNewKey>(Func<IGroupBuilder<IPropertyGremlinQuery<TElement>>, IGroupBuilderWithKey<IPropertyGremlinQuery<TElement>, TNewKey>> groupBuilder) => Group(groupBuilder);
+        IMapGremlinQuery<IDictionary<TNewKey, TNewValue>> IGremlinQueryBaseRec<TElement, IPropertyGremlinQuery<TElement>>.Group<TNewKey, TNewValue>(Func<IGroupBuilder<IPropertyGremlinQuery<TElement>>, IGroupBuilderWithKeyAndValue<TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);
+        IMapGremlinQuery<IDictionary<TNewKey, TElement[]>> IGremlinQueryBaseRec<TElement, IPropertyGremlinQuery<TElement>>.Group<TNewKey>(Func<IGroupBuilder<IPropertyGremlinQuery<TElement>>, IGroupBuilderWithKey<IPropertyGremlinQuery<TElement>, TNewKey>> groupBuilder) => Group(groupBuilder);
 
         IPropertyGremlinQuery<TElement> IGremlinQueryBaseRec<IPropertyGremlinQuery<TElement>>.Identity() => Identity();
 

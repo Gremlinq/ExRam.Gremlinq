@@ -14,6 +14,6 @@
 
     public interface IGroupBuilderWithKeyAndValue<TKey, TValue>
     {
-        IGremlinQuery<IDictionary<TKey, TValue>> Build();
+        IMapGremlinQuery<IDictionary<TKey, TValue>> Build();
     }
 }
