@@ -45,23 +45,23 @@ namespace ExRam.Gremlinq.Core
                             .Invoke(null, new object?[] { closureType })!;
                     }
 
-                    var elementType = TryGetMatchingType(closureType, "TElement", "TVertex", "TEdge", "TProperty", "TArray") ?? typeof(object);
-                    var outVertexType = TryGetMatchingType(closureType, "TOutVertex", "TAdjacentVertex") ?? typeof(object);
-                    var inVertexType = TryGetMatchingType(closureType, "TInVertex") ?? typeof(object);
-                    var scalarType = TryGetMatchingType(closureType, "TValue", "TArrayItem");
-                    var metaType = TryGetMatchingType(closureType, "TMeta") ?? typeof(object);
-                    var queryType = TryGetMatchingType(closureType, "TOriginalQuery") ?? typeof(object);
+                    var t1 = TryGetMatchingType(closureType, "TElement", "TVertex", "TEdge", "TProperty", "TArray") ?? typeof(object);
+                    var t2 = TryGetMatchingType(closureType, "TOutVertex", "TAdjacentVertex") ?? typeof(object);
+                    var t3 = TryGetMatchingType(closureType, "TInVertex") ?? typeof(object);
+                    var t4 = TryGetMatchingType(closureType, "TValue", "TArrayItem");
+                    var t5 = TryGetMatchingType(closureType, "TMeta") ?? typeof(object);
+                    var t6 = TryGetMatchingType(closureType, "TOriginalQuery") ?? typeof(object);
 
                     return (QueryContinuation?)TryCreateQueryContinuationMethod
                         .MakeGenericMethod(
-                            elementType,
-                            outVertexType,
-                            inVertexType,
-                            scalarType ?? (elementType.IsArray
-                                ? elementType.GetElementType()!
+                            t1,
+                            t2,
+                            t3,
+                            t4 ?? (t1.IsArray
+                                ? t1.GetElementType()!
                                 : typeof(object)),
-                            metaType,
-                            queryType)
+                            t5,
+                            t6)
                         .Invoke(null, new object?[] { closureType })!;
                 });
 
