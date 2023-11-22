@@ -27,23 +27,23 @@ namespace ExRam.Gremlinq.Core
 <# } #>
 
 
-    partial class GremlinQuery<T1, T2, TInVertex, TScalar, TMeta, TFoldedQuery>
+    partial class GremlinQuery<T1, T2, T3, TScalar, TMeta, TFoldedQuery>
     {
         private sealed partial class ProjectBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15, TItem16> :
 <# for(var i = 2; i <= 16; i++) { #>
-            IProjectTupleBuilder<GremlinQuery<T1, T2, TInVertex, TScalar, TMeta, TFoldedQuery>, T1, <#= GetArgumentList("TItem{0}", i) #>>,
+            IProjectTupleBuilder<GremlinQuery<T1, T2, T3, TScalar, TMeta, TFoldedQuery>, T1, <#= GetArgumentList("TItem{0}", i) #>>,
 <# } #>
-            IProjectTupleBuilder<GremlinQuery<T1, T2, TInVertex, TScalar, TMeta, TFoldedQuery>, T1>,
-            IProjectTupleBuilder<GremlinQuery<T1, T2, TInVertex, TScalar, TMeta, TFoldedQuery>, T1, TItem1>
+            IProjectTupleBuilder<GremlinQuery<T1, T2, T3, TScalar, TMeta, TFoldedQuery>, T1>,
+            IProjectTupleBuilder<GremlinQuery<T1, T2, T3, TScalar, TMeta, TFoldedQuery>, T1, TItem1>
         {
 <# for(var i = 0; i < 16; i++) { #>
 
-            IProjectTupleBuilder<GremlinQuery<T1, T2, TInVertex, TScalar, TMeta, TFoldedQuery>, T1, <#= GetArgumentList("TItem{0}", i, false, true) #> TNewItem<#= i+1 #>> IProjectTupleBuilder<GremlinQuery<T1, T2, TInVertex, TScalar, TMeta, TFoldedQuery>, T1 <#= GetArgumentList("TItem{0}", i, true) #>>.By<TNewItem<#= i + 1 #>>(Func<GremlinQuery<T1, T2, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase<TNewItem<#= i+1 #>>> projection)
+            IProjectTupleBuilder<GremlinQuery<T1, T2, T3, TScalar, TMeta, TFoldedQuery>, T1, <#= GetArgumentList("TItem{0}", i, false, true) #> TNewItem<#= i+1 #>> IProjectTupleBuilder<GremlinQuery<T1, T2, T3, TScalar, TMeta, TFoldedQuery>, T1 <#= GetArgumentList("TItem{0}", i, true) #>>.By<TNewItem<#= i + 1 #>>(Func<GremlinQuery<T1, T2, T3, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase<TNewItem<#= i+1 #>>> projection)
             {
                 return ByLambda<<#= GetArgumentList("TItem{0}", i, false, true) #>TNewItem<#= i+1 #><#= GetArgumentList("object", 15 - i, true)#>>(projection);
             }
 
-            IProjectTupleBuilder<GremlinQuery<T1, T2, TInVertex, TScalar, TMeta, TFoldedQuery>, T1, <#= GetArgumentList("TItem{0}", i, false, true) #> TNewItem<#= i+1 #>> IProjectTupleBuilder<GremlinQuery<T1, T2, TInVertex, TScalar, TMeta, TFoldedQuery>, T1 <#= GetArgumentList("TItem{0}", i, true) #>>.By<TNewItem<#= i + 1 #>>(Expression<Func<T1, TNewItem<#= i+1 #>>> projection)
+            IProjectTupleBuilder<GremlinQuery<T1, T2, T3, TScalar, TMeta, TFoldedQuery>, T1, <#= GetArgumentList("TItem{0}", i, false, true) #> TNewItem<#= i+1 #>> IProjectTupleBuilder<GremlinQuery<T1, T2, T3, TScalar, TMeta, TFoldedQuery>, T1 <#= GetArgumentList("TItem{0}", i, true) #>>.By<TNewItem<#= i + 1 #>>(Expression<Func<T1, TNewItem<#= i+1 #>>> projection)
             {
                 return ByExpression<<#=GetArgumentList("TItem{0}", i, false, true)#>TNewItem<#= i+1 #><#= GetArgumentList("object", 15 - i, true)#>>(projection);
             }
