@@ -18,7 +18,7 @@ using Path = ExRam.Gremlinq.Core.GraphElements.Path;
 
 namespace ExRam.Gremlinq.Core
 {
-    internal sealed partial class GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery> : GremlinQueryBase
+    internal sealed partial class GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery> : GremlinQueryBase
     {
         public GremlinQuery(
             IGremlinQueryEnvironment environment,
@@ -39,7 +39,7 @@ namespace ExRam.Gremlinq.Core
                 newEdge)
             .AddOrUpdate(newEdge, true);
 
-        private GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery> AddOrUpdate(T1 element, bool add)
+        private GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery> AddOrUpdate(T1 element, bool add)
         {
             var ret = this;
             var props = element
@@ -101,7 +101,7 @@ namespace ExRam.Gremlinq.Core
                 vertex)
             .AddOrUpdate(vertex, true);
 
-        private TTargetQuery Aggregate<TStepLabel, TTargetQuery>(Scope scope, Func<GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>, TStepLabel, TTargetQuery> continuation)
+        private TTargetQuery Aggregate<TStepLabel, TTargetQuery>(Scope scope, Func<GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery>, TStepLabel, TTargetQuery> continuation)
             where TStepLabel : StepLabel, new()
             where TTargetQuery : IGremlinQueryBase
         {
@@ -112,7 +112,7 @@ namespace ExRam.Gremlinq.Core
                 .Map(continuation, stepLabel);
         }
 
-        private GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery> Aggregate<TStepLabel>(Scope scope, TStepLabel stepLabel)
+        private GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery> Aggregate<TStepLabel>(Scope scope, TStepLabel stepLabel)
             where TStepLabel : StepLabel => this
                 .Continue()
                 .Build(
@@ -127,16 +127,16 @@ namespace ExRam.Gremlinq.Core
                         .Build(),
                     (scope, stepLabel));
 
-        private GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery> And<TState>(Func<GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>, TState, IGremlinQueryBase> continuation1, Func<GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>, TState, IGremlinQueryBase> continuation2, TState state) => And(this
+        private GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery> And<TState>(Func<GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery>, TState, IGremlinQueryBase> continuation1, Func<GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery>, TState, IGremlinQueryBase> continuation2, TState state) => And(this
             .Continue(ContinuationFlags.Filter)
             .With(continuation1, state)
             .With(continuation2, state));
 
-        private GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery> And(Func<GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>, IGremlinQueryBase>[] continuations) => And(this
+        private GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery> And(Func<GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery>, IGremlinQueryBase>[] continuations) => And(this
             .Continue(ContinuationFlags.Filter)
             .With(continuations));
 
-        private GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery> And(MultiContinuationBuilder<GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>, GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>> continuationBuilder) => continuationBuilder
+        private GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery> And(MultiContinuationBuilder<GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery>, GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery>> continuationBuilder) => continuationBuilder
             .Build(static (builder, traversals) =>
             {
                 if (traversals.Length == 0)
@@ -178,13 +178,13 @@ namespace ExRam.Gremlinq.Core
                 };
             });
 
-        private TTargetQuery As<TTargetQuery>(Func<GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>, StepLabel<GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>, T1>, TTargetQuery> continuation)
+        private TTargetQuery As<TTargetQuery>(Func<GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery>, StepLabel<GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery>, T1>, TTargetQuery> continuation)
             where TTargetQuery : IGremlinQueryBase
         {
-            return As<StepLabel<GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>, T1>, TTargetQuery>(continuation);
+            return As<StepLabel<GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery>, T1>, TTargetQuery>(continuation);
         }
 
-        private TTargetQuery As<TStepLabel, TTargetQuery>(Func<GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>, TStepLabel, TTargetQuery> continuation)
+        private TTargetQuery As<TStepLabel, TTargetQuery>(Func<GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery>, TStepLabel, TTargetQuery> continuation)
             where TStepLabel : StepLabel, new()
             where TTargetQuery : IGremlinQueryBase
         {
@@ -203,7 +203,7 @@ namespace ExRam.Gremlinq.Core
                 .Map(continuation, stepLabel);
         }
 
-        private GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery> As(StepLabel stepLabel) => this
+        private GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery> As(StepLabel stepLabel) => this
             .Continue()
             .Build(
                 static (builder, stepLabel) => builder
@@ -217,7 +217,7 @@ namespace ExRam.Gremlinq.Core
                     .Build(),
                 stepLabel);
 
-        private GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery> Barrier() => this
+        private GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery> Barrier() => this
             .Continue()
             .Build(static builder => builder
                 .AddStep(BarrierStep.Instance)
@@ -265,14 +265,14 @@ namespace ExRam.Gremlinq.Core
                     .AutoBuild<TSelectedElement, object, object, TArrayItem, object, TQuery>(),
                 stepLabel);
 
-        private GremlinQuery<TNewElement, T2, T3, T4, TMeta, TFoldedQuery> Cast<TNewElement>()
+        private GremlinQuery<TNewElement, T2, T3, T4, T5, TFoldedQuery> Cast<TNewElement>()
         {
             return typeof(TNewElement) == typeof(T1)
-                ? (GremlinQuery<TNewElement, T2, T3, T4, TMeta, TFoldedQuery>)(object)this
-                : CloneAs<GremlinQuery<TNewElement, T2, T3, T4, TMeta, TFoldedQuery>>();
+                ? (GremlinQuery<TNewElement, T2, T3, T4, T5, TFoldedQuery>)(object)this
+                : CloneAs<GremlinQuery<TNewElement, T2, T3, T4, T5, TFoldedQuery>>();
         }
 
-        private TTargetQuery Choose<TTrueQuery, TFalseQuery, TTargetQuery>(Expression<Func<T1, bool>> predicate, Func<GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>, TTrueQuery> trueChoice, Func<GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>, TFalseQuery>? maybeFalseChoice = default)
+        private TTargetQuery Choose<TTrueQuery, TFalseQuery, TTargetQuery>(Expression<Func<T1, bool>> predicate, Func<GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery>, TTrueQuery> trueChoice, Func<GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery>, TFalseQuery>? maybeFalseChoice = default)
             where TTrueQuery : IGremlinQueryBase
             where TFalseQuery : IGremlinQueryBase
             where TTargetQuery : IGremlinQueryBase => this
@@ -282,7 +282,7 @@ namespace ExRam.Gremlinq.Core
                     trueChoice,
                     maybeFalseChoice);
 
-        private TTargetQuery Choose<TTrueQuery, TFalseQuery, TTargetQuery>(Func<GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>, IGremlinQueryBase> traversalPredicate, Func<GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>, TTrueQuery> trueChoice, Func<GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>, TFalseQuery>? maybeFalseChoice = default)
+        private TTargetQuery Choose<TTrueQuery, TFalseQuery, TTargetQuery>(Func<GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery>, IGremlinQueryBase> traversalPredicate, Func<GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery>, TTrueQuery> trueChoice, Func<GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery>, TFalseQuery>? maybeFalseChoice = default)
             where TTrueQuery : IGremlinQueryBase
             where TFalseQuery : IGremlinQueryBase
             where TTargetQuery : IGremlinQueryBase => this
@@ -292,7 +292,7 @@ namespace ExRam.Gremlinq.Core
                     static (builder, traversal, choiceTuple) => builder.OuterQuery.Choose<TTrueQuery, TFalseQuery, TTargetQuery>(traversal, choiceTuple.trueChoice, choiceTuple.maybeFalseChoice),
                     (trueChoice, maybeFalseChoice));
 
-        private TTargetQuery Choose<TTrueQuery, TFalseQuery, TTargetQuery>(Traversal chooseTraversal, Func<GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>, TTrueQuery> trueChoice, Func<GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>, TFalseQuery>? maybeFalseChoice = default)
+        private TTargetQuery Choose<TTrueQuery, TFalseQuery, TTargetQuery>(Traversal chooseTraversal, Func<GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery>, TTrueQuery> trueChoice, Func<GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery>, TFalseQuery>? maybeFalseChoice = default)
             where TTrueQuery : IGremlinQueryBase
             where TFalseQuery : IGremlinQueryBase
             where TTargetQuery : IGremlinQueryBase => this
@@ -346,13 +346,13 @@ namespace ExRam.Gremlinq.Core
                     },
                     (chooseTraversal, maybeFalseChoice));
 
-        private TTargetQuery Choose<TTargetQuery>(Func<IChooseBuilder<GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>>, IChooseBuilderWithCaseOrDefault<TTargetQuery>> continuation)
+        private TTargetQuery Choose<TTargetQuery>(Func<IChooseBuilder<GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery>>, IChooseBuilderWithCaseOrDefault<TTargetQuery>> continuation)
             where TTargetQuery : IGremlinQueryBase
         {
-            return continuation(new ChooseBuilder<GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>, object>(this)).TargetQuery;
+            return continuation(new ChooseBuilder<GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery>, object>(this)).TargetQuery;
         }
 
-        private TReturnQuery Coalesce<TTargetQuery, TReturnQuery>(params Func<GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>, TTargetQuery>[] continuations)
+        private TReturnQuery Coalesce<TTargetQuery, TReturnQuery>(params Func<GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery>, TTargetQuery>[] continuations)
             where TTargetQuery : IGremlinQueryBase
             where TReturnQuery : IGremlinQueryBase => this
                 .Continue()
@@ -373,7 +373,7 @@ namespace ExRam.Gremlinq.Core
                         .Build<TReturnQuery>();
                 });
 
-        private GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery> Coin(double probability) => this
+        private GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery> Coin(double probability) => this
             .Continue()
             .Build(
                 static (builder, probability) => builder
@@ -405,7 +405,7 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<long, object, object, object, object, object> CountLocal() => Count(Scope.Local);
 
-        private GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery> CyclicPath() => this
+        private GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery> CyclicPath() => this
             .Continue()
             .Build(static builder => builder
                 .AddStep(CyclicPathStep.Instance)
@@ -420,13 +420,13 @@ namespace ExRam.Gremlinq.Core
             return Environment.Debugger.Debug(serialized, Environment);
         }
 
-        private GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery> DedupGlobal() => this
+        private GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery> DedupGlobal() => this
             .Continue()
             .Build(static builder => builder
                 .AddStep(DedupStep.Global)
                 .Build());
 
-        private GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery> DedupLocal() => this
+        private GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery> DedupLocal() => this
             .Continue()
             .Build(static builder => builder
                 .AddStep(DedupStep.Local)
@@ -439,7 +439,7 @@ namespace ExRam.Gremlinq.Core
                 .WithNewProjection(Projection.Empty)
                 .AutoBuild());
 
-        private GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery> DropProperties(string key) => this
+        private GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery> DropProperties(string key) => this
             .SideEffect(_ => _
                 .Properties<object, object, object>(
                     Projection.Empty,
@@ -473,7 +473,7 @@ namespace ExRam.Gremlinq.Core
                     .AutoBuild(),
                 message);
 
-        private TTargetQuery FlatMap<TTargetQuery>(Func<GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>, TTargetQuery> continuation) where TTargetQuery : IGremlinQueryBase => this
+        private TTargetQuery FlatMap<TTargetQuery>(Func<GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery>, TTargetQuery> continuation) where TTargetQuery : IGremlinQueryBase => this
             .Continue()
             .With(continuation)
             .Build(static (builder, innerTraversal) => builder
@@ -488,7 +488,7 @@ namespace ExRam.Gremlinq.Core
                 .WithNewProjection(static projection => projection.Fold())
                 .AutoBuild<T1[], object, object, T1, object, TNewFoldedQuery>());
 
-        private GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, object, object, object> From<TNewElement, TNewOutVertex, TNewInVertex>(Func<GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>, IVertexGremlinQueryBase<TNewOutVertex>> fromVertexContinuation) => this
+        private GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, object, object, object> From<TNewElement, TNewOutVertex, TNewInVertex>(Func<GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery>, IVertexGremlinQueryBase<TNewOutVertex>> fromVertexContinuation) => this
             .Continue()
             .With(fromVertexContinuation)
             .Build(static (builder, fromVertexTraversal) => builder
@@ -503,10 +503,10 @@ namespace ExRam.Gremlinq.Core
                    .AutoBuild<TNewElement, TNewOutVertex, TNewInVertex>(),
                 label);
 
-        private IMapGremlinQuery<IDictionary<TKey, TValue>> Group<TKey, TValue>(Func<IGroupBuilder<GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>>, IGroupBuilderWithKeyAndValue<TKey, TValue>> projection) =>
+        private IMapGremlinQuery<IDictionary<TKey, TValue>> Group<TKey, TValue>(Func<IGroupBuilder<GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery>>, IGroupBuilderWithKeyAndValue<TKey, TValue>> projection) =>
             projection(new GroupBuilder<object, object>(Continue())).Build();
 
-        private IMapGremlinQuery<IDictionary<TKey, T1[]>> Group<TKey>(Func<IGroupBuilder<GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>>, IGroupBuilderWithKey<IGremlinQueryBase<T1>, TKey>> projection) => new GroupBuilder<object, object>(Continue())
+        private IMapGremlinQuery<IDictionary<TKey, T1[]>> Group<TKey>(Func<IGroupBuilder<GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery>>, IGroupBuilderWithKey<IGremlinQueryBase<T1>, TKey>> projection) => new GroupBuilder<object, object>(Continue())
             .Map(projection)
             .ByValue(__ => __
                 .Cast<T1>()
@@ -520,7 +520,7 @@ namespace ExRam.Gremlinq.Core
                 .WithNewProjection(Projection.Value)
                 .AutoBuild());
 
-        private GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery> Identity() => this
+        private GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery> Identity() => this
             .Continue()
             .Build(static builder => builder
                 .AddStep(IdentityStep.Instance)
@@ -552,7 +552,7 @@ namespace ExRam.Gremlinq.Core
                 .WithNewProjection(Projection.Edge)
                 .AutoBuild<TEdge, object, T1>());
 
-        private GremlinQuery<TNewElement, T2, T3, T4, TMeta, TFoldedQuery> Inject<TNewElement>(IEnumerable<TNewElement> elements) => this
+        private GremlinQuery<TNewElement, T2, T3, T4, T5, TFoldedQuery> Inject<TNewElement>(IEnumerable<TNewElement> elements) => this
             .Continue()
             .Build(
                 static (builder, elements) => builder
@@ -562,7 +562,7 @@ namespace ExRam.Gremlinq.Core
                             .Select(static x => (object)x!)
                             .ToImmutableArray()))
                     .WithNewProjection(Projection.Value)
-                    .AutoBuild<TNewElement, T2, T3, T4, TMeta, TFoldedQuery>(),
+                    .AutoBuild<TNewElement, T2, T3, T4, T5, TFoldedQuery>(),
                 elements);
 
         private GremlinQuery<TNewElement, object, object, object, object, object> InOutV<TNewElement>(Step step) => this
@@ -590,7 +590,7 @@ namespace ExRam.Gremlinq.Core
                 .WithNewProjection(Projection.Value)
                 .AutoBuild<string>());
 
-        private GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery> LimitGlobal(long count) => this
+        private GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery> LimitGlobal(long count) => this
             .Continue()
             .Build(
                 static (builder, count) => builder
@@ -600,7 +600,7 @@ namespace ExRam.Gremlinq.Core
                     .Build(),
                 count);
 
-        private GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery> LimitLocal(long count) => this
+        private GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery> LimitLocal(long count) => this
             .Continue()
             .Build(
                 static (builder, count) => builder
@@ -612,7 +612,7 @@ namespace ExRam.Gremlinq.Core
                     .Build(),
                 count);
 
-        private TTargetQuery Local<TTargetQuery>(Func<GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>, TTargetQuery> localTraversal) where TTargetQuery : IGremlinQueryBase => this
+        private TTargetQuery Local<TTargetQuery>(Func<GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery>, TTargetQuery> localTraversal) where TTargetQuery : IGremlinQueryBase => this
             .Continue()
             .With(localTraversal)
             .Build(static (builder, continuationTraversal) =>
@@ -631,7 +631,7 @@ namespace ExRam.Gremlinq.Core
         private TTargetQuery Loop<TTargetQuery>(Func<IStartLoopBuilder<TTargetQuery>, IFinalLoopBuilder<TTargetQuery>> loopBuilderTransformation)
             where TTargetQuery : IGremlinQueryBase => loopBuilderTransformation(new LoopBuilder<TTargetQuery>(this)).Build();
 
-        private TTargetQuery Map<TTargetQuery>(Func<GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>, TTargetQuery> continuation) where TTargetQuery : IGremlinQueryBase => this
+        private TTargetQuery Map<TTargetQuery>(Func<GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery>, TTargetQuery> continuation) where TTargetQuery : IGremlinQueryBase => this
             .Continue()
             .With(continuation)
             .Build(static (builder, innerTraversal) => innerTraversal.IsIdentity()
@@ -642,46 +642,46 @@ namespace ExRam.Gremlinq.Core
                     .WithNewProjection(innerTraversal.Projection)
                     .Build<TTargetQuery>());
 
-        private GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery> MaxGlobal() => this
+        private GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery> MaxGlobal() => this
             .Continue()
             .Build(static builder => builder
                 .AddStep(MaxStep.Global)
                 .WithNewProjection(Projection.Value)
                 .Build());
 
-        private GremlinQuery<TNewElement, T2, T3, T4, TMeta, TFoldedQuery> MaxLocal<TNewElement>() => this
+        private GremlinQuery<TNewElement, T2, T3, T4, T5, TFoldedQuery> MaxLocal<TNewElement>() => this
             .Continue()
             .Build(static builder => builder
                 .AddStep(MaxStep.Local)
-                .AutoBuild<TNewElement, T2, T3, T4, TMeta, TFoldedQuery>());
+                .AutoBuild<TNewElement, T2, T3, T4, T5, TFoldedQuery>());
 
-        private GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery> MeanGlobal() => this
+        private GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery> MeanGlobal() => this
             .Continue()
             .Build(static builder => builder
                 .AddStep(MeanStep.Global)
                 .WithNewProjection(Projection.Value)
                 .Build());
 
-        private GremlinQuery<TNewElement, T2, T3, T4, TMeta, TFoldedQuery> MeanLocal<TNewElement>() => this
+        private GremlinQuery<TNewElement, T2, T3, T4, T5, TFoldedQuery> MeanLocal<TNewElement>() => this
             .Continue()
             .Build(static builder => builder
                 .AddStep(MeanStep.Local)
-                .AutoBuild<TNewElement, T2, T3, T4, TMeta, TFoldedQuery>());
+                .AutoBuild<TNewElement, T2, T3, T4, T5, TFoldedQuery>());
 
-        private GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery> MinGlobal() => this
+        private GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery> MinGlobal() => this
             .Continue()
             .Build(static builder => builder
                 .AddStep(MinStep.Global)
                 .WithNewProjection(Projection.Value)
                 .Build());
 
-        private GremlinQuery<TNewElement, T2, T3, T4, TMeta, TFoldedQuery> MinLocal<TNewElement>() => this
+        private GremlinQuery<TNewElement, T2, T3, T4, T5, TFoldedQuery> MinLocal<TNewElement>() => this
             .Continue()
             .Build(static builder => builder
                 .AddStep(MinStep.Local)
-                .AutoBuild<TNewElement, T2, T3, T4, TMeta, TFoldedQuery>());
+                .AutoBuild<TNewElement, T2, T3, T4, T5, TFoldedQuery>());
 
-        private GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery> None() => this
+        private GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery> None() => this
             .Continue()
             .Build(static builder => builder.OuterQuery.Steps.IsIdentity()
                 ? builder
@@ -691,7 +691,7 @@ namespace ExRam.Gremlinq.Core
                     .AddStep(NoneStep.Instance)
                     .Build());
 
-        private GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery> Not<TState>(Func<GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>, TState, IGremlinQueryBase> continuation, TState state) => this
+        private GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery> Not<TState>(Func<GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery>, TState, IGremlinQueryBase> continuation, TState state) => this
             .Continue()
             .With(continuation, state)
             .Build(static (builder, innerTraversal) => innerTraversal.IsIdentity()
@@ -703,11 +703,11 @@ namespace ExRam.Gremlinq.Core
                         .AddStep(new NotStep(innerTraversal))
                         .Build());
 
-        private GremlinQuery<TTarget, T2, T3, T4, TMeta, TFoldedQuery> OfEdgeType<TTarget>(bool force = false) => OfType<TTarget>(Environment.Model.EdgesModel, force);
+        private GremlinQuery<TTarget, T2, T3, T4, T5, TFoldedQuery> OfEdgeType<TTarget>(bool force = false) => OfType<TTarget>(Environment.Model.EdgesModel, force);
 
-        private GremlinQuery<TTarget, T2, T3, T4, TMeta, TFoldedQuery> OfVertexType<TTarget>(bool force = false) => OfType<TTarget>(Environment.Model.VerticesModel, force);
+        private GremlinQuery<TTarget, T2, T3, T4, T5, TFoldedQuery> OfVertexType<TTarget>(bool force = false) => OfType<TTarget>(Environment.Model.VerticesModel, force);
 
-        private GremlinQuery<TTarget, T2, T3, T4, TMeta, TFoldedQuery> OfType<TTarget>(IGraphElementModel model, bool force = false) => this
+        private GremlinQuery<TTarget, T2, T3, T4, T5, TFoldedQuery> OfType<TTarget>(IGraphElementModel model, bool force = false) => this
             .Continue()
             .Build(
                 static (builder, tuple) =>
@@ -723,11 +723,11 @@ namespace ExRam.Gremlinq.Core
                         builder = builder.AddStep(new HasLabelStep(labels));
 
                     return builder
-                        .AutoBuild<TTarget, T2, T3, T4, TMeta, TFoldedQuery>();
+                        .AutoBuild<TTarget, T2, T3, T4, T5, TFoldedQuery>();
                 },
                 (@this: this, model, force));
 
-        private TTargetQuery Optional<TTargetQuery>(Func<GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>, TTargetQuery> optionalTraversal) where TTargetQuery : IGremlinQueryBase => this
+        private TTargetQuery Optional<TTargetQuery>(Func<GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery>, TTargetQuery> optionalTraversal) where TTargetQuery : IGremlinQueryBase => this
             .Continue()
             .With(optionalTraversal)
             .Build(static (builder, continuedTraversal) => builder
@@ -737,16 +737,16 @@ namespace ExRam.Gremlinq.Core
                     continuedTraversal.Projection)
                 .Build<TTargetQuery>());
 
-        private GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery> Or<TState>(Func<GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>, TState, IGremlinQueryBase> continuation1, Func<GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>, TState, IGremlinQueryBase> continuation2, TState state) => Or(this
+        private GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery> Or<TState>(Func<GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery>, TState, IGremlinQueryBase> continuation1, Func<GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery>, TState, IGremlinQueryBase> continuation2, TState state) => Or(this
             .Continue(ContinuationFlags.Filter)
             .With(continuation1, state)
             .With(continuation2, state));
 
-        private GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery> Or(Func<GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>, IGremlinQueryBase>[] continuations) => Or(this
+        private GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery> Or(Func<GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery>, IGremlinQueryBase>[] continuations) => Or(this
             .Continue(ContinuationFlags.Filter)
             .With(continuations));
 
-        private GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery> Or(MultiContinuationBuilder<GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>, GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>> continuationBuilder) => continuationBuilder
+        private GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery> Or(MultiContinuationBuilder<GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery>, GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery>> continuationBuilder) => continuationBuilder
             .Build(static (builder, traversals) =>
             {
                 if (traversals.Length == 0)
@@ -857,21 +857,21 @@ namespace ExRam.Gremlinq.Core
                 .WithNewProjection(Projection.Value)
                 .AutoBuild<string>());
 
-        private IMapGremlinQuery<TResult> Project<TResult>(Func<IProjectBuilder<GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>, T1>, IProjectMapResult<TResult>> continuation)
+        private IMapGremlinQuery<TResult> Project<TResult>(Func<IProjectBuilder<GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery>, T1>, IProjectMapResult<TResult>> continuation)
         {
             return new ProjectBuilder(this)
                 .Map(continuation)
                 .Build();
         }
 
-        private IGremlinQuery<dynamic> Project(Func<IProjectBuilder<GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>, T1>, IProjectDynamicResult> continuation)
+        private IGremlinQuery<dynamic> Project(Func<IProjectBuilder<GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery>, T1>, IProjectDynamicResult> continuation)
         {
             return new ProjectBuilder(this)
                 .Map(continuation)
                 .Build();
         }
 
-        private IMapGremlinQuery<TResult> Project<TResult>(Func<IProjectBuilder<GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>, T1>, IProjectTupleResult<TResult>> continuation)
+        private IMapGremlinQuery<TResult> Project<TResult>(Func<IProjectBuilder<GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery>, T1>, IProjectTupleResult<TResult>> continuation)
             where TResult : ITuple
         {
             return new ProjectBuilder(this)
@@ -894,9 +894,9 @@ namespace ExRam.Gremlinq.Core
                     .AutoBuild<TNewElement, object, object, TNewPropertyValue, TNewMeta, object>(),
                 (keys, projection));
 
-        private GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery> Property(LambdaExpression projection, object? value) => Property(GetKey(projection), value);
+        private GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery> Property(LambdaExpression projection, object? value) => Property(GetKey(projection), value);
 
-        private GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery> Property(Key key, object? value) => this
+        private GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery> Property(Key key, object? value) => this
             .Continue()
             .Build(
                 static (builder, tuple) =>
@@ -919,21 +919,21 @@ namespace ExRam.Gremlinq.Core
                 },
                 (key, value));
 
-        private GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery> Property(Key key, Func<GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>, IGremlinQueryBase> valueContinuation) => this
+        private GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery> Property(Key key, Func<GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery>, IGremlinQueryBase> valueContinuation) => this
             .Continue()
             .With(valueContinuation)
             .Build(
                 static (builder, valueTraversal, key) => builder.OuterQuery.Property(key, valueTraversal),
                 key);
 
-        private GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery> Property(LambdaExpression projection, Func<GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>, IGremlinQueryBase> valueContinuation) => this
+        private GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery> Property(LambdaExpression projection, Func<GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery>, IGremlinQueryBase> valueContinuation) => this
             .Continue()
             .With(valueContinuation)
             .Build(
                 static (builder, valueTraversal, projection) => builder.OuterQuery.Property(projection, valueTraversal),
                 projection);
 
-        private GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery> Range(long low, long high, Scope scope) => this
+        private GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery> Range(long low, long high, Scope scope) => this
             .Continue()
             .Build(
                 static (builder, tuple) => builder
@@ -946,9 +946,9 @@ namespace ExRam.Gremlinq.Core
                     .Build(),
                 (low, high, scope));
 
-        private GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery> RangeGlobal(long low, long high) => Range(low, high, Scope.Global);
+        private GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery> RangeGlobal(long low, long high) => Range(low, high, Scope.Global);
 
-        private GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery> RangeLocal(long low, long high) => Range(low, high, Scope.Local);
+        private GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery> RangeLocal(long low, long high) => Range(low, high, Scope.Local);
 
         private GremlinQuery<TSelectedElement, object, object, object, object, object> Select<TSelectedElement>(StepLabel<TSelectedElement> stepLabel) => this
             .Continue()
@@ -986,20 +986,20 @@ namespace ExRam.Gremlinq.Core
                 },
                 projections);
 
-        private GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery> SideEffect(Func<GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>, IGremlinQueryBase> sideEffectContinuation) => this
+        private GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery> SideEffect(Func<GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery>, IGremlinQueryBase> sideEffectContinuation) => this
             .Continue()
             .With(sideEffectContinuation)
             .Build(static (builder, traversal) => builder
                 .AddStep(new SideEffectStep(traversal))
                 .Build());
 
-        private GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery> SimplePath() => this
+        private GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery> SimplePath() => this
             .Continue()
             .Build(static builder => builder
                 .AddStep(SimplePathStep.Instance)
                 .Build());
 
-        private GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery> Skip(long count, Scope scope) => this
+        private GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery> Skip(long count, Scope scope) => this
             .Continue()
             .Build(
                 static (builder, tuple) => builder
@@ -1007,21 +1007,21 @@ namespace ExRam.Gremlinq.Core
                     .Build(),
                 (count, scope));
 
-        private GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery> SumGlobal() => this
+        private GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery> SumGlobal() => this
             .Continue()
             .Build(static builder => builder
                 .AddStep(new SumStep(Scope.Global))
                 .WithNewProjection(Projection.Value)
                 .Build());
 
-        private GremlinQuery<TNewElement, T2, T3, T4, TMeta, TFoldedQuery> SumLocal<TNewElement>() => this
+        private GremlinQuery<TNewElement, T2, T3, T4, T5, TFoldedQuery> SumLocal<TNewElement>() => this
             .Continue()
             .Build(static builder => builder
                 .AddStep(new SumStep(Scope.Local))
                 .WithNewProjection(Projection.Value)
-                .AutoBuild<TNewElement, T2, T3, T4, TMeta, TFoldedQuery>());
+                .AutoBuild<TNewElement, T2, T3, T4, T5, TFoldedQuery>());
 
-        private GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery> TailGlobal(long count) => this
+        private GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery> TailGlobal(long count) => this
             .Continue()
             .Build(
                 static (builder, count) => builder
@@ -1029,7 +1029,7 @@ namespace ExRam.Gremlinq.Core
                     .Build(),
                 count);
 
-        private GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery> TailLocal(long count) => this
+        private GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery> TailLocal(long count) => this
             .Continue()
             .Build(
                 static (builder, count) => builder
@@ -1041,7 +1041,7 @@ namespace ExRam.Gremlinq.Core
                     .Build(),
                 count);
 
-        private GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, object, object, object> To<TNewElement, TNewOutVertex, TNewInVertex>(Func<GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>, IVertexGremlinQueryBase<TNewInVertex>> toVertexContinuation) => this
+        private GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, object, object, object> To<TNewElement, TNewOutVertex, TNewInVertex>(Func<GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery>, IVertexGremlinQueryBase<TNewInVertex>> toVertexContinuation) => this
             .Continue()
             .With(toVertexContinuation)
             .Build(static (builder, toVertexTraversal) => builder
@@ -1056,7 +1056,7 @@ namespace ExRam.Gremlinq.Core
                     .AutoBuild<TNewElement, TNewOutVertex, TNewInVertex>(),
                 stepLabel);
 
-        private GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery> Unfold() => this
+        private GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery> Unfold() => this
             .Continue()
             .Build(static builder => builder
                 .AddStep(UnfoldStep.Instance)
@@ -1065,18 +1065,18 @@ namespace ExRam.Gremlinq.Core
 
         private TTargetQuery Unfold<TTargetQuery>() => Unfold().CloneAs<TTargetQuery>();
 
-        private GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery> Union(params Func<GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>, GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>>[] unionTraversals)
+        private GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery> Union(params Func<GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery>, GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery>>[] unionTraversals)
         {
-            return Union<GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>>(unionTraversals);
+            return Union<GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery>>(unionTraversals);
         }
 
-        private TTargetQuery Union<TTargetQuery>(params Func<GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>, TTargetQuery>[] unionTraversals)
+        private TTargetQuery Union<TTargetQuery>(params Func<GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery>, TTargetQuery>[] unionTraversals)
             where TTargetQuery : IGremlinQueryBase
         {
             return Union<TTargetQuery, TTargetQuery>(unionTraversals);
         }
 
-        private TReturnQuery Union<TTargetQuery, TReturnQuery>(params Func<GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>, TTargetQuery>[] unionContinuations)
+        private TReturnQuery Union<TTargetQuery, TReturnQuery>(params Func<GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery>, TTargetQuery>[] unionContinuations)
             where TTargetQuery : IGremlinQueryBase
             where TReturnQuery : IGremlinQueryBase => this
                 .Continue()
@@ -1151,7 +1151,7 @@ namespace ExRam.Gremlinq.Core
                         stepsArray[0]),
                 _ => this
                     .Union(stepsArray
-                        .Select(static step => new Func<GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>, GremlinQuery<TValue, object, object, object, object, object>>(__ => __
+                        .Select(static step => new Func<GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery>, GremlinQuery<TValue, object, object, object, object, object>>(__ => __
                             .Continue()
                             .Build(
                                 static (builder, step) => builder
@@ -1173,7 +1173,7 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<VertexProperty<TNewPropertyValue>, object, object, TNewPropertyValue, object, object> VertexProperties<TNewPropertyValue>(Expression[] projections) => Properties<VertexProperty<TNewPropertyValue>, TNewPropertyValue, object>(Projection.VertexProperty, projections);
 
-        private GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery> Where(Func<GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>, IGremlinQueryBase> filterContinuation) => this
+        private GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery> Where(Func<GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery>, IGremlinQueryBase> filterContinuation) => this
             .Continue(ContinuationFlags.Filter)
             .With(filterContinuation)
             .Build(static (builder, filterTraversal) => filterTraversal.IsIdentity()
@@ -1182,7 +1182,7 @@ namespace ExRam.Gremlinq.Core
                     ? builder.OuterQuery.None()
                     : builder.OuterQuery.Where(filterTraversal));
 
-        private GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery> Where(Traversal traversal) => this
+        private GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery> Where(Traversal traversal) => this
             .Continue()
             .Build(
                 static (builder, traversal) => builder
@@ -1192,9 +1192,9 @@ namespace ExRam.Gremlinq.Core
                     .Build(),
                 traversal);
 
-        private GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery> Where(Expression<Func<T1, bool>> expression) => Where((Expression)expression);
+        private GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery> Where(Expression<Func<T1, bool>> expression) => Where((Expression)expression);
 
-        private GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery> Where(Expression expression)
+        private GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery> Where(Expression expression)
         {
             try
             {
@@ -1249,7 +1249,7 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
-        private GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery> Where<TProjection>(Expression<Func<T1, TProjection>> predicate, Func<IGremlinQueryBase<TProjection>, IGremlinQueryBase> propertyContinuation) => predicate.TryGetReferredParameter() is not null && predicate.Body is MemberExpression memberExpression
+        private GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery> Where<TProjection>(Expression<Func<T1, TProjection>> predicate, Func<IGremlinQueryBase<TProjection>, IGremlinQueryBase> propertyContinuation) => predicate.TryGetReferredParameter() is not null && predicate.Body is MemberExpression memberExpression
              ? this
                  .Continue()
                  .With(

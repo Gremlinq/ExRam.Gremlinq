@@ -21,7 +21,7 @@
         "IInEdgeGremlinQuery<TEdge, T3>",
         "IOutEdgeGremlinQuery<TEdge, T2>",
         "IVertexPropertyGremlinQuery<TProperty, TValue>",
-        "IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>",
+        "IVertexPropertyGremlinQuery<TProperty, TValue, T5>",
         "IPropertyGremlinQuery<T1>"
     };
 

@@ -14,7 +14,7 @@ using Path = ExRam.Gremlinq.Core.GraphElements.Path;
 
 namespace ExRam.Gremlinq.Core
 {
-    internal partial class GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery> :
+    internal partial class GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery> :
         IGremlinQueryAdmin,
 
         IGremlinQuerySource,
@@ -36,7 +36,7 @@ namespace ExRam.Gremlinq.Core
         IOutEdgeGremlinQuery<T1, T2>,
 
         IVertexPropertyGremlinQuery<T1, T4>,
-        IVertexPropertyGremlinQuery<T1, T4, TMeta>,
+        IVertexPropertyGremlinQuery<T1, T4, T5>,
         IPropertyGremlinQuery<T1>
     {
         TFoldedQuery IArrayGremlinQueryBase<T1, T4, TFoldedQuery>.Unfold() => Unfold<TFoldedQuery>();
@@ -291,9 +291,9 @@ namespace ExRam.Gremlinq.Core
 
         IEdgeGremlinQuery<TNewEdge> IStartGremlinQuery.ReplaceE<TNewEdge>(TNewEdge edge) => ((IGremlinQuerySource)this).E<TNewEdge>(edge!.GetId(Environment)).Update(edge);
 
-        IGremlinQuerySource IGremlinQuerySource.ConfigureEnvironment(Func<IGremlinQueryEnvironment, IGremlinQueryEnvironment> transformation) => new GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>(transformation(Environment), Steps, LabelProjections, Metadata);
+        IGremlinQuerySource IGremlinQuerySource.ConfigureEnvironment(Func<IGremlinQueryEnvironment, IGremlinQueryEnvironment> transformation) => new GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery>(transformation(Environment), Steps, LabelProjections, Metadata);
 
-        IGremlinQuerySource IGremlinQuerySource.ConfigureMetadata(Func<IImmutableDictionary<object, object?>, IImmutableDictionary<object, object?>> metadataTransformation) => new GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>(Environment, Steps, LabelProjections, metadataTransformation(Metadata));
+        IGremlinQuerySource IGremlinQuerySource.ConfigureMetadata(Func<IImmutableDictionary<object, object?>, IImmutableDictionary<object, object?>> metadataTransformation) => new GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery>(Environment, Steps, LabelProjections, metadataTransformation(Metadata));
 
         IGremlinQuerySource IGremlinQuerySource.WithSideEffect<TSideEffect>(StepLabel<TSideEffect> label, TSideEffect value) => WithSideEffect(label, value);
 
@@ -415,19 +415,19 @@ namespace ExRam.Gremlinq.Core
 
         IGremlinQuery<TTarget> IVertexGremlinQueryBase<T1>.Values<TTarget>(params Expression<Func<T1, TTarget[]>>[] projections) => ValuesForProjections<TTarget>(projections);
 
-        IElementGremlinQuery<T1> IVertexPropertyGremlinQueryBase<T1, T4, TMeta>.Lower() => this;
+        IElementGremlinQuery<T1> IVertexPropertyGremlinQueryBase<T1, T4, T5>.Lower() => this;
 
-        IPropertyGremlinQuery<Property<TValue>> IVertexPropertyGremlinQueryBase<T1, T4, TMeta>.Properties<TValue>(params Expression<Func<TMeta, TValue>>[] projections) => Properties<Property<TValue>, TValue, object>(Projection.Property, projections);
+        IPropertyGremlinQuery<Property<TValue>> IVertexPropertyGremlinQueryBase<T1, T4, T5>.Properties<TValue>(params Expression<Func<T5, TValue>>[] projections) => Properties<Property<TValue>, TValue, object>(Projection.Property, projections);
 
-        IVertexPropertyGremlinQuery<T1, T4, TMeta> IVertexPropertyGremlinQueryBase<T1, T4, TMeta>.Property<TValue>(Expression<Func<TMeta, TValue>> projection, TValue value) => Property(projection, value);
+        IVertexPropertyGremlinQuery<T1, T4, T5> IVertexPropertyGremlinQueryBase<T1, T4, T5>.Property<TValue>(Expression<Func<T5, TValue>> projection, TValue value) => Property(projection, value);
 
-        IGremlinQuery<T4> IVertexPropertyGremlinQueryBase<T1, T4, TMeta>.Value() => Value<T4>();
+        IGremlinQuery<T4> IVertexPropertyGremlinQueryBase<T1, T4, T5>.Value() => Value<T4>();
 
-        IGremlinQuery<TMeta> IVertexPropertyGremlinQueryBase<T1, T4, TMeta>.ValueMap() => ValueMap<TMeta>(ImmutableArray<string>.Empty);
+        IGremlinQuery<T5> IVertexPropertyGremlinQueryBase<T1, T4, T5>.ValueMap() => ValueMap<T5>(ImmutableArray<string>.Empty);
 
-        IGremlinQuery<TTarget> IVertexPropertyGremlinQueryBase<T1, T4, TMeta>.Values<TTarget>(params Expression<Func<TMeta, TTarget>>[] projections) => ValuesForProjections<TTarget>(projections);
+        IGremlinQuery<TTarget> IVertexPropertyGremlinQueryBase<T1, T4, T5>.Values<TTarget>(params Expression<Func<T5, TTarget>>[] projections) => ValuesForProjections<TTarget>(projections);
 
-        IVertexPropertyGremlinQuery<T1, T4, TMeta> IVertexPropertyGremlinQueryBase<T1, T4, TMeta>.Where(Expression<Func<VertexProperty<T4, TMeta>, bool>> predicate) => Where(predicate);
+        IVertexPropertyGremlinQuery<T1, T4, T5> IVertexPropertyGremlinQueryBase<T1, T4, T5>.Where(Expression<Func<VertexProperty<T4, T5>, bool>> predicate) => Where(predicate);
 
         IElementGremlinQuery<T1> IVertexPropertyGremlinQueryBase<T1, T4>.Lower() => this;
 
