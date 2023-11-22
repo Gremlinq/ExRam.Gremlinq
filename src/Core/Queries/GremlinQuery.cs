@@ -503,10 +503,10 @@ namespace ExRam.Gremlinq.Core
                    .AutoBuild<TNewElement, TNewOutVertex, TNewInVertex>(),
                 label);
 
-        private IValueGremlinQuery<IDictionary<TKey, TValue>> Group<TKey, TValue>(Func<IGroupBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>>, IGroupBuilderWithKeyAndValue<TKey, TValue>> projection) =>
+        private IGremlinQuery<IDictionary<TKey, TValue>> Group<TKey, TValue>(Func<IGroupBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>>, IGroupBuilderWithKeyAndValue<TKey, TValue>> projection) =>
             projection(new GroupBuilder<object, object>(Continue())).Build();
 
-        private IValueGremlinQuery<IDictionary<TKey, TElement[]>> Group<TKey>(Func<IGroupBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>>, IGroupBuilderWithKey<IGremlinQueryBase<TElement>, TKey>> projection) => new GroupBuilder<object, object>(Continue())
+        private IGremlinQuery<IDictionary<TKey, TElement[]>> Group<TKey>(Func<IGroupBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>>, IGroupBuilderWithKey<IGremlinQueryBase<TElement>, TKey>> projection) => new GroupBuilder<object, object>(Continue())
             .Map(projection)
             .ByValue(__ => __
                 .Cast<TElement>()
@@ -864,7 +864,7 @@ namespace ExRam.Gremlinq.Core
                 .Build();
         }
 
-        private IValueGremlinQuery<dynamic> Project(Func<IProjectBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TElement>, IProjectDynamicResult> continuation)
+        private IGremlinQuery<dynamic> Project(Func<IProjectBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TElement>, IProjectDynamicResult> continuation)
         {
             return new ProjectBuilder(this)
                 .Map(continuation)

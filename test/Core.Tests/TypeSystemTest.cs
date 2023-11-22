@@ -323,7 +323,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Vertex>()
                 .Values(x => x.String)
                 .Should()
-                .BeAssignableTo<IValueGremlinQuery<string>>();
+                .BeAssignableTo<IGremlinQuery<string>>();
         }
 
         [Fact]
@@ -333,7 +333,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Vertex>()
                 .Values(x => x.Strings!)
                 .Should()
-                .BeAssignableTo<IValueGremlinQuery<string>>();
+                .BeAssignableTo<IGremlinQuery<string>>();
         }
 
         [Fact]
@@ -343,7 +343,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Vertex>()
                 .Values(x => x.StringVertexProperty!)
                 .Should()
-                .BeAssignableTo<IValueGremlinQuery<string>>();
+                .BeAssignableTo<IGremlinQuery<string>>();
         }
 
         [Fact]
@@ -353,7 +353,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Vertex>()
                 .Values(x => x.StringVertexProperties!)
                 .Should()
-                .BeAssignableTo<IValueGremlinQuery<string>>();
+                .BeAssignableTo<IGremlinQuery<string>>();
         }
 
         [Fact]
@@ -363,7 +363,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Vertex>()
                 .Values(x => x.MetaStringVertexProperty!)
                 .Should()
-                .BeAssignableTo<IValueGremlinQuery<string>>();
+                .BeAssignableTo<IGremlinQuery<string>>();
         }
 
         [Fact]
@@ -373,7 +373,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Vertex>()
                 .Values(x => x.MetaStringVertexProperties!)
                 .Should()
-                .BeAssignableTo<IValueGremlinQuery<string>>();
+                .BeAssignableTo<IGremlinQuery<string>>();
         }
 
         [Fact]
@@ -383,13 +383,13 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Vertex>()
                 .Values(x => x.String!, x => x.Strings!)
                 .Should()
-                .BeAssignableTo<IValueGremlinQuery<object>>();
+                .BeAssignableTo<IGremlinQuery<object>>();
 
             _g
                 .V<Vertex>()
                 .Values<string>(x => x.String!, x => x.Strings!)
                 .Should()
-                .BeAssignableTo<IValueGremlinQuery<string>>();
+                .BeAssignableTo<IGremlinQuery<string>>();
         }
 
         [Fact]
@@ -399,7 +399,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Vertex>()
                 .Values(x => x.String!, x => x.StringVertexProperty!)
                 .Should()
-                .BeAssignableTo<IValueGremlinQuery<string>>();
+                .BeAssignableTo<IGremlinQuery<string>>();
         }
 
         [Fact]
@@ -409,7 +409,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Vertex>()
                 .Values(x => x.Strings!, x => x.StringVertexProperty!)
                 .Should()
-                .BeAssignableTo<IValueGremlinQuery<string>>();
+                .BeAssignableTo<IGremlinQuery<string>>();
         }
 
         [Fact]
@@ -419,7 +419,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Vertex>()
                 .Values(x => x.String!, x => x.StringVertexProperties!)
                 .Should()
-                .BeAssignableTo<IValueGremlinQuery<object>>();
+                .BeAssignableTo<IGremlinQuery<object>>();
         }
 
         [Fact]
@@ -429,7 +429,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Vertex>()
                 .Values(x => x.Strings!, x => x.StringVertexProperties!)
                 .Should()
-                .BeAssignableTo<IValueGremlinQuery<object>>();
+                .BeAssignableTo<IGremlinQuery<object>>();
         }
 
         [Fact]
@@ -469,7 +469,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .E<Edge>()
                 .Values(x => x.String)
                 .Should()
-                .BeAssignableTo<IValueGremlinQuery<string>>();
+                .BeAssignableTo<IGremlinQuery<string>>();
         }
 
         [Fact]
@@ -479,7 +479,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .E<Edge>()
                 .Values(x => x.StringEdgeProperty!)
                 .Should()
-                .BeAssignableTo<IValueGremlinQuery<string>>();
+                .BeAssignableTo<IGremlinQuery<string>>();
         }
 
         [Fact]
@@ -489,7 +489,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .E<Edge>()
                 .Values(x => x.String!, x => x.StringEdgeProperty!)
                 .Should()
-                .BeAssignableTo<IValueGremlinQuery<string>>();
+                .BeAssignableTo<IGremlinQuery<string>>();
         }
 
         [Fact]
@@ -516,7 +516,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .By(__ => __.Values(x => x.String))
                     .By(__ => __.Values(x => x.String)))
                 .Should()
-                .BeAssignableTo<IValueGremlinQuery<(string, string, string, string, string, string, string, string, string, string, string, string, string, string, string, string)>>();
+                .BeAssignableTo<IGremlinQuery<(string, string, string, string, string, string, string, string, string, string, string, string, string, string, string, string)>>();
         }
     }
 }

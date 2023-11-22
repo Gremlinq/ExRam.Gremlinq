@@ -99,7 +99,7 @@ namespace ExRam.Gremlinq.Core
 
             IMapGremlinQuery<TItem1> IProjectMapResult<TItem1>.Build() => Build<IMapGremlinQuery<TItem1>>();
 
-            IValueGremlinQuery<dynamic> IProjectDynamicResult.Build() => Build<IValueGremlinQuery<dynamic>>();
+            IGremlinQuery<dynamic> IProjectDynamicResult.Build() => Build<IGremlinQuery<dynamic>>();
 
             IProjectMapBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TElement, TItem1> IProjectMapBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TElement, TItem1>.By<TSourceProperty, TTargetProperty>(Expression<Func<TItem1, TTargetProperty>> targetExpression, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase<TSourceProperty>> projection)
             {

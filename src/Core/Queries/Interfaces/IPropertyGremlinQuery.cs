@@ -9,10 +9,10 @@
         IPropertyGremlinQueryBase,
         IGremlinQueryBase<TElement>
     {
-        IValueGremlinQuery<string> Key();
+        IGremlinQuery<string> Key();
 
-        IValueGremlinQuery<object> Value();
-        IValueGremlinQuery<TValue> Value<TValue>();
+        IGremlinQuery<object> Value();
+        IGremlinQuery<TValue> Value<TValue>();
     }
 
     public interface IPropertyGremlinQuery<TElement> :

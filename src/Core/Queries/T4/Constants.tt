@@ -10,7 +10,6 @@
 
 
         "IGremlinQuery<TElement>",
-        "IValueGremlinQuery<TElement>",
         "IMapGremlinQuery<TElement>",
         "IArrayGremlinQuery<TArray, TArrayItem, TOriginalQuery>",
         "IElementGremlinQuery<TElement>",
