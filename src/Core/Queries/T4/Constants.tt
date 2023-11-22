@@ -2,7 +2,6 @@
     var baseInterfaces = new[]
     {
         "IGremlinQueryBase",
-        "IValueGremlinQueryBase",
         "IElementGremlinQueryBase",
         "IEdgeOrVertexGremlinQueryBase",
         "IVertexGremlinQueryBase",
