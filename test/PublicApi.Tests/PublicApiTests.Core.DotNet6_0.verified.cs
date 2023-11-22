@@ -466,6 +466,9 @@
         TSelf Loop(System.Func<ExRam.Gremlinq.Core.IStartLoopBuilder<TSelf>, ExRam.Gremlinq.Core.IFinalLoopBuilder<TSelf>> loopBuilderTransformation);
         TTargetQuery Map<TTargetQuery>(System.Func<TSelf, TTargetQuery> mapping)
             where TTargetQuery : ExRam.Gremlinq.Core.IGremlinQueryBase;
+        TSelf Max();
+        TSelf Mean();
+        TSelf Min();
         TSelf None();
         TSelf Not(System.Func<TSelf, ExRam.Gremlinq.Core.IGremlinQueryBase> notTraversal);
         TSelf Optional(System.Func<TSelf, TSelf> optionalTraversal);
@@ -476,6 +479,7 @@
         TSelf SideEffect(System.Func<TSelf, ExRam.Gremlinq.Core.IGremlinQueryBase> sideEffectTraversal);
         TSelf SimplePath();
         TSelf Skip(long count);
+        TSelf Sum();
         TSelf Tail(long count);
         ExRam.Gremlinq.Core.IValueGremlinQuery<object> Union(params System.Func<TSelf, ExRam.Gremlinq.Core.IGremlinQueryBase>[] traversals);
         TTargetQuery Union<TTargetQuery>(params System.Func<TSelf, TTargetQuery>[] unionTraversals)
@@ -931,13 +935,7 @@
         where TSelf : ExRam.Gremlinq.Core.IValueGremlinQueryBaseRec<TSelf> { }
     public interface IValueGremlinQueryBaseRec<TElement, TSelf> : ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IGremlinQueryBaseRec<TSelf>, ExRam.Gremlinq.Core.IGremlinQueryBaseRec<TElement, TSelf>, ExRam.Gremlinq.Core.IGremlinQueryBase<TElement>, ExRam.Gremlinq.Core.IStartGremlinQuery, ExRam.Gremlinq.Core.IValueGremlinQueryBase, ExRam.Gremlinq.Core.IValueGremlinQueryBaseRec<TSelf>, ExRam.Gremlinq.Core.IValueGremlinQueryBase<TElement>
         where TSelf : ExRam.Gremlinq.Core.IValueGremlinQueryBaseRec<TElement, TSelf> { }
-    public interface IValueGremlinQueryBase<TElement> : ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IGremlinQueryBase<TElement>, ExRam.Gremlinq.Core.IStartGremlinQuery, ExRam.Gremlinq.Core.IValueGremlinQueryBase
-    {
-        ExRam.Gremlinq.Core.IValueGremlinQuery<TElement> Max();
-        ExRam.Gremlinq.Core.IValueGremlinQuery<TElement> Mean();
-        ExRam.Gremlinq.Core.IValueGremlinQuery<TElement> Min();
-        ExRam.Gremlinq.Core.IValueGremlinQuery<TElement> Sum();
-    }
+    public interface IValueGremlinQueryBase<TElement> : ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IGremlinQueryBase<TElement>, ExRam.Gremlinq.Core.IStartGremlinQuery, ExRam.Gremlinq.Core.IValueGremlinQueryBase { }
     public interface IValueGremlinQuery<TElement> : ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IGremlinQueryBaseRec<ExRam.Gremlinq.Core.IValueGremlinQuery<TElement>>, ExRam.Gremlinq.Core.IGremlinQueryBaseRec<TElement, ExRam.Gremlinq.Core.IValueGremlinQuery<TElement>>, ExRam.Gremlinq.Core.IGremlinQueryBase<TElement>, ExRam.Gremlinq.Core.IStartGremlinQuery, ExRam.Gremlinq.Core.IValueGremlinQueryBase, ExRam.Gremlinq.Core.IValueGremlinQueryBaseRec<ExRam.Gremlinq.Core.IValueGremlinQuery<TElement>>, ExRam.Gremlinq.Core.IValueGremlinQueryBaseRec<TElement, ExRam.Gremlinq.Core.IValueGremlinQuery<TElement>>, ExRam.Gremlinq.Core.IValueGremlinQueryBase<TElement> { }
     public interface IVertexGremlinQueryBase : ExRam.Gremlinq.Core.IEdgeOrVertexGremlinQueryBase, ExRam.Gremlinq.Core.IElementGremlinQueryBase, ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IStartGremlinQuery
     {

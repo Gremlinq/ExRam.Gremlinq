@@ -318,15 +318,11 @@ namespace ExRam.Gremlinq.Core
 
         IValueGremlinQuery<object> IPropertyGremlinQueryBase<TElement>.Value() => Value<object>();
 
-        IValueGremlinQuery<TElement> IValueGremlinQueryBase<TElement>.Sum() => SumGlobal();
-
         IGremlinQuery<TScalar> IArrayGremlinQueryBase<TScalar>.SumLocal() => SumLocal<TScalar>();
 
         IValueGremlinQuery<object> IArrayGremlinQueryBase.SumLocal() => SumLocal<object>();
 
         TFoldedQuery IArrayGremlinQueryBase<TElement, TScalar, TFoldedQuery>.SumLocal() => SumLocal<object>().CloneAs<TFoldedQuery>();
-
-        IValueGremlinQuery<TElement> IValueGremlinQueryBase<TElement>.Min() => MinGlobal();
 
         IGremlinQuery<TScalar> IArrayGremlinQueryBase<TScalar>.MinLocal() => MinLocal<TScalar>();
 
@@ -334,15 +330,11 @@ namespace ExRam.Gremlinq.Core
 
         TFoldedQuery IArrayGremlinQueryBase<TElement, TScalar, TFoldedQuery>.MinLocal() => MinLocal<object>().CloneAs<TFoldedQuery>();
 
-        IValueGremlinQuery<TElement> IValueGremlinQueryBase<TElement>.Max() => MaxGlobal();
-
         IGremlinQuery<TScalar> IArrayGremlinQueryBase<TScalar>.MaxLocal() => MaxLocal<TScalar>();
 
         IValueGremlinQuery<object> IArrayGremlinQueryBase.MaxLocal() => MaxLocal<object>();
 
         TFoldedQuery IArrayGremlinQueryBase<TElement, TScalar, TFoldedQuery>.MaxLocal() => MaxLocal<object>().CloneAs<TFoldedQuery>();
-
-        IValueGremlinQuery<TElement> IValueGremlinQueryBase<TElement>.Mean() => MeanGlobal();
 
         IGremlinQuery<TScalar> IArrayGremlinQueryBase<TScalar>.MeanLocal() => MeanLocal<TScalar>();
 
