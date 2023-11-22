@@ -181,6 +181,10 @@
     public interface IArrayGremlinQueryBase : ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IStartGremlinQuery
     {
         ExRam.Gremlinq.Core.IGremlinQuery<object[]> Lower();
+        ExRam.Gremlinq.Core.IValueGremlinQuery<object> MaxLocal();
+        ExRam.Gremlinq.Core.IValueGremlinQuery<object> MeanLocal();
+        ExRam.Gremlinq.Core.IValueGremlinQuery<object> MinLocal();
+        ExRam.Gremlinq.Core.IValueGremlinQuery<object> SumLocal();
         ExRam.Gremlinq.Core.IGremlinQuery<object> Unfold();
     }
     public interface IArrayGremlinQueryBaseRec<TSelf> : ExRam.Gremlinq.Core.IArrayGremlinQueryBase, ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IGremlinQueryBaseRec<TSelf>, ExRam.Gremlinq.Core.IStartGremlinQuery
@@ -200,6 +204,10 @@
     public interface IArrayGremlinQueryBase<TArrayItem> : ExRam.Gremlinq.Core.IArrayGremlinQueryBase, ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IStartGremlinQuery
     {
         ExRam.Gremlinq.Core.IGremlinQuery<TArrayItem[]> Lower();
+        ExRam.Gremlinq.Core.IGremlinQuery<TArrayItem> MaxLocal();
+        ExRam.Gremlinq.Core.IGremlinQuery<TArrayItem> MeanLocal();
+        ExRam.Gremlinq.Core.IGremlinQuery<TArrayItem> MinLocal();
+        ExRam.Gremlinq.Core.IGremlinQuery<TArrayItem> SumLocal();
         ExRam.Gremlinq.Core.IGremlinQuery<TArrayItem> Unfold();
     }
     public interface IArrayGremlinQueryBase<TArray, TArrayItem> : ExRam.Gremlinq.Core.IArrayGremlinQueryBase, ExRam.Gremlinq.Core.IArrayGremlinQueryBase<TArrayItem>, ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IGremlinQueryBase<TArray>, ExRam.Gremlinq.Core.IStartGremlinQuery
@@ -926,13 +934,9 @@
     public interface IValueGremlinQueryBase<TElement> : ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IGremlinQueryBase<TElement>, ExRam.Gremlinq.Core.IStartGremlinQuery, ExRam.Gremlinq.Core.IValueGremlinQueryBase
     {
         ExRam.Gremlinq.Core.IValueGremlinQuery<TElement> Max();
-        ExRam.Gremlinq.Core.IValueGremlinQuery<object> MaxLocal();
         ExRam.Gremlinq.Core.IValueGremlinQuery<TElement> Mean();
-        ExRam.Gremlinq.Core.IValueGremlinQuery<object> MeanLocal();
         ExRam.Gremlinq.Core.IValueGremlinQuery<TElement> Min();
-        ExRam.Gremlinq.Core.IValueGremlinQuery<object> MinLocal();
         ExRam.Gremlinq.Core.IValueGremlinQuery<TElement> Sum();
-        ExRam.Gremlinq.Core.IValueGremlinQuery<object> SumLocal();
     }
     public interface IValueGremlinQuery<TElement> : ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IGremlinQueryBaseRec<ExRam.Gremlinq.Core.IValueGremlinQuery<TElement>>, ExRam.Gremlinq.Core.IGremlinQueryBaseRec<TElement, ExRam.Gremlinq.Core.IValueGremlinQuery<TElement>>, ExRam.Gremlinq.Core.IGremlinQueryBase<TElement>, ExRam.Gremlinq.Core.IStartGremlinQuery, ExRam.Gremlinq.Core.IValueGremlinQueryBase, ExRam.Gremlinq.Core.IValueGremlinQueryBaseRec<ExRam.Gremlinq.Core.IValueGremlinQuery<TElement>>, ExRam.Gremlinq.Core.IValueGremlinQueryBaseRec<TElement, ExRam.Gremlinq.Core.IValueGremlinQuery<TElement>>, ExRam.Gremlinq.Core.IValueGremlinQueryBase<TElement> { }
     public interface IVertexGremlinQueryBase : ExRam.Gremlinq.Core.IEdgeOrVertexGremlinQueryBase, ExRam.Gremlinq.Core.IElementGremlinQueryBase, ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IStartGremlinQuery

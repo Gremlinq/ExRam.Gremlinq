@@ -10,16 +10,12 @@
         IValueGremlinQueryBase,
         IGremlinQueryBase<TElement>
     {
-        IValueGremlinQuery<object> SumLocal();
         IValueGremlinQuery<TElement> Sum();
 
-        IValueGremlinQuery<object> MinLocal();
         IValueGremlinQuery<TElement> Min();
 
-        IValueGremlinQuery<object> MaxLocal();
         IValueGremlinQuery<TElement> Max();
 
-        IValueGremlinQuery<object> MeanLocal();
         IValueGremlinQuery<TElement> Mean();
     }
 
