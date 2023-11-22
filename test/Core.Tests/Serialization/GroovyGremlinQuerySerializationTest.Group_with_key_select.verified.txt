@@ -1,0 +1,6 @@
+﻿{
+  Script: g.V().group().by(__.label()).select(_a).count(local),
+  Bindings: {
+    _a: Person
+  }
+}

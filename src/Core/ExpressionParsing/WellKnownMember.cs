@@ -22,6 +22,8 @@
 
         ComparableCompareTo,
 
-        ArrayLength
+        ArrayLength,
+
+        IndexerGet
     }
 }

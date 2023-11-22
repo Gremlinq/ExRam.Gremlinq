@@ -125,6 +125,9 @@ namespace ExRam.Gremlinq.Core
                         if (typeof(IList).IsAssignableFrom(methodInfo.DeclaringType) && methodInfo.Name == nameof(List<object>.Contains))
                             return WellKnownMember.ListContains;
 
+                        if (methodInfo.DeclaringType is { IsGenericType: true } declaringType && declaringType.GetGenericArguments() is [var keyType, _] && methodInfo.Name == "get_Item")
+                            return WellKnownMember.IndexerGet;
+
                         if (methodInfo.DeclaringType == typeof(string) && methodInfo.GetParameters() is { Length: 1 or 2 } parameters)
                         {
                             if (parameters[0].ParameterType == typeof(string) && (parameters.Length == 1 || parameters[1].ParameterType == typeof(StringComparison)))

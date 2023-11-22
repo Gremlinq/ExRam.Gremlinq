@@ -972,6 +972,15 @@ namespace ExRam.Gremlinq.Tests.TestCases
             .Verify();
 
         [Fact]
+        public virtual Task Group_with_key_select() => _g
+            .V()
+            .Group(_ => _
+                .ByKey(__ => __.Label()))
+            .Select(x => x["Person"])
+            .CountLocal()
+            .Verify();
+
+        [Fact]
         public virtual Task Group_with_key_identity() => _g
             .V()
             .Group(_ => _
