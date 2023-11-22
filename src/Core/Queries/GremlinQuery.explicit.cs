@@ -44,15 +44,13 @@ namespace ExRam.Gremlinq.Core
 
         TFoldedQuery IArrayGremlinQueryBase<TElement, TScalar, TFoldedQuery>.Unfold() => Unfold<TFoldedQuery>();
 
-        IValueGremlinQuery<TElement> IArrayGremlinQueryBase<TElement, TScalar>.Lower() => this;
+        IGremlinQuery<TElement> IArrayGremlinQueryBase<TElement, TScalar>.Lower() => this;
 
-        IValueGremlinQuery<object> IArrayGremlinQueryBase.Unfold() => Unfold<IValueGremlinQuery<object>>();
+        IGremlinQuery<object> IArrayGremlinQueryBase.Unfold() => Unfold<IGremlinQuery<object>>();
 
-        IValueGremlinQuery<TScalar[]> IArrayGremlinQueryBase<TScalar>.Lower() => Cast<TScalar[]>();
+        IGremlinQuery<TScalar[]> IArrayGremlinQueryBase<TScalar>.Lower() => Cast<TScalar[]>();
 
-        IValueGremlinQuery<object[]> IArrayGremlinQueryBase.Lower() => Cast<object[]>();
-
-        IValueGremlinQuery<TElement> IArrayGremlinQueryBase<TElement, TScalar, TFoldedQuery>.Lower() => this;
+        IGremlinQuery<object[]> IArrayGremlinQueryBase.Lower() => Cast<object[]>();
 
         TFoldedQuery IArrayGremlinQueryBase<TElement, TScalar, TFoldedQuery>.SumLocal() => SumLocal().CloneAs<TFoldedQuery>();
 
@@ -60,7 +58,7 @@ namespace ExRam.Gremlinq.Core
 
         TFoldedQuery IArrayGremlinQueryBase<TElement, TScalar, TFoldedQuery>.MaxLocal() => MaxLocal().CloneAs<TFoldedQuery>();
 
-        IValueGremlinQuery<TScalar> IArrayGremlinQueryBase<TScalar>.Unfold() => Unfold<IValueGremlinQuery<TScalar>>();
+        IGremlinQuery<TScalar> IArrayGremlinQueryBase<TScalar>.Unfold() => Unfold<IGremlinQuery<TScalar>>();
 
         IEdgeGremlinQuery<TElement> IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.Lower() => this;
 
