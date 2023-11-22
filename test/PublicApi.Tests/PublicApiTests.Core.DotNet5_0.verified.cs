@@ -508,7 +508,7 @@
     }
     public interface IGremlinQueryBase<TElement> : ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IStartGremlinQuery
     {
-        ExRam.Gremlinq.Core.IArrayGremlinQuery<TElement[], TElement, ExRam.Gremlinq.Core.IGremlinQueryBase<TElement>> ForceArray();
+        ExRam.Gremlinq.Core.IArrayGremlinQuery<TElement[], TElement, ExRam.Gremlinq.Core.IGremlinQuery<TElement>> ForceArray();
         ExRam.Gremlinq.Core.IGremlinQuery<TElement> ForceBase();
         ExRam.Gremlinq.Core.IEdgeGremlinQuery<TElement> ForceEdge();
         ExRam.Gremlinq.Core.IEdgeGremlinQuery<TElement, TOutVertex, TInVertex> ForceEdge<TOutVertex, TInVertex>();
