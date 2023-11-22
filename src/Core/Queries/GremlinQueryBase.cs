@@ -46,22 +46,21 @@ namespace ExRam.Gremlinq.Core
                     }
 
                     var t1 = TryGetMatchingType(closureType, "TElement", "TVertex", "TEdge", "TProperty", "TArray") ?? typeof(object);
-                    var t2 = TryGetMatchingType(closureType, "TOutVertex", "TAdjacentVertex") ?? typeof(object);
-                    var t3 = TryGetMatchingType(closureType, "TInVertex") ?? typeof(object);
-                    var t4 = TryGetMatchingType(closureType, "TValue", "TArrayItem");
+                    var t2 = TryGetMatchingType(closureType, "TOutVertex", "TAdjacentVertex", "TArrayItem");
+                    var t3 = TryGetMatchingType(closureType, "TInVertex", "TOriginalQuery") ?? typeof(object);
+                    var t4 = TryGetMatchingType(closureType, "TValue") ?? typeof(object);
                     var t5 = TryGetMatchingType(closureType, "TMeta") ?? typeof(object);
-                    var t6 = TryGetMatchingType(closureType, "TOriginalQuery") ?? typeof(object);
 
                     return (QueryContinuation?)TryCreateQueryContinuationMethod
                         .MakeGenericMethod(
                             t1,
-                            t2,
-                            t3,
-                            t4 ?? (t1.IsArray
+                            t2 ?? (t1.IsArray
                                 ? t1.GetElementType()!
                                 : typeof(object)),
+                            t3,
+                            t4,
                             t5,
-                            t6)
+                            typeof(object))
                         .Invoke(null, new object?[] { closureType })!;
                 });
 
