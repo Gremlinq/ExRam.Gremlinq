@@ -3,7 +3,6 @@
     public interface IValueGremlinQueryBase :
         IGremlinQueryBase
     {
-        new IValueGremlinQuery<TResult> Cast<TResult>();
     }
 
     public interface IValueGremlinQueryBase<TElement> :
