@@ -32,7 +32,7 @@
             .Replace("TAdjacentVertex", "T2")
             .Replace("TProperty", "T1")
             .Replace("TValue", "T4")
-            .Replace("TArrayItem", "T4")
+            .Replace("TArrayItem", "T2")
             .Replace("TArray", "T1")
-            .Replace("TOriginalQuery", "T6"));
+            .Replace("TOriginalQuery", "T3"));
 #>
