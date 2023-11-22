@@ -51,6 +51,7 @@
     }
 
     public interface IArrayGremlinQuery<TArray, TArrayItem, TOriginalQuery> :
+        IArrayGremlinQueryBaseRec<IArrayGremlinQuery<TArray, TArrayItem, TOriginalQuery>>,
         IArrayGremlinQueryBase<TArray, TArrayItem, TOriginalQuery>,
         IGremlinQueryBaseRec<TArray, IArrayGremlinQuery<TArray, TArrayItem, TOriginalQuery>>
     {
