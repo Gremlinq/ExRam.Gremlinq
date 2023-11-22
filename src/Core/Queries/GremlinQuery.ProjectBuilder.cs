@@ -5,41 +5,41 @@ using ExRam.Gremlinq.Core.Steps;
 
 namespace ExRam.Gremlinq.Core
 {
-    partial class GremlinQuery<T1, T2, T3, TScalar, TMeta, TFoldedQuery>
+    partial class GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>
     {
-        private sealed class ProjectBuilder : IProjectBuilder<GremlinQuery<T1, T2, T3, TScalar, TMeta, TFoldedQuery>, T1>
+        private sealed class ProjectBuilder : IProjectBuilder<GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>, T1>
         {
             private readonly bool _emptyProjectionProtection;
-            private readonly GremlinQuery<T1, T2, T3, TScalar, TMeta, TFoldedQuery> _sourceQuery;
+            private readonly GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery> _sourceQuery;
 
-            public ProjectBuilder(GremlinQuery<T1, T2, T3, TScalar, TMeta, TFoldedQuery> sourceQuery) : this(
+            public ProjectBuilder(GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery> sourceQuery) : this(
                 sourceQuery,
                 sourceQuery.Environment.Options.GetValue(GremlinqOption.EnableEmptyProjectionValueProtection))
             {
             }
 
-            private ProjectBuilder(GremlinQuery<T1, T2, T3, TScalar, TMeta, TFoldedQuery> sourceQuery, bool emptyProjectionProtection)
+            private ProjectBuilder(GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery> sourceQuery, bool emptyProjectionProtection)
             {
                 _sourceQuery = sourceQuery;
                 _emptyProjectionProtection = emptyProjectionProtection;
             }
 
-            IProjectBuilder<GremlinQuery<T1, T2, T3, TScalar, TMeta, TFoldedQuery>, T1> IProjectBuilder<GremlinQuery<T1, T2, T3, TScalar, TMeta, TFoldedQuery>, T1>.WithEmptyProjectionProtection()
+            IProjectBuilder<GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>, T1> IProjectBuilder<GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>, T1>.WithEmptyProjectionProtection()
             {
                 return new ProjectBuilder(_sourceQuery, true);
             }
 
-            IProjectTupleBuilder<GremlinQuery<T1, T2, T3, TScalar, TMeta, TFoldedQuery>, T1> IProjectBuilder<GremlinQuery<T1, T2, T3, TScalar, TMeta, TFoldedQuery>, T1>.ToTuple()
+            IProjectTupleBuilder<GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>, T1> IProjectBuilder<GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>, T1>.ToTuple()
             {
                 return Continue<object>();
             }
 
-            IProjectDynamicBuilder<GremlinQuery<T1, T2, T3, TScalar, TMeta, TFoldedQuery>, T1> IProjectBuilder<GremlinQuery<T1, T2, T3, TScalar, TMeta, TFoldedQuery>, T1>.ToDynamic()
+            IProjectDynamicBuilder<GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>, T1> IProjectBuilder<GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>, T1>.ToDynamic()
             {
                 return Continue<object>();
             }
 
-            IProjectMapBuilder<GremlinQuery<T1, T2, T3, TScalar, TMeta, TFoldedQuery>, T1, TTargetType> IProjectBuilder<GremlinQuery<T1, T2, T3, TScalar, TMeta, TFoldedQuery>, T1>.To<TTargetType>()
+            IProjectMapBuilder<GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>, T1, TTargetType> IProjectBuilder<GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>, T1>.To<TTargetType>()
             {
                 return Continue<TTargetType>();
             }
@@ -56,15 +56,15 @@ namespace ExRam.Gremlinq.Core
         }
 
         private sealed partial class ProjectBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15, TItem16> :
-            IProjectDynamicBuilder<GremlinQuery<T1, T2, T3, TScalar, TMeta, TFoldedQuery>, T1>,
-            IProjectMapBuilder<GremlinQuery<T1, T2, T3, TScalar, TMeta, TFoldedQuery>, T1, TItem1>
+            IProjectDynamicBuilder<GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>, T1>,
+            IProjectMapBuilder<GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>, T1, TItem1>
         {
             private readonly FastImmutableList<string> _names;
             private readonly Traversal _emptyProjectionProtectionDecoratorSteps;
-            private readonly MultiContinuationBuilder<GremlinQuery<T1, T2, T3, TScalar, TMeta, TFoldedQuery>, GremlinQuery<T1, T2, T3, TScalar, TMeta, TFoldedQuery>> _continuationBuilder;
+            private readonly MultiContinuationBuilder<GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>, GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>> _continuationBuilder;
 
             public ProjectBuilder(
-                MultiContinuationBuilder<GremlinQuery<T1, T2, T3, TScalar, TMeta, TFoldedQuery>, GremlinQuery<T1, T2, T3, TScalar, TMeta, TFoldedQuery>> continuationBuilder,
+                MultiContinuationBuilder<GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>, GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>> continuationBuilder,
                 FastImmutableList<string> names,
                 Traversal emptyProjectionProtectionDecoratorSteps)
             {
@@ -73,22 +73,22 @@ namespace ExRam.Gremlinq.Core
                 _emptyProjectionProtectionDecoratorSteps = emptyProjectionProtectionDecoratorSteps;
             }
 
-            IProjectDynamicBuilder<GremlinQuery<T1, T2, T3, TScalar, TMeta, TFoldedQuery>, T1> IProjectDynamicBuilder<GremlinQuery<T1, T2, T3, TScalar, TMeta, TFoldedQuery>, T1>.By(Func<GremlinQuery<T1, T2, T3, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase> projection)
+            IProjectDynamicBuilder<GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>, T1> IProjectDynamicBuilder<GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>, T1>.By(Func<GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>, IGremlinQueryBase> projection)
             {
                 return ByLambda<object, object, object, object, object, object, object, object, object, object, object, object, object, object, object, object>(projection);
             }
 
-            IProjectDynamicBuilder<GremlinQuery<T1, T2, T3, TScalar, TMeta, TFoldedQuery>, T1> IProjectDynamicBuilder<GremlinQuery<T1, T2, T3, TScalar, TMeta, TFoldedQuery>, T1>.By(string name, Func<GremlinQuery<T1, T2, T3, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase> projection)
+            IProjectDynamicBuilder<GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>, T1> IProjectDynamicBuilder<GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>, T1>.By(string name, Func<GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>, IGremlinQueryBase> projection)
             {
                 return ByLambda<object, object, object, object, object, object, object, object, object, object, object, object, object, object, object, object>(projection, name);
             }
 
-            IProjectDynamicBuilder<GremlinQuery<T1, T2, T3, TScalar, TMeta, TFoldedQuery>, T1> IProjectDynamicBuilder<GremlinQuery<T1, T2, T3, TScalar, TMeta, TFoldedQuery>, T1>.By(string name, Expression<Func<T1, object>> projection)
+            IProjectDynamicBuilder<GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>, T1> IProjectDynamicBuilder<GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>, T1>.By(string name, Expression<Func<T1, object>> projection)
             {
                 return ByExpression<object, object, object, object, object, object, object, object, object, object, object, object, object, object, object, object>(projection, name);
             }
 
-            IProjectDynamicBuilder<GremlinQuery<T1, T2, T3, TScalar, TMeta, TFoldedQuery>, T1> IProjectDynamicBuilder<GremlinQuery<T1, T2, T3, TScalar, TMeta, TFoldedQuery>, T1>.By(Expression<Func<T1, object>> projection)
+            IProjectDynamicBuilder<GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>, T1> IProjectDynamicBuilder<GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>, T1>.By(Expression<Func<T1, object>> projection)
             {
                 return projection.IsIdentityExpression()
                     ? ByLambda<object, object, object, object, object, object, object, object, object, object, object, object, object, object, object, object>(static __ => __.Identity())
@@ -101,7 +101,7 @@ namespace ExRam.Gremlinq.Core
 
             IGremlinQuery<dynamic> IProjectDynamicResult.Build() => Build<IGremlinQuery<dynamic>>();
 
-            IProjectMapBuilder<GremlinQuery<T1, T2, T3, TScalar, TMeta, TFoldedQuery>, T1, TItem1> IProjectMapBuilder<GremlinQuery<T1, T2, T3, TScalar, TMeta, TFoldedQuery>, T1, TItem1>.By<TSourceProperty, TTargetProperty>(Expression<Func<TItem1, TTargetProperty>> targetExpression, Func<GremlinQuery<T1, T2, T3, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase<TSourceProperty>> projection)
+            IProjectMapBuilder<GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>, T1, TItem1> IProjectMapBuilder<GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>, T1, TItem1>.By<TSourceProperty, TTargetProperty>(Expression<Func<TItem1, TTargetProperty>> targetExpression, Func<GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>, IGremlinQueryBase<TSourceProperty>> projection)
             {
                 return By(
                     targetExpression,
@@ -109,7 +109,7 @@ namespace ExRam.Gremlinq.Core
                     projection);
             }
 
-            IProjectMapBuilder<GremlinQuery<T1, T2, T3, TScalar, TMeta, TFoldedQuery>, T1, TItem1> IProjectMapBuilder<GremlinQuery<T1, T2, T3, TScalar, TMeta, TFoldedQuery>, T1, TItem1>.By<TSourceProperty, TTargetProperty>(Expression<Func<TItem1, TTargetProperty>> targetExpression, Expression<Func<T1, TSourceProperty>> projection)
+            IProjectMapBuilder<GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>, T1, TItem1> IProjectMapBuilder<GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>, T1, TItem1>.By<TSourceProperty, TTargetProperty>(Expression<Func<TItem1, TTargetProperty>> targetExpression, Expression<Func<T1, TSourceProperty>> projection)
             {
                 return By(
                     targetExpression,
@@ -117,7 +117,7 @@ namespace ExRam.Gremlinq.Core
                     projection);
             }
 
-            private ProjectBuilder<TNewItem1, TNewItem2, TNewItem3, TNewItem4, TNewItem5, TNewItem6, TNewItem7, TNewItem8, TNewItem9, TNewItem10, TNewItem11, TNewItem12, TNewItem13, TNewItem14, TNewItem15, TNewItem16> ByLambda<TNewItem1, TNewItem2, TNewItem3, TNewItem4, TNewItem5, TNewItem6, TNewItem7, TNewItem8, TNewItem9, TNewItem10, TNewItem11, TNewItem12, TNewItem13, TNewItem14, TNewItem15, TNewItem16>(Func<GremlinQuery<T1, T2, T3, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase> projection, string? name = default)
+            private ProjectBuilder<TNewItem1, TNewItem2, TNewItem3, TNewItem4, TNewItem5, TNewItem6, TNewItem7, TNewItem8, TNewItem9, TNewItem10, TNewItem11, TNewItem12, TNewItem13, TNewItem14, TNewItem15, TNewItem16> ByLambda<TNewItem1, TNewItem2, TNewItem3, TNewItem4, TNewItem5, TNewItem6, TNewItem7, TNewItem8, TNewItem9, TNewItem10, TNewItem11, TNewItem12, TNewItem13, TNewItem14, TNewItem15, TNewItem16>(Func<GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>, IGremlinQueryBase> projection, string? name = default)
             {
                 return new(
                     _continuationBuilder
@@ -152,7 +152,7 @@ namespace ExRam.Gremlinq.Core
                         _emptyProjectionProtectionDecoratorSteps);
             }
 
-            private IProjectMapBuilder<GremlinQuery<T1, T2, T3, TScalar, TMeta, TFoldedQuery>, T1, TItem1> By<TTargetProperty, TState>(Expression<Func<TItem1, TTargetProperty>> targetExpression, Func<ProjectBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15, TItem16>, string, TState, ProjectBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15, TItem16>> transformation, TState state)
+            private IProjectMapBuilder<GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>, T1, TItem1> By<TTargetProperty, TState>(Expression<Func<TItem1, TTargetProperty>> targetExpression, Func<ProjectBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15, TItem16>, string, TState, ProjectBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15, TItem16>> transformation, TState state)
             {
                 return targetExpression.Body is MemberExpression memberExpression
                     ? transformation(this, memberExpression.Member.Name, state)

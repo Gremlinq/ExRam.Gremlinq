@@ -31,8 +31,8 @@
             .Replace("TEdge", "T1")
             .Replace("TAdjacentVertex", "T2")
             .Replace("TProperty", "T1")
-            .Replace("TValue", "TScalar")
-            .Replace("TArrayItem", "TScalar")
+            .Replace("TValue", "T4")
+            .Replace("TArrayItem", "T4")
             .Replace("TArray", "T1")
             .Replace("TOriginalQuery", "TFoldedQuery"));
 #>
