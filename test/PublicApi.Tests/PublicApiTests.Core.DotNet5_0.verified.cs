@@ -335,7 +335,7 @@
     public interface IElementGremlinQueryBase<TElement> : ExRam.Gremlinq.Core.IElementGremlinQueryBase, ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IGremlinQueryBase<TElement>, ExRam.Gremlinq.Core.IStartGremlinQuery
     {
         ExRam.Gremlinq.Core.IElementGremlinQuery<TElement> Update(TElement element);
-        ExRam.Gremlinq.Core.IGremlinQuery<System.Collections.Generic.IDictionary<string, TTarget>> ValueMap<TTarget>(params System.Linq.Expressions.Expression<System.Func<TElement, TTarget>>[] keys);
+        ExRam.Gremlinq.Core.IMapGremlinQuery<System.Collections.Generic.IDictionary<string, TValue>> ValueMap<TValue>(params System.Linq.Expressions.Expression<System.Func<TElement, TValue>>[] keys);
         ExRam.Gremlinq.Core.IGremlinQuery<TTarget> Values<TTarget>(params System.Linq.Expressions.Expression<System.Func<TElement, TTarget>>[] projections);
         ExRam.Gremlinq.Core.IGremlinQuery<TTarget> Values<TTarget>(params System.Linq.Expressions.Expression<System.Func<TElement, TTarget[]>>[] projections);
     }

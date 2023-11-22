@@ -33,7 +33,7 @@ namespace ExRam.Gremlinq.Core
     {
         IElementGremlinQuery<TElement> Update(TElement element);
 
-        IGremlinQuery<IDictionary<string, TTarget>> ValueMap<TTarget>(params Expression<Func<TElement, TTarget>>[] keys);
+        IMapGremlinQuery<IDictionary<string, TValue>> ValueMap<TValue>(params Expression<Func<TElement, TValue>>[] keys);
 
         IGremlinQuery<TTarget> Values<TTarget>(params Expression<Func<TElement, TTarget>>[] projections);
         IGremlinQuery<TTarget> Values<TTarget>(params Expression<Func<TElement, TTarget[]>>[] projections);
