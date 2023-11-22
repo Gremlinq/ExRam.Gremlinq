@@ -14,7 +14,7 @@ using Path = ExRam.Gremlinq.Core.GraphElements.Path;
 
 namespace ExRam.Gremlinq.Core
 {
-    internal partial class GremlinQuery<T1, T2, TInVertex, TScalar, TMeta, TFoldedQuery> :
+    internal partial class GremlinQuery<T1, T2, T3, TScalar, TMeta, TFoldedQuery> :
         IGremlinQueryAdmin,
 
         IGremlinQuerySource,
@@ -30,9 +30,9 @@ namespace ExRam.Gremlinq.Core
         IVertexGremlinQuery<T1>,
         IEdgeGremlinQuery<T1>,
         IInOrOutEdgeGremlinQuery<T1, T2>,
-        IEdgeGremlinQuery<T1, T2, TInVertex>,
+        IEdgeGremlinQuery<T1, T2, T3>,
 
-        IInEdgeGremlinQuery<T1, TInVertex>,
+        IInEdgeGremlinQuery<T1, T3>,
         IOutEdgeGremlinQuery<T1, T2>,
 
         IVertexPropertyGremlinQuery<T1, TScalar>,
@@ -51,13 +51,13 @@ namespace ExRam.Gremlinq.Core
 
         IGremlinQuery<TScalar> IArrayGremlinQueryBase<TScalar>.Unfold() => Unfold<IGremlinQuery<TScalar>>();
 
-        IEdgeGremlinQuery<T1> IEdgeGremlinQuery<T1, T2, TInVertex>.Lower() => this;
+        IEdgeGremlinQuery<T1> IEdgeGremlinQuery<T1, T2, T3>.Lower() => this;
 
-        IEdgeGremlinQuery<T1, TNewOutVertex, TInVertex> IInEdgeGremlinQueryBase<T1, TInVertex>.From<TNewOutVertex>(Func<IVertexGremlinQuery<TInVertex>, IVertexGremlinQueryBase<TNewOutVertex>> fromVertexTraversal) => Cast<TInVertex>().From<T1, TNewOutVertex, TInVertex>(fromVertexTraversal);
+        IEdgeGremlinQuery<T1, TNewOutVertex, T3> IInEdgeGremlinQueryBase<T1, T3>.From<TNewOutVertex>(Func<IVertexGremlinQuery<T3>, IVertexGremlinQueryBase<TNewOutVertex>> fromVertexTraversal) => Cast<T3>().From<T1, TNewOutVertex, T3>(fromVertexTraversal);
 
-        IVertexGremlinQuery<TInVertex> IInEdgeGremlinQueryBase<T1, TInVertex>.InV() => InV<TInVertex>();
+        IVertexGremlinQuery<T3> IInEdgeGremlinQueryBase<T1, T3>.InV() => InV<T3>();
 
-        IEdgeGremlinQuery<T1> IInEdgeGremlinQueryBase<T1, TInVertex>.Lower() => this;
+        IEdgeGremlinQuery<T1> IInEdgeGremlinQueryBase<T1, T3>.Lower() => this;
 
         IEdgeGremlinQuery<T1> IOutEdgeGremlinQueryBase<T1, T2>.Lower() => this;
 
@@ -69,7 +69,7 @@ namespace ExRam.Gremlinq.Core
 
         IEdgeGremlinQuery<object> IOutEdgeGremlinQueryBase.Lower() => Cast<object>();
 
-        IEdgeGremlinQuery<T1> IEdgeGremlinQueryBase<T1, T2, TInVertex>.Lower() => this;
+        IEdgeGremlinQuery<T1> IEdgeGremlinQueryBase<T1, T2, T3>.Lower() => this;
 
         IEdgeOrVertexGremlinQuery<object> IEdgeGremlinQueryBase.Lower() => Cast<object>();
 
@@ -79,7 +79,7 @@ namespace ExRam.Gremlinq.Core
             .BothV()
             .OfType<TVertex>();
 
-        IOutEdgeGremlinQuery<T1, TNewOutVertex> IEdgeGremlinQueryBase<T1>.From<TNewOutVertex>(StepLabel<TNewOutVertex> stepLabel) => From<T1, TNewOutVertex, TInVertex>(stepLabel);
+        IOutEdgeGremlinQuery<T1, TNewOutVertex> IEdgeGremlinQueryBase<T1>.From<TNewOutVertex>(StepLabel<TNewOutVertex> stepLabel) => From<T1, TNewOutVertex, T3>(stepLabel);
 
         IEdgeOrVertexGremlinQuery<T1> IEdgeGremlinQueryBase<T1>.Lower() => this;
 
@@ -291,9 +291,9 @@ namespace ExRam.Gremlinq.Core
 
         IEdgeGremlinQuery<TNewEdge> IStartGremlinQuery.ReplaceE<TNewEdge>(TNewEdge edge) => ((IGremlinQuerySource)this).E<TNewEdge>(edge!.GetId(Environment)).Update(edge);
 
-        IGremlinQuerySource IGremlinQuerySource.ConfigureEnvironment(Func<IGremlinQueryEnvironment, IGremlinQueryEnvironment> transformation) => new GremlinQuery<T1, T2, TInVertex, TScalar, TMeta, TFoldedQuery>(transformation(Environment), Steps, LabelProjections, Metadata);
+        IGremlinQuerySource IGremlinQuerySource.ConfigureEnvironment(Func<IGremlinQueryEnvironment, IGremlinQueryEnvironment> transformation) => new GremlinQuery<T1, T2, T3, TScalar, TMeta, TFoldedQuery>(transformation(Environment), Steps, LabelProjections, Metadata);
 
-        IGremlinQuerySource IGremlinQuerySource.ConfigureMetadata(Func<IImmutableDictionary<object, object?>, IImmutableDictionary<object, object?>> metadataTransformation) => new GremlinQuery<T1, T2, TInVertex, TScalar, TMeta, TFoldedQuery>(Environment, Steps, LabelProjections, metadataTransformation(Metadata));
+        IGremlinQuerySource IGremlinQuerySource.ConfigureMetadata(Func<IImmutableDictionary<object, object?>, IImmutableDictionary<object, object?>> metadataTransformation) => new GremlinQuery<T1, T2, T3, TScalar, TMeta, TFoldedQuery>(Environment, Steps, LabelProjections, metadataTransformation(Metadata));
 
         IGremlinQuerySource IGremlinQuerySource.WithSideEffect<TSideEffect>(StepLabel<TSideEffect> label, TSideEffect value) => WithSideEffect(label, value);
 
@@ -453,9 +453,9 @@ namespace ExRam.Gremlinq.Core
 
         IGremlinQuery<TScalar> IVertexPropertyGremlinQueryBase<T1, TScalar>.Value() => Value<TScalar>();
 
-        IInEdgeGremlinQuery<T1, TInVertex> IEdgeGremlinQuery<T1, T2, TInVertex>.AsInEdge() => this;
+        IInEdgeGremlinQuery<T1, T3> IEdgeGremlinQuery<T1, T2, T3>.AsInEdge() => this;
 
-        IOutEdgeGremlinQuery<T1, T2> IEdgeGremlinQuery<T1, T2, TInVertex>.AsOutEdge() => this;
+        IOutEdgeGremlinQuery<T1, T2> IEdgeGremlinQuery<T1, T2, T3>.AsOutEdge() => this;
 
         IArrayGremlinQuery<T1, TScalar, TFoldedQuery> IArrayGremlinQueryBaseRec<IArrayGremlinQuery<T1, TScalar, TFoldedQuery>>.LimitLocal(long count) => LimitLocal(count);
 
