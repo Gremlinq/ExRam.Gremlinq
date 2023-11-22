@@ -45,11 +45,11 @@ namespace ExRam.Gremlinq.Core
 
         public TOuterQuery Build() => Build<TOuterQuery>();
 
-        public GremlinQuery<TElement, TOutVertex, TInVertex> AutoBuild<TElement, TOutVertex, TInVertex>() => Build<GremlinQuery<TElement, TOutVertex, TInVertex>>();
+        public GremlinQuery<T1, T2, T3> AutoBuild<T1, T2, T3>() => Build<GremlinQuery<T1, T2, T3>>();
 
-        public GremlinQuery<TElement, TOutVertex, object> AutoBuild<TElement, TOutVertex>() => Build<GremlinQuery<TElement, TOutVertex, object>>();
+        public GremlinQuery<T1, T2, object> AutoBuild<T1, T2>() => Build<GremlinQuery<T1, T2, object>>();
 
-        public GremlinQuery<TElement, object, object> AutoBuild<TElement>() => Build<GremlinQuery<TElement, object, object>>();
+        public GremlinQuery<T1, object, object> AutoBuild<T1>() => Build<GremlinQuery<T1, object, object>>();
 
         public GremlinQuery<object, object, object> AutoBuild() => Build<GremlinQuery<object, object, object>>();
 
