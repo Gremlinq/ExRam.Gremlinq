@@ -3,33 +3,33 @@ using ExRam.Gremlinq.Core.Steps;
 
 namespace ExRam.Gremlinq.Core
 {
-    partial class GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>
+    partial class GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery>
     {
         private sealed class GroupBuilder<TKey, TValue> :
-            IGroupBuilder<GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>>,
-            IGroupBuilderWithKey<GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>, TKey>,
+            IGroupBuilder<GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery>>,
+            IGroupBuilderWithKey<GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery>, TKey>,
             IGroupBuilderWithKeyAndValue<TKey, TValue>
         {
-            private readonly MultiContinuationBuilder<GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>, GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>> _continuationBuilder;
+            private readonly MultiContinuationBuilder<GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery>, GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery>> _continuationBuilder;
 
-            public GroupBuilder(ContinuationBuilder<GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>, GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>> continuationBuilder) : this(continuationBuilder.ToMulti())
+            public GroupBuilder(ContinuationBuilder<GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery>, GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery>> continuationBuilder) : this(continuationBuilder.ToMulti())
             {
 
             }
 
-            private GroupBuilder(MultiContinuationBuilder<GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>, GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>> continuationBuilder)
+            private GroupBuilder(MultiContinuationBuilder<GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery>, GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery>> continuationBuilder)
             {
                 _continuationBuilder = continuationBuilder;
             }
 
-            public IGroupBuilderWithKey<GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>, TNewKey> ByKey<TNewKey>(Func<GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>, IGremlinQueryBase<TNewKey>> keySelector)
+            public IGroupBuilderWithKey<GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery>, TNewKey> ByKey<TNewKey>(Func<GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery>, IGremlinQueryBase<TNewKey>> keySelector)
             {
                 return new GroupBuilder<TNewKey, object>(
                     _continuationBuilder
                         .With(keySelector));
             }
 
-            public IGroupBuilderWithKeyAndValue<TKey, TNewValue> ByValue<TNewValue>(Func<GremlinQuery<T1, T2, T3, T4, TMeta, TFoldedQuery>, IGremlinQueryBase<TNewValue>> valueSelector)
+            public IGroupBuilderWithKeyAndValue<TKey, TNewValue> ByValue<TNewValue>(Func<GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery>, IGremlinQueryBase<TNewValue>> valueSelector)
             {
                 return new GroupBuilder<TKey, TNewValue>(
                     _continuationBuilder
