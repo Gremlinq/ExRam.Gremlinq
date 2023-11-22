@@ -280,8 +280,8 @@
         ExRam.Gremlinq.Core.IInEdgeGremlinQuery<TEdge, TInVertex> To<TInVertex>(System.Func<ExRam.Gremlinq.Core.IVertexGremlinQueryBase, ExRam.Gremlinq.Core.IVertexGremlinQueryBase<TInVertex>> toVertexTraversal);
         ExRam.Gremlinq.Core.IEdgeGremlinQuery<TEdge> Update(TEdge element);
         ExRam.Gremlinq.Core.IGremlinQuery<object> Values(params System.Linq.Expressions.Expression<System.Func<TEdge, ExRam.Gremlinq.Core.GraphElements.Property<object>>>[] projections);
-        ExRam.Gremlinq.Core.IGremlinQuery<TTarget> Values<TTarget>(params System.Linq.Expressions.Expression<System.Func<TEdge, ExRam.Gremlinq.Core.GraphElements.Property<TTarget>>>[] projections);
-        new ExRam.Gremlinq.Core.IGremlinQuery<TTarget> Values<TTarget>(params System.Linq.Expressions.Expression<System.Func<TEdge, TTarget>>[] projections);
+        ExRam.Gremlinq.Core.IGremlinQuery<TValue> Values<TValue>(params System.Linq.Expressions.Expression<System.Func<TEdge, ExRam.Gremlinq.Core.GraphElements.Property<TValue>>>[] projections);
+        new ExRam.Gremlinq.Core.IGremlinQuery<TValue> Values<TValue>(params System.Linq.Expressions.Expression<System.Func<TEdge, TValue>>[] projections);
     }
     public interface IEdgeGremlinQueryBase<TEdge, TOutVertex, TInVertex> : ExRam.Gremlinq.Core.IEdgeGremlinQueryBase, ExRam.Gremlinq.Core.IEdgeGremlinQueryBase<TEdge>, ExRam.Gremlinq.Core.IEdgeOrVertexGremlinQueryBase, ExRam.Gremlinq.Core.IEdgeOrVertexGremlinQueryBase<TEdge>, ExRam.Gremlinq.Core.IElementGremlinQueryBase, ExRam.Gremlinq.Core.IElementGremlinQueryBase<TEdge>, ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IGremlinQueryBase<TEdge>, ExRam.Gremlinq.Core.IInEdgeGremlinQueryBase, ExRam.Gremlinq.Core.IInEdgeGremlinQueryBase<TEdge, TInVertex>, ExRam.Gremlinq.Core.IOutEdgeGremlinQueryBase, ExRam.Gremlinq.Core.IOutEdgeGremlinQueryBase<TEdge, TOutVertex>, ExRam.Gremlinq.Core.IStartGremlinQuery
     {
@@ -336,8 +336,8 @@
     {
         ExRam.Gremlinq.Core.IElementGremlinQuery<TElement> Update(TElement element);
         ExRam.Gremlinq.Core.IMapGremlinQuery<System.Collections.Generic.IDictionary<string, TValue>> ValueMap<TValue>(params System.Linq.Expressions.Expression<System.Func<TElement, TValue>>[] keys);
-        ExRam.Gremlinq.Core.IGremlinQuery<TTarget> Values<TTarget>(params System.Linq.Expressions.Expression<System.Func<TElement, TTarget>>[] projections);
-        ExRam.Gremlinq.Core.IGremlinQuery<TTarget> Values<TTarget>(params System.Linq.Expressions.Expression<System.Func<TElement, TTarget[]>>[] projections);
+        ExRam.Gremlinq.Core.IGremlinQuery<TValue> Values<TValue>(params System.Linq.Expressions.Expression<System.Func<TElement, TValue>>[] projections);
+        ExRam.Gremlinq.Core.IGremlinQuery<TValue> Values<TValue>(params System.Linq.Expressions.Expression<System.Func<TElement, TValue[]>>[] projections);
     }
     public interface IElementGremlinQuery<TElement> : ExRam.Gremlinq.Core.IElementGremlinQueryBase, ExRam.Gremlinq.Core.IElementGremlinQueryBaseRec<ExRam.Gremlinq.Core.IElementGremlinQuery<TElement>>, ExRam.Gremlinq.Core.IElementGremlinQueryBaseRec<TElement, ExRam.Gremlinq.Core.IElementGremlinQuery<TElement>>, ExRam.Gremlinq.Core.IElementGremlinQueryBase<TElement>, ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IGremlinQueryBaseRec<ExRam.Gremlinq.Core.IElementGremlinQuery<TElement>>, ExRam.Gremlinq.Core.IGremlinQueryBaseRec<TElement, ExRam.Gremlinq.Core.IElementGremlinQuery<TElement>>, ExRam.Gremlinq.Core.IGremlinQueryBase<TElement>, ExRam.Gremlinq.Core.IStartGremlinQuery { }
     public interface IEmitLoopBuilder<TQuery>
@@ -643,7 +643,7 @@
     public interface IMapGremlinQueryBase : ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IStartGremlinQuery { }
     public interface IMapGremlinQueryBase<TElement> : ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IGremlinQueryBase<TElement>, ExRam.Gremlinq.Core.IMapGremlinQueryBase, ExRam.Gremlinq.Core.IStartGremlinQuery
     {
-        ExRam.Gremlinq.Core.IGremlinQuery<TTargetValue> Select<TTargetValue>(System.Linq.Expressions.Expression<System.Func<TElement, TTargetValue>> projection);
+        ExRam.Gremlinq.Core.IGremlinQuery<TValue> Select<TValue>(System.Linq.Expressions.Expression<System.Func<TElement, TValue>> projection);
         ExRam.Gremlinq.Core.IMapGremlinQuery<System.ValueTuple<T1, T2>> Select<T1, T2>(System.Linq.Expressions.Expression<System.Func<TElement, T1>> projection1, System.Linq.Expressions.Expression<System.Func<TElement, T2>> projection2);
         ExRam.Gremlinq.Core.IMapGremlinQuery<System.ValueTuple<T1, T2, T3>> Select<T1, T2, T3>(System.Linq.Expressions.Expression<System.Func<TElement, T1>> projection1, System.Linq.Expressions.Expression<System.Func<TElement, T2>> projection2, System.Linq.Expressions.Expression<System.Func<TElement, T3>> projection3);
         ExRam.Gremlinq.Core.IMapGremlinQuery<System.ValueTuple<T1, T2, T3, T4>> Select<T1, T2, T3, T4>(System.Linq.Expressions.Expression<System.Func<TElement, T1>> projection1, System.Linq.Expressions.Expression<System.Func<TElement, T2>> projection2, System.Linq.Expressions.Expression<System.Func<TElement, T3>> projection3, System.Linq.Expressions.Expression<System.Func<TElement, T4>> projection4);
@@ -964,12 +964,12 @@
         ExRam.Gremlinq.Core.IVertexPropertyGremlinQuery<ExRam.Gremlinq.Core.GraphElements.VertexProperty<TValue, TMeta>, TValue, TMeta> Properties<TValue, TMeta>(params System.Linq.Expressions.Expression<System.Func<TVertex, ExRam.Gremlinq.Core.GraphElements.VertexProperty<TValue, TMeta>[]>>[] projections);
         ExRam.Gremlinq.Core.IVertexGremlinQuery<TVertex> Update(TVertex element);
         ExRam.Gremlinq.Core.IGremlinQuery<object> Values(params System.Linq.Expressions.Expression<System.Func<TVertex, ExRam.Gremlinq.Core.GraphElements.VertexProperty<object>>>[] projections);
-        ExRam.Gremlinq.Core.IGremlinQuery<TTarget> Values<TTarget>(params System.Linq.Expressions.Expression<System.Func<TVertex, ExRam.Gremlinq.Core.GraphElements.VertexProperty<TTarget>>>[] projections);
-        ExRam.Gremlinq.Core.IGremlinQuery<TTarget> Values<TTarget>(params System.Linq.Expressions.Expression<System.Func<TVertex, ExRam.Gremlinq.Core.GraphElements.VertexProperty<TTarget>[]>>[] projections);
-        new ExRam.Gremlinq.Core.IGremlinQuery<TTarget> Values<TTarget>(params System.Linq.Expressions.Expression<System.Func<TVertex, TTarget>>[] projections);
-        new ExRam.Gremlinq.Core.IGremlinQuery<TTarget> Values<TTarget>(params System.Linq.Expressions.Expression<System.Func<TVertex, TTarget[]>>[] projections);
-        ExRam.Gremlinq.Core.IGremlinQuery<TTarget> Values<TTarget, TMeta>(params System.Linq.Expressions.Expression<System.Func<TVertex, ExRam.Gremlinq.Core.GraphElements.VertexProperty<TTarget, TMeta>>>[] projections);
-        ExRam.Gremlinq.Core.IGremlinQuery<TTarget> Values<TTarget, TMeta>(params System.Linq.Expressions.Expression<System.Func<TVertex, ExRam.Gremlinq.Core.GraphElements.VertexProperty<TTarget, TMeta>[]>>[] projections);
+        ExRam.Gremlinq.Core.IGremlinQuery<TValue> Values<TValue>(params System.Linq.Expressions.Expression<System.Func<TVertex, ExRam.Gremlinq.Core.GraphElements.VertexProperty<TValue>>>[] projections);
+        ExRam.Gremlinq.Core.IGremlinQuery<TValue> Values<TValue>(params System.Linq.Expressions.Expression<System.Func<TVertex, ExRam.Gremlinq.Core.GraphElements.VertexProperty<TValue>[]>>[] projections);
+        new ExRam.Gremlinq.Core.IGremlinQuery<TValue> Values<TValue>(params System.Linq.Expressions.Expression<System.Func<TVertex, TValue>>[] projections);
+        new ExRam.Gremlinq.Core.IGremlinQuery<TValue> Values<TValue>(params System.Linq.Expressions.Expression<System.Func<TVertex, TValue[]>>[] projections);
+        ExRam.Gremlinq.Core.IGremlinQuery<TValue> Values<TValue, TMeta>(params System.Linq.Expressions.Expression<System.Func<TVertex, ExRam.Gremlinq.Core.GraphElements.VertexProperty<TValue, TMeta>>>[] projections);
+        ExRam.Gremlinq.Core.IGremlinQuery<TValue> Values<TValue, TMeta>(params System.Linq.Expressions.Expression<System.Func<TVertex, ExRam.Gremlinq.Core.GraphElements.VertexProperty<TValue, TMeta>[]>>[] projections);
     }
     public interface IVertexGremlinQuery<TVertex> : ExRam.Gremlinq.Core.IEdgeOrVertexGremlinQueryBase, ExRam.Gremlinq.Core.IEdgeOrVertexGremlinQueryBaseRec<ExRam.Gremlinq.Core.IVertexGremlinQuery<TVertex>>, ExRam.Gremlinq.Core.IEdgeOrVertexGremlinQueryBaseRec<TVertex, ExRam.Gremlinq.Core.IVertexGremlinQuery<TVertex>>, ExRam.Gremlinq.Core.IEdgeOrVertexGremlinQueryBase<TVertex>, ExRam.Gremlinq.Core.IElementGremlinQueryBase, ExRam.Gremlinq.Core.IElementGremlinQueryBaseRec<ExRam.Gremlinq.Core.IVertexGremlinQuery<TVertex>>, ExRam.Gremlinq.Core.IElementGremlinQueryBaseRec<TVertex, ExRam.Gremlinq.Core.IVertexGremlinQuery<TVertex>>, ExRam.Gremlinq.Core.IElementGremlinQueryBase<TVertex>, ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IGremlinQueryBaseRec<ExRam.Gremlinq.Core.IVertexGremlinQuery<TVertex>>, ExRam.Gremlinq.Core.IGremlinQueryBaseRec<TVertex, ExRam.Gremlinq.Core.IVertexGremlinQuery<TVertex>>, ExRam.Gremlinq.Core.IGremlinQueryBase<TVertex>, ExRam.Gremlinq.Core.IStartGremlinQuery, ExRam.Gremlinq.Core.IVertexGremlinQueryBase, ExRam.Gremlinq.Core.IVertexGremlinQueryBase<TVertex>
     {
@@ -983,8 +983,8 @@
         new ExRam.Gremlinq.Core.IMapGremlinQuery<System.Collections.Generic.IDictionary<string, TValue>> ValueMap<TValue>();
         ExRam.Gremlinq.Core.IMapGremlinQuery<System.Collections.Generic.IDictionary<string, TValue>> ValueMap<TValue>(params string[] keys);
         ExRam.Gremlinq.Core.IGremlinQuery<object> Values(params string[] keys);
-        new ExRam.Gremlinq.Core.IGremlinQuery<TTarget> Values<TTarget>();
-        ExRam.Gremlinq.Core.IGremlinQuery<TTarget> Values<TTarget>(params string[] keys);
+        new ExRam.Gremlinq.Core.IGremlinQuery<TValue> Values<TValue>();
+        ExRam.Gremlinq.Core.IGremlinQuery<TValue> Values<TValue>(params string[] keys);
     }
     public interface IVertexPropertyGremlinQueryBase<TProperty, TValue> : ExRam.Gremlinq.Core.IElementGremlinQueryBase, ExRam.Gremlinq.Core.IElementGremlinQueryBase<TProperty>, ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IGremlinQueryBase<TProperty>, ExRam.Gremlinq.Core.IStartGremlinQuery, ExRam.Gremlinq.Core.IVertexPropertyGremlinQueryBase
     {
@@ -996,7 +996,7 @@
     public interface IVertexPropertyGremlinQueryBase<TProperty, TValue, TMeta> : ExRam.Gremlinq.Core.IElementGremlinQueryBase, ExRam.Gremlinq.Core.IElementGremlinQueryBase<TProperty>, ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IGremlinQueryBase<TProperty>, ExRam.Gremlinq.Core.IStartGremlinQuery, ExRam.Gremlinq.Core.IVertexPropertyGremlinQueryBase
     {
         ExRam.Gremlinq.Core.IElementGremlinQuery<TProperty> Lower();
-        ExRam.Gremlinq.Core.IPropertyGremlinQuery<ExRam.Gremlinq.Core.GraphElements.Property<TTarget>> Properties<TTarget>(params System.Linq.Expressions.Expression<System.Func<TMeta, TTarget>>[] projections);
+        ExRam.Gremlinq.Core.IPropertyGremlinQuery<ExRam.Gremlinq.Core.GraphElements.Property<TMetaValue>> Properties<TMetaValue>(params System.Linq.Expressions.Expression<System.Func<TMeta, TMetaValue>>[] projections);
         ExRam.Gremlinq.Core.IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Property<TMetaValue>(System.Linq.Expressions.Expression<System.Func<TMeta, TMetaValue>> projection, TMetaValue value);
         ExRam.Gremlinq.Core.IGremlinQuery<TValue> Value();
         ExRam.Gremlinq.Core.IGremlinQuery<TMeta> ValueMap();

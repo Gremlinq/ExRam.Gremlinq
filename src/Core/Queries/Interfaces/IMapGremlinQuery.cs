@@ -11,7 +11,7 @@ namespace ExRam.Gremlinq.Core
         IMapGremlinQueryBase,
         IGremlinQueryBase<TElement>
     {
-        IGremlinQuery<TTargetValue> Select<TTargetValue>(Expression<Func<TElement, TTargetValue>> projection);
+        IGremlinQuery<TValue> Select<TValue>(Expression<Func<TElement, TValue>> projection);
 
         IMapGremlinQuery<(T1, T2)> Select<T1, T2>(Expression<Func<TElement, T1>> projection1, Expression<Func<TElement, T2>> projection2);
         IMapGremlinQuery<(T1, T2, T3)> Select<T1, T2, T3>(Expression<Func<TElement, T1>> projection1, Expression<Func<TElement, T2>> projection2, Expression<Func<TElement, T3>> projection3);
