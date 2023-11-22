@@ -965,7 +965,16 @@ namespace ExRam.Gremlinq.Core
                 static (builder, projections) =>
                 {
                     var keys = projections
-                        .Select(static expression => (Key)expression.AssumePropertyOrFieldMemberExpression().Member.Name)
+                        .Select(static expression =>
+                        {
+                            if (expression is LambdaExpression { Body: MethodCallExpression { Arguments: [ { } indexerArgumentExpression ] } methodCallExpression } && methodCallExpression.TryGetWellKnownMember() == WellKnownMember.IndexerGet)
+                            {
+                                if (indexerArgumentExpression.GetValue() is string indexerArgument)
+                                    return indexerArgument;
+                            }
+
+                            return (Key)expression.AssumePropertyOrFieldMemberExpression().Member.Name;
+                        })
                         .ToImmutableArray();
 
                     return builder
