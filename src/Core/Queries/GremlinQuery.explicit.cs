@@ -14,34 +14,34 @@ using Path = ExRam.Gremlinq.Core.GraphElements.Path;
 
 namespace ExRam.Gremlinq.Core
 {
-    internal partial class GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> :
+    internal partial class GremlinQuery<T1, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> :
         IGremlinQueryAdmin,
 
         IGremlinQuerySource,
-        IGremlinQuery<TElement>,
+        IGremlinQuery<T1>,
 
-        IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>,
+        IArrayGremlinQuery<T1, TScalar, TFoldedQuery>,
 
-        IElementGremlinQuery<TElement>,
+        IElementGremlinQuery<T1>,
 
-        IMapGremlinQuery<TElement>,
+        IMapGremlinQuery<T1>,
 
-        IEdgeOrVertexGremlinQuery<TElement>,
-        IVertexGremlinQuery<TElement>,
-        IEdgeGremlinQuery<TElement>,
-        IInOrOutEdgeGremlinQuery<TElement, TOutVertex>,
-        IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>,
+        IEdgeOrVertexGremlinQuery<T1>,
+        IVertexGremlinQuery<T1>,
+        IEdgeGremlinQuery<T1>,
+        IInOrOutEdgeGremlinQuery<T1, TOutVertex>,
+        IEdgeGremlinQuery<T1, TOutVertex, TInVertex>,
 
-        IInEdgeGremlinQuery<TElement, TInVertex>,
-        IOutEdgeGremlinQuery<TElement, TOutVertex>,
+        IInEdgeGremlinQuery<T1, TInVertex>,
+        IOutEdgeGremlinQuery<T1, TOutVertex>,
 
-        IVertexPropertyGremlinQuery<TElement, TScalar>,
-        IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>,
-        IPropertyGremlinQuery<TElement>
+        IVertexPropertyGremlinQuery<T1, TScalar>,
+        IVertexPropertyGremlinQuery<T1, TScalar, TMeta>,
+        IPropertyGremlinQuery<T1>
     {
-        TFoldedQuery IArrayGremlinQueryBase<TElement, TScalar, TFoldedQuery>.Unfold() => Unfold<TFoldedQuery>();
+        TFoldedQuery IArrayGremlinQueryBase<T1, TScalar, TFoldedQuery>.Unfold() => Unfold<TFoldedQuery>();
 
-        IGremlinQuery<TElement> IArrayGremlinQueryBase<TElement, TScalar>.Lower() => this;
+        IGremlinQuery<T1> IArrayGremlinQueryBase<T1, TScalar>.Lower() => this;
 
         IGremlinQuery<object> IArrayGremlinQueryBase.Unfold() => Unfold<IGremlinQuery<object>>();
 
@@ -51,25 +51,25 @@ namespace ExRam.Gremlinq.Core
 
         IGremlinQuery<TScalar> IArrayGremlinQueryBase<TScalar>.Unfold() => Unfold<IGremlinQuery<TScalar>>();
 
-        IEdgeGremlinQuery<TElement> IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.Lower() => this;
+        IEdgeGremlinQuery<T1> IEdgeGremlinQuery<T1, TOutVertex, TInVertex>.Lower() => this;
 
-        IEdgeGremlinQuery<TElement, TNewOutVertex, TInVertex> IInEdgeGremlinQueryBase<TElement, TInVertex>.From<TNewOutVertex>(Func<IVertexGremlinQuery<TInVertex>, IVertexGremlinQueryBase<TNewOutVertex>> fromVertexTraversal) => Cast<TInVertex>().From<TElement, TNewOutVertex, TInVertex>(fromVertexTraversal);
+        IEdgeGremlinQuery<T1, TNewOutVertex, TInVertex> IInEdgeGremlinQueryBase<T1, TInVertex>.From<TNewOutVertex>(Func<IVertexGremlinQuery<TInVertex>, IVertexGremlinQueryBase<TNewOutVertex>> fromVertexTraversal) => Cast<TInVertex>().From<T1, TNewOutVertex, TInVertex>(fromVertexTraversal);
 
-        IVertexGremlinQuery<TInVertex> IInEdgeGremlinQueryBase<TElement, TInVertex>.InV() => InV<TInVertex>();
+        IVertexGremlinQuery<TInVertex> IInEdgeGremlinQueryBase<T1, TInVertex>.InV() => InV<TInVertex>();
 
-        IEdgeGremlinQuery<TElement> IInEdgeGremlinQueryBase<TElement, TInVertex>.Lower() => this;
+        IEdgeGremlinQuery<T1> IInEdgeGremlinQueryBase<T1, TInVertex>.Lower() => this;
 
-        IEdgeGremlinQuery<TElement> IOutEdgeGremlinQueryBase<TElement, TOutVertex>.Lower() => this;
+        IEdgeGremlinQuery<T1> IOutEdgeGremlinQueryBase<T1, TOutVertex>.Lower() => this;
 
-        IVertexGremlinQuery<TOutVertex> IOutEdgeGremlinQueryBase<TElement, TOutVertex>.OutV() => OutV<TOutVertex>();
+        IVertexGremlinQuery<TOutVertex> IOutEdgeGremlinQueryBase<T1, TOutVertex>.OutV() => OutV<TOutVertex>();
 
-        IEdgeGremlinQuery<TElement, TOutVertex, TNewInVertex> IOutEdgeGremlinQueryBase<TElement, TOutVertex>.To<TNewInVertex>(Func<IVertexGremlinQuery<TOutVertex>, IVertexGremlinQueryBase<TNewInVertex>> toVertexTraversal) => Cast<TOutVertex>().To<TElement, TOutVertex, TNewInVertex>(toVertexTraversal);
+        IEdgeGremlinQuery<T1, TOutVertex, TNewInVertex> IOutEdgeGremlinQueryBase<T1, TOutVertex>.To<TNewInVertex>(Func<IVertexGremlinQuery<TOutVertex>, IVertexGremlinQueryBase<TNewInVertex>> toVertexTraversal) => Cast<TOutVertex>().To<T1, TOutVertex, TNewInVertex>(toVertexTraversal);
 
         IEdgeGremlinQuery<object> IInEdgeGremlinQueryBase.Lower() => Cast<object>();
 
         IEdgeGremlinQuery<object> IOutEdgeGremlinQueryBase.Lower() => Cast<object>();
 
-        IEdgeGremlinQuery<TElement> IEdgeGremlinQueryBase<TElement, TOutVertex, TInVertex>.Lower() => this;
+        IEdgeGremlinQuery<T1> IEdgeGremlinQueryBase<T1, TOutVertex, TInVertex>.Lower() => this;
 
         IEdgeOrVertexGremlinQuery<object> IEdgeGremlinQueryBase.Lower() => Cast<object>();
 
@@ -79,11 +79,11 @@ namespace ExRam.Gremlinq.Core
             .BothV()
             .OfType<TVertex>();
 
-        IOutEdgeGremlinQuery<TElement, TNewOutVertex> IEdgeGremlinQueryBase<TElement>.From<TNewOutVertex>(StepLabel<TNewOutVertex> stepLabel) => From<TElement, TNewOutVertex, TInVertex>(stepLabel);
+        IOutEdgeGremlinQuery<T1, TNewOutVertex> IEdgeGremlinQueryBase<T1>.From<TNewOutVertex>(StepLabel<TNewOutVertex> stepLabel) => From<T1, TNewOutVertex, TInVertex>(stepLabel);
 
-        IEdgeOrVertexGremlinQuery<TElement> IEdgeGremlinQueryBase<TElement>.Lower() => this;
+        IEdgeOrVertexGremlinQuery<T1> IEdgeGremlinQueryBase<T1>.Lower() => this;
 
-        IOutEdgeGremlinQuery<TElement, TNewOutVertex> IEdgeGremlinQueryBase<TElement>.From<TNewOutVertex>(Func<IVertexGremlinQueryBase, IVertexGremlinQueryBase<TNewOutVertex>> fromVertexTraversal) => From<TElement, TNewOutVertex, object>(fromVertexTraversal);
+        IOutEdgeGremlinQuery<T1, TNewOutVertex> IEdgeGremlinQueryBase<T1>.From<TNewOutVertex>(Func<IVertexGremlinQueryBase, IVertexGremlinQueryBase<TNewOutVertex>> fromVertexTraversal) => From<T1, TNewOutVertex, object>(fromVertexTraversal);
 
         IVertexGremlinQuery<object> IEdgeGremlinQueryBase.InV() => InV<object>();
 
@@ -103,29 +103,29 @@ namespace ExRam.Gremlinq.Core
             .OutV()
             .OfType<TVertex>();
 
-        IPropertyGremlinQuery<Property<TValue>> IEdgeGremlinQueryBase<TElement>.Properties<TValue>(params Expression<Func<TElement, TValue>>[] projections) => Properties<Property<TValue>, TValue, object>(Projection.Property, projections);
+        IPropertyGremlinQuery<Property<TValue>> IEdgeGremlinQueryBase<T1>.Properties<TValue>(params Expression<Func<T1, TValue>>[] projections) => Properties<Property<TValue>, TValue, object>(Projection.Property, projections);
 
-        IPropertyGremlinQuery<Property<TValue>> IEdgeGremlinQueryBase<TElement>.Properties<TValue>(params Expression<Func<TElement, Property<TValue>>>[] projections) => Properties<Property<TValue>, TValue, object>(Projection.Property, projections);
+        IPropertyGremlinQuery<Property<TValue>> IEdgeGremlinQueryBase<T1>.Properties<TValue>(params Expression<Func<T1, Property<TValue>>>[] projections) => Properties<Property<TValue>, TValue, object>(Projection.Property, projections);
 
-        IPropertyGremlinQuery<Property<object>> IEdgeGremlinQueryBase<TElement>.Properties(params Expression<Func<TElement, Property<object>>>[] projections) => Properties<Property<object>, object, object>(Projection.Property, projections);
+        IPropertyGremlinQuery<Property<object>> IEdgeGremlinQueryBase<T1>.Properties(params Expression<Func<T1, Property<object>>>[] projections) => Properties<Property<object>, object, object>(Projection.Property, projections);
 
         IPropertyGremlinQuery<Property<object>> IEdgeGremlinQueryBase.Properties() => Properties<Property<object>, object, object>(Projection.Property, Array.Empty<string>());
 
         IPropertyGremlinQuery<Property<TValue>> IEdgeGremlinQueryBase.Properties<TValue>() => Properties<Property<TValue>, object, object>(Projection.Property, Array.Empty<string>());
 
-        IInEdgeGremlinQuery<TElement, TNewInVertex> IEdgeGremlinQueryBase<TElement>.To<TNewInVertex>(StepLabel<TNewInVertex> stepLabel) => To<TElement, object, TNewInVertex>(stepLabel);
+        IInEdgeGremlinQuery<T1, TNewInVertex> IEdgeGremlinQueryBase<T1>.To<TNewInVertex>(StepLabel<TNewInVertex> stepLabel) => To<T1, object, TNewInVertex>(stepLabel);
 
-        IInEdgeGremlinQuery<TElement, TNewInVertex> IEdgeGremlinQueryBase<TElement>.To<TNewInVertex>(Func<IVertexGremlinQueryBase, IVertexGremlinQueryBase<TNewInVertex>> toVertexTraversal) => To<TElement, object, TNewInVertex>(toVertexTraversal);
+        IInEdgeGremlinQuery<T1, TNewInVertex> IEdgeGremlinQueryBase<T1>.To<TNewInVertex>(Func<IVertexGremlinQueryBase, IVertexGremlinQueryBase<TNewInVertex>> toVertexTraversal) => To<T1, object, TNewInVertex>(toVertexTraversal);
 
-        IGremlinQuery<TValue> IEdgeGremlinQueryBase<TElement>.Values<TValue>(params Expression<Func<TElement, Property<TValue>>>[] projections) => ValuesForProjections<TValue>(projections);
+        IGremlinQuery<TValue> IEdgeGremlinQueryBase<T1>.Values<TValue>(params Expression<Func<T1, Property<TValue>>>[] projections) => ValuesForProjections<TValue>(projections);
 
-        IGremlinQuery<object> IEdgeGremlinQueryBase<TElement>.Values(params Expression<Func<TElement, Property<object>>>[] projections) => ValuesForProjections<object>(projections);
+        IGremlinQuery<object> IEdgeGremlinQueryBase<T1>.Values(params Expression<Func<T1, Property<object>>>[] projections) => ValuesForProjections<object>(projections);
 
-        IEdgeGremlinQuery<TElement> IEdgeGremlinQueryBase<TElement>.Update(TElement element) => AddOrUpdate(element, false);
+        IEdgeGremlinQuery<T1> IEdgeGremlinQueryBase<T1>.Update(T1 element) => AddOrUpdate(element, false);
 
-        IGremlinQuery<TTarget> IEdgeGremlinQueryBase<TElement>.Values<TTarget>(params Expression<Func<TElement, TTarget>>[] projections) => ValuesForProjections<TTarget>(projections);
+        IGremlinQuery<TTarget> IEdgeGremlinQueryBase<T1>.Values<TTarget>(params Expression<Func<T1, TTarget>>[] projections) => ValuesForProjections<TTarget>(projections);
 
-        IElementGremlinQuery<TElement> IEdgeOrVertexGremlinQueryBase<TElement>.Lower() => this;
+        IElementGremlinQuery<T1> IEdgeOrVertexGremlinQueryBase<T1>.Lower() => this;
 
         IElementGremlinQuery<object> IEdgeOrVertexGremlinQueryBase.Lower() => Cast<object>();
 
@@ -141,17 +141,17 @@ namespace ExRam.Gremlinq.Core
 
         IGremlinQuery<object> IElementGremlinQueryBase.Values() => ValuesForKeys<object>(Array.Empty<Key>());
 
-        IElementGremlinQuery<TElement> IElementGremlinQueryBase<TElement>.Update(TElement element) => AddOrUpdate(element, false);
+        IElementGremlinQuery<T1> IElementGremlinQueryBase<T1>.Update(T1 element) => AddOrUpdate(element, false);
 
-        IGremlinQuery<TTarget> IElementGremlinQueryBase<TElement>.Values<TTarget>(params Expression<Func<TElement, TTarget>>[] projections) => ValuesForProjections<TTarget>(projections);
+        IGremlinQuery<TTarget> IElementGremlinQueryBase<T1>.Values<TTarget>(params Expression<Func<T1, TTarget>>[] projections) => ValuesForProjections<TTarget>(projections);
 
-        IGremlinQuery<TTarget> IElementGremlinQueryBase<TElement>.Values<TTarget>(params Expression<Func<TElement, TTarget[]>>[] projections) => ValuesForProjections<TTarget>(projections);
+        IGremlinQuery<TTarget> IElementGremlinQueryBase<T1>.Values<TTarget>(params Expression<Func<T1, TTarget[]>>[] projections) => ValuesForProjections<TTarget>(projections);
 
-        IMapGremlinQuery<IDictionary<string, TTarget>> IElementGremlinQueryBase<TElement>.ValueMap<TTarget>(params Expression<Func<TElement, TTarget>>[] keys) => ValueMap<IDictionary<string, TTarget>>(keys);
+        IMapGremlinQuery<IDictionary<string, TTarget>> IElementGremlinQueryBase<T1>.ValueMap<TTarget>(params Expression<Func<T1, TTarget>>[] keys) => ValueMap<IDictionary<string, TTarget>>(keys);
 
-        IMapGremlinQuery<TElement> IGremlinQueryBase<TElement>.ForceValueTuple() => CloneAs<IMapGremlinQuery<TElement>>(maybeNewTraversal: Steps.WithProjection(Projection.Value));
+        IMapGremlinQuery<T1> IGremlinQueryBase<T1>.ForceValueTuple() => CloneAs<IMapGremlinQuery<T1>>(maybeNewTraversal: Steps.WithProjection(Projection.Value));
 
-        IArrayGremlinQuery<TElement[], TElement, IGremlinQuery<TElement>> IGremlinQueryBase<TElement>.ForceArray() => CloneAs<IArrayGremlinQuery<TElement[], TElement, IGremlinQuery<TElement>>>(maybeNewTraversal: Steps.WithProjection(Projection.Value.Fold()));
+        IArrayGremlinQuery<T1[], T1, IGremlinQuery<T1>> IGremlinQueryBase<T1>.ForceArray() => CloneAs<IArrayGremlinQuery<T1[], T1, IGremlinQuery<T1>>>(maybeNewTraversal: Steps.WithProjection(Projection.Value.Fold()));
 
         IGremlinQuery<TValue> IGremlinQueryBase.Constant<TValue>(TValue constant) => Constant(constant);
 
@@ -163,40 +163,40 @@ namespace ExRam.Gremlinq.Core
 
         IGremlinQuery<string> IGremlinQueryBase.Explain() => Explain();
 
-        IMapGremlinQuery<IDictionary<TElement, TElement[]>> IGremlinQueryBase<TElement>.Group() => Group(static _ => _.ByKey(static __ => __));
+        IMapGremlinQuery<IDictionary<T1, T1[]>> IGremlinQueryBase<T1>.Group() => Group(static _ => _.ByKey(static __ => __));
 
-        TaskAwaiter IGremlinQueryBase.GetAwaiter() => ((Task)((IGremlinQuery<TElement>)this).ToAsyncEnumerable().LastOrDefaultAsync().AsTask()).GetAwaiter();
+        TaskAwaiter IGremlinQueryBase.GetAwaiter() => ((Task)((IGremlinQuery<T1>)this).ToAsyncEnumerable().LastOrDefaultAsync().AsTask()).GetAwaiter();
 
-        IGremlinQuery<TElement> IGremlinQueryBase<TElement>.ForceBase() => CloneAs<IGremlinQuery<TElement>>();
+        IGremlinQuery<T1> IGremlinQueryBase<T1>.ForceBase() => CloneAs<IGremlinQuery<T1>>();
 
-        IElementGremlinQuery<TElement> IGremlinQueryBase<TElement>.ForceElement() => this
+        IElementGremlinQuery<T1> IGremlinQueryBase<T1>.ForceElement() => this
             .Continue()
             .Build(static builder => builder
                 .WithNewProjection(static _ => _.Highest(Projection.Element))
-                .Build<IElementGremlinQuery<TElement>>());
+                .Build<IElementGremlinQuery<T1>>());
 
-        IVertexGremlinQuery<TElement> IGremlinQueryBase<TElement>.ForceVertex() => CloneAs<IVertexGremlinQuery<TElement>>(maybeNewTraversal: Steps.WithProjection(Projection.Vertex));
+        IVertexGremlinQuery<T1> IGremlinQueryBase<T1>.ForceVertex() => CloneAs<IVertexGremlinQuery<T1>>(maybeNewTraversal: Steps.WithProjection(Projection.Vertex));
 
-        IVertexPropertyGremlinQuery<TElement, TNewValue> IGremlinQueryBase<TElement>.ForceVertexProperty<TNewValue>() => CloneAs<IVertexPropertyGremlinQuery<TElement, TNewValue>>(maybeNewTraversal: Steps.WithProjection(Projection.Element));
+        IVertexPropertyGremlinQuery<T1, TNewValue> IGremlinQueryBase<T1>.ForceVertexProperty<TNewValue>() => CloneAs<IVertexPropertyGremlinQuery<T1, TNewValue>>(maybeNewTraversal: Steps.WithProjection(Projection.Element));
 
-        IVertexPropertyGremlinQuery<TElement, TNewValue, TNewMeta> IGremlinQueryBase<TElement>.ForceVertexProperty<TNewValue, TNewMeta>() => CloneAs<IVertexPropertyGremlinQuery<TElement, TNewValue, TNewMeta>>(maybeNewTraversal: Steps.WithProjection(Projection.Element));
+        IVertexPropertyGremlinQuery<T1, TNewValue, TNewMeta> IGremlinQueryBase<T1>.ForceVertexProperty<TNewValue, TNewMeta>() => CloneAs<IVertexPropertyGremlinQuery<T1, TNewValue, TNewMeta>>(maybeNewTraversal: Steps.WithProjection(Projection.Element));
 
-        IPropertyGremlinQuery<TElement> IGremlinQueryBase<TElement>.ForceProperty() => CloneAs<IPropertyGremlinQuery<TElement>>(maybeNewTraversal: Steps.WithProjection(Projection.Value));
+        IPropertyGremlinQuery<T1> IGremlinQueryBase<T1>.ForceProperty() => CloneAs<IPropertyGremlinQuery<T1>>(maybeNewTraversal: Steps.WithProjection(Projection.Value));
 
-        IEdgeGremlinQuery<TElement> IGremlinQueryBase<TElement>.ForceEdge() => CloneAs<IEdgeGremlinQuery<TElement>>(maybeNewTraversal: Steps.WithProjection(Projection.Edge));
+        IEdgeGremlinQuery<T1> IGremlinQueryBase<T1>.ForceEdge() => CloneAs<IEdgeGremlinQuery<T1>>(maybeNewTraversal: Steps.WithProjection(Projection.Edge));
 
-        IInEdgeGremlinQuery<TElement, TNewInVertex> IGremlinQueryBase<TElement>.ForceInEdge<TNewInVertex>() => CloneAs<IInEdgeGremlinQuery<TElement, TNewInVertex>>(maybeNewTraversal: Steps.WithProjection(Projection.Edge));
+        IInEdgeGremlinQuery<T1, TNewInVertex> IGremlinQueryBase<T1>.ForceInEdge<TNewInVertex>() => CloneAs<IInEdgeGremlinQuery<T1, TNewInVertex>>(maybeNewTraversal: Steps.WithProjection(Projection.Edge));
 
-        IOutEdgeGremlinQuery<TElement, TNewOutVertex> IGremlinQueryBase<TElement>.ForceOutEdge<TNewOutVertex>() => CloneAs<IOutEdgeGremlinQuery<TElement, TNewOutVertex>>(maybeNewTraversal: Steps.WithProjection(Projection.Edge));
+        IOutEdgeGremlinQuery<T1, TNewOutVertex> IGremlinQueryBase<T1>.ForceOutEdge<TNewOutVertex>() => CloneAs<IOutEdgeGremlinQuery<T1, TNewOutVertex>>(maybeNewTraversal: Steps.WithProjection(Projection.Edge));
 
-        IEdgeGremlinQuery<TElement, TNewOutVertex, TNewInVertex> IGremlinQueryBase<TElement>.ForceEdge<TNewOutVertex, TNewInVertex>() => CloneAs<IEdgeGremlinQuery<TElement, TNewOutVertex, TNewInVertex>>(maybeNewTraversal: Steps.WithProjection(Projection.Edge));
+        IEdgeGremlinQuery<T1, TNewOutVertex, TNewInVertex> IGremlinQueryBase<T1>.ForceEdge<TNewOutVertex, TNewInVertex>() => CloneAs<IEdgeGremlinQuery<T1, TNewOutVertex, TNewInVertex>>(maybeNewTraversal: Steps.WithProjection(Projection.Edge));
 
-        IGremlinQuery<TElement> IGremlinQueryBase<TElement>.ForceValue() => CloneAs<IGremlinQuery<TElement>>(maybeNewTraversal: Steps.WithProjection(Projection.Value));
+        IGremlinQuery<T1> IGremlinQueryBase<T1>.ForceValue() => CloneAs<IGremlinQuery<T1>>(maybeNewTraversal: Steps.WithProjection(Projection.Value));
 
-        GremlinQueryAwaiter<TElement> IGremlinQueryBase<TElement>.GetAwaiter() => new((this).ToArrayAsync().AsTask().GetAwaiter());
+        GremlinQueryAwaiter<T1> IGremlinQueryBase<T1>.GetAwaiter() => new((this).ToArrayAsync().AsTask().GetAwaiter());
 
-        IAsyncEnumerable<TElement> IGremlinQueryBase<TElement>.ToAsyncEnumerable() => Environment.Executor
-            .Execute<TElement>(GremlinQueryExecutionContext.Create(this));
+        IAsyncEnumerable<T1> IGremlinQueryBase<T1>.ToAsyncEnumerable() => Environment.Executor
+            .Execute<T1>(GremlinQueryExecutionContext.Create(this));
 
         IGremlinQuery<Path> IGremlinQueryBase.Path() => Path();
 
@@ -208,7 +208,7 @@ namespace ExRam.Gremlinq.Core
 
         IGremlinQuery<TLabelledElement> IGremlinQueryBase.Select<TLabelledElement>(StepLabel<TLabelledElement> label) => Select(label);
 
-        IGremlinQuery<TElement> IGremlinQueryBase<TElement>.Lower() => this;
+        IGremlinQuery<T1> IGremlinQueryBase<T1>.Lower() => this;
 
         IGremlinQuery<object> IGremlinQueryBase.Lower() => Cast<object>();
 
@@ -291,65 +291,65 @@ namespace ExRam.Gremlinq.Core
 
         IEdgeGremlinQuery<TNewEdge> IStartGremlinQuery.ReplaceE<TNewEdge>(TNewEdge edge) => ((IGremlinQuerySource)this).E<TNewEdge>(edge!.GetId(Environment)).Update(edge);
 
-        IGremlinQuerySource IGremlinQuerySource.ConfigureEnvironment(Func<IGremlinQueryEnvironment, IGremlinQueryEnvironment> transformation) => new GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(transformation(Environment), Steps, LabelProjections, Metadata);
+        IGremlinQuerySource IGremlinQuerySource.ConfigureEnvironment(Func<IGremlinQueryEnvironment, IGremlinQueryEnvironment> transformation) => new GremlinQuery<T1, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(transformation(Environment), Steps, LabelProjections, Metadata);
 
-        IGremlinQuerySource IGremlinQuerySource.ConfigureMetadata(Func<IImmutableDictionary<object, object?>, IImmutableDictionary<object, object?>> metadataTransformation) => new GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(Environment, Steps, LabelProjections, metadataTransformation(Metadata));
+        IGremlinQuerySource IGremlinQuerySource.ConfigureMetadata(Func<IImmutableDictionary<object, object?>, IImmutableDictionary<object, object?>> metadataTransformation) => new GremlinQuery<T1, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(Environment, Steps, LabelProjections, metadataTransformation(Metadata));
 
         IGremlinQuerySource IGremlinQuerySource.WithSideEffect<TSideEffect>(StepLabel<TSideEffect> label, TSideEffect value) => WithSideEffect(label, value);
 
         TQuery IGremlinQuerySource.WithSideEffect<TSideEffect, TQuery>(TSideEffect value, Func<IGremlinQuerySource, StepLabel<TSideEffect>, TQuery> continuation) => WithSideEffect(value, continuation);
 
-        IEdgeGremlinQuery<TElement> IInOrOutEdgeGremlinQueryBase<TElement, TOutVertex>.Lower() => this;
+        IEdgeGremlinQuery<T1> IInOrOutEdgeGremlinQueryBase<T1, TOutVertex>.Lower() => this;
 
-        IEdgeGremlinQuery<TElement, TTargetVertex, TOutVertex> IInOrOutEdgeGremlinQueryBase<TElement, TOutVertex>.From<TTargetVertex>(StepLabel<TTargetVertex> stepLabel) => From<TElement, TTargetVertex, TOutVertex>(stepLabel);
+        IEdgeGremlinQuery<T1, TTargetVertex, TOutVertex> IInOrOutEdgeGremlinQueryBase<T1, TOutVertex>.From<TTargetVertex>(StepLabel<TTargetVertex> stepLabel) => From<T1, TTargetVertex, TOutVertex>(stepLabel);
 
-        IEdgeGremlinQuery<TElement, TTargetVertex, TOutVertex> IInOrOutEdgeGremlinQueryBase<TElement, TOutVertex>.From<TTargetVertex>(Func<IVertexGremlinQuery<TOutVertex>, IVertexGremlinQueryBase<TTargetVertex>> fromVertexTraversal) => Cast<TOutVertex>().From<TElement, TTargetVertex, TOutVertex>(fromVertexTraversal);
+        IEdgeGremlinQuery<T1, TTargetVertex, TOutVertex> IInOrOutEdgeGremlinQueryBase<T1, TOutVertex>.From<TTargetVertex>(Func<IVertexGremlinQuery<TOutVertex>, IVertexGremlinQueryBase<TTargetVertex>> fromVertexTraversal) => Cast<TOutVertex>().From<T1, TTargetVertex, TOutVertex>(fromVertexTraversal);
 
-        IEdgeGremlinQuery<TElement, TOutVertex, TTargetVertex> IInOrOutEdgeGremlinQueryBase<TElement, TOutVertex>.To<TTargetVertex>(StepLabel<TTargetVertex> stepLabel) => To<TElement, TOutVertex, TTargetVertex>(stepLabel);
+        IEdgeGremlinQuery<T1, TOutVertex, TTargetVertex> IInOrOutEdgeGremlinQueryBase<T1, TOutVertex>.To<TTargetVertex>(StepLabel<TTargetVertex> stepLabel) => To<T1, TOutVertex, TTargetVertex>(stepLabel);
 
-        IEdgeGremlinQuery<TElement, TOutVertex, TTargetVertex> IInOrOutEdgeGremlinQueryBase<TElement, TOutVertex>.To<TTargetVertex>(Func<IVertexGremlinQuery<TOutVertex>, IVertexGremlinQueryBase<TTargetVertex>> toVertexTraversal) => Cast<TOutVertex>().To<TElement, TOutVertex, TTargetVertex>(toVertexTraversal);
+        IEdgeGremlinQuery<T1, TOutVertex, TTargetVertex> IInOrOutEdgeGremlinQueryBase<T1, TOutVertex>.To<TTargetVertex>(Func<IVertexGremlinQuery<TOutVertex>, IVertexGremlinQueryBase<TTargetVertex>> toVertexTraversal) => Cast<TOutVertex>().To<T1, TOutVertex, TTargetVertex>(toVertexTraversal);
 
         IEdgeGremlinQuery<object> IInOrOutEdgeGremlinQueryBase.Lower() => Cast<object>();
 
-        IGremlinQuery<string> IPropertyGremlinQueryBase<TElement>.Key() => Key();
+        IGremlinQuery<string> IPropertyGremlinQueryBase<T1>.Key() => Key();
 
-        IGremlinQuery<TValue> IPropertyGremlinQueryBase<TElement>.Value<TValue>() => Value<TValue>();
+        IGremlinQuery<TValue> IPropertyGremlinQueryBase<T1>.Value<TValue>() => Value<TValue>();
 
-        IGremlinQuery<object> IPropertyGremlinQueryBase<TElement>.Value() => Value<object>();
+        IGremlinQuery<object> IPropertyGremlinQueryBase<T1>.Value() => Value<object>();
 
         IGremlinQuery<TScalar> IArrayGremlinQueryBase<TScalar>.SumLocal() => SumLocal<TScalar>();
 
         IGremlinQuery<object> IArrayGremlinQueryBase.SumLocal() => SumLocal<object>();
 
-        TFoldedQuery IArrayGremlinQueryBase<TElement, TScalar, TFoldedQuery>.SumLocal() => SumLocal<object>().CloneAs<TFoldedQuery>();
+        TFoldedQuery IArrayGremlinQueryBase<T1, TScalar, TFoldedQuery>.SumLocal() => SumLocal<object>().CloneAs<TFoldedQuery>();
 
         IGremlinQuery<TScalar> IArrayGremlinQueryBase<TScalar>.MinLocal() => MinLocal<TScalar>();
 
         IGremlinQuery<object> IArrayGremlinQueryBase.MinLocal() => MinLocal<object>();
 
-        TFoldedQuery IArrayGremlinQueryBase<TElement, TScalar, TFoldedQuery>.MinLocal() => MinLocal<object>().CloneAs<TFoldedQuery>();
+        TFoldedQuery IArrayGremlinQueryBase<T1, TScalar, TFoldedQuery>.MinLocal() => MinLocal<object>().CloneAs<TFoldedQuery>();
 
         IGremlinQuery<TScalar> IArrayGremlinQueryBase<TScalar>.MaxLocal() => MaxLocal<TScalar>();
 
         IGremlinQuery<object> IArrayGremlinQueryBase.MaxLocal() => MaxLocal<object>();
 
-        TFoldedQuery IArrayGremlinQueryBase<TElement, TScalar, TFoldedQuery>.MaxLocal() => MaxLocal<object>().CloneAs<TFoldedQuery>();
+        TFoldedQuery IArrayGremlinQueryBase<T1, TScalar, TFoldedQuery>.MaxLocal() => MaxLocal<object>().CloneAs<TFoldedQuery>();
 
         IGremlinQuery<TScalar> IArrayGremlinQueryBase<TScalar>.MeanLocal() => MeanLocal<TScalar>();
 
         IGremlinQuery<object> IArrayGremlinQueryBase.MeanLocal() => MeanLocal<object>();
 
-        TFoldedQuery IArrayGremlinQueryBase<TElement, TScalar, TFoldedQuery>.MeanLocal() => MeanLocal<object>().CloneAs<TFoldedQuery>();
+        TFoldedQuery IArrayGremlinQueryBase<T1, TScalar, TFoldedQuery>.MeanLocal() => MeanLocal<object>().CloneAs<TFoldedQuery>();
 
-        IGremlinQuery<TTargetValue> IMapGremlinQueryBase<TElement>.Select<TTargetValue>(Expression<Func<TElement, TTargetValue>> projection) => Select<IGremlinQuery<TTargetValue>>(projection);
+        IGremlinQuery<TTargetValue> IMapGremlinQueryBase<T1>.Select<TTargetValue>(Expression<Func<T1, TTargetValue>> projection) => Select<IGremlinQuery<TTargetValue>>(projection);
 
-        IEdgeOrVertexGremlinQuery<TElement> IVertexGremlinQueryBase<TElement>.Lower() => this;
+        IEdgeOrVertexGremlinQuery<T1> IVertexGremlinQueryBase<T1>.Lower() => this;
 
         IEdgeOrVertexGremlinQuery<object> IVertexGremlinQueryBase.Lower() => Cast<object>();
 
-        IInOrOutEdgeGremlinQuery<TEdge, TElement> IVertexGremlinQueryBase<TElement>.AddE<TEdge>(TEdge edge) => AddE(edge);
+        IInOrOutEdgeGremlinQuery<TEdge, T1> IVertexGremlinQueryBase<T1>.AddE<TEdge>(TEdge edge) => AddE(edge);
 
-        IInOrOutEdgeGremlinQuery<TEdge, TElement> IVertexGremlinQueryBase<TElement>.AddE<TEdge>() => AddE(new TEdge());
+        IInOrOutEdgeGremlinQuery<TEdge, T1> IVertexGremlinQueryBase<T1>.AddE<TEdge>() => AddE(new TEdge());
 
         IVertexGremlinQuery<object> IVertexGremlinQueryBase.Both() => Both();
 
@@ -367,7 +367,7 @@ namespace ExRam.Gremlinq.Core
 
         IEdgeGremlinQuery<TEdge> IVertexGremlinQueryBase.InE<TEdge>() => InE<TEdge>();
 
-        IInEdgeGremlinQuery<TEdge, TElement> IVertexGremlinQueryBase<TElement>.InE<TEdge>() => InE<TEdge>();
+        IInEdgeGremlinQuery<TEdge, T1> IVertexGremlinQueryBase<T1>.InE<TEdge>() => InE<TEdge>();
 
         IVertexGremlinQuery<object> IVertexGremlinQueryBase.Out() => Out();
 
@@ -377,59 +377,59 @@ namespace ExRam.Gremlinq.Core
 
         IEdgeGremlinQuery<object> IVertexGremlinQueryBase.OutE() => OutE();
 
-        IOutEdgeGremlinQuery<TEdge, TElement> IVertexGremlinQueryBase<TElement>.OutE<TEdge>() => OutE<TEdge>();
+        IOutEdgeGremlinQuery<TEdge, T1> IVertexGremlinQueryBase<T1>.OutE<TEdge>() => OutE<TEdge>();
 
-        IVertexPropertyGremlinQuery<VertexProperty<object>, object> IVertexGremlinQueryBase<TElement>.Properties() => VertexProperties<object>(Array.Empty<Expression>());
+        IVertexPropertyGremlinQuery<VertexProperty<object>, object> IVertexGremlinQueryBase<T1>.Properties() => VertexProperties<object>(Array.Empty<Expression>());
 
-        IVertexPropertyGremlinQuery<VertexProperty<TValue>, TValue> IVertexGremlinQueryBase<TElement>.Properties<TValue>(params Expression<Func<TElement, TValue>>[] projections) => VertexProperties<TValue>(projections);
+        IVertexPropertyGremlinQuery<VertexProperty<TValue>, TValue> IVertexGremlinQueryBase<T1>.Properties<TValue>(params Expression<Func<T1, TValue>>[] projections) => VertexProperties<TValue>(projections);
 
-        IVertexPropertyGremlinQuery<VertexProperty<TValue>, TValue> IVertexGremlinQueryBase<TElement>.Properties<TValue>(params Expression<Func<TElement, TValue[]>>[] projections) => VertexProperties<TValue>(projections);
+        IVertexPropertyGremlinQuery<VertexProperty<TValue>, TValue> IVertexGremlinQueryBase<T1>.Properties<TValue>(params Expression<Func<T1, TValue[]>>[] projections) => VertexProperties<TValue>(projections);
 
-        IVertexPropertyGremlinQuery<VertexProperty<TValue>, TValue> IVertexGremlinQueryBase<TElement>.Properties<TValue>(params Expression<Func<TElement, VertexProperty<TValue>>>[] projections) => VertexProperties<TValue>(projections);
+        IVertexPropertyGremlinQuery<VertexProperty<TValue>, TValue> IVertexGremlinQueryBase<T1>.Properties<TValue>(params Expression<Func<T1, VertexProperty<TValue>>>[] projections) => VertexProperties<TValue>(projections);
 
-        IVertexPropertyGremlinQuery<VertexProperty<TValue, TNewMeta>, TValue, TNewMeta> IVertexGremlinQueryBase<TElement>.Properties<TValue, TNewMeta>(params Expression<Func<TElement, VertexProperty<TValue, TNewMeta>>>[] projections) => VertexProperties<TValue, TNewMeta>(projections);
+        IVertexPropertyGremlinQuery<VertexProperty<TValue, TNewMeta>, TValue, TNewMeta> IVertexGremlinQueryBase<T1>.Properties<TValue, TNewMeta>(params Expression<Func<T1, VertexProperty<TValue, TNewMeta>>>[] projections) => VertexProperties<TValue, TNewMeta>(projections);
 
-        IVertexPropertyGremlinQuery<VertexProperty<TValue>, TValue> IVertexGremlinQueryBase<TElement>.Properties<TValue>(params Expression<Func<TElement, VertexProperty<TValue>[]>>[] projections) => VertexProperties<TValue>(projections);
+        IVertexPropertyGremlinQuery<VertexProperty<TValue>, TValue> IVertexGremlinQueryBase<T1>.Properties<TValue>(params Expression<Func<T1, VertexProperty<TValue>[]>>[] projections) => VertexProperties<TValue>(projections);
 
-        IVertexPropertyGremlinQuery<VertexProperty<TValue, TNewMeta>, TValue, TNewMeta> IVertexGremlinQueryBase<TElement>.Properties<TValue, TNewMeta>(params Expression<Func<TElement, VertexProperty<TValue, TNewMeta>[]>>[] projections) => VertexProperties<TValue, TNewMeta>(projections);
+        IVertexPropertyGremlinQuery<VertexProperty<TValue, TNewMeta>, TValue, TNewMeta> IVertexGremlinQueryBase<T1>.Properties<TValue, TNewMeta>(params Expression<Func<T1, VertexProperty<TValue, TNewMeta>[]>>[] projections) => VertexProperties<TValue, TNewMeta>(projections);
 
-        IVertexPropertyGremlinQuery<VertexProperty<TValue>, TValue> IVertexGremlinQueryBase<TElement>.Properties<TValue>() => VertexProperties<TValue>(Array.Empty<Expression>());
+        IVertexPropertyGremlinQuery<VertexProperty<TValue>, TValue> IVertexGremlinQueryBase<T1>.Properties<TValue>() => VertexProperties<TValue>(Array.Empty<Expression>());
 
-        IVertexPropertyGremlinQuery<VertexProperty<object>, object> IVertexGremlinQueryBase<TElement>.Properties(params Expression<Func<TElement, VertexProperty<object>>>[] projections) => VertexProperties<object>(projections);
+        IVertexPropertyGremlinQuery<VertexProperty<object>, object> IVertexGremlinQueryBase<T1>.Properties(params Expression<Func<T1, VertexProperty<object>>>[] projections) => VertexProperties<object>(projections);
 
-        IGremlinQuery<TValue> IVertexGremlinQueryBase<TElement>.Values<TValue, TNewMeta>(params Expression<Func<TElement, VertexProperty<TValue, TNewMeta>>>[] projections) => ValuesForProjections<TValue>(projections);
+        IGremlinQuery<TValue> IVertexGremlinQueryBase<T1>.Values<TValue, TNewMeta>(params Expression<Func<T1, VertexProperty<TValue, TNewMeta>>>[] projections) => ValuesForProjections<TValue>(projections);
 
-        IGremlinQuery<TValue> IVertexGremlinQueryBase<TElement>.Values<TValue>(params Expression<Func<TElement, VertexProperty<TValue>>>[] projections) => ValuesForProjections<TValue>(projections);
+        IGremlinQuery<TValue> IVertexGremlinQueryBase<T1>.Values<TValue>(params Expression<Func<T1, VertexProperty<TValue>>>[] projections) => ValuesForProjections<TValue>(projections);
 
-        IGremlinQuery<TTarget> IVertexGremlinQueryBase<TElement>.Values<TTarget>(params Expression<Func<TElement, VertexProperty<TTarget>[]>>[] projections) => ValuesForProjections<TTarget>(projections);
+        IGremlinQuery<TTarget> IVertexGremlinQueryBase<T1>.Values<TTarget>(params Expression<Func<T1, VertexProperty<TTarget>[]>>[] projections) => ValuesForProjections<TTarget>(projections);
 
-        IGremlinQuery<TTarget> IVertexGremlinQueryBase<TElement>.Values<TTarget, TTargetMeta>(params Expression<Func<TElement, VertexProperty<TTarget, TTargetMeta>[]>>[] projections) => ValuesForProjections<TTarget>(projections);
+        IGremlinQuery<TTarget> IVertexGremlinQueryBase<T1>.Values<TTarget, TTargetMeta>(params Expression<Func<T1, VertexProperty<TTarget, TTargetMeta>[]>>[] projections) => ValuesForProjections<TTarget>(projections);
 
-        IGremlinQuery<object> IVertexGremlinQueryBase<TElement>.Values(params Expression<Func<TElement, VertexProperty<object>>>[] projections) => ValuesForProjections<object>(projections);
+        IGremlinQuery<object> IVertexGremlinQueryBase<T1>.Values(params Expression<Func<T1, VertexProperty<object>>>[] projections) => ValuesForProjections<object>(projections);
 
-        IVertexGremlinQuery<TElement> IVertexGremlinQueryBase<TElement>.Update(TElement element) => AddOrUpdate(element, false);
+        IVertexGremlinQuery<T1> IVertexGremlinQueryBase<T1>.Update(T1 element) => AddOrUpdate(element, false);
 
-        IVertexGremlinQuery<TElement> IVertexGremlinQuery<TElement>.Property<TProjectedValue>(Expression<Func<TElement, TProjectedValue[]>> projection, TProjectedValue value) => Property(projection, value != null ? new[] { value } : null);
+        IVertexGremlinQuery<T1> IVertexGremlinQuery<T1>.Property<TProjectedValue>(Expression<Func<T1, TProjectedValue[]>> projection, TProjectedValue value) => Property(projection, value != null ? new[] { value } : null);
 
-        IGremlinQuery<TTarget> IVertexGremlinQueryBase<TElement>.Values<TTarget>(params Expression<Func<TElement, TTarget>>[] projections) => ValuesForProjections<TTarget>(projections);
+        IGremlinQuery<TTarget> IVertexGremlinQueryBase<T1>.Values<TTarget>(params Expression<Func<T1, TTarget>>[] projections) => ValuesForProjections<TTarget>(projections);
 
-        IGremlinQuery<TTarget> IVertexGremlinQueryBase<TElement>.Values<TTarget>(params Expression<Func<TElement, TTarget[]>>[] projections) => ValuesForProjections<TTarget>(projections);
+        IGremlinQuery<TTarget> IVertexGremlinQueryBase<T1>.Values<TTarget>(params Expression<Func<T1, TTarget[]>>[] projections) => ValuesForProjections<TTarget>(projections);
 
-        IElementGremlinQuery<TElement> IVertexPropertyGremlinQueryBase<TElement, TScalar, TMeta>.Lower() => this;
+        IElementGremlinQuery<T1> IVertexPropertyGremlinQueryBase<T1, TScalar, TMeta>.Lower() => this;
 
-        IPropertyGremlinQuery<Property<TValue>> IVertexPropertyGremlinQueryBase<TElement, TScalar, TMeta>.Properties<TValue>(params Expression<Func<TMeta, TValue>>[] projections) => Properties<Property<TValue>, TValue, object>(Projection.Property, projections);
+        IPropertyGremlinQuery<Property<TValue>> IVertexPropertyGremlinQueryBase<T1, TScalar, TMeta>.Properties<TValue>(params Expression<Func<TMeta, TValue>>[] projections) => Properties<Property<TValue>, TValue, object>(Projection.Property, projections);
 
-        IVertexPropertyGremlinQuery<TElement, TScalar, TMeta> IVertexPropertyGremlinQueryBase<TElement, TScalar, TMeta>.Property<TValue>(Expression<Func<TMeta, TValue>> projection, TValue value) => Property(projection, value);
+        IVertexPropertyGremlinQuery<T1, TScalar, TMeta> IVertexPropertyGremlinQueryBase<T1, TScalar, TMeta>.Property<TValue>(Expression<Func<TMeta, TValue>> projection, TValue value) => Property(projection, value);
 
-        IGremlinQuery<TScalar> IVertexPropertyGremlinQueryBase<TElement, TScalar, TMeta>.Value() => Value<TScalar>();
+        IGremlinQuery<TScalar> IVertexPropertyGremlinQueryBase<T1, TScalar, TMeta>.Value() => Value<TScalar>();
 
-        IGremlinQuery<TMeta> IVertexPropertyGremlinQueryBase<TElement, TScalar, TMeta>.ValueMap() => ValueMap<TMeta>(ImmutableArray<string>.Empty);
+        IGremlinQuery<TMeta> IVertexPropertyGremlinQueryBase<T1, TScalar, TMeta>.ValueMap() => ValueMap<TMeta>(ImmutableArray<string>.Empty);
 
-        IGremlinQuery<TTarget> IVertexPropertyGremlinQueryBase<TElement, TScalar, TMeta>.Values<TTarget>(params Expression<Func<TMeta, TTarget>>[] projections) => ValuesForProjections<TTarget>(projections);
+        IGremlinQuery<TTarget> IVertexPropertyGremlinQueryBase<T1, TScalar, TMeta>.Values<TTarget>(params Expression<Func<TMeta, TTarget>>[] projections) => ValuesForProjections<TTarget>(projections);
 
-        IVertexPropertyGremlinQuery<TElement, TScalar, TMeta> IVertexPropertyGremlinQueryBase<TElement, TScalar, TMeta>.Where(Expression<Func<VertexProperty<TScalar, TMeta>, bool>> predicate) => Where(predicate);
+        IVertexPropertyGremlinQuery<T1, TScalar, TMeta> IVertexPropertyGremlinQueryBase<T1, TScalar, TMeta>.Where(Expression<Func<VertexProperty<TScalar, TMeta>, bool>> predicate) => Where(predicate);
 
-        IElementGremlinQuery<TElement> IVertexPropertyGremlinQueryBase<TElement, TScalar>.Lower() => this;
+        IElementGremlinQuery<T1> IVertexPropertyGremlinQueryBase<T1, TScalar>.Lower() => this;
 
         IElementGremlinQuery<object> IVertexPropertyGremlinQueryBase.Lower() => Cast<object>();
 
@@ -447,22 +447,22 @@ namespace ExRam.Gremlinq.Core
 
         IPropertyGremlinQuery<Property<object>> IVertexPropertyGremlinQueryBase.Properties(params string[] keys) => Properties<Property<object>, object, object>(Projection.Property, keys);
 
-        IVertexPropertyGremlinQuery<VertexProperty<TScalar, TNewMeta>, TScalar, TNewMeta> IVertexPropertyGremlinQueryBase<TElement, TScalar>.Meta<TNewMeta>() => CloneAs<GremlinQuery<VertexProperty<TScalar, TNewMeta>, object, object, TScalar, TNewMeta, object>>();
+        IVertexPropertyGremlinQuery<VertexProperty<TScalar, TNewMeta>, TScalar, TNewMeta> IVertexPropertyGremlinQueryBase<T1, TScalar>.Meta<TNewMeta>() => CloneAs<GremlinQuery<VertexProperty<TScalar, TNewMeta>, object, object, TScalar, TNewMeta, object>>();
 
-        IPropertyGremlinQuery<Property<TValue>> IVertexPropertyGremlinQueryBase<TElement, TScalar>.Properties<TValue>(params string[] keys) => Properties<Property<TValue>, object, object>(Projection.Property, keys);
+        IPropertyGremlinQuery<Property<TValue>> IVertexPropertyGremlinQueryBase<T1, TScalar>.Properties<TValue>(params string[] keys) => Properties<Property<TValue>, object, object>(Projection.Property, keys);
 
-        IGremlinQuery<TScalar> IVertexPropertyGremlinQueryBase<TElement, TScalar>.Value() => Value<TScalar>();
+        IGremlinQuery<TScalar> IVertexPropertyGremlinQueryBase<T1, TScalar>.Value() => Value<TScalar>();
 
-        IInEdgeGremlinQuery<TElement, TInVertex> IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.AsInEdge() => this;
+        IInEdgeGremlinQuery<T1, TInVertex> IEdgeGremlinQuery<T1, TOutVertex, TInVertex>.AsInEdge() => this;
 
-        IOutEdgeGremlinQuery<TElement, TOutVertex> IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.AsOutEdge() => this;
+        IOutEdgeGremlinQuery<T1, TOutVertex> IEdgeGremlinQuery<T1, TOutVertex, TInVertex>.AsOutEdge() => this;
 
-        IArrayGremlinQuery<TElement, TScalar, TFoldedQuery> IArrayGremlinQueryBaseRec<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>.LimitLocal(long count) => LimitLocal(count);
+        IArrayGremlinQuery<T1, TScalar, TFoldedQuery> IArrayGremlinQueryBaseRec<IArrayGremlinQuery<T1, TScalar, TFoldedQuery>>.LimitLocal(long count) => LimitLocal(count);
 
-        IArrayGremlinQuery<TElement, TScalar, TFoldedQuery> IArrayGremlinQueryBaseRec<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>.RangeLocal(long low, long high) => RangeLocal(low, high);
+        IArrayGremlinQuery<T1, TScalar, TFoldedQuery> IArrayGremlinQueryBaseRec<IArrayGremlinQuery<T1, TScalar, TFoldedQuery>>.RangeLocal(long low, long high) => RangeLocal(low, high);
 
-        IArrayGremlinQuery<TElement, TScalar, TFoldedQuery> IArrayGremlinQueryBaseRec<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>.SkipLocal(long count) => Skip(count, Scope.Local);
+        IArrayGremlinQuery<T1, TScalar, TFoldedQuery> IArrayGremlinQueryBaseRec<IArrayGremlinQuery<T1, TScalar, TFoldedQuery>>.SkipLocal(long count) => Skip(count, Scope.Local);
 
-        IArrayGremlinQuery<TElement, TScalar, TFoldedQuery> IArrayGremlinQueryBaseRec<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>.TailLocal(long count) => TailLocal(count);
+        IArrayGremlinQuery<T1, TScalar, TFoldedQuery> IArrayGremlinQueryBaseRec<IArrayGremlinQuery<T1, TScalar, TFoldedQuery>>.TailLocal(long count) => TailLocal(count);
     }
 }
