@@ -4,7 +4,7 @@ using ExRam.Gremlinq.Core.Steps;
 
 namespace ExRam.Gremlinq.Core
 {
-    partial class GremlinQuery<T1, T2, T3, T4, T5>
+    partial class GremlinQuery<T1, T2, T3>
     {
         private sealed class LoopBuilder<TQuery> :
             IStartLoopBuilder<TQuery>,
@@ -21,9 +21,9 @@ namespace ExRam.Gremlinq.Core
             IUntilRepeatLoopBuilder<TQuery>,
             IUntilRepeatEmitLoopBuilder<TQuery> where TQuery : IGremlinQueryBase
         {
-            private readonly GremlinQuery<T1, T2, T3, T4, T5> _outerQuery;
+            private readonly GremlinQuery<T1, T2, T3> _outerQuery;
 
-            public LoopBuilder(GremlinQuery<T1, T2, T3, T4, T5> outerQuery)
+            public LoopBuilder(GremlinQuery<T1, T2, T3> outerQuery)
             {
                 _outerQuery = outerQuery;
             }

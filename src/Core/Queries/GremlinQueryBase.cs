@@ -38,7 +38,7 @@ namespace ExRam.Gremlinq.Core
                 targetQueryType,
                 static closureType =>
                 {
-                    if (closureType.IsGenericType && closureType.GetGenericTypeDefinition() == typeof(GremlinQuery<,,,,>))
+                    if (closureType.IsGenericType && closureType.GetGenericTypeDefinition() == typeof(GremlinQuery<,,>))
                     {
                         return (QueryContinuation?)TryCreateQueryContinuationMethod
                             .MakeGenericMethod(closureType.GetGenericArguments())
@@ -55,9 +55,7 @@ namespace ExRam.Gremlinq.Core
                             t2 ?? (t1.IsArray
                                 ? t1.GetElementType()!
                                 : typeof(object)),
-                            t3,
-                            typeof(object),
-                            typeof(object))
+                            t3)
                         .Invoke(null, new object?[] { closureType })!;
                 });
 
@@ -66,9 +64,9 @@ namespace ExRam.Gremlinq.Core
                 : throw new NotSupportedException($"Cannot change the query type to {targetQueryType}.");
         }
 
-        private static QueryContinuation? TryCreateQueryContinuation<TElement, TOutVertex, TInVertex, TScalar, TMeta>(Type targetQueryType)
+        private static QueryContinuation? TryCreateQueryContinuation<T1, T2, T3>(Type targetQueryType)
         {
-            if (!targetQueryType.IsAssignableFrom(typeof(GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta>)))
+            if (!targetQueryType.IsAssignableFrom(typeof(GremlinQuery<T1, T2, T3>)))
                 return null;
 
             return (existingQuery, maybeNewTraversal, maybeNewLabelProjections) =>
@@ -76,7 +74,7 @@ namespace ExRam.Gremlinq.Core
                 if (maybeNewTraversal == null && maybeNewLabelProjections == null && targetQueryType.IsInstanceOfType(existingQuery))
                     return (IGremlinQueryBase)existingQuery;
 
-                return new GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta>(
+                return new GremlinQuery<T1, T2, T3>(
                     existingQuery.Environment,
                     maybeNewTraversal ?? existingQuery.Steps,
                     maybeNewLabelProjections ?? existingQuery.LabelProjections,
