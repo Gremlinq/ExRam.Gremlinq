@@ -14,13 +14,13 @@ using Path = ExRam.Gremlinq.Core.GraphElements.Path;
 
 namespace ExRam.Gremlinq.Core
 {
-    internal partial class GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery> :
+    internal partial class GremlinQuery<T1, T2, T3, T4, T5, T6> :
         IGremlinQueryAdmin,
 
         IGremlinQuerySource,
         IGremlinQuery<T1>,
 
-        IArrayGremlinQuery<T1, T4, TFoldedQuery>,
+        IArrayGremlinQuery<T1, T4, T6>,
 
         IElementGremlinQuery<T1>,
 
@@ -39,7 +39,7 @@ namespace ExRam.Gremlinq.Core
         IVertexPropertyGremlinQuery<T1, T4, T5>,
         IPropertyGremlinQuery<T1>
     {
-        TFoldedQuery IArrayGremlinQueryBase<T1, T4, TFoldedQuery>.Unfold() => Unfold<TFoldedQuery>();
+        T6 IArrayGremlinQueryBase<T1, T4, T6>.Unfold() => Unfold<T6>();
 
         IGremlinQuery<T1> IArrayGremlinQueryBase<T1, T4>.Lower() => this;
 
@@ -291,9 +291,9 @@ namespace ExRam.Gremlinq.Core
 
         IEdgeGremlinQuery<TNewEdge> IStartGremlinQuery.ReplaceE<TNewEdge>(TNewEdge edge) => ((IGremlinQuerySource)this).E<TNewEdge>(edge!.GetId(Environment)).Update(edge);
 
-        IGremlinQuerySource IGremlinQuerySource.ConfigureEnvironment(Func<IGremlinQueryEnvironment, IGremlinQueryEnvironment> transformation) => new GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery>(transformation(Environment), Steps, LabelProjections, Metadata);
+        IGremlinQuerySource IGremlinQuerySource.ConfigureEnvironment(Func<IGremlinQueryEnvironment, IGremlinQueryEnvironment> transformation) => new GremlinQuery<T1, T2, T3, T4, T5, T6>(transformation(Environment), Steps, LabelProjections, Metadata);
 
-        IGremlinQuerySource IGremlinQuerySource.ConfigureMetadata(Func<IImmutableDictionary<object, object?>, IImmutableDictionary<object, object?>> metadataTransformation) => new GremlinQuery<T1, T2, T3, T4, T5, TFoldedQuery>(Environment, Steps, LabelProjections, metadataTransformation(Metadata));
+        IGremlinQuerySource IGremlinQuerySource.ConfigureMetadata(Func<IImmutableDictionary<object, object?>, IImmutableDictionary<object, object?>> metadataTransformation) => new GremlinQuery<T1, T2, T3, T4, T5, T6>(Environment, Steps, LabelProjections, metadataTransformation(Metadata));
 
         IGremlinQuerySource IGremlinQuerySource.WithSideEffect<TSideEffect>(StepLabel<TSideEffect> label, TSideEffect value) => WithSideEffect(label, value);
 
@@ -321,25 +321,25 @@ namespace ExRam.Gremlinq.Core
 
         IGremlinQuery<object> IArrayGremlinQueryBase.SumLocal() => SumLocal<object>();
 
-        TFoldedQuery IArrayGremlinQueryBase<T1, T4, TFoldedQuery>.SumLocal() => SumLocal<object>().CloneAs<TFoldedQuery>();
+        T6 IArrayGremlinQueryBase<T1, T4, T6>.SumLocal() => SumLocal<object>().CloneAs<T6>();
 
         IGremlinQuery<T4> IArrayGremlinQueryBase<T4>.MinLocal() => MinLocal<T4>();
 
         IGremlinQuery<object> IArrayGremlinQueryBase.MinLocal() => MinLocal<object>();
 
-        TFoldedQuery IArrayGremlinQueryBase<T1, T4, TFoldedQuery>.MinLocal() => MinLocal<object>().CloneAs<TFoldedQuery>();
+        T6 IArrayGremlinQueryBase<T1, T4, T6>.MinLocal() => MinLocal<object>().CloneAs<T6>();
 
         IGremlinQuery<T4> IArrayGremlinQueryBase<T4>.MaxLocal() => MaxLocal<T4>();
 
         IGremlinQuery<object> IArrayGremlinQueryBase.MaxLocal() => MaxLocal<object>();
 
-        TFoldedQuery IArrayGremlinQueryBase<T1, T4, TFoldedQuery>.MaxLocal() => MaxLocal<object>().CloneAs<TFoldedQuery>();
+        T6 IArrayGremlinQueryBase<T1, T4, T6>.MaxLocal() => MaxLocal<object>().CloneAs<T6>();
 
         IGremlinQuery<T4> IArrayGremlinQueryBase<T4>.MeanLocal() => MeanLocal<T4>();
 
         IGremlinQuery<object> IArrayGremlinQueryBase.MeanLocal() => MeanLocal<object>();
 
-        TFoldedQuery IArrayGremlinQueryBase<T1, T4, TFoldedQuery>.MeanLocal() => MeanLocal<object>().CloneAs<TFoldedQuery>();
+        T6 IArrayGremlinQueryBase<T1, T4, T6>.MeanLocal() => MeanLocal<object>().CloneAs<T6>();
 
         IGremlinQuery<TTargetValue> IMapGremlinQueryBase<T1>.Select<TTargetValue>(Expression<Func<T1, TTargetValue>> projection) => Select<IGremlinQuery<TTargetValue>>(projection);
 
@@ -457,12 +457,12 @@ namespace ExRam.Gremlinq.Core
 
         IOutEdgeGremlinQuery<T1, T2> IEdgeGremlinQuery<T1, T2, T3>.AsOutEdge() => this;
 
-        IArrayGremlinQuery<T1, T4, TFoldedQuery> IArrayGremlinQueryBaseRec<IArrayGremlinQuery<T1, T4, TFoldedQuery>>.LimitLocal(long count) => LimitLocal(count);
+        IArrayGremlinQuery<T1, T4, T6> IArrayGremlinQueryBaseRec<IArrayGremlinQuery<T1, T4, T6>>.LimitLocal(long count) => LimitLocal(count);
 
-        IArrayGremlinQuery<T1, T4, TFoldedQuery> IArrayGremlinQueryBaseRec<IArrayGremlinQuery<T1, T4, TFoldedQuery>>.RangeLocal(long low, long high) => RangeLocal(low, high);
+        IArrayGremlinQuery<T1, T4, T6> IArrayGremlinQueryBaseRec<IArrayGremlinQuery<T1, T4, T6>>.RangeLocal(long low, long high) => RangeLocal(low, high);
 
-        IArrayGremlinQuery<T1, T4, TFoldedQuery> IArrayGremlinQueryBaseRec<IArrayGremlinQuery<T1, T4, TFoldedQuery>>.SkipLocal(long count) => Skip(count, Scope.Local);
+        IArrayGremlinQuery<T1, T4, T6> IArrayGremlinQueryBaseRec<IArrayGremlinQuery<T1, T4, T6>>.SkipLocal(long count) => Skip(count, Scope.Local);
 
-        IArrayGremlinQuery<T1, T4, TFoldedQuery> IArrayGremlinQueryBaseRec<IArrayGremlinQuery<T1, T4, TFoldedQuery>>.TailLocal(long count) => TailLocal(count);
+        IArrayGremlinQuery<T1, T4, T6> IArrayGremlinQueryBaseRec<IArrayGremlinQuery<T1, T4, T6>>.TailLocal(long count) => TailLocal(count);
     }
 }

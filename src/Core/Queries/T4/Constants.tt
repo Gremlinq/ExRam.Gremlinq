@@ -34,5 +34,5 @@
             .Replace("TValue", "T4")
             .Replace("TArrayItem", "T4")
             .Replace("TArray", "T1")
-            .Replace("TOriginalQuery", "TFoldedQuery"));
+            .Replace("TOriginalQuery", "T6"));
 #>
