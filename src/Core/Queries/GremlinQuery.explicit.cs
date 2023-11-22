@@ -460,12 +460,12 @@ namespace ExRam.Gremlinq.Core
 
         IOutEdgeGremlinQuery<TElement, TOutVertex> IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.AsOutEdge() => this;
 
-        IArrayGremlinQueryBase<TElement, TScalar, TFoldedQuery> IArrayGremlinQueryBase<TElement, TScalar, TFoldedQuery>.LimitLocal(long count) => LimitLocal(count);
+        IArrayGremlinQuery<TElement, TScalar, TFoldedQuery> IArrayGremlinQueryBaseRec<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>.LimitLocal(long count) => LimitLocal(count);
 
-        IArrayGremlinQueryBase<TElement, TScalar, TFoldedQuery> IArrayGremlinQueryBase<TElement, TScalar, TFoldedQuery>.RangeLocal(long low, long high) => RangeLocal(low, high);
+        IArrayGremlinQuery<TElement, TScalar, TFoldedQuery> IArrayGremlinQueryBaseRec<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>.RangeLocal(long low, long high) => RangeLocal(low, high);
 
-        IArrayGremlinQueryBase<TElement, TScalar, TFoldedQuery> IArrayGremlinQueryBase<TElement, TScalar, TFoldedQuery>.SkipLocal(long count) => Skip(count, Scope.Local);
+        IArrayGremlinQuery<TElement, TScalar, TFoldedQuery> IArrayGremlinQueryBaseRec<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>.SkipLocal(long count) => Skip(count, Scope.Local);
 
-        IArrayGremlinQueryBase<TElement, TScalar, TFoldedQuery> IArrayGremlinQueryBase<TElement, TScalar, TFoldedQuery>.TailLocal(long count) => TailLocal(count);
+        IArrayGremlinQuery<TElement, TScalar, TFoldedQuery> IArrayGremlinQueryBaseRec<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>.TailLocal(long count) => TailLocal(count);
     }
 }
