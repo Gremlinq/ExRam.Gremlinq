@@ -13,7 +13,7 @@ using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Core
 {
-    partial class GremlinQuery<T1, T2, T3, T4, T5, T6>
+    partial class GremlinQuery<T1, T2, T3, T4, T5>
     {
         private IEnumerable<PropertyStep> GetPropertySteps(Key key, object value, bool allowExplicitCardinality)
         {
@@ -58,9 +58,9 @@ namespace ExRam.Gremlinq.Core
                 : null;
         }
 
-        private ContinuationBuilder<GremlinQuery<T1, T2, T3, T4, T5, T6>, GremlinQuery<T1, T2, T3, T4, T5, T6>> Continue(ContinuationFlags flags = ContinuationFlags.None) => new(
+        private ContinuationBuilder<GremlinQuery<T1, T2, T3, T4, T5>, GremlinQuery<T1, T2, T3, T4, T5>> Continue(ContinuationFlags flags = ContinuationFlags.None) => new(
             this,
-            new GremlinQuery<T1, T2, T3, T4, T5, T6>(Environment, Traversal.Empty.WithProjection(Steps.Projection), LabelProjections, Metadata), flags);
+            new GremlinQuery<T1, T2, T3, T4, T5>(Environment, Traversal.Empty.WithProjection(Steps.Projection), LabelProjections, Metadata), flags);
 
         private Key GetKey(Expression expression)
         {
