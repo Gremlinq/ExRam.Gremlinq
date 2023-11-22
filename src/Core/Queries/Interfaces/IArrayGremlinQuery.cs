@@ -4,13 +4,13 @@
     {
         IGremlinQuery<object> Unfold();
 
-        IValueGremlinQuery<object> SumLocal();
+        IGremlinQuery<object> SumLocal();
 
-        IValueGremlinQuery<object> MinLocal();
+        IGremlinQuery<object> MinLocal();
 
-        IValueGremlinQuery<object> MaxLocal();
+        IGremlinQuery<object> MaxLocal();
 
-        IValueGremlinQuery<object> MeanLocal();
+        IGremlinQuery<object> MeanLocal();
 
         new IGremlinQuery<object[]> Lower();
     }

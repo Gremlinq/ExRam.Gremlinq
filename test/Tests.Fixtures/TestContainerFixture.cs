@@ -39,7 +39,7 @@ namespace ExRam.Gremlinq.Tests.Fixtures
 
             IEdgeGremlinQuery<TEdge> IStartGremlinQuery.E<TEdge>(params object[] ids) => _baseSource.E<TEdge>(ids);
 
-            IValueGremlinQuery<TElement> IStartGremlinQuery.Inject<TElement>(params TElement[] elements) => _baseSource.Inject(elements);
+            IGremlinQuery<TElement> IStartGremlinQuery.Inject<TElement>(params TElement[] elements) => _baseSource.Inject(elements);
 
             IEdgeGremlinQuery<TNewEdge> IStartGremlinQuery.ReplaceE<TNewEdge>(TNewEdge edge) => _baseSource.ReplaceE(edge);
 

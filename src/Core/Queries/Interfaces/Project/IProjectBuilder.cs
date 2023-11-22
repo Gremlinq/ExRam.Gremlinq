@@ -5,7 +5,7 @@ namespace ExRam.Gremlinq.Core
 {
     public interface IProjectDynamicResult
     {
-        IValueGremlinQuery<dynamic> Build();
+        IGremlinQuery<dynamic> Build();
     }
 
     // ReSharper disable once UnusedTypeParameter

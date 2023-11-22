@@ -36,7 +36,7 @@ namespace ExRam.Gremlinq.Core
                         .With(valueSelector));
             }
 
-            IValueGremlinQuery<IDictionary<TKey, TValue>> IGroupBuilderWithKeyAndValue<TKey, TValue>.Build()
+            IGremlinQuery<IDictionary<TKey, TValue>> IGroupBuilderWithKeyAndValue<TKey, TValue>.Build()
             {
                 return _continuationBuilder
                     .Build(static (builder, traversals) =>
@@ -67,7 +67,7 @@ namespace ExRam.Gremlinq.Core
                                         state.keyTraversal.Projection,
                                         state.valueTraversal.Projection),
                                 (keyTraversal, valueTraversal))
-                            .Build<IValueGremlinQuery<IDictionary<TKey, TValue>>>();
+                            .Build<IGremlinQuery<IDictionary<TKey, TValue>>>();
                     });
             }
         }

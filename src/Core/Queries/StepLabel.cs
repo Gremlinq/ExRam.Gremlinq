@@ -72,12 +72,12 @@ namespace ExRam.Gremlinq.Core
         }
 
 #if NET5_0_OR_GREATER
-        public override StepLabel<IValueGremlinQuery<TNewValue>, TNewValue> Cast<TNewValue>()
+        public override StepLabel<IGremlinQuery<TNewValue>, TNewValue> Cast<TNewValue>()
         {
             return new(Identity);
         }
 #else
-        public new StepLabel<IValueGremlinQuery<TNewValue>, TNewValue> Cast<TNewValue>()
+        public new StepLabel<IGremlinQuery<TNewValue>, TNewValue> Cast<TNewValue>()
         {
             return new(Identity);
         }

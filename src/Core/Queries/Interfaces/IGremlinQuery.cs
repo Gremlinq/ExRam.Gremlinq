@@ -10,25 +10,25 @@ namespace ExRam.Gremlinq.Core
         TaskAwaiter GetAwaiter();
 
         IGremlinQuery<TResult> Cast<TResult>();
-        IValueGremlinQuery<long> Count();
-        IValueGremlinQuery<long> CountLocal();
-        IValueGremlinQuery<TValue> Constant<TValue>(TValue constant);
+        IGremlinQuery<long> Count();
+        IGremlinQuery<long> CountLocal();
+        IGremlinQuery<TValue> Constant<TValue>(TValue constant);
 
         string Debug();
 
-        IValueGremlinQuery<object> Drop();
+        IGremlinQuery<object> Drop();
 
-        IValueGremlinQuery<string> Explain();
+        IGremlinQuery<string> Explain();
 
-        IValueGremlinQuery<object> Fail(string? message = null);
+        IGremlinQuery<object> Fail(string? message = null);
 
         IGremlinQuery<object> Lower();
 
-        IValueGremlinQuery<Path> Path();
+        IGremlinQuery<Path> Path();
 
-        IValueGremlinQuery<string> Profile();
+        IGremlinQuery<string> Profile();
 
-        IValueGremlinQuery<TStepElement> Select<TStepElement>(StepLabel<TStepElement> label);
+        IGremlinQuery<TStepElement> Select<TStepElement>(StepLabel<TStepElement> label);
         IMapGremlinQuery<(T1, T2)> Select<T1, T2>(StepLabel<T1> label1, StepLabel<T2> label2);
         IMapGremlinQuery<(T1, T2, T3)> Select<T1, T2, T3>(StepLabel<T1> label1, StepLabel<T2> label2, StepLabel<T3> label3);
         IMapGremlinQuery<(T1, T2, T3, T4)> Select<T1, T2, T3, T4>(StepLabel<T1> label1, StepLabel<T2> label2, StepLabel<T3> label3, StepLabel<T4> label4);
@@ -54,11 +54,11 @@ namespace ExRam.Gremlinq.Core
     {
         new GremlinQueryAwaiter<TElement> GetAwaiter();
 
-        IValueGremlinQuery<IDictionary<TElement, TElement[]>> Group();
+        IGremlinQuery<IDictionary<TElement, TElement[]>> Group();
 
         IGremlinQuery<TElement> ForceBase();
         IEdgeGremlinQuery<TElement> ForceEdge();
-        IValueGremlinQuery<TElement> ForceValue();
+        IGremlinQuery<TElement> ForceValue();
         IVertexGremlinQuery<TElement> ForceVertex();
         IElementGremlinQuery<TElement> ForceElement();
         IPropertyGremlinQuery<TElement> ForceProperty();
@@ -88,12 +88,12 @@ namespace ExRam.Gremlinq.Core
 
         TTargetQuery Choose<TTargetQuery>(Func<TSelf, IGremlinQueryBase> traversalPredicate, Func<TSelf, TTargetQuery> trueChoice, Func<TSelf, TTargetQuery> falseChoice) where TTargetQuery : IGremlinQueryBase;
         TSelf Choose(Func<TSelf, IGremlinQueryBase> traversalPredicate, Func<TSelf, TSelf> trueChoice);
-        IValueGremlinQuery<object> Choose(Func<TSelf, IGremlinQueryBase> traversalPredicate, Func<TSelf, IGremlinQueryBase> trueChoice);
+        IGremlinQuery<object> Choose(Func<TSelf, IGremlinQueryBase> traversalPredicate, Func<TSelf, IGremlinQueryBase> trueChoice);
 
         TTargetQuery Choose<TTargetQuery>(Func<IChooseBuilder<TSelf>, IChooseBuilderWithCaseOrDefault<TTargetQuery>> continuation) where TTargetQuery : IGremlinQueryBase;
 
         TTargetQuery Coalesce<TTargetQuery>(params Func<TSelf, TTargetQuery>[] traversals) where TTargetQuery : IGremlinQueryBase;
-        IValueGremlinQuery<object> Coalesce(params Func<TSelf, IGremlinQueryBase>[] traversals);
+        IGremlinQuery<object> Coalesce(params Func<TSelf, IGremlinQueryBase>[] traversals);
 
         TSelf CyclicPath();
 
@@ -139,7 +139,7 @@ namespace ExRam.Gremlinq.Core
         TSelf Tail(long count);
 
         TTargetQuery Union<TTargetQuery>(params Func<TSelf, TTargetQuery>[] unionTraversals) where TTargetQuery : IGremlinQueryBase;
-        IValueGremlinQuery<object> Union(params Func<TSelf, IGremlinQueryBase>[] traversals);
+        IGremlinQuery<object> Union(params Func<TSelf, IGremlinQueryBase>[] traversals);
 
         TSelf Where(Func<TSelf, IGremlinQueryBase> filterTraversal);
     }
@@ -160,18 +160,18 @@ namespace ExRam.Gremlinq.Core
 
         TTargetQuery Choose<TTargetQuery>(Expression<Func<TElement, bool>> predicate, Func<TSelf, TTargetQuery> trueChoice, Func<TSelf, TTargetQuery> falseChoice) where TTargetQuery : IGremlinQueryBase;
         TSelf Choose(Expression<Func<TElement, bool>> predicate, Func<TSelf, TSelf> trueChoice);
-        IValueGremlinQuery<object> Choose(Expression<Func<TElement, bool>> predicate, Func<TSelf, IGremlinQueryBase> trueChoice);
+        IGremlinQuery<object> Choose(Expression<Func<TElement, bool>> predicate, Func<TSelf, IGremlinQueryBase> trueChoice);
 
         IArrayGremlinQuery<TElement[], TElement, TSelf> Fold();
 
         new IArrayGremlinQuery<TElement[], TElement, TSelf> ForceArray();
 
-        IValueGremlinQuery<IDictionary<TNewKey, TNewValue>> Group<TNewKey, TNewValue>(Func<IGroupBuilder<TSelf>, IGroupBuilderWithKeyAndValue<TNewKey, TNewValue>> groupBuilder);
-        IValueGremlinQuery<IDictionary<TNewKey, TElement[]>> Group<TNewKey>(Func<IGroupBuilder<TSelf>, IGroupBuilderWithKey<TSelf, TNewKey>> groupBuilder);
+        IGremlinQuery<IDictionary<TNewKey, TNewValue>> Group<TNewKey, TNewValue>(Func<IGroupBuilder<TSelf>, IGroupBuilderWithKeyAndValue<TNewKey, TNewValue>> groupBuilder);
+        IGremlinQuery<IDictionary<TNewKey, TElement[]>> Group<TNewKey>(Func<IGroupBuilder<TSelf>, IGroupBuilderWithKey<TSelf, TNewKey>> groupBuilder);
 
         TSelf Inject(params TElement[] elements);
 
-        IValueGremlinQuery<dynamic> Project(Func<IProjectBuilder<TSelf, TElement>, IProjectDynamicResult> continuation);
+        IGremlinQuery<dynamic> Project(Func<IProjectBuilder<TSelf, TElement>, IProjectDynamicResult> continuation);
         IMapGremlinQuery<TResult> Project<TResult>(Func<IProjectBuilder<TSelf, TElement>, IProjectMapResult<TResult>> continuation);
         IMapGremlinQuery<TResult> Project<TResult>(Func<IProjectBuilder<TSelf, TElement>, IProjectTupleResult<TResult>> continuation) where TResult : ITuple;
 

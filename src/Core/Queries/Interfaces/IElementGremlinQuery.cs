@@ -7,15 +7,15 @@ namespace ExRam.Gremlinq.Core
     {
         new IElementGremlinQuery<TResult> Cast<TResult>();
 
-        IValueGremlinQuery<object> Id();
+        IGremlinQuery<object> Id();
 
-        IValueGremlinQuery<string> Label();
+        IGremlinQuery<string> Label();
 
-        IValueGremlinQuery<TTarget> Values<TTarget>();
-        IValueGremlinQuery<object> Values();
+        IGremlinQuery<TTarget> Values<TTarget>();
+        IGremlinQuery<object> Values();
 
-        IValueGremlinQuery<IDictionary<string, TTarget>> ValueMap<TTarget>();
-        IValueGremlinQuery<IDictionary<string, object>> ValueMap();
+        IGremlinQuery<IDictionary<string, TTarget>> ValueMap<TTarget>();
+        IGremlinQuery<IDictionary<string, object>> ValueMap();
     }
 
     public interface IElementGremlinQueryBaseRec<TSelf> :
@@ -33,10 +33,10 @@ namespace ExRam.Gremlinq.Core
     {
         IElementGremlinQuery<TElement> Update(TElement element);
 
-        IValueGremlinQuery<IDictionary<string, TTarget>> ValueMap<TTarget>(params Expression<Func<TElement, TTarget>>[] keys);
+        IGremlinQuery<IDictionary<string, TTarget>> ValueMap<TTarget>(params Expression<Func<TElement, TTarget>>[] keys);
 
-        IValueGremlinQuery<TTarget> Values<TTarget>(params Expression<Func<TElement, TTarget>>[] projections);
-        IValueGremlinQuery<TTarget> Values<TTarget>(params Expression<Func<TElement, TTarget[]>>[] projections);
+        IGremlinQuery<TTarget> Values<TTarget>(params Expression<Func<TElement, TTarget>>[] projections);
+        IGremlinQuery<TTarget> Values<TTarget>(params Expression<Func<TElement, TTarget[]>>[] projections);
     }
 
     public interface IElementGremlinQueryBaseRec<TElement, TSelf> :
