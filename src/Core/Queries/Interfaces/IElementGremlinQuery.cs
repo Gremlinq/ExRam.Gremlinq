@@ -14,8 +14,8 @@ namespace ExRam.Gremlinq.Core
         IGremlinQuery<object> Values();
         IGremlinQuery<TValue> Values<TValue>();
 
-        IGremlinQuery<IDictionary<string, object>> ValueMap();
-        IGremlinQuery<IDictionary<string, TValue>> ValueMap<TValue>();
+        IMapGremlinQuery<IDictionary<string, object>> ValueMap();
+        IMapGremlinQuery<IDictionary<string, TValue>> ValueMap<TValue>();
     }
 
     public interface IElementGremlinQueryBaseRec<TSelf> :
