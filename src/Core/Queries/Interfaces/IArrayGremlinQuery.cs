@@ -4,6 +4,14 @@
     {
         IGremlinQuery<object> Unfold();
 
+        IValueGremlinQuery<object> SumLocal();
+
+        IValueGremlinQuery<object> MinLocal();
+
+        IValueGremlinQuery<object> MaxLocal();
+
+        IValueGremlinQuery<object> MeanLocal();
+
         new IGremlinQuery<object[]> Lower();
     }
 
@@ -22,6 +30,14 @@
     public interface IArrayGremlinQueryBase<TArrayItem> : IArrayGremlinQueryBase
     {
         new IGremlinQuery<TArrayItem> Unfold();
+
+        new IGremlinQuery<TArrayItem> SumLocal();
+
+        new IGremlinQuery<TArrayItem> MinLocal();
+
+        new IGremlinQuery<TArrayItem> MaxLocal();
+
+        new IGremlinQuery<TArrayItem> MeanLocal();
 
         new IGremlinQuery<TArrayItem[]> Lower();
     }
@@ -50,13 +66,13 @@
     public interface IArrayGremlinQueryBase<TArray, TArrayItem, out TOriginalQuery> :
         IArrayGremlinQueryBase<TArray, TArrayItem>
     {
-        TOriginalQuery SumLocal();
+        new TOriginalQuery SumLocal();
 
-        TOriginalQuery MinLocal();
+        new TOriginalQuery MinLocal();
 
-        TOriginalQuery MaxLocal();
+        new TOriginalQuery MaxLocal();
 
-        TOriginalQuery MeanLocal();
+        new TOriginalQuery MeanLocal();
 
         new TOriginalQuery Unfold();
     }
