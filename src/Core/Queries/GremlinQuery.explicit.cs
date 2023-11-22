@@ -147,7 +147,7 @@ namespace ExRam.Gremlinq.Core
 
         IGremlinQuery<TTarget> IElementGremlinQueryBase<TElement>.Values<TTarget>(params Expression<Func<TElement, TTarget[]>>[] projections) => ValuesForProjections<TTarget>(projections);
 
-        IGremlinQuery<IDictionary<string, TTarget>> IElementGremlinQueryBase<TElement>.ValueMap<TTarget>(params Expression<Func<TElement, TTarget>>[] keys) => ValueMap<IDictionary<string, TTarget>>(keys);
+        IMapGremlinQuery<IDictionary<string, TTarget>> IElementGremlinQueryBase<TElement>.ValueMap<TTarget>(params Expression<Func<TElement, TTarget>>[] keys) => ValueMap<IDictionary<string, TTarget>>(keys);
 
         IMapGremlinQuery<TElement> IGremlinQueryBase<TElement>.ForceValueTuple() => CloneAs<IMapGremlinQuery<TElement>>(maybeNewTraversal: Steps.WithProjection(Projection.Value));
 
