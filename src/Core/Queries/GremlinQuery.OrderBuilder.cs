@@ -5,30 +5,30 @@ using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Core
 {
-    partial class GremlinQuery<T1, T2, T3, T4, T5>
+    partial class GremlinQuery<T1, T2, T3>
     {
-        private sealed class OrderBuilder : IOrderBuilderWithBy<T1, GremlinQuery<T1, T2, T3, T4, T5>>
+        private sealed class OrderBuilder : IOrderBuilderWithBy<T1, GremlinQuery<T1, T2, T3>>
         {
-            private readonly GremlinQuery<T1, T2, T3, T4, T5> _query;
+            private readonly GremlinQuery<T1, T2, T3> _query;
 
-            public OrderBuilder(GremlinQuery<T1, T2, T3, T4, T5> query)
+            public OrderBuilder(GremlinQuery<T1, T2, T3> query)
             {
                 _query = query;
             }
 
-            GremlinQuery<T1, T2, T3, T4, T5> IOrderBuilderWithBy<GremlinQuery<T1, T2, T3, T4, T5>>.Build() => _query;
+            GremlinQuery<T1, T2, T3> IOrderBuilderWithBy<GremlinQuery<T1, T2, T3>>.Build() => _query;
 
-            IOrderBuilderWithBy<T1, GremlinQuery<T1, T2, T3, T4, T5>> IOrderBuilder<T1, GremlinQuery<T1, T2, T3, T4, T5>>.By(Expression<Func<T1, object?>> projection) => By(projection, Gremlin.Net.Process.Traversal.Order.Asc);
+            IOrderBuilderWithBy<T1, GremlinQuery<T1, T2, T3>> IOrderBuilder<T1, GremlinQuery<T1, T2, T3>>.By(Expression<Func<T1, object?>> projection) => By(projection, Gremlin.Net.Process.Traversal.Order.Asc);
 
-            IOrderBuilderWithBy<T1, GremlinQuery<T1, T2, T3, T4, T5>> IOrderBuilder<T1, GremlinQuery<T1, T2, T3, T4, T5>>.By(Func<GremlinQuery<T1, T2, T3, T4, T5>, IGremlinQueryBase> traversal) => By(traversal, Gremlin.Net.Process.Traversal.Order.Asc);
+            IOrderBuilderWithBy<T1, GremlinQuery<T1, T2, T3>> IOrderBuilder<T1, GremlinQuery<T1, T2, T3>>.By(Func<GremlinQuery<T1, T2, T3>, IGremlinQueryBase> traversal) => By(traversal, Gremlin.Net.Process.Traversal.Order.Asc);
 
-            IOrderBuilderWithBy<GremlinQuery<T1, T2, T3, T4, T5>> IOrderBuilder<GremlinQuery<T1, T2, T3, T4, T5>>.By(Func<GremlinQuery<T1, T2, T3, T4, T5>, IGremlinQueryBase> traversal) => By(traversal, Gremlin.Net.Process.Traversal.Order.Asc);
+            IOrderBuilderWithBy<GremlinQuery<T1, T2, T3>> IOrderBuilder<GremlinQuery<T1, T2, T3>>.By(Func<GremlinQuery<T1, T2, T3>, IGremlinQueryBase> traversal) => By(traversal, Gremlin.Net.Process.Traversal.Order.Asc);
 
-            IOrderBuilderWithBy<T1, GremlinQuery<T1, T2, T3, T4, T5>> IOrderBuilder<T1, GremlinQuery<T1, T2, T3, T4, T5>>.ByDescending(Expression<Func<T1, object?>> projection) => By(projection, Gremlin.Net.Process.Traversal.Order.Desc);
+            IOrderBuilderWithBy<T1, GremlinQuery<T1, T2, T3>> IOrderBuilder<T1, GremlinQuery<T1, T2, T3>>.ByDescending(Expression<Func<T1, object?>> projection) => By(projection, Gremlin.Net.Process.Traversal.Order.Desc);
 
-            IOrderBuilderWithBy<T1, GremlinQuery<T1, T2, T3, T4, T5>> IOrderBuilder<T1, GremlinQuery<T1, T2, T3, T4, T5>>.ByDescending(Func<GremlinQuery<T1, T2, T3, T4, T5>, IGremlinQueryBase> traversal) => By(traversal, Gremlin.Net.Process.Traversal.Order.Desc);
+            IOrderBuilderWithBy<T1, GremlinQuery<T1, T2, T3>> IOrderBuilder<T1, GremlinQuery<T1, T2, T3>>.ByDescending(Func<GremlinQuery<T1, T2, T3>, IGremlinQueryBase> traversal) => By(traversal, Gremlin.Net.Process.Traversal.Order.Desc);
 
-            IOrderBuilderWithBy<GremlinQuery<T1, T2, T3, T4, T5>> IOrderBuilder<GremlinQuery<T1, T2, T3, T4, T5>>.ByDescending(Func<GremlinQuery<T1, T2, T3, T4, T5>, IGremlinQueryBase> traversal) => By(traversal, Gremlin.Net.Process.Traversal.Order.Desc);
+            IOrderBuilderWithBy<GremlinQuery<T1, T2, T3>> IOrderBuilder<GremlinQuery<T1, T2, T3>>.ByDescending(Func<GremlinQuery<T1, T2, T3>, IGremlinQueryBase> traversal) => By(traversal, Gremlin.Net.Process.Traversal.Order.Desc);
 
             private OrderBuilder By(Expression<Func<T1, object?>> projection, Order order) => new(_query
                 .Continue()
@@ -43,7 +43,7 @@ namespace ExRam.Gremlinq.Core
                     },
                     (_query.GetKey(projection), order)));
 
-            private OrderBuilder By(Func<GremlinQuery<T1, T2, T3, T4, T5>, IGremlinQueryBase> continuation, Order order) => new(_query
+            private OrderBuilder By(Func<GremlinQuery<T1, T2, T3>, IGremlinQueryBase> continuation, Order order) => new(_query
                 .Continue()
                 .With(continuation)
                 .Build(

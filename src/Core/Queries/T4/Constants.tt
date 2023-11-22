@@ -21,7 +21,7 @@
         "IInEdgeGremlinQuery<TEdge, T3>",
         "IOutEdgeGremlinQuery<TEdge, T2>",
         "IVertexPropertyGremlinQuery<TProperty, TValue>",
-        "IVertexPropertyGremlinQuery<TProperty, TValue, T5>",
+        "IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>",
         "IPropertyGremlinQuery<T1>"
     };
 
@@ -31,8 +31,9 @@
             .Replace("TEdge", "T1")
             .Replace("TAdjacentVertex", "T2")
             .Replace("TProperty", "T1")
-            .Replace("TValue", "T4")
+            .Replace("TValue", "T2")
             .Replace("TArrayItem", "T2")
             .Replace("TArray", "T1")
+            .Replace("TMeta", "T3")
             .Replace("TOriginalQuery", "T3"));
 #>
