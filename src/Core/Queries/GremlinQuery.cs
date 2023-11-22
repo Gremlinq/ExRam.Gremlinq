@@ -879,19 +879,19 @@ namespace ExRam.Gremlinq.Core
                 .Build();
         }
 
-        private GremlinQuery<TNewElement, object, object, TNewPropertyValue, TNewMeta> Properties<TNewElement, TNewPropertyValue, TNewMeta>(Projection projection, params Expression[] projections) => Properties<TNewElement, TNewPropertyValue, TNewMeta>(
+        private GremlinQuery<TNewElement, TNewPropertyValue, TNewMeta, object, object> Properties<TNewElement, TNewPropertyValue, TNewMeta>(Projection projection, params Expression[] projections) => Properties<TNewElement, TNewPropertyValue, TNewMeta>(
             projection,
             projections
                 .Select(projection => GetKey(projection).RawKey)
                 .OfType<string>());
 
-        private GremlinQuery<TNewElement, object, object, TNewPropertyValue, TNewMeta> Properties<TNewElement, TNewPropertyValue, TNewMeta>(Projection projection, IEnumerable<string> keys) => this
+        private GremlinQuery<TNewElement, TNewPropertyValue, TNewMeta, object, object> Properties<TNewElement, TNewPropertyValue, TNewMeta>(Projection projection, IEnumerable<string> keys) => this
             .Continue()
             .Build(
                 static (builder, tuple) => builder
                     .AddStep(new PropertiesStep(tuple.keys.ToImmutableArray()))
                     .WithNewProjection(tuple.projection)
-                    .AutoBuild<TNewElement, object, object, TNewPropertyValue, TNewMeta>(),
+                    .AutoBuild<TNewElement, TNewPropertyValue, TNewMeta, object, object>(),
                 (keys, projection));
 
         private GremlinQuery<T1, T2, T3, T4, T5> Property(LambdaExpression projection, object? value) => Property(GetKey(projection), value);
@@ -1169,9 +1169,9 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TValue, object, object, object, object> ValuesForProjections<TValue>(IEnumerable<LambdaExpression> projections) => ValuesForKeys<TValue>(projections.Select(GetKey));
 
-        private GremlinQuery<VertexProperty<TNewPropertyValue, TNewMeta>, object, object, TNewPropertyValue, TNewMeta> VertexProperties<TNewPropertyValue, TNewMeta>(Expression[] projections) => Properties<VertexProperty<TNewPropertyValue, TNewMeta>, TNewPropertyValue, TNewMeta>(Projection.VertexProperty, projections);
+        private GremlinQuery<VertexProperty<TNewPropertyValue, TNewMeta>, TNewPropertyValue, TNewMeta, object, object> VertexProperties<TNewPropertyValue, TNewMeta>(Expression[] projections) => Properties<VertexProperty<TNewPropertyValue, TNewMeta>, TNewPropertyValue, TNewMeta>(Projection.VertexProperty, projections);
 
-        private GremlinQuery<VertexProperty<TNewPropertyValue>, object, object, TNewPropertyValue, object> VertexProperties<TNewPropertyValue>(Expression[] projections) => Properties<VertexProperty<TNewPropertyValue>, TNewPropertyValue, object>(Projection.VertexProperty, projections);
+        private GremlinQuery<VertexProperty<TNewPropertyValue>, TNewPropertyValue, object, object, object> VertexProperties<TNewPropertyValue>(Expression[] projections) => Properties<VertexProperty<TNewPropertyValue>, TNewPropertyValue, object>(Projection.VertexProperty, projections);
 
         private GremlinQuery<T1, T2, T3, T4, T5> Where(Func<GremlinQuery<T1, T2, T3, T4, T5>, IGremlinQueryBase> filterContinuation) => this
             .Continue(ContinuationFlags.Filter)
