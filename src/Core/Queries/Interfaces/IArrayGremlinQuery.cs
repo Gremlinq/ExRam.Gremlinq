@@ -7,6 +7,11 @@
         new IValueGremlinQuery<object[]> Lower();
     }
 
+    public interface IArrayGremlinQueryBaseRec<TSelf> : IArrayGremlinQueryBase, IGremlinQueryBaseRec<TSelf>
+        where TSelf : IArrayGremlinQueryBaseRec<TSelf>
+    {
+    }
+
     public interface IArrayGremlinQueryBase<TArrayItem> : IArrayGremlinQueryBase
     {
         new IValueGremlinQuery<TArrayItem> Unfold();
