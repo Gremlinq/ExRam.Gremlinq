@@ -314,9 +314,9 @@
         ExRam.Gremlinq.Core.IGremlinQuery<object> Id();
         ExRam.Gremlinq.Core.IGremlinQuery<string> Label();
         ExRam.Gremlinq.Core.IGremlinQuery<System.Collections.Generic.IDictionary<string, object>> ValueMap();
-        ExRam.Gremlinq.Core.IGremlinQuery<System.Collections.Generic.IDictionary<string, TTarget>> ValueMap<TTarget>();
+        ExRam.Gremlinq.Core.IGremlinQuery<System.Collections.Generic.IDictionary<string, TValue>> ValueMap<TValue>();
         ExRam.Gremlinq.Core.IGremlinQuery<object> Values();
-        ExRam.Gremlinq.Core.IGremlinQuery<TTarget> Values<TTarget>();
+        ExRam.Gremlinq.Core.IGremlinQuery<TValue> Values<TValue>();
     }
     public interface IElementGremlinQueryBaseRec<TSelf> : ExRam.Gremlinq.Core.IElementGremlinQueryBase, ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IGremlinQueryBaseRec<TSelf>, ExRam.Gremlinq.Core.IStartGremlinQuery
         where TSelf : ExRam.Gremlinq.Core.IElementGremlinQueryBaseRec<TSelf>
