@@ -313,8 +313,8 @@
         ExRam.Gremlinq.Core.IElementGremlinQuery<TResult> Cast<TResult>();
         ExRam.Gremlinq.Core.IGremlinQuery<object> Id();
         ExRam.Gremlinq.Core.IGremlinQuery<string> Label();
-        ExRam.Gremlinq.Core.IGremlinQuery<System.Collections.Generic.IDictionary<string, object>> ValueMap();
-        ExRam.Gremlinq.Core.IGremlinQuery<System.Collections.Generic.IDictionary<string, TValue>> ValueMap<TValue>();
+        ExRam.Gremlinq.Core.IMapGremlinQuery<System.Collections.Generic.IDictionary<string, object>> ValueMap();
+        ExRam.Gremlinq.Core.IMapGremlinQuery<System.Collections.Generic.IDictionary<string, TValue>> ValueMap<TValue>();
         ExRam.Gremlinq.Core.IGremlinQuery<object> Values();
         ExRam.Gremlinq.Core.IGremlinQuery<TValue> Values<TValue>();
     }
@@ -980,7 +980,7 @@
         ExRam.Gremlinq.Core.IElementGremlinQuery<object> Lower();
         ExRam.Gremlinq.Core.IPropertyGremlinQuery<ExRam.Gremlinq.Core.GraphElements.Property<object>> Properties(params string[] keys);
         ExRam.Gremlinq.Core.IGremlinQuery<System.Collections.Generic.IDictionary<string, object>> ValueMap(params string[] keys);
-        new ExRam.Gremlinq.Core.IGremlinQuery<System.Collections.Generic.IDictionary<string, TTarget>> ValueMap<TTarget>();
+        ExRam.Gremlinq.Core.IGremlinQuery<System.Collections.Generic.IDictionary<string, TTarget>> ValueMap<TTarget>();
         ExRam.Gremlinq.Core.IGremlinQuery<System.Collections.Generic.IDictionary<string, TTarget>> ValueMap<TTarget>(params string[] keys);
         ExRam.Gremlinq.Core.IGremlinQuery<object> Values(params string[] keys);
         new ExRam.Gremlinq.Core.IGremlinQuery<TTarget> Values<TTarget>();
