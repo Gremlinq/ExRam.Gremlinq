@@ -46,9 +46,9 @@ namespace ExRam.Gremlinq.Core
         IInEdgeGremlinQuery<TEdge, TInVertex> To<TInVertex>(Func<IVertexGremlinQueryBase, IVertexGremlinQueryBase<TInVertex>> toVertexTraversal);
         IInEdgeGremlinQuery<TEdge, TInVertex> To<TInVertex>(StepLabel<TInVertex> stepLabel);
 
-        new IGremlinQuery<TTarget> Values<TTarget>(params Expression<Func<TEdge, TTarget>>[] projections);
+        new IGremlinQuery<TValue> Values<TValue>(params Expression<Func<TEdge, TValue>>[] projections);
 
-        IGremlinQuery<TTarget> Values<TTarget>(params Expression<Func<TEdge, Property<TTarget>>>[] projections);
+        IGremlinQuery<TValue> Values<TValue>(params Expression<Func<TEdge, Property<TValue>>>[] projections);
 
         IGremlinQuery<object> Values(params Expression<Func<TEdge, Property<object>>>[] projections);
     }
