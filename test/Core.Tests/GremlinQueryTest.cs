@@ -137,7 +137,6 @@ namespace ExRam.Gremlinq.Core.Tests
         public void Lower_chain_from_array() => _g
             .Inject(0)
             .Fold()
-            .Lower()
             .Lower();
     }
 }

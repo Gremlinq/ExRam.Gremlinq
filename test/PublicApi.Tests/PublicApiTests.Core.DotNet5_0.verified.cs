@@ -180,8 +180,8 @@
     }
     public interface IArrayGremlinQueryBase : ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IStartGremlinQuery
     {
-        ExRam.Gremlinq.Core.IValueGremlinQuery<object[]> Lower();
-        ExRam.Gremlinq.Core.IValueGremlinQuery<object> Unfold();
+        ExRam.Gremlinq.Core.IGremlinQuery<object[]> Lower();
+        ExRam.Gremlinq.Core.IGremlinQuery<object> Unfold();
     }
     public interface IArrayGremlinQueryBaseRec<TSelf> : ExRam.Gremlinq.Core.IArrayGremlinQueryBase, ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IGremlinQueryBaseRec<TSelf>, ExRam.Gremlinq.Core.IStartGremlinQuery
         where TSelf : ExRam.Gremlinq.Core.IArrayGremlinQueryBaseRec<TSelf>
@@ -199,16 +199,15 @@
         where TSelf : ExRam.Gremlinq.Core.IArrayGremlinQueryBaseRec<TArray, TArrayItem, TOriginalQuery, TSelf> { }
     public interface IArrayGremlinQueryBase<TArrayItem> : ExRam.Gremlinq.Core.IArrayGremlinQueryBase, ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IStartGremlinQuery
     {
-        ExRam.Gremlinq.Core.IValueGremlinQuery<TArrayItem[]> Lower();
-        ExRam.Gremlinq.Core.IValueGremlinQuery<TArrayItem> Unfold();
+        ExRam.Gremlinq.Core.IGremlinQuery<TArrayItem[]> Lower();
+        ExRam.Gremlinq.Core.IGremlinQuery<TArrayItem> Unfold();
     }
     public interface IArrayGremlinQueryBase<TArray, TArrayItem> : ExRam.Gremlinq.Core.IArrayGremlinQueryBase, ExRam.Gremlinq.Core.IArrayGremlinQueryBase<TArrayItem>, ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IGremlinQueryBase<TArray>, ExRam.Gremlinq.Core.IStartGremlinQuery
     {
-        ExRam.Gremlinq.Core.IValueGremlinQuery<TArray> Lower();
+        new ExRam.Gremlinq.Core.IGremlinQuery<TArray> Lower();
     }
     public interface IArrayGremlinQueryBase<TArray, TArrayItem, out TOriginalQuery> : ExRam.Gremlinq.Core.IArrayGremlinQueryBase, ExRam.Gremlinq.Core.IArrayGremlinQueryBase<TArrayItem>, ExRam.Gremlinq.Core.IArrayGremlinQueryBase<TArray, TArrayItem>, ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IGremlinQueryBase<TArray>, ExRam.Gremlinq.Core.IStartGremlinQuery
     {
-        new ExRam.Gremlinq.Core.IValueGremlinQuery<TArray> Lower();
         TOriginalQuery MaxLocal();
         TOriginalQuery MeanLocal();
         TOriginalQuery MinLocal();

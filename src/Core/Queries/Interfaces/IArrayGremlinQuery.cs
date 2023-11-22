@@ -2,9 +2,9 @@
 {
     public interface IArrayGremlinQueryBase : IGremlinQueryBase
     {
-        IValueGremlinQuery<object> Unfold();
+        IGremlinQuery<object> Unfold();
 
-        new IValueGremlinQuery<object[]> Lower();
+        new IGremlinQuery<object[]> Lower();
     }
 
     public interface IArrayGremlinQueryBaseRec<TSelf> : IArrayGremlinQueryBase, IGremlinQueryBaseRec<TSelf>
@@ -21,9 +21,9 @@
 
     public interface IArrayGremlinQueryBase<TArrayItem> : IArrayGremlinQueryBase
     {
-        new IValueGremlinQuery<TArrayItem> Unfold();
+        new IGremlinQuery<TArrayItem> Unfold();
 
-        new IValueGremlinQuery<TArrayItem[]> Lower();
+        new IGremlinQuery<TArrayItem[]> Lower();
     }
 
     public interface IArrayGremlinQueryBaseRec<TArrayItem, TSelf> :
@@ -37,7 +37,7 @@
         IArrayGremlinQueryBase<TArrayItem>,
         IGremlinQueryBase<TArray>
     {
-        new IValueGremlinQuery<TArray> Lower();
+        new IGremlinQuery<TArray> Lower();
     }
 
     public interface IArrayGremlinQueryBaseRec<TArray, TArrayItem, TSelf> :
@@ -59,8 +59,6 @@
         TOriginalQuery MeanLocal();
 
         new TOriginalQuery Unfold();
-
-        new IValueGremlinQuery<TArray> Lower();
     }
 
     public interface IArrayGremlinQueryBaseRec<TArray, TArrayItem, out TOriginalQuery, TSelf> :
