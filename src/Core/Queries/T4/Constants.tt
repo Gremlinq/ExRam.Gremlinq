@@ -9,11 +9,11 @@
         "IPropertyGremlinQueryBase",
 
 
-        "IGremlinQuery<TElement>",
-        "IMapGremlinQuery<TElement>",
+        "IGremlinQuery<T1>",
+        "IMapGremlinQuery<T1>",
         "IArrayGremlinQuery<TArray, TArrayItem, TOriginalQuery>",
-        "IElementGremlinQuery<TElement>",
-        "IEdgeOrVertexGremlinQuery<TElement>",
+        "IElementGremlinQuery<T1>",
+        "IEdgeOrVertexGremlinQuery<T1>",
         "IVertexGremlinQuery<TVertex>",
         "IEdgeGremlinQuery<TEdge>",
         "IInOrOutEdgeGremlinQuery<TEdge, TAdjacentVertex>",
@@ -22,17 +22,17 @@
         "IOutEdgeGremlinQuery<TEdge, TOutVertex>",
         "IVertexPropertyGremlinQuery<TProperty, TValue>",
         "IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>",
-        "IPropertyGremlinQuery<TElement>"
+        "IPropertyGremlinQuery<T1>"
     };
 
     var substitutedBaseInterfaces = baseInterfaces
         .Select(x => x
-            .Replace("TVertex", "TElement")
-            .Replace("TEdge", "TElement")
+            .Replace("TVertex", "T1")
+            .Replace("TEdge", "T1")
             .Replace("TAdjacentVertex", "TOutVertex")
-            .Replace("TProperty", "TElement")
+            .Replace("TProperty", "T1")
             .Replace("TValue", "TScalar")
             .Replace("TArrayItem", "TScalar")
-            .Replace("TArray", "TElement")
+            .Replace("TArray", "T1")
             .Replace("TOriginalQuery", "TFoldedQuery"));
 #>

@@ -3,33 +3,33 @@ using ExRam.Gremlinq.Core.Steps;
 
 namespace ExRam.Gremlinq.Core
 {
-    partial class GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>
+    partial class GremlinQuery<T1, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>
     {
         private sealed class GroupBuilder<TKey, TValue> :
-            IGroupBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>>,
-            IGroupBuilderWithKey<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TKey>,
+            IGroupBuilder<GremlinQuery<T1, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>>,
+            IGroupBuilderWithKey<GremlinQuery<T1, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TKey>,
             IGroupBuilderWithKeyAndValue<TKey, TValue>
         {
-            private readonly MultiContinuationBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>> _continuationBuilder;
+            private readonly MultiContinuationBuilder<GremlinQuery<T1, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, GremlinQuery<T1, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>> _continuationBuilder;
 
-            public GroupBuilder(ContinuationBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>> continuationBuilder) : this(continuationBuilder.ToMulti())
+            public GroupBuilder(ContinuationBuilder<GremlinQuery<T1, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, GremlinQuery<T1, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>> continuationBuilder) : this(continuationBuilder.ToMulti())
             {
 
             }
 
-            private GroupBuilder(MultiContinuationBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>> continuationBuilder)
+            private GroupBuilder(MultiContinuationBuilder<GremlinQuery<T1, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, GremlinQuery<T1, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>> continuationBuilder)
             {
                 _continuationBuilder = continuationBuilder;
             }
 
-            public IGroupBuilderWithKey<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TNewKey> ByKey<TNewKey>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase<TNewKey>> keySelector)
+            public IGroupBuilderWithKey<GremlinQuery<T1, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TNewKey> ByKey<TNewKey>(Func<GremlinQuery<T1, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase<TNewKey>> keySelector)
             {
                 return new GroupBuilder<TNewKey, object>(
                     _continuationBuilder
                         .With(keySelector));
             }
 
-            public IGroupBuilderWithKeyAndValue<TKey, TNewValue> ByValue<TNewValue>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase<TNewValue>> valueSelector)
+            public IGroupBuilderWithKeyAndValue<TKey, TNewValue> ByValue<TNewValue>(Func<GremlinQuery<T1, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase<TNewValue>> valueSelector)
             {
                 return new GroupBuilder<TKey, TNewValue>(
                     _continuationBuilder
