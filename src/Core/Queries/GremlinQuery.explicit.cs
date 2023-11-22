@@ -14,7 +14,7 @@ using Path = ExRam.Gremlinq.Core.GraphElements.Path;
 
 namespace ExRam.Gremlinq.Core
 {
-    internal partial class GremlinQuery<T1, T2, T3, T4, T5, T6> :
+    internal partial class GremlinQuery<T1, T2, T3, T4, T5> :
         IGremlinQueryAdmin,
 
         IGremlinQuerySource,
@@ -251,7 +251,7 @@ namespace ExRam.Gremlinq.Core
 
         TTargetQuery IGremlinQueryAdmin.ChangeQueryType<TTargetQuery>() => CloneAs<TTargetQuery>();
 
-        IGremlinQuerySource IGremlinQueryAdmin.GetSource() => CloneAs<GremlinQuery<object, object, object, object, object, object>>(maybeNewTraversal: Traversal.Empty);
+        IGremlinQuerySource IGremlinQueryAdmin.GetSource() => CloneAs<GremlinQuery<object, object, object, object, object>>(maybeNewTraversal: Traversal.Empty);
 
         Traversal IGremlinQueryAdmin.Steps => Steps;
 
@@ -291,9 +291,9 @@ namespace ExRam.Gremlinq.Core
 
         IEdgeGremlinQuery<TNewEdge> IStartGremlinQuery.ReplaceE<TNewEdge>(TNewEdge edge) => ((IGremlinQuerySource)this).E<TNewEdge>(edge!.GetId(Environment)).Update(edge);
 
-        IGremlinQuerySource IGremlinQuerySource.ConfigureEnvironment(Func<IGremlinQueryEnvironment, IGremlinQueryEnvironment> transformation) => new GremlinQuery<T1, T2, T3, T4, T5, T6>(transformation(Environment), Steps, LabelProjections, Metadata);
+        IGremlinQuerySource IGremlinQuerySource.ConfigureEnvironment(Func<IGremlinQueryEnvironment, IGremlinQueryEnvironment> transformation) => new GremlinQuery<T1, T2, T3, T4, T5>(transformation(Environment), Steps, LabelProjections, Metadata);
 
-        IGremlinQuerySource IGremlinQuerySource.ConfigureMetadata(Func<IImmutableDictionary<object, object?>, IImmutableDictionary<object, object?>> metadataTransformation) => new GremlinQuery<T1, T2, T3, T4, T5, T6>(Environment, Steps, LabelProjections, metadataTransformation(Metadata));
+        IGremlinQuerySource IGremlinQuerySource.ConfigureMetadata(Func<IImmutableDictionary<object, object?>, IImmutableDictionary<object, object?>> metadataTransformation) => new GremlinQuery<T1, T2, T3, T4, T5>(Environment, Steps, LabelProjections, metadataTransformation(Metadata));
 
         IGremlinQuerySource IGremlinQuerySource.WithSideEffect<TSideEffect>(StepLabel<TSideEffect> label, TSideEffect value) => WithSideEffect(label, value);
 
@@ -447,7 +447,7 @@ namespace ExRam.Gremlinq.Core
 
         IPropertyGremlinQuery<Property<object>> IVertexPropertyGremlinQueryBase.Properties(params string[] keys) => Properties<Property<object>, object, object>(Projection.Property, keys);
 
-        IVertexPropertyGremlinQuery<VertexProperty<T4, TNewMeta>, T4, TNewMeta> IVertexPropertyGremlinQueryBase<T1, T4>.Meta<TNewMeta>() => CloneAs<GremlinQuery<VertexProperty<T4, TNewMeta>, object, object, T4, TNewMeta, object>>();
+        IVertexPropertyGremlinQuery<VertexProperty<T4, TNewMeta>, T4, TNewMeta> IVertexPropertyGremlinQueryBase<T1, T4>.Meta<TNewMeta>() => CloneAs<GremlinQuery<VertexProperty<T4, TNewMeta>, object, object, T4, TNewMeta>>();
 
         IPropertyGremlinQuery<Property<TValue>> IVertexPropertyGremlinQueryBase<T1, T4>.Properties<TValue>(params string[] keys) => Properties<Property<TValue>, object, object>(Projection.Property, keys);
 
