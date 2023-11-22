@@ -152,7 +152,7 @@ namespace ExRam.Gremlinq.Core
 
         IMapGremlinQuery<TElement> IGremlinQueryBase<TElement>.ForceValueTuple() => CloneAs<IMapGremlinQuery<TElement>>(maybeNewTraversal: Steps.WithProjection(Projection.Value));
 
-        IArrayGremlinQuery<TElement[], TElement, IGremlinQueryBase<TElement>> IGremlinQueryBase<TElement>.ForceArray() => CloneAs<IArrayGremlinQuery<TElement[], TElement, IGremlinQueryBase<TElement>>>(maybeNewTraversal: Steps.WithProjection(Projection.Value.Fold()));
+        IArrayGremlinQuery<TElement[], TElement, IGremlinQuery<TElement>> IGremlinQueryBase<TElement>.ForceArray() => CloneAs<IArrayGremlinQuery<TElement[], TElement, IGremlinQuery<TElement>>>(maybeNewTraversal: Steps.WithProjection(Projection.Value.Fold()));
 
         IValueGremlinQuery<TValue> IGremlinQueryBase.Constant<TValue>(TValue constant) => Constant(constant);
 
