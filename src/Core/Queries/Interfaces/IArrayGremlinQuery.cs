@@ -10,6 +10,13 @@
     public interface IArrayGremlinQueryBaseRec<TSelf> : IArrayGremlinQueryBase, IGremlinQueryBaseRec<TSelf>
         where TSelf : IArrayGremlinQueryBaseRec<TSelf>
     {
+        TSelf LimitLocal(long count);
+
+        TSelf RangeLocal(long low, long high);
+
+        TSelf SkipLocal(long count);
+
+        TSelf TailLocal(long count);
     }
 
     public interface IArrayGremlinQueryBase<TArrayItem> : IArrayGremlinQueryBase
@@ -36,14 +43,6 @@
         TOriginalQuery MaxLocal();
 
         TOriginalQuery MeanLocal();
-
-        IArrayGremlinQueryBase<TArray, TArrayItem, TOriginalQuery> LimitLocal(long count);
-
-        IArrayGremlinQueryBase<TArray, TArrayItem, TOriginalQuery> RangeLocal(long low, long high);
-
-        IArrayGremlinQueryBase<TArray, TArrayItem, TOriginalQuery> SkipLocal(long count);
-
-        IArrayGremlinQueryBase<TArray, TArrayItem, TOriginalQuery> TailLocal(long count);
 
         new TOriginalQuery Unfold();
 
