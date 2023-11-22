@@ -10,13 +10,7 @@
         IValueGremlinQueryBase,
         IGremlinQueryBase<TElement>
     {
-        IValueGremlinQuery<TElement> Sum();
 
-        IValueGremlinQuery<TElement> Min();
-
-        IValueGremlinQuery<TElement> Max();
-
-        IValueGremlinQuery<TElement> Mean();
     }
 
     public interface IValueGremlinQueryBaseRec<TSelf> :

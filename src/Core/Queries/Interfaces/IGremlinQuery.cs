@@ -134,6 +134,14 @@ namespace ExRam.Gremlinq.Core
         IValueGremlinQuery<object> Union(params Func<TSelf, IGremlinQueryBase>[] traversals);
 
         TSelf Where(Func<TSelf, IGremlinQueryBase> filterTraversal);
+
+        TSelf Sum();
+
+        TSelf Min();
+
+        TSelf Max();
+
+        TSelf Mean();
     }
 
     public interface IGremlinQueryBaseRec<TElement, TSelf> :
