@@ -13,9 +13,9 @@ namespace ExRam.Gremlinq.Core
         IGremlinQuery<TTarget> Values<TTarget>(params string[] keys);
         IGremlinQuery<object> Values(params string[] keys);
 
-        new IGremlinQuery<IDictionary<string, TTarget>> ValueMap<TTarget>();
-        IGremlinQuery<IDictionary<string, TTarget>> ValueMap<TTarget>(params string[] keys);
-        IGremlinQuery<IDictionary<string, object>> ValueMap(params string[] keys);
+        new IMapGremlinQuery<IDictionary<string, TValue>> ValueMap<TValue>();
+        IMapGremlinQuery<IDictionary<string, TValue>> ValueMap<TValue>(params string[] keys);
+        IMapGremlinQuery<IDictionary<string, object>> ValueMap(params string[] keys);
     }
 
     public interface IVertexPropertyGremlinQueryBase<TProperty, TValue> :
