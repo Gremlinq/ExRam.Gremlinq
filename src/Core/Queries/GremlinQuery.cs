@@ -256,13 +256,13 @@ namespace ExRam.Gremlinq.Core
                 .WithNewProjection(Projection.Vertex)
                 .AutoBuild<TTarget>());
 
-        private GremlinQuery<TSelectedElement, object, object, TArrayItem, object, TQuery> Cap<TSelectedElement, TArrayItem, TQuery>(StepLabel<IArrayGremlinQuery<TSelectedElement, TArrayItem, TQuery>, TSelectedElement> stepLabel) where TQuery : IGremlinQueryBase => this
+        private GremlinQuery<TSelectedElement, TArrayItem, TQuery, object, object, object> Cap<TSelectedElement, TArrayItem, TQuery>(StepLabel<IArrayGremlinQuery<TSelectedElement, TArrayItem, TQuery>, TSelectedElement> stepLabel) where TQuery : IGremlinQueryBase => this
             .Continue()
             .Build(
                 static (builder, stepLabel) => builder
                     .AddStep(new CapStep(stepLabel))
                     .WithNewProjection(static projection => projection.Fold())
-                    .AutoBuild<TSelectedElement, object, object, TArrayItem, object, TQuery>(),
+                    .AutoBuild<TSelectedElement, TArrayItem, TQuery, object, object, object>(),
                 stepLabel);
 
         private GremlinQuery<TNewElement, T2, T3, T4, T5, T6> Cast<TNewElement>()
@@ -481,12 +481,12 @@ namespace ExRam.Gremlinq.Core
                 .WithNewProjection(innerTraversal.Projection)
                 .Build<TTargetQuery>());
 
-        private GremlinQuery<T1[], object, object, T1, object, TNewFoldedQuery> Fold<TNewFoldedQuery>() => this
+        private GremlinQuery<T1[], T1, TNewFoldedQuery, object, object, object> Fold<TNewFoldedQuery>() => this
             .Continue()
             .Build(static builder => builder
                 .AddStep(FoldStep.Instance)
                 .WithNewProjection(static projection => projection.Fold())
-                .AutoBuild<T1[], object, object, T1, object, TNewFoldedQuery>());
+                .AutoBuild<T1[], T1, TNewFoldedQuery, object, object, object>());
 
         private GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, object, object, object> From<TNewElement, TNewOutVertex, TNewInVertex>(Func<GremlinQuery<T1, T2, T3, T4, T5, T6>, IVertexGremlinQueryBase<TNewOutVertex>> fromVertexContinuation) => this
             .Continue()
