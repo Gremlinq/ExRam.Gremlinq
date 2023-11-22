@@ -503,10 +503,10 @@ namespace ExRam.Gremlinq.Core
                    .AutoBuild<TNewElement, TNewOutVertex, TNewInVertex>(),
                 label);
 
-        private IGremlinQuery<IDictionary<TKey, TValue>> Group<TKey, TValue>(Func<IGroupBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>>, IGroupBuilderWithKeyAndValue<TKey, TValue>> projection) =>
+        private IMapGremlinQuery<IDictionary<TKey, TValue>> Group<TKey, TValue>(Func<IGroupBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>>, IGroupBuilderWithKeyAndValue<TKey, TValue>> projection) =>
             projection(new GroupBuilder<object, object>(Continue())).Build();
 
-        private IGremlinQuery<IDictionary<TKey, TElement[]>> Group<TKey>(Func<IGroupBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>>, IGroupBuilderWithKey<IGremlinQueryBase<TElement>, TKey>> projection) => new GroupBuilder<object, object>(Continue())
+        private IMapGremlinQuery<IDictionary<TKey, TElement[]>> Group<TKey>(Func<IGroupBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>>, IGroupBuilderWithKey<IGremlinQueryBase<TElement>, TKey>> projection) => new GroupBuilder<object, object>(Continue())
             .Map(projection)
             .ByValue(__ => __
                 .Cast<TElement>()

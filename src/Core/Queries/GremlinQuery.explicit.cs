@@ -163,7 +163,7 @@ namespace ExRam.Gremlinq.Core
 
         IGremlinQuery<string> IGremlinQueryBase.Explain() => Explain();
 
-        IGremlinQuery<IDictionary<TElement, TElement[]>> IGremlinQueryBase<TElement>.Group() => Group(static _ => _.ByKey(static __ => __));
+        IMapGremlinQuery<IDictionary<TElement, TElement[]>> IGremlinQueryBase<TElement>.Group() => Group(static _ => _.ByKey(static __ => __));
 
         TaskAwaiter IGremlinQueryBase.GetAwaiter() => ((Task)((IGremlinQuery<TElement>)this).ToAsyncEnumerable().LastOrDefaultAsync().AsTask()).GetAwaiter();
 

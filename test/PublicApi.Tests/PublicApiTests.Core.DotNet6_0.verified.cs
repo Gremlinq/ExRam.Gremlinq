@@ -504,8 +504,8 @@
             where TTargetQuery : ExRam.Gremlinq.Core.IGremlinQueryBase;
         ExRam.Gremlinq.Core.IArrayGremlinQuery<TElement[], TElement, TSelf> Fold();
         ExRam.Gremlinq.Core.IArrayGremlinQuery<TElement[], TElement, TSelf> ForceArray();
-        ExRam.Gremlinq.Core.IGremlinQuery<System.Collections.Generic.IDictionary<TNewKey, TElement[]>> Group<TNewKey>(System.Func<ExRam.Gremlinq.Core.IGroupBuilder<TSelf>, ExRam.Gremlinq.Core.IGroupBuilderWithKey<TSelf, TNewKey>> groupBuilder);
-        ExRam.Gremlinq.Core.IGremlinQuery<System.Collections.Generic.IDictionary<TNewKey, TNewValue>> Group<TNewKey, TNewValue>(System.Func<ExRam.Gremlinq.Core.IGroupBuilder<TSelf>, ExRam.Gremlinq.Core.IGroupBuilderWithKeyAndValue<TNewKey, TNewValue>> groupBuilder);
+        ExRam.Gremlinq.Core.IMapGremlinQuery<System.Collections.Generic.IDictionary<TNewKey, TElement[]>> Group<TNewKey>(System.Func<ExRam.Gremlinq.Core.IGroupBuilder<TSelf>, ExRam.Gremlinq.Core.IGroupBuilderWithKey<TSelf, TNewKey>> groupBuilder);
+        ExRam.Gremlinq.Core.IMapGremlinQuery<System.Collections.Generic.IDictionary<TNewKey, TNewValue>> Group<TNewKey, TNewValue>(System.Func<ExRam.Gremlinq.Core.IGroupBuilder<TSelf>, ExRam.Gremlinq.Core.IGroupBuilderWithKeyAndValue<TNewKey, TNewValue>> groupBuilder);
         TSelf Inject(params TElement[] elements);
         TSelf Order(System.Func<ExRam.Gremlinq.Core.IOrderBuilder<TElement, TSelf>, ExRam.Gremlinq.Core.IOrderBuilderWithBy<TElement, TSelf>> projection);
         TSelf OrderLocal(System.Func<ExRam.Gremlinq.Core.IOrderBuilder<TElement, TSelf>, ExRam.Gremlinq.Core.IOrderBuilderWithBy<TElement, TSelf>> projection);
@@ -534,7 +534,7 @@
         ExRam.Gremlinq.Core.IVertexPropertyGremlinQuery<TElement, TValue> ForceVertexProperty<TValue>();
         ExRam.Gremlinq.Core.IVertexPropertyGremlinQuery<TElement, TValue, TMeta> ForceVertexProperty<TValue, TMeta>();
         ExRam.Gremlinq.Core.GremlinQueryAwaiter<TElement> GetAwaiter();
-        ExRam.Gremlinq.Core.IGremlinQuery<System.Collections.Generic.IDictionary<TElement, TElement[]>> Group();
+        ExRam.Gremlinq.Core.IMapGremlinQuery<System.Collections.Generic.IDictionary<TElement, TElement[]>> Group();
         ExRam.Gremlinq.Core.IGremlinQuery<TElement> Lower();
         System.Collections.Generic.IAsyncEnumerable<TElement> ToAsyncEnumerable();
     }
@@ -596,7 +596,7 @@
     }
     public interface IGroupBuilderWithKeyAndValue<TKey, TValue>
     {
-        ExRam.Gremlinq.Core.IGremlinQuery<System.Collections.Generic.IDictionary<TKey, TValue>> Build();
+        ExRam.Gremlinq.Core.IMapGremlinQuery<System.Collections.Generic.IDictionary<TKey, TValue>> Build();
     }
     public interface IGroupBuilderWithKey<out TSourceQuery, TKey>
         where out TSourceQuery : ExRam.Gremlinq.Core.IGremlinQueryBase
