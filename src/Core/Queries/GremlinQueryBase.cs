@@ -45,12 +45,8 @@ namespace ExRam.Gremlinq.Core
                             .Invoke(null, new object?[] { closureType })!;
                     }
 
-                    var t1 = TryGetMatchingType(closureType, "TElement", "TVertex", "TEdge", "TProperty", "TArray") ?? typeof(object);
-                    var t2 = TryGetMatchingType(closureType, "TOutVertex", "TAdjacentVertex", "TArrayItem", "TValue") ?? (t1.IsArray ? t1.GetElementType()! : typeof(object));
-                    var t3 = TryGetMatchingType(closureType, "TInVertex", "TOriginalQuery", "TMeta") ?? typeof(object);
-
                     return (QueryContinuation?)TryCreateQueryContinuationMethod
-                        .MakeGenericMethod(t1, t2, t3)
+                        .MakeGenericMethod(GetMatchingQueryTypeArguments(closureType))
                         .Invoke(null, new object?[] { closureType })!;
                 });
 
@@ -77,24 +73,48 @@ namespace ExRam.Gremlinq.Core
             };
         }
 
-        private static Type? TryGetMatchingType(Type interfaceType, params string[] argumentNames)
+        private static Type[] GetMatchingQueryTypeArguments(Type interfaceType)
         {
+            var queryDefinitionArguments = typeof(GremlinQuery<,,>).GetGenericArguments();
+            var types = new Type[queryDefinitionArguments.Length];
+
             if (interfaceType.IsGenericType)
             {
-                var genericArguments = interfaceType.GetGenericArguments();
-                var genericTypeDefinitionArguments = interfaceType.GetGenericTypeDefinition().GetGenericArguments();
+                var genericTypeDefinition = interfaceType.GetGenericTypeDefinition();
 
-                foreach (var argumentName in argumentNames)
+                var maybeMatchingInterfaceDefinition = typeof(GremlinQuery<,,>)
+                    .GetInterfaces()
+                    .FirstOrDefault(iface => iface.IsGenericType && iface.GetGenericTypeDefinition() == genericTypeDefinition);
+
+                if (maybeMatchingInterfaceDefinition is { } matchingInterfaceDefinition)
                 {
-                    for (var i = 0; i < genericTypeDefinitionArguments.Length; i++)
+                    var matchingInterfaceDefinitionArguments = matchingInterfaceDefinition.GetGenericArguments();
+
+                    for (var i = 0; i < queryDefinitionArguments.Length; i++)
                     {
-                        if (genericTypeDefinitionArguments[i].ToString() == argumentName)
-                            return genericArguments[i];
+                        for (var j = 0; j < matchingInterfaceDefinitionArguments.Length; j++)
+                        {
+                            if (matchingInterfaceDefinitionArguments[j] == queryDefinitionArguments[i])
+                            {
+                                types[i] = interfaceType.GetGenericArguments()[j];
+                                break;
+                            }
+                        }
                     }
                 }
             }
 
-            return default;
+            for (var i = 0; i < queryDefinitionArguments.Length; i++)
+            {
+                if (types[i] == null)
+                {
+                    types[i] = i == 1 && types[0].IsArray
+                        ? types[0].GetElementType()!
+                        : typeof(object);
+                }
+            }
+
+            return types;
         }
 
         protected internal Traversal Steps { get; }
