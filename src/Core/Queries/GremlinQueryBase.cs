@@ -11,9 +11,9 @@ namespace ExRam.Gremlinq.Core
             Traversal? maybeNewTraversal,
             IImmutableDictionary<StepLabel, LabelProjections>? maybeNewLabelProjections);
 
-        private static readonly ConcurrentDictionary<Type, QueryContinuation?> QueryTypes = new();
+        private static readonly ConcurrentDictionary<Type, QueryContinuation> QueryContinuations = new();
         private static readonly Type[] ImplementedInterfaces = typeof(GremlinQuery<,,>).GetInterfaces();
-        private static readonly MethodInfo TryCreateQueryContinuationMethod = typeof(GremlinQueryBase).GetMethod(nameof(TryCreateQueryContinuation), BindingFlags.NonPublic | BindingFlags.Static)!;
+        private static readonly MethodInfo TryCreateQueryContinuationMethod = typeof(GremlinQueryBase).GetMethod(nameof(CreateQueryContinuation), BindingFlags.NonPublic | BindingFlags.Static)!;
 
         protected GremlinQueryBase(
             IGremlinQueryEnvironment environment,
@@ -31,10 +31,11 @@ namespace ExRam.Gremlinq.Core
 
         protected internal TTargetQuery CloneAs<TTargetQuery>(Traversal? maybeNewTraversal = null, IImmutableDictionary<StepLabel, LabelProjections>? maybeNewLabelProjections = null)
         {
-            var targetQueryType = typeof(TTargetQuery);
+            if (maybeNewTraversal == null && maybeNewLabelProjections == null && this is TTargetQuery targetQuery)
+                return targetQuery;
 
-            var maybeConstructor = QueryTypes.GetOrAdd(
-                targetQueryType,
+            var queryFactory = QueryContinuations.GetOrAdd(
+                typeof(TTargetQuery),
                 static targetQueryType =>
                 {
                     var typeArguments = Array.Empty<Type>();
@@ -89,31 +90,19 @@ namespace ExRam.Gremlinq.Core
 
                     return (QueryContinuation?)TryCreateQueryContinuationMethod
                         .MakeGenericMethod(typeArguments)
-                        .Invoke(null, new object?[] { targetQueryType })!;
+                        .Invoke(null, null)!;
                 });
 
-            return maybeConstructor is { } constructor
-                ? (TTargetQuery)constructor(this, maybeNewTraversal, maybeNewLabelProjections)
-                : throw new NotSupportedException($"Cannot create a query of type {targetQueryType}.");
+            return queryFactory(this, maybeNewTraversal, maybeNewLabelProjections) is TTargetQuery newTargetQuery
+                ? newTargetQuery
+                : throw new NotSupportedException($"Cannot create a query of type {typeof(TTargetQuery)}.");
         }
 
-        private static QueryContinuation? TryCreateQueryContinuation<T1, T2, T3>(Type targetQueryType)
-        {
-            if (!targetQueryType.IsAssignableFrom(typeof(GremlinQuery<T1, T2, T3>)))
-                return null;
-
-            return (existingQuery, maybeNewTraversal, maybeNewLabelProjections) =>
-            {
-                if (maybeNewTraversal == null && maybeNewLabelProjections == null && targetQueryType.IsInstanceOfType(existingQuery))
-                    return (IGremlinQueryBase)existingQuery;
-
-                return new GremlinQuery<T1, T2, T3>(
-                    existingQuery.Environment,
-                    maybeNewTraversal ?? existingQuery.Steps,
-                    maybeNewLabelProjections ?? existingQuery.LabelProjections,
-                    existingQuery.Metadata);
-            };
-        }
+        private static QueryContinuation CreateQueryContinuation<T1, T2, T3>() => (existingQuery, maybeNewTraversal, maybeNewLabelProjections) => new GremlinQuery<T1, T2, T3>(
+            existingQuery.Environment,
+            maybeNewTraversal ?? existingQuery.Steps,
+            maybeNewLabelProjections ?? existingQuery.LabelProjections,
+            existingQuery.Metadata);
 
         protected internal Traversal Steps { get; }
         protected internal IGremlinQueryEnvironment Environment { get; }
