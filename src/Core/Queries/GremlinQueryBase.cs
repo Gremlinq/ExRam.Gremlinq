@@ -46,22 +46,17 @@ namespace ExRam.Gremlinq.Core
                     }
 
                     var t1 = TryGetMatchingType(closureType, "TElement", "TVertex", "TEdge", "TProperty", "TArray") ?? typeof(object);
-                    var t2 = TryGetMatchingType(closureType, "TOutVertex", "TAdjacentVertex", "TArrayItem", "TValue");
+                    var t2 = TryGetMatchingType(closureType, "TOutVertex", "TAdjacentVertex", "TArrayItem", "TValue") ?? (t1.IsArray ? t1.GetElementType()! : typeof(object));
                     var t3 = TryGetMatchingType(closureType, "TInVertex", "TOriginalQuery", "TMeta") ?? typeof(object);
 
                     return (QueryContinuation?)TryCreateQueryContinuationMethod
-                        .MakeGenericMethod(
-                            t1,
-                            t2 ?? (t1.IsArray
-                                ? t1.GetElementType()!
-                                : typeof(object)),
-                            t3)
+                        .MakeGenericMethod(t1, t2, t3)
                         .Invoke(null, new object?[] { closureType })!;
                 });
 
             return (maybeConstructor is { } constructor)
                 ? (TTargetQuery)constructor(this, maybeNewTraversal, maybeNewLabelProjections)
-                : throw new NotSupportedException($"Cannot change the query type to {targetQueryType}.");
+                : throw new NotSupportedException($"Cannot create a query of type {targetQueryType}.");
         }
 
         private static QueryContinuation? TryCreateQueryContinuation<T1, T2, T3>(Type targetQueryType)
