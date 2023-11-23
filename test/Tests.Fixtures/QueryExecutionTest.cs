@@ -1828,13 +1828,13 @@ namespace ExRam.Gremlinq.Tests.TestCases
         public virtual Task Project3_with_Property() => _g
             .V<Person>()
             .Order(b => b
-                .By(x => x.Id))
+                .By(x => x.Label))
             .Limit(1)
             .Project(__ => __
                 .ToTuple()
                 .By(__ => __.Constant("item1"))
                 .By(__ => __.Constant("item2"))
-                .By(__ => __.Id!))
+                .By(__ => __.Label!))
             .Verify();
 
         [Fact]

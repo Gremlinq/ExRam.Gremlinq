@@ -3,7 +3,7 @@
   "op": "eval",
   "processor": "",
   "args": {
-    "gremlin": "g.V().hasLabel(_a).order().by(id,asc).limit(_b).project(_c,_d,_e).by(__.constant(_f)).by(__.constant(_g)).by(id)",
+    "gremlin": "g.V().hasLabel(_a).order().by(label,asc).limit(_b).project(_c,_d,_e).by(__.constant(_f)).by(__.constant(_g)).by(label)",
     "bindings": {
       "_a": "Person",
       "_b": {

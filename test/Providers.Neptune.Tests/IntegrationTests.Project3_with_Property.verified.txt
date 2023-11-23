@@ -7,10 +7,7 @@
       "Item2",
       "item2",
       "Item3",
-      {
-        "@type": "g:Int64",
-        "@value": 7
-      }
+      "Person"
     ]
   }
 ]

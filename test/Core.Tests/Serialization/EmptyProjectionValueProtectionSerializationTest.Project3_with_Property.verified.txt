@@ -17,7 +17,7 @@
       Arguments: [
         {
           EnumName: T,
-          EnumValue: id
+          EnumValue: label
         },
         {
           EnumName: Order,
@@ -93,7 +93,7 @@
         {
           StepInstructions: [
             {
-              OperatorName: id
+              OperatorName: label
             },
             {
               OperatorName: limit,

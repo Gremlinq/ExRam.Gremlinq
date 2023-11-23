@@ -15,6 +15,6 @@
       _f: item1,
       _g: item2
     },
-    gremlin: g.V().hasLabel(_a).order().by(id,incr).limit(_b).project(_c,_d,_e).by(__.constant(_f)).by(__.constant(_g)).by(id)
+    gremlin: g.V().hasLabel(_a).order().by(label,incr).limit(_b).project(_c,_d,_e).by(__.constant(_f)).by(__.constant(_g)).by(label)
   }
 }
