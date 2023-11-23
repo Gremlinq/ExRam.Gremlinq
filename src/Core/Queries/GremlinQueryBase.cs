@@ -12,6 +12,7 @@ namespace ExRam.Gremlinq.Core
             IImmutableDictionary<StepLabel, LabelProjections>? maybeNewLabelProjections);
 
         private static readonly ConcurrentDictionary<Type, QueryContinuation?> QueryTypes = new();
+        private static readonly Type[] ImplementedInterfaces = typeof(GremlinQuery<,,>).GetInterfaces();
         private static readonly MethodInfo TryCreateQueryContinuationMethod = typeof(GremlinQueryBase).GetMethod(nameof(TryCreateQueryContinuation), BindingFlags.NonPublic | BindingFlags.Static)!;
 
         protected GremlinQueryBase(
@@ -34,39 +35,43 @@ namespace ExRam.Gremlinq.Core
 
             var maybeConstructor = QueryTypes.GetOrAdd(
                 targetQueryType,
-                static closureType =>
+                static targetQueryType =>
                 {
                     var typeArguments = Array.Empty<Type>();
 
-                    if (closureType.IsGenericType && closureType.GetGenericTypeDefinition() == typeof(GremlinQuery<,,>))
-                        typeArguments = closureType.GetGenericArguments();
+                    if (targetQueryType.IsGenericType && targetQueryType.GetGenericTypeDefinition() == typeof(GremlinQuery<,,>))
+                        typeArguments = targetQueryType.GetGenericArguments();
                     else
                     {
                         var queryDefinitionArguments = typeof(GremlinQuery<,,>).GetGenericArguments();
                         typeArguments = new Type[queryDefinitionArguments.Length];
 
-                        if (closureType.IsGenericType)
+                        if (targetQueryType.IsGenericType)
                         {
-                            var genericTypeDefinition = closureType.GetGenericTypeDefinition();
+                            var genericTypeDefinition = targetQueryType.GetGenericTypeDefinition();
 
-                            var maybeMatchingInterfaceDefinition = typeof(GremlinQuery<,,>)
-                                .GetInterfaces()
-                                .FirstOrDefault(iface => iface.IsGenericType && iface.GetGenericTypeDefinition() == genericTypeDefinition);
-
-                            if (maybeMatchingInterfaceDefinition is { } matchingInterfaceDefinition)
+                            for (var i = 0; i < ImplementedInterfaces.Length; i++)
                             {
-                                var matchingInterfaceDefinitionArguments = matchingInterfaceDefinition.GetGenericArguments();
+                                var implementedInterface = ImplementedInterfaces[i];
 
-                                for (var i = 0; i < queryDefinitionArguments.Length; i++)
+                                if (implementedInterface.IsGenericType && implementedInterface.GetGenericTypeDefinition() == genericTypeDefinition)
                                 {
-                                    for (var j = 0; j < matchingInterfaceDefinitionArguments.Length; j++)
+                                    var matchingInterfaceDefinitionArguments = implementedInterface.GetGenericArguments();
+
+                                    for (var j = 0; j < queryDefinitionArguments.Length; j++)
                                     {
-                                        if (matchingInterfaceDefinitionArguments[j] == queryDefinitionArguments[i])
+                                        for (var k = 0; k < matchingInterfaceDefinitionArguments.Length; k++)
                                         {
-                                            typeArguments[i] = closureType.GetGenericArguments()[j];
-                                            break;
+                                            if (matchingInterfaceDefinitionArguments[k] == queryDefinitionArguments[j])
+                                            {
+                                                typeArguments[j] = targetQueryType.GetGenericArguments()[k];
+
+                                                break;
+                                            }
                                         }
                                     }
+
+                                    break;
                                 }
                             }
                         }
@@ -84,7 +89,7 @@ namespace ExRam.Gremlinq.Core
 
                     return (QueryContinuation?)TryCreateQueryContinuationMethod
                         .MakeGenericMethod(typeArguments)
-                        .Invoke(null, new object?[] { closureType })!;
+                        .Invoke(null, new object?[] { targetQueryType })!;
                 });
 
             return maybeConstructor is { } constructor
