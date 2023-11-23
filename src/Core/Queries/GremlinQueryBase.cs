@@ -12,6 +12,7 @@ namespace ExRam.Gremlinq.Core
             IImmutableDictionary<StepLabel, LabelProjections>? maybeNewLabelProjections);
 
         private static readonly ConcurrentDictionary<Type, QueryContinuation> QueryContinuations = new();
+        private static readonly Type[] QueryGenericTypeDefinitionArguments = typeof(GremlinQuery<,,>).GetGenericArguments();
         private static readonly QueryContinuation ObjectQueryContinuation = CreateQueryContinuation<object, object, object>();
         private static readonly Type[] ImplementedInterfaces = typeof(GremlinQuery<,,>).GetInterfaces().Append(typeof(GremlinQuery<,,>)).ToArray();
         private static readonly MethodInfo TryCreateQueryContinuationMethod = typeof(GremlinQueryBase).GetMethod(nameof(CreateQueryContinuation), BindingFlags.NonPublic | BindingFlags.Static)!;
@@ -40,8 +41,7 @@ namespace ExRam.Gremlinq.Core
                     typeof(TTargetQuery),
                     static targetQueryType =>
                     {
-                        var queryDefinitionArguments = typeof(GremlinQuery<,,>).GetGenericArguments();
-                        var typeArguments = new Type[queryDefinitionArguments.Length];
+                        var typeArguments = new Type[QueryGenericTypeDefinitionArguments.Length];
 
                         var genericTypeDefinition = targetQueryType.GetGenericTypeDefinition();
 
@@ -53,11 +53,11 @@ namespace ExRam.Gremlinq.Core
                             {
                                 var matchingInterfaceDefinitionArguments = implementedInterface.GetGenericArguments();
 
-                                for (var j = 0; j < queryDefinitionArguments.Length; j++)
+                                for (var j = 0; j < QueryGenericTypeDefinitionArguments.Length; j++)
                                 {
                                     for (var k = 0; k < matchingInterfaceDefinitionArguments.Length; k++)
                                     {
-                                        if (matchingInterfaceDefinitionArguments[k] == queryDefinitionArguments[j])
+                                        if (matchingInterfaceDefinitionArguments[k] == QueryGenericTypeDefinitionArguments[j])
                                         {
                                             typeArguments[j] = targetQueryType.GetGenericArguments()[k];
 
