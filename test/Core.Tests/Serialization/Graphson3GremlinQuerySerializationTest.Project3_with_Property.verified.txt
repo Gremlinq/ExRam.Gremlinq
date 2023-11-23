@@ -21,7 +21,7 @@
             "by",
             {
               "@type": "g:T",
-              "@value": "id"
+              "@value": "label"
             },
             {
               "@type": "g:Order",
@@ -73,7 +73,7 @@
             "by",
             {
               "@type": "g:T",
-              "@value": "id"
+              "@value": "label"
             }
           ]
         ]

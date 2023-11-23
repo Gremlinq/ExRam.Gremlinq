@@ -33,7 +33,7 @@
       Arguments: [
         {
           EnumName: T,
-          EnumValue: id
+          EnumValue: label
         },
         {
           EnumName: Order,
@@ -90,7 +90,7 @@
       Arguments: [
         {
           EnumName: T,
-          EnumValue: id
+          EnumValue: label
         }
       ]
     }
