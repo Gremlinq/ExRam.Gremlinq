@@ -2,7 +2,7 @@
 
 namespace ExRam.Gremlinq.Core
 {
-    public readonly struct LabelProjections : IEquatable<LabelProjections>
+    internal readonly struct LabelProjections : IEquatable<LabelProjections>
     {
         public LabelProjections(Projection? stepLabelProjection, Projection? sideEffectLabelProjection)
         {
