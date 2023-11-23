@@ -28,9 +28,7 @@ namespace ExRam.Gremlinq.Core
 
         public override string ToString() => $"GremlinQuery(Steps.Count: {Steps.Count})";
 
-        protected internal TTargetQuery CloneAs<TTargetQuery>(
-            Traversal? maybeNewTraversal = null,
-            IImmutableDictionary<StepLabel, LabelProjections>? maybeNewLabelProjections = null)
+        protected internal TTargetQuery CloneAs<TTargetQuery>(Traversal? maybeNewTraversal = null, IImmutableDictionary<StepLabel, LabelProjections>? maybeNewLabelProjections = null)
         {
             var targetQueryType = typeof(TTargetQuery);
 
@@ -38,19 +36,58 @@ namespace ExRam.Gremlinq.Core
                 targetQueryType,
                 static closureType =>
                 {
+                    var typeArguments = Array.Empty<Type>();
+
                     if (closureType.IsGenericType && closureType.GetGenericTypeDefinition() == typeof(GremlinQuery<,,>))
+                        typeArguments = closureType.GetGenericArguments();
+                    else
                     {
-                        return (QueryContinuation?)TryCreateQueryContinuationMethod
-                            .MakeGenericMethod(closureType.GetGenericArguments())
-                            .Invoke(null, new object?[] { closureType })!;
+                        var queryDefinitionArguments = typeof(GremlinQuery<,,>).GetGenericArguments();
+                        typeArguments = new Type[queryDefinitionArguments.Length];
+
+                        if (closureType.IsGenericType)
+                        {
+                            var genericTypeDefinition = closureType.GetGenericTypeDefinition();
+
+                            var maybeMatchingInterfaceDefinition = typeof(GremlinQuery<,,>)
+                                .GetInterfaces()
+                                .FirstOrDefault(iface => iface.IsGenericType && iface.GetGenericTypeDefinition() == genericTypeDefinition);
+
+                            if (maybeMatchingInterfaceDefinition is { } matchingInterfaceDefinition)
+                            {
+                                var matchingInterfaceDefinitionArguments = matchingInterfaceDefinition.GetGenericArguments();
+
+                                for (var i = 0; i < queryDefinitionArguments.Length; i++)
+                                {
+                                    for (var j = 0; j < matchingInterfaceDefinitionArguments.Length; j++)
+                                    {
+                                        if (matchingInterfaceDefinitionArguments[j] == queryDefinitionArguments[i])
+                                        {
+                                            typeArguments[i] = closureType.GetGenericArguments()[j];
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        for (var i = 0; i < queryDefinitionArguments.Length; i++)
+                        {
+                            if (typeArguments[i] == null)
+                            {
+                                typeArguments[i] = i == 1 && typeArguments[0].IsArray
+                                    ? typeArguments[0].GetElementType()!
+                                    : typeof(object);
+                            }
+                        }
                     }
 
                     return (QueryContinuation?)TryCreateQueryContinuationMethod
-                        .MakeGenericMethod(GetMatchingQueryTypeArguments(closureType))
+                        .MakeGenericMethod(typeArguments)
                         .Invoke(null, new object?[] { closureType })!;
                 });
 
-            return (maybeConstructor is { } constructor)
+            return maybeConstructor is { } constructor
                 ? (TTargetQuery)constructor(this, maybeNewTraversal, maybeNewLabelProjections)
                 : throw new NotSupportedException($"Cannot create a query of type {targetQueryType}.");
         }
@@ -71,50 +108,6 @@ namespace ExRam.Gremlinq.Core
                     maybeNewLabelProjections ?? existingQuery.LabelProjections,
                     existingQuery.Metadata);
             };
-        }
-
-        private static Type[] GetMatchingQueryTypeArguments(Type interfaceType)
-        {
-            var queryDefinitionArguments = typeof(GremlinQuery<,,>).GetGenericArguments();
-            var types = new Type[queryDefinitionArguments.Length];
-
-            if (interfaceType.IsGenericType)
-            {
-                var genericTypeDefinition = interfaceType.GetGenericTypeDefinition();
-
-                var maybeMatchingInterfaceDefinition = typeof(GremlinQuery<,,>)
-                    .GetInterfaces()
-                    .FirstOrDefault(iface => iface.IsGenericType && iface.GetGenericTypeDefinition() == genericTypeDefinition);
-
-                if (maybeMatchingInterfaceDefinition is { } matchingInterfaceDefinition)
-                {
-                    var matchingInterfaceDefinitionArguments = matchingInterfaceDefinition.GetGenericArguments();
-
-                    for (var i = 0; i < queryDefinitionArguments.Length; i++)
-                    {
-                        for (var j = 0; j < matchingInterfaceDefinitionArguments.Length; j++)
-                        {
-                            if (matchingInterfaceDefinitionArguments[j] == queryDefinitionArguments[i])
-                            {
-                                types[i] = interfaceType.GetGenericArguments()[j];
-                                break;
-                            }
-                        }
-                    }
-                }
-            }
-
-            for (var i = 0; i < queryDefinitionArguments.Length; i++)
-            {
-                if (types[i] == null)
-                {
-                    types[i] = i == 1 && types[0].IsArray
-                        ? types[0].GetElementType()!
-                        : typeof(object);
-                }
-            }
-
-            return types;
         }
 
         protected internal Traversal Steps { get; }
