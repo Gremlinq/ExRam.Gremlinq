@@ -45,6 +45,8 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.AspNet
 
                             configurator = configurator.WithPartitionKey(partitionKeyExpression);
                         }
+                        else
+                            throw new MissingMemberException($"The class {typeof(TVertexBase).Name} does not define a publicly accesible and readable property for the partition key called {partitionKey}.");
                     }
 
                     return configurator;
