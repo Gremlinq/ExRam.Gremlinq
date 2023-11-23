@@ -12,7 +12,7 @@ namespace ExRam.Gremlinq.Core
             IImmutableDictionary<StepLabel, LabelProjections>? maybeNewLabelProjections);
 
         private static readonly ConcurrentDictionary<Type, QueryContinuation> QueryContinuations = new();
-        private static readonly Type[] ImplementedInterfaces = typeof(GremlinQuery<,,>).GetInterfaces();
+        private static readonly Type[] ImplementedInterfaces = typeof(GremlinQuery<,,>).GetInterfaces().Append(typeof(GremlinQuery<,,>)).ToArray();
         private static readonly MethodInfo TryCreateQueryContinuationMethod = typeof(GremlinQueryBase).GetMethod(nameof(CreateQueryContinuation), BindingFlags.NonPublic | BindingFlags.Static)!;
 
         protected GremlinQueryBase(
@@ -38,53 +38,46 @@ namespace ExRam.Gremlinq.Core
                 typeof(TTargetQuery),
                 static targetQueryType =>
                 {
-                    var typeArguments = Array.Empty<Type>();
+                    var queryDefinitionArguments = typeof(GremlinQuery<,,>).GetGenericArguments();
+                    var typeArguments = new Type[queryDefinitionArguments.Length];
 
-                    if (targetQueryType.IsGenericType && targetQueryType.GetGenericTypeDefinition() == typeof(GremlinQuery<,,>))
-                        typeArguments = targetQueryType.GetGenericArguments();
-                    else
+                    if (targetQueryType.IsGenericType)
                     {
-                        var queryDefinitionArguments = typeof(GremlinQuery<,,>).GetGenericArguments();
-                        typeArguments = new Type[queryDefinitionArguments.Length];
+                        var genericTypeDefinition = targetQueryType.GetGenericTypeDefinition();
 
-                        if (targetQueryType.IsGenericType)
+                        for (var i = 0; i < ImplementedInterfaces.Length; i++)
                         {
-                            var genericTypeDefinition = targetQueryType.GetGenericTypeDefinition();
+                            var implementedInterface = ImplementedInterfaces[i];
 
-                            for (var i = 0; i < ImplementedInterfaces.Length; i++)
+                            if (implementedInterface.IsGenericType && implementedInterface.GetGenericTypeDefinition() == genericTypeDefinition)
                             {
-                                var implementedInterface = ImplementedInterfaces[i];
+                                var matchingInterfaceDefinitionArguments = implementedInterface.GetGenericArguments();
 
-                                if (implementedInterface.IsGenericType && implementedInterface.GetGenericTypeDefinition() == genericTypeDefinition)
+                                for (var j = 0; j < queryDefinitionArguments.Length; j++)
                                 {
-                                    var matchingInterfaceDefinitionArguments = implementedInterface.GetGenericArguments();
-
-                                    for (var j = 0; j < queryDefinitionArguments.Length; j++)
+                                    for (var k = 0; k < matchingInterfaceDefinitionArguments.Length; k++)
                                     {
-                                        for (var k = 0; k < matchingInterfaceDefinitionArguments.Length; k++)
+                                        if (matchingInterfaceDefinitionArguments[k] == queryDefinitionArguments[j])
                                         {
-                                            if (matchingInterfaceDefinitionArguments[k] == queryDefinitionArguments[j])
-                                            {
-                                                typeArguments[j] = targetQueryType.GetGenericArguments()[k];
+                                            typeArguments[j] = targetQueryType.GetGenericArguments()[k];
 
-                                                break;
-                                            }
+                                            break;
                                         }
                                     }
-
-                                    break;
                                 }
+
+                                break;
                             }
                         }
+                    }
 
-                        for (var i = 0; i < queryDefinitionArguments.Length; i++)
+                    for (var i = 0; i < queryDefinitionArguments.Length; i++)
+                    {
+                        if (typeArguments[i] == null)
                         {
-                            if (typeArguments[i] == null)
-                            {
-                                typeArguments[i] = i == 1 && typeArguments[0].IsArray
-                                    ? typeArguments[0].GetElementType()!
-                                    : typeof(object);
-                            }
+                            typeArguments[i] = i == 1 && typeArguments[0].IsArray
+                                ? typeArguments[0].GetElementType()!
+                                : typeof(object);
                         }
                     }
 
