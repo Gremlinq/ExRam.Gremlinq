@@ -265,12 +265,9 @@ namespace ExRam.Gremlinq.Core
                     .AutoBuild<TSelectedElement, TArrayItem, TQuery>(),
                 stepLabel);
 
-        private GremlinQuery<TNewElement, T2, T3> Cast<TNewElement>()
-        {
-            return typeof(TNewElement) == typeof(T1)
-                ? (GremlinQuery<TNewElement, T2, T3>)(object)this
-                : CloneAs<GremlinQuery<TNewElement, T2, T3>>();
-        }
+        private GremlinQuery<TNewElement, T2, T3> Cast<TNewElement>() => this is GremlinQuery<TNewElement, T2, T3> existing
+            ? existing
+            : CloneAs<GremlinQuery<TNewElement, T2, T3>>();
 
         private TTargetQuery Choose<TTrueQuery, TFalseQuery, TTargetQuery>(Expression<Func<T1, bool>> predicate, Func<GremlinQuery<T1, T2, T3>, TTrueQuery> trueChoice, Func<GremlinQuery<T1, T2, T3>, TFalseQuery>? maybeFalseChoice = default)
             where TTrueQuery : IGremlinQueryBase
