@@ -12,6 +12,7 @@ namespace ExRam.Gremlinq.Core
             IImmutableDictionary<StepLabel, LabelProjections>? maybeNewLabelProjections);
 
         private static readonly ConcurrentDictionary<Type, QueryContinuation> QueryContinuations = new();
+        private static readonly QueryContinuation ObjectQueryContinuation = CreateQueryContinuation<object, object, object>();
         private static readonly Type[] ImplementedInterfaces = typeof(GremlinQuery<,,>).GetInterfaces().Append(typeof(GremlinQuery<,,>)).ToArray();
         private static readonly MethodInfo TryCreateQueryContinuationMethod = typeof(GremlinQueryBase).GetMethod(nameof(CreateQueryContinuation), BindingFlags.NonPublic | BindingFlags.Static)!;
 
@@ -34,15 +35,14 @@ namespace ExRam.Gremlinq.Core
             if (maybeNewTraversal == null && maybeNewLabelProjections == null && this is TTargetQuery targetQuery)
                 return targetQuery;
 
-            var queryFactory = QueryContinuations.GetOrAdd(
-                typeof(TTargetQuery),
-                static targetQueryType =>
-                {
-                    var queryDefinitionArguments = typeof(GremlinQuery<,,>).GetGenericArguments();
-                    var typeArguments = new Type[queryDefinitionArguments.Length];
-
-                    if (targetQueryType.IsGenericType)
+            var queryFactory = typeof(TTargetQuery).IsGenericType
+                ? QueryContinuations.GetOrAdd(
+                    typeof(TTargetQuery),
+                    static targetQueryType =>
                     {
+                        var queryDefinitionArguments = typeof(GremlinQuery<,,>).GetGenericArguments();
+                        var typeArguments = new Type[queryDefinitionArguments.Length];
+
                         var genericTypeDefinition = targetQueryType.GetGenericTypeDefinition();
 
                         for (var i = 0; i < ImplementedInterfaces.Length; i++)
@@ -64,27 +64,24 @@ namespace ExRam.Gremlinq.Core
                                             break;
                                         }
                                     }
+
+                                    if (typeArguments[j] == null)
+                                    {
+                                        typeArguments[j] = j == 1 && typeArguments[0].IsArray
+                                            ? typeArguments[0].GetElementType()!
+                                            : typeof(object);
+                                    }
                                 }
 
                                 break;
                             }
                         }
-                    }
 
-                    for (var i = 0; i < queryDefinitionArguments.Length; i++)
-                    {
-                        if (typeArguments[i] == null)
-                        {
-                            typeArguments[i] = i == 1 && typeArguments[0].IsArray
-                                ? typeArguments[0].GetElementType()!
-                                : typeof(object);
-                        }
-                    }
-
-                    return (QueryContinuation?)TryCreateQueryContinuationMethod
-                        .MakeGenericMethod(typeArguments)
-                        .Invoke(null, null)!;
-                });
+                        return (QueryContinuation?)TryCreateQueryContinuationMethod
+                            .MakeGenericMethod(typeArguments)
+                            .Invoke(null, null)!;
+                    })
+                : ObjectQueryContinuation;
 
             return queryFactory(this, maybeNewTraversal, maybeNewLabelProjections) is TTargetQuery newTargetQuery
                 ? newTargetQuery
