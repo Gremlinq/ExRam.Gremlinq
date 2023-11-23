@@ -39,36 +39,33 @@ namespace ExRam.Gremlinq.Core
             var queryFactory = typeof(TTargetQuery).IsGenericType
                 ? QueryContinuations.GetOrAdd(
                     typeof(TTargetQuery),
-                    static targetQueryType =>
+                    static requestedType =>
                     {
-                        var typeArguments = new Type[QueryGenericTypeDefinitionArguments.Length];
-
-                        var genericTypeDefinition = targetQueryType.GetGenericTypeDefinition();
+                        var requestedTypeDefinition = requestedType.GetGenericTypeDefinition();
+                        var queryTypeArguments = new Type[QueryGenericTypeDefinitionArguments.Length];
 
                         for (var i = 0; i < ImplementedInterfaces.Length; i++)
                         {
-                            var implementedInterface = ImplementedInterfaces[i];
-
-                            if (implementedInterface.IsGenericType && implementedInterface.GetGenericTypeDefinition() == genericTypeDefinition)
+                            if (ImplementedInterfaces[i] is { IsGenericType: true } queryImplementedInterface && queryImplementedInterface.GetGenericTypeDefinition() == requestedTypeDefinition)
                             {
-                                var matchingInterfaceDefinitionArguments = implementedInterface.GetGenericArguments();
+                                var matchingImplementedInterfaceTypeArguments = queryImplementedInterface.GetGenericArguments();
 
                                 for (var j = 0; j < QueryGenericTypeDefinitionArguments.Length; j++)
                                 {
-                                    for (var k = 0; k < matchingInterfaceDefinitionArguments.Length; k++)
+                                    for (var k = 0; k < matchingImplementedInterfaceTypeArguments.Length; k++)
                                     {
-                                        if (matchingInterfaceDefinitionArguments[k] == QueryGenericTypeDefinitionArguments[j])
+                                        if (matchingImplementedInterfaceTypeArguments[k] == QueryGenericTypeDefinitionArguments[j])
                                         {
-                                            typeArguments[j] = targetQueryType.GetGenericArguments()[k];
+                                            queryTypeArguments[j] = requestedType.GetGenericArguments()[k];
 
                                             break;
                                         }
                                     }
 
-                                    if (typeArguments[j] == null)
+                                    if (queryTypeArguments[j] == null)
                                     {
-                                        typeArguments[j] = j == 1 && typeArguments[0].IsArray
-                                            ? typeArguments[0].GetElementType()!
+                                        queryTypeArguments[j] = j == 1 && queryTypeArguments[0].IsArray
+                                            ? queryTypeArguments[0].GetElementType()!
                                             : typeof(object);
                                     }
                                 }
@@ -78,7 +75,7 @@ namespace ExRam.Gremlinq.Core
                         }
 
                         return (QueryContinuation?)TryCreateQueryContinuationMethod
-                            .MakeGenericMethod(typeArguments)
+                            .MakeGenericMethod(queryTypeArguments)
                             .Invoke(null, null)!;
                     })
                 : ObjectQueryContinuation;
