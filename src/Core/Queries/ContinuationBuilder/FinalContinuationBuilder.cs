@@ -45,13 +45,15 @@ namespace ExRam.Gremlinq.Core
 
         public TOuterQuery Build() => Build<TOuterQuery>();
 
-        public GremlinQuery<T1, T2, T3> AutoBuild<T1, T2, T3>() => Build<GremlinQuery<T1, T2, T3>>();
+        public GremlinQuery<T1, T2, T3, T4> AutoBuild<T1, T2, T3, T4>() => Build<GremlinQuery<T1, T2, T3, T4>>();
 
-        public GremlinQuery<T1, T2, object> AutoBuild<T1, T2>() => Build<GremlinQuery<T1, T2, object>>();
+        public GremlinQuery<T1, T2, T3, object> AutoBuild<T1, T2, T3>() => Build<GremlinQuery<T1, T2, T3, object>>();
 
-        public GremlinQuery<T1, object, object> AutoBuild<T1>() => Build<GremlinQuery<T1, object, object>>();
+        public GremlinQuery<T1, T2, object, object> AutoBuild<T1, T2>() => Build<GremlinQuery<T1, T2, object, object>>();
 
-        public GremlinQuery<object, object, object> AutoBuild() => Build<GremlinQuery<object, object, object>>();
+        public GremlinQuery<T1, object, object, object> AutoBuild<T1>() => Build<GremlinQuery<T1, object, object, object>>();
+
+        public GremlinQuery<object, object, object, object> AutoBuild() => Build<GremlinQuery<object, object, object, object>>();
 
         public TNewTargetQuery Build<TNewTargetQuery>() where TNewTargetQuery : IStartGremlinQuery => With(
             static (outer, steps, labelProjections, _) => outer.CloneAs<TNewTargetQuery>(

@@ -13,7 +13,7 @@ using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Core
 {
-    partial class GremlinQuery<T1, T2, T3>
+    partial class GremlinQuery<T1, T2, T3, T4>
     {
         private IEnumerable<PropertyStep> GetPropertySteps(Key key, object value, bool allowExplicitCardinality)
         {
@@ -58,11 +58,11 @@ namespace ExRam.Gremlinq.Core
                 : null;
         }
 
-        private ContinuationBuilder<GremlinQuery<T1, T2, T3>, GremlinQuery<T1, T2, T3>> Continue(ContinuationFlags flags = ContinuationFlags.None) => Continue<T1, T2, T3>(flags);
+        private ContinuationBuilder<GremlinQuery<T1, T2, T3, T4>, GremlinQuery<T1, T2, T3, T4>> Continue(ContinuationFlags flags = ContinuationFlags.None) => Continue<T1, T2, T3, T4>(flags);
 
-        private ContinuationBuilder<GremlinQuery<T1, T2, T3>, GremlinQuery<TAnon1, TAnon2, TAnon3>> Continue<TAnon1, TAnon2, TAnon3>(ContinuationFlags flags = ContinuationFlags.None) => new(
+        private ContinuationBuilder<GremlinQuery<T1, T2, T3, T4>, GremlinQuery<TAnon1, TAnon2, TAnon3, TAnon4>> Continue<TAnon1, TAnon2, TAnon3, TAnon4>(ContinuationFlags flags = ContinuationFlags.None) => new(
             this,
-            new GremlinQuery<TAnon1, TAnon2, TAnon3>(Environment, Traversal.Empty.WithProjection(Steps.Projection), LabelProjections, Metadata), flags);
+            new GremlinQuery<TAnon1, TAnon2, TAnon3, TAnon4>(Environment, Traversal.Empty.WithProjection(Steps.Projection), LabelProjections, Metadata), flags);
 
         private Key GetKey(Expression expression)
         {

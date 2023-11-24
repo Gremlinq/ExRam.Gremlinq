@@ -11,7 +11,7 @@ using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Core
 {
-    partial class GremlinQuery<T1, T2, T3>
+    partial class GremlinQuery<T1, T2, T3, T4>
     {
 <# for(var i = 2; i <= 16; i++) { #>
         IMapGremlinQuery<(<#= GetArgumentList("TItem{0}", i) #>)> IGremlinQueryBase.Select<<#= GetArgumentList("TItem{0}", i) #>>(<#= GetArgumentList("StepLabel<TItem{0}> label{0}", i) #>) => Project<(<#= GetArgumentList("TItem{0}", i) #>)>(p => p.ToTuple()<#= GetArgumentList(".By(__ => __.Select(label{0}))", "", i) #>);
