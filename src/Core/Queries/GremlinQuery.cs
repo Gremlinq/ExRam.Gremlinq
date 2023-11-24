@@ -642,11 +642,11 @@ namespace ExRam.Gremlinq.Core
                 .WithNewProjection(Projection.Value)
                 .Build());
 
-        private GremlinQuery<TNewElement, T2, T3, IGremlinQueryBase> MaxLocal<TNewElement>() => this
+        private TNewQuery MaxLocal<TNewQuery>() where TNewQuery : IGremlinQueryBase => this
             .Continue()
             .Build(static builder => builder
                 .AddStep(MaxStep.Local)
-                .AutoBuild<TNewElement, T2, T3>());
+                .Build<TNewQuery>());
 
         private GremlinQuery<T1, T2, T3, T4> MeanGlobal() => this
             .Continue()
