@@ -66,9 +66,7 @@ namespace ExRam.Gremlinq.Core
                                     {
                                         queryTypeArguments[j] = j == 1 && queryTypeArguments[0].IsArray
                                             ? queryTypeArguments[0].GetElementType()!
-                                            : j == QueryGenericTypeDefinitionArguments.Length - 1
-                                                ? typeof(IGremlinQueryBase)
-                                                : typeof(object);
+                                            : QueryGenericTypeDefinitionArguments[j].GetGenericParameterConstraints().SingleOrDefault() ?? typeof(object);
                                     }
                                 }
 
