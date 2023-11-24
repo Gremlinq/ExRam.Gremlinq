@@ -319,11 +319,11 @@ namespace ExRam.Gremlinq.Core
 
         IGremlinQuery<object> IPropertyGremlinQueryBase<T1>.Value() => Value<object>();
 
-        IGremlinQuery<T2> IArrayGremlinQueryBase<T2>.SumLocal() => SumLocal<T2>();
+        IGremlinQuery<T2> IArrayGremlinQueryBase<T2>.SumLocal() => SumLocal<IGremlinQuery<T2>>();
 
-        IGremlinQuery<object> IArrayGremlinQueryBase.SumLocal() => SumLocal<object>();
+        IGremlinQuery<object> IArrayGremlinQueryBase.SumLocal() => SumLocal<IGremlinQuery<object>>();
 
-        T4 IArrayGremlinQueryBase<T1, T2, T4>.SumLocal() => SumLocal<object>().CloneAs<T4>();
+        T4 IArrayGremlinQueryBase<T1, T2, T4>.SumLocal() => SumLocal<T4>();
 
         IGremlinQuery<T2> IArrayGremlinQueryBase<T2>.MinLocal() => MinLocal<T2>();
 
