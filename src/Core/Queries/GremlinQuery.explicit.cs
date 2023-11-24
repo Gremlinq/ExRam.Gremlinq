@@ -16,28 +16,30 @@ namespace ExRam.Gremlinq.Core
 {
     internal partial class GremlinQuery<T1, T2, T3> :
         IGremlinQueryAdmin,
-
         IGremlinQuerySource,
-        IGremlinQuery<T1>,
 
-        IArrayGremlinQuery<T1, T2, T3>,
+        IGremlinQuery<T1>,
 
         IElementGremlinQuery<T1>,
 
-        IMapGremlinQuery<T1>,
+        IVertexGremlinQuery<T1>,
 
         IEdgeOrVertexGremlinQuery<T1>,
-        IVertexGremlinQuery<T1>,
         IEdgeGremlinQuery<T1>,
-        IInOrOutEdgeGremlinQuery<T1, T2>,
         IEdgeGremlinQuery<T1, T2, T3>,
 
+        IInOrOutEdgeGremlinQuery<T1, T2>,
         IInEdgeGremlinQuery<T1, T3>,
         IOutEdgeGremlinQuery<T1, T2>,
 
+        IPropertyGremlinQuery<T1>,
+
         IVertexPropertyGremlinQuery<T1, T2>,
         IVertexPropertyGremlinQuery<T1, T2, T3>,
-        IPropertyGremlinQuery<T1>
+
+        IMapGremlinQuery<T1>,
+
+        IArrayGremlinQuery<T1, T2, T3>
     {
         T3 IArrayGremlinQueryBase<T1, T2, T3>.Unfold() => Unfold<T3>();
 
