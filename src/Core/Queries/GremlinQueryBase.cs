@@ -13,7 +13,7 @@ namespace ExRam.Gremlinq.Core
 
         private static readonly ConcurrentDictionary<Type, QueryContinuation> QueryContinuations = new();
         private static readonly Type[] QueryGenericTypeDefinitionArguments = typeof(GremlinQuery<,,,>).GetGenericArguments();
-        private static readonly QueryContinuation ObjectQueryContinuation = CreateQueryContinuation<object, object, object, object>();
+        private static readonly QueryContinuation ObjectQueryContinuation = CreateQueryContinuation<object, object, object, IGremlinQueryBase>();
         private static readonly Type[] ImplementedInterfaces = typeof(GremlinQuery<,,,>).GetInterfaces().Append(typeof(GremlinQuery<,,,>)).ToArray();
         private static readonly MethodInfo TryCreateQueryContinuationMethod = typeof(GremlinQueryBase).GetMethod(nameof(CreateQueryContinuation), BindingFlags.NonPublic | BindingFlags.Static)!;
 
@@ -66,7 +66,9 @@ namespace ExRam.Gremlinq.Core
                                     {
                                         queryTypeArguments[j] = j == 1 && queryTypeArguments[0].IsArray
                                             ? queryTypeArguments[0].GetElementType()!
-                                            : typeof(object);
+                                            : j == QueryGenericTypeDefinitionArguments.Length - 1
+                                                ? typeof(IGremlinQueryBase)
+                                                : typeof(object);
                                     }
                                 }
 
@@ -85,7 +87,7 @@ namespace ExRam.Gremlinq.Core
                 : throw new NotSupportedException($"Cannot create a query of type {typeof(TTargetQuery)}.");
         }
 
-        private static QueryContinuation CreateQueryContinuation<T1, T2, T3, T4>() => (existingQuery, maybeNewTraversal, maybeNewLabelProjections) => new GremlinQuery<T1, T2, T3, T4>(
+        private static QueryContinuation CreateQueryContinuation<T1, T2, T3, T4>() where T4 : IGremlinQueryBase => (existingQuery, maybeNewTraversal, maybeNewLabelProjections) => new GremlinQuery<T1, T2, T3, T4>(
             existingQuery.Environment,
             maybeNewTraversal ?? existingQuery.Steps,
             maybeNewLabelProjections ?? existingQuery.LabelProjections,
