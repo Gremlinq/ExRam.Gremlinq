@@ -486,8 +486,7 @@ namespace ExRam.Gremlinq.Core
                 .AutoBuild<T1[], T1, TNewFoldedQuery>());
 
         private GremlinQuery<T1, TNewOutVertex, TInVertex> From<TNewOutVertex, TInVertex>(Func<GremlinQuery<TInVertex, T2, T3>, IVertexGremlinQueryBase<TNewOutVertex>> fromVertexContinuation) => this
-            .Cast<TInVertex>()
-            .Continue()
+            .Continue<TInVertex, T2, T3>()
             .With(fromVertexContinuation)
             .Build(static (builder, fromVertexTraversal) => builder
                 .AddStep(new AddEStep.FromTraversalStep(fromVertexTraversal))
@@ -1040,8 +1039,7 @@ namespace ExRam.Gremlinq.Core
                 count);
 
         private GremlinQuery<T1, TOutVertex, TNewInVertex> To<TOutVertex, TNewInVertex>(Func<GremlinQuery<TOutVertex, T2, T3>, IVertexGremlinQueryBase<TNewInVertex>> toVertexContinuation) => this
-            .Cast<TOutVertex>()
-            .Continue()
+            .Continue<TOutVertex, T2, T3>()
             .With(toVertexContinuation)
             .Build(static (builder, toVertexTraversal) => builder
                 .AddStep(new AddEStep.ToTraversalStep(toVertexTraversal))
