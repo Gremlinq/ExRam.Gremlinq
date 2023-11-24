@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="..\Core\ExceptionHelper.cs" Link="ExceptionHelper.cs" />
     <Compile Include="..\Core\Extensions\AsyncEnumerable.cs" Link="Extensions\AsyncEnumerable.cs" />
   </ItemGroup>
 

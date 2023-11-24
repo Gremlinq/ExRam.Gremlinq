@@ -1,4 +1,6 @@
-﻿namespace ExRam.Gremlinq.Core.Serialization
+﻿using static ExRam.Gremlinq.Core.ExceptionHelper;
+
+namespace ExRam.Gremlinq.Core.Serialization
 {
     public readonly struct GroovyGremlinScript
     {
@@ -13,8 +15,8 @@
 
         public override string ToString() => Script;
 
-        public string Script => _script ?? throw new InvalidOperationException();
+        public string Script => _script ?? throw UninitializedStruct();
 
-        public IReadOnlyDictionary<string, object> Bindings => _bindings ?? throw new InvalidOperationException();
+        public IReadOnlyDictionary<string, object> Bindings => _bindings ?? throw UninitializedStruct();
     }
 }

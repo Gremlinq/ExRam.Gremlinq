@@ -1,4 +1,6 @@
-﻿namespace ExRam.Gremlinq.Core.Execution
+﻿using static ExRam.Gremlinq.Core.ExceptionHelper;
+
+namespace ExRam.Gremlinq.Core.Execution
 {
     public readonly struct GremlinQueryExecutionContext
     {
@@ -15,9 +17,9 @@
 
         public GremlinQueryExecutionContext TransformQuery(Func<IGremlinQueryBase, IGremlinQueryBase> transformation) => new(transformation(Query), ExecutionId);
 
-        public Guid ExecutionId => _executionId ?? throw new InvalidOperationException();
+        public Guid ExecutionId => _executionId ?? throw UninitializedStruct();
 
-        public IGremlinQueryBase Query => _query ?? throw new InvalidOperationException();
+        public IGremlinQueryBase Query => _query ?? throw UninitializedStruct();
 
         public static GremlinQueryExecutionContext Create(IGremlinQueryBase query) => new(query, Guid.NewGuid());
     }

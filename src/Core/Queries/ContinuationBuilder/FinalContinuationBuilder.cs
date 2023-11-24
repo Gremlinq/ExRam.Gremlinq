@@ -1,6 +1,7 @@
 ﻿using System.Collections.Immutable;
 using ExRam.Gremlinq.Core.Projections;
 using ExRam.Gremlinq.Core.Steps;
+using static ExRam.Gremlinq.Core.ExceptionHelper;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -63,7 +64,7 @@ namespace ExRam.Gremlinq.Core
 
         private TResult With<TState, TResult>(Func<TOuterQuery, Traversal, IImmutableDictionary<StepLabel, LabelProjections>, TState, TResult> continuation, TState state) => (_outer is { } outer && _steps is { } steps && _labelProjections is { } labelProjections)
             ? continuation(outer, steps, labelProjections, state)
-            : throw new InvalidOperationException();
+            : throw UninitializedStruct();
 
         public TOuterQuery OuterQuery => With(
             static (outer, _, _, _) => outer,

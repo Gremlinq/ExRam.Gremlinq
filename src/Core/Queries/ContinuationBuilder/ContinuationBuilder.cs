@@ -1,4 +1,6 @@
-﻿namespace ExRam.Gremlinq.Core
+﻿using static ExRam.Gremlinq.Core.ExceptionHelper;
+
+namespace ExRam.Gremlinq.Core
 {
     internal readonly struct ContinuationBuilder<TOuterQuery, TAnonymousQuery>
         where TOuterQuery : GremlinQueryBase, IGremlinQueryBase
@@ -49,7 +51,7 @@
 
         private TResult With<TState, TResult>(Func<TOuterQuery, TAnonymousQuery, ContinuationFlags, TState, TResult> continuation, TState state) => (_outer is { } outer && _anonymous is { } anonymous)
             ? continuation(outer, anonymous, _flags, state)
-            : throw new InvalidOperationException();
+            : throw UninitializedStruct();
 
         public TOuterQuery OuterQuery => With(
             static (outer, _, _, _) => outer,
