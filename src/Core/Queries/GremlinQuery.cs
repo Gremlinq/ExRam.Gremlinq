@@ -668,11 +668,11 @@ namespace ExRam.Gremlinq.Core
                 .WithNewProjection(Projection.Value)
                 .Build());
 
-        private GremlinQuery<TNewElement, T2, T3, IGremlinQueryBase> MinLocal<TNewElement>() => this
+        private TNewQuery MinLocal<TNewQuery>() where TNewQuery : IGremlinQueryBase => this
             .Continue()
             .Build(static builder => builder
                 .AddStep(MinStep.Local)
-                .AutoBuild<TNewElement, T2, T3>());
+                .Build<TNewQuery>());
 
         private GremlinQuery<T1, T2, T3, T4> None() => this
             .Continue()
