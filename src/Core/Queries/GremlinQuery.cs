@@ -1005,12 +1005,12 @@ namespace ExRam.Gremlinq.Core
                 .WithNewProjection(Projection.Value)
                 .Build());
 
-        private GremlinQuery<TNewElement, T2, T3, IGremlinQueryBase> SumLocal<TNewElement>() => this
+        private TNewQuery SumLocal<TNewQuery>() where TNewQuery : IGremlinQueryBase => this
             .Continue()
             .Build(static builder => builder
                 .AddStep(new SumStep(Scope.Local))
                 .WithNewProjection(Projection.Value)
-                .AutoBuild<TNewElement, T2, T3>());
+                .Build<TNewQuery>());
 
         private GremlinQuery<T1, T2, T3, T4> TailGlobal(long count) => this
             .Continue()
