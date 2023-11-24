@@ -255,104 +255,104 @@ namespace ExRam.Gremlinq.Core
 
         IMapGremlinQuery<T1> IGremlinQueryBaseRec<T1, IMapGremlinQuery<T1>>.Where(Expression<Func<T1, bool>> predicate) => Where(predicate);
         IMapGremlinQuery<T1> IGremlinQueryBaseRec<IMapGremlinQuery<T1>>.Where(Func<IMapGremlinQuery<T1>, IGremlinQueryBase> filterTraversal) => Where(filterTraversal);
-        TTargetQuery IGremlinQueryBaseRec<T1, IArrayGremlinQuery<T1, T2, T3>>.Aggregate<TTargetQuery>(Func<IArrayGremlinQuery<T1, T2, T3>, StepLabel<IArrayGremlinQuery<T1[], T1, IArrayGremlinQuery<T1, T2, T3>>, T1[]>, TTargetQuery> continuation) => Aggregate(Scope.Global, continuation);
-        TTargetQuery IGremlinQueryBaseRec<T1, IArrayGremlinQuery<T1, T2, T3>>.AggregateLocal<TTargetQuery>(Func<IArrayGremlinQuery<T1, T2, T3>, StepLabel<IArrayGremlinQuery<T1[], T1, IArrayGremlinQuery<T1, T2, T3>>, T1[]>, TTargetQuery> continuation) => Aggregate(Scope.Local, continuation);
+        TTargetQuery IGremlinQueryBaseRec<T1, IArrayGremlinQuery<T1, T2, T4>>.Aggregate<TTargetQuery>(Func<IArrayGremlinQuery<T1, T2, T4>, StepLabel<IArrayGremlinQuery<T1[], T1, IArrayGremlinQuery<T1, T2, T4>>, T1[]>, TTargetQuery> continuation) => Aggregate(Scope.Global, continuation);
+        TTargetQuery IGremlinQueryBaseRec<T1, IArrayGremlinQuery<T1, T2, T4>>.AggregateLocal<TTargetQuery>(Func<IArrayGremlinQuery<T1, T2, T4>, StepLabel<IArrayGremlinQuery<T1[], T1, IArrayGremlinQuery<T1, T2, T4>>, T1[]>, TTargetQuery> continuation) => Aggregate(Scope.Local, continuation);
 
-        IArrayGremlinQuery<T1, T2, T3> IGremlinQueryBaseRec<T1, IArrayGremlinQuery<T1, T2, T3>>.Aggregate(StepLabel<IArrayGremlinQuery<T1[], T1, IArrayGremlinQuery<T1, T2, T3>>, T1[]> stepLabel) => Aggregate(Scope.Global, stepLabel);
-        IArrayGremlinQuery<T1, T2, T3> IGremlinQueryBaseRec<T1, IArrayGremlinQuery<T1, T2, T3>>.AggregateLocal(StepLabel<IArrayGremlinQuery<T1[], T1, IArrayGremlinQuery<T1, T2, T3>>, T1[]> stepLabel) => Aggregate(Scope.Local, stepLabel);
+        IArrayGremlinQuery<T1, T2, T4> IGremlinQueryBaseRec<T1, IArrayGremlinQuery<T1, T2, T4>>.Aggregate(StepLabel<IArrayGremlinQuery<T1[], T1, IArrayGremlinQuery<T1, T2, T4>>, T1[]> stepLabel) => Aggregate(Scope.Global, stepLabel);
+        IArrayGremlinQuery<T1, T2, T4> IGremlinQueryBaseRec<T1, IArrayGremlinQuery<T1, T2, T4>>.AggregateLocal(StepLabel<IArrayGremlinQuery<T1[], T1, IArrayGremlinQuery<T1, T2, T4>>, T1[]> stepLabel) => Aggregate(Scope.Local, stepLabel);
 
-        TTargetQuery IGremlinQueryBaseRec<T1, IArrayGremlinQuery<T1, T2, T3>>.As<TTargetQuery>(Func<IArrayGremlinQuery<T1, T2, T3>, StepLabel<IArrayGremlinQuery<T1, T2, T3>, T1>, TTargetQuery> continuation) => As<StepLabel<IArrayGremlinQuery<T1, T2, T3>, T1>, TTargetQuery>(continuation);
-        IArrayGremlinQuery<T1, T2, T3> IGremlinQueryBaseRec<T1, IArrayGremlinQuery<T1, T2, T3>>.As(StepLabel<T1> stepLabel) => As(stepLabel);
+        TTargetQuery IGremlinQueryBaseRec<T1, IArrayGremlinQuery<T1, T2, T4>>.As<TTargetQuery>(Func<IArrayGremlinQuery<T1, T2, T4>, StepLabel<IArrayGremlinQuery<T1, T2, T4>, T1>, TTargetQuery> continuation) => As<StepLabel<IArrayGremlinQuery<T1, T2, T4>, T1>, TTargetQuery>(continuation);
+        IArrayGremlinQuery<T1, T2, T4> IGremlinQueryBaseRec<T1, IArrayGremlinQuery<T1, T2, T4>>.As(StepLabel<T1> stepLabel) => As(stepLabel);
 
-        IArrayGremlinQuery<T1, T2, T3> IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T3>>.And(params Func<IArrayGremlinQuery<T1, T2, T3>, IGremlinQueryBase>[] andTraversals) => And(andTraversals);
+        IArrayGremlinQuery<T1, T2, T4> IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T4>>.And(params Func<IArrayGremlinQuery<T1, T2, T4>, IGremlinQueryBase>[] andTraversals) => And(andTraversals);
 
-        TTargetQuery IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T3>>.As<TTargetQuery>(Func<IArrayGremlinQuery<T1, T2, T3>, StepLabel<IArrayGremlinQuery<T1, T2, T3>, object>, TTargetQuery> continuation) => As<StepLabel<IArrayGremlinQuery<T1, T2, T3>, object>, TTargetQuery>(continuation);
+        TTargetQuery IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T4>>.As<TTargetQuery>(Func<IArrayGremlinQuery<T1, T2, T4>, StepLabel<IArrayGremlinQuery<T1, T2, T4>, object>, TTargetQuery> continuation) => As<StepLabel<IArrayGremlinQuery<T1, T2, T4>, object>, TTargetQuery>(continuation);
 
-        IArrayGremlinQuery<T1, T2, T3> IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T3>>.Barrier() => Barrier();
+        IArrayGremlinQuery<T1, T2, T4> IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T4>>.Barrier() => Barrier();
 
-        TTargetQuery IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T3>>.Choose<TTargetQuery>(Func<IArrayGremlinQuery<T1, T2, T3>, IGremlinQueryBase> traversalPredicate, Func<IArrayGremlinQuery<T1, T2, T3>, TTargetQuery> trueChoice, Func<IArrayGremlinQuery<T1, T2, T3>, TTargetQuery> falseChoice) => Choose<TTargetQuery, TTargetQuery, TTargetQuery>(traversalPredicate, trueChoice, falseChoice);
-        IArrayGremlinQuery<T1, T2, T3> IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T3>>.Choose(Func<IArrayGremlinQuery<T1, T2, T3>, IGremlinQueryBase> traversalPredicate, Func<IArrayGremlinQuery<T1, T2, T3>, IArrayGremlinQuery<T1, T2, T3>> trueChoice) => Choose<IArrayGremlinQuery<T1, T2, T3>, IArrayGremlinQuery<T1, T2, T3>, IArrayGremlinQuery<T1, T2, T3>>(traversalPredicate, trueChoice);
-        IGremlinQuery<object> IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T3>>.Choose(Func<IArrayGremlinQuery<T1, T2, T3>, IGremlinQueryBase> traversalPredicate, Func<IArrayGremlinQuery<T1, T2, T3>, IGremlinQueryBase> trueChoice) => Choose<IGremlinQueryBase, IGremlinQueryBase, IGremlinQuery<object>>(traversalPredicate, trueChoice);
+        TTargetQuery IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T4>>.Choose<TTargetQuery>(Func<IArrayGremlinQuery<T1, T2, T4>, IGremlinQueryBase> traversalPredicate, Func<IArrayGremlinQuery<T1, T2, T4>, TTargetQuery> trueChoice, Func<IArrayGremlinQuery<T1, T2, T4>, TTargetQuery> falseChoice) => Choose<TTargetQuery, TTargetQuery, TTargetQuery>(traversalPredicate, trueChoice, falseChoice);
+        IArrayGremlinQuery<T1, T2, T4> IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T4>>.Choose(Func<IArrayGremlinQuery<T1, T2, T4>, IGremlinQueryBase> traversalPredicate, Func<IArrayGremlinQuery<T1, T2, T4>, IArrayGremlinQuery<T1, T2, T4>> trueChoice) => Choose<IArrayGremlinQuery<T1, T2, T4>, IArrayGremlinQuery<T1, T2, T4>, IArrayGremlinQuery<T1, T2, T4>>(traversalPredicate, trueChoice);
+        IGremlinQuery<object> IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T4>>.Choose(Func<IArrayGremlinQuery<T1, T2, T4>, IGremlinQueryBase> traversalPredicate, Func<IArrayGremlinQuery<T1, T2, T4>, IGremlinQueryBase> trueChoice) => Choose<IGremlinQueryBase, IGremlinQueryBase, IGremlinQuery<object>>(traversalPredicate, trueChoice);
         
-        TTargetQuery IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T3>>.Choose<TTargetQuery>(Func<IChooseBuilder<IArrayGremlinQuery<T1, T2, T3>>, IChooseBuilderWithCaseOrDefault<TTargetQuery>> continuation) => Choose<TTargetQuery>(continuation);
+        TTargetQuery IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T4>>.Choose<TTargetQuery>(Func<IChooseBuilder<IArrayGremlinQuery<T1, T2, T4>>, IChooseBuilderWithCaseOrDefault<TTargetQuery>> continuation) => Choose<TTargetQuery>(continuation);
 
-        TTargetQuery IGremlinQueryBaseRec<T1, IArrayGremlinQuery<T1, T2, T3>>.Choose<TTargetQuery>(Expression<Func<T1, bool>> predicate, Func<IArrayGremlinQuery<T1, T2, T3>, TTargetQuery> trueChoice, Func<IArrayGremlinQuery<T1, T2, T3>, TTargetQuery> falseChoice) => Choose<TTargetQuery, TTargetQuery, TTargetQuery>(predicate, trueChoice, falseChoice);
-        IArrayGremlinQuery<T1, T2, T3> IGremlinQueryBaseRec<T1, IArrayGremlinQuery<T1, T2, T3>>.Choose(Expression<Func<T1, bool>> predicate, Func<IArrayGremlinQuery<T1, T2, T3>, IArrayGremlinQuery<T1, T2, T3>> trueChoice) => Choose<IArrayGremlinQuery<T1, T2, T3>, IArrayGremlinQuery<T1, T2, T3>, IArrayGremlinQuery<T1, T2, T3>>(predicate, trueChoice);
-        IGremlinQuery<object> IGremlinQueryBaseRec<T1, IArrayGremlinQuery<T1, T2, T3>>.Choose(Expression<Func<T1, bool>> predicate, Func<IArrayGremlinQuery<T1, T2, T3>, IGremlinQueryBase> trueChoice) => Choose<IGremlinQueryBase, IGremlinQueryBase, IGremlinQuery<object>>(predicate, trueChoice);
+        TTargetQuery IGremlinQueryBaseRec<T1, IArrayGremlinQuery<T1, T2, T4>>.Choose<TTargetQuery>(Expression<Func<T1, bool>> predicate, Func<IArrayGremlinQuery<T1, T2, T4>, TTargetQuery> trueChoice, Func<IArrayGremlinQuery<T1, T2, T4>, TTargetQuery> falseChoice) => Choose<TTargetQuery, TTargetQuery, TTargetQuery>(predicate, trueChoice, falseChoice);
+        IArrayGremlinQuery<T1, T2, T4> IGremlinQueryBaseRec<T1, IArrayGremlinQuery<T1, T2, T4>>.Choose(Expression<Func<T1, bool>> predicate, Func<IArrayGremlinQuery<T1, T2, T4>, IArrayGremlinQuery<T1, T2, T4>> trueChoice) => Choose<IArrayGremlinQuery<T1, T2, T4>, IArrayGremlinQuery<T1, T2, T4>, IArrayGremlinQuery<T1, T2, T4>>(predicate, trueChoice);
+        IGremlinQuery<object> IGremlinQueryBaseRec<T1, IArrayGremlinQuery<T1, T2, T4>>.Choose(Expression<Func<T1, bool>> predicate, Func<IArrayGremlinQuery<T1, T2, T4>, IGremlinQueryBase> trueChoice) => Choose<IGremlinQueryBase, IGremlinQueryBase, IGremlinQuery<object>>(predicate, trueChoice);
 
-        TTargetQuery IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T3>>.Coalesce<TTargetQuery>(params Func<IArrayGremlinQuery<T1, T2, T3>, TTargetQuery>[] traversals) => Coalesce<TTargetQuery, TTargetQuery>(traversals);
-        IGremlinQuery<object> IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T3>>.Coalesce(params Func<IArrayGremlinQuery<T1, T2, T3>, IGremlinQueryBase>[] traversals) => Coalesce<IGremlinQueryBase, IGremlinQuery<object>>(traversals);
+        TTargetQuery IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T4>>.Coalesce<TTargetQuery>(params Func<IArrayGremlinQuery<T1, T2, T4>, TTargetQuery>[] traversals) => Coalesce<TTargetQuery, TTargetQuery>(traversals);
+        IGremlinQuery<object> IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T4>>.Coalesce(params Func<IArrayGremlinQuery<T1, T2, T4>, IGremlinQueryBase>[] traversals) => Coalesce<IGremlinQueryBase, IGremlinQuery<object>>(traversals);
 
-        IArrayGremlinQuery<T1, T2, T3> IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T3>>.Coin(double probability) => Coin(probability);
+        IArrayGremlinQuery<T1, T2, T4> IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T4>>.Coin(double probability) => Coin(probability);
 
-        IArrayGremlinQuery<T1, T2, T3> IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T3>>.CyclicPath() => CyclicPath();
+        IArrayGremlinQuery<T1, T2, T4> IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T4>>.CyclicPath() => CyclicPath();
 
-        IArrayGremlinQuery<T1, T2, T3> IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T3>>.Dedup() => DedupGlobal();
+        IArrayGremlinQuery<T1, T2, T4> IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T4>>.Dedup() => DedupGlobal();
 
-        IArrayGremlinQuery<T1, T2, T3> IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T3>>.DedupLocal() => DedupLocal();
+        IArrayGremlinQuery<T1, T2, T4> IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T4>>.DedupLocal() => DedupLocal();
 
-        TTargetQuery IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T3>>.FlatMap<TTargetQuery>(Func<IArrayGremlinQuery<T1, T2, T3>, TTargetQuery> mapping) => FlatMap(mapping);
+        TTargetQuery IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T4>>.FlatMap<TTargetQuery>(Func<IArrayGremlinQuery<T1, T2, T4>, TTargetQuery> mapping) => FlatMap(mapping);
 
-        IArrayGremlinQuery<T1[], T1, IArrayGremlinQuery<T1, T2, T3>> IGremlinQueryBaseRec<T1, IArrayGremlinQuery<T1, T2, T3>>.ForceArray() => CloneAs<IArrayGremlinQuery<T1[], T1, IArrayGremlinQuery<T1, T2, T3>>>();
+        IArrayGremlinQuery<T1[], T1, IArrayGremlinQuery<T1, T2, T4>> IGremlinQueryBaseRec<T1, IArrayGremlinQuery<T1, T2, T4>>.ForceArray() => CloneAs<IArrayGremlinQuery<T1[], T1, IArrayGremlinQuery<T1, T2, T4>>>();
 
-        IArrayGremlinQuery<T1[], T1, IArrayGremlinQuery<T1, T2, T3>> IGremlinQueryBaseRec<T1, IArrayGremlinQuery<T1, T2, T3>>.Fold() => Fold<IArrayGremlinQuery<T1, T2, T3>>();
+        IArrayGremlinQuery<T1[], T1, IArrayGremlinQuery<T1, T2, T4>> IGremlinQueryBaseRec<T1, IArrayGremlinQuery<T1, T2, T4>>.Fold() => Fold<IArrayGremlinQuery<T1, T2, T4>>();
 
-        IMapGremlinQuery<IDictionary<TNewKey, TNewValue>> IGremlinQueryBaseRec<T1, IArrayGremlinQuery<T1, T2, T3>>.Group<TNewKey, TNewValue>(Func<IGroupBuilder<IArrayGremlinQuery<T1, T2, T3>>, IGroupBuilderWithKeyAndValue<TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);
-        IMapGremlinQuery<IDictionary<TNewKey, T1[]>> IGremlinQueryBaseRec<T1, IArrayGremlinQuery<T1, T2, T3>>.Group<TNewKey>(Func<IGroupBuilder<IArrayGremlinQuery<T1, T2, T3>>, IGroupBuilderWithKey<IArrayGremlinQuery<T1, T2, T3>, TNewKey>> groupBuilder) => Group(groupBuilder);
+        IMapGremlinQuery<IDictionary<TNewKey, TNewValue>> IGremlinQueryBaseRec<T1, IArrayGremlinQuery<T1, T2, T4>>.Group<TNewKey, TNewValue>(Func<IGroupBuilder<IArrayGremlinQuery<T1, T2, T4>>, IGroupBuilderWithKeyAndValue<TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);
+        IMapGremlinQuery<IDictionary<TNewKey, T1[]>> IGremlinQueryBaseRec<T1, IArrayGremlinQuery<T1, T2, T4>>.Group<TNewKey>(Func<IGroupBuilder<IArrayGremlinQuery<T1, T2, T4>>, IGroupBuilderWithKey<IArrayGremlinQuery<T1, T2, T4>, TNewKey>> groupBuilder) => Group(groupBuilder);
 
-        IArrayGremlinQuery<T1, T2, T3> IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T3>>.Identity() => Identity();
+        IArrayGremlinQuery<T1, T2, T4> IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T4>>.Identity() => Identity();
 
-        IArrayGremlinQuery<T1, T2, T3> IGremlinQueryBaseRec<T1, IArrayGremlinQuery<T1, T2, T3>>.Inject(params T1[] elements) => Inject(elements);
+        IArrayGremlinQuery<T1, T2, T4> IGremlinQueryBaseRec<T1, IArrayGremlinQuery<T1, T2, T4>>.Inject(params T1[] elements) => Inject(elements);
         
-        IArrayGremlinQuery<T1, T2, T3> IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T3>>.Limit(long count) => LimitGlobal(count);
+        IArrayGremlinQuery<T1, T2, T4> IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T4>>.Limit(long count) => LimitGlobal(count);
 
-        TTargetQuery IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T3>>.Local<TTargetQuery>(Func<IArrayGremlinQuery<T1, T2, T3> , TTargetQuery> localTraversal) => Local(localTraversal);
+        TTargetQuery IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T4>>.Local<TTargetQuery>(Func<IArrayGremlinQuery<T1, T2, T4> , TTargetQuery> localTraversal) => Local(localTraversal);
 
-        IArrayGremlinQuery<T1, T2, T3> IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T3>>.Loop(Func<IStartLoopBuilder<IArrayGremlinQuery<T1, T2, T3>>, IFinalLoopBuilder<IArrayGremlinQuery<T1, T2, T3>>> loopBuilderTransformation) => Loop(loopBuilderTransformation);
+        IArrayGremlinQuery<T1, T2, T4> IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T4>>.Loop(Func<IStartLoopBuilder<IArrayGremlinQuery<T1, T2, T4>>, IFinalLoopBuilder<IArrayGremlinQuery<T1, T2, T4>>> loopBuilderTransformation) => Loop(loopBuilderTransformation);
 
-        TTargetQuery IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T3>>.Map<TTargetQuery>(Func<IArrayGremlinQuery<T1, T2, T3>, TTargetQuery> mapping) => Map(mapping);
+        TTargetQuery IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T4>>.Map<TTargetQuery>(Func<IArrayGremlinQuery<T1, T2, T4>, TTargetQuery> mapping) => Map(mapping);
 
-        IArrayGremlinQuery<T1, T2, T3> IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T3>>.Max() => MaxGlobal();
+        IArrayGremlinQuery<T1, T2, T4> IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T4>>.Max() => MaxGlobal();
 
-        IArrayGremlinQuery<T1, T2, T3> IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T3>>.Mean() => MeanGlobal();
+        IArrayGremlinQuery<T1, T2, T4> IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T4>>.Mean() => MeanGlobal();
 
-        IArrayGremlinQuery<T1, T2, T3> IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T3>>.Min() => MinGlobal();
+        IArrayGremlinQuery<T1, T2, T4> IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T4>>.Min() => MinGlobal();
 
-        IArrayGremlinQuery<T1, T2, T3> IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T3>>.Not(Func<IArrayGremlinQuery<T1, T2, T3>, IGremlinQueryBase> notTraversal) => Not(static (__, notTraversal) => notTraversal(__), notTraversal);
+        IArrayGremlinQuery<T1, T2, T4> IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T4>>.Not(Func<IArrayGremlinQuery<T1, T2, T4>, IGremlinQueryBase> notTraversal) => Not(static (__, notTraversal) => notTraversal(__), notTraversal);
 
-        IArrayGremlinQuery<T1, T2, T3> IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T3>>.None() => None();
+        IArrayGremlinQuery<T1, T2, T4> IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T4>>.None() => None();
 
-        IArrayGremlinQuery<T1, T2, T3> IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T3>>.Optional(Func<IArrayGremlinQuery<T1, T2, T3>, IArrayGremlinQuery<T1, T2, T3>> optionalTraversal) => Optional(optionalTraversal);
+        IArrayGremlinQuery<T1, T2, T4> IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T4>>.Optional(Func<IArrayGremlinQuery<T1, T2, T4>, IArrayGremlinQuery<T1, T2, T4>> optionalTraversal) => Optional(optionalTraversal);
 
-        IArrayGremlinQuery<T1, T2, T3> IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T3>>.Or(params Func<IArrayGremlinQuery<T1, T2, T3>, IGremlinQueryBase>[] orTraversals) => Or(orTraversals);
+        IArrayGremlinQuery<T1, T2, T4> IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T4>>.Or(params Func<IArrayGremlinQuery<T1, T2, T4>, IGremlinQueryBase>[] orTraversals) => Or(orTraversals);
 
-        IArrayGremlinQuery<T1, T2, T3> IGremlinQueryBaseRec<T1, IArrayGremlinQuery<T1, T2, T3>>.Order(Func<IOrderBuilder<T1, IArrayGremlinQuery<T1, T2, T3>>, IOrderBuilderWithBy<T1, IArrayGremlinQuery<T1, T2, T3>>> projection) => OrderGlobal(projection);
-        IArrayGremlinQuery<T1, T2, T3> IGremlinQueryBaseRec<T1, IArrayGremlinQuery<T1, T2, T3>>.OrderLocal(Func<IOrderBuilder<T1, IArrayGremlinQuery<T1, T2, T3>>, IOrderBuilderWithBy<T1, IArrayGremlinQuery<T1, T2, T3>>> projection) => OrderLocal(projection);
+        IArrayGremlinQuery<T1, T2, T4> IGremlinQueryBaseRec<T1, IArrayGremlinQuery<T1, T2, T4>>.Order(Func<IOrderBuilder<T1, IArrayGremlinQuery<T1, T2, T4>>, IOrderBuilderWithBy<T1, IArrayGremlinQuery<T1, T2, T4>>> projection) => OrderGlobal(projection);
+        IArrayGremlinQuery<T1, T2, T4> IGremlinQueryBaseRec<T1, IArrayGremlinQuery<T1, T2, T4>>.OrderLocal(Func<IOrderBuilder<T1, IArrayGremlinQuery<T1, T2, T4>>, IOrderBuilderWithBy<T1, IArrayGremlinQuery<T1, T2, T4>>> projection) => OrderLocal(projection);
 
-        IArrayGremlinQuery<T1, T2, T3> IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T3>>.Order(Func<IOrderBuilder<IArrayGremlinQuery<T1, T2, T3>>, IOrderBuilderWithBy<IArrayGremlinQuery<T1, T2, T3>>> projection) => OrderGlobal(projection);
-        IArrayGremlinQuery<T1, T2, T3> IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T3>>.OrderLocal(Func<IOrderBuilder<IArrayGremlinQuery<T1, T2, T3>>, IOrderBuilderWithBy<IArrayGremlinQuery<T1, T2, T3>>> projection) => OrderLocal(projection);
+        IArrayGremlinQuery<T1, T2, T4> IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T4>>.Order(Func<IOrderBuilder<IArrayGremlinQuery<T1, T2, T4>>, IOrderBuilderWithBy<IArrayGremlinQuery<T1, T2, T4>>> projection) => OrderGlobal(projection);
+        IArrayGremlinQuery<T1, T2, T4> IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T4>>.OrderLocal(Func<IOrderBuilder<IArrayGremlinQuery<T1, T2, T4>>, IOrderBuilderWithBy<IArrayGremlinQuery<T1, T2, T4>>> projection) => OrderLocal(projection);
 
-        IGremlinQuery<dynamic> IGremlinQueryBaseRec<T1, IArrayGremlinQuery<T1, T2, T3>>.Project(Func<IProjectBuilder<IArrayGremlinQuery<T1, T2, T3>, T1>, IProjectDynamicResult> continuation) => Project(continuation);
-        IMapGremlinQuery<TResult> IGremlinQueryBaseRec<T1, IArrayGremlinQuery<T1, T2, T3>>.Project<TResult>(Func<IProjectBuilder<IArrayGremlinQuery<T1, T2, T3>, T1>, IProjectMapResult<TResult>> continuation) => Project(continuation);
-        IMapGremlinQuery<TResult> IGremlinQueryBaseRec<T1, IArrayGremlinQuery<T1, T2, T3>>.Project<TResult>(Func<IProjectBuilder<IArrayGremlinQuery<T1, T2, T3>, T1>, IProjectTupleResult<TResult>> continuation) => Project<TResult>(continuation);
+        IGremlinQuery<dynamic> IGremlinQueryBaseRec<T1, IArrayGremlinQuery<T1, T2, T4>>.Project(Func<IProjectBuilder<IArrayGremlinQuery<T1, T2, T4>, T1>, IProjectDynamicResult> continuation) => Project(continuation);
+        IMapGremlinQuery<TResult> IGremlinQueryBaseRec<T1, IArrayGremlinQuery<T1, T2, T4>>.Project<TResult>(Func<IProjectBuilder<IArrayGremlinQuery<T1, T2, T4>, T1>, IProjectMapResult<TResult>> continuation) => Project(continuation);
+        IMapGremlinQuery<TResult> IGremlinQueryBaseRec<T1, IArrayGremlinQuery<T1, T2, T4>>.Project<TResult>(Func<IProjectBuilder<IArrayGremlinQuery<T1, T2, T4>, T1>, IProjectTupleResult<TResult>> continuation) => Project<TResult>(continuation);
 
-        IArrayGremlinQuery<T1, T2, T3> IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T3>>.Range(long low, long high) => RangeGlobal(low, high);
+        IArrayGremlinQuery<T1, T2, T4> IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T4>>.Range(long low, long high) => RangeGlobal(low, high);
 
-        IArrayGremlinQuery<T1, T2, T3> IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T3>>.SideEffect(Func<IArrayGremlinQuery<T1, T2, T3>, IGremlinQueryBase> sideEffectTraversal) => SideEffect(sideEffectTraversal);
+        IArrayGremlinQuery<T1, T2, T4> IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T4>>.SideEffect(Func<IArrayGremlinQuery<T1, T2, T4>, IGremlinQueryBase> sideEffectTraversal) => SideEffect(sideEffectTraversal);
 
-        IArrayGremlinQuery<T1, T2, T3> IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T3>>.SimplePath() => SimplePath();
+        IArrayGremlinQuery<T1, T2, T4> IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T4>>.SimplePath() => SimplePath();
 
-        IArrayGremlinQuery<T1, T2, T3> IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T3>>.Skip(long count) => Skip(count, Scope.Global);
+        IArrayGremlinQuery<T1, T2, T4> IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T4>>.Skip(long count) => Skip(count, Scope.Global);
 
-        IArrayGremlinQuery<T1, T2, T3> IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T3>>.Sum() => SumGlobal();
+        IArrayGremlinQuery<T1, T2, T4> IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T4>>.Sum() => SumGlobal();
 
-        IArrayGremlinQuery<T1, T2, T3> IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T3>>.Tail(long count) => TailGlobal(count);
+        IArrayGremlinQuery<T1, T2, T4> IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T4>>.Tail(long count) => TailGlobal(count);
 
-        TTargetQuery IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T3>>.Union<TTargetQuery>(params Func<IArrayGremlinQuery<T1, T2, T3>, TTargetQuery>[] unionTraversals) => Union<TTargetQuery, TTargetQuery>(unionTraversals);
-        IGremlinQuery<object> IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T3>>.Union(params Func<IArrayGremlinQuery<T1, T2, T3>, IGremlinQueryBase>[] unionTraversals) => Union<IGremlinQueryBase, IGremlinQuery<object>>(unionTraversals);
+        TTargetQuery IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T4>>.Union<TTargetQuery>(params Func<IArrayGremlinQuery<T1, T2, T4>, TTargetQuery>[] unionTraversals) => Union<TTargetQuery, TTargetQuery>(unionTraversals);
+        IGremlinQuery<object> IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T4>>.Union(params Func<IArrayGremlinQuery<T1, T2, T4>, IGremlinQueryBase>[] unionTraversals) => Union<IGremlinQueryBase, IGremlinQuery<object>>(unionTraversals);
 
-        IArrayGremlinQuery<T1, T2, T3> IGremlinQueryBaseRec<T1, IArrayGremlinQuery<T1, T2, T3>>.Where(Expression<Func<T1, bool>> predicate) => Where(predicate);
-        IArrayGremlinQuery<T1, T2, T3> IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T3>>.Where(Func<IArrayGremlinQuery<T1, T2, T3>, IGremlinQueryBase> filterTraversal) => Where(filterTraversal);
+        IArrayGremlinQuery<T1, T2, T4> IGremlinQueryBaseRec<T1, IArrayGremlinQuery<T1, T2, T4>>.Where(Expression<Func<T1, bool>> predicate) => Where(predicate);
+        IArrayGremlinQuery<T1, T2, T4> IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T4>>.Where(Func<IArrayGremlinQuery<T1, T2, T4>, IGremlinQueryBase> filterTraversal) => Where(filterTraversal);
         TTargetQuery IGremlinQueryBaseRec<T1, IElementGremlinQuery<T1>>.Aggregate<TTargetQuery>(Func<IElementGremlinQuery<T1>, StepLabel<IArrayGremlinQuery<T1[], T1, IElementGremlinQuery<T1>>, T1[]>, TTargetQuery> continuation) => Aggregate(Scope.Global, continuation);
         TTargetQuery IGremlinQueryBaseRec<T1, IElementGremlinQuery<T1>>.AggregateLocal<TTargetQuery>(Func<IElementGremlinQuery<T1>, StepLabel<IArrayGremlinQuery<T1[], T1, IElementGremlinQuery<T1>>, T1[]>, TTargetQuery> continuation) => Aggregate(Scope.Local, continuation);
 

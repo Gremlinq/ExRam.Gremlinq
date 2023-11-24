@@ -256,13 +256,13 @@ namespace ExRam.Gremlinq.Core
                 .WithNewProjection(Projection.Vertex)
                 .AutoBuild<TTarget>());
 
-        private GremlinQuery<TSelectedElement, TArrayItem, TQuery, IGremlinQueryBase> Cap<TSelectedElement, TArrayItem, TQuery>(StepLabel<IArrayGremlinQuery<TSelectedElement, TArrayItem, TQuery>, TSelectedElement> stepLabel) where TQuery : IGremlinQueryBase => this
+        private GremlinQuery<TSelectedElement, TArrayItem, object, TQuery> Cap<TSelectedElement, TArrayItem, TQuery>(StepLabel<IArrayGremlinQuery<TSelectedElement, TArrayItem, TQuery>, TSelectedElement> stepLabel) where TQuery : IGremlinQueryBase => this
             .Continue()
             .Build(
                 static (builder, stepLabel) => builder
                     .AddStep(new CapStep(stepLabel))
                     .WithNewProjection(static projection => projection.Fold())
-                    .AutoBuild<TSelectedElement, TArrayItem, TQuery>(),
+                    .AutoBuild<TSelectedElement, TArrayItem, object, TQuery>(),
                 stepLabel);
 
         private TTargetQuery Choose<TTrueQuery, TFalseQuery, TTargetQuery>(Expression<Func<T1, bool>> predicate, Func<GremlinQuery<T1, T2, T3, T4>, TTrueQuery> trueChoice, Func<GremlinQuery<T1, T2, T3, T4>, TFalseQuery>? maybeFalseChoice = default)
@@ -474,12 +474,12 @@ namespace ExRam.Gremlinq.Core
                 .WithNewProjection(innerTraversal.Projection)
                 .Build<TTargetQuery>());
 
-        private GremlinQuery<T1[], T1, TNewFoldedQuery, IGremlinQueryBase> Fold<TNewFoldedQuery>() => this
+        private GremlinQuery<T1[], T1, object, TNewFoldedQuery> Fold<TNewFoldedQuery>() where TNewFoldedQuery : IGremlinQueryBase => this
             .Continue()
             .Build(static builder => builder
                 .AddStep(FoldStep.Instance)
                 .WithNewProjection(static projection => projection.Fold())
-                .AutoBuild<T1[], T1, TNewFoldedQuery>());
+                .AutoBuild<T1[], T1, object, TNewFoldedQuery>());
 
         private GremlinQuery<T1, TNewOutVertex, TInVertex, IGremlinQueryBase> From<TNewOutVertex, TInVertex>(Func<GremlinQuery<TInVertex, T2, T3, T4>, IVertexGremlinQueryBase<TNewOutVertex>> fromVertexContinuation) => this
             .Continue<TInVertex, T2, T3, T4>()
@@ -545,7 +545,7 @@ namespace ExRam.Gremlinq.Core
                 .WithNewProjection(Projection.Edge)
                 .AutoBuild<TEdge, object, T1>());
 
-        private GremlinQuery<TNewElement, T2, T3, IGremlinQueryBase> Inject<TNewElement>(IEnumerable<TNewElement> elements) => this    //TODO: Does it need T2 and T3?
+        private GremlinQuery<TNewElement, T2, T3, T4> Inject<TNewElement>(IEnumerable<TNewElement> elements) => this    //TODO: Does it need T2 and T3?
             .Continue()
             .Build(
                 static (builder, elements) => builder
@@ -555,7 +555,7 @@ namespace ExRam.Gremlinq.Core
                             .Select(static x => (object)x!)
                             .ToImmutableArray()))
                     .WithNewProjection(Projection.Value)
-                    .AutoBuild<TNewElement, T2, T3>(),
+                    .AutoBuild<TNewElement, T2, T3, T4>(),
                 elements);
 
         private GremlinQuery<TNewElement, object, object, IGremlinQueryBase> InOutV<TNewElement>(Step step) => this
