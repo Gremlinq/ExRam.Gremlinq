@@ -1,4 +1,5 @@
 ﻿using System.Buffers;
+using static ExRam.Gremlinq.Core.ExceptionHelper;
 
 namespace ExRam.Gremlinq.Providers.Core
 {
@@ -18,7 +19,7 @@ namespace ExRam.Gremlinq.Providers.Core
             _owner?.Dispose();
         }
 
-        public Memory<byte> Memory { get => _owner?.Memory[.._length] ?? throw new InvalidOperationException(); }
+        public Memory<byte> Memory { get => _owner?.Memory[.._length] ?? throw UninitializedStruct(); }
     }
 }
 

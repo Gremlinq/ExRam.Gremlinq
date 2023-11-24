@@ -1,4 +1,5 @@
-﻿
+﻿using static ExRam.Gremlinq.Core.ExceptionHelper;
+
 namespace ExRam.Gremlinq.Core.Models
 {
     public readonly struct ElementMetadata : IEquatable<ElementMetadata>
@@ -10,7 +11,7 @@ namespace ExRam.Gremlinq.Core.Models
             _label = label;
         }
 
-        public string Label { get => _label ?? throw new InvalidOperationException(); }
+        public string Label { get => _label ?? throw UninitializedStruct(); }
 
         public override bool Equals(object? obj) => obj is ElementMetadata metadata && Equals(metadata);
 

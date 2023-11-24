@@ -2,6 +2,8 @@
 
 using Gremlin.Net.Process.Traversal;
 
+using static ExRam.Gremlinq.Core.ExceptionHelper;
+
 namespace ExRam.Gremlinq.Core.Serialization
 {
     public readonly struct GroovyExpression
@@ -20,7 +22,7 @@ namespace ExRam.Gremlinq.Core.Serialization
 
         public static GroovyExpression From(string identifier, ImmutableArray<Instruction> instructions) => new(identifier, instructions);
 
-        public string Identifier => _identifier ?? throw new InvalidOperationException();
-        public ImmutableArray<Instruction> Instructions => _instructions ?? throw new InvalidOperationException();
+        public string Identifier => _identifier ?? throw UninitializedStruct();
+        public ImmutableArray<Instruction> Instructions => _instructions ?? throw UninitializedStruct();
     }
 }

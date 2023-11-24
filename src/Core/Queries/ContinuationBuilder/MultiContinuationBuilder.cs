@@ -1,4 +1,5 @@
 ﻿using System.Buffers;
+using static ExRam.Gremlinq.Core.ExceptionHelper;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -64,7 +65,7 @@ namespace ExRam.Gremlinq.Core
 
         private TResult With<TState, TResult>(Func<TOuterQuery, TAnonymousQuery, FastImmutableList<IGremlinQueryBase>, ContinuationFlags, TState, TResult> continuation, TState state) => _outer is { } outer && _anonymous is { } anonymous && _continuations is var continuations
             ? continuation(outer, anonymous, continuations, _flags, state)
-            : throw new InvalidOperationException();
+            : throw UninitializedStruct();
 
         public TOuterQuery OuterQuery => With(
             static (outer, _, _, _, _) => outer,
