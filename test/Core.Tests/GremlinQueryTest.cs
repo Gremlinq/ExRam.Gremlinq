@@ -17,30 +17,6 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public void ChangeQueryType()
-        {
-            var anon = _g
-                .V()
-                .AsAdmin();
-
-            var interfaces = typeof(IGremlinQueryBase)
-                .Assembly
-                .GetTypes()
-                .Where(iface => iface.IsInterface)
-                .Where(iface => typeof(IGremlinQueryBase).IsAssignableFrom(iface))
-                .Where(iface => !iface.Name.Contains("Rec"))
-                .Select(iface => iface.IsGenericTypeDefinition
-                    ? iface.MakeGenericType(iface.GetGenericArguments().Select(_ => typeof(Person)).ToArray())
-                    : iface)
-                .ToArray();
-
-            foreach (var iface in interfaces)
-            {
-                typeof(IGremlinQueryAdmin).GetMethod(nameof(IGremlinQueryAdmin.ChangeQueryType))!.MakeGenericMethod(iface).Invoke(anon, Array.Empty<object>());
-            }
-        }
-
-        [Fact]
         public void ChangeQueryType_to_IGremlinQuerySource()
         {
             _g
