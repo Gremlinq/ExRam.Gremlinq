@@ -79,13 +79,16 @@
 
     public interface IArrayGremlinQueryBaseRec<TArray, TArrayItem, out TOriginalQuery, TSelf> :
         IArrayGremlinQueryBase<TArray, TArrayItem, TOriginalQuery>,
-        IArrayGremlinQueryBaseRec<TArray, TArrayItem, TSelf>  where TSelf : IArrayGremlinQueryBaseRec<TArray, TArrayItem,  TOriginalQuery, TSelf>
+        IArrayGremlinQueryBaseRec<TArray, TArrayItem, TSelf>
+            where TOriginalQuery : IGremlinQueryBase
+            where TSelf : IArrayGremlinQueryBaseRec<TArray, TArrayItem,  TOriginalQuery, TSelf>
     {
      
     }
 
     public interface IArrayGremlinQuery<TArray, TArrayItem, TOriginalQuery> :
         IArrayGremlinQueryBaseRec<TArray, TArrayItem, TOriginalQuery, IArrayGremlinQuery<TArray, TArrayItem, TOriginalQuery>>
+            where TOriginalQuery : IGremlinQueryBase
     {
 
     }
