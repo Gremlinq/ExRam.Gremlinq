@@ -331,11 +331,11 @@ namespace ExRam.Gremlinq.Core
 
         T4 IArrayGremlinQueryBase<T1, T2, T4>.MinLocal() => MinLocal<T4>();
 
-        IGremlinQuery<T2> IArrayGremlinQueryBase<T2>.MaxLocal() => MaxLocal<T2>();
+        IGremlinQuery<T2> IArrayGremlinQueryBase<T2>.MaxLocal() => MaxLocal<IGremlinQuery<T2>>();
 
-        IGremlinQuery<object> IArrayGremlinQueryBase.MaxLocal() => MaxLocal<object>();
+        IGremlinQuery<object> IArrayGremlinQueryBase.MaxLocal() => MaxLocal<IGremlinQuery<object>>();
 
-        T4 IArrayGremlinQueryBase<T1, T2, T4>.MaxLocal() => MaxLocal<object>().CloneAs<T4>();
+        T4 IArrayGremlinQueryBase<T1, T2, T4>.MaxLocal() => MaxLocal<T4>();
 
         IGremlinQuery<T2> IArrayGremlinQueryBase<T2>.MeanLocal() => MeanLocal<T2>();
 
