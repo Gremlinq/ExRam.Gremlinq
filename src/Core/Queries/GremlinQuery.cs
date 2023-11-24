@@ -939,13 +939,15 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<T1, T2, T3, T4> RangeLocal(long low, long high) => Range(low, high, Scope.Local);
 
-        private GremlinQuery<TSelectedElement, object, object, IGremlinQueryBase> Select<TSelectedElement>(StepLabel<TSelectedElement> stepLabel) => this
+        private IGremlinQuery<TSelectedElement> Select<TSelectedElement>(StepLabel<TSelectedElement> stepLabel) => Select<IGremlinQuery<TSelectedElement>>(stepLabel);
+
+        private TNewQuery Select<TNewQuery>(StepLabel stepLabel) where TNewQuery : IGremlinQueryBase => this
             .Continue()
             .Build(
                 static (builder, tuple) => builder
                     .AddStep(new SelectStepLabelStep(ImmutableArray.Create<StepLabel>(tuple.stepLabel)))
                     .WithNewProjection(tuple.stepLabelProjection)
-                    .AutoBuild<TSelectedElement>(),
+                    .Build<TNewQuery>(),
                 (stepLabel, stepLabelProjection: GetLabelProjection(stepLabel)));
 
         private TTargetQuery Select<TTargetQuery>(params Expression[] projections) where TTargetQuery : IGremlinQueryBase => this
