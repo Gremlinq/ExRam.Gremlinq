@@ -39,7 +39,7 @@ namespace ExRam.Gremlinq.Core
 
         IMapGremlinQuery<T1>,
 
-        IArrayGremlinQuery<T1, T2, T3>
+        IArrayGremlinQuery<T1, T2, T3> where T4 : IGremlinQueryBase
     {
         T3 IArrayGremlinQueryBase<T1, T2, T3>.Unfold() => Unfold<T3>();
 
