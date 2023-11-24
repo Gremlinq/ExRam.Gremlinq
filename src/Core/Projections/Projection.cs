@@ -21,7 +21,7 @@ namespace ExRam.Gremlinq.Core.Projections
         public TupleProjection Project(ProjectStep projectStep, ProjectStep.ByStep[] bySteps)
         {
             if (projectStep.Projections.Length != bySteps.Length)
-                throw new ArgumentException();
+                throw new ArgumentException($"{nameof(projectStep)} must have the same number of projections as there are steps in {nameof(bySteps)}.");
 
             return new TupleProjection(projectStep.Projections
                 .Select((key, i) =>

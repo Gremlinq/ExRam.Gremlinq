@@ -122,7 +122,7 @@ namespace ExRam.Gremlinq.Core.Transformation
                     if (typeof(TStaticTarget) == typeof(TTarget))
                         return (IConverter<TSource, TTarget>)(object)new StructToStructFuncConverter<TSource>(_func, environment);
 
-                    throw new NotSupportedException();
+                    throw new NotSupportedException($"Unable to create an instance of {nameof(IConverter<TSource, TTarget>)} for {typeof(TSource).FullName} and {typeof(TTarget).FullName}.");
                 }
 
                 return null;

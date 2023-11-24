@@ -122,7 +122,7 @@ namespace ExRam.Gremlinq.Core.Serialization
                             if (isSourceInstruction)
                             {
                                 if (byteCode.StepInstructions.Count != 0)
-                                    throw new InvalidOperationException();
+                                    throw new InvalidOperationException("Attempted to add a source instruction after a step instruction has already been added.");
 
                                 byteCode.SourceInstructions.Add(instruction);
                             }
@@ -177,7 +177,7 @@ namespace ExRam.Gremlinq.Core.Serialization
                             if (step is ISourceStep)
                             {
                                 if (!isSourceStep)
-                                    throw new InvalidOperationException();
+                                    throw new InvalidOperationException("Attempted to add a source instruction after a step instruction has already been added.");
                             }
                             else if (isSourceStep)
                             {

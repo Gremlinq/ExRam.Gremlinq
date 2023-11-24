@@ -142,7 +142,7 @@ namespace ExRam.Gremlinq.Core.Models
 
             private bool IsWithinModel(Type type) => typeof(TBaseType).IsAssignableFrom(type) && _assemblies.Contains(type.Assembly);
 
-            private static T ThrowOutsideModel<T>() => throw new InvalidOperationException();
+            private static T ThrowOutsideModel<T>() => throw new InvalidOperationException($"The type {typeof(T).FullName} is outside of the model.");
         }
 
         private sealed class InvalidGraphElementModel : IGraphElementModel

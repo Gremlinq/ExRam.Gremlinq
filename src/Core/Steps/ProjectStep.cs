@@ -35,12 +35,15 @@ namespace ExRam.Gremlinq.Core.Steps
 
             public override ByTraversalStep ToByTraversalStep() => new (Key.RawKey switch
             {
-                T t => t.TryToStep() ?? throw new NotSupportedException(),
+                T t => t.TryToStep() ?? throw ConversionFailed(),
                 string key => new ValuesStep(ImmutableArray.Create(key)),
-                _ => throw new NotSupportedException(),
+                _ => throw ConversionFailed(),
             });
 
             public Key Key { get; }
+
+            private NotSupportedException ConversionFailed() => new($"Failed to convert {nameof(ByKeyStep)}.{nameof(Key)} to a {nameof(ByTraversalStep)}.");
+
         }
 
         public ProjectStep(ImmutableArray<string> projections)
