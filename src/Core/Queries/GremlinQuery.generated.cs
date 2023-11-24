@@ -52,12 +52,12 @@ namespace ExRam.Gremlinq.Core
 
         IMapGremlinQuery<(TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15, TItem16)> IMapGremlinQueryBase<T1>.Select<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15, TItem16>(Expression<Func<T1, TItem1>> projection1, Expression<Func<T1, TItem2>> projection2, Expression<Func<T1, TItem3>> projection3, Expression<Func<T1, TItem4>> projection4, Expression<Func<T1, TItem5>> projection5, Expression<Func<T1, TItem6>> projection6, Expression<Func<T1, TItem7>> projection7, Expression<Func<T1, TItem8>> projection8, Expression<Func<T1, TItem9>> projection9, Expression<Func<T1, TItem10>> projection10, Expression<Func<T1, TItem11>> projection11, Expression<Func<T1, TItem12>> projection12, Expression<Func<T1, TItem13>> projection13, Expression<Func<T1, TItem14>> projection14, Expression<Func<T1, TItem15>> projection15, Expression<Func<T1, TItem16>> projection16) => Select<IMapGremlinQuery<(TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15, TItem16)>>(projection1, projection2, projection3, projection4, projection5, projection6, projection7, projection8, projection9, projection10, projection11, projection12, projection13, projection14, projection15, projection16);
 
-        IGremlinQuery<TResult> IGremlinQueryBase.Cast<TResult>() => Cast<TResult>();
-        IElementGremlinQuery<TResult> IElementGremlinQueryBase.Cast<TResult>() => Cast<TResult>();
-        IEdgeOrVertexGremlinQuery<TResult> IEdgeOrVertexGremlinQueryBase.Cast<TResult>() => Cast<TResult>();
-        IVertexGremlinQuery<TResult> IVertexGremlinQueryBase.Cast<TResult>() => Cast<TResult>();
-        IEdgeGremlinQuery<TResult> IEdgeGremlinQueryBase.Cast<TResult>() => Cast<TResult>();
-        IPropertyGremlinQuery<TResult> IPropertyGremlinQueryBase.Cast<TResult>() => Cast<TResult>();
+        IGremlinQuery<TResult> IGremlinQueryBase.Cast<TResult>() => Cast<IGremlinQuery<TResult>>();
+        IElementGremlinQuery<TResult> IElementGremlinQueryBase.Cast<TResult>() => Cast<IElementGremlinQuery<TResult>>();
+        IEdgeOrVertexGremlinQuery<TResult> IEdgeOrVertexGremlinQueryBase.Cast<TResult>() => Cast<IEdgeOrVertexGremlinQuery<TResult>>();
+        IVertexGremlinQuery<TResult> IVertexGremlinQueryBase.Cast<TResult>() => Cast<IVertexGremlinQuery<TResult>>();
+        IEdgeGremlinQuery<TResult> IEdgeGremlinQueryBase.Cast<TResult>() => Cast<IEdgeGremlinQuery<TResult>>();
+        IPropertyGremlinQuery<TResult> IPropertyGremlinQueryBase.Cast<TResult>() => Cast<IPropertyGremlinQuery<TResult>>();
 
         TTargetQuery IGremlinQueryBaseRec<T1, IGremlinQuery<T1>>.Aggregate<TTargetQuery>(Func<IGremlinQuery<T1>, StepLabel<IArrayGremlinQuery<T1[], T1, IGremlinQuery<T1>>, T1[]>, TTargetQuery> continuation) => Aggregate(Scope.Global, continuation);
         TTargetQuery IGremlinQueryBaseRec<T1, IGremlinQuery<T1>>.AggregateLocal<TTargetQuery>(Func<IGremlinQuery<T1>, StepLabel<IArrayGremlinQuery<T1[], T1, IGremlinQuery<T1>>, T1[]>, TTargetQuery> continuation) => Aggregate(Scope.Local, continuation);
@@ -1433,8 +1433,8 @@ namespace ExRam.Gremlinq.Core
         IPropertyGremlinQuery<T1> IGremlinQueryBaseRec<IPropertyGremlinQuery<T1>>.Where(Func<IPropertyGremlinQuery<T1>, IGremlinQueryBase> filterTraversal) => Where(filterTraversal);
 
 
-        IVertexGremlinQuery<TTarget> IVertexGremlinQueryBase.OfType<TTarget>() => OfType<TTarget>(Environment.Model.VerticesModel);
-        IEdgeGremlinQuery<TTarget> IEdgeGremlinQueryBase.OfType<TTarget>() => OfType<TTarget>(Environment.Model.EdgesModel);
+        IVertexGremlinQuery<TTarget> IVertexGremlinQueryBase.OfType<TTarget>() => OfType<TTarget, IVertexGremlinQuery<TTarget>>(Environment.Model.VerticesModel);
+        IEdgeGremlinQuery<TTarget> IEdgeGremlinQueryBase.OfType<TTarget>() => OfType<TTarget, IEdgeGremlinQuery<TTarget>>(Environment.Model.EdgesModel);
 
 
         IElementGremlinQuery<T1> IElementGremlinQueryBaseRec<IElementGremlinQuery<T1>>.Property(string key, object? value) => Property(key, value);
