@@ -58,9 +58,11 @@ namespace ExRam.Gremlinq.Core
                 : null;
         }
 
-        private ContinuationBuilder<GremlinQuery<T1, T2, T3>, GremlinQuery<T1, T2, T3>> Continue(ContinuationFlags flags = ContinuationFlags.None) => new(
+        private ContinuationBuilder<GremlinQuery<T1, T2, T3>, GremlinQuery<T1, T2, T3>> Continue(ContinuationFlags flags = ContinuationFlags.None) => Continue<T1, T2, T3>(flags);
+
+        private ContinuationBuilder<GremlinQuery<T1, T2, T3>, GremlinQuery<TAnon1, TAnon2, TAnon3>> Continue<TAnon1, TAnon2, TAnon3>(ContinuationFlags flags = ContinuationFlags.None) => new(
             this,
-            new GremlinQuery<T1, T2, T3>(Environment, Traversal.Empty.WithProjection(Steps.Projection), LabelProjections, Metadata), flags);
+            new GremlinQuery<TAnon1, TAnon2, TAnon3>(Environment, Traversal.Empty.WithProjection(Steps.Projection), LabelProjections, Metadata), flags);
 
         private Key GetKey(Expression expression)
         {
