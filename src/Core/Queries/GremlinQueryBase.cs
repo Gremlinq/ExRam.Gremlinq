@@ -12,9 +12,9 @@ namespace ExRam.Gremlinq.Core
             IImmutableDictionary<StepLabel, LabelProjections>? maybeNewLabelProjections);
 
         private static readonly ConcurrentDictionary<Type, QueryContinuation> QueryContinuations = new();
-        private static readonly Type[] QueryGenericTypeDefinitionArguments = typeof(GremlinQuery<,,>).GetGenericArguments();
-        private static readonly QueryContinuation ObjectQueryContinuation = CreateQueryContinuation<object, object, object>();
-        private static readonly Type[] ImplementedInterfaces = typeof(GremlinQuery<,,>).GetInterfaces().Append(typeof(GremlinQuery<,,>)).ToArray();
+        private static readonly Type[] QueryGenericTypeDefinitionArguments = typeof(GremlinQuery<,,,>).GetGenericArguments();
+        private static readonly QueryContinuation ObjectQueryContinuation = CreateQueryContinuation<object, object, object, object>();
+        private static readonly Type[] ImplementedInterfaces = typeof(GremlinQuery<,,,>).GetInterfaces().Append(typeof(GremlinQuery<,,,>)).ToArray();
         private static readonly MethodInfo TryCreateQueryContinuationMethod = typeof(GremlinQueryBase).GetMethod(nameof(CreateQueryContinuation), BindingFlags.NonPublic | BindingFlags.Static)!;
 
         protected GremlinQueryBase(
@@ -85,7 +85,7 @@ namespace ExRam.Gremlinq.Core
                 : throw new NotSupportedException($"Cannot create a query of type {typeof(TTargetQuery)}.");
         }
 
-        private static QueryContinuation CreateQueryContinuation<T1, T2, T3>() => (existingQuery, maybeNewTraversal, maybeNewLabelProjections) => new GremlinQuery<T1, T2, T3>(
+        private static QueryContinuation CreateQueryContinuation<T1, T2, T3, T4>() => (existingQuery, maybeNewTraversal, maybeNewLabelProjections) => new GremlinQuery<T1, T2, T3, T4>(
             existingQuery.Environment,
             maybeNewTraversal ?? existingQuery.Steps,
             maybeNewLabelProjections ?? existingQuery.LabelProjections,
