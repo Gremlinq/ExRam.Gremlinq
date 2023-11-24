@@ -45,9 +45,9 @@ namespace ExRam.Gremlinq.Core
 
         IGremlinQuery<object> IArrayGremlinQueryBase.Unfold() => Unfold<IGremlinQuery<object>>();
 
-        IGremlinQuery<T2[]> IArrayGremlinQueryBase<T2>.Lower() => Cast<IGremlinQuery<T2[]>>();
+        IGremlinQuery<T2[]> IArrayGremlinQueryBase<T2>.Lower() => CloneAs<IGremlinQuery<T2[]>>();
 
-        IGremlinQuery<object[]> IArrayGremlinQueryBase.Lower() => Cast<IGremlinQuery<object[]>>();
+        IGremlinQuery<object[]> IArrayGremlinQueryBase.Lower() => CloneAs<IGremlinQuery<object[]>>();
 
         IGremlinQuery<T2> IArrayGremlinQueryBase<T2>.Unfold() => Unfold<IGremlinQuery<T2>>();
 
@@ -65,13 +65,13 @@ namespace ExRam.Gremlinq.Core
 
         IEdgeGremlinQuery<T1, T2, TNewInVertex> IOutEdgeGremlinQueryBase<T1, T2>.To<TNewInVertex>(Func<IVertexGremlinQuery<T2>, IVertexGremlinQueryBase<TNewInVertex>> toVertexTraversal) => To(toVertexTraversal);
 
-        IEdgeGremlinQuery<object> IInEdgeGremlinQueryBase.Lower() => Cast<IEdgeGremlinQuery<object>>();
+        IEdgeGremlinQuery<object> IInEdgeGremlinQueryBase.Lower() => CloneAs<IEdgeGremlinQuery<object>>();
 
-        IEdgeGremlinQuery<object> IOutEdgeGremlinQueryBase.Lower() => Cast<IEdgeGremlinQuery<object>>();
+        IEdgeGremlinQuery<object> IOutEdgeGremlinQueryBase.Lower() => CloneAs<IEdgeGremlinQuery<object>>();
 
         IEdgeGremlinQuery<T1> IEdgeGremlinQueryBase<T1, T2, T3>.Lower() => this;
 
-        IEdgeOrVertexGremlinQuery<object> IEdgeGremlinQueryBase.Lower() => Cast<IEdgeOrVertexGremlinQuery<object>>();
+        IEdgeOrVertexGremlinQuery<object> IEdgeGremlinQueryBase.Lower() => CloneAs<IEdgeOrVertexGremlinQuery<object>>();
 
         IVertexGremlinQuery<object> IEdgeGremlinQueryBase.BothV() => BothV<object>();
 
@@ -127,7 +127,7 @@ namespace ExRam.Gremlinq.Core
 
         IElementGremlinQuery<T1> IEdgeOrVertexGremlinQueryBase<T1>.Lower() => this;
 
-        IElementGremlinQuery<object> IEdgeOrVertexGremlinQueryBase.Lower() => Cast<IElementGremlinQuery<object>>();
+        IElementGremlinQuery<object> IEdgeOrVertexGremlinQueryBase.Lower() => CloneAs<IElementGremlinQuery<object>>();
 
         IGremlinQuery<object> IElementGremlinQueryBase.Id() => Id();
 
@@ -210,7 +210,7 @@ namespace ExRam.Gremlinq.Core
 
         IGremlinQuery<T1> IGremlinQueryBase<T1>.Lower() => this;
 
-        IGremlinQuery<object> IGremlinQueryBase.Lower() => Cast<IGremlinQuery<object>>();
+        IGremlinQuery<object> IGremlinQueryBase.Lower() => CloneAs<IGremlinQuery<object>>();
 
         IGremlinQuery<object> IGremlinQueryBase.Drop() => Drop();
 
@@ -309,7 +309,7 @@ namespace ExRam.Gremlinq.Core
 
         IEdgeGremlinQuery<T1, T2, TTargetVertex> IInOrOutEdgeGremlinQueryBase<T1, T2>.To<TTargetVertex>(Func<IVertexGremlinQuery<T2>, IVertexGremlinQueryBase<TTargetVertex>> toVertexTraversal) => To(toVertexTraversal);
 
-        IEdgeGremlinQuery<object> IInOrOutEdgeGremlinQueryBase.Lower() => Cast<IEdgeGremlinQuery<object>>();
+        IEdgeGremlinQuery<object> IInOrOutEdgeGremlinQueryBase.Lower() => CloneAs<IEdgeGremlinQuery<object>>();
 
         IGremlinQuery<string> IPropertyGremlinQueryBase<T1>.Key() => Key();
 
@@ -345,7 +345,7 @@ namespace ExRam.Gremlinq.Core
 
         IEdgeOrVertexGremlinQuery<T1> IVertexGremlinQueryBase<T1>.Lower() => this;
 
-        IEdgeOrVertexGremlinQuery<object> IVertexGremlinQueryBase.Lower() => Cast<IEdgeOrVertexGremlinQuery<object>>();
+        IEdgeOrVertexGremlinQuery<object> IVertexGremlinQueryBase.Lower() => CloneAs<IEdgeOrVertexGremlinQuery<object>>();
 
         IInOrOutEdgeGremlinQuery<TEdge, T1> IVertexGremlinQueryBase<T1>.AddE<TEdge>(TEdge edge) => AddE(edge);
 
@@ -431,7 +431,7 @@ namespace ExRam.Gremlinq.Core
 
         IElementGremlinQuery<T1> IVertexPropertyGremlinQueryBase<T1, T2>.Lower() => this;
 
-        IElementGremlinQuery<object> IVertexPropertyGremlinQueryBase.Lower() => Cast<IElementGremlinQuery<object>>();
+        IElementGremlinQuery<object> IVertexPropertyGremlinQueryBase.Lower() => CloneAs<IElementGremlinQuery<object>>();
 
         IMapGremlinQuery<IDictionary<string, TTarget>> IVertexPropertyGremlinQueryBase.ValueMap<TTarget>() => ValueMap<IDictionary<string, TTarget>>(ImmutableArray<string>.Empty);
 
