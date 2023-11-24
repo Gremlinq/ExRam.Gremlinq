@@ -265,9 +265,7 @@ namespace ExRam.Gremlinq.Core
                     .AutoBuild<TSelectedElement, TArrayItem, TQuery>(),
                 stepLabel);
 
-        private GremlinQuery<TNewElement, T2, T3> Cast<TNewElement>() => this is GremlinQuery<TNewElement, T2, T3> existing
-            ? existing
-            : CloneAs<GremlinQuery<TNewElement, T2, T3>>();
+        private TTargetQuery Cast<TTargetQuery>() => CloneAs<TTargetQuery>();
 
         private TTargetQuery Choose<TTrueQuery, TFalseQuery, TTargetQuery>(Expression<Func<T1, bool>> predicate, Func<GremlinQuery<T1, T2, T3>, TTrueQuery> trueChoice, Func<GremlinQuery<T1, T2, T3>, TFalseQuery>? maybeFalseChoice = default)
             where TTrueQuery : IGremlinQueryBase
@@ -700,27 +698,23 @@ namespace ExRam.Gremlinq.Core
                         .AddStep(new NotStep(innerTraversal))
                         .Build());
 
-        private GremlinQuery<TTarget, T2, T3> OfEdgeType<TTarget>(bool force = false) => OfType<TTarget>(Environment.Model.EdgesModel, force);
-
-        private GremlinQuery<TTarget, T2, T3> OfVertexType<TTarget>(bool force = false) => OfType<TTarget>(Environment.Model.VerticesModel, force);
-
-        private GremlinQuery<TTarget, T2, T3> OfType<TTarget>(IGraphElementModel model, bool force = false) => this
+        private TTargetQuery OfType<TNewElement, TTargetQuery>(IGraphElementModel model, bool force = false) where TTargetQuery : IStartGremlinQuery => this
             .Continue()
             .Build(
                 static (builder, tuple) =>
                 {
                     var (@this, model, force) = tuple;
 
-                    if (!force && typeof(TTarget).IsAssignableFrom(typeof(T1)))
-                        return @this.Cast<TTarget>();
+                    if (!force && typeof(TNewElement).IsAssignableFrom(typeof(T1)))
+                        return @this.Cast<TTargetQuery>();
 
-                    var labels = model.TryGetFilterLabels(typeof(TTarget), @this.Environment.Options.GetValue(GremlinqOption.FilterLabelsVerbosity)) ?? ImmutableArray.Create(typeof(TTarget).Name);
+                    var labels = model.TryGetFilterLabels(typeof(TNewElement), @this.Environment.Options.GetValue(GremlinqOption.FilterLabelsVerbosity)) ?? ImmutableArray.Create(typeof(TNewElement).Name);
 
                     if (labels.Length > 0)
                         builder = builder.AddStep(new HasLabelStep(labels));
 
                     return builder
-                        .AutoBuild<TTarget, T2, T3>();
+                        .Build<TTargetQuery>();
                 },
                 (@this: this, model, force));
 
@@ -1250,7 +1244,7 @@ namespace ExRam.Gremlinq.Core
              ? this
                  .Continue()
                  .With(
-                     static (__, propertyContinuation) => propertyContinuation(__.Cast<TProjection>()),
+                     static (__, propertyContinuation) => propertyContinuation(__.Cast<IGremlinQueryBase<TProjection>>()),
                      propertyContinuation)
                  .Build(
                      static (builder, propertyTraversal, key) => builder
