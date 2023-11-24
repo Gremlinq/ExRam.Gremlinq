@@ -35,5 +35,5 @@
             .Replace("TArrayItem", "T2")
             .Replace("TArray", "T1")
             .Replace("TMeta", "T3")
-            .Replace("TOriginalQuery", "T3"));
+            .Replace("TOriginalQuery", "T4"));
 #>
