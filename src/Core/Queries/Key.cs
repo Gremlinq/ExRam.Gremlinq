@@ -27,7 +27,7 @@ namespace ExRam.Gremlinq.Core
                 string str1 when other._key is string str2 => StringComparer.OrdinalIgnoreCase.Compare(str1, str2),
                 string => 1,
                 null => other._key is null ? 0 : -1,
-                _ => throw new InvalidOperationException()
+                _ => throw new InvalidOperationException($"Cannot compare {nameof(Key)}.")
             };
         }
 

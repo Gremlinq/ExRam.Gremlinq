@@ -55,7 +55,7 @@ namespace ExRam.Gremlinq.Providers.Core
                         if (Environment.Deserializer.TryTransform(bytes, Environment, out ResponseMessage<T>? response))
                             Signal(response);
                         else
-                            throw new InvalidOperationException();
+                            throw new InvalidOperationException($"Unable to convert byte array to a {nameof(ResponseMessage<T>)} for {typeof(T).FullName}>.");
                     }
 
                     private void Signal(ResponseMessage<T> response)
@@ -77,7 +77,7 @@ namespace ExRam.Gremlinq.Providers.Core
 
                         if (obj is ResponseMessage<T> responseMessage)
                             yield return responseMessage;
-                        else if (obj is MessageQueue { Queue: var queue, Semaphore: var semaphore})
+                        else if (obj is MessageQueue { Queue: var queue, Semaphore: var semaphore })
                         {
                             while (true)
                             {
@@ -93,7 +93,7 @@ namespace ExRam.Gremlinq.Providers.Core
                             }
                         }
                         else
-                            throw new InvalidOperationException();
+                            throw new NotSupportedException();
                     }
 
                     public void Dispose()

@@ -14,7 +14,7 @@ namespace ExRam.Gremlinq.Core.Serialization
         private GroovyExpression(string identifier, ImmutableArray<Instruction> instructions)
         {
             if (identifier.Length == 0)
-                throw new ArgumentException();
+                throw new ArgumentException($"A {nameof(GroovyExpression)} must have a non-empty identifier.");
 
             _identifier = identifier;
             _instructions = instructions;

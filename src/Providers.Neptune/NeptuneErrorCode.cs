@@ -1,4 +1,6 @@
-﻿namespace ExRam.Gremlinq.Providers.Neptune
+﻿using static ExRam.Gremlinq.Core.ExceptionHelper;
+
+namespace ExRam.Gremlinq.Providers.Neptune
 {
     public readonly struct NeptuneErrorCode : IEquatable<NeptuneErrorCode>
     {
@@ -46,6 +48,6 @@
 
         public static bool operator !=(NeptuneErrorCode left, NeptuneErrorCode right) => !(left == right);
 
-        public string Code { get => _code ?? throw new InvalidOperationException(); }
+        public string Code { get => _code ?? throw UninitializedStruct(); }
     }
 }
