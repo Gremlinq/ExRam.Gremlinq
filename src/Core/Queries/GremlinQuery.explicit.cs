@@ -63,7 +63,7 @@ namespace ExRam.Gremlinq.Core
 
         IVertexGremlinQuery<T2> IOutEdgeGremlinQueryBase<T1, T2>.OutV() => OutV<T2>();
 
-        IEdgeGremlinQuery<T1, T2, TNewInVertex> IOutEdgeGremlinQueryBase<T1, T2>.To<TNewInVertex>(Func<IVertexGremlinQuery<T2>, IVertexGremlinQueryBase<TNewInVertex>> toVertexTraversal) => Cast<T2>().To<T1, T2, TNewInVertex>(toVertexTraversal);
+        IEdgeGremlinQuery<T1, T2, TNewInVertex> IOutEdgeGremlinQueryBase<T1, T2>.To<TNewInVertex>(Func<IVertexGremlinQuery<T2>, IVertexGremlinQueryBase<TNewInVertex>> toVertexTraversal) => To(toVertexTraversal);
 
         IEdgeGremlinQuery<object> IInEdgeGremlinQueryBase.Lower() => Cast<object>();
 
@@ -115,7 +115,7 @@ namespace ExRam.Gremlinq.Core
 
         IInEdgeGremlinQuery<T1, TNewInVertex> IEdgeGremlinQueryBase<T1>.To<TNewInVertex>(StepLabel<TNewInVertex> stepLabel) => To<T1, object, TNewInVertex>(stepLabel);
 
-        IInEdgeGremlinQuery<T1, TNewInVertex> IEdgeGremlinQueryBase<T1>.To<TNewInVertex>(Func<IVertexGremlinQueryBase, IVertexGremlinQueryBase<TNewInVertex>> toVertexTraversal) => To<T1, object, TNewInVertex>(toVertexTraversal);
+        IInEdgeGremlinQuery<T1, TNewInVertex> IEdgeGremlinQueryBase<T1>.To<TNewInVertex>(Func<IVertexGremlinQueryBase, IVertexGremlinQueryBase<TNewInVertex>> toVertexTraversal) => To<object, TNewInVertex>(toVertexTraversal);
 
         IGremlinQuery<TValue> IEdgeGremlinQueryBase<T1>.Values<TValue>(params Expression<Func<T1, Property<TValue>>>[] projections) => ValuesForProjections<TValue>(projections);
 
@@ -307,7 +307,7 @@ namespace ExRam.Gremlinq.Core
 
         IEdgeGremlinQuery<T1, T2, TTargetVertex> IInOrOutEdgeGremlinQueryBase<T1, T2>.To<TTargetVertex>(StepLabel<TTargetVertex> stepLabel) => To<T1, T2, TTargetVertex>(stepLabel);
 
-        IEdgeGremlinQuery<T1, T2, TTargetVertex> IInOrOutEdgeGremlinQueryBase<T1, T2>.To<TTargetVertex>(Func<IVertexGremlinQuery<T2>, IVertexGremlinQueryBase<TTargetVertex>> toVertexTraversal) => Cast<T2>().To<T1, T2, TTargetVertex>(toVertexTraversal);
+        IEdgeGremlinQuery<T1, T2, TTargetVertex> IInOrOutEdgeGremlinQueryBase<T1, T2>.To<TTargetVertex>(Func<IVertexGremlinQuery<T2>, IVertexGremlinQueryBase<TTargetVertex>> toVertexTraversal) => To(toVertexTraversal);
 
         IEdgeGremlinQuery<object> IInOrOutEdgeGremlinQueryBase.Lower() => Cast<object>();
 
