@@ -1039,12 +1039,13 @@ namespace ExRam.Gremlinq.Core
                     .Build(),
                 count);
 
-        private GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex> To<TNewElement, TNewOutVertex, TNewInVertex>(Func<GremlinQuery<T1, T2, T3>, IVertexGremlinQueryBase<TNewInVertex>> toVertexContinuation) => this
+        private GremlinQuery<T1, TOutVertex, TNewInVertex> To<TOutVertex, TNewInVertex>(Func<GremlinQuery<TOutVertex, T2, T3>, IVertexGremlinQueryBase<TNewInVertex>> toVertexContinuation) => this
+            .Cast<TOutVertex>()
             .Continue()
             .With(toVertexContinuation)
             .Build(static (builder, toVertexTraversal) => builder
                 .AddStep(new AddEStep.ToTraversalStep(toVertexTraversal))
-                .AutoBuild<TNewElement, TNewOutVertex, TNewInVertex>());
+                .AutoBuild<T1, TOutVertex, TNewInVertex>());
 
         private GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex> To<TNewElement, TNewOutVertex, TNewInVertex>(StepLabel stepLabel) => this
             .Continue()
