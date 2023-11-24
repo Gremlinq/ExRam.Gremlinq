@@ -655,11 +655,11 @@ namespace ExRam.Gremlinq.Core
                 .WithNewProjection(Projection.Value)
                 .Build());
 
-        private GremlinQuery<TNewElement, T2, T3, IGremlinQueryBase> MeanLocal<TNewElement>() => this
+        private TNewQuery MeanLocal<TNewQuery>() where TNewQuery : IGremlinQueryBase => this
             .Continue()
             .Build(static builder => builder
                 .AddStep(MeanStep.Local)
-                .AutoBuild<TNewElement, T2, T3>());
+                .Build<TNewQuery>());
 
         private GremlinQuery<T1, T2, T3, T4> MinGlobal() => this
             .Continue()
