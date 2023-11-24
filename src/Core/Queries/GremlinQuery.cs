@@ -485,12 +485,13 @@ namespace ExRam.Gremlinq.Core
                 .WithNewProjection(static projection => projection.Fold())
                 .AutoBuild<T1[], T1, TNewFoldedQuery>());
 
-        private GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex> From<TNewElement, TNewOutVertex, TNewInVertex>(Func<GremlinQuery<T1, T2, T3>, IVertexGremlinQueryBase<TNewOutVertex>> fromVertexContinuation) => this
+        private GremlinQuery<T1, TNewOutVertex, TInVertex> From<TNewOutVertex, TInVertex>(Func<GremlinQuery<TInVertex, T2, T3>, IVertexGremlinQueryBase<TNewOutVertex>> fromVertexContinuation) => this
+            .Cast<TInVertex>()
             .Continue()
             .With(fromVertexContinuation)
             .Build(static (builder, fromVertexTraversal) => builder
                 .AddStep(new AddEStep.FromTraversalStep(fromVertexTraversal))
-                .AutoBuild<TNewElement, TNewOutVertex, TNewInVertex>());
+                .AutoBuild<T1, TNewOutVertex, TInVertex>());
 
         private GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex> From<TNewElement, TNewOutVertex, TNewInVertex>(StepLabel<TNewOutVertex> label) => this
            .Continue()
