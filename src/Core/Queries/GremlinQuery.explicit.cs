@@ -251,7 +251,7 @@ namespace ExRam.Gremlinq.Core
 
         TTargetQuery IGremlinQueryAdmin.ChangeQueryType<TTargetQuery>() => CloneAs<TTargetQuery>();
 
-        IGremlinQuerySource IGremlinQueryAdmin.GetSource() => CloneAs<GremlinQuery<object, object, object>>(maybeNewTraversal: Traversal.Empty);
+        IGremlinQuerySource IGremlinQueryAdmin.GetSource() => CloneAs<IGremlinQuerySource>(maybeNewTraversal: Traversal.Empty);
 
         Traversal IGremlinQueryAdmin.Steps => Steps;
 
@@ -447,7 +447,7 @@ namespace ExRam.Gremlinq.Core
 
         IPropertyGremlinQuery<Property<object>> IVertexPropertyGremlinQueryBase.Properties(params string[] keys) => Properties<Property<object>, object, object>(Projection.Property, keys);
 
-        IVertexPropertyGremlinQuery<VertexProperty<T2, TNewMeta>, T2, TNewMeta> IVertexPropertyGremlinQueryBase<T1, T2>.Meta<TNewMeta>() => CloneAs<GremlinQuery<VertexProperty<T2, TNewMeta>, T2, TNewMeta>>();
+        IVertexPropertyGremlinQuery<VertexProperty<T2, TNewMeta>, T2, TNewMeta> IVertexPropertyGremlinQueryBase<T1, T2>.Meta<TNewMeta>() => CloneAs<IVertexPropertyGremlinQuery<VertexProperty<T2, TNewMeta>, T2, TNewMeta>>();
 
         IPropertyGremlinQuery<Property<TValue>> IVertexPropertyGremlinQueryBase<T1, T2>.Properties<TValue>(params string[] keys) => Properties<Property<TValue>, object, object>(Projection.Property, keys);
 
