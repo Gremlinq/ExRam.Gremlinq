@@ -172,20 +172,21 @@ namespace ExRam.Gremlinq.Providers.Core
 
                 static async IAsyncEnumerable<ResponseMessage<T>> Core(RequestMessage message, ThrottledGremlinqClient @this, [EnumeratorCancellation] CancellationToken ct = default)
                 {
-                    var linkedCts = CancellationTokenSource.CreateLinkedTokenSource(ct, @this._cts.Token);
-
-                    await @this._semaphore.WaitAsync(linkedCts.Token);
-
-                    try
+                    using (var linkedCts = CancellationTokenSource.CreateLinkedTokenSource(ct, @this._cts.Token))
                     {
-                        await foreach (var item in @this._baseClient.SubmitAsync<T>(message).WithCancellation(linkedCts.Token))
+                        await @this._semaphore.WaitAsync(linkedCts.Token);
+
+                        try
                         {
-                            yield return item;
+                            await foreach (var item in @this._baseClient.SubmitAsync<T>(message).WithCancellation(linkedCts.Token))
+                            {
+                                yield return item;
+                            }
                         }
-                    }
-                    finally
-                    {
-                        @this._semaphore.Release();
+                        finally
+                        {
+                            @this._semaphore.Release();
+                        }
                     }
                 }
             }
