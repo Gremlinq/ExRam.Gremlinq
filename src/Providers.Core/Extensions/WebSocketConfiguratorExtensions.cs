@@ -12,15 +12,13 @@
             where TConfigurator : IProviderConfigurator<TConfigurator, IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>> => configurator
                 .ConfigureClientFactory(factory => factory
                     .ConfigureBaseFactory(factory => factory
-                        .ConfigureServer(server => server
-                            .WithUri(uri))));
+                        .ConfigureUri(_ => uri)));
 
         public static TConfigurator AuthenticateBy<TConfigurator>(this IProviderConfigurator<TConfigurator, IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>> configurator, string username, string password)
             where TConfigurator : IProviderConfigurator<TConfigurator, IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>> => configurator
                 .ConfigureClientFactory(factory => factory
                     .ConfigureBaseFactory(factory => factory
-                        .ConfigureServer(server => server
-                            .WithUsername(username)
-                            .WithPassword(password))));
+                        .ConfigureUsername(_ => username)
+                        .ConfigurePassword(_ => password)));
     }
 }

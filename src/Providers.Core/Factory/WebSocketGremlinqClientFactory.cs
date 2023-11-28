@@ -115,8 +115,9 @@ namespace ExRam.Gremlinq.Providers.Core
 
                 private record struct ResponseMessageEnvelope(Guid? RequestId, ResponseStatus? Status);
 
-
-                private readonly GremlinServer _server;
+                private readonly Uri _uri;
+                private readonly string? _username;
+                private readonly string? _password;
                 private readonly ClientWebSocket _client = new();
                 private readonly SemaphoreSlim _sendLock = new(1);
                 private readonly CancellationTokenSource _cts = new();
@@ -124,9 +125,11 @@ namespace ExRam.Gremlinq.Providers.Core
                 private readonly TaskCompletionSource<Task> _loopTcs = new();
                 private readonly ConcurrentDictionary<Guid, Channel> _channels = new();
 
-                public WebSocketGremlinqClient(GremlinServer server, Action<ClientWebSocketOptions> optionsTransformation, IGremlinQueryEnvironment environment)
+                public WebSocketGremlinqClient(Uri uri, string? username, string? password, Action<ClientWebSocketOptions> optionsTransformation, IGremlinQueryEnvironment environment)
                 {
-                    _server = server;
+                    _uri = uri;
+                    _username = username;
+                    _password = password;
                     _environment = environment;
 
                     _client.Options.SetRequestHeader("User-Agent", "ExRam.Gremlinq");
@@ -189,7 +192,7 @@ namespace ExRam.Gremlinq.Providers.Core
                         {
                             if (_client.State == WebSocketState.None)
                             {
-                                await _client.ConnectAsync(_server.Uri, ct);
+                                await _client.ConnectAsync(_uri, ct);
 
                                 _loopTcs.SetResult(Loop(_cts.Token));
                             }
@@ -227,13 +230,18 @@ namespace ExRam.Gremlinq.Providers.Core
                                     {
                                         if (statusCode == Authenticate)
                                         {
-                                            var authMessage = RequestMessage
-                                                .Build(Tokens.OpsAuthentication)
-                                                .Processor(Tokens.ProcessorTraversal)
-                                                .AddArgument(Tokens.ArgsSasl, Convert.ToBase64String(Encoding.UTF8.GetBytes($"\0{_server.Username}\0{_server.Password}")))
-                                                .Create();
+                                            if (_username is { Length: > 0 } username && _password is { Length: > 0 } password)
+                                            {
+                                                var authMessage = RequestMessage
+                                                    .Build(Tokens.OpsAuthentication)
+                                                    .Processor(Tokens.ProcessorTraversal)
+                                                    .AddArgument(Tokens.ArgsSasl, Convert.ToBase64String(Encoding.UTF8.GetBytes($"\0{username}\0{password}")))
+                                                    .Create();
 
-                                            await SendCore(authMessage, ct);
+                                                await SendCore(authMessage, ct);
+                                            }
+                                            else
+                                                throw new NotSupportedException("Authentication credentials were requested from the server but were not configured.");
                                         }
                                         else
                                         {
@@ -248,31 +256,41 @@ namespace ExRam.Gremlinq.Providers.Core
                 }
             }
 
-            public static readonly WebSocketGremlinqClientFactoryImpl LocalHost = new(new GremlinServer(), _ => { });
+            public static readonly WebSocketGremlinqClientFactoryImpl LocalHost = new(new Uri("ws://localhost:8182"), null, null, _ => { });
 
-            private readonly GremlinServer _server;
+            private readonly Uri _uri;
+            private readonly string? _username;
+            private readonly string? _password;
             private readonly Action<ClientWebSocketOptions> _webSocketOptionsConfiguration;
 
-            private WebSocketGremlinqClientFactoryImpl(GremlinServer server, Action<ClientWebSocketOptions> webSocketOptionsConfiguration)
+            private WebSocketGremlinqClientFactoryImpl(Uri uri, string? username, string? password, Action<ClientWebSocketOptions> webSocketOptionsConfiguration)
             {
-                if (!"ws".Equals(server.Uri.Scheme, StringComparison.OrdinalIgnoreCase) && !"wss".Equals(server.Uri.Scheme, StringComparison.OrdinalIgnoreCase))
+                if (!"ws".Equals(uri.Scheme, StringComparison.OrdinalIgnoreCase) && !"wss".Equals(uri.Scheme, StringComparison.OrdinalIgnoreCase))
                     throw new ArgumentException("Expected the Uri-Scheme to be either \"ws\" or \"wss\".");
 
-                _server = server;
+                _username = username;
+                _password = password;
+                _uri = uri.EnsurePath();
                 _webSocketOptionsConfiguration = webSocketOptionsConfiguration;
             }
 
-            public IWebSocketGremlinqClientFactory ConfigureServer(Func<GremlinServer, GremlinServer> transformation) => new WebSocketGremlinqClientFactoryImpl(transformation(_server), _webSocketOptionsConfiguration);
-
             public IWebSocketGremlinqClientFactory ConfigureOptions(Action<ClientWebSocketOptions> configuration) => new WebSocketGremlinqClientFactoryImpl(
-                _server,
+                _uri,
+                _username,
+                _password,
                 options =>
                 {
                     _webSocketOptionsConfiguration(options);
                     configuration(options);
                 });
 
-            public IGremlinqClient Create(IGremlinQueryEnvironment environment) => new WebSocketGremlinqClient(_server, _webSocketOptionsConfiguration, environment);
+            public IGremlinqClient Create(IGremlinQueryEnvironment environment) => new WebSocketGremlinqClient(_uri, _username, _password, _webSocketOptionsConfiguration, environment);
+
+            public IWebSocketGremlinqClientFactory ConfigureUri(Func<Uri, Uri> transformation) => new WebSocketGremlinqClientFactoryImpl(transformation(_uri), _username, _password, _webSocketOptionsConfiguration);
+
+            public IWebSocketGremlinqClientFactory ConfigureUsername(Func<string?, string?> transformation) => new WebSocketGremlinqClientFactoryImpl(_uri, transformation(_username), _password, _webSocketOptionsConfiguration);
+
+            public IWebSocketGremlinqClientFactory ConfigurePassword(Func<string?, string?> transformation) => new WebSocketGremlinqClientFactoryImpl(_uri, _username, transformation(_password), _webSocketOptionsConfiguration);
         }
 
         public static readonly IWebSocketGremlinqClientFactory LocalHost = WebSocketGremlinqClientFactoryImpl.LocalHost;
