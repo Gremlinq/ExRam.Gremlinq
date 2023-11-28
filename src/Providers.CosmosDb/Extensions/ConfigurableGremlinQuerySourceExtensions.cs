@@ -50,8 +50,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb
             public ICosmosDbConfigurator<TVertexBase> AuthenticateBy(string authKey) => this
                 .ConfigureClientFactory(factory => factory
                     .ConfigureBaseFactory(factory => factory
-                        .ConfigureServer(server => server
-                            .WithPassword(authKey))));
+                        .ConfigurePassword(_ => authKey)));
 
             public ICosmosDbConfigurator<TVertexBase> ConfigureClientFactory(Func<IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>, IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>> transformation) => new CosmosDbConfigurator<TVertexBase>(
                 _databaseName,
@@ -91,8 +90,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb
                                                 .IgnoreOnUpdate(partitionKeyExpression))))
                                         .UseExecutor(_clientFactory
                                             .ConfigureBaseFactory(factory => factory
-                                                .ConfigureServer(server => server
-                                                    .WithUsername($"/dbs/{databaseName}/colls/{graphName}")))
+                                                .ConfigureUsername(_ => $"/dbs/{databaseName}/colls/{graphName}"))
                                             .Log()
                                             .ToExecutor())));
                         }

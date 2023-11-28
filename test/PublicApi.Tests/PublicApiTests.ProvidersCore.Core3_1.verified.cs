@@ -1,13 +1,5 @@
 ﻿namespace ExRam.Gremlinq.Providers.Core
 {
-    public static class GremlinServerExtensions
-    {
-        public static Gremlin.Net.Driver.GremlinServer WithHost(this Gremlin.Net.Driver.GremlinServer server, string host) { }
-        public static Gremlin.Net.Driver.GremlinServer WithPassword(this Gremlin.Net.Driver.GremlinServer server, string password) { }
-        public static Gremlin.Net.Driver.GremlinServer WithPort(this Gremlin.Net.Driver.GremlinServer server, int port) { }
-        public static Gremlin.Net.Driver.GremlinServer WithSslEnabled(this Gremlin.Net.Driver.GremlinServer server, bool sslEnabled) { }
-        public static Gremlin.Net.Driver.GremlinServer WithUsername(this Gremlin.Net.Driver.GremlinServer server, string username) { }
-    }
     public static class GremlinqClientExtensions
     {
         public static ExRam.Gremlinq.Providers.Core.IGremlinqClient ObserveResultStatusAttributes(this ExRam.Gremlinq.Providers.Core.IGremlinqClient client, System.Action<Gremlin.Net.Driver.Messages.RequestMessage, System.Collections.Generic.IReadOnlyDictionary<string, object>> observer) { }
@@ -46,7 +38,13 @@
     public interface IWebSocketGremlinqClientFactory : ExRam.Gremlinq.Providers.Core.IGremlinqClientFactory
     {
         ExRam.Gremlinq.Providers.Core.IWebSocketGremlinqClientFactory ConfigureOptions(System.Action<System.Net.WebSockets.ClientWebSocketOptions> configuration);
-        ExRam.Gremlinq.Providers.Core.IWebSocketGremlinqClientFactory ConfigureServer(System.Func<Gremlin.Net.Driver.GremlinServer, Gremlin.Net.Driver.GremlinServer> transformation);
+        ExRam.Gremlinq.Providers.Core.IWebSocketGremlinqClientFactory ConfigurePassword(System.Func<string?, string?> transformation);
+        ExRam.Gremlinq.Providers.Core.IWebSocketGremlinqClientFactory ConfigureUri(System.Func<System.Uri, System.Uri> transformation);
+        ExRam.Gremlinq.Providers.Core.IWebSocketGremlinqClientFactory ConfigureUsername(System.Func<string?, string?> transformation);
+    }
+    public static class UriExtensions
+    {
+        public static System.Uri EnsurePath(this System.Uri uri) { }
     }
     public static class WebSocketConfiguratorExtensions
     {
