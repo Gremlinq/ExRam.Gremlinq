@@ -173,11 +173,8 @@ namespace ExRam.Gremlinq.Providers.Core
                     {
                         using (_client)
                         {
-                            using (_cts)
-                            {
-                                _cts.Cancel();
-                                _loopTcs.TrySetException(new ObjectDisposedException(nameof(WebSocketGremlinqClient)));
-                            }
+                            _cts.Cancel();
+                            _loopTcs.TrySetException(new ObjectDisposedException(nameof(WebSocketGremlinqClient)));
                         }
                     }
                 }
