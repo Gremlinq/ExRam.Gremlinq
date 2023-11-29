@@ -266,7 +266,7 @@ namespace ExRam.Gremlinq.Providers.Core
             private WebSocketGremlinqClientFactoryImpl(Uri uri, string? username, string? password, Action<ClientWebSocketOptions> webSocketOptionsConfiguration)
             {
                 if (uri.Scheme is not "ws" and not "wss")
-                    throw new ArgumentException("Expected the Uri-Scheme to be either \"ws\" or \"wss\".");
+                    throw new ArgumentException($"Expected {nameof(uri)}.{nameof(Uri.Scheme)} to be either \"ws\" or \"wss\".", nameof(uri));
 
                 _username = username;
                 _password = password;
