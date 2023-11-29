@@ -13,7 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{4E6D1C9D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.CosmosDb.Tests", "test\Providers.CosmosDb.Tests\ExRam.Gremlinq.Providers.CosmosDb.Tests.csproj", "{E0F57FD2-0666-42B5-95ED-14D155A47F38}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.Tests", "test\Providers.Tests\ExRam.Gremlinq.Providers.Tests.csproj", "{CCC2B0E4-FD5D-49E0-9872-2EA0A720EB1B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.Core.Tests", "test\Providers.Core.Tests\ExRam.Gremlinq.Providers.Core.Tests.csproj", "{CCC2B0E4-FD5D-49E0-9872-2EA0A720EB1B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Tests.Entities", "test\Tests.Entities\ExRam.Gremlinq.Tests.Entities.csproj", "{65F0D284-7DD6-40DA-8B89-BDAA02326DF0}"
 EndProject

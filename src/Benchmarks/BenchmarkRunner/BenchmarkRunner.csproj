@@ -10,7 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\test\Providers.Tests\ExRam.Gremlinq.Providers.Tests.csproj" />
+    <ProjectReference Include="..\..\..\test\Providers.Tests\ExRam.Gremlinq.Providers.Core.Tests.csproj" />
     <ProjectReference Include="..\..\..\test\Tests.Entities\ExRam.Gremlinq.Tests.Entities.csproj" />
     <ProjectReference Include="..\..\Core\ExRam.Gremlinq.Core.csproj" />
     <ProjectReference Include="..\..\Support.NewtonsoftJson\ExRam.Gremlinq.Support.NewtonsoftJson.csproj" />
