@@ -1,5 +1,6 @@
 ﻿using System.Buffers;
 using System.Net.WebSockets;
+using ExRam.Gremlinq.Core;
 
 namespace ExRam.Gremlinq.Providers.Core
 {

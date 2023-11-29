@@ -1,4 +1,5 @@
-﻿using System.Collections.Concurrent;
+﻿using System.Buffers;
+using System.Collections.Concurrent;
 using System.Net.WebSockets;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -197,8 +198,13 @@ namespace ExRam.Gremlinq.Providers.Core
                                 _loopTcs.SetResult(Loop(_cts.Token));
                             }
 
-                            if (_environment.Serializer.TryTransform(requestMessage, _environment, out byte[]? serializedRequest))
-                                await _client.SendAsync(serializedRequest, WebSocketMessageType.Binary, true, ct);
+                            if (_environment.Serializer.TryTransform(requestMessage, _environment, out IMemoryOwner<byte>? serializedRequest))
+                            {
+                                using (serializedRequest)
+                                {
+                                    await _client.SendAsync(serializedRequest.Memory, WebSocketMessageType.Binary, true, ct);
+                                }
+                            }
                         }
                         finally
                         {
