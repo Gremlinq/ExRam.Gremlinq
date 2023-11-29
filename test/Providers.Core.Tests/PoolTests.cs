@@ -2,6 +2,8 @@
 
 using ExRam.Gremlinq.Core;
 
+using FluentAssertions;
+
 using Gremlin.Net.Driver.Messages;
 
 using NSubstitute;
@@ -140,6 +142,75 @@ namespace ExRam.Gremlinq.Providers.Core.Tests
 
             baseFactory
                 .Received(8)
+                .Create(Arg.Any<IGremlinQueryEnvironment>());
+        }
+
+        [Fact]
+        public async Task Exception_is_forwarded()
+        {
+            var faulyClient = Substitute
+                .For<IGremlinqClient>();
+
+            var baseFactory = Substitute
+                .For<IGremlinqClientFactory>();
+
+            faulyClient
+                .SubmitAsync<int>(Arg.Any<RequestMessage>())
+                .Returns(AsyncEnumerableEx.Throw<ResponseMessage<int>>(new DivideByZeroException()));
+
+            baseFactory
+                .Create(Arg.Any<IGremlinQueryEnvironment>())
+                .Returns(faulyClient);
+
+            var poolClient = baseFactory
+                .Pool()
+                .Create(GremlinQueryEnvironment.Invalid);
+
+            await poolClient
+                .SubmitAsync<int>(RequestMessage.Build("op").Create())
+                .AsAsyncEnumerable()
+                .GetAsyncEnumerator()
+                .Awaiting(__ => __
+                    .MoveNextAsync())
+                .Should()
+                .ThrowAsync<DivideByZeroException>();
+        }
+
+        [Fact]
+        public async Task Client_is_recreated()
+        {
+            var faulyClient = Substitute
+                .For<IGremlinqClient>();
+
+            var baseFactory = Substitute
+                .For<IGremlinqClientFactory>();
+
+            faulyClient
+                .SubmitAsync<int>(Arg.Any<RequestMessage>())
+                .Returns(AsyncEnumerableEx.Throw<ResponseMessage<int>>(new DivideByZeroException()));
+
+            baseFactory
+                .Create(Arg.Any<IGremlinQueryEnvironment>())
+                .Returns(faulyClient);
+
+            var poolClient = baseFactory
+                .Pool()
+                .Create(GremlinQueryEnvironment.Invalid);
+
+            for (var i = 0; i < 3; i++)
+            {
+                poolClient
+                    .SubmitAsync<int>(RequestMessage.Build("op").Create())
+                    .AsAsyncEnumerable()
+                    .GetAsyncEnumerator()
+                    .Awaiting(__ => __
+                        .MoveNextAsync())
+                    .Should()
+                    .ThrowAsync<DivideByZeroException>();
+            }
+
+            baseFactory
+                .Received(3)
                 .Create(Arg.Any<IGremlinQueryEnvironment>());
         }
     }
