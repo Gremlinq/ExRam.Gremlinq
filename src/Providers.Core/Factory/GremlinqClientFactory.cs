@@ -38,7 +38,7 @@ namespace ExRam.Gremlinq.Providers.Core
                 private readonly IGremlinQueryEnvironment _environment;
 
                 private int _currentRequestsInUse;
-                private int _maxRequestsInUse = 1;
+                private int _maxRequestsInUse = 0;
                 private int _currentSlotIndex = -1;
 
                 public PoolGremlinqClient(IGremlinqClientFactory baseFactory, int poolSize, int maxInProcessPerConnection, IGremlinQueryEnvironment environment)
@@ -62,10 +62,11 @@ namespace ExRam.Gremlinq.Providers.Core
                             while (true)
                             {
                                 var maxRequestsInUse = Volatile.Read(ref @this._maxRequestsInUse);
+                                var newMaxRequestsInUse = Math.Min(currentRequestsInUse, @this._slots.Length);
 
-                                if (currentRequestsInUse < 0 || currentRequestsInUse <= maxRequestsInUse || Interlocked.CompareExchange(ref @this._maxRequestsInUse, Math.Min(currentRequestsInUse, @this._slots.Length), maxRequestsInUse) == maxRequestsInUse)
+                                if (currentRequestsInUse < 0 || currentRequestsInUse <= maxRequestsInUse || newMaxRequestsInUse == maxRequestsInUse || Interlocked.CompareExchange(ref @this._maxRequestsInUse, newMaxRequestsInUse, maxRequestsInUse) == maxRequestsInUse)
                                 {
-                                    var slotIndex = Math.Abs(Interlocked.Increment(ref @this._currentSlotIndex) % maxRequestsInUse);
+                                    var slotIndex = Math.Abs(Interlocked.Increment(ref @this._currentSlotIndex) % newMaxRequestsInUse);
 
                                     while (true)
                                     {
