@@ -1,7 +1,7 @@
 ﻿using System.Buffers;
 using static ExRam.Gremlinq.Core.ExceptionHelper;
 
-namespace ExRam.Gremlinq.Providers.Core
+namespace ExRam.Gremlinq.Core
 {
     internal readonly struct SlicedMemoryOwner : IMemoryOwner<byte>
     {

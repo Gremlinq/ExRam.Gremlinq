@@ -1,4 +1,6 @@
-﻿using System.Collections.Immutable;
+﻿using System;
+using System.Buffers;
+using System.Collections.Immutable;
 using System.Text;
 using ExRam.Gremlinq.Core.Deserialization;
 using ExRam.Gremlinq.Core.Execution;
@@ -123,15 +125,19 @@ namespace ExRam.Gremlinq.Core
 
             return environment
                 .ConfigureSerializer(serializer => serializer
-                    .Add(Create<RequestMessage, byte[]>((message, _, _, _) =>
+                    .Add(Create<RequestMessage, IMemoryOwner<byte>>((message, _, _, _) =>
                     {
                         var graphSONMessage = writer.WriteObject(message);
-                        var ret = new byte[Encoding.UTF8.GetByteCount(graphSONMessage) + mimeTypeBytes.Length];
+                        var bytesNeeded = Encoding.UTF8.GetByteCount(graphSONMessage) + mimeTypeBytes.Length;
+                        var memory = MemoryPool<byte>.Shared.Rent(bytesNeeded);
 
-                        mimeTypeBytes.CopyTo(ret, 0);
-                        Encoding.UTF8.GetBytes(graphSONMessage, 0, graphSONMessage.Length, ret, mimeTypeBytes.Length);
+                        mimeTypeBytes
+                            .AsSpan()
+                            .CopyTo(memory.Memory.Span);
 
-                        return ret;
+                        Encoding.UTF8.GetBytes(graphSONMessage.AsSpan(), memory.Memory.Span[mimeTypeBytes.Length..]);
+
+                        return new SlicedMemoryOwner(memory, bytesNeeded);
                     })));
         }
     }
