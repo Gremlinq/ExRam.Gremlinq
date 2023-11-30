@@ -2,6 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using ExRam.Gremlinq.Core.Transformation;
 using ExRam.Gremlinq.Core;
+using Newtonsoft.Json;
 
 namespace ExRam.Gremlinq.Support.NewtonsoftJson
 {
@@ -25,10 +26,17 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                     return true;
                 }
 
-                if (source.ToObject<TTarget>(_environment.GetJsonSerializer(recurse)) is { } requestedValue)
+                try
                 {
-                    value = requestedValue;
-                    return true;
+                    if (source.ToObject<TTarget>(_environment.GetJsonSerializer(recurse)) is { } requestedValue)
+                    {
+                        value = requestedValue;
+                        return true;
+                    }
+                }
+                catch (JsonSerializationException)
+                {
+
                 }
 
                 value = default;
