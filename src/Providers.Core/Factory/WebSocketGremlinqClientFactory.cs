@@ -53,10 +53,19 @@ namespace ExRam.Gremlinq.Providers.Core
 
                     public override void Signal(ReadOnlyMemory<byte> bytes)
                     {
-                        if (Environment.Deserializer.TryTransform(bytes, Environment, out ResponseMessage<T>? response))
-                            Signal(response);
-                        else
-                            throw new InvalidOperationException($"Unable to convert byte array to a {nameof(ResponseMessage<T>)} for {typeof(T).FullName}>.");
+                        try
+                        {
+                            if (Environment.Deserializer.TryTransform(bytes, Environment, out ResponseMessage<T>? response))
+                                Signal(response);
+                            else
+                                throw new InvalidOperationException($"Unable to convert byte array to a {nameof(ResponseMessage<T>)} for {typeof(T).FullName}>.");
+                        }
+                        catch
+                        {
+                            Dispose();
+
+                            throw;
+                        }
                     }
 
                     private void Signal(ResponseMessage<T> response)
