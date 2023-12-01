@@ -17,9 +17,7 @@ namespace ExRam.Gremlinq.Templates.Console
         {
             _g = g
                .UseTEMPLATEPROVIDER<Vertex, Edge>(configurator => configurator
-#if (provider == "GremlinServer")
-                    .AtLocalhost())
-#elif (provider == "Neptune")
+#if (provider == "Neptune")
                     .At(new Uri("wss://your.neptune.endpoint/")))
 #elif (provider == "CosmosDb")
                     .At(new Uri("wss://your.cosmosdb.endpoint/"))
@@ -27,7 +25,7 @@ namespace ExRam.Gremlinq.Templates.Console
                     .OnGraph("your graph name")
                     .WithPartitionKey(x => x.PartitionKey)
                     .AuthenticateBy("your auth key"))
-#elif (provider == "JanusGraph")
+#else
                     .AtLocalhost())
 #endif
                 .UseNewtonsoftJson();
