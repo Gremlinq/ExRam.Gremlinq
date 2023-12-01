@@ -17,8 +17,8 @@ namespace ExRam.Gremlinq.Templates.AspNet
 
         [HttpGet]
         public async Task<IActionResult> Index() => Ok(await _g
-                 .V<Person>()
-                 .ToArrayAsync());
+             .V<Person>()
+             .ToArrayAsync());
 
         [HttpGet("petMaps")]
         public async Task<IActionResult> PetMaps() => Ok(await _g
