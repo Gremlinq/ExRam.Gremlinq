@@ -40,7 +40,7 @@
       "description": "The version of ExRam.Gremlinq being referenced",
       "type": "parameter",
       "datatype": "string",
-      "defaultValue": "12.0.0-preview.1077",
+      "defaultValue": "12.0.0-preview.1470",
       "replaces": "TEMPLATE_GREMLINQ_VERSION"
     }
   },
