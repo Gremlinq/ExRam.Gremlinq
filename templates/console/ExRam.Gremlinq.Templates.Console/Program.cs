@@ -2,15 +2,7 @@
 using System.Threading.Tasks;
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Providers.Core;
-#if (provider == "GremlinServer")
-using ExRam.Gremlinq.Providers.GremlinServer;
-#elif (provider == "Neptune")
-using ExRam.Gremlinq.Providers.Neptune;
-#elif (provider == "CosmosDb")
-using ExRam.Gremlinq.Providers.CosmosDb;
-#elif (provider == "JanusGraph")
-using ExRam.Gremlinq.Providers.JanusGraph;
-#endif
+using ExRam.Gremlinq.Providers.TEMPLATEPROVIDER;
 using ExRam.Gremlinq.Support.NewtonsoftJson;
 
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
@@ -24,21 +16,18 @@ namespace ExRam.Gremlinq.Templates.Console
         public Program()
         {
             _g = g
+               .UseTEMPLATEPROVIDER<Vertex, Edge>(configurator => configurator
 #if (provider == "GremlinServer")
-                .UseGremlinServer<Vertex, Edge>(configurator => configurator
                     .AtLocalhost())
 #elif (provider == "Neptune")
-                .UseNeptune<Vertex, Edge>(configurator => configurator
                     .At(new Uri("wss://your.neptune.endpoint/")))
 #elif (provider == "CosmosDb")
-                .UseCosmosDb<Vertex, Edge>(configurator => configurator
                     .At(new Uri("wss://your.cosmosdb.endpoint/"))
                     .OnDatabase("your database name")
                     .OnGraph("your graph name")
                     .WithPartitionKey(x => x.PartitionKey)
                     .AuthenticateBy("your auth key"))
 #elif (provider == "JanusGraph")
-                .UseJanusGraph<Vertex, Edge>(configurator => configurator
                     .AtLocalhost())
 #endif
                 .UseNewtonsoftJson();
