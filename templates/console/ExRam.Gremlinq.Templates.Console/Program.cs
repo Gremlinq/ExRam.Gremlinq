@@ -1,8 +1,18 @@
 ﻿using System;
 using System.Threading.Tasks;
 using ExRam.Gremlinq.Core;
-using ExRam.Gremlinq.Core.Models;
 using ExRam.Gremlinq.Providers.Core;
+#if (provider == "GremlinServer")
+using ExRam.Gremlinq.Providers.GremlinServer;
+#elif (provider == "Neptune")
+using ExRam.Gremlinq.Providers.Neptune;
+#elif (provider == "CosmosDb")
+using ExRam.Gremlinq.Providers.CosmosDb;
+#elif (provider == "JanusGraph")
+using ExRam.Gremlinq.Providers.JanusGraph;
+#endif
+using ExRam.Gremlinq.Support.NewtonsoftJson;
+
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Templates.Console
