@@ -1,9 +1,6 @@
 ﻿using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Models;
-using ExRam.Gremlinq.Core.Steps;
 using ExRam.Gremlinq.Providers.Core;
-
-using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Providers.GremlinServer
 {
