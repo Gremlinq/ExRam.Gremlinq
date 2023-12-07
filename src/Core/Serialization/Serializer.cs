@@ -288,22 +288,6 @@ namespace ExRam.Gremlinq.Core.Serialization
                     .AddAlias(env)
                     .Create()))
             .Add(ConverterFactory
-                .Create<Bytecode, RequestMessage>((bytecode, env, _, recurse) =>
-                {
-                    if (env.Options.GetValue(GremlinqOption.PreferGroovySerialization))
-                    {
-                        if (recurse.TryTransform(bytecode, env, out GroovyGremlinScript groovyQuery))
-                        {
-                            if (recurse.TryTransform(groovyQuery, env, out RequestMessage? message))
-                            {
-                                return message;
-                            }
-                        }
-                    }
-
-                    return null;
-                }))
-            .Add(ConverterFactory
                 .Create<StepLabel, string>((stepLabel, _, _, _) =>
                 {
                     var stepLabelNames = _stepLabelNames ??= new Dictionary<StepLabel, Label>();
