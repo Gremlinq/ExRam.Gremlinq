@@ -91,8 +91,6 @@ namespace ExRam.Gremlinq.Core
         public static readonly GremlinqOption<LogLevel> QueryLogLogLevel = Create(LogLevel.Debug);
         public static readonly GremlinqOption<QueryLogFormatting> QueryLogFormatting = Create(Core.QueryLogFormatting.None);
         public static readonly GremlinqOption<QueryLogVerbosity> QueryLogVerbosity = Create(Core.QueryLogVerbosity.QueryOnly);
-
-        public static readonly GremlinqOption<bool> PreferGroovySerialization = Create(false);
     }
 
     public sealed class GremlinqOption<TValue>

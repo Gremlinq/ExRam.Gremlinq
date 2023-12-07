@@ -2,10 +2,12 @@
 
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Models;
+using ExRam.Gremlinq.Core.Serialization;
 using ExRam.Gremlinq.Core.Steps;
 using ExRam.Gremlinq.Core.Transformation;
 using ExRam.Gremlinq.Providers.Core;
 
+using Gremlin.Net.Driver.Messages;
 using Gremlin.Net.Process.Traversal;
 
 using static ExRam.Gremlinq.Core.Transformation.ConverterFactory;
@@ -136,13 +138,16 @@ namespace ExRam.Gremlinq.Providers.CosmosDb
                             .SetValue(GremlinqOption.WorkaroundRangeInconsistencies, true)
                             .SetValue(GremlinqOption.VertexProjectionSteps, Traversal.Empty)
                             .SetValue(GremlinqOption.EdgeProjectionSteps, Traversal.Empty)
-                            .SetValue(GremlinqOption.VertexPropertyProjectionSteps, Traversal.Empty)
-                            .SetValue(GremlinqOption.PreferGroovySerialization, true))
+                            .SetValue(GremlinqOption.VertexPropertyProjectionSteps, Traversal.Empty))
                         .ConfigureNativeTypes(nativeTypes => nativeTypes
                             .Remove(typeof(byte[]))
                             .Remove(typeof(TimeSpan)))
                         .UseGraphSon2()
                         .ConfigureSerializer(serializer => serializer
+                             .Add(ConverterFactory
+                                .Create<Bytecode, RequestMessage>((bytecode, env, _, recurse) => recurse.TryTransform(bytecode, env, out GroovyGremlinScript groovyQuery) && recurse.TryTransform(groovyQuery, env, out RequestMessage? message)
+                                    ? message
+                                    : null))
                             .Add(ConverterFactory
                                 .Create<CosmosDbKey, string>((key, _, _, _) => key.Id)
                                 .AutoRecurse<string>())
