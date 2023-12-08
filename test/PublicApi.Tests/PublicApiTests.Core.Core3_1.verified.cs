@@ -123,8 +123,6 @@
         public static ExRam.Gremlinq.Core.IGremlinQueryEnvironment UseDebugger(this ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, ExRam.Gremlinq.Core.IGremlinQueryDebugger debugger) { }
         public static ExRam.Gremlinq.Core.IGremlinQueryEnvironment UseDeserializer(this ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, ExRam.Gremlinq.Core.Transformation.ITransformer deserializer) { }
         public static ExRam.Gremlinq.Core.IGremlinQueryEnvironment UseExecutor(this ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor executor) { }
-        public static ExRam.Gremlinq.Core.IGremlinQueryEnvironment UseGraphSon2(this ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment) { }
-        public static ExRam.Gremlinq.Core.IGremlinQueryEnvironment UseGraphSon3(this ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment) { }
         public static ExRam.Gremlinq.Core.IGremlinQueryEnvironment UseLogger(this ExRam.Gremlinq.Core.IGremlinQueryEnvironment source, Microsoft.Extensions.Logging.ILogger logger) { }
         public static ExRam.Gremlinq.Core.IGremlinQueryEnvironment UseModel(this ExRam.Gremlinq.Core.IGremlinQueryEnvironment source, ExRam.Gremlinq.Core.Models.IGraphModel model) { }
         public static ExRam.Gremlinq.Core.IGremlinQueryEnvironment UseSerializer(this ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, ExRam.Gremlinq.Core.Transformation.ITransformer serializer) { }
@@ -1031,6 +1029,11 @@
     {
         QueryOnly = 0,
         IncludeBindings = 1,
+    }
+    public static class SerializerExtensions
+    {
+        public static ExRam.Gremlinq.Core.IGremlinQueryEnvironment UseGraphSon2(this ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment) { }
+        public static ExRam.Gremlinq.Core.IGremlinQueryEnvironment UseGraphSon3(this ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment) { }
     }
     public abstract class StepLabel : System.IEquatable<ExRam.Gremlinq.Core.StepLabel>
     {
