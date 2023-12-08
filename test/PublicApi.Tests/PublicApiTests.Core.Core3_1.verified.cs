@@ -1030,11 +1030,6 @@
         QueryOnly = 0,
         IncludeBindings = 1,
     }
-    public static class SerializerExtensions
-    {
-        public static ExRam.Gremlinq.Core.IGremlinQueryEnvironment UseGraphSon2(this ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment) { }
-        public static ExRam.Gremlinq.Core.IGremlinQueryEnvironment UseGraphSon3(this ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment) { }
-    }
     public abstract class StepLabel : System.IEquatable<ExRam.Gremlinq.Core.StepLabel>
     {
         protected StepLabel() { }

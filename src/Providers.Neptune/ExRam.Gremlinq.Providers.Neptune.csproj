@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <Compile Include="..\Core\ExceptionHelper.cs" Link="ExceptionHelper.cs" />
+    <Compile Include="..\Providers.GremlinServer\Extensions\SerializerExtensions.cs" Link="Extensions\SerializerExtensions.cs" />
   </ItemGroup>
 
   <ItemGroup>
