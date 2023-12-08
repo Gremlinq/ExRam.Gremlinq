@@ -1,22 +1,22 @@
-﻿using System.Buffers;
-using System.Net.WebSockets;
-using ExRam.Gremlinq.Core;
+﻿using System.Net.WebSockets;
+
+using CommunityToolkit.HighPerformance.Buffers;
 
 namespace ExRam.Gremlinq.Providers.Core
 {
     internal static class ClientWebSocketExtensions
     {
-        public static async Task<SlicedMemoryOwner> ReceiveAsync(this ClientWebSocket client, CancellationToken ct)
+        public static async Task<MemoryOwner<byte>> ReceiveAsync(this ClientWebSocket client, CancellationToken ct)
         {
             var read = 0;
-            var bytes = MemoryPool<byte>.Shared.Rent(2048);
+            var bytes = MemoryOwner<byte>.Allocate(2048);
 
             while (true)
             {
                 ct.ThrowIfCancellationRequested();
 
                 if (read == bytes.Memory.Length)
-                    bytes = MemoryPool<byte>.Shared.Double(bytes);
+                    bytes = bytes.Double();
 
                 var result = await client.ReceiveAsync(bytes.Memory[read..], ct);
 
@@ -26,7 +26,7 @@ namespace ExRam.Gremlinq.Providers.Core
                     break;
             }
 
-            return new SlicedMemoryOwner(bytes, read);
+            return bytes[..read];
         }
     }
 }
