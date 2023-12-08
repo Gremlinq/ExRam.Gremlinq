@@ -10,7 +10,7 @@ using static ExRam.Gremlinq.Core.Transformation.ConverterFactory;
 
 namespace ExRam.Gremlinq.Core
 {
-    public static class SerializerExtensions
+    internal static class SerializerExtensions
     {
         public static IGremlinQueryEnvironment UseGraphSon2(this IGremlinQueryEnvironment environment) => environment.UseGraphSon(new GraphSON2Writer(), "application/vnd.gremlin-v2.0+json");
 
