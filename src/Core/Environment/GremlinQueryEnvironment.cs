@@ -2,6 +2,9 @@
 using System.Buffers;
 using System.Collections.Immutable;
 using System.Text;
+
+using CommunityToolkit.HighPerformance.Buffers;
+
 using ExRam.Gremlinq.Core.Deserialization;
 using ExRam.Gremlinq.Core.Execution;
 using ExRam.Gremlinq.Core.Models;
@@ -129,7 +132,7 @@ namespace ExRam.Gremlinq.Core
                     {
                         var graphSONMessage = writer.WriteObject(message);
                         var bytesNeeded = Encoding.UTF8.GetByteCount(graphSONMessage) + mimeTypeBytes.Length;
-                        var memory = MemoryPool<byte>.Shared.Rent(bytesNeeded);
+                        var memory = MemoryOwner<byte>.Allocate(bytesNeeded);
 
                         mimeTypeBytes
                             .AsSpan()
@@ -137,7 +140,7 @@ namespace ExRam.Gremlinq.Core
 
                         Encoding.UTF8.GetBytes(graphSONMessage.AsSpan(), memory.Memory.Span[mimeTypeBytes.Length..]);
 
-                        return new SlicedMemoryOwner(memory, bytesNeeded);
+                        return memory;
                     })));
         }
     }

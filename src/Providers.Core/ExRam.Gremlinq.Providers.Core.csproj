@@ -7,7 +7,6 @@
   <ItemGroup>
     <Compile Include="..\Core\ExceptionHelper.cs" Link="ExceptionHelper.cs" />
     <Compile Include="..\Core\Extensions\AsyncEnumerable.cs" Link="Extensions\AsyncEnumerable.cs" />
-    <Compile Include="..\Core\SlicedMemoryOwner.cs" Link="SlicedMemoryOwner.cs" />
   </ItemGroup>
 
   <ItemGroup>

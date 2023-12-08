@@ -1,18 +1,18 @@
-﻿using System.Buffers;
+﻿using CommunityToolkit.HighPerformance.Buffers;
 
 namespace ExRam.Gremlinq.Providers.Core
 {
     internal static class MemoryPoolExtensions
     {
-        public static IMemoryOwner<T> Double<T>(this MemoryPool<T> pool, IMemoryOwner<T> memory)
+        public static MemoryOwner<T> Double<T>(this MemoryOwner<T> owner)
         {
-            using (memory)
+            using (owner)
             {
-                var newMemory = pool.Rent(memory.Memory.Length * 2);
+                var newOwner = MemoryOwner<T>.Allocate(owner.Memory.Length * 2);
 
-                memory.Memory.CopyTo(newMemory.Memory);
+                owner.Memory.CopyTo(newOwner.Memory);
 
-                return newMemory;
+                return newOwner;
             }
         }
     }
