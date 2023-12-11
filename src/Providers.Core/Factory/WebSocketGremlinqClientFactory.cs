@@ -131,6 +131,7 @@ namespace ExRam.Gremlinq.Providers.Core
                 private readonly Uri _uri;
                 private readonly string? _username;
                 private readonly string? _password;
+                private readonly byte[] _mimeTypeBytes;
                 private readonly ClientWebSocket _client = new();
                 private readonly SemaphoreSlim _sendLock = new(1);
                 private readonly CancellationTokenSource _cts = new();
@@ -146,6 +147,7 @@ namespace ExRam.Gremlinq.Providers.Core
                     _password = password;
                     _environment = environment;
                     _bufferFactory = bufferFactory;
+                    _mimeTypeBytes = Encoding.UTF8.GetBytes($"{(char)bufferFactory.MimeType.Length}{bufferFactory.MimeType}");
 
                     _client.Options.SetRequestHeader("User-Agent", "ExRam.Gremlinq");
 
@@ -214,13 +216,10 @@ namespace ExRam.Gremlinq.Providers.Core
 
                             using (var serializedRequest = _bufferFactory.Create(requestMessage))
                             {
-                                var mimeType = serializedRequest.MimeType;
-                                var mimeTypeSize = Encoding.UTF8.GetByteCount(mimeType);
-
-                                using (var buffer = MemoryOwner<byte>.Allocate(serializedRequest.Memory.Length + mimeTypeSize + 1))
+                                using (var buffer = MemoryOwner<byte>.Allocate(serializedRequest.Memory.Length + _mimeTypeBytes.Length))
                                 {
-                                    Encoding.UTF8.GetBytes($"{(char)mimeType.Length}{mimeType}", buffer.Span);
-                                    serializedRequest.Memory.Span.CopyTo(buffer.Span[(mimeTypeSize + 1)..]);
+                                    _mimeTypeBytes.CopyTo(buffer.Span);
+                                    serializedRequest.Memory.Span.CopyTo(buffer.Span[_mimeTypeBytes.Length..]);
 
                                     await _client.SendAsync(buffer.Memory, WebSocketMessageType.Binary, true, ct);
                                 }
