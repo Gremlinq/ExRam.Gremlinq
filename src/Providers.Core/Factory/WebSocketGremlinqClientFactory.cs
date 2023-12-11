@@ -134,10 +134,10 @@ namespace ExRam.Gremlinq.Providers.Core
                 private readonly CancellationTokenSource _cts = new();
                 private readonly IGremlinQueryEnvironment _environment;
                 private readonly TaskCompletionSource<Task> _loopTcs = new();
-                private readonly Func<IMemoryOwner<byte>, TBuffer> _bufferFactory;
+                private readonly IMessageBufferFactory<TBuffer> _bufferFactory;
                 private readonly ConcurrentDictionary<Guid, Channel> _channels = new();
 
-                public WebSocketGremlinqClient(Uri uri, string? username, string? password, Action<ClientWebSocketOptions> optionsTransformation, IGremlinQueryEnvironment environment, Func<IMemoryOwner<byte>, TBuffer> bufferFactory)
+                public WebSocketGremlinqClient(Uri uri, string? username, string? password, Action<ClientWebSocketOptions> optionsTransformation, IGremlinQueryEnvironment environment, IMessageBufferFactory<TBuffer> bufferFactory)
                 {
                     _uri = uri;
                     _username = username;
@@ -210,12 +210,9 @@ namespace ExRam.Gremlinq.Providers.Core
                                 _loopTcs.SetResult(Loop(_cts.Token));
                             }
 
-                            if (_environment.Serializer.TryTransform(requestMessage, _environment, out TBuffer? serializedRequest))
+                            using (var serializedRequest = _bufferFactory.Create(requestMessage))
                             {
-                                using (serializedRequest)
-                                {
-                                    await _client.SendAsync(serializedRequest.Memory, WebSocketMessageType.Binary, true, ct);
-                                }
+                                await _client.SendAsync(serializedRequest.Memory, WebSocketMessageType.Binary, true, ct);
                             }
                         }
                         finally
@@ -239,7 +236,7 @@ namespace ExRam.Gremlinq.Providers.Core
                         {
                             var bytes = await _client.ReceiveAsync(ct);
 
-                            using (var buffer = _bufferFactory(bytes))
+                            using (var buffer = _bufferFactory.Create(bytes))
                             {
                                 if (_environment.Deserializer.TryTransform(buffer, _environment, out ResponseMessageEnvelope responseMessageEnvelope))
                                 {
@@ -276,10 +273,10 @@ namespace ExRam.Gremlinq.Providers.Core
             private readonly Uri _uri;
             private readonly string? _username;
             private readonly string? _password;
-            private readonly Func<IMemoryOwner<byte>, TBuffer> _bufferFactory;
+            private readonly IMessageBufferFactory<TBuffer> _bufferFactory;
             private readonly Action<ClientWebSocketOptions> _webSocketOptionsConfiguration;
 
-            internal WebSocketGremlinqClientFactoryImpl(Uri uri, string? username, string? password, Action<ClientWebSocketOptions> webSocketOptionsConfiguration, Func<IMemoryOwner<byte>, TBuffer> bufferFactory)
+            internal WebSocketGremlinqClientFactoryImpl(Uri uri, string? username, string? password, Action<ClientWebSocketOptions> webSocketOptionsConfiguration, IMessageBufferFactory<TBuffer> bufferFactory)
             {
                 if (uri.Scheme is not "ws" and not "wss")
                     throw new ArgumentException($"Expected {nameof(uri)}.{nameof(Uri.Scheme)} to be either \"ws\" or \"wss\".", nameof(uri));
@@ -310,9 +307,9 @@ namespace ExRam.Gremlinq.Providers.Core
 
             public IWebSocketGremlinqClientFactory ConfigurePassword(Func<string?, string?> transformation) => new WebSocketGremlinqClientFactoryImpl<TBuffer>(_uri, _username, transformation(_password), _webSocketOptionsConfiguration, _bufferFactory);
 
-            public IWebSocketGremlinqClientFactory WithMessageBufferType<TNewBuffer>(Func<IMemoryOwner<byte>, TNewBuffer> factory) where TNewBuffer : IMemoryOwner<byte> => new WebSocketGremlinqClientFactoryImpl<TNewBuffer>(_uri, _username, _password, _webSocketOptionsConfiguration, factory);
+            public IWebSocketGremlinqClientFactory WithMessageBufferFactory<TNewBuffer>(IMessageBufferFactory<TNewBuffer> factory) where TNewBuffer : IMemoryOwner<byte> => new WebSocketGremlinqClientFactoryImpl<TNewBuffer>(_uri, _username, _password, _webSocketOptionsConfiguration, factory);
         }
 
-        public static readonly IWebSocketGremlinqClientFactory LocalHost = new WebSocketGremlinqClientFactoryImpl<GraphSon3MessageBuffer>(new Uri("ws://localhost:8182"), null, null, _ => { }, bytes => new GraphSon3MessageBuffer(bytes));
+        public static readonly IWebSocketGremlinqClientFactory LocalHost = new WebSocketGremlinqClientFactoryImpl<GraphSon3MessageBuffer>(new Uri("ws://localhost:8182"), null, null, _ => { }, MessageBufferFactory.GraphSon3);
     }
 }

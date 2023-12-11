@@ -18,7 +18,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb
     {
         private sealed class CosmosDbConfigurator<TVertexBase> : ICosmosDbConfigurator<TVertexBase>
         {
-            public static readonly CosmosDbConfigurator<TVertexBase> Default = new(null, null, null, WebSocketGremlinqClientFactory.LocalHost.WithMessageBufferType(owner => new GraphSon2MessageBuffer(owner)).Pool(), _ => _);
+            public static readonly CosmosDbConfigurator<TVertexBase> Default = new(null, null, null, WebSocketGremlinqClientFactory.LocalHost.WithMessageBufferFactory(MessageBufferFactory.GraphSon2).Pool(), _ => _);
 
             private readonly string? _graphName;
             private readonly string? _databaseName;
@@ -142,7 +142,6 @@ namespace ExRam.Gremlinq.Providers.CosmosDb
                         .ConfigureNativeTypes(nativeTypes => nativeTypes
                             .Remove(typeof(byte[]))
                             .Remove(typeof(TimeSpan)))
-                        .UseGraphSon2()
                         .ConfigureSerializer(serializer => serializer
                              .Add(ConverterFactory
                                 .Create<Bytecode, RequestMessage>((bytecode, env, _, recurse) => recurse.TryTransform(bytecode, env, out GroovyGremlinScript groovyQuery) && recurse.TryTransform(groovyQuery, env, out RequestMessage? message)
