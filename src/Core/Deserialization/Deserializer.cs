@@ -8,11 +8,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
     {
         private sealed class InvalidTransformer : ITransformer
         {
-            private static readonly ITransformer BaseTransformer = Transformer.Empty
-                .Add(new ByteArrayDeferralConverterFactory())
-                .Add(new MemoryDeferralConverterFactory());
-
-            public ITransformer Add(IConverterFactory converterFactory) => BaseTransformer
+            public ITransformer Add(IConverterFactory converterFactory) => Transformer.Empty
                 .Add(converterFactory);
 
             public bool TryTransform<TSource, TTarget>(TSource source, IGremlinQueryEnvironment environment, [NotNullWhen(true)] out TTarget? value) => throw new InvalidOperationException("""
