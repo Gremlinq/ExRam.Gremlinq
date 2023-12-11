@@ -3,6 +3,7 @@ using System.Runtime.InteropServices;
 
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Transformation;
+using ExRam.Gremlinq.Providers.Core;
 
 using Newtonsoft.Json;
 
@@ -10,7 +11,8 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
 {
     internal sealed class DeferToNewtonsoftConverterFactory : IConverterFactory
     { 
-        private sealed class DeferToNewtonsoftConverter<TTarget> : IConverter<ReadOnlyMemory<byte>, TTarget>
+        private sealed class DeferToNewtonsoftConverter<TBuffer, TTarget> : IConverter<TBuffer, TTarget>
+            where TBuffer : IMessageBuffer
         {
             private readonly IGremlinQueryEnvironment _environment;
 
@@ -19,11 +21,11 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                 _environment = environment;
             }
 
-            public bool TryConvert(ReadOnlyMemory<byte> source, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
+            public bool TryConvert(TBuffer source, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
             {
-                var stream = MemoryMarshal.TryGetArray(source, out var segment) && segment is { Array: { } array }
+                var stream = MemoryMarshal.TryGetArray(source.Memory, out var segment) && segment is { Array: { } array }
                     ? new MemoryStream(array, segment.Offset, segment.Count)
-                    : new MemoryStream(source.ToArray());
+                    : new MemoryStream(source.Memory.ToArray());
 
                 using (stream)
                 {
@@ -45,8 +47,10 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
             }
         }
 
-        public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment) => typeof(TSource) == typeof(ReadOnlyMemory<byte>)
-            ? (IConverter<TSource, TTarget>)(object)new DeferToNewtonsoftConverter<TTarget>(environment)
-            : default;
+        public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment) => typeof(TSource) == typeof(GraphSon2MessageBuffer)
+            ? (IConverter<TSource, TTarget>)(object)new DeferToNewtonsoftConverter<GraphSon2MessageBuffer, TTarget>(environment)
+            : typeof(TSource) == typeof(GraphSon3MessageBuffer)
+                ? (IConverter<TSource, TTarget>)(object)new DeferToNewtonsoftConverter<GraphSon3MessageBuffer, TTarget>(environment)
+                : default;
     }
 }
