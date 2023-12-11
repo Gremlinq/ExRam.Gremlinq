@@ -1,9 +1,13 @@
-﻿using System.Net.WebSockets;
+﻿using System.Buffers;
+using System.Net.WebSockets;
 
 namespace ExRam.Gremlinq.Providers.Core
 {
     public interface IWebSocketGremlinqClientFactory : IGremlinqClientFactory
     {
+        IWebSocketGremlinqClientFactory WithMessageBufferType<TBuffer>(Func<IMemoryOwner<byte>, TBuffer> factory)
+            where TBuffer : IMemoryOwner<byte>;
+
         IWebSocketGremlinqClientFactory ConfigureUri(Func<Uri, Uri> transformation);
 
         IWebSocketGremlinqClientFactory ConfigureUsername(Func<string?, string?> transformation);
