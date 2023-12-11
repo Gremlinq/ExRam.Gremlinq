@@ -15,8 +15,6 @@ namespace ExRam.Gremlinq.Providers.Core
 
         public void Dispose() => _owner?.Dispose();
 
-        public string MimeType => "application/vnd.gremlin-v2.0+json";
-
         public Memory<byte> Memory => _owner?.Memory ?? throw ExceptionHelper.UninitializedStruct();
     }
 }

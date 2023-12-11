@@ -20,6 +20,8 @@ namespace ExRam.Gremlinq.Providers.Core
             GraphSon2MessageBuffer IMessageBufferFactory<GraphSon2MessageBuffer>.Create(IMemoryOwner<byte> message) => new(message);
 
             GraphSon2MessageBuffer IMessageBufferFactory<GraphSon2MessageBuffer>.Create(RequestMessage message) => new (Create(message));
+
+            string IMessageBufferFactory<GraphSon2MessageBuffer>.MimeType => "application/vnd.gremlin-v2.0+json";
         }
 
         private sealed class GraphSon3MessageBufferFactory : GraphSonMessageBufferFactory, IMessageBufferFactory<GraphSon3MessageBuffer>
@@ -32,6 +34,8 @@ namespace ExRam.Gremlinq.Providers.Core
             GraphSon3MessageBuffer IMessageBufferFactory<GraphSon3MessageBuffer>.Create(IMemoryOwner<byte> message) => new(message);
 
             GraphSon3MessageBuffer IMessageBufferFactory<GraphSon3MessageBuffer>.Create(RequestMessage message) => new (Create(message));
+
+            string IMessageBufferFactory<GraphSon3MessageBuffer>.MimeType => "application/vnd.gremlin-v3.0+json";
         }
 
         private abstract class GraphSonMessageBufferFactory
