@@ -18,7 +18,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb
     {
         private sealed class CosmosDbConfigurator<TVertexBase> : ICosmosDbConfigurator<TVertexBase>
         {
-            public static readonly CosmosDbConfigurator<TVertexBase> Default = new(null, null, null, WebSocketGremlinqClientFactory.LocalHost.Pool(), _ => _);
+            public static readonly CosmosDbConfigurator<TVertexBase> Default = new(null, null, null, WebSocketGremlinqClientFactory.LocalHost.WithMessageBufferType(owner => new GraphSon2MessageBuffer(owner)).Pool(), _ => _);
 
             private readonly string? _graphName;
             private readonly string? _databaseName;

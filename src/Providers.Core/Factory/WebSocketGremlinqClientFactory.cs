@@ -210,7 +210,7 @@ namespace ExRam.Gremlinq.Providers.Core
                                 _loopTcs.SetResult(Loop(_cts.Token));
                             }
 
-                            if (_environment.Serializer.TryTransform(requestMessage, _environment, out IMemoryOwner<byte>? serializedRequest))
+                            if (_environment.Serializer.TryTransform(requestMessage, _environment, out TBuffer? serializedRequest))
                             {
                                 using (serializedRequest)
                                 {
@@ -309,6 +309,8 @@ namespace ExRam.Gremlinq.Providers.Core
             public IWebSocketGremlinqClientFactory ConfigureUsername(Func<string?, string?> transformation) => new WebSocketGremlinqClientFactoryImpl<TBuffer>(_uri, transformation(_username), _password, _webSocketOptionsConfiguration, _bufferFactory);
 
             public IWebSocketGremlinqClientFactory ConfigurePassword(Func<string?, string?> transformation) => new WebSocketGremlinqClientFactoryImpl<TBuffer>(_uri, _username, transformation(_password), _webSocketOptionsConfiguration, _bufferFactory);
+
+            public IWebSocketGremlinqClientFactory WithMessageBufferType<TNewBuffer>(Func<IMemoryOwner<byte>, TNewBuffer> factory) where TNewBuffer : IMemoryOwner<byte> => new WebSocketGremlinqClientFactoryImpl<TNewBuffer>(_uri, _username, _password, _webSocketOptionsConfiguration, factory);
         }
 
         public static readonly IWebSocketGremlinqClientFactory LocalHost = new WebSocketGremlinqClientFactoryImpl<GraphSon3MessageBuffer>(new Uri("ws://localhost:8182"), null, null, _ => { }, bytes => new GraphSon3MessageBuffer(bytes));

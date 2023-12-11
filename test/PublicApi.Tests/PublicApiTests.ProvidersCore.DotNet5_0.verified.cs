@@ -53,6 +53,8 @@
         ExRam.Gremlinq.Providers.Core.IWebSocketGremlinqClientFactory ConfigurePassword(System.Func<string?, string?> transformation);
         ExRam.Gremlinq.Providers.Core.IWebSocketGremlinqClientFactory ConfigureUri(System.Func<System.Uri, System.Uri> transformation);
         ExRam.Gremlinq.Providers.Core.IWebSocketGremlinqClientFactory ConfigureUsername(System.Func<string?, string?> transformation);
+        ExRam.Gremlinq.Providers.Core.IWebSocketGremlinqClientFactory WithMessageBufferType<TBuffer>(System.Func<System.Buffers.IMemoryOwner<byte>, TBuffer> factory)
+            where TBuffer : System.Buffers.IMemoryOwner<byte>;
     }
     public static class UriExtensions
     {

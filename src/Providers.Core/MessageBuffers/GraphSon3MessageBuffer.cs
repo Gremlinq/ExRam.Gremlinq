@@ -8,7 +8,7 @@ namespace ExRam.Gremlinq.Providers.Core
     {
         private readonly IMemoryOwner<byte>? _owner;
 
-        public GraphSon3MessageBuffer(IMemoryOwner<byte> owner) : this()
+        public GraphSon3MessageBuffer(IMemoryOwner<byte> owner)
         {
             _owner = owner;
         }

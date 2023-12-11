@@ -7,7 +7,7 @@ namespace ExRam.Gremlinq.Providers.Core
     {
         private readonly IMemoryOwner<byte>? _owner;
 
-        public GraphSon2MessageBuffer(IMemoryOwner<byte> owner) : this()
+        public GraphSon2MessageBuffer(IMemoryOwner<byte> owner)
         {
             _owner = owner;
         }
