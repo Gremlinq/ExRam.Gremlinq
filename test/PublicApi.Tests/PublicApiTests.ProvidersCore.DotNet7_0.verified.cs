@@ -1,16 +1,18 @@
 ﻿namespace ExRam.Gremlinq.Providers.Core
 {
-    public readonly struct GraphSon2MessageBuffer : System.Buffers.IMemoryOwner<byte>, System.IDisposable
+    public readonly struct GraphSon2MessageBuffer : ExRam.Gremlinq.Providers.Core.IMessageBuffer, System.Buffers.IMemoryOwner<byte>, System.IDisposable
     {
         public GraphSon2MessageBuffer(System.Buffers.IMemoryOwner<byte> owner) { }
         public System.Memory<byte> Memory { get; }
         public void Dispose() { }
+        public string GetMimeType() { }
     }
-    public readonly struct GraphSon3MessageBuffer : System.Buffers.IMemoryOwner<byte>, System.IDisposable
+    public readonly struct GraphSon3MessageBuffer : ExRam.Gremlinq.Providers.Core.IMessageBuffer, System.Buffers.IMemoryOwner<byte>, System.IDisposable
     {
         public GraphSon3MessageBuffer(System.Buffers.IMemoryOwner<byte> owner) { }
         public System.Memory<byte> Memory { get; }
         public void Dispose() { }
+        public string GetMimeType() { }
     }
     public static class GremlinqClientExtensions
     {
@@ -34,8 +36,12 @@
     {
         ExRam.Gremlinq.Providers.Core.IGremlinqClient Create(ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment);
     }
+    public interface IMessageBuffer : System.Buffers.IMemoryOwner<byte>, System.IDisposable
+    {
+        string GetMimeType();
+    }
     public interface IMessageBufferFactory<TBuffer>
-        where TBuffer : System.Buffers.IMemoryOwner<byte>
+        where TBuffer : ExRam.Gremlinq.Providers.Core.IMessageBuffer
     {
         TBuffer Create(Gremlin.Net.Driver.Messages.RequestMessage message);
         TBuffer Create(System.Buffers.IMemoryOwner<byte> message);
@@ -60,7 +66,7 @@
         ExRam.Gremlinq.Providers.Core.IWebSocketGremlinqClientFactory ConfigureUri(System.Func<System.Uri, System.Uri> transformation);
         ExRam.Gremlinq.Providers.Core.IWebSocketGremlinqClientFactory ConfigureUsername(System.Func<string?, string?> transformation);
         ExRam.Gremlinq.Providers.Core.IWebSocketGremlinqClientFactory WithMessageBufferFactory<TBuffer>(ExRam.Gremlinq.Providers.Core.IMessageBufferFactory<TBuffer> factory)
-            where TBuffer : System.Buffers.IMemoryOwner<byte>;
+            where TBuffer : ExRam.Gremlinq.Providers.Core.IMessageBuffer;
     }
     public static class MessageBufferFactory
     {
