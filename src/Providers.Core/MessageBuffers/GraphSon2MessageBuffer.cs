@@ -1,12 +1,19 @@
-﻿namespace ExRam.Gremlinq.Providers.Core
+﻿using ExRam.Gremlinq.Core;
+using System.Buffers;
+
+namespace ExRam.Gremlinq.Providers.Core
 {
     public readonly struct GraphSon2MessageBuffer : IMessageBuffer
     {
-        public GraphSon2MessageBuffer(ReadOnlyMemory<byte> memory) : this()
+        private readonly IMemoryOwner<byte>? _owner;
+
+        public GraphSon2MessageBuffer(IMemoryOwner<byte> owner) : this()
         {
-            Memory = memory;
+            _owner = owner;
         }
 
-        public ReadOnlyMemory<byte> Memory { get; }
+        public void Dispose() => _owner?.Dispose();
+
+        public Memory<byte> Memory => _owner?.Memory ?? throw ExceptionHelper.UninitializedStruct();
     }
 }

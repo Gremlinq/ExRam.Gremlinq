@@ -134,10 +134,10 @@ namespace ExRam.Gremlinq.Providers.Core
                 private readonly CancellationTokenSource _cts = new();
                 private readonly IGremlinQueryEnvironment _environment;
                 private readonly TaskCompletionSource<Task> _loopTcs = new();
-                private readonly Func<ReadOnlyMemory<byte>, TBuffer> _bufferFactory;
+                private readonly Func<IMemoryOwner<byte>, TBuffer> _bufferFactory;
                 private readonly ConcurrentDictionary<Guid, Channel> _channels = new();
 
-                public WebSocketGremlinqClient(Uri uri, string? username, string? password, Action<ClientWebSocketOptions> optionsTransformation, IGremlinQueryEnvironment environment, Func<ReadOnlyMemory<byte>, TBuffer> bufferFactory)
+                public WebSocketGremlinqClient(Uri uri, string? username, string? password, Action<ClientWebSocketOptions> optionsTransformation, IGremlinQueryEnvironment environment, Func<IMemoryOwner<byte>, TBuffer> bufferFactory)
                 {
                     _uri = uri;
                     _username = username;
@@ -239,10 +239,8 @@ namespace ExRam.Gremlinq.Providers.Core
                         {
                             var bytes = await _client.ReceiveAsync(ct);
 
-                            using (bytes)
+                            using (var buffer = _bufferFactory(bytes))
                             {
-                                var buffer = _bufferFactory(bytes.Memory);
-
                                 if (_environment.Deserializer.TryTransform(buffer, _environment, out ResponseMessageEnvelope responseMessageEnvelope))
                                 {
                                     if (responseMessageEnvelope is { Status.Code: var statusCode, RequestId: { } requestId })
@@ -278,10 +276,10 @@ namespace ExRam.Gremlinq.Providers.Core
             private readonly Uri _uri;
             private readonly string? _username;
             private readonly string? _password;
-            private readonly Func<ReadOnlyMemory<byte>, TBuffer> _bufferFactory;
+            private readonly Func<IMemoryOwner<byte>, TBuffer> _bufferFactory;
             private readonly Action<ClientWebSocketOptions> _webSocketOptionsConfiguration;
 
-            internal WebSocketGremlinqClientFactoryImpl(Uri uri, string? username, string? password, Action<ClientWebSocketOptions> webSocketOptionsConfiguration, Func<ReadOnlyMemory<byte>, TBuffer> bufferFactory)
+            internal WebSocketGremlinqClientFactoryImpl(Uri uri, string? username, string? password, Action<ClientWebSocketOptions> webSocketOptionsConfiguration, Func<IMemoryOwner<byte>, TBuffer> bufferFactory)
             {
                 if (uri.Scheme is not "ws" and not "wss")
                     throw new ArgumentException($"Expected {nameof(uri)}.{nameof(Uri.Scheme)} to be either \"ws\" or \"wss\".", nameof(uri));

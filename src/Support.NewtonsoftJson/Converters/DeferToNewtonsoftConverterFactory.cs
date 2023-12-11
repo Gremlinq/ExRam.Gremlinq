@@ -23,7 +23,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
 
             public bool TryConvert(TBuffer source, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
             {
-                var stream = MemoryMarshal.TryGetArray(source.Memory, out var segment) && segment is { Array: { } array }
+                var stream = MemoryMarshal.TryGetArray<byte>(source.Memory, out var segment) && segment is { Array: { } array }
                     ? new MemoryStream(array, segment.Offset, segment.Count)
                     : new MemoryStream(source.Memory.ToArray());
 
