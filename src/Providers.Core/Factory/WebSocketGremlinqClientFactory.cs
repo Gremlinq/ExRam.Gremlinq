@@ -214,7 +214,7 @@ namespace ExRam.Gremlinq.Providers.Core
 
                             using (var serializedRequest = _bufferFactory.Create(requestMessage))
                             {
-                                var mimeType = serializedRequest.GetMimeType();
+                                var mimeType = serializedRequest.MimeType;
                                 var mimeTypeSize = Encoding.UTF8.GetByteCount(mimeType);
 
                                 using (var buffer = MemoryOwner<byte>.Allocate(serializedRequest.Memory.Length + mimeTypeSize + 1))
