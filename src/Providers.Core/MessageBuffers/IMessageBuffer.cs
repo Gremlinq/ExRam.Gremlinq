@@ -1,7 +1,8 @@
-﻿namespace ExRam.Gremlinq.Providers.Core
+﻿using System.Buffers;
+
+namespace ExRam.Gremlinq.Providers.Core
 {
-    public interface IMessageBuffer
+    public interface IMessageBuffer : IMemoryOwner<byte>
     {
-        ReadOnlyMemory<byte> Memory { get; }
     }
 }
