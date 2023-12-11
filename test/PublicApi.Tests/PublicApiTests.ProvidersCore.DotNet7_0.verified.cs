@@ -4,15 +4,15 @@
     {
         public GraphSon2MessageBuffer(System.Buffers.IMemoryOwner<byte> owner) { }
         public System.Memory<byte> Memory { get; }
+        public string MimeType { get; }
         public void Dispose() { }
-        public string GetMimeType() { }
     }
     public readonly struct GraphSon3MessageBuffer : ExRam.Gremlinq.Providers.Core.IMessageBuffer, System.Buffers.IMemoryOwner<byte>, System.IDisposable
     {
         public GraphSon3MessageBuffer(System.Buffers.IMemoryOwner<byte> owner) { }
         public System.Memory<byte> Memory { get; }
+        public string MimeType { get; }
         public void Dispose() { }
-        public string GetMimeType() { }
     }
     public static class GremlinqClientExtensions
     {
@@ -38,7 +38,7 @@
     }
     public interface IMessageBuffer : System.Buffers.IMemoryOwner<byte>, System.IDisposable
     {
-        string GetMimeType();
+        string MimeType { get; }
     }
     public interface IMessageBufferFactory<TBuffer>
         where TBuffer : ExRam.Gremlinq.Providers.Core.IMessageBuffer
