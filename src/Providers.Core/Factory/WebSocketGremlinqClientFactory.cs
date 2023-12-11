@@ -215,14 +215,14 @@ namespace ExRam.Gremlinq.Providers.Core
                             using (var serializedRequest = _bufferFactory.Create(requestMessage))
                             {
                                 var mimeType = serializedRequest.GetMimeType();
+                                var mimeTypeSize = Encoding.UTF8.GetByteCount(mimeType);
 
-                                using (var mimeTypeBuffer = MemoryOwner<byte>.Allocate(mimeType.Length + 1))
+                                using (var buffer = MemoryOwner<byte>.Allocate(serializedRequest.Memory.Length + mimeTypeSize + 1))
                                 {
-                                    mimeTypeBuffer.Span[0] = (byte)mimeType.Length;
-                                    Encoding.UTF8.GetBytes(mimeType, mimeTypeBuffer.Span[1..]);
+                                    Encoding.UTF8.GetBytes($"{(char)mimeType.Length}{mimeType}", buffer.Span);
+                                    serializedRequest.Memory.Span.CopyTo(buffer.Span[(mimeTypeSize + 1)..]);
 
-                                    await _client.SendAsync(mimeTypeBuffer.Memory, WebSocketMessageType.Binary, false, ct);
-                                    await _client.SendAsync(serializedRequest.Memory, WebSocketMessageType.Binary, true, ct);
+                                    await _client.SendAsync(buffer.Memory, WebSocketMessageType.Binary, true, ct);
                                 }
                             }
                         }
