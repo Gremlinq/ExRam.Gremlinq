@@ -1,12 +1,12 @@
 ﻿namespace ExRam.Gremlinq.Providers.Core
 {
-    public readonly struct GraphSon2MessageBuffer : ExRam.Gremlinq.Providers.Core.IMessageBuffer, System.Buffers.IMemoryOwner<byte>, System.IDisposable
+    public readonly struct GraphSon2MessageBuffer : System.Buffers.IMemoryOwner<byte>, System.IDisposable
     {
         public GraphSon2MessageBuffer(System.Buffers.IMemoryOwner<byte> owner) { }
         public System.Memory<byte> Memory { get; }
         public void Dispose() { }
     }
-    public readonly struct GraphSon3MessageBuffer : ExRam.Gremlinq.Providers.Core.IMessageBuffer, System.Buffers.IMemoryOwner<byte>, System.IDisposable
+    public readonly struct GraphSon3MessageBuffer : System.Buffers.IMemoryOwner<byte>, System.IDisposable
     {
         public GraphSon3MessageBuffer(System.Buffers.IMemoryOwner<byte> owner) { }
         public System.Memory<byte> Memory { get; }
@@ -34,9 +34,8 @@
     {
         ExRam.Gremlinq.Providers.Core.IGremlinqClient Create(ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment);
     }
-    public interface IMessageBuffer : System.Buffers.IMemoryOwner<byte>, System.IDisposable { }
     public interface IMessageBufferFactory<TBuffer>
-        where TBuffer : ExRam.Gremlinq.Providers.Core.IMessageBuffer
+        where TBuffer : System.Buffers.IMemoryOwner<byte>
     {
         string MimeType { get; }
         TBuffer Create(Gremlin.Net.Driver.Messages.RequestMessage message);
@@ -62,7 +61,7 @@
         ExRam.Gremlinq.Providers.Core.IWebSocketGremlinqClientFactory ConfigureUri(System.Func<System.Uri, System.Uri> transformation);
         ExRam.Gremlinq.Providers.Core.IWebSocketGremlinqClientFactory ConfigureUsername(System.Func<string?, string?> transformation);
         ExRam.Gremlinq.Providers.Core.IWebSocketGremlinqClientFactory WithMessageBufferFactory<TBuffer>(ExRam.Gremlinq.Providers.Core.IMessageBufferFactory<TBuffer> factory)
-            where TBuffer : ExRam.Gremlinq.Providers.Core.IMessageBuffer;
+            where TBuffer : System.Buffers.IMemoryOwner<byte>;
     }
     public static class MessageBufferFactory
     {
