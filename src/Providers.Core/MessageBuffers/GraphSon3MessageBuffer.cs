@@ -4,7 +4,7 @@ using ExRam.Gremlinq.Core;
 
 namespace ExRam.Gremlinq.Providers.Core
 {
-    public readonly struct GraphSon3MessageBuffer : IMessageBuffer
+    public readonly struct GraphSon3MessageBuffer : IMemoryOwner<byte>
     {
         private readonly IMemoryOwner<byte>? _owner;
 

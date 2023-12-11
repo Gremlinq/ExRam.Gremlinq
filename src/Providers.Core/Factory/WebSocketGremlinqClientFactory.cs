@@ -16,7 +16,7 @@ namespace ExRam.Gremlinq.Providers.Core
     public static class WebSocketGremlinqClientFactory
     {
         private sealed class WebSocketGremlinqClientFactoryImpl<TBuffer> : IWebSocketGremlinqClientFactory
-            where TBuffer : IMessageBuffer
+            where TBuffer : IMemoryOwner<byte>
         {
             private sealed class WebSocketGremlinqClient : IGremlinqClient
             {

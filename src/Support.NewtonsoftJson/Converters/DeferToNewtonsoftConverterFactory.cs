@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System.Buffers;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 
 using ExRam.Gremlinq.Core;
@@ -12,7 +13,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
     internal sealed class DeferToNewtonsoftConverterFactory : IConverterFactory
     { 
         private sealed class DeferToNewtonsoftConverter<TBuffer, TTarget> : IConverter<TBuffer, TTarget>
-            where TBuffer : IMessageBuffer
+            where TBuffer : IMemoryOwner<byte>
         {
             private readonly IGremlinQueryEnvironment _environment;
 
