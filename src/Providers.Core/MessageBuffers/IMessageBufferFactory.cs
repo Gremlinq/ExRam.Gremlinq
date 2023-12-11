@@ -5,7 +5,7 @@ using System.Buffers;
 namespace ExRam.Gremlinq.Providers.Core
 {
     public interface IMessageBufferFactory<TBuffer>
-        where TBuffer : IMemoryOwner<byte>
+        where TBuffer : IMessageBuffer
     {
         TBuffer Create(RequestMessage message);
 
