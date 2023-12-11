@@ -1,5 +1,15 @@
 ﻿namespace ExRam.Gremlinq.Providers.Core
 {
+    public readonly struct GraphSon2MessageBuffer : ExRam.Gremlinq.Providers.Core.IMessageBuffer
+    {
+        public GraphSon2MessageBuffer(System.ReadOnlyMemory<byte> memory) { }
+        public System.ReadOnlyMemory<byte> Memory { get; }
+    }
+    public readonly struct GraphSon3MessageBuffer : ExRam.Gremlinq.Providers.Core.IMessageBuffer
+    {
+        public GraphSon3MessageBuffer(System.ReadOnlyMemory<byte> memory) { }
+        public System.ReadOnlyMemory<byte> Memory { get; }
+    }
     public static class GremlinqClientExtensions
     {
         public static ExRam.Gremlinq.Providers.Core.IGremlinqClient ObserveResultStatusAttributes(this ExRam.Gremlinq.Providers.Core.IGremlinqClient client, System.Action<Gremlin.Net.Driver.Messages.RequestMessage, System.Collections.Generic.IReadOnlyDictionary<string, object>> observer) { }
@@ -21,6 +31,10 @@
     public interface IGremlinqClientFactory
     {
         ExRam.Gremlinq.Providers.Core.IGremlinqClient Create(ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment);
+    }
+    public interface IMessageBuffer
+    {
+        System.ReadOnlyMemory<byte> Memory { get; }
     }
     public interface IPoolGremlinqClientFactory<TBaseFactory> : ExRam.Gremlinq.Providers.Core.IGremlinqClientFactory
         where TBaseFactory : ExRam.Gremlinq.Providers.Core.IGremlinqClientFactory
