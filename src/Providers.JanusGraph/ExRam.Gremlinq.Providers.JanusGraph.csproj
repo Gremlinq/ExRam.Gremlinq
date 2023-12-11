@@ -3,10 +3,6 @@
   <PropertyGroup>
     <Description>JanusGraph provider binding for ExRam.Gremlinq.</Description>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Compile Include="..\Providers.GremlinServer\Extensions\SerializerExtensions.cs" Link="Extensions\SerializerExtensions.cs" />
-  </ItemGroup>
   
   <ItemGroup>
     <ProjectReference Include="..\Providers.Core\ExRam.Gremlinq.Providers.Core.csproj" />

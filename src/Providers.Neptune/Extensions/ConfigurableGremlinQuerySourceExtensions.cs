@@ -73,7 +73,6 @@ namespace ExRam.Gremlinq.Providers.Neptune
                         .ConfigureNativeTypes(nativeTypes => nativeTypes
                             .Remove(typeof(byte[]))
                             .Remove(typeof(TimeSpan)))
-                        .UseGraphSon3()
                         .ConfigureSerializer(serializer => serializer
                             .Add(ConverterFactory
                                 .Create<PropertyStep.ByKeyStep, PropertyStep.ByKeyStep>((step, _, _, _) => Cardinality.List.Equals(step.Cardinality)
