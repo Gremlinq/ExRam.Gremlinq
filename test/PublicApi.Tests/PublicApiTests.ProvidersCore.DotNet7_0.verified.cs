@@ -1,12 +1,12 @@
 ﻿namespace ExRam.Gremlinq.Providers.Core
 {
-    public readonly struct GraphSon2MessageBuffer : ExRam.Gremlinq.Providers.Core.IMessageBuffer, System.Buffers.IMemoryOwner<byte>, System.IDisposable
+    public readonly struct GraphSon2MessageBuffer : System.Buffers.IMemoryOwner<byte>, System.IDisposable
     {
         public GraphSon2MessageBuffer(System.Buffers.IMemoryOwner<byte> owner) { }
         public System.Memory<byte> Memory { get; }
         public void Dispose() { }
     }
-    public readonly struct GraphSon3MessageBuffer : ExRam.Gremlinq.Providers.Core.IMessageBuffer, System.Buffers.IMemoryOwner<byte>, System.IDisposable
+    public readonly struct GraphSon3MessageBuffer : System.Buffers.IMemoryOwner<byte>, System.IDisposable
     {
         public GraphSon3MessageBuffer(System.Buffers.IMemoryOwner<byte> owner) { }
         public System.Memory<byte> Memory { get; }
@@ -34,7 +34,6 @@
     {
         ExRam.Gremlinq.Providers.Core.IGremlinqClient Create(ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment);
     }
-    public interface IMessageBuffer : System.Buffers.IMemoryOwner<byte>, System.IDisposable { }
     public interface IPoolGremlinqClientFactory<TBaseFactory> : ExRam.Gremlinq.Providers.Core.IGremlinqClientFactory
         where TBaseFactory : ExRam.Gremlinq.Providers.Core.IGremlinqClientFactory
     {

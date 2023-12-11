@@ -3,7 +3,7 @@ using System.Buffers;
 
 namespace ExRam.Gremlinq.Providers.Core
 {
-    public readonly struct GraphSon2MessageBuffer : IMessageBuffer
+    public readonly struct GraphSon2MessageBuffer : IMemoryOwner<byte>
     {
         private readonly IMemoryOwner<byte>? _owner;
 
