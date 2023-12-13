@@ -1,6 +1,8 @@
 ﻿using ExRam.Gremlinq.Core.Models;
 using ExRam.Gremlinq.Tests.Entities;
+
 using FluentAssertions;
+
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Core.Tests
@@ -26,7 +28,22 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Should()
                 .NotBeNull();
         }
-            
+
+        [Fact]
+        public void AddPartitionStrategy_To_IGremlinQuerySource()
+        {
+            var query = _g
+                .WithPartitionStrategy("partitionKey");
+
+            query.Should()
+                .BeAssignableTo<IGremlinQuerySource>()
+                .Which
+                .AsAdmin()
+                .Steps
+                .Steps
+                .IsEmpty.Should().BeFalse();
+        }
+
         [Fact]
         public void ChangeQueryType_optimizes()
         {

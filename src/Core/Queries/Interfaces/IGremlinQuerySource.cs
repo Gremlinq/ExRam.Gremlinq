@@ -12,5 +12,7 @@ namespace ExRam.Gremlinq.Core
 
         TQuery WithSideEffect<TSideEffect, TQuery>(TSideEffect value, Func<IGremlinQuerySource, StepLabel<TSideEffect>, TQuery> continuation)
             where TQuery : IGremlinQueryBase;
+
+        IGremlinQuerySource WithPartitionStrategy(string partitionKey);
     }
 }

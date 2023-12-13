@@ -2,6 +2,7 @@
 
 using DotNet.Testcontainers.Builders;
 using DotNet.Testcontainers.Containers;
+
 using ExRam.Gremlinq.Core;
 
 namespace ExRam.Gremlinq.Tests.Fixtures
@@ -61,11 +62,14 @@ namespace ExRam.Gremlinq.Tests.Fixtures
 
             async ValueTask IAsyncDisposable.DisposeAsync()
             {
-                await using(_container)
+                await using (_container)
                 {
                     await _container.StopAsync();
                 }
             }
+
+            public IGremlinQuerySource WithPartitionStrategy(string partitionKey)
+                => _baseSource.WithPartitionStrategy(partitionKey);
         }
 
         private readonly int _port;

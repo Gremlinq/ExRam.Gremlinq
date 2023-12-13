@@ -1,13 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Immutable;
+using System.Diagnostics.CodeAnalysis;
+
 using ExRam.Gremlinq.Core.Steps;
 using ExRam.Gremlinq.Core.Transformation;
-using Gremlin.Net.Process.Traversal;
-using static ExRam.Gremlinq.Core.Transformation.ConverterFactory;
-using static ExRam.Gremlinq.Core.Serialization.Instructions;
-using System.Diagnostics.CodeAnalysis;
-using Gremlin.Net.Driver.Messages;
+
 using Gremlin.Net.Driver;
+using Gremlin.Net.Driver.Messages;
+using Gremlin.Net.Process.Traversal;
+
+using static ExRam.Gremlinq.Core.Serialization.Instructions;
+using static ExRam.Gremlinq.Core.Transformation.ConverterFactory;
 
 namespace ExRam.Gremlinq.Core.Serialization
 {
@@ -410,7 +413,7 @@ namespace ExRam.Gremlinq.Core.Serialization
                 "hasKey",
                 recurse,
                 env,
-                step.Argument is P { OperatorName: "eq", Value:{ } pValue }
+                step.Argument is P { OperatorName: "eq", Value: { } pValue }
                     ? pValue
                     : step.Argument))
             .Add<HasPredicateStep>((step, env, _, recurse) => CreateInstruction(
@@ -548,7 +551,9 @@ namespace ExRam.Gremlinq.Core.Serialization
             .Add<WherePredicateStep.ByMemberStep>((step, env, _, recurse) => step.Key is { } key
                 ? CreateInstruction("by", recurse, env, key)
                 : by)
-            .Add<WhereStepLabelAndPredicateStep>((step, env, _, recurse) => CreateInstruction("where", recurse, env, step.StepLabel, step.Predicate));
+            .Add<WhereStepLabelAndPredicateStep>((step, env, _, recurse) => CreateInstruction("where", recurse, env, step.StepLabel, step.Predicate))
+            .Add<PartitionStrategyStep>((step, env, _, recurse) =>
+                CreatePartitionStrategyInstruction(step.PartitionKey, recurse, env));
 
         private static ITransformer Add<TSource>(this ITransformer serializer, Func<TSource, IGremlinQueryEnvironment, ITransformer, ITransformer, Instruction?> converter) => serializer
             .Add(Create(converter));
@@ -585,6 +590,13 @@ namespace ExRam.Gremlinq.Core.Serialization
             }
 
             return new Instruction(name, arguments);
+        }
+
+        private static Instruction CreatePartitionStrategyInstruction(string partitionKey, ITransformer recurse, IGremlinQueryEnvironment env)
+        {
+            var partitionStrategySyntax = $"PartitionStrategy.build().partitionKey('pk').readPartitions('{partitionKey}').create()";
+
+            return CreateInstruction("withStrategies", recurse, env, partitionStrategySyntax);
         }
 
         private static object? NullAwareSerialize<TParam>(this ITransformer serializer, TParam maybeParameter, IGremlinQueryEnvironment env) => maybeParameter is { } parameter

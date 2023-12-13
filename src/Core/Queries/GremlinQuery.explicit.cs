@@ -3,6 +3,7 @@
 using System.Collections.Immutable;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
+
 using ExRam.Gremlinq.Core.Execution;
 using ExRam.Gremlinq.Core.GraphElements;
 using ExRam.Gremlinq.Core.Projections;
@@ -300,6 +301,8 @@ namespace ExRam.Gremlinq.Core
         IGremlinQuerySource IGremlinQuerySource.WithSideEffect<TSideEffect>(StepLabel<TSideEffect> label, TSideEffect value) => WithSideEffect(label, value);
 
         TQuery IGremlinQuerySource.WithSideEffect<TSideEffect, TQuery>(TSideEffect value, Func<IGremlinQuerySource, StepLabel<TSideEffect>, TQuery> continuation) => WithSideEffect(value, continuation);
+
+        IGremlinQuerySource IGremlinQuerySource.WithPartitionStrategy(string partitionKey) => WithPartitionStrategy(partitionKey);
 
         IEdgeGremlinQuery<T1> IInOrOutEdgeGremlinQueryBase<T1, T2>.Lower() => this;
 
