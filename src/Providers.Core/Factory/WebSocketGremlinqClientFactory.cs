@@ -129,7 +129,7 @@ namespace ExRam.Gremlinq.Providers.Core
                 private record struct ResponseMessageEnvelope(Guid? RequestId, ResponseStatus? Status);
 
                 private readonly byte[] _mimeTypeBytes;
-                private readonly ClientWebSocket _client = new();
+                private readonly ClientWebSocket _client;
                 private readonly SemaphoreSlim _sendLock = new(1);
                 private readonly CancellationTokenSource _cts = new();
                 private readonly IGremlinQueryEnvironment _environment;
@@ -137,14 +137,12 @@ namespace ExRam.Gremlinq.Providers.Core
                 private readonly WebSocketGremlinqClientFactoryImpl<TBuffer> _factory;
                 private readonly ConcurrentDictionary<Guid, Channel> _channels = new();
 
-                public WebSocketGremlinqClient(WebSocketGremlinqClientFactoryImpl<TBuffer> factory, IGremlinQueryEnvironment environment, Action<ClientWebSocketOptions> optionsTransformation)
+                public WebSocketGremlinqClient(WebSocketGremlinqClientFactoryImpl<TBuffer> factory, ClientWebSocket client, IGremlinQueryEnvironment environment)
                 {
+                    _client = client;
                     _factory = factory;
                     _environment = environment;
-                    _client.Options.SetRequestHeader("User-Agent", $"ExRam.Gremlinq/{ThisAssembly.AssemblyInformationalVersion} {Environment.OSVersion.VersionString};");
                     _mimeTypeBytes = Encoding.UTF8.GetBytes($"{(char)factory._bufferFactory.MimeType.Length}{factory._bufferFactory.MimeType}");
-
-                    optionsTransformation(_client.Options);
                 }
 
                 public IAsyncEnumerable<ResponseMessage<T>> SubmitAsync<T>(RequestMessage message)
@@ -302,7 +300,14 @@ namespace ExRam.Gremlinq.Providers.Core
                 },
                 _bufferFactory);
 
-            public IGremlinqClient Create(IGremlinQueryEnvironment environment) => new WebSocketGremlinqClient(this, environment, _webSocketOptionsConfiguration);
+            public IGremlinqClient Create(IGremlinQueryEnvironment environment)
+            {
+                var client = new ClientWebSocket();
+
+                _webSocketOptionsConfiguration(client.Options);
+
+                return new WebSocketGremlinqClient(this, client, environment);
+            }
 
             public IWebSocketGremlinqClientFactory ConfigureUri(Func<Uri, Uri> transformation) => new WebSocketGremlinqClientFactoryImpl<TBuffer>(transformation(_uri), _username, _password, _webSocketOptionsConfiguration, _bufferFactory);
 
@@ -313,6 +318,6 @@ namespace ExRam.Gremlinq.Providers.Core
             public IWebSocketGremlinqClientFactory WithMessageBufferFactory<TNewBuffer>(IMessageBufferFactory<TNewBuffer> factory) where TNewBuffer : IMemoryOwner<byte> => new WebSocketGremlinqClientFactoryImpl<TNewBuffer>(_uri, _username, _password, _webSocketOptionsConfiguration, factory);
         }
 
-        public static readonly IWebSocketGremlinqClientFactory LocalHost = new WebSocketGremlinqClientFactoryImpl<GraphSon3MessageBuffer>(new Uri("ws://localhost:8182"), null, null, _ => { }, MessageBufferFactory.GraphSon3);
+        public static readonly IWebSocketGremlinqClientFactory LocalHost = new WebSocketGremlinqClientFactoryImpl<GraphSon3MessageBuffer>(new Uri("ws://localhost:8182"), null, null, options => options.SetRequestHeader("User-Agent", $"ExRam.Gremlinq/{ThisAssembly.AssemblyInformationalVersion} {Environment.OSVersion.VersionString};"), MessageBufferFactory.GraphSon3);
     }
 }
