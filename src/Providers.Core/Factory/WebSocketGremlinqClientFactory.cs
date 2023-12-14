@@ -23,7 +23,7 @@ namespace ExRam.Gremlinq.Providers.Core
         {
             private sealed class WebSocketGremlinqClient : IGremlinqClient
             {
-                private abstract class Channel
+                private abstract class Channel : IDisposable
                 {
                     protected Channel(IGremlinQueryEnvironment environment)
                     {
@@ -32,10 +32,12 @@ namespace ExRam.Gremlinq.Providers.Core
 
                     public abstract void Signal(TBuffer buffer);
 
+                    public abstract void Dispose();
+
                     protected IGremlinQueryEnvironment Environment { get; }
                 }
 
-                private sealed class Channel<T> : Channel, IAsyncEnumerable<ResponseMessage<T>>, IDisposable
+                private sealed class Channel<T> : Channel, IAsyncEnumerable<ResponseMessage<T>>
                 {
                     private sealed class MessageQueue
                     {
@@ -110,7 +112,7 @@ namespace ExRam.Gremlinq.Providers.Core
                             throw new NotSupportedException();
                     }
 
-                    public void Dispose()
+                    public override void Dispose()
                     {
                         if (_tcs.Task.IsCompletedSuccessfully)
                         {
@@ -160,9 +162,32 @@ namespace ExRam.Gremlinq.Providers.Core
                                 {
                                     await @this.SendCore(message, linkedCts.Token);
 
-                                    await foreach (var item in channel.WithCancellation(linkedCts.Token))
+                                    await using (var e = channel.GetAsyncEnumerator(linkedCts.Token))
                                     {
-                                        yield return item;
+                                        while (true)
+                                        {
+                                            try
+                                            {
+                                                if (!await e.MoveNextAsync())
+                                                    break;
+                                            }
+                                            catch (ObjectDisposedException)
+                                            {
+                                                await await @this._loopTcs.Task;
+
+                                                throw;
+                                            }
+                                            catch (OperationCanceledException)
+                                            {
+                                                @this.Dispose();
+
+                                                await await @this._loopTcs.Task;
+
+                                                throw;
+                                            }
+
+                                            yield return e.Current;
+                                        }
                                     }
                                 }
                                 finally
@@ -219,12 +244,6 @@ namespace ExRam.Gremlinq.Providers.Core
                             _sendLock.Release();
                         }
                     }
-                    catch (ObjectDisposedException)
-                    {
-                        Dispose();
-
-                        await await _loopTcs.Task;
-                    }
                     catch
                     {
                         Dispose();
@@ -247,24 +266,29 @@ namespace ExRam.Gremlinq.Providers.Core
                                 {
                                     if (responseMessageEnvelope is { Status.Code: var statusCode, RequestId: { } requestId })
                                     {
-                                        if (statusCode == Authenticate)
+                                        if (_channels.TryGetValue(requestId, out var otherChannel))
                                         {
-                                            if (_factory._username is { Length: > 0 } username && _factory._password is { Length: > 0 } password)
+                                            if (statusCode == Authenticate)
                                             {
-                                                var authMessage = RequestMessage
-                                                    .Build(Tokens.OpsAuthentication)
-                                                    .Processor(Tokens.ProcessorTraversal)
-                                                    .AddArgument(Tokens.ArgsSasl, Convert.ToBase64String(Encoding.UTF8.GetBytes($"\0{username}\0{password}")))
-                                                    .Create();
+                                                if (_factory._username is { Length: > 0 } username && _factory._password is { Length: > 0 } password)
+                                                {
+                                                    var authMessage = RequestMessage
+                                                        .Build(Tokens.OpsAuthentication)
+                                                        .Processor(Tokens.ProcessorTraversal)
+                                                        .AddArgument(Tokens.ArgsSasl, Convert.ToBase64String(Encoding.UTF8.GetBytes($"\0{username}\0{password}")))
+                                                        .Create();
 
-                                                await SendCore(authMessage, ct);
+                                                    await SendCore(authMessage, ct);
+                                                }
+                                                else
+                                                {
+                                                    using (otherChannel)
+                                                    {
+                                                        throw new NotSupportedException("Authentication credentials were requested from the server but were not configured.");
+                                                    }
+                                                }
                                             }
                                             else
-                                                throw new NotSupportedException("Authentication credentials were requested from the server but were not configured.");
-                                        }
-                                        else
-                                        {
-                                            if (_channels.TryGetValue(requestId, out var otherChannel))
                                                 otherChannel.Signal(buffer);
                                         }
                                     }
