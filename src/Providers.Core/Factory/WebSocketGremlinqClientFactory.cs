@@ -290,6 +290,15 @@ namespace ExRam.Gremlinq.Providers.Core
                 _webSocketOptionsConfiguration = webSocketOptionsConfiguration;
             }
 
+            public IGremlinqClient Create(IGremlinQueryEnvironment environment)
+            {
+                var client = new ClientWebSocket();
+
+                _webSocketOptionsConfiguration(client.Options);
+
+                return new WebSocketGremlinqClient(this, client, environment);
+            }
+
             public IWebSocketGremlinqClientFactory ConfigureOptions(Action<ClientWebSocketOptions> configuration) => new WebSocketGremlinqClientFactoryImpl<TBuffer>(
                 _uri,
                 _username,
@@ -300,15 +309,6 @@ namespace ExRam.Gremlinq.Providers.Core
                     configuration(options);
                 },
                 _bufferFactory);
-
-            public IGremlinqClient Create(IGremlinQueryEnvironment environment)
-            {
-                var client = new ClientWebSocket();
-
-                _webSocketOptionsConfiguration(client.Options);
-
-                return new WebSocketGremlinqClient(this, client, environment);
-            }
 
             public IWebSocketGremlinqClientFactory ConfigureUri(Func<Uri, Uri> transformation) => new WebSocketGremlinqClientFactoryImpl<TBuffer>(transformation(_uri), _username, _password, _webSocketOptionsConfiguration, _bufferFactory);
 
