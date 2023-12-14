@@ -4,7 +4,6 @@ using Gremlin.Net.Driver.Messages;
 using Gremlin.Net.Structure.IO.GraphSON;
 
 using System.Buffers;
-using System.Text;
 using System.Text.Encodings.Web;
 using System.Text.Json;
 
@@ -54,7 +53,18 @@ namespace ExRam.Gremlinq.Providers.Core
             protected IMemoryOwner<byte> Create(RequestMessage message)
             {
                 var bufferWriter = new ArrayPoolBufferWriter<byte>();
-                JsonSerializer.Serialize(new Utf8JsonWriter(bufferWriter), (object)_graphSONWriter.ToDict(message), JsonOptions);
+
+                try
+                {
+                    JsonSerializer.Serialize(new Utf8JsonWriter(bufferWriter), (object)_graphSONWriter.ToDict(message), JsonOptions);
+                }
+                catch
+                {
+                    using (bufferWriter)
+                    {
+                        throw;
+                    }
+                }
 
                 return bufferWriter;
             }
