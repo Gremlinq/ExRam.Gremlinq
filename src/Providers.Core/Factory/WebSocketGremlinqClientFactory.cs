@@ -1,5 +1,6 @@
 ﻿using System.Buffers;
 using System.Collections.Concurrent;
+using System.Diagnostics.CodeAnalysis;
 using System.Net.WebSockets;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -39,19 +40,47 @@ namespace ExRam.Gremlinq.Providers.Core
 
                 private sealed class Channel<T> : Channel, IAsyncEnumerable<ResponseMessage<T>>
                 {
-                    private sealed class MessageQueue
+                    private readonly struct ResponseAndQueueUnion
                     {
-                        public void Signal(ResponseMessage<T> message)
+                        private readonly SemaphoreSlim? _semaphore;
+                        private readonly ResponseMessage<T>? _response;
+                        private readonly ConcurrentQueue<ResponseMessage<T>>? _queue;
+
+                        private ResponseAndQueueUnion(SemaphoreSlim semaphore, ConcurrentQueue<ResponseMessage<T>> queue)
                         {
-                            Queue.Enqueue(message);
-                            Semaphore.Release();
+                            _queue = queue;
+                            _semaphore = semaphore;
                         }
 
-                        public SemaphoreSlim Semaphore { get; } = new(0);
-                        public ConcurrentQueue<ResponseMessage<T>> Queue { get; } = new();
+                        private ResponseAndQueueUnion(ResponseMessage<T> response)
+                        {
+                            _response = response;
+                        }
+
+                        public bool TryGetResponse([NotNullWhen(true)] out ResponseMessage<T>? response) => (response = _response) is not null;
+
+                        public bool TryGetQueue([NotNullWhen(true)] out SemaphoreSlim? semaphore, [NotNullWhen(true)] out ConcurrentQueue<ResponseMessage<T>>? queue)
+                        {
+                            if (_queue is { } actualQueue && _semaphore is { } actualSemphore)
+                            {
+                                queue = actualQueue;
+                                semaphore = actualSemphore;
+
+                                return true;
+                            }
+
+                            queue = null;
+                            semaphore = null;
+
+                            return false;
+                        }
+
+                        public static ResponseAndQueueUnion From(ResponseMessage<T> response) => new(response);
+
+                        public static ResponseAndQueueUnion CreateQueue() => new(new (0), new());
                     }
 
-                    private readonly TaskCompletionSource<object> _tcs = new ();
+                    private readonly TaskCompletionSource<ResponseAndQueueUnion> _tcs = new ();
 
                     public Channel(IGremlinQueryEnvironment environment) : base(environment)
                     {
@@ -76,34 +105,48 @@ namespace ExRam.Gremlinq.Providers.Core
 
                     private void Signal(ResponseMessage<T> response)
                     {
-                        if (_tcs.Task.IsCompletedSuccessfully)
+                        while (true)
                         {
-                            if (_tcs.Task.Result is MessageQueue messageQueue)
-                                messageQueue.Signal(response);
+                            if (_tcs.Task.IsCompletedSuccessfully)
+                            {
+                                if (_tcs.Task.Result.TryGetQueue(out var semaphore, out var queue))
+                                {
+                                    queue.Enqueue(response);
+                                    semaphore.Release();
+                                }
+
+                                return;
+                            }
+                            else
+                            {
+                                if (response.Status.Code != PartialContent)
+                                {
+                                    if (_tcs.TrySetResult(ResponseAndQueueUnion.From(response)))
+                                        return;
+                                }
+                                else
+                                    _tcs.TrySetResult(ResponseAndQueueUnion.CreateQueue());
+                            }
                         }
-                        else if (response.Status.Code != PartialContent)
-                            _tcs.TrySetResult(response);
-                        else if (_tcs.TrySetResult(new MessageQueue()))
-                            Signal(response);
                     }
 
                     public async IAsyncEnumerator<ResponseMessage<T>> GetAsyncEnumerator(CancellationToken ct = default)
                     {
-                        var obj = await _tcs.Task;
+                        var union = await _tcs.Task;
 
-                        if (obj is ResponseMessage<T> responseMessage)
-                            yield return responseMessage;
-                        else if (obj is MessageQueue { Queue: var queue, Semaphore: var semaphore })
+                        if (union.TryGetResponse(out var response))
+                            yield return response;
+                        else if (union.TryGetQueue(out var semaphore, out var queue))
                         {
                             while (true)
                             {
                                 await semaphore.WaitAsync(ct);
 
-                                if (queue.TryDequeue(out var response))
+                                if (queue.TryDequeue(out var queuedResponse))
                                 {
-                                    yield return response;
+                                    yield return queuedResponse;
 
-                                    if (response.Status.Code != PartialContent)
+                                    if (queuedResponse.Status.Code != PartialContent)
                                         break;
                                 }
                             }
@@ -114,15 +157,20 @@ namespace ExRam.Gremlinq.Providers.Core
 
                     public override void Dispose()
                     {
-                        if (_tcs.Task.IsCompletedSuccessfully)
+                        while (true)
                         {
-                            if (_tcs.Task.Result is MessageQueue { Semaphore: var semaphore })
-                                semaphore.Dispose();
-                        }
-                        else if (!_tcs.Task.IsFaulted)
-                        {
-                            if (!_tcs.TrySetException(new ObjectDisposedException(nameof(Channel<T>))))
-                                Dispose();
+                            if (_tcs.Task.IsCompletedSuccessfully)
+                            {
+                                if (_tcs.Task.Result.TryGetQueue(out var semaphore, out _))
+                                    semaphore.Dispose();
+
+                                return;
+                            }
+                            else if (_tcs.Task.IsFaulted)
+                                return;
+
+                            if (_tcs.TrySetException(new ObjectDisposedException(nameof(Channel<T>))))
+                                return;
                         }
                     }
                 }
