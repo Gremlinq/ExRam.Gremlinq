@@ -128,28 +128,21 @@ namespace ExRam.Gremlinq.Providers.Core
 
                 private record struct ResponseMessageEnvelope(Guid? RequestId, ResponseStatus? Status);
 
-                private readonly Uri _uri;
-                private readonly string? _username;
-                private readonly string? _password;
                 private readonly byte[] _mimeTypeBytes;
                 private readonly ClientWebSocket _client = new();
                 private readonly SemaphoreSlim _sendLock = new(1);
                 private readonly CancellationTokenSource _cts = new();
                 private readonly IGremlinQueryEnvironment _environment;
                 private readonly TaskCompletionSource<Task> _loopTcs = new();
-                private readonly IMessageBufferFactory<TBuffer> _bufferFactory;
+                private readonly WebSocketGremlinqClientFactoryImpl<TBuffer> _factory;
                 private readonly ConcurrentDictionary<Guid, Channel> _channels = new();
 
-                public WebSocketGremlinqClient(Uri uri, string? username, string? password, Action<ClientWebSocketOptions> optionsTransformation, IGremlinQueryEnvironment environment, IMessageBufferFactory<TBuffer> bufferFactory)
+                public WebSocketGremlinqClient(WebSocketGremlinqClientFactoryImpl<TBuffer> factory, IGremlinQueryEnvironment environment, Action<ClientWebSocketOptions> optionsTransformation)
                 {
-                    _uri = uri;
-                    _username = username;
-                    _password = password;
+                    _factory = factory;
                     _environment = environment;
-                    _bufferFactory = bufferFactory;
-                    _mimeTypeBytes = Encoding.UTF8.GetBytes($"{(char)bufferFactory.MimeType.Length}{bufferFactory.MimeType}");
-
                     _client.Options.SetRequestHeader("User-Agent", "ExRam.Gremlinq");
+                    _mimeTypeBytes = Encoding.UTF8.GetBytes($"{(char)factory._bufferFactory.MimeType.Length}{factory._bufferFactory.MimeType}");
 
                     optionsTransformation(_client.Options);
                 }
@@ -209,12 +202,12 @@ namespace ExRam.Gremlinq.Providers.Core
                         {
                             if (_client.State == WebSocketState.None)
                             {
-                                await _client.ConnectAsync(_uri, ct);
+                                await _client.ConnectAsync(_factory._uri, ct);
 
                                 _loopTcs.SetResult(Loop(_cts.Token));
                             }
 
-                            using (var serializedRequest = _bufferFactory.Create(requestMessage))
+                            using (var serializedRequest = _factory._bufferFactory.Create(requestMessage))
                             {
                                 using (var buffer = MemoryOwner<byte>.Allocate(serializedRequest.Memory.Length + _mimeTypeBytes.Length))
                                 {
@@ -246,7 +239,7 @@ namespace ExRam.Gremlinq.Providers.Core
                         {
                             var bytes = await _client.ReceiveAsync(ct);
 
-                            using (var buffer = _bufferFactory.Create(bytes))
+                            using (var buffer = _factory._bufferFactory.Create(bytes))
                             {
                                 if (_environment.Deserializer.TryTransform(buffer, _environment, out ResponseMessageEnvelope responseMessageEnvelope))
                                 {
@@ -254,7 +247,7 @@ namespace ExRam.Gremlinq.Providers.Core
                                     {
                                         if (statusCode == Authenticate)
                                         {
-                                            if (_username is { Length: > 0 } username && _password is { Length: > 0 } password)
+                                            if (_factory._username is { Length: > 0 } username && _factory._password is { Length: > 0 } password)
                                             {
                                                 var authMessage = RequestMessage
                                                     .Build(Tokens.OpsAuthentication)
@@ -309,7 +302,7 @@ namespace ExRam.Gremlinq.Providers.Core
                 },
                 _bufferFactory);
 
-            public IGremlinqClient Create(IGremlinQueryEnvironment environment) => new WebSocketGremlinqClient(_uri, _username, _password, _webSocketOptionsConfiguration, environment, _bufferFactory);
+            public IGremlinqClient Create(IGremlinQueryEnvironment environment) => new WebSocketGremlinqClient(this, environment, _webSocketOptionsConfiguration);
 
             public IWebSocketGremlinqClientFactory ConfigureUri(Func<Uri, Uri> transformation) => new WebSocketGremlinqClientFactoryImpl<TBuffer>(transformation(_uri), _username, _password, _webSocketOptionsConfiguration, _bufferFactory);
 
