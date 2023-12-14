@@ -5,6 +5,8 @@ using Gremlin.Net.Structure.IO.GraphSON;
 
 using System.Buffers;
 using System.Text;
+using System.Text.Encodings.Web;
+using System.Text.Json;
 
 namespace ExRam.Gremlinq.Providers.Core
 {
@@ -42,6 +44,8 @@ namespace ExRam.Gremlinq.Providers.Core
         {
             private readonly GraphSONWriter _graphSONWriter;
 
+            private static readonly JsonSerializerOptions JsonOptions = new() { Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping };
+
             protected GraphSonMessageBufferFactory(GraphSONWriter graphSONWriter)
             {
                 _graphSONWriter = graphSONWriter;
@@ -49,12 +53,10 @@ namespace ExRam.Gremlinq.Providers.Core
 
             protected IMemoryOwner<byte> Create(RequestMessage message)
             {
-                var graphSONMessage = _graphSONWriter.WriteObject(message);
-                var memory = MemoryOwner<byte>.Allocate(Encoding.UTF8.GetByteCount(graphSONMessage));
+                var bufferWriter = new ArrayPoolBufferWriter<byte>();
+                JsonSerializer.Serialize(new Utf8JsonWriter(bufferWriter), (object)_graphSONWriter.ToDict(message), JsonOptions);
 
-                Encoding.UTF8.GetBytes(graphSONMessage.AsSpan(), memory.Memory.Span);
-
-                return memory;
+                return bufferWriter;
             }
         }
 
