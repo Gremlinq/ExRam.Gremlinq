@@ -1,6 +1,7 @@
 ﻿using System.Buffers;
 using System.Collections.Concurrent;
 using System.Net.WebSockets;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
 
@@ -318,6 +319,8 @@ namespace ExRam.Gremlinq.Providers.Core
             public IWebSocketGremlinqClientFactory WithMessageBufferFactory<TNewBuffer>(IMessageBufferFactory<TNewBuffer> factory) where TNewBuffer : IMemoryOwner<byte> => new WebSocketGremlinqClientFactoryImpl<TNewBuffer>(_uri, _username, _password, _webSocketOptionsConfiguration, factory);
         }
 
-        public static readonly IWebSocketGremlinqClientFactory LocalHost = new WebSocketGremlinqClientFactoryImpl<GraphSon3MessageBuffer>(new Uri("ws://localhost:8182"), null, null, options => options.SetRequestHeader("User-Agent", $"ExRam.Gremlinq/{ThisAssembly.AssemblyInformationalVersion} {Environment.OSVersion.VersionString};"), MessageBufferFactory.GraphSon3);
+        public static readonly IWebSocketGremlinqClientFactory LocalHost = new WebSocketGremlinqClientFactoryImpl<GraphSon3MessageBuffer>(new Uri("ws://localhost:8182"), null, null, options => options.SetRequestHeader("User-Agent", UserAgent), MessageBufferFactory.GraphSon3);
+
+        private static readonly string UserAgent = $"{typeof(IGremlinQueryBase).Assembly.GetCustomAttribute<AssemblyProductAttribute>()?.Product}/{ThisAssembly.AssemblyInformationalVersion} {Environment.OSVersion.VersionString};";
     }
 }
