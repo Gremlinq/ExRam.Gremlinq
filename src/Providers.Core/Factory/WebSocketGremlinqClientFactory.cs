@@ -150,9 +150,6 @@ namespace ExRam.Gremlinq.Providers.Core
 
                     static async IAsyncEnumerable<ResponseMessage<T>> Core(RequestMessage message, WebSocketGremlinqClient @this, [EnumeratorCancellation] CancellationToken ct = default)
                     {
-                        if (@this._loopTcs.Task is { IsCompleted: true } loopTask)
-                            await loopTask;
-
                         using (var channel = new Channel<T>(@this._environment))
                         {
                             using (var linkedCts = CancellationTokenSource.CreateLinkedTokenSource(ct, @this._cts.Token))
@@ -221,6 +218,12 @@ namespace ExRam.Gremlinq.Providers.Core
                         {
                             _sendLock.Release();
                         }
+                    }
+                    catch (ObjectDisposedException)
+                    {
+                        Dispose();
+
+                        await await _loopTcs.Task;
                     }
                     catch
                     {
