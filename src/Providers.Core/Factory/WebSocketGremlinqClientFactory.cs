@@ -141,7 +141,7 @@ namespace ExRam.Gremlinq.Providers.Core
                 {
                     _factory = factory;
                     _environment = environment;
-                    _client.Options.SetRequestHeader("User-Agent", "ExRam.Gremlinq");
+                    _client.Options.SetRequestHeader("User-Agent", $"ExRam.Gremlinq/{ThisAssembly.AssemblyInformationalVersion} {Environment.OSVersion.VersionString};");
                     _mimeTypeBytes = Encoding.UTF8.GetBytes($"{(char)factory._bufferFactory.MimeType.Length}{factory._bufferFactory.MimeType}");
 
                     optionsTransformation(_client.Options);
