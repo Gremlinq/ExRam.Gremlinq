@@ -129,7 +129,6 @@ namespace ExRam.Gremlinq.Providers.Core
 
                 private record struct ResponseMessageEnvelope(Guid? RequestId, ResponseStatus? Status);
 
-                private readonly byte[] _mimeTypeBytes;
                 private readonly ClientWebSocket _client;
                 private readonly SemaphoreSlim _sendLock = new(1);
                 private readonly CancellationTokenSource _cts = new();
@@ -143,7 +142,6 @@ namespace ExRam.Gremlinq.Providers.Core
                     _client = client;
                     _factory = factory;
                     _environment = environment;
-                    _mimeTypeBytes = Encoding.UTF8.GetBytes($"{(char)factory._bufferFactory.MimeType.Length}{factory._bufferFactory.MimeType}");
                 }
 
                 public IAsyncEnumerable<ResponseMessage<T>> SubmitAsync<T>(RequestMessage message)
@@ -208,10 +206,12 @@ namespace ExRam.Gremlinq.Providers.Core
 
                             using (var serializedRequest = _factory._bufferFactory.Create(requestMessage))
                             {
-                                using (var buffer = MemoryOwner<byte>.Allocate(serializedRequest.Memory.Length + _mimeTypeBytes.Length))
+                                var mimeTypeBytes = _factory._mimeTypeBytes ??= Encoding.UTF8.GetBytes($"{(char)_factory._bufferFactory.MimeType.Length}{_factory._bufferFactory.MimeType}");
+
+                                using (var buffer = MemoryOwner<byte>.Allocate(serializedRequest.Memory.Length + mimeTypeBytes.Length))
                                 {
-                                    _mimeTypeBytes.CopyTo(buffer.Span);
-                                    serializedRequest.Memory.Span.CopyTo(buffer.Span[_mimeTypeBytes.Length..]);
+                                    mimeTypeBytes.CopyTo(buffer.Span);
+                                    serializedRequest.Memory.Span.CopyTo(buffer.Span[mimeTypeBytes.Length..]);
 
                                     await _client.SendAsync(buffer.Memory, WebSocketMessageType.Binary, true, ct);
                                 }
@@ -277,6 +277,8 @@ namespace ExRam.Gremlinq.Providers.Core
             private readonly string? _password;
             private readonly IMessageBufferFactory<TBuffer> _bufferFactory;
             private readonly Action<ClientWebSocketOptions> _webSocketOptionsConfiguration;
+
+            private byte[]? _mimeTypeBytes;
 
             internal WebSocketGremlinqClientFactoryImpl(Uri uri, string? username, string? password, Action<ClientWebSocketOptions> webSocketOptionsConfiguration, IMessageBufferFactory<TBuffer> bufferFactory)
             {
