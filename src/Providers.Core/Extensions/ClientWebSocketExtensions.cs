@@ -11,22 +11,31 @@ namespace ExRam.Gremlinq.Providers.Core
             var read = 0;
             var bytes = MemoryOwner<byte>.Allocate(2048);
 
-            while (true)
+            try
             {
-                ct.ThrowIfCancellationRequested();
+                while (true)
+                {
+                    ct.ThrowIfCancellationRequested();
 
-                if (read == bytes.Memory.Length)
-                    bytes = bytes.Double();
+                    if (read == bytes.Memory.Length)
+                        bytes = bytes.Double();
 
-                var result = await client.ReceiveAsync(bytes.Memory[read..], ct);
+                    var result = await client.ReceiveAsync(bytes.Memory[read..], ct);
 
-                read += result.Count;
+                    read += result.Count;
 
-                if (result.EndOfMessage)
-                    break;
+                    if (result.EndOfMessage)
+                        break;
+                }
+
+                return bytes[..read];
             }
+            catch
+            {
+                bytes.Dispose();
 
-            return bytes[..read];
+                throw;
+            }
         }
     }
 }
