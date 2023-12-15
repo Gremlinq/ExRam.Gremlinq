@@ -23,6 +23,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .UseCosmosDb<Vertex, Edge>(conf => conf
                     .At(new Uri("ws://localhost:8901"), CosmosDbEmulatorDatabaseName, CosmosDbEmulatorCollectionName)
                     .WithPartitionKey(x => x.Label!)
+                    .AuthenticateBy("")
                     .UseNewtonsoftJson());
         }
 
