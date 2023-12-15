@@ -12,8 +12,8 @@ namespace ExRam.Gremlinq.Providers.Core
 
         IWebSocketGremlinqClientFactory ConfigureUri(Func<Uri, Uri> transformation);
 
-        IWebSocketGremlinqClientFactory ConfigureAuthentication(Func<IReadOnlyDictionary<string, object>, RequestMessage> requestMessageFactory);
-
         IWebSocketGremlinqClientFactory ConfigureOptions(Action<ClientWebSocketOptions> configuration);
+
+        IWebSocketGremlinqClientFactory ConfigureAuthentication(Func<Func<IReadOnlyDictionary<string, object>, RequestMessage>, Func<IReadOnlyDictionary<string, object>, RequestMessage>> transformation);
     }
 }
