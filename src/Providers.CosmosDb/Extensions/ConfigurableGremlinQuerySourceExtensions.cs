@@ -104,7 +104,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb
                                                     .IgnoreOnUpdate(partitionKeyExpression))))
                                             .UseExecutor(_clientFactory
                                                 .ConfigureBaseFactory(factory => factory
-                                                    .WithCredentials($"/dbs/{databaseName}/colls/{graphName}", authKey))
+                                                    .WithPlainCredentials($"/dbs/{databaseName}/colls/{graphName}", authKey))
                                                 .Log()
                                                 .ToExecutor())));
                             }
