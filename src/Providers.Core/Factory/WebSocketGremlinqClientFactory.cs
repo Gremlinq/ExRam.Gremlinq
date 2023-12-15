@@ -28,16 +28,16 @@ namespace ExRam.Gremlinq.Providers.Core
             {
                 private abstract class Channel : IDisposable
                 {
-                    protected Channel(IGremlinQueryEnvironment environment)
+                    protected Channel(WebSocketGremlinqClient client)
                     {
-                        Environment = environment;
+                        Client = client;
                     }
 
                     public abstract void Signal(TBuffer buffer);
 
                     public abstract void Dispose();
 
-                    protected IGremlinQueryEnvironment Environment { get; }
+                    protected WebSocketGremlinqClient Client { get; }
                 }
 
                 private sealed class Channel<T> : Channel, IAsyncEnumerable<ResponseMessage<T>>
@@ -84,7 +84,7 @@ namespace ExRam.Gremlinq.Providers.Core
 
                     private readonly TaskCompletionSource<ResponseAndQueueUnion> _tcs = new ();
 
-                    public Channel(IGremlinQueryEnvironment environment) : base(environment)
+                    public Channel(WebSocketGremlinqClient client) : base(client)
                     {
                     }
 
@@ -92,7 +92,7 @@ namespace ExRam.Gremlinq.Providers.Core
                     {
                         try
                         {
-                            if (Environment.Deserializer.TryTransform(buffer, Environment, out ResponseMessage<T>? response))
+                            if (Client._environment.Deserializer.TryTransform(buffer, Client._environment, out ResponseMessage<T>? response))
                                 Signal(response);
                             else
                                 throw new InvalidOperationException($"Unable to convert byte array to a {nameof(ResponseMessage<T>)} for {typeof(T).FullName}>.");
@@ -121,7 +121,7 @@ namespace ExRam.Gremlinq.Providers.Core
                             }
                             else
                             {
-                                if (response.Status.Code != PartialContent)
+                                if (response.Status.Code is not PartialContent and not Authenticate)
                                 {
                                     if (_tcs.TrySetResult(ResponseAndQueueUnion.From(response)))
                                         return;
@@ -146,10 +146,27 @@ namespace ExRam.Gremlinq.Providers.Core
 
                                 if (queue.TryDequeue(out var queuedResponse))
                                 {
-                                    yield return queuedResponse;
+                                    if (queuedResponse.Status.Code is Authenticate)
+                                    {
+                                        try
+                                        {
+                                            await Client.SendCore(Client._factory._authMessageFactory((IReadOnlyDictionary<string, object>)queuedResponse.Status.Attributes ?? ImmutableDictionary<string, object>.Empty), ct);
+                                        }
+                                        catch
+                                        {
+                                            using (this)
+                                            {
+                                                throw;
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        yield return queuedResponse;
 
-                                    if (queuedResponse.Status.Code != PartialContent)
-                                        break;
+                                        if (queuedResponse.Status.Code != PartialContent)
+                                            break;
+                                    }
                                 }
                             }
                         }
@@ -179,7 +196,7 @@ namespace ExRam.Gremlinq.Providers.Core
 
                 private record struct ResponseMessageEnvelope(Guid? RequestId, ResponseStatus? Status);
 
-                private record struct ResponseStatus(ResponseStatusCode Code, IReadOnlyDictionary<string, object>? Attributes, string? Message);
+                private record struct ResponseStatus(ResponseStatusCode Code, string? Message);
 
                 private readonly ClientWebSocket _client;
                 private readonly SemaphoreSlim _sendLock = new(1);
@@ -202,7 +219,7 @@ namespace ExRam.Gremlinq.Providers.Core
 
                     static async IAsyncEnumerable<ResponseMessage<T>> Core(RequestMessage message, WebSocketGremlinqClient @this, [EnumeratorCancellation] CancellationToken ct = default)
                     {
-                        using (var channel = new Channel<T>(@this._environment))
+                        using (var channel = new Channel<T>(@this))
                         {
                             using (var linkedCts = CancellationTokenSource.CreateLinkedTokenSource(ct, @this._cts.Token))
                             {
@@ -314,27 +331,10 @@ namespace ExRam.Gremlinq.Providers.Core
                             {
                                 if (_environment.Deserializer.TryTransform(buffer, _environment, out ResponseMessageEnvelope responseMessageEnvelope))
                                 {
-                                    if (responseMessageEnvelope is { Status: { Code: var statusCode, Attributes: var attributes, Message: var message }, RequestId: { } requestId })
+                                    if (responseMessageEnvelope is { Status: { Code: var statusCode, Message: var message }, RequestId: { } requestId })
                                     {
                                         if (_channels.TryGetValue(requestId, out var otherChannel))
-                                        {
-                                            if (statusCode == Authenticate)
-                                            {
-                                                try
-                                                {
-                                                    await SendCore(_factory._authMessageFactory(attributes ?? ImmutableDictionary<string, object>.Empty), ct); 
-                                                }
-                                                catch
-                                                {
-                                                    using (otherChannel)
-                                                    {
-                                                        throw;
-                                                    }
-                                                }
-                                            }
-                                            else
-                                                otherChannel.Signal(buffer);
-                                        }
+                                            otherChannel.Signal(buffer);
                                         else if (statusCode >= Unauthorized)
                                             throw new ResponseException(statusCode, ImmutableDictionary<string, object>.Empty, $"The server returned a response indicating failure, but the response could not be mapped to a request: {message}");
                                     }
