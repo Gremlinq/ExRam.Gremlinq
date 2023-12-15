@@ -93,7 +93,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb
                     {
                         if (_partitionKeyExpression is { } partitionKeyExpression)
                         {
-                            if (_authKey is { } authKey)
+                            if (_authKey is { Length: > 0 } authKey)
                             {
                                 return _querySourceTransformation
                                     .Invoke(source

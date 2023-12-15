@@ -8,6 +8,7 @@ using ExRam.Gremlinq.Support.NewtonsoftJson;
 using static ExRam.Gremlinq.Providers.CosmosDb.Tests.NoPasswordIntegrationTests;
 using FluentAssertions;
 using ExRam.Gremlinq.Core.Execution;
+using Gremlin.Net.Driver.Exceptions;
 
 namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
 {
@@ -23,7 +24,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .UseCosmosDb<Vertex, Edge>(conf => conf
                     .At(new Uri("ws://localhost:8901"), CosmosDbEmulatorDatabaseName, CosmosDbEmulatorCollectionName)
                     .WithPartitionKey(x => x.Label!)
-                    .AuthenticateBy("")
+                    .AuthenticateBy("pass")
                     .UseNewtonsoftJson());
         }
 
@@ -43,7 +44,8 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .Awaiting(_ => _)
                 .Should()
                 .ThrowAsync<GremlinQueryExecutionException>()
-                .WithInnerException<GremlinQueryExecutionException, NotSupportedException>();
+                .WithInnerException<GremlinQueryExecutionException, ResponseException>()
+                .Where(ex => ex.Message.Contains("Invalid credentials provided"));
         }
     }
 }
