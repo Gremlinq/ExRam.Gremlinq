@@ -383,7 +383,7 @@ namespace ExRam.Gremlinq.Providers.Core
 
             public IWebSocketGremlinqClientFactory WithMessageBufferFactory<TNewBuffer>(IMessageBufferFactory<TNewBuffer> factory) where TNewBuffer : IMemoryOwner<byte> => new WebSocketGremlinqClientFactoryImpl<TNewBuffer>(_uri, _webSocketOptionsConfiguration, factory, _authMessageFactory);
 
-            public IWebSocketGremlinqClientFactory ConfigureAuthentication(Func<IReadOnlyDictionary<string, object>, RequestMessage> authMessageFactory) => new WebSocketGremlinqClientFactoryImpl<TBuffer>(_uri, _webSocketOptionsConfiguration, _bufferFactory, authMessageFactory);
+            public IWebSocketGremlinqClientFactory ConfigureAuthentication(Func<Func<IReadOnlyDictionary<string, object>, RequestMessage>, Func<IReadOnlyDictionary<string, object>, RequestMessage>> transformation) => new WebSocketGremlinqClientFactoryImpl<TBuffer>(_uri, _webSocketOptionsConfiguration, _bufferFactory, transformation(_authMessageFactory));
         }
                           
         public static readonly IWebSocketGremlinqClientFactory LocalHost = new WebSocketGremlinqClientFactoryImpl<GraphSon3MessageBuffer>(new Uri("ws://localhost:8182"), options => options.SetRequestHeader("User-Agent", UserAgent), MessageBufferFactory.GraphSon3, _ => throw new NotSupportedException("Authentication credentials were requested from the server but were not configured."));
@@ -397,7 +397,7 @@ namespace ExRam.Gremlinq.Providers.Core
                .Create();
 
             return factory
-                .ConfigureAuthentication(_ => authMessage);
+                .ConfigureAuthentication(_ => _ => authMessage);
         }
 
         private static readonly string UserAgent = $"{typeof(IGremlinQueryBase).Assembly.GetCustomAttribute<AssemblyProductAttribute>()?.Product}/{typeof(WebSocketGremlinqClientFactory).Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion} {Environment.OSVersion.VersionString};";
