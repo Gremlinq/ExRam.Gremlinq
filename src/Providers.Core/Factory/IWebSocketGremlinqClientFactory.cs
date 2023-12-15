@@ -10,9 +10,7 @@ namespace ExRam.Gremlinq.Providers.Core
 
         IWebSocketGremlinqClientFactory ConfigureUri(Func<Uri, Uri> transformation);
 
-        IWebSocketGremlinqClientFactory ConfigureUsername(Func<string?, string?> transformation);
-
-        IWebSocketGremlinqClientFactory ConfigurePassword(Func<string?, string?> transformation);
+        IWebSocketGremlinqClientFactory WithCredentials(string username, string password);
 
         IWebSocketGremlinqClientFactory ConfigureOptions(Action<ClientWebSocketOptions> configuration);
     }

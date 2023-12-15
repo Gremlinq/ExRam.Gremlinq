@@ -18,16 +18,18 @@ namespace ExRam.Gremlinq.Providers.CosmosDb
     {
         private sealed class CosmosDbConfigurator<TVertexBase> : ICosmosDbConfigurator<TVertexBase>
         {
-            public static readonly CosmosDbConfigurator<TVertexBase> Default = new(null, null, null, WebSocketGremlinqClientFactory.LocalHost.WithMessageBufferFactory(MessageBufferFactory.GraphSon2).Pool(), _ => _);
+            public static readonly CosmosDbConfigurator<TVertexBase> Default = new(null, null, null, null, WebSocketGremlinqClientFactory.LocalHost.WithMessageBufferFactory(MessageBufferFactory.GraphSon2).Pool(), _ => _);
 
+            private readonly string? _authKey;
             private readonly string? _graphName;
             private readonly string? _databaseName;
             private readonly Expression<Func<TVertexBase, object>>? _partitionKeyExpression;
             private readonly Func<IGremlinQuerySource, IGremlinQuerySource> _querySourceTransformation;
             private readonly IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory> _clientFactory;
 
-            private CosmosDbConfigurator(string? databaseName, string? graphName, Expression<Func<TVertexBase, object>>? partitionKeyExpression, IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory> clientFactory, Func<IGremlinQuerySource, IGremlinQuerySource> querySourceTransformation)
+            private CosmosDbConfigurator(string? databaseName, string? graphName, Expression<Func<TVertexBase, object>>? partitionKeyExpression, string? authKey, IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory> clientFactory, Func<IGremlinQuerySource, IGremlinQuerySource> querySourceTransformation)
             {
+                _authKey = authKey;
                 _graphName = graphName;
                 _databaseName = databaseName;
                 _clientFactory = clientFactory;
@@ -39,6 +41,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb
                 databaseName,
                 _graphName,
                 _partitionKeyExpression,
+                _authKey,
                 _clientFactory,
                 _querySourceTransformation);
 
@@ -46,18 +49,23 @@ namespace ExRam.Gremlinq.Providers.CosmosDb
                 _databaseName,
                 graphName,
                 _partitionKeyExpression,
+                _authKey,
                 _clientFactory,
                 _querySourceTransformation);
 
-            public ICosmosDbConfigurator<TVertexBase> AuthenticateBy(string authKey) => this
-                .ConfigureClientFactory(factory => factory
-                    .ConfigureBaseFactory(factory => factory
-                        .ConfigurePassword(_ => authKey)));
+            public ICosmosDbConfigurator<TVertexBase> AuthenticateBy(string authKey) => new CosmosDbConfigurator<TVertexBase>(
+                _databaseName,
+                _graphName,
+                _partitionKeyExpression,
+                authKey,
+                _clientFactory,
+                _querySourceTransformation);
 
             public ICosmosDbConfigurator<TVertexBase> ConfigureClientFactory(Func<IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>, IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>> transformation) => new CosmosDbConfigurator<TVertexBase>(
                 _databaseName,
                 _graphName,
                 _partitionKeyExpression,
+                _authKey,
                 transformation(_clientFactory),
                 _querySourceTransformation);
 
@@ -65,6 +73,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb
                 _databaseName,
                 _graphName,
                 _partitionKeyExpression,
+                _authKey,
                 _clientFactory,
                 _ => transformation(_querySourceTransformation(_)));
 
@@ -72,6 +81,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb
                 _databaseName,
                 _graphName,
                 partitionKeyExpression,
+                _authKey,
                 _clientFactory,
                 _querySourceTransformation);
 
@@ -83,18 +93,23 @@ namespace ExRam.Gremlinq.Providers.CosmosDb
                     {
                         if (_partitionKeyExpression is { } partitionKeyExpression)
                         {
-                            return _querySourceTransformation
-                                .Invoke(source
-                                    .ConfigureEnvironment(environment => environment
-                                        .ConfigureModel(model => model
-                                            .ConfigureVertices(model => model
-                                                .ConfigureElement<TVertexBase>(conf => conf
-                                                .IgnoreOnUpdate(partitionKeyExpression))))
-                                        .UseExecutor(_clientFactory
-                                            .ConfigureBaseFactory(factory => factory
-                                                .ConfigureUsername(_ => $"/dbs/{databaseName}/colls/{graphName}"))
-                                            .Log()
-                                            .ToExecutor())));
+                            if (_authKey is { } authKey)
+                            {
+                                return _querySourceTransformation
+                                    .Invoke(source
+                                        .ConfigureEnvironment(environment => environment
+                                            .ConfigureModel(model => model
+                                                .ConfigureVertices(model => model
+                                                    .ConfigureElement<TVertexBase>(conf => conf
+                                                    .IgnoreOnUpdate(partitionKeyExpression))))
+                                            .UseExecutor(_clientFactory
+                                                .ConfigureBaseFactory(factory => factory
+                                                    .WithCredentials($"/dbs/{databaseName}/colls/{graphName}", authKey))
+                                                .Log()
+                                                .ToExecutor())));
+                            }
+
+                            throw new InvalidOperationException($"A valid authentication key must be configured. Use {nameof(AuthenticateBy)} on {nameof(ICosmosDbConfigurator<TVertexBase>)} to configure the CosmosDb authentication key.");
                         }
 
                         throw new InvalidOperationException($"A valid partition key must be configured. Use {nameof(WithPartitionKey)} on {nameof(ICosmosDbConfigurator<TVertexBase>)} to configure a CosmosDb partition key.");

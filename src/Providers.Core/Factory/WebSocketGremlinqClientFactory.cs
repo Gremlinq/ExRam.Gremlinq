@@ -389,11 +389,9 @@ namespace ExRam.Gremlinq.Providers.Core
 
             public IWebSocketGremlinqClientFactory ConfigureUri(Func<Uri, Uri> transformation) => new WebSocketGremlinqClientFactoryImpl<TBuffer>(transformation(_uri), _username, _password, _webSocketOptionsConfiguration, _bufferFactory);
 
-            public IWebSocketGremlinqClientFactory ConfigureUsername(Func<string?, string?> transformation) => new WebSocketGremlinqClientFactoryImpl<TBuffer>(_uri, transformation(_username), _password, _webSocketOptionsConfiguration, _bufferFactory);
-
-            public IWebSocketGremlinqClientFactory ConfigurePassword(Func<string?, string?> transformation) => new WebSocketGremlinqClientFactoryImpl<TBuffer>(_uri, _username, transformation(_password), _webSocketOptionsConfiguration, _bufferFactory);
-
             public IWebSocketGremlinqClientFactory WithMessageBufferFactory<TNewBuffer>(IMessageBufferFactory<TNewBuffer> factory) where TNewBuffer : IMemoryOwner<byte> => new WebSocketGremlinqClientFactoryImpl<TNewBuffer>(_uri, _username, _password, _webSocketOptionsConfiguration, factory);
+
+            public IWebSocketGremlinqClientFactory WithCredentials(string username, string password) => new WebSocketGremlinqClientFactoryImpl<TBuffer>(_uri, username, password, _webSocketOptionsConfiguration, _bufferFactory);
         }
 
         public static readonly IWebSocketGremlinqClientFactory LocalHost = new WebSocketGremlinqClientFactoryImpl<GraphSon3MessageBuffer>(new Uri("ws://localhost:8182"), null, null, options => options.SetRequestHeader("User-Agent", UserAgent), MessageBufferFactory.GraphSon3);

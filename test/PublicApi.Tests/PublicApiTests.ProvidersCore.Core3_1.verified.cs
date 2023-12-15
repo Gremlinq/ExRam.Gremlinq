@@ -57,9 +57,8 @@
     public interface IWebSocketGremlinqClientFactory : ExRam.Gremlinq.Providers.Core.IGremlinqClientFactory
     {
         ExRam.Gremlinq.Providers.Core.IWebSocketGremlinqClientFactory ConfigureOptions(System.Action<System.Net.WebSockets.ClientWebSocketOptions> configuration);
-        ExRam.Gremlinq.Providers.Core.IWebSocketGremlinqClientFactory ConfigurePassword(System.Func<string?, string?> transformation);
         ExRam.Gremlinq.Providers.Core.IWebSocketGremlinqClientFactory ConfigureUri(System.Func<System.Uri, System.Uri> transformation);
-        ExRam.Gremlinq.Providers.Core.IWebSocketGremlinqClientFactory ConfigureUsername(System.Func<string?, string?> transformation);
+        ExRam.Gremlinq.Providers.Core.IWebSocketGremlinqClientFactory WithCredentials(string username, string password);
         ExRam.Gremlinq.Providers.Core.IWebSocketGremlinqClientFactory WithMessageBufferFactory<TBuffer>(ExRam.Gremlinq.Providers.Core.IMessageBufferFactory<TBuffer> factory)
             where TBuffer : System.Buffers.IMemoryOwner<byte>;
     }
