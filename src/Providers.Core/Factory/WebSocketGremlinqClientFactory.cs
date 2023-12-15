@@ -176,9 +176,9 @@ namespace ExRam.Gremlinq.Providers.Core
                     }
                 }
 
-                private record struct ResponseStatus(ResponseStatusCode Code);
-
                 private record struct ResponseMessageEnvelope(Guid? RequestId, ResponseStatus? Status);
+
+                private record struct ResponseStatus(ResponseStatusCode Code, IReadOnlyDictionary<string, object>? Attributes);
 
                 private readonly ClientWebSocket _client;
                 private readonly SemaphoreSlim _sendLock = new(1);
@@ -313,7 +313,7 @@ namespace ExRam.Gremlinq.Providers.Core
                             {
                                 if (_environment.Deserializer.TryTransform(buffer, _environment, out ResponseMessageEnvelope responseMessageEnvelope))
                                 {
-                                    if (responseMessageEnvelope is { Status.Code: var statusCode, RequestId: { } requestId })
+                                    if (responseMessageEnvelope is { Status: { Code: var statusCode, Attributes: var attributes }, RequestId: { } requestId })
                                     {
                                         if (_channels.TryGetValue(requestId, out var otherChannel))
                                         {
@@ -321,7 +321,7 @@ namespace ExRam.Gremlinq.Providers.Core
                                             {
                                                 try
                                                 {
-                                                    await SendCore(_factory._authMessageFactory(ImmutableDictionary<string, object>.Empty), ct); //TODO: Pass actual attributes
+                                                    await SendCore(_factory._authMessageFactory(attributes ?? ImmutableDictionary<string, object>.Empty), ct); 
                                                 }
                                                 catch
                                                 {
