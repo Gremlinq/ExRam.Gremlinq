@@ -1,6 +1,8 @@
 ﻿using System.Buffers;
 using System.Net.WebSockets;
 
+using Gremlin.Net.Driver.Messages;
+
 namespace ExRam.Gremlinq.Providers.Core
 {
     public interface IWebSocketGremlinqClientFactory : IGremlinqClientFactory
@@ -10,7 +12,7 @@ namespace ExRam.Gremlinq.Providers.Core
 
         IWebSocketGremlinqClientFactory ConfigureUri(Func<Uri, Uri> transformation);
 
-        IWebSocketGremlinqClientFactory WithCredentials(string username, string password);
+        IWebSocketGremlinqClientFactory ConfigureAuthentication(Func<IReadOnlyDictionary<string, object>, RequestMessage> requestMessageFactory);
 
         IWebSocketGremlinqClientFactory ConfigureOptions(Action<ClientWebSocketOptions> configuration);
     }

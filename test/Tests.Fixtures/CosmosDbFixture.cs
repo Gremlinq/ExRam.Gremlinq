@@ -13,6 +13,7 @@ namespace ExRam.Gremlinq.Tests.Fixtures
                 builder => builder
                     .AtLocalhost("db", "graph")
                     .WithPartitionKey(x => x.Label!)
+                    .AuthenticateBy("")
                     .UseNewtonsoftJson())
             .ConfigureEnvironment(env => env
                 .AddFakePartitionKey());
