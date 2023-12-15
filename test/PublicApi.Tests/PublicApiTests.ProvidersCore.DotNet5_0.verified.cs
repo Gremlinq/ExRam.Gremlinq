@@ -85,6 +85,6 @@
     public static class WebSocketGremlinqClientFactory
     {
         public static readonly ExRam.Gremlinq.Providers.Core.IWebSocketGremlinqClientFactory LocalHost;
-        public static ExRam.Gremlinq.Providers.Core.IWebSocketGremlinqClientFactory WithCredentials(this ExRam.Gremlinq.Providers.Core.IWebSocketGremlinqClientFactory factory, string username, string password) { }
+        public static ExRam.Gremlinq.Providers.Core.IWebSocketGremlinqClientFactory WithPlainCredentials(this ExRam.Gremlinq.Providers.Core.IWebSocketGremlinqClientFactory factory, string username, string password) { }
     }
 }

@@ -18,6 +18,6 @@
             where TConfigurator : IProviderConfigurator<TConfigurator, IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>> => configurator
                 .ConfigureClientFactory(factory => factory
                     .ConfigureBaseFactory(factory => factory
-                        .WithCredentials(username, password)));
+                        .WithPlainCredentials(username, password)));
     }
 }

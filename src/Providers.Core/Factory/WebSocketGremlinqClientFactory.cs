@@ -388,7 +388,7 @@ namespace ExRam.Gremlinq.Providers.Core
                           
         public static readonly IWebSocketGremlinqClientFactory LocalHost = new WebSocketGremlinqClientFactoryImpl<GraphSon3MessageBuffer>(new Uri("ws://localhost:8182"), options => options.SetRequestHeader("User-Agent", UserAgent), MessageBufferFactory.GraphSon3, _ => throw new NotSupportedException("Authentication credentials were requested from the server but were not configured."));
 
-        public static IWebSocketGremlinqClientFactory WithCredentials(this IWebSocketGremlinqClientFactory factory, string username, string password)
+        public static IWebSocketGremlinqClientFactory WithPlainCredentials(this IWebSocketGremlinqClientFactory factory, string username, string password)
         {
             var authMessage = RequestMessage
                .Build(Tokens.OpsAuthentication)
