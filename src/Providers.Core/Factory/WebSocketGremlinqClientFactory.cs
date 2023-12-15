@@ -12,6 +12,7 @@ using CommunityToolkit.HighPerformance.Buffers;
 using ExRam.Gremlinq.Core;
 
 using Gremlin.Net.Driver;
+using Gremlin.Net.Driver.Exceptions;
 using Gremlin.Net.Driver.Messages;
 
 using static Gremlin.Net.Driver.Messages.ResponseStatusCode;
@@ -178,7 +179,7 @@ namespace ExRam.Gremlinq.Providers.Core
 
                 private record struct ResponseMessageEnvelope(Guid? RequestId, ResponseStatus? Status);
 
-                private record struct ResponseStatus(ResponseStatusCode Code, IReadOnlyDictionary<string, object>? Attributes);
+                private record struct ResponseStatus(ResponseStatusCode Code, IReadOnlyDictionary<string, object>? Attributes, string? Message);
 
                 private readonly ClientWebSocket _client;
                 private readonly SemaphoreSlim _sendLock = new(1);
@@ -313,7 +314,7 @@ namespace ExRam.Gremlinq.Providers.Core
                             {
                                 if (_environment.Deserializer.TryTransform(buffer, _environment, out ResponseMessageEnvelope responseMessageEnvelope))
                                 {
-                                    if (responseMessageEnvelope is { Status: { Code: var statusCode, Attributes: var attributes }, RequestId: { } requestId })
+                                    if (responseMessageEnvelope is { Status: { Code: var statusCode, Attributes: var attributes, Message: var message }, RequestId: { } requestId })
                                     {
                                         if (_channels.TryGetValue(requestId, out var otherChannel))
                                         {
@@ -334,6 +335,8 @@ namespace ExRam.Gremlinq.Providers.Core
                                             else
                                                 otherChannel.Signal(buffer);
                                         }
+                                        else if (statusCode >= Unauthorized)
+                                            throw new ResponseException(statusCode, ImmutableDictionary<string, object>.Empty, $"The server returned a response indicating failure, but the response could not be mapped to a request: {message}");
                                     }
                                 }
                             }
