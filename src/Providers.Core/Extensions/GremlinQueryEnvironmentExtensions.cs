@@ -37,11 +37,14 @@ namespace ExRam.Gremlinq.Providers.Core
                     {
                         var bufferWriter = new ArrayPoolBufferWriter<byte>();
 
-                        bufferWriter.Write(header.AsSpan());
-
                         try
                         {
-                            JsonSerializer.Serialize(new Utf8JsonWriter(bufferWriter), (object)writer.ToDict(message), JsonOptions);
+                            bufferWriter.Write(header.AsSpan());
+
+                            using (var jsonWriter = new Utf8JsonWriter(bufferWriter))
+                            {
+                                JsonSerializer.Serialize(jsonWriter, (object)writer.ToDict(message), JsonOptions);
+                            }
                         }
                         catch
                         {
