@@ -37,7 +37,6 @@
     public interface IMessageBufferFactory<TBuffer>
         where TBuffer : System.Buffers.IMemoryOwner<byte>
     {
-        string MimeType { get; }
         TBuffer Create(Gremlin.Net.Driver.Messages.RequestMessage message);
         TBuffer Create(System.Buffers.IMemoryOwner<byte> message);
     }

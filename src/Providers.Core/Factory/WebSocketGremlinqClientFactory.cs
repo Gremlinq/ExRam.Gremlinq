@@ -295,15 +295,7 @@ namespace ExRam.Gremlinq.Providers.Core
 
                             using (var serializedRequest = _factory._bufferFactory.Create(requestMessage))
                             {
-                                var mimeTypeBytes = _factory._mimeTypeBytes ??= Encoding.UTF8.GetBytes($"{(char)_factory._bufferFactory.MimeType.Length}{_factory._bufferFactory.MimeType}");
-
-                                using (var buffer = MemoryOwner<byte>.Allocate(serializedRequest.Memory.Length + mimeTypeBytes.Length))
-                                {
-                                    mimeTypeBytes.CopyTo(buffer.Span);
-                                    serializedRequest.Memory.Span.CopyTo(buffer.Span[mimeTypeBytes.Length..]);
-
-                                    await _client.SendAsync(buffer.Memory, WebSocketMessageType.Binary, true, ct);
-                                }
+                                await _client.SendAsync(serializedRequest.Memory, WebSocketMessageType.Binary, true, ct);
                             }
                         }
                         finally
@@ -349,8 +341,6 @@ namespace ExRam.Gremlinq.Providers.Core
             private readonly IMessageBufferFactory<TBuffer> _bufferFactory;
             private readonly Action<ClientWebSocketOptions> _webSocketOptionsConfiguration;
             private readonly Func<IReadOnlyDictionary<string, object>, RequestMessage> _authMessageFactory;
-
-            private byte[]? _mimeTypeBytes;
 
             internal WebSocketGremlinqClientFactoryImpl(Uri uri, Action<ClientWebSocketOptions> webSocketOptionsConfiguration, IMessageBufferFactory<TBuffer> bufferFactory, Func<IReadOnlyDictionary<string, object>, RequestMessage> authMessageFactory)
             {
