@@ -38,11 +38,6 @@
     {
         ExRam.Gremlinq.Providers.Core.IGremlinqClient Create(ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment);
     }
-    public interface IMessageBufferFactory<TBuffer>
-        where TBuffer : System.Buffers.IMemoryOwner<byte>
-    {
-        TBuffer Create(System.Buffers.IMemoryOwner<byte> message);
-    }
     public interface IPoolGremlinqClientFactory<TBaseFactory> : ExRam.Gremlinq.Providers.Core.IGremlinqClientFactory
         where TBaseFactory : ExRam.Gremlinq.Providers.Core.IGremlinqClientFactory
     {
@@ -61,13 +56,8 @@
         ExRam.Gremlinq.Providers.Core.IWebSocketGremlinqClientFactory ConfigureAuthentication(System.Func<System.Func<System.Collections.Generic.IReadOnlyDictionary<string, object>, Gremlin.Net.Driver.Messages.RequestMessage>, System.Func<System.Collections.Generic.IReadOnlyDictionary<string, object>, Gremlin.Net.Driver.Messages.RequestMessage>> transformation);
         ExRam.Gremlinq.Providers.Core.IWebSocketGremlinqClientFactory ConfigureOptions(System.Action<System.Net.WebSockets.ClientWebSocketOptions> configuration);
         ExRam.Gremlinq.Providers.Core.IWebSocketGremlinqClientFactory ConfigureUri(System.Func<System.Uri, System.Uri> transformation);
-        ExRam.Gremlinq.Providers.Core.IWebSocketGremlinqClientFactory WithMessageBufferFactory<TBuffer>(ExRam.Gremlinq.Providers.Core.IMessageBufferFactory<TBuffer> factory)
+        ExRam.Gremlinq.Providers.Core.IWebSocketGremlinqClientFactory WithMessageBufferFactory<TBuffer>()
             where TBuffer : System.Buffers.IMemoryOwner<byte>;
-    }
-    public static class MessageBufferFactory
-    {
-        public static readonly ExRam.Gremlinq.Providers.Core.IMessageBufferFactory<ExRam.Gremlinq.Providers.Core.GraphSon2MessageBuffer> GraphSon2;
-        public static readonly ExRam.Gremlinq.Providers.Core.IMessageBufferFactory<ExRam.Gremlinq.Providers.Core.GraphSon3MessageBuffer> GraphSon3;
     }
     public static class UriExtensions
     {

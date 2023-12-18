@@ -52,7 +52,9 @@ namespace ExRam.Gremlinq.Providers.Core
                         }
 
                         return bufferFactory(bufferWriter);
-                    })));
+                    })))
+                .ConfigureDeserializer(deserializer => deserializer
+                    .Add(Create<IMemoryOwner<byte>, TBuffer>((owner, _, _, _) => bufferFactory(owner))));
         }
     }
 }
