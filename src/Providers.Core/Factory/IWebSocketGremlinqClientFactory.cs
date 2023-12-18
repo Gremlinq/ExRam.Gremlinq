@@ -7,7 +7,7 @@ namespace ExRam.Gremlinq.Providers.Core
 {
     public interface IWebSocketGremlinqClientFactory : IGremlinqClientFactory
     {
-        IWebSocketGremlinqClientFactory WithMessageBufferFactory<TBuffer>(IMessageBufferFactory<TBuffer> factory)
+        IWebSocketGremlinqClientFactory WithMessageBufferFactory<TBuffer>()
             where TBuffer : IMemoryOwner<byte>;
 
         IWebSocketGremlinqClientFactory ConfigureUri(Func<Uri, Uri> transformation);

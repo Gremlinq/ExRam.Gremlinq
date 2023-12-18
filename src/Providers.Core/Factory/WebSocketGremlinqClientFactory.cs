@@ -7,8 +7,6 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
 
-using CommunityToolkit.HighPerformance.Buffers;
-
 using ExRam.Gremlinq.Core;
 
 using Gremlin.Net.Driver;
@@ -319,16 +317,19 @@ namespace ExRam.Gremlinq.Providers.Core
                         {
                             var bytes = await _client.ReceiveAsync(ct);
 
-                            using (var buffer = _factory._bufferFactory.Create(bytes))
+                            if (_environment.Deserializer.TryTransform((IMemoryOwner<byte>)bytes, _environment, out TBuffer? buffer))
                             {
-                                if (_environment.Deserializer.TryTransform(buffer, _environment, out ResponseMessageEnvelope responseMessageEnvelope))
+                                using (buffer)
                                 {
-                                    if (responseMessageEnvelope is { Status: { Code: var statusCode, Message: var message }, RequestId: { } requestId })
+                                    if (_environment.Deserializer.TryTransform(buffer, _environment, out ResponseMessageEnvelope responseMessageEnvelope))
                                     {
-                                        if (_channels.TryGetValue(requestId, out var otherChannel))
-                                            otherChannel.Signal(buffer);
-                                        else if (statusCode >= Unauthorized)
-                                            throw new ResponseException(statusCode, ImmutableDictionary<string, object>.Empty, $"The server returned a response indicating failure, but the response could not be mapped to a request: {message}");
+                                        if (responseMessageEnvelope is { Status: { Code: var statusCode, Message: var message }, RequestId: { } requestId })
+                                        {
+                                            if (_channels.TryGetValue(requestId, out var otherChannel))
+                                                otherChannel.Signal(buffer);
+                                            else if (statusCode >= Unauthorized)
+                                                throw new ResponseException(statusCode, ImmutableDictionary<string, object>.Empty, $"The server returned a response indicating failure, but the response could not be mapped to a request: {message}");
+                                        }
                                     }
                                 }
                             }
@@ -338,17 +339,15 @@ namespace ExRam.Gremlinq.Providers.Core
             }
 
             private readonly Uri _uri;
-            private readonly IMessageBufferFactory<TBuffer> _bufferFactory;
             private readonly Action<ClientWebSocketOptions> _webSocketOptionsConfiguration;
             private readonly Func<IReadOnlyDictionary<string, object>, RequestMessage> _authMessageFactory;
 
-            internal WebSocketGremlinqClientFactoryImpl(Uri uri, Action<ClientWebSocketOptions> webSocketOptionsConfiguration, IMessageBufferFactory<TBuffer> bufferFactory, Func<IReadOnlyDictionary<string, object>, RequestMessage> authMessageFactory)
+            internal WebSocketGremlinqClientFactoryImpl(Uri uri, Action<ClientWebSocketOptions> webSocketOptionsConfiguration, Func<IReadOnlyDictionary<string, object>, RequestMessage> authMessageFactory)
             {
                 if (uri.Scheme is not "ws" and not "wss")
                     throw new ArgumentException($"Expected {nameof(uri)}.{nameof(Uri.Scheme)} to be either \"ws\" or \"wss\".", nameof(uri));
 
                 _uri = uri.EnsurePath();
-                _bufferFactory = bufferFactory;
                 _authMessageFactory = authMessageFactory;
                 _webSocketOptionsConfiguration = webSocketOptionsConfiguration;
             }
@@ -369,17 +368,16 @@ namespace ExRam.Gremlinq.Providers.Core
                     _webSocketOptionsConfiguration(options);
                     configuration(options);
                 },
-                _bufferFactory,
                 _authMessageFactory);
 
-            public IWebSocketGremlinqClientFactory ConfigureUri(Func<Uri, Uri> transformation) => new WebSocketGremlinqClientFactoryImpl<TBuffer>(transformation(_uri), _webSocketOptionsConfiguration, _bufferFactory, _authMessageFactory);
+            public IWebSocketGremlinqClientFactory ConfigureUri(Func<Uri, Uri> transformation) => new WebSocketGremlinqClientFactoryImpl<TBuffer>(transformation(_uri), _webSocketOptionsConfiguration, _authMessageFactory);
 
-            public IWebSocketGremlinqClientFactory WithMessageBufferFactory<TNewBuffer>(IMessageBufferFactory<TNewBuffer> factory) where TNewBuffer : IMemoryOwner<byte> => new WebSocketGremlinqClientFactoryImpl<TNewBuffer>(_uri, _webSocketOptionsConfiguration, factory, _authMessageFactory);
+            public IWebSocketGremlinqClientFactory WithMessageBufferFactory<TNewBuffer>() where TNewBuffer : IMemoryOwner<byte> => new WebSocketGremlinqClientFactoryImpl<TNewBuffer>(_uri, _webSocketOptionsConfiguration, _authMessageFactory);
 
-            public IWebSocketGremlinqClientFactory ConfigureAuthentication(Func<Func<IReadOnlyDictionary<string, object>, RequestMessage>, Func<IReadOnlyDictionary<string, object>, RequestMessage>> transformation) => new WebSocketGremlinqClientFactoryImpl<TBuffer>(_uri, _webSocketOptionsConfiguration, _bufferFactory, transformation(_authMessageFactory));
+            public IWebSocketGremlinqClientFactory ConfigureAuthentication(Func<Func<IReadOnlyDictionary<string, object>, RequestMessage>, Func<IReadOnlyDictionary<string, object>, RequestMessage>> transformation) => new WebSocketGremlinqClientFactoryImpl<TBuffer>(_uri, _webSocketOptionsConfiguration, transformation(_authMessageFactory));
         }
                           
-        public static readonly IWebSocketGremlinqClientFactory LocalHost = new WebSocketGremlinqClientFactoryImpl<GraphSon3MessageBuffer>(new Uri("ws://localhost:8182"), options => options.SetRequestHeader("User-Agent", UserAgent), MessageBufferFactory.GraphSon3, _ => throw new NotSupportedException("Authentication credentials were requested from the server but were not configured."));
+        public static readonly IWebSocketGremlinqClientFactory LocalHost = new WebSocketGremlinqClientFactoryImpl<GraphSon3MessageBuffer>(new Uri("ws://localhost:8182"), options => options.SetRequestHeader("User-Agent", UserAgent), _ => throw new NotSupportedException("Authentication credentials were requested from the server but were not configured."));
 
         public static IWebSocketGremlinqClientFactory WithPlainCredentials(this IWebSocketGremlinqClientFactory factory, string username, string password) => factory
             .ConfigureAuthentication(_ => _ => RequestMessage
