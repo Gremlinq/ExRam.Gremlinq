@@ -54,7 +54,7 @@
     public interface IWebSocketGremlinqClientFactory : ExRam.Gremlinq.Providers.Core.IGremlinqClientFactory
     {
         ExRam.Gremlinq.Providers.Core.IWebSocketGremlinqClientFactory ConfigureAuthentication(System.Func<System.Func<System.Collections.Generic.IReadOnlyDictionary<string, object>, Gremlin.Net.Driver.Messages.RequestMessage>, System.Func<System.Collections.Generic.IReadOnlyDictionary<string, object>, Gremlin.Net.Driver.Messages.RequestMessage>> transformation);
-        ExRam.Gremlinq.Providers.Core.IWebSocketGremlinqClientFactory ConfigureOptions(System.Action<System.Net.WebSockets.ClientWebSocketOptions> configuration);
+        ExRam.Gremlinq.Providers.Core.IWebSocketGremlinqClientFactory ConfigureClientWebSocketFactory(System.Func<System.Func<System.Net.WebSockets.ClientWebSocket>, System.Func<System.Net.WebSockets.ClientWebSocket>> transformation);
         ExRam.Gremlinq.Providers.Core.IWebSocketGremlinqClientFactory ConfigureUri(System.Func<System.Uri, System.Uri> transformation);
         ExRam.Gremlinq.Providers.Core.IWebSocketGremlinqClientFactory WithBinaryMessage<TBinaryMessage>()
             where TBinaryMessage : System.Buffers.IMemoryOwner<byte>;
