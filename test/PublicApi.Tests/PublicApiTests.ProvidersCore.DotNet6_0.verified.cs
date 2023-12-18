@@ -12,6 +12,10 @@
         public System.Memory<byte> Memory { get; }
         public void Dispose() { }
     }
+    public static class GremlinQueryEnvironmentExtensions
+    {
+        public static ExRam.Gremlinq.Core.IGremlinQueryEnvironment AddGraphSonSupport(this ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment) { }
+    }
     public static class GremlinqClientExtensions
     {
         public static ExRam.Gremlinq.Providers.Core.IGremlinqClient ObserveResultStatusAttributes(this ExRam.Gremlinq.Providers.Core.IGremlinqClient client, System.Action<Gremlin.Net.Driver.Messages.RequestMessage, System.Collections.Generic.IReadOnlyDictionary<string, object>> observer) { }
@@ -37,7 +41,6 @@
     public interface IMessageBufferFactory<TBuffer>
         where TBuffer : System.Buffers.IMemoryOwner<byte>
     {
-        TBuffer Create(Gremlin.Net.Driver.Messages.RequestMessage message);
         TBuffer Create(System.Buffers.IMemoryOwner<byte> message);
     }
     public interface IPoolGremlinqClientFactory<TBaseFactory> : ExRam.Gremlinq.Providers.Core.IGremlinqClientFactory

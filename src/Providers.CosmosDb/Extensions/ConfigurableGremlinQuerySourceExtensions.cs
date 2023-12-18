@@ -140,6 +140,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb
                 .Invoke(CosmosDbConfigurator<TVertexBase>.Default)
                 .Transform(source
                     .ConfigureEnvironment(environment => environment
+                        .AddGraphSonSupport()
                         .UseModel(GraphModel
                             .FromBaseTypes<TVertexBase, TEdgeBase>())
                         .ConfigureFeatureSet(featureSet => featureSet

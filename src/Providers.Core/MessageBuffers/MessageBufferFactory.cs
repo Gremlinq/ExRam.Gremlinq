@@ -1,76 +1,27 @@
-﻿using CommunityToolkit.HighPerformance.Buffers;
-
-using Gremlin.Net.Driver.Messages;
-using Gremlin.Net.Structure.IO.GraphSON;
-
-using System.Buffers;
-using System.Text;
-using System.Text.Encodings.Web;
-using System.Text.Json;
+﻿using System.Buffers;
 
 namespace ExRam.Gremlinq.Providers.Core
 {
     public static class MessageBufferFactory
     {
-        private sealed class GraphSon2MessageBufferFactory : GraphSonMessageBufferFactory, IMessageBufferFactory<GraphSon2MessageBuffer>
+        private sealed class GraphSon2MessageBufferFactory : IMessageBufferFactory<GraphSon2MessageBuffer>
         {
-            public GraphSon2MessageBufferFactory() : base(new GraphSON2Writer(), "application/vnd.gremlin-v2.0+json")
+            public GraphSon2MessageBufferFactory()
             {
 
             }
 
             GraphSon2MessageBuffer IMessageBufferFactory<GraphSon2MessageBuffer>.Create(IMemoryOwner<byte> message) => new(message);
-
-            GraphSon2MessageBuffer IMessageBufferFactory<GraphSon2MessageBuffer>.Create(RequestMessage message) => new (Create(message));
         }
 
-        private sealed class GraphSon3MessageBufferFactory : GraphSonMessageBufferFactory, IMessageBufferFactory<GraphSon3MessageBuffer>
+        private sealed class GraphSon3MessageBufferFactory : IMessageBufferFactory<GraphSon3MessageBuffer>
         {
-            public GraphSon3MessageBufferFactory() : base(new GraphSON3Writer(), "application/vnd.gremlin-v3.0+json")
+            public GraphSon3MessageBufferFactory()
             {
 
             }
 
             GraphSon3MessageBuffer IMessageBufferFactory<GraphSon3MessageBuffer>.Create(IMemoryOwner<byte> message) => new(message);
-
-            GraphSon3MessageBuffer IMessageBufferFactory<GraphSon3MessageBuffer>.Create(RequestMessage message) => new (Create(message));
-        }
-
-        private abstract class GraphSonMessageBufferFactory
-        {
-            private readonly byte[] _mimeTypeBytes;
-            private readonly GraphSONWriter _graphSONWriter;
-            private static readonly JsonSerializerOptions JsonOptions = new() { Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping };
-
-            protected GraphSonMessageBufferFactory(GraphSONWriter graphSONWriter, string mimeType)
-            {
-                if (mimeType.Length > 255)
-                    throw new ArgumentException();
-
-                _graphSONWriter = graphSONWriter;
-                _mimeTypeBytes = Encoding.UTF8.GetBytes($"{(char)mimeType.Length}{mimeType}");
-            }
-
-            protected IMemoryOwner<byte> Create(RequestMessage message)
-            {
-                var bufferWriter = new ArrayPoolBufferWriter<byte>();
-
-                bufferWriter.Write(_mimeTypeBytes.AsSpan());
-
-                try
-                {
-                    JsonSerializer.Serialize(new Utf8JsonWriter(bufferWriter), (object)_graphSONWriter.ToDict(message), JsonOptions);
-                }
-                catch
-                {
-                    using (bufferWriter)
-                    {
-                        throw;
-                    }
-                }
-
-                return bufferWriter;
-            }
         }
 
         public static readonly IMessageBufferFactory<GraphSon2MessageBuffer> GraphSon2 = new GraphSon2MessageBufferFactory();

@@ -41,6 +41,7 @@ namespace ExRam.Gremlinq.Providers.JanusGraph
                 .Invoke(JanusGraphConfigurator.Default)
                 .Transform(source
                     .ConfigureEnvironment(environment => environment
+                        .AddGraphSonSupport()
                         .UseModel(GraphModel
                             .FromBaseTypes<TVertexBase, TEdgeBase>())
                         .ConfigureFeatureSet(featureSet => featureSet

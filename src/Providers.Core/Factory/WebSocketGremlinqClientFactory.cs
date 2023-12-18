@@ -293,10 +293,10 @@ namespace ExRam.Gremlinq.Providers.Core
                                 _loopTcs.SetResult(Loop(_cts.Token));
                             }
 
-                            using (var serializedRequest = _factory._bufferFactory.Create(requestMessage))
-                            {
-                                await _client.SendAsync(serializedRequest.Memory, WebSocketMessageType.Binary, true, ct);
-                            }
+                            if (_environment.Serializer.TryTransform(requestMessage, _environment, out TBuffer? buffer))
+                                await _client.SendAsync(buffer.Memory, WebSocketMessageType.Binary, true, ct);
+                            else
+                                throw new InvalidOperationException();
                         }
                         finally
                         {
