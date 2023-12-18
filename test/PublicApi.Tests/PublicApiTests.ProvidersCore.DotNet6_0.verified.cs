@@ -1,14 +1,14 @@
 ﻿namespace ExRam.Gremlinq.Providers.Core
 {
-    public readonly struct GraphSon2MessageBuffer : System.Buffers.IMemoryOwner<byte>, System.IDisposable
+    public readonly struct GraphSon2BinaryMessage : System.Buffers.IMemoryOwner<byte>, System.IDisposable
     {
-        public GraphSon2MessageBuffer(System.Buffers.IMemoryOwner<byte> owner) { }
+        public GraphSon2BinaryMessage(System.Buffers.IMemoryOwner<byte> owner) { }
         public System.Memory<byte> Memory { get; }
         public void Dispose() { }
     }
-    public readonly struct GraphSon3MessageBuffer : System.Buffers.IMemoryOwner<byte>, System.IDisposable
+    public readonly struct GraphSon3BinaryMessage : System.Buffers.IMemoryOwner<byte>, System.IDisposable
     {
-        public GraphSon3MessageBuffer(System.Buffers.IMemoryOwner<byte> owner) { }
+        public GraphSon3BinaryMessage(System.Buffers.IMemoryOwner<byte> owner) { }
         public System.Memory<byte> Memory { get; }
         public void Dispose() { }
     }
@@ -56,8 +56,8 @@
         ExRam.Gremlinq.Providers.Core.IWebSocketGremlinqClientFactory ConfigureAuthentication(System.Func<System.Func<System.Collections.Generic.IReadOnlyDictionary<string, object>, Gremlin.Net.Driver.Messages.RequestMessage>, System.Func<System.Collections.Generic.IReadOnlyDictionary<string, object>, Gremlin.Net.Driver.Messages.RequestMessage>> transformation);
         ExRam.Gremlinq.Providers.Core.IWebSocketGremlinqClientFactory ConfigureOptions(System.Action<System.Net.WebSockets.ClientWebSocketOptions> configuration);
         ExRam.Gremlinq.Providers.Core.IWebSocketGremlinqClientFactory ConfigureUri(System.Func<System.Uri, System.Uri> transformation);
-        ExRam.Gremlinq.Providers.Core.IWebSocketGremlinqClientFactory WithMessageBufferFactory<TBuffer>()
-            where TBuffer : System.Buffers.IMemoryOwner<byte>;
+        ExRam.Gremlinq.Providers.Core.IWebSocketGremlinqClientFactory WithBinaryMessage<TBinaryMessage>()
+            where TBinaryMessage : System.Buffers.IMemoryOwner<byte>;
     }
     public static class UriExtensions
     {
