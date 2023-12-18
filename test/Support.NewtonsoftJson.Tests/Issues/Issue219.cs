@@ -49,7 +49,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
             var token = env
                 .Deserializer
                 .TransformTo<JToken>()
-                .From(new GraphSon3MessageBuffer(memory), env);
+                .From(new GraphSon3BinaryMessage(memory), env);
 
             return Verify(token.ToString());
         }

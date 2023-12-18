@@ -1,14 +1,14 @@
-﻿using ExRam.Gremlinq.Core;
+﻿using System.Buffers;
 
-using System.Buffers;
+using ExRam.Gremlinq.Core;
 
 namespace ExRam.Gremlinq.Providers.Core
 {
-    public readonly struct GraphSon2MessageBuffer : IMemoryOwner<byte>
+    public readonly struct GraphSon3BinaryMessage : IMemoryOwner<byte>
     {
         private readonly IMemoryOwner<byte>? _owner;
 
-        public GraphSon2MessageBuffer(IMemoryOwner<byte> owner)
+        public GraphSon3BinaryMessage(IMemoryOwner<byte> owner)
         {
             _owner = owner;
         }

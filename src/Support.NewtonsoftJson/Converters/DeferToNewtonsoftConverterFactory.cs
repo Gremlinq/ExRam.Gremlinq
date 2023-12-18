@@ -48,10 +48,10 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
             }
         }
 
-        public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment) => typeof(TSource) == typeof(GraphSon2MessageBuffer)
-            ? (IConverter<TSource, TTarget>)(object)new DeferToNewtonsoftConverter<GraphSon2MessageBuffer, TTarget>(environment)
-            : typeof(TSource) == typeof(GraphSon3MessageBuffer)
-                ? (IConverter<TSource, TTarget>)(object)new DeferToNewtonsoftConverter<GraphSon3MessageBuffer, TTarget>(environment)
+        public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment) => typeof(TSource) == typeof(GraphSon2BinaryMessage)
+            ? (IConverter<TSource, TTarget>)(object)new DeferToNewtonsoftConverter<GraphSon2BinaryMessage, TTarget>(environment)
+            : typeof(TSource) == typeof(GraphSon3BinaryMessage)
+                ? (IConverter<TSource, TTarget>)(object)new DeferToNewtonsoftConverter<GraphSon3BinaryMessage, TTarget>(environment)
                 : default;
     }
 }

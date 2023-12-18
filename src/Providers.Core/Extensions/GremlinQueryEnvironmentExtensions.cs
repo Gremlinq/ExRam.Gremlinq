@@ -21,8 +21,8 @@ namespace ExRam.Gremlinq.Providers.Core
         private static readonly JsonSerializerOptions JsonOptions = new() { Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping };
 
         public static IGremlinQueryEnvironment AddGraphSonSupport(this IGremlinQueryEnvironment environment) => environment
-            .AddGraphSonSupport(new GraphSON2Writer(), GraphSon2Header, owner => new GraphSon2MessageBuffer(owner))
-            .AddGraphSonSupport(new GraphSON3Writer(), GraphSon3Header, owner => new GraphSon3MessageBuffer(owner));
+            .AddGraphSonSupport(new GraphSON2Writer(), GraphSon2Header, owner => new GraphSon2BinaryMessage(owner))
+            .AddGraphSonSupport(new GraphSON3Writer(), GraphSon3Header, owner => new GraphSon3BinaryMessage(owner));
 
         private static byte[] GetHeader(string mimeType) => mimeType.Length <= 255
             ? Encoding.UTF8.GetBytes($"{(char)mimeType.Length}{mimeType}")
