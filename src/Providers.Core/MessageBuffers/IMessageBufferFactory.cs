@@ -10,7 +10,5 @@ namespace ExRam.Gremlinq.Providers.Core
         TBuffer Create(RequestMessage message);
 
         TBuffer Create(IMemoryOwner<byte> message);
-
-        string MimeType { get; }
     }
 }
