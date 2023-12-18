@@ -14,7 +14,7 @@
     }
     public static class GremlinQueryEnvironmentExtensions
     {
-        public static ExRam.Gremlinq.Core.IGremlinQueryEnvironment AddGraphSonSupport(this ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment) { }
+        public static ExRam.Gremlinq.Core.IGremlinQueryEnvironment AddGraphSonBinarySupport(this ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment) { }
     }
     public static class GremlinqClientExtensions
     {

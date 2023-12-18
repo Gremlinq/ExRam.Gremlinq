@@ -20,15 +20,15 @@ namespace ExRam.Gremlinq.Providers.Core
         private static readonly byte[] GraphSon3Header = GetHeader("application/vnd.gremlin-v3.0+json");
         private static readonly JsonSerializerOptions JsonOptions = new() { Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping };
 
-        public static IGremlinQueryEnvironment AddGraphSonSupport(this IGremlinQueryEnvironment environment) => environment
-            .AddGraphSonSupport(new GraphSON2Writer(), GraphSon2Header, owner => new GraphSon2BinaryMessage(owner))
-            .AddGraphSonSupport(new GraphSON3Writer(), GraphSon3Header, owner => new GraphSon3BinaryMessage(owner));
+        public static IGremlinQueryEnvironment AddGraphSonBinarySupport(this IGremlinQueryEnvironment environment) => environment
+            .AddGraphSonBinarySupport(new GraphSON2Writer(), GraphSon2Header, owner => new GraphSon2BinaryMessage(owner))
+            .AddGraphSonBinarySupport(new GraphSON3Writer(), GraphSon3Header, owner => new GraphSon3BinaryMessage(owner));
 
         private static byte[] GetHeader(string mimeType) => mimeType.Length <= 255
             ? Encoding.UTF8.GetBytes($"{(char)mimeType.Length}{mimeType}")
             : throw new ArgumentException();
 
-        private static IGremlinQueryEnvironment AddGraphSonSupport<TBuffer>(this IGremlinQueryEnvironment environment, GraphSONWriter writer, byte[] header, Func<IMemoryOwner<byte>, TBuffer> bufferFactory)
+        private static IGremlinQueryEnvironment AddGraphSonBinarySupport<TBuffer>(this IGremlinQueryEnvironment environment, GraphSONWriter writer, byte[] header, Func<IMemoryOwner<byte>, TBuffer> bufferFactory)
             where TBuffer : struct, IMemoryOwner<byte>
         {
             return environment

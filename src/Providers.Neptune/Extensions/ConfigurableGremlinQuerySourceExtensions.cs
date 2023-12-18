@@ -59,7 +59,7 @@ namespace ExRam.Gremlinq.Providers.Neptune
                 .Invoke(NeptuneConfigurator.Default)
                 .Transform(source
                     .ConfigureEnvironment(environment => environment
-                        .AddGraphSonSupport()
+                        .AddGraphSonBinarySupport()
                         .UseModel(GraphModel
                             .FromBaseTypes<TVertexBase, TEdgeBase>())
                         .ConfigureFeatureSet(featureSet => featureSet

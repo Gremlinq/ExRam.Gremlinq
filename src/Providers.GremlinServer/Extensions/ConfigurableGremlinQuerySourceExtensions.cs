@@ -41,7 +41,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer
                 .Invoke(GremlinServerConfigurator.Default)
                 .Transform(source
                     .ConfigureEnvironment(environment => environment
-                        .AddGraphSonSupport()
+                        .AddGraphSonBinarySupport()
                         .UseModel(GraphModel
                             .FromBaseTypes<TVertexBase, TEdgeBase>())
                         .ConfigureOptions(options => options
