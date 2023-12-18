@@ -1,6 +1,6 @@
 ﻿namespace ExRam.Gremlinq.Providers.Core
 {
-    public static class UriExtensions
+    internal static class UriExtensions
     {
         public static Uri EnsurePath(this Uri uri)
         {
