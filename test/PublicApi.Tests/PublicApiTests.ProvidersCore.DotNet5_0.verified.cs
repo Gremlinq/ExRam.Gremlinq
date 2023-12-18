@@ -59,11 +59,7 @@
         ExRam.Gremlinq.Providers.Core.IWebSocketGremlinqClientFactory WithBinaryMessage<TBinaryMessage>()
             where TBinaryMessage : System.Buffers.IMemoryOwner<byte>;
     }
-    public static class UriExtensions
-    {
-        public static System.Uri EnsurePath(this System.Uri uri) { }
-    }
-    public static class WebSocketConfiguratorExtensions
+    public static class ProviderConfiguratorExtensions
     {
         public static TConfigurator At<TConfigurator>(this ExRam.Gremlinq.Providers.Core.IProviderConfigurator<TConfigurator, ExRam.Gremlinq.Providers.Core.IPoolGremlinqClientFactory<ExRam.Gremlinq.Providers.Core.IWebSocketGremlinqClientFactory>> builder, string uri)
             where TConfigurator : ExRam.Gremlinq.Providers.Core.IProviderConfigurator<TConfigurator, ExRam.Gremlinq.Providers.Core.IPoolGremlinqClientFactory<ExRam.Gremlinq.Providers.Core.IWebSocketGremlinqClientFactory>> { }
@@ -73,6 +69,10 @@
             where TConfigurator : ExRam.Gremlinq.Providers.Core.IProviderConfigurator<TConfigurator, ExRam.Gremlinq.Providers.Core.IPoolGremlinqClientFactory<ExRam.Gremlinq.Providers.Core.IWebSocketGremlinqClientFactory>> { }
         public static TConfigurator AuthenticateBy<TConfigurator>(this ExRam.Gremlinq.Providers.Core.IProviderConfigurator<TConfigurator, ExRam.Gremlinq.Providers.Core.IPoolGremlinqClientFactory<ExRam.Gremlinq.Providers.Core.IWebSocketGremlinqClientFactory>> configurator, string username, string password)
             where TConfigurator : ExRam.Gremlinq.Providers.Core.IProviderConfigurator<TConfigurator, ExRam.Gremlinq.Providers.Core.IPoolGremlinqClientFactory<ExRam.Gremlinq.Providers.Core.IWebSocketGremlinqClientFactory>> { }
+    }
+    public static class UriExtensions
+    {
+        public static System.Uri EnsurePath(this System.Uri uri) { }
     }
     public static class WebSocketGremlinqClientFactory
     {

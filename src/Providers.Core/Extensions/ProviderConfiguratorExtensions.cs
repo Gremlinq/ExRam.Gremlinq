@@ -1,6 +1,6 @@
 ﻿namespace ExRam.Gremlinq.Providers.Core
 {
-    public static class WebSocketConfiguratorExtensions
+    public static class ProviderConfiguratorExtensions
     {
         public static TConfigurator At<TConfigurator>(this IProviderConfigurator<TConfigurator, IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>> builder, string uri)
             where TConfigurator : IProviderConfigurator<TConfigurator, IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>> => builder.At(new Uri(uri));
