@@ -7,11 +7,14 @@ using ExRam.Gremlinq.Core.Transformation;
 using ExRam.Gremlinq.Providers.Core;
 
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace ExRam.Gremlinq.Support.NewtonsoftJson
 {
     internal sealed class DeferToNewtonsoftConverterFactory : IConverterFactory
-    { 
+    {
+        private static readonly JsonSerializer JsonSerializer = JsonSerializer.CreateDefault();
+
         private sealed class DeferToNewtonsoftConverter<TBinaryMessage, TTarget> : IConverter<TBinaryMessage, TTarget>
             where TBinaryMessage : IMemoryOwner<byte>
         {
@@ -34,11 +37,8 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                     {
                         using (var jsonTextReader = new JsonTextReader(streamReader) { DateParseHandling = DateParseHandling.None })
                         {
-                            if (_environment.GetJsonSerializer(recurse).Deserialize<TTarget>(jsonTextReader) is { } requestedValue)
-                            {
-                                value = requestedValue;
-                                return true;
-                            }
+                            if (JsonSerializer.Deserialize<JToken>(jsonTextReader) is { } jToken)
+                                return recurse.TryTransform(jToken, _environment, out value);
                         }
                     }
                 }
