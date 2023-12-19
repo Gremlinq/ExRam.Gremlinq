@@ -31,8 +31,15 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
 
                 public bool TryConvert(TBinaryMessage source, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
                 {
+                    value = default;
+
+                    return TryGetJToken(source) is { } token && recurse.TryTransform(token, _environment, out value);
+                }
+
+                private static JToken? TryGetJToken(TBinaryMessage source)
+                {
                     if (LastSerialization.Value is { Item1: { } lastMessage, Item2: { } lastToken } && EqualityComparer<TBinaryMessage>.Default.Equals(lastMessage, source))
-                        return recurse.TryTransform(lastToken, _environment, out value);
+                        return lastToken;
 
                     var stream = MemoryMarshal.TryGetArray<byte>(source.Memory, out var segment) && segment is { Array: { } array }
                         ? new MemoryStream(array, segment.Offset, segment.Count)
@@ -48,14 +55,13 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                                 {
                                     LastSerialization.Value = (source, jToken);
 
-                                    return recurse.TryTransform(jToken, _environment, out value);
+                                    return jToken;
                                 }
                             }
                         }
                     }
 
-                    value = default;
-                    return false;
+                    return null;
                 }
             }
         }
