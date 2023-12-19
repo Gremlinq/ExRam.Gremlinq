@@ -317,7 +317,7 @@ namespace ExRam.Gremlinq.Providers.Core
                         {
                             var bytes = await _client.ReceiveAsync(ct);
 
-                            if (_environment.Deserializer.TryTransform((IMemoryOwner<byte>)bytes, _environment, out TBuffer? buffer))
+                            if (_environment.Deserializer.TryTransform(bytes, _environment, out TBuffer? buffer))
                             {
                                 using (buffer)
                                 {
