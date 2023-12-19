@@ -106,7 +106,15 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
 
                     public override object? ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer)
                     {
-                        var token = JToken.Load(reader);
+                        JToken? token;
+
+                        if (reader is JTokenReader { CurrentToken: { } currentToken })
+                        {
+                            reader.Skip();
+                            token = currentToken;
+                        }
+                        else
+                            token = JToken.Load(reader);
 
                         try
                         {
