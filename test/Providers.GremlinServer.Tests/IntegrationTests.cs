@@ -1,9 +1,14 @@
 ﻿using ExRam.Gremlinq.Core;
+using ExRam.Gremlinq.Core.Execution;
 using ExRam.Gremlinq.Tests.Fixtures;
 using ExRam.Gremlinq.Tests.Infrastructure;
 using ExRam.Gremlinq.Tests.TestCases;
 
 using FluentAssertions;
+
+using Newtonsoft.Json.Linq;
+
+using static ExRam.Gremlinq.Core.Transformation.ConverterFactory;
 
 namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 {
@@ -125,5 +130,39 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
             .LastOrDefaultAsync())
                 .Should()
                 .Be(0);
+
+        [Fact]
+        public async Task Deserialization_of_typed_results_is_only_called_once()
+        {
+            var called = 0;
+
+            var result = await _g
+                .ConfigureEnvironment(env => env
+                    .ConfigureDeserializer(d => d
+                        .Add(Create<JValue, BinaryData>((jValue, _, _, _) =>
+                        {
+                            if (jValue.Value is 42L)
+                            {
+                                Interlocked.Increment(ref called);
+
+                                return new BinaryData(new byte[] { 42 });
+                            }
+
+                            return null;
+                        }))))
+                .Inject(42)
+                .Cast<BinaryData>()
+                .FirstAsync();
+
+            result?
+                .ToArray()
+                .Should()
+                .Contain(42);
+
+            Interlocked
+                .CompareExchange(ref called, 0, 1)
+                .Should()
+                .Be(1);
+        }
     }
 }
