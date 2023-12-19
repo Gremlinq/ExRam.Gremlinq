@@ -12,8 +12,8 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
 {
     internal sealed class DeferToNewtonsoftConverterFactory : IConverterFactory
     { 
-        private sealed class DeferToNewtonsoftConverter<TBuffer, TTarget> : IConverter<TBuffer, TTarget>
-            where TBuffer : IMemoryOwner<byte>
+        private sealed class DeferToNewtonsoftConverter<TBinaryMessage, TTarget> : IConverter<TBinaryMessage, TTarget>
+            where TBinaryMessage : IMemoryOwner<byte>
         {
             private readonly IGremlinQueryEnvironment _environment;
 
@@ -22,7 +22,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                 _environment = environment;
             }
 
-            public bool TryConvert(TBuffer source, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
+            public bool TryConvert(TBinaryMessage source, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
             {
                 var stream = MemoryMarshal.TryGetArray<byte>(source.Memory, out var segment) && segment is { Array: { } array }
                     ? new MemoryStream(array, segment.Offset, segment.Count)
