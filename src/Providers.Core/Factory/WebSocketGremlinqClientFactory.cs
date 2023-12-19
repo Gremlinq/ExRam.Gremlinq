@@ -292,7 +292,12 @@ namespace ExRam.Gremlinq.Providers.Core
                             }
 
                             if (_environment.Serializer.TryTransform(requestMessage, _environment, out TBuffer? buffer))
-                                await _client.SendAsync(buffer.Memory, WebSocketMessageType.Binary, true, ct);
+                            {
+                                using (buffer)
+                                {
+                                    await _client.SendAsync(buffer.Memory, WebSocketMessageType.Binary, true, ct);
+                                }
+                            }
                             else
                                 throw new InvalidOperationException();
                         }
