@@ -12,6 +12,7 @@ using ExRam.Gremlinq.Core;
 using Gremlin.Net.Driver;
 using Gremlin.Net.Driver.Exceptions;
 using Gremlin.Net.Driver.Messages;
+using Gremlin.Net.Process.Traversal;
 
 using static Gremlin.Net.Driver.Messages.ResponseStatusCode;
 
@@ -31,7 +32,7 @@ namespace ExRam.Gremlinq.Providers.Core
                         Client = client;
                     }
 
-                    public abstract void Signal(TBinaryMessage buffer);
+                    public abstract void Signal(TBinaryMessage buffer, Guid requestId, ResponseStatus responseStatus);
 
                     public abstract void Dispose();
 
@@ -86,20 +87,26 @@ namespace ExRam.Gremlinq.Providers.Core
                     {
                     }
 
-                    public override void Signal(TBinaryMessage buffer)
+                    public override void Signal(TBinaryMessage buffer, Guid requestId, ResponseStatus responseStatus)
                     {
                         try
                         {
-                            if (Client._environment.Deserializer.TryTransform(buffer, Client._environment, out ResponseMessage<T>? response))
-                                Signal(response);
+                            if (Client._environment.Deserializer.TryTransform(buffer, Client._environment, out ResponseMessagePayload<T> payload))
+                            {
+                                if (payload.Result is { } payloadResult)
+                                    Signal(new ResponseMessage<T>(requestId, responseStatus, payloadResult));
+                                else
+                                    Dispose();
+                            }
                             else
                                 throw new InvalidOperationException($"Unable to convert byte array to a {nameof(ResponseMessage<T>)} for {typeof(T).FullName}>.");
                         }
                         catch
                         {
-                            Dispose();
-
-                            throw;
+                            using (this)
+                            {
+                                throw;
+                            }
                         }
                     }
 
@@ -194,7 +201,7 @@ namespace ExRam.Gremlinq.Providers.Core
 
                 private record struct ResponseMessageEnvelope(Guid? RequestId, ResponseStatus? Status);
 
-                private record struct ResponseStatus(ResponseStatusCode Code, string? Message);
+                private record struct ResponseMessagePayload<T>(ResponseResult<T>? Result);
 
                 private readonly ClientWebSocket _client;
                 private readonly SemaphoreSlim _sendLock = new(1);
@@ -328,10 +335,10 @@ namespace ExRam.Gremlinq.Providers.Core
                                 {
                                     if (_environment.Deserializer.TryTransform(binaryMessage, _environment, out ResponseMessageEnvelope responseMessageEnvelope))
                                     {
-                                        if (responseMessageEnvelope is { Status: { Code: var statusCode, Message: var message }, RequestId: { } requestId })
+                                        if (responseMessageEnvelope is { Status: { Code: var statusCode, Message: var message } responseStatus, RequestId: { } requestId })
                                         {
                                             if (_channels.TryGetValue(requestId, out var otherChannel))
-                                                otherChannel.Signal(binaryMessage);
+                                                otherChannel.Signal(binaryMessage, requestId, responseStatus);
                                             else if (statusCode >= Unauthorized)
                                                 throw new ResponseException(statusCode, ImmutableDictionary<string, object>.Empty, $"The server returned a response indicating failure, but the response could not be mapped to a request: {message}");
                                         }
