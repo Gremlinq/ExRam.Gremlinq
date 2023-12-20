@@ -131,11 +131,10 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                 #endregion
 
                 public GraphsonJsonSerializer(
-                    DefaultValueHandling defaultValueHandling,
                     IGremlinQueryEnvironment environment,
                     ITransformer deserializer)
                 {
-                    DefaultValueHandling = defaultValueHandling;
+                    DefaultValueHandling = DefaultValueHandling.Ignore;
                     ContractResolver = new GremlinContractResolver(environment.Model);
                     Converters.Add(new JTokenConverterConverter(deserializer, environment));
                 }
@@ -147,7 +146,6 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
             public GremlinQueryEnvironmentCacheImpl(IGremlinQueryEnvironment environment)
             {
                 _serializerFactory = closure => new GraphsonJsonSerializer(
-                    DefaultValueHandling.Ignore,
                     environment,
                     closure);
             }
