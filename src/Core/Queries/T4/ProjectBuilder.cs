@@ -1,5 +1,4 @@
 ﻿#pragma warning disable CS0109 // Member does not hide an inherited member; new keyword is not required
-using System;
 using System.Linq.Expressions;
 
 namespace ExRam.Gremlinq.Core

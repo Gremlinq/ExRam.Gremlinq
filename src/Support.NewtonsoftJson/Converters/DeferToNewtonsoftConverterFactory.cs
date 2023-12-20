@@ -49,8 +49,10 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                     {
                         using (var streamReader = new StreamReader(stream))
                         {
-                            using (var jsonTextReader = new JsonTextReader(streamReader) { DateParseHandling = DateParseHandling.None })
+                            using (var jsonTextReader = new JsonTextReader(streamReader))
                             {
+                                jsonTextReader.DateParseHandling = DateParseHandling.None;
+
                                 if (JsonSerializer.Deserialize<JToken>(jsonTextReader) is { } jToken)
                                 {
                                     LastSerialization.Value = (source, jToken);
