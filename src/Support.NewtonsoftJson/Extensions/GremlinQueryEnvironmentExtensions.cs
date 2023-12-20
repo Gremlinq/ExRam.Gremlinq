@@ -1,154 +1,14 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using System.Reflection;
-using System.Runtime.CompilerServices;
 
 using ExRam.Gremlinq.Core;
-using ExRam.Gremlinq.Core.GraphElements;
-using ExRam.Gremlinq.Core.Models;
 using ExRam.Gremlinq.Core.Transformation;
 
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Newtonsoft.Json.Serialization;
 
 namespace ExRam.Gremlinq.Support.NewtonsoftJson
 {
     public static class GremlinQueryEnvironmentExtensions
     {
-        private sealed class GremlinQueryEnvironmentCacheImpl
-        {
-            private sealed class GraphsonJsonSerializer : JsonSerializer
-            {
-                #region Nested
-                private sealed class GremlinContractResolver : DefaultContractResolver
-                {
-                    private sealed class VertexPropertyPropertiesConverter<T> : JsonConverter<T>
-                    {
-                        public override T? ReadJson(JsonReader reader, Type objectType, T? existingValue, bool hasExistingValue, JsonSerializer serializer)
-                        {
-                            return serializer.Deserialize<VertexPropertyPropertiesWrapper<T>>(reader) is { HasValue: true, Value: { } value }
-                                ? value
-                                : default;
-                        }
-
-                        public override void WriteJson(JsonWriter writer, T? value, JsonSerializer serializer) => throw new NotImplementedException();
-                    }
-
-                    private readonly IGraphModel _model;
-
-                    public GremlinContractResolver(IGraphModel model)
-                    {
-                        _model = model;
-                    }
-
-                    protected override JsonProperty CreateProperty(MemberInfo member, MemberSerialization memberSerialization)
-                    {
-                        var property = base.CreateProperty(member, memberSerialization);
-
-                        if ((_model.VerticesModel.TryGetMetadata(member) ?? _model.EdgesModel.TryGetMetadata(member)) is { Key.RawKey: string name })
-                            property.PropertyName = name;
-
-                        if (member.DeclaringType is { } declaringType)
-                        {
-                            if (declaringType == typeof(Property))
-                            {
-                                if (member.Name == nameof(Property.Key))
-                                    property.Writable = true;
-                            }
-                            else if (declaringType.IsGenericType && declaringType.GetGenericTypeDefinition() == typeof(VertexProperty<,>))
-                            {
-                                if (member.Name == nameof(VertexProperty<object>.Id) || member.Name == nameof(VertexProperty<object>.Label))
-                                    property.Writable = true;
-                                else if (member is PropertyInfo { Name: nameof(VertexProperty<object>.Properties) } propertyInfo && !typeof(IDictionary<string, object>).IsAssignableFrom(propertyInfo.PropertyType))
-                                    property.Converter = (JsonConverter?)Activator.CreateInstance(typeof(VertexPropertyPropertiesConverter<>).MakeGenericType(propertyInfo.PropertyType));
-                            }
-                        }
-
-                        property.Readable = false;
-
-                        return property;
-                    }
-                }
-
-                internal sealed class JTokenConverterConverter : JsonConverter
-                {
-                    private readonly IGremlinQueryEnvironment _environment;
-
-                    [ThreadStatic]
-                    // ReSharper disable once StaticMemberInGenericType
-                    internal static bool _canConvert;
-
-                    public JTokenConverterConverter(IGremlinQueryEnvironment environment)
-                    {
-                        _environment = environment;
-                    }
-
-                    public override bool CanConvert(Type objectType)
-                    {
-                        if (!_canConvert)
-                        {
-                            _canConvert = true;
-
-                            return false;
-                        }
-
-                        return true;
-                    }
-
-                    public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer)
-                    {
-                        throw new NotSupportedException($"Cannot write to {nameof(JTokenConverterConverter)}.");
-                    }
-
-                    public override object? ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer)
-                    {
-                        JToken? token;
-
-                        if (reader is JTokenReader { CurrentToken: { } currentToken })
-                        {
-                            reader.Skip();
-                            token = currentToken;
-                        }
-                        else
-                            token = JToken.Load(reader);
-
-                        try
-                        {
-                            _canConvert = false;
-
-                            return _environment.Deserializer.TryTransformTo(objectType).From(token, _environment);
-                        }
-                        finally
-                        {
-                            _canConvert = true;
-                        }
-                    }
-                }
-                #endregion
-
-                public GraphsonJsonSerializer(IGremlinQueryEnvironment environment)
-                {
-                    DefaultValueHandling = DefaultValueHandling.Ignore;
-                    ContractResolver = new GremlinContractResolver(environment.Model);
-                    Converters.Add(new JTokenConverterConverter(environment));
-                }
-            }
-
-            private readonly GraphsonJsonSerializer _serializer;
-
-            public GremlinQueryEnvironmentCacheImpl(IGremlinQueryEnvironment environment)
-            {
-                _serializer = new GraphsonJsonSerializer(environment);
-            }
-
-            public JsonSerializer GetSerializer()
-            {
-                GraphsonJsonSerializer.JTokenConverterConverter._canConvert = false;
-
-                return _serializer;
-            }
-        }
-
         private sealed class NativeTypeSerializerConverterFactory<TNative, TSerialized> : IConverterFactory
         {
             private sealed class NativeTypeSerializerConverter<TTarget> : IConverter<TNative, TTarget>
@@ -225,8 +85,6 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                 : default;
         }
 
-        private static readonly ConditionalWeakTable<IGremlinQueryEnvironment, GremlinQueryEnvironmentCacheImpl> Caches = new();
-
         public static IGremlinQueryEnvironment UseNewtonsoftJson(this IGremlinQueryEnvironment environment)
         {
             return environment
@@ -243,15 +101,6 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                     .Add(new NativeTypeSerializerConverterFactory<TNative, TSerialized>(serializer)))
                 .ConfigureDeserializer(_ => _
                     .Add(new NativeTypeDeserializerConverterFactory<TNative>(deserializer)));
-        }
-
-        internal static JsonSerializer GetJsonSerializer(this IGremlinQueryEnvironment environment)
-        {
-            return Caches
-                .GetValue(
-                    environment,
-                    static environment => new GremlinQueryEnvironmentCacheImpl(environment))
-                .GetSerializer();
         }
     }
 }
