@@ -73,17 +73,13 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                 internal sealed class JTokenConverterConverter : JsonConverter
                 {
                     private readonly IGremlinQueryEnvironment _environment;
-                    private readonly ITransformer _deserializer;
 
                     [ThreadStatic]
                     // ReSharper disable once StaticMemberInGenericType
                     internal static bool _canConvert;
 
-                    public JTokenConverterConverter(
-                        ITransformer deserializer,
-                        IGremlinQueryEnvironment environment)
+                    public JTokenConverterConverter(IGremlinQueryEnvironment environment)
                     {
-                        _deserializer = deserializer;
                         _environment = environment;
                     }
 
@@ -120,7 +116,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                         {
                             _canConvert = false;
 
-                            return _deserializer.TryTransformTo(objectType).From(token, _environment);
+                            return _environment.Deserializer.TryTransformTo(objectType).From(token, _environment);
                         }
                         finally
                         {
@@ -130,33 +126,26 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                 }
                 #endregion
 
-                public GraphsonJsonSerializer(
-                    IGremlinQueryEnvironment environment,
-                    ITransformer deserializer)
+                public GraphsonJsonSerializer(IGremlinQueryEnvironment environment)
                 {
                     DefaultValueHandling = DefaultValueHandling.Ignore;
                     ContractResolver = new GremlinContractResolver(environment.Model);
-                    Converters.Add(new JTokenConverterConverter(deserializer, environment));
+                    Converters.Add(new JTokenConverterConverter(environment));
                 }
             }
 
-            private readonly ConditionalWeakTable<ITransformer, JsonSerializer> _serializers = new();
-            private readonly ConditionalWeakTable<ITransformer, JsonSerializer>.CreateValueCallback _serializerFactory;
+            private readonly GraphsonJsonSerializer _serializer;
 
             public GremlinQueryEnvironmentCacheImpl(IGremlinQueryEnvironment environment)
             {
-                _serializerFactory = closure => new GraphsonJsonSerializer(
-                    environment,
-                    closure);
+                _serializer = new GraphsonJsonSerializer(environment);
             }
 
-            public JsonSerializer GetSerializer(ITransformer deserializer)
+            public JsonSerializer GetSerializer()
             {
                 GraphsonJsonSerializer.JTokenConverterConverter._canConvert = false;
 
-                return _serializers.GetValue(
-                    deserializer,
-                    _serializerFactory);
+                return _serializer;
             }
         }
 
@@ -256,13 +245,13 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                     .Add(new NativeTypeDeserializerConverterFactory<TNative>(deserializer)));
         }
 
-        internal static JsonSerializer GetJsonSerializer(this IGremlinQueryEnvironment environment, ITransformer deserializer)
+        internal static JsonSerializer GetJsonSerializer(this IGremlinQueryEnvironment environment)
         {
             return Caches
                 .GetValue(
                     environment,
-                    static closure => new GremlinQueryEnvironmentCacheImpl(closure))
-                .GetSerializer(deserializer);
+                    static environment => new GremlinQueryEnvironmentCacheImpl(environment))
+                .GetSerializer();
         }
     }
 }
