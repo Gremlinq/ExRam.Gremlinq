@@ -28,7 +28,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
 
                 try
                 {
-                    if (source.ToObject<TTarget>(_environment.GetJsonSerializer(recurse)) is { } requestedValue)
+                    if (source.ToObject<TTarget>(_environment.GetJsonSerializer()) is { } requestedValue)
                     {
                         value = requestedValue;
                         return true;
