@@ -37,8 +37,8 @@ namespace ExRam.Gremlinq.Providers.Core
                 private readonly IGremlinqClientFactory _baseFactory;
                 private readonly IGremlinQueryEnvironment _environment;
 
+                private int _maxRequestsInUse;
                 private int _currentRequestsInUse;
-                private int _maxRequestsInUse = 0;
                 private int _currentSlotIndex = -1;
 
                 public PoolGremlinqClient(IGremlinqClientFactory baseFactory, int poolSize, int maxInProcessPerConnection, IGremlinQueryEnvironment environment)

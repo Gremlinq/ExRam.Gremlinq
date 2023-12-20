@@ -945,7 +945,7 @@ namespace ExRam.Gremlinq.Core
             .Continue()
             .Build(
                 static (builder, tuple) => builder
-                    .AddStep(new SelectStepLabelStep(ImmutableArray.Create<StepLabel>(tuple.stepLabel)))
+                    .AddStep(new SelectStepLabelStep(ImmutableArray.Create(tuple.stepLabel)))
                     .WithNewProjection(tuple.stepLabelProjection)
                     .Build<TNewQuery>(),
                 (stepLabel, stepLabelProjection: GetLabelProjection(stepLabel)));

@@ -42,7 +42,7 @@ namespace ExRam.Gremlinq.Core
                     static requestedType =>
                     {
                         var requestedTypeDefinition = requestedType.GetGenericTypeDefinition();
-                        var queryTypeArguments = new Type[QueryGenericTypeDefinitionArguments.Length];
+                        var queryTypeArguments = new Type?[QueryGenericTypeDefinitionArguments.Length];
 
                         for (var i = 0; i < ImplementedInterfaces.Length; i++)
                         {
@@ -62,21 +62,19 @@ namespace ExRam.Gremlinq.Core
                                         }
                                     }
 
-                                    if (queryTypeArguments[j] == null)
-                                    {
-                                        queryTypeArguments[j] = j == 1 && queryTypeArguments[0].IsArray
-                                            ? queryTypeArguments[0].GetElementType()!
-                                            : QueryGenericTypeDefinitionArguments[j].GetGenericParameterConstraints().SingleOrDefault() ?? typeof(object);
-                                    }
+                                    queryTypeArguments[j] ??= j == 1 && queryTypeArguments[0]!.IsArray
+                                        ? queryTypeArguments[0]!.GetElementType()!
+                                        : QueryGenericTypeDefinitionArguments[j].GetGenericParameterConstraints().SingleOrDefault() ?? typeof(object);
                                 }
 
-                                break;
+
+                                return (QueryContinuation?)TryCreateQueryContinuationMethod
+                                    .MakeGenericMethod(queryTypeArguments!)
+                                    .Invoke(null, null)!;
                             }
                         }
 
-                        return (QueryContinuation?)TryCreateQueryContinuationMethod
-                            .MakeGenericMethod(queryTypeArguments)
-                            .Invoke(null, null)!;
+                        throw new NotSupportedException();
                     })
                 : ObjectQueryContinuation;
 

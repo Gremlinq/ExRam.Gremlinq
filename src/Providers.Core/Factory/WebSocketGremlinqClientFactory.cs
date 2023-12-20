@@ -12,7 +12,6 @@ using ExRam.Gremlinq.Core;
 using Gremlin.Net.Driver;
 using Gremlin.Net.Driver.Exceptions;
 using Gremlin.Net.Driver.Messages;
-using Gremlin.Net.Process.Traversal;
 
 using static Gremlin.Net.Driver.Messages.ResponseStatusCode;
 
@@ -199,17 +198,17 @@ namespace ExRam.Gremlinq.Providers.Core
                     }
                 }
 
-                private record struct ResponseMessageEnvelope(Guid? RequestId, ResponseStatus? Status);
-
                 private record struct ResponseMessagePayload<T>(ResponseResult<T>? Result);
+
+                private record struct ResponseMessageEnvelope(Guid? RequestId, ResponseStatus? Status);
 
                 private readonly ClientWebSocket _client;
                 private readonly SemaphoreSlim _sendLock = new(1);
                 private readonly CancellationTokenSource _cts = new();
                 private readonly IGremlinQueryEnvironment _environment;
                 private readonly TaskCompletionSource<Task> _loopTcs = new();
-                private readonly WebSocketGremlinqClientFactoryImpl<TBinaryMessage> _factory;
                 private readonly ConcurrentDictionary<Guid, Channel> _channels = new();
+                private readonly WebSocketGremlinqClientFactoryImpl<TBinaryMessage> _factory;
 
                 public WebSocketGremlinqClient(WebSocketGremlinqClientFactoryImpl<TBinaryMessage> factory, ClientWebSocket client, IGremlinQueryEnvironment environment)
                 {
