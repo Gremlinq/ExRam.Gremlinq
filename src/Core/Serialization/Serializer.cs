@@ -102,11 +102,17 @@ namespace ExRam.Gremlinq.Core.Serialization
                 {
                     _stepLabelNames = null;
 
-                    return query
-                        .ToTraversal()
-                        .IncludeProjection(env);
-                })
-                .Finally(() => _stepLabelNames = null))
+                    try
+                    {
+                        return query
+                            .ToTraversal()
+                            .IncludeProjection(env);
+                    }
+                    finally
+                    {
+                        _stepLabelNames = null;
+                    }
+                }))
             .Add(ConverterFactory
                 .Create<StepLabel, string>((stepLabel, _, _, _) =>
                 {

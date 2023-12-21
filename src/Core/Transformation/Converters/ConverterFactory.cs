@@ -129,49 +129,6 @@ namespace ExRam.Gremlinq.Core.Transformation
             }
         }
 
-        private sealed class FinallyConverterFactory : IConverterFactory
-        {
-            private sealed class FinallyConverter<TSource, TTarget> : IConverter<TSource, TTarget>
-            {
-                private readonly Action _finallyAction;
-                private readonly IConverter<TSource, TTarget> _baseConverter;
-
-                public FinallyConverter(IConverter<TSource, TTarget> baseConverter, Action finallyAction)
-                {
-                    _baseConverter = baseConverter;
-                    _finallyAction = finallyAction;
-                }
-
-                public bool TryConvert(TSource source, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
-                {
-                    try
-                    {
-                        return _baseConverter.TryConvert(source, defer, recurse, out value);
-                    }
-                    finally
-                    {
-                        _finallyAction();
-                    }
-                }
-            }
-
-            private readonly Action _finallyAction;
-            private readonly IConverterFactory _baseConverterFactory;
-
-            public FinallyConverterFactory(IConverterFactory baseConverterFactory, Action finallyAction)
-            {
-                _finallyAction = finallyAction;
-                _baseConverterFactory = baseConverterFactory;
-            }
-
-            public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment)
-            {
-                return _baseConverterFactory.TryCreate<TSource, TTarget>(environment) is { } converter
-                    ? new FinallyConverter<TSource, TTarget>(converter, _finallyAction)
-                    : default;
-            }
-        }
-
         private sealed class GuardConverterFactory<TStaticSource> : IConverterFactory
         {
             private sealed class GuardConverter<TSource, TTarget> : IConverter<TSource, TTarget>
@@ -247,8 +204,6 @@ namespace ExRam.Gremlinq.Core.Transformation
             where TStaticTarget : class => new ClassFuncConverterFactory<TStaticSource, TStaticTarget>(func);
 
         public static IConverterFactory Guard<TStaticSource>(Action<TStaticSource> guard) => new GuardConverterFactory<TStaticSource>(guard);
-
-        public static IConverterFactory Finally(this IConverterFactory factory, Action finallyAction) => new FinallyConverterFactory(factory, finallyAction);
 
         internal static IConverterFactory Chain<TStaticSource, TIntermediateSource, TStaticTarget>() => new ChainConverterFactory<TStaticSource, TIntermediateSource, TStaticTarget>();
     }
