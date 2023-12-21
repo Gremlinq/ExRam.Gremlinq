@@ -1,4 +1,5 @@
-﻿using ExRam.Gremlinq.Tests.Fixtures;
+﻿using ExRam.Gremlinq.Core.Deserialization;
+using ExRam.Gremlinq.Tests.Fixtures;
 using ExRam.Gremlinq.Tests.Infrastructure;
 using ExRam.Gremlinq.Tests.TestCases;
 
@@ -12,5 +13,6 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
             testOutputHelper)
         {
         }
+       
     }
 }

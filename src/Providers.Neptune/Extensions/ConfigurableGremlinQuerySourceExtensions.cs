@@ -59,7 +59,6 @@ namespace ExRam.Gremlinq.Providers.Neptune
                 .Invoke(NeptuneConfigurator.Default)
                 .Transform(source
                     .ConfigureEnvironment(environment => environment
-                        .AddGraphSonBinarySupport()
                         .UseModel(GraphModel
                             .FromBaseTypes<TVertexBase, TEdgeBase>())
                         .ConfigureFeatureSet(featureSet => featureSet
@@ -74,11 +73,14 @@ namespace ExRam.Gremlinq.Providers.Neptune
                         .ConfigureNativeTypes(nativeTypes => nativeTypes
                             .Remove(typeof(byte[]))
                             .Remove(typeof(TimeSpan)))
+                        .AddGraphSonBinarySupport()
                         .ConfigureSerializer(serializer => serializer
                             .Add(ConverterFactory
                                 .Create<PropertyStep.ByKeyStep, PropertyStep.ByKeyStep>((step, _, _, _) => Cardinality.List.Equals(step.Cardinality)
                                     ? new PropertyStep.ByKeyStep(step.Key, step.Value, step.MetaProperties, Cardinality.Set)
-                                    : default)))))
+                                    : default)))
+                        .ConfigureDeserializer(deserializer => deserializer
+                            .AsIncomplete())))
                 .ConfigureEnvironment(environment => environment
                     .ConfigureExecutor(executor => executor
                         .TransformExecutionException(ex =>
