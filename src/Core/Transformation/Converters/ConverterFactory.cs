@@ -129,52 +129,6 @@ namespace ExRam.Gremlinq.Core.Transformation
             }
         }
 
-        private sealed class AutoRecurseConverterFactory<TStaticTarget> : IConverterFactory
-        {
-            private sealed class AutoRecurseConverter<TSource, TTarget> : IConverter<TSource, TTarget>
-            {
-                private readonly IGremlinQueryEnvironment _environment;
-                private readonly IConverter<TSource, TStaticTarget> _baseConverter;
-
-                public AutoRecurseConverter(IConverter<TSource, TStaticTarget> baseConverter, IGremlinQueryEnvironment environment)
-                {
-                    _environment = environment;
-                    _baseConverter = baseConverter;
-                }
-
-                public bool TryConvert(TSource source, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
-                {
-                    if (_baseConverter.TryConvert(source, defer, recurse, out var staticTargetValue))
-                    {
-                        if (staticTargetValue is TTarget targetValue)
-                        {
-                            value = targetValue;
-                            return true;
-                        }
-
-                        return recurse.TryTransform(staticTargetValue, _environment, out value);
-                    }
-
-                    value = default;
-                    return false;
-                }
-            }
-
-            private readonly IConverterFactory _baseFactory;
-
-            public AutoRecurseConverterFactory(IConverterFactory baseFactory)
-            {
-                _baseFactory = baseFactory;
-            }
-
-            public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment)
-            {
-                return _baseFactory.TryCreate<TSource, TStaticTarget>(environment) is { } baseConverter
-                    ? new AutoRecurseConverter<TSource, TTarget>(baseConverter, environment)
-                    : default;
-            }
-        }
-
         private sealed class FinallyConverterFactory : IConverterFactory
         {
             private sealed class FinallyConverter<TSource, TTarget> : IConverter<TSource, TTarget>
@@ -293,8 +247,6 @@ namespace ExRam.Gremlinq.Core.Transformation
             where TStaticTarget : class => new ClassFuncConverterFactory<TStaticSource, TStaticTarget>(func);
 
         public static IConverterFactory Guard<TStaticSource>(Action<TStaticSource> guard) => new GuardConverterFactory<TStaticSource>(guard);
-
-        public static IConverterFactory AutoRecurse<TStaticTarget>(this IConverterFactory baseFactory) => new AutoRecurseConverterFactory<TStaticTarget>(baseFactory);
 
         public static IConverterFactory Finally(this IConverterFactory factory, Action finallyAction) => new FinallyConverterFactory(factory, finallyAction);
 

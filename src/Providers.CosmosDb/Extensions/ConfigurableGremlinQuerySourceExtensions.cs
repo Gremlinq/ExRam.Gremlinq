@@ -164,13 +164,11 @@ namespace ExRam.Gremlinq.Providers.CosmosDb
                                     ? message
                                     : null))
                             .Add(ConverterFactory
-                                .Create<CosmosDbKey, string>((key, _, _, _) => key.Id)
-                                .AutoRecurse<string>())
+                                .Create<CosmosDbKey, string>((key, _, _, _) => key.Id))
                             .Add(ConverterFactory
                                 .Create<CosmosDbKey, string[]>((key, _, _, _) => key.PartitionKey is { } partitionKey
                                     ? new[] { partitionKey, key.Id }
-                                    : default)
-                                .AutoRecurse<string[]>())
+                                    : default))
                             .Add(ConverterFactory
                                 .Create<FilterStep.ByTraversalStep, WhereTraversalStep>(static (step, _, _, _) => new WhereTraversalStep(
                                     step.Traversal.Count > 0 && step.Traversal[0] is AsStep
@@ -206,8 +204,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb
                                     ? WorkaroundOrder.Incr
                                     : order.Equals(Order.Desc)
                                         ? WorkaroundOrder.Decr
-                                        : default)
-                                .AutoRecurse<WorkaroundOrder>()))));
+                                        : default)))));
         }
     }
 }

@@ -2191,7 +2191,6 @@ namespace ExRam.Gremlinq.Core.Transformation
 {
     public static class ConverterFactory
     {
-        public static ExRam.Gremlinq.Core.Transformation.IConverterFactory AutoRecurse<TStaticTarget>(this ExRam.Gremlinq.Core.Transformation.IConverterFactory baseFactory) { }
         public static ExRam.Gremlinq.Core.Transformation.IConverterFactory Create<TStaticSource, TStaticTarget>(System.Func<TStaticSource, ExRam.Gremlinq.Core.IGremlinQueryEnvironment, ExRam.Gremlinq.Core.Transformation.ITransformer, ExRam.Gremlinq.Core.Transformation.ITransformer, TStaticTarget?> func)
             where TStaticTarget :  struct { }
         public static ExRam.Gremlinq.Core.Transformation.IConverterFactory Create<TStaticSource, TStaticTarget>(System.Func<TStaticSource, ExRam.Gremlinq.Core.IGremlinQueryEnvironment, ExRam.Gremlinq.Core.Transformation.ITransformer, ExRam.Gremlinq.Core.Transformation.ITransformer, TStaticTarget?> func)

@@ -303,17 +303,13 @@ namespace ExRam.Gremlinq.Core.Serialization
 
                     // ReSharper disable once TailRecursiveCall
                     return stepLabelMapping;
-                })
-                .AutoRecurse<string>())
+                }))
             .Add(ConverterFactory
-                .Create<DateTime, DateTimeOffset>((dateTime, _, _, _) => new DateTimeOffset(dateTime.ToUniversalTime()))
-                .AutoRecurse<DateTimeOffset>())
+                .Create<DateTime, DateTimeOffset>((dateTime, _, _, _) => new DateTimeOffset(dateTime.ToUniversalTime())))
             .Add(ConverterFactory
-                .Create<Key, T>((key, _, _, _) => key.RawKey as T)
-                .AutoRecurse<T>())
+                .Create<Key, T>((key, _, _, _) => key.RawKey as T))
             .Add(ConverterFactory
-                .Create<Key, string>((key, _, _, _) => key.RawKey as string)
-                .AutoRecurse<string>())
+                .Create<Key, string>((key, _, _, _) => key.RawKey as string))
             .Add(new ByteArrayToStringFallbackConverterFactory())
             .Add(new TimeSpanToDoubleConverterFactory())
             .Add(Create<P, P>((p, env, _, recurse) =>
