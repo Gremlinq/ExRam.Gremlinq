@@ -11,7 +11,7 @@ using Gremlin.Net.Driver;
 
 namespace ExRam.Gremlinq.Core.Serialization
 {
-    public static class Serializer
+    public static partial class Serializer
     {
         private sealed class ByteArrayToStringFallbackConverterFactory : IConverterFactory
         {
@@ -85,9 +85,6 @@ namespace ExRam.Gremlinq.Core.Serialization
             }
         }
 
-        [ThreadStatic]
-        internal static Dictionary<StepLabel, Label>? _stepLabelNames;
-
         public static readonly ITransformer Default = Transformer.Empty
             .AddBaseConverters()
             .AddDefaultStepConverters();
@@ -98,38 +95,10 @@ namespace ExRam.Gremlinq.Core.Serialization
             .Add(Chain<IGremlinQueryBase, Traversal, Bytecode>())
 
             .Add(ConverterFactory
-                .Create<IGremlinQueryBase, Traversal>((query, env, _, _) =>
-                {
-                    _stepLabelNames = null;
-
-                    try
-                    {
-                        return query
-                            .ToTraversal()
-                            .IncludeProjection(env);
-                    }
-                    finally
-                    {
-                        _stepLabelNames = null;
-                    }
-                }))
-            .Add(ConverterFactory
-                .Create<StepLabel, string>((stepLabel, _, _, _) =>
-                {
-                    var stepLabelNames = _stepLabelNames ??= new Dictionary<StepLabel, Label>();
-
-                    if (!stepLabelNames.TryGetValue(stepLabel, out var stepLabelMapping))
-                    {
-                        stepLabelMapping = stepLabel.Identity is string { Length: > 0 } stringIdentity && !stringIdentity.StartsWith('_')
-                            ? stringIdentity
-                            : stepLabelNames.Count;
-
-                        stepLabelNames.Add(stepLabel, stepLabelMapping);
-                    }
-
-                    // ReSharper disable once TailRecursiveCall
-                    return stepLabelMapping;
-                }))
+                .Create<IGremlinQueryBase, Traversal>((query, env, _, _) => query
+                   .ToTraversal()
+                   .IncludeProjection(env)))
+            .Add(new StepLabelSupportConverterFactory())
             .Add(ConverterFactory
                 .Create<Traversal, Bytecode>((traversal, env, _, recurse) =>
                 {
