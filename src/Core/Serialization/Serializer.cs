@@ -108,6 +108,23 @@ namespace ExRam.Gremlinq.Core.Serialization
                 })
                 .Finally(() => _stepLabelNames = null))
             .Add(ConverterFactory
+                .Create<StepLabel, string>((stepLabel, _, _, _) =>
+                {
+                    var stepLabelNames = _stepLabelNames ??= new Dictionary<StepLabel, Label>();
+
+                    if (!stepLabelNames.TryGetValue(stepLabel, out var stepLabelMapping))
+                    {
+                        stepLabelMapping = stepLabel.Identity is string { Length: > 0 } stringIdentity && !stringIdentity.StartsWith('_')
+                            ? stringIdentity
+                            : stepLabelNames.Count;
+
+                        stepLabelNames.Add(stepLabel, stepLabelMapping);
+                    }
+
+                    // ReSharper disable once TailRecursiveCall
+                    return stepLabelMapping;
+                }))
+            .Add(ConverterFactory
                 .Create<Traversal, Bytecode>((traversal, env, _, recurse) =>
                 {
                     static void AddTraversal(Traversal traversal, Bytecode byteCode, IGremlinQueryEnvironment env, ITransformer recurse)
@@ -287,23 +304,6 @@ namespace ExRam.Gremlinq.Core.Serialization
                     .AddArgument(Tokens.ArgsGremlin, bytecode)
                     .AddAlias(env)
                     .Create()))
-            .Add(ConverterFactory
-                .Create<StepLabel, string>((stepLabel, _, _, _) =>
-                {
-                    var stepLabelNames = _stepLabelNames ??= new Dictionary<StepLabel, Label>();
-
-                    if (!stepLabelNames.TryGetValue(stepLabel, out var stepLabelMapping))
-                    {
-                        stepLabelMapping = stepLabel.Identity is string { Length: > 0 } stringIdentity && !stringIdentity.StartsWith('_')
-                            ? stringIdentity
-                            : stepLabelNames.Count;
-
-                        stepLabelNames.Add(stepLabel, stepLabelMapping);
-                    }
-
-                    // ReSharper disable once TailRecursiveCall
-                    return stepLabelMapping;
-                }))
             .Add(ConverterFactory
                 .Create<DateTime, DateTimeOffset>((dateTime, _, _, _) => new DateTimeOffset(dateTime.ToUniversalTime())))
             .Add(ConverterFactory
