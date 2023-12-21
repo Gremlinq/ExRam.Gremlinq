@@ -184,21 +184,21 @@ namespace ExRam.Gremlinq.Providers.CosmosDb
                                 .Create<NoneStep, NotStep>((_, _, _, _) => NoneWorkaround))
                             .Add(ConverterFactory
                                 .Create<SkipStep, RangeStep>((step, _, _, _) => new RangeStep(step.Count, -1, step.Scope)))
-                            .Add(Guard<LimitStep>(step =>
+                            .Guard<LimitStep>(step =>
                             {
                                 if (step.Count > int.MaxValue)
                                     throw new ArgumentOutOfRangeException(nameof(step), "CosmosDb doesn't currently support values for 'Limit' outside the range of a 32-bit-integer.");
-                            }))
-                            .Add(Guard<TailStep>(step =>
+                            })
+                            .Guard<TailStep>(step =>
                             {
                                 if (step.Count > int.MaxValue)
                                     throw new ArgumentOutOfRangeException(nameof(step), "CosmosDb doesn't currently support values for 'Tail' outside the range of a 32-bit-integer.");
-                            }))
-                            .Add(Guard<RangeStep>(step =>
+                            })
+                            .Guard<RangeStep>(step =>
                             {
                                 if (step.Lower > int.MaxValue || step.Upper > int.MaxValue)
                                     throw new ArgumentOutOfRangeException(nameof(step), "CosmosDb doesn't currently support values for 'Range' outside the range of a 32-bit-integer.");
-                            }))
+                            })
                             .Add(ConverterFactory
                                 .Create<Order, WorkaroundOrder>((order, _, _, _) => order.Equals(Order.Asc)
                                     ? WorkaroundOrder.Incr
