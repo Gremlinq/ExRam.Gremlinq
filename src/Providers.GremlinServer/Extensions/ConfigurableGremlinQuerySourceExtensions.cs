@@ -41,7 +41,6 @@ namespace ExRam.Gremlinq.Providers.GremlinServer
                 .Invoke(GremlinServerConfigurator.Default)
                 .Transform(source
                     .ConfigureEnvironment(environment => environment
-                        .AddGraphSonBinarySupport()
                         .UseModel(GraphModel
                             .FromBaseTypes<TVertexBase, TEdgeBase>())
                         .ConfigureOptions(options => options
@@ -50,7 +49,10 @@ namespace ExRam.Gremlinq.Providers.GremlinServer
                             .ConfigureGraphFeatures(graphFeatures => graphFeatures & ~(GraphFeatures.Transactions | GraphFeatures.ThreadedTransactions | GraphFeatures.ConcurrentAccess))
                             .ConfigureVertexFeatures(vertexFeatures => vertexFeatures & ~(VertexFeatures.Upsert | VertexFeatures.CustomIds))
                             .ConfigureVertexPropertyFeatures(vPropertiesFeatures => vPropertiesFeatures & ~(VertexPropertyFeatures.CustomIds))
-                            .ConfigureEdgeFeatures(edgeProperties => edgeProperties & ~(EdgeFeatures.Upsert | EdgeFeatures.CustomIds)))));
+                            .ConfigureEdgeFeatures(edgeProperties => edgeProperties & ~(EdgeFeatures.Upsert | EdgeFeatures.CustomIds)))
+                        .AddGraphSonBinarySupport()
+                        .ConfigureDeserializer(deserializer => deserializer
+                            .AsIncomplete())));
         }
     }
 }

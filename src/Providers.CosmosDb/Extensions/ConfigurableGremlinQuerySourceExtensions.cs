@@ -140,7 +140,6 @@ namespace ExRam.Gremlinq.Providers.CosmosDb
                 .Invoke(CosmosDbConfigurator<TVertexBase>.Default)
                 .Transform(source
                     .ConfigureEnvironment(environment => environment
-                        .AddGraphSonBinarySupport()
                         .UseModel(GraphModel
                             .FromBaseTypes<TVertexBase, TEdgeBase>())
                         .ConfigureFeatureSet(featureSet => featureSet
@@ -158,6 +157,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb
                         .ConfigureNativeTypes(nativeTypes => nativeTypes
                             .Remove(typeof(byte[]))
                             .Remove(typeof(TimeSpan)))
+                        .AddGraphSonBinarySupport()
                         .ConfigureSerializer(serializer => serializer
                              .Add(ConverterFactory
                                 .Create<Bytecode, RequestMessage>((bytecode, env, _, recurse) => recurse.TryTransform(bytecode, env, out GroovyGremlinScript groovyQuery) && recurse.TryTransform(groovyQuery, env, out RequestMessage? message)
@@ -204,7 +204,9 @@ namespace ExRam.Gremlinq.Providers.CosmosDb
                                     ? WorkaroundOrder.Incr
                                     : order.Equals(Order.Desc)
                                         ? WorkaroundOrder.Decr
-                                        : default)))));
+                                        : default)))
+                        .ConfigureDeserializer(deserializer => deserializer
+                            .AsIncomplete())));
         }
     }
 }
