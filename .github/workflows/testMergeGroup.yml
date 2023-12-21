@@ -71,3 +71,6 @@ jobs:
       run: dotnet test ./${{ github.event.repository.name }}.sln -c Release --no-build
       env:
         RunCosmosDbIntegrationTests: 'true'
+        
+    - name: Collect coverage
+      uses: codecov/codecov-action@v3
