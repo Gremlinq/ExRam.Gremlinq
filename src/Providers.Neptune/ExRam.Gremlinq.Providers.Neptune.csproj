@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <Compile Include="..\Core\ExceptionHelper.cs" Link="ExceptionHelper.cs" />
+    <Compile Include="..\Core\Extensions\TransformerInternalExtensions.cs" Link="Extensions\TransformerInternalExtensions.cs" />
   </ItemGroup>
 
   <ItemGroup>

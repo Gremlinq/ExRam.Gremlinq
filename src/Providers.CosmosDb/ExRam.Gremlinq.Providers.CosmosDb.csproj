@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="..\Core\Extensions\TransformerInternalExtensions.cs" Link="Extensions\TransformerInternalExtensions.cs" />
+  </ItemGroup>
+  
+  <ItemGroup>
     <ProjectReference Include="..\Providers.Core\ExRam.Gremlinq.Providers.Core.csproj" />
   </ItemGroup>
 
