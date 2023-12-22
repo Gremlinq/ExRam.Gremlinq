@@ -329,7 +329,7 @@
         TSelf Property<TProjectedValue>(System.Linq.Expressions.Expression<System.Func<TElement, TProjectedValue>> projection, ExRam.Gremlinq.Core.StepLabel<TProjectedValue> stepLabel);
         TSelf Property<TProjectedValue>(System.Linq.Expressions.Expression<System.Func<TElement, TProjectedValue>> projection, System.Func<TSelf, ExRam.Gremlinq.Core.IGremlinQueryBase<TProjectedValue>> valueTraversal);
         TSelf Property<TProjectedValue>(System.Linq.Expressions.Expression<System.Func<TElement, TProjectedValue>> projection, TProjectedValue value);
-        TSelf Where<TProjection>(System.Linq.Expressions.Expression<System.Func<TElement, TProjection>> projection, System.Func<ExRam.Gremlinq.Core.IGremlinQueryBase<TProjection>, ExRam.Gremlinq.Core.IGremlinQueryBase> propertyTraversal);
+        TSelf Where<TProjection>(System.Linq.Expressions.Expression<System.Func<TElement, TProjection>> projection, System.Func<ExRam.Gremlinq.Core.IGremlinQuery<TProjection>, ExRam.Gremlinq.Core.IGremlinQueryBase> propertyTraversal);
     }
     public interface IElementGremlinQueryBase<TElement> : ExRam.Gremlinq.Core.IElementGremlinQueryBase, ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IGremlinQueryBase<TElement>, ExRam.Gremlinq.Core.IStartGremlinQuery
     {

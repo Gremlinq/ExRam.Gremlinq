@@ -1444,7 +1444,7 @@ namespace ExRam.Gremlinq.Core
         IElementGremlinQuery<T1> IElementGremlinQueryBaseRec<T1, IElementGremlinQuery<T1>>.Property<TProjectedValue>(Expression<Func<T1, TProjectedValue>> projection, StepLabel<TProjectedValue> stepLabel) => Property(projection, __ => __.Select(stepLabel));
         IElementGremlinQuery<T1> IElementGremlinQueryBaseRec<T1, IElementGremlinQuery<T1>>.Property<TProjectedValue>(Expression<Func<T1, TProjectedValue>> projection, Func<IElementGremlinQuery<T1>, IGremlinQueryBase<TProjectedValue>> valueTraversal) => Property(projection, valueTraversal);
 
-        IElementGremlinQuery<T1> IElementGremlinQueryBaseRec<T1, IElementGremlinQuery<T1>>.Where<TProjection>(Expression<Func<T1, TProjection>> projection, Func<IGremlinQueryBase<TProjection>, IGremlinQueryBase> propertyTraversal) => Where(projection, propertyTraversal);
+        IElementGremlinQuery<T1> IElementGremlinQueryBaseRec<T1, IElementGremlinQuery<T1>>.Where<TProjection>(Expression<Func<T1, TProjection>> projection, Func<IGremlinQuery<TProjection>, IGremlinQueryBase> propertyTraversal) => Where(projection, propertyTraversal);
         IEdgeOrVertexGremlinQuery<T1> IElementGremlinQueryBaseRec<IEdgeOrVertexGremlinQuery<T1>>.Property(string key, object? value) => Property(key, value);
         IEdgeOrVertexGremlinQuery<T1> IElementGremlinQueryBaseRec<IEdgeOrVertexGremlinQuery<T1>>.Property(string key, Func<IEdgeOrVertexGremlinQuery<T1>, IGremlinQueryBase> valueTransformation) => Property(key, valueTransformation);
 
@@ -1452,7 +1452,7 @@ namespace ExRam.Gremlinq.Core
         IEdgeOrVertexGremlinQuery<T1> IElementGremlinQueryBaseRec<T1, IEdgeOrVertexGremlinQuery<T1>>.Property<TProjectedValue>(Expression<Func<T1, TProjectedValue>> projection, StepLabel<TProjectedValue> stepLabel) => Property(projection, __ => __.Select(stepLabel));
         IEdgeOrVertexGremlinQuery<T1> IElementGremlinQueryBaseRec<T1, IEdgeOrVertexGremlinQuery<T1>>.Property<TProjectedValue>(Expression<Func<T1, TProjectedValue>> projection, Func<IEdgeOrVertexGremlinQuery<T1>, IGremlinQueryBase<TProjectedValue>> valueTraversal) => Property(projection, valueTraversal);
 
-        IEdgeOrVertexGremlinQuery<T1> IElementGremlinQueryBaseRec<T1, IEdgeOrVertexGremlinQuery<T1>>.Where<TProjection>(Expression<Func<T1, TProjection>> projection, Func<IGremlinQueryBase<TProjection>, IGremlinQueryBase> propertyTraversal) => Where(projection, propertyTraversal);
+        IEdgeOrVertexGremlinQuery<T1> IElementGremlinQueryBaseRec<T1, IEdgeOrVertexGremlinQuery<T1>>.Where<TProjection>(Expression<Func<T1, TProjection>> projection, Func<IGremlinQuery<TProjection>, IGremlinQueryBase> propertyTraversal) => Where(projection, propertyTraversal);
         IVertexGremlinQuery<T1> IElementGremlinQueryBaseRec<IVertexGremlinQuery<T1>>.Property(string key, object? value) => Property(key, value);
         IVertexGremlinQuery<T1> IElementGremlinQueryBaseRec<IVertexGremlinQuery<T1>>.Property(string key, Func<IVertexGremlinQuery<T1>, IGremlinQueryBase> valueTransformation) => Property(key, valueTransformation);
 
@@ -1460,7 +1460,7 @@ namespace ExRam.Gremlinq.Core
         IVertexGremlinQuery<T1> IElementGremlinQueryBaseRec<T1, IVertexGremlinQuery<T1>>.Property<TProjectedValue>(Expression<Func<T1, TProjectedValue>> projection, StepLabel<TProjectedValue> stepLabel) => Property(projection, __ => __.Select(stepLabel));
         IVertexGremlinQuery<T1> IElementGremlinQueryBaseRec<T1, IVertexGremlinQuery<T1>>.Property<TProjectedValue>(Expression<Func<T1, TProjectedValue>> projection, Func<IVertexGremlinQuery<T1>, IGremlinQueryBase<TProjectedValue>> valueTraversal) => Property(projection, valueTraversal);
 
-        IVertexGremlinQuery<T1> IElementGremlinQueryBaseRec<T1, IVertexGremlinQuery<T1>>.Where<TProjection>(Expression<Func<T1, TProjection>> projection, Func<IGremlinQueryBase<TProjection>, IGremlinQueryBase> propertyTraversal) => Where(projection, propertyTraversal);
+        IVertexGremlinQuery<T1> IElementGremlinQueryBaseRec<T1, IVertexGremlinQuery<T1>>.Where<TProjection>(Expression<Func<T1, TProjection>> projection, Func<IGremlinQuery<TProjection>, IGremlinQueryBase> propertyTraversal) => Where(projection, propertyTraversal);
         IEdgeGremlinQuery<T1> IElementGremlinQueryBaseRec<IEdgeGremlinQuery<T1>>.Property(string key, object? value) => Property(key, value);
         IEdgeGremlinQuery<T1> IElementGremlinQueryBaseRec<IEdgeGremlinQuery<T1>>.Property(string key, Func<IEdgeGremlinQuery<T1>, IGremlinQueryBase> valueTransformation) => Property(key, valueTransformation);
 
@@ -1468,7 +1468,7 @@ namespace ExRam.Gremlinq.Core
         IEdgeGremlinQuery<T1> IElementGremlinQueryBaseRec<T1, IEdgeGremlinQuery<T1>>.Property<TProjectedValue>(Expression<Func<T1, TProjectedValue>> projection, StepLabel<TProjectedValue> stepLabel) => Property(projection, __ => __.Select(stepLabel));
         IEdgeGremlinQuery<T1> IElementGremlinQueryBaseRec<T1, IEdgeGremlinQuery<T1>>.Property<TProjectedValue>(Expression<Func<T1, TProjectedValue>> projection, Func<IEdgeGremlinQuery<T1>, IGremlinQueryBase<TProjectedValue>> valueTraversal) => Property(projection, valueTraversal);
 
-        IEdgeGremlinQuery<T1> IElementGremlinQueryBaseRec<T1, IEdgeGremlinQuery<T1>>.Where<TProjection>(Expression<Func<T1, TProjection>> projection, Func<IGremlinQueryBase<TProjection>, IGremlinQueryBase> propertyTraversal) => Where(projection, propertyTraversal);
+        IEdgeGremlinQuery<T1> IElementGremlinQueryBaseRec<T1, IEdgeGremlinQuery<T1>>.Where<TProjection>(Expression<Func<T1, TProjection>> projection, Func<IGremlinQuery<TProjection>, IGremlinQueryBase> propertyTraversal) => Where(projection, propertyTraversal);
         IInOrOutEdgeGremlinQuery<T1, T2> IElementGremlinQueryBaseRec<IInOrOutEdgeGremlinQuery<T1, T2>>.Property(string key, object? value) => Property(key, value);
         IInOrOutEdgeGremlinQuery<T1, T2> IElementGremlinQueryBaseRec<IInOrOutEdgeGremlinQuery<T1, T2>>.Property(string key, Func<IInOrOutEdgeGremlinQuery<T1, T2>, IGremlinQueryBase> valueTransformation) => Property(key, valueTransformation);
 
@@ -1476,7 +1476,7 @@ namespace ExRam.Gremlinq.Core
         IInOrOutEdgeGremlinQuery<T1, T2> IElementGremlinQueryBaseRec<T1, IInOrOutEdgeGremlinQuery<T1, T2>>.Property<TProjectedValue>(Expression<Func<T1, TProjectedValue>> projection, StepLabel<TProjectedValue> stepLabel) => Property(projection, __ => __.Select(stepLabel));
         IInOrOutEdgeGremlinQuery<T1, T2> IElementGremlinQueryBaseRec<T1, IInOrOutEdgeGremlinQuery<T1, T2>>.Property<TProjectedValue>(Expression<Func<T1, TProjectedValue>> projection, Func<IInOrOutEdgeGremlinQuery<T1, T2>, IGremlinQueryBase<TProjectedValue>> valueTraversal) => Property(projection, valueTraversal);
 
-        IInOrOutEdgeGremlinQuery<T1, T2> IElementGremlinQueryBaseRec<T1, IInOrOutEdgeGremlinQuery<T1, T2>>.Where<TProjection>(Expression<Func<T1, TProjection>> projection, Func<IGremlinQueryBase<TProjection>, IGremlinQueryBase> propertyTraversal) => Where(projection, propertyTraversal);
+        IInOrOutEdgeGremlinQuery<T1, T2> IElementGremlinQueryBaseRec<T1, IInOrOutEdgeGremlinQuery<T1, T2>>.Where<TProjection>(Expression<Func<T1, TProjection>> projection, Func<IGremlinQuery<TProjection>, IGremlinQueryBase> propertyTraversal) => Where(projection, propertyTraversal);
         IEdgeGremlinQuery<T1, T2, T3> IElementGremlinQueryBaseRec<IEdgeGremlinQuery<T1, T2, T3>>.Property(string key, object? value) => Property(key, value);
         IEdgeGremlinQuery<T1, T2, T3> IElementGremlinQueryBaseRec<IEdgeGremlinQuery<T1, T2, T3>>.Property(string key, Func<IEdgeGremlinQuery<T1, T2, T3>, IGremlinQueryBase> valueTransformation) => Property(key, valueTransformation);
 
@@ -1484,7 +1484,7 @@ namespace ExRam.Gremlinq.Core
         IEdgeGremlinQuery<T1, T2, T3> IElementGremlinQueryBaseRec<T1, IEdgeGremlinQuery<T1, T2, T3>>.Property<TProjectedValue>(Expression<Func<T1, TProjectedValue>> projection, StepLabel<TProjectedValue> stepLabel) => Property(projection, __ => __.Select(stepLabel));
         IEdgeGremlinQuery<T1, T2, T3> IElementGremlinQueryBaseRec<T1, IEdgeGremlinQuery<T1, T2, T3>>.Property<TProjectedValue>(Expression<Func<T1, TProjectedValue>> projection, Func<IEdgeGremlinQuery<T1, T2, T3>, IGremlinQueryBase<TProjectedValue>> valueTraversal) => Property(projection, valueTraversal);
 
-        IEdgeGremlinQuery<T1, T2, T3> IElementGremlinQueryBaseRec<T1, IEdgeGremlinQuery<T1, T2, T3>>.Where<TProjection>(Expression<Func<T1, TProjection>> projection, Func<IGremlinQueryBase<TProjection>, IGremlinQueryBase> propertyTraversal) => Where(projection, propertyTraversal);
+        IEdgeGremlinQuery<T1, T2, T3> IElementGremlinQueryBaseRec<T1, IEdgeGremlinQuery<T1, T2, T3>>.Where<TProjection>(Expression<Func<T1, TProjection>> projection, Func<IGremlinQuery<TProjection>, IGremlinQueryBase> propertyTraversal) => Where(projection, propertyTraversal);
         IInEdgeGremlinQuery<T1, T3> IElementGremlinQueryBaseRec<IInEdgeGremlinQuery<T1, T3>>.Property(string key, object? value) => Property(key, value);
         IInEdgeGremlinQuery<T1, T3> IElementGremlinQueryBaseRec<IInEdgeGremlinQuery<T1, T3>>.Property(string key, Func<IInEdgeGremlinQuery<T1, T3>, IGremlinQueryBase> valueTransformation) => Property(key, valueTransformation);
 
@@ -1492,7 +1492,7 @@ namespace ExRam.Gremlinq.Core
         IInEdgeGremlinQuery<T1, T3> IElementGremlinQueryBaseRec<T1, IInEdgeGremlinQuery<T1, T3>>.Property<TProjectedValue>(Expression<Func<T1, TProjectedValue>> projection, StepLabel<TProjectedValue> stepLabel) => Property(projection, __ => __.Select(stepLabel));
         IInEdgeGremlinQuery<T1, T3> IElementGremlinQueryBaseRec<T1, IInEdgeGremlinQuery<T1, T3>>.Property<TProjectedValue>(Expression<Func<T1, TProjectedValue>> projection, Func<IInEdgeGremlinQuery<T1, T3>, IGremlinQueryBase<TProjectedValue>> valueTraversal) => Property(projection, valueTraversal);
 
-        IInEdgeGremlinQuery<T1, T3> IElementGremlinQueryBaseRec<T1, IInEdgeGremlinQuery<T1, T3>>.Where<TProjection>(Expression<Func<T1, TProjection>> projection, Func<IGremlinQueryBase<TProjection>, IGremlinQueryBase> propertyTraversal) => Where(projection, propertyTraversal);
+        IInEdgeGremlinQuery<T1, T3> IElementGremlinQueryBaseRec<T1, IInEdgeGremlinQuery<T1, T3>>.Where<TProjection>(Expression<Func<T1, TProjection>> projection, Func<IGremlinQuery<TProjection>, IGremlinQueryBase> propertyTraversal) => Where(projection, propertyTraversal);
         IOutEdgeGremlinQuery<T1, T2> IElementGremlinQueryBaseRec<IOutEdgeGremlinQuery<T1, T2>>.Property(string key, object? value) => Property(key, value);
         IOutEdgeGremlinQuery<T1, T2> IElementGremlinQueryBaseRec<IOutEdgeGremlinQuery<T1, T2>>.Property(string key, Func<IOutEdgeGremlinQuery<T1, T2>, IGremlinQueryBase> valueTransformation) => Property(key, valueTransformation);
 
@@ -1500,7 +1500,7 @@ namespace ExRam.Gremlinq.Core
         IOutEdgeGremlinQuery<T1, T2> IElementGremlinQueryBaseRec<T1, IOutEdgeGremlinQuery<T1, T2>>.Property<TProjectedValue>(Expression<Func<T1, TProjectedValue>> projection, StepLabel<TProjectedValue> stepLabel) => Property(projection, __ => __.Select(stepLabel));
         IOutEdgeGremlinQuery<T1, T2> IElementGremlinQueryBaseRec<T1, IOutEdgeGremlinQuery<T1, T2>>.Property<TProjectedValue>(Expression<Func<T1, TProjectedValue>> projection, Func<IOutEdgeGremlinQuery<T1, T2>, IGremlinQueryBase<TProjectedValue>> valueTraversal) => Property(projection, valueTraversal);
 
-        IOutEdgeGremlinQuery<T1, T2> IElementGremlinQueryBaseRec<T1, IOutEdgeGremlinQuery<T1, T2>>.Where<TProjection>(Expression<Func<T1, TProjection>> projection, Func<IGremlinQueryBase<TProjection>, IGremlinQueryBase> propertyTraversal) => Where(projection, propertyTraversal);
+        IOutEdgeGremlinQuery<T1, T2> IElementGremlinQueryBaseRec<T1, IOutEdgeGremlinQuery<T1, T2>>.Where<TProjection>(Expression<Func<T1, TProjection>> projection, Func<IGremlinQuery<TProjection>, IGremlinQueryBase> propertyTraversal) => Where(projection, propertyTraversal);
         IVertexPropertyGremlinQuery<T1, T2> IElementGremlinQueryBaseRec<IVertexPropertyGremlinQuery<T1, T2>>.Property(string key, object? value) => Property(key, value);
         IVertexPropertyGremlinQuery<T1, T2> IElementGremlinQueryBaseRec<IVertexPropertyGremlinQuery<T1, T2>>.Property(string key, Func<IVertexPropertyGremlinQuery<T1, T2>, IGremlinQueryBase> valueTransformation) => Property(key, valueTransformation);
 
@@ -1508,7 +1508,7 @@ namespace ExRam.Gremlinq.Core
         IVertexPropertyGremlinQuery<T1, T2> IElementGremlinQueryBaseRec<T1, IVertexPropertyGremlinQuery<T1, T2>>.Property<TProjectedValue>(Expression<Func<T1, TProjectedValue>> projection, StepLabel<TProjectedValue> stepLabel) => Property(projection, __ => __.Select(stepLabel));
         IVertexPropertyGremlinQuery<T1, T2> IElementGremlinQueryBaseRec<T1, IVertexPropertyGremlinQuery<T1, T2>>.Property<TProjectedValue>(Expression<Func<T1, TProjectedValue>> projection, Func<IVertexPropertyGremlinQuery<T1, T2>, IGremlinQueryBase<TProjectedValue>> valueTraversal) => Property(projection, valueTraversal);
 
-        IVertexPropertyGremlinQuery<T1, T2> IElementGremlinQueryBaseRec<T1, IVertexPropertyGremlinQuery<T1, T2>>.Where<TProjection>(Expression<Func<T1, TProjection>> projection, Func<IGremlinQueryBase<TProjection>, IGremlinQueryBase> propertyTraversal) => Where(projection, propertyTraversal);
+        IVertexPropertyGremlinQuery<T1, T2> IElementGremlinQueryBaseRec<T1, IVertexPropertyGremlinQuery<T1, T2>>.Where<TProjection>(Expression<Func<T1, TProjection>> projection, Func<IGremlinQuery<TProjection>, IGremlinQueryBase> propertyTraversal) => Where(projection, propertyTraversal);
         IVertexPropertyGremlinQuery<T1, T2, T3> IElementGremlinQueryBaseRec<IVertexPropertyGremlinQuery<T1, T2, T3>>.Property(string key, object? value) => Property(key, value);
         IVertexPropertyGremlinQuery<T1, T2, T3> IElementGremlinQueryBaseRec<IVertexPropertyGremlinQuery<T1, T2, T3>>.Property(string key, Func<IVertexPropertyGremlinQuery<T1, T2, T3>, IGremlinQueryBase> valueTransformation) => Property(key, valueTransformation);
 
@@ -1516,7 +1516,7 @@ namespace ExRam.Gremlinq.Core
         IVertexPropertyGremlinQuery<T1, T2, T3> IElementGremlinQueryBaseRec<T1, IVertexPropertyGremlinQuery<T1, T2, T3>>.Property<TProjectedValue>(Expression<Func<T1, TProjectedValue>> projection, StepLabel<TProjectedValue> stepLabel) => Property(projection, __ => __.Select(stepLabel));
         IVertexPropertyGremlinQuery<T1, T2, T3> IElementGremlinQueryBaseRec<T1, IVertexPropertyGremlinQuery<T1, T2, T3>>.Property<TProjectedValue>(Expression<Func<T1, TProjectedValue>> projection, Func<IVertexPropertyGremlinQuery<T1, T2, T3>, IGremlinQueryBase<TProjectedValue>> valueTraversal) => Property(projection, valueTraversal);
 
-        IVertexPropertyGremlinQuery<T1, T2, T3> IElementGremlinQueryBaseRec<T1, IVertexPropertyGremlinQuery<T1, T2, T3>>.Where<TProjection>(Expression<Func<T1, TProjection>> projection, Func<IGremlinQueryBase<TProjection>, IGremlinQueryBase> propertyTraversal) => Where(projection, propertyTraversal);
+        IVertexPropertyGremlinQuery<T1, T2, T3> IElementGremlinQueryBaseRec<T1, IVertexPropertyGremlinQuery<T1, T2, T3>>.Where<TProjection>(Expression<Func<T1, TProjection>> projection, Func<IGremlinQuery<TProjection>, IGremlinQueryBase> propertyTraversal) => Where(projection, propertyTraversal);
    }
 }
 
