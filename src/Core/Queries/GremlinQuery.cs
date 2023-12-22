@@ -1225,7 +1225,7 @@ namespace ExRam.Gremlinq.Core
                                                 var (outerQuery, gremlinExpression) = state;
 
                                                 return outerQuery
-                                                    .Where(steps, gremlinExpression);
+                                                    .Where(steps, gremlinExpression.Left, gremlinExpression.LeftWellKnownMember, gremlinExpression.Semantics, gremlinExpression.Right);
                                             },
                                             (builder.OuterQuery, gremlinExpression))
                                         .Build(),
@@ -1240,11 +1240,11 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
-        private GremlinQuery<T1, T2, T3, T4> Where<TProjection>(Expression<Func<T1, TProjection>> predicate, Func<IGremlinQueryBase<TProjection>, IGremlinQueryBase> propertyContinuation) => predicate.TryGetReferredParameter() is not null && predicate.Body is MemberExpression memberExpression
+        private GremlinQuery<T1, T2, T3, T4> Where<TProjection>(Expression<Func<T1, TProjection>> predicate, Func<IGremlinQuery<TProjection>, IGremlinQueryBase> propertyContinuation) => predicate.TryGetReferredParameter() is not null && predicate.Body is MemberExpression memberExpression
              ? this
                  .Continue()
                  .With(
-                     static (__, propertyContinuation) => propertyContinuation(__.CloneAs<IGremlinQueryBase<TProjection>>()),
+                     static (__, propertyContinuation) => propertyContinuation(__.CloneAs<IGremlinQuery<TProjection>>()),
                      propertyContinuation)
                  .Build(
                      static (builder, propertyTraversal, key) => builder
@@ -1252,13 +1252,6 @@ namespace ExRam.Gremlinq.Core
                          .Build(),
                      GetKey(memberExpression))
              : throw new ExpressionNotSupportedException(predicate);
-
-        private Traversal Where(Traversal traversal, GremlinExpression gremlinExpression) => Where(
-            traversal,
-            gremlinExpression.Left,
-            gremlinExpression.LeftWellKnownMember,
-            gremlinExpression.Semantics,
-            gremlinExpression.Right);
 
         private Traversal Where(Traversal traversal, ExpressionFragment left, WellKnownMember? leftWellKnownMember, ExpressionSemantics semantics, ExpressionFragment right)
         {

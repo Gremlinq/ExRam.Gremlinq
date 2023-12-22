@@ -45,7 +45,7 @@ namespace ExRam.Gremlinq.Core
         IGremlinQueryBaseRec<TElement, TSelf>
         where TSelf : IElementGremlinQueryBaseRec<TElement, TSelf>
     {
-        TSelf Where<TProjection>(Expression<Func<TElement, TProjection>> projection, Func<IGremlinQueryBase<TProjection>, IGremlinQueryBase> propertyTraversal);
+        TSelf Where<TProjection>(Expression<Func<TElement, TProjection>> projection, Func<IGremlinQuery<TProjection>, IGremlinQueryBase> propertyTraversal);
 
         TSelf Property<TProjectedValue>(Expression<Func<TElement, TProjectedValue>> projection, TProjectedValue value);
         TSelf Property<TProjectedValue>(Expression<Func<TElement, TProjectedValue>> projection, StepLabel<TProjectedValue> stepLabel);

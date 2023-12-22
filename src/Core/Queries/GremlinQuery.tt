@@ -139,7 +139,7 @@ namespace ExRam.Gremlinq.Core
         <#= iface #> IElementGremlinQueryBaseRec<T1, <#= iface #>>.Property<TProjectedValue>(Expression<Func<T1, TProjectedValue>> projection, StepLabel<TProjectedValue> stepLabel) => Property(projection, __ => __.Select(stepLabel));
         <#= iface #> IElementGremlinQueryBaseRec<T1, <#= iface #>>.Property<TProjectedValue>(Expression<Func<T1, TProjectedValue>> projection, Func<<#= iface #>, IGremlinQueryBase<TProjectedValue>> valueTraversal) => Property(projection, valueTraversal);
 
-        <#= iface #> IElementGremlinQueryBaseRec<T1, <#= iface #>>.Where<TProjection>(Expression<Func<T1, TProjection>> projection, Func<IGremlinQueryBase<TProjection>, IGremlinQueryBase> propertyTraversal) => Where(projection, propertyTraversal);
+        <#= iface #> IElementGremlinQueryBaseRec<T1, <#= iface #>>.Where<TProjection>(Expression<Func<T1, TProjection>> projection, Func<IGremlinQuery<TProjection>, IGremlinQueryBase> propertyTraversal) => Where(projection, propertyTraversal);
 <# } #>
    }
 }
