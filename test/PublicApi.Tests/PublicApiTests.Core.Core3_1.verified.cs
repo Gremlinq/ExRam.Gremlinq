@@ -1072,7 +1072,6 @@
     }
     public static class TransformerExtensions
     {
-        public static ExRam.Gremlinq.Core.Transformation.ITransformer AsIncomplete(this ExRam.Gremlinq.Core.Transformation.ITransformer transformer) { }
         public static ExRam.Gremlinq.Core.TransformerExtensions.TransformToBuilder<TTarget> TransformTo<TTarget>(this ExRam.Gremlinq.Core.Transformation.ITransformer transformer) { }
         public readonly struct TransformToBuilder<TTarget>
         {
