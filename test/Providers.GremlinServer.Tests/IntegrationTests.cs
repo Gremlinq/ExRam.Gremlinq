@@ -1,5 +1,4 @@
 ﻿using ExRam.Gremlinq.Core;
-using ExRam.Gremlinq.Core.Execution;
 using ExRam.Gremlinq.Tests.Fixtures;
 using ExRam.Gremlinq.Tests.Infrastructure;
 using ExRam.Gremlinq.Tests.TestCases;
