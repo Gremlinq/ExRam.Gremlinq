@@ -67,36 +67,6 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                     : default(TTarget?);
         }
 
-        public static ITransformer UseNewtonsoftJson(this ITransformer transformer)
-        {
-            return transformer
-                .Add(new DeferToNewtonsoftConverterFactory())
-                .Add(new NewtonsoftJsonSerializerConverterFactory())
-                .Add(new VertexPropertyPropertiesConverterFactory())
-                .Add(new DictionaryConverterFactory())
-                .Add(new DynamicObjectConverterFactory())
-
-                .Add(new ExtractPropertyValueConverterFactory())
-                .Add(new ScalarToPropertyConverterFactory())
-                .Add(new PropertyHeuristicConverterFactory())
-
-                .Add(new VertexOrEdgeConverterFactory())
-                .Add(new LabelLookupConverterFactory())
-
-                .Add(new TypedValueConverterFactory())
-                .Add(new MapDeferralConverterFactory())
-                .Add(new MapToDictionaryConverterFactory())
-                .Add(new BulkSetConverterFactory())
-                .Add(new EnumerableConverterFactory())
-
-                .Add(new NativeTypeConverterFactory())
-                .Add(new NullableConverterFactory())
-
-                .Add(new TimeSpanConverterFactory())
-                .Add(new DateTimeOffsetConverterFactory())
-                .Add(new DateTimeConverterFactory());
-        }
-
         public static FluentForType TryTransformTo(this ITransformer deserializer, Type type) => new(deserializer, type);
     }
 }

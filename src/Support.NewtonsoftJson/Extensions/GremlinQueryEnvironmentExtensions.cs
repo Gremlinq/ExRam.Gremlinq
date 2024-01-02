@@ -85,12 +85,33 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                 : default;
         }
 
-        public static IGremlinQueryEnvironment UseNewtonsoftJson(this IGremlinQueryEnvironment environment)
-        {
-            return environment
-                .ConfigureDeserializer(deserializer => deserializer
-                    .UseNewtonsoftJson());
-        }
+        public static IGremlinQueryEnvironment UseNewtonsoftJson(this IGremlinQueryEnvironment environment) => environment
+            .ConfigureDeserializer(deserializer => deserializer
+                .Add(new DeferToNewtonsoftConverterFactory())
+                .Add(new NewtonsoftJsonSerializerConverterFactory())
+                .Add(new VertexPropertyPropertiesConverterFactory())
+                .Add(new DictionaryConverterFactory())
+                .Add(new DynamicObjectConverterFactory())
+
+                .Add(new ExtractPropertyValueConverterFactory())
+                .Add(new ScalarToPropertyConverterFactory())
+                .Add(new PropertyHeuristicConverterFactory())
+
+                .Add(new VertexOrEdgeConverterFactory())
+                .Add(new LabelLookupConverterFactory())
+
+                .Add(new TypedValueConverterFactory())
+                .Add(new MapDeferralConverterFactory())
+                .Add(new MapToDictionaryConverterFactory())
+                .Add(new BulkSetConverterFactory())
+                .Add(new EnumerableConverterFactory())
+
+                .Add(new NativeTypeConverterFactory())
+                .Add(new NullableConverterFactory())
+
+                .Add(new TimeSpanConverterFactory())
+                .Add(new DateTimeOffsetConverterFactory())
+                .Add(new DateTimeConverterFactory()));
 
         public static IGremlinQueryEnvironment RegisterNativeType<TNative, TSerialized>(this IGremlinQueryEnvironment environment, Func<TNative, IGremlinQueryEnvironment, ITransformer, ITransformer, TSerialized> serializer, Func<JValue, IGremlinQueryEnvironment, ITransformer, ITransformer, TNative> deserializer)
         {
