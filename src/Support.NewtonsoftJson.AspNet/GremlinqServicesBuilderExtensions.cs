@@ -6,6 +6,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.AspNet
     {
         public static IGremlinqServicesBuilder UseNewtonsoftJson(this IGremlinqServicesBuilder builder) => builder
             .ConfigureQuerySource((source, section) => source
-                .UseNewtonsoftJson());
+                .ConfigureEnvironment(env => env
+                    .UseNewtonsoftJson()));
     }
 }
