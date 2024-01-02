@@ -10,8 +10,6 @@ using ExRam.Gremlinq.Providers.Core;
 using Gremlin.Net.Driver.Messages;
 using Gremlin.Net.Process.Traversal;
 
-using static ExRam.Gremlinq.Core.Transformation.ConverterFactory;
-
 namespace ExRam.Gremlinq.Providers.CosmosDb
 {
     public static class ConfigurableGremlinQuerySourceExtensions
