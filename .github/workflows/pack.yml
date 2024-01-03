@@ -15,7 +15,6 @@ jobs:
     outputs:
       semVer2: ${{ steps.nbgv.outputs.SemVer2 }}
       isPreviewRelease: ${{ startsWith(steps.nbgv.outputs.PrereleaseVersionNoLeadingHyphen, 'preview') }}
-      isStableRelease: ${{ steps.nbgv.outputs.PrereleaseVersionNoLeadingHyphen == '' }}
 
     steps:
     - name: Checkout
@@ -67,7 +66,7 @@ jobs:
         --skip-duplicate
 
   release:
-    if: ${{ needs.pack.outputs.isStableRelease }}
+    if: ${{ needs.pack.outputs.isPreviewRelease == 'false' }}
     needs: [ pack ]
     runs-on: ubuntu-latest
 
