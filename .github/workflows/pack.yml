@@ -3,7 +3,6 @@ name: Pack and push to GitHub packages
 on:
   push:
     branches:
-      - main
       - \d+\.x
   workflow_call:
 
