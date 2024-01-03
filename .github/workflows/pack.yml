@@ -67,7 +67,7 @@ jobs:
         --skip-duplicate
 
   release:
-    if: ${{ github.ref_name != 'main' }}
+    if: ${{ needs.pack.outputs.isStableRelease }}
     needs: [ pack ]
     runs-on: ubuntu-latest
 
