@@ -1,9 +1,5 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFrameworks Condition="'$(Configuration)' == 'Release'">net6.0;net7.0;net8.0</TargetFrameworks>
-  </PropertyGroup>
-  
   <ItemGroup>
     <ProjectReference Include="..\..\src\Core\ExRam.Gremlinq.Core.csproj" />
     <ProjectReference Include="..\..\src\Providers.CosmosDb\ExRam.Gremlinq.Providers.CosmosDb.csproj" />
