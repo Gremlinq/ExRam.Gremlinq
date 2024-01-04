@@ -4,7 +4,7 @@ namespace ExRam.Gremlinq.Core.Steps
 {
     public sealed class SelectKeysStep : Step
     {
-        public SelectKeysStep(Key key) : this(ImmutableArray.Create(key))
+        public SelectKeysStep(Key key) : this([key])
         {
         }
 

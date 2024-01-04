@@ -201,6 +201,6 @@ namespace ExRam.Gremlinq.Core.Models
 
         internal static IGraphElementModel FromBaseType<TType>() => GraphElementModelImpl<TType>.Empty.AddAssemblies(typeof(TType).Assembly);
 
-        internal static ImmutableArray<string> GetFilterLabelsOrDefault(this IGraphElementModel model, Type type, FilterLabelsVerbosity verbosity) => model.TryGetFilterLabels(type, verbosity) ?? ImmutableArray.Create(type.Name);
+        internal static ImmutableArray<string> GetFilterLabelsOrDefault(this IGraphElementModel model, Type type, FilterLabelsVerbosity verbosity) => model.TryGetFilterLabels(type, verbosity) ?? [type.Name];
     }
 }

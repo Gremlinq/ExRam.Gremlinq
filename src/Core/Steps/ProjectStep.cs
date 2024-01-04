@@ -36,7 +36,7 @@ namespace ExRam.Gremlinq.Core.Steps
             public override ByTraversalStep ToByTraversalStep() => new (Key.RawKey switch
             {
                 T t => t.TryToStep() ?? throw ConversionFailed(),
-                string key => new ValuesStep(ImmutableArray.Create(key)),
+                string key => new ValuesStep([key]),
                 _ => throw ConversionFailed(),
             });
 

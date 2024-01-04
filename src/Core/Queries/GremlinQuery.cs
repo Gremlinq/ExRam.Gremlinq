@@ -706,7 +706,7 @@ namespace ExRam.Gremlinq.Core
                     if (!force && typeof(TNewElement).IsAssignableFrom(typeof(T1)))
                         return @this.CloneAs<TTargetQuery>();
 
-                    var labels = model.TryGetFilterLabels(typeof(TNewElement), @this.Environment.Options.GetValue(GremlinqOption.FilterLabelsVerbosity)) ?? ImmutableArray.Create(typeof(TNewElement).Name);
+                    var labels = model.TryGetFilterLabels(typeof(TNewElement), @this.Environment.Options.GetValue(GremlinqOption.FilterLabelsVerbosity)) ?? [typeof(TNewElement).Name];
 
                     if (labels.Length > 0)
                         builder = builder.AddStep(new HasLabelStep(labels));
@@ -945,7 +945,7 @@ namespace ExRam.Gremlinq.Core
             .Continue()
             .Build(
                 static (builder, tuple) => builder
-                    .AddStep(new SelectStepLabelStep(ImmutableArray.Create(tuple.stepLabel)))
+                    .AddStep(new SelectStepLabelStep([tuple.stepLabel]))
                     .WithNewProjection(tuple.stepLabelProjection)
                     .Build<TNewQuery>(),
                 (stepLabel, stepLabelProjection: GetLabelProjection(stepLabel)));
@@ -1298,7 +1298,7 @@ namespace ExRam.Gremlinq.Core
                                                                     {
                                                                         var (stringKey, effectivePredicate) = state;
 
-                                                                        steps[0] = new PropertiesStep(ImmutableArray.Create(stringKey));
+                                                                        steps[0] = new PropertiesStep([stringKey]);
                                                                         steps[1] = CountStep.Global;
                                                                         steps[2] = new IsStep(effectivePredicate);
                                                                     })));
@@ -1317,7 +1317,7 @@ namespace ExRam.Gremlinq.Core
                                                             {
                                                                 var (leftMemberExpressionKey, effectivePredicate) = state;
 
-                                                                steps[0] = new SelectKeysStep(ImmutableArray.Create(leftMemberExpressionKey));
+                                                                steps[0] = new SelectKeysStep([leftMemberExpressionKey]);
                                                                 steps[1] = CountStep.Local;
                                                                 steps[2] = new IsStep(effectivePredicate);
                                                             })));
