@@ -18,15 +18,6 @@ jobs:
       with:
         fetch-depth: 0
         submodules: 'true'
-        
-    - name: Setup .NET SDKs
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: |
-          3
-          5
-          6
-          7
 
     - name: Build
       run: dotnet build ./${{ github.event.repository.name }}.sln -c Release
@@ -52,15 +43,6 @@ jobs:
         fetch-depth: 0
         submodules: 'true'
 
-    - name: Setup .NET SDKs
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: |
-          3
-          5
-          6
-          7
-          
     - name: Start CosmosDb Emulator
       uses: Gremlinq/cosmos-emulator-github-action@EnableGremlin
 
