@@ -1,7 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks Condition="'$(Configuration)' == 'Release'" >net6.0;net7.0;net8.0</TargetFrameworks>
     <DefineConstants Condition="'$(AutoVerify)' == 'true'">AUTO_VERIFY;$(DefineConstants)</DefineConstants>
   </PropertyGroup>
   
