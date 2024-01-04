@@ -7,6 +7,7 @@
 
     <Product>ExRam.Gremlinq</Product>
     <Deterministic>true</Deterministic>
+    <NoWarn>IDE0303;IDE0301$(NoWarn)</NoWarn>
     <WeaverConfiguration>
       <Weavers>
         <NullGuard />
