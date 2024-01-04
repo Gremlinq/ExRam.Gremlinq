@@ -30,7 +30,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                     if (testCase.Traits.TryGetValue("Category", out var categories) && categories.Contains("IntegrationTest"))
                     {
                         if (testCase.DisplayName.Split('.') is [.., { } providerName, _, _, _])
-                            return Environment.Version.Major == 7 && Environment.GetEnvironmentVariable($"Run{providerName}IntegrationTests") is { } env && bool.TryParse(env, out var enabled) && enabled;
+                            return Environment.Version.Major == 8 && Environment.GetEnvironmentVariable($"Run{providerName}IntegrationTests") is { } env && bool.TryParse(env, out var enabled) && enabled;
                     }
 
                     return true;
