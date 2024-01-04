@@ -2,8 +2,8 @@
   <Import Project="..\Directory.Build.props" />
 
   <PropertyGroup>
-    <TargetFrameworks Condition="'$(Configuration)' == 'Release'">net6.0;net7.0</TargetFrameworks>
-    <TargetFrameworks Condition="'$(Configuration)'=='Debug'">net7.0</TargetFrameworks>
+    <TargetFrameworks Condition="'$(Configuration)' == 'Release'">net6.0;net7.0;net8.0</TargetFrameworks>
+    <TargetFrameworks Condition="'$(Configuration)'=='Debug'">net8.0</TargetFrameworks>
 
     <CollectCoverage>true</CollectCoverage>
     <CoverletOutputFormat>opencover</CoverletOutputFormat>
@@ -23,7 +23,7 @@
     <PackageReference Include="NSubstitute" Version="5.1.0" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'net7.0'" >
+  <ItemGroup Condition="'$(TargetFramework)' == 'net8.0'" >
     <PackageReference Include="coverlet.collector" Version="6.0.0" IncludeAssets="runtime; build; native; contentfiles; analyzers; buildtransitive" PrivateAssets="all" />
     <PackageReference Include="coverlet.msbuild" Version="6.0.0" IncludeAssets="runtime; build; native; contentfiles; analyzers; buildtransitive" PrivateAssets="all" />
   </ItemGroup>
