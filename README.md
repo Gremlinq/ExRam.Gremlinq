@@ -315,3 +315,28 @@ AWS Neptune since it doesn't support meta properties.
             .ToArrayAsync();
     }
 ```
+
+# Azure Cosmos DB for Apache Gremlin Configuration
+
+Example configuration, use Azure Key Vault, env variables or user secrets for sensitive values.
+
+``` csharp
+Program.cs
+
+
+using ExRam.Gremlinq.Providers.CosmosDb;
+using ExRam.Gremlinq.Providers.Core;
+using ExRam.Gremlinq.Support.NewtonsoftJson;
+
+var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddGremlinq(setup => setup.UseCosmosDb<Vertex, Edge>().Configure((configurator, providersection) // vertex and edge here refer to the Azure Cosmos template classes in GremlinqTest/Elements
+    => configurator
+        .At(new Uri("wss://your-endpoint.gremlin.cosmos.azure.com:443/"))
+        .AuthenticateBy("your-azure-gremlin-accountKey")
+        .OnDatabase("your-gremlin-db")
+        .OnGraph("your-gremlin-collection")
+        .WithPartitionKey(vertex => vertex.PartitionKey)
+        .UseNewtonsoftJson())
+).AddControllers();
+
+```
