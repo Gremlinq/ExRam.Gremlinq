@@ -1,4 +1,5 @@
-﻿using System.Dynamic;
+﻿using System.Collections.Immutable;
+using System.Dynamic;
 
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Models;
@@ -191,6 +192,18 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
                 .UseNewtonsoftJson()
                 .Deserializer
                 .TransformTo<object[]>()
+                .From(token, _environment));
+        }
+
+        [Fact]
+        public Task Transform_to_ImmutableArray()
+        {
+            var token = JObject.Parse("{ \"@type\": \"g:List\", \"@value\": [ { \"@type\": \"g:Traverser\", \"@value\": { \"bulk\": { \"@type\": \"g:Int64\", \"@value\": 3 }, \"value\": { \"@type\": \"g:Map\", \"@value\": [ \"id\", { \"@type\": \"g:Int64\", \"@value\": 184 }, \"label\", \"Label\", \"properties\", { \"@type\": \"g:Map\", \"@value\": [] } ] } } } ]}");
+
+            return Verify(_environment
+                .UseNewtonsoftJson()
+                .Deserializer
+                .TransformTo<ImmutableArray<object>>()
                 .From(token, _environment));
         }
 
