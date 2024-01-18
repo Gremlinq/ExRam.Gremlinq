@@ -14,7 +14,7 @@ jobs:
     - uses: actions/download-artifact@v4
       with:
         name: NuGetPackages
-        run-id: ${{ github.event.workflow_run.id }}
+        run-id: ${{ github.event.workflow_run.run_number  }}
 
     - name: Push NuGet packages to GitHub packages
       run: dotnet nuget push **/${{ github.event.repository.name }}.*.nupkg
