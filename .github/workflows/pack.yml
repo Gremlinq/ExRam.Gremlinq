@@ -64,15 +64,11 @@ jobs:
         --no-symbols
         --skip-duplicate
 
-  release:
-    if: ${{ needs.pack.outputs.isPreviewRelease == 'false' }}
+  draft-release:
     needs: [ pack ]
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/download-artifact@v2
-      with:
-        name: NuGetPackages
 
     - name: Draft release
       id: create_release
@@ -84,7 +80,17 @@ jobs:
         commitish: ${{ github.ref }}
       env:
         GITHUB_TOKEN: ${{ secrets.CREATE_RELEASE_PAT }}
+        
+  release:
+    if: ${{ needs.pack.outputs.isPreviewRelease == 'false' }}
+    needs: [ draft-release ]
+    runs-on: ubuntu-latest
 
+    steps:
+    - uses: actions/download-artifact@v2
+      with:
+        name: NuGetPackages
+        
     - uses: shogo82148/actions-upload-release-asset@v1
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }} 
