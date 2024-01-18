@@ -8,7 +8,6 @@ on:
 jobs:
   push:
     if: ${{ vars.PUSH_TO_GITHUB_PACKAGES == 'true' && github.event.workflow_run.conclusion == 'success' }}
-    needs: [ pack ]
     runs-on: ubuntu-latest
 
     steps:
