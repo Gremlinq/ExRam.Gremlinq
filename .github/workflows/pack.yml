@@ -1,4 +1,4 @@
-name: Pack and push to GitHub packages
+name: Pack
 
 on:
   push:
@@ -46,23 +46,6 @@ jobs:
         name: NuGetPackages
         path: ./**/${{ github.event.repository.name }}.*.nupkg
         if-no-files-found: error
-
-  push:
-    if: ${{ vars.PUSH_TO_GITHUB_PACKAGES == 'true' }}
-    needs: [ pack ]
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/download-artifact@v2
-      with:
-        name: NuGetPackages
-
-    - name: Push NuGet packages to GitHub packages
-      run: dotnet nuget push **/${{ github.event.repository.name }}.*.nupkg
-        --source https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json
-        --api-key ${{ secrets.PUSH_TO_PACKAGES_PAT }}
-        --no-symbols
-        --skip-duplicate
 
   draft-release:
     needs: [ pack ]
