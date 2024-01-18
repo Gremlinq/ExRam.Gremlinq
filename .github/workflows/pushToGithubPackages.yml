@@ -1,0 +1,25 @@
+name: Push to GitHub Packages
+
+on:
+  workflow_run:
+    types: [completed]
+    workflows: [Pack]
+
+jobs:
+  push:
+    if: ${{ vars.PUSH_TO_GITHUB_PACKAGES == 'true' && github.event.workflow_run.conclusion == 'success' }}
+    needs: [ pack ]
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/download-artifact@v4
+      with:
+        name: NuGetPackages
+        run-id: ${{ github.event.workflow_run.id }}
+
+    - name: Push NuGet packages to GitHub packages
+      run: dotnet nuget push **/${{ github.event.repository.name }}.*.nupkg
+        --source https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json
+        --api-key ${{ secrets.PUSH_TO_PACKAGES_PAT }}
+        --no-symbols
+        --skip-duplicate
