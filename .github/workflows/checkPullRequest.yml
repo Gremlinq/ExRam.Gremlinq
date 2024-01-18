@@ -1,15 +1,12 @@
-name: Test merge group
+name: Check pull request
 
 on:
   pull_request:
-  merge_group:
-    types: [checks_requested]
   workflow_call:
 
 jobs:
 
-  test-merge-group-linux:
-    if: ${{ github.event_name == 'merge_group' }}
+  test-linux:
     runs-on: ubuntu-latest
 
     steps:
@@ -32,8 +29,7 @@ jobs:
     - name: Collect coverage
       uses: codecov/codecov-action@v3
 
-  test-merge-group-windows:
-    if: ${{ github.event_name == 'merge_group' }}
+  test-windows:
     runs-on: windows-2022
 
     steps:
