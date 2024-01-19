@@ -1,4 +1,4 @@
-name: Push to GitHub Packages
+name: Push preview packages
 
 on:
   workflow_run:
@@ -7,7 +7,7 @@ on:
 
 jobs:
   push:
-    if: ${{ vars.PUSH_TO_GITHUB_PACKAGES == 'true' && github.event.workflow_run.conclusion == 'success' }}
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
 
     steps:
