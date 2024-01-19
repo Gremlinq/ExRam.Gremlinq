@@ -18,7 +18,8 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
         public TransformerTest() : base()
         {
             _environment = GremlinQueryEnvironment.Invalid
-                .UseModel(GraphModel.FromBaseTypes<Vertex, Edge>());
+                .UseModel(GraphModel.FromBaseTypes<Vertex, Edge>())
+                .UseNewtonsoftJson();
         }
 
         [Fact]
@@ -33,7 +34,6 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
         public async Task More_specific_type_is_deserialized()
         {
             await Verify(_environment
-                .UseNewtonsoftJson()
                 .Deserializer
                 .TryTransformTo<object>().From(JObject.Parse("{ \"@type\": \"g:Date\", \"@value\": 1657527969000 }"), _environment));
         }
@@ -44,7 +44,6 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
             var original = JObject.Parse("{ \"prop1\": \"value\", \"prop2\": 1657527969000 }");
 
             var deserialized = _environment
-                .UseNewtonsoftJson()
                 .Deserializer
                 .TryTransformTo<JObject>().From(original, _environment);
 
@@ -59,7 +58,6 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
             var original = JObject.Parse("{ \"prop1\": \"value\", \"prop2\": 1657527969000 }");
 
             var deserialized = _environment
-                .UseNewtonsoftJson()
                 .Deserializer
                 .TryTransformTo<object>().From(original, _environment);
 
@@ -76,7 +74,6 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
             var original = JObject.Parse("{ \"prop1\": \"value\", \"prop2\": 1657527969000 }");
 
             var deserialized = _environment
-                .UseNewtonsoftJson()
                 .Deserializer
                 .TryTransformTo<IDictionary<string, object>>().From(original, _environment);
 
@@ -93,7 +90,6 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
             var original = JObject.Parse("{ \"@type\": \"g:unknown\", \"@value\": { \"prop1\": \"value\", \"prop2\": 1657527969000 } }");
 
             var deserialized = _environment
-                .UseNewtonsoftJson()
                 .Deserializer
                 .TryTransformTo<IDictionary<string, object>>().From(original, _environment);
 
@@ -110,7 +106,6 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
             var original = JObject.Parse("{ \"@type\": \"g:Map\", \"@value\": [ \"name\", \"Daniel Weber\", \"timestamp\", { \"@type\": \"g:Date\", \"@value\": 1689868807115 } ] }");
 
             var deserialized = _environment
-                .UseNewtonsoftJson()
                 .Deserializer
                 .TryTransformTo<object>().From(original, _environment);
 
@@ -127,7 +122,6 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
             var original = JObject.Parse("{ \"@type\": \"g:Map\", \"@value\": [ \"name\", \"A name\", \"timestamp\", { \"@type\": \"g:Date\", \"@value\": 1689868807115 } ] }");
 
             var deserialized = _environment
-                .UseNewtonsoftJson()
                 .Deserializer
                 .TryTransformTo<dynamic>().From(original, _environment);
 
@@ -143,7 +137,6 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
             var original = JObject.Parse("{ \"prop1\": \"value\", \"prop2\": 1657527969000 }");
 
             var deserialized = _environment
-                .UseNewtonsoftJson()
                 .Deserializer
                 .Add(Create<JObject, IDictionary<string, object?>>((static (jObject, env, _, recurse) =>
                 {
@@ -176,7 +169,6 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
             var token = JObject.Parse("{ \"@type\": \"g:List\", \"@value\": [ { \"@type\": \"g:Traverser\", \"@value\": { \"bulk\": { \"@type\": \"g:Int64\", \"@value\": 3 }, \"value\": { \"@type\": \"g:Map\", \"@value\": [ \"id\", { \"@type\": \"g:Int64\", \"@value\": 184 }, \"label\", \"Label\", \"properties\", { \"@type\": \"g:Map\", \"@value\": [] } ] } } } ]}");
 
             return Verify(_environment
-                .UseNewtonsoftJson()
                 .Deserializer
                 .TransformTo<List<object>>()
                 .From(token, _environment));
@@ -188,7 +180,6 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
             var token = JObject.Parse("{ \"@type\": \"g:List\", \"@value\": [ { \"@type\": \"g:Traverser\", \"@value\": { \"bulk\": { \"@type\": \"g:Int64\", \"@value\": 3 }, \"value\": { \"@type\": \"g:Map\", \"@value\": [ \"id\", { \"@type\": \"g:Int64\", \"@value\": 184 }, \"label\", \"Label\", \"properties\", { \"@type\": \"g:Map\", \"@value\": [] } ] } } } ]}");
 
             return Verify(_environment
-                .UseNewtonsoftJson()
                 .Deserializer
                 .TransformTo<object[]>()
                 .From(token, _environment));
@@ -200,7 +191,6 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
             var token = JObject.Parse("{ \"@type\": \"g:List\", \"@value\": [ { \"@type\": \"g:Traverser\", \"@value\": { \"bulk\": { \"@type\": \"g:Int64\", \"@value\": 3 }, \"value\": { \"@type\": \"g:Map\", \"@value\": [ \"id\", { \"@type\": \"g:Int64\", \"@value\": 184 }, \"label\", \"Label\", \"properties\", { \"@type\": \"g:Map\", \"@value\": [] } ] } } } ]}");
 
             var result = _environment
-                .UseNewtonsoftJson()
                 .Deserializer
                 .TransformTo<IEnumerable<object>>()
                 .From(token, _environment);
@@ -214,7 +204,6 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
             var token = JObject.Parse("{ \"@type\": \"g:List\", \"@value\": [ { \"@type\": \"g:Traverser\", \"@value\": { \"bulk\": { \"@type\": \"g:Int64\", \"@value\": 3 }, \"value\": { \"@type\": \"g:Map\", \"@value\": [ \"id\", { \"@type\": \"g:Int64\", \"@value\": 184 }, \"label\", \"Label\", \"properties\", { \"@type\": \"g:Map\", \"@value\": [] } ] } } } ]}");
 
             return Verify(_environment
-                .UseNewtonsoftJson()
                 .Deserializer
                 .TransformTo<object>()
                 .From(token, _environment));
