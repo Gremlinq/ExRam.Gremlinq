@@ -1,4 +1,4 @@
-name: Push to NuGet.org
+name: Push stable packages
 
 on:
   release:
