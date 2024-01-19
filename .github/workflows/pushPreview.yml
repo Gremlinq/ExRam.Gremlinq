@@ -4,6 +4,7 @@ on:
   workflow_run:
     types: [completed]
     workflows: [Pack]
+  workflow_call:
 
 jobs:
   push:

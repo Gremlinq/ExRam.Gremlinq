@@ -5,6 +5,9 @@ on:
     branches:
       - \d+\.x
   workflow_call:
+    secrets:
+      CREATE_RELEASE_PAT:
+        required: true
 
 jobs:
 
