@@ -5,6 +5,11 @@ on:
     types: [completed]
     workflows: [Pack]
   workflow_call:
+    secrets:
+      PUSH_TO_PACKAGES_PAT:
+        required: true
+      DOWNLOAD_ARTIFACTS_PAT:
+        required: true
 
 jobs:
   push:
