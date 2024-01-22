@@ -3,6 +3,7 @@ name: Cleanup
 on:
   registry_package:
     types: [published, updated]
+  workflow_call:
 
 jobs:
   cleanup:
