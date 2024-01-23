@@ -1,6 +1,5 @@
 ﻿namespace ExRam.Gremlinq.Tests.Infrastructure
 {
-    [UsesVerify]
     [TestCaseOrderer("ExRam.Gremlinq.Tests.Infrastructure.SideEffectTestCaseOrderer", "ExRam.Gremlinq.Tests.Infrastructure")]
     public abstract class GremlinqTestBase
     {
