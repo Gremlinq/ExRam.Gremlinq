@@ -47,6 +47,14 @@ jobs:
         path: ./**/${{ github.event.repository.name }}.*.nupkg
         if-no-files-found: error
 
+    - run: echo ${{ steps.nbgv.outputs.NuGetPackageVersion }} > VERSION
+    - name: Output version to artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: VERSION
+        path: VERSION
+        if-no-files-found: error
+
   draft-release:
     needs: [ pack ]
     runs-on: ubuntu-latest
