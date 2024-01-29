@@ -10,7 +10,7 @@ jobs:
 
     steps:
 
-    - uses: robinraju/release-downloader@v1.8
+    - uses: robinraju/release-downloader@v1.9
       with:
         releaseId: ${{ github.event.release.id }}
         fileName: "${{ github.event.repository.name }}.*.nupkg"
