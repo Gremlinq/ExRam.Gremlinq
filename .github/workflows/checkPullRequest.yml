@@ -27,7 +27,7 @@ jobs:
         RunNeptuneIntegrationTests: 'true'
 
     - name: Collect coverage
-      uses: codecov/codecov-action@v3
+      uses: codecov/codecov-action@v4
 
   test-windows:
     runs-on: windows-2022
@@ -51,4 +51,4 @@ jobs:
         RunCosmosDbIntegrationTests: 'true'
         
     - name: Collect coverage
-      uses: codecov/codecov-action@v3
+      uses: codecov/codecov-action@v4
