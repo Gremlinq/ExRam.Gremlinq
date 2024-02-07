@@ -290,7 +290,6 @@ namespace ExRam.Gremlinq.Core
                                     FalseExpressionSemantics => GremlinExpression.False,
                                     _ => new GremlinExpression(
                                         ExpressionFragment.Create(leftMethodCallExpression.Object!, default, environment),
-                                        default,
                                         transformed,
                                         ExpressionFragment.Create(leftMethodCallExpression.Arguments[0], default, environment))
                                 };
@@ -304,16 +303,14 @@ namespace ExRam.Gremlinq.Core
                     {
                         return new GremlinExpression(
                             ExpressionFragment.Create(unaryExpression.Operand, WellKnownMember.ArrayLength, environment),
-                            WellKnownMember.ArrayLength,
                             expression.Semantics,
                             expression.Right);
                     }
                 }
-                else if (expression.Left.Expression is MemberExpression {Expression: {} memberExpressionExpression} && expression.LeftWellKnownMember != null)
+                else if (expression.Left.Expression is MemberExpression {Expression: {} memberExpressionExpression} && expression.Left.WellKnownMember != null)
                 {
                     return new GremlinExpression(
-                        ExpressionFragment.Create(memberExpressionExpression, expression.LeftWellKnownMember, environment),
-                        expression.LeftWellKnownMember,
+                        ExpressionFragment.Create(memberExpressionExpression, expression.Left.WellKnownMember, environment),
                         expression.Semantics,
                         expression.Right);
                 }
@@ -330,7 +327,6 @@ namespace ExRam.Gremlinq.Core
                 {
                     return new GremlinExpression(
                         ExpressionFragment.Create(memberExpression, default, environment),
-                        default,
                         EqualsExpressionSemantics.Instance,
                         ExpressionFragment.True);
                 }
@@ -338,7 +334,6 @@ namespace ExRam.Gremlinq.Core
                 {
                     return new GremlinExpression(
                         ExpressionFragment.Create(binaryExpression.Left, default, environment),
-                        default,
                         binaryExpression.NodeType.ToSemantics(),
                         ExpressionFragment.Create(binaryExpression.Right, default, environment));
                 }
@@ -352,7 +347,6 @@ namespace ExRam.Gremlinq.Core
                         {
                             return new GremlinExpression(
                                 ExpressionFragment.Create(methodCallExpression.Object!, default, environment),
-                                default,
                                 EqualsExpressionSemantics.Instance,
                                 ExpressionFragment.Create(methodCallExpression.Arguments[0], default, environment));
                         }
@@ -362,7 +356,6 @@ namespace ExRam.Gremlinq.Core
 
                             return new GremlinExpression(
                                 ExpressionFragment.Create(arguments[0], default, environment),
-                                default,
                                 IntersectsExpressionSemantics.Instance,
                                 ExpressionFragment.Create(arguments[1], default, environment));
                         }
@@ -370,7 +363,6 @@ namespace ExRam.Gremlinq.Core
                         {
                             return new GremlinExpression(
                                 ExpressionFragment.Create(methodCallExpression.Arguments[0], default, environment),
-                                default,
                                 NotEqualsExpressionSemantics.Instance,
                                 ExpressionFragment.Null);
                         }
@@ -378,7 +370,6 @@ namespace ExRam.Gremlinq.Core
                         {
                             return new GremlinExpression(
                                 ExpressionFragment.Create(methodCallExpression.Arguments[0], default, environment),
-                                default,
                                 ContainsExpressionSemantics.Instance,
                                 ExpressionFragment.Create(methodCallExpression.Arguments[1], default, environment));
                         }
@@ -386,7 +377,6 @@ namespace ExRam.Gremlinq.Core
                         {
                             return new GremlinExpression(
                                 ExpressionFragment.Create(methodCallExpression.Object!, default, environment),
-                                default,
                                 ContainsExpressionSemantics.Instance,
                                 ExpressionFragment.Create(methodCallExpression.Arguments[0], default, environment));
                         }
@@ -408,7 +398,6 @@ namespace ExRam.Gremlinq.Core
                                 {
                                     return new GremlinExpression(
                                         ExpressionFragment.Constant(stringValue, default),
-                                        default,
                                         StartsWithExpressionSemantics.Get(stringComparison),
                                         ExpressionFragment.Create(argumentExpression, default, environment));
                                 }
@@ -419,7 +408,6 @@ namespace ExRam.Gremlinq.Core
                                 {
                                     return new GremlinExpression(
                                         ExpressionFragment.Create(instanceExpression, default, environment),
-                                        default,
                                         wellKnownMember switch
                                         {
                                             WellKnownOperation.StringEquals => StringEqualsExpressionSemantics.Get(stringComparison),

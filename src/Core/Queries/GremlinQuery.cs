@@ -1225,7 +1225,7 @@ namespace ExRam.Gremlinq.Core
                                                 var (outerQuery, gremlinExpression) = state;
 
                                                 return outerQuery
-                                                    .Where(steps, gremlinExpression.Left, gremlinExpression.LeftWellKnownMember, gremlinExpression.Semantics, gremlinExpression.Right);
+                                                    .Where(steps, gremlinExpression.Left, gremlinExpression.Left.WellKnownMember, gremlinExpression.Semantics, gremlinExpression.Right);
                                             },
                                             (builder.OuterQuery, gremlinExpression))
                                         .Build(),
