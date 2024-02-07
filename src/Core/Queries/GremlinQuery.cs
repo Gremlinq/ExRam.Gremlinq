@@ -960,7 +960,7 @@ namespace ExRam.Gremlinq.Core
                     var keys = projections
                         .Select(static expression =>
                         {
-                            if (expression is LambdaExpression { Body: MethodCallExpression { Arguments: [ { } indexerArgumentExpression ] } methodCallExpression } && methodCallExpression.TryGetWellKnownMember() == WellKnownMember.IndexerGet)
+                            if (expression is LambdaExpression { Body: MethodCallExpression { Arguments: [ { } indexerArgumentExpression ] } methodCallExpression } && methodCallExpression.TryGetWellKnownOperation() == WellKnownOperation.IndexerGet)
                             {
                                 if (indexerArgumentExpression.GetValue() is string indexerArgument)
                                     return indexerArgument;
