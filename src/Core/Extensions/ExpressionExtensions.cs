@@ -380,7 +380,7 @@ namespace ExRam.Gremlinq.Core
                                 if (instanceExpression.GetValue()?.ToString() is { } stringValue)
                                 {
                                     return new GremlinExpression(
-                                        ExpressionFragment.Constant(stringValue),
+                                        ExpressionFragment.Create(stringValue, environment),
                                         StartsWithExpressionSemantics.Get(stringComparison),
                                         ExpressionFragment.Create(argumentExpression, environment));
                                 }
@@ -399,7 +399,7 @@ namespace ExRam.Gremlinq.Core
                                             WellKnownOperation.StringEndsWith => EndsWithExpressionSemantics.Get(stringComparison),
                                             _ => throw new ExpressionNotSupportedException(methodCallExpression)
                                         },
-                                        ExpressionFragment.Constant(stringValue));
+                                        ExpressionFragment.Create(stringValue, environment));
                                 }
                             }
 
