@@ -7,9 +7,9 @@ namespace ExRam.Gremlinq.Core.ExpressionParsing
     {
         private readonly object? _value;
 
-        public static readonly ExpressionFragment True = Constant(true);
-        public static readonly ExpressionFragment False = Constant(false);
-        public static readonly ExpressionFragment Null = Constant(default);
+        public static readonly ExpressionFragment True = new(ExpressionFragmentType.Constant, true, default, default);
+        public static readonly ExpressionFragment False = new(ExpressionFragmentType.Constant, false, default, default);
+        public static readonly ExpressionFragment Null = new(ExpressionFragmentType.Constant, default, default, default);
 
         private ExpressionFragment(ExpressionFragmentType type, object? value, WellKnownMember? wellKnownMember, Expression? expression = default)
         {
@@ -61,23 +61,24 @@ namespace ExRam.Gremlinq.Core.ExpressionParsing
             {
                 expression = expression.StripConvert();
 
-                return expression.TryGetReferredParameter() is not null
-                    ? Parameter(expression, wellKnownMember)
-                    : expression.TryParseStepLabelExpression(out var stepLabel, out var stepLabelExpression)
-                        ? new(ExpressionFragmentType.StepLabel, stepLabel!, wellKnownMember, stepLabelExpression)
-                        : Constant(expression.GetValue() switch
-                        {
-                            IEnumerable enumerable when enumerable is not ICollection && !environment.SupportsType(enumerable.GetType()) => enumerable.Cast<object>().ToArray(),
-                            { } val => val,
-                            _ => null
-                        });
+                if (expression.TryGetReferredParameter() is not null)
+                    return new(ExpressionFragmentType.Parameter, default, wellKnownMember, expression.StripConvert());
+
+                if (expression.TryParseStepLabelExpression(out var stepLabel, out var stepLabelExpression))
+                    return new(ExpressionFragmentType.StepLabel, stepLabel!, wellKnownMember, stepLabelExpression);
+
+                return new(
+                    ExpressionFragmentType.Constant,
+                    expression.GetValue() switch
+                    {
+                        IEnumerable enumerable when enumerable is not ICollection && !environment.SupportsType(enumerable.GetType()) => enumerable.Cast<object>().ToArray(),
+                        { } val => val,
+                        _ => null
+                    },
+                    default);
             }
 
             return new(ExpressionFragmentType.Constant, source, wellKnownMember);
         }
-
-        private static ExpressionFragment Constant(object? value) => new(ExpressionFragmentType.Constant, value, default);
-
-        private static ExpressionFragment Parameter(Expression expression, WellKnownMember? wellKnownMember) => new(ExpressionFragmentType.Parameter, default, wellKnownMember, expression.StripConvert());
     }
 }
