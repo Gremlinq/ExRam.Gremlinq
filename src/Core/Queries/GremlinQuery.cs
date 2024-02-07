@@ -1183,8 +1183,6 @@ namespace ExRam.Gremlinq.Core
                     .Build(),
                 traversal);
 
-        private GremlinQuery<T1, T2, T3, T4> Where(Expression<Func<T1, bool>> expression) => Where((Expression)expression);
-
         private GremlinQuery<T1, T2, T3, T4> Where(Expression expression)
         {
             try
