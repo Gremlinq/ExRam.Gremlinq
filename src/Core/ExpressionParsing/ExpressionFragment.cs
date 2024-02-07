@@ -7,9 +7,9 @@ namespace ExRam.Gremlinq.Core.ExpressionParsing
     {
         private readonly object? _value;
 
-        public static readonly ExpressionFragment True = Constant(true, default);
-        public static readonly ExpressionFragment False = Constant(false, default);
-        public static readonly ExpressionFragment Null = Constant(default, default);
+        public static readonly ExpressionFragment True = Constant(true);
+        public static readonly ExpressionFragment False = Constant(false);
+        public static readonly ExpressionFragment Null = Constant(default);
 
         private ExpressionFragment(ExpressionFragmentType type, object? value, WellKnownMember? wellKnownMember, Expression? expression = default)
         {
@@ -54,10 +54,10 @@ namespace ExRam.Gremlinq.Core.ExpressionParsing
                         IEnumerable enumerable when enumerable is not ICollection && !environment.SupportsType(enumerable.GetType()) => enumerable.Cast<object>().ToArray(),
                         { } val => val,
                         _ => null
-                    }, wellKnownMember);
+                    });
         }
 
-        public static ExpressionFragment Constant(object? value, WellKnownMember? wellKnownMember) => new(ExpressionFragmentType.Constant, value, wellKnownMember);
+        public static ExpressionFragment Constant(object? value) => new(ExpressionFragmentType.Constant, value, default);
 
         public static ExpressionFragment StepLabel(StepLabel value, WellKnownMember? wellKnownMember, MemberExpression? expression) => new(ExpressionFragmentType.StepLabel, value, wellKnownMember, expression);
 
