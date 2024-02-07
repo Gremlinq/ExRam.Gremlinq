@@ -1,0 +1,26 @@
+﻿{
+  SourceInstructions: [
+    {
+      OperatorName: withSideEffect,
+      Arguments: [
+        stepLabel,
+        sideEffect1
+      ]
+    },
+    {
+      OperatorName: withSideEffect,
+      Arguments: [
+        stepLabel,
+        sideEffect2
+      ]
+    }
+  ],
+  StepInstructions: [
+    {
+      OperatorName: inject,
+      Arguments: [
+        0
+      ]
+    }
+  ]
+}

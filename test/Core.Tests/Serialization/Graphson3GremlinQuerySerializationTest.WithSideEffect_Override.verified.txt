@@ -1,0 +1,36 @@
+﻿{
+  "requestId": "00000000-0000-0000-0000-000000000000",
+  "op": "bytecode",
+  "processor": "traversal",
+  "args": {
+    "gremlin": {
+      "@type": "g:Bytecode",
+      "@value": {
+        "source": [
+          [
+            "withSideEffect",
+            "stepLabel",
+            "sideEffect1"
+          ],
+          [
+            "withSideEffect",
+            "stepLabel",
+            "sideEffect2"
+          ]
+        ],
+        "step": [
+          [
+            "inject",
+            {
+              "@type": "g:Int32",
+              "@value": 0
+            }
+          ]
+        ]
+      }
+    },
+    "aliases": {
+      "g": "g"
+    }
+  }
+}
