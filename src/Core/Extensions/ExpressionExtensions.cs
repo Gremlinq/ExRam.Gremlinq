@@ -397,7 +397,7 @@ namespace ExRam.Gremlinq.Core
                                 if (instanceExpression.GetValue()?.ToString() is { } stringValue)
                                 {
                                     return new GremlinExpression(
-                                        ExpressionFragment.Constant(stringValue, default),
+                                        ExpressionFragment.Constant(stringValue),
                                         StartsWithExpressionSemantics.Get(stringComparison),
                                         ExpressionFragment.Create(argumentExpression, default, environment));
                                 }
@@ -416,7 +416,7 @@ namespace ExRam.Gremlinq.Core
                                             WellKnownOperation.StringEndsWith => EndsWithExpressionSemantics.Get(stringComparison),
                                             _ => throw new ExpressionNotSupportedException(methodCallExpression)
                                         },
-                                        ExpressionFragment.Constant(stringValue, default));
+                                        ExpressionFragment.Constant(stringValue));
                                 }
                             }
 
