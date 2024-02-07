@@ -1456,7 +1456,7 @@ namespace ExRam.Gremlinq.Core
                             left,
                             default,
                             semantics,
-                            ExpressionFragment.StepLabel(newStepLabel, rightMember));
+                            ExpressionFragment.StepLabel(newStepLabel, default, rightMember));
                     }
                 }
             }
