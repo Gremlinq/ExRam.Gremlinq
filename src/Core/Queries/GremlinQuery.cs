@@ -2,6 +2,7 @@
 // ReSharper disable ArrangeThisQualifier
 using System.Collections.Immutable;
 using System.Linq.Expressions;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 
 using CommunityToolkit.HighPerformance;
@@ -1447,13 +1448,14 @@ namespace ExRam.Gremlinq.Core
                     if (left.Expression is MemberExpression && right.Expression is MemberExpression rightMember)
                     {
                         var newStepLabel = new StepLabel<T1>();
+                        var newRightExpression = Expression.MakeMemberAccess(Expression.MakeMemberAccess(Expression.Constant(newStepLabel), typeof(StepLabel<T1>).GetProperty(nameof(StepLabel<T1>.Value))!), rightMember.Member);
 
                         return Where(
                             traversal
                                 .Push(new AsStep(newStepLabel)),
                             left,
                             semantics,
-                            ExpressionFragment.StepLabel(newStepLabel, default, rightMember));
+                            ExpressionFragment.Create(newRightExpression, Environment));
                     }
                 }
             }
