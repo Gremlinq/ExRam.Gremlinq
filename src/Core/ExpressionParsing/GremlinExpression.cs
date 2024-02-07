@@ -2,16 +2,13 @@
 {
     internal readonly struct GremlinExpression : IEquatable<GremlinExpression>
     {
-        public static readonly GremlinExpression True = new(ExpressionFragment.True, default, EqualsExpressionSemantics.Instance, ExpressionFragment.True);
-        public static readonly GremlinExpression False = new(ExpressionFragment.True, default, EqualsExpressionSemantics.Instance, ExpressionFragment.False);
+        public static readonly GremlinExpression True = new(ExpressionFragment.True, EqualsExpressionSemantics.Instance, ExpressionFragment.True);
+        public static readonly GremlinExpression False = new(ExpressionFragment.True, EqualsExpressionSemantics.Instance, ExpressionFragment.False);
 
-        public GremlinExpression(ExpressionFragment left, WellKnownMember? leftWellKnownMember, ExpressionSemantics semantics, ExpressionFragment right)
+        public GremlinExpression(ExpressionFragment left, ExpressionSemantics semantics, ExpressionFragment right)
         {
             if (left.Type != ExpressionFragmentType.Parameter && right.Type == ExpressionFragmentType.Parameter)
             {
-                if (leftWellKnownMember != null)
-                    throw new ExpressionNotSupportedException();
-
                 Left = right;
                 Semantics = semantics.Flip();
                 Right = left;
@@ -22,8 +19,6 @@
                 Right = right;
                 Semantics = semantics;
             }
-
-            LeftWellKnownMember = leftWellKnownMember ?? Left.Expression?.TryGetWellKnownMember();
         }
 
         public bool Equals(GremlinExpression other) => Left.Equals(other.Left) && Right.Equals(other.Right) && Semantics == other.Semantics;
@@ -44,6 +39,5 @@
         public ExpressionFragment Left { get; }
         public ExpressionFragment Right { get; }
         public ExpressionSemantics Semantics { get; }
-        public WellKnownMember? LeftWellKnownMember { get; }
     }
 }
