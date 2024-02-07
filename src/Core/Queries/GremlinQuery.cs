@@ -4,6 +4,8 @@ using System.Collections.Immutable;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 
+using CommunityToolkit.HighPerformance;
+
 using ExRam.Gremlinq.Core.ExpressionParsing;
 using ExRam.Gremlinq.Core.GraphElements;
 using ExRam.Gremlinq.Core.Models;
@@ -136,7 +138,7 @@ namespace ExRam.Gremlinq.Core
             .Continue(ContinuationFlags.Filter)
             .With(continuations));
 
-        private GremlinQuery<T1, T2, T3, T4> And(MultiContinuationBuilder<GremlinQuery<T1, T2, T3, T4>, GremlinQuery<T1, T2, T3, T4>> continuationBuilder) => continuationBuilder
+        private static GremlinQuery<T1, T2, T3, T4> And(MultiContinuationBuilder<GremlinQuery<T1, T2, T3, T4>, GremlinQuery<T1, T2, T3, T4>> continuationBuilder) => continuationBuilder
             .Build(static (builder, traversals) =>
             {
                 if (traversals.Length == 0)
@@ -167,13 +169,13 @@ namespace ExRam.Gremlinq.Core
                 var fusedTraversals = traversals[..count]
                     .Fuse(static (p1, p2) => p1.And(p2));
 
-                return fusedTraversals.Length switch
+                return fusedTraversals switch
                 {
-                    0 => builder.OuterQuery,
-                    1 => builder.OuterQuery
-                        .Where(fusedTraversals[0]),
-                    _ => builder
-                        .AddStep(new AndStep(fusedTraversals.ToArray()))
+                    [] => builder.OuterQuery,
+                    [var single] => builder.OuterQuery
+                        .Where(single),
+                    var otherwise => builder
+                        .AddStep(new AndStep(otherwise.ToArray()))
                         .Build()
                 };
             });
