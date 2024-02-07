@@ -1225,7 +1225,7 @@ namespace ExRam.Gremlinq.Core
                                                 var (outerQuery, gremlinExpression) = state;
 
                                                 return outerQuery
-                                                    .Where(steps, gremlinExpression.Left, gremlinExpression.Left.WellKnownMember, gremlinExpression.Semantics, gremlinExpression.Right);
+                                                    .Where(steps, gremlinExpression.Left, gremlinExpression.Semantics, gremlinExpression.Right);
                                             },
                                             (builder.OuterQuery, gremlinExpression))
                                         .Build(),
@@ -1253,7 +1253,7 @@ namespace ExRam.Gremlinq.Core
                      GetKey(memberExpression))
              : throw new ExpressionNotSupportedException(predicate);
 
-        private Traversal Where(Traversal traversal, ExpressionFragment left, WellKnownMember? leftWellKnownMember, ExpressionSemantics semantics, ExpressionFragment right)
+        private Traversal Where(Traversal traversal, ExpressionFragment left, ExpressionSemantics semantics, ExpressionFragment right)
         {
             if (right.Type is ExpressionFragmentType.Constant or ExpressionFragmentType.StepLabel)
             {
@@ -1280,7 +1280,7 @@ namespace ExRam.Gremlinq.Core
 
                                 if (leftMemberExpressionExpression is ParameterExpression parameterExpression)
                                 {
-                                    if (leftWellKnownMember == WellKnownMember.ArrayLength)
+                                    if (left.WellKnownMember == WellKnownMember.ArrayLength)
                                     {
                                         if (Environment.GetCache().ModelTypes.Contains(parameterExpression.Type))
                                         {
@@ -1329,7 +1329,7 @@ namespace ExRam.Gremlinq.Core
                                 else if (leftMemberExpressionExpression is MemberExpression leftLeftMemberExpression)
                                 {
                                     // x => x.Name.Value == P.xy(...)
-                                    if (leftWellKnownMember == WellKnownMember.PropertyValue)
+                                    if (left.WellKnownMember == WellKnownMember.PropertyValue)
                                         leftMemberExpression = leftLeftMemberExpression;
                                 }
                                 else
@@ -1364,7 +1364,7 @@ namespace ExRam.Gremlinq.Core
                             }
                             case ParameterExpression parameterExpression:
                             {
-                                switch (leftWellKnownMember)
+                                switch (left.WellKnownMember)
                                 {
                                     // x => x.Value == P.xy(...)
                                     case WellKnownMember.PropertyValue when rightValue is not null and not StepLabel:
@@ -1379,7 +1379,6 @@ namespace ExRam.Gremlinq.Core
                                                     .Where(
                                                         KeyStep.Instance,
                                                         ExpressionFragment.Create(parameterExpression, default, Environment),
-                                                        default,
                                                         semantics,
                                                         right)));
                                     }
@@ -1391,7 +1390,6 @@ namespace ExRam.Gremlinq.Core
                                                     .Where(
                                                         LabelStep.Instance,
                                                         ExpressionFragment.Create(parameterExpression, default, Environment),
-                                                        default,
                                                         semantics,
                                                         right)));
                                     }
@@ -1454,7 +1452,6 @@ namespace ExRam.Gremlinq.Core
                             traversal
                                 .Push(new AsStep(newStepLabel)),
                             left,
-                            default,
                             semantics,
                             ExpressionFragment.StepLabel(newStepLabel, default, rightMember));
                     }
