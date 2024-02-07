@@ -8,10 +8,9 @@
     },
     bindings: {
       _a: stepLabel,
-      _b: sideEffect1,
-      _c: sideEffect2,
-      _d: 0
+      _b: sideEffect2,
+      _c: 0
     },
-    gremlin: g.withSideEffect(_a,_b).withSideEffect(_a,_c).inject(_d)
+    gremlin: g.withSideEffect(_a,_b).inject(_c)
   }
 }

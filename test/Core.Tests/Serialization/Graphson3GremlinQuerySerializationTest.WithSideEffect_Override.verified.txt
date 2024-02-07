@@ -10,11 +10,6 @@
           [
             "withSideEffect",
             "stepLabel",
-            "sideEffect1"
-          ],
-          [
-            "withSideEffect",
-            "stepLabel",
             "sideEffect2"
           ]
         ],

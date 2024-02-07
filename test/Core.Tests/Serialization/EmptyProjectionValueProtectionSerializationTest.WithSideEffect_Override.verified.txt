@@ -4,13 +4,6 @@
       OperatorName: withSideEffect,
       Arguments: [
         stepLabel,
-        sideEffect1
-      ]
-    },
-    {
-      OperatorName: withSideEffect,
-      Arguments: [
-        stepLabel,
         sideEffect2
       ]
     }
