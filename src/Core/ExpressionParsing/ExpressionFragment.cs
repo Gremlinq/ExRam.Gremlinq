@@ -39,23 +39,18 @@ namespace ExRam.Gremlinq.Core.ExpressionParsing
         public Expression? Expression { get; }
 
         public ExpressionFragmentType Type { get; }
+
         public WellKnownMember? WellKnownMember { get; }
 
         public static ExpressionFragment Create(Expression expression, IGremlinQueryEnvironment environment)
         {
             var ret = Create(expression, default, environment);
 
-            if (ret.Expression is UnaryExpression unaryExpression)
-            {
-                if (unaryExpression.NodeType == ExpressionType.ArrayLength)
-                {
-                    return Create(unaryExpression.Operand, ExpressionParsing.WellKnownMember.ArrayLength, environment);
-                }
-            }
-            else if (ret.Expression is MemberExpression { Expression: { } memberExpressionExpression } && ret.WellKnownMember != null)
-            {
+            if (ret.Expression is UnaryExpression unaryExpression && unaryExpression.NodeType == ExpressionType.ArrayLength)
+                return Create(unaryExpression.Operand, ExpressionParsing.WellKnownMember.ArrayLength, environment);
+            
+            if (ret.Expression is MemberExpression { Expression: { } memberExpressionExpression } && ret.WellKnownMember != null)
                 return Create(memberExpressionExpression, ret.WellKnownMember, environment);
-            }
 
             return ret;
         }
