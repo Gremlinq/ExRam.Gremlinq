@@ -18,7 +18,7 @@ namespace ExRam.Gremlinq.Core.ExpressionParsing
             Expression = expression;
         }
 
-        public object? GetValue() => Type == ExpressionFragmentType.Constant ? _value : Expression?.GetValue();
+        public object? GetValue() => Type is ExpressionFragmentType.Constant or ExpressionFragmentType.StepLabel ? _value : Expression?.GetValue();
 
         public bool Equals(ExpressionFragment other) => Equals(_value, other._value) && Equals(Expression, other.Expression) && Type == other.Type;
 
@@ -57,7 +57,7 @@ namespace ExRam.Gremlinq.Core.ExpressionParsing
 
         public static ExpressionFragment Constant(object? value) => new(ExpressionFragmentType.Constant, value);
 
-        public static ExpressionFragment StepLabel(StepLabel value, MemberExpression? expression) => new(ExpressionFragmentType.Constant, value, expression);
+        public static ExpressionFragment StepLabel(StepLabel value, MemberExpression? expression) => new(ExpressionFragmentType.StepLabel, value, expression);
 
         public static ExpressionFragment Parameter(Expression expression) => new(ExpressionFragmentType.Parameter, default, expression.StripConvert());
     }
