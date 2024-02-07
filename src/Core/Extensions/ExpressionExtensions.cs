@@ -102,6 +102,15 @@ namespace ExRam.Gremlinq.Core
 
                     break;
                 }
+            }
+
+            return null;
+        }
+
+        public static WellKnownOperation? TryGetWellKnownOperation(this Expression expression)
+        {
+            switch (expression)
+            { 
                 case MethodCallExpression methodCallExpression:
                 {
                     var methodInfo = methodCallExpression.Method;
@@ -113,20 +122,20 @@ namespace ExRam.Gremlinq.Core
                         if (methodInfo.IsGenericMethod && methodInfo.GetGenericMethodDefinition() == EnumerableAny)
                         {
                             return thisExpression is MethodCallExpression { Method.IsGenericMethod: true } previousMethodCallExpression && previousMethodCallExpression.Method.GetGenericMethodDefinition() == EnumerableIntersect
-                                ? WellKnownMember.EnumerableIntersectAny
-                                : WellKnownMember.EnumerableAny;
+                                ? WellKnownOperation.EnumerableIntersectAny
+                                : WellKnownOperation.EnumerableAny;
                         }
 
                         if (methodInfo.IsGenericMethod && methodInfo.GetGenericMethodDefinition() == EnumerableContainsElement)
-                            return WellKnownMember.EnumerableContains;
+                            return WellKnownOperation.EnumerableContains;
                     }
                     else
                     {
                         if (typeof(IList).IsAssignableFrom(methodInfo.DeclaringType) && methodInfo.Name == nameof(List<object>.Contains))
-                            return WellKnownMember.ListContains;
+                            return WellKnownOperation.ListContains;
 
                         if (methodInfo.DeclaringType is { IsGenericType: true } declaringType && declaringType.GetGenericArguments() is [_, _] && methodInfo.Name == "get_Item")
-                            return WellKnownMember.IndexerGet;
+                            return WellKnownOperation.IndexerGet;
 
                         if (methodInfo.DeclaringType == typeof(string) && methodInfo.GetParameters() is { Length: 1 or 2 } parameters)
                         {
@@ -135,22 +144,22 @@ namespace ExRam.Gremlinq.Core
                                 switch (methodInfo.Name)
                                 {
                                     case nameof(object.Equals):
-                                        return WellKnownMember.StringEquals;
+                                        return WellKnownOperation.StringEquals;
                                     case nameof(string.StartsWith):
-                                        return WellKnownMember.StringStartsWith;
+                                        return WellKnownOperation.StringStartsWith;
                                     case nameof(string.EndsWith):
-                                        return WellKnownMember.StringEndsWith;
+                                        return WellKnownOperation.StringEndsWith;
                                     case nameof(string.Contains):
-                                        return WellKnownMember.StringContains;
+                                        return WellKnownOperation.StringContains;
                                 }
                             }
                         }
 
                         if (methodInfo.Name == nameof(object.Equals) && methodInfo.GetParameters().Length == 1 && methodInfo.ReturnType == typeof(bool))
-                            return WellKnownMember.Equals;
+                            return WellKnownOperation.Equals;
 
                         if (methodInfo.Name == nameof(IComparable.CompareTo) && methodInfo.GetParameters().Length == 1 && methodInfo.ReturnType == typeof(int))
-                            return WellKnownMember.ComparableCompareTo;
+                            return WellKnownOperation.ComparableCompareTo;
                     }
 
                     break;
@@ -254,7 +263,9 @@ namespace ExRam.Gremlinq.Core
             {
                 if (expression.Left.Expression is MethodCallExpression leftMethodCallExpression)
                 {
-                    if (expression.LeftWellKnownMember == WellKnownMember.ComparableCompareTo && expression.Right.TryGetValue() is IConvertible convertible)
+                    var wellKnownOperation = leftMethodCallExpression.TryGetWellKnownOperation();
+
+                    if (wellKnownOperation == WellKnownOperation.ComparableCompareTo && expression.Right.TryGetValue() is IConvertible convertible)
                     {
                         var maybeComparison = default(int?);
 
@@ -333,11 +344,11 @@ namespace ExRam.Gremlinq.Core
                 }
                 case MethodCallExpression methodCallExpression:
                 {
-                    var wellKnownMember = methodCallExpression.TryGetWellKnownMember();
+                    var wellKnownMember = methodCallExpression.TryGetWellKnownOperation();
 
                     switch (wellKnownMember)
                     {
-                        case WellKnownMember.Equals:
+                        case WellKnownOperation.Equals:
                         {
                             return new GremlinExpression(
                                 ExpressionFragment.Create(methodCallExpression.Object!, environment),
@@ -345,7 +356,7 @@ namespace ExRam.Gremlinq.Core
                                 EqualsExpressionSemantics.Instance,
                                 ExpressionFragment.Create(methodCallExpression.Arguments[0], environment));
                         }
-                        case WellKnownMember.EnumerableIntersectAny:
+                        case WellKnownOperation.EnumerableIntersectAny:
                         {
                             var arguments = ((MethodCallExpression)methodCallExpression.Arguments[0].StripConvert()).Arguments;
 
@@ -355,7 +366,7 @@ namespace ExRam.Gremlinq.Core
                                 IntersectsExpressionSemantics.Instance,
                                 ExpressionFragment.Create(arguments[1], environment));
                         }
-                        case WellKnownMember.EnumerableAny:
+                        case WellKnownOperation.EnumerableAny:
                         {
                             return new GremlinExpression(
                                 ExpressionFragment.Create(methodCallExpression.Arguments[0], environment),
@@ -363,7 +374,7 @@ namespace ExRam.Gremlinq.Core
                                 NotEqualsExpressionSemantics.Instance,
                                 ExpressionFragment.Null);
                         }
-                        case WellKnownMember.EnumerableContains:
+                        case WellKnownOperation.EnumerableContains:
                         {
                             return new GremlinExpression(
                                 ExpressionFragment.Create(methodCallExpression.Arguments[0], environment),
@@ -371,7 +382,7 @@ namespace ExRam.Gremlinq.Core
                                 ContainsExpressionSemantics.Instance,
                                 ExpressionFragment.Create(methodCallExpression.Arguments[1], environment));
                         }
-                        case WellKnownMember.ListContains:
+                        case WellKnownOperation.ListContains:
                         {
                             return new GremlinExpression(
                                 ExpressionFragment.Create(methodCallExpression.Object!, environment),
@@ -379,10 +390,10 @@ namespace ExRam.Gremlinq.Core
                                 ContainsExpressionSemantics.Instance,
                                 ExpressionFragment.Create(methodCallExpression.Arguments[0], environment));
                         }
-                        case WellKnownMember.StringEquals:
-                        case WellKnownMember.StringStartsWith:
-                        case WellKnownMember.StringEndsWith:
-                        case WellKnownMember.StringContains:
+                        case WellKnownOperation.StringEquals:
+                        case WellKnownOperation.StringStartsWith:
+                        case WellKnownOperation.StringEndsWith:
+                        case WellKnownOperation.StringContains:
                         {
                             var instanceExpression = methodCallExpression.Object!.StripConvert();
                             var argumentExpression = methodCallExpression.Arguments[0].StripConvert();
@@ -391,7 +402,7 @@ namespace ExRam.Gremlinq.Core
                                 ? (StringComparison)secondArgument.GetValue()!
                                 : StringComparison.Ordinal;
 
-                            if (wellKnownMember == WellKnownMember.StringStartsWith && argumentExpression.TryGetReferredParameter() is not null)
+                            if (wellKnownMember == WellKnownOperation.StringStartsWith && argumentExpression.TryGetReferredParameter() is not null)
                             {
                                 if (instanceExpression.GetValue()?.ToString() is { } stringValue)
                                 {
@@ -411,10 +422,10 @@ namespace ExRam.Gremlinq.Core
                                         default,
                                         wellKnownMember switch
                                         {
-                                            WellKnownMember.StringEquals => StringEqualsExpressionSemantics.Get(stringComparison),
-                                            WellKnownMember.StringStartsWith => StartsWithExpressionSemantics.Get(stringComparison),
-                                            WellKnownMember.StringContains => HasInfixExpressionSemantics.Get(stringComparison),
-                                            WellKnownMember.StringEndsWith => EndsWithExpressionSemantics.Get(stringComparison),
+                                            WellKnownOperation.StringEquals => StringEqualsExpressionSemantics.Get(stringComparison),
+                                            WellKnownOperation.StringStartsWith => StartsWithExpressionSemantics.Get(stringComparison),
+                                            WellKnownOperation.StringContains => HasInfixExpressionSemantics.Get(stringComparison),
+                                            WellKnownOperation.StringEndsWith => EndsWithExpressionSemantics.Get(stringComparison),
                                             _ => throw new ExpressionNotSupportedException(methodCallExpression)
                                         },
                                         ExpressionFragment.Constant(stringValue));

@@ -1,14 +1,9 @@
 ﻿namespace ExRam.Gremlinq.Core.ExpressionParsing
 {
-    internal enum WellKnownMember
+    internal enum WellKnownOperation
     {
         Equals,
 
-        PropertyValue,
-        PropertyKey,
-        StepLabelValue,
-        VertexPropertyLabel,
-        
         EnumerableIntersectAny,
         EnumerableAny,
         EnumerableContains,
@@ -22,8 +17,16 @@
 
         ComparableCompareTo,
 
-        ArrayLength,
-
         IndexerGet
+    }
+
+    internal enum WellKnownMember
+    {
+        PropertyValue,
+        PropertyKey,
+        StepLabelValue,
+        VertexPropertyLabel,
+
+        ArrayLength,
     }
 }
