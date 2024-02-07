@@ -18,7 +18,7 @@ namespace ExRam.Gremlinq.Core.ExpressionParsing
             Expression = expression;
         }
 
-        public object? GetValue() => Type is ExpressionFragmentType.Constant or ExpressionFragmentType.StepLabel ? _value : Expression?.GetValue();
+        public object? TryGetValue() => Type is ExpressionFragmentType.Constant or ExpressionFragmentType.StepLabel ? _value : throw new InvalidOperationException();
 
         public bool Equals(ExpressionFragment other) => Equals(_value, other._value) && Equals(Expression, other.Expression) && Type == other.Type;
 

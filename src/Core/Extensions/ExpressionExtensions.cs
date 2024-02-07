@@ -254,7 +254,7 @@ namespace ExRam.Gremlinq.Core
             {
                 if (expression.Left.Expression is MethodCallExpression leftMethodCallExpression)
                 {
-                    if (expression.LeftWellKnownMember == WellKnownMember.ComparableCompareTo && expression.Right.GetValue() is IConvertible convertible)
+                    if (expression.LeftWellKnownMember == WellKnownMember.ComparableCompareTo && expression.Right.TryGetValue() is IConvertible convertible)
                     {
                         var maybeComparison = default(int?);
 

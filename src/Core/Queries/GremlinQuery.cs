@@ -1257,7 +1257,7 @@ namespace ExRam.Gremlinq.Core
         {
             if (right.Type is ExpressionFragmentType.Constant or ExpressionFragmentType.StepLabel)
             {
-                var rightValue = right.GetValue();
+                var rightValue = right.TryGetValue();
 
                 var maybeEffectivePredicate = Environment.Options
                     .GetValue(PFactory.PFactoryOption)
@@ -1428,7 +1428,7 @@ namespace ExRam.Gremlinq.Core
                             }
                         }
                     }
-                    else if (left.Type is ExpressionFragmentType.Constant or ExpressionFragmentType.StepLabel && left.GetValue() is StepLabel leftStepLabel && rightValue is StepLabel)
+                    else if (left.Type is ExpressionFragmentType.Constant or ExpressionFragmentType.StepLabel && left.TryGetValue() is StepLabel leftStepLabel && rightValue is StepLabel)
                     {
                         traversal = traversal.Push(new WhereStepLabelAndPredicateStep(leftStepLabel, effectivePredicate));
 
