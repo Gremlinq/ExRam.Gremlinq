@@ -278,7 +278,8 @@ namespace ExRam.Gremlinq.Core
                                     TrueExpressionSemantics => GremlinExpression.True,
                                     FalseExpressionSemantics => GremlinExpression.False,
                                     _ => new GremlinExpression(
-                                        ExpressionFragment.Create(leftMethodCallExpression.Object!, environment), default,
+                                        ExpressionFragment.Create(leftMethodCallExpression.Object!, environment),
+                                        default,
                                         transformed,
                                         ExpressionFragment.Create(leftMethodCallExpression.Arguments[0], environment))
                                 };
