@@ -41,20 +41,20 @@ namespace ExRam.Gremlinq.Core.ExpressionParsing
         public ExpressionFragmentType Type { get; }
         public WellKnownMember? WellKnownMember { get; }
 
-        public static ExpressionFragment Create(Expression expression, IGremlinQueryEnvironment environment)
+        public static ExpressionFragment Create(Expression expression, WellKnownMember? wellKnownMember, IGremlinQueryEnvironment environment)
         {
             expression = expression.StripConvert();
 
             return expression.TryGetReferredParameter() is not null
-                ? Parameter(expression, default)
+                ? Parameter(expression, wellKnownMember)
                 : expression.TryParseStepLabelExpression(out var stepLabel, out var stepLabelExpression)
-                    ? StepLabel(stepLabel!, default, stepLabelExpression)
+                    ? StepLabel(stepLabel!, wellKnownMember, stepLabelExpression)
                     : Constant(expression.GetValue() switch
                     {
                         IEnumerable enumerable when enumerable is not ICollection && !environment.SupportsType(enumerable.GetType()) => enumerable.Cast<object>().ToArray(),
                         { } val => val,
                         _ => null
-                    }, default);
+                    }, wellKnownMember);
         }
 
         public static ExpressionFragment Constant(object? value, WellKnownMember? wellKnownMember) => new(ExpressionFragmentType.Constant, value, wellKnownMember);

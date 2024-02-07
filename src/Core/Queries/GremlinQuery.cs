@@ -1378,7 +1378,7 @@ namespace ExRam.Gremlinq.Core
                                                 new FilterStep.ByTraversalStep(this
                                                     .Where(
                                                         KeyStep.Instance,
-                                                        ExpressionFragment.Create(parameterExpression, Environment),
+                                                        ExpressionFragment.Create(parameterExpression, default, Environment),
                                                         default,
                                                         semantics,
                                                         right)));
@@ -1390,7 +1390,7 @@ namespace ExRam.Gremlinq.Core
                                                 new FilterStep.ByTraversalStep(this
                                                     .Where(
                                                         LabelStep.Instance,
-                                                        ExpressionFragment.Create(parameterExpression, Environment),
+                                                        ExpressionFragment.Create(parameterExpression, default, Environment),
                                                         default,
                                                         semantics,
                                                         right)));
