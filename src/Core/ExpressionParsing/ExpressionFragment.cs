@@ -46,7 +46,7 @@ namespace ExRam.Gremlinq.Core.ExpressionParsing
             expression = expression.StripConvert();
 
             return expression.TryGetReferredParameter() is not null
-                ? Parameter(expression)
+                ? Parameter(expression, default)
                 : expression.TryParseStepLabelExpression(out var stepLabel, out var stepLabelExpression)
                     ? StepLabel(stepLabel!, default, stepLabelExpression)
                     : Constant(expression.GetValue() switch
@@ -61,6 +61,6 @@ namespace ExRam.Gremlinq.Core.ExpressionParsing
 
         public static ExpressionFragment StepLabel(StepLabel value, WellKnownMember? wellKnownMember, MemberExpression? expression) => new(ExpressionFragmentType.StepLabel, value, wellKnownMember, expression);
 
-        public static ExpressionFragment Parameter(Expression expression) => new(ExpressionFragmentType.Parameter, default, default, expression.StripConvert());
+        public static ExpressionFragment Parameter(Expression expression, WellKnownMember? wellKnownMember) => new(ExpressionFragmentType.Parameter, default, wellKnownMember, expression.StripConvert());
     }
 }
