@@ -289,30 +289,13 @@ namespace ExRam.Gremlinq.Core
                                     TrueExpressionSemantics => GremlinExpression.True,
                                     FalseExpressionSemantics => GremlinExpression.False,
                                     _ => new GremlinExpression(
-                                        ExpressionFragment.Create(leftMethodCallExpression.Object!, default, environment),
+                                        ExpressionFragment.Create(leftMethodCallExpression.Object!, environment),
                                         transformed,
-                                        ExpressionFragment.Create(leftMethodCallExpression.Arguments[0], default, environment))
+                                        ExpressionFragment.Create(leftMethodCallExpression.Arguments[0], environment))
                                 };
                             }
                         }
                     }
-                }
-                else if (expression.Left.Expression is UnaryExpression unaryExpression)
-                {
-                    if (unaryExpression.NodeType == ExpressionType.ArrayLength)
-                    {
-                        return new GremlinExpression(
-                            ExpressionFragment.Create(unaryExpression.Operand, WellKnownMember.ArrayLength, environment),
-                            expression.Semantics,
-                            expression.Right);
-                    }
-                }
-                else if (expression.Left.Expression is MemberExpression {Expression: {} memberExpressionExpression} && expression.Left.WellKnownMember != null)
-                {
-                    return new GremlinExpression(
-                        ExpressionFragment.Create(memberExpressionExpression, expression.Left.WellKnownMember, environment),
-                        expression.Semantics,
-                        expression.Right);
                 }
             }
 
@@ -326,16 +309,16 @@ namespace ExRam.Gremlinq.Core
                 case MemberExpression memberExpression when memberExpression.TryGetReferredParameter() is not null && memberExpression.Member is PropertyInfo property && property.PropertyType == typeof(bool):
                 {
                     return new GremlinExpression(
-                        ExpressionFragment.Create(memberExpression, default, environment),
+                        ExpressionFragment.Create(memberExpression, environment),
                         EqualsExpressionSemantics.Instance,
                         ExpressionFragment.True);
                 }
                 case BinaryExpression binaryExpression when binaryExpression.NodeType != ExpressionType.AndAlso && binaryExpression.NodeType != ExpressionType.OrElse:
                 {
                     return new GremlinExpression(
-                        ExpressionFragment.Create(binaryExpression.Left, default, environment),
+                        ExpressionFragment.Create(binaryExpression.Left, environment),
                         binaryExpression.NodeType.ToSemantics(),
-                        ExpressionFragment.Create(binaryExpression.Right, default, environment));
+                        ExpressionFragment.Create(binaryExpression.Right, environment));
                 }
                 case MethodCallExpression methodCallExpression:
                 {
@@ -346,39 +329,39 @@ namespace ExRam.Gremlinq.Core
                         case WellKnownOperation.Equals:
                         {
                             return new GremlinExpression(
-                                ExpressionFragment.Create(methodCallExpression.Object!, default, environment),
+                                ExpressionFragment.Create(methodCallExpression.Object!, environment),
                                 EqualsExpressionSemantics.Instance,
-                                ExpressionFragment.Create(methodCallExpression.Arguments[0], default, environment));
+                                ExpressionFragment.Create(methodCallExpression.Arguments[0], environment));
                         }
                         case WellKnownOperation.EnumerableIntersectAny:
                         {
                             var arguments = ((MethodCallExpression)methodCallExpression.Arguments[0].StripConvert()).Arguments;
 
                             return new GremlinExpression(
-                                ExpressionFragment.Create(arguments[0], default, environment),
+                                ExpressionFragment.Create(arguments[0], environment),
                                 IntersectsExpressionSemantics.Instance,
-                                ExpressionFragment.Create(arguments[1], default, environment));
+                                ExpressionFragment.Create(arguments[1], environment));
                         }
                         case WellKnownOperation.EnumerableAny:
                         {
                             return new GremlinExpression(
-                                ExpressionFragment.Create(methodCallExpression.Arguments[0], default, environment),
+                                ExpressionFragment.Create(methodCallExpression.Arguments[0], environment),
                                 NotEqualsExpressionSemantics.Instance,
                                 ExpressionFragment.Null);
                         }
                         case WellKnownOperation.EnumerableContains:
                         {
                             return new GremlinExpression(
-                                ExpressionFragment.Create(methodCallExpression.Arguments[0], default, environment),
+                                ExpressionFragment.Create(methodCallExpression.Arguments[0], environment),
                                 ContainsExpressionSemantics.Instance,
-                                ExpressionFragment.Create(methodCallExpression.Arguments[1], default, environment));
+                                ExpressionFragment.Create(methodCallExpression.Arguments[1], environment));
                         }
                         case WellKnownOperation.ListContains:
                         {
                             return new GremlinExpression(
-                                ExpressionFragment.Create(methodCallExpression.Object!, default, environment),
+                                ExpressionFragment.Create(methodCallExpression.Object!, environment),
                                 ContainsExpressionSemantics.Instance,
-                                ExpressionFragment.Create(methodCallExpression.Arguments[0], default, environment));
+                                ExpressionFragment.Create(methodCallExpression.Arguments[0], environment));
                         }
                         case WellKnownOperation.StringEquals:
                         case WellKnownOperation.StringStartsWith:
@@ -399,7 +382,7 @@ namespace ExRam.Gremlinq.Core
                                     return new GremlinExpression(
                                         ExpressionFragment.Constant(stringValue),
                                         StartsWithExpressionSemantics.Get(stringComparison),
-                                        ExpressionFragment.Create(argumentExpression, default, environment));
+                                        ExpressionFragment.Create(argumentExpression, environment));
                                 }
                             }
                             else if (instanceExpression.TryGetReferredParameter() is not null)
@@ -407,7 +390,7 @@ namespace ExRam.Gremlinq.Core
                                 if (argumentExpression.GetValue() is string stringValue)
                                 {
                                     return new GremlinExpression(
-                                        ExpressionFragment.Create(instanceExpression, default, environment),
+                                        ExpressionFragment.Create(instanceExpression, environment),
                                         wellKnownMember switch
                                         {
                                             WellKnownOperation.StringEquals => StringEqualsExpressionSemantics.Get(stringComparison),
