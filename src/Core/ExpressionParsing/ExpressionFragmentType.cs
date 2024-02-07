@@ -3,6 +3,7 @@
     internal enum ExpressionFragmentType
     {
         Constant,
+        StepLabel,
         Parameter
     }
 }

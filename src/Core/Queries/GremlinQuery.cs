@@ -1255,7 +1255,7 @@ namespace ExRam.Gremlinq.Core
 
         private Traversal Where(Traversal traversal, ExpressionFragment left, WellKnownMember? leftWellKnownMember, ExpressionSemantics semantics, ExpressionFragment right)
         {
-            if (right.Type == ExpressionFragmentType.Constant)
+            if (right.Type is ExpressionFragmentType.Constant or ExpressionFragmentType.StepLabel)
             {
                 var rightValue = right.GetValue();
 
@@ -1428,7 +1428,7 @@ namespace ExRam.Gremlinq.Core
                             }
                         }
                     }
-                    else if (left.Type == ExpressionFragmentType.Constant && left.GetValue() is StepLabel leftStepLabel && rightValue is StepLabel)
+                    else if (left.Type is ExpressionFragmentType.Constant or ExpressionFragmentType.StepLabel && left.GetValue() is StepLabel leftStepLabel && rightValue is StepLabel)
                     {
                         traversal = traversal.Push(new WhereStepLabelAndPredicateStep(leftStepLabel, effectivePredicate));
 
