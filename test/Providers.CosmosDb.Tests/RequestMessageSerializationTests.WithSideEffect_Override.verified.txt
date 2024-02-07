@@ -1,0 +1,17 @@
+﻿{
+  RequestId: Guid_1,
+  Operation: eval,
+  Processor: ,
+  Arguments: {
+    aliases: {
+      g: g
+    },
+    bindings: {
+      _a: stepLabel,
+      _b: sideEffect1,
+      _c: sideEffect2,
+      _d: 0
+    },
+    gremlin: g.withSideEffect(_a,_b).withSideEffect(_a,_c).inject(_d)
+  }
+}

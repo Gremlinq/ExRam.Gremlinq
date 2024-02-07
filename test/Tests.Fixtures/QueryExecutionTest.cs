@@ -2536,6 +2536,13 @@ namespace ExRam.Gremlinq.Tests.TestCases
             .Verify();
 
         [Fact]
+        public virtual Task WithSideEffect_Override() => _g
+            .WithSideEffect("stepLabel", "sideEffect1")
+            .WithSideEffect("stepLabel", "sideEffect2")
+            .Inject(0)
+            .Verify();
+
+        [Fact]
         public virtual Task SkipGlobal() => _g
             .V()
             .Skip(1)
