@@ -48,7 +48,7 @@ namespace ExRam.Gremlinq.Core.ExpressionParsing
             return expression.TryGetReferredParameter() is not null
                 ? Parameter(expression)
                 : expression.TryParseStepLabelExpression(out var stepLabel, out var stepLabelExpression)
-                    ? StepLabel(stepLabel!, stepLabelExpression)
+                    ? StepLabel(stepLabel!, default, stepLabelExpression)
                     : Constant(expression.GetValue() switch
                     {
                         IEnumerable enumerable when enumerable is not ICollection && !environment.SupportsType(enumerable.GetType()) => enumerable.Cast<object>().ToArray(),
@@ -59,7 +59,7 @@ namespace ExRam.Gremlinq.Core.ExpressionParsing
 
         public static ExpressionFragment Constant(object? value, WellKnownMember? wellKnownMember) => new(ExpressionFragmentType.Constant, value, wellKnownMember);
 
-        public static ExpressionFragment StepLabel(StepLabel value, MemberExpression? expression) => new(ExpressionFragmentType.StepLabel, value, default, expression);
+        public static ExpressionFragment StepLabel(StepLabel value, WellKnownMember? wellKnownMember, MemberExpression? expression) => new(ExpressionFragmentType.StepLabel, value, wellKnownMember, expression);
 
         public static ExpressionFragment Parameter(Expression expression) => new(ExpressionFragmentType.Parameter, default, default, expression.StripConvert());
     }
