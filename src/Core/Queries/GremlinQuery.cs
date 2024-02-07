@@ -1469,7 +1469,7 @@ namespace ExRam.Gremlinq.Core
             var stepLabel = new StepLabel<TSideEffect>();
 
             return continuation(
-                ((IGremlinQuerySource)this).WithSideEffect(stepLabel, value),
+                WithSideEffect(stepLabel, value),
                 stepLabel);
         }
 
@@ -1477,7 +1477,15 @@ namespace ExRam.Gremlinq.Core
             .Continue()
             .Build(
                 static (builder, tuple) => builder
-                    .AddStep(new WithSideEffectStep(tuple.label, tuple.value!))
+                    .WithSteps(
+                        static (traversal, newSideEffectStep) =>
+                        {
+                            if (traversal.PeekOrDefault() is WithSideEffectStep { Label: { } existingLabel } && existingLabel == newSideEffectStep.Label)
+                                traversal = traversal.Pop();
+
+                            return traversal.Push(newSideEffectStep);
+                        },
+                        new WithSideEffectStep(tuple.label, tuple.value!))
                     .WithNewLabelProjections(
                         static (projections, tuple) => projections.Set(
                             tuple.label,

@@ -1,1 +1,1 @@
-﻿g.withSideEffect('stepLabel','sideEffect1').withSideEffect('stepLabel','sideEffect2').inject(0)
+﻿g.withSideEffect('stepLabel','sideEffect2').inject(0)
