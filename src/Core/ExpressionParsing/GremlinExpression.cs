@@ -7,7 +7,7 @@
 
         public GremlinExpression(ExpressionFragment left, ExpressionSemantics semantics, ExpressionFragment right)
         {
-            if (left.Type != ExpressionFragmentType.Parameter && right.Type == ExpressionFragmentType.Parameter)
+            if (left.Expression?.RefersToParameter(out _) is not true && right.Expression?.RefersToParameter(out _) is true)
             {
                 Left = right;
                 Semantics = semantics.Flip();
