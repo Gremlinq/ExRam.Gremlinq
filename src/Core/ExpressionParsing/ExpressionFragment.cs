@@ -43,7 +43,7 @@ namespace ExRam.Gremlinq.Core.ExpressionParsing
                 return new(default, expression.StripConvert());
 
             if (expression.TryParseStepLabelExpression(out var stepLabel, out var stepLabelExpression))
-                return new(stepLabel!, stepLabelExpression);
+                return new(default!, expression.StripConvert());
 
             return new(
                 expression.GetValue() switch
