@@ -213,7 +213,7 @@ namespace ExRam.Gremlinq.Core
                 }
                 case BinaryExpression binaryExpression when binaryExpression.NodeType.TryToSemantics(out var semantics):
                 {
-                    if (binaryExpression.Left is MethodCallExpression leftMethodCallExpression && semantics is ObjectExpressionSemantics objectExpressionSemantics && leftMethodCallExpression.TryGetWellKnownOperation() == WellKnownOperation.ComparableCompareTo && binaryExpression.Right.GetValue() is IConvertible convertible)
+                    if (binaryExpression.Left is MethodCallExpression { Object: { } target, Arguments: [ { } firstArgument, ..] } leftMethodCallExpression && semantics is ObjectExpressionSemantics objectExpressionSemantics && leftMethodCallExpression.TryGetWellKnownOperation() == WellKnownOperation.ComparableCompareTo && binaryExpression.Right.GetValue() is IConvertible convertible)
                     {
                         try
                         {
@@ -224,9 +224,9 @@ namespace ExRam.Gremlinq.Core
                                 TrueExpressionSemantics => GremlinExpression.True,
                                 FalseExpressionSemantics => GremlinExpression.False,
                                 _ => new GremlinExpression(
-                                    ExpressionFragment.Create(leftMethodCallExpression.Object!, environment),
+                                    ExpressionFragment.Create(target, environment),
                                     transformedSemantics,
-                                    ExpressionFragment.Create(leftMethodCallExpression.Arguments[0], environment))
+                                    ExpressionFragment.Create(firstArgument, environment))
                             };
                         }
                         catch (FormatException)
