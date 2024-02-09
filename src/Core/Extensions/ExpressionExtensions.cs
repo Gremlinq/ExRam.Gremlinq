@@ -5,7 +5,6 @@ using System.Linq.Expressions;
 using System.Reflection;
 
 using ExRam.Gremlinq.Core.ExpressionParsing;
-using ExRam.Gremlinq.Core.GraphElements;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -71,16 +70,6 @@ namespace ExRam.Gremlinq.Core
                 NewArrayExpression newArrayExpression => newArrayExpression.GetValue(),
                 _ => Expression.Lambda<Func<object>>(expression.Type.IsClass ? expression : Expression.Convert(expression, typeof(object))).Compile()()
             };
-        }
-
-        public static WellKnownMember? TryGetWellKnownMember(this MemberExpression expression)
-        {
-            var member = expression.Member;
-
-            if (typeof(IVertexProperty).IsAssignableFrom(member.DeclaringType) && member.Name == nameof(VertexProperty<object>.Label))
-                return WellKnownMember.VertexPropertyLabel;
-
-            return null;
         }
 
         public static WellKnownOperation? TryGetWellKnownOperation(this MethodCallExpression expression)
