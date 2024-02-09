@@ -6,12 +6,12 @@ namespace ExRam.Gremlinq.Core
     internal static class WellKnownMethods
     {
         // ReSharper disable ReturnValueOfPureMethodIsNotUsed
-        public static readonly MethodInfo ObjectToString = Get(_ => _.ToString());
-        public static readonly MethodInfo EnumerableAny = Get(_ => Enumerable.Any<object>(default!));
-        public static readonly MethodInfo EnumerableIntersect = Get(_ => Enumerable.Intersect<object>(default!, default!));
-        public static readonly MethodInfo EnumerableContainsElement = Get(_ => Enumerable.Contains<object>(default!, default!));
+        public static readonly MethodInfo ObjectToString = Get<object>(_ => _.ToString());
+        public static readonly MethodInfo EnumerableAny = Get<IEnumerable<object>>(_ => _.Any());
+        public static readonly MethodInfo EnumerableIntersect = Get<IEnumerable<object>>(_ => _.Intersect(default!));
+        public static readonly MethodInfo EnumerableContainsElement = Get<IEnumerable<object>>(_ => _.Contains(default!));
 
-        private static MethodInfo Get(Expression<Action<object>> expression)
+        private static MethodInfo Get<TSource>(Expression<Action<TSource>> expression)
         {
             var method = ((MethodCallExpression)expression.Body).Method;
 
