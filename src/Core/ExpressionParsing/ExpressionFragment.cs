@@ -35,28 +35,23 @@ namespace ExRam.Gremlinq.Core.ExpressionParsing
 
         public Expression? Expression { get; }
 
-        public static ExpressionFragment Create(object source, IGremlinQueryEnvironment environment)
+        public static ExpressionFragment Create(Expression expression, IGremlinQueryEnvironment environment)
         {
-            if (source is Expression expression)
-            {
-                expression = expression.StripConvert();
+            expression = expression.StripConvert();
 
-                if (expression.RefersToParameter(out _))
-                    return new(default, expression.StripConvert());
+            if (expression.RefersToParameter(out _))
+                return new(default, expression.StripConvert());
 
-                if (expression.TryParseStepLabelExpression(out var stepLabel, out var stepLabelExpression))
-                    return new(stepLabel!, stepLabelExpression);
+            if (expression.TryParseStepLabelExpression(out var stepLabel, out var stepLabelExpression))
+                return new(stepLabel!, stepLabelExpression);
 
-                return new(
-                    expression.GetValue() switch
-                    {
-                        IEnumerable enumerable when enumerable is not ICollection && !environment.SupportsType(enumerable.GetType()) => enumerable.Cast<object>().ToArray(),
-                        { } val => val,
-                        _ => null
-                    });
-            }
-
-            return new(source);
+            return new(
+                expression.GetValue() switch
+                {
+                    IEnumerable enumerable when enumerable is not ICollection && !environment.SupportsType(enumerable.GetType()) => enumerable.Cast<object>().ToArray(),
+                    { } val => val,
+                    _ => null
+                });
         }
     }
 }
