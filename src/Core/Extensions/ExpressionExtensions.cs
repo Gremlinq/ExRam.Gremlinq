@@ -80,90 +80,74 @@ namespace ExRam.Gremlinq.Core
             };
         }
 
-        public static WellKnownMember? TryGetWellKnownMember(this Expression expression)
+        public static WellKnownMember? TryGetWellKnownMember(this MemberExpression expression)
         {
-            switch (expression)
-            {
-                case MemberExpression memberExpression:
-                {
-                    var member = memberExpression.Member;
+            var member = expression.Member;
 
-                    if (typeof(Property).IsAssignableFrom(member.DeclaringType) && member.Name == nameof(Property<object>.Value))
-                        return WellKnownMember.PropertyValue;
+            if (typeof(Property).IsAssignableFrom(member.DeclaringType) && member.Name == nameof(Property<object>.Value))
+                return WellKnownMember.PropertyValue;
 
-                    if (typeof(Property).IsAssignableFrom(member.DeclaringType) && member.Name == nameof(Property<object>.Key))
-                        return WellKnownMember.PropertyKey;
+            if (typeof(Property).IsAssignableFrom(member.DeclaringType) && member.Name == nameof(Property<object>.Key))
+                return WellKnownMember.PropertyKey;
 
-                    if (typeof(StepLabel).IsAssignableFrom(member.DeclaringType) && member.Name == nameof(StepLabel<object>.Value))
-                        return WellKnownMember.StepLabelValue;
+            if (typeof(StepLabel).IsAssignableFrom(member.DeclaringType) && member.Name == nameof(StepLabel<object>.Value))
+                return WellKnownMember.StepLabelValue;
 
-                    if (typeof(IVertexProperty).IsAssignableFrom(member.DeclaringType) && member.Name == nameof(VertexProperty<object>.Label))
-                        return WellKnownMember.VertexPropertyLabel;
-
-                    break;
-                }
-            }
+            if (typeof(IVertexProperty).IsAssignableFrom(member.DeclaringType) && member.Name == nameof(VertexProperty<object>.Label))
+                return WellKnownMember.VertexPropertyLabel;
 
             return null;
         }
 
-        public static WellKnownOperation? TryGetWellKnownOperation(this Expression expression)
+        public static WellKnownOperation? TryGetWellKnownOperation(this MethodCallExpression expression)
         {
-            switch (expression)
-            { 
-                case MethodCallExpression methodCallExpression:
+            var methodInfo = expression.Method;
+
+            if (methodInfo.IsStatic)
+            {
+                var thisExpression = expression.Arguments[0].StripConvert();
+
+                if (methodInfo.IsGenericMethod && methodInfo.GetGenericMethodDefinition() == EnumerableAny)
                 {
-                    var methodInfo = methodCallExpression.Method;
-
-                    if (methodInfo.IsStatic)
-                    {
-                        var thisExpression = methodCallExpression.Arguments[0].StripConvert();
-
-                        if (methodInfo.IsGenericMethod && methodInfo.GetGenericMethodDefinition() == EnumerableAny)
-                        {
-                            return thisExpression is MethodCallExpression { Method.IsGenericMethod: true } previousMethodCallExpression && previousMethodCallExpression.Method.GetGenericMethodDefinition() == EnumerableIntersect
-                                ? WellKnownOperation.EnumerableIntersectAny
-                                : WellKnownOperation.EnumerableAny;
-                        }
-
-                        if (methodInfo.IsGenericMethod && methodInfo.GetGenericMethodDefinition() == EnumerableContainsElement)
-                            return WellKnownOperation.EnumerableContains;
-                    }
-                    else
-                    {
-                        if (typeof(IList).IsAssignableFrom(methodInfo.DeclaringType) && methodInfo.Name == nameof(List<object>.Contains))
-                            return WellKnownOperation.ListContains;
-
-                        if (methodInfo.DeclaringType is { IsGenericType: true } declaringType && declaringType.GetGenericArguments() is [_, _] && methodInfo.Name == "get_Item")
-                            return WellKnownOperation.IndexerGet;
-
-                        if (methodInfo.DeclaringType == typeof(string) && methodInfo.GetParameters() is { Length: 1 or 2 } parameters)
-                        {
-                            if (parameters[0].ParameterType == typeof(string) && (parameters.Length == 1 || parameters[1].ParameterType == typeof(StringComparison)))
-                            {
-                                switch (methodInfo.Name)
-                                {
-                                    case nameof(object.Equals):
-                                        return WellKnownOperation.StringEquals;
-                                    case nameof(string.StartsWith):
-                                        return WellKnownOperation.StringStartsWith;
-                                    case nameof(string.EndsWith):
-                                        return WellKnownOperation.StringEndsWith;
-                                    case nameof(string.Contains):
-                                        return WellKnownOperation.StringContains;
-                                }
-                            }
-                        }
-
-                        if (methodInfo.Name == nameof(object.Equals) && methodInfo.GetParameters().Length == 1 && methodInfo.ReturnType == typeof(bool))
-                            return WellKnownOperation.Equals;
-
-                        if (methodInfo.Name == nameof(IComparable.CompareTo) && methodInfo.GetParameters().Length == 1 && methodInfo.ReturnType == typeof(int))
-                            return WellKnownOperation.ComparableCompareTo;
-                    }
-
-                    break;
+                    return thisExpression is MethodCallExpression { Method.IsGenericMethod: true } previousMethodCallExpression && previousMethodCallExpression.Method.GetGenericMethodDefinition() == EnumerableIntersect
+                        ? WellKnownOperation.EnumerableIntersectAny
+                        : WellKnownOperation.EnumerableAny;
                 }
+
+                if (methodInfo.IsGenericMethod && methodInfo.GetGenericMethodDefinition() == EnumerableContainsElement)
+                    return WellKnownOperation.EnumerableContains;
+            }
+            else
+            {
+                if (typeof(IList).IsAssignableFrom(methodInfo.DeclaringType) && methodInfo.Name == nameof(List<object>.Contains))
+                    return WellKnownOperation.ListContains;
+
+                if (methodInfo.DeclaringType is { IsGenericType: true } declaringType && declaringType.GetGenericArguments() is [_, _] && methodInfo.Name == "get_Item")
+                    return WellKnownOperation.IndexerGet;
+
+                if (methodInfo.DeclaringType == typeof(string) && methodInfo.GetParameters() is { Length: 1 or 2 } parameters)
+                {
+                    if (parameters[0].ParameterType == typeof(string) && (parameters.Length == 1 || parameters[1].ParameterType == typeof(StringComparison)))
+                    {
+                        switch (methodInfo.Name)
+                        {
+                            case nameof(object.Equals):
+                                return WellKnownOperation.StringEquals;
+                            case nameof(string.StartsWith):
+                                return WellKnownOperation.StringStartsWith;
+                            case nameof(string.EndsWith):
+                                return WellKnownOperation.StringEndsWith;
+                            case nameof(string.Contains):
+                                return WellKnownOperation.StringContains;
+                        }
+                    }
+                }
+
+                if (methodInfo.Name == nameof(object.Equals) && methodInfo.GetParameters().Length == 1 && methodInfo.ReturnType == typeof(bool))
+                    return WellKnownOperation.Equals;
+
+                if (methodInfo.Name == nameof(IComparable.CompareTo) && methodInfo.GetParameters().Length == 1 && methodInfo.ReturnType == typeof(int))
+                    return WellKnownOperation.ComparableCompareTo;
             }
 
             return null;
