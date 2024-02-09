@@ -69,12 +69,12 @@ namespace ExRam.Gremlinq.Core
             var memberExpression = expression
                 .AssumeMemberExpression();
 
-            return Environment
-                .GetCache()
-                .GetMetadata(memberExpression.TryGetWellKnownMember() == WellKnownMember.PropertyValue && memberExpression.Expression is MemberExpression sourceMemberExpression
-                    ? sourceMemberExpression.Member
-                    : memberExpression.Member)
-                .Key;
+            return memberExpression.IsPropertyValue(out var sourceExpression) && sourceExpression is MemberExpression
+                ? GetKey(sourceExpression)
+                : Environment
+                    .GetCache()
+                    .GetMetadata(memberExpression.Member)
+                    .Key;
         }
 
         // ReSharper disable once SuggestBaseTypeForParameter
