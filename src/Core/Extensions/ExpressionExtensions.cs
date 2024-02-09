@@ -241,53 +241,6 @@ namespace ExRam.Gremlinq.Core
 
         public static GremlinExpression? TryToGremlinExpression(this Expression body, IGremlinQueryEnvironment environment)
         {
-            var maybeExpression = body.TryToGremlinExpressionImpl(environment);
-
-            if (maybeExpression is { } expression)
-            {
-                if (expression.Left.Expression is MethodCallExpression leftMethodCallExpression)
-                {
-                    var wellKnownOperation = leftMethodCallExpression.TryGetWellKnownOperation();
-
-                    if (wellKnownOperation == WellKnownOperation.ComparableCompareTo && expression.Right.TryGetValue() is IConvertible convertible)
-                    {
-                        var maybeComparison = default(int?);
-
-                        try
-                        {
-                            maybeComparison = convertible.ToInt32(CultureInfo.InvariantCulture);
-                        }
-                        catch (FormatException)
-                        {
-                            
-                        }
-
-                        if (maybeComparison is { } comparison)
-                        {
-                            if (expression.Semantics is ObjectExpressionSemantics objectExpressionSemantics)
-                            {
-                                var transformed = objectExpressionSemantics.TransformCompareTo(comparison);
-
-                                return transformed switch
-                                {
-                                    TrueExpressionSemantics => GremlinExpression.True,
-                                    FalseExpressionSemantics => GremlinExpression.False,
-                                    _ => new GremlinExpression(
-                                        ExpressionFragment.Create(leftMethodCallExpression.Object!, environment),
-                                        transformed,
-                                        ExpressionFragment.Create(leftMethodCallExpression.Arguments[0], environment))
-                                };
-                            }
-                        }
-                    }
-                }
-            }
-
-            return maybeExpression;
-        }
-
-        private static GremlinExpression? TryToGremlinExpressionImpl(this Expression body, IGremlinQueryEnvironment environment)
-        {
             switch (body)
             {
                 case MemberExpression { Member: PropertyInfo property } memberExpression when property.PropertyType == typeof(bool) && memberExpression.TryGetReferredParameter() is not null:
@@ -299,6 +252,43 @@ namespace ExRam.Gremlinq.Core
                 }
                 case BinaryExpression binaryExpression when binaryExpression.NodeType.TryToSemantics(out var semantics):
                 {
+                    if (binaryExpression.Left is MethodCallExpression leftMethodCallExpression)
+                    {
+                        var wellKnownOperation = leftMethodCallExpression.TryGetWellKnownOperation();
+
+                        if (wellKnownOperation == WellKnownOperation.ComparableCompareTo && binaryExpression.Right.GetValue() is IConvertible convertible)
+                        {
+                            var maybeComparison = default(int?);
+
+                            try
+                            {
+                                maybeComparison = convertible.ToInt32(CultureInfo.InvariantCulture);
+                            }
+                            catch (FormatException)
+                            {
+
+                            }
+
+                            if (maybeComparison is { } comparison)
+                            {
+                                if (semantics is ObjectExpressionSemantics objectExpressionSemantics)
+                                {
+                                    var transformed = objectExpressionSemantics.TransformCompareTo(comparison);
+
+                                    return transformed switch
+                                    {
+                                        TrueExpressionSemantics => GremlinExpression.True,
+                                        FalseExpressionSemantics => GremlinExpression.False,
+                                        _ => new GremlinExpression(
+                                            ExpressionFragment.Create(leftMethodCallExpression.Object!, environment),
+                                            transformed,
+                                            ExpressionFragment.Create(leftMethodCallExpression.Arguments[0], environment))
+                                    };
+                                }
+                            }
+                        }
+                    }
+
                     return new GremlinExpression(
                         ExpressionFragment.Create(binaryExpression.Left, environment),
                         semantics,
