@@ -1270,7 +1270,7 @@ namespace ExRam.Gremlinq.Core
                     if (effectivePredicate.EqualsConstant(false))
                         return traversal.Push(NoneStep.Instance);
 
-                    if (left.Type == ExpressionFragmentType.Parameter)
+                    if (left.Expression?.RefersToParameter(out _) is true)
                     {
                         switch (left.Expression)
                         {
@@ -1436,9 +1436,9 @@ namespace ExRam.Gremlinq.Core
                     }
                 }
             }
-            else if (right.Type == ExpressionFragmentType.Parameter)
+            else if (right.Expression?.RefersToParameter(out _) is true)
             {
-                if (left.Type == ExpressionFragmentType.Parameter)
+                if (left.Expression?.RefersToParameter(out _) is true)
                 {
                     if (left.Expression is MemberExpression && right.Expression is MemberExpression rightMember)
                     {
