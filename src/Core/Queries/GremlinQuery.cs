@@ -1356,13 +1356,13 @@ namespace ExRam.Gremlinq.Core
 
                                 return traversal;
                             }
-                            case MethodCallExpression methodCallExpression:
+                            case MethodCallExpression { Arguments: [ { } firstArgument] } methodCallExpression:
                             {
                                 var targetExpression = methodCallExpression.Object?.StripConvert();
 
                                 if (targetExpression != null && typeof(IDictionary<string, object>).IsAssignableFrom(targetExpression.Type) && methodCallExpression.Method.Name == "get_Item")
                                 {
-                                    if (methodCallExpression.Arguments[0].StripConvert().GetValue() is string key)
+                                    if (firstArgument.StripConvert().GetValue() is string key)
                                         return traversal.Push(new HasPredicateStep(key, effectivePredicate));
                                 }
 
