@@ -1297,20 +1297,20 @@ namespace ExRam.Gremlinq.Core
                                     if (left.Expression.IsPropertyValue(out _) && rightValue is not null and not StepLabel)
                                         return traversal.Push(new HasValueStep(effectivePredicate));
 
-                                    if (left.WellKnownMember == WellKnownMember.VertexPropertyLabel && rightValue is StepLabel)
+                                    if (left.Expression.IsVertexPropertyLabel(out _))
                                     {
-                                        return traversal
-                                            .Push(
-                                                new FilterStep.ByTraversalStep(this
-                                                    .Where(
-                                                        LabelStep.Instance,
-                                                        ExpressionFragment.Create(parameterExpression, Environment),
-                                                        semantics,
-                                                        right)));
-                                    }
+                                        if (rightValue is StepLabel)
+                                        {
+                                            return traversal
+                                                .Push(
+                                                    new FilterStep.ByTraversalStep(this
+                                                        .Where(
+                                                            LabelStep.Instance,
+                                                            ExpressionFragment.Create(parameterExpression, Environment),
+                                                            semantics,
+                                                            right)));
+                                        }
 
-                                    if (left.WellKnownMember == WellKnownMember.VertexPropertyLabel)
-                                    {
                                         return traversal.Push(new HasKeyStep(effectivePredicate));
                                     }
                                 }

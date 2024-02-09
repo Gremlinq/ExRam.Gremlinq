@@ -42,10 +42,4 @@ namespace ExRam.Gremlinq.Core.ExpressionParsing
             return false;
         }
     }
-
-    internal enum WellKnownMember
-    {
-        StepLabelValue,
-        VertexPropertyLabel,
-    }
 }
