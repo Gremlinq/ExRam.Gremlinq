@@ -76,12 +76,6 @@ namespace ExRam.Gremlinq.Core
         {
             var member = expression.Member;
 
-            if (typeof(Property).IsAssignableFrom(member.DeclaringType) && member.Name == nameof(Property<object>.Value))
-                return WellKnownMember.PropertyValue;
-
-            if (typeof(Property).IsAssignableFrom(member.DeclaringType) && member.Name == nameof(Property<object>.Key))
-                return WellKnownMember.PropertyKey;
-
             if (typeof(StepLabel).IsAssignableFrom(member.DeclaringType) && member.Name == nameof(StepLabel<object>.Value))
                 return WellKnownMember.StepLabelValue;
 

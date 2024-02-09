@@ -1281,7 +1281,7 @@ namespace ExRam.Gremlinq.Core
 
                                 if (leftMemberExpressionExpression is ParameterExpression parameterExpression)
                                 {
-                                    if (left.WellKnownMember == WellKnownMember.PropertyKey)
+                                    if (left.Expression.IsPropertyKey(out _))
                                     {
                                         return traversal
                                             .Push(
@@ -1294,7 +1294,7 @@ namespace ExRam.Gremlinq.Core
                                         
                                     }
 
-                                    if (left.Expression?.IsPropertyValue(out _) is true && rightValue is not null and not StepLabel)
+                                    if (left.Expression.IsPropertyValue(out _) && rightValue is not null and not StepLabel)
                                         return traversal.Push(new HasValueStep(effectivePredicate));
 
                                     if (left.WellKnownMember == WellKnownMember.VertexPropertyLabel && rightValue is StepLabel)
