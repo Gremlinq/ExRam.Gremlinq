@@ -290,21 +290,21 @@ namespace ExRam.Gremlinq.Core
         {
             switch (body)
             {
-                case MemberExpression memberExpression when memberExpression.TryGetReferredParameter() is not null && memberExpression.Member is PropertyInfo property && property.PropertyType == typeof(bool):
+                case MemberExpression { Member: PropertyInfo property } memberExpression when property.PropertyType == typeof(bool) && memberExpression.TryGetReferredParameter() is not null:
                 {
                     return new GremlinExpression(
                         ExpressionFragment.Create(memberExpression, environment),
                         EqualsExpressionSemantics.Instance,
                         ExpressionFragment.True);
                 }
-                case BinaryExpression binaryExpression when binaryExpression.NodeType != ExpressionType.AndAlso && binaryExpression.NodeType != ExpressionType.OrElse:
+                case BinaryExpression { NodeType: not ExpressionType.AndAlso and not ExpressionType.OrElse } binaryExpression:
                 {
                     return new GremlinExpression(
                         ExpressionFragment.Create(binaryExpression.Left, environment),
                         binaryExpression.NodeType.ToSemantics(),
                         ExpressionFragment.Create(binaryExpression.Right, environment));
                 }
-                case MethodCallExpression { Object: { } targetExpression, Arguments: [var firstArgument, ..] }  instanceMethodCallExpression:
+                case MethodCallExpression { Object: { } targetExpression, Arguments: [var firstArgument, ..] } instanceMethodCallExpression:
                 {
                     var wellKnownMember = instanceMethodCallExpression.TryGetWellKnownOperation();
 
