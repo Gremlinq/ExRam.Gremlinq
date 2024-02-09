@@ -45,7 +45,7 @@ namespace ExRam.Gremlinq.Core.ExpressionParsing
             {
                 expression = expression.StripConvert();
 
-                if (expression.TryGetReferredParameter() is not null)
+                if (expression.RefersToParameter(out _))
                     return new(ExpressionFragmentType.Parameter, default, expression.StripConvert());
 
                 if (expression.TryParseStepLabelExpression(out var stepLabel, out var stepLabelExpression))
