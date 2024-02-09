@@ -1272,7 +1272,12 @@ namespace ExRam.Gremlinq.Core
 
                     if (left.Type == ExpressionFragmentType.Parameter)
                     {
-                        switch (left.Expression)
+                        var leftExpression = left.Expression;
+
+                        if (leftExpression?.IsPropertyValue(out var propertyExpression) is true)
+                            leftExpression = propertyExpression;
+
+                        switch (leftExpression)
                         {
                             case MemberExpression leftMemberExpression:
                             {
@@ -1327,14 +1332,6 @@ namespace ExRam.Gremlinq.Core
                                         break;
                                     }
                                 }
-                                else if (leftMemberExpressionExpression is MemberExpression leftLeftMemberExpression)
-                                {
-                                    // x => x.Name.Value == P.xy(...)
-                                    if (left.WellKnownMember == WellKnownMember.PropertyValue)
-                                        leftMemberExpression = leftLeftMemberExpression;
-                                }
-                                else
-                                    break;
 
                                 // x => x.Name == P.xy(...)
                                 if (rightValue is StepLabel)
