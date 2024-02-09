@@ -297,11 +297,11 @@ namespace ExRam.Gremlinq.Core
                         EqualsExpressionSemantics.Instance,
                         ExpressionFragment.True);
                 }
-                case BinaryExpression { NodeType: not ExpressionType.AndAlso and not ExpressionType.OrElse } binaryExpression:
+                case BinaryExpression binaryExpression when binaryExpression.NodeType.TryToSemantics(out var semantics):
                 {
                     return new GremlinExpression(
                         ExpressionFragment.Create(binaryExpression.Left, environment),
-                        binaryExpression.NodeType.ToSemantics(),
+                        semantics,
                         ExpressionFragment.Create(binaryExpression.Right, environment));
                 }
                 case MethodCallExpression { Object: { } targetExpression, Arguments: [var firstArgument, ..] } instanceMethodCallExpression:
