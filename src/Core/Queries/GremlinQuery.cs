@@ -1256,7 +1256,25 @@ namespace ExRam.Gremlinq.Core
 
         private Traversal Where(Traversal traversal, ExpressionFragment left, ExpressionSemantics semantics, ExpressionFragment right)
         {
-            if (right.Type is ExpressionFragmentType.Constant or ExpressionFragmentType.StepLabel)
+            if (right.Expression?.RefersToParameter(out _) is true)
+            {
+                if (left.Expression?.RefersToParameter(out _) is true)
+                {
+                    if (left.Expression is MemberExpression && right.Expression is MemberExpression rightMember)
+                    {
+                        var newStepLabel = new StepLabel<T1>();
+                        var newRightExpression = Expression.MakeMemberAccess(Expression.MakeMemberAccess(Expression.Constant(newStepLabel), typeof(StepLabel<T1>).GetProperty(nameof(StepLabel<T1>.Value))!), rightMember.Member);
+
+                        return Where(
+                            traversal
+                                .Push(new AsStep(newStepLabel)),
+                            left,
+                            semantics,
+                            ExpressionFragment.Create(newRightExpression, Environment));
+                    }
+                }
+            }
+            else
             {
                 var rightValue = right.TryGetValue();
 
@@ -1433,24 +1451,6 @@ namespace ExRam.Gremlinq.Core
                             traversal = traversal.Push(new WherePredicateStep.ByMemberStep(GetKey(rightStepValueExpression)));
 
                         return traversal;
-                    }
-                }
-            }
-            else if (right.Expression?.RefersToParameter(out _) is true)
-            {
-                if (left.Expression?.RefersToParameter(out _) is true)
-                {
-                    if (left.Expression is MemberExpression && right.Expression is MemberExpression rightMember)
-                    {
-                        var newStepLabel = new StepLabel<T1>();
-                        var newRightExpression = Expression.MakeMemberAccess(Expression.MakeMemberAccess(Expression.Constant(newStepLabel), typeof(StepLabel<T1>).GetProperty(nameof(StepLabel<T1>.Value))!), rightMember.Member);
-
-                        return Where(
-                            traversal
-                                .Push(new AsStep(newStepLabel)),
-                            left,
-                            semantics,
-                            ExpressionFragment.Create(newRightExpression, Environment));
                     }
                 }
             }
