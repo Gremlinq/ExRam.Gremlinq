@@ -1294,10 +1294,8 @@ namespace ExRam.Gremlinq.Core
                                         
                                     }
 
-                                    if (left.WellKnownMember == WellKnownMember.PropertyValue && rightValue is not null and not StepLabel)
-                                    {
+                                    if (left.Expression?.IsPropertyValue(out _) is true && rightValue is not null and not StepLabel)
                                         return traversal.Push(new HasValueStep(effectivePredicate));
-                                    }
 
                                     if (left.WellKnownMember == WellKnownMember.VertexPropertyLabel && rightValue is StepLabel)
                                     {
