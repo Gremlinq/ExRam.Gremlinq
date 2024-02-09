@@ -16,7 +16,7 @@ namespace ExRam.Gremlinq.Core.ExpressionParsing
             Type = type;
             _value = value;
             Expression = expression;
-            WellKnownMember = wellKnownMember ?? expression?.TryGetWellKnownMember();
+            WellKnownMember = wellKnownMember ?? (expression as MemberExpression)?.TryGetWellKnownMember();
         }
 
         public object? TryGetValue() => Type is ExpressionFragmentType.Constant or ExpressionFragmentType.StepLabel ? _value : throw new InvalidOperationException();
