@@ -48,9 +48,6 @@ namespace ExRam.Gremlinq.Core.ExpressionParsing
 
             if (ret.Expression is UnaryExpression unaryExpression && unaryExpression.NodeType == ExpressionType.ArrayLength)
                 return Create(unaryExpression.Operand, ExpressionParsing.WellKnownMember.ArrayLength, environment);
-            
-            if (ret.Expression is MemberExpression { Expression: { } memberExpressionExpression } && ret.WellKnownMember != null)
-                return Create(memberExpressionExpression, ret.WellKnownMember, environment);
 
             return ret;
         }

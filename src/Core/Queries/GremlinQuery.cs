@@ -1272,12 +1272,7 @@ namespace ExRam.Gremlinq.Core
 
                     if (left.Type == ExpressionFragmentType.Parameter)
                     {
-                        var leftExpression = left.Expression;
-
-                        if (leftExpression?.IsPropertyValue(out var propertyExpression) is true)
-                            leftExpression = propertyExpression;
-
-                        switch (leftExpression)
+                        switch (left.Expression)
                         {
                             case MemberExpression leftMemberExpression:
                             {
@@ -1286,6 +1281,41 @@ namespace ExRam.Gremlinq.Core
 
                                 if (leftMemberExpressionExpression is ParameterExpression parameterExpression)
                                 {
+                                    if (left.WellKnownMember == WellKnownMember.PropertyKey)
+                                    {
+                                        return traversal
+                                            .Push(
+                                                new FilterStep.ByTraversalStep(this
+                                                    .Where(
+                                                        KeyStep.Instance,
+                                                        ExpressionFragment.Create(parameterExpression, Environment),
+                                                        semantics,
+                                                        right)));
+                                        
+                                    }
+
+                                    if (left.WellKnownMember == WellKnownMember.PropertyValue && rightValue is not null and not StepLabel)
+                                    {
+                                        return traversal.Push(new HasValueStep(effectivePredicate));
+                                    }
+
+                                    if (left.WellKnownMember == WellKnownMember.VertexPropertyLabel && rightValue is StepLabel)
+                                    {
+                                        return traversal
+                                            .Push(
+                                                new FilterStep.ByTraversalStep(this
+                                                    .Where(
+                                                        LabelStep.Instance,
+                                                        ExpressionFragment.Create(parameterExpression, Environment),
+                                                        semantics,
+                                                        right)));
+                                    }
+
+                                    if (left.WellKnownMember == WellKnownMember.VertexPropertyLabel)
+                                    {
+                                        return traversal.Push(new HasKeyStep(effectivePredicate));
+                                    }
+
                                     if (left.WellKnownMember == WellKnownMember.ArrayLength)
                                     {
                                         if (Environment.GetCache().ModelTypes.Contains(parameterExpression.Type))
@@ -1362,42 +1392,6 @@ namespace ExRam.Gremlinq.Core
                             }
                             case ParameterExpression parameterExpression:
                             {
-                                switch (left.WellKnownMember)
-                                {
-                                    // x => x.Value == P.xy(...)
-                                    case WellKnownMember.PropertyValue when rightValue is not null and not StepLabel:
-                                    {
-                                        return traversal.Push(new HasValueStep(effectivePredicate));
-                                    }
-                                    case WellKnownMember.PropertyKey:
-                                    {
-                                        return traversal
-                                            .Push(
-                                                new FilterStep.ByTraversalStep(this
-                                                    .Where(
-                                                        KeyStep.Instance,
-                                                        ExpressionFragment.Create(parameterExpression, Environment),
-                                                        semantics,
-                                                        right)));
-                                    }
-                                    case WellKnownMember.VertexPropertyLabel when rightValue is StepLabel:
-                                    {
-                                        return traversal
-                                            .Push(
-                                                new FilterStep.ByTraversalStep(this
-                                                    .Where(
-                                                        LabelStep.Instance,
-                                                        ExpressionFragment.Create(parameterExpression, Environment),
-                                                        semantics,
-                                                        right)));
-                                    }
-                                    case WellKnownMember.VertexPropertyLabel:
-                                    {
-                                        return traversal.Push(new HasKeyStep(effectivePredicate));
-                                    }
-                                }
-
-                                // x => x == P.xy(...)
                                 if (rightValue is StepLabel)
                                 {
                                     traversal = traversal.Push(new WherePredicateStep(effectivePredicate));
