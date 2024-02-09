@@ -252,47 +252,36 @@ namespace ExRam.Gremlinq.Core
                 }
                 case BinaryExpression binaryExpression when binaryExpression.NodeType.TryToSemantics(out var semantics):
                 {
-                    if (binaryExpression.Left is MethodCallExpression leftMethodCallExpression)
+                    if (binaryExpression.Left is MethodCallExpression leftMethodCallExpression && semantics is ObjectExpressionSemantics objectExpressionSemantics && leftMethodCallExpression.TryGetWellKnownOperation() == WellKnownOperation.ComparableCompareTo && binaryExpression.Right.GetValue() is IConvertible convertible)
                     {
-                        var wellKnownOperation = leftMethodCallExpression.TryGetWellKnownOperation();
-
-                        if (wellKnownOperation == WellKnownOperation.ComparableCompareTo && binaryExpression.Right.GetValue() is IConvertible convertible)
+                        try
                         {
-                            var maybeComparison = default(int?);
+                            var transformedSemantics = objectExpressionSemantics.TransformCompareTo(convertible.ToInt32(CultureInfo.InvariantCulture));
 
-                            try
+                            return transformedSemantics switch
                             {
-                                maybeComparison = convertible.ToInt32(CultureInfo.InvariantCulture);
-                            }
-                            catch (FormatException)
-                            {
+                                TrueExpressionSemantics => GremlinExpression.True,
+                                FalseExpressionSemantics => GremlinExpression.False,
+                                _ => new GremlinExpression(
+                                    ExpressionFragment.Create(leftMethodCallExpression.Object!, environment),
+                                    transformedSemantics,
+                                    ExpressionFragment.Create(leftMethodCallExpression.Arguments[0], environment))
+                            };
+                        }
+                        catch (FormatException)
+                        {
 
-                            }
-
-                            if (maybeComparison is { } comparison)
-                            {
-                                if (semantics is ObjectExpressionSemantics objectExpressionSemantics)
-                                {
-                                    var transformed = objectExpressionSemantics.TransformCompareTo(comparison);
-
-                                    return transformed switch
-                                    {
-                                        TrueExpressionSemantics => GremlinExpression.True,
-                                        FalseExpressionSemantics => GremlinExpression.False,
-                                        _ => new GremlinExpression(
-                                            ExpressionFragment.Create(leftMethodCallExpression.Object!, environment),
-                                            transformed,
-                                            ExpressionFragment.Create(leftMethodCallExpression.Arguments[0], environment))
-                                    };
-                                }
-                            }
                         }
                     }
+                    else
+                    { 
+                        return new GremlinExpression(
+                            ExpressionFragment.Create(binaryExpression.Left, environment),
+                            semantics,
+                            ExpressionFragment.Create(binaryExpression.Right, environment));
+                    }
 
-                    return new GremlinExpression(
-                        ExpressionFragment.Create(binaryExpression.Left, environment),
-                        semantics,
-                        ExpressionFragment.Create(binaryExpression.Right, environment));
+                    break;
                 }
                 case MethodCallExpression { Object: { } targetExpression, Arguments: [var firstArgument, ..] } instanceMethodCallExpression:
                 {
