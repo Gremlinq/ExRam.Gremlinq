@@ -77,9 +77,6 @@ namespace ExRam.Gremlinq.Core
         {
             var member = expression.Member;
 
-            if (typeof(StepLabel).IsAssignableFrom(member.DeclaringType) && member.Name == nameof(StepLabel<object>.Value))
-                return WellKnownMember.StepLabelValue;
-
             if (typeof(IVertexProperty).IsAssignableFrom(member.DeclaringType) && member.Name == nameof(VertexProperty<object>.Label))
                 return WellKnownMember.VertexPropertyLabel;
 
@@ -151,10 +148,10 @@ namespace ExRam.Gremlinq.Core
             {
                 if (outerMemberExpression.IsStepLabelValue(out var stepLabelExpression))
                     stepLabel = (StepLabel?)stepLabelExpression?.GetValue();
-                else if (outerMemberExpression.Expression is MemberExpression innerMemberExpression && innerMemberExpression.TryGetWellKnownMember() == WellKnownMember.StepLabelValue)
+                else if (outerMemberExpression.Expression is MemberExpression innerMemberExpression && innerMemberExpression.IsStepLabelValue(out stepLabelExpression))
                 {
                     stepLabelValueMemberExpression = outerMemberExpression;
-                    stepLabel = (StepLabel?)innerMemberExpression.Expression?.GetValue();
+                    stepLabel = (StepLabel?)stepLabelExpression?.GetValue();
                 }
             }
 
