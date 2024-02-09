@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -139,37 +140,25 @@ namespace ExRam.Gremlinq.Core
             return null;
         }
 
-        public static bool TryParseStepLabelExpression(this Expression expression, out StepLabel? stepLabel, out MemberExpression? stepLabelValueMemberExpression)
+        public static bool TryParseStepLabelExpression(this Expression expression, [NotNullWhen(true)] out StepLabel? stepLabel, out MemberExpression? stepLabelValueMemberExpression)
         {
             stepLabel = null;
             stepLabelValueMemberExpression = null;
 
             if (typeof(StepLabel).IsAssignableFrom(expression.Type))
-            {
                 stepLabel = (StepLabel?)expression.GetValue();
-
-                return true;
-            }
-
-            if (expression is MemberExpression outerMemberExpression)
+            else if (expression is MemberExpression outerMemberExpression)
             {
-                if (outerMemberExpression.TryGetWellKnownMember() == WellKnownMember.StepLabelValue)
-                {
-                    stepLabel = (StepLabel?)outerMemberExpression.Expression?.GetValue();
-
-                    return true;
-                }
-
-                if (outerMemberExpression.Expression is MemberExpression innerMemberExpression && innerMemberExpression.TryGetWellKnownMember() == WellKnownMember.StepLabelValue)
+                if (outerMemberExpression.IsStepLabelValue(out var stepLabelExpression))
+                    stepLabel = (StepLabel?)stepLabelExpression?.GetValue();
+                else if (outerMemberExpression.Expression is MemberExpression innerMemberExpression && innerMemberExpression.TryGetWellKnownMember() == WellKnownMember.StepLabelValue)
                 {
                     stepLabelValueMemberExpression = outerMemberExpression;
                     stepLabel = (StepLabel?)innerMemberExpression.Expression?.GetValue();
-
-                    return true;
                 }
             }
 
-            return false;
+            return stepLabel is not null;
         }
 
         public static ParameterExpression? TryGetReferredParameter(this Expression expression)
