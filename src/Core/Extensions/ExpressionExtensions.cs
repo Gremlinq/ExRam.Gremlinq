@@ -10,14 +10,6 @@ namespace ExRam.Gremlinq.Core
 {
     internal static class ExpressionExtensions
     {
-        // ReSharper disable ReturnValueOfPureMethodIsNotUsed
-        private static readonly MethodInfo ObjectToString = Get<object>(static _ => _.ToString());
-        private static readonly MethodInfo EnumerableAny = Get(static () => Enumerable.Any<object>(default!)).GetGenericMethodDefinition();
-        private static readonly MethodInfo EnumerableIntersect = Get(static () => Enumerable.Intersect<object>(default!, default!)).GetGenericMethodDefinition();
-#pragma warning disable 8625
-        private static readonly MethodInfo EnumerableContainsElement = Get(static () => Enumerable.Contains<object>(default!, default)).GetGenericMethodDefinition();
-#pragma warning restore 8625
-
         public static Expression StripConvert(this Expression expression)
         {
             while (true)
@@ -34,7 +26,7 @@ namespace ExRam.Gremlinq.Core
                         expression = unaryExpression.Operand;
                         break;
                     }
-                    case MethodCallExpression { Object: { } objectExpression } methodCallExpression when methodCallExpression.Method == ObjectToString:
+                    case MethodCallExpression { Object: { } objectExpression } methodCallExpression when methodCallExpression.Method == WellKnownMethods.ObjectToString:
                     {
                         expression = objectExpression;
                         break;
@@ -107,14 +99,14 @@ namespace ExRam.Gremlinq.Core
             {
                 var thisExpression = expression.Arguments[0].StripConvert();
 
-                if (methodInfo.IsGenericMethod && methodInfo.GetGenericMethodDefinition() == EnumerableAny)
+                if (methodInfo.IsGenericMethod && methodInfo.GetGenericMethodDefinition() == WellKnownMethods.EnumerableAny)
                 {
-                    return thisExpression is MethodCallExpression { Method.IsGenericMethod: true } previousMethodCallExpression && previousMethodCallExpression.Method.GetGenericMethodDefinition() == EnumerableIntersect
+                    return thisExpression is MethodCallExpression { Method.IsGenericMethod: true } previousMethodCallExpression && previousMethodCallExpression.Method.GetGenericMethodDefinition() == WellKnownMethods.EnumerableIntersect
                         ? WellKnownOperation.EnumerableIntersectAny
                         : WellKnownOperation.EnumerableAny;
                 }
 
-                if (methodInfo.IsGenericMethod && methodInfo.GetGenericMethodDefinition() == EnumerableContainsElement)
+                if (methodInfo.IsGenericMethod && methodInfo.GetGenericMethodDefinition() == WellKnownMethods.EnumerableContainsElement)
                     return WellKnownOperation.EnumerableContains;
             }
             else
@@ -416,16 +408,6 @@ namespace ExRam.Gremlinq.Core
             }
 
             return Array.Empty<object>();
-        }
-
-        private static MethodInfo Get(Expression<Action> expression)
-        {
-            return ((MethodCallExpression)expression.Body).Method;
-        }
-
-        private static MethodInfo Get<TSource>(Expression<Action<TSource>> expression)
-        {
-            return ((MethodCallExpression)expression.Body).Method;
         }
     }
 }
