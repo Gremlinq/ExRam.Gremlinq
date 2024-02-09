@@ -283,7 +283,7 @@ namespace ExRam.Gremlinq.Core
                                 if (instanceExpression.GetValue()?.ToString() is { } stringValue)
                                 {
                                     return new GremlinExpression(
-                                        ExpressionFragment.Create(stringValue, environment),
+                                        ExpressionFragment.Create(Expression.Constant(stringValue), environment),
                                         StartsWithExpressionSemantics.Get(stringComparison),
                                         ExpressionFragment.Create(argumentExpression, environment));
                                 }
@@ -302,7 +302,7 @@ namespace ExRam.Gremlinq.Core
                                             WellKnownOperation.StringEndsWith => EndsWithExpressionSemantics.Get(stringComparison),
                                             _ => throw new ExpressionNotSupportedException(instanceMethodCallExpression)
                                         },
-                                        ExpressionFragment.Create(stringValue, environment));
+                                        ExpressionFragment.Create(Expression.Constant(stringValue), environment));
                                 }
                             }
 
