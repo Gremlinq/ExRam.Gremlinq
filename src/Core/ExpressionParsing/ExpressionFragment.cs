@@ -7,20 +7,19 @@ namespace ExRam.Gremlinq.Core.ExpressionParsing
     {
         private readonly object? _value;
 
-        public static readonly ExpressionFragment True = new(ExpressionFragmentType.Constant, true, default);
-        public static readonly ExpressionFragment False = new(ExpressionFragmentType.Constant, false, default);
-        public static readonly ExpressionFragment Null = new(ExpressionFragmentType.Constant, default, default);
+        public static readonly ExpressionFragment True = new(true, default);
+        public static readonly ExpressionFragment False = new(false, default);
+        public static readonly ExpressionFragment Null = new(default, default);
 
-        private ExpressionFragment(ExpressionFragmentType type, object? value, Expression? expression = default)
+        private ExpressionFragment(object? value, Expression? expression = default)
         {
-            Type = type;
             _value = value;
             Expression = expression;
         }
 
-        public object? TryGetValue() => Type is ExpressionFragmentType.Constant or ExpressionFragmentType.StepLabel ? _value : throw new InvalidOperationException();
+        public object? TryGetValue() => _value;
 
-        public bool Equals(ExpressionFragment other) => Equals(_value, other._value) && Equals(Expression, other.Expression) && Type == other.Type;
+        public bool Equals(ExpressionFragment other) => Equals(_value, other._value) && Equals(Expression, other.Expression);
 
         public override bool Equals(object? obj) => obj is ExpressionFragment other && Equals(other);
 
@@ -30,14 +29,11 @@ namespace ExRam.Gremlinq.Core.ExpressionParsing
             {
                 var hashCode = _value != null ? _value.GetHashCode() : 0;
                 hashCode = (hashCode * 397) ^ (Expression != null ? Expression.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (int) Type;
                 return hashCode;
             }
         }
 
         public Expression? Expression { get; }
-
-        public ExpressionFragmentType Type { get; }
 
         public static ExpressionFragment Create(object source, IGremlinQueryEnvironment environment)
         {
@@ -46,13 +42,12 @@ namespace ExRam.Gremlinq.Core.ExpressionParsing
                 expression = expression.StripConvert();
 
                 if (expression.RefersToParameter(out _))
-                    return new(ExpressionFragmentType.Parameter, default, expression.StripConvert());
+                    return new(default, expression.StripConvert());
 
                 if (expression.TryParseStepLabelExpression(out var stepLabel, out var stepLabelExpression))
-                    return new(ExpressionFragmentType.StepLabel, stepLabel!, stepLabelExpression);
+                    return new(stepLabel!, stepLabelExpression);
 
                 return new(
-                    ExpressionFragmentType.Constant,
                     expression.GetValue() switch
                     {
                         IEnumerable enumerable when enumerable is not ICollection && !environment.SupportsType(enumerable.GetType()) => enumerable.Cast<object>().ToArray(),
@@ -61,7 +56,7 @@ namespace ExRam.Gremlinq.Core.ExpressionParsing
                     });
             }
 
-            return new(ExpressionFragmentType.Constant, source);
+            return new(source);
         }
     }
 }
