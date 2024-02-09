@@ -42,15 +42,7 @@ namespace ExRam.Gremlinq.Core.ExpressionParsing
 
         public WellKnownMember? WellKnownMember { get; }
 
-        public static ExpressionFragment Create(object source, IGremlinQueryEnvironment environment)
-        {
-            var ret = Create(source, default, environment);
-
-            if (ret.Expression is UnaryExpression unaryExpression && unaryExpression.NodeType == ExpressionType.ArrayLength)
-                return Create(unaryExpression.Operand, ExpressionParsing.WellKnownMember.ArrayLength, environment);
-
-            return ret;
-        }
+        public static ExpressionFragment Create(object source, IGremlinQueryEnvironment environment) => Create(source, default, environment);
 
         private static ExpressionFragment Create(object source, WellKnownMember? wellKnownMember, IGremlinQueryEnvironment environment)
         {
