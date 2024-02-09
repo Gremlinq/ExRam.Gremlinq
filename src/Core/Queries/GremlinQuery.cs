@@ -1440,7 +1440,7 @@ namespace ExRam.Gremlinq.Core
                             }
                         }
                     }
-                    else if (left.Type is ExpressionFragmentType.Constant or ExpressionFragmentType.StepLabel && left.TryGetValue() is StepLabel leftStepLabel && rightValue is StepLabel)
+                    else if (left.TryGetValue() is StepLabel leftStepLabel && rightValue is StepLabel)
                     {
                         traversal = traversal.Push(new WhereStepLabelAndPredicateStep(leftStepLabel, effectivePredicate));
 
