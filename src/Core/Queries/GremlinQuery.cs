@@ -1276,7 +1276,9 @@ namespace ExRam.Gremlinq.Core
             }
             else
             {
-                var rightValue = right.TryGetValue();
+                var rightValue = right.Expression?.TryParseStepLabelExpression(out var stepLabel, out _) is true
+                    ? stepLabel
+                    : right.TryGetValue();
 
                 var maybeEffectivePredicate = Environment.Options
                     .GetValue(PFactory.PFactoryOption)
@@ -1440,7 +1442,7 @@ namespace ExRam.Gremlinq.Core
                             }
                         }
                     }
-                    else if (left.TryGetValue() is StepLabel leftStepLabel && rightValue is StepLabel)
+                    else if (left.Expression?.TryParseStepLabelExpression(out var leftStepLabel, out _) is true && rightValue is StepLabel)
                     {
                         traversal = traversal.Push(new WhereStepLabelAndPredicateStep(leftStepLabel, effectivePredicate));
 
