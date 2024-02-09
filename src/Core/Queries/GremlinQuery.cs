@@ -1313,52 +1313,6 @@ namespace ExRam.Gremlinq.Core
                                     {
                                         return traversal.Push(new HasKeyStep(effectivePredicate));
                                     }
-
-                                    if (left.WellKnownMember == WellKnownMember.ArrayLength)
-                                    {
-                                        if (Environment.GetCache().ModelTypes.Contains(parameterExpression.Type))
-                                        {
-                                            if (leftMemberExpressionKey.RawKey is string stringKey)
-                                            {
-                                                if (!Environment.SupportsType(leftMemberExpression.Type))
-                                                {
-                                                    return traversal
-                                                        .Push(
-                                                            new FilterStep.ByTraversalStep(Traversal
-                                                                .Create(
-                                                                    3,
-                                                                    (stringKey, effectivePredicate),
-                                                                    static (steps, state) =>
-                                                                    {
-                                                                        var (stringKey, effectivePredicate) = state;
-
-                                                                        steps[0] = new PropertiesStep(ImmutableArray.Create(stringKey));
-                                                                        steps[1] = CountStep.Global;
-                                                                        steps[2] = new IsStep(effectivePredicate);
-                                                                    })));
-                                                }
-                                            }
-                                        }
-                                        else
-                                        {
-                                            return traversal
-                                                .Push(
-                                                    new FilterStep.ByTraversalStep(Traversal
-                                                        .Create(
-                                                            3,
-                                                            (leftMemberExpressionKey, effectivePredicate),
-                                                            static (steps, state) =>
-                                                            {
-                                                                var (leftMemberExpressionKey, effectivePredicate) = state;
-
-                                                                steps[0] = new SelectKeysStep(ImmutableArray.Create(leftMemberExpressionKey));
-                                                                steps[1] = CountStep.Local;
-                                                                steps[2] = new IsStep(effectivePredicate);
-                                                            })));
-                                        }
-                                        
-                                        break;
-                                    }
                                 }
 
                                 // x => x.Name == P.xy(...)
@@ -1410,6 +1364,58 @@ namespace ExRam.Gremlinq.Core
                                 {
                                     if (methodCallExpression.Arguments[0].StripConvert().GetValue() is string key)
                                         return traversal.Push(new HasPredicateStep(key, effectivePredicate));
+                                }
+
+                                break;
+                            }
+                            case UnaryExpression { NodeType: ExpressionType.ArrayLength, Operand: { } operandExpression }:
+                            {
+                                operandExpression = operandExpression.StripConvert();
+
+                                if (operandExpression is MemberExpression { Expression: ParameterExpression parameterExpression })
+                                {
+                                    var operandExpressionKey = GetKey(operandExpression);
+
+                                    if (Environment.GetCache().ModelTypes.Contains(parameterExpression.Type))
+                                    {
+                                        if (operandExpressionKey.RawKey is string stringKey)
+                                        {
+                                            if (!Environment.SupportsType(operandExpression.Type))
+                                            {
+                                                return traversal
+                                                    .Push(
+                                                        new FilterStep.ByTraversalStep(Traversal
+                                                            .Create(
+                                                                3,
+                                                                (stringKey, effectivePredicate),
+                                                                static (steps, state) =>
+                                                                {
+                                                                    var (stringKey, effectivePredicate) = state;
+
+                                                                    steps[0] = new PropertiesStep(ImmutableArray.Create(stringKey));
+                                                                    steps[1] = CountStep.Global;
+                                                                    steps[2] = new IsStep(effectivePredicate);
+                                                                })));
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        return traversal
+                                            .Push(
+                                                new FilterStep.ByTraversalStep(Traversal
+                                                    .Create(
+                                                        3,
+                                                        (operandExpressionKey, effectivePredicate),
+                                                        static (steps, state) =>
+                                                        {
+                                                            var (leftMemberExpressionKey, effectivePredicate) = state;
+
+                                                            steps[0] = new SelectKeysStep(ImmutableArray.Create(leftMemberExpressionKey));
+                                                            steps[1] = CountStep.Local;
+                                                            steps[2] = new IsStep(effectivePredicate);
+                                                        })));
+                                    }
                                 }
 
                                 break;
