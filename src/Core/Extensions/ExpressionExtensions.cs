@@ -202,13 +202,13 @@ namespace ExRam.Gremlinq.Core
             return expression.Parameters.Count == 1 && expression.Body.StripConvert() == expression.Parameters[0];
         }
 
-        public static GremlinExpression? TryToGremlinExpression(this Expression body)
+        public static WhereExpression? TryParseWhereExpression(this Expression body)
         {
             switch (body)
             {
                 case MemberExpression { Member: PropertyInfo property } memberExpression when property.PropertyType == typeof(bool) && memberExpression.RefersToParameter(out _):
                 {
-                    return new GremlinExpression(
+                    return new WhereExpression(
                         memberExpression,
                         EqualsExpressionSemantics.Instance,
                         Expressions.True);
@@ -223,9 +223,9 @@ namespace ExRam.Gremlinq.Core
 
                             return transformedSemantics switch
                             {
-                                TrueExpressionSemantics => GremlinExpression.True,
-                                FalseExpressionSemantics => GremlinExpression.False,
-                                _ => new GremlinExpression(
+                                TrueExpressionSemantics => WhereExpression.True,
+                                FalseExpressionSemantics => WhereExpression.False,
+                                _ => new WhereExpression(
                                     target,
                                     transformedSemantics,
                                     firstArgument)
@@ -238,7 +238,7 @@ namespace ExRam.Gremlinq.Core
                     }
                     else
                     { 
-                        return new GremlinExpression(
+                        return new WhereExpression(
                             binaryExpression.Left,
                             semantics,
                             binaryExpression.Right);
@@ -254,14 +254,14 @@ namespace ExRam.Gremlinq.Core
                     {
                         case WellKnownOperation.Equals:
                         {
-                            return new GremlinExpression(
+                            return new WhereExpression(
                                 targetExpression,
                                 EqualsExpressionSemantics.Instance,
                                 firstArgument);
                         }
                         case WellKnownOperation.ListContains:
                         {
-                            return new GremlinExpression(
+                            return new WhereExpression(
                                 targetExpression,
                                 ContainsExpressionSemantics.Instance,
                                 firstArgument);
@@ -282,7 +282,7 @@ namespace ExRam.Gremlinq.Core
                             {
                                 if (instanceExpression.GetValue()?.ToString() is { } stringValue)
                                 {
-                                    return new GremlinExpression(
+                                    return new WhereExpression(
                                         Expression.Constant(stringValue),
                                         StartsWithExpressionSemantics.Get(stringComparison),
                                         argumentExpression);
@@ -292,7 +292,7 @@ namespace ExRam.Gremlinq.Core
                             {
                                 if (argumentExpression.GetValue() is string stringValue)
                                 {
-                                    return new GremlinExpression(
+                                    return new WhereExpression(
                                         instanceExpression,
                                         wellKnownMember switch
                                         {
@@ -320,21 +320,21 @@ namespace ExRam.Gremlinq.Core
                     {
                         case WellKnownOperation.EnumerableIntersectAny when firstArgument.StripConvert() is MethodCallExpression { Arguments: [var anyTarget, var anyArgument] }:
                         {
-                            return new GremlinExpression(
+                            return new WhereExpression(
                                 anyTarget,
                                 IntersectsExpressionSemantics.Instance,
                                 anyArgument);
                         }
                         case WellKnownOperation.EnumerableAny:
                         {
-                            return new GremlinExpression(
+                            return new WhereExpression(
                                 firstArgument,
                                 NotEqualsExpressionSemantics.Instance,
                                 Expressions.Null);
                         }
                         case WellKnownOperation.EnumerableContains when staticMethodCallExpression.Arguments is [_, var secondArgument]:
                         {
-                            return new GremlinExpression(
+                            return new WhereExpression(
                                 firstArgument,
                                 ContainsExpressionSemantics.Instance,
                                 secondArgument);

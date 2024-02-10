@@ -1216,25 +1216,25 @@ namespace ExRam.Gremlinq.Core
                         static (__, state) => __.Where(state.right),
                         (left: binary.Left, right: binary.Right)),
 
-                    _ when expression.TryToGremlinExpression() is { } gremlinExpression => gremlinExpression.Equals(GremlinExpression.True)
+                    _ when expression.TryParseWhereExpression() is { } whereExpression => whereExpression.Equals(WhereExpression.True)
                         ? this
-                        : gremlinExpression.Equals(GremlinExpression.False)
+                        : whereExpression.Equals(WhereExpression.False)
                             ? None()
                             : this
                                 .Continue()
                                 .Build(
-                                    static (builder, gremlinExpression) => builder
+                                    static (builder, whereExpression) => builder
                                         .WithSteps(
                                             static (steps, state) =>
                                             {
-                                                var (outerQuery, gremlinExpression) = state;
+                                                var (outerQuery, whereExpression) = state;
 
                                                 return outerQuery
-                                                    .Where(steps, gremlinExpression.Left, gremlinExpression.Semantics, gremlinExpression.Right);
+                                                    .Where(steps, whereExpression.Left, whereExpression.Semantics, whereExpression.Right);
                                             },
-                                            (builder.OuterQuery, gremlinExpression))
+                                            (builder.OuterQuery, whereExpression))
                                         .Build(),
-                                    gremlinExpression),
+                                    whereExpression),
 
                     _ => throw new ExpressionNotSupportedException()
                 };
