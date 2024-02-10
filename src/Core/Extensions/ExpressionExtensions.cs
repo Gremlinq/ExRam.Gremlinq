@@ -239,9 +239,9 @@ namespace ExRam.Gremlinq.Core
                     else
                     { 
                         return new GremlinExpression(
-                            ExpressionFragment.Create(binaryExpression.Left),
+                            binaryExpression.Left,
                             semantics,
-                            ExpressionFragment.Create(binaryExpression.Right));
+                            binaryExpression.Right);
                     }
 
                     break;
@@ -255,16 +255,16 @@ namespace ExRam.Gremlinq.Core
                         case WellKnownOperation.Equals:
                         {
                             return new GremlinExpression(
-                                ExpressionFragment.Create(targetExpression),
+                                targetExpression,
                                 EqualsExpressionSemantics.Instance,
-                                ExpressionFragment.Create(firstArgument));
+                                firstArgument);
                         }
                         case WellKnownOperation.ListContains:
                         {
                             return new GremlinExpression(
-                                ExpressionFragment.Create(targetExpression),
+                                targetExpression,
                                 ContainsExpressionSemantics.Instance,
-                                ExpressionFragment.Create(firstArgument));
+                                firstArgument);
                         }
                         case WellKnownOperation.StringEquals:
                         case WellKnownOperation.StringStartsWith:
@@ -283,9 +283,9 @@ namespace ExRam.Gremlinq.Core
                                 if (instanceExpression.GetValue()?.ToString() is { } stringValue)
                                 {
                                     return new GremlinExpression(
-                                        ExpressionFragment.Create(Expression.Constant(stringValue)),
+                                        Expression.Constant(stringValue),
                                         StartsWithExpressionSemantics.Get(stringComparison),
-                                        ExpressionFragment.Create(argumentExpression));
+                                        argumentExpression);
                                 }
                             }
                             else if (instanceExpression.RefersToParameter(out _))
@@ -293,7 +293,7 @@ namespace ExRam.Gremlinq.Core
                                 if (argumentExpression.GetValue() is string stringValue)
                                 {
                                     return new GremlinExpression(
-                                        ExpressionFragment.Create(instanceExpression),
+                                        instanceExpression,
                                         wellKnownMember switch
                                         {
                                             WellKnownOperation.StringEquals => StringEqualsExpressionSemantics.Get(stringComparison),
@@ -302,7 +302,7 @@ namespace ExRam.Gremlinq.Core
                                             WellKnownOperation.StringEndsWith => EndsWithExpressionSemantics.Get(stringComparison),
                                             _ => throw new ExpressionNotSupportedException(instanceMethodCallExpression)
                                         },
-                                        ExpressionFragment.Create(Expression.Constant(stringValue)));
+                                        Expression.Constant(stringValue));
                                 }
                             }
 
@@ -321,23 +321,23 @@ namespace ExRam.Gremlinq.Core
                         case WellKnownOperation.EnumerableIntersectAny when firstArgument.StripConvert() is MethodCallExpression { Arguments: [var anyTarget, var anyArgument] }:
                         {
                             return new GremlinExpression(
-                                ExpressionFragment.Create(anyTarget),
+                                anyTarget,
                                 IntersectsExpressionSemantics.Instance,
-                                ExpressionFragment.Create(anyArgument));
+                                anyArgument);
                         }
                         case WellKnownOperation.EnumerableAny:
                         {
                             return new GremlinExpression(
-                                ExpressionFragment.Create(firstArgument),
+                                firstArgument,
                                 NotEqualsExpressionSemantics.Instance,
                                 Expressions.Null);
                         }
                         case WellKnownOperation.EnumerableContains when staticMethodCallExpression.Arguments is [_, var secondArgument]:
                         {
                             return new GremlinExpression(
-                                ExpressionFragment.Create(firstArgument),
+                                firstArgument,
                                 ContainsExpressionSemantics.Instance,
-                                ExpressionFragment.Create(secondArgument));
+                                secondArgument);
                         }
                     }
 
