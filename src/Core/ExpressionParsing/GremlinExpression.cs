@@ -1,13 +1,15 @@
-﻿namespace ExRam.Gremlinq.Core.ExpressionParsing
+﻿using System.Linq.Expressions;
+
+namespace ExRam.Gremlinq.Core.ExpressionParsing
 {
     internal readonly struct GremlinExpression : IEquatable<GremlinExpression>
     {
         public static readonly GremlinExpression True = new(Expressions.True, EqualsExpressionSemantics.Instance, Expressions.True);
         public static readonly GremlinExpression False = new(Expressions.True, EqualsExpressionSemantics.Instance, Expressions.False);
 
-        public GremlinExpression(ExpressionFragment left, ExpressionSemantics semantics, ExpressionFragment right)
+        public GremlinExpression(Expression left, ExpressionSemantics semantics, Expression right)
         {
-            if (left.Expression.RefersToParameter(out _) is not true && right.Expression.RefersToParameter(out _) is true)
+            if (left.RefersToParameter(out _) is not true && right.RefersToParameter(out _) is true)
             {
                 Left = right;
                 Semantics = semantics.Flip();
@@ -36,8 +38,8 @@
             }
         }
 
-        public ExpressionFragment Left { get; }
-        public ExpressionFragment Right { get; }
+        public Expression Left { get; }
+        public Expression Right { get; }
         public ExpressionSemantics Semantics { get; }
     }
 }

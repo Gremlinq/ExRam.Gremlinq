@@ -1256,13 +1256,13 @@ namespace ExRam.Gremlinq.Core
                      GetKey(memberExpression))
              : throw new ExpressionNotSupportedException(predicate);
 
-        private Traversal Where(Traversal traversal, ExpressionFragment left, ExpressionSemantics semantics, ExpressionFragment right)
+        private Traversal Where(Traversal traversal, Expression left, ExpressionSemantics semantics, Expression right)
         {
-            if (right.Expression.RefersToParameter(out _) is true)
+            if (right.RefersToParameter(out _) is true)
             {
-                if (left.Expression.RefersToParameter(out _) is true)
+                if (left.RefersToParameter(out _) is true)
                 {
-                    if (left.Expression is MemberExpression && right.Expression is MemberExpression rightMember)
+                    if (left is MemberExpression && right is MemberExpression rightMember)
                     {
                         var newStepLabel = new StepLabel<T1>();
                         var newRightExpression = Expression.MakeMemberAccess(Expression.MakeMemberAccess(Expression.Constant(newStepLabel), typeof(StepLabel<T1>).GetProperty(nameof(StepLabel<T1>.Value))!), rightMember.Member);
@@ -1278,9 +1278,9 @@ namespace ExRam.Gremlinq.Core
             }
             else
             {
-                var rightValue = right.Expression.TryParseStepLabelExpression(out var stepLabel, out _) is true
+                var rightValue = right.TryParseStepLabelExpression(out var stepLabel, out _) is true
                     ? stepLabel
-                    : right.Expression.GetValue() switch
+                    : right.GetValue() switch
                     {
                         IEnumerable enumerable when enumerable is not ICollection && !Environment.SupportsType(enumerable.GetType()) => enumerable.Cast<object>().ToArray(),
                         { } val => val,
@@ -1297,9 +1297,9 @@ namespace ExRam.Gremlinq.Core
                     if (effectivePredicate.EqualsConstant(false))
                         return traversal.Push(NoneStep.Instance);
 
-                    if (left.Expression.RefersToParameter(out _) is true)
+                    if (left.RefersToParameter(out _) is true)
                     {
-                        switch (left.Expression)
+                        switch (left)
                         {
                             case MemberExpression leftMemberExpression:
                             {
@@ -1308,7 +1308,7 @@ namespace ExRam.Gremlinq.Core
 
                                 if (leftMemberExpressionExpression is ParameterExpression parameterExpression)
                                 {
-                                    if (left.Expression.IsPropertyKey(out _))
+                                    if (left.IsPropertyKey(out _))
                                     {
                                         return traversal
                                             .Push(
@@ -1321,10 +1321,10 @@ namespace ExRam.Gremlinq.Core
                                         
                                     }
 
-                                    if (left.Expression.IsPropertyValue(out _) && rightValue is not null and not StepLabel)
+                                    if (left.IsPropertyValue(out _) && rightValue is not null and not StepLabel)
                                         return traversal.Push(new HasValueStep(effectivePredicate));
 
-                                    if (left.Expression.IsVertexPropertyLabel(out _))
+                                    if (left.IsVertexPropertyLabel(out _))
                                     {
                                         if (rightValue is StepLabel)
                                         {
@@ -1345,7 +1345,7 @@ namespace ExRam.Gremlinq.Core
                                 // x => x.Name == P.xy(...)
                                 if (rightValue is StepLabel)
                                 {
-                                    if (right.Expression is MemberExpression memberExpression && memberExpression.Expression?.IsStepLabelValue(out _) is true)
+                                    if (right is MemberExpression memberExpression && memberExpression.Expression?.IsStepLabelValue(out _) is true)
                                     {
                                         traversal = traversal
                                             .Push(new WherePredicateStep(effectivePredicate))
@@ -1375,7 +1375,7 @@ namespace ExRam.Gremlinq.Core
                                 {
                                     traversal = traversal.Push(new WherePredicateStep(effectivePredicate));
 
-                                    if (right.Expression is MemberExpression memberExpression && memberExpression.Expression?.IsStepLabelValue(out _) is true)
+                                    if (right is MemberExpression memberExpression && memberExpression.Expression?.IsStepLabelValue(out _) is true)
                                         traversal = traversal.Push(new WherePredicateStep.ByMemberStep(GetKey(memberExpression)));
                                 }
                                 else if (!effectivePredicate.EqualsConstant(true))
@@ -1449,14 +1449,14 @@ namespace ExRam.Gremlinq.Core
                             }
                         }
                     }
-                    else if (left.Expression.TryParseStepLabelExpression(out var leftStepLabel, out _) is true && rightValue is StepLabel)
+                    else if (left.TryParseStepLabelExpression(out var leftStepLabel, out _) is true && rightValue is StepLabel)
                     {
                         traversal = traversal.Push(new WhereStepLabelAndPredicateStep(leftStepLabel, effectivePredicate));
 
-                        if (left.Expression is MemberExpression leftStepValueExpression)
+                        if (left is MemberExpression leftStepValueExpression)
                             traversal = traversal.Push(new WherePredicateStep.ByMemberStep(GetKey(leftStepValueExpression)));
 
-                        if (right.Expression is MemberExpression rightStepValueExpression)
+                        if (right is MemberExpression rightStepValueExpression)
                             traversal = traversal.Push(new WherePredicateStep.ByMemberStep(GetKey(rightStepValueExpression)));
 
                         return traversal;
