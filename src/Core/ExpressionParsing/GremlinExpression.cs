@@ -2,8 +2,8 @@
 {
     internal readonly struct GremlinExpression : IEquatable<GremlinExpression>
     {
-        public static readonly GremlinExpression True = new(ExpressionFragment.True, EqualsExpressionSemantics.Instance, ExpressionFragment.True);
-        public static readonly GremlinExpression False = new(ExpressionFragment.True, EqualsExpressionSemantics.Instance, ExpressionFragment.False);
+        public static readonly GremlinExpression True = new(Expressions.True, EqualsExpressionSemantics.Instance, Expressions.True);
+        public static readonly GremlinExpression False = new(Expressions.True, EqualsExpressionSemantics.Instance, Expressions.False);
 
         public GremlinExpression(ExpressionFragment left, ExpressionSemantics semantics, ExpressionFragment right)
         {

@@ -211,7 +211,7 @@ namespace ExRam.Gremlinq.Core
                     return new GremlinExpression(
                         ExpressionFragment.Create(memberExpression),
                         EqualsExpressionSemantics.Instance,
-                        ExpressionFragment.True);
+                        Expressions.True);
                 }
                 case BinaryExpression binaryExpression when binaryExpression.NodeType.TryToSemantics(out var semantics):
                 {
@@ -330,7 +330,7 @@ namespace ExRam.Gremlinq.Core
                             return new GremlinExpression(
                                 ExpressionFragment.Create(firstArgument),
                                 NotEqualsExpressionSemantics.Instance,
-                                ExpressionFragment.Null);
+                                Expressions.Null);
                         }
                         case WellKnownOperation.EnumerableContains when staticMethodCallExpression.Arguments is [_, var secondArgument]:
                         {

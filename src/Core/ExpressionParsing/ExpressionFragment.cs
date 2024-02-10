@@ -3,12 +3,15 @@ using System.Linq.Expressions;
 
 namespace ExRam.Gremlinq.Core.ExpressionParsing
 {
+    internal static class Expressions
+    {
+        public static readonly ExpressionFragment True = ExpressionFragment.Create(Expression.Constant(true));
+        public static readonly ExpressionFragment False = ExpressionFragment.Create(Expression.Constant(false));
+        public static readonly ExpressionFragment Null = ExpressionFragment.Create(Expression.Constant(null, typeof(object)));
+    }
+
     internal readonly struct ExpressionFragment
     {
-        public static readonly ExpressionFragment True = new(Expression.Constant(true));
-        public static readonly ExpressionFragment False = new(Expression.Constant(false));
-        public static readonly ExpressionFragment Null = new(Expression.Constant(null, typeof(object)));
-
         private ExpressionFragment(Expression expression)
         {
             Expression = expression;
