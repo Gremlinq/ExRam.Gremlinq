@@ -1258,9 +1258,9 @@ namespace ExRam.Gremlinq.Core
 
         private Traversal Where(Traversal traversal, ExpressionFragment left, ExpressionSemantics semantics, ExpressionFragment right)
         {
-            if (right.Expression?.RefersToParameter(out _) is true)
+            if (right.Expression.RefersToParameter(out _) is true)
             {
-                if (left.Expression?.RefersToParameter(out _) is true)
+                if (left.Expression.RefersToParameter(out _) is true)
                 {
                     if (left.Expression is MemberExpression && right.Expression is MemberExpression rightMember)
                     {
@@ -1278,9 +1278,9 @@ namespace ExRam.Gremlinq.Core
             }
             else
             {
-                var rightValue = right.Expression?.TryParseStepLabelExpression(out var stepLabel, out _) is true
+                var rightValue = right.Expression.TryParseStepLabelExpression(out var stepLabel, out _) is true
                     ? stepLabel
-                    : right.Expression?.GetValue() switch
+                    : right.Expression.GetValue() switch
                     {
                         IEnumerable enumerable when enumerable is not ICollection && !Environment.SupportsType(enumerable.GetType()) => enumerable.Cast<object>().ToArray(),
                         { } val => val,
@@ -1297,7 +1297,7 @@ namespace ExRam.Gremlinq.Core
                     if (effectivePredicate.EqualsConstant(false))
                         return traversal.Push(NoneStep.Instance);
 
-                    if (left.Expression?.RefersToParameter(out _) is true)
+                    if (left.Expression.RefersToParameter(out _) is true)
                     {
                         switch (left.Expression)
                         {
@@ -1449,7 +1449,7 @@ namespace ExRam.Gremlinq.Core
                             }
                         }
                     }
-                    else if (left.Expression?.TryParseStepLabelExpression(out var leftStepLabel, out _) is true && rightValue is StepLabel)
+                    else if (left.Expression.TryParseStepLabelExpression(out var leftStepLabel, out _) is true && rightValue is StepLabel)
                     {
                         traversal = traversal.Push(new WhereStepLabelAndPredicateStep(leftStepLabel, effectivePredicate));
 
