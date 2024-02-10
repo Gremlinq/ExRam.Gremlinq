@@ -1,5 +1,7 @@
 ﻿#pragma warning disable IDE0003
 // ReSharper disable ArrangeThisQualifier
+using System;
+using System.Collections;
 using System.Collections.Immutable;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -1278,7 +1280,12 @@ namespace ExRam.Gremlinq.Core
             {
                 var rightValue = right.Expression?.TryParseStepLabelExpression(out var stepLabel, out _) is true
                     ? stepLabel
-                    : right.TryGetValue();
+                    : right.Expression?.GetValue() switch
+                    {
+                        IEnumerable enumerable when enumerable is not ICollection && !Environment.SupportsType(enumerable.GetType()) => enumerable.Cast<object>().ToArray(),
+                        { } val => val,
+                        _ => null
+                    };
 
                 var maybeEffectivePredicate = Environment.Options
                     .GetValue(PFactory.PFactoryOption)
