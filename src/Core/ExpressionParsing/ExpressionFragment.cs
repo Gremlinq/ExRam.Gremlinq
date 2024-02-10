@@ -9,7 +9,7 @@ namespace ExRam.Gremlinq.Core.ExpressionParsing
         public static readonly ExpressionFragment False = new(Expression.Constant(false));
         public static readonly ExpressionFragment Null = new(Expression.Constant(null, typeof(object)));
 
-        private ExpressionFragment(Expression? expression = default)
+        private ExpressionFragment(Expression expression)
         {
             Expression = expression;
         }
@@ -18,17 +18,9 @@ namespace ExRam.Gremlinq.Core.ExpressionParsing
 
         public override bool Equals(object? obj) => obj is ExpressionFragment other && Equals(other);
 
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                var hashCode = 0;
-                hashCode = (hashCode * 397) ^ (Expression != null ? Expression.GetHashCode() : 0);
-                return hashCode;
-            }
-        }
+        public override int GetHashCode() => Expression.GetHashCode();
 
-        public Expression? Expression { get; }
+        public Expression Expression { get; }
 
         public static ExpressionFragment Create(Expression expression)
         {
