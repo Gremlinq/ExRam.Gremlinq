@@ -2,21 +2,21 @@
 
 namespace ExRam.Gremlinq.Core.ExpressionParsing
 {
-    internal readonly struct GremlinExpression : IEquatable<GremlinExpression>
+    internal readonly struct WhereExpression : IEquatable<WhereExpression>
     {
-        public static readonly GremlinExpression True = new(Expressions.True, EqualsExpressionSemantics.Instance, Expressions.True);
-        public static readonly GremlinExpression False = new(Expressions.True, EqualsExpressionSemantics.Instance, Expressions.False);
+        public static readonly WhereExpression True = new(Expressions.True, EqualsExpressionSemantics.Instance, Expressions.True);
+        public static readonly WhereExpression False = new(Expressions.True, EqualsExpressionSemantics.Instance, Expressions.False);
 
-        public GremlinExpression(Expression left, ExpressionSemantics semantics, Expression right)
+        public WhereExpression(Expression left, ExpressionSemantics semantics, Expression right)
         {
             Left = left.StripConvert();
             Right = right.StripConvert();
             Semantics = semantics;
         }
 
-        public bool Equals(GremlinExpression other) => Left.Equals(other.Left) && Right.Equals(other.Right) && Semantics == other.Semantics;
+        public bool Equals(WhereExpression other) => Left.Equals(other.Left) && Right.Equals(other.Right) && Semantics == other.Semantics;
 
-        public override bool Equals(object? obj) => obj is GremlinExpression other && Equals(other);
+        public override bool Equals(object? obj) => obj is WhereExpression other && Equals(other);
 
         public override int GetHashCode()
         {
