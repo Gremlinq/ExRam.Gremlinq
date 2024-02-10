@@ -9,21 +9,9 @@ namespace ExRam.Gremlinq.Core.ExpressionParsing
 
         public GremlinExpression(Expression left, ExpressionSemantics semantics, Expression right)
         {
-            left = left.StripConvert();
-            right = right.StripConvert();
-
-            if (left.RefersToParameter(out _) is not true && right.RefersToParameter(out _) is true)
-            {
-                Left = right;
-                Semantics = semantics.Flip();
-                Right = left;
-            }
-            else
-            {
-                Left = left;
-                Right = right;
-                Semantics = semantics;
-            }
+            Left = left.StripConvert();
+            Right = right.StripConvert();
+            Semantics = semantics;
         }
 
         public bool Equals(GremlinExpression other) => Left.Equals(other.Left) && Right.Equals(other.Right) && Semantics == other.Semantics;

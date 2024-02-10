@@ -1277,6 +1277,8 @@ namespace ExRam.Gremlinq.Core
                             newRightExpression);
                     }
                 }
+                else
+                    return Where(traversal, right, semantics.Flip(), left);
             }
             else
             {
