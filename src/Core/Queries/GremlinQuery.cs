@@ -1216,7 +1216,7 @@ namespace ExRam.Gremlinq.Core
                         static (__, state) => __.Where(state.right),
                         (left: binary.Left, right: binary.Right)),
 
-                    _ when expression.TryToGremlinExpression(Environment) is { } gremlinExpression => gremlinExpression.Equals(GremlinExpression.True)
+                    _ when expression.TryToGremlinExpression() is { } gremlinExpression => gremlinExpression.Equals(GremlinExpression.True)
                         ? this
                         : gremlinExpression.Equals(GremlinExpression.False)
                             ? None()
