@@ -209,7 +209,7 @@ namespace ExRam.Gremlinq.Core
                 case MemberExpression { Member: PropertyInfo property } memberExpression when property.PropertyType == typeof(bool) && memberExpression.RefersToParameter(out _):
                 {
                     return new GremlinExpression(
-                        ExpressionFragment.Create(memberExpression),
+                        memberExpression,
                         EqualsExpressionSemantics.Instance,
                         Expressions.True);
                 }
@@ -226,9 +226,9 @@ namespace ExRam.Gremlinq.Core
                                 TrueExpressionSemantics => GremlinExpression.True,
                                 FalseExpressionSemantics => GremlinExpression.False,
                                 _ => new GremlinExpression(
-                                    ExpressionFragment.Create(target),
+                                    target,
                                     transformedSemantics,
-                                    ExpressionFragment.Create(firstArgument))
+                                    firstArgument)
                             };
                         }
                         catch (FormatException)

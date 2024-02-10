@@ -9,6 +9,9 @@ namespace ExRam.Gremlinq.Core.ExpressionParsing
 
         public GremlinExpression(Expression left, ExpressionSemantics semantics, Expression right)
         {
+            left = left.StripConvert();
+            right = right.StripConvert();
+
             if (left.RefersToParameter(out _) is not true && right.RefersToParameter(out _) is true)
             {
                 Left = right;
