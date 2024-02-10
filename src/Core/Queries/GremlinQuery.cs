@@ -1190,6 +1190,8 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<T1, T2, T3, T4> Where(Expression expression)
         {
+            expression = expression.StripConvert();
+
             try
             {
                 return expression switch
