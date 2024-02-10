@@ -1272,7 +1272,7 @@ namespace ExRam.Gremlinq.Core
                                 .Push(new AsStep(newStepLabel)),
                             left,
                             semantics,
-                            ExpressionFragment.Create(newRightExpression, Environment));
+                            ExpressionFragment.Create(newRightExpression));
                     }
                 }
             }
@@ -1315,7 +1315,7 @@ namespace ExRam.Gremlinq.Core
                                                 new FilterStep.ByTraversalStep(this
                                                     .Where(
                                                         KeyStep.Instance,
-                                                        ExpressionFragment.Create(parameterExpression, Environment),
+                                                        ExpressionFragment.Create(parameterExpression),
                                                         semantics,
                                                         right)));
                                         
@@ -1333,7 +1333,7 @@ namespace ExRam.Gremlinq.Core
                                                     new FilterStep.ByTraversalStep(this
                                                         .Where(
                                                             LabelStep.Instance,
-                                                            ExpressionFragment.Create(parameterExpression, Environment),
+                                                            ExpressionFragment.Create(parameterExpression),
                                                             semantics,
                                                             right)));
                                         }

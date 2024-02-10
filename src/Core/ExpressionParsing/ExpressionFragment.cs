@@ -33,7 +33,7 @@ namespace ExRam.Gremlinq.Core.ExpressionParsing
 
         public Expression? Expression { get; }
 
-        public static ExpressionFragment Create(Expression expression, IGremlinQueryEnvironment environment)
+        public static ExpressionFragment Create(Expression expression)
         {
             return new(default, expression.StripConvert());
         }
