@@ -202,7 +202,7 @@ namespace ExRam.Gremlinq.Core
             return expression.Parameters.Count == 1 && expression.Body.StripConvert() == expression.Parameters[0];
         }
 
-        public static GremlinExpression? TryToGremlinExpression(this Expression body, IGremlinQueryEnvironment environment)
+        public static GremlinExpression? TryToGremlinExpression(this Expression body)
         {
             switch (body)
             {
