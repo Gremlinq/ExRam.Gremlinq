@@ -1282,9 +1282,7 @@ namespace ExRam.Gremlinq.Core
             }
             else
             {
-                var rightValue = right.RefersToStepLabel(out var stepLabel, out _)
-                    ? stepLabel
-                    : right.GetValue();
+                var rightValue = right.GetValue();
 
                 var maybeEffectivePredicate = Environment.Options
                     .GetValue(PFactory.PFactoryOption)
