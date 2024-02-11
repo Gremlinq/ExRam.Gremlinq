@@ -19,7 +19,7 @@ namespace ExRam.Gremlinq.Core.ExpressionParsing
         {
             if (expression is UnaryExpression { NodeType: ExpressionType.ArrayLength, Operand: { } operand })
             {
-                sourceExpression = operand.StripConvert();
+                sourceExpression = operand.Strip();
                 return true;
             }
 
@@ -33,7 +33,7 @@ namespace ExRam.Gremlinq.Core.ExpressionParsing
             {
                 if (typeof(T).IsAssignableFrom(member.DeclaringType) && member.Name == name)
                 {
-                    propertyExpression = memberExpressionExpression.StripConvert();
+                    propertyExpression = memberExpressionExpression.Strip();
                     return true;
                 }
             }

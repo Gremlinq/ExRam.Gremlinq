@@ -10,7 +10,7 @@ namespace ExRam.Gremlinq.Core
 {
     internal static class ExpressionExtensions
     {
-        public static Expression StripConvert(this Expression expression)
+        public static Expression Strip(this Expression expression)
         {
             while (true)
             {
@@ -41,7 +41,7 @@ namespace ExRam.Gremlinq.Core
 
         public static MemberExpression AssumeMemberExpression(this Expression expression)
         {
-            return expression.StripConvert() switch
+            return expression.Strip() switch
             {
                 LambdaExpression lambdaExpression => lambdaExpression.Body.AssumeMemberExpression(),
                 MemberExpression memberExpression => memberExpression,
@@ -80,7 +80,7 @@ namespace ExRam.Gremlinq.Core
 
             if (methodInfo.IsStatic)
             {
-                var thisExpression = expression.Arguments[0].StripConvert();
+                var thisExpression = expression.Arguments[0].Strip();
 
                 if (methodInfo.IsGenericMethod && methodInfo.GetGenericMethodDefinition() == WellKnownMethods.EnumerableAny)
                 {
@@ -158,7 +158,7 @@ namespace ExRam.Gremlinq.Core
                 if (actualExpression is null)
                     break;
 
-                actualExpression = actualExpression.StripConvert();
+                actualExpression = actualExpression.Strip();
 
                 switch (actualExpression)
                 {
@@ -201,7 +201,7 @@ namespace ExRam.Gremlinq.Core
 
         public static bool IsIdentityExpression(this LambdaExpression expression)
         {
-            return expression.Parameters.Count == 1 && expression.Body.StripConvert() == expression.Parameters[0];
+            return expression.Parameters.Count == 1 && expression.Body.Strip() == expression.Parameters[0];
         }
 
         public static WhereExpression? TryParseWhereExpression(this Expression body)
@@ -273,8 +273,8 @@ namespace ExRam.Gremlinq.Core
                         case WellKnownOperation.StringEndsWith:
                         case WellKnownOperation.StringContains:
                         {
-                            var instanceExpression = targetExpression.StripConvert();
-                            var argumentExpression = firstArgument.StripConvert();
+                            var instanceExpression = targetExpression.Strip();
+                            var argumentExpression = firstArgument.Strip();
 
                             var stringComparison = instanceMethodCallExpression.Arguments is [_, { } secondArgument, ..] && secondArgument.Type == typeof(StringComparison)
                                 ? (StringComparison)secondArgument.GetValue()!
@@ -320,7 +320,7 @@ namespace ExRam.Gremlinq.Core
 
                     switch (wellKnownMember)
                     {
-                        case WellKnownOperation.EnumerableIntersectAny when firstArgument.StripConvert() is MethodCallExpression { Arguments: [var anyTarget, var anyArgument] }:
+                        case WellKnownOperation.EnumerableIntersectAny when firstArgument.Strip() is MethodCallExpression { Arguments: [var anyTarget, var anyArgument] }:
                         {
                             return new WhereExpression(
                                 anyTarget,

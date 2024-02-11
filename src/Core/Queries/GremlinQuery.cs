@@ -1190,7 +1190,7 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<T1, T2, T3, T4> Where(Expression expression)
         {
-            expression = expression.StripConvert();
+            expression = expression.Strip();
 
             try
             {
@@ -1308,7 +1308,7 @@ namespace ExRam.Gremlinq.Core
                             case MemberExpression leftMemberExpression:
                             {
                                 var leftMemberExpressionKey = GetKey(leftMemberExpression);
-                                var leftMemberExpressionExpression = leftMemberExpression.Expression?.StripConvert();
+                                var leftMemberExpressionExpression = leftMemberExpression.Expression?.Strip();
 
                                 if (leftMemberExpressionExpression is ParameterExpression parameterExpression)
                                 {
@@ -1389,11 +1389,11 @@ namespace ExRam.Gremlinq.Core
                             }
                             case MethodCallExpression { Arguments: [ { } firstArgument] } methodCallExpression:
                             {
-                                var targetExpression = methodCallExpression.Object?.StripConvert();
+                                var targetExpression = methodCallExpression.Object?.Strip();
 
                                 if (targetExpression != null && typeof(IDictionary<string, object>).IsAssignableFrom(targetExpression.Type) && methodCallExpression.Method.Name == "get_Item")
                                 {
-                                    if (firstArgument.StripConvert().GetValue() is string key)
+                                    if (firstArgument.Strip().GetValue() is string key)
                                         return traversal.Push(new HasPredicateStep(key, effectivePredicate));
                                 }
 
@@ -1401,7 +1401,7 @@ namespace ExRam.Gremlinq.Core
                             }
                             case UnaryExpression { NodeType: ExpressionType.ArrayLength, Operand: { } operandExpression }:
                             {
-                                operandExpression = operandExpression.StripConvert();
+                                operandExpression = operandExpression.Strip();
 
                                 if (operandExpression is MemberExpression { Expression: ParameterExpression parameterExpression })
                                 {
