@@ -1282,7 +1282,7 @@ namespace ExRam.Gremlinq.Core
             }
             else
             {
-                var rightValue = right.TryParseStepLabelExpression(out var stepLabel, out _)
+                var rightValue = right.RefersToStepLabel(out var stepLabel, out _)
                     ? stepLabel
                     : right.GetValue() switch
                     {
@@ -1453,7 +1453,7 @@ namespace ExRam.Gremlinq.Core
                             }
                         }
                     }
-                    else if (left.TryParseStepLabelExpression(out var leftStepLabel, out _) && rightValue is StepLabel)
+                    else if (rightValue is StepLabel && left.RefersToStepLabel(out var leftStepLabel, out _))
                     {
                         traversal = traversal.Push(new WhereStepLabelAndPredicateStep(leftStepLabel, effectivePredicate));
 

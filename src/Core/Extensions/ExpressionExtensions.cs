@@ -126,7 +126,7 @@ namespace ExRam.Gremlinq.Core
             return null;
         }
 
-        public static bool TryParseStepLabelExpression(this Expression expression, [NotNullWhen(true)] out StepLabel? stepLabel, out MemberExpression? stepLabelValueMemberExpression)
+        public static bool RefersToStepLabel(this Expression expression, [NotNullWhen(true)] out StepLabel? stepLabel, out MemberExpression? stepLabelValueMemberExpression)
         {
             stepLabel = null;
             stepLabelValueMemberExpression = null;
