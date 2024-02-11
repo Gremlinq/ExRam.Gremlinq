@@ -1284,16 +1284,19 @@ namespace ExRam.Gremlinq.Core
             {
                 var rightValue = right.RefersToStepLabel(out var stepLabel, out _)
                     ? stepLabel
-                    : right.GetValue() switch
-                    {
-                        IEnumerable enumerable when enumerable is not ICollection && !Environment.SupportsType(enumerable.GetType()) => enumerable.Cast<object>().ToArray(),
-                        { } val => val,
-                        _ => null
-                    };
+                    : right.GetValue();
 
                 var maybeEffectivePredicate = Environment.Options
                     .GetValue(PFactory.PFactoryOption)
-                    .TryGetP(semantics, rightValue, Environment)
+                    .TryGetP(
+                        semantics,
+                        rightValue switch
+                        {
+                            IEnumerable enumerable when enumerable is not ICollection && !Environment.SupportsType(enumerable.GetType()) => enumerable.Cast<object>().ToArray(),
+                            { } val => val,
+                            _ => null
+                        },
+                        Environment)
                     ?.WorkaroundLimitations(Environment);
 
                 if (maybeEffectivePredicate is { } effectivePredicate)
