@@ -64,6 +64,8 @@ namespace ExRam.Gremlinq.Core
                 MethodCallExpression methodCallExpression => methodCallExpression.Method.Invoke(
                     methodCallExpression.Object?.GetValue(),
                     methodCallExpression.GetArguments()),
+                MemberExpression memberExpression when memberExpression.IsStepLabelValue(out var stepLabelExpression) => stepLabelExpression.GetValue(),
+                MemberExpression { Expression: { } sourceExpression } when sourceExpression.IsStepLabelValue(out var stepLabelExpression) => stepLabelExpression.GetValue(),
                 MemberExpression { Member: PropertyInfo propertyInfo } propertyExpression => propertyInfo.GetValue(propertyExpression.Expression?.GetValue()),
                 MemberExpression { Member: FieldInfo fieldInfo } fieldExpression => fieldInfo.GetValue(fieldExpression.Expression?.GetValue()),
                 NewExpression { Constructor: { } constructor, Members: null } newExpression => constructor.Invoke(newExpression.GetArguments()),
