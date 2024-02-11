@@ -9,7 +9,7 @@
 
         }
 
-        public override ExpressionSemantics Flip() => FalseExpressionSemantics.Instance;
+        public override ExpressionSemantics Flip() => this;
     }
 
     public sealed class FalseExpressionSemantics : ConstantExpressionSemantics
@@ -21,7 +21,7 @@
 
         }
 
-        public override ExpressionSemantics Flip() => TrueExpressionSemantics.Instance;
+        public override ExpressionSemantics Flip() => this;
     }
 
     public abstract class ConstantExpressionSemantics : ExpressionSemantics
