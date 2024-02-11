@@ -1293,8 +1293,7 @@ namespace ExRam.Gremlinq.Core
                         rightValue switch
                         {
                             IEnumerable enumerable when enumerable is not ICollection && !Environment.SupportsType(enumerable.GetType()) => enumerable.Cast<object>().ToArray(),
-                            { } val => val,
-                            _ => null
+                            var otherwise => otherwise
                         },
                         Environment)
                     ?.WorkaroundLimitations(Environment);
