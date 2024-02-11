@@ -9,8 +9,8 @@ namespace ExRam.Gremlinq.Core.ExpressionParsing
 
         public WhereExpression(Expression left, ExpressionSemantics semantics, Expression right)
         {
-            Left = left.StripConvert();
-            Right = right.StripConvert();
+            Left = left.Strip();
+            Right = right.Strip();
             Semantics = semantics;
         }
 

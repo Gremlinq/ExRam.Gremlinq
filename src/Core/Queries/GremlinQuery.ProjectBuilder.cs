@@ -92,7 +92,7 @@ namespace ExRam.Gremlinq.Core
             {
                 return projection.IsIdentityExpression()
                     ? ByLambda<object, object, object, object, object, object, object, object, object, object, object, object, object, object, object, object>(static __ => __.Identity())
-                    : projection.Body.StripConvert() is MemberExpression memberExpression
+                    : projection.Body.Strip() is MemberExpression memberExpression
                         ? ByExpression<object, object, object, object, object, object, object, object, object, object, object, object, object, object, object, object>(memberExpression, memberExpression.Member.Name)
                         : throw new ExpressionNotSupportedException(projection);
             }
