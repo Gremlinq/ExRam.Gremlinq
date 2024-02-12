@@ -153,11 +153,8 @@ namespace ExRam.Gremlinq.Core
         {
             var actualExpression = (Expression?)expression;
 
-            while (true)
+            while (actualExpression != null)
             {
-                if (actualExpression is null)
-                    break;
-
                 actualExpression = actualExpression.Strip();
 
                 switch (actualExpression)
