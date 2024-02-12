@@ -6,8 +6,6 @@
         EnumerableAny,
         EnumerableContains,
 
-        ListContains,
-
         StringEquals,
         StringContains,
         StringStartsWith,

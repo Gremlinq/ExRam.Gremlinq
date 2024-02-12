@@ -94,9 +94,6 @@ namespace ExRam.Gremlinq.Core
             }
             else
             {
-                if (typeof(IList).IsAssignableFrom(methodInfo.DeclaringType) && methodInfo.Name == nameof(List<object>.Contains))
-                    return WellKnownOperation.ListContains;
-
                 if (methodInfo.DeclaringType is { IsGenericType: true } declaringType && declaringType.GetGenericArguments() is [_, _] && methodInfo.Name == "get_Item")
                     return WellKnownOperation.IndexerGet;
 
@@ -244,25 +241,26 @@ namespace ExRam.Gremlinq.Core
                 }
                 case MethodCallExpression { Object: { } targetExpression, Arguments: [var firstArgument, ..] } instanceMethodCallExpression:
                 {
-                    if (instanceMethodCallExpression.IsEquals(out var argument))
+                    if (instanceMethodCallExpression.IsEquals(out var equalsArgument))
                     {
                         return new WhereExpression(
                             targetExpression,
                             EqualsExpressionSemantics.Instance,
-                            argument);
+                            equalsArgument);
+                    }
+
+                    if (instanceMethodCallExpression.IsListContains(out var listContainsArgument))
+                    {
+                        return new WhereExpression(
+                            targetExpression,
+                            ContainsExpressionSemantics.Instance,
+                            firstArgument);
                     }
 
                     var wellKnownMember = instanceMethodCallExpression.TryGetWellKnownOperation();
 
                     switch (wellKnownMember)
                     {
-                        case WellKnownOperation.ListContains:
-                        {
-                            return new WhereExpression(
-                                targetExpression,
-                                ContainsExpressionSemantics.Instance,
-                                firstArgument);
-                        }
                         case WellKnownOperation.StringEquals:
                         case WellKnownOperation.StringStartsWith:
                         case WellKnownOperation.StringEndsWith:

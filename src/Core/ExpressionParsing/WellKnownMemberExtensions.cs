@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System.Collections;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
 using System.Reflection;
 
@@ -31,6 +32,16 @@ namespace ExRam.Gremlinq.Core.ExpressionParsing
         public static bool IsEquals(this Expression expression, [NotNullWhen(true)] out Expression? argument)
         {
             if (expression is MethodCallExpression { Method: { Name: nameof(object.Equals) } methodInfo, Arguments: [{ } argumentExpression] } && methodInfo.GetParameters().Length == 1 && methodInfo.ReturnType == typeof(bool))
+                argument = argumentExpression;
+            else
+                argument = null;
+
+            return argument is not null;
+        }
+
+        public static bool IsListContains(this Expression expression, [NotNullWhen(true)] out Expression? argument)
+        {
+            if (expression is MethodCallExpression { Method: { Name: nameof(List<object>.Contains) } methodInfo, Arguments: [{ } argumentExpression] } && typeof(IList).IsAssignableFrom(methodInfo.DeclaringType))
                 argument = argumentExpression;
             else
                 argument = null;
