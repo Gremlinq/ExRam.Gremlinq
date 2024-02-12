@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
+using System.Reflection;
 
 using ExRam.Gremlinq.Core.GraphElements;
 
@@ -25,6 +26,16 @@ namespace ExRam.Gremlinq.Core.ExpressionParsing
 
             sourceExpression = null;
             return false;
+        }
+
+        public static bool IsEquals(this Expression expression, [NotNullWhen(true)] out Expression? argument)
+        {
+            if (expression is MethodCallExpression { Method: { Name: nameof(object.Equals) } methodInfo, Arguments: [{ } argumentExpression] } && methodInfo.GetParameters().Length == 1 && methodInfo.ReturnType == typeof(bool))
+                argument = argumentExpression;
+            else
+                argument = null;
+
+            return argument is not null;
         }
 
         private static bool IsMemberAndNamed<T>(this Expression expression, string name, [NotNullWhen(true)] out Expression? propertyExpression)

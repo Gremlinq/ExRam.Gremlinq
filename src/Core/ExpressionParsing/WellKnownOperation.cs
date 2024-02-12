@@ -2,8 +2,6 @@
 {
     internal enum WellKnownOperation
     {
-        Equals,
-
         EnumerableIntersectAny,
         EnumerableAny,
         EnumerableContains,
