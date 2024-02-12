@@ -3,6 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Xml.Linq;
 
 using ExRam.Gremlinq.Core.ExpressionParsing;
 
@@ -72,16 +73,6 @@ namespace ExRam.Gremlinq.Core
                 NewArrayExpression newArrayExpression => newArrayExpression.GetValue(),
                 _ => Expression.Lambda<Func<object>>(expression.Type.IsClass ? expression : Expression.Convert(expression, typeof(object))).Compile()()
             };
-        }
-
-        public static WellKnownOperation? TryGetWellKnownOperation(this MethodCallExpression expression)
-        {
-            var methodInfo = expression.Method;
-
-            if (methodInfo.DeclaringType is { IsGenericType: true } declaringType && declaringType.GetGenericArguments() is [_, _] && methodInfo.Name == "get_Item")
-                return WellKnownOperation.IndexerGet;
-
-            return null;
         }
 
         public static bool RefersToStepLabel(this Expression expression, [NotNullWhen(true)] out StepLabel? stepLabel, out MemberExpression? stepLabelValueMemberExpression)
