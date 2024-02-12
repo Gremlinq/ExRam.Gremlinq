@@ -118,9 +118,6 @@ namespace ExRam.Gremlinq.Core
                     }
                 }
 
-                if (methodInfo.Name == nameof(object.Equals) && methodInfo.GetParameters().Length == 1 && methodInfo.ReturnType == typeof(bool))
-                    return WellKnownOperation.Equals;
-
                 if (methodInfo.Name == nameof(IComparable.CompareTo) && methodInfo.GetParameters().Length == 1 && methodInfo.ReturnType == typeof(int))
                     return WellKnownOperation.ComparableCompareTo;
             }
@@ -247,17 +244,18 @@ namespace ExRam.Gremlinq.Core
                 }
                 case MethodCallExpression { Object: { } targetExpression, Arguments: [var firstArgument, ..] } instanceMethodCallExpression:
                 {
+                    if (instanceMethodCallExpression.IsEquals(out var argument))
+                    {
+                        return new WhereExpression(
+                            targetExpression,
+                            EqualsExpressionSemantics.Instance,
+                            argument);
+                    }
+
                     var wellKnownMember = instanceMethodCallExpression.TryGetWellKnownOperation();
 
                     switch (wellKnownMember)
                     {
-                        case WellKnownOperation.Equals:
-                        {
-                            return new WhereExpression(
-                                targetExpression,
-                                EqualsExpressionSemantics.Instance,
-                                firstArgument);
-                        }
                         case WellKnownOperation.ListContains:
                         {
                             return new WhereExpression(
