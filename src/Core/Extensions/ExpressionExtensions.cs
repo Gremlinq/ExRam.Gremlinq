@@ -78,21 +78,7 @@ namespace ExRam.Gremlinq.Core
         {
             var methodInfo = expression.Method;
 
-            if (methodInfo.IsStatic)
-            {
-                var thisExpression = expression.Arguments[0].Strip();
-
-                if (methodInfo.IsGenericMethod && methodInfo.GetGenericMethodDefinition() == WellKnownMethods.EnumerableAny)
-                {
-                    return thisExpression is MethodCallExpression { Method.IsGenericMethod: true } previousMethodCallExpression && previousMethodCallExpression.Method.GetGenericMethodDefinition() == WellKnownMethods.EnumerableIntersect
-                        ? WellKnownOperation.EnumerableIntersectAny
-                        : WellKnownOperation.EnumerableAny;
-                }
-
-                if (methodInfo.IsGenericMethod && methodInfo.GetGenericMethodDefinition() == WellKnownMethods.EnumerableContainsElement)
-                    return WellKnownOperation.EnumerableContains;
-            }
-            else
+            
             {
                 if (methodInfo.DeclaringType is { IsGenericType: true } declaringType && declaringType.GetGenericArguments() is [_, _] && methodInfo.Name == "get_Item")
                     return WellKnownOperation.IndexerGet;
@@ -307,27 +293,34 @@ namespace ExRam.Gremlinq.Core
 
                     break;
                 }
-                case MethodCallExpression { Object: null, Arguments: [var firstArgument, ..] } staticMethodCallExpression:
+                case MethodCallExpression { Object: null, Method: { } methodInfo, Arguments: [var firstArgument, ..] } staticMethodCallExpression:
                 {
-                    var wellKnownMember = staticMethodCallExpression.TryGetWellKnownOperation();
+                    var thisExpression = firstArgument.Strip();
 
-                    switch (wellKnownMember)
+                    if (methodInfo.IsGenericMethod && methodInfo.GetGenericMethodDefinition() == WellKnownMethods.EnumerableAny)
                     {
-                        case WellKnownOperation.EnumerableIntersectAny when firstArgument.Strip() is MethodCallExpression { Arguments: [var anyTarget, var anyArgument] }:
+                        if (thisExpression is MethodCallExpression { Method.IsGenericMethod: true } previousMethodCallExpression && previousMethodCallExpression.Method.GetGenericMethodDefinition() == WellKnownMethods.EnumerableIntersect)
                         {
-                            return new WhereExpression(
-                                anyTarget,
-                                IntersectsExpressionSemantics.Instance,
-                                anyArgument);
+                            if (firstArgument.Strip() is MethodCallExpression { Arguments: [var anyTarget, var anyArgument] })
+                            {
+                                return new WhereExpression(
+                                    anyTarget,
+                                    IntersectsExpressionSemantics.Instance,
+                                    anyArgument);
+                            }
                         }
-                        case WellKnownOperation.EnumerableAny:
+                        else
                         {
                             return new WhereExpression(
                                 firstArgument,
                                 NotEqualsExpressionSemantics.Instance,
                                 Expressions.Null);
+
                         }
-                        case WellKnownOperation.EnumerableContains when staticMethodCallExpression.Arguments is [_, var secondArgument]:
+                    }
+                    else if (methodInfo.IsGenericMethod && methodInfo.GetGenericMethodDefinition() == WellKnownMethods.EnumerableContainsElement)
+                    {
+                        if (staticMethodCallExpression.Arguments is [_, var secondArgument])
                         {
                             return new WhereExpression(
                                 firstArgument,
@@ -335,7 +328,7 @@ namespace ExRam.Gremlinq.Core
                                 secondArgument);
                         }
                     }
-
+                    
                     break;
                 }
             }
