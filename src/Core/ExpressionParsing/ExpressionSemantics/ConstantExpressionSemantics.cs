@@ -8,6 +8,8 @@
         {
 
         }
+
+        public override ExpressionSemantics Flip() => this;
     }
 
     public sealed class FalseExpressionSemantics : ConstantExpressionSemantics
@@ -18,10 +20,11 @@
         {
 
         }
+
+        public override ExpressionSemantics Flip() => this;
     }
 
     public abstract class ConstantExpressionSemantics : ExpressionSemantics
     {
-        public override ExpressionSemantics Flip() => this;
     }
 }
