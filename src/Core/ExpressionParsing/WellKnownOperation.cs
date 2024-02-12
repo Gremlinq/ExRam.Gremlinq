@@ -2,8 +2,6 @@
 {
     internal enum WellKnownOperation
     {
-        ComparableCompareTo,
-
         IndexerGet
     }
 }

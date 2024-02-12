@@ -78,16 +78,8 @@ namespace ExRam.Gremlinq.Core
         {
             var methodInfo = expression.Method;
 
-            
-            {
-                if (methodInfo.DeclaringType is { IsGenericType: true } declaringType && declaringType.GetGenericArguments() is [_, _] && methodInfo.Name == "get_Item")
-                    return WellKnownOperation.IndexerGet;
-
-                
-
-                if (methodInfo.Name == nameof(IComparable.CompareTo) && methodInfo.GetParameters().Length == 1 && methodInfo.ReturnType == typeof(int))
-                    return WellKnownOperation.ComparableCompareTo;
-            }
+            if (methodInfo.DeclaringType is { IsGenericType: true } declaringType && declaringType.GetGenericArguments() is [_, _] && methodInfo.Name == "get_Item")
+                return WellKnownOperation.IndexerGet;
 
             return null;
         }
@@ -178,7 +170,7 @@ namespace ExRam.Gremlinq.Core
                 }
                 case BinaryExpression binaryExpression when binaryExpression.NodeType.TryToSemantics(out var semantics):
                 {
-                    if (binaryExpression.Left is MethodCallExpression { Object: { } target, Arguments: [ { } firstArgument, ..] } leftMethodCallExpression && semantics is ObjectExpressionSemantics objectExpressionSemantics && leftMethodCallExpression.TryGetWellKnownOperation() == WellKnownOperation.ComparableCompareTo && binaryExpression.Right.GetValue() is IConvertible convertible)
+                    if (binaryExpression.Left is MethodCallExpression { Object: { } target, Method: { } methodInfo, Arguments: [ { } firstArgument, ..] } leftMethodCallExpression && semantics is ObjectExpressionSemantics objectExpressionSemantics && methodInfo.Name == nameof(IComparable.CompareTo) && methodInfo.GetParameters().Length == 1 && methodInfo.ReturnType == typeof(int) && binaryExpression.Right.GetValue() is IConvertible convertible)
                     {
                         try
                         {
