@@ -49,9 +49,20 @@ namespace ExRam.Gremlinq.Core.ExpressionParsing
             return argument is not null;
         }
 
-        public static bool IsIndexerGet(this MethodCallExpression expression)
+        public static bool IsIndexerGet(this Expression expression, [NotNullWhen(true)] out Expression? target, [NotNullWhen(true)] out Expression? argument)
         {
-            return expression is MethodCallExpression { Method: { Name: "get_Item", DeclaringType: { IsGenericType: true } declaringType } methodInfo } && declaringType.GetGenericArguments() is [_, _];
+            if (expression is MethodCallExpression { Object: { } targetExpression, Method: { Name: "get_Item", DeclaringType: { IsGenericType: true } declaringType }, Arguments: [{ } argumentExpression] } && declaringType.GetGenericArguments() is [_, _])
+            {
+                target = targetExpression;
+                argument = argumentExpression;
+            }
+            else
+            {
+                target = null;
+                argument = null;
+            }
+
+            return argument is not null;
         }
 
         private static bool IsMemberAndNamed<T>(this Expression expression, string name, [NotNullWhen(true)] out Expression? propertyExpression)

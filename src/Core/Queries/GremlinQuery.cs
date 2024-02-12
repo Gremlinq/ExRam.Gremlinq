@@ -963,10 +963,10 @@ namespace ExRam.Gremlinq.Core
                     var keys = projections
                         .Select(static expression =>
                         {
-                            if (expression is LambdaExpression { Body: MethodCallExpression { Arguments: [ { } indexerArgumentExpression ] } methodCallExpression } && methodCallExpression.IsIndexerGet())
+                            if (expression is LambdaExpression { Parameters: [var singleParameter], Body: { } lambdaBody } && lambdaBody.IsIndexerGet(out var target, out var indexerArgument) && target == singleParameter)
                             {
-                                if (indexerArgumentExpression.GetValue() is string indexerArgument)
-                                    return indexerArgument;
+                                if (indexerArgument.GetValue() is string indexerArgumentValue)
+                                    return indexerArgumentValue;
                             }
 
                             return (Key)expression.AssumePropertyOrFieldMemberExpression().Member.Name;
