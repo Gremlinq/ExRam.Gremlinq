@@ -83,23 +83,7 @@ namespace ExRam.Gremlinq.Core
                 if (methodInfo.DeclaringType is { IsGenericType: true } declaringType && declaringType.GetGenericArguments() is [_, _] && methodInfo.Name == "get_Item")
                     return WellKnownOperation.IndexerGet;
 
-                if (methodInfo.DeclaringType == typeof(string) && methodInfo.GetParameters() is { Length: 1 or 2 } parameters)
-                {
-                    if (parameters[0].ParameterType == typeof(string) && (parameters.Length == 1 || parameters[1].ParameterType == typeof(StringComparison)))
-                    {
-                        switch (methodInfo.Name)
-                        {
-                            case nameof(object.Equals):
-                                return WellKnownOperation.StringEquals;
-                            case nameof(string.StartsWith):
-                                return WellKnownOperation.StringStartsWith;
-                            case nameof(string.EndsWith):
-                                return WellKnownOperation.StringEndsWith;
-                            case nameof(string.Contains):
-                                return WellKnownOperation.StringContains;
-                        }
-                    }
-                }
+                
 
                 if (methodInfo.Name == nameof(IComparable.CompareTo) && methodInfo.GetParameters().Length == 1 && methodInfo.ReturnType == typeof(int))
                     return WellKnownOperation.ComparableCompareTo;
@@ -225,7 +209,7 @@ namespace ExRam.Gremlinq.Core
 
                     break;
                 }
-                case MethodCallExpression { Object: { } targetExpression, Arguments: [var firstArgument, ..] } instanceMethodCallExpression:
+                case MethodCallExpression { Object: { } targetExpression, Method: { } methodInfo, Arguments: [var firstArgument, ..] } instanceMethodCallExpression:
                 {
                     if (instanceMethodCallExpression.IsEquals(out var equalsArgument))
                     {
@@ -243,14 +227,9 @@ namespace ExRam.Gremlinq.Core
                             firstArgument);
                     }
 
-                    var wellKnownMember = instanceMethodCallExpression.TryGetWellKnownOperation();
-
-                    switch (wellKnownMember)
+                    if (methodInfo.DeclaringType == typeof(string) && methodInfo.GetParameters() is { Length: 1 or 2 } parameters)
                     {
-                        case WellKnownOperation.StringEquals:
-                        case WellKnownOperation.StringStartsWith:
-                        case WellKnownOperation.StringEndsWith:
-                        case WellKnownOperation.StringContains:
+                        if (parameters[0].ParameterType == typeof(string) && (parameters.Length == 1 || parameters[1].ParameterType == typeof(StringComparison)))
                         {
                             var instanceExpression = targetExpression.Strip();
                             var argumentExpression = firstArgument.Strip();
@@ -259,7 +238,7 @@ namespace ExRam.Gremlinq.Core
                                 ? (StringComparison)secondArgument.GetValue()!
                                 : StringComparison.Ordinal;
 
-                            if (wellKnownMember == WellKnownOperation.StringStartsWith && argumentExpression.RefersToParameter(out _))
+                            if (methodInfo.Name == nameof(string.StartsWith) && argumentExpression.RefersToParameter(out _))
                             {
                                 if (instanceExpression.GetValue()?.ToString() is { } stringValue)
                                 {
@@ -275,19 +254,17 @@ namespace ExRam.Gremlinq.Core
                                 {
                                     return new WhereExpression(
                                         instanceExpression,
-                                        wellKnownMember switch
+                                        methodInfo.Name switch
                                         {
-                                            WellKnownOperation.StringEquals => StringEqualsExpressionSemantics.Get(stringComparison),
-                                            WellKnownOperation.StringStartsWith => StartsWithExpressionSemantics.Get(stringComparison),
-                                            WellKnownOperation.StringContains => HasInfixExpressionSemantics.Get(stringComparison),
-                                            WellKnownOperation.StringEndsWith => EndsWithExpressionSemantics.Get(stringComparison),
+                                            nameof(object.Equals) => StringEqualsExpressionSemantics.Get(stringComparison),
+                                            nameof(string.StartsWith) => StartsWithExpressionSemantics.Get(stringComparison),
+                                            nameof(string.Contains) => HasInfixExpressionSemantics.Get(stringComparison),
+                                            nameof(string.EndsWith) => EndsWithExpressionSemantics.Get(stringComparison),
                                             _ => throw new ExpressionNotSupportedException(instanceMethodCallExpression)
                                         },
                                         Expression.Constant(stringValue));
                                 }
                             }
-
-                            break;
                         }
                     }
 

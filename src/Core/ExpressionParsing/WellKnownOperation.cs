@@ -2,11 +2,6 @@
 {
     internal enum WellKnownOperation
     {
-        StringEquals,
-        StringContains,
-        StringStartsWith,
-        StringEndsWith,
-
         ComparableCompareTo,
 
         IndexerGet
