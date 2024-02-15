@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using System.Linq.Expressions;
 
 using ExRam.Gremlinq.Core.GraphElements;
@@ -62,6 +63,32 @@ namespace ExRam.Gremlinq.Core.ExpressionParsing
             }
 
             return argument is not null;
+        }
+
+        public static bool IsCompareTo(this Expression expression, [NotNullWhen(true)] out Expression? target, [NotNullWhen(true)] out Expression? comparand, out int compareToValue)
+        {
+            if (expression is BinaryExpression binaryExpression && binaryExpression.Left is MethodCallExpression { Object: { } targetExpression, Method: { } methodInfo, Arguments: [{ } firstArgument, ..] } leftMethodCallExpression && methodInfo.Name == nameof(IComparable.CompareTo) && methodInfo.GetParameters().Length == 1 && methodInfo.ReturnType == typeof(int) && binaryExpression.Right.GetValue() is IConvertible convertible)
+            {
+                target = targetExpression;
+                comparand = firstArgument;
+
+                try
+                {
+                    compareToValue = convertible.ToInt32(CultureInfo.InvariantCulture);
+
+                    return true;
+                }
+                catch(FormatException)
+                {
+
+                }
+            }
+
+            target = null;
+            comparand = null;
+            compareToValue = 0;
+
+            return false;
         }
 
         private static bool IsMemberAndNamed<T>(this Expression expression, string name, [NotNullWhen(true)] out Expression? propertyExpression)

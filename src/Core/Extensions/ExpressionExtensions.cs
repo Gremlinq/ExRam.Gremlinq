@@ -147,38 +147,29 @@ namespace ExRam.Gremlinq.Core
                         EqualsExpressionSemantics.Instance,
                         Expressions.True);
                 }
-                case BinaryExpression binaryExpression when binaryExpression.NodeType.TryToSemantics(out var semantics):
+                case BinaryExpression binaryExpression when binaryExpression.NodeType.TryToSemantics(out var semantics) && semantics is ObjectExpressionSemantics objectExpressionSemantics:
                 {
-                    if (binaryExpression.Left is MethodCallExpression { Object: { } target, Method: { } methodInfo, Arguments: [ { } firstArgument, ..] } leftMethodCallExpression && semantics is ObjectExpressionSemantics objectExpressionSemantics && methodInfo.Name == nameof(IComparable.CompareTo) && methodInfo.GetParameters().Length == 1 && methodInfo.ReturnType == typeof(int) && binaryExpression.Right.GetValue() is IConvertible convertible)
+                    if (binaryExpression.IsCompareTo(out var target, out var comparand, out var compareToValue))
                     {
-                        try
-                        {
-                            var transformedSemantics = objectExpressionSemantics.TransformCompareTo(convertible.ToInt32(CultureInfo.InvariantCulture));
+                        var transformedSemantics = objectExpressionSemantics.TransformCompareTo(compareToValue);
 
-                            return transformedSemantics switch
-                            {
-                                TrueExpressionSemantics => WhereExpression.True,
-                                FalseExpressionSemantics => WhereExpression.False,
-                                _ => new WhereExpression(
-                                    target,
-                                    transformedSemantics,
-                                    firstArgument)
-                            };
-                        }
-                        catch (FormatException)
+                        return transformedSemantics switch
                         {
-
-                        }
+                            TrueExpressionSemantics => WhereExpression.True,
+                            FalseExpressionSemantics => WhereExpression.False,
+                            _ => new WhereExpression(
+                                target,
+                                transformedSemantics,
+                                comparand)
+                        };
                     }
                     else
-                    { 
+                    {
                         return new WhereExpression(
                             binaryExpression.Left,
                             semantics,
                             binaryExpression.Right);
                     }
-
-                    break;
                 }
                 case MethodCallExpression { Object: { } targetExpression, Method: { } methodInfo, Arguments: [var firstArgument, ..] } instanceMethodCallExpression:
                 {
