@@ -21,7 +21,7 @@
 
         }
 
-        public override ExpressionSemantics Flip() => this;
+        public override ExpressionSemantics Flip() => this; //TODO: Move into base when breaking API.
     }
 
     public abstract class ConstantExpressionSemantics : ExpressionSemantics
