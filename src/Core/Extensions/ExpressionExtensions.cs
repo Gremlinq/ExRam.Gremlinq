@@ -1,10 +1,7 @@
-﻿using System.Collections;
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq.Expressions;
 using System.Reflection;
-using System.Xml.Linq;
-
 using ExRam.Gremlinq.Core.ExpressionParsing;
 
 namespace ExRam.Gremlinq.Core
@@ -40,22 +37,16 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
-        public static MemberExpression AssumeMemberExpression(this Expression expression)
+        public static MemberExpression AssumeMemberExpression(this Expression expression) => expression.Strip() switch
         {
-            return expression.Strip() switch
-            {
-                LambdaExpression lambdaExpression => lambdaExpression.Body.AssumeMemberExpression(),
-                MemberExpression memberExpression => memberExpression,
-                _ => throw new ExpressionNotSupportedException(expression)
-            };
-        }
+            LambdaExpression lambdaExpression => lambdaExpression.Body.AssumeMemberExpression(),
+            MemberExpression memberExpression => memberExpression,
+            _ => throw new ExpressionNotSupportedException(expression)
+        };
 
-        public static MemberExpression AssumePropertyOrFieldMemberExpression(this Expression expression)
-        {
-            return expression.AssumeMemberExpression() is { Member: { } member } memberExpression && (member is FieldInfo || member is PropertyInfo)
-                ? memberExpression
-                : throw new ExpressionNotSupportedException(expression);
-        }
+        public static MemberExpression AssumePropertyOrFieldMemberExpression(this Expression expression) => expression.AssumeMemberExpression() is { Member: { } member } memberExpression && (member is FieldInfo || member is PropertyInfo)
+            ? memberExpression
+            : throw new ExpressionNotSupportedException(expression);
 
         public static object? GetValue(this Expression expression)
         {
@@ -143,10 +134,7 @@ namespace ExRam.Gremlinq.Core
             return false;
         }
 
-        public static bool IsIdentityExpression(this LambdaExpression expression)
-        {
-            return expression.Parameters.Count == 1 && expression.Body.Strip() == expression.Parameters[0];
-        }
+        public static bool IsIdentityExpression(this LambdaExpression expression) => expression.Parameters.Count == 1 && expression.Body.Strip() == expression.Parameters[0];
 
         public static WhereExpression? TryParseWhereExpression(this Expression body)
         {
