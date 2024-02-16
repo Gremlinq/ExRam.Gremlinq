@@ -1202,15 +1202,15 @@ namespace ExRam.Gremlinq.Core
                         static (__, unaryExpression) => __.Where(unaryExpression.Operand),
                         unaryExpression),
 
-                    BinaryExpression { NodeType: ExpressionType.OrElse } binary => Or(
-                        static (__, state) => __.Where(state.left),
-                        static (__, state) => __.Where(state.right),
-                        (left: binary.Left, right: binary.Right)),
+                    BinaryExpression { NodeType: ExpressionType.OrElse } binaryExpression => Or(
+                        static (__, binaryExpression) => __.Where(binaryExpression.Left),
+                        static (__, binaryExpression) => __.Where(binaryExpression.Right),
+                        binaryExpression),
 
-                    BinaryExpression { NodeType: ExpressionType.AndAlso } binary => And(
-                        static (__, state) => __.Where(state.left),
-                        static (__, state) => __.Where(state.right),
-                        (left: binary.Left, right: binary.Right)),
+                    BinaryExpression { NodeType: ExpressionType.AndAlso } binaryExpression => And(
+                        static (__, binaryExpression) => __.Where(binaryExpression.Left),
+                        static (__, binaryExpression) => __.Where(binaryExpression.Right),
+                        binaryExpression),
 
                     _ when expression.TryParseWhereExpression() is { } whereExpression => whereExpression.Equals(WhereExpression.True)
                         ? this
