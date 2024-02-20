@@ -736,7 +736,7 @@ namespace ExRam.Gremlinq.Core
             .Continue(ContinuationFlags.Filter)
             .With(continuations));
 
-        private GremlinQuery<T1, T2, T3, T4> Or(MultiContinuationBuilder<GremlinQuery<T1, T2, T3, T4>, GremlinQuery<T1, T2, T3, T4>> continuationBuilder) => continuationBuilder
+        private static GremlinQuery<T1, T2, T3, T4> Or(MultiContinuationBuilder<GremlinQuery<T1, T2, T3, T4>, GremlinQuery<T1, T2, T3, T4>> continuationBuilder) => continuationBuilder
             .Build(static (builder, traversals) =>
             {
                 if (traversals.Length == 0)
