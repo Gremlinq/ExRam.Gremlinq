@@ -114,5 +114,24 @@ namespace ExRam.Gremlinq.Core.Tests
             .Inject(0)
             .Fold()
             .Lower();
+
+        [Fact]
+        public void No_parameterless_non_generic_method_throws()
+        {
+            var query = _g
+                .Inject(0);
+
+            query
+                .GetType()
+                .GetMethods(System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.NonPublic)
+                .Where(method => method.GetParameters().Length == 0)
+                .Where(method => !method.IsGenericMethod)
+                .Select(method => method
+                    .Invoke(query, null))
+                .Invoking(_ => _
+                    .ToArray())
+                .Should()
+                .NotThrow();
+        }
     }
 }
