@@ -43,8 +43,6 @@ namespace ExRam.Gremlinq.Core
                 : EnsureCapacity(Math.Max(steps.Length * 2, 16)).Push(item);
         }
 
-        public FastImmutableList<T> Pop() => Pop(out _);
-
         public FastImmutableList<T> Pop(out T poppedItem)
         {
             if (Count == 0)
@@ -67,8 +65,6 @@ namespace ExRam.Gremlinq.Core
                 : Items.Span[index]!;
         }
 
-        public static implicit operator FastImmutableList<T>(T item) => new(new[] { item });
-
         public static FastImmutableList<T> Create<TState>(int length, TState state, SpanAction<T, TState> action)
         {
             if (length <= 0)
@@ -83,11 +79,7 @@ namespace ExRam.Gremlinq.Core
 #pragma warning disable CS8619
         public ReadOnlySpan<T> AsSpan() => Items.Span[..Count];
 #pragma warning restore CS8619
-
-#pragma warning disable CS8619
-        public ReadOnlyMemory<T> AsMemory() => Items[..Count];
-#pragma warning restore CS8619
-        
+       
         private FastImmutableList<T> EnsureCapacity(int count)
         {
             if (Items.Length < count)
@@ -116,7 +108,5 @@ namespace ExRam.Gremlinq.Core
         }
 
         private Memory<T?> Items => _items ?? Array.Empty<T?>();
-
-        internal bool IsEmpty { get => Count == 0; }
     }
 }
