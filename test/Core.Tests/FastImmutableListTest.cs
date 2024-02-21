@@ -29,5 +29,21 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Should()
                 .Equal("1", "2", "4");
         }
+
+        [Fact]
+        public void Push_params()
+        {
+            var list = FastImmutableList<string>.Empty
+                .Push("1");
+
+            list = list
+                .Push("2", "3", "4");
+
+            list
+                .AsSpan()
+                .ToArray()
+                .Should()
+                .Equal("1", "2", "3", "4");
+        }
     }
 }
