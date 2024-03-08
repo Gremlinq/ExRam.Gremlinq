@@ -3,7 +3,8 @@
     public interface IPoolGremlinqClientFactory<TBaseFactory> : IGremlinqClientFactory
         where TBaseFactory : IGremlinqClientFactory
     {
-        IPoolGremlinqClientFactory<TBaseFactory> ConfigureBaseFactory(Func<TBaseFactory, TBaseFactory> transformation);
+        IPoolGremlinqClientFactory<TNewBaseFactory> ConfigureBaseFactory<TNewBaseFactory>(Func<TBaseFactory, TNewBaseFactory> transformation)
+            where TNewBaseFactory : IGremlinqClientFactory;
 
         IPoolGremlinqClientFactory<TBaseFactory> WithPoolSize(int poolSize);
 
