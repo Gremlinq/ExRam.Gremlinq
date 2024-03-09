@@ -1,0 +1,10 @@
+﻿[
+  {
+    Status: {
+      Code: Success
+    },
+    Result: {
+      Data: 12
+    }
+  }
+]

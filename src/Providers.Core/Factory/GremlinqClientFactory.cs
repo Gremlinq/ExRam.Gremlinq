@@ -136,15 +136,41 @@ namespace ExRam.Gremlinq.Providers.Core
 
                                 if (currentRequestsInUse < 0 || currentRequestsInUse <= maxRequestsInUse || newMaxRequestsInUse == maxRequestsInUse || Interlocked.CompareExchange(ref @this._maxRequestsInUse, newMaxRequestsInUse, maxRequestsInUse) == maxRequestsInUse)
                                 {
+                                    var retry = true;
                                     var slotIndex = Math.Abs(Interlocked.Increment(ref @this._currentSlotIndex) % newMaxRequestsInUse);
-                                    var client = @this._slots[slotIndex];
 
-                                    await foreach (var item in client.SubmitAsync<T>(message).WithCancellation(ct))
+                                    while (true)
                                     {
-                                        yield return item;
-                                    }
+                                        var client = @this._slots[slotIndex];
 
-                                    break;
+                                        await using (var e = client.SubmitAsync<T>(message).WithCancellation(ct).GetAsyncEnumerator())
+                                        {
+                                            try
+                                            {
+                                                while (true)
+                                                {
+                                                    try
+                                                    {
+                                                        if (!await e.MoveNextAsync())
+                                                            yield break;
+                                                    }
+                                                    catch (ObjectDisposedException)
+                                                    {
+                                                        if (retry)
+                                                            break;
+
+                                                        throw;
+                                                    }
+
+                                                    yield return e.Current;
+                                                }
+                                            }
+                                            finally
+                                            {
+                                                retry = false;
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }

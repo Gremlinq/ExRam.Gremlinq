@@ -213,5 +213,73 @@ namespace ExRam.Gremlinq.Providers.Core.Tests
                 .Received(3)
                 .Create(Arg.Any<IGremlinQueryEnvironment>());
         }
+
+        [Fact]
+        public async Task Retry_once_upon_ObjectDisposedException()
+        {
+            var faultyClient = Substitute
+                .For<IGremlinqClient>();
+
+            var baseFactory = Substitute
+                .For<IGremlinqClientFactory>();
+
+            faultyClient
+                .SubmitAsync<int>(Arg.Any<RequestMessage>())
+                .Returns(
+                    AsyncEnumerableEx.Throw<ResponseMessage<int>>(new ObjectDisposedException(null)),
+                    AsyncEnumerableEx.Return(new ResponseMessage<int>(default, new ResponseStatus(ResponseStatusCode.Success), new ResponseResult<int>(12))));
+
+            baseFactory
+                .Create(Arg.Any<IGremlinQueryEnvironment>())
+                .Returns(faultyClient);
+
+            var poolClient = baseFactory
+                .Pool()
+                .Create(GremlinQueryEnvironment.Invalid);
+
+            var result = await System.Linq.AsyncEnumerable
+                .ToArrayAsync(poolClient
+                    .SubmitAsync<int>(RequestMessage.Build("op").Create()));
+
+            baseFactory
+                .Received(2)
+                .Create(Arg.Any<IGremlinQueryEnvironment>());
+
+            await Verify(result);
+        }
+
+        [Fact]
+        public async Task Retry_only_once_upon_ObjectDisposedException()
+        {
+            var faultyClient = Substitute
+                .For<IGremlinqClient>();
+
+            var baseFactory = Substitute
+                .For<IGremlinqClientFactory>();
+
+            faultyClient
+                .SubmitAsync<int>(Arg.Any<RequestMessage>())
+                .Returns(
+                    AsyncEnumerableEx.Throw<ResponseMessage<int>>(new ObjectDisposedException(null)),
+                    AsyncEnumerableEx.Throw<ResponseMessage<int>>(new ObjectDisposedException(null)),
+                    AsyncEnumerableEx.Return(new ResponseMessage<int>(default, new ResponseStatus(ResponseStatusCode.Success), new ResponseResult<int>(12))));
+
+            baseFactory
+                .Create(Arg.Any<IGremlinQueryEnvironment>())
+                .Returns(faultyClient);
+
+            var poolClient = baseFactory
+                .Pool()
+                .Create(GremlinQueryEnvironment.Invalid);
+
+            poolClient
+                .SubmitAsync<int>(RequestMessage.Build("op").Create())
+                .AsAsyncEnumerable()
+                .GetAsyncEnumerator()
+                .Awaiting(__ => __
+                    .MoveNextAsync())
+                .Should()
+                .ThrowAsync<ObjectDisposedException>();
+        }
     }
 }
