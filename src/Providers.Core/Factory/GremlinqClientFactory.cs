@@ -32,8 +32,73 @@ namespace ExRam.Gremlinq.Providers.Core
         {
             private sealed class PoolGremlinqClient : IGremlinqClient
             {
-                private readonly IGremlinqClient?[] _slots;
+                private sealed class PoolSlotGremlinqClient : IGremlinqClient
+                {
+                    private IGremlinqClient? _currentClient;
+                    private readonly PoolGremlinqClient _outerClient;
+
+                    public PoolSlotGremlinqClient(PoolGremlinqClient outerClient)
+                    {
+                        _outerClient = outerClient;
+                    }
+                    
+                    public IAsyncEnumerable<ResponseMessage<T>> SubmitAsync<T>(RequestMessage message)
+                    {
+                        return Core(this, message);
+
+                        static async IAsyncEnumerable<ResponseMessage<T>> Core(PoolSlotGremlinqClient @this, RequestMessage message, [EnumeratorCancellation] CancellationToken ct = default)
+                        {
+                            while (true)
+                            {
+                                if (Volatile.Read(ref @this._currentClient) is { } client)
+                                {
+                                    if (client == GremlinqClient.Disposed)
+                                        throw new ObjectDisposedException(nameof(PoolGremlinqClient));
+
+                                    await using (var e = client.SubmitAsync<T>(message).WithCancellation(ct).GetAsyncEnumerator())
+                                    {
+                                        while (true)
+                                        {
+                                            try
+                                            {
+                                                if (!await e.MoveNextAsync())
+                                                    yield break;
+                                            }
+                                            catch
+                                            {
+                                                using (client)
+                                                {
+                                                    Interlocked.CompareExchange(ref @this._currentClient, null, client);
+                                                }
+
+                                                throw;
+                                            }
+
+                                            yield return e.Current;
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    var newClient = @this._outerClient._baseFactory
+                                        .Create(@this._outerClient._environment)
+                                        .Throttle(@this._outerClient._maxInProcessPerConnection);
+
+                                    if (Interlocked.CompareExchange(ref @this._currentClient, newClient, null) != null)
+                                        newClient.Dispose();
+                                }
+                            }
+                        }
+                    }
+
+                    public void Dispose()
+                    {
+                        Interlocked.Exchange(ref _currentClient, GremlinqClient.Disposed)?.Dispose();
+                    }
+                }
+
                 private readonly int _maxInProcessPerConnection;
+                private readonly PoolSlotGremlinqClient[] _slots;
                 private readonly IGremlinqClientFactory _baseFactory;
                 private readonly IGremlinQueryEnvironment _environment;
 
@@ -45,8 +110,13 @@ namespace ExRam.Gremlinq.Providers.Core
                 {
                     _baseFactory = baseFactory;
                     _environment = environment;
-                    _slots = new IGremlinqClient?[poolSize];
+                    _slots = new PoolSlotGremlinqClient[poolSize];
                     _maxInProcessPerConnection = maxInProcessPerConnection;
+
+                    for (var i = 0; i < poolSize; i++)
+                    {
+                        _slots[i] = new PoolSlotGremlinqClient(this);
+                    }
                 }
 
                 public IAsyncEnumerable<ResponseMessage<T>> SubmitAsync<T>(RequestMessage message)
@@ -67,48 +137,11 @@ namespace ExRam.Gremlinq.Providers.Core
                                 if (currentRequestsInUse < 0 || currentRequestsInUse <= maxRequestsInUse || newMaxRequestsInUse == maxRequestsInUse || Interlocked.CompareExchange(ref @this._maxRequestsInUse, newMaxRequestsInUse, maxRequestsInUse) == maxRequestsInUse)
                                 {
                                     var slotIndex = Math.Abs(Interlocked.Increment(ref @this._currentSlotIndex) % newMaxRequestsInUse);
+                                    var client = @this._slots[slotIndex];
 
-                                    while (true)
+                                    await foreach (var item in client.SubmitAsync<T>(message).WithCancellation(ct))
                                     {
-                                        if (Volatile.Read(ref @this._slots[slotIndex]) is { } client)
-                                        {
-                                            if (client == GremlinqClient.Disposed)
-                                                throw new ObjectDisposedException(nameof(PoolGremlinqClient));
-
-                                            await using (var e = client.SubmitAsync<T>(message).WithCancellation(ct).GetAsyncEnumerator())
-                                            {
-                                                while (true)
-                                                {
-                                                    try
-                                                    {
-                                                        if (!await e.MoveNextAsync())
-                                                            break;
-                                                    }
-                                                    catch
-                                                    {
-                                                        using (client)
-                                                        {
-                                                            Interlocked.CompareExchange(ref @this._slots[slotIndex], null, client);
-                                                        }
-
-                                                        throw;
-                                                    }
-
-                                                    yield return e.Current;
-                                                }
-                                            }
-
-                                            break;
-                                        }
-                                        else
-                                        {
-                                            var newClient = @this._baseFactory
-                                                .Create(@this._environment)
-                                                .Throttle(@this._maxInProcessPerConnection);
-
-                                            if (Interlocked.CompareExchange(ref @this._slots[slotIndex], newClient, null) != null)
-                                                newClient.Dispose();
-                                        }
+                                        yield return item;
                                     }
 
                                     break;
@@ -126,7 +159,7 @@ namespace ExRam.Gremlinq.Providers.Core
                 {
                     for (var i = 0; i < _slots.Length; i++)
                     {
-                        Interlocked.Exchange(ref _slots[i], GremlinqClient.Disposed)?.Dispose();
+                        _slots[i].Dispose();
                     }
                 }
             }
