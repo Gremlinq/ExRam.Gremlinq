@@ -192,6 +192,59 @@ namespace ExRam.Gremlinq.Providers.Core
             }
         }
 
+        private sealed class RetryGremlinqClient : IGremlinqClient
+        {
+            private readonly IGremlinqClient _innerClient;
+            private readonly Func<int, Exception, bool> _shouldRetry;
+
+            public RetryGremlinqClient(IGremlinqClient innerClient, Func<int, Exception, bool> shouldRetry)
+            {
+                _innerClient = innerClient;
+                _shouldRetry = shouldRetry;
+            }
+
+            public IAsyncEnumerable<ResponseMessage<T>> SubmitAsync<T>(RequestMessage message)
+            {
+                return Core(this, message);
+
+                async static IAsyncEnumerable<ResponseMessage<T>> Core(RetryGremlinqClient @this, RequestMessage message, [EnumeratorCancellation] CancellationToken ct = default)
+                {
+                    var retry = true;
+                    var retryIndex = -1;
+
+                    while (true)
+                    {
+                        retryIndex++;
+
+                        await using (var e = @this._innerClient.SubmitAsync<T>(message).WithCancellation(ct).GetAsyncEnumerator())
+                        {
+                            while (true)
+                            {
+                                try
+                                {
+                                    if (!await e.MoveNextAsync())
+                                        yield break;
+
+                                    retry = false;
+                                }
+                                catch (Exception ex)
+                                {
+                                    if (retry && @this._shouldRetry(retryIndex, ex))
+                                        break;
+
+                                    throw;
+                                }
+
+                                yield return e.Current;
+                            }
+                        }
+                    }
+                }
+            }
+
+            public void Dispose() => _innerClient.Dispose();
+        }
+
         public static IGremlinqClient TransformRequest(this IGremlinqClient client, Func<RequestMessage, CancellationToken, Task<RequestMessage>> transformation) => new RequestInterceptingGremlinqClient(client, transformation);
 
         public static IGremlinqClient ObserveResultStatusAttributes(this IGremlinqClient client, Action<RequestMessage, IReadOnlyDictionary<string, object>> observer) => new ObserveResultStatusAttributesGremlinqClient(client, observer);
@@ -199,5 +252,7 @@ namespace ExRam.Gremlinq.Providers.Core
         public static IGremlinqClient Throttle(this IGremlinqClient client, int maxConcurrency) => new ThrottledGremlinqClient(client, maxConcurrency);
 
         internal static IGremlinqClient Log(this IGremlinqClient client, IGremlinQueryEnvironment environment) => new LoggingGremlinqClient(client, environment);
+
+        internal static IGremlinqClient Retry(this IGremlinqClient client, Func<int, Exception, bool> shouldRetry) => new RetryGremlinqClient(client, shouldRetry);
     }
 }

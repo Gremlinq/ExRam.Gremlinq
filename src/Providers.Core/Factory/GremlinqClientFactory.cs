@@ -99,8 +99,8 @@ namespace ExRam.Gremlinq.Providers.Core
                     }
                 }
 
+                private readonly IGremlinqClient[] _slots;
                 private readonly int _maxInProcessPerConnection;
-                private readonly PoolSlotGremlinqClient[] _slots;
                 private readonly IGremlinqClientFactory _baseFactory;
                 private readonly IGremlinQueryEnvironment _environment;
 
@@ -112,12 +112,13 @@ namespace ExRam.Gremlinq.Providers.Core
                 {
                     _baseFactory = baseFactory;
                     _environment = environment;
-                    _slots = new PoolSlotGremlinqClient[poolSize];
+                    _slots = new IGremlinqClient[poolSize];
                     _maxInProcessPerConnection = maxInProcessPerConnection;
 
                     for (var i = 0; i < poolSize; i++)
                     {
-                        _slots[i] = new PoolSlotGremlinqClient(this);
+                        _slots[i] = new PoolSlotGremlinqClient(this)
+                            .Retry((retry, ex) => ex is ObjectDisposedException && retry == 0);
                     }
                 }
 
@@ -138,40 +139,15 @@ namespace ExRam.Gremlinq.Providers.Core
 
                                 if (currentRequestsInUse < 0 || currentRequestsInUse <= maxRequestsInUse || newMaxRequestsInUse == maxRequestsInUse || Interlocked.CompareExchange(ref @this._maxRequestsInUse, newMaxRequestsInUse, maxRequestsInUse) == maxRequestsInUse)
                                 {
-                                    var retry = true;
                                     var slotIndex = Math.Abs(Interlocked.Increment(ref @this._currentSlotIndex) % newMaxRequestsInUse);
                                     var client = @this._slots[slotIndex];
 
-                                    while (true)
+                                    await foreach (var item in client.SubmitAsync<T>(message).WithCancellation(ct))
                                     {
-                                        await using (var e = client.SubmitAsync<T>(message).WithCancellation(ct).GetAsyncEnumerator())
-                                        {
-                                            try
-                                            {
-                                                while (true)
-                                                {
-                                                    try
-                                                    {
-                                                        if (!await e.MoveNextAsync())
-                                                            yield break;
-                                                    }
-                                                    catch (ObjectDisposedException)
-                                                    {
-                                                        if (retry)
-                                                            break;
-
-                                                        throw;
-                                                    }
-
-                                                    yield return e.Current;
-                                                }
-                                            }
-                                            finally
-                                            {
-                                                retry = false;
-                                            }
-                                        }
+                                        yield return item;
                                     }
+
+                                    break;
                                 }
                             }
                         }
