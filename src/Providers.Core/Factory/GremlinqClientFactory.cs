@@ -62,7 +62,7 @@ namespace ExRam.Gremlinq.Providers.Core
                                             try
                                             {
                                                 if (!await e.MoveNextAsync())
-                                                    yield break;
+                                                    break;
                                             }
                                             catch
                                             {
@@ -76,6 +76,8 @@ namespace ExRam.Gremlinq.Providers.Core
 
                                             yield return e.Current;
                                         }
+
+                                        break;
                                     }
                                 }
                                 else
@@ -138,11 +140,10 @@ namespace ExRam.Gremlinq.Providers.Core
                                 {
                                     var retry = true;
                                     var slotIndex = Math.Abs(Interlocked.Increment(ref @this._currentSlotIndex) % newMaxRequestsInUse);
+                                    var client = @this._slots[slotIndex];
 
                                     while (true)
                                     {
-                                        var client = @this._slots[slotIndex];
-
                                         await using (var e = client.SubmitAsync<T>(message).WithCancellation(ct).GetAsyncEnumerator())
                                         {
                                             try
