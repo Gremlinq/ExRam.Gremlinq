@@ -239,14 +239,15 @@ namespace ExRam.Gremlinq.Providers.Core
                                         {
                                             try
                                             {
-                                                if (!await e.MoveNextAsync())
-                                                    break;
-                                            }
-                                            catch (ObjectDisposedException)
-                                            {
-                                                await await @this._loopTcs.Task;
-
-                                                throw;
+                                                try
+                                                {
+                                                    if (!await e.MoveNextAsync())
+                                                        break;
+                                                }
+                                                catch (ObjectDisposedException ex)
+                                                {
+                                                    throw new OperationCanceledException(null, ex);
+                                                }
                                             }
                                             catch (OperationCanceledException)
                                             {
