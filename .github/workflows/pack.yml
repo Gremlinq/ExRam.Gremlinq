@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - \d+\.x
+    tags:
+      - \d\.\d\.\d
   workflow_call:
     secrets:
       CREATE_RELEASE_PAT:
