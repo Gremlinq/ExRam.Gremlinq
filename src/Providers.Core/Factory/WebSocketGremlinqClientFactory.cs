@@ -206,7 +206,7 @@ namespace ExRam.Gremlinq.Providers.Core
                 private readonly SemaphoreSlim _sendLock = new(1);
                 private readonly CancellationTokenSource _cts = new();
                 private readonly IGremlinQueryEnvironment _environment;
-                private readonly TaskCompletionSource<Task> _loopTcs = new();
+                private readonly TaskCompletionSource<Task?> _loopTcs = new();
                 private readonly ConcurrentDictionary<Guid, Channel> _channels = new();
                 private readonly WebSocketGremlinqClientFactoryImpl<TBinaryMessage> _factory;
 
@@ -249,11 +249,12 @@ namespace ExRam.Gremlinq.Providers.Core
                                                     throw new OperationCanceledException(null, ex);
                                                 }
                                             }
-                                            catch (OperationCanceledException)
+                                            catch
                                             {
                                                 @this.Dispose();
 
-                                                await await @this._loopTcs.Task;
+                                                if (await @this._loopTcs.Task is { } task)
+                                                    await task;
 
                                                 throw;
                                             }
@@ -278,7 +279,7 @@ namespace ExRam.Gremlinq.Providers.Core
                         using (_client)
                         {
                             _cts.Cancel();
-                            _loopTcs.TrySetException(new ObjectDisposedException(nameof(WebSocketGremlinqClient)));
+                            _loopTcs.TrySetResult(null);
                         }
                     }
                 }
@@ -323,11 +324,20 @@ namespace ExRam.Gremlinq.Providers.Core
 
                 private async Task Loop(CancellationToken ct)
                 {
+                    IMemoryOwner<byte>? bytes;
+
                     using (this)
                     {
                         while (!ct.IsCancellationRequested)
                         {
-                            var bytes = await _client.ReceiveAsync(ct);
+                            try
+                            {
+                                bytes = await _client.ReceiveAsync(ct);
+                            }
+                            catch (InvalidOperationException)
+                            {
+                                return;
+                            }
 
                             if (_environment.Deserializer.TryTransform(bytes, _environment, out TBinaryMessage? binaryMessage))
                             {
