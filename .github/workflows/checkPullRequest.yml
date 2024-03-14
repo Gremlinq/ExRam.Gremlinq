@@ -8,6 +8,7 @@ jobs:
 
   test-linux:
     runs-on: ubuntu-latest
+    if: ${{ github.event.pull_request.head.repo.fork || github.event.pull_request.title != 'Prepare release' }}
 
     steps:
     - name: Checkout
@@ -33,6 +34,7 @@ jobs:
 
   test-windows:
     runs-on: windows-2022
+    if: ${{ github.event.pull_request.head.repo.fork || github.event.pull_request.title != 'Prepare release' }}
 
     steps:
     - name: Checkout
