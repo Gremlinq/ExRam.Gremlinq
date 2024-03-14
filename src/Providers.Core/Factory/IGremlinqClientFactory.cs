@@ -10,5 +10,6 @@ namespace ExRam.Gremlinq.Providers.Core
     public interface IGremlinqClientFactory<TSelf> : IGremlinqClientFactory
         where TSelf : IGremlinqClientFactory<TSelf>
     {
+        TSelf ConfigureClient(Func<IGremlinqClient, IGremlinQueryEnvironment, IGremlinqClient> clientTransformation);
     }
 }

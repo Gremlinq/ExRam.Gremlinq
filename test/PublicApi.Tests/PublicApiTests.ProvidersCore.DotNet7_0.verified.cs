@@ -24,8 +24,10 @@
     }
     public static class GremlinqClientFactory
     {
-        public static ExRam.Gremlinq.Providers.Core.IGremlinqClientFactory ConfigureClient(this ExRam.Gremlinq.Providers.Core.IGremlinqClientFactory clientFactory, System.Func<ExRam.Gremlinq.Providers.Core.IGremlinqClient, ExRam.Gremlinq.Providers.Core.IGremlinqClient> clientTransformation) { }
-        public static ExRam.Gremlinq.Providers.Core.IGremlinqClientFactory Log(this ExRam.Gremlinq.Providers.Core.IGremlinqClientFactory clientFactory) { }
+        public static TClientFactory ConfigureClient<TClientFactory>(this TClientFactory clientFactory, System.Func<ExRam.Gremlinq.Providers.Core.IGremlinqClient, ExRam.Gremlinq.Providers.Core.IGremlinqClient> clientTransformation)
+            where TClientFactory : ExRam.Gremlinq.Providers.Core.IGremlinqClientFactory<TClientFactory> { }
+        public static TClientFactory Log<TClientFactory>(this TClientFactory clientFactory)
+            where TClientFactory : ExRam.Gremlinq.Providers.Core.IGremlinqClientFactory<TClientFactory> { }
         public static ExRam.Gremlinq.Providers.Core.IPoolGremlinqClientFactory<TBaseFactory> Pool<TBaseFactory>(this TBaseFactory baseFactory)
             where TBaseFactory : ExRam.Gremlinq.Providers.Core.IGremlinqClientFactory { }
         public static ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor ToExecutor(this ExRam.Gremlinq.Providers.Core.IGremlinqClientFactory clientFactory) { }
@@ -39,7 +41,10 @@
         ExRam.Gremlinq.Providers.Core.IGremlinqClient Create(ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment);
     }
     public interface IGremlinqClientFactory<TSelf> : ExRam.Gremlinq.Providers.Core.IGremlinqClientFactory
-        where TSelf : ExRam.Gremlinq.Providers.Core.IGremlinqClientFactory<TSelf> { }
+        where TSelf : ExRam.Gremlinq.Providers.Core.IGremlinqClientFactory<TSelf>
+    {
+        TSelf ConfigureClient(System.Func<ExRam.Gremlinq.Providers.Core.IGremlinqClient, ExRam.Gremlinq.Core.IGremlinQueryEnvironment, ExRam.Gremlinq.Providers.Core.IGremlinqClient> clientTransformation);
+    }
     public interface IPoolGremlinqClientFactory<TBaseFactory> : ExRam.Gremlinq.Providers.Core.IGremlinqClientFactory, ExRam.Gremlinq.Providers.Core.IGremlinqClientFactory<ExRam.Gremlinq.Providers.Core.IPoolGremlinqClientFactory<TBaseFactory>>
         where TBaseFactory : ExRam.Gremlinq.Providers.Core.IGremlinqClientFactory
     {

@@ -13,20 +13,6 @@ namespace ExRam.Gremlinq.Providers.Core
 {
     public static class GremlinqClientFactory
     {
-        private sealed class ConfigureClientGremlinqClientFactory : IGremlinqClientFactory<ConfigureClientGremlinqClientFactory>
-        {
-            private readonly IGremlinqClientFactory _baseFactory;
-            private readonly Func<IGremlinqClient, IGremlinQueryEnvironment, IGremlinqClient> _clientTransformation;
-
-            public ConfigureClientGremlinqClientFactory(IGremlinqClientFactory baseFactory, Func<IGremlinqClient, IGremlinQueryEnvironment, IGremlinqClient> clientTransformation)
-            {
-                _baseFactory = baseFactory;
-                _clientTransformation = clientTransformation;
-            }
-
-            public IGremlinqClient Create(IGremlinQueryEnvironment environment) => _clientTransformation(_baseFactory.Create(environment), environment);
-        }
-
         private sealed class PoolGremlinqClientFactory<TBaseFactory> : IPoolGremlinqClientFactory<TBaseFactory>
             where TBaseFactory : IGremlinqClientFactory
         {
@@ -170,29 +156,33 @@ namespace ExRam.Gremlinq.Providers.Core
             private readonly int _poolSize;
             private readonly TBaseFactory _baseFactory;
             private readonly int _maxInProcessPerConnection;
+            private readonly Func<IGremlinqClient, IGremlinQueryEnvironment, IGremlinqClient> _clientTransformation;
 
-            public PoolGremlinqClientFactory(TBaseFactory baseFactory) : this(baseFactory, 8, 16)
+            public PoolGremlinqClientFactory(TBaseFactory baseFactory) : this(baseFactory, 8, 16, static (client, _) => client)
             {
             }
 
-            private PoolGremlinqClientFactory(TBaseFactory baseFactory, int poolSize, int maxInProcessPerConnection)
+            private PoolGremlinqClientFactory(TBaseFactory baseFactory, int poolSize, int maxInProcessPerConnection, Func<IGremlinqClient, IGremlinQueryEnvironment, IGremlinqClient> clientTransformation)
             {
                 _poolSize = poolSize;
                 _baseFactory = baseFactory;
+                _clientTransformation = clientTransformation;
                 _maxInProcessPerConnection = maxInProcessPerConnection;
             }
 
             public IPoolGremlinqClientFactory<TNewBaseFactory> ConfigureBaseFactory<TNewBaseFactory>(Func<TBaseFactory, TNewBaseFactory> transformation) where TNewBaseFactory : IGremlinqClientFactory => new PoolGremlinqClientFactory<TNewBaseFactory>(transformation(_baseFactory));
 
             public IPoolGremlinqClientFactory<TBaseFactory> WithMaxInProcessPerConnection(int maxInProcessPerConnection) => maxInProcessPerConnection is > 0 and <= 64
-                ? new PoolGremlinqClientFactory<TBaseFactory>(_baseFactory, _poolSize, maxInProcessPerConnection)
+                ? new PoolGremlinqClientFactory<TBaseFactory>(_baseFactory, _poolSize, maxInProcessPerConnection, _clientTransformation)
                 : throw new ArgumentOutOfRangeException(nameof(maxInProcessPerConnection));
 
             public IPoolGremlinqClientFactory<TBaseFactory> WithPoolSize(int poolSize) => poolSize is > 0 and <= 8
-                ? new PoolGremlinqClientFactory<TBaseFactory>(_baseFactory, poolSize, _maxInProcessPerConnection)
+                ? new PoolGremlinqClientFactory<TBaseFactory>(_baseFactory, poolSize, _maxInProcessPerConnection, _clientTransformation)
                 : throw new ArgumentOutOfRangeException(nameof(poolSize));
 
-            public IGremlinqClient Create(IGremlinQueryEnvironment environment) => new PoolGremlinqClient(_baseFactory, _poolSize, _maxInProcessPerConnection, environment);
+            public IGremlinqClient Create(IGremlinQueryEnvironment environment) => _clientTransformation(new PoolGremlinqClient(_baseFactory, _poolSize, _maxInProcessPerConnection, environment), environment);
+
+            public IPoolGremlinqClientFactory<TBaseFactory> ConfigureClient(Func<IGremlinqClient, IGremlinQueryEnvironment, IGremlinqClient> clientTransformation) => new PoolGremlinqClientFactory<TBaseFactory>(_baseFactory, _poolSize, _maxInProcessPerConnection, (client, env) => clientTransformation(_clientTransformation(client, env), env));
         }
 
         private sealed class GremlinQueryExecutorImpl : IGremlinQueryExecutor
@@ -249,12 +239,14 @@ namespace ExRam.Gremlinq.Providers.Core
             }
         }
 
-        public static IGremlinqClientFactory ConfigureClient(this IGremlinqClientFactory clientFactory, Func<IGremlinqClient, IGremlinqClient> clientTransformation) => new ConfigureClientGremlinqClientFactory(clientFactory, (client, _) => clientTransformation(client));
+        public static TClientFactory ConfigureClient<TClientFactory>(this TClientFactory clientFactory, Func<IGremlinqClient, IGremlinqClient> clientTransformation)
+            where TClientFactory : IGremlinqClientFactory<TClientFactory> => clientFactory.ConfigureClient((client, _) => clientTransformation(client));
 
         public static IPoolGremlinqClientFactory<TBaseFactory> Pool<TBaseFactory>(this TBaseFactory baseFactory)
             where TBaseFactory : IGremlinqClientFactory => new PoolGremlinqClientFactory<TBaseFactory>(baseFactory);
 
-        public static IGremlinqClientFactory Log(this IGremlinqClientFactory clientFactory) => new ConfigureClientGremlinqClientFactory(clientFactory, (client, environment) => client.Log(environment));
+        public static TClientFactory Log<TClientFactory>(this TClientFactory clientFactory)
+            where TClientFactory : IGremlinqClientFactory<TClientFactory> => clientFactory.ConfigureClient((client, environment) => client.Log(environment));
 
         public static IGremlinQueryExecutor ToExecutor(this IGremlinqClientFactory clientFactory) => new GremlinQueryExecutorImpl(clientFactory);
     }
