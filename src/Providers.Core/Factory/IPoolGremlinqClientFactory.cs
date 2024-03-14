@@ -1,6 +1,6 @@
 ﻿namespace ExRam.Gremlinq.Providers.Core
 {
-    public interface IPoolGremlinqClientFactory<TBaseFactory> : IGremlinqClientFactory
+    public interface IPoolGremlinqClientFactory<TBaseFactory> : IGremlinqClientFactory<IPoolGremlinqClientFactory<TBaseFactory>>
         where TBaseFactory : IGremlinqClientFactory
     {
         IPoolGremlinqClientFactory<TNewBaseFactory> ConfigureBaseFactory<TNewBaseFactory>(Func<TBaseFactory, TNewBaseFactory> transformation)

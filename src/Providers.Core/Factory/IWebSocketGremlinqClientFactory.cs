@@ -5,7 +5,7 @@ using Gremlin.Net.Driver.Messages;
 
 namespace ExRam.Gremlinq.Providers.Core
 {
-    public interface IWebSocketGremlinqClientFactory : IGremlinqClientFactory
+    public interface IWebSocketGremlinqClientFactory : IGremlinqClientFactory<IWebSocketGremlinqClientFactory>
     {
         IWebSocketGremlinqClientFactory WithBinaryMessage<TBinaryMessage>()
             where TBinaryMessage : IMemoryOwner<byte>;

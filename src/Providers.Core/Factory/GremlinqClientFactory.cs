@@ -13,7 +13,7 @@ namespace ExRam.Gremlinq.Providers.Core
 {
     public static class GremlinqClientFactory
     {
-        private sealed class ConfigureClientGremlinqClientFactory : IGremlinqClientFactory
+        private sealed class ConfigureClientGremlinqClientFactory : IGremlinqClientFactory<ConfigureClientGremlinqClientFactory>
         {
             private readonly IGremlinqClientFactory _baseFactory;
             private readonly Func<IGremlinqClient, IGremlinQueryEnvironment, IGremlinqClient> _clientTransformation;

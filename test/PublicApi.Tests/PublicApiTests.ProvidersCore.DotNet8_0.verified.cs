@@ -40,7 +40,7 @@
     }
     public interface IGremlinqClientFactory<TSelf> : ExRam.Gremlinq.Providers.Core.IGremlinqClientFactory
         where TSelf : ExRam.Gremlinq.Providers.Core.IGremlinqClientFactory<TSelf> { }
-    public interface IPoolGremlinqClientFactory<TBaseFactory> : ExRam.Gremlinq.Providers.Core.IGremlinqClientFactory
+    public interface IPoolGremlinqClientFactory<TBaseFactory> : ExRam.Gremlinq.Providers.Core.IGremlinqClientFactory, ExRam.Gremlinq.Providers.Core.IGremlinqClientFactory<ExRam.Gremlinq.Providers.Core.IPoolGremlinqClientFactory<TBaseFactory>>
         where TBaseFactory : ExRam.Gremlinq.Providers.Core.IGremlinqClientFactory
     {
         ExRam.Gremlinq.Providers.Core.IPoolGremlinqClientFactory<TNewBaseFactory> ConfigureBaseFactory<TNewBaseFactory>(System.Func<TBaseFactory, TNewBaseFactory> transformation)
@@ -54,7 +54,7 @@
     {
         TSelf ConfigureClientFactory(System.Func<TClientFactory, TClientFactory> transformation);
     }
-    public interface IWebSocketGremlinqClientFactory : ExRam.Gremlinq.Providers.Core.IGremlinqClientFactory
+    public interface IWebSocketGremlinqClientFactory : ExRam.Gremlinq.Providers.Core.IGremlinqClientFactory, ExRam.Gremlinq.Providers.Core.IGremlinqClientFactory<ExRam.Gremlinq.Providers.Core.IWebSocketGremlinqClientFactory>
     {
         ExRam.Gremlinq.Providers.Core.IWebSocketGremlinqClientFactory ConfigureAuthentication(System.Func<System.Func<System.Collections.Generic.IReadOnlyDictionary<string, object>, Gremlin.Net.Driver.Messages.RequestMessage>, System.Func<System.Collections.Generic.IReadOnlyDictionary<string, object>, Gremlin.Net.Driver.Messages.RequestMessage>> transformation);
         ExRam.Gremlinq.Providers.Core.IWebSocketGremlinqClientFactory ConfigureClientWebSocketFactory(System.Func<System.Func<System.Net.WebSockets.ClientWebSocket>, System.Func<System.Net.WebSockets.ClientWebSocket>> transformation);
