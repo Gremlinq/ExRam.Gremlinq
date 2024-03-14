@@ -38,6 +38,8 @@
     {
         ExRam.Gremlinq.Providers.Core.IGremlinqClient Create(ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment);
     }
+    public interface IGremlinqClientFactory<TSelf> : ExRam.Gremlinq.Providers.Core.IGremlinqClientFactory
+        where TSelf : ExRam.Gremlinq.Providers.Core.IGremlinqClientFactory<TSelf> { }
     public interface IPoolGremlinqClientFactory<TBaseFactory> : ExRam.Gremlinq.Providers.Core.IGremlinqClientFactory
         where TBaseFactory : ExRam.Gremlinq.Providers.Core.IGremlinqClientFactory
     {

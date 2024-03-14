@@ -6,4 +6,9 @@ namespace ExRam.Gremlinq.Providers.Core
     {
         IGremlinqClient Create(IGremlinQueryEnvironment environment);
     }
+
+    public interface IGremlinqClientFactory<TSelf> : IGremlinqClientFactory
+        where TSelf : IGremlinqClientFactory<TSelf>
+    {
+    }
 }
