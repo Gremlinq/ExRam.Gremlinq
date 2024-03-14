@@ -22,6 +22,9 @@ namespace ExRam.Gremlinq.Providers.Core
 
                     var result = await client.ReceiveAsync(bytes.Memory[read..], ct);
 
+                    if (result.MessageType == WebSocketMessageType.Close)
+                        throw new ObjectDisposedException(client.GetType().Name);
+
                     read += result.Count;
 
                     if (result.EndOfMessage)
