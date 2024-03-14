@@ -13,23 +13,23 @@ namespace ExRam.Gremlinq.Providers.Core
 
             try
             {
-                while (true)
+                ValueWebSocketReceiveResult result;
+
+                do
                 {
                     ct.ThrowIfCancellationRequested();
 
                     if (read == bytes.Memory.Length)
                         bytes = bytes.Double();
 
-                    var result = await client.ReceiveAsync(bytes.Memory[read..], ct);
+                    result = await client.ReceiveAsync(bytes.Memory[read..], ct);
 
                     if (result.MessageType == WebSocketMessageType.Close)
                         throw new ObjectDisposedException(client.GetType().Name);
 
                     read += result.Count;
-
-                    if (result.EndOfMessage)
-                        break;
                 }
+                while (!result.EndOfMessage);
 
                 return bytes[..read];
             }
