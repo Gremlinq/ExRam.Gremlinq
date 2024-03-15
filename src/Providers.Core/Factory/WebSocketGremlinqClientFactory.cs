@@ -80,7 +80,7 @@ namespace ExRam.Gremlinq.Providers.Core
                         public static ResponseAndQueueUnion CreateQueue() => new(new (0), new());
                     }
 
-                    private readonly TaskCompletionSource<ResponseAndQueueUnion> _tcs = new ();
+                    private readonly TaskCompletionSource<ResponseAndQueueUnion?> _tcs = new ();
 
                     public Channel(WebSocketGremlinqClient client) : base(client)
                     {
@@ -115,7 +115,7 @@ namespace ExRam.Gremlinq.Providers.Core
                         {
                             if (_tcs.Task.IsCompletedSuccessfully)
                             {
-                                if (_tcs.Task.Result.TryGetQueue(out var semaphore, out var queue))
+                                if (_tcs.Task.Result is { } union && union.TryGetQueue(out var semaphore, out var queue))
                                 {
                                     queue.Enqueue(response);
                                     semaphore.Release();
@@ -138,44 +138,49 @@ namespace ExRam.Gremlinq.Providers.Core
 
                     public async IAsyncEnumerator<ResponseMessage<T>> GetAsyncEnumerator(CancellationToken ct = default)
                     {
-                        var union = await _tcs.Task;
+                        var maybeUnion = await _tcs.Task;
 
-                        if (union.TryGetResponse(out var response))
-                            yield return response;
-                        else if (union.TryGetQueue(out var semaphore, out var queue))
+                        if (maybeUnion is { } union)
                         {
-                            while (true)
+                            if (union.TryGetResponse(out var response))
+                                yield return response;
+                            else if (union.TryGetQueue(out var semaphore, out var queue))
                             {
-                                await semaphore.WaitAsync(ct);
-
-                                if (queue.TryDequeue(out var queuedResponse))
+                                while (true)
                                 {
-                                    if (queuedResponse.Status.Code is Authenticate)
+                                    await semaphore.WaitAsync(ct);
+
+                                    if (queue.TryDequeue(out var queuedResponse))
                                     {
-                                        try
+                                        if (queuedResponse.Status.Code is Authenticate)
                                         {
-                                            await Client.SendCore(Client._factory._authMessageFactory((IReadOnlyDictionary<string, object>)queuedResponse.Status.Attributes ?? ImmutableDictionary<string, object>.Empty), ct);
-                                        }
-                                        catch
-                                        {
-                                            using (this)
+                                            try
                                             {
-                                                throw;
+                                                await Client.SendCore(Client._factory._authMessageFactory((IReadOnlyDictionary<string, object>)queuedResponse.Status.Attributes ?? ImmutableDictionary<string, object>.Empty), ct);
+                                            }
+                                            catch
+                                            {
+                                                using (this)
+                                                {
+                                                    throw;
+                                                }
                                             }
                                         }
-                                    }
-                                    else
-                                    {
-                                        yield return queuedResponse;
+                                        else
+                                        {
+                                            yield return queuedResponse;
 
-                                        if (queuedResponse.Status.Code != PartialContent)
-                                            break;
+                                            if (queuedResponse.Status.Code != PartialContent)
+                                                break;
+                                        }
                                     }
                                 }
                             }
+                            else
+                                throw new NotSupportedException();
                         }
                         else
-                            throw new NotSupportedException();
+                            throw new ObjectDisposedException(nameof(Channel<T>));
                     }
 
                     public override void Dispose()
@@ -184,13 +189,13 @@ namespace ExRam.Gremlinq.Providers.Core
                         {
                             if (_tcs.Task.IsCompleted)
                             {
-                                if (_tcs.Task.IsCompletedSuccessfully && _tcs.Task.Result.TryGetQueue(out var semaphore, out _))
+                                if (_tcs.Task.IsCompletedSuccessfully && _tcs.Task.Result is { } union && union.TryGetQueue(out var semaphore, out _))
                                     semaphore.Dispose();
 
                                 return;
                             }
 
-                            if (_tcs.TrySetException(new ObjectDisposedException(nameof(Channel<T>))))
+                            if (_tcs.TrySetResult(null))
                                 return;
                         }
                     }
