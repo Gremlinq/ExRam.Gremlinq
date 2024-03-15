@@ -182,15 +182,13 @@ namespace ExRam.Gremlinq.Providers.Core
                     {
                         while (true)
                         {
-                            if (_tcs.Task.IsCompletedSuccessfully)
+                            if (_tcs.Task.IsCompleted)
                             {
-                                if (_tcs.Task.Result.TryGetQueue(out var semaphore, out _))
+                                if (_tcs.Task.IsCompletedSuccessfully && _tcs.Task.Result.TryGetQueue(out var semaphore, out _))
                                     semaphore.Dispose();
 
                                 return;
                             }
-                            else if (_tcs.Task.IsFaulted)
-                                return;
 
                             if (_tcs.TrySetException(new ObjectDisposedException(nameof(Channel<T>))))
                                 return;
