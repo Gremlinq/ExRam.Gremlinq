@@ -1,0 +1,12 @@
+<Project>
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'" >
+    <PackageIcon>icon.png</PackageIcon>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(Configuration)' == 'Release'" >
+    <None Include="$(MSBuildThisFileDirectory)assets\$(PackageIcon)">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+</Project>

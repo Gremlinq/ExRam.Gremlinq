@@ -1,6 +1,7 @@
 <Project>
   <Import Project="..\Directory.Build.props" />
-
+  <Import Project="..\PackageIcon.props" />
+  
   <PropertyGroup>
     <TargetFrameworks>net8.0</TargetFrameworks>
     <TargetFrameworks Condition="'$(Configuration)'=='Release'">netstandard2.1;net5.0;net6.0;net7.0;$(TargetFrameworks)</TargetFrameworks>
@@ -24,11 +25,9 @@
   </ItemGroup>
   
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" >
-    <PackageIcon>icon.png</PackageIcon>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
     <PackageTags>Gremlin;Tinkerpop;CosmosDB;JanusGraph;Neptune;Graph;GraphDB;</PackageTags>
-    <PackageIconUrl />
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <DebugType>embedded</DebugType>
     <DebugSymbols>true</DebugSymbols>
@@ -36,10 +35,6 @@
   </PropertyGroup>
 
   <ItemGroup Condition="'$(Configuration)' == 'Release'" >
-    <None Include="$(MSBuildThisFileDirectory)..\assets\$(PackageIcon)">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
     <None Include="$(SolutionDir)LICENSE.md">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
