@@ -209,9 +209,10 @@ namespace ExRam.Gremlinq.Providers.Core
                 private readonly SemaphoreSlim _sendLock = new(1);
                 private readonly CancellationTokenSource _cts = new();
                 private readonly IGremlinQueryEnvironment _environment;
-                private readonly TaskCompletionSource<Task?> _loopTcs = new();
                 private readonly ConcurrentDictionary<Guid, Channel> _channels = new();
                 private readonly WebSocketGremlinqClientFactoryImpl<TBinaryMessage> _factory;
+
+                private int _readyForReceive;
 
                 public WebSocketGremlinqClient(WebSocketGremlinqClientFactoryImpl<TBinaryMessage> factory, ClientWebSocket client, IGremlinQueryEnvironment environment)
                 {
@@ -240,11 +241,72 @@ namespace ExRam.Gremlinq.Providers.Core
                                     {
                                         while (true)
                                         {
+                                            var moveNext = e.MoveNextAsync();
+
+                                            while (true)
+                                            {
+                                                if (!moveNext.IsCompleted)
+                                                {
+                                                    if (Interlocked.Increment(ref @this._readyForReceive) == 1)
+                                                    {
+                                                        try
+                                                        {
+                                                            IMemoryOwner<byte>? bytes;
+
+                                                            try
+                                                            {
+                                                                bytes = await @this._client.ReceiveAsync(ct);
+                                                            }
+                                                            catch (InvalidOperationException)
+                                                            {
+                                                                @this.Dispose();
+
+                                                                yield break;
+                                                            }
+                                                            catch (WebSocketException)
+                                                            {
+                                                                @this.Dispose();
+
+                                                                yield break;
+                                                            }
+
+                                                            if (@this._environment.Deserializer.TryTransform(bytes, @this._environment, out TBinaryMessage? binaryMessage))
+                                                            {
+                                                                using (binaryMessage)
+                                                                {
+                                                                    if (@this._environment.Deserializer.TryTransform(binaryMessage, @this._environment, out ResponseMessageEnvelope responseMessageEnvelope))
+                                                                    {
+                                                                        if (responseMessageEnvelope is { Status: { Code: var statusCode, Message: var responseMessage } responseStatus, RequestId: { } requestId })
+                                                                        {
+                                                                            if (@this._channels.TryGetValue(requestId, out var otherChannel))
+                                                                                otherChannel.Signal(binaryMessage, requestId, responseStatus);
+                                                                            else if (statusCode >= Unauthorized)
+                                                                                throw new ResponseException(statusCode, ImmutableDictionary<string, object>.Empty, $"The server returned a response indicating failure, but the response could not be mapped to a request: {responseMessage}");
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                        finally
+                                                        {
+                                                            Interlocked.Decrement(ref @this._readyForReceive);
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        if (Interlocked.Decrement(ref @this._readyForReceive) != 0)
+                                                            break;
+                                                    }
+                                                }
+                                                else
+                                                    break;
+                                            }
+
                                             try
                                             {
                                                 try
                                                 {
-                                                    if (!await e.MoveNextAsync())
+                                                    if (!await moveNext)
                                                         break;
                                                 }
                                                 catch (ObjectDisposedException ex)
@@ -254,12 +316,10 @@ namespace ExRam.Gremlinq.Providers.Core
                                             }
                                             catch
                                             {
-                                                @this.Dispose();
-
-                                                if (await @this._loopTcs.Task is { } task)
-                                                    await task;
-
-                                                throw;
+                                                using (@this)
+                                                {
+                                                    throw;
+                                                }
                                             }
 
                                             yield return e.Current;
@@ -282,7 +342,6 @@ namespace ExRam.Gremlinq.Providers.Core
                         using (_client)
                         {
                             _cts.Cancel();
-                            _loopTcs.TrySetResult(null);
                         }
                     }
                 }
@@ -296,11 +355,7 @@ namespace ExRam.Gremlinq.Providers.Core
                         try
                         {
                             if (_client.State == WebSocketState.None)
-                            {
                                 await _client.ConnectAsync(_factory._uri, ct);
-
-                                _loopTcs.SetResult(Loop(_cts.Token));
-                            }
 
                             if (_environment.Serializer.TryTransform(requestMessage, _environment, out TBinaryMessage? buffer))
                             {
@@ -322,47 +377,6 @@ namespace ExRam.Gremlinq.Providers.Core
                         Dispose();
 
                         throw;
-                    }
-                }
-
-                private async Task Loop(CancellationToken ct)
-                {
-                    IMemoryOwner<byte>? bytes;
-
-                    using (this)
-                    {
-                        while (!ct.IsCancellationRequested)
-                        {
-                            try
-                            {
-                                bytes = await _client.ReceiveAsync(ct);
-                            }
-                            catch (InvalidOperationException)
-                            {
-                                return;
-                            }
-                            catch (WebSocketException)
-                            {
-                                return;
-                            }
-
-                            if (_environment.Deserializer.TryTransform(bytes, _environment, out TBinaryMessage? binaryMessage))
-                            {
-                                using (binaryMessage)
-                                {
-                                    if (_environment.Deserializer.TryTransform(binaryMessage, _environment, out ResponseMessageEnvelope responseMessageEnvelope))
-                                    {
-                                        if (responseMessageEnvelope is { Status: { Code: var statusCode, Message: var message } responseStatus, RequestId: { } requestId })
-                                        {
-                                            if (_channels.TryGetValue(requestId, out var otherChannel))
-                                                otherChannel.Signal(binaryMessage, requestId, responseStatus);
-                                            else if (statusCode >= Unauthorized)
-                                                throw new ResponseException(statusCode, ImmutableDictionary<string, object>.Empty, $"The server returned a response indicating failure, but the response could not be mapped to a request: {message}");
-                                        }
-                                    }
-                                }
-                            }
-                        }
                     }
                 }
             }
