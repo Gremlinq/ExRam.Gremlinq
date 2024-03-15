@@ -341,6 +341,10 @@ namespace ExRam.Gremlinq.Providers.Core
                             {
                                 return;
                             }
+                            catch (WebSocketException)
+                            {
+                                return;
+                            }
 
                             if (_environment.Deserializer.TryTransform(bytes, _environment, out TBinaryMessage? binaryMessage))
                             {
