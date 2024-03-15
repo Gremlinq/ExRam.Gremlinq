@@ -367,12 +367,24 @@ namespace ExRam.Gremlinq.Providers.Core
                 }
             }
 
+            public static readonly IWebSocketGremlinqClientFactory LocalHost = new WebSocketGremlinqClientFactoryImpl<TBinaryMessage>(
+                new Uri("ws://localhost:8182"),
+                () =>
+                {
+                    var client = new ClientWebSocket();
+                    client.Options.SetRequestHeader("User-Agent", UserAgent);
+
+                    return client;
+                },
+                _ => throw new NotSupportedException("Authentication credentials were requested from the server but were not configured."),
+                (client, _) => client);
+
             private readonly Uri _uri;
             private readonly Func<ClientWebSocket> _clientWebSocketFactory;
             private readonly Func<IReadOnlyDictionary<string, object>, RequestMessage> _authMessageFactory;
             private readonly Func<IGremlinqClient, IGremlinQueryEnvironment, IGremlinqClient> _clientTransformation;
 
-            internal WebSocketGremlinqClientFactoryImpl(Uri uri, Func<ClientWebSocket> clientWebSocketFactory, Func<IReadOnlyDictionary<string, object>, RequestMessage> authMessageFactory, Func<IGremlinqClient, IGremlinQueryEnvironment, IGremlinqClient> clientTransformation)
+            private WebSocketGremlinqClientFactoryImpl(Uri uri, Func<ClientWebSocket> clientWebSocketFactory, Func<IReadOnlyDictionary<string, object>, RequestMessage> authMessageFactory, Func<IGremlinqClient, IGremlinQueryEnvironment, IGremlinqClient> clientTransformation)
             {
                 if (uri.Scheme is not "ws" and not "wss")
                     throw new ArgumentException($"Expected {nameof(uri)}.{nameof(Uri.Scheme)} to be either \"ws\" or \"wss\".", nameof(uri));
@@ -395,18 +407,8 @@ namespace ExRam.Gremlinq.Providers.Core
 
             public IWebSocketGremlinqClientFactory ConfigureClient(Func<IGremlinqClient, IGremlinQueryEnvironment, IGremlinqClient> clientTransformation) => new WebSocketGremlinqClientFactoryImpl<TBinaryMessage>(_uri, _clientWebSocketFactory, _authMessageFactory, (client, env) => clientTransformation(_clientTransformation(client, env), env));
         }
-                          
-        public static readonly IWebSocketGremlinqClientFactory LocalHost = new WebSocketGremlinqClientFactoryImpl<GraphSon3BinaryMessage>(
-            new Uri("ws://localhost:8182"),
-            () =>
-            {
-                var client = new ClientWebSocket();
-                client.Options.SetRequestHeader("User-Agent", UserAgent);
 
-                return client;
-            },
-            _ => throw new NotSupportedException("Authentication credentials were requested from the server but were not configured."),
-            (client, _) => client);
+        public static readonly IWebSocketGremlinqClientFactory LocalHost = WebSocketGremlinqClientFactoryImpl<GraphSon3BinaryMessage>.LocalHost;
 
         public static IWebSocketGremlinqClientFactory WithPlainCredentials(this IWebSocketGremlinqClientFactory factory, string username, string password) => factory
             .ConfigureAuthentication(_ => _ => RequestMessage
