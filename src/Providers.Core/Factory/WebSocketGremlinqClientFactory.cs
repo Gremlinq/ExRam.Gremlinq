@@ -98,7 +98,7 @@ namespace ExRam.Gremlinq.Providers.Core
                                     Dispose();
                             }
                             else
-                                throw new InvalidOperationException($"Unable to convert byte array to a {nameof(ResponseMessage<T>)} for {typeof(T).FullName}>.");
+                                throw new InvalidOperationException($"Unable to convert byte array to a {nameof(ResponseMessage<T>)} for {typeof(T).FullName}.");
                         }
                         catch
                         {
@@ -138,9 +138,7 @@ namespace ExRam.Gremlinq.Providers.Core
 
                     public async IAsyncEnumerator<ResponseMessage<T>> GetAsyncEnumerator(CancellationToken ct = default)
                     {
-                        var maybeUnion = await _tcs.Task;
-
-                        if (maybeUnion is { } union)
+                        if (await _tcs.Task is { } union)
                         {
                             if (union.TryGetResponse(out var response))
                                 yield return response;
