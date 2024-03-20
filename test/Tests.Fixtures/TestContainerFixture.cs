@@ -1,5 +1,6 @@
 ﻿using System.Collections.Immutable;
 
+using DotNet.Testcontainers;
 using DotNet.Testcontainers.Builders;
 using DotNet.Testcontainers.Containers;
 using DotNet.Testcontainers.Images;
@@ -17,7 +18,7 @@ namespace ExRam.Gremlinq.Tests.Fixtures
             _image = image;
         }
 
-        protected override IImage GetImage() => new DockerImage(_image);
+        protected override async Task<IImage> GetImage() => new DockerImage(_image);
     }
 
     public abstract class DockerfileTestContainerFixture : TestContainerFixtureBase
@@ -29,7 +30,16 @@ namespace ExRam.Gremlinq.Tests.Fixtures
             _dockerfile = dockerfile;
         }
 
-        protected override IImage GetImage() => new ImageFromDockerfileBuilder().WithDockerfile(_dockerfile).Build();
+        protected override async Task<IImage> GetImage()
+        {
+            var futureImage = new ImageFromDockerfileBuilder()
+                .WithDockerfile(_dockerfile)
+                .Build();
+
+            await futureImage.CreateAsync();
+
+            return futureImage;
+        }
     }
 
     public abstract class TestContainerFixtureBase : GremlinqFixture
@@ -104,7 +114,7 @@ namespace ExRam.Gremlinq.Tests.Fixtures
         protected override sealed async Task<IGremlinQuerySource> TransformQuerySource(IGremlinQuerySource g)
         {
             var container = new ContainerBuilder()
-                .WithImage(GetImage())
+                .WithImage(await GetImage())
                 .WithPortBinding(_port, true)
                 .WithWaitStrategy(Wait
                     .ForUnixContainer()
@@ -114,11 +124,11 @@ namespace ExRam.Gremlinq.Tests.Fixtures
             await container
                 .StartAsync();
 
-            return await TransformQuerySource(container, g);
+            return await TransformQuerySource(container, new ContainerAttachedGremlinQuerySource(container, g));
         }
 
-        protected abstract IImage GetImage(); 
+        protected abstract Task<IImage> GetImage(); 
 
-        protected virtual async Task<IGremlinQuerySource> TransformQuerySource(IContainer container, IGremlinQuerySource g) => new ContainerAttachedGremlinQuerySource(container, await TransformQuerySource(container, g));
+        protected abstract Task<IGremlinQuerySource> TransformQuerySource(IContainer container, IGremlinQuerySource g);
     }
 }
