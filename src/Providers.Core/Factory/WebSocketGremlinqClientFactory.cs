@@ -335,6 +335,10 @@ namespace ExRam.Gremlinq.Providers.Core
                             {
                                 bytes = await _client.ReceiveAsync(ct);
                             }
+                            catch (OperationCanceledException)
+                            {
+                                return;
+                            }
                             catch (InvalidOperationException)
                             {
                                 return;
