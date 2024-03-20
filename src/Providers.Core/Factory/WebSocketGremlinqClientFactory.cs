@@ -138,47 +138,50 @@ namespace ExRam.Gremlinq.Providers.Core
 
                     public async IAsyncEnumerator<ResponseMessage<T>> GetAsyncEnumerator(CancellationToken ct = default)
                     {
-                        if (await _tcs.Task is { } union)
+                        using (ct.Register(Dispose))
                         {
-                            if (union.TryGetResponse(out var response))
-                                yield return response;
-                            else if (union.TryGetQueue(out var semaphore, out var queue))
+                            if (await _tcs.Task is { } union)
                             {
-                                while (true)
+                                if (union.TryGetResponse(out var response))
+                                    yield return response;
+                                else if (union.TryGetQueue(out var semaphore, out var queue))
                                 {
-                                    await semaphore.WaitAsync(ct);
-
-                                    if (queue.TryDequeue(out var queuedResponse))
+                                    while (true)
                                     {
-                                        if (queuedResponse.Status.Code is Authenticate)
+                                        await semaphore.WaitAsync(ct);
+
+                                        if (queue.TryDequeue(out var queuedResponse))
                                         {
-                                            try
+                                            if (queuedResponse.Status.Code is Authenticate)
                                             {
-                                                await Client.SendCore(Client._factory._authMessageFactory((IReadOnlyDictionary<string, object>)queuedResponse.Status.Attributes ?? ImmutableDictionary<string, object>.Empty), ct);
-                                            }
-                                            catch
-                                            {
-                                                using (this)
+                                                try
                                                 {
-                                                    throw;
+                                                    await Client.SendCore(Client._factory._authMessageFactory((IReadOnlyDictionary<string, object>)queuedResponse.Status.Attributes ?? ImmutableDictionary<string, object>.Empty), ct);
+                                                }
+                                                catch
+                                                {
+                                                    using (this)
+                                                    {
+                                                        throw;
+                                                    }
                                                 }
                                             }
-                                        }
-                                        else
-                                        {
-                                            yield return queuedResponse;
+                                            else
+                                            {
+                                                yield return queuedResponse;
 
-                                            if (queuedResponse.Status.Code != PartialContent)
-                                                break;
+                                                if (queuedResponse.Status.Code != PartialContent)
+                                                    break;
+                                            }
                                         }
                                     }
                                 }
+                                else
+                                    throw new NotSupportedException();
                             }
                             else
-                                throw new NotSupportedException();
+                                throw new ObjectDisposedException(nameof(Channel<T>));
                         }
-                        else
-                            throw new ObjectDisposedException(nameof(Channel<T>));
                     }
 
                     public override void Dispose()
