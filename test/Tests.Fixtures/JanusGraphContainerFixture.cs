@@ -8,7 +8,7 @@ using ExRam.Gremlinq.Tests.Infrastructure;
 
 namespace ExRam.Gremlinq.Tests.Fixtures
 {
-    public sealed class JanusGraphContainerFixture : TestContainerFixture
+    public sealed class JanusGraphContainerFixture : ImageTestContainerFixture
     {
         public JanusGraphContainerFixture() : base("janusgraph/janusgraph:1.0.0")
         {

@@ -2,11 +2,37 @@
 
 using DotNet.Testcontainers.Builders;
 using DotNet.Testcontainers.Containers;
+using DotNet.Testcontainers.Images;
+
 using ExRam.Gremlinq.Core;
 
 namespace ExRam.Gremlinq.Tests.Fixtures
 {
-    public abstract class TestContainerFixture : GremlinqFixture
+    public abstract class ImageTestContainerFixture : TestContainerFixtureBase
+    {
+        private readonly string _image;
+
+        protected ImageTestContainerFixture(string image, int port = 8182) : base(port)
+        {
+            _image = image;
+        }
+
+        protected override IImage GetImage() => new DockerImage(_image);
+    }
+
+    public abstract class DockerfileTestContainerFixture : TestContainerFixtureBase
+    {
+        private readonly string _dockerfile;
+
+        protected DockerfileTestContainerFixture(string dockerfile, int port = 8182) : base(port)
+        {
+            _dockerfile = dockerfile;
+        }
+
+        protected override IImage GetImage() => new ImageFromDockerfileBuilder().WithDockerfile(_dockerfile).Build();
+    }
+
+    public abstract class TestContainerFixtureBase : GremlinqFixture
     {
         private sealed class ContainerAttachedGremlinQuerySource : IGremlinQuerySource, IAsyncDisposable
         {
@@ -69,33 +95,30 @@ namespace ExRam.Gremlinq.Tests.Fixtures
         }
 
         private readonly int _port;
-        private readonly string _image;
 
-        protected TestContainerFixture(string image, int port = 8182)
+        protected TestContainerFixtureBase(int port = 8182)
         {
             _port = port;
-            _image = image;
         }
-
-        protected abstract Task<IGremlinQuerySource> TransformQuerySource(IContainer container, IGremlinQuerySource g);
-
-        protected virtual ContainerBuilder CustomizeContainer(ContainerBuilder containerBuilder) => containerBuilder;
 
         protected override sealed async Task<IGremlinQuerySource> TransformQuerySource(IGremlinQuerySource g)
         {
-            var container = this
-                .CustomizeContainer(new ContainerBuilder()
-                    .WithImage(_image)
-                    .WithPortBinding(_port, true))
+            var container = new ContainerBuilder()
+                .WithImage(GetImage())
+                .WithPortBinding(_port, true)
                 .WithWaitStrategy(Wait
                     .ForUnixContainer()
-                .UntilPortIsAvailable(_port))
+                    .UntilPortIsAvailable(_port))
                 .Build();
 
             await container
                 .StartAsync();
 
-            return new ContainerAttachedGremlinQuerySource(container, await TransformQuerySource(container, g));
+            return await TransformQuerySource(container, g);
         }
+
+        protected abstract IImage GetImage(); 
+
+        protected virtual async Task<IGremlinQuerySource> TransformQuerySource(IContainer container, IGremlinQuerySource g) => new ContainerAttachedGremlinQuerySource(container, await TransformQuerySource(container, g));
     }
 }

@@ -7,7 +7,7 @@ using ExRam.Gremlinq.Support.NewtonsoftJson;
 
 namespace ExRam.Gremlinq.Tests.Fixtures
 {
-    public sealed class NeptuneContainerFixture : TestContainerFixture
+    public sealed class NeptuneContainerFixture : ImageTestContainerFixture
     {
         public NeptuneContainerFixture() : base("tinkerpop/gremlin-server:3.7.1")
         {
