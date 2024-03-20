@@ -18,10 +18,10 @@ jobs:
         submodules: 'true'
 
     - name: Build
-      run: dotnet build ./${{ github.event.repository.name }}.sln -c Release
+      run: dotnet build  -c Release ./${{ github.event.repository.name }}.sln
       
     - name: Test
-      run: dotnet test ./${{ github.event.repository.name }}.sln -c Release --no-build
+      run: dotnet test -c Release --no-build --collect:"XPlat Code Coverage;Format=opencover" ./${{ github.event.repository.name }}.sln 
       env:
         RunGremlinServerIntegrationTests: 'true'
         RunJanusGraphIntegrationTests: 'true'
@@ -47,10 +47,10 @@ jobs:
       uses: Gremlinq/cosmos-emulator-github-action@EnableGremlin
 
     - name: Build
-      run: dotnet build ./${{ github.event.repository.name }}.sln -c Release
+      run: dotnet build  -c Release ./${{ github.event.repository.name }}.sln
       
     - name: Test
-      run: dotnet test ./${{ github.event.repository.name }}.sln -c Release --no-build
+      run: dotnet test -c Release --no-build --collect:"XPlat Code Coverage;Format=opencover" ./${{ github.event.repository.name }}.sln
       env:
         RunCosmosDbIntegrationTests: 'true'
         
