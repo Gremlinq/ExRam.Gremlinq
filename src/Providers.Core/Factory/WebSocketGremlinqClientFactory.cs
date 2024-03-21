@@ -310,9 +310,9 @@ namespace ExRam.Gremlinq.Providers.Core
                             {
                                 using (buffer)
                                 {
-                                        await _client.SendAsync(buffer.Memory, WebSocketMessageType.Binary, true, ct);
-                                    }
-                                    }
+                                    await _client.SendAsync(buffer.Memory, WebSocketMessageType.Binary, true, ct);
+                                }
+                            }
                             else
                                 throw new InvalidOperationException();
                         }
