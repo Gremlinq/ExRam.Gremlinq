@@ -36,6 +36,9 @@ jobs:
       uses: dotnet/nbgv@master
       id: nbgv
 
+    - name: Replace NuGet version default value in templates
+      run: find -name template.json -exec sed -i "s/TEMPLATE_GREMLINQ_VERSION_DEFAULT_VALUE/${{ steps.nbgv.outputs.NuGetPackageVersion }}/g" {} \;
+
     - name: Build
       run: dotnet build ./${{ github.event.repository.name }}.sln -c Release -p:ContinuousIntegrationBuild=true
 
