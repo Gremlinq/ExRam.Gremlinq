@@ -207,7 +207,7 @@ namespace ExRam.Gremlinq.Providers.Core
             {
                 return Core(this, message);
 
-                async static IAsyncEnumerable<ResponseMessage<T>> Core(RetryGremlinqClient @this, RequestMessage message, [EnumeratorCancellation] CancellationToken ct = default)
+                static async IAsyncEnumerable<ResponseMessage<T>> Core(RetryGremlinqClient @this, RequestMessage message, [EnumeratorCancellation] CancellationToken ct = default)
                 {
                     var retry = true;
                     var retryIndex = -1;

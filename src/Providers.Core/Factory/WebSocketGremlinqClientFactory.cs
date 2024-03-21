@@ -138,7 +138,7 @@ namespace ExRam.Gremlinq.Providers.Core
 
                     public async IAsyncEnumerator<ResponseMessage<T>> GetAsyncEnumerator(CancellationToken ct = default)
                     {
-                        using (ct.Register(Dispose))
+                        await using (ct.Register(Dispose))
                         {
                             if (await _tcs.Task is { } union)
                             {
@@ -190,7 +190,7 @@ namespace ExRam.Gremlinq.Providers.Core
                         {
                             if (_tcs.Task.IsCompleted)
                             {
-                                if (_tcs.Task.IsCompletedSuccessfully && _tcs.Task.Result is { } union && union.TryGetQueue(out var semaphore, out _))
+                                if (_tcs.Task is { IsCompletedSuccessfully: true, Result: { } union } && union.TryGetQueue(out var semaphore, out _))
                                     semaphore.Dispose();
 
                                 return;
@@ -331,12 +331,12 @@ namespace ExRam.Gremlinq.Providers.Core
 
                 private async Task Loop(CancellationToken ct)
                 {
-                    IMemoryOwner<byte>? bytes;
-
                     using (this)
                     {
                         while (!ct.IsCancellationRequested)
                         {
+                            IMemoryOwner<byte>? bytes;
+
                             try
                             {
                                 bytes = await _client.ReceiveAsync(ct);

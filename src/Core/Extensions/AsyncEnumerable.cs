@@ -121,7 +121,7 @@ namespace ExRam.Gremlinq.Core
 
             static async IAsyncEnumerable<T> Core(IAsyncEnumerable<T> source, Func<Exception, Exception> exceptionTransformation, [EnumeratorCancellation] CancellationToken ct = default)
             {
-                await using (var enumerator = source.WithCancellation(ct).GetAsyncEnumerator())
+                await using (var enumerator = source.GetAsyncEnumerator(ct))
                 {
                     while (true)
                     {
