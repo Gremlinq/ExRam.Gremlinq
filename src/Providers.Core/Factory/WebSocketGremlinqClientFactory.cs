@@ -227,6 +227,9 @@ namespace ExRam.Gremlinq.Providers.Core
 
                     static async IAsyncEnumerable<ResponseMessage<T>> Core(RequestMessage message, WebSocketGremlinqClient @this, [EnumeratorCancellation] CancellationToken ct = default)
                     {
+                        if (@this._client.CloseStatus is not null)
+                            throw new ObjectDisposedException(nameof(WebSocketGremlinqClient));
+
                         using (var channel = new Channel<T>(@this))
                         {
                             using (var linkedCts = CancellationTokenSource.CreateLinkedTokenSource(ct, @this._cts.Token))
@@ -307,9 +310,9 @@ namespace ExRam.Gremlinq.Providers.Core
                             {
                                 using (buffer)
                                 {
-                                    await _client.SendAsync(buffer.Memory, WebSocketMessageType.Binary, true, ct);
-                                }
-                            }
+                                        await _client.SendAsync(buffer.Memory, WebSocketMessageType.Binary, true, ct);
+                                    }
+                                    }
                             else
                                 throw new InvalidOperationException();
                         }
