@@ -24,6 +24,11 @@ namespace ExRam.Gremlinq.Providers.Core
         {
             private sealed class WebSocketGremlinqClient : IGremlinqClient
             {
+                private interface IChannel : IDisposable
+                {
+                    void Signal(TBinaryMessage buffer, Guid requestId, ResponseStatus responseStatus);
+                }
+
                 private readonly struct ResponseAndQueueUnion<T>
                 {
                     private readonly SemaphoreSlim? _semaphore;
@@ -56,14 +61,7 @@ namespace ExRam.Gremlinq.Providers.Core
                     public static ResponseAndQueueUnion<T> CreateQueue() => new(new(0), new());
                 }
 
-                private abstract class Channel : IDisposable
-                {
-                    public abstract void Signal(TBinaryMessage buffer, Guid requestId, ResponseStatus responseStatus);
-
-                    public abstract void Dispose();
-                }
-
-                private sealed class Channel<T> : Channel, IAsyncEnumerable<ResponseMessage<T>>
+                private sealed class Channel<T> : IChannel, IAsyncEnumerable<ResponseMessage<T>>
                 {
                     private readonly WebSocketGremlinqClient _client;
                     private readonly TaskCompletionSource<ResponseAndQueueUnion<T>?> _tcs = new ();
@@ -73,7 +71,7 @@ namespace ExRam.Gremlinq.Providers.Core
                         _client = client;
                     }
 
-                    public override void Signal(TBinaryMessage buffer, Guid requestId, ResponseStatus responseStatus)
+                    public void Signal(TBinaryMessage buffer, Guid requestId, ResponseStatus responseStatus)
                     {
                         try
                         {
@@ -169,7 +167,7 @@ namespace ExRam.Gremlinq.Providers.Core
                         }
                     }
 
-                    public override void Dispose()
+                    public void Dispose()
                     {
                         while (true)
                         {
@@ -196,7 +194,7 @@ namespace ExRam.Gremlinq.Providers.Core
                 private readonly CancellationTokenSource _cts = new();
                 private readonly IGremlinQueryEnvironment _environment;
                 private readonly TaskCompletionSource<Task?> _loopTcs = new();
-                private readonly ConcurrentDictionary<Guid, Channel> _channels = new();
+                private readonly ConcurrentDictionary<Guid, IChannel> _channels = new();
                 private readonly WebSocketGremlinqClientFactoryImpl<TBinaryMessage> _factory;
 
                 public WebSocketGremlinqClient(WebSocketGremlinqClientFactoryImpl<TBinaryMessage> factory, ClientWebSocket client, IGremlinQueryEnvironment environment)
