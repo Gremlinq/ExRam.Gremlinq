@@ -61,18 +61,10 @@ namespace ExRam.Gremlinq.Providers.Core
 
                         public bool TryGetQueue([NotNullWhen(true)] out SemaphoreSlim? semaphore, [NotNullWhen(true)] out ConcurrentQueue<ResponseMessage<T>>? queue)
                         {
-                            if (_queue is { } actualQueue && _semaphore is { } actualSemphore)
-                            {
-                                queue = actualQueue;
-                                semaphore = actualSemphore;
+                            queue = _queue;
+                            semaphore = _semaphore;
 
-                                return true;
-                            }
-
-                            queue = null;
-                            semaphore = null;
-
-                            return false;
+                            return queue is not null && semaphore is not null;
                         }
 
                         public static ResponseAndQueueUnion From(ResponseMessage<T> response) => new(response);
