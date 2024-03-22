@@ -110,16 +110,14 @@ namespace ExRam.Gremlinq.Providers.Core
 
                                 return;
                             }
-                            else
+
+                            if (response.Status.Code is not PartialContent and not Authenticate)
                             {
-                                if (response.Status.Code is not PartialContent and not Authenticate)
-                                {
-                                    if (_tcs.TrySetResult(ResponseAndQueueUnion.From(response)))
-                                        return;
-                                }
-                                else
-                                    _tcs.TrySetResult(ResponseAndQueueUnion.CreateQueue());
+                                if (_tcs.TrySetResult(ResponseAndQueueUnion.From(response)))
+                                    return;
                             }
+                            else
+                                _tcs.TrySetResult(ResponseAndQueueUnion.CreateQueue());
                         }
                     }
 
