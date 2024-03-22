@@ -6,6 +6,7 @@ using System.Net.WebSockets;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Threading.Tasks.Sources;
 
 using ExRam.Gremlinq.Core;
 
@@ -61,10 +62,12 @@ namespace ExRam.Gremlinq.Providers.Core
                     public static ResponseAndQueueUnion<T> CreateQueue() => new(new(0), new());
                 }
 
-                private sealed class Channel<T> : IChannel, IAsyncEnumerable<ResponseMessage<T>>
+                private sealed class Channel<T> : IChannel, IAsyncEnumerable<ResponseMessage<T>>, IValueTaskSource<ResponseAndQueueUnion<T>?>
                 {
                     private readonly WebSocketGremlinqClient _client;
-                    private readonly TaskCompletionSource<ResponseAndQueueUnion<T>?> _tcs = new ();
+
+                    private int _isQueueSet;
+                    private ManualResetValueTaskSourceCore<ResponseAndQueueUnion<T>?> _valueTaskSource;
 
                     public Channel(WebSocketGremlinqClient client)
                     {
@@ -98,9 +101,9 @@ namespace ExRam.Gremlinq.Providers.Core
                     {
                         while (true)
                         {
-                            if (_tcs.Task.IsCompletedSuccessfully)
+                            if (_valueTaskSource.GetStatus(0) > ValueTaskSourceStatus.Pending)
                             {
-                                if (_tcs.Task.Result is { } union && union.TryGetQueue(out var semaphore, out var queue))
+                                if (_valueTaskSource.GetResult(0) is { } union && union.TryGetQueue(out var semaphore, out var queue))
                                 {
                                     queue.Enqueue(response);
                                     semaphore.Release();
@@ -111,11 +114,11 @@ namespace ExRam.Gremlinq.Providers.Core
 
                             if (response.Status.Code is not PartialContent and not Authenticate)
                             {
-                                if (_tcs.TrySetResult(ResponseAndQueueUnion<T>.From(response)))
+                                if (TrySetResponseOrQueue(ResponseAndQueueUnion<T>.From(response)))
                                     return;
                             }
                             else
-                                _tcs.TrySetResult(ResponseAndQueueUnion<T>.CreateQueue());
+                                TrySetResponseOrQueue(ResponseAndQueueUnion<T>.CreateQueue());
                         }
                     }
 
@@ -123,7 +126,7 @@ namespace ExRam.Gremlinq.Providers.Core
                     {
                         await using (ct.Register(Dispose))
                         {
-                            if (await _tcs.Task is { } union)
+                            if (await new ValueTask<ResponseAndQueueUnion<T>?>(this, 0) is { } union)
                             {
                                 if (union.TryGetResponse(out var response))
                                     yield return response;
@@ -171,18 +174,34 @@ namespace ExRam.Gremlinq.Providers.Core
                     {
                         while (true)
                         {
-                            if (_tcs.Task.IsCompleted)
+                            if (_valueTaskSource.GetStatus(0) is var status and > ValueTaskSourceStatus.Pending)
                             {
-                                if (_tcs.Task is { IsCompletedSuccessfully: true, Result: { } union } && union.TryGetQueue(out var semaphore, out _))
+                                if (status == ValueTaskSourceStatus.Succeeded && _valueTaskSource.GetResult(0) is { } union && union.TryGetQueue(out var semaphore, out _))
                                     semaphore.Dispose();
 
                                 return;
                             }
 
-                            if (_tcs.TrySetResult(null))
+                            if (TrySetResponseOrQueue(null))
                                 return;
                         }
                     }
+
+                    private bool TrySetResponseOrQueue(ResponseAndQueueUnion<T>? union)
+                    {
+                        var wasQueueNotSet = Interlocked.CompareExchange(ref _isQueueSet, 1, 0) == 0;
+
+                        if (wasQueueNotSet)
+                            _valueTaskSource.SetResult(union);
+
+                        return wasQueueNotSet;
+                    }
+
+                    ResponseAndQueueUnion<T>? IValueTaskSource<ResponseAndQueueUnion<T>?>.GetResult(short token) => _valueTaskSource.GetResult(token);
+
+                    ValueTaskSourceStatus IValueTaskSource<ResponseAndQueueUnion<T>?>.GetStatus(short token) => _valueTaskSource.GetStatus(token);
+
+                    void IValueTaskSource<ResponseAndQueueUnion<T>?>.OnCompleted(Action<object?> continuation, object? state, short token, ValueTaskSourceOnCompletedFlags flags) => _valueTaskSource.OnCompleted(continuation, state, token, flags);
                 }
 
                 private record struct ResponseMessagePayload<T>(ResponseResult<T>? Result);
