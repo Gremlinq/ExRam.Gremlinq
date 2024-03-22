@@ -24,6 +24,38 @@ namespace ExRam.Gremlinq.Providers.Core
         {
             private sealed class WebSocketGremlinqClient : IGremlinqClient
             {
+                private readonly struct ResponseAndQueueUnion<T>
+                {
+                    private readonly SemaphoreSlim? _semaphore;
+                    private readonly ResponseMessage<T>? _response;
+                    private readonly ConcurrentQueue<ResponseMessage<T>>? _queue;
+
+                    private ResponseAndQueueUnion(SemaphoreSlim semaphore, ConcurrentQueue<ResponseMessage<T>> queue)
+                    {
+                        _queue = queue;
+                        _semaphore = semaphore;
+                    }
+
+                    private ResponseAndQueueUnion(ResponseMessage<T> response)
+                    {
+                        _response = response;
+                    }
+
+                    public bool TryGetResponse([NotNullWhen(true)] out ResponseMessage<T>? response) => (response = _response) is not null;
+
+                    public bool TryGetQueue([NotNullWhen(true)] out SemaphoreSlim? semaphore, [NotNullWhen(true)] out ConcurrentQueue<ResponseMessage<T>>? queue)
+                    {
+                        queue = _queue;
+                        semaphore = _semaphore;
+
+                        return queue is not null && semaphore is not null;
+                    }
+
+                    public static ResponseAndQueueUnion<T> From(ResponseMessage<T> response) => new(response);
+
+                    public static ResponseAndQueueUnion<T> CreateQueue() => new(new(0), new());
+                }
+
                 private abstract class Channel : IDisposable
                 {
                     public abstract void Signal(TBinaryMessage buffer, Guid requestId, ResponseStatus responseStatus);
@@ -33,40 +65,8 @@ namespace ExRam.Gremlinq.Providers.Core
 
                 private sealed class Channel<T> : Channel, IAsyncEnumerable<ResponseMessage<T>>
                 {
-                    private readonly struct ResponseAndQueueUnion
-                    {
-                        private readonly SemaphoreSlim? _semaphore;
-                        private readonly ResponseMessage<T>? _response;
-                        private readonly ConcurrentQueue<ResponseMessage<T>>? _queue;
-
-                        private ResponseAndQueueUnion(SemaphoreSlim semaphore, ConcurrentQueue<ResponseMessage<T>> queue)
-                        {
-                            _queue = queue;
-                            _semaphore = semaphore;
-                        }
-
-                        private ResponseAndQueueUnion(ResponseMessage<T> response)
-                        {
-                            _response = response;
-                        }
-
-                        public bool TryGetResponse([NotNullWhen(true)] out ResponseMessage<T>? response) => (response = _response) is not null;
-
-                        public bool TryGetQueue([NotNullWhen(true)] out SemaphoreSlim? semaphore, [NotNullWhen(true)] out ConcurrentQueue<ResponseMessage<T>>? queue)
-                        {
-                            queue = _queue;
-                            semaphore = _semaphore;
-
-                            return queue is not null && semaphore is not null;
-                        }
-
-                        public static ResponseAndQueueUnion From(ResponseMessage<T> response) => new(response);
-
-                        public static ResponseAndQueueUnion CreateQueue() => new(new (0), new());
-                    }
-
                     private readonly WebSocketGremlinqClient _client;
-                    private readonly TaskCompletionSource<ResponseAndQueueUnion?> _tcs = new ();
+                    private readonly TaskCompletionSource<ResponseAndQueueUnion<T>?> _tcs = new ();
 
                     public Channel(WebSocketGremlinqClient client)
                     {
@@ -113,11 +113,11 @@ namespace ExRam.Gremlinq.Providers.Core
 
                             if (response.Status.Code is not PartialContent and not Authenticate)
                             {
-                                if (_tcs.TrySetResult(ResponseAndQueueUnion.From(response)))
+                                if (_tcs.TrySetResult(ResponseAndQueueUnion<T>.From(response)))
                                     return;
                             }
                             else
-                                _tcs.TrySetResult(ResponseAndQueueUnion.CreateQueue());
+                                _tcs.TrySetResult(ResponseAndQueueUnion<T>.CreateQueue());
                         }
                     }
 
