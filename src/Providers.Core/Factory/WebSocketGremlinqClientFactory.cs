@@ -26,16 +26,9 @@ namespace ExRam.Gremlinq.Providers.Core
             {
                 private abstract class Channel : IDisposable
                 {
-                    protected Channel(WebSocketGremlinqClient client)
-                    {
-                        Client = client;
-                    }
-
                     public abstract void Signal(TBinaryMessage buffer, Guid requestId, ResponseStatus responseStatus);
 
                     public abstract void Dispose();
-
-                    protected WebSocketGremlinqClient Client { get; }
                 }
 
                 private sealed class Channel<T> : Channel, IAsyncEnumerable<ResponseMessage<T>>
@@ -72,17 +65,19 @@ namespace ExRam.Gremlinq.Providers.Core
                         public static ResponseAndQueueUnion CreateQueue() => new(new (0), new());
                     }
 
+                    private readonly WebSocketGremlinqClient _client;
                     private readonly TaskCompletionSource<ResponseAndQueueUnion?> _tcs = new ();
 
-                    public Channel(WebSocketGremlinqClient client) : base(client)
+                    public Channel(WebSocketGremlinqClient client)
                     {
+                        _client = client;
                     }
 
                     public override void Signal(TBinaryMessage buffer, Guid requestId, ResponseStatus responseStatus)
                     {
                         try
                         {
-                            if (Client._environment.Deserializer.TryTransform(buffer, Client._environment, out ResponseMessagePayload<T> payload))
+                            if (_client._environment.Deserializer.TryTransform(buffer, _client._environment, out ResponseMessagePayload<T> payload))
                             {
                                 if (payload.Result is { } payloadResult)
                                     Signal(new ResponseMessage<T>(requestId, responseStatus, payloadResult));
@@ -148,7 +143,7 @@ namespace ExRam.Gremlinq.Providers.Core
                                             {
                                                 try
                                                 {
-                                                    await Client.SendCore(Client._factory._authMessageFactory((IReadOnlyDictionary<string, object>)queuedResponse.Status.Attributes ?? ImmutableDictionary<string, object>.Empty), ct);
+                                                    await _client.SendCore(_client._factory._authMessageFactory((IReadOnlyDictionary<string, object>)queuedResponse.Status.Attributes ?? ImmutableDictionary<string, object>.Empty), ct);
                                                 }
                                                 catch
                                                 {
