@@ -1,6 +1,5 @@
 ﻿using System.Collections.Immutable;
 
-using DotNet.Testcontainers;
 using DotNet.Testcontainers.Builders;
 using DotNet.Testcontainers.Containers;
 using DotNet.Testcontainers.Images;
@@ -113,12 +112,14 @@ namespace ExRam.Gremlinq.Tests.Fixtures
 
         protected override sealed async Task<IGremlinQuerySource> TransformQuerySource(IGremlinQuerySource g)
         {
-            var container = new ContainerBuilder()
+            var containerBuilder = new ContainerBuilder()
                 .WithImage(await GetImage())
                 .WithPortBinding(_port, true)
                 .WithWaitStrategy(Wait
                     .ForUnixContainer()
-                    .UntilPortIsAvailable(_port))
+                    .UntilPortIsAvailable(_port));
+
+            var container = CustomizeContainer(containerBuilder)
                 .Build();
 
             await container
@@ -128,6 +129,8 @@ namespace ExRam.Gremlinq.Tests.Fixtures
         }
 
         protected abstract Task<IImage> GetImage(); 
+
+        protected virtual ContainerBuilder CustomizeContainer(ContainerBuilder builder) => builder;
 
         protected abstract Task<IGremlinQuerySource> TransformQuerySource(IContainer container, IGremlinQuerySource g);
     }
