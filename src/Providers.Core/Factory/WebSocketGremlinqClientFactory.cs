@@ -66,8 +66,7 @@ namespace ExRam.Gremlinq.Providers.Core
                 {
                     private readonly WebSocketGremlinqClient _client;
 
-                    private int _isQueueSet;
-                    private ManualResetValueTaskSourceCore<ResponseAndQueueUnion<T>?> _valueTaskSource;
+                    private ValueTaskSourceCore<ResponseAndQueueUnion<T>?> _valueTaskSource;
 
                     public Channel(WebSocketGremlinqClient client)
                     {
@@ -114,11 +113,11 @@ namespace ExRam.Gremlinq.Providers.Core
 
                             if (response.Status.Code is not PartialContent and not Authenticate)
                             {
-                                if (TrySetResponseOrQueue(ResponseAndQueueUnion<T>.From(response)))
+                                if (_valueTaskSource.TrySetResult(ResponseAndQueueUnion<T>.From(response)))
                                     return;
                             }
                             else
-                                TrySetResponseOrQueue(ResponseAndQueueUnion<T>.CreateQueue());
+                                _valueTaskSource.TrySetResult(ResponseAndQueueUnion<T>.CreateQueue());
                         }
                     }
 
@@ -182,19 +181,9 @@ namespace ExRam.Gremlinq.Providers.Core
                                 return;
                             }
 
-                            if (TrySetResponseOrQueue(null))
+                            if (_valueTaskSource.TrySetResult(null))
                                 return;
                         }
-                    }
-
-                    private bool TrySetResponseOrQueue(ResponseAndQueueUnion<T>? union)
-                    {
-                        var wasQueueNotSet = Interlocked.CompareExchange(ref _isQueueSet, 1, 0) == 0;
-
-                        if (wasQueueNotSet)
-                            _valueTaskSource.SetResult(union);
-
-                        return wasQueueNotSet;
                     }
 
                     ResponseAndQueueUnion<T>? IValueTaskSource<ResponseAndQueueUnion<T>?>.GetResult(short token) => _valueTaskSource.GetResult(token);
