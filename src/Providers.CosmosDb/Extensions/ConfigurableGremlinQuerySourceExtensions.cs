@@ -16,23 +16,23 @@ namespace ExRam.Gremlinq.Providers.CosmosDb
     {
         private sealed class CosmosDbConfigurator<TVertexBase> : ICosmosDbConfigurator<TVertexBase>
         {
-            public static readonly CosmosDbConfigurator<TVertexBase> Default = new(null, null, null, null, WebSocketGremlinqClientFactory.LocalHost.WithBinaryMessage<GraphSon2BinaryMessage>().Pool(), _ => _);
+            public static readonly CosmosDbConfigurator<TVertexBase> Default = new(null, null, null, null, _ => _, _ => _);
 
             private readonly string? _authKey;
             private readonly string? _graphName;
             private readonly string? _databaseName;
             private readonly Expression<Func<TVertexBase, object>>? _partitionKeyExpression;
             private readonly Func<IGremlinQuerySource, IGremlinQuerySource> _querySourceTransformation;
-            private readonly IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory> _clientFactory;
+            private readonly Func<IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>, IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>> _clientFactoryTransformation;
 
-            private CosmosDbConfigurator(string? databaseName, string? graphName, Expression<Func<TVertexBase, object>>? partitionKeyExpression, string? authKey, IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory> clientFactory, Func<IGremlinQuerySource, IGremlinQuerySource> querySourceTransformation)
+            private CosmosDbConfigurator(string? databaseName, string? graphName, Expression<Func<TVertexBase, object>>? partitionKeyExpression, string? authKey, Func<IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>, IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>> clientFactoryTransformation, Func<IGremlinQuerySource, IGremlinQuerySource> querySourceTransformation)
             {
                 _authKey = authKey;
                 _graphName = graphName;
                 _databaseName = databaseName;
-                _clientFactory = clientFactory;
                 _partitionKeyExpression = partitionKeyExpression;
                 _querySourceTransformation = querySourceTransformation;
+                _clientFactoryTransformation = clientFactoryTransformation;
             }
 
             public ICosmosDbConfigurator<TVertexBase> OnDatabase(string databaseName) => new CosmosDbConfigurator<TVertexBase>(
@@ -40,7 +40,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb
                 _graphName,
                 _partitionKeyExpression,
                 _authKey,
-                _clientFactory,
+                _clientFactoryTransformation,
                 _querySourceTransformation);
 
             public ICosmosDbConfigurator<TVertexBase> OnGraph(string graphName) => new CosmosDbConfigurator<TVertexBase>(
@@ -48,7 +48,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb
                 graphName,
                 _partitionKeyExpression,
                 _authKey,
-                _clientFactory,
+                _clientFactoryTransformation,
                 _querySourceTransformation);
 
             public ICosmosDbConfigurator<TVertexBase> AuthenticateBy(string authKey) => new CosmosDbConfigurator<TVertexBase>(
@@ -56,7 +56,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb
                 _graphName,
                 _partitionKeyExpression,
                 authKey,
-                _clientFactory,
+                _clientFactoryTransformation,
                 _querySourceTransformation);
 
             public ICosmosDbConfigurator<TVertexBase> ConfigureClientFactory(Func<IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>, IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>> transformation) => new CosmosDbConfigurator<TVertexBase>(
@@ -64,7 +64,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb
                 _graphName,
                 _partitionKeyExpression,
                 _authKey,
-                transformation(_clientFactory),
+                _ => transformation(_clientFactoryTransformation(_)),
                 _querySourceTransformation);
 
             public ICosmosDbConfigurator<TVertexBase> ConfigureQuerySource(Func<IGremlinQuerySource, IGremlinQuerySource> transformation) => new CosmosDbConfigurator<TVertexBase>(
@@ -72,7 +72,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb
                 _graphName,
                 _partitionKeyExpression,
                 _authKey,
-                _clientFactory,
+                _clientFactoryTransformation,
                 _ => transformation(_querySourceTransformation(_)));
 
             public ICosmosDbConfigurator<TVertexBase> WithPartitionKey(Expression<Func<TVertexBase, object>> partitionKeyExpression) => new CosmosDbConfigurator<TVertexBase>(
@@ -80,7 +80,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb
                 _graphName,
                 partitionKeyExpression,
                 _authKey,
-                _clientFactory,
+                _clientFactoryTransformation,
                 _querySourceTransformation);
 
             public IGremlinQuerySource Transform(IGremlinQuerySource source)
@@ -100,9 +100,11 @@ namespace ExRam.Gremlinq.Providers.CosmosDb
                                                 .ConfigureVertices(model => model
                                                     .ConfigureElement<TVertexBase>(conf => conf
                                                     .IgnoreOnUpdate(partitionKeyExpression))))
-                                            .UseExecutor(_clientFactory
-                                                .ConfigureBaseFactory(factory => factory
-                                                    .WithPlainCredentials($"/dbs/{databaseName}/colls/{graphName}", authKey))
+                                            .UseExecutor(_clientFactoryTransformation
+                                                .Invoke(WebSocketGremlinqClientFactory.LocalHost
+                                                    .WithBinaryMessage<GraphSon2BinaryMessage>()
+                                                    .WithPlainCredentials($"/dbs/{databaseName}/colls/{graphName}", authKey)
+                                                    .Pool())
                                                 .Log()
                                                 .ToExecutor())));
                             }
