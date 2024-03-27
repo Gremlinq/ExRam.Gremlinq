@@ -276,8 +276,11 @@ namespace ExRam.Gremlinq.Providers.Core
                     {
                         using (_client)
                         {
-                            _cts.Cancel();
-                            _loopTcs.TrySetResult(null);
+                            using (_cts)
+                            {
+                                _cts.Cancel();
+                                _loopTcs.TrySetResult(null);
+                            }
                         }
                     }
                 }
