@@ -1,6 +1,10 @@
+$versionIncrement=$args[0]
 $current = $(git branch --show-current)
+
 git checkout -b PrepareRelease
-$nbgv = nbgv prepare-release --format json | ConvertFrom-Json
+$nbgvString = if ($versionIncrement -eq $null) { nbgv prepare-release --format json } else { nbgv prepare-release --format json --versionIncrement $versionIncrement }
+$nbgv = $nbgvString | ConvertFrom-Json
+
 git rebase -f $current $nbgv.NewBranch.Name
 git rebase $nbgv.NewBranch.Name $nbgv.CurrentBranch.Name -Xtheirs
 git tag $nbgv.NewBranch.Name $nbgv.NewBranch.Name
