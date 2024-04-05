@@ -12,20 +12,21 @@ ExRam.Gremlinq is a .NET object-graph-mapper for [Apache TinkerPop™](http://ti
 [![codecov](https://img.shields.io/codecov/c/github/ExRam/ExRam.Gremlinq/branch/12.x?token=YrGnIo6XyH&logo=codecov&style=flat-square)](https://codecov.io/github/ExRam/ExRam.Gremlinq)
 [![#](https://img.shields.io/github/sponsors/danielcweber?logo=githubsponsors&style=flat-square)](https://github.com/sponsors/danielcweber)
 
-# Documentation
+# ☆ Documentation
 
-Head over to the [official docs](https://docs.gremlinq.net) for an introduction on how to get started with
-ExRam.Gremlinq and lots of example queries.
+Head over to the official docs for an introduction on how to get started with ExRam.Gremlinq and lots of example queries.
 
-# Extensions
+[![#](https://img.shields.io/badge/Read_the_docs!-EA6F1B?style=flat-square)](https://docs.gremlinq.net)
 
-Coming soon: A commercial [extension NuGet package](https://docs.gremlinq.net/extensions/) containing
-some of the most-wanted features missing from the Core library.
-
-# Paid support
+# ☆ Support
 
 Schedule a video session with [@danielcweber](https://github.com/danielcweber) to get assistance with Gremlinq setup and
 configuration, query writing, debugging or review.
 
-[![#](https://img.shields.io/badge/Schedule%20a%20call-blue)](https://calendly.com/danielcweber)
+[![#](https://img.shields.io/badge/Schedule_a_call!-EA6F1B?style=flat-square)](https://calendly.com/danielcweber)
 
+# ☆ Extensions
+
+Coming soon: An extension NuGet package containing some of the most-wanted features missing from the Core library.
+
+[![#](https://img.shields.io/badge/Check_out_Gremlinq.Extensions!-EA6F1B?style=flat-square)](https://docs.gremlinq.net/extensions/)
