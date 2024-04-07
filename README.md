@@ -16,17 +16,17 @@ ExRam.Gremlinq is a .NET object-graph-mapper for [Apache TinkerPop™](http://ti
 
 Head over to the official docs for an introduction on how to get started with ExRam.Gremlinq and lots of example queries.
 
-[![#](https://img.shields.io/badge/Read_the_docs!-EA6F1B?style=flat-square)](https://docs.gremlinq.net)
+[![#](https://img.shields.io/badge/Read_the_docs!-EA6F1B?style=for-the-badge)](https://docs.gremlinq.net)
 
 # ☆ Support
 
 Schedule a video session with [@danielcweber](https://github.com/danielcweber) to get assistance with Gremlinq setup and
 configuration, query writing, debugging or review.
 
-[![#](https://img.shields.io/badge/Schedule_a_call!-EA6F1B?style=flat-square)](https://calendly.com/danielcweber)
+[![#](https://img.shields.io/badge/Schedule_a_call!-EA6F1B?style=for-the-badge)](https://calendly.com/danielcweber)
 
 # ☆ Extensions
 
 Coming soon: An extension NuGet package containing some of the most-wanted features missing from the Core library.
 
-[![#](https://img.shields.io/badge/Check_out_Gremlinq.Extensions!-EA6F1B?style=flat-square)](https://docs.gremlinq.net/extensions/)
+[![#](https://img.shields.io/badge/Check_out_Gremlinq.Extensions!-EA6F1B?style=for-the-badge)](https://docs.gremlinq.net/extensions/)
