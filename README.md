@@ -23,7 +23,7 @@ Head over to the official docs for an introduction on how to get started with Ex
 Schedule a video session with [@danielcweber](https://github.com/danielcweber) to get assistance with Gremlinq setup and
 configuration, query writing, debugging or review.
 
-[![#](https://img.shields.io/badge/Schedule_a_call!-EA6F1B?style=for-the-badge)](https://calendly.com/danielcweber)
+[![#](https://img.shields.io/badge/Schedule_a_call!-EA6F1B?style=for-the-badge)](https://danielcweber.net/r/gremlinqsupport)
 
 # ☆ Extensions
 
