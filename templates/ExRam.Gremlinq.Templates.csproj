@@ -1,5 +1,4 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="..\PackageIcon.props" />
 
   <PropertyGroup>
     <!-- The package metadata. Fill in the properties marked as TODO below -->

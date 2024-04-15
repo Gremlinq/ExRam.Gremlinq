@@ -1,6 +1,5 @@
 <Project>
   <Import Project="..\Directory.Build.props" />
-  <Import Project="..\PackageIcon.props" />
   
   <PropertyGroup>
     <TargetFrameworks>net8.0</TargetFrameworks>
