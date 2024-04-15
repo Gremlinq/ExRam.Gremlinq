@@ -12,7 +12,12 @@
     <Copyright>©2017-2019 ExRam EDV GmbH &amp; Co. KG, 2020 ExRam Innovations GmbH</Copyright>
   </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Condition="'$(IsPackable)' == 'true'" Include="Nerdbank.GitVersioning" Version="3.6.133" PrivateAssets="All" />
+  <ItemGroup Condition="'$(IsPackable)' == 'true'">
+    <None Include="$(MSBuildThisFileDirectory)assets\icon.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+
+    <PackageReference Include="Nerdbank.GitVersioning" Version="3.6.133" PrivateAssets="All" />
   </ItemGroup>
 </Project>
