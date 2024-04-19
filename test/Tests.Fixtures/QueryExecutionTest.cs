@@ -4467,6 +4467,12 @@ namespace ExRam.Gremlinq.Tests.TestCases
             .Verify();
 
         [Fact]
+        public virtual Task Where_property_starts_with_char_with_TextP_support() => _g
+            .V<Country>()
+            .Where(c => c.CountryCallingCode!.StartsWith('+'))
+            .Verify();
+
+        [Fact]
         public virtual Task Where_property_starts_with_constant_without_TextP_support() => _g
             .ConfigureEnvironment(env => env
                 .ConfigureOptions(c => c

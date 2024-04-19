@@ -191,7 +191,7 @@ namespace ExRam.Gremlinq.Core
 
                     if (methodInfo.DeclaringType == typeof(string) && methodInfo.GetParameters() is { Length: 1 or 2 } parameters)
                     {
-                        if (parameters[0].ParameterType == typeof(string) && (parameters.Length == 1 || parameters[1].ParameterType == typeof(StringComparison)))
+                        if ((parameters[0].ParameterType == typeof(string) || parameters[0].ParameterType == typeof(char)) && (parameters.Length == 1 || parameters[1].ParameterType == typeof(StringComparison)))
                         {
                             var instanceExpression = targetExpression.Strip();
                             var argumentExpression = firstArgument.Strip();
@@ -212,7 +212,7 @@ namespace ExRam.Gremlinq.Core
                             }
                             else if (instanceExpression.RefersToParameter(out _))
                             {
-                                if (argumentExpression.GetValue() is string stringValue)
+                                if (argumentExpression.GetValue()?.ToString() is { } stringValue)
                                 {
                                     return new WhereExpression(
                                         instanceExpression,
