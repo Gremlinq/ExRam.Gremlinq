@@ -23,7 +23,7 @@ namespace ExRam.Gremlinq.Providers.Core
         private sealed class WebSocketGremlinqClientFactoryImpl<TBinaryMessage> : IWebSocketGremlinqClientFactory
             where TBinaryMessage : IMemoryOwner<byte>
         {
-            private sealed class WebSocketGremlinqClient : IGremlinqClient
+            private sealed class WebSocketGremlinqClient : DisposableBase, IGremlinqClient
             {
                 private interface IChannel : IDisposable
                 {
@@ -270,7 +270,7 @@ namespace ExRam.Gremlinq.Providers.Core
                     }
                 }
 
-                public void Dispose()
+                protected override void Dispose()
                 {
                     using (_sendLock)
                     {

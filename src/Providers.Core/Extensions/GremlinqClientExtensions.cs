@@ -143,7 +143,7 @@ namespace ExRam.Gremlinq.Providers.Core
             public void Dispose() => _client.Dispose();
         }
 
-        private sealed class ThrottledGremlinqClient : IGremlinqClient
+        private sealed class ThrottledGremlinqClient : DisposableBase, IGremlinqClient
         {
             private readonly SemaphoreSlim _semaphore;
             private readonly IGremlinqClient _baseClient;
@@ -153,17 +153,6 @@ namespace ExRam.Gremlinq.Providers.Core
             {
                 _baseClient = baseClient;
                 _semaphore = new SemaphoreSlim(maxConcurrency);
-            }
-
-            public void Dispose()
-            {
-                using (_cts)
-                {
-                    using (_baseClient)
-                    {
-                        _cts.Cancel();
-                    }
-                }
             }
 
             public IAsyncEnumerable<ResponseMessage<T>> SubmitAsync<T>(RequestMessage message)
@@ -187,6 +176,17 @@ namespace ExRam.Gremlinq.Providers.Core
                         {
                             @this._semaphore.Release();
                         }
+                    }
+                }
+            }
+
+            protected override void Dispose()
+            {
+                using (_cts)
+                {
+                    using (_baseClient)
+                    {
+                        _cts.Cancel();
                     }
                 }
             }
