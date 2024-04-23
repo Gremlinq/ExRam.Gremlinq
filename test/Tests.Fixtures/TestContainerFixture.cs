@@ -105,12 +105,22 @@ namespace ExRam.Gremlinq.Tests.Fixtures
 
         private readonly int _port;
 
+        private IContainer? _container;
+
         protected TestContainerFixtureBase(int port = 8182)
         {
             _port = port;
         }
 
-        protected override sealed async Task<IGremlinQuerySource> TransformQuerySource(IGremlinQuerySource g)
+        protected sealed override async Task<IGremlinQuerySource> TransformQuerySource(IGremlinQuerySource g)
+        {
+            if (_container is { } container)
+                return await TransformQuerySource(_container, new ContainerAttachedGremlinQuerySource(container, g));
+
+            throw new InvalidOperationException();
+        }
+
+        public override async Task InitializeAsync()
         {
             var containerBuilder = new ContainerBuilder()
                 .WithImage(await GetImage())
@@ -119,20 +129,14 @@ namespace ExRam.Gremlinq.Tests.Fixtures
                     .ForUnixContainer()
                     .UntilPortIsAvailable(_port));
 
-            var container = CustomizeContainer(containerBuilder)
+            _container = CustomizeContainer(containerBuilder)
                 .Build();
 
-            await container
+            await _container
                 .StartAsync();
 
-            return await TransformQuerySource(container, new ContainerAttachedGremlinQuerySource(container, g));
-        }
-
-        public override async Task InitializeAsync()
-        {
             await base.InitializeAsync();
         }
-
 
         protected abstract Task<IImage> GetImage(); 
 
