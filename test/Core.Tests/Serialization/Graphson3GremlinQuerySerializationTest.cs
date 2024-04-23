@@ -4,11 +4,11 @@ using Gremlin.Net.Structure.IO.GraphSON;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
-    public sealed class Graphson3GremlinQuerySerializationTest : QueryExecutionTest, IClassFixture<EmptyGremlinqTestFixture>
+    public sealed class Graphson3GremlinQuerySerializationTest : QueryExecutionTest, IClassFixture<GremlinqFixture>
     {
         private static readonly GraphSON3Writer GraphSon3Writer = new ();
 
-        public Graphson3GremlinQuerySerializationTest(EmptyGremlinqTestFixture fixture, ITestOutputHelper testOutputHelper) : base(
+        public Graphson3GremlinQuerySerializationTest(GremlinqFixture fixture, ITestOutputHelper testOutputHelper) : base(
             fixture,
             new GraphSonStringSerializingVerifier(GraphSon3Writer),
             testOutputHelper)

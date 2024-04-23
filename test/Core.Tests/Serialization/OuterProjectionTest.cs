@@ -5,7 +5,7 @@ using ExRam.Gremlinq.Tests.TestCases;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
-    public sealed class OuterProjectionTest : QueryExecutionTest, IClassFixture<EmptyGremlinqTestFixture>
+    public sealed class OuterProjectionTest : QueryExecutionTest, IClassFixture<GremlinqFixture>
     {
         private sealed class ProjectionVerifier : GremlinQueryVerifier
         {
@@ -16,7 +16,7 @@ namespace ExRam.Gremlinq.Core.Tests
             public override SettingsTask Verify<TElement>(IGremlinQueryBase<TElement> query) => InnerVerify(query.ToTraversal().Projection.ToTraversal(query.AsAdmin().Environment).Steps.ToArray());
         }
 
-        public OuterProjectionTest(EmptyGremlinqTestFixture fixture, ITestOutputHelper testOutputHelper) : base(fixture, new ProjectionVerifier(), testOutputHelper)
+        public OuterProjectionTest(GremlinqFixture fixture, ITestOutputHelper testOutputHelper) : base(fixture, new ProjectionVerifier(), testOutputHelper)
         {
         }
     }

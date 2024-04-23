@@ -5,9 +5,9 @@ using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
-    public sealed class BytecodeQuerySerializationTest : QueryExecutionTest, IClassFixture<EmptyGremlinqTestFixture>
+    public sealed class BytecodeQuerySerializationTest : QueryExecutionTest, IClassFixture<GremlinqFixture>
     {
-        public BytecodeQuerySerializationTest(EmptyGremlinqTestFixture fixture, ITestOutputHelper testOutputHelper) : base(fixture, new SerializingVerifier<Bytecode>(), testOutputHelper)
+        public BytecodeQuerySerializationTest(GremlinqFixture fixture, ITestOutputHelper testOutputHelper) : base(fixture, new SerializingVerifier<Bytecode>(), testOutputHelper)
         {
         }
     }

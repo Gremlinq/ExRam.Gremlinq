@@ -6,16 +6,11 @@ using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Tests.Fixtures
 {
-    public sealed class EmptyGremlinqTestFixture : GremlinqFixture
-    {
-        protected override async Task<IGremlinQuerySource> TransformQuerySource(IGremlinQuerySource g) => g;
-    }
-
-    public abstract class GremlinqFixture : IAsyncLifetime
+    public class GremlinqFixture : IAsyncLifetime
     {
         private IGremlinQuerySource? _gremlinQuerySource;
-        
-        protected abstract Task<IGremlinQuerySource> TransformQuerySource(IGremlinQuerySource g);
+
+        protected virtual async Task<IGremlinQuerySource> TransformQuerySource(IGremlinQuerySource g) => g;
 
         public IGremlinQuerySource GremlinQuerySource => _gremlinQuerySource ?? throw new InvalidOperationException();// GetGremlinQuerySource();
 
