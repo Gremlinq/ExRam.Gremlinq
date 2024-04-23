@@ -58,16 +58,16 @@ namespace ExRam.Gremlinq.Tests.Fixtures
 
                 return await newTcs.Task;
             }
-            else
-                return await GetGremlinQuerySource();
+
+            return await GetGremlinQuerySource();
         }
 
-        public async Task InitializeAsync()
+        public virtual async Task InitializeAsync()
         {
            
         }
 
-        public async Task DisposeAsync()
+        public virtual async Task DisposeAsync()
         {
             if (Interlocked.Exchange(ref _lazyQuerySource, Disposed) is { } tcs && tcs != Disposed)
             {
