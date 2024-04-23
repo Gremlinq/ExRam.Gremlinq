@@ -1,5 +1,4 @@
 ﻿using ExRam.Gremlinq.Core.AspNet;
-using ExRam.Gremlinq.Providers.Neptune;
 
 namespace ExRam.Gremlinq.Providers.Neptune.AspNet
 {

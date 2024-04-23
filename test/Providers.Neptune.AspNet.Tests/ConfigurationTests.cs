@@ -1,7 +1,6 @@
 ﻿using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.AspNet;
 using ExRam.Gremlinq.Tests.Entities;
-using ExRam.Gremlinq.Support.NewtonsoftJson;
 using ExRam.Gremlinq.Support.NewtonsoftJson.AspNet;
 
 using FluentAssertions;

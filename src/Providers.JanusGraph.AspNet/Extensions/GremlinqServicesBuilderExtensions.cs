@@ -1,5 +1,4 @@
 ﻿using ExRam.Gremlinq.Core.AspNet;
-using ExRam.Gremlinq.Providers.JanusGraph;
 
 namespace ExRam.Gremlinq.Providers.JanusGraph.AspNet
 {

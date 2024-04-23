@@ -5,7 +5,6 @@ using ExRam.Gremlinq.Core.Models;
 using ExRam.Gremlinq.Core.Steps;
 using ExRam.Gremlinq.Tests.Entities;
 using static ExRam.Gremlinq.Core.Transformation.ConverterFactory;
-using FluentAssertions;
 using ExRam.Gremlinq.Tests.Infrastructure;
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Tests.Fixtures;

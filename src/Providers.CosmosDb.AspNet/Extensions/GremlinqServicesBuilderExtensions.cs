@@ -2,7 +2,6 @@
 using System.Reflection;
 
 using ExRam.Gremlinq.Core.AspNet;
-using ExRam.Gremlinq.Providers.CosmosDb;
 
 namespace ExRam.Gremlinq.Providers.CosmosDb.AspNet
 {
