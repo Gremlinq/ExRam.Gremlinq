@@ -8,21 +8,19 @@ namespace ExRam.Gremlinq.Tests.Fixtures
 {
     public class GremlinqFixture : IAsyncLifetime
     {
-        private IGremlinQuerySource? _gremlinQuerySource;
+        private IGremlinQuerySource? _g;
 
         protected virtual async Task<IGremlinQuerySource> TransformQuerySource(IGremlinQuerySource g) => g;
 
-        public IGremlinQuerySource GremlinQuerySource => _gremlinQuerySource ?? throw new InvalidOperationException();// GetGremlinQuerySource();
-
         public virtual async Task InitializeAsync()
         {
-            _gremlinQuerySource = await TransformQuerySource(g
+            _g = await TransformQuerySource(g
                 .ConfigureEnvironment(env => env
                     .ConfigureOptions(options => options
                         .SetValue(GremlinqOption.StringComparisonTranslationStrictness,
                             StringComparisonTranslationStrictness.Lenient))));
 
-            _gremlinQuerySource = _gremlinQuerySource
+            _g = _g
                 .ConfigureEnvironment(env => env
                     .ConfigureModel(model => model == GraphModel.Invalid
                         ? GraphModel.FromBaseTypes<Vertex, Edge>()
@@ -31,8 +29,10 @@ namespace ExRam.Gremlinq.Tests.Fixtures
 
         public virtual async Task DisposeAsync()
         {
-            if (_gremlinQuerySource is IAsyncDisposable disposable)
+            if (_g is IAsyncDisposable disposable)
                 await disposable.DisposeAsync();
         }
+
+        public IGremlinQuerySource Source => _g ?? throw new InvalidOperationException();
     }
 }

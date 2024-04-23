@@ -22,7 +22,7 @@ namespace ExRam.Gremlinq.Tests.TestCases
 
         protected QueryExecutionTest(GremlinqFixture fixture, GremlinQueryVerifier verifier, ITestOutputHelper testOutputHelper) : base(verifier)
         {
-            _g = fixture.GremlinQuerySource;
+            _g = fixture.Source;
         }
 
         [Fact]
