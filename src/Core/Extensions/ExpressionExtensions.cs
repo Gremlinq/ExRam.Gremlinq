@@ -163,13 +163,11 @@ namespace ExRam.Gremlinq.Core
                                 comparand)
                         };
                     }
-                    else
-                    {
-                        return new WhereExpression(
-                            binaryExpression.Left,
-                            semantics,
-                            binaryExpression.Right);
-                    }
+                    
+                    return new WhereExpression(
+                        binaryExpression.Left,
+                        semantics,
+                        binaryExpression.Right);
                 }
                 case MethodCallExpression { Object: { } targetExpression, Method: { } methodInfo, Arguments: [var firstArgument, ..] } instanceMethodCallExpression:
                 {
@@ -186,7 +184,7 @@ namespace ExRam.Gremlinq.Core
                         return new WhereExpression(
                             targetExpression,
                             ContainsExpressionSemantics.Instance,
-                            firstArgument);
+                            listContainsArgument);
                     }
 
                     if (methodInfo.DeclaringType == typeof(string) && methodInfo.GetParameters() is { Length: 1 or 2 } parameters)
