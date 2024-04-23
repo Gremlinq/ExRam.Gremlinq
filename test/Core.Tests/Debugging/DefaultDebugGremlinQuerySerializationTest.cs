@@ -4,10 +4,10 @@ using ExRam.Gremlinq.Tests.TestCases;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
-    public sealed class DefaultDebugGremlinQuerySerializationTest : QueryExecutionTest
+    public sealed class DefaultDebugGremlinQuerySerializationTest : QueryExecutionTest, IClassFixture<EmptyGremlinqTestFixture>
     {
-        public DefaultDebugGremlinQuerySerializationTest(ITestOutputHelper testOutputHelper) : base(
-            GremlinqFixture.Empty,
+        public DefaultDebugGremlinQuerySerializationTest(EmptyGremlinqTestFixture fixture, ITestOutputHelper testOutputHelper) : base(
+            fixture,
             new DebugGremlinQueryVerifier(),
             testOutputHelper)
         {

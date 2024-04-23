@@ -18,16 +18,12 @@ namespace ExRam.Gremlinq.Tests.TestCases
     {
         private static readonly string Id = "id";
 
-        private readonly Lazy<IGremlinQuerySource> _lazyGremlinQuerySource;
+        protected readonly IGremlinQuerySource _g;
 
         protected QueryExecutionTest(GremlinqFixture fixture, GremlinQueryVerifier verifier, ITestOutputHelper testOutputHelper) : base(verifier)
         {
-            _lazyGremlinQuerySource = new Lazy<IGremlinQuerySource>(
-                () => fixture.GremlinQuerySource.Result,
-                LazyThreadSafetyMode.PublicationOnly);
+            _g = fixture.GremlinQuerySource;
         }
-
-        protected IGremlinQuerySource _g => _lazyGremlinQuerySource.Value;
 
         [Fact]
         public virtual Task AddE_from_StepLabel() => _g

@@ -128,6 +128,12 @@ namespace ExRam.Gremlinq.Tests.Fixtures
             return await TransformQuerySource(container, new ContainerAttachedGremlinQuerySource(container, g));
         }
 
+        public override async Task InitializeAsync()
+        {
+            await base.InitializeAsync();
+        }
+
+
         protected abstract Task<IImage> GetImage(); 
 
         protected virtual ContainerBuilder CustomizeContainer(ContainerBuilder builder) => builder;

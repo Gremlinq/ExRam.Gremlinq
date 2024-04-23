@@ -32,7 +32,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
 
         public NoPasswordIntegrationTests(NoPasswordFixture fixture) : base(new JTokenExecutingVerifier())
         {
-            _g = fixture.GremlinQuerySource.Result;
+            _g = fixture.GremlinQuerySource;
         }
 
         [Fact(Skip = "CosmosDb often seems to close the connection right after an Authenticate status.")]
