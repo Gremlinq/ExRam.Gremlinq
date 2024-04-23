@@ -138,6 +138,14 @@ namespace ExRam.Gremlinq.Tests.Fixtures
             await base.InitializeAsync();
         }
 
+        public override async Task DisposeAsync()
+        {
+            if (_container is { } container)
+                await container.StopAsync();
+
+            await base.DisposeAsync();
+        }
+
         protected abstract Task<IImage> GetImage(); 
 
         protected virtual ContainerBuilder CustomizeContainer(ContainerBuilder builder) => builder;

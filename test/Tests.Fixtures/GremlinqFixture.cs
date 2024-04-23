@@ -33,6 +33,6 @@ namespace ExRam.Gremlinq.Tests.Fixtures
                 await disposable.DisposeAsync();
         }
 
-        public IGremlinQuerySource Source => _g ?? throw new InvalidOperationException();
+        public IGremlinQuerySource G => _g ?? throw new InvalidOperationException();
     }
 }

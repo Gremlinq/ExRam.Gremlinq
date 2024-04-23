@@ -36,7 +36,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 
         public WrongPasswordIntegrationTests(WrongPasswordGremlinServerContainerFixture fixture) : base(new JTokenExecutingVerifier())
         {
-            _g = fixture.Source;
+            _g = fixture.G;
         }
 
         [Fact]
