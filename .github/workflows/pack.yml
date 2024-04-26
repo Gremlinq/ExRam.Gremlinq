@@ -72,7 +72,7 @@ jobs:
 
     - name: Draft release
       id: create_release
-      uses: release-drafter/release-drafter@v6.0.0
+      uses: release-drafter/release-drafter@3f0f87098bd6b5c5b9a36d49c41d998ea58f9348
       with:
         name: ${{ github.event.repository.name }} ${{ needs.pack.outputs.semVer2 }}
         prerelease: ${{ needs.pack.outputs.isPreviewRelease }}
