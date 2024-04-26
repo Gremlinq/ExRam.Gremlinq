@@ -22,18 +22,18 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b #4.1.14
       with:
         fetch-depth: 0
         submodules: 'true'
         
     - name: Setup .NET
-      uses: actions/setup-dotnet@v4
+      uses: actions/setup-dotnet@4d6c8fcf3c8f7a60068d26b594648e99df24cee3 # 4.0.0
       with:
         global-json-file: global.json
 
     - name: Determine semantic version
-      uses: dotnet/nbgv@master
+      uses: dotnet/nbgv@f088059084cb5d872e9d1a994433ca6440c2bf72 # 0.4.2
       id: nbgv
 
     - name: Replace NuGet version default value in templates
@@ -46,7 +46,7 @@ jobs:
       run: dotnet pack ./${{ github.event.repository.name }}.sln -c Release --no-build
 
     - name: Copy NuGet packages to artifacts
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808 # 4.3.3
       with:
         name: NuGetPackages
         path: ./**/${{ github.event.repository.name }}.*.nupkg
@@ -54,7 +54,7 @@ jobs:
 
     - run: echo ${{ steps.nbgv.outputs.NuGetPackageVersion }} > Version
     - name: Output version to artifacts
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808 # 4.3.3
       with:
         name: Version
         path: Version
@@ -72,7 +72,7 @@ jobs:
 
     - name: Draft release
       id: create_release
-      uses: release-drafter/release-drafter@3f0f87098bd6b5c5b9a36d49c41d998ea58f9348
+      uses: release-drafter/release-drafter@3f0f87098bd6b5c5b9a36d49c41d998ea58f9348 # 6.0.0
       with:
         name: ${{ github.event.repository.name }} ${{ needs.pack.outputs.semVer2 }}
         prerelease: ${{ needs.pack.outputs.isPreviewRelease }}
@@ -87,17 +87,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/download-artifact@v4
+    - uses: actions/download-artifact@65a9edc5881444af0b9093a5e628f2fe47ea3b2e # 4.1.7
       with:
         name: NuGetPackages
         
-    - uses: shogo82148/actions-upload-release-asset@v1
+    - uses: shogo82148/actions-upload-release-asset@8f032eff0255912cc9c8455797fd6d72f25c7ab7 # 1.7.5
       with:
         upload_url: ${{ needs.draft-release.outputs.releaseUploadUrl }} 
         asset_path: '**/${{ github.event.repository.name }}.*.nupkg'
         github_token: ${{ secrets.CREATE_RELEASE_PAT }}
         
-    - uses: eregon/publish-release@v1
+    - uses: eregon/publish-release@01df127f5e9a3c26935118e22e738d95b59d10ce # 1.0.6
       with:
         release_id: ${{ needs.draft-release.outputs.releaseUploadId }}
       env:
