@@ -11,7 +11,7 @@ jobs:
     steps:
       - name: Send announcement tweet!
         if: ${{ !github.event.release.prerelease }}
-        uses: dart-actions/tweet@v1.0.1
+        uses: dart-actions/tweet@778a594ca22c70910c9524e2455c4d85eb312d57 #1.0.1
         with:
           text: |
             Announcing the release of ExRam.Gremlinq ${{ github.event.release.tag_name }}!
