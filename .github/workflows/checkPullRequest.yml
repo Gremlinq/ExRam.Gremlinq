@@ -44,7 +44,9 @@ jobs:
         submodules: 'true'
 
     - name: Start CosmosDb Emulator
-      uses: Gremlinq/cosmos-emulator-github-action@EnableGremlin
+      uses: janpio/cosmos-emulator-github-action@main
+      with:
+          parameter_string: "-EnableGremlin"
 
     - name: Build
       run: dotnet build  -c Release ./${{ github.event.repository.name }}.sln
