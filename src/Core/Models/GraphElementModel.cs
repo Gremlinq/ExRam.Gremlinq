@@ -92,7 +92,7 @@ namespace ExRam.Gremlinq.Core.Models
                         elementType,
                         metadataTransformation(this.GetMetadata(elementType))),
                     _memberMetadataOverrides)
-                : ThrowOutsideModel<IGraphElementModel>();
+                : throw new InvalidOperationException($"The type {elementType.FullName} is outside of the model.");
 
             public IGraphElementModel ConfigureMetadata(Func<MemberInfo, MemberMetadata, MemberMetadata> transformation)
             {
@@ -119,7 +119,7 @@ namespace ExRam.Gremlinq.Core.Models
                     _memberMetadataOverrides.SetItem(
                         member,
                         transformation(this.GetMetadata(member))))
-                : ThrowOutsideModel<IGraphElementModel>();
+                : throw new InvalidOperationException($"The member {member.Name} and its declaring type is outside of the model.");
 
             public MemberMetadata? TryGetMetadata(MemberInfo member) => _memberMetadataOverrides.TryGetValue(member, out var metadata)
                 ? metadata
@@ -141,8 +141,6 @@ namespace ExRam.Gremlinq.Core.Models
             private bool IsWithinModel(MemberInfo memberInfo) => memberInfo.DeclaringType is { } declaringType && (IsWithinModel(declaringType) || declaringType.IsAssignableFrom(typeof(TBaseType)));
 
             private bool IsWithinModel(Type type) => typeof(TBaseType).IsAssignableFrom(type) && _assemblies.Contains(type.Assembly);
-
-            private static T ThrowOutsideModel<T>() => throw new InvalidOperationException($"The type {typeof(T).FullName} is outside of the model.");
         }
 
         private sealed class InvalidGraphElementModel : IGraphElementModel
