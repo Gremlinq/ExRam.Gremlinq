@@ -1,0 +1,23 @@
+﻿{
+  Script: g.V().hasLabel(_a).has(_b).project(_c,_d,_e,_f,_g,_h,_i,_j,_k,_l,_m,_n,_o,_p,_q,_r).by(_b).by(_b).by(_b).by(_b).by(_b).by(_b).by(_b).by(_b).by(_b).by(_b).by(_b).by(_b).by(_b).by(_b).by(_b).by(_b),
+  Bindings: {
+    _a: Country,
+    _b: CountryCallingCode,
+    _c: Item1,
+    _d: Item2,
+    _e: Item3,
+    _f: Item4,
+    _g: Item5,
+    _h: Item6,
+    _i: Item7,
+    _j: Item8,
+    _k: Item9,
+    _l: Item10,
+    _m: Item11,
+    _n: Item12,
+    _o: Item13,
+    _p: Item14,
+    _q: Item15,
+    _r: Item16
+  }
+}

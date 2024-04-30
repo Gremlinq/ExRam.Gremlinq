@@ -1657,6 +1657,30 @@ namespace ExRam.Gremlinq.Tests.TestCases
             .Verify();
 
         [Fact]
+        public virtual Task Project_to_tuple_maximum_expressions() => _g
+            .V<Country>()
+            .Where(x => x.CountryCallingCode != null)
+            .Project(__ => __
+                .ToTuple()
+                .By(x => x.CountryCallingCode)
+                .By(x => x.CountryCallingCode)
+                .By(x => x.CountryCallingCode)
+                .By(x => x.CountryCallingCode)
+                .By(x => x.CountryCallingCode)
+                .By(x => x.CountryCallingCode)
+                .By(x => x.CountryCallingCode)
+                .By(x => x.CountryCallingCode)
+                .By(x => x.CountryCallingCode)
+                .By(x => x.CountryCallingCode)
+                .By(x => x.CountryCallingCode)
+                .By(x => x.CountryCallingCode)
+                .By(x => x.CountryCallingCode)
+                .By(x => x.CountryCallingCode)
+                .By(x => x.CountryCallingCode)
+                .By(x => x.CountryCallingCode))
+            .Verify();
+
+        [Fact]
         public virtual Task Project_with_local() => _g
             .Inject(42)
             .Project(__ => __
