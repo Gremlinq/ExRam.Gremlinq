@@ -30,6 +30,18 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public async Task Empty()
+        {
+            var results = await GremlinQueryExecutor.Empty
+                .Execute<object>(GremlinQueryExecutionContext.Create(_query))
+                .ToArrayAsync();
+
+            results
+                .Should()
+                .BeEmpty();
+        }
+
+        [Fact]
         public async Task RetryWithExponentialBackoff()
         {
             var baseExecutor = Substitute.For<IGremlinQueryExecutor>();
