@@ -48,9 +48,5 @@ namespace ExRam.Gremlinq.Core
         private TResult With<TState, TResult>(Func<TOuterQuery, TAnonymousQuery, IGremlinQueryBase, ContinuationFlags, TState, TResult> continuation, TState state) => _outer is { } outer && _anonymous is { } anonymous && _continuation is { } existingContinuation
             ? continuation(outer, anonymous, existingContinuation, _flags, state)
             : throw UninitializedStruct();
-
-        public TOuterQuery OuterQuery => With(
-            static (outer, _, _, _, _) => outer,
-            0);
     }
 }

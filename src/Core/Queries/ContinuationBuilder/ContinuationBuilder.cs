@@ -27,20 +27,6 @@ namespace ExRam.Gremlinq.Core
                 static (outer, anonymous, flags, state) => new SingleContinuationBuilder<TOuterQuery, TAnonymousQuery>(outer, anonymous, state.continuation.Apply(anonymous, state.state), flags),
                 (continuation, state));
 
-        public MultiContinuationBuilder<TOuterQuery, TAnonymousQuery> With<TProjectedQuery, TState>(Func<TAnonymousQuery, TState, TProjectedQuery>[] continuations, TState state)
-            where TProjectedQuery : IGremlinQueryBase
-        {
-            var multi = ToMulti();
-
-            for (var i = 0; i < continuations.Length; i++)
-            {
-                multi = multi
-                    .With(continuations[i], state);
-            }
-
-            return multi;
-        }
-
         public MultiContinuationBuilder<TOuterQuery, TAnonymousQuery> ToMulti() => With(
             static (outer, anonymous, flags, _) => new MultiContinuationBuilder<TOuterQuery, TAnonymousQuery>(outer, anonymous, FastImmutableList<IGremlinQueryBase>.Empty, flags),
             0);
@@ -52,9 +38,5 @@ namespace ExRam.Gremlinq.Core
         private TResult With<TState, TResult>(Func<TOuterQuery, TAnonymousQuery, ContinuationFlags, TState, TResult> continuation, TState state) => (_outer is { } outer && _anonymous is { } anonymous)
             ? continuation(outer, anonymous, _flags, state)
             : throw UninitializedStruct();
-
-        public TOuterQuery OuterQuery => With(
-            static (outer, _, _, _) => outer,
-            0);
     }
 }
