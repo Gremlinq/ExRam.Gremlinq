@@ -171,11 +171,7 @@ namespace ExRam.Gremlinq.Core
 
         IGremlinQuery<T1> IGremlinQueryBase<T1>.ForceBase() => CloneAs<IGremlinQuery<T1>>();
 
-        IElementGremlinQuery<T1> IGremlinQueryBase<T1>.ForceElement() => this
-            .Continue()
-            .Build(static builder => builder
-                .WithNewProjection(static _ => _.Highest(Projection.Element))
-                .Build<IElementGremlinQuery<T1>>());
+        IElementGremlinQuery<T1> IGremlinQueryBase<T1>.ForceElement() => ForceElement();
 
         IVertexGremlinQuery<T1> IGremlinQueryBase<T1>.ForceVertex() => CloneAs<IVertexGremlinQuery<T1>>(maybeNewTraversal: Steps.WithProjection(Projection.Vertex));
 
@@ -218,38 +214,9 @@ namespace ExRam.Gremlinq.Core
 
         IGremlinQuery<object> IGremlinQueryBase.Fail(string? message) => Fail(message);
 
-        TTargetQuery IGremlinQueryAdmin.ConfigureSteps<TTargetQuery>(Func<Traversal, Traversal> transformation, Func<Projection, Projection>? maybeProjectionTransformation) => this
-            .Continue()
-            .Build(
-                static (builder, tuple) => builder
-                    .WithSteps(
-                        static (steps, transformation) => transformation(steps),
-                        tuple.transformation)
-                    .WithNewProjection(
-                        static (projection, maybeProjectionTransformation) => maybeProjectionTransformation is { } projectionTransformation
-                            ? projectionTransformation(projection)
-                            : projection,
-                        tuple.maybeProjectionTransformation)
-                    .Build<TTargetQuery>(),
-                (transformation, maybeProjectionTransformation));
+        TTargetQuery IGremlinQueryAdmin.ConfigureSteps<TTargetQuery>(Func<Traversal, Traversal> transformation, Func<Projection, Projection>? maybeProjectionTransformation) => ConfigureSteps<TTargetQuery>(transformation, maybeProjectionTransformation);
 
-        TTargetQuery IGremlinQueryAdmin.AddStep<TTargetQuery>(Step step, Func<Projection, Projection>? maybeProjectionTransformation) => this
-            .Continue()
-            .Build(
-                static (builder, tuple) =>
-                {
-                    var (step, maybeProjectionTransformation) = tuple;
-
-                    builder = builder
-                        .AddStep(step);
-
-                    if (maybeProjectionTransformation is { } projectionTransformation)
-                        builder = builder.WithNewProjection(projectionTransformation);
-
-                    return builder
-                        .Build<TTargetQuery>();
-                },
-                (step, maybeProjectionTransformation));
+        TTargetQuery IGremlinQueryAdmin.AddStep<TTargetQuery>(Step step, Func<Projection, Projection>? maybeProjectionTransformation) => AddStep<TTargetQuery>(step, maybeProjectionTransformation);
 
         TTargetQuery IGremlinQueryAdmin.ChangeQueryType<TTargetQuery>() => CloneAs<TTargetQuery>();
 

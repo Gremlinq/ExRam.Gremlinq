@@ -92,6 +92,25 @@ namespace ExRam.Gremlinq.Core
                     propertySteps);
         }
 
+        private TTargetQuery AddStep<TTargetQuery>(Step step, Func<Projection, Projection>? maybeProjectionTransformation)
+            where TTargetQuery : IStartGremlinQuery => this
+                .Continue()
+                .Build(
+                    static (builder, tuple) =>
+                    {
+                        var (step, maybeProjectionTransformation) = tuple;
+
+                        builder = builder
+                            .AddStep(step);
+
+                        if (maybeProjectionTransformation is { } projectionTransformation)
+                            builder = builder.WithNewProjection(projectionTransformation);
+
+                        return builder
+                            .Build<TTargetQuery>();
+                    },
+                    (step, maybeProjectionTransformation));
+
         private GremlinQuery<TVertex, object, object, IGremlinQueryBase> AddV<TVertex>(TVertex vertex) => this
             .Continue()
             .Build(
@@ -375,6 +394,22 @@ namespace ExRam.Gremlinq.Core
                     .Build(),
                 probability);
 
+        private TTargetQuery ConfigureSteps<TTargetQuery>(Func<Traversal, Traversal> transformation, Func<Projection, Projection>? maybeProjectionTransformation)
+            where TTargetQuery : IStartGremlinQuery => this
+                .Continue()
+                .Build(
+                    static (builder, tuple) => builder
+                        .WithSteps(
+                            static (steps, transformation) => transformation(steps),
+                            tuple.transformation)
+                        .WithNewProjection(
+                            static (projection, maybeProjectionTransformation) => maybeProjectionTransformation is { } projectionTransformation
+                                ? projectionTransformation(projection)
+                                : projection,
+                            tuple.maybeProjectionTransformation)
+                        .Build<TTargetQuery>(),
+                    (transformation, maybeProjectionTransformation));
+
         private GremlinQuery<TValue, object, object, IGremlinQueryBase> Constant<TValue>(TValue constant) => this
             .Continue()
             .Build(
@@ -481,6 +516,12 @@ namespace ExRam.Gremlinq.Core
                 .AddStep(FoldStep.Instance)
                 .WithNewProjection(static projection => projection.Fold())
                 .AutoBuild<T1[], T1, object, TNewFoldedQuery>());
+
+        private GremlinQuery<T1, object, object, IGremlinQueryBase> ForceElement() => this
+            .Continue()
+            .Build(static builder => builder
+                .WithNewProjection(static _ => _.Highest(Projection.Element))
+                .AutoBuild<T1>());
 
         private GremlinQuery<T1, TNewOutVertex, TInVertex, IGremlinQueryBase> From<TNewOutVertex, TInVertex>(Func<GremlinQuery<TInVertex, T2, T3, T4>, IVertexGremlinQueryBase<TNewOutVertex>> fromVertexContinuation) => this
             .Continue<TInVertex, T2, T3, T4>()
