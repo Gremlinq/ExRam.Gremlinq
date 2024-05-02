@@ -1,4 +1,7 @@
-﻿using ExRam.Gremlinq.Core.Models;
+﻿using System.Collections.Immutable;
+
+using ExRam.Gremlinq.Core.Models;
+using ExRam.Gremlinq.Core.Steps;
 using ExRam.Gremlinq.Tests.Entities;
 using FluentAssertions;
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
@@ -26,7 +29,20 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Should()
                 .NotBeNull();
         }
-            
+
+        [Fact]
+        public void AsAdmin_AddStep()
+        {
+            _g
+                .V()
+                .AsAdmin()
+                .AddStep<IGremlinQuerySource>(
+                    new InjectStep(ImmutableArray<object>.Empty.Add(0)),
+                    _ => _.Fold())
+                .Should()
+                .NotBeNull();
+        }
+
         [Fact]
         public void ChangeQueryType_optimizes()
         {
