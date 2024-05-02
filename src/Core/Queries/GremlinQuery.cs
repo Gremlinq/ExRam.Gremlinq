@@ -1397,7 +1397,7 @@ namespace ExRam.Gremlinq.Core
                                         effectivePredicate
                                             .GetFilterStep(leftMemberExpressionKey));
                             }
-                            case ParameterExpression parameterExpression:
+                            case ParameterExpression:
                             {
                                 if (rightValue is StepLabel)
                                 {

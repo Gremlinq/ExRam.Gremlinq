@@ -1,0 +1,21 @@
+﻿{
+  "requestId": "00000000-0000-0000-0000-000000000000",
+  "op": "eval",
+  "processor": "",
+  "args": {
+    "gremlin": "g.inject(_a).coin(_b)",
+    "bindings": {
+      "_a": {
+        "@type": "g:Int32",
+        "@value": 42
+      },
+      "_b": {
+        "@type": "g:Double",
+        "@value": 1
+      }
+    },
+    "aliases": {
+      "g": "g"
+    }
+  }
+}

@@ -1,0 +1,16 @@
+﻿{
+  StepInstructions: [
+    {
+      OperatorName: inject,
+      Arguments: [
+        42
+      ]
+    },
+    {
+      OperatorName: coin,
+      Arguments: [
+        1.0
+      ]
+    }
+  ]
+}

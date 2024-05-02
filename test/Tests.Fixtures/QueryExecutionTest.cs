@@ -1037,6 +1037,12 @@ namespace ExRam.Gremlinq.Tests.TestCases
             .Verify();
 
         [Fact]
+        public virtual Task Inject_Coin() => _g
+            .Inject(42)
+            .Coin(1)
+            .Verify();
+
+        [Fact]
         public virtual Task Label() => _g
             .V()
             .Label()
@@ -2939,6 +2945,12 @@ namespace ExRam.Gremlinq.Tests.TestCases
         public virtual Task V_Both() => _g
             .V()
             .Both<Edge>()
+            .Verify();
+
+        [Fact]
+        public virtual Task V_BothE() => _g
+            .V()
+            .BothE<Edge>()
             .Verify();
 
         [Fact]

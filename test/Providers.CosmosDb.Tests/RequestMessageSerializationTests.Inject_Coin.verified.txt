@@ -1,0 +1,15 @@
+﻿{
+  RequestId: Guid_1,
+  Operation: eval,
+  Processor: ,
+  Arguments: {
+    aliases: {
+      g: g
+    },
+    bindings: {
+      _a: 42,
+      _b: 1.0
+    },
+    gremlin: g.inject(_a).coin(_b)
+  }
+}
