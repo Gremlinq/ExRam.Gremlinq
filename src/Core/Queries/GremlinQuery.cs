@@ -198,12 +198,6 @@ namespace ExRam.Gremlinq.Core
                 };
             });
 
-        private TTargetQuery As<TTargetQuery>(Func<GremlinQuery<T1, T2, T3, T4>, StepLabel<GremlinQuery<T1, T2, T3, T4>, T1>, TTargetQuery> continuation)
-            where TTargetQuery : IGremlinQueryBase
-        {
-            return As<StepLabel<GremlinQuery<T1, T2, T3, T4>, T1>, TTargetQuery>(continuation);
-        }
-
         private TTargetQuery As<TStepLabel, TTargetQuery>(Func<GremlinQuery<T1, T2, T3, T4>, TStepLabel, TTargetQuery> continuation)
             where TStepLabel : StepLabel, new()
             where TTargetQuery : IGremlinQueryBase
