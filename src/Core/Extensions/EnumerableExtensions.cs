@@ -7,6 +7,7 @@ namespace ExRam.Gremlinq.Core
 {
     public static class EnumerableExtensions
     {
+        //TODO: Remove on breaking change.
         public static Traversal ToTraversal(this IEnumerable<Step> source)
         {
             if (source is ICollection sourceCollection)
