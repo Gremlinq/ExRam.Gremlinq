@@ -19,7 +19,7 @@ namespace ExRam.Gremlinq.Tests.TestCases
 
         protected readonly IGremlinQuerySource _g;
 
-        protected QueryExecutionTest(GremlinqFixture fixture, GremlinQueryVerifier verifier, ITestOutputHelper testOutputHelper) : base(verifier)
+        protected QueryExecutionTest(GremlinqFixture fixture, GremlinQueryVerifier verifier) : base(verifier)
         {
             _g = fixture.G;
         }

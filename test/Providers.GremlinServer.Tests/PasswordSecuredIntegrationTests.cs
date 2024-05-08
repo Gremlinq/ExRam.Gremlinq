@@ -7,10 +7,9 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
     [IntegrationTest]
     public sealed class PasswordSecuredIntegrationTests : QueryExecutionTest, IClassFixture<PasswordSecuredGremlinServerContainerFixture>
     {
-        public PasswordSecuredIntegrationTests(PasswordSecuredGremlinServerContainerFixture fixture, ITestOutputHelper testOutputHelper) : base(
+        public PasswordSecuredIntegrationTests(PasswordSecuredGremlinServerContainerFixture fixture) : base(
             fixture,
-            new JTokenExecutingVerifier(),
-            testOutputHelper)
+            new JTokenExecutingVerifier())
         {
         }
     }

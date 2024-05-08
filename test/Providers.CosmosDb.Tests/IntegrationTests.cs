@@ -7,10 +7,9 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
     [IntegrationTest]
     public sealed class IntegrationTests : QueryExecutionTest, IClassFixture<CosmosDbEmulatorFixture>
     {
-        public IntegrationTests(CosmosDbEmulatorFixture fixture, ITestOutputHelper testOutputHelper) : base(
+        public IntegrationTests(CosmosDbEmulatorFixture fixture) : base(
             fixture,
-            new JTokenExecutingVerifier(),
-            testOutputHelper)
+            new JTokenExecutingVerifier())
         {
         }
     }

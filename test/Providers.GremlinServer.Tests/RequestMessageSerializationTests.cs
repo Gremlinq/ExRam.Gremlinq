@@ -7,10 +7,9 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 {
     public sealed class RequestMessageSerializationTests : QueryExecutionTest, IClassFixture<GremlinServerFixture>
     {
-        public RequestMessageSerializationTests(GremlinServerFixture fixture, ITestOutputHelper testOutputHelper) : base(
+        public RequestMessageSerializationTests(GremlinServerFixture fixture) : base(
             fixture,
-            new SerializingVerifier<RequestMessage>(),
-            testOutputHelper)
+            new SerializingVerifier<RequestMessage>())
         {
 
         }

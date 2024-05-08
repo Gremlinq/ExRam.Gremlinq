@@ -6,10 +6,9 @@ namespace ExRam.Gremlinq.Core.Tests
 {
     public sealed class DefaultDebugGremlinQuerySerializationTest : QueryExecutionTest, IClassFixture<GremlinqFixture>
     {
-        public DefaultDebugGremlinQuerySerializationTest(GremlinqFixture fixture, ITestOutputHelper testOutputHelper) : base(
+        public DefaultDebugGremlinQuerySerializationTest(GremlinqFixture fixture) : base(
             fixture,
-            new DebugGremlinQueryVerifier(),
-            testOutputHelper)
+            new DebugGremlinQueryVerifier())
         {
         }
     }

@@ -8,8 +8,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
     {
         public DeserializationTests(CosmosDbFixture fixture, ITestOutputHelper testOutputHelper) : base(
             fixture,
-            new DeserializingGremlinqVerifier<IntegrationTests>(testOutputHelper),
-            testOutputHelper)
+            new DeserializingGremlinqVerifier<IntegrationTests>(testOutputHelper))
         {
         }
 

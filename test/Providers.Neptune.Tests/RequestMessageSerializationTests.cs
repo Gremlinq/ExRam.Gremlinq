@@ -7,10 +7,9 @@ namespace ExRam.Gremlinq.Providers.Neptune.Tests
 {
     public sealed class RequestMessageSerializationTests : QueryExecutionTest, IClassFixture<NeptuneFixture>
     {
-        public RequestMessageSerializationTests(NeptuneFixture fixture, ITestOutputHelper testOutputHelper) : base(
+        public RequestMessageSerializationTests(NeptuneFixture fixture) : base(
             fixture,
-            new SerializingVerifier<RequestMessage>(),
-            testOutputHelper)
+            new SerializingVerifier<RequestMessage>())
         {
         }
     }

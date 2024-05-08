@@ -22,10 +22,9 @@ namespace ExRam.Gremlinq.Providers.JanusGraph.Tests
                 .ScrubRegex(RelationIdRegex, "\"relationId\": \"scrubbed\"");
         }
 
-        public IntegrationTests(JanusGraphContainerFixture fixture, ITestOutputHelper testOutputHelper) : base(
+        public IntegrationTests(JanusGraphContainerFixture fixture) : base(
             fixture,
-            new Verifier(),
-            testOutputHelper)
+            new Verifier())
         {
         }
     }

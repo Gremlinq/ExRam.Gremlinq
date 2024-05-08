@@ -8,10 +8,9 @@ namespace ExRam.Gremlinq.Core.Tests
     {
         private static readonly GraphSON2Writer GraphSon2Writer = new ();
 
-        public Graphson2GremlinQuerySerializationTest(GremlinqFixture fixture, ITestOutputHelper testOutputHelper) : base(
+        public Graphson2GremlinQuerySerializationTest(GremlinqFixture fixture) : base(
             fixture,
-            new GraphSonStringSerializingVerifier(GraphSon2Writer),
-            testOutputHelper)
+            new GraphSonStringSerializingVerifier(GraphSon2Writer))
         {
         }
     }

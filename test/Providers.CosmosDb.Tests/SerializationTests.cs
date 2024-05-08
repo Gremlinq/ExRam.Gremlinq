@@ -9,10 +9,9 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
 {
     public sealed class SerializationTests : QueryExecutionTest, IClassFixture<CosmosDbFixture>
     {
-        public SerializationTests(CosmosDbFixture fixture, ITestOutputHelper testOutputHelper) : base(
+        public SerializationTests(CosmosDbFixture fixture) : base(
             fixture,
-            new SerializingVerifier<GroovyGremlinScript>(),
-            testOutputHelper)
+            new SerializingVerifier<GroovyGremlinScript>())
         {
 
         }

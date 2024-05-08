@@ -14,10 +14,9 @@ namespace ExRam.Gremlinq.Core.Tests
                     .ConfigureOptions(o => o.SetValue(GremlinqOption.EnableEmptyProjectionValueProtection, true)));
         }
 
-        public EmptyProjectionValueProtectionSerializationTest(EmptyProjectionValueProtectionFixture fixture, ITestOutputHelper testOutputHelper) : base(
+        public EmptyProjectionValueProtectionSerializationTest(EmptyProjectionValueProtectionFixture fixture) : base(
             fixture,
-            new SerializingVerifier<Bytecode>(),
-            testOutputHelper)
+            new SerializingVerifier<Bytecode>())
         {
         }
     }

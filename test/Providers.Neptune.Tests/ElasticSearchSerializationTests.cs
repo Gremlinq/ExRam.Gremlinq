@@ -8,10 +8,9 @@ namespace ExRam.Gremlinq.Providers.Neptune.Tests
 {
     public sealed class ElasticSearchSerializationTests : QueryExecutionTest, IClassFixture<ElasticSearchNeptuneFixture>
     {
-        public ElasticSearchSerializationTests(ElasticSearchNeptuneFixture fixture, ITestOutputHelper testOutputHelper) : base(
+        public ElasticSearchSerializationTests(ElasticSearchNeptuneFixture fixture) : base(
             fixture,
-            new SerializingVerifier<Bytecode>(),
-            testOutputHelper)
+            new SerializingVerifier<Bytecode>())
         {
         }
 

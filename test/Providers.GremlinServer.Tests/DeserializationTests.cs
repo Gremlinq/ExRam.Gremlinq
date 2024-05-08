@@ -8,8 +8,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
     {
         public DeserializationTests(GremlinServerFixture fixture, ITestOutputHelper testOutputHelper) : base(
             fixture,
-            new DeserializingGremlinqVerifier<IntegrationTests>(testOutputHelper),
-            testOutputHelper)
+            new DeserializingGremlinqVerifier<IntegrationTests>(testOutputHelper))
         {
         }
        

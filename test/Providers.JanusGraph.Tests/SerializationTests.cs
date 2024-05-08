@@ -7,10 +7,9 @@ namespace ExRam.Gremlinq.Providers.JanusGraph.Tests
 {
     public sealed class SerializationTests : QueryExecutionTest, IClassFixture<JanusGraphFixture>
     {
-        public SerializationTests(JanusGraphFixture fixture, ITestOutputHelper testOutputHelper) : base(
+        public SerializationTests(JanusGraphFixture fixture) : base(
             fixture,
-            new SerializingVerifier<Bytecode>(),
-            testOutputHelper)
+            new SerializingVerifier<Bytecode>())
         {
 
         }

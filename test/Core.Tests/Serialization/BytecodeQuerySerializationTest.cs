@@ -7,7 +7,7 @@ namespace ExRam.Gremlinq.Core.Tests
 {
     public sealed class BytecodeQuerySerializationTest : QueryExecutionTest, IClassFixture<GremlinqFixture>
     {
-        public BytecodeQuerySerializationTest(GremlinqFixture fixture, ITestOutputHelper testOutputHelper) : base(fixture, new SerializingVerifier<Bytecode>(), testOutputHelper)
+        public BytecodeQuerySerializationTest(GremlinqFixture fixture) : base(fixture, new SerializingVerifier<Bytecode>())
         {
         }
     }

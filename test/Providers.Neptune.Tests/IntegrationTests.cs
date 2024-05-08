@@ -7,10 +7,9 @@ namespace ExRam.Gremlinq.Providers.Neptune.Tests
     [IntegrationTest]
     public sealed class IntegrationTests : QueryExecutionTest, IClassFixture<NeptuneContainerFixture>
     {
-        public IntegrationTests(NeptuneContainerFixture fixture, ITestOutputHelper testOutputHelper) : base(
+        public IntegrationTests(NeptuneContainerFixture fixture) : base(
             fixture,
-            new JTokenExecutingVerifier(),
-            testOutputHelper)
+            new JTokenExecutingVerifier())
         {
         }
     }

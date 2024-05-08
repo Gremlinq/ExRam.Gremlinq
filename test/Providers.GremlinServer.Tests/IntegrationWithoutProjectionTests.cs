@@ -7,10 +7,9 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
     [IntegrationTest]
     public sealed class IntegrationWithoutProjectionTests : QueryExecutionTest, IClassFixture<GremlinServerWithoutProjectionContainerFixture>
     {
-        public IntegrationWithoutProjectionTests(GremlinServerWithoutProjectionContainerFixture fixture, ITestOutputHelper testOutputHelper) : base(
+        public IntegrationWithoutProjectionTests(GremlinServerWithoutProjectionContainerFixture fixture) : base(
             fixture,
-            new JTokenExecutingVerifier(),
-            testOutputHelper)
+            new JTokenExecutingVerifier())
         {
         }
     }
