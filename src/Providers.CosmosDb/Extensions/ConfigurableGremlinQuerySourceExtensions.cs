@@ -153,7 +153,8 @@ namespace ExRam.Gremlinq.Providers.CosmosDb
                             .SetValue(GremlinqOption.WorkaroundRangeInconsistencies, true)
                             .SetValue(GremlinqOption.VertexProjectionSteps, Traversal.Empty)
                             .SetValue(GremlinqOption.EdgeProjectionSteps, Traversal.Empty)
-                            .SetValue(GremlinqOption.VertexPropertyProjectionSteps, Traversal.Empty))
+                            .SetValue(GremlinqOption.VertexPropertyProjectionSteps, Traversal.Empty)
+                            .ConfigureValue(GremlinqOption.DisabledTextPredicates, option => option | DisabledTextPredicates.Regex | DisabledTextPredicates.NotRegex))
                         .ConfigureNativeTypes(nativeTypes => nativeTypes
                             .Remove(typeof(byte[]))
                             .Remove(typeof(TimeSpan)))
