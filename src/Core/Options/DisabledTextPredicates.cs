@@ -9,6 +9,8 @@
         NotContaining = 4,
         NotEndingWith = 8,
         NotStartingWith = 16,
-        StartingWith = 32
+        StartingWith = 32,
+        Regex = 64,
+        NotRegex = 128
     }
 }
