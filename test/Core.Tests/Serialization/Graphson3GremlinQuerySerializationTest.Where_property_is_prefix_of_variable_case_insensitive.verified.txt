@@ -18,21 +18,10 @@
             "has",
             "CountryCallingCode",
             {
-              "@type": "g:P",
+              "@type": "g:TextP",
               "@value": {
-                "predicate": "within",
-                "value": {
-                  "@type": "g:List",
-                  "@value": [
-                    "",
-                    "+",
-                    "+4",
-                    "+49",
-                    "+491",
-                    "+4912",
-                    "+49123"
-                  ]
-                }
+                "predicate": "regex",
+                "value": "(?i)^()|(\\+)|(\\+4)|(\\+49)|(\\+491)|(\\+4912)|(\\+49123)$"
               }
             }
           ],

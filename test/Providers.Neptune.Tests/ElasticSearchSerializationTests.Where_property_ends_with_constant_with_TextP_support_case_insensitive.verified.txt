@@ -30,8 +30,8 @@
       Arguments: [
         CountryCallingCode,
         {
-          OperatorName: endingWith,
-          Value: 7890
+          OperatorName: regex,
+          Value: (?i)7890$
         }
       ]
     },

@@ -20,8 +20,8 @@
             {
               "@type": "g:TextP",
               "@value": {
-                "predicate": "endingWith",
-                "value": "7890"
+                "predicate": "regex",
+                "value": "(?i)7890$"
               }
             }
           ],

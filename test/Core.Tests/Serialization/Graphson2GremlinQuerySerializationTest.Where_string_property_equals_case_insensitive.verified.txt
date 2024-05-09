@@ -20,8 +20,8 @@
             {
               "@type": "g:TextP",
               "@value": {
-                "predicate": "startingWith",
-                "value": "+49123"
+                "predicate": "regex",
+                "value": "(?i)^\\+49123"
               }
             }
           ],

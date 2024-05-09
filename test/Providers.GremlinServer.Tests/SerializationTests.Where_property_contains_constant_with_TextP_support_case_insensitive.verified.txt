@@ -14,8 +14,8 @@
       Arguments: [
         CountryCallingCode,
         {
-          OperatorName: containing,
-          Value: 456
+          OperatorName: regex,
+          Value: (?i)456
         }
       ]
     },

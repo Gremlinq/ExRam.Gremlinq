@@ -30,16 +30,8 @@
       Arguments: [
         CountryCallingCode,
         {
-          OperatorName: within,
-          Value: [
-            ,
-            +,
-            +4,
-            +49,
-            +491,
-            +4912,
-            +49123
-          ]
+          OperatorName: regex,
+          Value: (?i)^()|(\+)|(\+4)|(\+49)|(\+491)|(\+4912)|(\+49123)$
         }
       ]
     },

@@ -36,7 +36,9 @@ namespace ExRam.Gremlinq.Tests.Fixtures
                         .WithPartitionKey(x => x.Label!)
                         .UseNewtonsoftJson())
                     .ConfigureEnvironment(env => env
-                        .AddFakePartitionKey());
+                        .AddFakePartitionKey()
+                        .ConfigureOptions(options => options
+                            .SetValue(GremlinqOption.StringComparisonTranslationStrictness, StringComparisonTranslationStrictness.Lenient)));
             }
         }
     }

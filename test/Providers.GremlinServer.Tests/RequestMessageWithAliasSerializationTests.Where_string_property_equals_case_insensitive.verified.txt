@@ -22,8 +22,8 @@
           Arguments: [
             CountryCallingCode,
             {
-              OperatorName: startingWith,
-              Value: +49123
+              OperatorName: regex,
+              Value: (?i)^\+49123
             }
           ]
         },

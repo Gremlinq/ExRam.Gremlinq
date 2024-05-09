@@ -1,4 +1,6 @@
-﻿using Gremlin.Net.Process.Traversal;
+﻿using System.Text.RegularExpressions;
+
+using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Core.ExpressionParsing
 {
@@ -55,6 +57,32 @@ namespace ExRam.Gremlinq.Core.ExpressionParsing
                                     return stringValue.Length > 0
                                         ? TextP.EndingWith(stringValue)
                                         : PNeqNull;
+                                }
+                            }
+                        }
+                        else if (!environment.Options.GetValue(GremlinqOption.DisabledTextPredicates).HasFlag(DisabledTextPredicates.Regex))
+                        {
+                            switch (stringExpressionSemantics)
+                            {
+                                case StringEqualsExpressionSemantics:
+                                {
+                                    return TextP.Regex($"{Regex.Escape(stringValue)}");
+                                }
+                                case IsPrefixOfExpressionSemantics:
+                                {
+                                    return TextP.Regex($"(?i)^{string.Join('|', SubStrings(stringValue).Select(x => $"({Regex.Escape((string)x)})"))}$");
+                                }
+                                case HasInfixExpressionSemantics:
+                                {
+                                    return TextP.Regex($"(?i){Regex.Escape(stringValue)}");
+                                }
+                                case StartsWithExpressionSemantics:
+                                {
+                                    return TextP.Regex($"(?i)^{Regex.Escape(stringValue)}");
+                                }
+                                case EndsWithExpressionSemantics:
+                                {
+                                    return TextP.Regex($"(?i){Regex.Escape(stringValue)}$");
                                 }
                             }
                         }
