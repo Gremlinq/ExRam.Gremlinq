@@ -66,7 +66,7 @@ namespace ExRam.Gremlinq.Core.ExpressionParsing
                             {
                                 case StringEqualsExpressionSemantics:
                                 {
-                                    return TextP.Regex($"{Regex.Escape(stringValue)}");
+                                    return TextP.Regex($"(?i)^{Regex.Escape(stringValue)}$");
                                 }
                                 case IsPrefixOfExpressionSemantics:
                                 {

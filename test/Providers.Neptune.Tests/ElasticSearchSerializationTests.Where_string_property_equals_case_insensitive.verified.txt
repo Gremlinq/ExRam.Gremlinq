@@ -31,7 +31,7 @@
         CountryCallingCode,
         {
           OperatorName: regex,
-          Value: (?i)^\+49123
+          Value: (?i)^\+49123$
         }
       ]
     },

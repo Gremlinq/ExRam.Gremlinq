@@ -11,6 +11,6 @@
       _b: CountryCallingCode,
       _c: +49123
     },
-    gremlin: g.V().hasLabel(_a).has(_b,startingWith(_c))
+    gremlin: g.V().hasLabel(_a).has(_b,_c)
   }
 }

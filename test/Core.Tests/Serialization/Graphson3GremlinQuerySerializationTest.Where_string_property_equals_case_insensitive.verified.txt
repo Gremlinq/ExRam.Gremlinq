@@ -21,7 +21,7 @@
               "@type": "g:TextP",
               "@value": {
                 "predicate": "regex",
-                "value": "(?i)^\\+49123"
+                "value": "(?i)^\\+49123$"
               }
             }
           ],

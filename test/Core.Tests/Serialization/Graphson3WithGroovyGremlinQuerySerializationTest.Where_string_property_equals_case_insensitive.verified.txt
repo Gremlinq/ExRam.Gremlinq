@@ -7,7 +7,7 @@
     "bindings": {
       "_a": "Country",
       "_b": "CountryCallingCode",
-      "_c": "(?i)^\\+49123",
+      "_c": "(?i)^\\+49123$",
       "_d": "id",
       "_e": "label",
       "_f": "properties",
