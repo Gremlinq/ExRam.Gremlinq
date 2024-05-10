@@ -4605,18 +4605,17 @@ namespace ExRam.Gremlinq.Tests.TestCases
             .Where(c => c.CountryCallingCode!.Equals("+49123", StringComparison.OrdinalIgnoreCase))
             .Verify();
 
-        //TODO: Enable
-        //[Fact]
-        //public virtual Task Where_string_property_startsWith() => _g
-        //    .V<Country>()
-        //    .Where(c => c.CountryCallingCode!.StartsWith("+49123"))
-        //    .Verify();
+        [Fact]
+        public virtual Task Where_string_property_startsWith() => _g
+            .V<Country>()
+            .Where(c => c.CountryCallingCode!.StartsWith("+49123"))
+            .Verify();
 
-        //[Fact]
-        //public virtual Task Where_string_property_startsWith_case_insensitive() => _g
-        //    .V<Country>()
-        //    .Where(c => c.CountryCallingCode!.StartsWith("+49123", StringComparison.OrdinalIgnoreCase))
-        //    .Verify();
+        [Fact]
+        public virtual Task Where_string_property_startsWith_case_insensitive() => _g
+            .V<Country>()
+            .Where(c => c.CountryCallingCode!.StartsWith("+49123", StringComparison.OrdinalIgnoreCase))
+            .Verify();
 
         [Fact]
         public virtual Task Where_traversal() => _g
