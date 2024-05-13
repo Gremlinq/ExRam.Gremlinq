@@ -1,4 +1,6 @@
-﻿using ExRam.Gremlinq.Core.Steps;
+﻿using System.Collections.Immutable;
+
+using ExRam.Gremlinq.Core.Steps;
 using FluentAssertions;
 
 namespace ExRam.Gremlinq.Core.Tests
@@ -86,6 +88,24 @@ namespace ExRam.Gremlinq.Core.Tests
             sliced[1].Should().Be(_step5);
             sliced[2].Should().Be(_step6);
             sliced[3].Should().Be(newStep);
+        }
+
+        [Fact]
+        public Task ToTraversal_extension()
+        {
+            return Verify(new Step []{ new InjectStep(ImmutableArray.Create<object>(1)), new InjectStep(ImmutableArray.Create<object>(2)) }.ToTraversal().Steps.ToArray());
+        }
+
+        [Fact]
+        public Task ToTraversal_extension_2()
+        {
+            return Verify(new Step []{ new InjectStep(ImmutableArray.Create<object>(1)), new InjectStep(ImmutableArray.Create<object>(2)) }.AsEnumerable().ToTraversal().Steps.ToArray());
+        }
+
+        [Fact]
+        public Task ToTraversal_extension_3()
+        {
+            return Verify(new Step []{ new InjectStep(ImmutableArray.Create<object>(1)), new InjectStep(ImmutableArray.Create<object>(2)) }.ToList().ToTraversal().Steps.ToArray());
         }
     }
 }
