@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Runtime.InteropServices;
-
-using ExRam.Gremlinq.Core.Projections;
+﻿using ExRam.Gremlinq.Core.Projections;
 using ExRam.Gremlinq.Core.Steps;
 
 namespace ExRam.Gremlinq.Core
