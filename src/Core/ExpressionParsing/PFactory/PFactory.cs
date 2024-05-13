@@ -10,7 +10,7 @@ namespace ExRam.Gremlinq.Core.ExpressionParsing
         {
             private static readonly P PNeqNull = P.Neq(null);
 
-            public P TryGetP(ExpressionSemantics semantics, object? maybeValue, IGremlinQueryEnvironment environment)
+            public P? TryGetP(ExpressionSemantics semantics, object? maybeValue, IGremlinQueryEnvironment environment)
             {
                 switch (semantics)
                 {
@@ -123,7 +123,7 @@ namespace ExRam.Gremlinq.Core.ExpressionParsing
                     }
                 }
 
-                throw new ExpressionNotSupportedException();
+                return null;
             }
 
             private static object[] SubStrings(string value)
