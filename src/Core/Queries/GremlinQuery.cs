@@ -1306,21 +1306,17 @@ namespace ExRam.Gremlinq.Core
             }
             else
             {
-                var rightValue = right.GetValue();
+                var rightValue = right.GetValue() switch
+                {
+                    IEnumerable enumerable when enumerable is not ICollection && !Environment.SupportsType(enumerable.GetType()) => enumerable.Cast<object>().ToArray(),
+                    var otherwise => otherwise
+                };
 
                 var maybeEffectivePredicate = Environment.Options
                     .GetValue(PFactory.PFactoryOption)
-                    .TryGetP(
-                        semantics,
-                        rightValue switch
-                        {
-                            IEnumerable enumerable when enumerable is not ICollection && !Environment.SupportsType(enumerable.GetType()) => enumerable.Cast<object>().ToArray(),
-                            var otherwise => otherwise
-                        },
-                        Environment)
-                    ?.WorkaroundLimitations(Environment);
+                    .TryGetP(semantics, rightValue, Environment);
 
-                if (maybeEffectivePredicate is { } effectivePredicate)
+                if (maybeEffectivePredicate?.WorkaroundLimitations(Environment) is { } effectivePredicate)
                 {
                     if (effectivePredicate.EqualsConstant(false))
                         return traversal.Push(NoneStep.Instance);
