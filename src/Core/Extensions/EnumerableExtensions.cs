@@ -29,23 +29,5 @@ namespace ExRam.Gremlinq.Core
 
             return ret;
         }
-
-        internal static bool InternalAny(this IEnumerable enumerable)
-        {
-            if (enumerable is ICollection collection)
-                return collection.Count > 0;
-
-            var enumerator = enumerable.GetEnumerator();
-
-            try
-            {
-                return enumerator.MoveNext();
-            }
-            finally
-            {
-                if (enumerator is IDisposable disposable)
-                    disposable.Dispose();
-            }
-        }
     }
 }

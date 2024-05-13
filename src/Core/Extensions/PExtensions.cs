@@ -11,8 +11,8 @@ namespace ExRam.Gremlinq.Core
             return p.OperatorName switch
             {
                 //"containing" when p.Value is string str && str.Length == 0 => value,
-                "within" => !value && p.Value is IEnumerable enumerable && !enumerable.InternalAny(),
-                "without" => value && p.Value is IEnumerable enumerable && !enumerable.InternalAny(),
+                "within" => !value && p.Value is ICollection collection && collection.Count == 0,
+                "without" => value && p.Value is ICollection collection && collection.Count > 0,
                 "and" when p is { Value: P pValue, Other: { } otherP } => value
                     ? pValue.EqualsConstant(true) && otherP.EqualsConstant(true)
                     : pValue.EqualsConstant(false) || otherP.EqualsConstant(false),
