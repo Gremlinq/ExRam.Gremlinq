@@ -130,6 +130,54 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
                 .Be(0);
 
         [Fact]
+        public Task StartsWith_case_insensitive() => _g
+            .Inject("Hello", "Bello")
+            .Where(x => x.StartsWith("he", StringComparison.OrdinalIgnoreCase))
+            .Verify();
+
+        [Fact]
+        public Task Equals_case_insensitive() => _g
+            .Inject("Hello", "Bello")
+            .Where(x => x.Equals("hello", StringComparison.OrdinalIgnoreCase))
+            .Verify();
+
+        [Fact]
+        public Task EndsWith_case_insensitive() => _g
+            .Inject("Hello", "Hallx")
+            .Where(x => x.EndsWith("lo", StringComparison.OrdinalIgnoreCase))
+            .Verify();
+
+        [Fact]
+        public Task Contains_case_insensitive() => _g
+            .Inject("Hello", "Snafu")
+            .Where(x => x.Contains("LL", StringComparison.OrdinalIgnoreCase))
+            .Verify();
+
+        [Fact]
+        public Task StartsWith_case_insensitive_reverse() => _g
+            .Inject("Bello", "Hello")
+            .Where(x => x.StartsWith("he", StringComparison.OrdinalIgnoreCase))
+            .Verify();
+
+        [Fact]
+        public Task Equals_case_insensitive_reverse() => _g
+            .Inject("Bello", "Hello")
+            .Where(x => x.Equals("hello", StringComparison.OrdinalIgnoreCase))
+            .Verify();
+
+        [Fact]
+        public Task EndsWith_case_insensitive_reverse() => _g
+            .Inject("Hallx", "Hello")
+            .Where(x => x.EndsWith("lo", StringComparison.OrdinalIgnoreCase))
+            .Verify();
+
+        [Fact]
+        public Task Contains_case_insensitive_reverse() => _g
+            .Inject("Snafu", "Hello")
+            .Where(x => x.Contains("LL", StringComparison.OrdinalIgnoreCase))
+            .Verify();
+
+        [Fact]
         public async Task Deserialization_of_typed_results_is_only_called_once()
         {
             var called = 0;
