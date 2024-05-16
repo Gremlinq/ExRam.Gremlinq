@@ -17,6 +17,11 @@ jobs:
         fetch-depth: 0
         submodules: 'true'
 
+    - name: Setup .NET
+      uses: actions/setup-dotnet@4d6c8fcf3c8f7a60068d26b594648e99df24cee3 # 4.0.0
+      with:
+        global-json-file: global.json
+
     - name: Build
       run: dotnet build  -c Release ./${{ github.event.repository.name }}.sln
       
@@ -42,6 +47,11 @@ jobs:
       with:
         fetch-depth: 0
         submodules: 'true'
+        
+    - name: Setup .NET
+      uses: actions/setup-dotnet@4d6c8fcf3c8f7a60068d26b594648e99df24cee3 # 4.0.0
+      with:
+        global-json-file: global.json
 
     - name: Start CosmosDb Emulator
       uses: janpio/cosmos-emulator-github-action@8c35a1bfde25fc32234c163c044322af3f2e56e3
