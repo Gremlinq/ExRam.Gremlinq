@@ -25,7 +25,7 @@
   
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" >
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
+    <PackageLicenseFile Condition="$(PackageLicenseFile) == ''">LICENSE.md</PackageLicenseFile>
     <PackageTags>Gremlin;Tinkerpop;CosmosDB;JanusGraph;Neptune;Graph;GraphDB;</PackageTags>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <DebugType>embedded</DebugType>
@@ -34,7 +34,7 @@
   </PropertyGroup>
 
   <ItemGroup Condition="'$(Configuration)' == 'Release'" >
-    <None Include="$(SolutionDir)LICENSE.md">
+    <None Include="$(SolutionDir)$(PackageLicenseFile)">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
