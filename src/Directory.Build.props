@@ -26,6 +26,7 @@
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" >
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageLicenseFile Condition="$(PackageLicenseFile) == ''">LICENSE.md</PackageLicenseFile>
+    <PackageLicenseDirectory Condition="$(PackageLicenseDirectory) == ''">$(SolutionDir)</PackageLicenseDirectory>
     <PackageTags>Gremlin;Tinkerpop;CosmosDB;JanusGraph;Neptune;Graph;GraphDB;</PackageTags>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <DebugType>embedded</DebugType>
@@ -34,10 +35,11 @@
   </PropertyGroup>
 
   <ItemGroup Condition="'$(Configuration)' == 'Release'" >
-    <None Include="$(SolutionDir)$(PackageLicenseFile)">
+    <None Include="$(PackageLicenseDirectory)$(PackageLicenseFile)">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
+
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
   </ItemGroup>
 
