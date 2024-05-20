@@ -12,6 +12,10 @@
     <Copyright>©2017-2019 ExRam EDV GmbH &amp; Co. KG, 2020 ExRam Innovations GmbH</Copyright>
     <PackageIcon>icon.png</PackageIcon>
   </PropertyGroup>
+ 
+  <PropertyGroup Condition="!$(MSBuildProjectName.StartsWith('$(SolutionName)'))">
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>  
 
   <ItemGroup Condition="'$(IsPackable)' == 'true'">
     <None Include="$(MSBuildThisFileDirectory)assets\$(PackageIcon)">
