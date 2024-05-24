@@ -9,7 +9,7 @@ using Polly;
 
 namespace ExRam.Gremlinq.Tests.Fixtures
 {
-    public sealed class CosmosDbEmulatorFixture : GremlinqFixture
+    public class CosmosDbEmulatorFixture : GremlinqFixture
     {
         private const string CosmosDbEmulatorDatabaseName = "db";
         private const string CosmosDbEmulatorCollectionName = "graph";
