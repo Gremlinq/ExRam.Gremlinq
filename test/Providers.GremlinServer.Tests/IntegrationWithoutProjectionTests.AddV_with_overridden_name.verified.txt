@@ -4,17 +4,30 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 80
+        "@value": 112
       },
       "label": "Language",
       "properties": {
+        "PartitionKey": [
+          {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": 114
+              },
+              "value": "PartitionKey",
+              "label": "PartitionKey"
+            }
+          }
+        ],
         "lang": [
           {
             "@type": "g:VertexProperty",
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 81
+                "@value": 113
               },
               "value": "en",
               "label": "lang"

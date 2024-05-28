@@ -1,1 +1,1 @@
-﻿g.addV('Language').property('PartitionKey','PartitionKey')
+﻿g.addV('Language').property(single,'PartitionKey','PartitionKey')

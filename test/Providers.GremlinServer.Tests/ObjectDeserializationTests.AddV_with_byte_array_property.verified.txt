@@ -1,7 +1,8 @@
 ﻿[
   {
     Image: AQIDBAUGBwg=,
-    Id: 56,
-    Label: Person
+    Id: 78,
+    Label: Person,
+    PartitionKey: PartitionKey
   }
 ]

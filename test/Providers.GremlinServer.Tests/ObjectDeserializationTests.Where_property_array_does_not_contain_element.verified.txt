@@ -1,8 +1,13 @@
 ﻿[
   {
+    Id: 7,
+    Label: Company,
+    PartitionKey: PartitionKey
+  },
+  {
     Locations: [
       {
-        Id: 70,
+        Id: 97,
         Label: Locations,
         Properties: {
           ValidFrom: 2019-01-01 01:00 +0
@@ -10,19 +15,18 @@
         Value: Aachen
       }
     ],
-    Id: 68,
-    Label: Company
+    Id: 95,
+    Label: Company,
+    PartitionKey: PartitionKey
   },
   {
-    Id: 5,
-    Label: Company
+    Id: 38,
+    Label: Company,
+    PartitionKey: PartitionKey
   },
   {
-    Id: 27,
-    Label: Company
-  },
-  {
-    Id: 42,
-    Label: Company
+    Id: 58,
+    Label: Company,
+    PartitionKey: PartitionKey
   }
 ]

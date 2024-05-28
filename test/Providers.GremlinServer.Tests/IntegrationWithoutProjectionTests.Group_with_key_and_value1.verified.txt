@@ -24,6 +24,19 @@
                   "label": "CountryCallingCode"
                 }
               }
+            ],
+            "PartitionKey": [
+              {
+                "@type": "g:VertexProperty",
+                "@value": {
+                  "id": {
+                    "@type": "g:Int64",
+                    "@value": 2
+                  },
+                  "value": "PartitionKey",
+                  "label": "PartitionKey"
+                }
+              }
             ]
           }
         }

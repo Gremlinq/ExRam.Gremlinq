@@ -3,7 +3,7 @@
   "op": "eval",
   "processor": "",
   "args": {
-    "gremlin": "g.addV(_a).property(single,_b,_c).property(single,_d,_e).project(_f,_g,_h).by(id).by(label).by(__.properties().group().by(label).by(__.project(_f,_g,_i,_h).by(id).by(label).by(value).by(__.valueMap()).fold()))",
+    "gremlin": "g.addV(_a).property(single,_b,_c).property(single,_d,_e).property(single,_f,_f).project(_g,_h,_i).by(id).by(label).by(__.properties().group().by(label).by(__.project(_g,_h,_j,_i).by(id).by(label).by(value).by(__.valueMap()).fold()))",
     "bindings": {
       "_a": "Person",
       "_b": "Age",
@@ -16,10 +16,11 @@
         "@type": "gx:ByteBuffer",
         "@value": "AQIDBAUGBwg="
       },
-      "_f": "id",
-      "_g": "label",
-      "_h": "properties",
-      "_i": "value"
+      "_f": "PartitionKey",
+      "_g": "id",
+      "_h": "label",
+      "_i": "properties",
+      "_j": "value"
     },
     "aliases": {
       "g": "g"

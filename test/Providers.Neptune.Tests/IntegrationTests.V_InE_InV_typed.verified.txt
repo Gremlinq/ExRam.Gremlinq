@@ -5,7 +5,7 @@
       "id",
       {
         "@type": "g:Int64",
-        "@value": 10
+        "@value": 14
       },
       "label",
       "Person",
@@ -23,7 +23,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 83
+                    "@value": 116
                   },
                   "label",
                   "GuidKey",
@@ -46,7 +46,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 335
+                    "@value": 425
                   },
                   "label",
                   "RegistrationDate",
@@ -69,7 +69,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 146
+                    "@value": 179
                   },
                   "label",
                   "StringKey1",
@@ -78,6 +78,26 @@
                     "@type": "g:Int32",
                     "@value": 36
                   }
+                ]
+              }
+            ]
+          },
+          "PartitionKey",
+          {
+            "@type": "g:List",
+            "@value": [
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
+                    "@type": "g:Int64",
+                    "@value": 424
+                  },
+                  "label",
+                  "PartitionKey",
+                  "value",
+                  "PartitionKey"
                 ]
               }
             ]
@@ -92,7 +112,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 334
+                    "@value": 423
                   },
                   "label",
                   "Gender",
@@ -115,7 +135,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 157
+                    "@value": 190
                   },
                   "label",
                   "StringKey2",
@@ -138,7 +158,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 292
+                    "@value": 370
                   },
                   "label",
                   "Age",
@@ -161,7 +181,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 294
+                    "@value": 372
                   },
                   "label",
                   "Name",

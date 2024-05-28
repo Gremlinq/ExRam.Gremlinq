@@ -8,11 +8,11 @@
     },
     bindings: {
       _a: Person,
-      _b: PartitionKey,
-      _c: Age,
-      _d: 0,
-      _e: Name,
-      _f: Bob,
+      _b: Age,
+      _c: 0,
+      _d: Name,
+      _e: Bob,
+      _f: PartitionKey,
       _g: RegistrationDate,
       _h: DateTimeOffset_1,
       _i: LivesIn,
@@ -20,6 +20,6 @@
       _k: CountryCallingCode,
       _l: +49
     },
-    gremlin: g.addV(_a).property(_b,_b).property(single,_c,_d).property(single,_e,_f).property(single,_g,_h).addE(_i).from(__.V().hasLabel(_j).has(_k,_l))
+    gremlin: g.addV(_a).property(single,_b,_c).property(single,_d,_e).property(single,_f,_f).property(single,_g,_h).addE(_i).from(__.V().hasLabel(_j).has(_k,_l))
   }
 }

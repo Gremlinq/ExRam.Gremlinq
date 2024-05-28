@@ -5,6 +5,7 @@
       Value: nameValue
     },
     Id: 13,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   }
 ]

@@ -8,10 +8,10 @@
     },
     bindings: {
       _a: Language,
-      _b: PartitionKey,
-      _c: lang,
-      _d: en
+      _b: lang,
+      _c: en,
+      _d: PartitionKey
     },
-    gremlin: g.addV(_a).property(_b,_b).property(single,_c,_d)
+    gremlin: g.addV(_a).property(single,_b,_c).property(single,_d,_d)
   }
 }

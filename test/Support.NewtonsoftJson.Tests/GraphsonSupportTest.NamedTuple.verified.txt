@@ -7,12 +7,14 @@
         Value: Name of some base entity
       },
       Id: 16,
-      Label: Person
+      Label: Person,
+      PartitionKey: PartitionKey
     },
     Value: {
       IetfLanguageTag: de,
       Id: 17,
-      Label: Language
+      Label: Language,
+      PartitionKey: PartitionKey
     }
   }
 ]

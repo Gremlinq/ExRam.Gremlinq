@@ -5,7 +5,7 @@
       "id",
       {
         "@type": "g:Int64",
-        "@value": 5
+        "@value": 7
       },
       "label",
       "Company",
@@ -23,7 +23,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 6
+                    "@value": 8
                   },
                   "label",
                   "FoundingDate",
@@ -32,6 +32,26 @@
                     "@type": "g:Date",
                     "@value": -62135596800000
                   }
+                ]
+              }
+            ]
+          },
+          "PartitionKey",
+          {
+            "@type": "g:List",
+            "@value": [
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
+                    "@type": "g:Int64",
+                    "@value": 9
+                  },
+                  "label",
+                  "PartitionKey",
+                  "value",
+                  "PartitionKey"
                 ]
               }
             ]
@@ -46,7 +66,7 @@
       "id",
       {
         "@type": "g:Int64",
-        "@value": 27
+        "@value": 38
       },
       "label",
       "Company",
@@ -64,7 +84,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 28
+                    "@value": 39
                   },
                   "label",
                   "FoundingDate",
@@ -73,6 +93,26 @@
                     "@type": "g:Date",
                     "@value": -62135596800000
                   }
+                ]
+              }
+            ]
+          },
+          "PartitionKey",
+          {
+            "@type": "g:List",
+            "@value": [
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
+                    "@type": "g:Int64",
+                    "@value": 40
+                  },
+                  "label",
+                  "PartitionKey",
+                  "value",
+                  "PartitionKey"
                 ]
               }
             ]
@@ -87,7 +127,7 @@
       "id",
       {
         "@type": "g:Int64",
-        "@value": 42
+        "@value": 58
       },
       "label",
       "Company",
@@ -105,7 +145,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 43
+                    "@value": 59
                   },
                   "label",
                   "FoundingDate",
@@ -114,6 +154,26 @@
                     "@type": "g:Date",
                     "@value": -62135596800000
                   }
+                ]
+              }
+            ]
+          },
+          "PartitionKey",
+          {
+            "@type": "g:List",
+            "@value": [
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
+                    "@type": "g:Int64",
+                    "@value": 60
+                  },
+                  "label",
+                  "PartitionKey",
+                  "value",
+                  "PartitionKey"
                 ]
               }
             ]

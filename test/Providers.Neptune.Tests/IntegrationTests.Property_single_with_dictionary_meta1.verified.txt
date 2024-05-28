@@ -33,6 +33,26 @@
               }
             ]
           },
+          "PartitionKey",
+          {
+            "@type": "g:List",
+            "@value": [
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
+                    "@type": "g:Int64",
+                    "@value": 2
+                  },
+                  "label",
+                  "PartitionKey",
+                  "value",
+                  "PartitionKey"
+                ]
+              }
+            ]
+          },
           "LocalizableDescription",
           {
             "@type": "g:List",
@@ -43,7 +63,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 127
+                    "@value": 160
                   },
                   "label",
                   "LocalizableDescription",
@@ -63,7 +83,7 @@
       "id",
       {
         "@type": "g:Int64",
-        "@value": 71
+        "@value": 23
       },
       "label",
       "Country",
@@ -71,6 +91,26 @@
       {
         "@type": "g:Map",
         "@value": [
+          "PartitionKey",
+          {
+            "@type": "g:List",
+            "@value": [
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
+                    "@type": "g:Int64",
+                    "@value": 24
+                  },
+                  "label",
+                  "PartitionKey",
+                  "value",
+                  "PartitionKey"
+                ]
+              }
+            ]
+          },
           "LocalizableDescription",
           {
             "@type": "g:List",
@@ -81,7 +121,181 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 128
+                    "@value": 161
+                  },
+                  "label",
+                  "LocalizableDescription",
+                  "value",
+                  ""
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@type": "g:Map",
+    "@value": [
+      "id",
+      {
+        "@type": "g:Int64",
+        "@value": 29
+      },
+      "label",
+      "Country",
+      "properties",
+      {
+        "@type": "g:Map",
+        "@value": [
+          "PartitionKey",
+          {
+            "@type": "g:List",
+            "@value": [
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
+                    "@type": "g:Int64",
+                    "@value": 30
+                  },
+                  "label",
+                  "PartitionKey",
+                  "value",
+                  "PartitionKey"
+                ]
+              }
+            ]
+          },
+          "LocalizableDescription",
+          {
+            "@type": "g:List",
+            "@value": [
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
+                    "@type": "g:Int64",
+                    "@value": 162
+                  },
+                  "label",
+                  "LocalizableDescription",
+                  "value",
+                  ""
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@type": "g:Map",
+    "@value": [
+      "id",
+      {
+        "@type": "g:Int64",
+        "@value": 35
+      },
+      "label",
+      "Country",
+      "properties",
+      {
+        "@type": "g:Map",
+        "@value": [
+          "PartitionKey",
+          {
+            "@type": "g:List",
+            "@value": [
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
+                    "@type": "g:Int64",
+                    "@value": 36
+                  },
+                  "label",
+                  "PartitionKey",
+                  "value",
+                  "PartitionKey"
+                ]
+              }
+            ]
+          },
+          "LocalizableDescription",
+          {
+            "@type": "g:List",
+            "@value": [
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
+                    "@type": "g:Int64",
+                    "@value": 163
+                  },
+                  "label",
+                  "LocalizableDescription",
+                  "value",
+                  ""
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@type": "g:Map",
+    "@value": [
+      "id",
+      {
+        "@type": "g:Int64",
+        "@value": 99
+      },
+      "label",
+      "Country",
+      "properties",
+      {
+        "@type": "g:Map",
+        "@value": [
+          "PartitionKey",
+          {
+            "@type": "g:List",
+            "@value": [
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
+                    "@type": "g:Int64",
+                    "@value": 101
+                  },
+                  "label",
+                  "PartitionKey",
+                  "value",
+                  "PartitionKey"
+                ]
+              }
+            ]
+          },
+          "LocalizableDescription",
+          {
+            "@type": "g:List",
+            "@value": [
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
+                    "@type": "g:Int64",
+                    "@value": 164
                   },
                   "label",
                   "LocalizableDescription",
@@ -101,7 +315,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 72
+                    "@value": 100
                   },
                   "label",
                   "Name",
@@ -121,7 +335,7 @@
       "id",
       {
         "@type": "g:Int64",
-        "@value": 73
+        "@value": 102
       },
       "label",
       "Country",
@@ -129,6 +343,26 @@
       {
         "@type": "g:Map",
         "@value": [
+          "PartitionKey",
+          {
+            "@type": "g:List",
+            "@value": [
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
+                    "@type": "g:Int64",
+                    "@value": 104
+                  },
+                  "label",
+                  "PartitionKey",
+                  "value",
+                  "PartitionKey"
+                ]
+              }
+            ]
+          },
           "LocalizableDescription",
           {
             "@type": "g:List",
@@ -139,7 +373,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 129
+                    "@value": 165
                   },
                   "label",
                   "LocalizableDescription",
@@ -159,7 +393,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 74
+                    "@value": 103
                   },
                   "label",
                   "Name",
@@ -179,121 +413,7 @@
       "id",
       {
         "@type": "g:Int64",
-        "@value": 17
-      },
-      "label",
-      "Country",
-      "properties",
-      {
-        "@type": "g:Map",
-        "@value": [
-          "LocalizableDescription",
-          {
-            "@type": "g:List",
-            "@value": [
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "id",
-                  {
-                    "@type": "g:Int64",
-                    "@value": 130
-                  },
-                  "label",
-                  "LocalizableDescription",
-                  "value",
-                  ""
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "@type": "g:Map",
-    "@value": [
-      "id",
-      {
-        "@type": "g:Int64",
-        "@value": 21
-      },
-      "label",
-      "Country",
-      "properties",
-      {
-        "@type": "g:Map",
-        "@value": [
-          "LocalizableDescription",
-          {
-            "@type": "g:List",
-            "@value": [
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "id",
-                  {
-                    "@type": "g:Int64",
-                    "@value": 131
-                  },
-                  "label",
-                  "LocalizableDescription",
-                  "value",
-                  ""
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "@type": "g:Map",
-    "@value": [
-      "id",
-      {
-        "@type": "g:Int64",
-        "@value": 25
-      },
-      "label",
-      "Country",
-      "properties",
-      {
-        "@type": "g:Map",
-        "@value": [
-          "LocalizableDescription",
-          {
-            "@type": "g:List",
-            "@value": [
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "id",
-                  {
-                    "@type": "g:Int64",
-                    "@value": 132
-                  },
-                  "label",
-                  "LocalizableDescription",
-                  "value",
-                  ""
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "@type": "g:Map",
-    "@value": [
-      "id",
-      {
-        "@type": "g:Int64",
-        "@value": 34
+        "@value": 48
       },
       "label",
       "Country",
@@ -311,12 +431,32 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 35
+                    "@value": 49
                   },
                   "label",
                   "CountryCallingCode",
                   "value",
                   "+49"
+                ]
+              }
+            ]
+          },
+          "PartitionKey",
+          {
+            "@type": "g:List",
+            "@value": [
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
+                    "@type": "g:Int64",
+                    "@value": 50
+                  },
+                  "label",
+                  "PartitionKey",
+                  "value",
+                  "PartitionKey"
                 ]
               }
             ]
@@ -331,7 +471,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 133
+                    "@value": 166
                   },
                   "label",
                   "LocalizableDescription",

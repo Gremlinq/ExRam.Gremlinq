@@ -48,6 +48,15 @@
               "@type": "g:Cardinality",
               "@value": "single"
             },
+            "PartitionKey",
+            "PartitionKey"
+          ],
+          [
+            "property",
+            {
+              "@type": "g:Cardinality",
+              "@value": "single"
+            },
             "RegistrationDate",
             {
               "@type": "g:Date",

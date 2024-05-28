@@ -21,6 +21,15 @@
             "en"
           ],
           [
+            "property",
+            {
+              "@type": "g:Cardinality",
+              "@value": "single"
+            },
+            "PartitionKey",
+            "PartitionKey"
+          ],
+          [
             "project",
             "id",
             "label",

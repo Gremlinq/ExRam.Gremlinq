@@ -3,19 +3,21 @@
     Age: 36,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: 12,
+      Id: 16,
       Label: Name,
       Properties: {
         ValidFrom: 2020-04-07 14:43:36 +0
       },
       Value: Bob
     },
-    Id: 10,
-    Label: Person
+    Id: 14,
+    Label: Person,
+    PartitionKey: PartitionKey
   },
   {
     IetfLanguageTag: en,
-    Id: 2,
-    Label: Language
+    Id: 3,
+    Label: Language,
+    PartitionKey: PartitionKey
   }
 ]

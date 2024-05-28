@@ -4,67 +4,18 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 9
+        "@value": 13
       },
       "label": "WorksFor",
       "inVLabel": "Company",
       "outVLabel": "Person",
       "inV": {
-        "@type": "g:Int64",
-        "@value": 5
-      },
-      "outV": {
         "@type": "g:Int64",
         "@value": 7
       },
-      "properties": {
-        "Role": {
-          "@type": "g:Property",
-          "@value": {
-            "key": "Role",
-            "value": "Admin"
-          }
-        },
-        "From": {
-          "@type": "g:Property",
-          "@value": {
-            "key": "From",
-            "value": {
-              "@type": "g:Date",
-              "@value": 1586270616000
-            }
-          }
-        },
-        "To": {
-          "@type": "g:Property",
-          "@value": {
-            "key": "To",
-            "value": {
-              "@type": "g:Date",
-              "@value": 1586270616000
-            }
-          }
-        }
-      }
-    }
-  },
-  {
-    "@type": "g:Edge",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 31
-      },
-      "label": "WorksFor",
-      "inVLabel": "Company",
-      "outVLabel": "Person",
-      "inV": {
-        "@type": "g:Int64",
-        "@value": 27
-      },
       "outV": {
         "@type": "g:Int64",
-        "@value": 29
+        "@value": 10
       },
       "properties": {
         "Role": {
@@ -101,19 +52,68 @@
     "@type": "g:Edge",
     "@value": {
       "id": {
-        "@type": "g:Int64",
-        "@value": 46
-      },
-      "label": "WorksFor",
-      "inVLabel": "Company",
-      "outVLabel": "Person",
-      "inV": {
-        "@type": "g:Int64",
-        "@value": 42
-      },
-      "outV": {
         "@type": "g:Int64",
         "@value": 44
+      },
+      "label": "WorksFor",
+      "inVLabel": "Company",
+      "outVLabel": "Person",
+      "inV": {
+        "@type": "g:Int64",
+        "@value": 38
+      },
+      "outV": {
+        "@type": "g:Int64",
+        "@value": 41
+      },
+      "properties": {
+        "Role": {
+          "@type": "g:Property",
+          "@value": {
+            "key": "Role",
+            "value": "Admin"
+          }
+        },
+        "From": {
+          "@type": "g:Property",
+          "@value": {
+            "key": "From",
+            "value": {
+              "@type": "g:Date",
+              "@value": 1586270616000
+            }
+          }
+        },
+        "To": {
+          "@type": "g:Property",
+          "@value": {
+            "key": "To",
+            "value": {
+              "@type": "g:Date",
+              "@value": 1586270616000
+            }
+          }
+        }
+      }
+    }
+  },
+  {
+    "@type": "g:Edge",
+    "@value": {
+      "id": {
+        "@type": "g:Int64",
+        "@value": 64
+      },
+      "label": "WorksFor",
+      "inVLabel": "Company",
+      "outVLabel": "Person",
+      "inV": {
+        "@type": "g:Int64",
+        "@value": 58
+      },
+      "outV": {
+        "@type": "g:Int64",
+        "@value": 61
       },
       "properties": {
         "Role": {

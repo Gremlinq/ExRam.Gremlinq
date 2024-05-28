@@ -1,1 +1,12 @@
-﻿[]
+﻿[
+  {
+    "serverException": {
+      "type": "GremlinQueryExecutionException",
+      "message": "Executing query 00000000-0000-0000-0000-000000000000 failed.",
+      "innerException": {
+        "type": "ResponseException",
+        "message": "ServerEvaluationError: \r\n\nActivityId : 00000000-0000-0000-0000-000000000000\nExceptionType : GraphSyntaxException\nExceptionMessage : \r\n\tGremlin query syntax error: Partition key property of a vertex is readonly. Please consider deleting and recreating the vertex with the desired partition key. Partition key property on an edge  is considered system property and can't neither be set or updated.\n\tGremlinRequestId : 00000000-0000-0000-0000-000000000000\n\tContext : graphcompute\n\tScope : graphstg-phyplan\n\tGraphInterOpStatusCode : QuerySyntaxError\n\tHResult : 0x80131500\r\n"
+      }
+    }
+  }
+]

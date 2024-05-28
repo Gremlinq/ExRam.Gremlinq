@@ -3,7 +3,7 @@
   "op": "eval",
   "processor": "",
   "args": {
-    "gremlin": "g.addV(_a).property(single,_b,_c).addE(_d).property(_e,_f).to(__.addV(_g)).project(_h,_i,_j).by(id).by(label).by(__.valueMap())",
+    "gremlin": "g.addV(_a).property(single,_b,_c).property(single,_d,_d).addE(_e).property(_f,_g).to(__.addV(_h).property(single,_d,_d)).project(_i,_j,_k).by(id).by(label).by(__.valueMap())",
     "bindings": {
       "_a": "Person",
       "_b": "Age",
@@ -11,16 +11,17 @@
         "@type": "g:Int32",
         "@value": 0
       },
-      "_d": "LivesIn",
-      "_e": "Since",
-      "_f": {
+      "_d": "PartitionKey",
+      "_e": "LivesIn",
+      "_f": "Since",
+      "_g": {
         "@type": "g:Date",
         "@value": 1586270616000
       },
-      "_g": "Country",
-      "_h": "id",
-      "_i": "label",
-      "_j": "properties"
+      "_h": "Country",
+      "_i": "id",
+      "_j": "label",
+      "_k": "properties"
     },
     "aliases": {
       "g": "g"

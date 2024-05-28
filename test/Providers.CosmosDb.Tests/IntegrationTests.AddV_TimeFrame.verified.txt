@@ -4,12 +4,6 @@
     "label": "TimeFrame",
     "type": "vertex",
     "properties": {
-      "PartitionKey": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-          "value": "PartitionKey"
-        }
-      ],
       "Duration": [
         {
           "id": "00000000-0000-0000-0000-000000000000",
@@ -20,6 +14,12 @@
         {
           "id": "00000000-0000-0000-0000-000000000000",
           "value": false
+        }
+      ],
+      "PartitionKey": [
+        {
+          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "value": "PartitionKey"
         }
       ],
       "StartTime": [

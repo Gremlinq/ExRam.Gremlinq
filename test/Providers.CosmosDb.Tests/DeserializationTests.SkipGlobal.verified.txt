@@ -2,16 +2,19 @@
   {
     IetfLanguageTag: en,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Language
+    Label: Language,
+    PartitionKey: PartitionKey
   },
   {
     Age: 36,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   },
   {
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Company
+    Label: Company,
+    PartitionKey: PartitionKey
   },
   {
     Age: 36,
@@ -24,12 +27,14 @@
       Value: Bob
     },
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   },
   {
     Age: 36,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   },
   {
     LocalizableDescription: {
@@ -40,12 +45,14 @@
       Value: 
     },
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Country
+    Label: Country,
+    PartitionKey: PartitionKey
   },
   {
     Age: 36,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   },
   {
     LocalizableDescription: {
@@ -56,12 +63,14 @@
       Value: 
     },
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Country
+    Label: Country,
+    PartitionKey: PartitionKey
   },
   {
     Age: 36,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   },
   {
     LocalizableDescription: {
@@ -72,21 +81,25 @@
       Value: 
     },
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Country
+    Label: Country,
+    PartitionKey: PartitionKey
   },
   {
     Age: 36,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   },
   {
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Company
+    Label: Company,
+    PartitionKey: PartitionKey
   },
   {
     IetfLanguageTag: en,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Language
+    Label: Language,
+    PartitionKey: PartitionKey
   },
   {
     CountryCallingCode: +49,
@@ -98,7 +111,8 @@
       Value: 
     },
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Country
+    Label: Country,
+    PartitionKey: PartitionKey
   },
   {
     Age: 36,
@@ -111,49 +125,58 @@
       Value: Bob
     },
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   },
   {
     Age: 36,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   },
   {
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Company
+    Label: Company,
+    PartitionKey: PartitionKey
   },
   {
     IetfLanguageTag: en,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Language
+    Label: Language,
+    PartitionKey: PartitionKey
   },
   {
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Language
+    Label: Language,
+    PartitionKey: PartitionKey
   },
   {
     Enabled: false,
     StartTime: 08:00:00,
     Duration: 02:00:00,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: TimeFrame
+    Label: TimeFrame,
+    PartitionKey: PartitionKey
   },
   {
     IetfLanguageTag: en,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Language
+    Label: Language,
+    PartitionKey: PartitionKey
   },
   {
     Age: 36,
     Image: AQIDBAUGBwg=,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   },
   {
     Age: 36,
     Gender: Female,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   },
   {
     Age: 36,
@@ -166,16 +189,19 @@
       Value: Marko
     },
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   },
   {
     IetfLanguageTag: en,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Language
+    Label: Language,
+    PartitionKey: PartitionKey
   },
   {
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Language
+    Label: Language,
+    PartitionKey: PartitionKey
   },
   {
     Locations: [
@@ -188,7 +214,8 @@
       }
     ],
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Company
+    Label: Company,
+    PartitionKey: PartitionKey
   },
   {
     Name: {
@@ -204,7 +231,8 @@
       Value: 
     },
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Country
+    Label: Country,
+    PartitionKey: PartitionKey
   },
   {
     Name: {
@@ -223,7 +251,8 @@
       Value: 
     },
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Country
+    Label: Country,
+    PartitionKey: PartitionKey
   },
   {
     PhoneNumbers: [
@@ -231,14 +260,17 @@
       +4923456
     ],
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Company
+    Label: Company,
+    PartitionKey: PartitionKey
   },
   {
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Language
+    Label: Language,
+    PartitionKey: PartitionKey
   },
   {
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Language
+    Label: Language,
+    PartitionKey: PartitionKey
   }
 ]

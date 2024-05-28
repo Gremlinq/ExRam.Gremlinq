@@ -1,5 +1,5 @@
 ﻿{
-  Script: g.V().hasLabel(_a).sideEffect(__.properties(_b,_c,_d).drop()).property(single,_e,_f).property(single,_g,_h).property(single,_i,_j).property(list,_c,_k).property(single,_l,_m).project(_n,_o,_p).by(id).by(label).by(__.properties().group().by(label).by(__.project(_n,_o,_q,_p).by(id).by(label).by(value).by(__.valueMap()).fold())),
+  Script: g.V().hasLabel(_a).sideEffect(__.properties(_b,_c,_d).drop()).property(single,_e,_f).property(single,_g,_h).property(single,_i,_j).property(single,_k,_k).property(list,_c,_l).property(single,_m,_n).project(_o,_p,_q).by(id).by(label).by(__.properties().group().by(label).by(__.project(_o,_p,_r,_q).by(id).by(label).by(value).by(__.valueMap()).fold())),
   Bindings: {
     _a: Person,
     _b: Image,
@@ -11,12 +11,13 @@
     _h: Male,
     _i: Name,
     _j: Marko,
-    _k: 012345,
-    _l: RegistrationDate,
-    _m: DateTimeOffset_1,
-    _n: id,
-    _o: label,
-    _p: properties,
-    _q: value
+    _k: PartitionKey,
+    _l: 012345,
+    _m: RegistrationDate,
+    _n: DateTimeOffset_1,
+    _o: id,
+    _p: label,
+    _q: properties,
+    _r: value
   }
 }

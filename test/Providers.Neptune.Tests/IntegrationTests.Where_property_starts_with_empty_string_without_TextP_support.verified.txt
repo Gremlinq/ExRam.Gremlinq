@@ -33,6 +33,26 @@
               }
             ]
           },
+          "PartitionKey",
+          {
+            "@type": "g:List",
+            "@value": [
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
+                    "@type": "g:Int64",
+                    "@value": 2
+                  },
+                  "label",
+                  "PartitionKey",
+                  "value",
+                  "PartitionKey"
+                ]
+              }
+            ]
+          },
           "LocalizableDescription",
           {
             "@type": "g:List",
@@ -43,7 +63,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 127
+                    "@value": 160
                   },
                   "label",
                   "LocalizableDescription",
@@ -63,7 +83,7 @@
       "id",
       {
         "@type": "g:Int64",
-        "@value": 34
+        "@value": 48
       },
       "label",
       "Country",
@@ -81,12 +101,32 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 35
+                    "@value": 49
                   },
                   "label",
                   "CountryCallingCode",
                   "value",
                   "+49"
+                ]
+              }
+            ]
+          },
+          "PartitionKey",
+          {
+            "@type": "g:List",
+            "@value": [
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
+                    "@type": "g:Int64",
+                    "@value": 50
+                  },
+                  "label",
+                  "PartitionKey",
+                  "value",
+                  "PartitionKey"
                 ]
               }
             ]
@@ -101,7 +141,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 133
+                    "@value": 166
                   },
                   "label",
                   "LocalizableDescription",

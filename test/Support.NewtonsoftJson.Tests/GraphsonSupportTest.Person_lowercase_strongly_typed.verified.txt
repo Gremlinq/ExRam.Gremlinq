@@ -13,6 +13,7 @@
       }
     ],
     Id: 14,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   }
 ]

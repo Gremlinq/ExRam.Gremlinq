@@ -4,34 +4,155 @@
       {
         CountryCallingCode: +49,
         Id: 0,
-        Label: Country
+        Label: Country,
+        PartitionKey: PartitionKey
       }
     ],
     ExRam.Gremlinq.Tests.Entities.Language: [
       {
         IetfLanguageTag: en,
         Id: 65,
-        Label: Language
+        Label: Language,
+        PartitionKey: PartitionKey
       }
     ],
     ExRam.Gremlinq.Tests.Entities.Language: [
       {
         IetfLanguageTag: en,
-        Id: 2,
-        Label: Language
+        Id: 3,
+        Label: Language,
+        PartitionKey: PartitionKey
       }
     ],
     ExRam.Gremlinq.Tests.Entities.Language: [
       {
-        Id: 67,
-        Label: Language
+        Id: 68,
+        Label: Language,
+        PartitionKey: PartitionKey
+      }
+    ],
+    ExRam.Gremlinq.Tests.Entities.TimeFrame: [
+      {
+        Enabled: false,
+        StartTime: 08:00:00,
+        Duration: 02:00:00,
+        Id: 70,
+        Label: TimeFrame,
+        PartitionKey: PartitionKey
+      }
+    ],
+    ExRam.Gremlinq.Tests.Entities.Company: [
+      {
+        Id: 7,
+        Label: Company,
+        PartitionKey: PartitionKey
+      }
+    ],
+    ExRam.Gremlinq.Tests.Entities.Person: [
+      {
+        Id: 10,
+        Label: Person,
+        PartitionKey: PartitionKey
+      }
+    ],
+    ExRam.Gremlinq.Tests.Entities.Language: [
+      {
+        IetfLanguageTag: en,
+        Id: 75,
+        Label: Language,
+        PartitionKey: PartitionKey
+      }
+    ],
+    ExRam.Gremlinq.Tests.Entities.Person: [
+      {
+        RegistrationDate: 2020-04-07 14:43:36 +0,
+        Name: {
+          Id: 16,
+          Label: Name,
+          Value: Bob
+        },
+        Id: 14,
+        Label: Person,
+        PartitionKey: PartitionKey
+      }
+    ],
+    ExRam.Gremlinq.Tests.Entities.Person: [
+      {
+        Image: AQIDBAUGBwg=,
+        Id: 78,
+        Label: Person,
+        PartitionKey: PartitionKey
+      }
+    ],
+    ExRam.Gremlinq.Tests.Entities.Person: [
+      {
+        Gender: Female,
+        Id: 82,
+        Label: Person,
+        PartitionKey: PartitionKey
+      }
+    ],
+    ExRam.Gremlinq.Tests.Entities.Person: [
+      {
+        Id: 20,
+        Label: Person,
+        PartitionKey: PartitionKey
+      }
+    ],
+    ExRam.Gremlinq.Tests.Entities.Person: [
+      {
+        RegistrationDate: 2020-04-07 14:43:36 +0,
+        Name: {
+          Id: 87,
+          Label: Name,
+          Value: Marko
+        },
+        Id: 86,
+        Label: Person,
+        PartitionKey: PartitionKey
+      }
+    ],
+    ExRam.Gremlinq.Tests.Entities.Country: [
+      {
+        Id: 23,
+        Label: Country,
+        PartitionKey: PartitionKey
+      }
+    ],
+    ExRam.Gremlinq.Tests.Entities.Person: [
+      {
+        Id: 26,
+        Label: Person,
+        PartitionKey: PartitionKey
+      }
+    ],
+    ExRam.Gremlinq.Tests.Entities.Language: [
+      {
+        IetfLanguageTag: en,
+        Id: 90,
+        Label: Language,
+        PartitionKey: PartitionKey
+      }
+    ],
+    ExRam.Gremlinq.Tests.Entities.Country: [
+      {
+        Id: 29,
+        Label: Country,
+        PartitionKey: PartitionKey
+      }
+    ],
+    ExRam.Gremlinq.Tests.Entities.Language: [
+      {
+        Id: 93,
+        Label: Language,
+        PartitionKey: PartitionKey
       }
     ],
     ExRam.Gremlinq.Tests.Entities.Company: [
       {
         Locations: [
           {
-            Id: 70,
+            Id: 97,
             Label: Locations,
             Properties: {
               ValidFrom: 2019-01-01 01:00 +0
@@ -39,38 +160,49 @@
             Value: Aachen
           }
         ],
-        Id: 68,
-        Label: Company
-      }
-    ],
-    ExRam.Gremlinq.Tests.Entities.Company: [
-      {
-        Id: 5,
-        Label: Company
+        Id: 95,
+        Label: Company,
+        PartitionKey: PartitionKey
       }
     ],
     ExRam.Gremlinq.Tests.Entities.Person: [
       {
-        Id: 7,
-        Label: Person
+        Id: 32,
+        Label: Person,
+        PartitionKey: PartitionKey
+      }
+    ],
+    ExRam.Gremlinq.Tests.Entities.Country: [
+      {
+        Id: 35,
+        Label: Country,
+        PartitionKey: PartitionKey
       }
     ],
     ExRam.Gremlinq.Tests.Entities.Country: [
       {
         Name: {
-          Id: 72,
+          Id: 100,
           Label: Name,
           Properties: {},
           Value: GER
         },
-        Id: 71,
-        Label: Country
+        Id: 99,
+        Label: Country,
+        PartitionKey: PartitionKey
+      }
+    ],
+    ExRam.Gremlinq.Tests.Entities.Company: [
+      {
+        Id: 38,
+        Label: Company,
+        PartitionKey: PartitionKey
       }
     ],
     ExRam.Gremlinq.Tests.Entities.Country: [
       {
         Name: {
-          Id: 74,
+          Id: 103,
           Label: Name,
           Properties: {
             de: Deutschland,
@@ -78,20 +210,16 @@
           },
           Value: GER
         },
-        Id: 73,
-        Label: Country
+        Id: 102,
+        Label: Country,
+        PartitionKey: PartitionKey
       }
     ],
     ExRam.Gremlinq.Tests.Entities.Person: [
       {
-        RegistrationDate: 2020-04-07 14:43:36 +0,
-        Name: {
-          Id: 12,
-          Label: Name,
-          Value: Bob
-        },
-        Id: 10,
-        Label: Person
+        Id: 41,
+        Label: Person,
+        PartitionKey: PartitionKey
       }
     ],
     ExRam.Gremlinq.Tests.Entities.Company: [
@@ -100,161 +228,66 @@
           +4912345,
           +4923456
         ],
-        Id: 75,
-        Label: Company
-      }
-    ],
-    ExRam.Gremlinq.Tests.Entities.Person: [
-      {
-        Id: 15,
-        Label: Person
-      }
-    ],
-    ExRam.Gremlinq.Tests.Entities.Language: [
-      {
-        Id: 79,
-        Label: Language
-      }
-    ],
-    ExRam.Gremlinq.Tests.Entities.Language: [
-      {
-        Id: 80,
-        Label: Language
-      }
-    ],
-    ExRam.Gremlinq.Tests.Entities.Country: [
-      {
-        Id: 17,
-        Label: Country
-      }
-    ],
-    ExRam.Gremlinq.Tests.Entities.Person: [
-      {
-        Id: 19,
-        Label: Person
-      }
-    ],
-    ExRam.Gremlinq.Tests.Entities.Country: [
-      {
-        Id: 21,
-        Label: Country
-      }
-    ],
-    ExRam.Gremlinq.Tests.Entities.Person: [
-      {
-        Id: 23,
-        Label: Person
-      }
-    ],
-    ExRam.Gremlinq.Tests.Entities.Country: [
-      {
-        Id: 25,
-        Label: Country
-      }
-    ],
-    ExRam.Gremlinq.Tests.Entities.Company: [
-      {
-        Id: 27,
-        Label: Company
-      }
-    ],
-    ExRam.Gremlinq.Tests.Entities.Person: [
-      {
-        Id: 29,
-        Label: Person
+        Id: 105,
+        Label: Company,
+        PartitionKey: PartitionKey
       }
     ],
     ExRam.Gremlinq.Tests.Entities.Language: [
       {
         IetfLanguageTag: en,
-        Id: 32,
-        Label: Language
+        Id: 45,
+        Label: Language,
+        PartitionKey: PartitionKey
+      }
+    ],
+    ExRam.Gremlinq.Tests.Entities.Language: [
+      {
+        Id: 110,
+        Label: Language,
+        PartitionKey: PartitionKey
       }
     ],
     ExRam.Gremlinq.Tests.Entities.Country: [
       {
         CountryCallingCode: +49,
-        Id: 34,
-        Label: Country
+        Id: 48,
+        Label: Country,
+        PartitionKey: PartitionKey
+      }
+    ],
+    ExRam.Gremlinq.Tests.Entities.Language: [
+      {
+        Id: 112,
+        Label: Language,
+        PartitionKey: PartitionKey
       }
     ],
     ExRam.Gremlinq.Tests.Entities.Person: [
       {
         RegistrationDate: 2020-04-07 14:43:36 +0,
         Name: {
-          Id: 39,
+          Id: 54,
           Label: Name,
           Value: Bob
         },
-        Id: 37,
-        Label: Person
+        Id: 52,
+        Label: Person,
+        PartitionKey: PartitionKey
       }
     ],
     ExRam.Gremlinq.Tests.Entities.Company: [
       {
-        Id: 42,
-        Label: Company
+        Id: 58,
+        Label: Company,
+        PartitionKey: PartitionKey
       }
     ],
     ExRam.Gremlinq.Tests.Entities.Person: [
       {
-        Id: 44,
-        Label: Person
-      }
-    ],
-    ExRam.Gremlinq.Tests.Entities.Language: [
-      {
-        IetfLanguageTag: en,
-        Id: 47,
-        Label: Language
-      }
-    ],
-    ExRam.Gremlinq.Tests.Entities.Language: [
-      {
-        Id: 49,
-        Label: Language
-      }
-    ],
-    ExRam.Gremlinq.Tests.Entities.TimeFrame: [
-      {
-        Enabled: false,
-        StartTime: 08:00:00,
-        Duration: 02:00:00,
-        Id: 50,
-        Label: TimeFrame
-      }
-    ],
-    ExRam.Gremlinq.Tests.Entities.Language: [
-      {
-        IetfLanguageTag: en,
-        Id: 54,
-        Label: Language
-      }
-    ],
-    ExRam.Gremlinq.Tests.Entities.Person: [
-      {
-        Image: AQIDBAUGBwg=,
-        Id: 56,
-        Label: Person
-      }
-    ],
-    ExRam.Gremlinq.Tests.Entities.Person: [
-      {
-        Gender: Female,
-        Id: 59,
-        Label: Person
-      }
-    ],
-    ExRam.Gremlinq.Tests.Entities.Person: [
-      {
-        RegistrationDate: 2020-04-07 14:43:36 +0,
-        Name: {
-          Id: 63,
-          Label: Name,
-          Value: Marko
-        },
-        Id: 62,
-        Label: Person
+        Id: 61,
+        Label: Person,
+        PartitionKey: PartitionKey
       }
     ]
   }

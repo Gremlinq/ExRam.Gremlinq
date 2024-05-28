@@ -11,13 +11,13 @@
       _b: To,
       _c: DateTimeOffset_1,
       _d: Person,
-      _e: PartitionKey,
-      _f: Age,
-      _g: 0,
+      _e: Age,
+      _f: 0,
+      _g: PartitionKey,
       _h: Company,
       _i: FoundingDate,
       _j: Date_MinValue
     },
-    gremlin: g.addE(_a).property(_b,_c).from(__.addV(_d).property(_e,_e).property(single,_f,_g)).to(__.addV(_h).property(_e,_e).property(single,_i,_j))
+    gremlin: g.addE(_a).property(_b,_c).from(__.addV(_d).property(single,_e,_f).property(single,_g,_g)).to(__.addV(_h).property(single,_i,_j).property(single,_g,_g))
   }
 }

@@ -24,6 +24,15 @@
             }
           ],
           [
+            "property",
+            {
+              "@type": "g:Cardinality",
+              "@value": "single"
+            },
+            "PartitionKey",
+            "PartitionKey"
+          ],
+          [
             "addE",
             "LivesIn"
           ],
@@ -44,6 +53,15 @@
                   [
                     "addV",
                     "Country"
+                  ],
+                  [
+                    "property",
+                    {
+                      "@type": "g:Cardinality",
+                      "@value": "single"
+                    },
+                    "PartitionKey",
+                    "PartitionKey"
                   ]
                 ]
               }

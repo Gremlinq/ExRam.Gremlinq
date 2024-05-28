@@ -4,7 +4,7 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 50
+        "@value": 70
       },
       "label": "TimeFrame",
       "properties": {
@@ -14,7 +14,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 53
+                "@value": 74
               },
               "value": {
                 "@type": "gx:Duration",
@@ -30,10 +30,23 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 52
+                "@value": 72
               },
               "value": false,
               "label": "Enabled"
+            }
+          }
+        ],
+        "PartitionKey": [
+          {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": 73
+              },
+              "value": "PartitionKey",
+              "label": "PartitionKey"
             }
           }
         ],
@@ -43,7 +56,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 51
+                "@value": 71
               },
               "value": {
                 "@type": "gx:Duration",

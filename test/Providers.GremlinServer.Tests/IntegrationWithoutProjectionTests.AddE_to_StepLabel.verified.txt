@@ -4,18 +4,18 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 36
+        "@value": 51
       },
       "label": "Speaks",
       "inVLabel": "Language",
       "outVLabel": "Country",
       "inV": {
         "@type": "g:Int64",
-        "@value": 32
+        "@value": 45
       },
       "outV": {
         "@type": "g:Int64",
-        "@value": 34
+        "@value": 48
       }
     }
   }

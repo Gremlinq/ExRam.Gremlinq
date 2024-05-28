@@ -3,7 +3,7 @@
     {
       CountryCallingCode: +49,
       LocalizableDescription: {
-        Id: 127,
+        Id: 160,
         Label: LocalizableDescription,
         Properties: {
           someKey: value
@@ -11,7 +11,8 @@
         Value: 
       },
       Id: 0,
-      Label: Country
+      Label: Country,
+      PartitionKey: PartitionKey
     }
   ]
 ]

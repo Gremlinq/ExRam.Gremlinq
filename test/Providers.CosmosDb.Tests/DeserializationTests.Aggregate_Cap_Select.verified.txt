@@ -2,7 +2,8 @@
   [
     {
       Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person
+      Label: Person,
+      PartitionKey: PartitionKey
     },
     {
       RegistrationDate: 2020-04-07 14:43:36 +0,
@@ -11,23 +12,28 @@
         Value: Bob
       },
       Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person
+      Label: Person,
+      PartitionKey: PartitionKey
     },
     {
       Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person
+      Label: Person,
+      PartitionKey: PartitionKey
     },
     {
       Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person
+      Label: Person,
+      PartitionKey: PartitionKey
     },
     {
       Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person
+      Label: Person,
+      PartitionKey: PartitionKey
     },
     {
       Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person
+      Label: Person,
+      PartitionKey: PartitionKey
     },
     {
       RegistrationDate: 2020-04-07 14:43:36 +0,
@@ -36,21 +42,25 @@
         Value: Bob
       },
       Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person
+      Label: Person,
+      PartitionKey: PartitionKey
     },
     {
       Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person
+      Label: Person,
+      PartitionKey: PartitionKey
     },
     {
       Image: AQIDBAUGBwg=,
       Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person
+      Label: Person,
+      PartitionKey: PartitionKey
     },
     {
       Gender: Female,
       Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person
+      Label: Person,
+      PartitionKey: PartitionKey
     },
     {
       RegistrationDate: 2020-04-07 14:43:36 +0,
@@ -59,7 +69,8 @@
         Value: Marko
       },
       Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person
+      Label: Person,
+      PartitionKey: PartitionKey
     }
   ]
 ]

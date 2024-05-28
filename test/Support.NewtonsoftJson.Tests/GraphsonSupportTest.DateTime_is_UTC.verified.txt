@@ -6,6 +6,7 @@
       Value: Company!
     },
     Id: Guid_2,
-    Label: Company
+    Label: Company,
+    PartitionKey: PartitionKey
   }
 ]

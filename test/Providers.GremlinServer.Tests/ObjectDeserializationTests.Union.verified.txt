@@ -1,52 +1,57 @@
 ﻿[
   {
-    Id: 5,
-    Label: Company
+    Id: 7,
+    Label: Company,
+    PartitionKey: PartitionKey
   },
   {
     LocalizableDescription: {
-      Id: 130,
+      Id: 161,
       Label: LocalizableDescription,
       Properties: {
         someKey: value
       },
       Value: 
     },
-    Id: 17,
-    Label: Country
+    Id: 23,
+    Label: Country,
+    PartitionKey: PartitionKey
   },
   {
     LocalizableDescription: {
-      Id: 131,
+      Id: 162,
       Label: LocalizableDescription,
       Properties: {
         someKey: value
       },
       Value: 
     },
-    Id: 21,
-    Label: Country
+    Id: 29,
+    Label: Country,
+    PartitionKey: PartitionKey
   },
   {
     LocalizableDescription: {
-      Id: 132,
+      Id: 163,
       Label: LocalizableDescription,
       Properties: {
         someKey: value
       },
       Value: 
     },
-    Id: 25,
-    Label: Country
+    Id: 35,
+    Label: Country,
+    PartitionKey: PartitionKey
   },
   {
-    Id: 27,
-    Label: Company
+    Id: 38,
+    Label: Company,
+    PartitionKey: PartitionKey
   },
   {
     CountryCallingCode: +49,
     LocalizableDescription: {
-      Id: 127,
+      Id: 160,
       Label: LocalizableDescription,
       Properties: {
         someKey: value
@@ -54,10 +59,12 @@
       Value: 
     },
     Id: 0,
-    Label: Country
+    Label: Country,
+    PartitionKey: PartitionKey
   },
   {
-    Id: 42,
-    Label: Company
+    Id: 58,
+    Label: Company,
+    PartitionKey: PartitionKey
   }
 ]

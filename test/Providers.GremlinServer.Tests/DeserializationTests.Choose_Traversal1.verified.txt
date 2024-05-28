@@ -2,62 +2,60 @@
   {
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: 12,
+      Id: 16,
       Label: Name,
       Value: Bob
     },
-    Id: 10,
-    Label: Person
+    Id: 14,
+    Label: Person,
+    PartitionKey: PartitionKey
   },
   {
     IetfLanguageTag: en,
-    Id: 2,
-    Label: Language
+    Id: 3,
+    Label: Language,
+    PartitionKey: PartitionKey
   },
   {
-    Id: 5,
-    Label: Company
-  },
-  {
-    Id: 17,
-    Label: Country
-  },
-  {
-    Id: 15,
-    Label: Person
-  },
-  {
-    Id: 21,
-    Label: Country
-  },
-  {
-    Id: 19,
-    Label: Person
-  },
-  {
-    Id: 25,
-    Label: Country
+    Id: 7,
+    Label: Company,
+    PartitionKey: PartitionKey
   },
   {
     Id: 23,
-    Label: Person
+    Label: Country,
+    PartitionKey: PartitionKey
   },
   {
-    Id: 27,
-    Label: Company
+    Id: 29,
+    Label: Country,
+    PartitionKey: PartitionKey
+  },
+  {
+    Id: 35,
+    Label: Country,
+    PartitionKey: PartitionKey
+  },
+  {
+    Id: 38,
+    Label: Company,
+    PartitionKey: PartitionKey
   },
   {
     IetfLanguageTag: en,
-    Id: 32,
-    Label: Language
+    Id: 45,
+    Label: Language,
+    PartitionKey: PartitionKey
   },
   {
     CountryCallingCode: +49,
     Id: 0,
-    Label: Country
+    Label: Country,
+    PartitionKey: PartitionKey
   },
   {
-    Id: 42,
-    Label: Company
+    Id: 58,
+    Label: Company,
+    PartitionKey: PartitionKey
   }
 ]

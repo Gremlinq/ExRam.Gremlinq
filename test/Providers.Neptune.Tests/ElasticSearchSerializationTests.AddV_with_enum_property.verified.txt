@@ -45,6 +45,17 @@
       ]
     },
     {
+      OperatorName: property,
+      Arguments: [
+        {
+          EnumName: Cardinality,
+          EnumValue: single
+        },
+        PartitionKey,
+        PartitionKey
+      ]
+    },
+    {
       OperatorName: project,
       Arguments: [
         id,

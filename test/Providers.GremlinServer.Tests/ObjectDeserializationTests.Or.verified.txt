@@ -1,24 +1,28 @@
 ﻿[
   {
-    Id: 15,
-    Label: Person
+    Id: 20,
+    Label: Person,
+    PartitionKey: PartitionKey
   },
   {
-    Id: 19,
-    Label: Person
+    Id: 26,
+    Label: Person,
+    PartitionKey: PartitionKey
   },
   {
-    Id: 23,
-    Label: Person
+    Id: 32,
+    Label: Person,
+    PartitionKey: PartitionKey
   },
   {
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: 39,
+      Id: 54,
       Label: Name,
       Value: Bob
     },
-    Id: 37,
-    Label: Person
+    Id: 52,
+    Label: Person,
+    PartitionKey: PartitionKey
   }
 ]

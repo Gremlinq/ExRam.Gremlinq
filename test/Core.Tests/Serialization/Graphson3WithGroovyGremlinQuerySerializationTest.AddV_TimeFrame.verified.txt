@@ -3,7 +3,7 @@
   "op": "eval",
   "processor": "",
   "args": {
-    "gremlin": "g.addV(_a).property(single,_b,_c).property(single,_d,_e).property(single,_f,_g).project(_h,_i,_j).by(id).by(label).by(__.properties().group().by(label).by(__.project(_h,_i,_k,_j).by(id).by(label).by(value).by(__.valueMap()).fold()))",
+    "gremlin": "g.addV(_a).property(single,_b,_c).property(single,_d,_e).property(single,_f,_f).property(single,_g,_h).project(_i,_j,_k).by(id).by(label).by(__.properties().group().by(label).by(__.project(_i,_j,_l,_k).by(id).by(label).by(value).by(__.valueMap()).fold()))",
     "bindings": {
       "_a": "TimeFrame",
       "_b": "Duration",
@@ -13,15 +13,16 @@
       },
       "_d": "Enabled",
       "_e": false,
-      "_f": "StartTime",
-      "_g": {
+      "_f": "PartitionKey",
+      "_g": "StartTime",
+      "_h": {
         "@type": "gx:Duration",
         "@value": "PT8H"
       },
-      "_h": "id",
-      "_i": "label",
-      "_j": "properties",
-      "_k": "value"
+      "_i": "id",
+      "_j": "label",
+      "_k": "properties",
+      "_l": "value"
     },
     "aliases": {
       "g": "g"

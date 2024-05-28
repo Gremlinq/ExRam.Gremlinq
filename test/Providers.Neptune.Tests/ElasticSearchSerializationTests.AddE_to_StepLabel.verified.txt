@@ -34,6 +34,17 @@
       ]
     },
     {
+      OperatorName: property,
+      Arguments: [
+        {
+          EnumName: Cardinality,
+          EnumValue: single
+        },
+        PartitionKey,
+        PartitionKey
+      ]
+    },
+    {
       OperatorName: as,
       Arguments: [
         _c
@@ -54,6 +65,17 @@
         },
         CountryCallingCode,
         +49
+      ]
+    },
+    {
+      OperatorName: property,
+      Arguments: [
+        {
+          EnumName: Cardinality,
+          EnumValue: single
+        },
+        PartitionKey,
+        PartitionKey
       ]
     },
     {

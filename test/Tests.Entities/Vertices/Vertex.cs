@@ -5,5 +5,7 @@
         public object? Id { get; set; }
 
         public string? Label { get; set; }
+
+        public string PartitionKey {get; set;} = nameof(PartitionKey);
     }
 }

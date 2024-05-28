@@ -4,7 +4,7 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 68
+        "@value": 7
       },
       "label": "Company",
       "properties": {
@@ -14,7 +14,48 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 69
+                "@value": 8
+              },
+              "value": {
+                "@type": "g:Date",
+                "@value": -62135596800000
+              },
+              "label": "FoundingDate"
+            }
+          }
+        ],
+        "PartitionKey": [
+          {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": 9
+              },
+              "value": "PartitionKey",
+              "label": "PartitionKey"
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "@type": "g:Vertex",
+    "@value": {
+      "id": {
+        "@type": "g:Int64",
+        "@value": 95
+      },
+      "label": "Company",
+      "properties": {
+        "FoundingDate": [
+          {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": 96
               },
               "value": {
                 "@type": "g:Date",
@@ -30,7 +71,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 70
+                "@value": 97
               },
               "value": "Aachen",
               "label": "Locations",
@@ -42,32 +83,17 @@
               }
             }
           }
-        ]
-      }
-    }
-  },
-  {
-    "@type": "g:Vertex",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 5
-      },
-      "label": "Company",
-      "properties": {
-        "FoundingDate": [
+        ],
+        "PartitionKey": [
           {
             "@type": "g:VertexProperty",
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 6
+                "@value": 98
               },
-              "value": {
-                "@type": "g:Date",
-                "@value": -62135596800000
-              },
-              "label": "FoundingDate"
+              "value": "PartitionKey",
+              "label": "PartitionKey"
             }
           }
         ]
@@ -79,7 +105,48 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 75
+        "@value": 38
+      },
+      "label": "Company",
+      "properties": {
+        "FoundingDate": [
+          {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": 39
+              },
+              "value": {
+                "@type": "g:Date",
+                "@value": -62135596800000
+              },
+              "label": "FoundingDate"
+            }
+          }
+        ],
+        "PartitionKey": [
+          {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": 40
+              },
+              "value": "PartitionKey",
+              "label": "PartitionKey"
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "@type": "g:Vertex",
+    "@value": {
+      "id": {
+        "@type": "g:Int64",
+        "@value": 105
       },
       "label": "Company",
       "properties": {
@@ -89,7 +156,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 77
+                "@value": 108
               },
               "value": "+4912345",
               "label": "PhoneNumbers"
@@ -100,7 +167,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 78
+                "@value": 109
               },
               "value": "+4923456",
               "label": "PhoneNumbers"
@@ -113,13 +180,26 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 76
+                "@value": 106
               },
               "value": {
                 "@type": "g:Date",
                 "@value": -62135596800000
               },
               "label": "FoundingDate"
+            }
+          }
+        ],
+        "PartitionKey": [
+          {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": 107
+              },
+              "value": "PartitionKey",
+              "label": "PartitionKey"
             }
           }
         ]
@@ -131,7 +211,7 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 27
+        "@value": 58
       },
       "label": "Company",
       "properties": {
@@ -141,7 +221,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 28
+                "@value": 59
               },
               "value": {
                 "@type": "g:Date",
@@ -150,32 +230,17 @@
               "label": "FoundingDate"
             }
           }
-        ]
-      }
-    }
-  },
-  {
-    "@type": "g:Vertex",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 42
-      },
-      "label": "Company",
-      "properties": {
-        "FoundingDate": [
+        ],
+        "PartitionKey": [
           {
             "@type": "g:VertexProperty",
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 43
+                "@value": 60
               },
-              "value": {
-                "@type": "g:Date",
-                "@value": -62135596800000
-              },
-              "label": "FoundingDate"
+              "value": "PartitionKey",
+              "label": "PartitionKey"
             }
           }
         ]

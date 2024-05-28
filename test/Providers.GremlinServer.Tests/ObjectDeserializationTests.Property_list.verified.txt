@@ -3,17 +3,8 @@
     PhoneNumbers: [
       +4912345
     ],
-    Locations: [
-      {
-        Id: 70,
-        Label: Locations,
-        Properties: {
-          ValidFrom: 2019-01-01 01:00 +0
-        },
-        Value: Aachen
-      }
-    ],
-    Id: 68,
-    Label: Company
+    Id: 7,
+    Label: Company,
+    PartitionKey: PartitionKey
   }
 ]

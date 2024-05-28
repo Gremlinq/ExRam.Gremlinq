@@ -33,6 +33,26 @@
               }
             ]
           },
+          "PartitionKey",
+          {
+            "@type": "g:List",
+            "@value": [
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
+                    "@type": "g:Int64",
+                    "@value": 2
+                  },
+                  "label",
+                  "PartitionKey",
+                  "value",
+                  "PartitionKey"
+                ]
+              }
+            ]
+          },
           "LocalizableDescription",
           {
             "@type": "g:List",
@@ -43,7 +63,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 127
+                    "@value": 160
                   },
                   "label",
                   "LocalizableDescription",
@@ -63,7 +83,7 @@
       "id",
       {
         "@type": "g:Int64",
-        "@value": 2
+        "@value": 3
       },
       "label",
       "Language",
@@ -81,12 +101,32 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 3
+                    "@value": 4
                   },
                   "label",
                   "IetfLanguageTag",
                   "value",
                   "en"
+                ]
+              }
+            ]
+          },
+          "PartitionKey",
+          {
+            "@type": "g:List",
+            "@value": [
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
+                    "@type": "g:Int64",
+                    "@value": 5
+                  },
+                  "label",
+                  "PartitionKey",
+                  "value",
+                  "PartitionKey"
                 ]
               }
             ]
@@ -101,7 +141,7 @@
       "id",
       {
         "@type": "g:Int64",
-        "@value": 5
+        "@value": 7
       },
       "label",
       "Company",
@@ -119,7 +159,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 6
+                    "@value": 8
                   },
                   "label",
                   "FoundingDate",
@@ -128,6 +168,26 @@
                     "@type": "g:Date",
                     "@value": -62135596800000
                   }
+                ]
+              }
+            ]
+          },
+          "PartitionKey",
+          {
+            "@type": "g:List",
+            "@value": [
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
+                    "@type": "g:Int64",
+                    "@value": 9
+                  },
+                  "label",
+                  "PartitionKey",
+                  "value",
+                  "PartitionKey"
                 ]
               }
             ]
@@ -142,7 +202,7 @@
       "id",
       {
         "@type": "g:Int64",
-        "@value": 10
+        "@value": 14
       },
       "label",
       "Person",
@@ -160,7 +220,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 83
+                    "@value": 116
                   },
                   "label",
                   "GuidKey",
@@ -183,7 +243,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 335
+                    "@value": 425
                   },
                   "label",
                   "RegistrationDate",
@@ -206,7 +266,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 146
+                    "@value": 179
                   },
                   "label",
                   "StringKey1",
@@ -215,6 +275,26 @@
                     "@type": "g:Int32",
                     "@value": 36
                   }
+                ]
+              }
+            ]
+          },
+          "PartitionKey",
+          {
+            "@type": "g:List",
+            "@value": [
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
+                    "@type": "g:Int64",
+                    "@value": 424
+                  },
+                  "label",
+                  "PartitionKey",
+                  "value",
+                  "PartitionKey"
                 ]
               }
             ]
@@ -229,7 +309,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 334
+                    "@value": 423
                   },
                   "label",
                   "Gender",
@@ -252,7 +332,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 157
+                    "@value": 190
                   },
                   "label",
                   "StringKey2",
@@ -275,7 +355,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 292
+                    "@value": 370
                   },
                   "label",
                   "Age",
@@ -298,7 +378,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 294
+                    "@value": 372
                   },
                   "label",
                   "Name",
@@ -318,7 +398,7 @@
       "id",
       {
         "@type": "g:Int64",
-        "@value": 17
+        "@value": 23
       },
       "label",
       "Country",
@@ -326,6 +406,26 @@
       {
         "@type": "g:Map",
         "@value": [
+          "PartitionKey",
+          {
+            "@type": "g:List",
+            "@value": [
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
+                    "@type": "g:Int64",
+                    "@value": 24
+                  },
+                  "label",
+                  "PartitionKey",
+                  "value",
+                  "PartitionKey"
+                ]
+              }
+            ]
+          },
           "LocalizableDescription",
           {
             "@type": "g:List",
@@ -336,7 +436,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 130
+                    "@value": 161
                   },
                   "label",
                   "LocalizableDescription",
@@ -356,7 +456,7 @@
       "id",
       {
         "@type": "g:Int64",
-        "@value": 21
+        "@value": 29
       },
       "label",
       "Country",
@@ -364,6 +464,26 @@
       {
         "@type": "g:Map",
         "@value": [
+          "PartitionKey",
+          {
+            "@type": "g:List",
+            "@value": [
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
+                    "@type": "g:Int64",
+                    "@value": 30
+                  },
+                  "label",
+                  "PartitionKey",
+                  "value",
+                  "PartitionKey"
+                ]
+              }
+            ]
+          },
           "LocalizableDescription",
           {
             "@type": "g:List",
@@ -374,7 +494,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 131
+                    "@value": 162
                   },
                   "label",
                   "LocalizableDescription",
@@ -394,7 +514,7 @@
       "id",
       {
         "@type": "g:Int64",
-        "@value": 25
+        "@value": 35
       },
       "label",
       "Country",
@@ -402,6 +522,26 @@
       {
         "@type": "g:Map",
         "@value": [
+          "PartitionKey",
+          {
+            "@type": "g:List",
+            "@value": [
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
+                    "@type": "g:Int64",
+                    "@value": 36
+                  },
+                  "label",
+                  "PartitionKey",
+                  "value",
+                  "PartitionKey"
+                ]
+              }
+            ]
+          },
           "LocalizableDescription",
           {
             "@type": "g:List",
@@ -412,7 +552,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 132
+                    "@value": 163
                   },
                   "label",
                   "LocalizableDescription",
@@ -432,7 +572,7 @@
       "id",
       {
         "@type": "g:Int64",
-        "@value": 27
+        "@value": 38
       },
       "label",
       "Company",
@@ -450,7 +590,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 28
+                    "@value": 39
                   },
                   "label",
                   "FoundingDate",
@@ -459,6 +599,26 @@
                     "@type": "g:Date",
                     "@value": -62135596800000
                   }
+                ]
+              }
+            ]
+          },
+          "PartitionKey",
+          {
+            "@type": "g:List",
+            "@value": [
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
+                    "@type": "g:Int64",
+                    "@value": 40
+                  },
+                  "label",
+                  "PartitionKey",
+                  "value",
+                  "PartitionKey"
                 ]
               }
             ]
@@ -473,7 +633,7 @@
       "id",
       {
         "@type": "g:Int64",
-        "@value": 32
+        "@value": 45
       },
       "label",
       "Language",
@@ -491,12 +651,32 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 33
+                    "@value": 46
                   },
                   "label",
                   "IetfLanguageTag",
                   "value",
                   "en"
+                ]
+              }
+            ]
+          },
+          "PartitionKey",
+          {
+            "@type": "g:List",
+            "@value": [
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
+                    "@type": "g:Int64",
+                    "@value": 47
+                  },
+                  "label",
+                  "PartitionKey",
+                  "value",
+                  "PartitionKey"
                 ]
               }
             ]
@@ -511,7 +691,7 @@
       "id",
       {
         "@type": "g:Int64",
-        "@value": 42
+        "@value": 58
       },
       "label",
       "Company",
@@ -529,7 +709,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 43
+                    "@value": 59
                   },
                   "label",
                   "FoundingDate",
@@ -538,6 +718,26 @@
                     "@type": "g:Date",
                     "@value": -62135596800000
                   }
+                ]
+              }
+            ]
+          },
+          "PartitionKey",
+          {
+            "@type": "g:List",
+            "@value": [
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
+                    "@type": "g:Int64",
+                    "@value": 60
+                  },
+                  "label",
+                  "PartitionKey",
+                  "value",
+                  "PartitionKey"
                 ]
               }
             ]

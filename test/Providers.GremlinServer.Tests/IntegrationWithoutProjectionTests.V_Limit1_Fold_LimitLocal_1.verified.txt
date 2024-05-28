@@ -24,13 +24,26 @@
                 }
               }
             ],
+            "PartitionKey": [
+              {
+                "@type": "g:VertexProperty",
+                "@value": {
+                  "id": {
+                    "@type": "g:Int64",
+                    "@value": 2
+                  },
+                  "value": "PartitionKey",
+                  "label": "PartitionKey"
+                }
+              }
+            ],
             "LocalizableDescription": [
               {
                 "@type": "g:VertexProperty",
                 "@value": {
                   "id": {
                     "@type": "g:Int64",
-                    "@value": 127
+                    "@value": 160
                   },
                   "value": "",
                   "label": "LocalizableDescription",

@@ -1,10 +1,5 @@
 ﻿[
   {
-    "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-    "value": "PartitionKey",
-    "label": "PartitionKey"
-  },
-  {
     "id": "00000000-0000-0000-0000-000000000000",
     "value": "+49",
     "label": "CountryCallingCode"
@@ -55,14 +50,14 @@
     "label": "Name"
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
-    "value": 1586270616000,
-    "label": "RegistrationDate"
-  },
-  {
     "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
     "value": "PartitionKey",
     "label": "PartitionKey"
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000000",
+    "value": 1586270616000,
+    "label": "RegistrationDate"
   },
   {
     "id": "00000000-0000-0000-0000-000000000000",
@@ -160,14 +155,14 @@
     "label": "Name"
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
-    "value": 1586270616000,
-    "label": "RegistrationDate"
-  },
-  {
     "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
     "value": "PartitionKey",
     "label": "PartitionKey"
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000000",
+    "value": 1586270616000,
+    "label": "RegistrationDate"
   },
   {
     "id": "00000000-0000-0000-0000-000000000000",
@@ -215,14 +210,14 @@
     "label": "Enabled"
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
-    "value": 28800000.0,
-    "label": "StartTime"
-  },
-  {
     "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
     "value": "PartitionKey",
     "label": "PartitionKey"
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000000",
+    "value": 28800000.0,
+    "label": "StartTime"
   },
   {
     "id": "00000000-0000-0000-0000-000000000000",
@@ -270,14 +265,14 @@
     "label": "Name"
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
-    "value": 1586270616000,
-    "label": "RegistrationDate"
-  },
-  {
     "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
     "value": "PartitionKey",
     "label": "PartitionKey"
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000000",
+    "value": 1586270616000,
+    "label": "RegistrationDate"
   },
   {
     "id": "00000000-0000-0000-0000-000000000000",
@@ -342,6 +337,11 @@
     "label": "FoundingDate"
   },
   {
+    "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+    "value": "PartitionKey",
+    "label": "PartitionKey"
+  },
+  {
     "id": "00000000-0000-0000-0000-000000000000",
     "value": "+4912345",
     "label": "PhoneNumbers"
@@ -357,13 +357,13 @@
     "label": "PartitionKey"
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-    "value": "PartitionKey",
-    "label": "PartitionKey"
-  },
-  {
     "id": "00000000-0000-0000-0000-000000000000",
     "value": "en",
     "label": "lang"
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+    "value": "PartitionKey",
+    "label": "PartitionKey"
   }
 ]

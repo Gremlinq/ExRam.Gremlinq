@@ -4,7 +4,7 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 2
+        "@value": 3
       },
       "label": "Language",
       "properties": {
@@ -14,10 +14,23 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 3
+                "@value": 4
               },
               "value": "en",
               "label": "IetfLanguageTag"
+            }
+          }
+        ],
+        "PartitionKey": [
+          {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": 5
+              },
+              "value": "PartitionKey",
+              "label": "PartitionKey"
             }
           }
         ]
@@ -29,7 +42,7 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 32
+        "@value": 45
       },
       "label": "Language",
       "properties": {
@@ -39,60 +52,23 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 33
+                "@value": 46
               },
               "value": "en",
               "label": "IetfLanguageTag"
             }
           }
-        ]
-      }
-    }
-  },
-  {
-    "@type": "g:Vertex",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 47
-      },
-      "label": "Language",
-      "properties": {
-        "IetfLanguageTag": [
+        ],
+        "PartitionKey": [
           {
             "@type": "g:VertexProperty",
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 48
+                "@value": 47
               },
-              "value": "en",
-              "label": "IetfLanguageTag"
-            }
-          }
-        ]
-      }
-    }
-  },
-  {
-    "@type": "g:Vertex",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 54
-      },
-      "label": "Language",
-      "properties": {
-        "IetfLanguageTag": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 55
-              },
-              "value": "en",
-              "label": "IetfLanguageTag"
+              "value": "PartitionKey",
+              "label": "PartitionKey"
             }
           }
         ]
@@ -118,6 +94,95 @@
               },
               "value": "en",
               "label": "IetfLanguageTag"
+            }
+          }
+        ],
+        "PartitionKey": [
+          {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": 67
+              },
+              "value": "PartitionKey",
+              "label": "PartitionKey"
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "@type": "g:Vertex",
+    "@value": {
+      "id": {
+        "@type": "g:Int64",
+        "@value": 75
+      },
+      "label": "Language",
+      "properties": {
+        "IetfLanguageTag": [
+          {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": 76
+              },
+              "value": "en",
+              "label": "IetfLanguageTag"
+            }
+          }
+        ],
+        "PartitionKey": [
+          {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": 77
+              },
+              "value": "PartitionKey",
+              "label": "PartitionKey"
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "@type": "g:Vertex",
+    "@value": {
+      "id": {
+        "@type": "g:Int64",
+        "@value": 90
+      },
+      "label": "Language",
+      "properties": {
+        "IetfLanguageTag": [
+          {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": 91
+              },
+              "value": "en",
+              "label": "IetfLanguageTag"
+            }
+          }
+        ],
+        "PartitionKey": [
+          {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": 92
+              },
+              "value": "PartitionKey",
+              "label": "PartitionKey"
             }
           }
         ]

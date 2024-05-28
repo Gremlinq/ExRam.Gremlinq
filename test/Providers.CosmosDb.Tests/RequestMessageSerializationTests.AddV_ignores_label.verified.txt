@@ -10,6 +10,6 @@
       _a: Language,
       _b: PartitionKey
     },
-    gremlin: g.addV(_a).property(_b,_b)
+    gremlin: g.addV(_a).property(single,_b,_b)
   }
 }

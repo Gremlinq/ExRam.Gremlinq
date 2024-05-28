@@ -21,6 +21,15 @@
             "en"
           ],
           [
+            "property",
+            {
+              "@type": "g:Cardinality",
+              "@value": "single"
+            },
+            "PartitionKey",
+            "PartitionKey"
+          ],
+          [
             "as",
             "_a"
           ],
@@ -36,6 +45,15 @@
             },
             "CountryCallingCode",
             "+49"
+          ],
+          [
+            "property",
+            {
+              "@type": "g:Cardinality",
+              "@value": "single"
+            },
+            "PartitionKey",
+            "PartitionKey"
           ],
           [
             "addE",

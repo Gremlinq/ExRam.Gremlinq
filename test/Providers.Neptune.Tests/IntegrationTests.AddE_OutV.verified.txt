@@ -5,7 +5,7 @@
       "id",
       {
         "@type": "g:Int64",
-        "@value": 19
+        "@value": 26
       },
       "label",
       "Person",
@@ -13,6 +13,26 @@
       {
         "@type": "g:Map",
         "@value": [
+          "PartitionKey",
+          {
+            "@type": "g:List",
+            "@value": [
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
+                    "@type": "g:Int64",
+                    "@value": 28
+                  },
+                  "label",
+                  "PartitionKey",
+                  "value",
+                  "PartitionKey"
+                ]
+              }
+            ]
+          },
           "Age",
           {
             "@type": "g:List",
@@ -23,7 +43,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 20
+                    "@value": 27
                   },
                   "label",
                   "Age",

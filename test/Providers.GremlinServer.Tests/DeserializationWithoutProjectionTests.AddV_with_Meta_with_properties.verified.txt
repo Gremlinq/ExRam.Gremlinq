@@ -1,7 +1,7 @@
 ﻿[
   {
     Name: {
-      Id: 74,
+      Id: 103,
       Label: Name,
       Properties: {
         de: Deutschland,
@@ -9,7 +9,8 @@
       },
       Value: GER
     },
-    Id: 73,
-    Label: Country
+    Id: 102,
+    Label: Country,
+    PartitionKey: PartitionKey
   }
 ]

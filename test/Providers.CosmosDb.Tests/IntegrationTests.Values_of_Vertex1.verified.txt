@@ -1,13 +1,5 @@
 ﻿[
-  "Marko",
-  "Marko",
-  "Marko",
-  "Marko",
-  "Marko",
-  "Marko",
-  "Marko",
-  "Marko",
-  "Marko",
-  "Marko",
+  "Bob",
+  "Bob",
   "Marko"
 ]

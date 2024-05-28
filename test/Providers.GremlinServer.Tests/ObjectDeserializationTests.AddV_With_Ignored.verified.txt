@@ -2,11 +2,12 @@
   {
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: 63,
+      Id: 87,
       Label: Name,
       Value: Marko
     },
-    Id: 62,
-    Label: Person
+    Id: 86,
+    Label: Person,
+    PartitionKey: PartitionKey
   }
 ]

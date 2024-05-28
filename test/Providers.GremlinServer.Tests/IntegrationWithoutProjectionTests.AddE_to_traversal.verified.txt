@@ -4,7 +4,7 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 41
+        "@value": 57
       },
       "label": "LivesIn",
       "inVLabel": "Country",
@@ -15,7 +15,7 @@
       },
       "outV": {
         "@type": "g:Int64",
-        "@value": 37
+        "@value": 52
       }
     }
   }

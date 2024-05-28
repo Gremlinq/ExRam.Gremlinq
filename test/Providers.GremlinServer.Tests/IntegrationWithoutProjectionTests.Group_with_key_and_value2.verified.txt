@@ -13,14 +13,11 @@
         "@value": -62135596800000
       },
       "Language",
-      "en",
+      "PartitionKey",
       "Country",
       "+49",
       "Person",
-      {
-        "@type": "g:Date",
-        "@value": 1586270616000
-      }
+      "PartitionKey"
     ]
   }
 ]

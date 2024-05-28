@@ -1,330 +1,402 @@
 ﻿[
   {
     IetfLanguageTag: en,
-    Id: 2,
-    Label: Language
+    Id: 3,
+    Label: Language,
+    PartitionKey: PartitionKey
   },
   {
     IetfLanguageTag: en,
-    Id: 2,
-    Label: Language
+    Id: 3,
+    Label: Language,
+    PartitionKey: PartitionKey
   },
   {
     IetfLanguageTag: en,
-    Id: 2,
-    Label: Language
+    Id: 3,
+    Label: Language,
+    PartitionKey: PartitionKey
   },
   {
     IetfLanguageTag: en,
-    Id: 2,
-    Label: Language
+    Id: 3,
+    Label: Language,
+    PartitionKey: PartitionKey
   },
   {
     IetfLanguageTag: en,
-    Id: 2,
-    Label: Language
+    Id: 3,
+    Label: Language,
+    PartitionKey: PartitionKey
   },
   {
     IetfLanguageTag: en,
-    Id: 2,
-    Label: Language
+    Id: 3,
+    Label: Language,
+    PartitionKey: PartitionKey
   },
   {
     IetfLanguageTag: en,
-    Id: 2,
-    Label: Language
+    Id: 3,
+    Label: Language,
+    PartitionKey: PartitionKey
   },
   {
     IetfLanguageTag: en,
-    Id: 2,
-    Label: Language
+    Id: 3,
+    Label: Language,
+    PartitionKey: PartitionKey
   },
   {
-    Id: 67,
-    Label: Language
+    Id: 68,
+    Label: Language,
+    PartitionKey: PartitionKey
   },
   {
-    Id: 67,
-    Label: Language
+    Id: 68,
+    Label: Language,
+    PartitionKey: PartitionKey
   },
   {
-    Id: 67,
-    Label: Language
+    Id: 68,
+    Label: Language,
+    PartitionKey: PartitionKey
   },
   {
-    Id: 67,
-    Label: Language
+    Id: 68,
+    Label: Language,
+    PartitionKey: PartitionKey
   },
   {
-    Id: 67,
-    Label: Language
+    Id: 68,
+    Label: Language,
+    PartitionKey: PartitionKey
   },
   {
-    Id: 67,
-    Label: Language
+    Id: 68,
+    Label: Language,
+    PartitionKey: PartitionKey
   },
   {
-    Id: 67,
-    Label: Language
+    Id: 68,
+    Label: Language,
+    PartitionKey: PartitionKey
   },
   {
-    Id: 67,
-    Label: Language
-  },
-  {
-    Id: 79,
-    Label: Language
-  },
-  {
-    Id: 79,
-    Label: Language
-  },
-  {
-    Id: 79,
-    Label: Language
-  },
-  {
-    Id: 79,
-    Label: Language
-  },
-  {
-    Id: 79,
-    Label: Language
-  },
-  {
-    Id: 79,
-    Label: Language
-  },
-  {
-    Id: 79,
-    Label: Language
-  },
-  {
-    Id: 79,
-    Label: Language
-  },
-  {
-    Id: 80,
-    Label: Language
-  },
-  {
-    Id: 80,
-    Label: Language
-  },
-  {
-    Id: 80,
-    Label: Language
-  },
-  {
-    Id: 80,
-    Label: Language
-  },
-  {
-    Id: 80,
-    Label: Language
-  },
-  {
-    Id: 80,
-    Label: Language
-  },
-  {
-    Id: 80,
-    Label: Language
-  },
-  {
-    Id: 80,
-    Label: Language
+    Id: 68,
+    Label: Language,
+    PartitionKey: PartitionKey
   },
   {
     IetfLanguageTag: en,
-    Id: 32,
-    Label: Language
+    Id: 75,
+    Label: Language,
+    PartitionKey: PartitionKey
   },
   {
     IetfLanguageTag: en,
-    Id: 32,
-    Label: Language
+    Id: 75,
+    Label: Language,
+    PartitionKey: PartitionKey
   },
   {
     IetfLanguageTag: en,
-    Id: 32,
-    Label: Language
+    Id: 75,
+    Label: Language,
+    PartitionKey: PartitionKey
   },
   {
     IetfLanguageTag: en,
-    Id: 32,
-    Label: Language
+    Id: 75,
+    Label: Language,
+    PartitionKey: PartitionKey
   },
   {
     IetfLanguageTag: en,
-    Id: 32,
-    Label: Language
+    Id: 75,
+    Label: Language,
+    PartitionKey: PartitionKey
   },
   {
     IetfLanguageTag: en,
-    Id: 32,
-    Label: Language
+    Id: 75,
+    Label: Language,
+    PartitionKey: PartitionKey
   },
   {
     IetfLanguageTag: en,
-    Id: 32,
-    Label: Language
+    Id: 75,
+    Label: Language,
+    PartitionKey: PartitionKey
   },
   {
     IetfLanguageTag: en,
-    Id: 32,
-    Label: Language
+    Id: 75,
+    Label: Language,
+    PartitionKey: PartitionKey
   },
   {
     IetfLanguageTag: en,
-    Id: 47,
-    Label: Language
+    Id: 90,
+    Label: Language,
+    PartitionKey: PartitionKey
   },
   {
     IetfLanguageTag: en,
-    Id: 47,
-    Label: Language
+    Id: 90,
+    Label: Language,
+    PartitionKey: PartitionKey
   },
   {
     IetfLanguageTag: en,
-    Id: 47,
-    Label: Language
+    Id: 90,
+    Label: Language,
+    PartitionKey: PartitionKey
   },
   {
     IetfLanguageTag: en,
-    Id: 47,
-    Label: Language
+    Id: 90,
+    Label: Language,
+    PartitionKey: PartitionKey
   },
   {
     IetfLanguageTag: en,
-    Id: 47,
-    Label: Language
+    Id: 90,
+    Label: Language,
+    PartitionKey: PartitionKey
   },
   {
     IetfLanguageTag: en,
-    Id: 47,
-    Label: Language
+    Id: 90,
+    Label: Language,
+    PartitionKey: PartitionKey
   },
   {
     IetfLanguageTag: en,
-    Id: 47,
-    Label: Language
+    Id: 90,
+    Label: Language,
+    PartitionKey: PartitionKey
   },
   {
     IetfLanguageTag: en,
-    Id: 47,
-    Label: Language
+    Id: 90,
+    Label: Language,
+    PartitionKey: PartitionKey
   },
   {
-    Id: 49,
-    Label: Language
+    Id: 93,
+    Label: Language,
+    PartitionKey: PartitionKey
   },
   {
-    Id: 49,
-    Label: Language
+    Id: 93,
+    Label: Language,
+    PartitionKey: PartitionKey
   },
   {
-    Id: 49,
-    Label: Language
+    Id: 93,
+    Label: Language,
+    PartitionKey: PartitionKey
   },
   {
-    Id: 49,
-    Label: Language
+    Id: 93,
+    Label: Language,
+    PartitionKey: PartitionKey
   },
   {
-    Id: 49,
-    Label: Language
+    Id: 93,
+    Label: Language,
+    PartitionKey: PartitionKey
   },
   {
-    Id: 49,
-    Label: Language
+    Id: 93,
+    Label: Language,
+    PartitionKey: PartitionKey
   },
   {
-    Id: 49,
-    Label: Language
+    Id: 93,
+    Label: Language,
+    PartitionKey: PartitionKey
   },
   {
-    Id: 49,
-    Label: Language
-  },
-  {
-    IetfLanguageTag: en,
-    Id: 54,
-    Label: Language
-  },
-  {
-    IetfLanguageTag: en,
-    Id: 54,
-    Label: Language
-  },
-  {
-    IetfLanguageTag: en,
-    Id: 54,
-    Label: Language
+    Id: 93,
+    Label: Language,
+    PartitionKey: PartitionKey
   },
   {
     IetfLanguageTag: en,
-    Id: 54,
-    Label: Language
+    Id: 45,
+    Label: Language,
+    PartitionKey: PartitionKey
   },
   {
     IetfLanguageTag: en,
-    Id: 54,
-    Label: Language
+    Id: 45,
+    Label: Language,
+    PartitionKey: PartitionKey
   },
   {
     IetfLanguageTag: en,
-    Id: 54,
-    Label: Language
+    Id: 45,
+    Label: Language,
+    PartitionKey: PartitionKey
   },
   {
     IetfLanguageTag: en,
-    Id: 54,
-    Label: Language
+    Id: 45,
+    Label: Language,
+    PartitionKey: PartitionKey
   },
   {
     IetfLanguageTag: en,
-    Id: 54,
-    Label: Language
+    Id: 45,
+    Label: Language,
+    PartitionKey: PartitionKey
+  },
+  {
+    IetfLanguageTag: en,
+    Id: 45,
+    Label: Language,
+    PartitionKey: PartitionKey
+  },
+  {
+    IetfLanguageTag: en,
+    Id: 45,
+    Label: Language,
+    PartitionKey: PartitionKey
+  },
+  {
+    IetfLanguageTag: en,
+    Id: 45,
+    Label: Language,
+    PartitionKey: PartitionKey
+  },
+  {
+    Id: 110,
+    Label: Language,
+    PartitionKey: PartitionKey
+  },
+  {
+    Id: 110,
+    Label: Language,
+    PartitionKey: PartitionKey
+  },
+  {
+    Id: 110,
+    Label: Language,
+    PartitionKey: PartitionKey
+  },
+  {
+    Id: 110,
+    Label: Language,
+    PartitionKey: PartitionKey
+  },
+  {
+    Id: 110,
+    Label: Language,
+    PartitionKey: PartitionKey
+  },
+  {
+    Id: 110,
+    Label: Language,
+    PartitionKey: PartitionKey
+  },
+  {
+    Id: 110,
+    Label: Language,
+    PartitionKey: PartitionKey
+  },
+  {
+    Id: 110,
+    Label: Language,
+    PartitionKey: PartitionKey
+  },
+  {
+    Id: 112,
+    Label: Language,
+    PartitionKey: PartitionKey
+  },
+  {
+    Id: 112,
+    Label: Language,
+    PartitionKey: PartitionKey
+  },
+  {
+    Id: 112,
+    Label: Language,
+    PartitionKey: PartitionKey
+  },
+  {
+    Id: 112,
+    Label: Language,
+    PartitionKey: PartitionKey
+  },
+  {
+    Id: 112,
+    Label: Language,
+    PartitionKey: PartitionKey
+  },
+  {
+    Id: 112,
+    Label: Language,
+    PartitionKey: PartitionKey
+  },
+  {
+    Id: 112,
+    Label: Language,
+    PartitionKey: PartitionKey
+  },
+  {
+    Id: 112,
+    Label: Language,
+    PartitionKey: PartitionKey
   },
   {
     IetfLanguageTag: en,
     Id: 65,
-    Label: Language
+    Label: Language,
+    PartitionKey: PartitionKey
   },
   {
     IetfLanguageTag: en,
     Id: 65,
-    Label: Language
+    Label: Language,
+    PartitionKey: PartitionKey
   },
   {
     IetfLanguageTag: en,
     Id: 65,
-    Label: Language
+    Label: Language,
+    PartitionKey: PartitionKey
   },
   {
     IetfLanguageTag: en,
     Id: 65,
-    Label: Language
+    Label: Language,
+    PartitionKey: PartitionKey
   },
   {
     IetfLanguageTag: en,
     Id: 65,
-    Label: Language
+    Label: Language,
+    PartitionKey: PartitionKey
   },
   {
     IetfLanguageTag: en,
     Id: 65,
-    Label: Language
+    Label: Language,
+    PartitionKey: PartitionKey
   },
   {
     IetfLanguageTag: en,
     Id: 65,
-    Label: Language
+    Label: Language,
+    PartitionKey: PartitionKey
   },
   {
     IetfLanguageTag: en,
     Id: 65,
-    Label: Language
+    Label: Language,
+    PartitionKey: PartitionKey
   }
 ]

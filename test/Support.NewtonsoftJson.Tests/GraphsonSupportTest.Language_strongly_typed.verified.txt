@@ -2,6 +2,7 @@
   {
     IetfLanguageTag: de,
     Id: 10,
-    Label: Language
+    Label: Language,
+    PartitionKey: PartitionKey
   }
 ]

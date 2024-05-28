@@ -4,18 +4,18 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 26
+        "@value": 37
       },
       "label": "LivesIn",
       "inVLabel": "Country",
       "outVLabel": "Person",
       "inV": {
         "@type": "g:Int64",
-        "@value": 25
+        "@value": 35
       },
       "outV": {
         "@type": "g:Int64",
-        "@value": 23
+        "@value": 32
       },
       "properties": {
         "Since": {

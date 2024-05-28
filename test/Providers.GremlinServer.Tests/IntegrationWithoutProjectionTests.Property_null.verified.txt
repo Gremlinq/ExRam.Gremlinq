@@ -4,7 +4,7 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 68
+        "@value": 7
       },
       "label": "Company",
       "properties": {
@@ -14,7 +14,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 69
+                "@value": 8
               },
               "value": {
                 "@type": "g:Date",
@@ -24,22 +24,16 @@
             }
           }
         ],
-        "Locations": [
+        "PartitionKey": [
           {
             "@type": "g:VertexProperty",
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 70
+                "@value": 9
               },
-              "value": "Aachen",
-              "label": "Locations",
-              "properties": {
-                "ValidFrom": {
-                  "@type": "g:Date",
-                  "@value": 1546304400000
-                }
-              }
+              "value": "PartitionKey",
+              "label": "PartitionKey"
             }
           }
         ]

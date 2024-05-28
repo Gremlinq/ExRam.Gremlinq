@@ -1,12 +1,13 @@
 ﻿[
   {
     Name: {
-      Id: 72,
+      Id: 100,
       Label: Name,
       Properties: {},
       Value: GER
     },
-    Id: 71,
-    Label: Country
+    Id: 99,
+    Label: Country,
+    PartitionKey: PartitionKey
   }
 ]

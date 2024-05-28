@@ -6,6 +6,7 @@
       Value: marko
     },
     Id: 1,
-    Label: person
+    Label: person,
+    PartitionKey: PartitionKey
   }
 ]

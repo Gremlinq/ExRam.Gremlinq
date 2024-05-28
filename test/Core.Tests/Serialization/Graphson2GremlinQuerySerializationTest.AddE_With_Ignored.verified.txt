@@ -40,6 +40,15 @@
                       "@type": "g:Int32",
                       "@value": 0
                     }
+                  ],
+                  [
+                    "property",
+                    {
+                      "@type": "g:Cardinality",
+                      "@value": "single"
+                    },
+                    "PartitionKey",
+                    "PartitionKey"
                   ]
                 ]
               }
@@ -66,6 +75,15 @@
                       "@type": "g:Date",
                       "@value": -62135596800000
                     }
+                  ],
+                  [
+                    "property",
+                    {
+                      "@type": "g:Cardinality",
+                      "@value": "single"
+                    },
+                    "PartitionKey",
+                    "PartitionKey"
                   ]
                 ]
               }

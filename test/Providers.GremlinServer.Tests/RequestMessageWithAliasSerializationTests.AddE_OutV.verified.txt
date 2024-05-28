@@ -26,6 +26,17 @@
           ]
         },
         {
+          OperatorName: property,
+          Arguments: [
+            {
+              EnumName: Cardinality,
+              EnumValue: single
+            },
+            PartitionKey,
+            PartitionKey
+          ]
+        },
+        {
           OperatorName: addE,
           Arguments: [
             LivesIn
@@ -40,6 +51,17 @@
                   OperatorName: addV,
                   Arguments: [
                     Country
+                  ]
+                },
+                {
+                  OperatorName: property,
+                  Arguments: [
+                    {
+                      EnumName: Cardinality,
+                      EnumValue: single
+                    },
+                    PartitionKey,
+                    PartitionKey
                   ]
                 }
               ]

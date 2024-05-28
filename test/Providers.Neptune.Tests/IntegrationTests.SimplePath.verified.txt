@@ -5,7 +5,7 @@
       "id",
       {
         "@type": "g:Int64",
-        "@value": 10
+        "@value": 14
       },
       "label",
       "Person",
@@ -23,7 +23,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 83
+                    "@value": 116
                   },
                   "label",
                   "GuidKey",
@@ -46,7 +46,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 13
+                    "@value": 18
                   },
                   "label",
                   "RegistrationDate",
@@ -55,6 +55,26 @@
                     "@type": "g:Date",
                     "@value": 1586270616000
                   }
+                ]
+              }
+            ]
+          },
+          "PartitionKey",
+          {
+            "@type": "g:List",
+            "@value": [
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
+                    "@type": "g:Int64",
+                    "@value": 17
+                  },
+                  "label",
+                  "PartitionKey",
+                  "value",
+                  "PartitionKey"
                 ]
               }
             ]
@@ -69,7 +89,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 146
+                    "@value": 179
                   },
                   "label",
                   "StringKey1",
@@ -92,7 +112,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 135
+                    "@value": 168
                   },
                   "label",
                   "Age",
@@ -115,7 +135,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 157
+                    "@value": 190
                   },
                   "label",
                   "StringKey2",
@@ -138,7 +158,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 12
+                    "@value": 16
                   },
                   "label",
                   "Name",
@@ -158,7 +178,7 @@
       "id",
       {
         "@type": "g:Int64",
-        "@value": 2
+        "@value": 3
       },
       "label",
       "Language",
@@ -176,12 +196,32 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 3
+                    "@value": 4
                   },
                   "label",
                   "IetfLanguageTag",
                   "value",
                   "en"
+                ]
+              }
+            ]
+          },
+          "PartitionKey",
+          {
+            "@type": "g:List",
+            "@value": [
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
+                    "@type": "g:Int64",
+                    "@value": 5
+                  },
+                  "label",
+                  "PartitionKey",
+                  "value",
+                  "PartitionKey"
                 ]
               }
             ]

@@ -8,13 +8,13 @@
     },
     bindings: {
       _a: Company,
-      _b: PartitionKey,
-      _c: FoundingDate,
-      _d: Date_MinValue,
+      _b: FoundingDate,
+      _c: Date_MinValue,
+      _d: PartitionKey,
       _e: PhoneNumbers,
       _f: +4912345,
       _g: +4923456
     },
-    gremlin: g.addV(_a).property(_b,_b).property(single,_c,_d).property(list,_e,_f).property(list,_e,_g)
+    gremlin: g.addV(_a).property(single,_b,_c).property(single,_d,_d).property(list,_e,_f).property(list,_e,_g)
   }
 }

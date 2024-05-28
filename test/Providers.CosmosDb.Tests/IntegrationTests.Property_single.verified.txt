@@ -4,16 +4,16 @@
     "label": "Person",
     "type": "vertex",
     "properties": {
-      "PartitionKey": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-          "value": "PartitionKey"
-        }
-      ],
       "Age": [
         {
           "id": "00000000-0000-0000-0000-000000000000",
           "value": 36
+        }
+      ],
+      "PartitionKey": [
+        {
+          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "value": "PartitionKey"
         }
       ],
       "GuidKey": [
@@ -29,12 +29,6 @@
     "label": "Person",
     "type": "vertex",
     "properties": {
-      "PartitionKey": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-          "value": "PartitionKey"
-        }
-      ],
       "Age": [
         {
           "id": "00000000-0000-0000-0000-000000000000",
@@ -45,6 +39,12 @@
         {
           "id": "00000000-0000-0000-0000-000000000000",
           "value": "Bob"
+        }
+      ],
+      "PartitionKey": [
+        {
+          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "value": "PartitionKey"
         }
       ],
       "RegistrationDate": [
@@ -66,16 +66,16 @@
     "label": "Person",
     "type": "vertex",
     "properties": {
-      "PartitionKey": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-          "value": "PartitionKey"
-        }
-      ],
       "Age": [
         {
           "id": "00000000-0000-0000-0000-000000000000",
           "value": 36
+        }
+      ],
+      "PartitionKey": [
+        {
+          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "value": "PartitionKey"
         }
       ],
       "GuidKey": [
@@ -91,16 +91,16 @@
     "label": "Person",
     "type": "vertex",
     "properties": {
-      "PartitionKey": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-          "value": "PartitionKey"
-        }
-      ],
       "Age": [
         {
           "id": "00000000-0000-0000-0000-000000000000",
           "value": 36
+        }
+      ],
+      "PartitionKey": [
+        {
+          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "value": "PartitionKey"
         }
       ],
       "GuidKey": [
@@ -116,16 +116,16 @@
     "label": "Person",
     "type": "vertex",
     "properties": {
-      "PartitionKey": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-          "value": "PartitionKey"
-        }
-      ],
       "Age": [
         {
           "id": "00000000-0000-0000-0000-000000000000",
           "value": 36
+        }
+      ],
+      "PartitionKey": [
+        {
+          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "value": "PartitionKey"
         }
       ],
       "GuidKey": [
@@ -141,16 +141,16 @@
     "label": "Person",
     "type": "vertex",
     "properties": {
-      "PartitionKey": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-          "value": "PartitionKey"
-        }
-      ],
       "Age": [
         {
           "id": "00000000-0000-0000-0000-000000000000",
           "value": 36
+        }
+      ],
+      "PartitionKey": [
+        {
+          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "value": "PartitionKey"
         }
       ],
       "GuidKey": [
@@ -166,12 +166,6 @@
     "label": "Person",
     "type": "vertex",
     "properties": {
-      "PartitionKey": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-          "value": "PartitionKey"
-        }
-      ],
       "Age": [
         {
           "id": "00000000-0000-0000-0000-000000000000",
@@ -182,6 +176,12 @@
         {
           "id": "00000000-0000-0000-0000-000000000000",
           "value": "Bob"
+        }
+      ],
+      "PartitionKey": [
+        {
+          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "value": "PartitionKey"
         }
       ],
       "RegistrationDate": [
@@ -203,16 +203,16 @@
     "label": "Person",
     "type": "vertex",
     "properties": {
-      "PartitionKey": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-          "value": "PartitionKey"
-        }
-      ],
       "Age": [
         {
           "id": "00000000-0000-0000-0000-000000000000",
           "value": 36
+        }
+      ],
+      "PartitionKey": [
+        {
+          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "value": "PartitionKey"
         }
       ],
       "GuidKey": [
@@ -228,12 +228,6 @@
     "label": "Person",
     "type": "vertex",
     "properties": {
-      "PartitionKey": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-          "value": "PartitionKey"
-        }
-      ],
       "Age": [
         {
           "id": "00000000-0000-0000-0000-000000000000",
@@ -246,6 +240,12 @@
           "value": "AQIDBAUGBwg="
         }
       ],
+      "PartitionKey": [
+        {
+          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "value": "PartitionKey"
+        }
+      ],
       "GuidKey": [
         {
           "id": "00000000-0000-0000-0000-000000000000",
@@ -259,12 +259,6 @@
     "label": "Person",
     "type": "vertex",
     "properties": {
-      "PartitionKey": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-          "value": "PartitionKey"
-        }
-      ],
       "Age": [
         {
           "id": "00000000-0000-0000-0000-000000000000",
@@ -277,6 +271,12 @@
           "value": 1
         }
       ],
+      "PartitionKey": [
+        {
+          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "value": "PartitionKey"
+        }
+      ],
       "GuidKey": [
         {
           "id": "00000000-0000-0000-0000-000000000000",
@@ -290,16 +290,16 @@
     "label": "Person",
     "type": "vertex",
     "properties": {
-      "PartitionKey": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-          "value": "PartitionKey"
-        }
-      ],
       "Name": [
         {
           "id": "00000000-0000-0000-0000-000000000000",
           "value": "Marko"
+        }
+      ],
+      "PartitionKey": [
+        {
+          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "value": "PartitionKey"
         }
       ],
       "RegistrationDate": [

@@ -1,10 +1,10 @@
 ﻿{
-  Script: g.addV(_a).property(_b,_b).property(single,_c,_d).as(_e).addV(_f).property(_b,_b).property(single,_g,_h).addE(_i).to(_e),
+  Script: g.addV(_a).property(single,_b,_c).property(single,_d,_d).as(_e).addV(_f).property(single,_g,_h).property(single,_d,_d).addE(_i).to(_e),
   Bindings: {
     _a: Language,
-    _b: PartitionKey,
-    _c: IetfLanguageTag,
-    _d: en,
+    _b: IetfLanguageTag,
+    _c: en,
+    _d: PartitionKey,
     _e: _a,
     _f: Country,
     _g: CountryCallingCode,

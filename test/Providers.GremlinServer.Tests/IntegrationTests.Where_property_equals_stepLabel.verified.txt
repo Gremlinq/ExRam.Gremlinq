@@ -5,7 +5,7 @@
       "id",
       {
         "@type": "g:Int64",
-        "@value": 2
+        "@value": 3
       },
       "label",
       "Language",
@@ -23,12 +23,37 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 3
+                    "@value": 4
                   },
                   "label",
                   "IetfLanguageTag",
                   "value",
                   "en",
+                  "properties",
+                  {
+                    "@type": "g:Map",
+                    "@value": []
+                  }
+                ]
+              }
+            ]
+          },
+          "PartitionKey",
+          {
+            "@type": "g:List",
+            "@value": [
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
+                    "@type": "g:Int64",
+                    "@value": 5
+                  },
+                  "label",
+                  "PartitionKey",
+                  "value",
+                  "PartitionKey",
                   "properties",
                   {
                     "@type": "g:Map",
@@ -48,7 +73,7 @@
       "id",
       {
         "@type": "g:Int64",
-        "@value": 32
+        "@value": 45
       },
       "label",
       "Language",
@@ -66,7 +91,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 33
+                    "@value": 46
                   },
                   "label",
                   "IetfLanguageTag",
@@ -80,26 +105,8 @@
                 ]
               }
             ]
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "@type": "g:Map",
-    "@value": [
-      "id",
-      {
-        "@type": "g:Int64",
-        "@value": 47
-      },
-      "label",
-      "Language",
-      "properties",
-      {
-        "@type": "g:Map",
-        "@value": [
-          "IetfLanguageTag",
+          },
+          "PartitionKey",
           {
             "@type": "g:List",
             "@value": [
@@ -109,55 +116,12 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 48
+                    "@value": 47
                   },
                   "label",
-                  "IetfLanguageTag",
+                  "PartitionKey",
                   "value",
-                  "en",
-                  "properties",
-                  {
-                    "@type": "g:Map",
-                    "@value": []
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "@type": "g:Map",
-    "@value": [
-      "id",
-      {
-        "@type": "g:Int64",
-        "@value": 54
-      },
-      "label",
-      "Language",
-      "properties",
-      {
-        "@type": "g:Map",
-        "@value": [
-          "IetfLanguageTag",
-          {
-            "@type": "g:List",
-            "@value": [
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "id",
-                  {
-                    "@type": "g:Int64",
-                    "@value": 55
-                  },
-                  "label",
-                  "IetfLanguageTag",
-                  "value",
-                  "en",
+                  "PartitionKey",
                   "properties",
                   {
                     "@type": "g:Map",
@@ -201,6 +165,167 @@
                   "IetfLanguageTag",
                   "value",
                   "en",
+                  "properties",
+                  {
+                    "@type": "g:Map",
+                    "@value": []
+                  }
+                ]
+              }
+            ]
+          },
+          "PartitionKey",
+          {
+            "@type": "g:List",
+            "@value": [
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
+                    "@type": "g:Int64",
+                    "@value": 67
+                  },
+                  "label",
+                  "PartitionKey",
+                  "value",
+                  "PartitionKey",
+                  "properties",
+                  {
+                    "@type": "g:Map",
+                    "@value": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@type": "g:Map",
+    "@value": [
+      "id",
+      {
+        "@type": "g:Int64",
+        "@value": 75
+      },
+      "label",
+      "Language",
+      "properties",
+      {
+        "@type": "g:Map",
+        "@value": [
+          "IetfLanguageTag",
+          {
+            "@type": "g:List",
+            "@value": [
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
+                    "@type": "g:Int64",
+                    "@value": 76
+                  },
+                  "label",
+                  "IetfLanguageTag",
+                  "value",
+                  "en",
+                  "properties",
+                  {
+                    "@type": "g:Map",
+                    "@value": []
+                  }
+                ]
+              }
+            ]
+          },
+          "PartitionKey",
+          {
+            "@type": "g:List",
+            "@value": [
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
+                    "@type": "g:Int64",
+                    "@value": 77
+                  },
+                  "label",
+                  "PartitionKey",
+                  "value",
+                  "PartitionKey",
+                  "properties",
+                  {
+                    "@type": "g:Map",
+                    "@value": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@type": "g:Map",
+    "@value": [
+      "id",
+      {
+        "@type": "g:Int64",
+        "@value": 90
+      },
+      "label",
+      "Language",
+      "properties",
+      {
+        "@type": "g:Map",
+        "@value": [
+          "IetfLanguageTag",
+          {
+            "@type": "g:List",
+            "@value": [
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
+                    "@type": "g:Int64",
+                    "@value": 91
+                  },
+                  "label",
+                  "IetfLanguageTag",
+                  "value",
+                  "en",
+                  "properties",
+                  {
+                    "@type": "g:Map",
+                    "@value": []
+                  }
+                ]
+              }
+            ]
+          },
+          "PartitionKey",
+          {
+            "@type": "g:List",
+            "@value": [
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
+                    "@type": "g:Int64",
+                    "@value": 92
+                  },
+                  "label",
+                  "PartitionKey",
+                  "value",
+                  "PartitionKey",
                   "properties",
                   {
                     "@type": "g:Map",

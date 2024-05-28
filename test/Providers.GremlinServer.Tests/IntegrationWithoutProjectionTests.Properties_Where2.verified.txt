@@ -4,20 +4,6 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 8
-      },
-      "value": {
-        "@type": "g:Int32",
-        "@value": 0
-      },
-      "label": "Age"
-    }
-  },
-  {
-    "@type": "g:VertexProperty",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
         "@value": 11
       },
       "value": {
@@ -32,7 +18,7 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 16
+        "@value": 15
       },
       "value": {
         "@type": "g:Int32",
@@ -46,7 +32,7 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 20
+        "@value": 79
       },
       "value": {
         "@type": "g:Int32",
@@ -60,7 +46,7 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 24
+        "@value": 83
       },
       "value": {
         "@type": "g:Int32",
@@ -74,7 +60,7 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 30
+        "@value": 21
       },
       "value": {
         "@type": "g:Int32",
@@ -88,7 +74,7 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 38
+        "@value": 27
       },
       "value": {
         "@type": "g:Int32",
@@ -102,7 +88,7 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 45
+        "@value": 33
       },
       "value": {
         "@type": "g:Int32",
@@ -116,7 +102,7 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 57
+        "@value": 42
       },
       "value": {
         "@type": "g:Int32",
@@ -130,7 +116,21 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 60
+        "@value": 53
+      },
+      "value": {
+        "@type": "g:Int32",
+        "@value": 0
+      },
+      "label": "Age"
+    }
+  },
+  {
+    "@type": "g:VertexProperty",
+    "@value": {
+      "id": {
+        "@type": "g:Int64",
+        "@value": 62
       },
       "value": {
         "@type": "g:Int32",

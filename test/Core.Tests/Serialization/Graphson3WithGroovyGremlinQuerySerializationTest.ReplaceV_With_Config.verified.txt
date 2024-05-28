@@ -3,7 +3,7 @@
   "op": "eval",
   "processor": "",
   "args": {
-    "gremlin": "g.V(_a).hasLabel(_b).sideEffect(__.properties(_c,_d,_e).drop()).property(single,_f,_g).property(single,_h,_i).property(single,_j,_k).project(_l,_m,_n).by(id).by(label).by(__.properties().group().by(label).by(__.project(_l,_m,_o,_n).by(id).by(label).by(value).by(__.valueMap()).fold()))",
+    "gremlin": "g.V(_a).hasLabel(_b).sideEffect(__.properties(_c,_d,_e).drop()).property(single,_f,_g).property(single,_h,_i).property(single,_j,_k).property(single,_l,_l).project(_m,_n,_o).by(id).by(label).by(__.properties().group().by(label).by(__.project(_m,_n,_p,_o).by(id).by(label).by(value).by(__.valueMap()).fold()))",
     "bindings": {
       "_a": {
         "@type": "g:Int32",
@@ -22,10 +22,11 @@
       "_i": 0,
       "_j": "Name",
       "_k": "Marko",
-      "_l": "id",
-      "_m": "label",
-      "_n": "properties",
-      "_o": "value"
+      "_l": "PartitionKey",
+      "_m": "id",
+      "_n": "label",
+      "_o": "properties",
+      "_p": "value"
     },
     "aliases": {
       "g": "g"

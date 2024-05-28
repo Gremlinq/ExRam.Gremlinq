@@ -1,16 +1,17 @@
 ﻿{
-  Script: g.addV(_a).property(single,_b,_c).as(_d).addV(_e).property(single,_f,_g).addE(_h).from(_d).project(_i,_j,_k).by(id).by(label).by(__.valueMap()),
+  Script: g.addV(_a).property(single,_b,_c).property(single,_d,_d).as(_e).addV(_f).property(single,_g,_h).property(single,_d,_d).addE(_i).from(_e).project(_j,_k,_l).by(id).by(label).by(__.valueMap()),
   Bindings: {
     _a: Country,
     _b: CountryCallingCode,
     _c: +49,
-    _d: _a,
-    _e: Language,
-    _f: IetfLanguageTag,
-    _g: en,
-    _h: Speaks,
-    _i: id,
-    _j: label,
-    _k: properties
+    _d: PartitionKey,
+    _e: _a,
+    _f: Language,
+    _g: IetfLanguageTag,
+    _h: en,
+    _i: Speaks,
+    _j: id,
+    _k: label,
+    _l: properties
   }
 }

@@ -10,7 +10,8 @@
   {
     CountryCallingCode: +49,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Country
+    Label: Country,
+    PartitionKey: PartitionKey
   },
   {
     Role: Admin,
@@ -21,12 +22,14 @@
   },
   {
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   },
   {
     CountryCallingCode: +49,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Country
+    Label: Country,
+    PartitionKey: PartitionKey
   },
   {
     Id: 00000000-0000-0000-0000-000000000000,
@@ -34,7 +37,8 @@
   },
   {
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   },
   {
     Id: 00000000-0000-0000-0000-000000000000,
@@ -42,7 +46,8 @@
   },
   {
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   },
   {
     Since: {
@@ -53,7 +58,8 @@
   },
   {
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   },
   {
     Role: Admin,
@@ -64,12 +70,14 @@
   },
   {
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   },
   {
     CountryCallingCode: +49,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Country
+    Label: Country,
+    PartitionKey: PartitionKey
   },
   {
     Id: 00000000-0000-0000-0000-000000000000,
@@ -86,6 +94,7 @@
   },
   {
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   }
 ]

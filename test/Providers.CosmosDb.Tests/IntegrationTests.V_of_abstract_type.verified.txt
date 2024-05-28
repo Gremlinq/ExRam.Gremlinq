@@ -4,16 +4,19 @@
     "label": "Person",
     "type": "vertex",
     "properties": {
+      "Age": [
+        {
+          "id": "00000000-0000-0000-0000-000000000000",
+          "value": 36,
+          "properties": {
+            "Meta": "value"
+          }
+        }
+      ],
       "PartitionKey": [
         {
           "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
           "value": "PartitionKey"
-        }
-      ],
-      "Age": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": 21
         }
       ],
       "GuidKey": [
@@ -27,24 +30,6 @@
           "id": "00000000-0000-0000-0000-000000000000",
           "value": 36
         }
-      ],
-      "Gender": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": 0
-        }
-      ],
-      "Name": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "Marko"
-        }
-      ],
-      "RegistrationDate": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": 1586270616000
-        }
       ]
     }
   },
@@ -53,17 +38,17 @@
     "label": "Company",
     "type": "vertex",
     "properties": {
-      "PartitionKey": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-          "value": "PartitionKey"
-        }
-      ],
       "FoundingDate": [
         {
           "id": "00000000-0000-0000-0000-000000000000",
           "value": -62135596800000
         }
+      ],
+      "PartitionKey": [
+        {
+          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "value": "PartitionKey"
+        }
       ]
     }
   },
@@ -72,22 +57,28 @@
     "label": "Person",
     "type": "vertex",
     "properties": {
-      "PartitionKey": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-          "value": "PartitionKey"
-        }
-      ],
       "Age": [
         {
           "id": "00000000-0000-0000-0000-000000000000",
-          "value": 21
+          "value": 36,
+          "properties": {
+            "Meta": "value"
+          }
         }
       ],
       "Name": [
         {
           "id": "00000000-0000-0000-0000-000000000000",
-          "value": "Marko"
+          "value": "Bob",
+          "properties": {
+            "ValidFrom": 1586270616000
+          }
+        }
+      ],
+      "PartitionKey": [
+        {
+          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "value": "PartitionKey"
         }
       ],
       "RegistrationDate": [
@@ -107,12 +98,6 @@
           "id": "00000000-0000-0000-0000-000000000000",
           "value": 36
         }
-      ],
-      "Gender": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": 0
-        }
       ]
     }
   },
@@ -121,16 +106,19 @@
     "label": "Person",
     "type": "vertex",
     "properties": {
+      "Age": [
+        {
+          "id": "00000000-0000-0000-0000-000000000000",
+          "value": 36,
+          "properties": {
+            "Meta": "value"
+          }
+        }
+      ],
       "PartitionKey": [
         {
           "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
           "value": "PartitionKey"
-        }
-      ],
-      "Age": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": 21
         }
       ],
       "GuidKey": [
@@ -144,24 +132,6 @@
           "id": "00000000-0000-0000-0000-000000000000",
           "value": 36
         }
-      ],
-      "Gender": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": 0
-        }
-      ],
-      "Name": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "Marko"
-        }
-      ],
-      "RegistrationDate": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": 1586270616000
-        }
       ]
     }
   },
@@ -170,16 +140,19 @@
     "label": "Person",
     "type": "vertex",
     "properties": {
+      "Age": [
+        {
+          "id": "00000000-0000-0000-0000-000000000000",
+          "value": 36,
+          "properties": {
+            "Meta": "value"
+          }
+        }
+      ],
       "PartitionKey": [
         {
           "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
           "value": "PartitionKey"
-        }
-      ],
-      "Age": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": 21
         }
       ],
       "GuidKey": [
@@ -193,24 +166,6 @@
           "id": "00000000-0000-0000-0000-000000000000",
           "value": 36
         }
-      ],
-      "Gender": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": 0
-        }
-      ],
-      "Name": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "Marko"
-        }
-      ],
-      "RegistrationDate": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": 1586270616000
-        }
       ]
     }
   },
@@ -219,16 +174,19 @@
     "label": "Person",
     "type": "vertex",
     "properties": {
+      "Age": [
+        {
+          "id": "00000000-0000-0000-0000-000000000000",
+          "value": 36,
+          "properties": {
+            "Meta": "value"
+          }
+        }
+      ],
       "PartitionKey": [
         {
           "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
           "value": "PartitionKey"
-        }
-      ],
-      "Age": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": 21
         }
       ],
       "GuidKey": [
@@ -242,24 +200,6 @@
           "id": "00000000-0000-0000-0000-000000000000",
           "value": 36
         }
-      ],
-      "Gender": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": 0
-        }
-      ],
-      "Name": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "Marko"
-        }
-      ],
-      "RegistrationDate": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": 1586270616000
-        }
       ]
     }
   },
@@ -268,16 +208,19 @@
     "label": "Person",
     "type": "vertex",
     "properties": {
+      "Age": [
+        {
+          "id": "00000000-0000-0000-0000-000000000000",
+          "value": 36,
+          "properties": {
+            "Meta": "value"
+          }
+        }
+      ],
       "PartitionKey": [
         {
           "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
           "value": "PartitionKey"
-        }
-      ],
-      "Age": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": 21
         }
       ],
       "GuidKey": [
@@ -290,24 +233,6 @@
         {
           "id": "00000000-0000-0000-0000-000000000000",
           "value": 36
-        }
-      ],
-      "Gender": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": 0
-        }
-      ],
-      "Name": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "Marko"
-        }
-      ],
-      "RegistrationDate": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": 1586270616000
         }
       ]
     }
@@ -317,17 +242,17 @@
     "label": "Company",
     "type": "vertex",
     "properties": {
-      "PartitionKey": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-          "value": "PartitionKey"
-        }
-      ],
       "FoundingDate": [
         {
           "id": "00000000-0000-0000-0000-000000000000",
           "value": -62135596800000
         }
+      ],
+      "PartitionKey": [
+        {
+          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "value": "PartitionKey"
+        }
       ]
     }
   },
@@ -336,22 +261,28 @@
     "label": "Person",
     "type": "vertex",
     "properties": {
-      "PartitionKey": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-          "value": "PartitionKey"
-        }
-      ],
       "Age": [
         {
           "id": "00000000-0000-0000-0000-000000000000",
-          "value": 21
+          "value": 36,
+          "properties": {
+            "Meta": "value"
+          }
         }
       ],
       "Name": [
         {
           "id": "00000000-0000-0000-0000-000000000000",
-          "value": "Marko"
+          "value": "Bob",
+          "properties": {
+            "ValidFrom": 1586270616000
+          }
+        }
+      ],
+      "PartitionKey": [
+        {
+          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "value": "PartitionKey"
         }
       ],
       "RegistrationDate": [
@@ -371,12 +302,6 @@
           "id": "00000000-0000-0000-0000-000000000000",
           "value": 36
         }
-      ],
-      "Gender": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": 0
-        }
       ]
     }
   },
@@ -385,16 +310,19 @@
     "label": "Person",
     "type": "vertex",
     "properties": {
+      "Age": [
+        {
+          "id": "00000000-0000-0000-0000-000000000000",
+          "value": 36,
+          "properties": {
+            "Meta": "value"
+          }
+        }
+      ],
       "PartitionKey": [
         {
           "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
           "value": "PartitionKey"
-        }
-      ],
-      "Age": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": 21
         }
       ],
       "GuidKey": [
@@ -407,24 +335,6 @@
         {
           "id": "00000000-0000-0000-0000-000000000000",
           "value": 36
-        }
-      ],
-      "Gender": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": 0
-        }
-      ],
-      "Name": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "Marko"
-        }
-      ],
-      "RegistrationDate": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": 1586270616000
         }
       ]
     }
@@ -434,17 +344,17 @@
     "label": "Company",
     "type": "vertex",
     "properties": {
-      "PartitionKey": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-          "value": "PartitionKey"
-        }
-      ],
       "FoundingDate": [
         {
           "id": "00000000-0000-0000-0000-000000000000",
           "value": -62135596800000
         }
+      ],
+      "PartitionKey": [
+        {
+          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "value": "PartitionKey"
+        }
       ]
     }
   },
@@ -453,16 +363,25 @@
     "label": "Person",
     "type": "vertex",
     "properties": {
+      "Age": [
+        {
+          "id": "00000000-0000-0000-0000-000000000000",
+          "value": 36,
+          "properties": {
+            "Meta": "value"
+          }
+        }
+      ],
+      "Image": [
+        {
+          "id": "00000000-0000-0000-0000-000000000000",
+          "value": "AQIDBAUGBwg="
+        }
+      ],
       "PartitionKey": [
         {
           "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
           "value": "PartitionKey"
-        }
-      ],
-      "Age": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": 21
         }
       ],
       "GuidKey": [
@@ -476,24 +395,6 @@
           "id": "00000000-0000-0000-0000-000000000000",
           "value": 36
         }
-      ],
-      "Gender": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": 0
-        }
-      ],
-      "Name": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "Marko"
-        }
-      ],
-      "RegistrationDate": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": 1586270616000
-        }
       ]
     }
   },
@@ -502,22 +403,25 @@
     "label": "Person",
     "type": "vertex",
     "properties": {
-      "PartitionKey": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-          "value": "PartitionKey"
-        }
-      ],
       "Age": [
         {
           "id": "00000000-0000-0000-0000-000000000000",
-          "value": 21
+          "value": 36,
+          "properties": {
+            "Meta": "value"
+          }
         }
       ],
       "Gender": [
         {
           "id": "00000000-0000-0000-0000-000000000000",
-          "value": 0
+          "value": 1
+        }
+      ],
+      "PartitionKey": [
+        {
+          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "value": "PartitionKey"
         }
       ],
       "GuidKey": [
@@ -531,18 +435,6 @@
           "id": "00000000-0000-0000-0000-000000000000",
           "value": 36
         }
-      ],
-      "Name": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "Marko"
-        }
-      ],
-      "RegistrationDate": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": 1586270616000
-        }
       ]
     }
   },
@@ -551,16 +443,19 @@
     "label": "Person",
     "type": "vertex",
     "properties": {
+      "Name": [
+        {
+          "id": "00000000-0000-0000-0000-000000000000",
+          "value": "Marko",
+          "properties": {
+            "ValidFrom": 1586270616000
+          }
+        }
+      ],
       "PartitionKey": [
         {
           "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
           "value": "PartitionKey"
-        }
-      ],
-      "Name": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "Marko"
         }
       ],
       "RegistrationDate": [
@@ -578,19 +473,16 @@
       "Age": [
         {
           "id": "00000000-0000-0000-0000-000000000000",
-          "value": 21
+          "value": 36,
+          "properties": {
+            "Meta": "value"
+          }
         }
       ],
       "StringKey1": [
         {
           "id": "00000000-0000-0000-0000-000000000000",
           "value": 36
-        }
-      ],
-      "Gender": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": 0
         }
       ]
     }
@@ -600,12 +492,6 @@
     "label": "Company",
     "type": "vertex",
     "properties": {
-      "PartitionKey": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-          "value": "PartitionKey"
-        }
-      ],
       "FoundingDate": [
         {
           "id": "00000000-0000-0000-0000-000000000000",
@@ -620,6 +506,12 @@
             "ValidFrom": 1546304400000
           }
         }
+      ],
+      "PartitionKey": [
+        {
+          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "value": "PartitionKey"
+        }
       ]
     }
   },
@@ -628,16 +520,16 @@
     "label": "Company",
     "type": "vertex",
     "properties": {
-      "PartitionKey": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-          "value": "PartitionKey"
-        }
-      ],
       "FoundingDate": [
         {
           "id": "00000000-0000-0000-0000-000000000000",
           "value": -62135596800000
+        }
+      ],
+      "PartitionKey": [
+        {
+          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "value": "PartitionKey"
         }
       ],
       "PhoneNumbers": [

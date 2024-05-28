@@ -4,7 +4,7 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 5
+        "@value": 7
       },
       "label": "Company",
       "properties": {
@@ -14,13 +14,26 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 6
+                "@value": 8
               },
               "value": {
                 "@type": "g:Date",
                 "@value": -62135596800000
               },
               "label": "FoundingDate"
+            }
+          }
+        ],
+        "PartitionKey": [
+          {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": 9
+              },
+              "value": "PartitionKey",
+              "label": "PartitionKey"
             }
           }
         ]
@@ -32,7 +45,7 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 27
+        "@value": 38
       },
       "label": "Company",
       "properties": {
@@ -42,13 +55,26 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 28
+                "@value": 39
               },
               "value": {
                 "@type": "g:Date",
                 "@value": -62135596800000
               },
               "label": "FoundingDate"
+            }
+          }
+        ],
+        "PartitionKey": [
+          {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": 40
+              },
+              "value": "PartitionKey",
+              "label": "PartitionKey"
             }
           }
         ]
@@ -60,7 +86,7 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 42
+        "@value": 58
       },
       "label": "Company",
       "properties": {
@@ -70,13 +96,26 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 43
+                "@value": 59
               },
               "value": {
                 "@type": "g:Date",
                 "@value": -62135596800000
               },
               "label": "FoundingDate"
+            }
+          }
+        ],
+        "PartitionKey": [
+          {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": 60
+              },
+              "value": "PartitionKey",
+              "label": "PartitionKey"
             }
           }
         ]

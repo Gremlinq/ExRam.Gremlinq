@@ -4,7 +4,7 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 62
+        "@value": 86
       },
       "label": "Person",
       "properties": {
@@ -14,7 +14,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 64
+                "@value": 89
               },
               "value": {
                 "@type": "g:Date",
@@ -24,13 +24,26 @@
             }
           }
         ],
+        "PartitionKey": [
+          {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": 88
+              },
+              "value": "PartitionKey",
+              "label": "PartitionKey"
+            }
+          }
+        ],
         "Name": [
           {
             "@type": "g:VertexProperty",
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 63
+                "@value": 87
               },
               "value": "Marko",
               "label": "Name"
@@ -45,7 +58,7 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 10
+        "@value": 14
       },
       "label": "Person",
       "properties": {
@@ -55,7 +68,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 13
+                "@value": 18
               },
               "value": {
                 "@type": "g:Date",
@@ -65,13 +78,26 @@
             }
           }
         ],
+        "PartitionKey": [
+          {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": 17
+              },
+              "value": "PartitionKey",
+              "label": "PartitionKey"
+            }
+          }
+        ],
         "Age": [
           {
             "@type": "g:VertexProperty",
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 11
+                "@value": 15
               },
               "value": {
                 "@type": "g:Int32",
@@ -87,7 +113,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 12
+                "@value": 16
               },
               "value": "Bob",
               "label": "Name"
@@ -102,7 +128,7 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 37
+        "@value": 52
       },
       "label": "Person",
       "properties": {
@@ -112,7 +138,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 40
+                "@value": 56
               },
               "value": {
                 "@type": "g:Date",
@@ -122,13 +148,26 @@
             }
           }
         ],
+        "PartitionKey": [
+          {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": 55
+              },
+              "value": "PartitionKey",
+              "label": "PartitionKey"
+            }
+          }
+        ],
         "Age": [
           {
             "@type": "g:VertexProperty",
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 38
+                "@value": 53
               },
               "value": {
                 "@type": "g:Int32",
@@ -144,7 +183,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 39
+                "@value": 54
               },
               "value": "Bob",
               "label": "Name"
