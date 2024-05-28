@@ -4,8 +4,8 @@
       +4912345,
       +4923456
     ],
-    PartitionKey: PartitionKey,
     Id: 105,
-    Label: Company
+    Label: Company,
+    PartitionKey: PartitionKey
   }
 ]

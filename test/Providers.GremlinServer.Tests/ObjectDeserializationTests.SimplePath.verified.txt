@@ -10,14 +10,14 @@
       },
       Value: Bob
     },
-    PartitionKey: PartitionKey,
     Id: 14,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   },
   {
     IetfLanguageTag: en,
-    PartitionKey: PartitionKey,
     Id: 3,
-    Label: Language
+    Label: Language,
+    PartitionKey: PartitionKey
   }
 ]

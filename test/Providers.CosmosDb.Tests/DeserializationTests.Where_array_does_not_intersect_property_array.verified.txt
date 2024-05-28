@@ -1,18 +1,18 @@
 ﻿[
   {
-    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Company
+    Label: Company,
+    PartitionKey: PartitionKey
   },
   {
-    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Company
+    Label: Company,
+    PartitionKey: PartitionKey
   },
   {
-    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Company
+    Label: Company,
+    PartitionKey: PartitionKey
   },
   {
     Locations: [
@@ -24,8 +24,8 @@
         Value: Aachen
       }
     ],
-    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Company
+    Label: Company,
+    PartitionKey: PartitionKey
   }
 ]

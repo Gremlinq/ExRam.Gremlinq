@@ -9,20 +9,20 @@
   },
   {
     CountryCallingCode: +49,
-    PartitionKey: PartitionKey,
     Id: 0,
-    Label: Country
+    Label: Country,
+    PartitionKey: PartitionKey
   },
   {
     CountryCallingCode: +49,
-    PartitionKey: PartitionKey,
     Id: 0,
-    Label: Country
+    Label: Country,
+    PartitionKey: PartitionKey
   },
   {
-    PartitionKey: PartitionKey,
     Id: 10,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   },
   {
     Role: Admin,
@@ -36,18 +36,18 @@
     Label: LivesIn
   },
   {
-    PartitionKey: PartitionKey,
     Id: 20,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   },
   {
     Id: 31,
     Label: LivesIn
   },
   {
-    PartitionKey: PartitionKey,
     Id: 26,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   },
   {
     Since: {
@@ -58,14 +58,14 @@
     Label: LivesIn
   },
   {
-    PartitionKey: PartitionKey,
     Id: 32,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   },
   {
-    PartitionKey: PartitionKey,
     Id: 41,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   },
   {
     Role: Admin,
@@ -76,9 +76,9 @@
   },
   {
     CountryCallingCode: +49,
-    PartitionKey: PartitionKey,
     Id: 48,
-    Label: Country
+    Label: Country,
+    PartitionKey: PartitionKey
   },
   {
     Id: 51,
@@ -89,9 +89,9 @@
     Label: LivesIn
   },
   {
-    PartitionKey: PartitionKey,
     Id: 61,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   },
   {
     To: 2020-04-07 14:43:36 Utc,

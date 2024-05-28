@@ -9,9 +9,9 @@
       },
       Value: 
     },
-    PartitionKey: PartitionKey,
     Id: 0,
-    Label: Country
+    Label: Country,
+    PartitionKey: PartitionKey
   },
   {
     Age: 36,
@@ -21,8 +21,8 @@
       Label: Name,
       Value: Bob
     },
-    PartitionKey: PartitionKey,
     Id: 52,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   }
 ]

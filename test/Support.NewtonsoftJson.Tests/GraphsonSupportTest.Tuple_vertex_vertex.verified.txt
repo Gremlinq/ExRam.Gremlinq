@@ -6,15 +6,15 @@
         Id: 1,
         Value: Name of some base entity
       },
-      PartitionKey: PartitionKey,
       Id: 16,
-      Label: Person
+      Label: Person,
+      PartitionKey: PartitionKey
     },
     Item2: {
       IetfLanguageTag: de,
-      PartitionKey: PartitionKey,
       Id: 17,
-      Label: Language
+      Label: Language,
+      PartitionKey: PartitionKey
     }
   }
 ]

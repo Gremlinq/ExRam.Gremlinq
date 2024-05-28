@@ -1,28 +1,28 @@
 ﻿[
   {
-    PartitionKey: PartitionKey,
     Id: 10,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   },
   {
-    PartitionKey: PartitionKey,
     Id: 20,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   },
   {
-    PartitionKey: PartitionKey,
     Id: 26,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   },
   {
-    PartitionKey: PartitionKey,
     Id: 32,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   },
   {
-    PartitionKey: PartitionKey,
     Id: 41,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   },
   {
     RegistrationDate: 2020-04-07 14:43:36 +0,
@@ -31,13 +31,13 @@
       Label: Name,
       Value: Bob
     },
-    PartitionKey: PartitionKey,
     Id: 52,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   },
   {
-    PartitionKey: PartitionKey,
     Id: 61,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   }
 ]

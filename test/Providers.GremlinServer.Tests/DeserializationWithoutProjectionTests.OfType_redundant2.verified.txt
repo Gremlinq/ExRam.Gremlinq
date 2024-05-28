@@ -1,8 +1,8 @@
 ﻿[
   {
-    PartitionKey: PartitionKey,
     Id: 7,
-    Label: Company
+    Label: Company,
+    PartitionKey: PartitionKey
   },
   {
     Locations: [
@@ -15,27 +15,27 @@
         Value: Aachen
       }
     ],
-    PartitionKey: PartitionKey,
     Id: 95,
-    Label: Company
+    Label: Company,
+    PartitionKey: PartitionKey
   },
   {
-    PartitionKey: PartitionKey,
     Id: 38,
-    Label: Company
+    Label: Company,
+    PartitionKey: PartitionKey
   },
   {
     PhoneNumbers: [
       +4912345,
       +4923456
     ],
-    PartitionKey: PartitionKey,
     Id: 105,
-    Label: Company
+    Label: Company,
+    PartitionKey: PartitionKey
   },
   {
-    PartitionKey: PartitionKey,
     Id: 58,
-    Label: Company
+    Label: Company,
+    PartitionKey: PartitionKey
   }
 ]

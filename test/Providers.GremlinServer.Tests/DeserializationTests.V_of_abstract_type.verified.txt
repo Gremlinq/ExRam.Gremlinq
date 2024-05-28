@@ -1,8 +1,8 @@
 ﻿[
   {
-    PartitionKey: PartitionKey,
     Id: 7,
-    Label: Company
+    Label: Company,
+    PartitionKey: PartitionKey
   },
   {
     Age: 21,
@@ -13,9 +13,9 @@
       Label: Name,
       Value: Marko
     },
-    PartitionKey: PartitionKey,
     Id: 10,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   },
   {
     Age: 21,
@@ -26,9 +26,9 @@
       Label: Name,
       Value: Marko
     },
-    PartitionKey: PartitionKey,
     Id: 14,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   },
   {
     Age: 21,
@@ -39,9 +39,9 @@
       Label: Name,
       Value: Marko
     },
-    PartitionKey: PartitionKey,
     Id: 78,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   },
   {
     Age: 21,
@@ -52,9 +52,9 @@
       Label: Name,
       Value: Marko
     },
-    PartitionKey: PartitionKey,
     Id: 82,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   },
   {
     Age: 21,
@@ -65,9 +65,9 @@
       Label: Name,
       Value: Marko
     },
-    PartitionKey: PartitionKey,
     Id: 20,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   },
   {
     Age: 21,
@@ -78,9 +78,9 @@
       Label: Name,
       Value: Marko
     },
-    PartitionKey: PartitionKey,
     Id: 86,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   },
   {
     Age: 21,
@@ -91,9 +91,9 @@
       Label: Name,
       Value: Marko
     },
-    PartitionKey: PartitionKey,
     Id: 26,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   },
   {
     Locations: [
@@ -106,9 +106,9 @@
         Value: Aachen
       }
     ],
-    PartitionKey: PartitionKey,
     Id: 95,
-    Label: Company
+    Label: Company,
+    PartitionKey: PartitionKey
   },
   {
     Age: 21,
@@ -119,14 +119,14 @@
       Label: Name,
       Value: Marko
     },
-    PartitionKey: PartitionKey,
     Id: 32,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   },
   {
-    PartitionKey: PartitionKey,
     Id: 38,
-    Label: Company
+    Label: Company,
+    PartitionKey: PartitionKey
   },
   {
     Age: 21,
@@ -137,18 +137,18 @@
       Label: Name,
       Value: Marko
     },
-    PartitionKey: PartitionKey,
     Id: 41,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   },
   {
     PhoneNumbers: [
       +4912345,
       +4923456
     ],
-    PartitionKey: PartitionKey,
     Id: 105,
-    Label: Company
+    Label: Company,
+    PartitionKey: PartitionKey
   },
   {
     Age: 21,
@@ -159,14 +159,14 @@
       Label: Name,
       Value: Marko
     },
-    PartitionKey: PartitionKey,
     Id: 52,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   },
   {
-    PartitionKey: PartitionKey,
     Id: 58,
-    Label: Company
+    Label: Company,
+    PartitionKey: PartitionKey
   },
   {
     Age: 21,
@@ -177,8 +177,8 @@
       Label: Name,
       Value: Marko
     },
-    PartitionKey: PartitionKey,
     Id: 61,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   }
 ]

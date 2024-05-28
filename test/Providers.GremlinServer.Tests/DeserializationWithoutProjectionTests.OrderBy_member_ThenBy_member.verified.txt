@@ -6,9 +6,9 @@
       Label: Name,
       Value: Bob
     },
-    PartitionKey: PartitionKey,
     Id: 14,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   },
   {
     RegistrationDate: 2020-04-07 14:43:36 +0,
@@ -17,8 +17,8 @@
       Label: Name,
       Value: Bob
     },
-    PartitionKey: PartitionKey,
     Id: 52,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   }
 ]

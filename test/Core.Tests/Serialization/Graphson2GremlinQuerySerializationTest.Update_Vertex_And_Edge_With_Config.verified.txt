@@ -68,6 +68,23 @@
             "WorksFor"
           ],
           [
+            "sideEffect",
+            {
+              "@type": "g:Bytecode",
+              "@value": {
+                "step": [
+                  [
+                    "properties",
+                    "PartitionKey"
+                  ],
+                  [
+                    "drop"
+                  ]
+                ]
+              }
+            }
+          ],
+          [
             "property",
             "To",
             {

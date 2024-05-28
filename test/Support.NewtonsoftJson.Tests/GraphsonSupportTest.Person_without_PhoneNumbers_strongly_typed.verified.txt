@@ -2,8 +2,8 @@
   {
     Age: 36,
     RegistrationDate: DateTimeOffset_1,
-    PartitionKey: PartitionKey,
     Id: 15,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   }
 ]

@@ -6,56 +6,56 @@
       Label: Name,
       Value: Bob
     },
-    PartitionKey: PartitionKey,
     Id: 52,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   },
   {
     CountryCallingCode: +49,
-    PartitionKey: PartitionKey,
     Id: 0,
-    Label: Country
+    Label: Country,
+    PartitionKey: PartitionKey
   },
   {
     CountryCallingCode: +49,
-    PartitionKey: PartitionKey,
     Id: 0,
-    Label: Country
+    Label: Country,
+    PartitionKey: PartitionKey
   },
   {
-    PartitionKey: PartitionKey,
     Id: 10,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   },
   {
-    PartitionKey: PartitionKey,
     Id: 20,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   },
   {
-    PartitionKey: PartitionKey,
     Id: 26,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   },
   {
-    PartitionKey: PartitionKey,
     Id: 32,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   },
   {
-    PartitionKey: PartitionKey,
     Id: 41,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   },
   {
     CountryCallingCode: +49,
-    PartitionKey: PartitionKey,
     Id: 48,
-    Label: Country
+    Label: Country,
+    PartitionKey: PartitionKey
   },
   {
-    PartitionKey: PartitionKey,
     Id: 61,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   }
 ]

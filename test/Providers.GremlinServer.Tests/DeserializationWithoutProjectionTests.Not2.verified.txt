@@ -1,27 +1,27 @@
 ﻿[
   {
     CountryCallingCode: +49,
-    PartitionKey: PartitionKey,
     Id: 0,
-    Label: Country
+    Label: Country,
+    PartitionKey: PartitionKey
   },
   {
     Enabled: false,
     StartTime: 08:00:00,
     Duration: 02:00:00,
-    PartitionKey: PartitionKey,
     Id: 70,
-    Label: TimeFrame
+    Label: TimeFrame,
+    PartitionKey: PartitionKey
   },
   {
-    PartitionKey: PartitionKey,
     Id: 7,
-    Label: Company
+    Label: Company,
+    PartitionKey: PartitionKey
   },
   {
-    PartitionKey: PartitionKey,
     Id: 10,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   },
   {
     RegistrationDate: 2020-04-07 14:43:36 +0,
@@ -30,26 +30,26 @@
       Label: Name,
       Value: Bob
     },
-    PartitionKey: PartitionKey,
     Id: 14,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   },
   {
     Image: AQIDBAUGBwg=,
-    PartitionKey: PartitionKey,
     Id: 78,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   },
   {
     Gender: Female,
-    PartitionKey: PartitionKey,
     Id: 82,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   },
   {
-    PartitionKey: PartitionKey,
     Id: 20,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   },
   {
     RegistrationDate: 2020-04-07 14:43:36 +0,
@@ -58,24 +58,24 @@
       Label: Name,
       Value: Marko
     },
-    PartitionKey: PartitionKey,
     Id: 86,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   },
   {
-    PartitionKey: PartitionKey,
     Id: 23,
-    Label: Country
+    Label: Country,
+    PartitionKey: PartitionKey
   },
   {
-    PartitionKey: PartitionKey,
     Id: 26,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   },
   {
-    PartitionKey: PartitionKey,
     Id: 29,
-    Label: Country
+    Label: Country,
+    PartitionKey: PartitionKey
   },
   {
     Locations: [
@@ -88,19 +88,19 @@
         Value: Aachen
       }
     ],
-    PartitionKey: PartitionKey,
     Id: 95,
-    Label: Company
+    Label: Company,
+    PartitionKey: PartitionKey
   },
   {
-    PartitionKey: PartitionKey,
     Id: 32,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   },
   {
-    PartitionKey: PartitionKey,
     Id: 35,
-    Label: Country
+    Label: Country,
+    PartitionKey: PartitionKey
   },
   {
     Name: {
@@ -109,14 +109,14 @@
       Properties: {},
       Value: GER
     },
-    PartitionKey: PartitionKey,
     Id: 99,
-    Label: Country
+    Label: Country,
+    PartitionKey: PartitionKey
   },
   {
-    PartitionKey: PartitionKey,
     Id: 38,
-    Label: Company
+    Label: Company,
+    PartitionKey: PartitionKey
   },
   {
     Name: {
@@ -128,29 +128,29 @@
       },
       Value: GER
     },
-    PartitionKey: PartitionKey,
     Id: 102,
-    Label: Country
+    Label: Country,
+    PartitionKey: PartitionKey
   },
   {
-    PartitionKey: PartitionKey,
     Id: 41,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   },
   {
     PhoneNumbers: [
       +4912345,
       +4923456
     ],
-    PartitionKey: PartitionKey,
     Id: 105,
-    Label: Company
+    Label: Company,
+    PartitionKey: PartitionKey
   },
   {
     CountryCallingCode: +49,
-    PartitionKey: PartitionKey,
     Id: 48,
-    Label: Country
+    Label: Country,
+    PartitionKey: PartitionKey
   },
   {
     RegistrationDate: 2020-04-07 14:43:36 +0,
@@ -159,18 +159,18 @@
       Label: Name,
       Value: Bob
     },
-    PartitionKey: PartitionKey,
     Id: 52,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   },
   {
-    PartitionKey: PartitionKey,
     Id: 58,
-    Label: Company
+    Label: Company,
+    PartitionKey: PartitionKey
   },
   {
-    PartitionKey: PartitionKey,
     Id: 61,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   }
 ]

@@ -7,26 +7,14 @@
       Id: 00000000-0000-0000-0000-000000000000,
       Value: Marko
     },
-    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   },
   {
-    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Company
-  },
-  {
-    Age: 21,
-    Gender: Male,
-    RegistrationDate: 2020-04-07 14:43:36 +0,
-    Name: {
-      Id: 00000000-0000-0000-0000-000000000000,
-      Value: Marko
-    },
-    PartitionKey: PartitionKey,
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person
+    Label: Company,
+    PartitionKey: PartitionKey
   },
   {
     Age: 21,
@@ -36,9 +24,9 @@
       Id: 00000000-0000-0000-0000-000000000000,
       Value: Marko
     },
-    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   },
   {
     Age: 21,
@@ -48,9 +36,9 @@
       Id: 00000000-0000-0000-0000-000000000000,
       Value: Marko
     },
-    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   },
   {
     Age: 21,
@@ -60,9 +48,9 @@
       Id: 00000000-0000-0000-0000-000000000000,
       Value: Marko
     },
-    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   },
   {
     Age: 21,
@@ -72,14 +60,9 @@
       Id: 00000000-0000-0000-0000-000000000000,
       Value: Marko
     },
-    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person
-  },
-  {
-    PartitionKey: PartitionKey,
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Company
+    Label: Person,
+    PartitionKey: PartitionKey
   },
   {
     Age: 21,
@@ -89,9 +72,14 @@
       Id: 00000000-0000-0000-0000-000000000000,
       Value: Marko
     },
-    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
+  },
+  {
+    Id: 00000000-0000-0000-0000-000000000000,
+    Label: Company,
+    PartitionKey: PartitionKey
   },
   {
     Age: 21,
@@ -101,14 +89,9 @@
       Id: 00000000-0000-0000-0000-000000000000,
       Value: Marko
     },
-    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person
-  },
-  {
-    PartitionKey: PartitionKey,
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Company
+    Label: Person,
+    PartitionKey: PartitionKey
   },
   {
     Age: 21,
@@ -118,9 +101,14 @@
       Id: 00000000-0000-0000-0000-000000000000,
       Value: Marko
     },
-    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
+  },
+  {
+    Id: 00000000-0000-0000-0000-000000000000,
+    Label: Company,
+    PartitionKey: PartitionKey
   },
   {
     Age: 21,
@@ -130,9 +118,9 @@
       Id: 00000000-0000-0000-0000-000000000000,
       Value: Marko
     },
-    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   },
   {
     Age: 21,
@@ -142,9 +130,21 @@
       Id: 00000000-0000-0000-0000-000000000000,
       Value: Marko
     },
-    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
+  },
+  {
+    Age: 21,
+    Gender: Male,
+    RegistrationDate: 2020-04-07 14:43:36 +0,
+    Name: {
+      Id: 00000000-0000-0000-0000-000000000000,
+      Value: Marko
+    },
+    Id: 00000000-0000-0000-0000-000000000000,
+    Label: Person,
+    PartitionKey: PartitionKey
   },
   {
     Locations: [
@@ -156,17 +156,17 @@
         Value: Aachen
       }
     ],
-    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Company
+    Label: Company,
+    PartitionKey: PartitionKey
   },
   {
     PhoneNumbers: [
       +4912345,
       +4923456
     ],
-    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Company
+    Label: Company,
+    PartitionKey: PartitionKey
   }
 ]

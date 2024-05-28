@@ -1,7 +1,7 @@
 ﻿[
   {
-    PartitionKey: PartitionKey,
     Id: 7,
-    Label: Company
+    Label: Company,
+    PartitionKey: PartitionKey
   }
 ]

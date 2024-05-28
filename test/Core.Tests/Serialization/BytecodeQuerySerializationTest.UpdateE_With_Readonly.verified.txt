@@ -10,6 +10,24 @@
       ]
     },
     {
+      OperatorName: sideEffect,
+      Arguments: [
+        {
+          StepInstructions: [
+            {
+              OperatorName: properties,
+              Arguments: [
+                PartitionKey
+              ]
+            },
+            {
+              OperatorName: drop
+            }
+          ]
+        }
+      ]
+    },
+    {
       OperatorName: property,
       Arguments: [
         To,

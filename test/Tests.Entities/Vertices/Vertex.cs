@@ -2,6 +2,9 @@
 {
     public abstract class Vertex : Element
     {
-        public string PartitionKey {get; set;} = nameof(PartitionKey);
+        protected Vertex()
+        {
+            PartitionKey = nameof(PartitionKey);
+        }
     }
 }

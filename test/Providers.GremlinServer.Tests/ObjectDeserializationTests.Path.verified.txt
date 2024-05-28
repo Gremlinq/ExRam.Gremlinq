@@ -7,19 +7,19 @@
     ],
     objects: [
       {
-        PartitionKey: PartitionKey,
         Id: 52,
-        Label: Person
+        Label: Person,
+        PartitionKey: PartitionKey
       },
       {
-        PartitionKey: PartitionKey,
         Id: 0,
-        Label: Country
+        Label: Country,
+        PartitionKey: PartitionKey
       },
       {
-        PartitionKey: PartitionKey,
         Id: 14,
-        Label: Person
+        Label: Person,
+        PartitionKey: PartitionKey
       }
     ]
   },
@@ -31,19 +31,19 @@
     ],
     objects: [
       {
-        PartitionKey: PartitionKey,
         Id: 52,
-        Label: Person
+        Label: Person,
+        PartitionKey: PartitionKey
       },
       {
-        PartitionKey: PartitionKey,
         Id: 0,
-        Label: Country
+        Label: Country,
+        PartitionKey: PartitionKey
       },
       {
-        PartitionKey: PartitionKey,
         Id: 3,
-        Label: Language
+        Label: Language,
+        PartitionKey: PartitionKey
       }
     ]
   }

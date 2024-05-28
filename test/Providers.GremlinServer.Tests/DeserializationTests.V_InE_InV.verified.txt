@@ -9,20 +9,20 @@
       },
       Value: 
     },
-    PartitionKey: PartitionKey,
     Id: 0,
-    Label: Country
+    Label: Country,
+    PartitionKey: PartitionKey
   },
   {
     IetfLanguageTag: en,
-    PartitionKey: PartitionKey,
     Id: 3,
-    Label: Language
+    Label: Language,
+    PartitionKey: PartitionKey
   },
   {
-    PartitionKey: PartitionKey,
     Id: 7,
-    Label: Company
+    Label: Company,
+    PartitionKey: PartitionKey
   },
   {
     Age: 21,
@@ -33,9 +33,9 @@
       Label: Name,
       Value: Marko
     },
-    PartitionKey: PartitionKey,
     Id: 14,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   },
   {
     LocalizableDescription: {
@@ -46,9 +46,9 @@
       },
       Value: 
     },
-    PartitionKey: PartitionKey,
     Id: 23,
-    Label: Country
+    Label: Country,
+    PartitionKey: PartitionKey
   },
   {
     LocalizableDescription: {
@@ -59,9 +59,9 @@
       },
       Value: 
     },
-    PartitionKey: PartitionKey,
     Id: 29,
-    Label: Country
+    Label: Country,
+    PartitionKey: PartitionKey
   },
   {
     LocalizableDescription: {
@@ -72,24 +72,24 @@
       },
       Value: 
     },
-    PartitionKey: PartitionKey,
     Id: 35,
-    Label: Country
+    Label: Country,
+    PartitionKey: PartitionKey
   },
   {
-    PartitionKey: PartitionKey,
     Id: 38,
-    Label: Company
+    Label: Company,
+    PartitionKey: PartitionKey
   },
   {
     IetfLanguageTag: en,
-    PartitionKey: PartitionKey,
     Id: 45,
-    Label: Language
+    Label: Language,
+    PartitionKey: PartitionKey
   },
   {
-    PartitionKey: PartitionKey,
     Id: 58,
-    Label: Company
+    Label: Company,
+    PartitionKey: PartitionKey
   }
 ]

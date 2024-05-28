@@ -3,7 +3,7 @@
   "op": "eval",
   "processor": "",
   "args": {
-    "gremlin": "g.V().hasLabel(_a).sideEffect(__.properties(_b,_c,_d).drop()).property(single,_e,_f).property(single,_g,_h).property(single,_i,_j).property(single,_k,_k).property(single,_l,_m).outE(_n).property(_o,_m).property(_p,_q).property(_r,_m).project(_s,_t,_u).by(id).by(label).by(__.valueMap())",
+    "gremlin": "g.V().hasLabel(_a).sideEffect(__.properties(_b,_c,_d).drop()).property(single,_e,_f).property(single,_g,_h).property(single,_i,_j).property(single,_k,_k).property(single,_l,_m).outE(_n).sideEffect(__.properties(_k).drop()).property(_o,_m).property(_p,_q).property(_r,_m).project(_s,_t,_u).by(id).by(label).by(__.valueMap())",
     "bindings": {
       "_a": "Person",
       "_b": "Image",

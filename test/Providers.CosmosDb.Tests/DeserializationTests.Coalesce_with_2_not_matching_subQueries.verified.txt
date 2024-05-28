@@ -9,9 +9,9 @@
   },
   {
     CountryCallingCode: +49,
-    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Country
+    Label: Country,
+    PartitionKey: PartitionKey
   },
   {
     Role: Admin,
@@ -21,33 +21,33 @@
     Label: WorksFor
   },
   {
-    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   },
   {
     CountryCallingCode: +49,
-    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Country
+    Label: Country,
+    PartitionKey: PartitionKey
   },
   {
     Id: 00000000-0000-0000-0000-000000000000,
     Label: LivesIn
   },
   {
-    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   },
   {
     Id: 00000000-0000-0000-0000-000000000000,
     Label: LivesIn
   },
   {
-    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   },
   {
     Since: {
@@ -57,9 +57,9 @@
     Label: LivesIn
   },
   {
-    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   },
   {
     Role: Admin,
@@ -69,15 +69,15 @@
     Label: WorksFor
   },
   {
-    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   },
   {
     CountryCallingCode: +49,
-    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Country
+    Label: Country,
+    PartitionKey: PartitionKey
   },
   {
     Id: 00000000-0000-0000-0000-000000000000,
@@ -93,8 +93,8 @@
     Label: WorksFor
   },
   {
-    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   }
 ]

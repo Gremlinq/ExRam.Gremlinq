@@ -1,9 +1,9 @@
 ﻿[
   {
     Age: 36,
-    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   },
   {
     Age: 36,
@@ -12,33 +12,33 @@
       Id: 00000000-0000-0000-0000-000000000000,
       Value: Bob
     },
-    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   },
   {
     Age: 36,
-    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   },
   {
     Age: 36,
-    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   },
   {
     Age: 36,
-    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   },
   {
     Age: 36,
-    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   },
   {
     Age: 36,
@@ -47,29 +47,29 @@
       Id: 00000000-0000-0000-0000-000000000000,
       Value: Bob
     },
-    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   },
   {
     Age: 36,
-    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   },
   {
     Age: 36,
     Image: AQIDBAUGBwg=,
-    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   },
   {
     Age: 36,
     Gender: Female,
-    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   },
   {
     Age: 36,
@@ -78,8 +78,8 @@
       Id: 00000000-0000-0000-0000-000000000000,
       Value: Marko
     },
-    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   }
 ]

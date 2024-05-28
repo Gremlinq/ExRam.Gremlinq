@@ -1,8 +1,8 @@
 ﻿[
   {
     CountryCallingCode: +49,
-    PartitionKey: PartitionKey,
     Id: 0,
-    Label: Country
+    Label: Country,
+    PartitionKey: PartitionKey
   }
 ]

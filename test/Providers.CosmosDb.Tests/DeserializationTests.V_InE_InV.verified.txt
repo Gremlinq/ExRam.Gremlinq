@@ -8,20 +8,20 @@
       },
       Value: 
     },
-    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Country
+    Label: Country,
+    PartitionKey: PartitionKey
   },
   {
     IetfLanguageTag: en,
-    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Language
+    Label: Language,
+    PartitionKey: PartitionKey
   },
   {
-    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Company
+    Label: Company,
+    PartitionKey: PartitionKey
   },
   {
     Age: 21,
@@ -31,9 +31,9 @@
       Id: 00000000-0000-0000-0000-000000000000,
       Value: Marko
     },
-    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   },
   {
     LocalizableDescription: {
@@ -43,9 +43,9 @@
       },
       Value: 
     },
-    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Country
+    Label: Country,
+    PartitionKey: PartitionKey
   },
   {
     LocalizableDescription: {
@@ -55,9 +55,9 @@
       },
       Value: 
     },
-    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Country
+    Label: Country,
+    PartitionKey: PartitionKey
   },
   {
     LocalizableDescription: {
@@ -67,24 +67,24 @@
       },
       Value: 
     },
-    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Country
+    Label: Country,
+    PartitionKey: PartitionKey
   },
   {
-    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Company
+    Label: Company,
+    PartitionKey: PartitionKey
   },
   {
     IetfLanguageTag: en,
-    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Language
+    Label: Language,
+    PartitionKey: PartitionKey
   },
   {
-    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Company
+    Label: Company,
+    PartitionKey: PartitionKey
   }
 ]

@@ -1,14 +1,14 @@
 ﻿[
   {
     IetfLanguageTag: en,
-    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Language
+    Label: Language,
+    PartitionKey: PartitionKey
   },
   {
     Age: 36,
-    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   }
 ]

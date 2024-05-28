@@ -1,14 +1,14 @@
 ﻿[
   {
     Item1: {
-      PartitionKey: PartitionKey,
       Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person
+      Label: Person,
+      PartitionKey: PartitionKey
     },
     Item2: {
-      PartitionKey: PartitionKey,
       Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person
+      Label: Person,
+      PartitionKey: PartitionKey
     }
   },
   {
@@ -18,9 +18,9 @@
         Id: 00000000-0000-0000-0000-000000000000,
         Value: Bob
       },
-      PartitionKey: PartitionKey,
       Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person
+      Label: Person,
+      PartitionKey: PartitionKey
     },
     Item2: {
       RegistrationDate: 2020-04-07 14:43:36 +0,
@@ -28,57 +28,57 @@
         Id: 00000000-0000-0000-0000-000000000000,
         Value: Bob
       },
-      PartitionKey: PartitionKey,
       Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person
+      Label: Person,
+      PartitionKey: PartitionKey
     }
   },
   {
     Item1: {
-      PartitionKey: PartitionKey,
       Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person
+      Label: Person,
+      PartitionKey: PartitionKey
     },
     Item2: {
-      PartitionKey: PartitionKey,
       Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person
+      Label: Person,
+      PartitionKey: PartitionKey
     }
   },
   {
     Item1: {
-      PartitionKey: PartitionKey,
       Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person
+      Label: Person,
+      PartitionKey: PartitionKey
     },
     Item2: {
-      PartitionKey: PartitionKey,
       Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person
+      Label: Person,
+      PartitionKey: PartitionKey
     }
   },
   {
     Item1: {
-      PartitionKey: PartitionKey,
       Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person
+      Label: Person,
+      PartitionKey: PartitionKey
     },
     Item2: {
-      PartitionKey: PartitionKey,
       Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person
+      Label: Person,
+      PartitionKey: PartitionKey
     }
   },
   {
     Item1: {
-      PartitionKey: PartitionKey,
       Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person
+      Label: Person,
+      PartitionKey: PartitionKey
     },
     Item2: {
-      PartitionKey: PartitionKey,
       Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person
+      Label: Person,
+      PartitionKey: PartitionKey
     }
   },
   {
@@ -88,9 +88,9 @@
         Id: 00000000-0000-0000-0000-000000000000,
         Value: Bob
       },
-      PartitionKey: PartitionKey,
       Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person
+      Label: Person,
+      PartitionKey: PartitionKey
     },
     Item2: {
       RegistrationDate: 2020-04-07 14:43:36 +0,
@@ -98,49 +98,49 @@
         Id: 00000000-0000-0000-0000-000000000000,
         Value: Bob
       },
-      PartitionKey: PartitionKey,
       Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person
+      Label: Person,
+      PartitionKey: PartitionKey
     }
   },
   {
     Item1: {
-      PartitionKey: PartitionKey,
       Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person
+      Label: Person,
+      PartitionKey: PartitionKey
     },
     Item2: {
-      PartitionKey: PartitionKey,
       Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person
+      Label: Person,
+      PartitionKey: PartitionKey
     }
   },
   {
     Item1: {
       Image: AQIDBAUGBwg=,
-      PartitionKey: PartitionKey,
       Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person
+      Label: Person,
+      PartitionKey: PartitionKey
     },
     Item2: {
       Image: AQIDBAUGBwg=,
-      PartitionKey: PartitionKey,
       Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person
+      Label: Person,
+      PartitionKey: PartitionKey
     }
   },
   {
     Item1: {
       Gender: Female,
-      PartitionKey: PartitionKey,
       Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person
+      Label: Person,
+      PartitionKey: PartitionKey
     },
     Item2: {
       Gender: Female,
-      PartitionKey: PartitionKey,
       Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person
+      Label: Person,
+      PartitionKey: PartitionKey
     }
   },
   {
@@ -150,9 +150,9 @@
         Id: 00000000-0000-0000-0000-000000000000,
         Value: Marko
       },
-      PartitionKey: PartitionKey,
       Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person
+      Label: Person,
+      PartitionKey: PartitionKey
     },
     Item2: {
       RegistrationDate: 2020-04-07 14:43:36 +0,
@@ -160,9 +160,9 @@
         Id: 00000000-0000-0000-0000-000000000000,
         Value: Marko
       },
-      PartitionKey: PartitionKey,
       Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person
+      Label: Person,
+      PartitionKey: PartitionKey
     }
   }
 ]

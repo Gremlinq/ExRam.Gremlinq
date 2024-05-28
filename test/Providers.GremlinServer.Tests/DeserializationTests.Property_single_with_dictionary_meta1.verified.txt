@@ -9,9 +9,9 @@
       },
       Value: 
     },
-    PartitionKey: PartitionKey,
     Id: 0,
-    Label: Country
+    Label: Country,
+    PartitionKey: PartitionKey
   },
   {
     LocalizableDescription: {
@@ -22,9 +22,9 @@
       },
       Value: 
     },
-    PartitionKey: PartitionKey,
     Id: 23,
-    Label: Country
+    Label: Country,
+    PartitionKey: PartitionKey
   },
   {
     LocalizableDescription: {
@@ -35,9 +35,9 @@
       },
       Value: 
     },
-    PartitionKey: PartitionKey,
     Id: 29,
-    Label: Country
+    Label: Country,
+    PartitionKey: PartitionKey
   },
   {
     LocalizableDescription: {
@@ -48,9 +48,9 @@
       },
       Value: 
     },
-    PartitionKey: PartitionKey,
     Id: 35,
-    Label: Country
+    Label: Country,
+    PartitionKey: PartitionKey
   },
   {
     Name: {
@@ -67,9 +67,9 @@
       },
       Value: 
     },
-    PartitionKey: PartitionKey,
     Id: 99,
-    Label: Country
+    Label: Country,
+    PartitionKey: PartitionKey
   },
   {
     Name: {
@@ -89,9 +89,9 @@
       },
       Value: 
     },
-    PartitionKey: PartitionKey,
     Id: 102,
-    Label: Country
+    Label: Country,
+    PartitionKey: PartitionKey
   },
   {
     CountryCallingCode: +49,
@@ -103,8 +103,8 @@
       },
       Value: 
     },
-    PartitionKey: PartitionKey,
     Id: 48,
-    Label: Country
+    Label: Country,
+    PartitionKey: PartitionKey
   }
 ]

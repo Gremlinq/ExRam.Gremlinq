@@ -12,7 +12,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.AspNet
             return setup
                 .ConfigureBase()
                 .UseProvider<ICosmosDbConfigurator<TVertexBase>>(source => source
-                    .UseCosmosDb<TVertexBase, TEdgeBase>)  
+                    .UseCosmosDb<TVertexBase, TEdgeBase>)
                 .Configure((configurator, gremlinqSection) =>
                 {
                     var providerSection = gremlinqSection
@@ -32,20 +32,31 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.AspNet
 
                     if (providerSection["PartitionKey"] is { Length: > 0 } partitionKey)
                     {
-                        if (typeof(TVertexBase).GetProperty(partitionKey, BindingFlags.Instance | BindingFlags.Public) is { GetMethod: { } partitionKeyGetter })
+                        var elementType = typeof(TVertexBase);
+
+                        while (true)
                         {
-                            var parameterExpression = Expression.Parameter(typeof(TVertexBase));
+                            if (elementType != null)
+                            {
+                                if (elementType.GetProperty(partitionKey, BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly) is { GetMethod: { } partitionKeyGetter })
+                                {
+                                    var parameterExpression = Expression.Parameter(elementType);
 
-                            var partitionKeyExpression = Expression.Lambda<Func<TVertexBase, object>>(
-                                Expression.Convert(
-                                    Expression.Property(parameterExpression, partitionKeyGetter),
-                                    typeof(object)),
-                                parameterExpression);
+                                    var partitionKeyExpression = Expression.Lambda<Func<TVertexBase, object>>(
+                                        Expression.Convert(
+                                            Expression.Property(parameterExpression, partitionKeyGetter),
+                                            typeof(object)),
+                                        parameterExpression);
 
-                            configurator = configurator.WithPartitionKey(partitionKeyExpression);
+                                    configurator = configurator.WithPartitionKey(partitionKeyExpression);
+                                    break;
+                                }
+
+                                elementType = elementType.BaseType;
+                            }
+                            else
+                                throw new MissingMemberException($"The class {typeof(TVertexBase).Name} does not define a publicly accesible and readable property for the partition key called {partitionKey}.");
                         }
-                        else
-                            throw new MissingMemberException($"The class {typeof(TVertexBase).Name} does not define a publicly accesible and readable property for the partition key called {partitionKey}.");
                     }
 
                     return configurator;

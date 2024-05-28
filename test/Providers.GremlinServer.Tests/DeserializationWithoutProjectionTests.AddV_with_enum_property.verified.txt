@@ -1,8 +1,8 @@
 ﻿[
   {
     Gender: Female,
-    PartitionKey: PartitionKey,
     Id: 82,
-    Label: Person
+    Label: Person,
+    PartitionKey: PartitionKey
   }
 ]

@@ -1,66 +1,66 @@
 ﻿[
   {
     CountryCallingCode: +49,
-    PartitionKey: PartitionKey,
     Id: 0,
-    Label: Country
+    Label: Country,
+    PartitionKey: PartitionKey
   },
   {
     IetfLanguageTag: en,
-    PartitionKey: PartitionKey,
     Id: 65,
-    Label: Language
+    Label: Language,
+    PartitionKey: PartitionKey
   },
   {
     IetfLanguageTag: en,
-    PartitionKey: PartitionKey,
     Id: 3,
-    Label: Language
+    Label: Language,
+    PartitionKey: PartitionKey
   },
   {
-    PartitionKey: PartitionKey,
     Id: 68,
-    Label: Language
+    Label: Language,
+    PartitionKey: PartitionKey
   },
   {
     Enabled: false,
     StartTime: 08:00:00,
     Duration: 02:00:00,
-    PartitionKey: PartitionKey,
     Id: 70,
-    Label: TimeFrame
+    Label: TimeFrame,
+    PartitionKey: PartitionKey
   },
   {
     IetfLanguageTag: en,
-    PartitionKey: PartitionKey,
     Id: 75,
-    Label: Language
+    Label: Language,
+    PartitionKey: PartitionKey
   },
   {
-    PartitionKey: PartitionKey,
     Id: 23,
-    Label: Country
+    Label: Country,
+    PartitionKey: PartitionKey
   },
   {
     IetfLanguageTag: en,
-    PartitionKey: PartitionKey,
     Id: 90,
-    Label: Language
+    Label: Language,
+    PartitionKey: PartitionKey
   },
   {
-    PartitionKey: PartitionKey,
     Id: 29,
-    Label: Country
+    Label: Country,
+    PartitionKey: PartitionKey
   },
   {
-    PartitionKey: PartitionKey,
     Id: 93,
-    Label: Language
+    Label: Language,
+    PartitionKey: PartitionKey
   },
   {
-    PartitionKey: PartitionKey,
     Id: 35,
-    Label: Country
+    Label: Country,
+    PartitionKey: PartitionKey
   },
   {
     Name: {
@@ -69,9 +69,9 @@
       Properties: {},
       Value: GER
     },
-    PartitionKey: PartitionKey,
     Id: 99,
-    Label: Country
+    Label: Country,
+    PartitionKey: PartitionKey
   },
   {
     Name: {
@@ -83,30 +83,30 @@
       },
       Value: GER
     },
-    PartitionKey: PartitionKey,
     Id: 102,
-    Label: Country
+    Label: Country,
+    PartitionKey: PartitionKey
   },
   {
     IetfLanguageTag: en,
-    PartitionKey: PartitionKey,
     Id: 45,
-    Label: Language
+    Label: Language,
+    PartitionKey: PartitionKey
   },
   {
-    PartitionKey: PartitionKey,
     Id: 110,
-    Label: Language
+    Label: Language,
+    PartitionKey: PartitionKey
   },
   {
     CountryCallingCode: +49,
-    PartitionKey: PartitionKey,
     Id: 48,
-    Label: Country
+    Label: Country,
+    PartitionKey: PartitionKey
   },
   {
-    PartitionKey: PartitionKey,
     Id: 112,
-    Label: Language
+    Label: Language,
+    PartitionKey: PartitionKey
   }
 ]
