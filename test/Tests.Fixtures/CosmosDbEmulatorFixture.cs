@@ -1,8 +1,9 @@
 ﻿using ExRam.Gremlinq.Core;
+using ExRam.Gremlinq.Providers.Core;
 using ExRam.Gremlinq.Providers.CosmosDb;
 using ExRam.Gremlinq.Tests.Entities;
 using ExRam.Gremlinq.Support.NewtonsoftJson;
-
+using System.Text.Json;
 using Microsoft.Azure.Cosmos;
 using Polly;
 
@@ -34,7 +35,13 @@ namespace ExRam.Gremlinq.Tests.Fixtures
                         .At(new Uri("ws://localhost:8901"), databaseName, CosmosDbEmulatorCollectionName)
                         .AuthenticateBy(CosmosDbEmulatorAuthKey)
                         .WithPartitionKey(x => x.Label!)
-                        .UseNewtonsoftJson())
+                        .UseNewtonsoftJson()
+                        .ConfigureClientFactory(factory => factory
+                            .ConfigureClient(client => client
+                                .ObserveResultStatusAttributes((_, attributes) =>
+                                {
+                                    Console.WriteLine(JsonSerializer.Serialize(attributes));
+                                }))))
                     .ConfigureEnvironment(env => env
                         .ConfigureOptions(options => options
                             .SetValue(GremlinqOption.StringComparisonTranslationStrictness, StringComparisonTranslationStrictness.Lenient)));
