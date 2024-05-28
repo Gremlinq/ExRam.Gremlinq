@@ -1,6 +1,5 @@
 ﻿using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Providers.CosmosDb;
-using ExRam.Gremlinq.Providers.CosmosDb.Tests.Extensions;
 using ExRam.Gremlinq.Tests.Entities;
 using ExRam.Gremlinq.Support.NewtonsoftJson;
 
@@ -37,7 +36,6 @@ namespace ExRam.Gremlinq.Tests.Fixtures
                         .WithPartitionKey(x => x.Label!)
                         .UseNewtonsoftJson())
                     .ConfigureEnvironment(env => env
-                        .AddFakePartitionKey()
                         .ConfigureOptions(options => options
                             .SetValue(GremlinqOption.StringComparisonTranslationStrictness, StringComparisonTranslationStrictness.Lenient)));
             }
