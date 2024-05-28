@@ -17,11 +17,10 @@
       _h: Male,
       _i: Name,
       _j: Marko,
-      _k: PartitionKey,
-      _l: 012345,
-      _m: RegistrationDate,
-      _n: DateTimeOffset_1
+      _k: 012345,
+      _l: RegistrationDate,
+      _m: DateTimeOffset_1
     },
-    gremlin: g.V().hasLabel(_a).sideEffect(__.properties(_b,_c,_d).drop()).property(single,_e,_f).property(single,_g,_h).property(single,_i,_j).property(single,_k,_k).property(list,_c,_l).property(single,_m,_n)
+    gremlin: g.V().hasLabel(_a).sideEffect(__.properties(_b,_c,_d).drop()).property(single,_e,_f).property(single,_g,_h).property(single,_i,_j).property(list,_c,_k).property(single,_l,_m)
   }
 }

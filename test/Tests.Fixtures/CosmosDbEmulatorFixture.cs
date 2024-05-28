@@ -34,7 +34,7 @@ namespace ExRam.Gremlinq.Tests.Fixtures
                     .UseCosmosDb<Vertex, Edge>(conf => conf
                         .At(new Uri("ws://localhost:8901"), CosmosDbEmulatorDatabaseName, collectionName)
                         .AuthenticateBy(CosmosDbEmulatorAuthKey)
-                        .WithPartitionKey(x => x.Label!)
+                        .WithPartitionKey(x => x.PartitionKey!)
                         .UseNewtonsoftJson()
                         .ConfigureClientFactory(factory => factory
                             .ConfigureClient(client => client

@@ -11,7 +11,7 @@ namespace ExRam.Gremlinq.Tests.Fixtures
             .UseCosmosDb<Vertex, Edge>(
                 builder => builder
                     .AtLocalhost("db", "graph")
-                    .WithPartitionKey(x => x.Label!)
+                    .WithPartitionKey(x => x.PartitionKey!)
                     .AuthenticateBy("pass")
                     .UseNewtonsoftJson())
             .ConfigureEnvironment(env => env

@@ -1,31 +1,47 @@
 ﻿[
   {
-    Age: 36,
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person,
-    PartitionKey: PartitionKey
-  },
-  {
-    Age: 36,
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person,
-    PartitionKey: PartitionKey
-  },
-  {
-    Age: 36,
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person,
-    PartitionKey: PartitionKey
-  },
-  {
-    Age: 36,
+    Age: 21,
+    Gender: Male,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
       Id: 00000000-0000-0000-0000-000000000000,
-      Properties: {
-        ValidFrom: 2020-04-07 14:43:36 +0
-      },
-      Value: Bob
+      Value: Marko
+    },
+    Id: 00000000-0000-0000-0000-000000000000,
+    Label: Person,
+    PartitionKey: PartitionKey
+  },
+  {
+    Age: 21,
+    Gender: Male,
+    RegistrationDate: 2020-04-07 14:43:36 +0,
+    Name: {
+      Id: 00000000-0000-0000-0000-000000000000,
+      Value: Marko
+    },
+    Id: 00000000-0000-0000-0000-000000000000,
+    Label: Person,
+    PartitionKey: PartitionKey
+  },
+  {
+    Age: 21,
+    Gender: Male,
+    RegistrationDate: 2020-04-07 14:43:36 +0,
+    Name: {
+      Id: 00000000-0000-0000-0000-000000000000,
+      Value: Marko
+    },
+    Id: 00000000-0000-0000-0000-000000000000,
+    Label: Person,
+    PartitionKey: PartitionKey
+  },
+  {
+    Age: 21,
+    Gender: Male,
+    RegistrationDate: 2020-04-07 14:43:36 +0,
+    Name: {
+      Id: 00000000-0000-0000-0000-000000000000,
+      Value: Marko
     },
     Id: 00000000-0000-0000-0000-000000000000,
     Label: Person,

@@ -1,5 +1,5 @@
 ﻿{
-  Script: g.V(_a).hasLabel(_b).sideEffect(__.properties(_c,_d,_e).drop()).property(single,_f,_g).property(single,_h,_i).property(single,_j,_k).property(single,_l,_l),
+  Script: g.V(_a).hasLabel(_b).sideEffect(__.properties(_c,_d,_e).drop()).property(single,_f,_g).property(single,_h,_i).property(single,_j,_k),
   Bindings: {
     _a: 0,
     _b: Person,
@@ -11,7 +11,6 @@
     _h: Gender,
     _i: Male,
     _j: Name,
-    _k: Marko,
-    _l: PartitionKey
+    _k: Marko
   }
 }

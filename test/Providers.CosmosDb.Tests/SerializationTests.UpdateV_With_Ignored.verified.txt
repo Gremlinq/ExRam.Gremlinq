@@ -1,5 +1,5 @@
 ﻿{
-  Script: g.V().hasLabel(_a).sideEffect(__.properties(_b,_c,_d).drop()).property(single,_e,_f).property(single,_g,_g).property(single,_h,_i),
+  Script: g.V().hasLabel(_a).sideEffect(__.properties(_b,_c,_d).drop()).property(single,_e,_f).property(single,_g,_h),
   Bindings: {
     _a: Person,
     _b: Image,
@@ -7,8 +7,7 @@
     _d: SomeObscureProperty,
     _e: Name,
     _f: Marko,
-    _g: PartitionKey,
-    _h: RegistrationDate,
-    _i: DateTimeOffset_1
+    _g: RegistrationDate,
+    _h: DateTimeOffset_1
   }
 }
