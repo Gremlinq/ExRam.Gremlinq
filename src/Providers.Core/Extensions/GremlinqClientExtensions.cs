@@ -108,7 +108,7 @@ namespace ExRam.Gremlinq.Providers.Core
                             }
 
                             yield return e.Current;
-                        }   
+                        }
                     }
                 }
             }
@@ -180,7 +180,7 @@ namespace ExRam.Gremlinq.Providers.Core
                 }
             }
 
-            protected override void Dispose()
+            protected override void DisposeImpl()
             {
                 using (_cts)
                 {

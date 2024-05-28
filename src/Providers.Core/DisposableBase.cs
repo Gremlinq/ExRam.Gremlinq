@@ -4,15 +4,15 @@
     {
         private int _disposed;
 
-        void IDisposable.Dispose()
+        public void Dispose()
         {
             if (Interlocked.CompareExchange(ref _disposed, 1, 0) == 0)
             {
-                Dispose();
+                DisposeImpl();
                 GC.SuppressFinalize(this);
             }
         }
 
-        protected abstract void Dispose();
+        protected abstract void DisposeImpl();
     }
 }

@@ -270,7 +270,7 @@ namespace ExRam.Gremlinq.Providers.Core
                     }
                 }
 
-                protected override void Dispose()
+                protected override void DisposeImpl()
                 {
                     using (_sendLock)
                     {
