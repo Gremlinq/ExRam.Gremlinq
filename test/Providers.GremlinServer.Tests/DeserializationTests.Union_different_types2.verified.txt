@@ -1,8 +1,8 @@
 ﻿[
   {
+    PartitionKey: PartitionKey,
     Id: 7,
-    Label: Company,
-    PartitionKey: PartitionKey
+    Label: Company
   },
   {
     Id: 25,
@@ -21,17 +21,17 @@
     Label: LivesIn
   },
   {
+    PartitionKey: PartitionKey,
     Id: 38,
-    Label: Company,
-    PartitionKey: PartitionKey
+    Label: Company
   },
   {
     Id: 57,
     Label: LivesIn
   },
   {
+    PartitionKey: PartitionKey,
     Id: 58,
-    Label: Company,
-    PartitionKey: PartitionKey
+    Label: Company
   }
 ]

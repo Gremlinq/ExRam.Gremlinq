@@ -5,56 +5,56 @@
       Id: 00000000-0000-0000-0000-000000000000,
       Value: Bob
     },
+    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person,
-    PartitionKey: PartitionKey
+    Label: Person
   },
   {
     CountryCallingCode: +49,
+    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Country,
-    PartitionKey: PartitionKey
+    Label: Country
   },
   {
+    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person,
-    PartitionKey: PartitionKey
-  },
-  {
-    CountryCallingCode: +49,
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Country,
-    PartitionKey: PartitionKey
-  },
-  {
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person,
-    PartitionKey: PartitionKey
-  },
-  {
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person,
-    PartitionKey: PartitionKey
-  },
-  {
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person,
-    PartitionKey: PartitionKey
-  },
-  {
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person,
-    PartitionKey: PartitionKey
+    Label: Person
   },
   {
     CountryCallingCode: +49,
+    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Country,
-    PartitionKey: PartitionKey
+    Label: Country
   },
   {
+    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person,
-    PartitionKey: PartitionKey
+    Label: Person
+  },
+  {
+    PartitionKey: PartitionKey,
+    Id: 00000000-0000-0000-0000-000000000000,
+    Label: Person
+  },
+  {
+    PartitionKey: PartitionKey,
+    Id: 00000000-0000-0000-0000-000000000000,
+    Label: Person
+  },
+  {
+    PartitionKey: PartitionKey,
+    Id: 00000000-0000-0000-0000-000000000000,
+    Label: Person
+  },
+  {
+    CountryCallingCode: +49,
+    PartitionKey: PartitionKey,
+    Id: 00000000-0000-0000-0000-000000000000,
+    Label: Country
+  },
+  {
+    PartitionKey: PartitionKey,
+    Id: 00000000-0000-0000-0000-000000000000,
+    Label: Person
   }
 ]

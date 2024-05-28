@@ -3,8 +3,8 @@
     PhoneNumbers: [
       +4912345
     ],
+    PartitionKey: PartitionKey,
     Id: 7,
-    Label: Company,
-    PartitionKey: PartitionKey
+    Label: Company
   }
 ]

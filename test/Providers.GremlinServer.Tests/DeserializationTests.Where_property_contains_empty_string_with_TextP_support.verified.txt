@@ -9,9 +9,9 @@
       },
       Value: 
     },
+    PartitionKey: PartitionKey,
     Id: 0,
-    Label: Country,
-    PartitionKey: PartitionKey
+    Label: Country
   },
   {
     CountryCallingCode: +49,
@@ -23,8 +23,8 @@
       },
       Value: 
     },
+    PartitionKey: PartitionKey,
     Id: 48,
-    Label: Country,
-    PartitionKey: PartitionKey
+    Label: Country
   }
 ]

@@ -1,8 +1,6 @@
 ﻿namespace ExRam.Gremlinq.Tests.Entities
 {
-    public abstract class Edge
+    public abstract class Edge : Element
     {
-        public object? Id { get; set; }
-        public string? Label { get; set; }
     }
 }

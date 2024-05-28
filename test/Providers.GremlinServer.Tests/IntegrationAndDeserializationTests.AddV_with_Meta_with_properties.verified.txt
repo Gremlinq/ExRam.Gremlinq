@@ -9,8 +9,8 @@
       },
       Value: GER
     },
+    PartitionKey: PartitionKey,
     Id: 102,
-    Label: Country,
-    PartitionKey: PartitionKey
+    Label: Country
   }
 ]

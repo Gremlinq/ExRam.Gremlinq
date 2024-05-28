@@ -1,78 +1,78 @@
 ﻿[
   {
     CountryCallingCode: +49,
+    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Country,
-    PartitionKey: PartitionKey
+    Label: Country
   },
   {
     IetfLanguageTag: en,
+    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Language,
-    PartitionKey: PartitionKey
+    Label: Language
   },
   {
+    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Country,
-    PartitionKey: PartitionKey
+    Label: Country
   },
   {
+    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Country,
-    PartitionKey: PartitionKey
+    Label: Country
   },
   {
+    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Country,
-    PartitionKey: PartitionKey
+    Label: Country
   },
   {
     IetfLanguageTag: en,
+    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Language,
-    PartitionKey: PartitionKey
+    Label: Language
   },
   {
     CountryCallingCode: +49,
+    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Country,
-    PartitionKey: PartitionKey
+    Label: Country
   },
   {
     IetfLanguageTag: en,
+    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Language,
-    PartitionKey: PartitionKey
+    Label: Language
   },
   {
+    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Language,
-    PartitionKey: PartitionKey
+    Label: Language
   },
   {
     Enabled: false,
     StartTime: 08:00:00,
     Duration: 02:00:00,
+    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: TimeFrame,
-    PartitionKey: PartitionKey
+    Label: TimeFrame
   },
   {
     IetfLanguageTag: en,
+    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Language,
-    PartitionKey: PartitionKey
+    Label: Language
   },
   {
     IetfLanguageTag: en,
+    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Language,
-    PartitionKey: PartitionKey
+    Label: Language
   },
   {
+    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Language,
-    PartitionKey: PartitionKey
+    Label: Language
   },
   {
     Name: {
@@ -80,9 +80,9 @@
       Properties: {},
       Value: GER
     },
+    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Country,
-    PartitionKey: PartitionKey
+    Label: Country
   },
   {
     Name: {
@@ -93,18 +93,18 @@
       },
       Value: GER
     },
+    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Country,
-    PartitionKey: PartitionKey
+    Label: Country
   },
   {
+    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Language,
-    PartitionKey: PartitionKey
+    Label: Language
   },
   {
+    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Language,
-    PartitionKey: PartitionKey
+    Label: Language
   }
 ]

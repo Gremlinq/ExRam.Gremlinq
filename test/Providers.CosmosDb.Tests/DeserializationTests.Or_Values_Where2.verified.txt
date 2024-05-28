@@ -1,8 +1,8 @@
 ﻿[
   {
+    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person,
-    PartitionKey: PartitionKey
+    Label: Person
   },
   {
     RegistrationDate: 2020-04-07 14:43:36 +0,
@@ -10,29 +10,29 @@
       Id: 00000000-0000-0000-0000-000000000000,
       Value: Bob
     },
+    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person,
-    PartitionKey: PartitionKey
+    Label: Person
   },
   {
+    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person,
-    PartitionKey: PartitionKey
+    Label: Person
   },
   {
+    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person,
-    PartitionKey: PartitionKey
+    Label: Person
   },
   {
+    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person,
-    PartitionKey: PartitionKey
+    Label: Person
   },
   {
+    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person,
-    PartitionKey: PartitionKey
+    Label: Person
   },
   {
     RegistrationDate: 2020-04-07 14:43:36 +0,
@@ -40,25 +40,25 @@
       Id: 00000000-0000-0000-0000-000000000000,
       Value: Bob
     },
+    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person,
-    PartitionKey: PartitionKey
+    Label: Person
   },
   {
+    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person,
-    PartitionKey: PartitionKey
+    Label: Person
   },
   {
     Image: AQIDBAUGBwg=,
+    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person,
-    PartitionKey: PartitionKey
+    Label: Person
   },
   {
     Gender: Female,
+    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person,
-    PartitionKey: PartitionKey
+    Label: Person
   }
 ]

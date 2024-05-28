@@ -1,30 +1,18 @@
 ﻿[
   {
+    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Company,
-    PartitionKey: PartitionKey
+    Label: Company
   },
   {
+    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Company,
-    PartitionKey: PartitionKey
+    Label: Company
   },
   {
+    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Company,
-    PartitionKey: PartitionKey
-  },
-  {
-    LocalizableDescription: {
-      Id: 00000000-0000-0000-0000-000000000000,
-      Properties: {
-        someKey: value
-      },
-      Value: 
-    },
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Country,
-    PartitionKey: PartitionKey
+    Label: Company
   },
   {
     LocalizableDescription: {
@@ -34,9 +22,9 @@
       },
       Value: 
     },
+    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Country,
-    PartitionKey: PartitionKey
+    Label: Country
   },
   {
     LocalizableDescription: {
@@ -46,9 +34,21 @@
       },
       Value: 
     },
+    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Country,
-    PartitionKey: PartitionKey
+    Label: Country
+  },
+  {
+    LocalizableDescription: {
+      Id: 00000000-0000-0000-0000-000000000000,
+      Properties: {
+        someKey: value
+      },
+      Value: 
+    },
+    PartitionKey: PartitionKey,
+    Id: 00000000-0000-0000-0000-000000000000,
+    Label: Country
   },
   {
     CountryCallingCode: +49,
@@ -59,8 +59,8 @@
       },
       Value: 
     },
+    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Country,
-    PartitionKey: PartitionKey
+    Label: Country
   }
 ]

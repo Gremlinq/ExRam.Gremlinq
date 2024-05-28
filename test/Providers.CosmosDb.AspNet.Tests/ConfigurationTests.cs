@@ -67,7 +67,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.AspNet.Tests
                         { "Gremlinq:CosmosDb:Database", "db" },
                         { "Gremlinq:CosmosDb:Graph", "collection" },
                         { "Gremlinq:CosmosDb:AuthKey", "yourAuthKey" },
-                        { "Gremlinq:CosmosDb:PartitionKey", "Label" }
+                        { "Gremlinq:CosmosDb:PartitionKey", "PartitionKey" }    //TODO: Test when Property is defined on base class
                     })
                     .Build())
                 .AddGremlinq(setup => setup

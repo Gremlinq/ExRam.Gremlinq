@@ -10,9 +10,9 @@
         },
         Value: 
       },
+      PartitionKey: PartitionKey,
       Id: 0,
-      Label: Country,
-      PartitionKey: PartitionKey
+      Label: Country
     }
   ]
 ]

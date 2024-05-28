@@ -14,9 +14,9 @@
       Id: 00000000-0000-0000-0000-000000000000,
       Value: Marko
     },
+    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person,
-    PartitionKey: PartitionKey
+    Label: Person
   },
   {
     Age: 21,
@@ -33,9 +33,9 @@
       Id: 00000000-0000-0000-0000-000000000000,
       Value: Marko
     },
+    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person,
-    PartitionKey: PartitionKey
+    Label: Person
   },
   {
     Age: 21,
@@ -52,9 +52,9 @@
       Id: 00000000-0000-0000-0000-000000000000,
       Value: Marko
     },
+    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person,
-    PartitionKey: PartitionKey
+    Label: Person
   },
   {
     Age: 21,
@@ -71,9 +71,9 @@
       Id: 00000000-0000-0000-0000-000000000000,
       Value: Marko
     },
+    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person,
-    PartitionKey: PartitionKey
+    Label: Person
   },
   {
     Age: 21,
@@ -90,9 +90,9 @@
       Id: 00000000-0000-0000-0000-000000000000,
       Value: Marko
     },
+    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person,
-    PartitionKey: PartitionKey
+    Label: Person
   },
   {
     Age: 21,
@@ -109,9 +109,9 @@
       Id: 00000000-0000-0000-0000-000000000000,
       Value: Marko
     },
+    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person,
-    PartitionKey: PartitionKey
+    Label: Person
   },
   {
     Age: 21,
@@ -128,9 +128,9 @@
       Id: 00000000-0000-0000-0000-000000000000,
       Value: Marko
     },
+    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person,
-    PartitionKey: PartitionKey
+    Label: Person
   },
   {
     Age: 21,
@@ -147,9 +147,9 @@
       Id: 00000000-0000-0000-0000-000000000000,
       Value: Marko
     },
+    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person,
-    PartitionKey: PartitionKey
+    Label: Person
   },
   {
     Age: 21,
@@ -166,9 +166,9 @@
       Id: 00000000-0000-0000-0000-000000000000,
       Value: Marko
     },
+    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person,
-    PartitionKey: PartitionKey
+    Label: Person
   },
   {
     Age: 21,
@@ -185,9 +185,9 @@
       Id: 00000000-0000-0000-0000-000000000000,
       Value: Marko
     },
+    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person,
-    PartitionKey: PartitionKey
+    Label: Person
   },
   {
     Age: 21,
@@ -204,8 +204,8 @@
       Id: 00000000-0000-0000-0000-000000000000,
       Value: Marko
     },
+    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person,
-    PartitionKey: PartitionKey
+    Label: Person
   }
 ]

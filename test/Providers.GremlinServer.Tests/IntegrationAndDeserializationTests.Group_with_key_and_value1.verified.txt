@@ -2,9 +2,9 @@
   {
     Person: {
       CountryCallingCode: +49,
+      PartitionKey: PartitionKey,
       Id: 0,
-      Label: Country,
-      PartitionKey: PartitionKey
+      Label: Country
     }
   }
 ]

@@ -8,45 +8,45 @@
           Label: Name,
           Value: Bob
         },
+        PartitionKey: PartitionKey,
         Id: 52,
-        Label: Person,
-        PartitionKey: PartitionKey
+        Label: Person
       }
     ],
     ExRam.Gremlinq.Tests.Entities.Person: [
       {
+        PartitionKey: PartitionKey,
         Id: 10,
-        Label: Person,
-        PartitionKey: PartitionKey
+        Label: Person
       }
     ],
     ExRam.Gremlinq.Tests.Entities.Person: [
       {
+        PartitionKey: PartitionKey,
         Id: 26,
-        Label: Person,
-        PartitionKey: PartitionKey
+        Label: Person
       }
     ],
     ExRam.Gremlinq.Tests.Entities.Person: [
       {
         Gender: Female,
+        PartitionKey: PartitionKey,
         Id: 82,
-        Label: Person,
-        PartitionKey: PartitionKey
+        Label: Person
       }
     ],
     ExRam.Gremlinq.Tests.Entities.Person: [
       {
+        PartitionKey: PartitionKey,
         Id: 61,
-        Label: Person,
-        PartitionKey: PartitionKey
+        Label: Person
       }
     ],
     ExRam.Gremlinq.Tests.Entities.Person: [
       {
+        PartitionKey: PartitionKey,
         Id: 20,
-        Label: Person,
-        PartitionKey: PartitionKey
+        Label: Person
       }
     ],
     ExRam.Gremlinq.Tests.Entities.Person: [
@@ -57,31 +57,31 @@
           Label: Name,
           Value: Marko
         },
+        PartitionKey: PartitionKey,
         Id: 86,
-        Label: Person,
-        PartitionKey: PartitionKey
+        Label: Person
       }
     ],
     ExRam.Gremlinq.Tests.Entities.Person: [
       {
+        PartitionKey: PartitionKey,
         Id: 41,
-        Label: Person,
-        PartitionKey: PartitionKey
+        Label: Person
       }
     ],
     ExRam.Gremlinq.Tests.Entities.Person: [
       {
+        PartitionKey: PartitionKey,
         Id: 32,
-        Label: Person,
-        PartitionKey: PartitionKey
+        Label: Person
       }
     ],
     ExRam.Gremlinq.Tests.Entities.Person: [
       {
         Image: AQIDBAUGBwg=,
+        PartitionKey: PartitionKey,
         Id: 78,
-        Label: Person,
-        PartitionKey: PartitionKey
+        Label: Person
       }
     ],
     ExRam.Gremlinq.Tests.Entities.Person: [
@@ -92,9 +92,9 @@
           Label: Name,
           Value: Bob
         },
+        PartitionKey: PartitionKey,
         Id: 14,
-        Label: Person,
-        PartitionKey: PartitionKey
+        Label: Person
       }
     ]
   }

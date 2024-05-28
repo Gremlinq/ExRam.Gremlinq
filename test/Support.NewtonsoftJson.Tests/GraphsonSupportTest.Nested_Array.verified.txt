@@ -3,23 +3,23 @@
     [
       {
         IetfLanguageTag: en,
+        PartitionKey: PartitionKey,
         Id: 6,
-        Label: Language,
-        PartitionKey: PartitionKey
+        Label: Language
       }
     ],
     [
       {
         IetfLanguageTag: de,
+        PartitionKey: PartitionKey,
         Id: 7,
-        Label: Language,
-        PartitionKey: PartitionKey
+        Label: Language
       },
       {
         IetfLanguageTag: en,
+        PartitionKey: PartitionKey,
         Id: 8,
-        Label: Language,
-        PartitionKey: PartitionKey
+        Label: Language
       }
     ]
   ]

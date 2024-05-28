@@ -6,56 +6,56 @@
       Label: Name,
       Value: Bob
     },
+    PartitionKey: PartitionKey,
     Id: 14,
-    Label: Person,
-    PartitionKey: PartitionKey
+    Label: Person
   },
   {
     IetfLanguageTag: en,
+    PartitionKey: PartitionKey,
     Id: 3,
-    Label: Language,
-    PartitionKey: PartitionKey
+    Label: Language
   },
   {
+    PartitionKey: PartitionKey,
     Id: 7,
-    Label: Company,
-    PartitionKey: PartitionKey
+    Label: Company
   },
   {
+    PartitionKey: PartitionKey,
     Id: 23,
-    Label: Country,
-    PartitionKey: PartitionKey
+    Label: Country
   },
   {
+    PartitionKey: PartitionKey,
     Id: 29,
-    Label: Country,
-    PartitionKey: PartitionKey
+    Label: Country
   },
   {
+    PartitionKey: PartitionKey,
     Id: 35,
-    Label: Country,
-    PartitionKey: PartitionKey
+    Label: Country
   },
   {
+    PartitionKey: PartitionKey,
     Id: 38,
-    Label: Company,
-    PartitionKey: PartitionKey
+    Label: Company
   },
   {
     IetfLanguageTag: en,
+    PartitionKey: PartitionKey,
     Id: 45,
-    Label: Language,
-    PartitionKey: PartitionKey
+    Label: Language
   },
   {
     CountryCallingCode: +49,
+    PartitionKey: PartitionKey,
     Id: 0,
-    Label: Country,
-    PartitionKey: PartitionKey
+    Label: Country
   },
   {
+    PartitionKey: PartitionKey,
     Id: 58,
-    Label: Company,
-    PartitionKey: PartitionKey
+    Label: Company
   }
 ]

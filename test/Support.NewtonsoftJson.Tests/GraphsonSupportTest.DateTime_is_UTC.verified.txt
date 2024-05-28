@@ -5,8 +5,8 @@
       Id: Guid_1,
       Value: Company!
     },
+    PartitionKey: PartitionKey,
     Id: Guid_2,
-    Label: Company,
-    PartitionKey: PartitionKey
+    Label: Company
   }
 ]

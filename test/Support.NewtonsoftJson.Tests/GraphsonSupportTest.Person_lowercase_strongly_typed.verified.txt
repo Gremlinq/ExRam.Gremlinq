@@ -12,8 +12,8 @@
         Value: +234567
       }
     ],
+    PartitionKey: PartitionKey,
     Id: 14,
-    Label: Person,
-    PartitionKey: PartitionKey
+    Label: Person
   }
 ]

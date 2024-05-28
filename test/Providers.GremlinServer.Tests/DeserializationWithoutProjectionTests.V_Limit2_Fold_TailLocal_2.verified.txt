@@ -10,15 +10,15 @@
         },
         Value: 
       },
+      PartitionKey: PartitionKey,
       Id: 0,
-      Label: Country,
-      PartitionKey: PartitionKey
+      Label: Country
     },
     {
       IetfLanguageTag: en,
+      PartitionKey: PartitionKey,
       Id: 65,
-      Label: Language,
-      PartitionKey: PartitionKey
+      Label: Language
     }
   ]
 ]

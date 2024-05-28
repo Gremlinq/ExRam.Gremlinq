@@ -8,8 +8,8 @@
       Label: Name,
       Value: Marko
     },
+    PartitionKey: PartitionKey,
     Id: 14,
-    Label: Person,
-    PartitionKey: PartitionKey
+    Label: Person
   }
 ]

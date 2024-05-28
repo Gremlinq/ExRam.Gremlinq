@@ -12,21 +12,21 @@
           Id: 00000000-0000-0000-0000-000000000000,
           Value: Bob
         },
+        PartitionKey: PartitionKey,
         Id: 00000000-0000-0000-0000-000000000000,
-        Label: Person,
-        PartitionKey: PartitionKey
+        Label: Person
       },
       {
         CountryCallingCode: +49,
+        PartitionKey: PartitionKey,
         Id: 00000000-0000-0000-0000-000000000000,
-        Label: Country,
-        PartitionKey: PartitionKey
+        Label: Country
       },
       {
         IetfLanguageTag: en,
+        PartitionKey: PartitionKey,
         Id: 00000000-0000-0000-0000-000000000000,
-        Label: Language,
-        PartitionKey: PartitionKey
+        Label: Language
       }
     ]
   },
@@ -43,15 +43,15 @@
           Id: 00000000-0000-0000-0000-000000000000,
           Value: Bob
         },
+        PartitionKey: PartitionKey,
         Id: 00000000-0000-0000-0000-000000000000,
-        Label: Person,
-        PartitionKey: PartitionKey
+        Label: Person
       },
       {
         CountryCallingCode: +49,
+        PartitionKey: PartitionKey,
         Id: 00000000-0000-0000-0000-000000000000,
-        Label: Country,
-        PartitionKey: PartitionKey
+        Label: Country
       },
       {
         RegistrationDate: 2020-04-07 14:43:36 +0,
@@ -59,9 +59,9 @@
           Id: 00000000-0000-0000-0000-000000000000,
           Value: Bob
         },
+        PartitionKey: PartitionKey,
         Id: 00000000-0000-0000-0000-000000000000,
-        Label: Person,
-        PartitionKey: PartitionKey
+        Label: Person
       }
     ]
   }

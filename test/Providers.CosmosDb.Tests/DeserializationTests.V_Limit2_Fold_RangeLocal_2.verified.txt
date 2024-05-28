@@ -9,15 +9,15 @@
         },
         Value: 
       },
+      PartitionKey: PartitionKey,
       Id: 00000000-0000-0000-0000-000000000000,
-      Label: Country,
-      PartitionKey: PartitionKey
+      Label: Country
     },
     {
       IetfLanguageTag: en,
+      PartitionKey: PartitionKey,
       Id: 00000000-0000-0000-0000-000000000000,
-      Label: Language,
-      PartitionKey: PartitionKey
+      Label: Language
     }
   ]
 ]

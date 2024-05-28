@@ -1,7 +1,7 @@
 ﻿[
   {
+    PartitionKey: PartitionKey,
     Id: 93,
-    Label: Language,
-    PartitionKey: PartitionKey
+    Label: Language
   }
 ]

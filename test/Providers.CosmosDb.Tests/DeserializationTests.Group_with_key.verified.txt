@@ -2,19 +2,19 @@
   {
     Company: [
       {
+        PartitionKey: PartitionKey,
         Id: 00000000-0000-0000-0000-000000000000,
-        Label: Company,
-        PartitionKey: PartitionKey
+        Label: Company
       },
       {
+        PartitionKey: PartitionKey,
         Id: 00000000-0000-0000-0000-000000000000,
-        Label: Company,
-        PartitionKey: PartitionKey
+        Label: Company
       },
       {
+        PartitionKey: PartitionKey,
         Id: 00000000-0000-0000-0000-000000000000,
-        Label: Company,
-        PartitionKey: PartitionKey
+        Label: Company
       },
       {
         Locations: [
@@ -26,47 +26,47 @@
             Value: Aachen
           }
         ],
+        PartitionKey: PartitionKey,
         Id: 00000000-0000-0000-0000-000000000000,
-        Label: Company,
-        PartitionKey: PartitionKey
+        Label: Company
       },
       {
         PhoneNumbers: [
           +4912345,
           +4923456
         ],
+        PartitionKey: PartitionKey,
         Id: 00000000-0000-0000-0000-000000000000,
-        Label: Company,
-        PartitionKey: PartitionKey
+        Label: Company
       }
     ],
     Country: [
       {
         CountryCallingCode: +49,
+        PartitionKey: PartitionKey,
         Id: 00000000-0000-0000-0000-000000000000,
-        Label: Country,
-        PartitionKey: PartitionKey
+        Label: Country
       },
       {
+        PartitionKey: PartitionKey,
         Id: 00000000-0000-0000-0000-000000000000,
-        Label: Country,
-        PartitionKey: PartitionKey
+        Label: Country
       },
       {
+        PartitionKey: PartitionKey,
         Id: 00000000-0000-0000-0000-000000000000,
-        Label: Country,
-        PartitionKey: PartitionKey
+        Label: Country
       },
       {
+        PartitionKey: PartitionKey,
         Id: 00000000-0000-0000-0000-000000000000,
-        Label: Country,
-        PartitionKey: PartitionKey
+        Label: Country
       },
       {
         CountryCallingCode: +49,
+        PartitionKey: PartitionKey,
         Id: 00000000-0000-0000-0000-000000000000,
-        Label: Country,
-        PartitionKey: PartitionKey
+        Label: Country
       },
       {
         Name: {
@@ -74,9 +74,9 @@
           Properties: {},
           Value: GER
         },
+        PartitionKey: PartitionKey,
         Id: 00000000-0000-0000-0000-000000000000,
-        Label: Country,
-        PartitionKey: PartitionKey
+        Label: Country
       },
       {
         Name: {
@@ -87,68 +87,68 @@
           },
           Value: GER
         },
+        PartitionKey: PartitionKey,
         Id: 00000000-0000-0000-0000-000000000000,
-        Label: Country,
-        PartitionKey: PartitionKey
+        Label: Country
       }
     ],
     Language: [
       {
         IetfLanguageTag: en,
+        PartitionKey: PartitionKey,
         Id: 00000000-0000-0000-0000-000000000000,
-        Label: Language,
-        PartitionKey: PartitionKey
+        Label: Language
       },
       {
         IetfLanguageTag: en,
+        PartitionKey: PartitionKey,
         Id: 00000000-0000-0000-0000-000000000000,
-        Label: Language,
-        PartitionKey: PartitionKey
+        Label: Language
       },
       {
         IetfLanguageTag: en,
+        PartitionKey: PartitionKey,
         Id: 00000000-0000-0000-0000-000000000000,
-        Label: Language,
-        PartitionKey: PartitionKey
+        Label: Language
       },
       {
+        PartitionKey: PartitionKey,
         Id: 00000000-0000-0000-0000-000000000000,
-        Label: Language,
-        PartitionKey: PartitionKey
-      },
-      {
-        IetfLanguageTag: en,
-        Id: 00000000-0000-0000-0000-000000000000,
-        Label: Language,
-        PartitionKey: PartitionKey
+        Label: Language
       },
       {
         IetfLanguageTag: en,
+        PartitionKey: PartitionKey,
         Id: 00000000-0000-0000-0000-000000000000,
-        Label: Language,
-        PartitionKey: PartitionKey
+        Label: Language
       },
       {
+        IetfLanguageTag: en,
+        PartitionKey: PartitionKey,
         Id: 00000000-0000-0000-0000-000000000000,
-        Label: Language,
-        PartitionKey: PartitionKey
+        Label: Language
       },
       {
+        PartitionKey: PartitionKey,
         Id: 00000000-0000-0000-0000-000000000000,
-        Label: Language,
-        PartitionKey: PartitionKey
+        Label: Language
       },
       {
+        PartitionKey: PartitionKey,
         Id: 00000000-0000-0000-0000-000000000000,
-        Label: Language,
-        PartitionKey: PartitionKey
+        Label: Language
+      },
+      {
+        PartitionKey: PartitionKey,
+        Id: 00000000-0000-0000-0000-000000000000,
+        Label: Language
       }
     ],
     Person: [
       {
+        PartitionKey: PartitionKey,
         Id: 00000000-0000-0000-0000-000000000000,
-        Label: Person,
-        PartitionKey: PartitionKey
+        Label: Person
       },
       {
         RegistrationDate: 2020-04-07 14:43:36 +0,
@@ -156,29 +156,29 @@
           Id: 00000000-0000-0000-0000-000000000000,
           Value: Bob
         },
+        PartitionKey: PartitionKey,
         Id: 00000000-0000-0000-0000-000000000000,
-        Label: Person,
-        PartitionKey: PartitionKey
+        Label: Person
       },
       {
+        PartitionKey: PartitionKey,
         Id: 00000000-0000-0000-0000-000000000000,
-        Label: Person,
-        PartitionKey: PartitionKey
+        Label: Person
       },
       {
+        PartitionKey: PartitionKey,
         Id: 00000000-0000-0000-0000-000000000000,
-        Label: Person,
-        PartitionKey: PartitionKey
+        Label: Person
       },
       {
+        PartitionKey: PartitionKey,
         Id: 00000000-0000-0000-0000-000000000000,
-        Label: Person,
-        PartitionKey: PartitionKey
+        Label: Person
       },
       {
+        PartitionKey: PartitionKey,
         Id: 00000000-0000-0000-0000-000000000000,
-        Label: Person,
-        PartitionKey: PartitionKey
+        Label: Person
       },
       {
         RegistrationDate: 2020-04-07 14:43:36 +0,
@@ -186,26 +186,26 @@
           Id: 00000000-0000-0000-0000-000000000000,
           Value: Bob
         },
+        PartitionKey: PartitionKey,
         Id: 00000000-0000-0000-0000-000000000000,
-        Label: Person,
-        PartitionKey: PartitionKey
+        Label: Person
       },
       {
+        PartitionKey: PartitionKey,
         Id: 00000000-0000-0000-0000-000000000000,
-        Label: Person,
-        PartitionKey: PartitionKey
+        Label: Person
       },
       {
         Image: AQIDBAUGBwg=,
+        PartitionKey: PartitionKey,
         Id: 00000000-0000-0000-0000-000000000000,
-        Label: Person,
-        PartitionKey: PartitionKey
+        Label: Person
       },
       {
         Gender: Female,
+        PartitionKey: PartitionKey,
         Id: 00000000-0000-0000-0000-000000000000,
-        Label: Person,
-        PartitionKey: PartitionKey
+        Label: Person
       },
       {
         RegistrationDate: 2020-04-07 14:43:36 +0,
@@ -213,9 +213,9 @@
           Id: 00000000-0000-0000-0000-000000000000,
           Value: Marko
         },
+        PartitionKey: PartitionKey,
         Id: 00000000-0000-0000-0000-000000000000,
-        Label: Person,
-        PartitionKey: PartitionKey
+        Label: Person
       }
     ],
     TimeFrame: [
@@ -223,9 +223,9 @@
         Enabled: false,
         StartTime: 08:00:00,
         Duration: 02:00:00,
+        PartitionKey: PartitionKey,
         Id: 00000000-0000-0000-0000-000000000000,
-        Label: TimeFrame,
-        PartitionKey: PartitionKey
+        Label: TimeFrame
       }
     ]
   }

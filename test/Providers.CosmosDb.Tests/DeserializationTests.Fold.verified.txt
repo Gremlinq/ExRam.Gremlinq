@@ -2,25 +2,25 @@
   [
     {
       CountryCallingCode: +49,
+      PartitionKey: PartitionKey,
       Id: 00000000-0000-0000-0000-000000000000,
-      Label: Country,
-      PartitionKey: PartitionKey
+      Label: Country
     },
     {
       IetfLanguageTag: en,
+      PartitionKey: PartitionKey,
       Id: 00000000-0000-0000-0000-000000000000,
-      Label: Language,
-      PartitionKey: PartitionKey
+      Label: Language
     },
     {
+      PartitionKey: PartitionKey,
       Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person,
-      PartitionKey: PartitionKey
+      Label: Person
     },
     {
+      PartitionKey: PartitionKey,
       Id: 00000000-0000-0000-0000-000000000000,
-      Label: Company,
-      PartitionKey: PartitionKey
+      Label: Company
     },
     {
       RegistrationDate: 2020-04-07 14:43:36 +0,
@@ -28,61 +28,61 @@
         Id: 00000000-0000-0000-0000-000000000000,
         Value: Bob
       },
+      PartitionKey: PartitionKey,
       Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person,
-      PartitionKey: PartitionKey
+      Label: Person
     },
     {
+      PartitionKey: PartitionKey,
       Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person,
-      PartitionKey: PartitionKey
+      Label: Person
     },
     {
+      PartitionKey: PartitionKey,
       Id: 00000000-0000-0000-0000-000000000000,
-      Label: Country,
-      PartitionKey: PartitionKey
+      Label: Country
     },
     {
+      PartitionKey: PartitionKey,
       Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person,
-      PartitionKey: PartitionKey
+      Label: Person
     },
     {
+      PartitionKey: PartitionKey,
       Id: 00000000-0000-0000-0000-000000000000,
-      Label: Country,
-      PartitionKey: PartitionKey
+      Label: Country
     },
     {
+      PartitionKey: PartitionKey,
       Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person,
-      PartitionKey: PartitionKey
+      Label: Person
     },
     {
+      PartitionKey: PartitionKey,
       Id: 00000000-0000-0000-0000-000000000000,
-      Label: Country,
-      PartitionKey: PartitionKey
+      Label: Country
     },
     {
+      PartitionKey: PartitionKey,
       Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person,
-      PartitionKey: PartitionKey
+      Label: Person
     },
     {
+      PartitionKey: PartitionKey,
       Id: 00000000-0000-0000-0000-000000000000,
-      Label: Company,
-      PartitionKey: PartitionKey
+      Label: Company
     },
     {
       IetfLanguageTag: en,
+      PartitionKey: PartitionKey,
       Id: 00000000-0000-0000-0000-000000000000,
-      Label: Language,
-      PartitionKey: PartitionKey
+      Label: Language
     },
     {
       CountryCallingCode: +49,
+      PartitionKey: PartitionKey,
       Id: 00000000-0000-0000-0000-000000000000,
-      Label: Country,
-      PartitionKey: PartitionKey
+      Label: Country
     },
     {
       RegistrationDate: 2020-04-07 14:43:36 +0,
@@ -90,56 +90,56 @@
         Id: 00000000-0000-0000-0000-000000000000,
         Value: Bob
       },
+      PartitionKey: PartitionKey,
       Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person,
-      PartitionKey: PartitionKey
+      Label: Person
     },
     {
+      PartitionKey: PartitionKey,
       Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person,
-      PartitionKey: PartitionKey
+      Label: Person
     },
     {
+      PartitionKey: PartitionKey,
       Id: 00000000-0000-0000-0000-000000000000,
-      Label: Company,
-      PartitionKey: PartitionKey
+      Label: Company
     },
     {
       IetfLanguageTag: en,
+      PartitionKey: PartitionKey,
       Id: 00000000-0000-0000-0000-000000000000,
-      Label: Language,
-      PartitionKey: PartitionKey
+      Label: Language
     },
     {
+      PartitionKey: PartitionKey,
       Id: 00000000-0000-0000-0000-000000000000,
-      Label: Language,
-      PartitionKey: PartitionKey
+      Label: Language
     },
     {
       Enabled: false,
       StartTime: 08:00:00,
       Duration: 02:00:00,
+      PartitionKey: PartitionKey,
       Id: 00000000-0000-0000-0000-000000000000,
-      Label: TimeFrame,
-      PartitionKey: PartitionKey
+      Label: TimeFrame
     },
     {
       IetfLanguageTag: en,
+      PartitionKey: PartitionKey,
       Id: 00000000-0000-0000-0000-000000000000,
-      Label: Language,
-      PartitionKey: PartitionKey
+      Label: Language
     },
     {
       Image: AQIDBAUGBwg=,
+      PartitionKey: PartitionKey,
       Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person,
-      PartitionKey: PartitionKey
+      Label: Person
     },
     {
       Gender: Female,
+      PartitionKey: PartitionKey,
       Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person,
-      PartitionKey: PartitionKey
+      Label: Person
     },
     {
       RegistrationDate: 2020-04-07 14:43:36 +0,
@@ -147,20 +147,20 @@
         Id: 00000000-0000-0000-0000-000000000000,
         Value: Marko
       },
+      PartitionKey: PartitionKey,
       Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person,
-      PartitionKey: PartitionKey
+      Label: Person
     },
     {
       IetfLanguageTag: en,
+      PartitionKey: PartitionKey,
       Id: 00000000-0000-0000-0000-000000000000,
-      Label: Language,
-      PartitionKey: PartitionKey
+      Label: Language
     },
     {
+      PartitionKey: PartitionKey,
       Id: 00000000-0000-0000-0000-000000000000,
-      Label: Language,
-      PartitionKey: PartitionKey
+      Label: Language
     },
     {
       Locations: [
@@ -172,9 +172,9 @@
           Value: Aachen
         }
       ],
+      PartitionKey: PartitionKey,
       Id: 00000000-0000-0000-0000-000000000000,
-      Label: Company,
-      PartitionKey: PartitionKey
+      Label: Company
     },
     {
       Name: {
@@ -182,9 +182,9 @@
         Properties: {},
         Value: GER
       },
+      PartitionKey: PartitionKey,
       Id: 00000000-0000-0000-0000-000000000000,
-      Label: Country,
-      PartitionKey: PartitionKey
+      Label: Country
     },
     {
       Name: {
@@ -195,28 +195,28 @@
         },
         Value: GER
       },
+      PartitionKey: PartitionKey,
       Id: 00000000-0000-0000-0000-000000000000,
-      Label: Country,
-      PartitionKey: PartitionKey
+      Label: Country
     },
     {
       PhoneNumbers: [
         +4912345,
         +4923456
       ],
+      PartitionKey: PartitionKey,
       Id: 00000000-0000-0000-0000-000000000000,
-      Label: Company,
-      PartitionKey: PartitionKey
+      Label: Company
     },
     {
+      PartitionKey: PartitionKey,
       Id: 00000000-0000-0000-0000-000000000000,
-      Label: Language,
-      PartitionKey: PartitionKey
+      Label: Language
     },
     {
+      PartitionKey: PartitionKey,
       Id: 00000000-0000-0000-0000-000000000000,
-      Label: Language,
-      PartitionKey: PartitionKey
+      Label: Language
     }
   ]
 ]

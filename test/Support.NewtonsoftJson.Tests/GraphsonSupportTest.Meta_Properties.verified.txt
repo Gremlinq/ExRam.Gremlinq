@@ -8,8 +8,8 @@
       },
       Value: GER
     },
+    PartitionKey: PartitionKey,
     Id: 3,
-    Label: Country,
-    PartitionKey: PartitionKey
+    Label: Country
   }
 ]

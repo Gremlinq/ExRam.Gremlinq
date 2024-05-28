@@ -1,18 +1,18 @@
 ﻿[
   {
+    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Company,
-    PartitionKey: PartitionKey
+    Label: Company
   },
   {
+    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Company,
-    PartitionKey: PartitionKey
+    Label: Company
   },
   {
+    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Company,
-    PartitionKey: PartitionKey
+    Label: Company
   },
   {
     Locations: [
@@ -24,17 +24,17 @@
         Value: Aachen
       }
     ],
+    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Company,
-    PartitionKey: PartitionKey
+    Label: Company
   },
   {
     PhoneNumbers: [
       +4912345,
       +4923456
     ],
+    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Company,
-    PartitionKey: PartitionKey
+    Label: Company
   }
 ]

@@ -1,9 +1,9 @@
 ﻿[
   {
     IetfLanguageTag: en,
+    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Language,
-    PartitionKey: PartitionKey
+    Label: Language
   },
   {
     CountryCallingCode: +49,
@@ -14,9 +14,9 @@
       },
       Value: 
     },
+    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Country,
-    PartitionKey: PartitionKey
+    Label: Country
   },
   {
     Age: 21,
@@ -26,9 +26,9 @@
       Id: 00000000-0000-0000-0000-000000000000,
       Value: Marko
     },
+    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person,
-    PartitionKey: PartitionKey
+    Label: Person
   },
   {
     CountryCallingCode: +49,
@@ -39,14 +39,14 @@
       },
       Value: 
     },
+    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Country,
-    PartitionKey: PartitionKey
+    Label: Country
   },
   {
+    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Company,
-    PartitionKey: PartitionKey
+    Label: Company
   },
   {
     Age: 21,
@@ -56,9 +56,9 @@
       Id: 00000000-0000-0000-0000-000000000000,
       Value: Marko
     },
+    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person,
-    PartitionKey: PartitionKey
+    Label: Person
   },
   {
     LocalizableDescription: {
@@ -68,9 +68,9 @@
       },
       Value: 
     },
+    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Country,
-    PartitionKey: PartitionKey
+    Label: Country
   },
   {
     Age: 21,
@@ -80,9 +80,9 @@
       Id: 00000000-0000-0000-0000-000000000000,
       Value: Marko
     },
+    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person,
-    PartitionKey: PartitionKey
+    Label: Person
   },
   {
     LocalizableDescription: {
@@ -92,9 +92,9 @@
       },
       Value: 
     },
+    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Country,
-    PartitionKey: PartitionKey
+    Label: Country
   },
   {
     Age: 21,
@@ -104,9 +104,9 @@
       Id: 00000000-0000-0000-0000-000000000000,
       Value: Marko
     },
+    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person,
-    PartitionKey: PartitionKey
+    Label: Person
   },
   {
     LocalizableDescription: {
@@ -116,9 +116,9 @@
       },
       Value: 
     },
+    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Country,
-    PartitionKey: PartitionKey
+    Label: Country
   },
   {
     Age: 21,
@@ -128,14 +128,14 @@
       Id: 00000000-0000-0000-0000-000000000000,
       Value: Marko
     },
+    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person,
-    PartitionKey: PartitionKey
+    Label: Person
   },
   {
+    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Company,
-    PartitionKey: PartitionKey
+    Label: Company
   },
   {
     Age: 21,
@@ -145,15 +145,15 @@
       Id: 00000000-0000-0000-0000-000000000000,
       Value: Marko
     },
+    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person,
-    PartitionKey: PartitionKey
+    Label: Person
   },
   {
     IetfLanguageTag: en,
+    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Language,
-    PartitionKey: PartitionKey
+    Label: Language
   },
   {
     CountryCallingCode: +49,
@@ -164,9 +164,9 @@
       },
       Value: 
     },
+    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Country,
-    PartitionKey: PartitionKey
+    Label: Country
   },
   {
     CountryCallingCode: +49,
@@ -177,9 +177,9 @@
       },
       Value: 
     },
+    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Country,
-    PartitionKey: PartitionKey
+    Label: Country
   },
   {
     Age: 21,
@@ -189,14 +189,14 @@
       Id: 00000000-0000-0000-0000-000000000000,
       Value: Marko
     },
+    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person,
-    PartitionKey: PartitionKey
+    Label: Person
   },
   {
+    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Company,
-    PartitionKey: PartitionKey
+    Label: Company
   },
   {
     Age: 21,
@@ -206,8 +206,8 @@
       Id: 00000000-0000-0000-0000-000000000000,
       Value: Marko
     },
+    PartitionKey: PartitionKey,
     Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person,
-    PartitionKey: PartitionKey
+    Label: Person
   }
 ]

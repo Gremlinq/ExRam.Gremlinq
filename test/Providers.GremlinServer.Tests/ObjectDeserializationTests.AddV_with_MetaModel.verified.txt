@@ -10,8 +10,8 @@
         Value: Aachen
       }
     ],
+    PartitionKey: PartitionKey,
     Id: 95,
-    Label: Company,
-    PartitionKey: PartitionKey
+    Label: Company
   }
 ]

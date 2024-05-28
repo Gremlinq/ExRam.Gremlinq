@@ -1,18 +1,18 @@
 ﻿[
   {
+    PartitionKey: PartitionKey,
     Id: 10,
-    Label: Person,
-    PartitionKey: PartitionKey
+    Label: Person
   },
   {
+    PartitionKey: PartitionKey,
     Id: 10,
-    Label: Person,
-    PartitionKey: PartitionKey
+    Label: Person
   },
   {
+    PartitionKey: PartitionKey,
     Id: 10,
-    Label: Person,
-    PartitionKey: PartitionKey
+    Label: Person
   },
   {
     RegistrationDate: 2020-04-07 14:43:36 +0,
@@ -21,9 +21,9 @@
       Label: Name,
       Value: Bob
     },
+    PartitionKey: PartitionKey,
     Id: 14,
-    Label: Person,
-    PartitionKey: PartitionKey
+    Label: Person
   },
   {
     RegistrationDate: 2020-04-07 14:43:36 +0,
@@ -32,9 +32,9 @@
       Label: Name,
       Value: Bob
     },
+    PartitionKey: PartitionKey,
     Id: 14,
-    Label: Person,
-    PartitionKey: PartitionKey
+    Label: Person
   },
   {
     RegistrationDate: 2020-04-07 14:43:36 +0,
@@ -43,60 +43,60 @@
       Label: Name,
       Value: Bob
     },
+    PartitionKey: PartitionKey,
     Id: 14,
-    Label: Person,
-    PartitionKey: PartitionKey
+    Label: Person
   },
   {
     Image: AQIDBAUGBwg=,
+    PartitionKey: PartitionKey,
     Id: 78,
-    Label: Person,
-    PartitionKey: PartitionKey
+    Label: Person
   },
   {
     Image: AQIDBAUGBwg=,
+    PartitionKey: PartitionKey,
     Id: 78,
-    Label: Person,
-    PartitionKey: PartitionKey
+    Label: Person
   },
   {
     Image: AQIDBAUGBwg=,
+    PartitionKey: PartitionKey,
     Id: 78,
-    Label: Person,
-    PartitionKey: PartitionKey
+    Label: Person
   },
   {
     Gender: Female,
+    PartitionKey: PartitionKey,
     Id: 82,
-    Label: Person,
-    PartitionKey: PartitionKey
+    Label: Person
   },
   {
     Gender: Female,
+    PartitionKey: PartitionKey,
     Id: 82,
-    Label: Person,
-    PartitionKey: PartitionKey
+    Label: Person
   },
   {
     Gender: Female,
+    PartitionKey: PartitionKey,
     Id: 82,
-    Label: Person,
-    PartitionKey: PartitionKey
+    Label: Person
   },
   {
+    PartitionKey: PartitionKey,
     Id: 20,
-    Label: Person,
-    PartitionKey: PartitionKey
+    Label: Person
   },
   {
+    PartitionKey: PartitionKey,
     Id: 20,
-    Label: Person,
-    PartitionKey: PartitionKey
+    Label: Person
   },
   {
+    PartitionKey: PartitionKey,
     Id: 20,
-    Label: Person,
-    PartitionKey: PartitionKey
+    Label: Person
   },
   {
     RegistrationDate: 2020-04-07 14:43:36 +0,
@@ -105,9 +105,9 @@
       Label: Name,
       Value: Marko
     },
+    PartitionKey: PartitionKey,
     Id: 86,
-    Label: Person,
-    PartitionKey: PartitionKey
+    Label: Person
   },
   {
     RegistrationDate: 2020-04-07 14:43:36 +0,
@@ -116,9 +116,9 @@
       Label: Name,
       Value: Marko
     },
+    PartitionKey: PartitionKey,
     Id: 86,
-    Label: Person,
-    PartitionKey: PartitionKey
+    Label: Person
   },
   {
     RegistrationDate: 2020-04-07 14:43:36 +0,
@@ -127,54 +127,54 @@
       Label: Name,
       Value: Marko
     },
+    PartitionKey: PartitionKey,
     Id: 86,
-    Label: Person,
-    PartitionKey: PartitionKey
+    Label: Person
   },
   {
+    PartitionKey: PartitionKey,
     Id: 26,
-    Label: Person,
-    PartitionKey: PartitionKey
+    Label: Person
   },
   {
+    PartitionKey: PartitionKey,
     Id: 26,
-    Label: Person,
-    PartitionKey: PartitionKey
+    Label: Person
   },
   {
+    PartitionKey: PartitionKey,
     Id: 26,
-    Label: Person,
-    PartitionKey: PartitionKey
+    Label: Person
   },
   {
+    PartitionKey: PartitionKey,
     Id: 32,
-    Label: Person,
-    PartitionKey: PartitionKey
+    Label: Person
   },
   {
+    PartitionKey: PartitionKey,
     Id: 32,
-    Label: Person,
-    PartitionKey: PartitionKey
+    Label: Person
   },
   {
+    PartitionKey: PartitionKey,
     Id: 32,
-    Label: Person,
-    PartitionKey: PartitionKey
+    Label: Person
   },
   {
+    PartitionKey: PartitionKey,
     Id: 41,
-    Label: Person,
-    PartitionKey: PartitionKey
+    Label: Person
   },
   {
+    PartitionKey: PartitionKey,
     Id: 41,
-    Label: Person,
-    PartitionKey: PartitionKey
+    Label: Person
   },
   {
+    PartitionKey: PartitionKey,
     Id: 41,
-    Label: Person,
-    PartitionKey: PartitionKey
+    Label: Person
   },
   {
     RegistrationDate: 2020-04-07 14:43:36 +0,
@@ -183,9 +183,9 @@
       Label: Name,
       Value: Bob
     },
+    PartitionKey: PartitionKey,
     Id: 52,
-    Label: Person,
-    PartitionKey: PartitionKey
+    Label: Person
   },
   {
     RegistrationDate: 2020-04-07 14:43:36 +0,
@@ -194,9 +194,9 @@
       Label: Name,
       Value: Bob
     },
+    PartitionKey: PartitionKey,
     Id: 52,
-    Label: Person,
-    PartitionKey: PartitionKey
+    Label: Person
   },
   {
     RegistrationDate: 2020-04-07 14:43:36 +0,
@@ -205,23 +205,23 @@
       Label: Name,
       Value: Bob
     },
+    PartitionKey: PartitionKey,
     Id: 52,
-    Label: Person,
-    PartitionKey: PartitionKey
+    Label: Person
   },
   {
+    PartitionKey: PartitionKey,
     Id: 61,
-    Label: Person,
-    PartitionKey: PartitionKey
+    Label: Person
   },
   {
+    PartitionKey: PartitionKey,
     Id: 61,
-    Label: Person,
-    PartitionKey: PartitionKey
+    Label: Person
   },
   {
+    PartitionKey: PartitionKey,
     Id: 61,
-    Label: Person,
-    PartitionKey: PartitionKey
+    Label: Person
   }
 ]
