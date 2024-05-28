@@ -11,12 +11,12 @@ namespace ExRam.Gremlinq.Tests.Fixtures
 {
     public class CosmosDbEmulatorFixture : GremlinqFixture
     {
-        private const string CosmosDbEmulatorCollectionName = "graphs";
+        private const string CosmosDbEmulatorDatabaseName = "db";
         private const string CosmosDbEmulatorAuthKey = "C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw==";
 
         protected override async Task<IGremlinQuerySource> TransformQuerySource(IGremlinQuerySource g)
         {
-            var databaseName = Guid.NewGuid().ToString("N");
+            var collectionName = Guid.NewGuid().ToString("N");
 
             using (var cosmosClient = new CosmosClient("https://localhost:8081", CosmosDbEmulatorAuthKey))
             {
@@ -25,14 +25,14 @@ namespace ExRam.Gremlinq.Tests.Fixtures
                     .WaitAndRetry(8, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)))
                     .Execute(async () =>
                     {
-                        var database = await cosmosClient.CreateDatabaseIfNotExistsAsync(databaseName, ThroughputProperties.CreateAutoscaleThroughput(40000));
+                        var database = await cosmosClient.CreateDatabaseIfNotExistsAsync(CosmosDbEmulatorDatabaseName, ThroughputProperties.CreateAutoscaleThroughput(40000));
 
-                        await database.Database.CreateContainerIfNotExistsAsync(CosmosDbEmulatorCollectionName, "/PartitionKey");
+                        await database.Database.CreateContainerIfNotExistsAsync(collectionName, "/PartitionKey");
                     });
 
                 return g
                     .UseCosmosDb<Vertex, Edge>(conf => conf
-                        .At(new Uri("ws://localhost:8901"), databaseName, CosmosDbEmulatorCollectionName)
+                        .At(new Uri("ws://localhost:8901"), CosmosDbEmulatorDatabaseName, collectionName)
                         .AuthenticateBy(CosmosDbEmulatorAuthKey)
                         .WithPartitionKey(x => x.Label!)
                         .UseNewtonsoftJson()
