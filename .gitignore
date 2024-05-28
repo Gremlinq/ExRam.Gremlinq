@@ -171,3 +171,4 @@ $RECYCLE.BIN/
 
 # Codecov
 coverage.*.opencover.xml
+/.idea
