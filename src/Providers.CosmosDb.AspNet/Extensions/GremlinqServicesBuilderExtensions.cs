@@ -32,15 +32,15 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.AspNet
 
                     if (providerSection["PartitionKey"] is { Length: > 0 } partitionKey)
                     {
-                        var elementType = typeof(TVertexBase);
+                        var maybeElementType = typeof(TVertexBase);
 
                         while (true)
                         {
-                            if (elementType != null)
+                            if (maybeElementType is { } elementType)
                             {
                                 if (elementType.GetProperty(partitionKey, BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly) is { GetMethod: { } partitionKeyGetter })
                                 {
-                                    var parameterExpression = Expression.Parameter(elementType);
+                                    var parameterExpression = Expression.Parameter(typeof(TVertexBase));
 
                                     var partitionKeyExpression = Expression.Lambda<Func<TVertexBase, object>>(
                                         Expression.Convert(
@@ -52,7 +52,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.AspNet
                                     break;
                                 }
 
-                                elementType = elementType.BaseType;
+                                maybeElementType = elementType.BaseType;
                             }
                             else
                                 throw new MissingMemberException($"The class {typeof(TVertexBase).Name} does not define a publicly accesible and readable property for the partition key called {partitionKey}.");
