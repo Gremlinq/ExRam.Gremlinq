@@ -55,7 +55,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.AspNet
                                 maybeElementType = elementType.BaseType;
                             }
                             else
-                                throw new MissingMemberException($"The class {typeof(TVertexBase).Name} does not define a publicly accesible and readable property for the partition key called {partitionKey}.");
+                                throw new MissingMemberException($"The class {typeof(TVertexBase).Name} does not define a publicly accessible and readable property for the partition key called {partitionKey}.");
                         }
                     }
 
