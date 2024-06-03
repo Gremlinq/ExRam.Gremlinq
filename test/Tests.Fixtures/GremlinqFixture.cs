@@ -16,9 +16,7 @@ namespace ExRam.Gremlinq.Tests.Fixtures
         {
             _g = await TransformQuerySource(g
                 .ConfigureEnvironment(env => env
-                    .ConfigureModel(model => model == GraphModel.Invalid
-                        ? GraphModel.FromBaseTypes<Vertex, Edge>()
-                        : model)));
+                    .UseModel(GraphModel.FromBaseTypes<Vertex, Edge>())));
         }
 
         public virtual async Task DisposeAsync()
