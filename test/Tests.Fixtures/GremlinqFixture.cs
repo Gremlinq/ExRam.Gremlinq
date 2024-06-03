@@ -14,11 +14,11 @@ namespace ExRam.Gremlinq.Tests.Fixtures
 
         public virtual async Task InitializeAsync()
         {
-            _g = (await TransformQuerySource(g))
+            _g = await TransformQuerySource(g
                 .ConfigureEnvironment(env => env
                     .ConfigureModel(model => model == GraphModel.Invalid
                         ? GraphModel.FromBaseTypes<Vertex, Edge>()
-                        : model));
+                        : model)));
         }
 
         public virtual async Task DisposeAsync()
