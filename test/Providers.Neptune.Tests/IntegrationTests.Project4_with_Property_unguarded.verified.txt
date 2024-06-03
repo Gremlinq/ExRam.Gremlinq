@@ -9,7 +9,7 @@
       "Item3",
       {
         "@type": "g:Int64",
-        "@value": 10
+        "@value": 7
       },
       "Item4",
       "item4"

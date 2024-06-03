@@ -23,19 +23,6 @@
                   "label": "IetfLanguageTag"
                 }
               }
-            ],
-            "PartitionKey": [
-              {
-                "@type": "g:VertexProperty",
-                "@value": {
-                  "id": {
-                    "@type": "g:Int64",
-                    "@value": 67
-                  },
-                  "value": "PartitionKey",
-                  "label": "PartitionKey"
-                }
-              }
             ]
           }
         }

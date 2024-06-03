@@ -5,7 +5,7 @@
       "id",
       {
         "@type": "g:Int64",
-        "@value": 95
+        "@value": 68
       },
       "label",
       "Company",
@@ -23,7 +23,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 96
+                    "@value": 69
                   },
                   "label",
                   "FoundingDate",
@@ -46,32 +46,12 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 97
+                    "@value": 70
                   },
                   "label",
                   "Locations",
                   "value",
                   "Aachen"
-                ]
-              }
-            ]
-          },
-          "PartitionKey",
-          {
-            "@type": "g:List",
-            "@value": [
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "id",
-                  {
-                    "@type": "g:Int64",
-                    "@value": 98
-                  },
-                  "label",
-                  "PartitionKey",
-                  "value",
-                  "PartitionKey"
                 ]
               }
             ]

@@ -1,5 +1,5 @@
 ﻿{
-  Script: g.addV(_a).property(single,_b,_c,_d,_e,_f,_g).property(single,_h,_h).project(_i,_j,_k).by(id).by(label).by(__.properties().group().by(label).by(__.project(_i,_j,_l,_k).by(id).by(label).by(value).by(__.valueMap()).fold())),
+  Script: g.addV(_a).property(single,_b,_c,_d,_e,_f,_g).project(_h,_i,_j).by(id).by(label).by(__.properties().group().by(label).by(__.project(_h,_i,_k,_j).by(id).by(label).by(value).by(__.valueMap()).fold())),
   Bindings: {
     _a: Country,
     _b: Name,
@@ -8,10 +8,9 @@
     _e: Deutschland,
     _f: en,
     _g: Germany,
-    _h: PartitionKey,
-    _i: id,
-    _j: label,
-    _k: properties,
-    _l: value
+    _h: id,
+    _i: label,
+    _j: properties,
+    _k: value
   }
 }

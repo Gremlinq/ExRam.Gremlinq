@@ -4,7 +4,7 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 7
+        "@value": 68
       },
       "label": "Company",
       "properties": {
@@ -14,48 +14,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 8
-              },
-              "value": {
-                "@type": "g:Date",
-                "@value": -62135596800000
-              },
-              "label": "FoundingDate"
-            }
-          }
-        ],
-        "PartitionKey": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 9
-              },
-              "value": "PartitionKey",
-              "label": "PartitionKey"
-            }
-          }
-        ]
-      }
-    }
-  },
-  {
-    "@type": "g:Vertex",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 95
-      },
-      "label": "Company",
-      "properties": {
-        "FoundingDate": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 96
+                "@value": 69
               },
               "value": {
                 "@type": "g:Date",
@@ -71,7 +30,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 97
+                "@value": 70
               },
               "value": "Aachen",
               "label": "Locations",
@@ -83,17 +42,32 @@
               }
             }
           }
-        ],
-        "PartitionKey": [
+        ]
+      }
+    }
+  },
+  {
+    "@type": "g:Vertex",
+    "@value": {
+      "id": {
+        "@type": "g:Int64",
+        "@value": 5
+      },
+      "label": "Company",
+      "properties": {
+        "FoundingDate": [
           {
             "@type": "g:VertexProperty",
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 98
+                "@value": 6
               },
-              "value": "PartitionKey",
-              "label": "PartitionKey"
+              "value": {
+                "@type": "g:Date",
+                "@value": -62135596800000
+              },
+              "label": "FoundingDate"
             }
           }
         ]
@@ -105,7 +79,7 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 38
+        "@value": 27
       },
       "label": "Company",
       "properties": {
@@ -115,26 +89,13 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 39
+                "@value": 28
               },
               "value": {
                 "@type": "g:Date",
                 "@value": -62135596800000
               },
               "label": "FoundingDate"
-            }
-          }
-        ],
-        "PartitionKey": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 40
-              },
-              "value": "PartitionKey",
-              "label": "PartitionKey"
             }
           }
         ]
@@ -146,7 +107,7 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 58
+        "@value": 42
       },
       "label": "Company",
       "properties": {
@@ -156,26 +117,13 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 59
+                "@value": 43
               },
               "value": {
                 "@type": "g:Date",
                 "@value": -62135596800000
               },
               "label": "FoundingDate"
-            }
-          }
-        ],
-        "PartitionKey": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 60
-              },
-              "value": "PartitionKey",
-              "label": "PartitionKey"
             }
           }
         ]

@@ -7,45 +7,45 @@
   },
   {
     IetfLanguageTag: en,
-    Id: 3,
+    Id: 2,
     Label: Language,
     PartitionKey: PartitionKey
   },
   {
-    Id: 68,
+    Id: 67,
     Label: Language,
     PartitionKey: PartitionKey
   },
   {
-    IetfLanguageTag: en,
-    Id: 75,
+    Id: 79,
     Label: Language,
     PartitionKey: PartitionKey
   },
   {
-    IetfLanguageTag: en,
-    Id: 90,
-    Label: Language,
-    PartitionKey: PartitionKey
-  },
-  {
-    Id: 93,
+    Id: 80,
     Label: Language,
     PartitionKey: PartitionKey
   },
   {
     IetfLanguageTag: en,
-    Id: 45,
+    Id: 32,
     Label: Language,
     PartitionKey: PartitionKey
   },
   {
-    Id: 110,
+    IetfLanguageTag: en,
+    Id: 47,
     Label: Language,
     PartitionKey: PartitionKey
   },
   {
-    Id: 112,
+    Id: 49,
+    Label: Language,
+    PartitionKey: PartitionKey
+  },
+  {
+    IetfLanguageTag: en,
+    Id: 54,
     Label: Language,
     PartitionKey: PartitionKey
   }

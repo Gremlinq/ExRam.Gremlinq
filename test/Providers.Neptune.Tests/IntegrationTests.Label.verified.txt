@@ -15,7 +15,6 @@
   "Language",
   "Language",
   "Language",
-  "TimeFrame",
   "Company",
   "Company",
   "Company",
@@ -31,5 +30,6 @@
   "Person",
   "Person",
   "Person",
-  "Person"
+  "Person",
+  "TimeFrame"
 ]

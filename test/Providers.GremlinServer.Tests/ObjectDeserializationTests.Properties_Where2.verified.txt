@@ -1,60 +1,60 @@
 ﻿[
   {
+    Id: 8,
+    Label: Age,
+    Properties: {},
+    Value: 0
+  },
+  {
     Id: 11,
     Label: Age,
     Properties: {},
     Value: 0
   },
   {
-    Id: 15,
+    Id: 16,
     Label: Age,
     Properties: {},
     Value: 0
   },
   {
-    Id: 79,
+    Id: 20,
     Label: Age,
     Properties: {},
     Value: 0
   },
   {
-    Id: 83,
+    Id: 24,
     Label: Age,
     Properties: {},
     Value: 0
   },
   {
-    Id: 21,
+    Id: 30,
     Label: Age,
     Properties: {},
     Value: 0
   },
   {
-    Id: 27,
+    Id: 38,
     Label: Age,
     Properties: {},
     Value: 0
   },
   {
-    Id: 33,
+    Id: 45,
     Label: Age,
     Properties: {},
     Value: 0
   },
   {
-    Id: 42,
+    Id: 57,
     Label: Age,
     Properties: {},
     Value: 0
   },
   {
-    Id: 53,
-    Label: Age,
-    Properties: {},
-    Value: 0
-  },
-  {
-    Id: 62,
+    Id: 60,
     Label: Age,
     Properties: {},
     Value: 0

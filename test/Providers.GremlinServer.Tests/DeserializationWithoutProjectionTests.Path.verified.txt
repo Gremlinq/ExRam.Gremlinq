@@ -7,7 +7,7 @@
     ],
     Objects: [
       {
-        Id: 52,
+        Id: 37,
         Label: Person,
         PartitionKey: PartitionKey
       },
@@ -17,7 +17,7 @@
         PartitionKey: PartitionKey
       },
       {
-        Id: 14,
+        Id: 10,
         Label: Person,
         PartitionKey: PartitionKey
       }
@@ -31,7 +31,7 @@
     ],
     Objects: [
       {
-        Id: 52,
+        Id: 37,
         Label: Person,
         PartitionKey: PartitionKey
       },
@@ -41,7 +41,7 @@
         PartitionKey: PartitionKey
       },
       {
-        Id: 3,
+        Id: 2,
         Label: Language,
         PartitionKey: PartitionKey
       }

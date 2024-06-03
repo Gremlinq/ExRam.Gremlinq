@@ -4,30 +4,17 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 78
+        "@value": 56
       },
       "label": "Person",
       "properties": {
-        "PartitionKey": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 81
-              },
-              "value": "PartitionKey",
-              "label": "PartitionKey"
-            }
-          }
-        ],
         "Image": [
           {
             "@type": "g:VertexProperty",
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 80
+                "@value": 58
               },
               "value": {
                 "@type": "gx:ByteBuffer",
@@ -43,7 +30,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 79
+                "@value": 57
               },
               "value": {
                 "@type": "g:Int32",

@@ -4,18 +4,18 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 64
+        "@value": 46
       },
       "label": "WorksFor",
       "inVLabel": "Company",
       "outVLabel": "Person",
       "inV": {
         "@type": "g:Int64",
-        "@value": 58
+        "@value": 42
       },
       "outV": {
         "@type": "g:Int64",
-        "@value": 61
+        "@value": 44
       },
       "properties": {
         "To": {

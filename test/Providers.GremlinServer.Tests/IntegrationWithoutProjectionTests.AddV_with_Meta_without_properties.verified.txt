@@ -4,30 +4,17 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 99
+        "@value": 71
       },
       "label": "Country",
       "properties": {
-        "PartitionKey": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 101
-              },
-              "value": "PartitionKey",
-              "label": "PartitionKey"
-            }
-          }
-        ],
         "Name": [
           {
             "@type": "g:VertexProperty",
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 100
+                "@value": 72
               },
               "value": "GER",
               "label": "Name"

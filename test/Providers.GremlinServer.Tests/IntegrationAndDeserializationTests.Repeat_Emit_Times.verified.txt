@@ -2,7 +2,7 @@
   {
     CountryCallingCode: +49,
     LocalizableDescription: {
-      Id: 160,
+      Id: 127,
       Label: LocalizableDescription,
       Properties: {
         someKey: value
@@ -17,11 +17,11 @@
     Age: 36,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: 54,
+      Id: 39,
       Label: Name,
       Value: Bob
     },
-    Id: 52,
+    Id: 37,
     Label: Person,
     PartitionKey: PartitionKey
   }

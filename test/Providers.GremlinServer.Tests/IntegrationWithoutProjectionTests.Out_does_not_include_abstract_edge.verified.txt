@@ -4,7 +4,7 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 7
+        "@value": 5
       },
       "label": "Company",
       "properties": {
@@ -14,7 +14,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 8
+                "@value": 6
               },
               "value": {
                 "@type": "g:Date",
@@ -23,19 +23,6 @@
               "label": "FoundingDate"
             }
           }
-        ],
-        "PartitionKey": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 9
-              },
-              "value": "PartitionKey",
-              "label": "PartitionKey"
-            }
-          }
         ]
       }
     }
@@ -45,24 +32,9 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 23
+        "@value": 17
       },
-      "label": "Country",
-      "properties": {
-        "PartitionKey": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 24
-              },
-              "value": "PartitionKey",
-              "label": "PartitionKey"
-            }
-          }
-        ]
-      }
+      "label": "Country"
     }
   },
   {
@@ -70,24 +42,9 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 29
+        "@value": 21
       },
-      "label": "Country",
-      "properties": {
-        "PartitionKey": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 30
-              },
-              "value": "PartitionKey",
-              "label": "PartitionKey"
-            }
-          }
-        ]
-      }
+      "label": "Country"
     }
   },
   {
@@ -95,24 +52,9 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 35
+        "@value": 25
       },
-      "label": "Country",
-      "properties": {
-        "PartitionKey": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 36
-              },
-              "value": "PartitionKey",
-              "label": "PartitionKey"
-            }
-          }
-        ]
-      }
+      "label": "Country"
     }
   },
   {
@@ -120,7 +62,7 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 38
+        "@value": 27
       },
       "label": "Company",
       "properties": {
@@ -130,26 +72,13 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 39
+                "@value": 28
               },
               "value": {
                 "@type": "g:Date",
                 "@value": -62135596800000
               },
               "label": "FoundingDate"
-            }
-          }
-        ],
-        "PartitionKey": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 40
-              },
-              "value": "PartitionKey",
-              "label": "PartitionKey"
             }
           }
         ]
@@ -177,19 +106,6 @@
               "label": "CountryCallingCode"
             }
           }
-        ],
-        "PartitionKey": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 2
-              },
-              "value": "PartitionKey",
-              "label": "PartitionKey"
-            }
-          }
         ]
       }
     }
@@ -199,7 +115,7 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 58
+        "@value": 42
       },
       "label": "Company",
       "properties": {
@@ -209,26 +125,13 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 59
+                "@value": 43
               },
               "value": {
                 "@type": "g:Date",
                 "@value": -62135596800000
               },
               "label": "FoundingDate"
-            }
-          }
-        ],
-        "PartitionKey": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 60
-              },
-              "value": "PartitionKey",
-              "label": "PartitionKey"
             }
           }
         ]

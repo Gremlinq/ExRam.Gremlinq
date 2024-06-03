@@ -6,13 +6,13 @@
     Value: +49
   },
   {
-    Id: 100,
+    Id: 72,
     Label: Name,
     Properties: {},
     Value: GER
   },
   {
-    Id: 103,
+    Id: 74,
     Label: Name,
     Properties: {
       de: Deutschland,
@@ -21,7 +21,7 @@
     Value: GER
   },
   {
-    Id: 49,
+    Id: 35,
     Label: CountryCallingCode,
     Properties: {},
     Value: +49

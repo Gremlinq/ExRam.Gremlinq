@@ -2,48 +2,63 @@
   {
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: 16,
+      Id: 12,
       Label: Name,
       Value: Bob
     },
-    Id: 14,
+    Id: 10,
     Label: Person,
     PartitionKey: PartitionKey
   },
   {
     IetfLanguageTag: en,
-    Id: 3,
+    Id: 2,
     Label: Language,
     PartitionKey: PartitionKey
   },
   {
-    Id: 7,
+    Id: 5,
     Label: Company,
     PartitionKey: PartitionKey
   },
   {
+    Id: 17,
+    Label: Country,
+    PartitionKey: PartitionKey
+  },
+  {
+    Id: 15,
+    Label: Person,
+    PartitionKey: PartitionKey
+  },
+  {
+    Id: 21,
+    Label: Country,
+    PartitionKey: PartitionKey
+  },
+  {
+    Id: 19,
+    Label: Person,
+    PartitionKey: PartitionKey
+  },
+  {
+    Id: 25,
+    Label: Country,
+    PartitionKey: PartitionKey
+  },
+  {
     Id: 23,
-    Label: Country,
+    Label: Person,
     PartitionKey: PartitionKey
   },
   {
-    Id: 29,
-    Label: Country,
-    PartitionKey: PartitionKey
-  },
-  {
-    Id: 35,
-    Label: Country,
-    PartitionKey: PartitionKey
-  },
-  {
-    Id: 38,
+    Id: 27,
     Label: Company,
     PartitionKey: PartitionKey
   },
   {
     IetfLanguageTag: en,
-    Id: 45,
+    Id: 32,
     Label: Language,
     PartitionKey: PartitionKey
   },
@@ -54,7 +69,7 @@
     PartitionKey: PartitionKey
   },
   {
-    Id: 58,
+    Id: 42,
     Label: Company,
     PartitionKey: PartitionKey
   }

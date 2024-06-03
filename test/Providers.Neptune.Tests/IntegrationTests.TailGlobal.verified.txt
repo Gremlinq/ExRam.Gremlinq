@@ -5,7 +5,7 @@
       "id",
       {
         "@type": "g:Int64",
-        "@value": 61
+        "@value": 62
       },
       "label",
       "Person",
@@ -23,7 +23,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 125
+                    "@value": 92
                   },
                   "label",
                   "GuidKey",
@@ -36,7 +36,7 @@
               }
             ]
           },
-          "PartitionKey",
+          "RegistrationDate",
           {
             "@type": "g:List",
             "@value": [
@@ -46,12 +46,15 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 63
+                    "@value": 64
                   },
                   "label",
-                  "PartitionKey",
+                  "RegistrationDate",
                   "value",
-                  "PartitionKey"
+                  {
+                    "@type": "g:Date",
+                    "@value": 1586270616000
+                  }
                 ]
               }
             ]
@@ -66,7 +69,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 188
+                    "@value": 155
                   },
                   "label",
                   "StringKey1",
@@ -89,7 +92,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 177
+                    "@value": 144
                   },
                   "label",
                   "Age",
@@ -112,7 +115,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 199
+                    "@value": 166
                   },
                   "label",
                   "StringKey2",
@@ -121,6 +124,26 @@
                     "@type": "g:Int32",
                     "@value": 36
                   }
+                ]
+              }
+            ]
+          },
+          "Name",
+          {
+            "@type": "g:List",
+            "@value": [
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
+                    "@type": "g:Int64",
+                    "@value": 63
+                  },
+                  "label",
+                  "Name",
+                  "value",
+                  "Marko"
                 ]
               }
             ]

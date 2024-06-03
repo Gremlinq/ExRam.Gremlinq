@@ -21,6 +21,7 @@ namespace ExRam.Gremlinq.Tests.Fixtures
                 .ConfigureOptions(options => options
                     .SetValue(GremlinqOption.VertexProjectionSteps, Traversal.Empty)
                     .SetValue(GremlinqOption.EdgeProjectionSteps, Traversal.Empty)
-                    .SetValue(GremlinqOption.VertexPropertyProjectionSteps, Traversal.Empty)));
+                    .SetValue(GremlinqOption.VertexPropertyProjectionSteps, Traversal.Empty)))
+            .IgnoreCosmosDbSpecificProperties();
     }
 }

@@ -32,26 +32,6 @@
                 ]
               }
             ]
-          },
-          "PartitionKey",
-          {
-            "@type": "g:List",
-            "@value": [
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "id",
-                  {
-                    "@type": "g:Int64",
-                    "@value": 67
-                  },
-                  "label",
-                  "PartitionKey",
-                  "value",
-                  "PartitionKey"
-                ]
-              }
-            ]
           }
         ]
       }
@@ -63,7 +43,7 @@
       "id",
       {
         "@type": "g:Int64",
-        "@value": 3
+        "@value": 2
       },
       "label",
       "Language",
@@ -81,32 +61,12 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 4
+                    "@value": 3
                   },
                   "label",
                   "IetfLanguageTag",
                   "value",
                   "en"
-                ]
-              }
-            ]
-          },
-          "PartitionKey",
-          {
-            "@type": "g:List",
-            "@value": [
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "id",
-                  {
-                    "@type": "g:Int64",
-                    "@value": 5
-                  },
-                  "label",
-                  "PartitionKey",
-                  "value",
-                  "PartitionKey"
                 ]
               }
             ]

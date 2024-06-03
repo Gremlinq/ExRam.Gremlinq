@@ -4,7 +4,7 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 10
+        "@value": 7
       },
       "label": "Person",
       "properties": {
@@ -14,7 +14,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 115
+                "@value": 82
               },
               "value": {
                 "@type": "g:UUID",
@@ -30,7 +30,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 422
+                "@value": 333
               },
               "value": {
                 "@type": "g:Date",
@@ -46,7 +46,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 178
+                "@value": 145
               },
               "value": {
                 "@type": "g:Int32",
@@ -56,26 +56,13 @@
             }
           }
         ],
-        "PartitionKey": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 421
-              },
-              "value": "PartitionKey",
-              "label": "PartitionKey"
-            }
-          }
-        ],
         "Gender": [
           {
             "@type": "g:VertexProperty",
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 420
+                "@value": 332
               },
               "value": {
                 "@type": "g:Int32",
@@ -91,7 +78,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 189
+                "@value": 156
               },
               "value": {
                 "@type": "g:Int32",
@@ -107,7 +94,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 365
+                "@value": 288
               },
               "value": {
                 "@type": "g:Int32",
@@ -123,7 +110,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 367
+                "@value": 290
               },
               "value": "Marko",
               "label": "Name"
@@ -138,7 +125,7 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 20
+        "@value": 15
       },
       "label": "Person",
       "properties": {
@@ -148,7 +135,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 119
+                "@value": 84
               },
               "value": {
                 "@type": "g:UUID",
@@ -164,7 +151,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 434
+                "@value": 337
               },
               "value": {
                 "@type": "g:Date",
@@ -180,7 +167,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 182
+                "@value": 147
               },
               "value": {
                 "@type": "g:Int32",
@@ -190,26 +177,13 @@
             }
           }
         ],
-        "PartitionKey": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 433
-              },
-              "value": "PartitionKey",
-              "label": "PartitionKey"
-            }
-          }
-        ],
         "Gender": [
           {
             "@type": "g:VertexProperty",
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 432
+                "@value": 336
               },
               "value": {
                 "@type": "g:Int32",
@@ -225,7 +199,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 193
+                "@value": 158
               },
               "value": {
                 "@type": "g:Int32",
@@ -241,7 +215,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 385
+                "@value": 296
               },
               "value": {
                 "@type": "g:Int32",
@@ -257,7 +231,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 387
+                "@value": 298
               },
               "value": "Marko",
               "label": "Name"
@@ -272,7 +246,7 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 26
+        "@value": 19
       },
       "label": "Person",
       "properties": {
@@ -282,7 +256,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 121
+                "@value": 85
               },
               "value": {
                 "@type": "g:UUID",
@@ -298,7 +272,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 440
+                "@value": 339
               },
               "value": {
                 "@type": "g:Date",
@@ -314,7 +288,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 184
+                "@value": 148
               },
               "value": {
                 "@type": "g:Int32",
@@ -324,26 +298,13 @@
             }
           }
         ],
-        "PartitionKey": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 439
-              },
-              "value": "PartitionKey",
-              "label": "PartitionKey"
-            }
-          }
-        ],
         "Gender": [
           {
             "@type": "g:VertexProperty",
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 438
+                "@value": 338
               },
               "value": {
                 "@type": "g:Int32",
@@ -359,7 +320,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 195
+                "@value": 159
               },
               "value": {
                 "@type": "g:Int32",
@@ -375,7 +336,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 395
+                "@value": 300
               },
               "value": {
                 "@type": "g:Int32",
@@ -391,7 +352,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 397
+                "@value": 302
               },
               "value": "Marko",
               "label": "Name"
@@ -406,7 +367,7 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 32
+        "@value": 23
       },
       "label": "Person",
       "properties": {
@@ -416,7 +377,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 122
+                "@value": 86
               },
               "value": {
                 "@type": "g:UUID",
@@ -432,7 +393,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 443
+                "@value": 341
               },
               "value": {
                 "@type": "g:Date",
@@ -448,7 +409,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 185
+                "@value": 149
               },
               "value": {
                 "@type": "g:Int32",
@@ -458,26 +419,13 @@
             }
           }
         ],
-        "PartitionKey": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 442
-              },
-              "value": "PartitionKey",
-              "label": "PartitionKey"
-            }
-          }
-        ],
         "Gender": [
           {
             "@type": "g:VertexProperty",
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 441
+                "@value": 340
               },
               "value": {
                 "@type": "g:Int32",
@@ -493,7 +441,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 196
+                "@value": 160
               },
               "value": {
                 "@type": "g:Int32",
@@ -509,7 +457,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 400
+                "@value": 304
               },
               "value": {
                 "@type": "g:Int32",
@@ -525,7 +473,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 402
+                "@value": 306
               },
               "value": "Marko",
               "label": "Name"
@@ -540,7 +488,7 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 41
+        "@value": 29
       },
       "label": "Person",
       "properties": {
@@ -550,7 +498,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 123
+                "@value": 87
               },
               "value": {
                 "@type": "g:UUID",
@@ -566,7 +514,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 446
+                "@value": 343
               },
               "value": {
                 "@type": "g:Date",
@@ -582,7 +530,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 186
+                "@value": 150
               },
               "value": {
                 "@type": "g:Int32",
@@ -592,26 +540,13 @@
             }
           }
         ],
-        "PartitionKey": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 445
-              },
-              "value": "PartitionKey",
-              "label": "PartitionKey"
-            }
-          }
-        ],
         "Gender": [
           {
             "@type": "g:VertexProperty",
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 444
+                "@value": 342
               },
               "value": {
                 "@type": "g:Int32",
@@ -627,7 +562,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 197
+                "@value": 161
               },
               "value": {
                 "@type": "g:Int32",
@@ -643,7 +578,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 405
+                "@value": 308
               },
               "value": {
                 "@type": "g:Int32",
@@ -659,7 +594,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 407
+                "@value": 310
               },
               "value": "Marko",
               "label": "Name"
@@ -674,7 +609,7 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 52
+        "@value": 37
       },
       "label": "Person",
       "properties": {
@@ -684,7 +619,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 124
+                "@value": 88
               },
               "value": {
                 "@type": "g:UUID",
@@ -700,7 +635,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 449
+                "@value": 345
               },
               "value": {
                 "@type": "g:Date",
@@ -716,7 +651,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 187
+                "@value": 151
               },
               "value": {
                 "@type": "g:Int32",
@@ -726,26 +661,13 @@
             }
           }
         ],
-        "PartitionKey": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 448
-              },
-              "value": "PartitionKey",
-              "label": "PartitionKey"
-            }
-          }
-        ],
         "Gender": [
           {
             "@type": "g:VertexProperty",
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 447
+                "@value": 344
               },
               "value": {
                 "@type": "g:Int32",
@@ -761,7 +683,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 198
+                "@value": 162
               },
               "value": {
                 "@type": "g:Int32",
@@ -777,7 +699,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 410
+                "@value": 312
               },
               "value": {
                 "@type": "g:Int32",
@@ -793,7 +715,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 412
+                "@value": 314
               },
               "value": "Marko",
               "label": "Name"
@@ -808,7 +730,7 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 61
+        "@value": 44
       },
       "label": "Person",
       "properties": {
@@ -818,7 +740,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 125
+                "@value": 89
               },
               "value": {
                 "@type": "g:UUID",
@@ -834,7 +756,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 452
+                "@value": 347
               },
               "value": {
                 "@type": "g:Date",
@@ -850,7 +772,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 188
+                "@value": 152
               },
               "value": {
                 "@type": "g:Int32",
@@ -860,26 +782,13 @@
             }
           }
         ],
-        "PartitionKey": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 451
-              },
-              "value": "PartitionKey",
-              "label": "PartitionKey"
-            }
-          }
-        ],
         "Gender": [
           {
             "@type": "g:VertexProperty",
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 450
+                "@value": 346
               },
               "value": {
                 "@type": "g:Int32",
@@ -895,7 +804,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 199
+                "@value": 163
               },
               "value": {
                 "@type": "g:Int32",
@@ -911,7 +820,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 415
+                "@value": 316
               },
               "value": {
                 "@type": "g:Int32",
@@ -927,7 +836,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 417
+                "@value": 318
               },
               "value": "Marko",
               "label": "Name"

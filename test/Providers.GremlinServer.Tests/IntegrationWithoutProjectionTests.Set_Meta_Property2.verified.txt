@@ -4,7 +4,7 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 16
+        "@value": 12
       },
       "value": "Bob",
       "label": "Name",
@@ -21,26 +21,26 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 87
+        "@value": 39
+      },
+      "value": "Bob",
+      "label": "Name",
+      "properties": {
+        "ValidFrom": {
+          "@type": "g:Date",
+          "@value": 1586270616000
+        }
+      }
+    }
+  },
+  {
+    "@type": "g:VertexProperty",
+    "@value": {
+      "id": {
+        "@type": "g:Int64",
+        "@value": 63
       },
       "value": "Marko",
-      "label": "Name",
-      "properties": {
-        "ValidFrom": {
-          "@type": "g:Date",
-          "@value": 1586270616000
-        }
-      }
-    }
-  },
-  {
-    "@type": "g:VertexProperty",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 54
-      },
-      "value": "Bob",
       "label": "Name",
       "properties": {
         "ValidFrom": {

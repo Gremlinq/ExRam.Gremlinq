@@ -4,14 +4,14 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 19
+        "@value": 14
       },
       "label": "LivesIn",
       "inVLabel": "Person",
       "outVLabel": "Country",
       "inV": {
         "@type": "g:Int64",
-        "@value": 14
+        "@value": 10
       },
       "outV": {
         "@type": "g:Int64",

@@ -21,26 +21,13 @@
             }
           }
         ],
-        "PartitionKey": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 2
-              },
-              "value": "PartitionKey",
-              "label": "PartitionKey"
-            }
-          }
-        ],
         "LocalizableDescription": [
           {
             "@type": "g:VertexProperty",
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 160
+                "@value": 127
               },
               "value": "",
               "label": "LocalizableDescription",
@@ -58,7 +45,7 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 52
+        "@value": 37
       },
       "label": "Person",
       "properties": {
@@ -68,7 +55,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 124
+                "@value": 88
               },
               "value": {
                 "@type": "g:UUID",
@@ -84,7 +71,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 56
+                "@value": 40
               },
               "value": {
                 "@type": "g:Date",
@@ -94,26 +81,13 @@
             }
           }
         ],
-        "PartitionKey": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 55
-              },
-              "value": "PartitionKey",
-              "label": "PartitionKey"
-            }
-          }
-        ],
         "StringKey1": [
           {
             "@type": "g:VertexProperty",
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 187
+                "@value": 151
               },
               "value": {
                 "@type": "g:Int32",
@@ -129,7 +103,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 176
+                "@value": 140
               },
               "value": {
                 "@type": "g:Int32",
@@ -148,7 +122,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 198
+                "@value": 162
               },
               "value": {
                 "@type": "g:Int32",
@@ -164,7 +138,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 54
+                "@value": 39
               },
               "value": "Bob",
               "label": "Name"

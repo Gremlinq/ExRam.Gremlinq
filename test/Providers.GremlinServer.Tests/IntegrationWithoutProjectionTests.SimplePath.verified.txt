@@ -4,7 +4,7 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 14
+        "@value": 10
       },
       "label": "Person",
       "properties": {
@@ -14,7 +14,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 116
+                "@value": 83
               },
               "value": {
                 "@type": "g:UUID",
@@ -30,7 +30,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 18
+                "@value": 13
               },
               "value": {
                 "@type": "g:Date",
@@ -40,26 +40,13 @@
             }
           }
         ],
-        "PartitionKey": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 17
-              },
-              "value": "PartitionKey",
-              "label": "PartitionKey"
-            }
-          }
-        ],
         "StringKey1": [
           {
             "@type": "g:VertexProperty",
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 179
+                "@value": 146
               },
               "value": {
                 "@type": "g:Int32",
@@ -75,7 +62,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 168
+                "@value": 135
               },
               "value": {
                 "@type": "g:Int32",
@@ -94,7 +81,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 190
+                "@value": 157
               },
               "value": {
                 "@type": "g:Int32",
@@ -110,7 +97,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 16
+                "@value": 12
               },
               "value": "Bob",
               "label": "Name",
@@ -131,7 +118,7 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 3
+        "@value": 2
       },
       "label": "Language",
       "properties": {
@@ -141,23 +128,10 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 4
+                "@value": 3
               },
               "value": "en",
               "label": "IetfLanguageTag"
-            }
-          }
-        ],
-        "PartitionKey": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 5
-              },
-              "value": "PartitionKey",
-              "label": "PartitionKey"
             }
           }
         ]

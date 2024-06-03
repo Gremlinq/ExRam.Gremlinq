@@ -4,7 +4,7 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 7
+        "@value": 68
       },
       "label": "Company",
       "properties": {
@@ -14,7 +14,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 126
+                "@value": 93
               },
               "value": "+4912345",
               "label": "PhoneNumbers"
@@ -27,7 +27,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 8
+                "@value": 69
               },
               "value": {
                 "@type": "g:Date",
@@ -37,16 +37,22 @@
             }
           }
         ],
-        "PartitionKey": [
+        "Locations": [
           {
             "@type": "g:VertexProperty",
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 9
+                "@value": 70
               },
-              "value": "PartitionKey",
-              "label": "PartitionKey"
+              "value": "Aachen",
+              "label": "Locations",
+              "properties": {
+                "ValidFrom": {
+                  "@type": "g:Date",
+                  "@value": 1546304400000
+                }
+              }
             }
           }
         ]

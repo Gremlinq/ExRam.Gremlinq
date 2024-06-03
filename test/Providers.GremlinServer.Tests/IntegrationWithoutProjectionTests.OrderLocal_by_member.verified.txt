@@ -4,7 +4,7 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 14
+        "@value": 10
       },
       "label": "Person",
       "properties": {
@@ -14,7 +14,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 18
+                "@value": 13
               },
               "value": {
                 "@type": "g:Date",
@@ -24,26 +24,13 @@
             }
           }
         ],
-        "PartitionKey": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 17
-              },
-              "value": "PartitionKey",
-              "label": "PartitionKey"
-            }
-          }
-        ],
         "Age": [
           {
             "@type": "g:VertexProperty",
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 15
+                "@value": 11
               },
               "value": {
                 "@type": "g:Int32",
@@ -59,7 +46,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 16
+                "@value": 12
               },
               "value": "Bob",
               "label": "Name"
@@ -74,7 +61,7 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 86
+        "@value": 37
       },
       "label": "Person",
       "properties": {
@@ -84,7 +71,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 89
+                "@value": 40
               },
               "value": {
                 "@type": "g:Date",
@@ -94,16 +81,19 @@
             }
           }
         ],
-        "PartitionKey": [
+        "Age": [
           {
             "@type": "g:VertexProperty",
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 88
+                "@value": 38
               },
-              "value": "PartitionKey",
-              "label": "PartitionKey"
+              "value": {
+                "@type": "g:Int32",
+                "@value": 0
+              },
+              "label": "Age"
             }
           }
         ],
@@ -113,79 +103,50 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 87
+                "@value": 39
+              },
+              "value": "Bob",
+              "label": "Name"
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "@type": "g:Vertex",
+    "@value": {
+      "id": {
+        "@type": "g:Int64",
+        "@value": 62
+      },
+      "label": "Person",
+      "properties": {
+        "RegistrationDate": [
+          {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": 64
+              },
+              "value": {
+                "@type": "g:Date",
+                "@value": 1586270616000
+              },
+              "label": "RegistrationDate"
+            }
+          }
+        ],
+        "Name": [
+          {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": 63
               },
               "value": "Marko",
-              "label": "Name"
-            }
-          }
-        ]
-      }
-    }
-  },
-  {
-    "@type": "g:Vertex",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 52
-      },
-      "label": "Person",
-      "properties": {
-        "RegistrationDate": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 56
-              },
-              "value": {
-                "@type": "g:Date",
-                "@value": 1586270616000
-              },
-              "label": "RegistrationDate"
-            }
-          }
-        ],
-        "PartitionKey": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 55
-              },
-              "value": "PartitionKey",
-              "label": "PartitionKey"
-            }
-          }
-        ],
-        "Age": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 53
-              },
-              "value": {
-                "@type": "g:Int32",
-                "@value": 0
-              },
-              "label": "Age"
-            }
-          }
-        ],
-        "Name": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 54
-              },
-              "value": "Bob",
               "label": "Name"
             }
           }

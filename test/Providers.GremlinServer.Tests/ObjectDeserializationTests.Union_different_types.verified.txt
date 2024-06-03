@@ -1,15 +1,15 @@
 ﻿[
   {
-    Id: 7,
+    Id: 5,
     Label: Company,
     PartitionKey: PartitionKey
   },
   {
-    Id: 25,
+    Id: 18,
     Label: LivesIn
   },
   {
-    Id: 31,
+    Id: 22,
     Label: LivesIn
   },
   {
@@ -17,20 +17,20 @@
       Value: 2020-04-07 14:43:36 +0,
       Key: Since
     },
-    Id: 37,
+    Id: 26,
     Label: LivesIn
   },
   {
-    Id: 38,
+    Id: 27,
     Label: Company,
     PartitionKey: PartitionKey
   },
   {
-    Id: 57,
+    Id: 41,
     Label: LivesIn
   },
   {
-    Id: 58,
+    Id: 42,
     Label: Company,
     PartitionKey: PartitionKey
   }

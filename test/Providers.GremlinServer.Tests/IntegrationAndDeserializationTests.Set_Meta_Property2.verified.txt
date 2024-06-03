@@ -1,6 +1,6 @@
 ﻿[
   {
-    Id: 16,
+    Id: 12,
     Label: Name,
     Properties: {
       ValidFrom: 2020-04-07 14:43:36 +0
@@ -8,19 +8,19 @@
     Value: Bob
   },
   {
-    Id: 87,
+    Id: 39,
+    Label: Name,
+    Properties: {
+      ValidFrom: 2020-04-07 14:43:36 +0
+    },
+    Value: Bob
+  },
+  {
+    Id: 63,
     Label: Name,
     Properties: {
       ValidFrom: 2020-04-07 14:43:36 +0
     },
     Value: Marko
-  },
-  {
-    Id: 54,
-    Label: Name,
-    Properties: {
-      ValidFrom: 2020-04-07 14:43:36 +0
-    },
-    Value: Bob
   }
 ]

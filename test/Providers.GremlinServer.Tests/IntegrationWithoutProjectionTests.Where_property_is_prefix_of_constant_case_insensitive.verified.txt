@@ -21,26 +21,13 @@
             }
           }
         ],
-        "PartitionKey": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 2
-              },
-              "value": "PartitionKey",
-              "label": "PartitionKey"
-            }
-          }
-        ],
         "LocalizableDescription": [
           {
             "@type": "g:VertexProperty",
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 160
+                "@value": 127
               },
               "value": "",
               "label": "LocalizableDescription",
@@ -58,7 +45,7 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 48
+        "@value": 34
       },
       "label": "Country",
       "properties": {
@@ -68,23 +55,10 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 49
+                "@value": 35
               },
               "value": "+49",
               "label": "CountryCallingCode"
-            }
-          }
-        ],
-        "PartitionKey": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 50
-              },
-              "value": "PartitionKey",
-              "label": "PartitionKey"
             }
           }
         ],
@@ -94,7 +68,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 166
+                "@value": 133
               },
               "value": "",
               "label": "LocalizableDescription",

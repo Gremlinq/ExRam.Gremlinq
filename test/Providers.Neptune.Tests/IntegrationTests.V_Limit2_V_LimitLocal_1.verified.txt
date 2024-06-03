@@ -36,26 +36,6 @@
                   }
                 ]
               },
-              "PartitionKey",
-              {
-                "@type": "g:List",
-                "@value": [
-                  {
-                    "@type": "g:Map",
-                    "@value": [
-                      "id",
-                      {
-                        "@type": "g:Int64",
-                        "@value": 2
-                      },
-                      "label",
-                      "PartitionKey",
-                      "value",
-                      "PartitionKey"
-                    ]
-                  }
-                ]
-              },
               "LocalizableDescription",
               {
                 "@type": "g:List",
@@ -66,7 +46,7 @@
                       "id",
                       {
                         "@type": "g:Int64",
-                        "@value": 160
+                        "@value": 127
                       },
                       "label",
                       "LocalizableDescription",

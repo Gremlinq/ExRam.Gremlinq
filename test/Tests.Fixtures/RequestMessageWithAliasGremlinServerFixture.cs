@@ -12,6 +12,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
                 .AtLocalhost())
             .ConfigureEnvironment(env => env
                 .ConfigureOptions(options => options
-                    .SetValue(GremlinqOption.Alias, "a")));
+                    .SetValue(GremlinqOption.Alias, "a")))
+            .IgnoreCosmosDbSpecificProperties();
     }
 }

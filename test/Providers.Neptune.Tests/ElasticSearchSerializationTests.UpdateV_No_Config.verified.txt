@@ -83,17 +83,6 @@
       Arguments: [
         {
           EnumName: Cardinality,
-          EnumValue: single
-        },
-        PartitionKey,
-        PartitionKey
-      ]
-    },
-    {
-      OperatorName: property,
-      Arguments: [
-        {
-          EnumName: Cardinality,
           EnumValue: set
         },
         PhoneNumbers,

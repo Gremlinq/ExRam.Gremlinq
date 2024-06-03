@@ -1,12 +1,12 @@
 ﻿[
   {
-    Id: 100,
+    Id: 72,
     Label: Name,
     Properties: {},
     Value: GER
   },
   {
-    Id: 103,
+    Id: 74,
     Label: Name,
     Properties: {
       de: Deutschland,

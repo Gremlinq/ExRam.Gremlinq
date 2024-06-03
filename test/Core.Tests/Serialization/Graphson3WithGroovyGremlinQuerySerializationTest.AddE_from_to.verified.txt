@@ -3,7 +3,7 @@
   "op": "eval",
   "processor": "",
   "args": {
-    "gremlin": "g.addE(_a).property(_b,_c).property(_d,_e).property(_f,_c).from(__.addV(_g).property(single,_h,_i).property(single,_j,_j)).to(__.addV(_k).property(single,_l,_m).property(single,_j,_j)).project(_n,_o,_p).by(id).by(label).by(__.valueMap())",
+    "gremlin": "g.addE(_a).property(_b,_c).property(_d,_e).property(_f,_c).from(__.addV(_g).property(single,_h,_i)).to(__.addV(_j).property(single,_k,_l)).project(_m,_n,_o).by(id).by(label).by(__.valueMap())",
     "bindings": {
       "_a": "WorksFor",
       "_b": "From",
@@ -20,16 +20,15 @@
         "@type": "g:Int32",
         "@value": 0
       },
-      "_j": "PartitionKey",
-      "_k": "Company",
-      "_l": "FoundingDate",
-      "_m": {
+      "_j": "Company",
+      "_k": "FoundingDate",
+      "_l": {
         "@type": "g:Date",
         "@value": -62135596800000
       },
-      "_n": "id",
-      "_o": "label",
-      "_p": "properties"
+      "_m": "id",
+      "_n": "label",
+      "_o": "properties"
     },
     "aliases": {
       "g": "g"

@@ -64,17 +64,6 @@
                 FoundingDate,
                 Date_MinValue
               ]
-            },
-            {
-              OperatorName: property,
-              Arguments: [
-                {
-                  EnumName: Cardinality,
-                  EnumValue: single
-                },
-                PartitionKey,
-                PartitionKey
-              ]
             }
           ]
         }
@@ -100,17 +89,6 @@
                 },
                 Age,
                 0
-              ]
-            },
-            {
-              OperatorName: property,
-              Arguments: [
-                {
-                  EnumName: Cardinality,
-                  EnumValue: single
-                },
-                PartitionKey,
-                PartitionKey
               ]
             }
           ]

@@ -5,7 +5,7 @@
       "id",
       {
         "@type": "g:Int64",
-        "@value": 14
+        "@value": 10
       },
       "label",
       "Person",
@@ -23,7 +23,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 18
+                    "@value": 13
                   },
                   "label",
                   "RegistrationDate",
@@ -32,26 +32,6 @@
                     "@type": "g:Date",
                     "@value": 1586270616000
                   }
-                ]
-              }
-            ]
-          },
-          "PartitionKey",
-          {
-            "@type": "g:List",
-            "@value": [
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "id",
-                  {
-                    "@type": "g:Int64",
-                    "@value": 17
-                  },
-                  "label",
-                  "PartitionKey",
-                  "value",
-                  "PartitionKey"
                 ]
               }
             ]
@@ -66,7 +46,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 15
+                    "@value": 11
                   },
                   "label",
                   "Age",
@@ -89,7 +69,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 16
+                    "@value": 12
                   },
                   "label",
                   "Name",
@@ -109,7 +89,7 @@
       "id",
       {
         "@type": "g:Int64",
-        "@value": 52
+        "@value": 37
       },
       "label",
       "Person",
@@ -127,7 +107,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 56
+                    "@value": 40
                   },
                   "label",
                   "RegistrationDate",
@@ -136,26 +116,6 @@
                     "@type": "g:Date",
                     "@value": 1586270616000
                   }
-                ]
-              }
-            ]
-          },
-          "PartitionKey",
-          {
-            "@type": "g:List",
-            "@value": [
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "id",
-                  {
-                    "@type": "g:Int64",
-                    "@value": 55
-                  },
-                  "label",
-                  "PartitionKey",
-                  "value",
-                  "PartitionKey"
                 ]
               }
             ]
@@ -170,7 +130,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 53
+                    "@value": 38
                   },
                   "label",
                   "Age",
@@ -193,7 +153,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 54
+                    "@value": 39
                   },
                   "label",
                   "Name",

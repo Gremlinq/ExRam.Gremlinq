@@ -4,30 +4,17 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 26
+        "@value": 19
       },
       "label": "Person",
       "properties": {
-        "PartitionKey": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 28
-              },
-              "value": "PartitionKey",
-              "label": "PartitionKey"
-            }
-          }
-        ],
         "Age": [
           {
             "@type": "g:VertexProperty",
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 27
+                "@value": 20
               },
               "value": {
                 "@type": "g:Int32",

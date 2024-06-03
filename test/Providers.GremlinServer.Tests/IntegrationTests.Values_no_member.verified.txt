@@ -175,17 +175,6 @@
     "@type": "g:Int32",
     "@value": 36
   },
-  "PartitionKey",
-  "PartitionKey",
-  "PartitionKey",
-  "PartitionKey",
-  "PartitionKey",
-  "PartitionKey",
-  "PartitionKey",
-  "PartitionKey",
-  "PartitionKey",
-  "PartitionKey",
-  "PartitionKey",
   {
     "@type": "g:Int32",
     "@value": 0

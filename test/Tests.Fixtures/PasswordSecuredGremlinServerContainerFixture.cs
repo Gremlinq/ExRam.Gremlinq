@@ -20,6 +20,7 @@ namespace ExRam.Gremlinq.Tests.Fixtures
                 .ConfigureClientFactory(factory => factory
                     .ConfigureBaseFactory(factory => factory
                         .WithPlainCredentials("stephen", "password")))
-                .UseNewtonsoftJson());
+                .UseNewtonsoftJson())
+            .IgnoreCosmosDbSpecificProperties();
     }
 }

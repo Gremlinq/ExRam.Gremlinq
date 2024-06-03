@@ -27,7 +27,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 52
+                "@value": 37
               },
               "label": "Person"
             }
@@ -47,7 +47,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 14
+                "@value": 10
               },
               "label": "Person"
             }
@@ -84,7 +84,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 52
+                "@value": 37
               },
               "label": "Person"
             }
@@ -104,7 +104,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 3
+                "@value": 2
               },
               "label": "Language"
             }

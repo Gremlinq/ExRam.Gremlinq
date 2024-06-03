@@ -5,7 +5,7 @@
       "id",
       {
         "@type": "g:Int64",
-        "@value": 10
+        "@value": 7
       },
       "label",
       "Person",
@@ -23,7 +23,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 115
+                    "@value": 82
                   },
                   "label",
                   "GuidKey",
@@ -32,26 +32,6 @@
                     "@type": "g:UUID",
                     "@value": "00000000-0000-0000-0000-000000000000"
                   }
-                ]
-              }
-            ]
-          },
-          "PartitionKey",
-          {
-            "@type": "g:List",
-            "@value": [
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "id",
-                  {
-                    "@type": "g:Int64",
-                    "@value": 12
-                  },
-                  "label",
-                  "PartitionKey",
-                  "value",
-                  "PartitionKey"
                 ]
               }
             ]
@@ -66,7 +46,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 127
+                    "@value": 94
                   },
                   "label",
                   "Age",
@@ -89,7 +69,7 @@
       "id",
       {
         "@type": "g:Int64",
-        "@value": 14
+        "@value": 10
       },
       "label",
       "Person",
@@ -107,7 +87,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 116
+                    "@value": 83
                   },
                   "label",
                   "GuidKey",
@@ -130,7 +110,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 18
+                    "@value": 13
                   },
                   "label",
                   "RegistrationDate",
@@ -139,26 +119,6 @@
                     "@type": "g:Date",
                     "@value": 1586270616000
                   }
-                ]
-              }
-            ]
-          },
-          "PartitionKey",
-          {
-            "@type": "g:List",
-            "@value": [
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "id",
-                  {
-                    "@type": "g:Int64",
-                    "@value": 17
-                  },
-                  "label",
-                  "PartitionKey",
-                  "value",
-                  "PartitionKey"
                 ]
               }
             ]
@@ -173,7 +133,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 128
+                    "@value": 95
                   },
                   "label",
                   "Age",
@@ -196,7 +156,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 16
+                    "@value": 12
                   },
                   "label",
                   "Name",
@@ -216,7 +176,7 @@
       "id",
       {
         "@type": "g:Int64",
-        "@value": 78
+        "@value": 15
       },
       "label",
       "Person",
@@ -234,7 +194,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 117
+                    "@value": 84
                   },
                   "label",
                   "GuidKey",
@@ -243,46 +203,6 @@
                     "@type": "g:UUID",
                     "@value": "00000000-0000-0000-0000-000000000000"
                   }
-                ]
-              }
-            ]
-          },
-          "PartitionKey",
-          {
-            "@type": "g:List",
-            "@value": [
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "id",
-                  {
-                    "@type": "g:Int64",
-                    "@value": 81
-                  },
-                  "label",
-                  "PartitionKey",
-                  "value",
-                  "PartitionKey"
-                ]
-              }
-            ]
-          },
-          "Image",
-          {
-            "@type": "g:List",
-            "@value": [
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "id",
-                  {
-                    "@type": "g:Int64",
-                    "@value": 80
-                  },
-                  "label",
-                  "Image",
-                  "value",
-                  "AQIDBAUGBwg="
                 ]
               }
             ]
@@ -297,7 +217,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 129
+                    "@value": 96
                   },
                   "label",
                   "Age",
@@ -320,7 +240,7 @@
       "id",
       {
         "@type": "g:Int64",
-        "@value": 82
+        "@value": 19
       },
       "label",
       "Person",
@@ -338,7 +258,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 118
+                    "@value": 85
                   },
                   "label",
                   "GuidKey",
@@ -351,7 +271,7 @@
               }
             ]
           },
-          "PartitionKey",
+          "Age",
           {
             "@type": "g:List",
             "@value": [
@@ -361,12 +281,439 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 85
+                    "@value": 97
                   },
                   "label",
-                  "PartitionKey",
+                  "Age",
                   "value",
-                  "PartitionKey"
+                  {
+                    "@type": "g:Int32",
+                    "@value": 36
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@type": "g:Map",
+    "@value": [
+      "id",
+      {
+        "@type": "g:Int64",
+        "@value": 23
+      },
+      "label",
+      "Person",
+      "properties",
+      {
+        "@type": "g:Map",
+        "@value": [
+          "GuidKey",
+          {
+            "@type": "g:List",
+            "@value": [
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
+                    "@type": "g:Int64",
+                    "@value": 86
+                  },
+                  "label",
+                  "GuidKey",
+                  "value",
+                  {
+                    "@type": "g:UUID",
+                    "@value": "00000000-0000-0000-0000-000000000000"
+                  }
+                ]
+              }
+            ]
+          },
+          "Age",
+          {
+            "@type": "g:List",
+            "@value": [
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
+                    "@type": "g:Int64",
+                    "@value": 98
+                  },
+                  "label",
+                  "Age",
+                  "value",
+                  {
+                    "@type": "g:Int32",
+                    "@value": 36
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@type": "g:Map",
+    "@value": [
+      "id",
+      {
+        "@type": "g:Int64",
+        "@value": 29
+      },
+      "label",
+      "Person",
+      "properties",
+      {
+        "@type": "g:Map",
+        "@value": [
+          "GuidKey",
+          {
+            "@type": "g:List",
+            "@value": [
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
+                    "@type": "g:Int64",
+                    "@value": 87
+                  },
+                  "label",
+                  "GuidKey",
+                  "value",
+                  {
+                    "@type": "g:UUID",
+                    "@value": "00000000-0000-0000-0000-000000000000"
+                  }
+                ]
+              }
+            ]
+          },
+          "Age",
+          {
+            "@type": "g:List",
+            "@value": [
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
+                    "@type": "g:Int64",
+                    "@value": 99
+                  },
+                  "label",
+                  "Age",
+                  "value",
+                  {
+                    "@type": "g:Int32",
+                    "@value": 36
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@type": "g:Map",
+    "@value": [
+      "id",
+      {
+        "@type": "g:Int64",
+        "@value": 37
+      },
+      "label",
+      "Person",
+      "properties",
+      {
+        "@type": "g:Map",
+        "@value": [
+          "GuidKey",
+          {
+            "@type": "g:List",
+            "@value": [
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
+                    "@type": "g:Int64",
+                    "@value": 88
+                  },
+                  "label",
+                  "GuidKey",
+                  "value",
+                  {
+                    "@type": "g:UUID",
+                    "@value": "00000000-0000-0000-0000-000000000000"
+                  }
+                ]
+              }
+            ]
+          },
+          "RegistrationDate",
+          {
+            "@type": "g:List",
+            "@value": [
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
+                    "@type": "g:Int64",
+                    "@value": 40
+                  },
+                  "label",
+                  "RegistrationDate",
+                  "value",
+                  {
+                    "@type": "g:Date",
+                    "@value": 1586270616000
+                  }
+                ]
+              }
+            ]
+          },
+          "Age",
+          {
+            "@type": "g:List",
+            "@value": [
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
+                    "@type": "g:Int64",
+                    "@value": 100
+                  },
+                  "label",
+                  "Age",
+                  "value",
+                  {
+                    "@type": "g:Int32",
+                    "@value": 36
+                  }
+                ]
+              }
+            ]
+          },
+          "Name",
+          {
+            "@type": "g:List",
+            "@value": [
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
+                    "@type": "g:Int64",
+                    "@value": 39
+                  },
+                  "label",
+                  "Name",
+                  "value",
+                  "Bob"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@type": "g:Map",
+    "@value": [
+      "id",
+      {
+        "@type": "g:Int64",
+        "@value": 44
+      },
+      "label",
+      "Person",
+      "properties",
+      {
+        "@type": "g:Map",
+        "@value": [
+          "GuidKey",
+          {
+            "@type": "g:List",
+            "@value": [
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
+                    "@type": "g:Int64",
+                    "@value": 89
+                  },
+                  "label",
+                  "GuidKey",
+                  "value",
+                  {
+                    "@type": "g:UUID",
+                    "@value": "00000000-0000-0000-0000-000000000000"
+                  }
+                ]
+              }
+            ]
+          },
+          "Age",
+          {
+            "@type": "g:List",
+            "@value": [
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
+                    "@type": "g:Int64",
+                    "@value": 101
+                  },
+                  "label",
+                  "Age",
+                  "value",
+                  {
+                    "@type": "g:Int32",
+                    "@value": 36
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@type": "g:Map",
+    "@value": [
+      "id",
+      {
+        "@type": "g:Int64",
+        "@value": 56
+      },
+      "label",
+      "Person",
+      "properties",
+      {
+        "@type": "g:Map",
+        "@value": [
+          "GuidKey",
+          {
+            "@type": "g:List",
+            "@value": [
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
+                    "@type": "g:Int64",
+                    "@value": 90
+                  },
+                  "label",
+                  "GuidKey",
+                  "value",
+                  {
+                    "@type": "g:UUID",
+                    "@value": "00000000-0000-0000-0000-000000000000"
+                  }
+                ]
+              }
+            ]
+          },
+          "Image",
+          {
+            "@type": "g:List",
+            "@value": [
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
+                    "@type": "g:Int64",
+                    "@value": 58
+                  },
+                  "label",
+                  "Image",
+                  "value",
+                  "AQIDBAUGBwg="
+                ]
+              }
+            ]
+          },
+          "Age",
+          {
+            "@type": "g:List",
+            "@value": [
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
+                    "@type": "g:Int64",
+                    "@value": 102
+                  },
+                  "label",
+                  "Age",
+                  "value",
+                  {
+                    "@type": "g:Int32",
+                    "@value": 36
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@type": "g:Map",
+    "@value": [
+      "id",
+      {
+        "@type": "g:Int64",
+        "@value": 59
+      },
+      "label",
+      "Person",
+      "properties",
+      {
+        "@type": "g:Map",
+        "@value": [
+          "GuidKey",
+          {
+            "@type": "g:List",
+            "@value": [
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
+                    "@type": "g:Int64",
+                    "@value": 91
+                  },
+                  "label",
+                  "GuidKey",
+                  "value",
+                  {
+                    "@type": "g:UUID",
+                    "@value": "00000000-0000-0000-0000-000000000000"
+                  }
                 ]
               }
             ]
@@ -381,7 +728,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 84
+                    "@value": 61
                   },
                   "label",
                   "Gender",
@@ -404,7 +751,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 130
+                    "@value": 103
                   },
                   "label",
                   "Age",
@@ -427,7 +774,7 @@
       "id",
       {
         "@type": "g:Int64",
-        "@value": 20
+        "@value": 62
       },
       "label",
       "Person",
@@ -445,91 +792,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 119
-                  },
-                  "label",
-                  "GuidKey",
-                  "value",
-                  {
-                    "@type": "g:UUID",
-                    "@value": "00000000-0000-0000-0000-000000000000"
-                  }
-                ]
-              }
-            ]
-          },
-          "PartitionKey",
-          {
-            "@type": "g:List",
-            "@value": [
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "id",
-                  {
-                    "@type": "g:Int64",
-                    "@value": 22
-                  },
-                  "label",
-                  "PartitionKey",
-                  "value",
-                  "PartitionKey"
-                ]
-              }
-            ]
-          },
-          "Age",
-          {
-            "@type": "g:List",
-            "@value": [
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "id",
-                  {
-                    "@type": "g:Int64",
-                    "@value": 131
-                  },
-                  "label",
-                  "Age",
-                  "value",
-                  {
-                    "@type": "g:Int32",
-                    "@value": 36
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "@type": "g:Map",
-    "@value": [
-      "id",
-      {
-        "@type": "g:Int64",
-        "@value": 86
-      },
-      "label",
-      "Person",
-      "properties",
-      {
-        "@type": "g:Map",
-        "@value": [
-          "GuidKey",
-          {
-            "@type": "g:List",
-            "@value": [
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "id",
-                  {
-                    "@type": "g:Int64",
-                    "@value": 120
+                    "@value": 92
                   },
                   "label",
                   "GuidKey",
@@ -552,7 +815,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 89
+                    "@value": 64
                   },
                   "label",
                   "RegistrationDate",
@@ -561,26 +824,6 @@
                     "@type": "g:Date",
                     "@value": 1586270616000
                   }
-                ]
-              }
-            ]
-          },
-          "PartitionKey",
-          {
-            "@type": "g:List",
-            "@value": [
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "id",
-                  {
-                    "@type": "g:Int64",
-                    "@value": 88
-                  },
-                  "label",
-                  "PartitionKey",
-                  "value",
-                  "PartitionKey"
                 ]
               }
             ]
@@ -595,7 +838,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 132
+                    "@value": 104
                   },
                   "label",
                   "Age",
@@ -609,446 +852,6 @@
             ]
           },
           "Name",
-          {
-            "@type": "g:List",
-            "@value": [
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "id",
-                  {
-                    "@type": "g:Int64",
-                    "@value": 87
-                  },
-                  "label",
-                  "Name",
-                  "value",
-                  "Marko"
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "@type": "g:Map",
-    "@value": [
-      "id",
-      {
-        "@type": "g:Int64",
-        "@value": 26
-      },
-      "label",
-      "Person",
-      "properties",
-      {
-        "@type": "g:Map",
-        "@value": [
-          "GuidKey",
-          {
-            "@type": "g:List",
-            "@value": [
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "id",
-                  {
-                    "@type": "g:Int64",
-                    "@value": 121
-                  },
-                  "label",
-                  "GuidKey",
-                  "value",
-                  {
-                    "@type": "g:UUID",
-                    "@value": "00000000-0000-0000-0000-000000000000"
-                  }
-                ]
-              }
-            ]
-          },
-          "PartitionKey",
-          {
-            "@type": "g:List",
-            "@value": [
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "id",
-                  {
-                    "@type": "g:Int64",
-                    "@value": 28
-                  },
-                  "label",
-                  "PartitionKey",
-                  "value",
-                  "PartitionKey"
-                ]
-              }
-            ]
-          },
-          "Age",
-          {
-            "@type": "g:List",
-            "@value": [
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "id",
-                  {
-                    "@type": "g:Int64",
-                    "@value": 133
-                  },
-                  "label",
-                  "Age",
-                  "value",
-                  {
-                    "@type": "g:Int32",
-                    "@value": 36
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "@type": "g:Map",
-    "@value": [
-      "id",
-      {
-        "@type": "g:Int64",
-        "@value": 32
-      },
-      "label",
-      "Person",
-      "properties",
-      {
-        "@type": "g:Map",
-        "@value": [
-          "GuidKey",
-          {
-            "@type": "g:List",
-            "@value": [
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "id",
-                  {
-                    "@type": "g:Int64",
-                    "@value": 122
-                  },
-                  "label",
-                  "GuidKey",
-                  "value",
-                  {
-                    "@type": "g:UUID",
-                    "@value": "00000000-0000-0000-0000-000000000000"
-                  }
-                ]
-              }
-            ]
-          },
-          "PartitionKey",
-          {
-            "@type": "g:List",
-            "@value": [
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "id",
-                  {
-                    "@type": "g:Int64",
-                    "@value": 34
-                  },
-                  "label",
-                  "PartitionKey",
-                  "value",
-                  "PartitionKey"
-                ]
-              }
-            ]
-          },
-          "Age",
-          {
-            "@type": "g:List",
-            "@value": [
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "id",
-                  {
-                    "@type": "g:Int64",
-                    "@value": 134
-                  },
-                  "label",
-                  "Age",
-                  "value",
-                  {
-                    "@type": "g:Int32",
-                    "@value": 36
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "@type": "g:Map",
-    "@value": [
-      "id",
-      {
-        "@type": "g:Int64",
-        "@value": 41
-      },
-      "label",
-      "Person",
-      "properties",
-      {
-        "@type": "g:Map",
-        "@value": [
-          "GuidKey",
-          {
-            "@type": "g:List",
-            "@value": [
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "id",
-                  {
-                    "@type": "g:Int64",
-                    "@value": 123
-                  },
-                  "label",
-                  "GuidKey",
-                  "value",
-                  {
-                    "@type": "g:UUID",
-                    "@value": "00000000-0000-0000-0000-000000000000"
-                  }
-                ]
-              }
-            ]
-          },
-          "PartitionKey",
-          {
-            "@type": "g:List",
-            "@value": [
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "id",
-                  {
-                    "@type": "g:Int64",
-                    "@value": 43
-                  },
-                  "label",
-                  "PartitionKey",
-                  "value",
-                  "PartitionKey"
-                ]
-              }
-            ]
-          },
-          "Age",
-          {
-            "@type": "g:List",
-            "@value": [
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "id",
-                  {
-                    "@type": "g:Int64",
-                    "@value": 135
-                  },
-                  "label",
-                  "Age",
-                  "value",
-                  {
-                    "@type": "g:Int32",
-                    "@value": 36
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "@type": "g:Map",
-    "@value": [
-      "id",
-      {
-        "@type": "g:Int64",
-        "@value": 52
-      },
-      "label",
-      "Person",
-      "properties",
-      {
-        "@type": "g:Map",
-        "@value": [
-          "GuidKey",
-          {
-            "@type": "g:List",
-            "@value": [
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "id",
-                  {
-                    "@type": "g:Int64",
-                    "@value": 124
-                  },
-                  "label",
-                  "GuidKey",
-                  "value",
-                  {
-                    "@type": "g:UUID",
-                    "@value": "00000000-0000-0000-0000-000000000000"
-                  }
-                ]
-              }
-            ]
-          },
-          "RegistrationDate",
-          {
-            "@type": "g:List",
-            "@value": [
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "id",
-                  {
-                    "@type": "g:Int64",
-                    "@value": 56
-                  },
-                  "label",
-                  "RegistrationDate",
-                  "value",
-                  {
-                    "@type": "g:Date",
-                    "@value": 1586270616000
-                  }
-                ]
-              }
-            ]
-          },
-          "PartitionKey",
-          {
-            "@type": "g:List",
-            "@value": [
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "id",
-                  {
-                    "@type": "g:Int64",
-                    "@value": 55
-                  },
-                  "label",
-                  "PartitionKey",
-                  "value",
-                  "PartitionKey"
-                ]
-              }
-            ]
-          },
-          "Age",
-          {
-            "@type": "g:List",
-            "@value": [
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "id",
-                  {
-                    "@type": "g:Int64",
-                    "@value": 136
-                  },
-                  "label",
-                  "Age",
-                  "value",
-                  {
-                    "@type": "g:Int32",
-                    "@value": 36
-                  }
-                ]
-              }
-            ]
-          },
-          "Name",
-          {
-            "@type": "g:List",
-            "@value": [
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "id",
-                  {
-                    "@type": "g:Int64",
-                    "@value": 54
-                  },
-                  "label",
-                  "Name",
-                  "value",
-                  "Bob"
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "@type": "g:Map",
-    "@value": [
-      "id",
-      {
-        "@type": "g:Int64",
-        "@value": 61
-      },
-      "label",
-      "Person",
-      "properties",
-      {
-        "@type": "g:Map",
-        "@value": [
-          "GuidKey",
-          {
-            "@type": "g:List",
-            "@value": [
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "id",
-                  {
-                    "@type": "g:Int64",
-                    "@value": 125
-                  },
-                  "label",
-                  "GuidKey",
-                  "value",
-                  {
-                    "@type": "g:UUID",
-                    "@value": "00000000-0000-0000-0000-000000000000"
-                  }
-                ]
-              }
-            ]
-          },
-          "PartitionKey",
           {
             "@type": "g:List",
             "@value": [
@@ -1061,32 +864,9 @@
                     "@value": 63
                   },
                   "label",
-                  "PartitionKey",
+                  "Name",
                   "value",
-                  "PartitionKey"
-                ]
-              }
-            ]
-          },
-          "Age",
-          {
-            "@type": "g:List",
-            "@value": [
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "id",
-                  {
-                    "@type": "g:Int64",
-                    "@value": 137
-                  },
-                  "label",
-                  "Age",
-                  "value",
-                  {
-                    "@type": "g:Int32",
-                    "@value": 36
-                  }
+                  "Marko"
                 ]
               }
             ]

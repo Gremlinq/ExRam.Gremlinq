@@ -3,18 +3,17 @@
   "op": "eval",
   "processor": "",
   "args": {
-    "gremlin": "g.E().hasLabel(_a).sideEffect(__.properties(_b).drop()).property(_c,_d).project(_e,_f,_g).by(id).by(label).by(__.valueMap())",
+    "gremlin": "g.E().hasLabel(_a).property(_b,_c).project(_d,_e,_f).by(id).by(label).by(__.valueMap())",
     "bindings": {
       "_a": "WorksFor",
-      "_b": "PartitionKey",
-      "_c": "To",
-      "_d": {
+      "_b": "To",
+      "_c": {
         "@type": "g:Date",
         "@value": 1586270616000
       },
-      "_e": "id",
-      "_f": "label",
-      "_g": "properties"
+      "_d": "id",
+      "_e": "label",
+      "_f": "properties"
     },
     "aliases": {
       "g": "g"

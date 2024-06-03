@@ -4,7 +4,7 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 65
+        "@value": 47
       },
       "label": "Language",
       "properties": {
@@ -14,23 +14,10 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 66
+                "@value": 48
               },
               "value": "en",
               "label": "IetfLanguageTag"
-            }
-          }
-        ],
-        "PartitionKey": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 67
-              },
-              "value": "PartitionKey",
-              "label": "PartitionKey"
             }
           }
         ]

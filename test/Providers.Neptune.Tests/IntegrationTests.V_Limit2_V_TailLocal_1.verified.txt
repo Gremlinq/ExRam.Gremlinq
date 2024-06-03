@@ -35,26 +35,6 @@
                     ]
                   }
                 ]
-              },
-              "PartitionKey",
-              {
-                "@type": "g:List",
-                "@value": [
-                  {
-                    "@type": "g:Map",
-                    "@value": [
-                      "id",
-                      {
-                        "@type": "g:Int64",
-                        "@value": 67
-                      },
-                      "label",
-                      "PartitionKey",
-                      "value",
-                      "PartitionKey"
-                    ]
-                  }
-                ]
               }
             ]
           }

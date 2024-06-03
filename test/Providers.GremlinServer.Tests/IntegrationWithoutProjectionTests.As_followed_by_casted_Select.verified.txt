@@ -4,30 +4,17 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 10
+        "@value": 7
       },
       "label": "Person",
       "properties": {
-        "PartitionKey": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 12
-              },
-              "value": "PartitionKey",
-              "label": "PartitionKey"
-            }
-          }
-        ],
         "Age": [
           {
             "@type": "g:VertexProperty",
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 11
+                "@value": 8
               },
               "value": {
                 "@type": "g:Int32",
@@ -45,30 +32,17 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 20
+        "@value": 15
       },
       "label": "Person",
       "properties": {
-        "PartitionKey": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 22
-              },
-              "value": "PartitionKey",
-              "label": "PartitionKey"
-            }
-          }
-        ],
         "Age": [
           {
             "@type": "g:VertexProperty",
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 21
+                "@value": 16
               },
               "value": {
                 "@type": "g:Int32",
@@ -86,30 +60,17 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 26
+        "@value": 19
       },
       "label": "Person",
       "properties": {
-        "PartitionKey": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 28
-              },
-              "value": "PartitionKey",
-              "label": "PartitionKey"
-            }
-          }
-        ],
         "Age": [
           {
             "@type": "g:VertexProperty",
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 27
+                "@value": 20
               },
               "value": {
                 "@type": "g:Int32",
@@ -127,30 +88,17 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 32
+        "@value": 23
       },
       "label": "Person",
       "properties": {
-        "PartitionKey": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 34
-              },
-              "value": "PartitionKey",
-              "label": "PartitionKey"
-            }
-          }
-        ],
         "Age": [
           {
             "@type": "g:VertexProperty",
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 33
+                "@value": 24
               },
               "value": {
                 "@type": "g:Int32",
@@ -168,30 +116,17 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 41
+        "@value": 29
       },
       "label": "Person",
       "properties": {
-        "PartitionKey": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 43
-              },
-              "value": "PartitionKey",
-              "label": "PartitionKey"
-            }
-          }
-        ],
         "Age": [
           {
             "@type": "g:VertexProperty",
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 42
+                "@value": 30
               },
               "value": {
                 "@type": "g:Int32",
@@ -209,7 +144,7 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 52
+        "@value": 37
       },
       "label": "Person",
       "properties": {
@@ -219,7 +154,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 56
+                "@value": 40
               },
               "value": {
                 "@type": "g:Date",
@@ -229,26 +164,13 @@
             }
           }
         ],
-        "PartitionKey": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 55
-              },
-              "value": "PartitionKey",
-              "label": "PartitionKey"
-            }
-          }
-        ],
         "Age": [
           {
             "@type": "g:VertexProperty",
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 53
+                "@value": 38
               },
               "value": {
                 "@type": "g:Int32",
@@ -264,7 +186,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 54
+                "@value": 39
               },
               "value": "Bob",
               "label": "Name"
@@ -279,30 +201,17 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 61
+        "@value": 44
       },
       "label": "Person",
       "properties": {
-        "PartitionKey": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 63
-              },
-              "value": "PartitionKey",
-              "label": "PartitionKey"
-            }
-          }
-        ],
         "Age": [
           {
             "@type": "g:VertexProperty",
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 62
+                "@value": 45
               },
               "value": {
                 "@type": "g:Int32",

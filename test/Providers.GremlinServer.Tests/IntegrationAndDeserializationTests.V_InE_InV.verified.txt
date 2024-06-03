@@ -2,7 +2,7 @@
   {
     CountryCallingCode: +49,
     LocalizableDescription: {
-      Id: 160,
+      Id: 127,
       Label: LocalizableDescription,
       Properties: {
         someKey: value
@@ -15,12 +15,12 @@
   },
   {
     IetfLanguageTag: en,
-    Id: 3,
+    Id: 2,
     Label: Language,
     PartitionKey: PartitionKey
   },
   {
-    Id: 7,
+    Id: 5,
     Label: Company,
     PartitionKey: PartitionKey
   },
@@ -29,66 +29,66 @@
     Gender: Male,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: 372,
+      Id: 294,
       Label: Name,
       Value: Marko
     },
-    Id: 14,
+    Id: 10,
     Label: Person,
     PartitionKey: PartitionKey
   },
   {
     LocalizableDescription: {
-      Id: 161,
+      Id: 130,
       Label: LocalizableDescription,
       Properties: {
         someKey: value
       },
       Value: 
     },
-    Id: 23,
+    Id: 17,
     Label: Country,
     PartitionKey: PartitionKey
   },
   {
     LocalizableDescription: {
-      Id: 162,
+      Id: 131,
       Label: LocalizableDescription,
       Properties: {
         someKey: value
       },
       Value: 
     },
-    Id: 29,
+    Id: 21,
     Label: Country,
     PartitionKey: PartitionKey
   },
   {
     LocalizableDescription: {
-      Id: 163,
+      Id: 132,
       Label: LocalizableDescription,
       Properties: {
         someKey: value
       },
       Value: 
     },
-    Id: 35,
+    Id: 25,
     Label: Country,
     PartitionKey: PartitionKey
   },
   {
-    Id: 38,
+    Id: 27,
     Label: Company,
     PartitionKey: PartitionKey
   },
   {
     IetfLanguageTag: en,
-    Id: 45,
+    Id: 32,
     Label: Language,
     PartitionKey: PartitionKey
   },
   {
-    Id: 58,
+    Id: 42,
     Label: Company,
     PartitionKey: PartitionKey
   }

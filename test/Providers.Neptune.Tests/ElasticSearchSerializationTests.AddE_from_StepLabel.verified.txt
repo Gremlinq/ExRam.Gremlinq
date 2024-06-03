@@ -34,17 +34,6 @@
       ]
     },
     {
-      OperatorName: property,
-      Arguments: [
-        {
-          EnumName: Cardinality,
-          EnumValue: single
-        },
-        PartitionKey,
-        PartitionKey
-      ]
-    },
-    {
       OperatorName: as,
       Arguments: [
         _c
@@ -65,17 +54,6 @@
         },
         IetfLanguageTag,
         en
-      ]
-    },
-    {
-      OperatorName: property,
-      Arguments: [
-        {
-          EnumName: Cardinality,
-          EnumValue: single
-        },
-        PartitionKey,
-        PartitionKey
       ]
     },
     {

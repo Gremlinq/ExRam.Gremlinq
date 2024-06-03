@@ -10,6 +10,7 @@ namespace ExRam.Gremlinq.Providers.Neptune.Tests
         protected override async Task<IGremlinQuerySource> TransformQuerySource(IGremlinQuerySource g) => g
             .UseNeptune<Vertex, Edge>(builder => builder
                 .AtLocalhost()
-                .UseElasticSearch(new Uri("http://elastic.search.server")));
+                .UseElasticSearch(new Uri("http://elastic.search.server")))
+            .IgnoreCosmosDbSpecificProperties();
     }
 }

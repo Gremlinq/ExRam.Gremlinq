@@ -7,7 +7,7 @@
       "Item2",
       {
         "@type": "g:Int64",
-        "@value": 10
+        "@value": 7
       }
     ]
   }

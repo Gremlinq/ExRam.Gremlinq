@@ -1,6 +1,6 @@
 ﻿[
   {
-    Id: 26,
+    Id: 19,
     Label: Person,
     PartitionKey: PartitionKey
   }

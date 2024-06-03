@@ -15,6 +15,7 @@ namespace ExRam.Gremlinq.Tests.Fixtures
                 .UseNewtonsoftJson())
             .ConfigureEnvironment(environment => environment
                 .ConfigureExecutor(_ => _
-                    .IgnoreResults()));
+                    .IgnoreResults()))
+            .IgnoreCosmosDbSpecificProperties();
     }
 }

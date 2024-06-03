@@ -33,26 +33,6 @@
               }
             ]
           },
-          "PartitionKey",
-          {
-            "@type": "g:List",
-            "@value": [
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "id",
-                  {
-                    "@type": "g:Int64",
-                    "@value": 2
-                  },
-                  "label",
-                  "PartitionKey",
-                  "value",
-                  "PartitionKey"
-                ]
-              }
-            ]
-          },
           "LocalizableDescription",
           {
             "@type": "g:List",
@@ -63,7 +43,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 160
+                    "@value": 127
                   },
                   "label",
                   "LocalizableDescription",
@@ -83,7 +63,7 @@
       "id",
       {
         "@type": "g:Int64",
-        "@value": 52
+        "@value": 37
       },
       "label",
       "Person",
@@ -101,7 +81,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 124
+                    "@value": 88
                   },
                   "label",
                   "GuidKey",
@@ -124,7 +104,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 56
+                    "@value": 40
                   },
                   "label",
                   "RegistrationDate",
@@ -133,26 +113,6 @@
                     "@type": "g:Date",
                     "@value": 1586270616000
                   }
-                ]
-              }
-            ]
-          },
-          "PartitionKey",
-          {
-            "@type": "g:List",
-            "@value": [
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "id",
-                  {
-                    "@type": "g:Int64",
-                    "@value": 55
-                  },
-                  "label",
-                  "PartitionKey",
-                  "value",
-                  "PartitionKey"
                 ]
               }
             ]
@@ -167,7 +127,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 187
+                    "@value": 151
                   },
                   "label",
                   "StringKey1",
@@ -190,7 +150,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 176
+                    "@value": 140
                   },
                   "label",
                   "Age",
@@ -213,7 +173,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 198
+                    "@value": 162
                   },
                   "label",
                   "StringKey2",
@@ -236,7 +196,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 54
+                    "@value": 39
                   },
                   "label",
                   "Name",

@@ -5,7 +5,7 @@
       "id",
       {
         "@type": "g:Int64",
-        "@value": 105
+        "@value": 75
       },
       "label",
       "Company",
@@ -23,7 +23,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 108
+                    "@value": 77
                   },
                   "label",
                   "PhoneNumbers",
@@ -37,7 +37,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 109
+                    "@value": 78
                   },
                   "label",
                   "PhoneNumbers",
@@ -57,7 +57,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 106
+                    "@value": 76
                   },
                   "label",
                   "FoundingDate",
@@ -66,26 +66,6 @@
                     "@type": "g:Date",
                     "@value": -62135596800000
                   }
-                ]
-              }
-            ]
-          },
-          "PartitionKey",
-          {
-            "@type": "g:List",
-            "@value": [
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "id",
-                  {
-                    "@type": "g:Int64",
-                    "@value": 107
-                  },
-                  "label",
-                  "PartitionKey",
-                  "value",
-                  "PartitionKey"
                 ]
               }
             ]

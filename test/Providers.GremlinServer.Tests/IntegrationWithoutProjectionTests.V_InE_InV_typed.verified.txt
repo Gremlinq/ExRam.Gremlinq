@@ -4,7 +4,7 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 14
+        "@value": 10
       },
       "label": "Person",
       "properties": {
@@ -14,7 +14,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 116
+                "@value": 83
               },
               "value": {
                 "@type": "g:UUID",
@@ -30,7 +30,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 425
+                "@value": 335
               },
               "value": {
                 "@type": "g:Date",
@@ -46,7 +46,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 179
+                "@value": 146
               },
               "value": {
                 "@type": "g:Int32",
@@ -56,26 +56,13 @@
             }
           }
         ],
-        "PartitionKey": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 424
-              },
-              "value": "PartitionKey",
-              "label": "PartitionKey"
-            }
-          }
-        ],
         "Gender": [
           {
             "@type": "g:VertexProperty",
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 423
+                "@value": 334
               },
               "value": {
                 "@type": "g:Int32",
@@ -91,7 +78,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 190
+                "@value": 157
               },
               "value": {
                 "@type": "g:Int32",
@@ -107,7 +94,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 370
+                "@value": 292
               },
               "value": {
                 "@type": "g:Int32",
@@ -123,7 +110,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 372
+                "@value": 294
               },
               "value": "Marko",
               "label": "Name"

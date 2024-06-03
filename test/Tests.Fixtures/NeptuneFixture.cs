@@ -11,6 +11,7 @@ namespace ExRam.Gremlinq.Tests.Fixtures
         protected override async Task<IGremlinQuerySource> TransformQuerySource(IGremlinQuerySource g) => g
             .UseNeptune<Vertex, Edge>(_ => _
                 .AtLocalhost()
-                .UseNewtonsoftJson());
+                .UseNewtonsoftJson())
+            .IgnoreCosmosDbSpecificProperties();
     }
 }

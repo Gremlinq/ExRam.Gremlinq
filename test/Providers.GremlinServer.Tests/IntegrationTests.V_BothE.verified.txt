@@ -5,7 +5,7 @@
       "id",
       {
         "@type": "g:Int64",
-        "@value": 19
+        "@value": 14
       },
       "label",
       "LivesIn",
@@ -22,7 +22,7 @@
       "id",
       {
         "@type": "g:Int64",
-        "@value": 19
+        "@value": 14
       },
       "label",
       "LivesIn",
@@ -39,7 +39,7 @@
       "id",
       {
         "@type": "g:Int64",
-        "@value": 6
+        "@value": 4
       },
       "label",
       "Speaks",
@@ -56,7 +56,7 @@
       "id",
       {
         "@type": "g:Int64",
-        "@value": 6
+        "@value": 4
       },
       "label",
       "Speaks",
@@ -73,7 +73,7 @@
       "id",
       {
         "@type": "g:Int64",
-        "@value": 57
+        "@value": 41
       },
       "label",
       "LivesIn",
@@ -90,7 +90,7 @@
       "id",
       {
         "@type": "g:Int64",
-        "@value": 57
+        "@value": 41
       },
       "label",
       "LivesIn",
@@ -107,7 +107,7 @@
       "id",
       {
         "@type": "g:Int64",
-        "@value": 13
+        "@value": 9
       },
       "label",
       "WorksFor",
@@ -137,7 +137,7 @@
       "id",
       {
         "@type": "g:Int64",
-        "@value": 13
+        "@value": 9
       },
       "label",
       "WorksFor",
@@ -167,7 +167,7 @@
       "id",
       {
         "@type": "g:Int64",
-        "@value": 25
+        "@value": 18
       },
       "label",
       "LivesIn",
@@ -184,7 +184,7 @@
       "id",
       {
         "@type": "g:Int64",
-        "@value": 25
+        "@value": 18
       },
       "label",
       "LivesIn",
@@ -201,7 +201,7 @@
       "id",
       {
         "@type": "g:Int64",
-        "@value": 31
+        "@value": 22
       },
       "label",
       "LivesIn",
@@ -218,7 +218,7 @@
       "id",
       {
         "@type": "g:Int64",
-        "@value": 31
+        "@value": 22
       },
       "label",
       "LivesIn",
@@ -235,7 +235,7 @@
       "id",
       {
         "@type": "g:Int64",
-        "@value": 37
+        "@value": 26
       },
       "label",
       "LivesIn",
@@ -258,7 +258,7 @@
       "id",
       {
         "@type": "g:Int64",
-        "@value": 37
+        "@value": 26
       },
       "label",
       "LivesIn",
@@ -281,7 +281,7 @@
       "id",
       {
         "@type": "g:Int64",
-        "@value": 44
+        "@value": 31
       },
       "label",
       "WorksFor",
@@ -311,7 +311,7 @@
       "id",
       {
         "@type": "g:Int64",
-        "@value": 44
+        "@value": 31
       },
       "label",
       "WorksFor",
@@ -341,7 +341,7 @@
       "id",
       {
         "@type": "g:Int64",
-        "@value": 51
+        "@value": 36
       },
       "label",
       "Speaks",
@@ -358,7 +358,7 @@
       "id",
       {
         "@type": "g:Int64",
-        "@value": 51
+        "@value": 36
       },
       "label",
       "Speaks",
@@ -375,7 +375,7 @@
       "id",
       {
         "@type": "g:Int64",
-        "@value": 64
+        "@value": 46
       },
       "label",
       "WorksFor",
@@ -405,7 +405,7 @@
       "id",
       {
         "@type": "g:Int64",
-        "@value": 64
+        "@value": 46
       },
       "label",
       "WorksFor",

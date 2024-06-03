@@ -4,14 +4,14 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 19
+        "@value": 14
       },
       "label": "LivesIn",
       "inVLabel": "Person",
       "outVLabel": "Country",
       "inV": {
         "@type": "g:Int64",
-        "@value": 14
+        "@value": 10
       },
       "outV": {
         "@type": "g:Int64",
@@ -24,14 +24,14 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 19
+        "@value": 14
       },
       "label": "LivesIn",
       "inVLabel": "Person",
       "outVLabel": "Country",
       "inV": {
         "@type": "g:Int64",
-        "@value": 14
+        "@value": 10
       },
       "outV": {
         "@type": "g:Int64",
@@ -44,14 +44,14 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 6
+        "@value": 4
       },
       "label": "Speaks",
       "inVLabel": "Language",
       "outVLabel": "Country",
       "inV": {
         "@type": "g:Int64",
-        "@value": 3
+        "@value": 2
       },
       "outV": {
         "@type": "g:Int64",
@@ -64,14 +64,14 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 6
+        "@value": 4
       },
       "label": "Speaks",
       "inVLabel": "Language",
       "outVLabel": "Country",
       "inV": {
         "@type": "g:Int64",
-        "@value": 3
+        "@value": 2
       },
       "outV": {
         "@type": "g:Int64",
@@ -84,7 +84,7 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 57
+        "@value": 41
       },
       "label": "LivesIn",
       "inVLabel": "Country",
@@ -94,226 +94,226 @@
         "@value": 0
       },
       "outV": {
-        "@type": "g:Int64",
-        "@value": 52
-      }
-    }
-  },
-  {
-    "@type": "g:Edge",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 57
-      },
-      "label": "LivesIn",
-      "inVLabel": "Country",
-      "outVLabel": "Person",
-      "inV": {
-        "@type": "g:Int64",
-        "@value": 0
-      },
-      "outV": {
-        "@type": "g:Int64",
-        "@value": 52
-      }
-    }
-  },
-  {
-    "@type": "g:Edge",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 13
-      },
-      "label": "WorksFor",
-      "inVLabel": "Company",
-      "outVLabel": "Person",
-      "inV": {
-        "@type": "g:Int64",
-        "@value": 7
-      },
-      "outV": {
-        "@type": "g:Int64",
-        "@value": 10
-      },
-      "properties": {
-        "Role": {
-          "@type": "g:Property",
-          "@value": {
-            "key": "Role",
-            "value": "Admin"
-          }
-        },
-        "From": {
-          "@type": "g:Property",
-          "@value": {
-            "key": "From",
-            "value": {
-              "@type": "g:Date",
-              "@value": 1586270616000
-            }
-          }
-        },
-        "To": {
-          "@type": "g:Property",
-          "@value": {
-            "key": "To",
-            "value": {
-              "@type": "g:Date",
-              "@value": 1586270616000
-            }
-          }
-        }
-      }
-    }
-  },
-  {
-    "@type": "g:Edge",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 13
-      },
-      "label": "WorksFor",
-      "inVLabel": "Company",
-      "outVLabel": "Person",
-      "inV": {
-        "@type": "g:Int64",
-        "@value": 7
-      },
-      "outV": {
-        "@type": "g:Int64",
-        "@value": 10
-      },
-      "properties": {
-        "Role": {
-          "@type": "g:Property",
-          "@value": {
-            "key": "Role",
-            "value": "Admin"
-          }
-        },
-        "From": {
-          "@type": "g:Property",
-          "@value": {
-            "key": "From",
-            "value": {
-              "@type": "g:Date",
-              "@value": 1586270616000
-            }
-          }
-        },
-        "To": {
-          "@type": "g:Property",
-          "@value": {
-            "key": "To",
-            "value": {
-              "@type": "g:Date",
-              "@value": 1586270616000
-            }
-          }
-        }
-      }
-    }
-  },
-  {
-    "@type": "g:Edge",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 25
-      },
-      "label": "LivesIn",
-      "inVLabel": "Country",
-      "outVLabel": "Person",
-      "inV": {
-        "@type": "g:Int64",
-        "@value": 23
-      },
-      "outV": {
-        "@type": "g:Int64",
-        "@value": 20
-      }
-    }
-  },
-  {
-    "@type": "g:Edge",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 25
-      },
-      "label": "LivesIn",
-      "inVLabel": "Country",
-      "outVLabel": "Person",
-      "inV": {
-        "@type": "g:Int64",
-        "@value": 23
-      },
-      "outV": {
-        "@type": "g:Int64",
-        "@value": 20
-      }
-    }
-  },
-  {
-    "@type": "g:Edge",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 31
-      },
-      "label": "LivesIn",
-      "inVLabel": "Country",
-      "outVLabel": "Person",
-      "inV": {
-        "@type": "g:Int64",
-        "@value": 29
-      },
-      "outV": {
-        "@type": "g:Int64",
-        "@value": 26
-      }
-    }
-  },
-  {
-    "@type": "g:Edge",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 31
-      },
-      "label": "LivesIn",
-      "inVLabel": "Country",
-      "outVLabel": "Person",
-      "inV": {
-        "@type": "g:Int64",
-        "@value": 29
-      },
-      "outV": {
-        "@type": "g:Int64",
-        "@value": 26
-      }
-    }
-  },
-  {
-    "@type": "g:Edge",
-    "@value": {
-      "id": {
         "@type": "g:Int64",
         "@value": 37
+      }
+    }
+  },
+  {
+    "@type": "g:Edge",
+    "@value": {
+      "id": {
+        "@type": "g:Int64",
+        "@value": 41
       },
       "label": "LivesIn",
       "inVLabel": "Country",
       "outVLabel": "Person",
       "inV": {
         "@type": "g:Int64",
-        "@value": 35
+        "@value": 0
       },
       "outV": {
         "@type": "g:Int64",
-        "@value": 32
+        "@value": 37
+      }
+    }
+  },
+  {
+    "@type": "g:Edge",
+    "@value": {
+      "id": {
+        "@type": "g:Int64",
+        "@value": 9
+      },
+      "label": "WorksFor",
+      "inVLabel": "Company",
+      "outVLabel": "Person",
+      "inV": {
+        "@type": "g:Int64",
+        "@value": 5
+      },
+      "outV": {
+        "@type": "g:Int64",
+        "@value": 7
+      },
+      "properties": {
+        "Role": {
+          "@type": "g:Property",
+          "@value": {
+            "key": "Role",
+            "value": "Admin"
+          }
+        },
+        "From": {
+          "@type": "g:Property",
+          "@value": {
+            "key": "From",
+            "value": {
+              "@type": "g:Date",
+              "@value": 1586270616000
+            }
+          }
+        },
+        "To": {
+          "@type": "g:Property",
+          "@value": {
+            "key": "To",
+            "value": {
+              "@type": "g:Date",
+              "@value": 1586270616000
+            }
+          }
+        }
+      }
+    }
+  },
+  {
+    "@type": "g:Edge",
+    "@value": {
+      "id": {
+        "@type": "g:Int64",
+        "@value": 9
+      },
+      "label": "WorksFor",
+      "inVLabel": "Company",
+      "outVLabel": "Person",
+      "inV": {
+        "@type": "g:Int64",
+        "@value": 5
+      },
+      "outV": {
+        "@type": "g:Int64",
+        "@value": 7
+      },
+      "properties": {
+        "Role": {
+          "@type": "g:Property",
+          "@value": {
+            "key": "Role",
+            "value": "Admin"
+          }
+        },
+        "From": {
+          "@type": "g:Property",
+          "@value": {
+            "key": "From",
+            "value": {
+              "@type": "g:Date",
+              "@value": 1586270616000
+            }
+          }
+        },
+        "To": {
+          "@type": "g:Property",
+          "@value": {
+            "key": "To",
+            "value": {
+              "@type": "g:Date",
+              "@value": 1586270616000
+            }
+          }
+        }
+      }
+    }
+  },
+  {
+    "@type": "g:Edge",
+    "@value": {
+      "id": {
+        "@type": "g:Int64",
+        "@value": 18
+      },
+      "label": "LivesIn",
+      "inVLabel": "Country",
+      "outVLabel": "Person",
+      "inV": {
+        "@type": "g:Int64",
+        "@value": 17
+      },
+      "outV": {
+        "@type": "g:Int64",
+        "@value": 15
+      }
+    }
+  },
+  {
+    "@type": "g:Edge",
+    "@value": {
+      "id": {
+        "@type": "g:Int64",
+        "@value": 18
+      },
+      "label": "LivesIn",
+      "inVLabel": "Country",
+      "outVLabel": "Person",
+      "inV": {
+        "@type": "g:Int64",
+        "@value": 17
+      },
+      "outV": {
+        "@type": "g:Int64",
+        "@value": 15
+      }
+    }
+  },
+  {
+    "@type": "g:Edge",
+    "@value": {
+      "id": {
+        "@type": "g:Int64",
+        "@value": 22
+      },
+      "label": "LivesIn",
+      "inVLabel": "Country",
+      "outVLabel": "Person",
+      "inV": {
+        "@type": "g:Int64",
+        "@value": 21
+      },
+      "outV": {
+        "@type": "g:Int64",
+        "@value": 19
+      }
+    }
+  },
+  {
+    "@type": "g:Edge",
+    "@value": {
+      "id": {
+        "@type": "g:Int64",
+        "@value": 22
+      },
+      "label": "LivesIn",
+      "inVLabel": "Country",
+      "outVLabel": "Person",
+      "inV": {
+        "@type": "g:Int64",
+        "@value": 21
+      },
+      "outV": {
+        "@type": "g:Int64",
+        "@value": 19
+      }
+    }
+  },
+  {
+    "@type": "g:Edge",
+    "@value": {
+      "id": {
+        "@type": "g:Int64",
+        "@value": 26
+      },
+      "label": "LivesIn",
+      "inVLabel": "Country",
+      "outVLabel": "Person",
+      "inV": {
+        "@type": "g:Int64",
+        "@value": 25
+      },
+      "outV": {
+        "@type": "g:Int64",
+        "@value": 23
       },
       "properties": {
         "Since": {
@@ -334,18 +334,18 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 37
+        "@value": 26
       },
       "label": "LivesIn",
       "inVLabel": "Country",
       "outVLabel": "Person",
       "inV": {
         "@type": "g:Int64",
-        "@value": 35
+        "@value": 25
       },
       "outV": {
         "@type": "g:Int64",
-        "@value": 32
+        "@value": 23
       },
       "properties": {
         "Since": {
@@ -366,18 +366,18 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 44
+        "@value": 31
       },
       "label": "WorksFor",
       "inVLabel": "Company",
       "outVLabel": "Person",
       "inV": {
         "@type": "g:Int64",
-        "@value": 38
+        "@value": 27
       },
       "outV": {
         "@type": "g:Int64",
-        "@value": 41
+        "@value": 29
       },
       "properties": {
         "Role": {
@@ -415,18 +415,18 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 44
+        "@value": 31
       },
       "label": "WorksFor",
       "inVLabel": "Company",
       "outVLabel": "Person",
       "inV": {
         "@type": "g:Int64",
-        "@value": 38
+        "@value": 27
       },
       "outV": {
         "@type": "g:Int64",
-        "@value": 41
+        "@value": 29
       },
       "properties": {
         "Role": {
@@ -464,18 +464,18 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 51
+        "@value": 36
       },
       "label": "Speaks",
       "inVLabel": "Language",
       "outVLabel": "Country",
       "inV": {
         "@type": "g:Int64",
-        "@value": 45
+        "@value": 32
       },
       "outV": {
         "@type": "g:Int64",
-        "@value": 48
+        "@value": 34
       }
     }
   },
@@ -484,18 +484,18 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 51
+        "@value": 36
       },
       "label": "Speaks",
       "inVLabel": "Language",
       "outVLabel": "Country",
       "inV": {
         "@type": "g:Int64",
-        "@value": 45
+        "@value": 32
       },
       "outV": {
         "@type": "g:Int64",
-        "@value": 48
+        "@value": 34
       }
     }
   },
@@ -504,18 +504,18 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 64
+        "@value": 46
       },
       "label": "WorksFor",
       "inVLabel": "Company",
       "outVLabel": "Person",
       "inV": {
         "@type": "g:Int64",
-        "@value": 58
+        "@value": 42
       },
       "outV": {
         "@type": "g:Int64",
-        "@value": 61
+        "@value": 44
       },
       "properties": {
         "Role": {
@@ -553,18 +553,18 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 64
+        "@value": 46
       },
       "label": "WorksFor",
       "inVLabel": "Company",
       "outVLabel": "Person",
       "inV": {
         "@type": "g:Int64",
-        "@value": 58
+        "@value": 42
       },
       "outV": {
         "@type": "g:Int64",
-        "@value": 61
+        "@value": 44
       },
       "properties": {
         "Role": {

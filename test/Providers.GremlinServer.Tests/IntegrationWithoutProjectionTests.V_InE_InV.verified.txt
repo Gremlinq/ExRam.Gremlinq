@@ -21,26 +21,13 @@
             }
           }
         ],
-        "PartitionKey": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 2
-              },
-              "value": "PartitionKey",
-              "label": "PartitionKey"
-            }
-          }
-        ],
         "LocalizableDescription": [
           {
             "@type": "g:VertexProperty",
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 160
+                "@value": 127
               },
               "value": "",
               "label": "LocalizableDescription",
@@ -58,7 +45,7 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 3
+        "@value": 2
       },
       "label": "Language",
       "properties": {
@@ -68,23 +55,10 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 4
+                "@value": 3
               },
               "value": "en",
               "label": "IetfLanguageTag"
-            }
-          }
-        ],
-        "PartitionKey": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 5
-              },
-              "value": "PartitionKey",
-              "label": "PartitionKey"
             }
           }
         ]
@@ -96,7 +70,7 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 7
+        "@value": 5
       },
       "label": "Company",
       "properties": {
@@ -106,26 +80,13 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 8
+                "@value": 6
               },
               "value": {
                 "@type": "g:Date",
                 "@value": -62135596800000
               },
               "label": "FoundingDate"
-            }
-          }
-        ],
-        "PartitionKey": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 9
-              },
-              "value": "PartitionKey",
-              "label": "PartitionKey"
             }
           }
         ]
@@ -137,7 +98,7 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 14
+        "@value": 10
       },
       "label": "Person",
       "properties": {
@@ -147,7 +108,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 116
+                "@value": 83
               },
               "value": {
                 "@type": "g:UUID",
@@ -163,7 +124,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 425
+                "@value": 335
               },
               "value": {
                 "@type": "g:Date",
@@ -179,7 +140,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 179
+                "@value": 146
               },
               "value": {
                 "@type": "g:Int32",
@@ -189,26 +150,13 @@
             }
           }
         ],
-        "PartitionKey": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 424
-              },
-              "value": "PartitionKey",
-              "label": "PartitionKey"
-            }
-          }
-        ],
         "Gender": [
           {
             "@type": "g:VertexProperty",
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 423
+                "@value": 334
               },
               "value": {
                 "@type": "g:Int32",
@@ -224,7 +172,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 190
+                "@value": 157
               },
               "value": {
                 "@type": "g:Int32",
@@ -240,7 +188,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 370
+                "@value": 292
               },
               "value": {
                 "@type": "g:Int32",
@@ -256,7 +204,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 372
+                "@value": 294
               },
               "value": "Marko",
               "label": "Name"
@@ -271,30 +219,17 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 23
+        "@value": 17
       },
       "label": "Country",
       "properties": {
-        "PartitionKey": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 24
-              },
-              "value": "PartitionKey",
-              "label": "PartitionKey"
-            }
-          }
-        ],
         "LocalizableDescription": [
           {
             "@type": "g:VertexProperty",
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 161
+                "@value": 130
               },
               "value": "",
               "label": "LocalizableDescription",
@@ -312,30 +247,17 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 29
+        "@value": 21
       },
       "label": "Country",
       "properties": {
-        "PartitionKey": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 30
-              },
-              "value": "PartitionKey",
-              "label": "PartitionKey"
-            }
-          }
-        ],
         "LocalizableDescription": [
           {
             "@type": "g:VertexProperty",
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 162
+                "@value": 131
               },
               "value": "",
               "label": "LocalizableDescription",
@@ -353,30 +275,17 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 35
+        "@value": 25
       },
       "label": "Country",
       "properties": {
-        "PartitionKey": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 36
-              },
-              "value": "PartitionKey",
-              "label": "PartitionKey"
-            }
-          }
-        ],
         "LocalizableDescription": [
           {
             "@type": "g:VertexProperty",
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 163
+                "@value": 132
               },
               "value": "",
               "label": "LocalizableDescription",
@@ -394,7 +303,7 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 38
+        "@value": 27
       },
       "label": "Company",
       "properties": {
@@ -404,26 +313,13 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 39
+                "@value": 28
               },
               "value": {
                 "@type": "g:Date",
                 "@value": -62135596800000
               },
               "label": "FoundingDate"
-            }
-          }
-        ],
-        "PartitionKey": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 40
-              },
-              "value": "PartitionKey",
-              "label": "PartitionKey"
             }
           }
         ]
@@ -435,7 +331,7 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 45
+        "@value": 32
       },
       "label": "Language",
       "properties": {
@@ -445,23 +341,10 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 46
+                "@value": 33
               },
               "value": "en",
               "label": "IetfLanguageTag"
-            }
-          }
-        ],
-        "PartitionKey": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 47
-              },
-              "value": "PartitionKey",
-              "label": "PartitionKey"
             }
           }
         ]
@@ -473,7 +356,7 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 58
+        "@value": 42
       },
       "label": "Company",
       "properties": {
@@ -483,26 +366,13 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 59
+                "@value": 43
               },
               "value": {
                 "@type": "g:Date",
                 "@value": -62135596800000
               },
               "label": "FoundingDate"
-            }
-          }
-        ],
-        "PartitionKey": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 60
-              },
-              "value": "PartitionKey",
-              "label": "PartitionKey"
             }
           }
         ]

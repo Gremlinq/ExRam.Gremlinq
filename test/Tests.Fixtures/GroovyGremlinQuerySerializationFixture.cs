@@ -15,6 +15,7 @@ namespace ExRam.Gremlinq.Tests.Fixtures
                     .Add(ConverterFactory
                         .Create<Bytecode, RequestMessage>((bytecode, env, _, recurse) => recurse.TryTransform(bytecode, env, out GroovyGremlinScript groovyQuery) && recurse.TryTransform(groovyQuery, env, out RequestMessage? message)
                             ? message
-                            : null))));
+                            : null))))
+            .IgnoreCosmosDbSpecificProperties();
     }
 }

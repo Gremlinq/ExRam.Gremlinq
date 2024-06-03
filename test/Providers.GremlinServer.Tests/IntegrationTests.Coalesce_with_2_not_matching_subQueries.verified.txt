@@ -4,14 +4,14 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 19
+        "@value": 14
       },
       "label": "LivesIn",
       "inVLabel": "Person",
       "outVLabel": "Country",
       "inV": {
         "@type": "g:Int64",
-        "@value": 14
+        "@value": 10
       },
       "outV": {
         "@type": "g:Int64",
@@ -24,14 +24,14 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 6
+        "@value": 4
       },
       "label": "Speaks",
       "inVLabel": "Language",
       "outVLabel": "Country",
       "inV": {
         "@type": "g:Int64",
-        "@value": 3
+        "@value": 2
       },
       "outV": {
         "@type": "g:Int64",
@@ -60,19 +60,6 @@
               "label": "CountryCallingCode"
             }
           }
-        ],
-        "PartitionKey": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 2
-              },
-              "value": "PartitionKey",
-              "label": "PartitionKey"
-            }
-          }
         ]
       }
     }
@@ -98,19 +85,6 @@
               "label": "CountryCallingCode"
             }
           }
-        ],
-        "PartitionKey": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 2
-              },
-              "value": "PartitionKey",
-              "label": "PartitionKey"
-            }
-          }
         ]
       }
     }
@@ -120,30 +94,17 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 10
+        "@value": 7
       },
       "label": "Person",
       "properties": {
-        "PartitionKey": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 12
-              },
-              "value": "PartitionKey",
-              "label": "PartitionKey"
-            }
-          }
-        ],
         "Age": [
           {
             "@type": "g:VertexProperty",
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 11
+                "@value": 8
               },
               "value": {
                 "@type": "g:Int32",
@@ -161,18 +122,18 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 13
+        "@value": 9
       },
       "label": "WorksFor",
       "inVLabel": "Company",
       "outVLabel": "Person",
       "inV": {
         "@type": "g:Int64",
-        "@value": 7
+        "@value": 5
       },
       "outV": {
         "@type": "g:Int64",
-        "@value": 10
+        "@value": 7
       },
       "properties": {
         "Role": {
@@ -210,140 +171,114 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
+        "@value": 18
+      },
+      "label": "LivesIn",
+      "inVLabel": "Country",
+      "outVLabel": "Person",
+      "inV": {
+        "@type": "g:Int64",
+        "@value": 17
+      },
+      "outV": {
+        "@type": "g:Int64",
+        "@value": 15
+      }
+    }
+  },
+  {
+    "@type": "g:Vertex",
+    "@value": {
+      "id": {
+        "@type": "g:Int64",
+        "@value": 15
+      },
+      "label": "Person",
+      "properties": {
+        "Age": [
+          {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": 16
+              },
+              "value": {
+                "@type": "g:Int32",
+                "@value": 0
+              },
+              "label": "Age"
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "@type": "g:Edge",
+    "@value": {
+      "id": {
+        "@type": "g:Int64",
+        "@value": 22
+      },
+      "label": "LivesIn",
+      "inVLabel": "Country",
+      "outVLabel": "Person",
+      "inV": {
+        "@type": "g:Int64",
+        "@value": 21
+      },
+      "outV": {
+        "@type": "g:Int64",
+        "@value": 19
+      }
+    }
+  },
+  {
+    "@type": "g:Vertex",
+    "@value": {
+      "id": {
+        "@type": "g:Int64",
+        "@value": 19
+      },
+      "label": "Person",
+      "properties": {
+        "Age": [
+          {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": 20
+              },
+              "value": {
+                "@type": "g:Int32",
+                "@value": 0
+              },
+              "label": "Age"
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "@type": "g:Edge",
+    "@value": {
+      "id": {
+        "@type": "g:Int64",
+        "@value": 26
+      },
+      "label": "LivesIn",
+      "inVLabel": "Country",
+      "outVLabel": "Person",
+      "inV": {
+        "@type": "g:Int64",
         "@value": 25
       },
-      "label": "LivesIn",
-      "inVLabel": "Country",
-      "outVLabel": "Person",
-      "inV": {
+      "outV": {
         "@type": "g:Int64",
         "@value": 23
-      },
-      "outV": {
-        "@type": "g:Int64",
-        "@value": 20
-      }
-    }
-  },
-  {
-    "@type": "g:Vertex",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 20
-      },
-      "label": "Person",
-      "properties": {
-        "PartitionKey": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 22
-              },
-              "value": "PartitionKey",
-              "label": "PartitionKey"
-            }
-          }
-        ],
-        "Age": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 21
-              },
-              "value": {
-                "@type": "g:Int32",
-                "@value": 0
-              },
-              "label": "Age"
-            }
-          }
-        ]
-      }
-    }
-  },
-  {
-    "@type": "g:Edge",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 31
-      },
-      "label": "LivesIn",
-      "inVLabel": "Country",
-      "outVLabel": "Person",
-      "inV": {
-        "@type": "g:Int64",
-        "@value": 29
-      },
-      "outV": {
-        "@type": "g:Int64",
-        "@value": 26
-      }
-    }
-  },
-  {
-    "@type": "g:Vertex",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 26
-      },
-      "label": "Person",
-      "properties": {
-        "PartitionKey": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 28
-              },
-              "value": "PartitionKey",
-              "label": "PartitionKey"
-            }
-          }
-        ],
-        "Age": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 27
-              },
-              "value": {
-                "@type": "g:Int32",
-                "@value": 0
-              },
-              "label": "Age"
-            }
-          }
-        ]
-      }
-    }
-  },
-  {
-    "@type": "g:Edge",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 37
-      },
-      "label": "LivesIn",
-      "inVLabel": "Country",
-      "outVLabel": "Person",
-      "inV": {
-        "@type": "g:Int64",
-        "@value": 35
-      },
-      "outV": {
-        "@type": "g:Int64",
-        "@value": 32
       },
       "properties": {
         "Since": {
@@ -364,30 +299,17 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 32
+        "@value": 23
       },
       "label": "Person",
       "properties": {
-        "PartitionKey": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 34
-              },
-              "value": "PartitionKey",
-              "label": "PartitionKey"
-            }
-          }
-        ],
         "Age": [
           {
             "@type": "g:VertexProperty",
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 33
+                "@value": 24
               },
               "value": {
                 "@type": "g:Int32",
@@ -405,30 +327,17 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 41
+        "@value": 29
       },
       "label": "Person",
       "properties": {
-        "PartitionKey": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 43
-              },
-              "value": "PartitionKey",
-              "label": "PartitionKey"
-            }
-          }
-        ],
         "Age": [
           {
             "@type": "g:VertexProperty",
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 42
+                "@value": 30
               },
               "value": {
                 "@type": "g:Int32",
@@ -446,18 +355,18 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 44
+        "@value": 31
       },
       "label": "WorksFor",
       "inVLabel": "Company",
       "outVLabel": "Person",
       "inV": {
         "@type": "g:Int64",
-        "@value": 38
+        "@value": 27
       },
       "outV": {
         "@type": "g:Int64",
-        "@value": 41
+        "@value": 29
       },
       "properties": {
         "Role": {
@@ -495,7 +404,7 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 48
+        "@value": 34
       },
       "label": "Country",
       "properties": {
@@ -505,23 +414,10 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 49
+                "@value": 35
               },
               "value": "+49",
               "label": "CountryCallingCode"
-            }
-          }
-        ],
-        "PartitionKey": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 50
-              },
-              "value": "PartitionKey",
-              "label": "PartitionKey"
             }
           }
         ]
@@ -533,18 +429,18 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 51
+        "@value": 36
       },
       "label": "Speaks",
       "inVLabel": "Language",
       "outVLabel": "Country",
       "inV": {
         "@type": "g:Int64",
-        "@value": 45
+        "@value": 32
       },
       "outV": {
         "@type": "g:Int64",
-        "@value": 48
+        "@value": 34
       }
     }
   },
@@ -553,7 +449,7 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 57
+        "@value": 41
       },
       "label": "LivesIn",
       "inVLabel": "Country",
@@ -564,7 +460,7 @@
       },
       "outV": {
         "@type": "g:Int64",
-        "@value": 52
+        "@value": 37
       }
     }
   },
@@ -573,30 +469,17 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 61
+        "@value": 44
       },
       "label": "Person",
       "properties": {
-        "PartitionKey": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 63
-              },
-              "value": "PartitionKey",
-              "label": "PartitionKey"
-            }
-          }
-        ],
         "Age": [
           {
             "@type": "g:VertexProperty",
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 62
+                "@value": 45
               },
               "value": {
                 "@type": "g:Int32",
@@ -614,18 +497,18 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 64
+        "@value": 46
       },
       "label": "WorksFor",
       "inVLabel": "Company",
       "outVLabel": "Person",
       "inV": {
         "@type": "g:Int64",
-        "@value": 58
+        "@value": 42
       },
       "outV": {
         "@type": "g:Int64",
-        "@value": 61
+        "@value": 44
       },
       "properties": {
         "To": {

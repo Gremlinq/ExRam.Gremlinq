@@ -1,6 +1,6 @@
 ﻿[
   {
     Item1: item1,
-    Item3: 10
+    Item3: 7
   }
 ]

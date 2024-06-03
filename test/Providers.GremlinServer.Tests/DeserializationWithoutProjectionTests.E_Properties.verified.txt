@@ -1,5 +1,21 @@
 ﻿[
   {
+    Value: Admin,
+    Key: Role
+  },
+  {
+    Value: Admin,
+    Key: Role
+  },
+  {
+    Value: 2020-04-07 14:43:36 +0,
+    Key: From
+  },
+  {
+    Value: 2020-04-07 14:43:36 +0,
+    Key: From
+  },
+  {
     Value: 2020-04-07 14:43:36 +0,
     Key: To
   },
@@ -14,21 +30,5 @@
   {
     Value: 2020-04-07 14:43:36 +0,
     Key: Since
-  },
-  {
-    Value: Admin,
-    Key: Role
-  },
-  {
-    Value: Admin,
-    Key: Role
-  },
-  {
-    Value: 2020-04-07 14:43:36 +0,
-    Key: From
-  },
-  {
-    Value: 2020-04-07 14:43:36 +0,
-    Key: From
   }
 ]

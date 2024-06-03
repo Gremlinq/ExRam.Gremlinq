@@ -5,7 +5,7 @@
       "id",
       {
         "@type": "g:Int64",
-        "@value": 90
+        "@value": 65
       },
       "label",
       "Language",
@@ -23,32 +23,12 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 91
+                    "@value": 66
                   },
                   "label",
                   "IetfLanguageTag",
                   "value",
                   "en"
-                ]
-              }
-            ]
-          },
-          "PartitionKey",
-          {
-            "@type": "g:List",
-            "@value": [
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "id",
-                  {
-                    "@type": "g:Int64",
-                    "@value": 92
-                  },
-                  "label",
-                  "PartitionKey",
-                  "value",
-                  "PartitionKey"
                 ]
               }
             ]
