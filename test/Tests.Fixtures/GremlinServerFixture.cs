@@ -1,5 +1,4 @@
 ﻿using ExRam.Gremlinq.Core;
-using ExRam.Gremlinq.Core.Models;
 using ExRam.Gremlinq.Providers.Core;
 using ExRam.Gremlinq.Tests.Entities;
 using ExRam.Gremlinq.Support.NewtonsoftJson;
@@ -13,10 +12,6 @@ namespace ExRam.Gremlinq.Tests.Fixtures
             .UseGremlinServer<Vertex, Edge>(_ => _
                 .AtLocalhost()
                 .UseNewtonsoftJson())
-            .ConfigureEnvironment(env => env
-                .ConfigureModel(model => model
-                    .ConfigureElements(v => v
-                        .ConfigureElement<Element>(conf => conf
-                            .IgnoreAlways(p => p.PartitionKey)))));
+            .IgnoreCosmosDbSpecificProperties();
     }
 }
