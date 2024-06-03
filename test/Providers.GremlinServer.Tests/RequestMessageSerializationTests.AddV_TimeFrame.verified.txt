@@ -43,17 +43,6 @@
               EnumName: Cardinality,
               EnumValue: single
             },
-            PartitionKey,
-            PartitionKey
-          ]
-        },
-        {
-          OperatorName: property,
-          Arguments: [
-            {
-              EnumName: Cardinality,
-              EnumValue: single
-            },
             StartTime,
             08:00:00
           ]

@@ -47,17 +47,6 @@
           EnumName: Cardinality,
           EnumValue: single
         },
-        PartitionKey,
-        PartitionKey
-      ]
-    },
-    {
-      OperatorName: property,
-      Arguments: [
-        {
-          EnumName: Cardinality,
-          EnumValue: single
-        },
         RegistrationDate,
         DateTimeOffset_1
       ]
@@ -66,24 +55,6 @@
       OperatorName: outE,
       Arguments: [
         WorksFor
-      ]
-    },
-    {
-      OperatorName: sideEffect,
-      Arguments: [
-        {
-          StepInstructions: [
-            {
-              OperatorName: properties,
-              Arguments: [
-                PartitionKey
-              ]
-            },
-            {
-              OperatorName: drop
-            }
-          ]
-        }
       ]
     },
     {
