@@ -99,7 +99,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb
                                             .ConfigureModel(model => model
                                                 .ConfigureVertices(model => model
                                                     .ConfigureElement<TVertexBase>(conf => conf
-                                                    .IgnoreOnUpdate(partitionKeyExpression))))
+                                                        .IgnoreOnUpdate(partitionKeyExpression))))
                                             .UseExecutor(_clientFactoryTransformation
                                                 .Invoke(WebSocketGremlinqClientFactory.LocalHost
                                                     .WithBinaryMessage<GraphSon2BinaryMessage>()

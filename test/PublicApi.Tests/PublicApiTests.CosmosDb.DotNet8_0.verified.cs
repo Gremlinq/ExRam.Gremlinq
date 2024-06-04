@@ -29,4 +29,15 @@
         ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfigurator<TVertexBase> OnGraph(string graphName);
         ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfigurator<TVertexBase> WithPartitionKey(System.Linq.Expressions.Expression<System.Func<TVertexBase, object>> partitionKeyExpression);
     }
+    public readonly struct SystemProperty
+    {
+        public static readonly ExRam.Gremlinq.Providers.CosmosDb.SystemProperty _attachments;
+        public static readonly ExRam.Gremlinq.Providers.CosmosDb.SystemProperty _etag;
+        public static readonly ExRam.Gremlinq.Providers.CosmosDb.SystemProperty _rid;
+        public static readonly ExRam.Gremlinq.Providers.CosmosDb.SystemProperty _self;
+        public static readonly ExRam.Gremlinq.Providers.CosmosDb.SystemProperty _ts;
+        public static readonly ExRam.Gremlinq.Providers.CosmosDb.SystemProperty inVPartition;
+        public static readonly ExRam.Gremlinq.Providers.CosmosDb.SystemProperty outVPartition;
+        public string Name { get; }
+    }
 }
