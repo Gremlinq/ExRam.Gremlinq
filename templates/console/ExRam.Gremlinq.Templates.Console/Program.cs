@@ -23,7 +23,7 @@ namespace ExRam.Gremlinq.Templates.Console
                     .At(new Uri("wss://your.cosmosdb.endpoint/"))
                     .OnDatabase("your database name")
                     .OnGraph("your graph name")
-                    .WithPartitionKey(x => x.PartitionKey)
+                    .WithPartitionKey(x => x.PartitionKey!)
                     .AuthenticateBy("your auth key")
 #else
                     .AtLocalhost()
