@@ -9,6 +9,6 @@
     bindings: {
       _a: sideEffectLabel
     },
-    gremlin: g.withSideEffect(_a,_b).V()
+    gremlin: g.withSideEffect(_a,[]).V()
   }
 }

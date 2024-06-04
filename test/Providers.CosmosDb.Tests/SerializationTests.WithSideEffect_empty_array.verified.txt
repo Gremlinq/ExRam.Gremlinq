@@ -1,5 +1,5 @@
 ﻿{
-  Script: g.withSideEffect(_a,_b).V(),
+  Script: g.withSideEffect(_a,[]).V(),
   Bindings: {
     _a: sideEffectLabel
   }

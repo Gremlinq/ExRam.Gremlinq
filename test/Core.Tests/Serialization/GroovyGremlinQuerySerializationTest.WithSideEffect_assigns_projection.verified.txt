@@ -1,11 +1,11 @@
 ﻿{
-  Script: g.withSideEffect(_a,_b).V().hasLabel(_c).aggregate(_a).fold().select(_a).map(__.unfold().project(_d,_e,_f).by(id).by(label).by(__.properties().group().by(label).by(__.project(_d,_e,_g,_f).by(id).by(label).by(value).by(__.valueMap()).fold())).fold()),
+  Script: g.withSideEffect(_a,[]).V().hasLabel(_b).aggregate(_a).fold().select(_a).map(__.unfold().project(_c,_d,_e).by(id).by(label).by(__.properties().group().by(label).by(__.project(_c,_d,_f,_e).by(id).by(label).by(value).by(__.valueMap()).fold())).fold()),
   Bindings: {
     _a: _a,
-    _c: Person,
-    _d: id,
-    _e: label,
-    _f: properties,
-    _g: value
+    _b: Person,
+    _c: id,
+    _d: label,
+    _e: properties,
+    _f: value
   }
 }

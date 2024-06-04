@@ -740,6 +740,24 @@ namespace ExRam.Gremlinq.Tests.TestCases
             .Verify();
 
         [Fact]
+        public virtual Task Constant_empty_array() => _g
+            .V()
+            .Constant(Array.Empty<object>())
+            .Verify();
+
+        [Fact]
+        public virtual Task Constant_empty_string_array() => _g
+           .V()
+           .Constant(Array.Empty<string>())
+           .Verify();
+
+        [Fact]
+        public virtual Task Constant_single_string_array() => _g
+            .V()
+            .Constant(new []{ "Hello"})
+            .Verify();
+
+        [Fact]
         public virtual Task Count() => _g
             .V()
             .Count()

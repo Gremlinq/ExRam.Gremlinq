@@ -1,10 +1,8 @@
 ﻿{
-  Script: g.V(_a).hasLabel(_b),
+  Script: g.V([_a,_b]).hasLabel(_c),
   Bindings: {
-    _a: [
-      pk,
-      id
-    ],
-    _b: Person
+    _a: pk,
+    _b: id,
+    _c: Person
   }
 }

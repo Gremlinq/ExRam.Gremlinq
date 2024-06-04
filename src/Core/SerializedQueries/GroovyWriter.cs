@@ -86,11 +86,11 @@ namespace ExRam.Gremlinq.Core
                 case Instruction instruction:
                 {
 #pragma warning disable IDE0003 // Remove qualification
-                        return this
+                    return this
                         .StartOperator(instruction.OperatorName, stringBuilder)
                         .Append(instruction.Arguments, stringBuilder, bindings, environment, true)
                         .EndOperator(stringBuilder);
-                    }
+                }
                 case P { Value: P p1, Other: { } otherP, OperatorName: { } operatorName }:
                 {
                     return this
@@ -159,6 +159,21 @@ namespace ExRam.Gremlinq.Core
 
                     return writer;
                 }
+                case object[] objectArray:
+                {
+                    var writer = this
+                        .StartArray(stringBuilder);
+
+                    for (var i = 0; i < objectArray.Length; i++)
+                    {
+                        writer = writer
+                            .StartElement(i, stringBuilder)
+                            .Append(objectArray[i], stringBuilder, bindings, environment);
+                    }
+
+                    return writer
+                        .EndArray(stringBuilder);
+                }
                 case null:
                     return Write("null", stringBuilder);
                 case not null when bindings != null:
@@ -208,6 +223,30 @@ namespace ExRam.Gremlinq.Core
         private GroovyWriter StartParameter(int parameterIndex, StringBuilder stringBuilder)
         {
             if (parameterIndex > 0)
+                stringBuilder.Append(',');
+
+            return new(false, _hasIdentifier);
+        }
+
+        private GroovyWriter StartArray(StringBuilder stringBuilder)
+        {
+            stringBuilder
+                .Append('[');
+
+            return new();
+        }
+
+        private GroovyWriter EndArray(StringBuilder stringBuilder)
+        {
+            stringBuilder
+                .Append(']');
+
+            return new();
+        }
+
+        private GroovyWriter StartElement(int elementIndex, StringBuilder stringBuilder)
+        {
+            if (elementIndex > 0)
                 stringBuilder.Append(',');
 
             return new(false, _hasIdentifier);

@@ -8,8 +8,8 @@
     },
     bindings: {
       _a: _a,
-      _c: Person
+      _b: Person
     },
-    gremlin: g.withSideEffect(_a,_b).V().hasLabel(_c).aggregate(_a).fold().select(_a)
+    gremlin: g.withSideEffect(_a,[]).V().hasLabel(_b).aggregate(_a).fold().select(_a)
   }
 }
