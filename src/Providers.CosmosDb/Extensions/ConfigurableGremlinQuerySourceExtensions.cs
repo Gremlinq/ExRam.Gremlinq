@@ -1,4 +1,5 @@
 ﻿using System.Linq.Expressions;
+using System.Reflection;
 
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Models;
@@ -96,10 +97,25 @@ namespace ExRam.Gremlinq.Providers.CosmosDb
                                 return _querySourceTransformation
                                     .Invoke(source
                                         .ConfigureEnvironment(environment => environment
-                                            .ConfigureModel(model => model
-                                                .ConfigureVertices(model => model
-                                                    .ConfigureElement<TVertexBase>(conf => conf
-                                                        .IgnoreOnUpdate(partitionKeyExpression))))
+                                            .ConfigureModel(model =>
+                                            {
+                                                var cosmosDbSystemPropertyNames = typeof(SystemProperty)
+                                                    .GetFields(BindingFlags.Public | BindingFlags.Static)
+                                                    .Select(field => field
+                                                        .GetValue(null))
+                                                    .OfType<SystemProperty>()
+                                                    .Select(property => property.Name)
+                                                    .ToArray();
+
+                                                return model
+                                                    .ConfigureElements(model => model
+                                                        .ConfigureMetadata((memberInfo, metadata) => cosmosDbSystemPropertyNames.Contains(memberInfo.Name, StringComparer.OrdinalIgnoreCase)
+                                                            ? new MemberMetadata(metadata.Key, metadata.SerializationBehaviour | SerializationBehaviour.IgnoreAlways)
+                                                            : metadata))
+                                                    .ConfigureVertices(model => model
+                                                        .ConfigureElement<TVertexBase>(conf => conf
+                                                            .IgnoreOnUpdate(partitionKeyExpression)));
+                                            })
                                             .UseExecutor(_clientFactoryTransformation
                                                 .Invoke(WebSocketGremlinqClientFactory.LocalHost
                                                     .WithBinaryMessage<GraphSon2BinaryMessage>()
@@ -119,7 +135,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb
                 }
 
                 throw new InvalidOperationException($"A valid database name must be configured. Use {nameof(OnDatabase)} on {nameof(ICosmosDbConfigurator<TVertexBase>)} to configure the CosmosDb database name.");
-            } 
+            }
         }
 
         private class WorkaroundOrder : EnumWrapper, IComparator
