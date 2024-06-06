@@ -1,4 +1,6 @@
-﻿using System.Collections.Immutable;
+﻿#pragma warning disable IDE0003 // Remove qualification
+
+using System.Collections.Immutable;
 using System.Text;
 
 using ExRam.Gremlinq.Core.Serialization;
@@ -85,7 +87,6 @@ namespace ExRam.Gremlinq.Core
                 }
                 case Instruction instruction:
                 {
-#pragma warning disable IDE0003 // Remove qualification
                     return this
                         .StartOperator(instruction.OperatorName, stringBuilder)
                         .Append(instruction.Arguments, stringBuilder, bindings, environment, true)
@@ -105,7 +106,6 @@ namespace ExRam.Gremlinq.Core
                         .StartOperator(operatorName, stringBuilder)
                         .Append(pValue, stringBuilder, bindings, environment, true)
                         .EndOperator(stringBuilder);
-#pragma warning restore IDE0003 // Remove qualification
                 }
                 case EnumWrapper t:
                 {
@@ -146,23 +146,11 @@ namespace ExRam.Gremlinq.Core
                         environment,
                         allowEnumerableExpansion);
                 }
-                case object[] objectArray when allowEnumerableExpansion:
-                {
-                    var writer = this;
-
-                    for (var i = 0; i < objectArray.Length; i++)
-                    {
-                        writer = writer
-                            .StartParameter(i, stringBuilder)
-                            .Append(objectArray[i], stringBuilder, bindings, environment);
-                    }
-
-                    return writer;
-                }
                 case object[] objectArray:
                 {
-                    var writer = this
-                        .StartArray(stringBuilder);
+                    var writer = allowEnumerableExpansion
+                        ? this
+                        : StartArray(stringBuilder);
 
                     for (var i = 0; i < objectArray.Length; i++)
                     {
@@ -171,8 +159,9 @@ namespace ExRam.Gremlinq.Core
                             .Append(objectArray[i], stringBuilder, bindings, environment);
                     }
 
-                    return writer
-                        .EndArray(stringBuilder);
+                    return allowEnumerableExpansion
+                        ? writer
+                        : writer.EndArray(stringBuilder);
                 }
                 case null:
                     return Write("null", stringBuilder);
