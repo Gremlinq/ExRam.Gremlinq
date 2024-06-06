@@ -1,5 +1,6 @@
 ﻿#pragma warning disable IDE0003 // Remove qualification
 
+using System.Collections;
 using System.Collections.Immutable;
 using System.Text;
 
@@ -146,17 +147,17 @@ namespace ExRam.Gremlinq.Core
                         environment,
                         allowEnumerableExpansion);
                 }
-                case object[] objectArray:
+                case IList list when !environment.SupportsTypeNatively(list.GetType()):
                 {
                     var writer = allowEnumerableExpansion
                         ? this
                         : StartArray(stringBuilder);
 
-                    for (var i = 0; i < objectArray.Length; i++)
+                    for (var i = 0; i < list.Count; i++)
                     {
                         writer = writer
                             .StartElement(i, stringBuilder)
-                            .Append(objectArray[i], stringBuilder, bindings, environment);
+                            .Append(list[i], stringBuilder, bindings, environment);
                     }
 
                     return allowEnumerableExpansion

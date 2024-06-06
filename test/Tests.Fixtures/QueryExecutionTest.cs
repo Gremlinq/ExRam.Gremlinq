@@ -740,6 +740,12 @@ namespace ExRam.Gremlinq.Tests.TestCases
             .Verify();
 
         [Fact]
+        public virtual Task Constant_string() => _g
+            .V()
+            .Constant("Hallo")
+            .Verify();
+
+        [Fact]
         public virtual Task Constant_empty_array() => _g
             .V()
             .Constant(Array.Empty<object>())
@@ -747,14 +753,26 @@ namespace ExRam.Gremlinq.Tests.TestCases
 
         [Fact]
         public virtual Task Constant_empty_string_array() => _g
-           .V()
-           .Constant(Array.Empty<string>())
-           .Verify();
+            .V()
+            .Constant(Array.Empty<string>())
+            .Verify();
+
+        [Fact]
+        public virtual Task Constant_empty_bool_array() => _g
+            .V()
+            .Constant(Array.Empty<bool>())
+            .Verify();
 
         [Fact]
         public virtual Task Constant_single_string_array() => _g
             .V()
             .Constant(new []{ "Hello"})
+            .Verify();
+
+        [Fact]
+        public virtual Task Constant_single_bool_array() => _g
+            .V()
+            .Constant(new []{ true })
             .Verify();
 
         [Fact]
