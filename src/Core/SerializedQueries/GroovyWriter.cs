@@ -47,7 +47,7 @@ namespace ExRam.Gremlinq.Core
         }
 
         private GroovyWriter Append(
-            object obj,
+            object? obj,
             StringBuilder stringBuilder,
             Dictionary<object, Label>? bindings,
             IGremlinQueryEnvironment environment,
