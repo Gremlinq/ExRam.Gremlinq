@@ -35,7 +35,8 @@
               Arguments: [
                 Image,
                 PhoneNumbers,
-                SomeObscureProperty
+                SomeObscureProperty,
+                _Etag
               ]
             },
             {
@@ -93,6 +94,24 @@
       OperatorName: outE,
       Arguments: [
         WorksFor
+      ]
+    },
+    {
+      OperatorName: sideEffect,
+      Arguments: [
+        {
+          StepInstructions: [
+            {
+              OperatorName: properties,
+              Arguments: [
+                _Etag
+              ]
+            },
+            {
+              OperatorName: drop
+            }
+          ]
+        }
       ]
     },
     {

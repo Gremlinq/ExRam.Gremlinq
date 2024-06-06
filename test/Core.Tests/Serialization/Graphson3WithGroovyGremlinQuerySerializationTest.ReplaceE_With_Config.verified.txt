@@ -3,24 +3,25 @@
   "op": "eval",
   "processor": "",
   "args": {
-    "gremlin": "g.E(_a).hasLabel(_b).property(_c,_d).property(_e,_f).property(_g,_d).project(_h,_i,_j).by(id).by(label).by(__.valueMap())",
+    "gremlin": "g.E(_a).hasLabel(_b).sideEffect(__.properties(_c).drop()).property(_d,_e).property(_f,_g).property(_h,_e).project(_i,_j,_k).by(id).by(label).by(__.valueMap())",
     "bindings": {
       "_a": {
         "@type": "g:Int32",
         "@value": 0
       },
       "_b": "WorksFor",
-      "_c": "From",
-      "_d": {
+      "_c": "_Etag",
+      "_d": "From",
+      "_e": {
         "@type": "g:Date",
         "@value": 1586270616000
       },
-      "_e": "Role",
-      "_f": "Admin",
-      "_g": "To",
-      "_h": "id",
-      "_i": "label",
-      "_j": "properties"
+      "_f": "Role",
+      "_g": "Admin",
+      "_h": "To",
+      "_i": "id",
+      "_j": "label",
+      "_k": "properties"
     },
     "aliases": {
       "g": "g"

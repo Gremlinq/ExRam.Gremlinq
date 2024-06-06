@@ -28,7 +28,8 @@
                     "properties",
                     "Image",
                     "PhoneNumbers",
-                    "SomeObscureProperty"
+                    "SomeObscureProperty",
+                    "_Etag"
                   ],
                   [
                     "drop"

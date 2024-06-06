@@ -24,7 +24,8 @@
                     "properties",
                     "Image",
                     "PhoneNumbers",
-                    "SomeObscureProperty"
+                    "SomeObscureProperty",
+                    "_Etag"
                   ],
                   [
                     "drop"
@@ -75,7 +76,8 @@
                 "step": [
                   [
                     "properties",
-                    "PartitionKey"
+                    "PartitionKey",
+                    "_Etag"
                   ],
                   [
                     "drop"

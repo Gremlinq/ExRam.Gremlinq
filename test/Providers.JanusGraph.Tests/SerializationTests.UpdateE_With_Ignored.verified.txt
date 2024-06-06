@@ -10,6 +10,24 @@
       ]
     },
     {
+      OperatorName: sideEffect,
+      Arguments: [
+        {
+          StepInstructions: [
+            {
+              OperatorName: properties,
+              Arguments: [
+                _Etag
+              ]
+            },
+            {
+              OperatorName: drop
+            }
+          ]
+        }
+      ]
+    },
+    {
       OperatorName: property,
       Arguments: [
         To,

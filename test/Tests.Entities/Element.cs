@@ -7,4 +7,6 @@ public abstract class Element
     public string? Label { get; set; }
 
     public string? PartitionKey { get; set; }
+
+    public string? _Etag { get; set; }
 }

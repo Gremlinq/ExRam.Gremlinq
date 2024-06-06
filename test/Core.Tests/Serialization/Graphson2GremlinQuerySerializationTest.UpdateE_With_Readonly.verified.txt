@@ -22,7 +22,8 @@
                 "step": [
                   [
                     "properties",
-                    "PartitionKey"
+                    "PartitionKey",
+                    "_Etag"
                   ],
                   [
                     "drop"

@@ -38,7 +38,8 @@
               Arguments: [
                 Image,
                 PhoneNumbers,
-                SomeObscureProperty
+                SomeObscureProperty,
+                _Etag
               ]
             },
             {
