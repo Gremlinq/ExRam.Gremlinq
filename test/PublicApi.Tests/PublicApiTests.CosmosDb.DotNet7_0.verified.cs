@@ -31,7 +31,6 @@
     }
     public readonly struct SystemProperty
     {
-        public static readonly ExRam.Gremlinq.Providers.CosmosDb.SystemProperty _attachments;
         public static readonly ExRam.Gremlinq.Providers.CosmosDb.SystemProperty _etag;
         public static readonly ExRam.Gremlinq.Providers.CosmosDb.SystemProperty _rid;
         public static readonly ExRam.Gremlinq.Providers.CosmosDb.SystemProperty _self;

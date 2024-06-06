@@ -6,7 +6,6 @@
         public static readonly SystemProperty _rid = new(nameof(_rid));
         public static readonly SystemProperty _etag = new(nameof(_etag));
         public static readonly SystemProperty _self = new(nameof(_self));
-        public static readonly SystemProperty _attachments = new(nameof(_attachments));
         public static readonly SystemProperty inVPartition = new(nameof(inVPartition));
         public static readonly SystemProperty outVPartition = new(nameof(outVPartition));
 
