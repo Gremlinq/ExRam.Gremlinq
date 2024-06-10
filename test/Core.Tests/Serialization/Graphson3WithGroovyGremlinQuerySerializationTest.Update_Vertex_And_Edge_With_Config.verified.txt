@@ -1,30 +1,27 @@
 ﻿{
-  "requestId": "00000000-0000-0000-0000-000000000000",
-  "op": "eval",
-  "processor": "",
-  "args": {
-    "gremlin": "g.V().hasLabel(_a).sideEffect(__.properties(_b,_c,_d,_e).drop()).property(single,_f,_g).property(single,_h,_i).outE(_j).sideEffect(__.properties(_e).drop()).property(_k,_i).project(_l,_m,_n).by(id).by(label).by(__.valueMap())",
-    "bindings": {
-      "_a": "Person",
-      "_b": "Image",
-      "_c": "PhoneNumbers",
-      "_d": "SomeObscureProperty",
-      "_e": "_Etag",
-      "_f": "Gender",
-      "_g": 0,
-      "_h": "RegistrationDate",
-      "_i": {
-        "@type": "g:Date",
-        "@value": 1586270616000
-      },
-      "_j": "WorksFor",
-      "_k": "To",
-      "_l": "id",
-      "_m": "label",
-      "_n": "properties"
+  RequestId: Guid_1,
+  Operation: eval,
+  Processor: ,
+  Arguments: {
+    aliases: {
+      g: g
     },
-    "aliases": {
-      "g": "g"
-    }
+    bindings: {
+      _a: Person,
+      _b: Image,
+      _c: PhoneNumbers,
+      _d: SomeObscureProperty,
+      _e: _Etag,
+      _f: Gender,
+      _g: Male,
+      _h: RegistrationDate,
+      _i: DateTimeOffset_1,
+      _j: WorksFor,
+      _k: To,
+      _l: id,
+      _m: label,
+      _n: properties
+    },
+    gremlin: g.V().hasLabel(_a).sideEffect(__.properties(_b,_c,_d,_e).drop()).property(single,_f,_g).property(single,_h,_i).outE(_j).sideEffect(__.properties(_e).drop()).property(_k,_i).project(_l,_m,_n).by(id).by(label).by(__.valueMap())
   }
 }

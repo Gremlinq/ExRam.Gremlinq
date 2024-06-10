@@ -1,29 +1,20 @@
 ﻿{
-  "requestId": "00000000-0000-0000-0000-000000000000",
-  "op": "eval",
-  "processor": "",
-  "args": {
-    "gremlin": "g.V().limit(_a).fold().range(local,_b,_c).map(__.unfold().project(_d,_e,_f).by(id).by(label).by(__.properties().group().by(label).by(__.project(_d,_e,_g,_f).by(id).by(label).by(value).by(__.valueMap()).fold())).fold())",
-    "bindings": {
-      "_a": {
-        "@type": "g:Int64",
-        "@value": 2
-      },
-      "_b": {
-        "@type": "g:Int64",
-        "@value": 0
-      },
-      "_c": {
-        "@type": "g:Int64",
-        "@value": 1
-      },
-      "_d": "id",
-      "_e": "label",
-      "_f": "properties",
-      "_g": "value"
+  RequestId: Guid_1,
+  Operation: eval,
+  Processor: ,
+  Arguments: {
+    aliases: {
+      g: g
     },
-    "aliases": {
-      "g": "g"
-    }
+    bindings: {
+      _a: 2,
+      _b: 0,
+      _c: 1,
+      _d: id,
+      _e: label,
+      _f: properties,
+      _g: value
+    },
+    gremlin: g.V().limit(_a).fold().range(local,_b,_c).map(__.unfold().project(_d,_e,_f).by(id).by(label).by(__.properties().group().by(label).by(__.project(_d,_e,_g,_f).by(id).by(label).by(value).by(__.valueMap()).fold())).fold())
   }
 }

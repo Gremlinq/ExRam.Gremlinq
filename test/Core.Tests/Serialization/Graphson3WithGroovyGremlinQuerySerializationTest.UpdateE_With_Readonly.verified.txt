@@ -1,23 +1,20 @@
 ﻿{
-  "requestId": "00000000-0000-0000-0000-000000000000",
-  "op": "eval",
-  "processor": "",
-  "args": {
-    "gremlin": "g.E().hasLabel(_a).sideEffect(__.properties(_b).drop()).property(_c,_d).project(_e,_f,_g).by(id).by(label).by(__.valueMap())",
-    "bindings": {
-      "_a": "WorksFor",
-      "_b": "_Etag",
-      "_c": "To",
-      "_d": {
-        "@type": "g:Date",
-        "@value": 1586270616000
-      },
-      "_e": "id",
-      "_f": "label",
-      "_g": "properties"
+  RequestId: Guid_1,
+  Operation: eval,
+  Processor: ,
+  Arguments: {
+    aliases: {
+      g: g
     },
-    "aliases": {
-      "g": "g"
-    }
+    bindings: {
+      _a: WorksFor,
+      _b: _Etag,
+      _c: To,
+      _d: DateTimeOffset_1,
+      _e: id,
+      _f: label,
+      _g: properties
+    },
+    gremlin: g.E().hasLabel(_a).sideEffect(__.properties(_b).drop()).property(_c,_d).project(_e,_f,_g).by(id).by(label).by(__.valueMap())
   }
 }

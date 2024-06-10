@@ -1,18 +1,18 @@
 ﻿{
-  "requestId": "00000000-0000-0000-0000-000000000000",
-  "op": "eval",
-  "processor": "",
-  "args": {
-    "gremlin": "g.V().hasLabel(_a).as(_b).project(_c,_b,_d).by(id).by(label).by(__.properties().group().by(label).by(__.project(_c,_b,_e,_d).by(id).by(label).by(value).by(__.valueMap()).fold()))",
-    "bindings": {
-      "_a": "Person",
-      "_b": "label",
-      "_c": "id",
-      "_d": "properties",
-      "_e": "value"
+  RequestId: Guid_1,
+  Operation: eval,
+  Processor: ,
+  Arguments: {
+    aliases: {
+      g: g
     },
-    "aliases": {
-      "g": "g"
-    }
+    bindings: {
+      _a: Person,
+      _b: label,
+      _c: id,
+      _d: properties,
+      _e: value
+    },
+    gremlin: g.V().hasLabel(_a).as(_b).project(_c,_b,_d).by(id).by(label).by(__.properties().group().by(label).by(__.project(_c,_b,_e,_d).by(id).by(label).by(value).by(__.valueMap()).fold()))
   }
 }

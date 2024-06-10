@@ -1,26 +1,23 @@
 ﻿{
-  "requestId": "00000000-0000-0000-0000-000000000000",
-  "op": "eval",
-  "processor": "",
-  "args": {
-    "gremlin": "g.addV(_a).property(single,_b,_c).property(list,_d,_e).property(list,_d,_f).project(_g,_h,_i).by(id).by(label).by(__.properties().group().by(label).by(__.project(_g,_h,_j,_i).by(id).by(label).by(value).by(__.valueMap()).fold()))",
-    "bindings": {
-      "_a": "Company",
-      "_b": "FoundingDate",
-      "_c": {
-        "@type": "g:Date",
-        "@value": -62135596800000
-      },
-      "_d": "PhoneNumbers",
-      "_e": "+4912345",
-      "_f": "+4923456",
-      "_g": "id",
-      "_h": "label",
-      "_i": "properties",
-      "_j": "value"
+  RequestId: Guid_1,
+  Operation: eval,
+  Processor: ,
+  Arguments: {
+    aliases: {
+      g: g
     },
-    "aliases": {
-      "g": "g"
-    }
+    bindings: {
+      _a: Company,
+      _b: FoundingDate,
+      _c: Date_MinValue,
+      _d: PhoneNumbers,
+      _e: +4912345,
+      _f: +4923456,
+      _g: id,
+      _h: label,
+      _i: properties,
+      _j: value
+    },
+    gremlin: g.addV(_a).property(single,_b,_c).property(list,_d,_e).property(list,_d,_f).project(_g,_h,_i).by(id).by(label).by(__.properties().group().by(label).by(__.project(_g,_h,_j,_i).by(id).by(label).by(value).by(__.valueMap()).fold()))
   }
 }

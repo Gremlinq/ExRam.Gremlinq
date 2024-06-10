@@ -1,21 +1,18 @@
 ﻿{
-  "requestId": "00000000-0000-0000-0000-000000000000",
-  "op": "eval",
-  "processor": "",
-  "args": {
-    "gremlin": "g.V().limit(_a).fold().limit(local,_a).map(__.unfold().project(_b,_c,_d).by(id).by(label).by(__.properties().group().by(label).by(__.project(_b,_c,_e,_d).by(id).by(label).by(value).by(__.valueMap()).fold())).fold())",
-    "bindings": {
-      "_a": {
-        "@type": "g:Int64",
-        "@value": 0
-      },
-      "_b": "id",
-      "_c": "label",
-      "_d": "properties",
-      "_e": "value"
+  RequestId: Guid_1,
+  Operation: eval,
+  Processor: ,
+  Arguments: {
+    aliases: {
+      g: g
     },
-    "aliases": {
-      "g": "g"
-    }
+    bindings: {
+      _a: 0,
+      _b: id,
+      _c: label,
+      _d: properties,
+      _e: value
+    },
+    gremlin: g.V().limit(_a).fold().limit(local,_a).map(__.unfold().project(_b,_c,_d).by(id).by(label).by(__.properties().group().by(label).by(__.project(_b,_c,_e,_d).by(id).by(label).by(value).by(__.valueMap()).fold())).fold())
   }
 }

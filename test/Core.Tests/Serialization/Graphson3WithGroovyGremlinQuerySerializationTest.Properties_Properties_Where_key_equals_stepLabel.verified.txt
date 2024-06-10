@@ -1,17 +1,17 @@
 ﻿{
-  "requestId": "00000000-0000-0000-0000-000000000000",
-  "op": "eval",
-  "processor": "",
-  "args": {
-    "gremlin": "g.inject(_a).as(_b).V().hasLabel(_c).properties(_d).properties().filter(__.key().where(eq(_b)))",
-    "bindings": {
-      "_a": "hello",
-      "_b": "_a",
-      "_c": "Company",
-      "_d": "Locations"
+  RequestId: Guid_1,
+  Operation: eval,
+  Processor: ,
+  Arguments: {
+    aliases: {
+      g: g
     },
-    "aliases": {
-      "g": "g"
-    }
+    bindings: {
+      _a: hello,
+      _b: _a,
+      _c: Company,
+      _d: Locations
+    },
+    gremlin: g.inject(_a).as(_b).V().hasLabel(_c).properties(_d).properties().filter(__.key().where(eq(_b)))
   }
 }

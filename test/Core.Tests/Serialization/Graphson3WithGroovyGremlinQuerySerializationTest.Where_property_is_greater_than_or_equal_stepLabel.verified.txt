@@ -1,20 +1,17 @@
 ﻿{
-  "requestId": "00000000-0000-0000-0000-000000000000",
-  "op": "eval",
-  "processor": "",
-  "args": {
-    "gremlin": "g.inject(_a).as(_b).V().hasLabel(_c).has(_d,__.where(gte(_b))).values(_d)",
-    "bindings": {
-      "_a": {
-        "@type": "g:Int32",
-        "@value": 20
-      },
-      "_b": "_a",
-      "_c": "Person",
-      "_d": "Age"
+  RequestId: Guid_1,
+  Operation: eval,
+  Processor: ,
+  Arguments: {
+    aliases: {
+      g: g
     },
-    "aliases": {
-      "g": "g"
-    }
+    bindings: {
+      _a: 20,
+      _b: _a,
+      _c: Person,
+      _d: Age
+    },
+    gremlin: g.inject(_a).as(_b).V().hasLabel(_c).has(_d,__.where(gte(_b))).values(_d)
   }
 }

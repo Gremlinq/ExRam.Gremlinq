@@ -1,29 +1,17 @@
 ﻿{
-  "requestId": "00000000-0000-0000-0000-000000000000",
-  "op": "eval",
-  "processor": "",
-  "args": {
-    "gremlin": "g.V().filter(__.properties()).choose(__.values()).option(_a,__.constant(_b)).option(_c,__.constant(_d)).option(none,__.constant(_a))",
-    "bindings": {
-      "_a": {
-        "@type": "g:Int32",
-        "@value": 3
-      },
-      "_b": {
-        "@type": "g:Int32",
-        "@value": 1
-      },
-      "_c": {
-        "@type": "g:Int32",
-        "@value": 4
-      },
-      "_d": {
-        "@type": "g:Int32",
-        "@value": 2
-      }
+  RequestId: Guid_1,
+  Operation: eval,
+  Processor: ,
+  Arguments: {
+    aliases: {
+      g: g
     },
-    "aliases": {
-      "g": "g"
-    }
+    bindings: {
+      _a: 3,
+      _b: 1,
+      _c: 4,
+      _d: 2
+    },
+    gremlin: g.V().filter(__.properties()).choose(__.values()).option(_a,__.constant(_b)).option(_c,__.constant(_d)).option(none,__.constant(_a))
   }
 }

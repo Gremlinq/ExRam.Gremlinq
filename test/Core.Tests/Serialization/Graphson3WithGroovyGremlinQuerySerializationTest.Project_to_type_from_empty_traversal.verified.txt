@@ -1,25 +1,19 @@
 ﻿{
-  "requestId": "00000000-0000-0000-0000-000000000000",
-  "op": "eval",
-  "processor": "",
-  "args": {
-    "gremlin": "g.inject(_a).limit(_b).project(_c,_d,_e,_f).by(__.identity()).by(__.identity()).by(__.identity()).by(__.identity())",
-    "bindings": {
-      "_a": {
-        "@type": "g:Int32",
-        "@value": 42
-      },
-      "_b": {
-        "@type": "g:Int64",
-        "@value": 0
-      },
-      "_c": "In",
-      "_d": "Out",
-      "_e": "Count",
-      "_f": "Properties"
+  RequestId: Guid_1,
+  Operation: eval,
+  Processor: ,
+  Arguments: {
+    aliases: {
+      g: g
     },
-    "aliases": {
-      "g": "g"
-    }
+    bindings: {
+      _a: 42,
+      _b: 0,
+      _c: In,
+      _d: Out,
+      _e: Count,
+      _f: Properties
+    },
+    gremlin: g.inject(_a).limit(_b).project(_c,_d,_e,_f).by(__.identity()).by(__.identity()).by(__.identity()).by(__.identity())
   }
 }

@@ -1,25 +1,22 @@
 ﻿{
-  "requestId": "00000000-0000-0000-0000-000000000000",
-  "op": "eval",
-  "processor": "",
-  "args": {
-    "gremlin": "g.inject(_a).project(_b,_c,_d,_e).by(__.constant(_f)).by(__.constant(_g)).by(__.constant(_h)).by(__.constant(_i))",
-    "bindings": {
-      "_a": {
-        "@type": "g:Int32",
-        "@value": 42
-      },
-      "_b": "Item1",
-      "_c": "Item2",
-      "_d": "Item3",
-      "_e": "Item4",
-      "_f": "item1",
-      "_g": "item2",
-      "_h": "item3",
-      "_i": "item4"
+  RequestId: Guid_1,
+  Operation: eval,
+  Processor: ,
+  Arguments: {
+    aliases: {
+      g: g
     },
-    "aliases": {
-      "g": "g"
-    }
+    bindings: {
+      _a: 42,
+      _b: Item1,
+      _c: Item2,
+      _d: Item3,
+      _e: Item4,
+      _f: item1,
+      _g: item2,
+      _h: item3,
+      _i: item4
+    },
+    gremlin: g.inject(_a).project(_b,_c,_d,_e).by(__.constant(_f)).by(__.constant(_g)).by(__.constant(_h)).by(__.constant(_i))
   }
 }

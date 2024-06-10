@@ -1,25 +1,16 @@
 ﻿{
-  "requestId": "00000000-0000-0000-0000-000000000000",
-  "op": "eval",
-  "processor": "",
-  "args": {
-    "gremlin": "g.inject(_a,_b).fold().tail(local,_c)",
-    "bindings": {
-      "_a": {
-        "@type": "g:Int32",
-        "@value": 42
-      },
-      "_b": {
-        "@type": "g:Int32",
-        "@value": 43
-      },
-      "_c": {
-        "@type": "g:Int64",
-        "@value": 1
-      }
+  RequestId: Guid_1,
+  Operation: eval,
+  Processor: ,
+  Arguments: {
+    aliases: {
+      g: g
     },
-    "aliases": {
-      "g": "g"
-    }
+    bindings: {
+      _a: 42,
+      _b: 43,
+      _c: 1
+    },
+    gremlin: g.inject(_a,_b).fold().tail(local,_c)
   }
 }

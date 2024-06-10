@@ -1,25 +1,22 @@
 ﻿{
-  "requestId": "00000000-0000-0000-0000-000000000000",
-  "op": "eval",
-  "processor": "",
-  "args": {
-    "gremlin": "g.V().hasLabel(_a).order().by(id,asc).limit(_b).project(_c,_d,_e,_f).by(__.constant(_g).limit(_b).fold()).by(__.constant(_h).limit(_b).fold()).by(__.id().limit(_b).fold()).by(__.constant(_i).limit(_b).fold()).map(__.unfold().group().by(__.select(keys)).by(__.select(values).unfold()))",
-    "bindings": {
-      "_a": "Person",
-      "_b": {
-        "@type": "g:Int64",
-        "@value": 1
-      },
-      "_c": "Item1",
-      "_d": "Item2",
-      "_e": "Item3",
-      "_f": "Item4",
-      "_g": "item1",
-      "_h": "item2",
-      "_i": "item4"
+  RequestId: Guid_1,
+  Operation: eval,
+  Processor: ,
+  Arguments: {
+    aliases: {
+      g: g
     },
-    "aliases": {
-      "g": "g"
-    }
+    bindings: {
+      _a: Person,
+      _b: 1,
+      _c: Item1,
+      _d: Item2,
+      _e: Item3,
+      _f: Item4,
+      _g: item1,
+      _h: item2,
+      _i: item4
+    },
+    gremlin: g.V().hasLabel(_a).order().by(id,asc).limit(_b).project(_c,_d,_e,_f).by(__.constant(_g).limit(_b).fold()).by(__.constant(_h).limit(_b).fold()).by(__.id().limit(_b).fold()).by(__.constant(_i).limit(_b).fold()).map(__.unfold().group().by(__.select(keys)).by(__.select(values).unfold()))
   }
 }

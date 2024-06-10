@@ -1,18 +1,15 @@
 ﻿{
-  "requestId": "00000000-0000-0000-0000-000000000000",
-  "op": "eval",
-  "processor": "",
-  "args": {
-    "gremlin": "g.withSideEffect(_a,_b).V().select(_a)",
-    "bindings": {
-      "_a": "_a",
-      "_b": {
-        "@type": "g:Int32",
-        "@value": 36
-      }
+  RequestId: Guid_1,
+  Operation: eval,
+  Processor: ,
+  Arguments: {
+    aliases: {
+      g: g
     },
-    "aliases": {
-      "g": "g"
-    }
+    bindings: {
+      _a: _a,
+      _b: 36
+    },
+    gremlin: g.withSideEffect(_a,_b).V().select(_a)
   }
 }

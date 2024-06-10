@@ -1,30 +1,24 @@
 ﻿{
-  "requestId": "00000000-0000-0000-0000-000000000000",
-  "op": "eval",
-  "processor": "",
-  "args": {
-    "gremlin": "g.E(_a).hasLabel(_b).sideEffect(__.properties(_c).drop()).property(_d,_e).property(_f,_g).property(_h,_e).project(_i,_j,_k).by(id).by(label).by(__.valueMap())",
-    "bindings": {
-      "_a": {
-        "@type": "g:Int32",
-        "@value": 0
-      },
-      "_b": "WorksFor",
-      "_c": "_Etag",
-      "_d": "From",
-      "_e": {
-        "@type": "g:Date",
-        "@value": 1586270616000
-      },
-      "_f": "Role",
-      "_g": "Admin",
-      "_h": "To",
-      "_i": "id",
-      "_j": "label",
-      "_k": "properties"
+  RequestId: Guid_1,
+  Operation: eval,
+  Processor: ,
+  Arguments: {
+    aliases: {
+      g: g
     },
-    "aliases": {
-      "g": "g"
-    }
+    bindings: {
+      _a: 0,
+      _b: WorksFor,
+      _c: _Etag,
+      _d: From,
+      _e: DateTimeOffset_1,
+      _f: Role,
+      _g: Admin,
+      _h: To,
+      _i: id,
+      _j: label,
+      _k: properties
+    },
+    gremlin: g.E(_a).hasLabel(_b).sideEffect(__.properties(_c).drop()).property(_d,_e).property(_f,_g).property(_h,_e).project(_i,_j,_k).by(id).by(label).by(__.valueMap())
   }
 }

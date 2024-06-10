@@ -1,40 +1,31 @@
 ﻿{
-  "requestId": "00000000-0000-0000-0000-000000000000",
-  "op": "eval",
-  "processor": "",
-  "args": {
-    "gremlin": "g.V(_a).hasLabel(_b).sideEffect(__.properties(_c,_d,_e,_f).drop()).property(single,_g,_h).property(single,_i,_j).property(single,_k,_l).property(single,_m,_n).project(_o,_p,_q).by(id).by(label).by(__.properties().group().by(label).by(__.project(_o,_p,_r,_q).by(id).by(label).by(value).by(__.valueMap()).fold()))",
-    "bindings": {
-      "_a": {
-        "@type": "g:Int32",
-        "@value": 0
-      },
-      "_b": "Person",
-      "_c": "Image",
-      "_d": "PhoneNumbers",
-      "_e": "SomeObscureProperty",
-      "_f": "_Etag",
-      "_g": "Age",
-      "_h": {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      "_i": "Gender",
-      "_j": 0,
-      "_k": "Name",
-      "_l": "Marko",
-      "_m": "RegistrationDate",
-      "_n": {
-        "@type": "g:Date",
-        "@value": 1586270616000
-      },
-      "_o": "id",
-      "_p": "label",
-      "_q": "properties",
-      "_r": "value"
+  RequestId: Guid_1,
+  Operation: eval,
+  Processor: ,
+  Arguments: {
+    aliases: {
+      g: g
     },
-    "aliases": {
-      "g": "g"
-    }
+    bindings: {
+      _a: 0,
+      _b: Person,
+      _c: Image,
+      _d: PhoneNumbers,
+      _e: SomeObscureProperty,
+      _f: _Etag,
+      _g: Age,
+      _h: 21,
+      _i: Gender,
+      _j: Male,
+      _k: Name,
+      _l: Marko,
+      _m: RegistrationDate,
+      _n: DateTimeOffset_1,
+      _o: id,
+      _p: label,
+      _q: properties,
+      _r: value
+    },
+    gremlin: g.V(_a).hasLabel(_b).sideEffect(__.properties(_c,_d,_e,_f).drop()).property(single,_g,_h).property(single,_i,_j).property(single,_k,_l).property(single,_m,_n).project(_o,_p,_q).by(id).by(label).by(__.properties().group().by(label).by(__.project(_o,_p,_r,_q).by(id).by(label).by(value).by(__.valueMap()).fold()))
   }
 }

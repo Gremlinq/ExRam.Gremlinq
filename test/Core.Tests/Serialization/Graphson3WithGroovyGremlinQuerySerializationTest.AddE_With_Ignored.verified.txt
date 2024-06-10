@@ -1,34 +1,25 @@
 ﻿{
-  "requestId": "00000000-0000-0000-0000-000000000000",
-  "op": "eval",
-  "processor": "",
-  "args": {
-    "gremlin": "g.addE(_a).property(_b,_c).from(__.addV(_d).property(single,_e,_f)).to(__.addV(_g).property(single,_h,_i)).project(_j,_k,_l).by(id).by(label).by(__.valueMap())",
-    "bindings": {
-      "_a": "WorksFor",
-      "_b": "To",
-      "_c": {
-        "@type": "g:Date",
-        "@value": 1586270616000
-      },
-      "_d": "Person",
-      "_e": "Age",
-      "_f": {
-        "@type": "g:Int32",
-        "@value": 0
-      },
-      "_g": "Company",
-      "_h": "FoundingDate",
-      "_i": {
-        "@type": "g:Date",
-        "@value": -62135596800000
-      },
-      "_j": "id",
-      "_k": "label",
-      "_l": "properties"
+  RequestId: Guid_1,
+  Operation: eval,
+  Processor: ,
+  Arguments: {
+    aliases: {
+      g: g
     },
-    "aliases": {
-      "g": "g"
-    }
+    bindings: {
+      _a: WorksFor,
+      _b: To,
+      _c: DateTimeOffset_1,
+      _d: Person,
+      _e: Age,
+      _f: 0,
+      _g: Company,
+      _h: FoundingDate,
+      _i: Date_MinValue,
+      _j: id,
+      _k: label,
+      _l: properties
+    },
+    gremlin: g.addE(_a).property(_b,_c).from(__.addV(_d).property(single,_e,_f)).to(__.addV(_g).property(single,_h,_i)).project(_j,_k,_l).by(id).by(label).by(__.valueMap())
   }
 }

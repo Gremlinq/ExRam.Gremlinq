@@ -1,19 +1,16 @@
 ﻿{
-  "requestId": "00000000-0000-0000-0000-000000000000",
-  "op": "eval",
-  "processor": "",
-  "args": {
-    "gremlin": "g.V().id().choose(lt(_a),__.constant(_b),__.constant(_c))",
-    "bindings": {
-      "_a": {
-        "@type": "g:Int32",
-        "@value": 42
-      },
-      "_b": true,
-      "_c": false
+  RequestId: Guid_1,
+  Operation: eval,
+  Processor: ,
+  Arguments: {
+    aliases: {
+      g: g
     },
-    "aliases": {
-      "g": "g"
-    }
+    bindings: {
+      _a: 42,
+      _b: true,
+      _c: false
+    },
+    gremlin: g.V().id().choose(lt(_a),__.constant(_b),__.constant(_c))
   }
 }

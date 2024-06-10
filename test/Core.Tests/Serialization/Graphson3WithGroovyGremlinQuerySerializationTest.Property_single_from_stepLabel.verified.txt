@@ -1,24 +1,21 @@
 ﻿{
-  "requestId": "00000000-0000-0000-0000-000000000000",
-  "op": "eval",
-  "processor": "",
-  "args": {
-    "gremlin": "g.inject(_a).as(_b).V().hasLabel(_c).property(single,_d,__.select(_b)).project(_e,_f,_g).by(id).by(label).by(__.properties().group().by(label).by(__.project(_e,_f,_h,_g).by(id).by(label).by(value).by(__.valueMap()).fold()))",
-    "bindings": {
-      "_a": {
-        "@type": "g:Int32",
-        "@value": 36
-      },
-      "_b": "_a",
-      "_c": "Person",
-      "_d": "Age",
-      "_e": "id",
-      "_f": "label",
-      "_g": "properties",
-      "_h": "value"
+  RequestId: Guid_1,
+  Operation: eval,
+  Processor: ,
+  Arguments: {
+    aliases: {
+      g: g
     },
-    "aliases": {
-      "g": "g"
-    }
+    bindings: {
+      _a: 36,
+      _b: _a,
+      _c: Person,
+      _d: Age,
+      _e: id,
+      _f: label,
+      _g: properties,
+      _h: value
+    },
+    gremlin: g.inject(_a).as(_b).V().hasLabel(_c).property(single,_d,__.select(_b)).project(_e,_f,_g).by(id).by(label).by(__.properties().group().by(label).by(__.project(_e,_f,_h,_g).by(id).by(label).by(value).by(__.valueMap()).fold()))
   }
 }

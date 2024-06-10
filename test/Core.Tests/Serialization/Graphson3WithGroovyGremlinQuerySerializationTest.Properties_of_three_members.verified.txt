@@ -1,21 +1,21 @@
 ﻿{
-  "requestId": "00000000-0000-0000-0000-000000000000",
-  "op": "eval",
-  "processor": "",
-  "args": {
-    "gremlin": "g.V().hasLabel(_a).properties(_b,_c,_d).project(_e,_f,_g,_h).by(id).by(label).by(value).by(__.valueMap())",
-    "bindings": {
-      "_a": "Country",
-      "_b": "Name",
-      "_c": "CountryCallingCode",
-      "_d": "Languages",
-      "_e": "id",
-      "_f": "label",
-      "_g": "value",
-      "_h": "properties"
+  RequestId: Guid_1,
+  Operation: eval,
+  Processor: ,
+  Arguments: {
+    aliases: {
+      g: g
     },
-    "aliases": {
-      "g": "g"
-    }
+    bindings: {
+      _a: Country,
+      _b: Name,
+      _c: CountryCallingCode,
+      _d: Languages,
+      _e: id,
+      _f: label,
+      _g: value,
+      _h: properties
+    },
+    gremlin: g.V().hasLabel(_a).properties(_b,_c,_d).project(_e,_f,_g,_h).by(id).by(label).by(value).by(__.valueMap())
   }
 }

@@ -1,19 +1,16 @@
 ﻿{
-  "requestId": "00000000-0000-0000-0000-000000000000",
-  "op": "eval",
-  "processor": "",
-  "args": {
-    "gremlin": "g.withSideEffect(_a,_b).inject(_c)",
-    "bindings": {
-      "_a": "stepLabel",
-      "_b": "sideEffect2",
-      "_c": {
-        "@type": "g:Int32",
-        "@value": 0
-      }
+  RequestId: Guid_1,
+  Operation: eval,
+  Processor: ,
+  Arguments: {
+    aliases: {
+      g: g
     },
-    "aliases": {
-      "g": "g"
-    }
+    bindings: {
+      _a: stepLabel,
+      _b: sideEffect2,
+      _c: 0
+    },
+    gremlin: g.withSideEffect(_a,_b).inject(_c)
   }
 }
