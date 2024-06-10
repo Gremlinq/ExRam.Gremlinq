@@ -6,9 +6,9 @@ using Gremlin.Net.Driver.Messages;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
-    public sealed class Graphson3WithGroovyGremlinQuerySerializationTest : QueryExecutionTest, IClassFixture<GroovyGremlinQuerySerializationFixture>
+    public sealed class RequestMessageWithGroovySerializationTest : QueryExecutionTest, IClassFixture<GroovyGremlinQuerySerializationFixture>
     {
-        public Graphson3WithGroovyGremlinQuerySerializationTest(GroovyGremlinQuerySerializationFixture fixture) : base(
+        public RequestMessageWithGroovySerializationTest(GroovyGremlinQuerySerializationFixture fixture) : base(
             fixture,
             new SerializingVerifier<RequestMessage>())
         {
