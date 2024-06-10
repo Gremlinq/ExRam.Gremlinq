@@ -1,5 +1,6 @@
 ﻿using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Models;
+using ExRam.Gremlinq.Providers.Core;
 using ExRam.Gremlinq.Tests.Entities;
 
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
@@ -16,7 +17,8 @@ namespace ExRam.Gremlinq.Tests.Fixtures
         {
             _g = await TransformQuerySource(g
                 .ConfigureEnvironment(env => env
-                    .UseModel(GraphModel.FromBaseTypes<Vertex, Edge>())));
+                    .UseModel(GraphModel.FromBaseTypes<Vertex, Edge>())
+                    .AddGraphSonBinarySupport()));
         }
 
         public virtual async Task DisposeAsync()
