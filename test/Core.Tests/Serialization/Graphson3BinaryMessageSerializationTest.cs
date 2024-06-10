@@ -1,7 +1,6 @@
 ﻿using ExRam.Gremlinq.Providers.Core;
 using ExRam.Gremlinq.Tests.Fixtures;
 using ExRam.Gremlinq.Tests.TestCases;
-using Gremlin.Net.Structure.IO.GraphSON;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
