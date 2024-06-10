@@ -1,0 +1,97 @@
+﻿{
+  RequestId: Guid_1,
+  Operation: bytecode,
+  Processor: traversal,
+  Arguments: {
+    aliases: {
+      g: g
+    },
+    gremlin: {
+      StepInstructions: [
+        {
+          OperatorName: V
+        },
+        {
+          OperatorName: hasLabel,
+          Arguments: [
+            Person
+          ]
+        },
+        {
+          OperatorName: order
+        },
+        {
+          OperatorName: by,
+          Arguments: [
+            Age,
+            {
+              EnumName: Order,
+              EnumValue: asc
+            }
+          ]
+        },
+        {
+          OperatorName: as,
+          Arguments: [
+            _a
+          ]
+        },
+        {
+          OperatorName: map,
+          Arguments: [
+            {
+              StepInstructions: [
+                {
+                  OperatorName: V
+                },
+                {
+                  OperatorName: hasLabel,
+                  Arguments: [
+                    Person
+                  ]
+                },
+                {
+                  OperatorName: where,
+                  Arguments: [
+                    {
+                      OperatorName: gte,
+                      Value: _a
+                    }
+                  ]
+                },
+                {
+                  OperatorName: by,
+                  Arguments: [
+                    Age
+                  ]
+                },
+                {
+                  OperatorName: order
+                },
+                {
+                  OperatorName: by,
+                  Arguments: [
+                    Age,
+                    {
+                      EnumName: Order,
+                      EnumValue: asc
+                    }
+                  ]
+                },
+                {
+                  OperatorName: values,
+                  Arguments: [
+                    Age
+                  ]
+                },
+                {
+                  OperatorName: fold
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

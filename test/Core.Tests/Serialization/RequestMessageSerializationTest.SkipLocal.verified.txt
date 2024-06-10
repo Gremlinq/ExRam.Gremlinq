@@ -1,0 +1,34 @@
+﻿{
+  RequestId: Guid_1,
+  Operation: bytecode,
+  Processor: traversal,
+  Arguments: {
+    aliases: {
+      g: g
+    },
+    gremlin: {
+      StepInstructions: [
+        {
+          OperatorName: inject,
+          Arguments: [
+            42,
+            43
+          ]
+        },
+        {
+          OperatorName: fold
+        },
+        {
+          OperatorName: skip,
+          Arguments: [
+            {
+              EnumName: Scope,
+              EnumValue: local
+            },
+            1
+          ]
+        }
+      ]
+    }
+  }
+}

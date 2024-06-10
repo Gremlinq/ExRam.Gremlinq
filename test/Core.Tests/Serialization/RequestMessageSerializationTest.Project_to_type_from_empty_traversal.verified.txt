@@ -1,0 +1,83 @@
+﻿{
+  RequestId: Guid_1,
+  Operation: bytecode,
+  Processor: traversal,
+  Arguments: {
+    aliases: {
+      g: g
+    },
+    gremlin: {
+      StepInstructions: [
+        {
+          OperatorName: inject,
+          Arguments: [
+            42
+          ]
+        },
+        {
+          OperatorName: limit,
+          Arguments: [
+            0
+          ]
+        },
+        {
+          OperatorName: project,
+          Arguments: [
+            In,
+            Out,
+            Count,
+            Properties
+          ]
+        },
+        {
+          OperatorName: by,
+          Arguments: [
+            {
+              StepInstructions: [
+                {
+                  OperatorName: identity
+                }
+              ]
+            }
+          ]
+        },
+        {
+          OperatorName: by,
+          Arguments: [
+            {
+              StepInstructions: [
+                {
+                  OperatorName: identity
+                }
+              ]
+            }
+          ]
+        },
+        {
+          OperatorName: by,
+          Arguments: [
+            {
+              StepInstructions: [
+                {
+                  OperatorName: identity
+                }
+              ]
+            }
+          ]
+        },
+        {
+          OperatorName: by,
+          Arguments: [
+            {
+              StepInstructions: [
+                {
+                  OperatorName: identity
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,160 @@
+﻿{
+  RequestId: Guid_1,
+  Operation: bytecode,
+  Processor: traversal,
+  Arguments: {
+    aliases: {
+      g: g
+    },
+    gremlin: {
+      StepInstructions: [
+        {
+          OperatorName: inject,
+          Arguments: [
+            42
+          ]
+        },
+        {
+          OperatorName: project,
+          Arguments: [
+            Item1,
+            Item2,
+            Item3
+          ]
+        },
+        {
+          OperatorName: by,
+          Arguments: [
+            {
+              StepInstructions: [
+                {
+                  OperatorName: constant,
+                  Arguments: [
+                    item1
+                  ]
+                },
+                {
+                  OperatorName: limit,
+                  Arguments: [
+                    1
+                  ]
+                },
+                {
+                  OperatorName: fold
+                }
+              ]
+            }
+          ]
+        },
+        {
+          OperatorName: by,
+          Arguments: [
+            {
+              StepInstructions: [
+                {
+                  OperatorName: constant,
+                  Arguments: [
+                    item2
+                  ]
+                },
+                {
+                  OperatorName: limit,
+                  Arguments: [
+                    1
+                  ]
+                },
+                {
+                  OperatorName: fold
+                }
+              ]
+            }
+          ]
+        },
+        {
+          OperatorName: by,
+          Arguments: [
+            {
+              StepInstructions: [
+                {
+                  OperatorName: constant,
+                  Arguments: [
+                    item3
+                  ]
+                },
+                {
+                  OperatorName: limit,
+                  Arguments: [
+                    1
+                  ]
+                },
+                {
+                  OperatorName: fold
+                }
+              ]
+            }
+          ]
+        },
+        {
+          OperatorName: map,
+          Arguments: [
+            {
+              StepInstructions: [
+                {
+                  OperatorName: unfold
+                },
+                {
+                  OperatorName: group
+                },
+                {
+                  OperatorName: by,
+                  Arguments: [
+                    {
+                      StepInstructions: [
+                        {
+                          OperatorName: select,
+                          Arguments: [
+                            {
+                              EnumName: Column,
+                              EnumValue: keys
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  OperatorName: by,
+                  Arguments: [
+                    {
+                      StepInstructions: [
+                        {
+                          OperatorName: select,
+                          Arguments: [
+                            {
+                              EnumName: Column,
+                              EnumValue: values
+                            }
+                          ]
+                        },
+                        {
+                          OperatorName: unfold
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          OperatorName: select,
+          Arguments: [
+            Item1
+          ]
+        }
+      ]
+    }
+  }
+}

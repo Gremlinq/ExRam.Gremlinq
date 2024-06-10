@@ -1,0 +1,60 @@
+﻿{
+  RequestId: Guid_1,
+  Operation: bytecode,
+  Processor: traversal,
+  Arguments: {
+    aliases: {
+      g: g
+    },
+    gremlin: {
+      StepInstructions: [
+        {
+          OperatorName: inject,
+          Arguments: [
+            20
+          ]
+        },
+        {
+          OperatorName: as,
+          Arguments: [
+            _a
+          ]
+        },
+        {
+          OperatorName: V
+        },
+        {
+          OperatorName: hasLabel,
+          Arguments: [
+            Person
+          ]
+        },
+        {
+          OperatorName: has,
+          Arguments: [
+            Age,
+            {
+              StepInstructions: [
+                {
+                  OperatorName: where,
+                  Arguments: [
+                    {
+                      OperatorName: gte,
+                      Value: _a
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          OperatorName: values,
+          Arguments: [
+            Age
+          ]
+        }
+      ]
+    }
+  }
+}

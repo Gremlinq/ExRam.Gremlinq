@@ -1,0 +1,119 @@
+﻿{
+  RequestId: Guid_1,
+  Operation: bytecode,
+  Processor: traversal,
+  Arguments: {
+    aliases: {
+      g: g
+    },
+    gremlin: {
+      StepInstructions: [
+        {
+          OperatorName: addV,
+          Arguments: [
+            Person
+          ]
+        },
+        {
+          OperatorName: property,
+          Arguments: [
+            {
+              EnumName: Cardinality,
+              EnumValue: single
+            },
+            Age,
+            0
+          ]
+        },
+        {
+          OperatorName: property,
+          Arguments: [
+            {
+              EnumName: Cardinality,
+              EnumValue: single
+            },
+            PartitionKey,
+            PartitionKey
+          ]
+        },
+        {
+          OperatorName: addE,
+          Arguments: [
+            LivesIn
+          ]
+        },
+        {
+          OperatorName: property,
+          Arguments: [
+            Since,
+            DateTimeOffset_1
+          ]
+        },
+        {
+          OperatorName: to,
+          Arguments: [
+            {
+              StepInstructions: [
+                {
+                  OperatorName: addV,
+                  Arguments: [
+                    Country
+                  ]
+                },
+                {
+                  OperatorName: property,
+                  Arguments: [
+                    {
+                      EnumName: Cardinality,
+                      EnumValue: single
+                    },
+                    PartitionKey,
+                    PartitionKey
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          OperatorName: project,
+          Arguments: [
+            id,
+            label,
+            properties
+          ]
+        },
+        {
+          OperatorName: by,
+          Arguments: [
+            {
+              EnumName: T,
+              EnumValue: id
+            }
+          ]
+        },
+        {
+          OperatorName: by,
+          Arguments: [
+            {
+              EnumName: T,
+              EnumValue: label
+            }
+          ]
+        },
+        {
+          OperatorName: by,
+          Arguments: [
+            {
+              StepInstructions: [
+                {
+                  OperatorName: valueMap
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
