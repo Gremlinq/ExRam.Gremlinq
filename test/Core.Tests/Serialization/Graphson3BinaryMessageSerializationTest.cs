@@ -18,7 +18,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             return _g
                 .Inject(0)
-                .Map(GetLambda(13))
+                .Map(GetLambda(29))
                 .Verify();
         }
 

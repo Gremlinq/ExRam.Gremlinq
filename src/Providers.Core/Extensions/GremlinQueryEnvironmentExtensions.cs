@@ -18,7 +18,12 @@ namespace ExRam.Gremlinq.Providers.Core
     {
         private static readonly byte[] GraphSon2Header = GetHeader("application/vnd.gremlin-v2.0+json");
         private static readonly byte[] GraphSon3Header = GetHeader("application/vnd.gremlin-v3.0+json");
-        private static readonly JsonSerializerOptions JsonOptions = new() { Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping };
+
+        private static readonly JsonSerializerOptions JsonOptions = new()
+        {
+            Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
+            MaxDepth = 128
+        };
 
         public static IGremlinQueryEnvironment AddGraphSonBinarySupport(this IGremlinQueryEnvironment environment) => environment
             .AddGraphSonBinarySupport(new GraphSON2Writer(), GraphSon2Header, owner => new GraphSon2BinaryMessage(owner))
