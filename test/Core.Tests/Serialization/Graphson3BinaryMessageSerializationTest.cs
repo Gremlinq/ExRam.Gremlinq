@@ -11,5 +11,22 @@ namespace ExRam.Gremlinq.Core.Tests
             new BinaryMessageSerializingVerifier<GraphSon3BinaryMessage>())
         {
         }
+
+
+        [Fact]
+        public Task MaxDepth()
+        {
+            return _g
+                .Inject(0)
+                .Map(GetLambda(13))
+                .Verify();
+        }
+
+        private Func<IGremlinQuery<int>, IGremlinQuery<int>> GetLambda(int i)
+        {
+            return i == 0
+                ? __ => __.Constant(1)
+                : __ => __.Map(GetLambda(i - 1));
+        }
     }
 }
