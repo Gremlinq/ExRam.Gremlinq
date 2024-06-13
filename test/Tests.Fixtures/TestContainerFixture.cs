@@ -125,6 +125,7 @@ namespace ExRam.Gremlinq.Tests.Fixtures
             var containerBuilder = new ContainerBuilder()
                 .WithImage(await GetImage())
                 .WithPortBinding(_port, true)
+                .WithAutoRemove(true)
                 .WithWaitStrategy(Wait
                     .ForUnixContainer()
                     .UntilPortIsAvailable(_port));
@@ -141,7 +142,12 @@ namespace ExRam.Gremlinq.Tests.Fixtures
         public override async Task DisposeAsync()
         {
             if (_container is { } container)
-                await container.StopAsync();
+            {
+                await using (container)
+                {
+                    await container.StopAsync();
+                }
+            }
 
             await base.DisposeAsync();
         }
