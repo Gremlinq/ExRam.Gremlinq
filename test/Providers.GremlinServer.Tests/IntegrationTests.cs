@@ -11,7 +11,7 @@ using static ExRam.Gremlinq.Core.Transformation.ConverterFactory;
 
 namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 {
-    [IntegrationTest]
+    [IntegrationTest("Windows", "Linux")]
     public sealed class IntegrationTests : QueryExecutionTest, IClassFixture<GremlinServerContainerFixture>
     {
         public IntegrationTests(GremlinServerContainerFixture fixture) : base(

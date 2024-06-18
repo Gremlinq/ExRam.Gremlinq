@@ -12,7 +12,7 @@ using Gremlin.Net.Driver.Exceptions;
 
 namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
 {
-    [IntegrationTest]
+    [IntegrationTest("Windows")]
     public sealed class NoPasswordIntegrationTests : GremlinqTestBase, IClassFixture<NoPasswordFixture>
     {
         public sealed class NoPasswordFixture : GremlinqFixture

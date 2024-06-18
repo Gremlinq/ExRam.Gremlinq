@@ -4,7 +4,7 @@ using ExRam.Gremlinq.Tests.TestCases;
 
 namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 {
-    [IntegrationTest]
+    [IntegrationTest("Windows", "Linux")]
     public sealed class IntegrationWithoutProjectionTests : QueryExecutionTest, IClassFixture<GremlinServerWithoutProjectionContainerFixture>
     {
         public IntegrationWithoutProjectionTests(GremlinServerWithoutProjectionContainerFixture fixture) : base(

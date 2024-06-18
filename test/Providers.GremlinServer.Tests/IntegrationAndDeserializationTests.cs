@@ -4,7 +4,7 @@ using ExRam.Gremlinq.Tests.TestCases;
 
 namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 {
-    [IntegrationTest]
+    [IntegrationTest("Windows", "Linux")]
     public sealed class IntegrationAndDeserializationTests : QueryExecutionTest, IClassFixture<GremlinServerContainerFixture>
     {
         public IntegrationAndDeserializationTests(GremlinServerContainerFixture fixture) : base(
