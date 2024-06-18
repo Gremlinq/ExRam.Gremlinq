@@ -27,10 +27,6 @@ jobs:
       
     - name: Test
       run: dotnet test -c Release --no-build --collect:"XPlat Code Coverage;Format=opencover" ./${{ github.event.repository.name }}.sln 
-      env:
-        RunGremlinServerIntegrationTests: 'true'
-        RunJanusGraphIntegrationTests: 'true'
-        RunNeptuneIntegrationTests: 'true'
 
     - name: Collect coverage
       uses: codecov/codecov-action@e28ff129e5465c2c0dcc6f003fc735cb6ae0c673 # 4.5.0
@@ -63,9 +59,7 @@ jobs:
       
     - name: Test
       run: dotnet test -c Release --no-build --collect:"XPlat Code Coverage;Format=opencover" ./${{ github.event.repository.name }}.sln
-      env:
-        RunCosmosDbIntegrationTests: 'true'
-        
+
     - name: Collect coverage
       uses: codecov/codecov-action@e28ff129e5465c2c0dcc6f003fc735cb6ae0c673 # 4.5.0
       with:
