@@ -13,7 +13,8 @@ using static ExRam.Gremlinq.Providers.GremlinServer.Tests.WrongPasswordIntegrati
 
 namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 {
-    [IntegrationTest("Windows", "Linux")]
+    [IntegrationTest("Linux")]
+    [IntegrationTest("Windows", false)]
     public sealed class WrongPasswordIntegrationTests : GremlinqTestBase, IClassFixture<WrongPasswordGremlinServerContainerFixture>
     {
         public sealed class WrongPasswordGremlinServerContainerFixture : DockerfileTestContainerFixture
@@ -21,7 +22,6 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
             public WrongPasswordGremlinServerContainerFixture() : base("PasswordSecureGremlinServerDockerfile")
             {
             }
-
 
             protected override async Task<IGremlinQuerySource> TransformQuerySource(IContainer container, IGremlinQuerySource g) => g
                 .UseGremlinServer<Vertex, Edge>(_ => _

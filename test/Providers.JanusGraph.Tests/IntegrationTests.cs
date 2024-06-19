@@ -6,7 +6,8 @@ using ExRam.Gremlinq.Tests.TestCases;
 
 namespace ExRam.Gremlinq.Providers.JanusGraph.Tests
 {
-    [IntegrationTest("Windows", "Linux")]
+    [IntegrationTest("Linux")]
+    [IntegrationTest("Windows", false)]
     public sealed class IntegrationTests : QueryExecutionTest, IClassFixture<JanusGraphContainerFixture>
     {
         public new sealed class Verifier : JTokenExecutingVerifier

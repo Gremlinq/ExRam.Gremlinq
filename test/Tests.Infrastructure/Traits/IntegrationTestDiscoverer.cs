@@ -6,14 +6,16 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
     {
         public IEnumerable<KeyValuePair<string, string>> GetTraits(IAttributeInfo traitAttribute)
         {
+            var isCi = bool.TryParse(Environment.GetEnvironmentVariable("CI"), out var ci)
+                ? ci
+                : false;
+
             yield return new KeyValuePair<string, string>("Category", "IntegrationTest");
 
             if (traitAttribute is ReflectionAttributeInfo { Attribute: IntegrationTestAttribute integrationTestAttribute })
             {
-                foreach (var validPlatform in integrationTestAttribute.ValidPlatforms)
-                {
-                    yield return new KeyValuePair<string, string>("ValidPlatform", validPlatform);
-                }
+                if (integrationTestAttribute.CanRunOnCI || !isCi)
+                    yield return new KeyValuePair<string, string>("ValidPlatform", integrationTestAttribute.ValidPlatform);
             }
         }
     }
