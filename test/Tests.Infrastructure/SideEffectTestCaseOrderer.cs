@@ -28,10 +28,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                 .Where(testCase =>
                 {
                     if (testCase.Traits.TryGetValue("Category", out var categories) && categories.Contains("IntegrationTest"))
-                    {
-                        if (testCase.Traits.TryGetValue("ValidPlatform", out var validPlatforms) && validPlatforms.Count > 0)
-                            return validPlatforms.Any(validPlatform => OperatingSystem.IsOSPlatform(validPlatform));
-                    }
+                        return testCase.Traits.TryGetValue("ValidPlatform", out var validPlatforms) && validPlatforms.Any(validPlatform => OperatingSystem.IsOSPlatform(validPlatform));
 
                     return true;
                 })
