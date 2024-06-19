@@ -8,6 +8,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
     {
         public IntegrationTestAttribute(string validPlatform, bool canRunOnCI = true)
         {
+            CanRunOnCI = canRunOnCI;
             ValidPlatform = validPlatform;
         }
 
