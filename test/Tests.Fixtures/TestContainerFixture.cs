@@ -126,11 +126,13 @@ namespace ExRam.Gremlinq.Tests.Fixtures
         {
             var containerBuilder = new ContainerBuilder()
                 .WithImage(await GetImage())
+                .WithName(Guid.NewGuid().ToString("N"))
                 .WithPortBinding(_port, true)
                 .WithAutoRemove(true)
                 .WithWaitStrategy(Wait
                     .ForUnixContainer()
-                    .UntilPortIsAvailable(_port));
+                    .UntilPortIsAvailable(_port))
+                .WithCleanUp(true);
 
             _container = CustomizeContainer(containerBuilder)
                 .Build();
