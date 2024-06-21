@@ -52,7 +52,7 @@ jobs:
     - name: Start CosmosDb Emulator
       uses: janpio/cosmos-emulator-github-action@8c35a1bfde25fc32234c163c044322af3f2e56e3
       with:
-          parameter_string: "-EnableGremlin"
+          parameter_string: "-Timeout 600 -EnableGremlin"
 
     - name: Build
       run: dotnet build  -c Release ./${{ github.event.repository.name }}.sln
