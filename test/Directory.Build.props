@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="..\xunit.runner.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+
     <Compile Include="$(MSBuildThisFileDirectory)AssemblyInfo.cs" Link="AssemblyInfo.cs" />
   </ItemGroup>
   
