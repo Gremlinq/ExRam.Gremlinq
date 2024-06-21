@@ -1,5 +1,7 @@
 ﻿using System.Collections.Immutable;
 
+using Docker.DotNet;
+
 using DotNet.Testcontainers.Builders;
 using DotNet.Testcontainers.Containers;
 using DotNet.Testcontainers.Images;
@@ -143,9 +145,16 @@ namespace ExRam.Gremlinq.Tests.Fixtures
         {
             if (_container is { } container)
             {
-                await using (container)
+                try
                 {
-                    await container.StopAsync();
+                    await using (container)
+                    {
+                        await container.StopAsync();
+                    }
+                }
+                catch (DockerContainerNotFoundException)
+                {
+
                 }
             }
 
