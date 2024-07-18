@@ -12,28 +12,16 @@ namespace ExRam.Gremlinq.Tests.Fixtures
 {
     public abstract class ImageTestContainerFixture : TestContainerFixtureBase
     {
-        private readonly string _image;
-
-        protected ImageTestContainerFixture(string image, int port = 8182) : base(port)
+        protected ImageTestContainerFixture(string image, int port = 8182) : base(new DockerImage(image), port)
         {
-            _image = image;
         }
-
-        protected override IImage GetImage() => new DockerImage(_image);
     }
 
     public abstract class DockerfileTestContainerFixture : TestContainerFixtureBase
     {
-        private readonly string _dockerfile;
-
-        protected DockerfileTestContainerFixture(string dockerfile, int port = 8182) : base(port)
+        protected DockerfileTestContainerFixture(string dockerfile, int port = 8182) : base(new ImageFromDockerfileBuilder().WithDockerfile(dockerfile).Build(), port)
         {
-            _dockerfile = dockerfile;
         }
-
-        protected override IImage GetImage() => new ImageFromDockerfileBuilder()
-            .WithDockerfile(_dockerfile)
-            .Build();
     }
 
     public abstract class TestContainerFixtureBase : GremlinqFixture
@@ -99,12 +87,14 @@ namespace ExRam.Gremlinq.Tests.Fixtures
         }
 
         private readonly int _port;
+        private readonly IImage _image;
 
         private IContainer? _container;
 
-        protected TestContainerFixtureBase(int port = 8182)
+        protected TestContainerFixtureBase(IImage image, int port = 8182)
         {
             _port = port;
+            _image = image;
         }
 
         protected sealed override async Task<IGremlinQuerySource> TransformQuerySource(IGremlinQuerySource g)
@@ -118,7 +108,7 @@ namespace ExRam.Gremlinq.Tests.Fixtures
         public override async Task InitializeAsync()
         {
             var containerBuilder = new ContainerBuilder()
-                .WithImage(GetImage())
+                .WithImage(_image)
                 .WithName(Guid.NewGuid().ToString("N"))
                 .WithPortBinding(_port, true)
                 .WithAutoRemove(true)
@@ -155,8 +145,6 @@ namespace ExRam.Gremlinq.Tests.Fixtures
 
             await base.DisposeAsync();
         }
-
-        protected abstract IImage GetImage(); 
 
         protected virtual ContainerBuilder CustomizeContainer(ContainerBuilder builder) => builder;
 
