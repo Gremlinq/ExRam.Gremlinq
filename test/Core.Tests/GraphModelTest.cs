@@ -378,5 +378,19 @@ namespace ExRam.Gremlinq.Core.Tests
                 .VerticesModel
                 .GetMetadata(typeof(VertexElement).GetProperty(nameof(VertexElement.Id))!));
         }
+
+        [Fact]
+        public async Task Non_abstract_base_types_are_included()
+        {
+            var a = GraphModel
+                .FromBaseTypes<NonAbstractBaseVertex, NonAbstractBaseEdge>()
+                .VerticesModel
+                .TryGetFilterLabels(typeof(NonAbstractBaseVertex), FilterLabelsVerbosity.Maximum);
+
+            await Verify(GraphModel
+                .FromBaseTypes<NonAbstractBaseVertex, NonAbstractBaseEdge>()
+                .VerticesModel
+                .TryGetFilterLabels(typeof(NonAbstractBaseVertex), FilterLabelsVerbosity.Maximum));
+        }
     }
 }
