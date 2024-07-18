@@ -51,7 +51,7 @@ namespace ExRam.Gremlinq.Core.Models
                                 .Select(static x => x!);
                         }
                     })
-                    .Where(static type => type is { IsNestedPrivate: false, IsClass: true, IsAbstract: false } && type != typeof(TBaseType) && typeof(TBaseType).IsAssignableFrom(type));
+                    .Where(static type => type is { IsNestedPrivate: false, IsClass: true, IsAbstract: false } && typeof(TBaseType).IsAssignableFrom(type));
 
                 foreach (var type in types)
                 {
