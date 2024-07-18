@@ -132,7 +132,7 @@ namespace ExRam.Gremlinq.Tests.Fixtures
                 .WithWaitStrategy(Wait
                     .ForUnixContainer()
                     .UntilPortIsAvailable(_port))
-                .WithCleanUp(true);
+                .WithReuse(false);
 
             _container = CustomizeContainer(containerBuilder)
                 .Build();
