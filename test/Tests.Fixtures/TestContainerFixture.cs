@@ -19,7 +19,7 @@ namespace ExRam.Gremlinq.Tests.Fixtures
             _image = image;
         }
 
-        protected override async Task<IImage> GetImage() => new DockerImage(_image);
+        protected override IImage GetImage() => new DockerImage(_image);
     }
 
     public abstract class DockerfileTestContainerFixture : TestContainerFixtureBase
@@ -31,16 +31,9 @@ namespace ExRam.Gremlinq.Tests.Fixtures
             _dockerfile = dockerfile;
         }
 
-        protected override async Task<IImage> GetImage()
-        {
-            var futureImage = new ImageFromDockerfileBuilder()
-                .WithDockerfile(_dockerfile)
-                .Build();
-
-            await futureImage.CreateAsync();
-
-            return futureImage;
-        }
+        protected override IImage GetImage() => new ImageFromDockerfileBuilder()
+            .WithDockerfile(_dockerfile)
+            .Build();
     }
 
     public abstract class TestContainerFixtureBase : GremlinqFixture
@@ -125,7 +118,7 @@ namespace ExRam.Gremlinq.Tests.Fixtures
         public override async Task InitializeAsync()
         {
             var containerBuilder = new ContainerBuilder()
-                .WithImage(await GetImage())
+                .WithImage(GetImage())
                 .WithName(Guid.NewGuid().ToString("N"))
                 .WithPortBinding(_port, true)
                 .WithAutoRemove(true)
@@ -163,7 +156,7 @@ namespace ExRam.Gremlinq.Tests.Fixtures
             await base.DisposeAsync();
         }
 
-        protected abstract Task<IImage> GetImage(); 
+        protected abstract IImage GetImage(); 
 
         protected virtual ContainerBuilder CustomizeContainer(ContainerBuilder builder) => builder;
 
