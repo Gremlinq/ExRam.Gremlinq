@@ -131,8 +131,8 @@ namespace ExRam.Gremlinq.Tests.Fixtures
                 .WithAutoRemove(true)
                 .WithWaitStrategy(Wait
                     .ForUnixContainer()
-                    .UntilPortIsAvailable(_port))
-                .WithReuse(false);
+                    .UntilMessageIsLogged("Channel started at port 8182"));
+                //.WithReuse(false);
 
             _container = CustomizeContainer(containerBuilder)
                 .Build();
