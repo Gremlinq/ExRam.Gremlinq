@@ -131,8 +131,8 @@ namespace ExRam.Gremlinq.Tests.Fixtures
                 .WithAutoRemove(true)
                 .WithWaitStrategy(Wait
                     .ForUnixContainer()
-                    .UntilPortIsAvailable(_port))
-                .WithReuse(false);
+                    .UntilPortIsAvailable(_port));
+                //.WithReuse(false);
 
             _container = CustomizeContainer(containerBuilder)
                 .Build();
