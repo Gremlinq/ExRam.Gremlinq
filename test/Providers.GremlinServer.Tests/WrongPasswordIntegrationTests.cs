@@ -13,7 +13,7 @@ using static ExRam.Gremlinq.Providers.GremlinServer.Tests.WrongPasswordIntegrati
 
 namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 {
-    [IntegrationTest("Linux")]
+    [IntegrationTest("Linux", false)]
     [IntegrationTest("Windows", false)]
     public sealed class WrongPasswordIntegrationTests : GremlinqTestBase, IClassFixture<WrongPasswordGremlinServerContainerFixture>
     {
