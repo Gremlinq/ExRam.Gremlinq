@@ -5,7 +5,7 @@ using ExRam.Gremlinq.Tests.TestCases;
 namespace ExRam.Gremlinq.Providers.Neptune.Tests
 {
     [IntegrationTest("Linux")]
-    [IntegrationTest("Windows", false)]
+    [IntegrationTest("Windows")]
     public sealed class IntegrationTests : QueryExecutionTest, IClassFixture<NeptuneContainerFixture>
     {
         public IntegrationTests(NeptuneContainerFixture fixture) : base(

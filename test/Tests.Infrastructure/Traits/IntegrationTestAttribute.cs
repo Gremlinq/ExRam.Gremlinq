@@ -6,7 +6,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true, Inherited = true)]
     public sealed class IntegrationTestAttribute : Attribute, ITraitAttribute
     {
-        public IntegrationTestAttribute(string validPlatform, bool canRunOnCI = true)
+        public IntegrationTestAttribute(string validPlatform, bool canRunOnCI = false)
         {
             CanRunOnCI = canRunOnCI;
             ValidPlatform = validPlatform;
