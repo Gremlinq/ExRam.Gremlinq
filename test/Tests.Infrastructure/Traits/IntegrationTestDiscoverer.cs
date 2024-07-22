@@ -14,7 +14,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
             if (traitAttribute is ReflectionAttributeInfo { Attribute: IntegrationTestAttribute integrationTestAttribute })
             {
-                if (integrationTestAttribute.CanRunOnCI || !isCi)
+                if (/*integrationTestAttribute.CanRunOnCI || */ !isCi)
                     yield return new KeyValuePair<string, string>("ValidPlatform", integrationTestAttribute.ValidPlatform);
             }
         }
