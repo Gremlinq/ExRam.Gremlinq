@@ -46,7 +46,7 @@ jobs:
       run: dotnet pack ./${{ github.event.repository.name }}.sln -c Release --no-build
 
     - name: Copy NuGet packages to artifacts
-      uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808 # 4.3.3
+      uses: actions/upload-artifact@0b2256b8c012f0828dc542b3febcab082c67f72b # 4.3.4
       with:
         name: NuGetPackages
         path: ./**/${{ github.event.repository.name }}.*.nupkg
@@ -54,7 +54,7 @@ jobs:
 
     - run: echo ${{ steps.nbgv.outputs.NuGetPackageVersion }} > Version
     - name: Output version to artifacts
-      uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808 # 4.3.3
+      uses: actions/upload-artifact@0b2256b8c012f0828dc542b3febcab082c67f72b # 4.3.4
       with:
         name: Version
         path: Version
