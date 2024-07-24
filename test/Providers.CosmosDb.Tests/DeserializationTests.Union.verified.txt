@@ -1,65 +1,65 @@
 ﻿[
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: 12345678-9012-3456-7890-123456789012,
     Label: Company,
     PartitionKey: PartitionKey
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: 12345678-9012-3456-7890-123456789012,
     Label: Company,
     PartitionKey: PartitionKey
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: 12345678-9012-3456-7890-123456789012,
     Label: Company,
     PartitionKey: PartitionKey
   },
   {
     LocalizableDescription: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: 12345678-9012-3456-7890-123456789012,
       Properties: {
         someKey: value
       },
       Value: 
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: 12345678-9012-3456-7890-123456789012,
     Label: Country,
     PartitionKey: PartitionKey
   },
   {
     LocalizableDescription: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: 12345678-9012-3456-7890-123456789012,
       Properties: {
         someKey: value
       },
       Value: 
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: 12345678-9012-3456-7890-123456789012,
     Label: Country,
     PartitionKey: PartitionKey
   },
   {
     LocalizableDescription: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: 12345678-9012-3456-7890-123456789012,
       Properties: {
         someKey: value
       },
       Value: 
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: 12345678-9012-3456-7890-123456789012,
     Label: Country,
     PartitionKey: PartitionKey
   },
   {
     CountryCallingCode: +49,
     LocalizableDescription: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: 12345678-9012-3456-7890-123456789012,
       Properties: {
         someKey: value
       },
       Value: 
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: 12345678-9012-3456-7890-123456789012,
     Label: Country,
     PartitionKey: PartitionKey
   }

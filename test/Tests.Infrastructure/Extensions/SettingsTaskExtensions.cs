@@ -15,7 +15,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public static SettingsTask ScrubGuids(this SettingsTask task)
         {
             return task
-                .ScrubRegex(GuidRegex, "00000000-0000-0000-0000-000000000000");
+                .ScrubRegex(GuidRegex, "12345678-9012-3456-7890-123456789012");
         }
     }
 }

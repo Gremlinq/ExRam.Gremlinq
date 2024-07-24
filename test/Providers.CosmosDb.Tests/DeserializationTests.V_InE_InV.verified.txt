@@ -2,24 +2,24 @@
   {
     CountryCallingCode: +49,
     LocalizableDescription: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: 12345678-9012-3456-7890-123456789012,
       Properties: {
         someKey: value
       },
       Value: 
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: 12345678-9012-3456-7890-123456789012,
     Label: Country,
     PartitionKey: PartitionKey
   },
   {
     IetfLanguageTag: en,
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: 12345678-9012-3456-7890-123456789012,
     Label: Language,
     PartitionKey: PartitionKey
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: 12345678-9012-3456-7890-123456789012,
     Label: Company,
     PartitionKey: PartitionKey
   },
@@ -28,62 +28,62 @@
     Gender: Male,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: 12345678-9012-3456-7890-123456789012,
       Value: Marko
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: 12345678-9012-3456-7890-123456789012,
     Label: Person,
     PartitionKey: PartitionKey
   },
   {
     LocalizableDescription: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: 12345678-9012-3456-7890-123456789012,
       Properties: {
         someKey: value
       },
       Value: 
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: 12345678-9012-3456-7890-123456789012,
     Label: Country,
     PartitionKey: PartitionKey
   },
   {
     LocalizableDescription: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: 12345678-9012-3456-7890-123456789012,
       Properties: {
         someKey: value
       },
       Value: 
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: 12345678-9012-3456-7890-123456789012,
     Label: Country,
     PartitionKey: PartitionKey
   },
   {
     LocalizableDescription: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: 12345678-9012-3456-7890-123456789012,
       Properties: {
         someKey: value
       },
       Value: 
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: 12345678-9012-3456-7890-123456789012,
     Label: Country,
     PartitionKey: PartitionKey
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: 12345678-9012-3456-7890-123456789012,
     Label: Company,
     PartitionKey: PartitionKey
   },
   {
     IetfLanguageTag: en,
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: 12345678-9012-3456-7890-123456789012,
     Label: Language,
     PartitionKey: PartitionKey
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: 12345678-9012-3456-7890-123456789012,
     Label: Company,
     PartitionKey: PartitionKey
   }

@@ -2,7 +2,7 @@
   {
     "serverException": {
       "type": "GremlinQueryExecutionException",
-      "message": "Executing query 00000000-0000-0000-0000-000000000000 failed.",
+      "message": "Executing query 12345678-9012-3456-7890-123456789012 failed.",
       "innerException": {
         "type": "ResponseException",
         "message": "ServerError: For input string: \"id\""

@@ -2,85 +2,85 @@
   {
     CountryCallingCode: +49,
     LocalizableDescription: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: 12345678-9012-3456-7890-123456789012,
       Properties: {
         someKey: value
       },
       Value: 
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: 12345678-9012-3456-7890-123456789012,
     Label: Country,
     PartitionKey: PartitionKey
   },
   {
     LocalizableDescription: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: 12345678-9012-3456-7890-123456789012,
       Properties: {
         someKey: value
       },
       Value: 
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: 12345678-9012-3456-7890-123456789012,
     Label: Country,
     PartitionKey: PartitionKey
   },
   {
     LocalizableDescription: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: 12345678-9012-3456-7890-123456789012,
       Properties: {
         someKey: value
       },
       Value: 
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: 12345678-9012-3456-7890-123456789012,
     Label: Country,
     PartitionKey: PartitionKey
   },
   {
     LocalizableDescription: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: 12345678-9012-3456-7890-123456789012,
       Properties: {
         someKey: value
       },
       Value: 
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: 12345678-9012-3456-7890-123456789012,
     Label: Country,
     PartitionKey: PartitionKey
   },
   {
     CountryCallingCode: +49,
     LocalizableDescription: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: 12345678-9012-3456-7890-123456789012,
       Properties: {
         someKey: value
       },
       Value: 
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: 12345678-9012-3456-7890-123456789012,
     Label: Country,
     PartitionKey: PartitionKey
   },
   {
     Name: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: 12345678-9012-3456-7890-123456789012,
       Properties: {},
       Value: GER
     },
     LocalizableDescription: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: 12345678-9012-3456-7890-123456789012,
       Properties: {
         someKey: value
       },
       Value: 
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: 12345678-9012-3456-7890-123456789012,
     Label: Country,
     PartitionKey: PartitionKey
   },
   {
     Name: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: 12345678-9012-3456-7890-123456789012,
       Properties: {
         de: Deutschland,
         en: Germany
@@ -88,13 +88,13 @@
       Value: GER
     },
     LocalizableDescription: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: 12345678-9012-3456-7890-123456789012,
       Properties: {
         someKey: value
       },
       Value: 
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: 12345678-9012-3456-7890-123456789012,
     Label: Country,
     PartitionKey: PartitionKey
   }
