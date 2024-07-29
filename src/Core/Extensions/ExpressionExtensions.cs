@@ -23,7 +23,7 @@ namespace ExRam.Gremlinq.Core
                         expression = unaryExpression.Operand;
                         break;
                     }
-                    case MethodCallExpression { Object: { } objectExpression } methodCallExpression when methodCallExpression.Method == WellKnownMethods.ObjectToString:
+                    case MethodCallExpression { Object: { } objectExpression } methodCallExpression when methodCallExpression.Method == WellKnownMethods.ObjectToString && objectExpression.RefersToParameter(out _):
                     {
                         expression = objectExpression;
                         break;

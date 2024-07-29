@@ -3760,6 +3760,12 @@ namespace ExRam.Gremlinq.Tests.TestCases
             .Verify();
 
         [Fact]
+        public virtual Task Where_Id_equals_toStringed_Guid() => _g
+            .V<Language>()
+            .Where(t => (string?)t.Id == Guid.Parse("{105A7662-6400-4723-A08A-6837B8FEA6E6}").ToString())
+            .Verify();
+
+        [Fact]
         public virtual Task Where_identity() => _g
             .V<Person>()
             .Where(_ => _.Identity())

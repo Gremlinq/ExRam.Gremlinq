@@ -1,0 +1,1 @@
+﻿g.V().hasLabel('Language').has(id,'105a7662-6400-4723-a08a-6837b8fea6e6').project('id','label','properties').by(id).by(label).by(__.properties().group().by(label).by(__.project('id','label','value','properties').by(id).by(label).by(value).by(__.valueMap()).fold()))

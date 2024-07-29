@@ -1,0 +1,12 @@
+﻿[
+  {
+    "serverException": {
+      "type": "GremlinQueryExecutionException",
+      "message": "Executing query 12345678-9012-3456-7890-123456789012 failed.",
+      "innerException": {
+        "type": "ResponseException",
+        "message": "ServerError: For input string: \"12345678-9012-3456-7890-123456789012\""
+      }
+    }
+  }
+]
