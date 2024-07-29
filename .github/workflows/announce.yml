@@ -14,10 +14,10 @@ jobs:
         uses: dart-actions/tweet@778a594ca22c70910c9524e2455c4d85eb312d57 #1.0.1
         with:
           text: |
-            Announcing the release of ExRam.Gremlinq ${{ github.event.release.tag_name }}!
-          
-            ExRam.Gremlinq is the first #dotnet object-graph-mapper for @apachetinkerpop #gremlin enabled #graphdb​s like @AzureCosmosDB, @dotnetonAWS Neptune or @JanusGraph.
-          
+            We announce the release of ExRam.Gremlinq ${{ github.event.release.tag_name }}!
+
+            ExRam.Gremlinq is the first .NET object-graph-mapper for @apachetinkerpop enabled graph-databases like @dotnetonAWS Neptune, @AzureCosmosDB and @JanusGraph.
+
             https://github.com/${{github.repository}}
           consumer-key: ${{ secrets.TWITTER_CONSUMER_API_KEY }}
           consumer-secret: ${{ secrets.TWITTER_CONSUMER_API_SECRET }}
