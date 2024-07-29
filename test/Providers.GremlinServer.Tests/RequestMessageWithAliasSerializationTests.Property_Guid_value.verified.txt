@@ -1,5 +1,5 @@
 ﻿{
-  RequestId: Guid_1,
+  RequestId: 12345678-9012-3456-7890-123456789012,
   Operation: bytecode,
   Processor: traversal,
   Arguments: {
@@ -25,7 +25,7 @@
               EnumValue: single
             },
             GuidKey,
-            Expected Guid
+            12345678-9012-3456-7890-123456789012
           ]
         },
         {

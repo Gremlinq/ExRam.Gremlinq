@@ -19,6 +19,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                     .Serializer
                     .TransformTo<TSerialized>()
                     .From(query, env))
+                .DontScrubGuids()
                 .ScrubGuids();
         }
     }

@@ -30,6 +30,7 @@ namespace ExRam.Gremlinq.Tests.Fixtures
 
             return this
                 .InnerVerify(Encoding.UTF8.GetString(binaryMessage.Memory.Span))
+                .DontScrubGuids()
                 .ScrubGuids();
         }
     }

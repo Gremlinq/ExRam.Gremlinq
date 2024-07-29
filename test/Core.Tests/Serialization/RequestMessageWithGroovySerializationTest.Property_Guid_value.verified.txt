@@ -1,5 +1,5 @@
 ﻿{
-  RequestId: Guid_1,
+  RequestId: 12345678-9012-3456-7890-123456789012,
   Operation: eval,
   Processor: ,
   Arguments: {
@@ -9,7 +9,7 @@
     bindings: {
       _a: Person,
       _b: GuidKey,
-      _c: Expected Guid,
+      _c: 12345678-9012-3456-7890-123456789012,
       _d: id,
       _e: label,
       _f: properties,

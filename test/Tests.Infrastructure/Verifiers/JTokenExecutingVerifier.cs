@@ -56,6 +56,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         protected override SettingsTask InnerVerify<T>(ValueTask<T> value) => base
             .InnerVerify(value)
+            .DontScrubGuids()
             .ScrubGuids();
     }
 }
