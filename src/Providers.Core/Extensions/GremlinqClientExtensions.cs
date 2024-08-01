@@ -85,29 +85,44 @@ namespace ExRam.Gremlinq.Providers.Core
 
             public IAsyncEnumerable<ResponseMessage<TResult>> SubmitAsync<TResult>(RequestMessage requestMessage)
             {
-                return Core(requestMessage, this);
+                return LoggingCore(requestMessage, this);
 
-                static async IAsyncEnumerable<ResponseMessage<TResult>> Core(RequestMessage requestMessage, LoggingGremlinqClient @this, [EnumeratorCancellation] CancellationToken ct = default)
+                static async IAsyncEnumerable<ResponseMessage<TResult>> LoggingCore(RequestMessage requestMessage, LoggingGremlinqClient @this, [EnumeratorCancellation] CancellationToken ct = default)
                 {
-                    @this._logger(requestMessage);
-
-                    await using (var e = @this._client.SubmitAsync<TResult>(requestMessage).GetAsyncEnumerator(ct))
+                    await using (var e = CatchingCore(requestMessage, @this).GetAsyncEnumerator(ct))
                     {
-                        while (true)
+                        var moveNext = e.MoveNextAsync();
+
+                        @this._logger(requestMessage);
+
+                        while (await moveNext)
                         {
-                            try
-                            {
-                                if (!await e.MoveNextAsync())
-                                    break;
-                            }
-                            catch (Exception ex)
-                            {
-                                @this._environment.Logger.LogError(ex, "Execution of Gremlin query {requestId} failed.", requestMessage.RequestId);
-
-                                throw;
-                            }
-
                             yield return e.Current;
+
+                            moveNext = e.MoveNextAsync();
+                        }
+                    }
+
+                    static async IAsyncEnumerable<ResponseMessage<TResult>> CatchingCore(RequestMessage requestMessage, LoggingGremlinqClient @this, [EnumeratorCancellation] CancellationToken ct = default)
+                    {
+                        await using (var e = @this._client.SubmitAsync<TResult>(requestMessage).GetAsyncEnumerator(ct))
+                        {
+                            while (true)
+                            {
+                                try
+                                {
+                                    if (!await e.MoveNextAsync())
+                                        break;
+                                }
+                                catch (Exception ex)
+                                {
+                                    @this._environment.Logger.LogError(ex, "Execution of Gremlin query {requestId} failed.", requestMessage.RequestId);
+
+                                    throw;
+                                }
+
+                                yield return e.Current;
+                            }
                         }
                     }
                 }
