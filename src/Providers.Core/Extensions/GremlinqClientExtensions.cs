@@ -102,7 +102,7 @@ namespace ExRam.Gremlinq.Providers.Core
                             }
                             catch (Exception ex)
                             {
-                                @this._environment.Logger.LogError(ex, "Execution of Gremlin query {RequestId} failed.", requestMessage.RequestId);
+                                @this._environment.Logger.LogError(ex, "Execution of Gremlin query {requestId} failed.", requestMessage.RequestId);
 
                                 throw;
                             }
@@ -129,13 +129,13 @@ namespace ExRam.Gremlinq.Providers.Core
                         {
                             environment.Logger.Log(
                                 logLevel,
-                                "Executing Gremlin query {RequestId} (Script={Script}, Bindings={Bindings}).",
+                                "Executing Gremlin query {requestId} with groovy script {script} and parameter bindings {bindings}.",
                                 requestMessage.RequestId,
                                 groovyQuery.Script,
                                 JsonSerializer.Serialize(groovyQuery.Bindings, formatting));
                         }
                         else
-                            environment.Logger.LogWarning("Failed to log RequestMessage {RequestId}.", requestMessage.RequestId);
+                            environment.Logger.LogWarning("Failed to log RequestMessage {requestId}.", requestMessage.RequestId);
                     }
                 };
             }
