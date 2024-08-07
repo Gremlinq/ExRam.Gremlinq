@@ -6,20 +6,19 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
     public abstract class GremlinQueryVerifier
     {
         private readonly string _sourceFile;
-        private readonly Func<SettingsTask, SettingsTask> _settingsTaskModifier;
 
-        protected GremlinQueryVerifier(Func<SettingsTask, SettingsTask>? settingsTaskModifier, [CallerFilePath] string sourceFile = "")
+        protected GremlinQueryVerifier([CallerFilePath] string sourceFile = "")
         {
             _sourceFile = sourceFile;
-            _settingsTaskModifier = settingsTaskModifier ?? new Func<SettingsTask, SettingsTask>(__ => __);
         }
 
         public abstract Task Verify<TElement>(IGremlinQueryBase<TElement> query);
 
+        protected virtual SettingsTask ModifySettingsTask(SettingsTask task) => task;
+
         protected virtual SettingsTask InnerVerify<T>(T value) => InnerVerify(new ValueTask<T>(value));
 
-        protected virtual SettingsTask InnerVerify<T>(ValueTask<T> value) => _settingsTaskModifier
-            .Invoke(Verifier
-                .Verify(value, sourceFile: _sourceFile));
+        protected virtual SettingsTask InnerVerify<T>(ValueTask<T> value) => ModifySettingsTask(Verifier
+            .Verify(value, sourceFile: _sourceFile));
     }
 }

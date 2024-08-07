@@ -7,7 +7,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 {
     public class ExecutingVerifier : GremlinQueryVerifier
     {
-        public ExecutingVerifier(Func<SettingsTask, SettingsTask>? settingsTaskModifier = null, [CallerFilePath] string sourceFile = "") : base(settingsTaskModifier, sourceFile)
+        public ExecutingVerifier([CallerFilePath] string sourceFile = "") : base(sourceFile)
         {
         }
 

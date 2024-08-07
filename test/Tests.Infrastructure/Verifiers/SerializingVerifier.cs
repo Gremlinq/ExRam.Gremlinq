@@ -6,7 +6,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 {
     public class SerializingVerifier<TSerialized> : GremlinQueryVerifier
     {
-        public SerializingVerifier(Func<SettingsTask, SettingsTask>? settingsTaskModifier = null, [CallerFilePath] string sourceFile = "") : base(settingsTaskModifier, sourceFile)
+        public SerializingVerifier([CallerFilePath] string sourceFile = "") : base(sourceFile)
         {
         }
 

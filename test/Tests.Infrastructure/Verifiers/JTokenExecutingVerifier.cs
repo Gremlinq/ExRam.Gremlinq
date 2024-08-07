@@ -11,7 +11,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
     {
         private static readonly ConditionalWeakTable<IGremlinQueryEnvironment, IGremlinQueryEnvironment> _environments = new();
 
-        public JTokenExecutingVerifier(Func<SettingsTask, SettingsTask>? settingsTaskModifier = null, [CallerFilePath] string sourceFile = "") : base(settingsTaskModifier, sourceFile)
+        public JTokenExecutingVerifier([CallerFilePath] string sourceFile = "") : base(sourceFile)
         {
         }
 
