@@ -13,7 +13,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         public override SettingsTask Verify<TElement>(IGremlinQueryBase<TElement> query) => InnerVerify(Execute(query));
 
-        private async Task<TElement[]> Execute<TElement>(IGremlinQueryBase<TElement> query)
+        private async ValueTask<TElement[]> Execute<TElement>(IGremlinQueryBase<TElement> query)
         {
             try
             {
