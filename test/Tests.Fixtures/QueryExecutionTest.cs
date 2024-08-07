@@ -2299,8 +2299,7 @@ namespace ExRam.Gremlinq.Tests.TestCases
             await _g
                 .V<Person>()
                 .Property("GuidKey", guid)
-                .Verify()
-                .AddNamedGuid(guid, "Expected Guid");
+                .Verify();
         }
 
         [Fact]
