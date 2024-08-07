@@ -29,9 +29,11 @@ namespace ExRam.Gremlinq.Tests.Fixtures
                 .From(requestMessage, env);
 
             return this
-                .InnerVerify(Encoding.UTF8.GetString(binaryMessage.Memory.Span))
-                .DontScrubGuids()
-                .ScrubGuids();
+                .InnerVerify(Encoding.UTF8.GetString(binaryMessage.Memory.Span));
         }
+
+        protected override SettingsTask ModifySettingsTask(SettingsTask task) => base.ModifySettingsTask(task)
+            .DontScrubGuids()
+            .ScrubGuids();
     }
 }

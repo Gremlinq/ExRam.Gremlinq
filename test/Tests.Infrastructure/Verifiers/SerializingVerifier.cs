@@ -18,9 +18,12 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                 .InnerVerify(env
                     .Serializer
                     .TransformTo<TSerialized>()
-                    .From(query, env))
-                .DontScrubGuids()
-                .ScrubGuids();
+                    .From(query, env));
         }
+
+        protected override SettingsTask ModifySettingsTask(SettingsTask task) => base
+            .ModifySettingsTask(task)
+            .DontScrubGuids()
+            .ScrubGuids();
     }
 }

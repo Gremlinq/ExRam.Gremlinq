@@ -18,8 +18,8 @@ namespace ExRam.Gremlinq.Providers.JanusGraph.Tests
             {
             }
 
-            protected override SettingsTask InnerVerify<T>(ValueTask<T> value) => base
-                .InnerVerify(value)
+            protected override SettingsTask ModifySettingsTask(SettingsTask task) => base
+                .ModifySettingsTask(task)
                 .ScrubRegex(RelationIdRegex, "\"relationId\": \"scrubbed\"");
         }
 

@@ -30,13 +30,16 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                             .Deserializer
                             .TransformTo<TElement>()
                             .From(token, environment))
-                        .ToArray())
-                    .DontScrubDateTimes()
-                    .DontScrubGuids()
-                    .DontIgnoreEmptyCollections();
+                        .ToArray());
             }
             else
                 throw new InvalidOperationException();
         }
+
+        protected override SettingsTask ModifySettingsTask(SettingsTask task) => base
+            .ModifySettingsTask(task)
+            .DontScrubDateTimes()
+            .DontScrubGuids()
+            .DontIgnoreEmptyCollections();
     }
 }

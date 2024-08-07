@@ -27,8 +27,8 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             }
         }
 
-        protected override SettingsTask InnerVerify<T>(ValueTask<T> value) => base
-            .InnerVerify(value)
+        protected override SettingsTask ModifySettingsTask(SettingsTask task) => base
+            .ModifySettingsTask(task)
             .DontScrubDateTimes()
             .DontIgnoreEmptyCollections()
             .DontScrubGuids()
