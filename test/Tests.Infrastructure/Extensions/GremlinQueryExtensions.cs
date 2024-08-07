@@ -4,15 +4,6 @@ namespace ExRam.Gremlinq.Core
 {
     public static class GremlinQueryExtensions
     {
-        public static Task Verify<TElement>(this IGremlinQueryBase<TElement> query)
-        {
-            var task = GremlinqTestBase.Current.Verifier.Verify(query);
-
-#if AUTO_VERIFY
-            task = task.AutoVerify();
-#endif
-
-            return task;
-        }
+        public static Task Verify<TElement>(this IGremlinQueryBase<TElement> query) => GremlinqTestBase.Current.Verifier.Verify(query);
     }
 }
