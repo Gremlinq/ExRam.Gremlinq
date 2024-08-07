@@ -15,9 +15,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         {
         }
 
-        public override Task Verify<TElement>(IGremlinQueryBase<TElement> query) => InnerVerify(Execute(query));
-
-        private async ValueTask<string> Execute<TElement>(IGremlinQueryBase<TElement> query) => JsonConvert.SerializeObject(
+        public override async Task Verify<TElement>(IGremlinQueryBase<TElement> query) => await InnerVerify(JsonConvert.SerializeObject(
             await query
                 .AsAdmin()
                 .ChangeQueryType<IGremlinQuerySource>()
@@ -52,7 +50,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                         }
                     }))
                 .ToArrayAsync(),
-            Formatting.Indented);
+            Formatting.Indented));
 
         protected override SettingsTask ModifySettingsTask(SettingsTask task) => base
             .ModifySettingsTask(task)
