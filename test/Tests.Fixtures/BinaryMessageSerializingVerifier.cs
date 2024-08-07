@@ -16,7 +16,7 @@ namespace ExRam.Gremlinq.Tests.Fixtures
         {
         }
 
-        public override SettingsTask Verify<TElement>(IGremlinQueryBase<TElement> query)
+        public override Task Verify<TElement>(IGremlinQueryBase<TElement> query)
         {
             var env = query.AsAdmin().Environment;
 

@@ -14,7 +14,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             _settingsTaskModifier = settingsTaskModifier ?? new Func<SettingsTask, SettingsTask>(__ => __);
         }
 
-        public abstract SettingsTask Verify<TElement>(IGremlinQueryBase<TElement> query);
+        public abstract Task Verify<TElement>(IGremlinQueryBase<TElement> query);
 
         protected virtual SettingsTask InnerVerify<T>(T value) => InnerVerify(new ValueTask<T>(value));
 

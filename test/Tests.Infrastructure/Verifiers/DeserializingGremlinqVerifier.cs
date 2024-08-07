@@ -17,7 +17,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             _context = XunitContext.Register(testOutputHelper, sourceFile);
         }
 
-        public override SettingsTask Verify<TElement>(IGremlinQueryBase<TElement> query)
+        public override Task Verify<TElement>(IGremlinQueryBase<TElement> query)
         {
             var environment = query.AsAdmin().Environment;
 
