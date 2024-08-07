@@ -4,7 +4,7 @@ namespace ExRam.Gremlinq.Core
 {
     public static class GremlinQueryExtensions
     {
-        public static SettingsTask Verify<TElement>(this IGremlinQueryBase<TElement> query)
+        public static Task Verify<TElement>(this IGremlinQueryBase<TElement> query)
         {
             var task = GremlinqTestBase.Current.Verifier.Verify(query);
 
