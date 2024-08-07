@@ -13,9 +13,9 @@ using Gremlin.Net.Driver.Exceptions;
 namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
 {
     [IntegrationTest("Windows")]
-    public sealed class NoPasswordIntegrationTests : GremlinqTestBase, IClassFixture<NoPasswordFixture>
+    public class NoPasswordIntegrationTests : GremlinqTestBase, IClassFixture<NoPasswordFixture>
     {
-        public sealed class NoPasswordFixture : GremlinqFixture
+        public class NoPasswordFixture : GremlinqFixture
         {
             private const string CosmosDbEmulatorDatabaseName = "db";
             private const string CosmosDbEmulatorCollectionName = "graph";

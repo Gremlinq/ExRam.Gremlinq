@@ -5,7 +5,7 @@ using ExRam.Gremlinq.Tests.Fixtures;
 
 namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 {
-    public sealed class RequestMessageWithAliasGremlinServerFixture : GremlinqFixture
+    public class RequestMessageWithAliasGremlinServerFixture : GremlinqFixture
     {
         protected override async Task<IGremlinQuerySource> TransformQuerySource(IGremlinQuerySource g) => g
             .UseGremlinServer<Vertex, Edge>(builder => builder

@@ -15,9 +15,9 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 {
     [IntegrationTest("Linux")]
     [IntegrationTest("Windows")]
-    public sealed class WrongPasswordIntegrationTests : GremlinqTestBase, IClassFixture<WrongPasswordGremlinServerContainerFixture>
+    public class WrongPasswordIntegrationTests : GremlinqTestBase, IClassFixture<WrongPasswordGremlinServerContainerFixture>
     {
-        public sealed class WrongPasswordGremlinServerContainerFixture : DockerfileTestContainerFixture
+        public class WrongPasswordGremlinServerContainerFixture : DockerfileTestContainerFixture
         {
             public WrongPasswordGremlinServerContainerFixture() : base("PasswordSecureGremlinServerDockerfile")
             {

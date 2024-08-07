@@ -7,7 +7,7 @@ using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Tests.Fixtures
 {
-    public sealed class GroovyGremlinQuerySerializationFixture : GremlinqFixture
+    public class GroovyGremlinQuerySerializationFixture : GremlinqFixture
     {
         protected override async Task<IGremlinQuerySource> TransformQuerySource(IGremlinQuerySource g) => g
             .ConfigureEnvironment(env => env

@@ -7,7 +7,7 @@ using ExRam.Gremlinq.Tests.Infrastructure;
 
 namespace ExRam.Gremlinq.Tests.Fixtures
 {
-    public sealed class JanusGraphFixture : GremlinqFixture
+    public class JanusGraphFixture : GremlinqFixture
     {
         protected override async Task<IGremlinQuerySource> TransformQuerySource(IGremlinQuerySource g) => g
             .UseJanusGraph<Vertex, Edge>(builder => builder

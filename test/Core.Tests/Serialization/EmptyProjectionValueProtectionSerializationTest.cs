@@ -5,9 +5,9 @@ using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
-    public sealed class EmptyProjectionValueProtectionSerializationTest : QueryExecutionTest, IClassFixture<EmptyProjectionValueProtectionSerializationTest.EmptyProjectionValueProtectionFixture>
+    public class EmptyProjectionValueProtectionSerializationTest : QueryExecutionTest, IClassFixture<EmptyProjectionValueProtectionSerializationTest.EmptyProjectionValueProtectionFixture>
     {
-        public sealed class EmptyProjectionValueProtectionFixture : GremlinqFixture
+        public class EmptyProjectionValueProtectionFixture : GremlinqFixture
         {
             protected override async Task<IGremlinQuerySource> TransformQuerySource(IGremlinQuerySource g) => g
                 .ConfigureEnvironment(_ => _

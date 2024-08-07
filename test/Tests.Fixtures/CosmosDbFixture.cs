@@ -5,7 +5,7 @@ using ExRam.Gremlinq.Support.NewtonsoftJson;
 
 namespace ExRam.Gremlinq.Tests.Fixtures
 {
-    public sealed class CosmosDbFixture : GremlinqFixture
+    public class CosmosDbFixture : GremlinqFixture
     {
         protected override async Task<IGremlinQuerySource> TransformQuerySource(IGremlinQuerySource g) => g
             .UseCosmosDb<Vertex, Edge>(

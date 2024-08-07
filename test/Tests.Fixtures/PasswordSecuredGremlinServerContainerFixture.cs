@@ -7,12 +7,11 @@ using ExRam.Gremlinq.Providers.GremlinServer;
 
 namespace ExRam.Gremlinq.Tests.Fixtures
 {
-    public sealed class PasswordSecuredGremlinServerContainerFixture : DockerfileTestContainerFixture
+    public class PasswordSecuredGremlinServerContainerFixture : DockerfileTestContainerFixture
     {
         public PasswordSecuredGremlinServerContainerFixture() : base("PasswordSecureGremlinServerDockerfile")
         {
         }
-
 
         protected override async Task<IGremlinQuerySource> TransformQuerySource(IContainer container, IGremlinQuerySource g) => g
             .UseGremlinServer<Vertex, Edge>(_ => _

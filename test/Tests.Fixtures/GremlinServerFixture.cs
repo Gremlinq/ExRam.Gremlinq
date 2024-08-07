@@ -6,7 +6,7 @@ using ExRam.Gremlinq.Providers.GremlinServer;
 
 namespace ExRam.Gremlinq.Tests.Fixtures
 {
-    public sealed class GremlinServerFixture : GremlinqFixture
+    public class GremlinServerFixture : GremlinqFixture
     {
         protected override async Task<IGremlinQuerySource> TransformQuerySource(IGremlinQuerySource g) => g
             .UseGremlinServer<Vertex, Edge>(_ => _

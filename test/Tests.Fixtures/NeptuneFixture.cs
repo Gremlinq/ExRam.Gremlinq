@@ -6,7 +6,7 @@ using ExRam.Gremlinq.Providers.Neptune;
 
 namespace ExRam.Gremlinq.Tests.Fixtures
 {
-    public sealed class NeptuneFixture : GremlinqFixture
+    public class NeptuneFixture : GremlinqFixture
     {
         protected override async Task<IGremlinQuerySource> TransformQuerySource(IGremlinQuerySource g) => g
             .UseNeptune<Vertex, Edge>(_ => _
