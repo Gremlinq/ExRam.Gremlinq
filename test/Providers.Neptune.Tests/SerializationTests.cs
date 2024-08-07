@@ -5,7 +5,7 @@ using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Providers.Neptune.Tests
 {
-    public sealed class SerializationTests : QueryExecutionTest, IClassFixture<NeptuneFixture>
+    public class SerializationTests : QueryExecutionTest, IClassFixture<NeptuneFixture>
     {
         public SerializationTests(NeptuneFixture fixture) : base(
             fixture,

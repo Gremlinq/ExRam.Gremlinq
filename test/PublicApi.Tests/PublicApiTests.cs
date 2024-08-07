@@ -3,7 +3,7 @@ using PublicApiGenerator;
 
 namespace ExRam.Gremlinq.PublicApi.Tests
 {
-    public sealed class PublicApiTests : VerifyBase
+    public class PublicApiTests : VerifyBase
     {
         public PublicApiTests() : base()
         {

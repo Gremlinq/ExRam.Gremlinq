@@ -4,7 +4,7 @@ using ExRam.Gremlinq.Tests.Entities;
 
 namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 {
-    public sealed class ConfigureClientFactoryTests
+    public class ConfigureClientFactoryTests
     {
         [Fact]
         public void ConfigureClient_1()

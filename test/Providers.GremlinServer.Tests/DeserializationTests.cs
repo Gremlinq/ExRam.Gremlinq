@@ -4,7 +4,7 @@ using ExRam.Gremlinq.Tests.TestCases;
 
 namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 {
-    public sealed class DeserializationTests : QueryExecutionTest, IClassFixture<GremlinServerFixture>
+    public class DeserializationTests : QueryExecutionTest, IClassFixture<GremlinServerFixture>
     {
         public DeserializationTests(GremlinServerFixture fixture, ITestOutputHelper testOutputHelper) : base(
             fixture,

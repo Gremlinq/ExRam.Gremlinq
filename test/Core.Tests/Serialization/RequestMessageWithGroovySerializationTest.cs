@@ -6,7 +6,7 @@ using Gremlin.Net.Driver.Messages;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
-    public sealed class RequestMessageWithGroovySerializationTest : QueryExecutionTest, IClassFixture<GroovyGremlinQuerySerializationFixture>
+    public class RequestMessageWithGroovySerializationTest : QueryExecutionTest, IClassFixture<GroovyGremlinQuerySerializationFixture>
     {
         public RequestMessageWithGroovySerializationTest(GroovyGremlinQuerySerializationFixture fixture) : base(
             fixture,

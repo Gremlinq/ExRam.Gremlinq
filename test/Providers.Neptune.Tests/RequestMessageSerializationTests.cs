@@ -5,7 +5,7 @@ using Gremlin.Net.Driver.Messages;
 
 namespace ExRam.Gremlinq.Providers.Neptune.Tests
 {
-    public sealed class RequestMessageSerializationTests : QueryExecutionTest, IClassFixture<NeptuneFixture>
+    public class RequestMessageSerializationTests : QueryExecutionTest, IClassFixture<NeptuneFixture>
     {
         public RequestMessageSerializationTests(NeptuneFixture fixture) : base(
             fixture,

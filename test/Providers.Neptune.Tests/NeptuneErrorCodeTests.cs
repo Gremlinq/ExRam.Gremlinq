@@ -2,7 +2,7 @@
 
 namespace ExRam.Gremlinq.Providers.Neptune.Tests
 {
-    public sealed class NeptuneErrorCodeTests
+    public class NeptuneErrorCodeTests
     {
         [Fact]
         public void Equality()

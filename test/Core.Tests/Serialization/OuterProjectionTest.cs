@@ -5,7 +5,7 @@ using ExRam.Gremlinq.Tests.TestCases;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
-    public sealed class OuterProjectionTest : QueryExecutionTest, IClassFixture<GremlinqFixture>
+    public class OuterProjectionTest : QueryExecutionTest, IClassFixture<GremlinqFixture>
     {
         private sealed class ProjectionVerifier : GremlinQueryVerifier
         {

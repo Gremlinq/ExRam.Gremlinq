@@ -4,7 +4,7 @@ using ExRam.Gremlinq.Tests.TestCases;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
-    public sealed class Graphson2BinaryMessageSerializationTest : QueryExecutionTest, IClassFixture<GremlinqFixture>
+    public class Graphson2BinaryMessageSerializationTest : QueryExecutionTest, IClassFixture<GremlinqFixture>
     {
         public Graphson2BinaryMessageSerializationTest(GremlinqFixture fixture) : base(
             fixture,

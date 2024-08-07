@@ -9,7 +9,7 @@ using Path = ExRam.Gremlinq.Core.GraphElements.Path;
 
 namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
 {
-    public sealed class GraphsonSupportTest : VerifyBase
+    public class GraphsonSupportTest : VerifyBase
     {
         private readonly struct NativeType
         {

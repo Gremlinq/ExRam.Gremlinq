@@ -7,7 +7,7 @@ using ExRam.Gremlinq.Tests.TestCases;
 
 namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
 {
-    public sealed class SerializationTests : QueryExecutionTest, IClassFixture<CosmosDbFixture>
+    public class SerializationTests : QueryExecutionTest, IClassFixture<CosmosDbFixture>
     {
         public SerializationTests(CosmosDbFixture fixture) : base(
             fixture,

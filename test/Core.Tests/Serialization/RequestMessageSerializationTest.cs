@@ -4,13 +4,14 @@ using ExRam.Gremlinq.Tests.TestCases;
 
 using Gremlin.Net.Driver.Messages;
 
-namespace ExRam.Gremlinq.Core.Tests;
-
-public sealed class RequestMessageSerializationTest : QueryExecutionTest, IClassFixture<GremlinqFixture>
+namespace ExRam.Gremlinq.Core.Tests
 {
-    public RequestMessageSerializationTest(GremlinqFixture fixture) : base(
-        fixture,
-        new SerializingVerifier<RequestMessage>())
+    public class RequestMessageSerializationTest : QueryExecutionTest, IClassFixture<GremlinqFixture>
     {
+        public RequestMessageSerializationTest(GremlinqFixture fixture) : base(
+            fixture,
+            new SerializingVerifier<RequestMessage>())
+        {
+        }
     }
 }

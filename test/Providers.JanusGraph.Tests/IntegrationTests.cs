@@ -8,7 +8,7 @@ namespace ExRam.Gremlinq.Providers.JanusGraph.Tests
 {
     [IntegrationTest("Linux")]
     [IntegrationTest("Windows")]
-    public sealed class IntegrationTests : QueryExecutionTest, IClassFixture<JanusGraphContainerFixture>
+    public class IntegrationTests : QueryExecutionTest, IClassFixture<JanusGraphContainerFixture>
     {
         public new sealed class Verifier : JTokenExecutingVerifier
         {

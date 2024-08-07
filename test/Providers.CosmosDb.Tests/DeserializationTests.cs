@@ -4,7 +4,7 @@ using ExRam.Gremlinq.Tests.TestCases;
 
 namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
 {
-    public sealed class DeserializationTests : QueryExecutionTest, IClassFixture<CosmosDbFixture>
+    public class DeserializationTests : QueryExecutionTest, IClassFixture<CosmosDbFixture>
     {
         public DeserializationTests(CosmosDbFixture fixture, ITestOutputHelper testOutputHelper) : base(
             fixture,

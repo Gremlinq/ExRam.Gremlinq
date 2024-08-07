@@ -5,7 +5,7 @@ using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
-    public sealed class Issue568 : GremlinqTestBase
+    public class Issue568 : GremlinqTestBase
     {
         public abstract class VertexBaseAbstract
         {
