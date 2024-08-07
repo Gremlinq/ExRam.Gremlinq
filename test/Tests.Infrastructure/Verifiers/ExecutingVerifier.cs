@@ -11,17 +11,17 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         {
         }
 
-        public override Task Verify<TElement>(IGremlinQueryBase<TElement> query)
+        public override async Task Verify<TElement>(IGremlinQueryBase<TElement> query)
         {
             try
             {
-                return InnerVerify(query
+                await InnerVerify(await query
                     .ToAsyncEnumerable()
                     .ToArrayAsync());
             }
             catch (GremlinQueryExecutionException)
             {
-                return InnerVerify(Array.Empty<TElement>());    //TODO: Verify exception
+                await InnerVerify(Array.Empty<TElement>());    //TODO: Verify exception
             }
         }
 

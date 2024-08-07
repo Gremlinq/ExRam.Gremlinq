@@ -16,9 +16,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         protected virtual SettingsTask ModifySettingsTask(SettingsTask task) => task;
 
-        protected Task InnerVerify<T>(T value) => InnerVerify(new ValueTask<T>(value));
-
-        protected Task InnerVerify<T>(ValueTask<T> value) => ModifySettingsTask(Verifier
+        protected Task InnerVerify<T>(T value) => ModifySettingsTask(Verifier
             .Verify(value, sourceFile: _sourceFile));
     }
 }
