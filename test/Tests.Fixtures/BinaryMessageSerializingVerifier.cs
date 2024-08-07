@@ -9,7 +9,7 @@ using Gremlin.Net.Driver.Messages;
 
 namespace ExRam.Gremlinq.Tests.Fixtures
 {
-    public sealed class BinaryMessageSerializingVerifier<TBinaryMessage> : GremlinQueryVerifier
+    public class BinaryMessageSerializingVerifier<TBinaryMessage> : GremlinQueryVerifier
         where TBinaryMessage : IMemoryOwner<byte>
     {
         public BinaryMessageSerializingVerifier(Func<SettingsTask, SettingsTask>? settingsTaskModifier = null, [CallerFilePath] string sourceFile = "") : base(settingsTaskModifier, sourceFile)
