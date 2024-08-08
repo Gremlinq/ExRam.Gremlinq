@@ -3,11 +3,10 @@ using System.Runtime.CompilerServices;
 using System.Text;
 
 using ExRam.Gremlinq.Core;
-using ExRam.Gremlinq.Tests.Infrastructure;
 
 using Gremlin.Net.Driver.Messages;
 
-namespace ExRam.Gremlinq.Tests.Fixtures
+namespace ExRam.Gremlinq.Tests.Infrastructure
 {
     public class BinaryMessageSerializingVerifier<TBinaryMessage> : GremlinQueryVerifier
         where TBinaryMessage : IMemoryOwner<byte>
