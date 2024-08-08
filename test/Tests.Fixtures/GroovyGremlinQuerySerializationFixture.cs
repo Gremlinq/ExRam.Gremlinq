@@ -1,6 +1,7 @@
 ﻿using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Serialization;
 using ExRam.Gremlinq.Core.Transformation;
+using ExRam.Gremlinq.Tests.Infrastructure;
 
 using Gremlin.Net.Driver.Messages;
 using Gremlin.Net.Process.Traversal;

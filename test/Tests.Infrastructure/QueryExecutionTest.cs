@@ -5,13 +5,11 @@ using ExRam.Gremlinq.Core.Models;
 using ExRam.Gremlinq.Core.Steps;
 using ExRam.Gremlinq.Tests.Entities;
 using static ExRam.Gremlinq.Core.Transformation.ConverterFactory;
-using ExRam.Gremlinq.Tests.Infrastructure;
 using ExRam.Gremlinq.Core;
-using ExRam.Gremlinq.Tests.Fixtures;
 using ExRam.Gremlinq.Support.NewtonsoftJson;
 using Newtonsoft.Json.Linq;
 
-namespace ExRam.Gremlinq.Tests.TestCases
+namespace ExRam.Gremlinq.Tests.Infrastructure
 {
     public abstract class QueryExecutionTest : GremlinqTestBase
     {

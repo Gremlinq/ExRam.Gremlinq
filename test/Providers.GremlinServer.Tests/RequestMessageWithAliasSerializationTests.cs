@@ -1,5 +1,4 @@
 ﻿using ExRam.Gremlinq.Tests.Infrastructure;
-using ExRam.Gremlinq.Tests.TestCases;
 using Gremlin.Net.Driver.Messages;
 
 namespace ExRam.Gremlinq.Providers.GremlinServer.Tests

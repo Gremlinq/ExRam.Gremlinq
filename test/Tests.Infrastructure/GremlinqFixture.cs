@@ -5,7 +5,7 @@ using ExRam.Gremlinq.Tests.Entities;
 
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
-namespace ExRam.Gremlinq.Tests.Fixtures
+namespace ExRam.Gremlinq.Tests.Infrastructure
 {
     public class GremlinqFixture : IAsyncLifetime
     {

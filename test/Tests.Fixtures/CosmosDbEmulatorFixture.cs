@@ -3,6 +3,7 @@ using ExRam.Gremlinq.Providers.Core;
 using ExRam.Gremlinq.Providers.CosmosDb;
 using ExRam.Gremlinq.Tests.Entities;
 using ExRam.Gremlinq.Support.NewtonsoftJson;
+using ExRam.Gremlinq.Tests.Infrastructure;
 using System.Text.Json;
 using Microsoft.Azure.Cosmos;
 using Polly;
