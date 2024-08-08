@@ -2,7 +2,6 @@
 
 using ExRam.Gremlinq.Core;
 
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace ExRam.Gremlinq.Tests.Infrastructure
@@ -23,12 +22,11 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
             var text = File.ReadAllText(Path.Combine(_context.SourceDirectory, typeof(TIntegrationTest).Name + "." + _context.MethodName + ".verified.txt"));
 
-            if (text.Contains("GremlinQueryExecutionException"))
-                return InnerVerify(text);
-
-            return InnerVerify(environment.Deserializer
-               .TransformTo<TElement[]>()
-               .From(JsonConvert.DeserializeObject<JToken>(text), environment));
+            return text.Contains("GremlinQueryExecutionException")
+                ? InnerVerify(text)
+                : InnerVerify(environment.Deserializer
+                   .TransformTo<TElement[]>()
+                   .From(JToken.Parse(text), environment));
         }
 
         protected override SettingsTask ModifySettingsTask(SettingsTask task) => base
