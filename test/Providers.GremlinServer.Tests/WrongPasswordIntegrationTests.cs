@@ -5,11 +5,6 @@ using ExRam.Gremlinq.Tests.Infrastructure;
 using FluentAssertions;
 using ExRam.Gremlinq.Core.Execution;
 using Gremlin.Net.Driver.Exceptions;
-using DotNet.Testcontainers.Containers;
-using ExRam.Gremlinq.Tests.Entities;
-using ExRam.Gremlinq.Providers.Core;
-using ExRam.Gremlinq.Support.NewtonsoftJson;
-using static ExRam.Gremlinq.Providers.GremlinServer.Tests.WrongPasswordIntegrationTests;
 
 namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 {
@@ -17,21 +12,6 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
     [IntegrationTest("Windows")]
     public class WrongPasswordIntegrationTests : GremlinqTestBase, IClassFixture<WrongPasswordGremlinServerContainerFixture>
     {
-        public class WrongPasswordGremlinServerContainerFixture : DockerfileTestContainerFixture
-        {
-            public WrongPasswordGremlinServerContainerFixture() : base("PasswordSecureGremlinServerDockerfile")
-            {
-            }
-
-            protected override IGremlinQuerySource TransformQuerySource(IContainer container, IGremlinQuerySource g) => g
-                .UseGremlinServer<Vertex, Edge>(_ => _
-                    .At(new UriBuilder("ws", container.Hostname, container.GetMappedPublicPort(8182)).Uri)
-                    .ConfigureClientFactory(factory => factory
-                        .ConfigureBaseFactory(factory => factory
-                            .WithPlainCredentials("stephen", "wrongPassword")))
-                    .UseNewtonsoftJson());
-        }
-
         private readonly IGremlinQuerySource _g;
 
         public WrongPasswordIntegrationTests(WrongPasswordGremlinServerContainerFixture fixture) : base(new JTokenExecutingVerifier())

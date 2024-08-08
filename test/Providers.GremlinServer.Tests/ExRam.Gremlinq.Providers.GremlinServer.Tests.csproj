@@ -3,10 +3,6 @@
   <ItemGroup>
     <None Remove="*.verified.txt" />
     <None Remove="*.received.txt" />
-    <None Remove="PasswordSecureGremlinServerDockerfile" />
-    <Content Include="PasswordSecureGremlinServerDockerfile">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <ProjectReference Include="..\Tests.Fixtures\ExRam.Gremlinq.Tests.Fixtures.csproj" />
   </ItemGroup>
 

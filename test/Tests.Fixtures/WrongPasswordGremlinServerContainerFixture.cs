@@ -1,15 +1,16 @@
 ﻿using DotNet.Testcontainers.Containers;
+
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Providers.Core;
 using ExRam.Gremlinq.Tests.Entities;
-using ExRam.Gremlinq.Support.NewtonsoftJson;
 using ExRam.Gremlinq.Providers.GremlinServer;
+using ExRam.Gremlinq.Support.NewtonsoftJson;
 
 namespace ExRam.Gremlinq.Tests.Fixtures
 {
-    public class PasswordSecuredGremlinServerContainerFixture : DockerfileTestContainerFixture
+    public class WrongPasswordGremlinServerContainerFixture : DockerfileTestContainerFixture
     {
-        public PasswordSecuredGremlinServerContainerFixture() : base("Dockerfiles/PasswordSecureGremlinServerDockerfile")
+        public WrongPasswordGremlinServerContainerFixture() : base("Dockerfiles/PasswordSecureGremlinServerDockerfile")
         {
         }
 
@@ -18,8 +19,7 @@ namespace ExRam.Gremlinq.Tests.Fixtures
                 .At(new UriBuilder("ws", container.Hostname, container.GetMappedPublicPort(8182)).Uri)
                 .ConfigureClientFactory(factory => factory
                     .ConfigureBaseFactory(factory => factory
-                        .WithPlainCredentials("stephen", "password")))
-                .UseNewtonsoftJson())
-            .IgnoreCosmosDbSpecificProperties();
+                        .WithPlainCredentials("stephen", "wrongPassword")))
+                .UseNewtonsoftJson());
     }
 }
