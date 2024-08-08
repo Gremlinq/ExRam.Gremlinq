@@ -18,8 +18,10 @@ namespace ExRam.Gremlinq.Tests.Fixtures
         private readonly string _collectionName = Guid.NewGuid().ToString("N");
         private bool _containerCreated;
 
-        protected override async Task<IGremlinQuerySource> TransformQuerySource(IGremlinQuerySource g)
+        public override async Task InitializeAsync()
         {
+            await base.InitializeAsync();
+
             using (var cosmosClient = new CosmosClient("https://localhost:8081", CosmosDbEmulatorAuthKey))
             {
                 await Policy
@@ -33,22 +35,6 @@ namespace ExRam.Gremlinq.Tests.Fixtures
                     });
 
                 _containerCreated = true;
-
-                return g
-                    .UseCosmosDb<Vertex, Edge>(conf => conf
-                        .At(new Uri("ws://localhost:8901"), CosmosDbEmulatorDatabaseName, _collectionName)
-                        .AuthenticateBy(CosmosDbEmulatorAuthKey)
-                        .WithPartitionKey(x => x.PartitionKey!)
-                        .UseNewtonsoftJson()
-                        .ConfigureClientFactory(factory => factory
-                            .ConfigureClient(client => client
-                                .ObserveResultStatusAttributes((_, attributes) =>
-                                {
-                                    Console.WriteLine(JsonSerializer.Serialize(attributes));
-                                }))))
-                    .ConfigureEnvironment(env => env
-                        .ConfigureOptions(options => options
-                            .SetValue(GremlinqOption.StringComparisonTranslationStrictness, StringComparisonTranslationStrictness.Lenient)));
             }
         }
 
@@ -66,6 +52,25 @@ namespace ExRam.Gremlinq.Tests.Fixtures
             }
 
             await base.DisposeAsync();
+        }
+
+        protected override async Task<IGremlinQuerySource> TransformQuerySource(IGremlinQuerySource g)
+        {
+            return g
+                .UseCosmosDb<Vertex, Edge>(conf => conf
+                    .At(new Uri("ws://localhost:8901"), CosmosDbEmulatorDatabaseName, _collectionName)
+                    .AuthenticateBy(CosmosDbEmulatorAuthKey)
+                    .WithPartitionKey(x => x.PartitionKey!)
+                    .UseNewtonsoftJson()
+                    .ConfigureClientFactory(factory => factory
+                        .ConfigureClient(client => client
+                            .ObserveResultStatusAttributes((_, attributes) =>
+                            {
+                                Console.WriteLine(JsonSerializer.Serialize(attributes));
+                            }))))
+                .ConfigureEnvironment(env => env
+                    .ConfigureOptions(options => options
+                        .SetValue(GremlinqOption.StringComparisonTranslationStrictness, StringComparisonTranslationStrictness.Lenient)));
         }
     }
 }
