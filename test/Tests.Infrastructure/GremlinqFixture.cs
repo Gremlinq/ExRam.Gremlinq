@@ -11,11 +11,11 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
     {
         private IGremlinQuerySource? _g;
 
-        protected virtual async Task<IGremlinQuerySource> TransformQuerySource(IGremlinQuerySource g) => g;
+        protected virtual IGremlinQuerySource TransformQuerySource(IGremlinQuerySource g) => g;
 
         public virtual async Task InitializeAsync()
         {
-            _g = await TransformQuerySource(g
+            _g = TransformQuerySource(g
                 .ConfigureEnvironment(env => env
                     .UseModel(GraphModel.FromBaseTypes<Vertex, Edge>())
                     .AddGraphSonBinarySupport()));

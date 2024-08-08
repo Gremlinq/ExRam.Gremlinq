@@ -8,7 +8,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 {
     public class RequestMessageWithAliasGremlinServerFixture : GremlinqFixture
     {
-        protected override async Task<IGremlinQuerySource> TransformQuerySource(IGremlinQuerySource g) => g
+        protected override IGremlinQuerySource TransformQuerySource(IGremlinQuerySource g) => g
             .UseGremlinServer<Vertex, Edge>(builder => builder
                 .AtLocalhost())
             .ConfigureEnvironment(env => env

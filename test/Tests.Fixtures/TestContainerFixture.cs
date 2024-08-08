@@ -115,10 +115,10 @@ namespace ExRam.Gremlinq.Tests.Fixtures
             _port = port;
         }
 
-        protected sealed override async Task<IGremlinQuerySource> TransformQuerySource(IGremlinQuerySource g)
+        protected sealed override IGremlinQuerySource TransformQuerySource(IGremlinQuerySource g)
         {
             if (_container is { } container)
-                return await TransformQuerySource(_container, new ContainerAttachedGremlinQuerySource(container, g));
+                return TransformQuerySource(_container, new ContainerAttachedGremlinQuerySource(container, g));
 
             throw new InvalidOperationException();
         }
@@ -168,6 +168,6 @@ namespace ExRam.Gremlinq.Tests.Fixtures
 
         protected virtual ContainerBuilder CustomizeContainer(ContainerBuilder builder) => builder;
 
-        protected abstract Task<IGremlinQuerySource> TransformQuerySource(IContainer container, IGremlinQuerySource g);
+        protected abstract IGremlinQuerySource TransformQuerySource(IContainer container, IGremlinQuerySource g);
     }
 }

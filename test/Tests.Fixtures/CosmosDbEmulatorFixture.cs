@@ -54,23 +54,20 @@ namespace ExRam.Gremlinq.Tests.Fixtures
             await base.DisposeAsync();
         }
 
-        protected override async Task<IGremlinQuerySource> TransformQuerySource(IGremlinQuerySource g)
-        {
-            return g
-                .UseCosmosDb<Vertex, Edge>(conf => conf
-                    .At(new Uri("ws://localhost:8901"), CosmosDbEmulatorDatabaseName, _collectionName)
-                    .AuthenticateBy(CosmosDbEmulatorAuthKey)
-                    .WithPartitionKey(x => x.PartitionKey!)
-                    .UseNewtonsoftJson()
-                    .ConfigureClientFactory(factory => factory
-                        .ConfigureClient(client => client
-                            .ObserveResultStatusAttributes((_, attributes) =>
-                            {
-                                Console.WriteLine(JsonSerializer.Serialize(attributes));
-                            }))))
-                .ConfigureEnvironment(env => env
-                    .ConfigureOptions(options => options
-                        .SetValue(GremlinqOption.StringComparisonTranslationStrictness, StringComparisonTranslationStrictness.Lenient)));
-        }
+        protected override IGremlinQuerySource TransformQuerySource(IGremlinQuerySource g) => g
+            .UseCosmosDb<Vertex, Edge>(conf => conf
+                .At(new Uri("ws://localhost:8901"), CosmosDbEmulatorDatabaseName, _collectionName)
+                .AuthenticateBy(CosmosDbEmulatorAuthKey)
+                .WithPartitionKey(x => x.PartitionKey!)
+                .UseNewtonsoftJson()
+                .ConfigureClientFactory(factory => factory
+                    .ConfigureClient(client => client
+                        .ObserveResultStatusAttributes((_, attributes) =>
+                        {
+                            Console.WriteLine(JsonSerializer.Serialize(attributes));
+                        }))))
+            .ConfigureEnvironment(env => env
+                .ConfigureOptions(options => options
+                    .SetValue(GremlinqOption.StringComparisonTranslationStrictness, StringComparisonTranslationStrictness.Lenient)));
     }
 }

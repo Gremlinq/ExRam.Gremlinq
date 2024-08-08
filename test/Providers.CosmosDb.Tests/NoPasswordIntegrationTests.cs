@@ -20,7 +20,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
             private const string CosmosDbEmulatorDatabaseName = "db";
             private const string CosmosDbEmulatorCollectionName = "graph";
 
-            protected override async Task<IGremlinQuerySource> TransformQuerySource(IGremlinQuerySource g) => g
+            protected override IGremlinQuerySource TransformQuerySource(IGremlinQuerySource g) => g
                 .UseCosmosDb<Vertex, Edge>(conf => conf
                     .At(new Uri("ws://localhost:8901"), CosmosDbEmulatorDatabaseName, CosmosDbEmulatorCollectionName)
                     .WithPartitionKey(x => x.Label!)

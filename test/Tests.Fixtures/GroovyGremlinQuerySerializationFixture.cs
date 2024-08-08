@@ -10,7 +10,7 @@ namespace ExRam.Gremlinq.Tests.Fixtures
 {
     public class GroovyGremlinQuerySerializationFixture : GremlinqFixture
     {
-        protected override async Task<IGremlinQuerySource> TransformQuerySource(IGremlinQuerySource g) => g
+        protected override IGremlinQuerySource TransformQuerySource(IGremlinQuerySource g) => g
             .ConfigureEnvironment(env => env
                 .ConfigureSerializer(ser => ser
                     .Add(ConverterFactory

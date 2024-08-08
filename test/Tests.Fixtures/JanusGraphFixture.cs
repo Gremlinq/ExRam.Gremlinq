@@ -9,7 +9,7 @@ namespace ExRam.Gremlinq.Tests.Fixtures
 {
     public class JanusGraphFixture : GremlinqFixture
     {
-        protected override async Task<IGremlinQuerySource> TransformQuerySource(IGremlinQuerySource g) => g
+        protected override IGremlinQuerySource TransformQuerySource(IGremlinQuerySource g) => g
             .UseJanusGraph<Vertex, Edge>(builder => builder
                 .AtLocalhost()
                 .UseNewtonsoftJson())

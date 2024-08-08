@@ -7,7 +7,7 @@ namespace ExRam.Gremlinq.Core.Tests
     {
         public class EmptyProjectionValueProtectionFixture : GremlinqFixture
         {
-            protected override async Task<IGremlinQuerySource> TransformQuerySource(IGremlinQuerySource g) => g
+            protected override IGremlinQuerySource TransformQuerySource(IGremlinQuerySource g) => g
                 .ConfigureEnvironment(_ => _
                     .ConfigureOptions(o => o.SetValue(GremlinqOption.EnableEmptyProjectionValueProtection, true)));
         }

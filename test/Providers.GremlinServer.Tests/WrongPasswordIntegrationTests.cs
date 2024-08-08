@@ -23,7 +23,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
             {
             }
 
-            protected override async Task<IGremlinQuerySource> TransformQuerySource(IContainer container, IGremlinQuerySource g) => g
+            protected override IGremlinQuerySource TransformQuerySource(IContainer container, IGremlinQuerySource g) => g
                 .UseGremlinServer<Vertex, Edge>(_ => _
                     .At(new UriBuilder("ws", container.Hostname, container.GetMappedPublicPort(8182)).Uri)
                     .ConfigureClientFactory(factory => factory
