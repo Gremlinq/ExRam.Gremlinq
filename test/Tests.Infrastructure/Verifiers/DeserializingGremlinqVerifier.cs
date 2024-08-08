@@ -26,18 +26,9 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             if (text.Contains("GremlinQueryExecutionException"))
                 return InnerVerify(text);
 
-            if (JsonConvert.DeserializeObject<JArray>(text) is { } jArray)
-            {
-                return base
-                    .InnerVerify(jArray
-                        .Select(token => environment
-                            .Deserializer
-                            .TransformTo<TElement>()
-                            .From(token, environment))
-                        .ToArray());
-            }
-            else
-                throw new InvalidOperationException();
+            return InnerVerify(environment.Deserializer
+               .TransformTo<TElement[]>()
+               .From(JsonConvert.DeserializeObject<JToken>(text), environment));
         }
 
         protected override SettingsTask ModifySettingsTask(SettingsTask task) => base
