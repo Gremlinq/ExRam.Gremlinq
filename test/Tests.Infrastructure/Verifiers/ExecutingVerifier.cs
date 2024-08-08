@@ -19,9 +19,9 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                     .ToAsyncEnumerable()
                     .ToArrayAsync());
             }
-            catch (GremlinQueryExecutionException)
+            catch (GremlinQueryExecutionException ex)
             {
-                await InnerVerify(Array.Empty<TElement>());    //TODO: Verify exception
+                await InnerVerify(ex);
             }
         }
 

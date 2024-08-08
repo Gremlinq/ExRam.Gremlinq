@@ -1,12 +1,30 @@
-﻿[
-  {
-    "serverException": {
-      "type": "GremlinQueryExecutionException",
-      "message": "Executing query 12345678-9012-3456-7890-123456789012 failed.",
-      "innerException": {
-        "type": "ResponseException",
-        "message": "ServerError: Expected an id that is convertible to class java.lang.Long but received class java.lang.String - [id]"
-      }
-    }
-  }
-]
+﻿{
+  Type: GremlinQueryExecutionException,
+  ExecutionContext: {
+    ExecutionId: 12345678-9012-3456-7890-123456789012,
+    Query: {}
+  },
+  Message: Executing query 12345678-9012-3456-7890-123456789012 failed.,
+  InnerException: {
+    $type: ResponseException,
+    Type: ResponseException,
+    StatusCode: ServerError,
+    StatusAttributes: {
+      exceptions: {
+        @type: [],
+        @value: [
+          []
+        ]
+      },
+      stackTrace: []
+    },
+    Message: ServerError: Expected an id that is convertible to class java.lang.Long but received class java.lang.String - [id]
+  },
+  StackTrace:
+at ExRam.Gremlinq.Core.AsyncEnumerable.<Catch>g__Core|10_0[T](IAsyncEnumerable`1 source, Func`2 exceptionTransformation, CancellationToken ct)
+at ExRam.Gremlinq.Core.AsyncEnumerable.<Catch>g__Core|10_0[T](IAsyncEnumerable`1 source, Func`2 exceptionTransformation, CancellationToken ct)
+at ExRam.Gremlinq.Core.AsyncEnumerable.<Catch>g__Core|10_0[T](IAsyncEnumerable`1 source, Func`2 exceptionTransformation, CancellationToken ct)
+at ExRam.Gremlinq.Core.AsyncEnumerable.ToArrayAsync[TSource](IAsyncEnumerable`1 source, CancellationToken ct)
+at ExRam.Gremlinq.Core.AsyncEnumerable.ToArrayAsync[TSource](IAsyncEnumerable`1 source, CancellationToken ct)
+at ExRam.Gremlinq.Tests.Infrastructure.JTokenExecutingVerifier.Verify[TElement](IGremlinQueryBase`1 query)
+}

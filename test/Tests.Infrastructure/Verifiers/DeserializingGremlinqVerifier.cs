@@ -21,11 +21,15 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         {
             var environment = query.AsAdmin().Environment;
 
-            if (JsonConvert.DeserializeObject<JArray>(File.ReadAllText(Path.Combine(_context.SourceDirectory, typeof(TIntegrationTest).Name + "." + _context.MethodName + ".verified.txt"))) is { } jArray)
+            var text = File.ReadAllText(Path.Combine(_context.SourceDirectory, typeof(TIntegrationTest).Name + "." + _context.MethodName + ".verified.txt"));
+
+            if (text.Contains("GremlinQueryExecutionException"))
+                return InnerVerify(text);
+
+            if (JsonConvert.DeserializeObject<JArray>(text) is { } jArray)
             {
                 return base
                     .InnerVerify(jArray
-                        .Where(obj => !(obj is JObject jObject && jObject.ContainsKey("serverException")))
                         .Select(token => environment
                             .Deserializer
                             .TransformTo<TElement>()

@@ -1,1 +1,41 @@
-﻿[]
+﻿{
+  Type: GremlinQueryExecutionException,
+  ExecutionContext: {
+    ExecutionId: 12345678-9012-3456-7890-123456789012,
+    Query: {}
+  },
+  Message: Executing query 12345678-9012-3456-7890-123456789012 failed.,
+  InnerException: {
+    $type: ResponseException,
+    Type: ResponseException,
+    StatusCode: ServerEvaluationError,
+    StatusAttributes: {
+      x-ms-activity-id: [],
+      x-ms-request-charge: [],
+      x-ms-server-time-ms: [],
+      x-ms-status-code: [],
+      x-ms-total-request-charge: [],
+      x-ms-total-server-time-ms: []
+    },
+    Message:
+ServerEvaluationError: 
+
+ActivityId : 12345678-9012-3456-7890-123456789012
+ExceptionType : GraphSyntaxException
+ExceptionMessage : 
+	Gremlin query syntax error: Valid supported values for Constant() are: list, array, number, string or boolean.
+	GremlinRequestId : 12345678-9012-3456-7890-123456789012
+	Context : graphcompute
+	Scope : graphcmd-invoke
+	GraphInterOpStatusCode : QuerySyntaxError
+	HResult : 0x80131500
+
+  },
+  StackTrace:
+at ExRam.Gremlinq.Providers.Core.GremlinqClientFactory.GremlinQueryExecutorImpl.<Execute>g__Core|3_0[T](GremlinQueryExecutorImpl this, GremlinQueryExecutionContext context, CancellationToken ct)
+at ExRam.Gremlinq.Providers.Core.GremlinqClientFactory.GremlinQueryExecutorImpl.<Execute>g__Core|3_0[T](GremlinQueryExecutorImpl this, GremlinQueryExecutionContext context, CancellationToken ct)
+at ExRam.Gremlinq.Providers.Core.GremlinqClientFactory.GremlinQueryExecutorImpl.<Execute>g__Core|3_0[T](GremlinQueryExecutorImpl this, GremlinQueryExecutionContext context, CancellationToken ct)
+at ExRam.Gremlinq.Core.AsyncEnumerable.ToArrayAsync[TSource](IAsyncEnumerable`1 source, CancellationToken ct)
+at ExRam.Gremlinq.Core.AsyncEnumerable.ToArrayAsync[TSource](IAsyncEnumerable`1 source, CancellationToken ct)
+at ExRam.Gremlinq.Tests.Infrastructure.JTokenExecutingVerifier.Verify[TElement](IGremlinQueryBase`1 query)
+}
