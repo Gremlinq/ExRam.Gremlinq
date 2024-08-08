@@ -11,39 +11,6 @@ using ExRam.Gremlinq.Tests.Infrastructure;
 
 namespace ExRam.Gremlinq.Tests.Fixtures
 {
-    public abstract class ImageTestContainerFixture : TestContainerFixtureBase
-    {
-        private readonly string _image;
-
-        protected ImageTestContainerFixture(string image, int port = 8182) : base(port)
-        {
-            _image = image;
-        }
-
-        protected override async Task<IImage> GetImage() => new DockerImage(_image);
-    }
-
-    public abstract class DockerfileTestContainerFixture : TestContainerFixtureBase
-    {
-        private readonly string _dockerfile;
-
-        protected DockerfileTestContainerFixture(string dockerfile, int port = 8182) : base(port)
-        {
-            _dockerfile = dockerfile;
-        }
-
-        protected override async Task<IImage> GetImage()
-        {
-            var futureImage = new ImageFromDockerfileBuilder()
-                .WithDockerfile(_dockerfile)
-                .Build();
-
-            await futureImage.CreateAsync();
-
-            return futureImage;
-        }
-    }
-
     public abstract class TestContainerFixtureBase : GremlinqFixture
     {
         private sealed class ContainerAttachedGremlinQuerySource : IGremlinQuerySource, IAsyncDisposable
