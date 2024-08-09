@@ -5,9 +5,9 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 {
     [IntegrationTest("Linux", true)]
     [IntegrationTest("Windows")]
-    public class GroovyIntegrationTests : QueryExecutionTest, IClassFixture<GremlinServerContainerFixture>
+    public class GroovyIntegrationTests : QueryExecutionTest, IClassFixture<CustomGremlinServerContainerFixture>
     {
-        public GroovyIntegrationTests(GremlinServerContainerFixture fixture) : base(
+        public GroovyIntegrationTests(CustomGremlinServerContainerFixture fixture) : base(
             fixture,
             new JTokenExecutingVerifier())
         {
