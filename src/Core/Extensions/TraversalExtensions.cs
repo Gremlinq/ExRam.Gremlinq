@@ -32,6 +32,20 @@ namespace ExRam.Gremlinq.Core
 
         public static Traversal Rewrite(this Traversal traversal, ContinuationFlags flags)
         {
+            if (traversal is [NoneStep _, ..])
+            {
+                return Traversal
+                    .Create(
+                        traversal.Count + 1,
+                        traversal,
+                        static (steps, traversal) =>
+                        {
+                            steps[0] = IdentityStep.Instance;
+                            traversal.Steps.CopyTo(steps[1..]);
+                        })
+                    .Rewrite(flags);
+            }
+
             if ((flags & ContinuationFlags.Filter) == ContinuationFlags.Filter)
             {
                 if (traversal is [FilterStep.ByTraversalStep filterStep])

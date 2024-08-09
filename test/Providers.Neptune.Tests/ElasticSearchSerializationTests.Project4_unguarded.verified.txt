@@ -109,6 +109,9 @@
         {
           StepInstructions: [
             {
+              OperatorName: identity
+            },
+            {
               OperatorName: none
             },
             {

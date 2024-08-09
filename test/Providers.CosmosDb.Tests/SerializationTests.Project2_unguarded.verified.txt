@@ -1,5 +1,5 @@
 ﻿{
-  Script: g.inject(_a).project(_b,_c).by(__.constant(_d).limit(_e).fold()).by(__.not(__.identity()).limit(_e).fold()).map(__.unfold().group().by(__.select(keys)).by(__.select(values).unfold())),
+  Script: g.inject(_a).project(_b,_c).by(__.constant(_d).limit(_e).fold()).by(__.identity().not(__.identity()).limit(_e).fold()).map(__.unfold().group().by(__.select(keys)).by(__.select(values).unfold())),
   Bindings: {
     _a: 42,
     _b: Item1,
