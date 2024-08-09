@@ -1,0 +1,15 @@
+﻿[
+  {
+    "@type": "g:Map",
+    "@value": [
+      "in",
+      "in_value",
+      "out",
+      "out_value",
+      "count",
+      "count_value",
+      "properties",
+      "properties_value"
+    ]
+  }
+]

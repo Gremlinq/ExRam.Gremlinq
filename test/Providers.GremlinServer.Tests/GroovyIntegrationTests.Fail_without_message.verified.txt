@@ -1,0 +1,31 @@
+﻿{
+  Type: GremlinQueryExecutionException,
+  ExecutionContext: {
+    ExecutionId: 12345678-9012-3456-7890-123456789012,
+    Query: {}
+  },
+  Message: Executing query 12345678-9012-3456-7890-123456789012 failed.,
+  InnerException: {
+    $type: ResponseException,
+    Type: ResponseException,
+    StatusCode: ServerErrorFailStep,
+    StatusAttributes: {
+      exceptions: {
+        @type: [],
+        @value: [
+          []
+        ]
+      },
+      failStepMessage: [],
+      stackTrace: []
+    },
+    Message: ServerErrorFailStep: fail() step triggered
+  },
+  StackTrace:
+at ExRam.Gremlinq.Providers.Core.GremlinqClientFactory.GremlinQueryExecutorImpl.<Execute>g__Core|3_0[T](GremlinQueryExecutorImpl this, GremlinQueryExecutionContext context, CancellationToken ct)
+at ExRam.Gremlinq.Providers.Core.GremlinqClientFactory.GremlinQueryExecutorImpl.<Execute>g__Core|3_0[T](GremlinQueryExecutorImpl this, GremlinQueryExecutionContext context, CancellationToken ct)
+at ExRam.Gremlinq.Providers.Core.GremlinqClientFactory.GremlinQueryExecutorImpl.<Execute>g__Core|3_0[T](GremlinQueryExecutorImpl this, GremlinQueryExecutionContext context, CancellationToken ct)
+at ExRam.Gremlinq.Core.AsyncEnumerable.ToArrayAsync[TSource](IAsyncEnumerable`1 source, CancellationToken ct)
+at ExRam.Gremlinq.Core.AsyncEnumerable.ToArrayAsync[TSource](IAsyncEnumerable`1 source, CancellationToken ct)
+at ExRam.Gremlinq.Tests.Infrastructure.JTokenExecutingVerifier.Verify[TElement](IGremlinQueryBase`1 query)
+}

@@ -1,0 +1,14 @@
+﻿[
+  {
+    "@type": "g:Map",
+    "@value": [
+      "name",
+      {
+        "@type": "g:Int32",
+        "@value": 42
+      },
+      "Item2",
+      "item2"
+    ]
+  }
+]
