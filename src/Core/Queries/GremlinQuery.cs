@@ -714,7 +714,7 @@ namespace ExRam.Gremlinq.Core
             .Continue()
             .Build(static builder => builder.OuterQuery.Steps.IsIdentity()
                 ? builder
-                    .WithSteps(Traversal.Empty.Push(NoneStep.Instance))
+                    .WithSteps(NoneStep.Instance)
                     .Build()
                 : builder
                     .AddStep(NoneStep.Instance)
