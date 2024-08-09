@@ -11,5 +11,15 @@ namespace ExRam.Gremlinq.Core.Tests
             new SerializingVerifier<GroovyGremlinScript>())
         {
         }
+
+        [Fact]
+        public virtual Task Variable_wrap() => _g
+            .V()
+            .Properties()
+            .Properties(Enumerable
+                .Range(1, 1000)
+                .Select(x => x.ToString())
+                .ToArray())
+            .Verify();
     }
 }

@@ -3565,16 +3565,6 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Verify();
 
         [Fact]
-        public virtual Task Variable_wrap() => _g
-            .V()
-            .Properties()
-            .Properties(Enumerable
-                .Range(1, 1000)
-                .Select(x => x.ToString())
-                .ToArray())
-            .Verify();
-
-        [Fact]
         public virtual Task VertexProperties_Where_label() => _g
             .V<Company>()
             .Properties(x => x.Locations!)
