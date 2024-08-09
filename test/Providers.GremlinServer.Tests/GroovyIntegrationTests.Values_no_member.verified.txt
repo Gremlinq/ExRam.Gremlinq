@@ -4,41 +4,26 @@
     "@value": "12345678-9012-3456-7890-123456789012"
   },
   {
-    "@type": "g:UUID",
-    "@value": "12345678-9012-3456-7890-123456789012"
+    "@type": "g:Date",
+    "@value": 1586270616000
   },
   {
-    "@type": "g:UUID",
-    "@value": "12345678-9012-3456-7890-123456789012"
+    "@type": "g:Int32",
+    "@value": 36
   },
   {
-    "@type": "g:UUID",
-    "@value": "12345678-9012-3456-7890-123456789012"
+    "@type": "g:Int32",
+    "@value": 0
   },
   {
-    "@type": "g:UUID",
-    "@value": "12345678-9012-3456-7890-123456789012"
+    "@type": "g:Int32",
+    "@value": 36
   },
   {
-    "@type": "g:UUID",
-    "@value": "12345678-9012-3456-7890-123456789012"
+    "@type": "g:Int32",
+    "@value": 21
   },
-  {
-    "@type": "g:UUID",
-    "@value": "12345678-9012-3456-7890-123456789012"
-  },
-  {
-    "@type": "g:UUID",
-    "@value": "12345678-9012-3456-7890-123456789012"
-  },
-  {
-    "@type": "g:UUID",
-    "@value": "12345678-9012-3456-7890-123456789012"
-  },
-  {
-    "@type": "g:UUID",
-    "@value": "12345678-9012-3456-7890-123456789012"
-  },
+  "Marko",
   {
     "@type": "g:UUID",
     "@value": "12345678-9012-3456-7890-123456789012"
@@ -48,40 +33,25 @@
     "@value": 1586270616000
   },
   {
-    "@type": "g:Date",
-    "@value": 1586270616000
+    "@type": "g:Int32",
+    "@value": 36
   },
   {
-    "@type": "g:Date",
-    "@value": 1586270616000
+    "@type": "g:Int32",
+    "@value": 0
   },
   {
-    "@type": "g:Date",
-    "@value": 1586270616000
+    "@type": "g:Int32",
+    "@value": 36
   },
   {
-    "@type": "g:Date",
-    "@value": 1586270616000
+    "@type": "g:Int32",
+    "@value": 21
   },
+  "Marko",
   {
-    "@type": "g:Date",
-    "@value": 1586270616000
-  },
-  {
-    "@type": "g:Date",
-    "@value": 1586270616000
-  },
-  {
-    "@type": "g:Date",
-    "@value": 1586270616000
-  },
-  {
-    "@type": "g:Date",
-    "@value": 1586270616000
-  },
-  {
-    "@type": "g:Date",
-    "@value": 1586270616000
+    "@type": "g:UUID",
+    "@value": "12345678-9012-3456-7890-123456789012"
   },
   {
     "@type": "g:Date",
@@ -93,185 +63,215 @@
   },
   {
     "@type": "g:Int32",
-    "@value": 36
-  },
-  {
-    "@type": "g:Int32",
-    "@value": 36
-  },
-  {
-    "@type": "g:Int32",
-    "@value": 36
-  },
-  {
-    "@type": "g:Int32",
-    "@value": 36
-  },
-  {
-    "@type": "g:Int32",
-    "@value": 36
-  },
-  {
-    "@type": "g:Int32",
-    "@value": 36
-  },
-  {
-    "@type": "g:Int32",
-    "@value": 36
-  },
-  {
-    "@type": "g:Int32",
-    "@value": 36
-  },
-  {
-    "@type": "g:Int32",
-    "@value": 36
-  },
-  {
-    "@type": "g:Int32",
-    "@value": 36
-  },
-  {
-    "@type": "g:Int32",
-    "@value": 36
-  },
-  {
-    "@type": "g:Int32",
-    "@value": 36
-  },
-  {
-    "@type": "g:Int32",
-    "@value": 36
-  },
-  {
-    "@type": "g:Int32",
-    "@value": 36
-  },
-  {
-    "@type": "g:Int32",
-    "@value": 36
-  },
-  {
-    "@type": "g:Int32",
-    "@value": 36
-  },
-  {
-    "@type": "g:Int32",
-    "@value": 36
-  },
-  {
-    "@type": "g:Int32",
-    "@value": 36
-  },
-  {
-    "@type": "g:Int32",
-    "@value": 36
-  },
-  {
-    "@type": "g:Int32",
-    "@value": 36
-  },
-  {
-    "@type": "g:Int32",
-    "@value": 36
-  },
-  {
-    "@type": "g:Int32",
     "@value": 0
   },
   {
     "@type": "g:Int32",
-    "@value": 0
-  },
-  {
-    "@type": "g:Int32",
-    "@value": 0
-  },
-  {
-    "@type": "g:Int32",
-    "@value": 0
-  },
-  {
-    "@type": "g:Int32",
-    "@value": 0
-  },
-  {
-    "@type": "g:Int32",
-    "@value": 0
-  },
-  {
-    "@type": "g:Int32",
-    "@value": 0
-  },
-  {
-    "@type": "g:Int32",
-    "@value": 0
-  },
-  {
-    "@type": "g:Int32",
-    "@value": 0
-  },
-  {
-    "@type": "g:Int32",
-    "@value": 0
-  },
-  {
-    "@type": "g:Int32",
-    "@value": 0
-  },
-  {
-    "@type": "g:Int32",
-    "@value": 21
-  },
-  {
-    "@type": "g:Int32",
-    "@value": 21
-  },
-  {
-    "@type": "g:Int32",
-    "@value": 21
-  },
-  {
-    "@type": "g:Int32",
-    "@value": 21
-  },
-  {
-    "@type": "g:Int32",
-    "@value": 21
-  },
-  {
-    "@type": "g:Int32",
-    "@value": 21
-  },
-  {
-    "@type": "g:Int32",
-    "@value": 21
-  },
-  {
-    "@type": "g:Int32",
-    "@value": 21
-  },
-  {
-    "@type": "g:Int32",
-    "@value": 21
-  },
-  {
-    "@type": "g:Int32",
-    "@value": 21
+    "@value": 36
   },
   {
     "@type": "g:Int32",
     "@value": 21
   },
   "Marko",
+  {
+    "@type": "g:UUID",
+    "@value": "12345678-9012-3456-7890-123456789012"
+  },
+  {
+    "@type": "g:Date",
+    "@value": 1586270616000
+  },
+  {
+    "@type": "g:Int32",
+    "@value": 36
+  },
+  {
+    "@type": "g:Int32",
+    "@value": 0
+  },
+  {
+    "@type": "g:Int32",
+    "@value": 36
+  },
+  {
+    "@type": "g:Int32",
+    "@value": 21
+  },
   "Marko",
+  {
+    "@type": "g:UUID",
+    "@value": "12345678-9012-3456-7890-123456789012"
+  },
+  {
+    "@type": "g:Date",
+    "@value": 1586270616000
+  },
+  {
+    "@type": "g:Int32",
+    "@value": 36
+  },
+  {
+    "@type": "g:Int32",
+    "@value": 0
+  },
+  {
+    "@type": "g:Int32",
+    "@value": 36
+  },
+  {
+    "@type": "g:Int32",
+    "@value": 21
+  },
   "Marko",
+  {
+    "@type": "g:UUID",
+    "@value": "12345678-9012-3456-7890-123456789012"
+  },
+  {
+    "@type": "g:Date",
+    "@value": 1586270616000
+  },
+  {
+    "@type": "g:Int32",
+    "@value": 36
+  },
+  {
+    "@type": "g:Int32",
+    "@value": 0
+  },
+  {
+    "@type": "g:Int32",
+    "@value": 36
+  },
+  {
+    "@type": "g:Int32",
+    "@value": 21
+  },
   "Marko",
+  {
+    "@type": "g:UUID",
+    "@value": "12345678-9012-3456-7890-123456789012"
+  },
+  {
+    "@type": "g:Date",
+    "@value": 1586270616000
+  },
+  {
+    "@type": "g:Int32",
+    "@value": 36
+  },
+  {
+    "@type": "g:Int32",
+    "@value": 0
+  },
+  {
+    "@type": "g:Int32",
+    "@value": 36
+  },
+  {
+    "@type": "g:Int32",
+    "@value": 21
+  },
   "Marko",
+  {
+    "@type": "g:UUID",
+    "@value": "12345678-9012-3456-7890-123456789012"
+  },
+  {
+    "@type": "g:Date",
+    "@value": 1586270616000
+  },
+  {
+    "@type": "g:Int32",
+    "@value": 36
+  },
+  {
+    "@type": "g:Int32",
+    "@value": 0
+  },
+  {
+    "@type": "g:Int32",
+    "@value": 36
+  },
+  {
+    "@type": "g:Int32",
+    "@value": 21
+  },
   "Marko",
+  {
+    "@type": "g:UUID",
+    "@value": "12345678-9012-3456-7890-123456789012"
+  },
+  {
+    "@type": "g:Date",
+    "@value": 1586270616000
+  },
+  {
+    "@type": "g:Int32",
+    "@value": 36
+  },
+  {
+    "@type": "g:Int32",
+    "@value": 0
+  },
+  {
+    "@type": "g:Int32",
+    "@value": 36
+  },
+  {
+    "@type": "g:Int32",
+    "@value": 21
+  },
   "Marko",
+  {
+    "@type": "g:UUID",
+    "@value": "12345678-9012-3456-7890-123456789012"
+  },
+  {
+    "@type": "g:Date",
+    "@value": 1586270616000
+  },
+  {
+    "@type": "g:Int32",
+    "@value": 36
+  },
+  {
+    "@type": "g:Int32",
+    "@value": 0
+  },
+  {
+    "@type": "g:Int32",
+    "@value": 36
+  },
+  {
+    "@type": "g:Int32",
+    "@value": 21
+  },
   "Marko",
-  "Marko",
-  "Marko",
+  {
+    "@type": "g:UUID",
+    "@value": "12345678-9012-3456-7890-123456789012"
+  },
+  {
+    "@type": "g:Date",
+    "@value": 1586270616000
+  },
+  {
+    "@type": "g:Int32",
+    "@value": 36
+  },
+  {
+    "@type": "g:Int32",
+    "@value": 0
+  },
+  {
+    "@type": "g:Int32",
+    "@value": 36
+  },
+  {
+    "@type": "g:Int32",
+    "@value": 21
+  },
   "Marko"
 ]

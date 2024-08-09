@@ -227,10 +227,10 @@
       "id",
       {
         "@type": "g:Int64",
-        "@value": 17
+        "@value": 79
       },
       "label",
-      "Country",
+      "Language",
       "properties",
       {
         "@type": "g:Map",
@@ -244,10 +244,10 @@
       "id",
       {
         "@type": "g:Int64",
-        "@value": 79
+        "@value": 17
       },
       "label",
-      "Language",
+      "Country",
       "properties",
       {
         "@type": "g:Map",
