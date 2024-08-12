@@ -23,8 +23,6 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         public virtual async Task DisposeAsync()
         {
-            if (_g is IAsyncDisposable disposable)
-                await disposable.DisposeAsync();
         }
 
         public IGremlinQuerySource G => _g ?? throw new InvalidOperationException();
