@@ -35,6 +35,7 @@ namespace ExRam.Gremlinq.Core.Steps
                 yield return traversal;
         }
 
+        //TODO: Seemingly unused.
         public string Name { get; }
         public ImmutableArray<Traversal> Traversals { get; }
     }

@@ -6,6 +6,7 @@ namespace ExRam.Gremlinq.Core.Steps
     {
         public static readonly OutStep NoLabels = new();
 
+        //TODO: Think about making this private to force use of NoLabels.
         public OutStep() : this(ImmutableArray<string>.Empty)
         {
         }
