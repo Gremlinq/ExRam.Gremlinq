@@ -4,7 +4,7 @@ namespace ExRam.Gremlinq.Core.Steps
 {
     public sealed class BothStep : DerivedLabelNamesStep
     {
-        public static readonly BothStep NoLabels = new(ImmutableArray<string>.Empty);
+        public static readonly BothStep NoLabels = new();
 
         public BothStep() : this(ImmutableArray<string>.Empty)
         {
