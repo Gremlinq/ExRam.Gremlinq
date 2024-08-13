@@ -4,7 +4,7 @@ namespace ExRam.Gremlinq.Core.Steps
 {
     public sealed class OutStep : DerivedLabelNamesStep
     {
-        public static readonly OutStep NoLabels = new(ImmutableArray<string>.Empty);
+        public static readonly OutStep NoLabels = new();
 
         public OutStep() : this(ImmutableArray<string>.Empty)
         {
