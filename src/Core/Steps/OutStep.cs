@@ -6,7 +6,7 @@ namespace ExRam.Gremlinq.Core.Steps
     {
         public static readonly OutStep NoLabels = new(ImmutableArray<string>.Empty);
 
-        public OutStep() : base(ImmutableArray<string>.Empty)
+        public OutStep() : this(ImmutableArray<string>.Empty)
         {
         }
 
