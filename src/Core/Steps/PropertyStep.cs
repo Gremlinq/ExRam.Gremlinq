@@ -7,9 +7,8 @@ namespace ExRam.Gremlinq.Core.Steps
     {
         public sealed class ByKeyStep : PropertyStep
         {
-            public ByKeyStep(Key key, object value, Cardinality? cardinality = default) : base(value, cardinality)
+            public ByKeyStep(Key key, object value, Cardinality? cardinality = default) : this(key, value, ImmutableArray<KeyValuePair<string, object>>.Empty, cardinality)
             {
-                Key = key;
             }
 
             public ByKeyStep(Key key, object value, ImmutableArray<KeyValuePair<string, object>> metaProperties, Cardinality? cardinality = default) : base(value, metaProperties, cardinality)
@@ -22,9 +21,8 @@ namespace ExRam.Gremlinq.Core.Steps
 
         public sealed class ByTraversalStep : PropertyStep
         {
-            public ByTraversalStep(Traversal traversal, object value, Cardinality? cardinality = default) : base(value, cardinality)
+            public ByTraversalStep(Traversal traversal, object value, Cardinality? cardinality = default) : this(traversal, value, ImmutableArray<KeyValuePair<string, object>>.Empty, cardinality)
             {
-                Traversal = traversal;
             }
 
             public ByTraversalStep(Traversal traversal, object value, ImmutableArray<KeyValuePair<string, object>> metaProperties, Cardinality? cardinality = default) : base(value, metaProperties, cardinality)
