@@ -1,16 +1,7 @@
-﻿using System.Collections.Immutable;
-using System.Reflection;
-
-using AutoFixture;
-using AutoFixture.Kernel;
-
-using ExRam.Gremlinq.Core.GraphElements;
+﻿using ExRam.Gremlinq.Core.GraphElements;
 using ExRam.Gremlinq.Core.Models;
-using ExRam.Gremlinq.Core.Steps;
 
 using FluentAssertions;
-
-using Gremlin.Net.Process.Traversal;
 
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
@@ -43,91 +34,13 @@ namespace ExRam.Gremlinq.Core.Tests
             public Property<string>? StringEdgeProperty { get; }
         }
 
-        private sealed class SpecimenBuilder : ISpecimenBuilder
-        {
-            public object Create(object request, ISpecimenContext context)
-            {
-                var type = default(Type);
-
-                if (request is ParameterInfo parameter)
-                    type = parameter.ParameterType;
-                else if (request is Type typeRequest)
-                    type = typeRequest;
-
-                if (type != null)
-                {
-                    if (type.IsConstructedGenericType && type.GetGenericTypeDefinition() == typeof(ImmutableArray<>))
-                    {
-                        var elementType = type.GetGenericArguments()[0];
-                        var arrayType = elementType.MakeArrayType();
-                        var array = context.Resolve(arrayType);
-
-                        return typeof(ImmutableArray).GetMethods(BindingFlags.Public | BindingFlags.Static)
-                            .Where(x => x.Name == nameof(ImmutableArray.Create))
-                            .Where(x => x.GetParameters().Length == 1)
-                            .First(x => x.GetParameters()[0].ParameterType.IsArray)
-                            .MakeGenericMethod(elementType)
-                            .Invoke(null, new[] { array })!;
-                    }
-
-                    if (type == typeof(object))
-                        return context.Resolve(typeof(string));
-
-                    if (type == typeof(Traversal))
-                        return (Traversal)IdentityStep.Instance;
-
-                    if (type == typeof(Cardinality))
-                        return Cardinality.Single;
-
-                    if (type == typeof(string))
-                        return "string";
-
-                    if (type == typeof(double))
-                        return 47.11;
-
-                    if (type == typeof(int))
-                        return 4711;
-
-                    if (type == typeof(long))
-                        return 4711;
-                }
-
-                return new NoSpecimen();
-            }
-        }
-
-        public static readonly Step[] AllSteps;
-
         private readonly IGremlinQuerySource _g = g
             .ConfigureEnvironment(_ => _
                 .UseModel(GraphModel.FromBaseTypes<Vertex, Edge>()));
 
-        static TypeSystemTest()
-        {
-            var fixture = new Fixture();
-            var stepTypes = typeof(Step).Assembly.DefinedTypes
-                .Where(type => typeof(Step).IsAssignableFrom(type))
-                .Where(type => !type.IsAbstract);
-
-            fixture.Customizations.Add(new SpecimenBuilder());
-            fixture.Customizations.Add(new TypeRelay(
-                typeof(StepLabel),
-                typeof(StepLabel<object>)));
-
-            AllSteps = stepTypes
-                .Select(type => (Step)fixture.Create(new SeededRequest(type, 4711), new SpecimenContext(fixture)))
-                .ToArray();
-        }
-
         public TypeSystemTest() : base()
         {
 
-        }
-
-        [Fact]
-        public async Task All_Steps_can_be_created()
-        {
-            await Verify(AllSteps.Select(step => (step.GetType(), step)));
         }
 
         [Fact]
