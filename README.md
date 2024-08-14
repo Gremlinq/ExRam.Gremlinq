@@ -37,6 +37,11 @@ discount if a workshop materializes.
 
 # 🔥 Extensions
 
-Coming soon: An extension NuGet package containing some of the most-wanted features missing from the Core library.
+Add some of the most-wanted features missing from the Core library to your app, like
+
+* Traversal strategies
+* Groovy script execution
+* Transactions
+* System.Text.Json deserialization
 
 [![#](https://img.shields.io/badge/Check_out_Gremlinq.Extensions!-EA6F1B?style=for-the-badge)](https://docs.gremlinq.net/extensions/)
