@@ -3,11 +3,11 @@ using ExRam.Gremlinq.Tests.Infrastructure;
 
 namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 {
-    public class ObjectDeserializationTests : QueryExecutionTest, IClassFixture<GremlinServerFixture>
+    public class ObjectDeserializationTests : QueryExecutionTest, IClassFixture<GremlinServerContainerFixture>
     {
-        public ObjectDeserializationTests(GremlinServerFixture fixture, ITestOutputHelper testOutputHelper) : base(
+        public ObjectDeserializationTests(GremlinServerContainerFixture fixture) : base(
             fixture,
-            new ObjectDeserializingGremlinqVerifier<IntegrationTests>(testOutputHelper))
+            new ObjectQueryExecutingGremlinqVerifier())
         {
         }
     }
