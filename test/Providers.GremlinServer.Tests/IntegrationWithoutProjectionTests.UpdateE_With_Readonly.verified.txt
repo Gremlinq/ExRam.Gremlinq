@@ -1,132 +1,21 @@
 ﻿[
   {
-    "@type": "g:Edge",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 9
-      },
-      "label": "WorksFor",
-      "inVLabel": "Company",
-      "outVLabel": "Person",
-      "inV": {
-        "@type": "g:Int64",
-        "@value": 5
-      },
-      "outV": {
-        "@type": "g:Int64",
-        "@value": 7
-      },
-      "properties": {
-        "Role": {
-          "@type": "g:Property",
-          "@value": {
-            "key": "Role",
-            "value": "Admin"
-          }
-        },
-        "From": {
-          "@type": "g:Property",
-          "@value": {
-            "key": "From",
-            "value": {
-              "@type": "g:Date",
-              "@value": 1586270616000
-            }
-          }
-        },
-        "To": {
-          "@type": "g:Property",
-          "@value": {
-            "key": "To",
-            "value": {
-              "@type": "g:Date",
-              "@value": 1586270616000
-            }
-          }
-        }
-      }
-    }
+    Role: Admin,
+    From: 2020-04-07 14:43:36 Utc,
+    To: 2020-04-07 14:43:36 Utc,
+    Id: 9,
+    Label: WorksFor
   },
   {
-    "@type": "g:Edge",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 46
-      },
-      "label": "WorksFor",
-      "inVLabel": "Company",
-      "outVLabel": "Person",
-      "inV": {
-        "@type": "g:Int64",
-        "@value": 42
-      },
-      "outV": {
-        "@type": "g:Int64",
-        "@value": 44
-      },
-      "properties": {
-        "To": {
-          "@type": "g:Property",
-          "@value": {
-            "key": "To",
-            "value": {
-              "@type": "g:Date",
-              "@value": 1586270616000
-            }
-          }
-        }
-      }
-    }
+    To: 2020-04-07 14:43:36 Utc,
+    Id: 46,
+    Label: WorksFor
   },
   {
-    "@type": "g:Edge",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 31
-      },
-      "label": "WorksFor",
-      "inVLabel": "Company",
-      "outVLabel": "Person",
-      "inV": {
-        "@type": "g:Int64",
-        "@value": 27
-      },
-      "outV": {
-        "@type": "g:Int64",
-        "@value": 29
-      },
-      "properties": {
-        "Role": {
-          "@type": "g:Property",
-          "@value": {
-            "key": "Role",
-            "value": "Admin"
-          }
-        },
-        "From": {
-          "@type": "g:Property",
-          "@value": {
-            "key": "From",
-            "value": {
-              "@type": "g:Date",
-              "@value": 1586270616000
-            }
-          }
-        },
-        "To": {
-          "@type": "g:Property",
-          "@value": {
-            "key": "To",
-            "value": {
-              "@type": "g:Date",
-              "@value": 1586270616000
-            }
-          }
-        }
-      }
-    }
+    Role: Admin,
+    From: 2020-04-07 14:43:36 Utc,
+    To: 2020-04-07 14:43:36 Utc,
+    Id: 31,
+    Label: WorksFor
   }
 ]

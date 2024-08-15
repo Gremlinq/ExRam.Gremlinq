@@ -1,30 +1,15 @@
 ﻿[
   {
-    "id": "12345678-9012-3456-7890-123456789012",
-    "label": "Country",
-    "type": "vertex",
-    "properties": {
-      "CountryCallingCode": [
-        {
-          "id": "12345678-9012-3456-7890-123456789012",
-          "value": "+49"
-        }
-      ],
-      "PartitionKey": [
-        {
-          "id": "12345678-9012-3456-7890-123456789012|PartitionKey",
-          "value": "PartitionKey"
-        }
-      ],
-      "LocalizableDescription": [
-        {
-          "id": "12345678-9012-3456-7890-123456789012",
-          "value": "",
-          "properties": {
-            "someKey": "value"
-          }
-        }
-      ]
-    }
+    CountryCallingCode: +49,
+    LocalizableDescription: {
+      Id: 12345678-9012-3456-7890-123456789012,
+      Properties: {
+        someKey: value
+      },
+      Value: 
+    },
+    Id: 12345678-9012-3456-7890-123456789012,
+    Label: Country,
+    PartitionKey: PartitionKey
   }
 ]

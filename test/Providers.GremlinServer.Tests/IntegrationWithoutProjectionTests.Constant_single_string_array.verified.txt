@@ -1,200 +1,101 @@
 ﻿[
-  {
-    "@type": "g:List",
-    "@value": [
-      "Hello"
-    ]
-  },
-  {
-    "@type": "g:List",
-    "@value": [
-      "Hello"
-    ]
-  },
-  {
-    "@type": "g:List",
-    "@value": [
-      "Hello"
-    ]
-  },
-  {
-    "@type": "g:List",
-    "@value": [
-      "Hello"
-    ]
-  },
-  {
-    "@type": "g:List",
-    "@value": [
-      "Hello"
-    ]
-  },
-  {
-    "@type": "g:List",
-    "@value": [
-      "Hello"
-    ]
-  },
-  {
-    "@type": "g:List",
-    "@value": [
-      "Hello"
-    ]
-  },
-  {
-    "@type": "g:List",
-    "@value": [
-      "Hello"
-    ]
-  },
-  {
-    "@type": "g:List",
-    "@value": [
-      "Hello"
-    ]
-  },
-  {
-    "@type": "g:List",
-    "@value": [
-      "Hello"
-    ]
-  },
-  {
-    "@type": "g:List",
-    "@value": [
-      "Hello"
-    ]
-  },
-  {
-    "@type": "g:List",
-    "@value": [
-      "Hello"
-    ]
-  },
-  {
-    "@type": "g:List",
-    "@value": [
-      "Hello"
-    ]
-  },
-  {
-    "@type": "g:List",
-    "@value": [
-      "Hello"
-    ]
-  },
-  {
-    "@type": "g:List",
-    "@value": [
-      "Hello"
-    ]
-  },
-  {
-    "@type": "g:List",
-    "@value": [
-      "Hello"
-    ]
-  },
-  {
-    "@type": "g:List",
-    "@value": [
-      "Hello"
-    ]
-  },
-  {
-    "@type": "g:List",
-    "@value": [
-      "Hello"
-    ]
-  },
-  {
-    "@type": "g:List",
-    "@value": [
-      "Hello"
-    ]
-  },
-  {
-    "@type": "g:List",
-    "@value": [
-      "Hello"
-    ]
-  },
-  {
-    "@type": "g:List",
-    "@value": [
-      "Hello"
-    ]
-  },
-  {
-    "@type": "g:List",
-    "@value": [
-      "Hello"
-    ]
-  },
-  {
-    "@type": "g:List",
-    "@value": [
-      "Hello"
-    ]
-  },
-  {
-    "@type": "g:List",
-    "@value": [
-      "Hello"
-    ]
-  },
-  {
-    "@type": "g:List",
-    "@value": [
-      "Hello"
-    ]
-  },
-  {
-    "@type": "g:List",
-    "@value": [
-      "Hello"
-    ]
-  },
-  {
-    "@type": "g:List",
-    "@value": [
-      "Hello"
-    ]
-  },
-  {
-    "@type": "g:List",
-    "@value": [
-      "Hello"
-    ]
-  },
-  {
-    "@type": "g:List",
-    "@value": [
-      "Hello"
-    ]
-  },
-  {
-    "@type": "g:List",
-    "@value": [
-      "Hello"
-    ]
-  },
-  {
-    "@type": "g:List",
-    "@value": [
-      "Hello"
-    ]
-  },
-  {
-    "@type": "g:List",
-    "@value": [
-      "Hello"
-    ]
-  },
-  {
-    "@type": "g:List",
-    "@value": [
-      "Hello"
-    ]
-  }
+  [
+    Hello
+  ],
+  [
+    Hello
+  ],
+  [
+    Hello
+  ],
+  [
+    Hello
+  ],
+  [
+    Hello
+  ],
+  [
+    Hello
+  ],
+  [
+    Hello
+  ],
+  [
+    Hello
+  ],
+  [
+    Hello
+  ],
+  [
+    Hello
+  ],
+  [
+    Hello
+  ],
+  [
+    Hello
+  ],
+  [
+    Hello
+  ],
+  [
+    Hello
+  ],
+  [
+    Hello
+  ],
+  [
+    Hello
+  ],
+  [
+    Hello
+  ],
+  [
+    Hello
+  ],
+  [
+    Hello
+  ],
+  [
+    Hello
+  ],
+  [
+    Hello
+  ],
+  [
+    Hello
+  ],
+  [
+    Hello
+  ],
+  [
+    Hello
+  ],
+  [
+    Hello
+  ],
+  [
+    Hello
+  ],
+  [
+    Hello
+  ],
+  [
+    Hello
+  ],
+  [
+    Hello
+  ],
+  [
+    Hello
+  ],
+  [
+    Hello
+  ],
+  [
+    Hello
+  ],
+  [
+    Hello
+  ]
 ]

@@ -1,27 +1,8 @@
 ﻿[
   {
-    "@type": "g:Map",
-    "@value": [
-      "In",
-      {
-        "@type": "g:Int32",
-        "@value": 42
-      },
-      "Out",
-      {
-        "@type": "g:Int32",
-        "@value": 42
-      },
-      "Count",
-      {
-        "@type": "g:Int32",
-        "@value": 42
-      },
-      "Properties",
-      {
-        "@type": "g:Int32",
-        "@value": 42
-      }
-    ]
+    In: 42,
+    Out: 42,
+    Count: 42,
+    Properties: 42
   }
 ]

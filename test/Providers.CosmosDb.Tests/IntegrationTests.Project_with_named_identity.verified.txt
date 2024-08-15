@@ -1,6 +1,6 @@
 ﻿[
   {
-    "name": 42,
-    "Item2": "item2"
+    Item2: item2,
+    name: 42
   }
 ]

@@ -1,155 +1,52 @@
 ﻿[
   {
-    "id": "12345678-9012-3456-7890-123456789012",
-    "label": "Language",
-    "type": "vertex",
-    "properties": {
-      "IetfLanguageTag": [
-        {
-          "id": "12345678-9012-3456-7890-123456789012",
-          "value": "en"
-        }
-      ],
-      "PartitionKey": [
-        {
-          "id": "12345678-9012-3456-7890-123456789012|PartitionKey",
-          "value": "PartitionKey"
-        }
-      ]
-    }
+    IetfLanguageTag: en,
+    Id: 12345678-9012-3456-7890-123456789012,
+    Label: Language,
+    PartitionKey: PartitionKey
   },
   {
-    "id": "12345678-9012-3456-7890-123456789012",
-    "label": "Language",
-    "type": "vertex",
-    "properties": {
-      "IetfLanguageTag": [
-        {
-          "id": "12345678-9012-3456-7890-123456789012",
-          "value": "en"
-        }
-      ],
-      "PartitionKey": [
-        {
-          "id": "12345678-9012-3456-7890-123456789012|PartitionKey",
-          "value": "PartitionKey"
-        }
-      ]
-    }
+    IetfLanguageTag: en,
+    Id: 12345678-9012-3456-7890-123456789012,
+    Label: Language,
+    PartitionKey: PartitionKey
   },
   {
-    "id": "12345678-9012-3456-7890-123456789012",
-    "label": "Language",
-    "type": "vertex",
-    "properties": {
-      "IetfLanguageTag": [
-        {
-          "id": "12345678-9012-3456-7890-123456789012",
-          "value": "en"
-        }
-      ],
-      "PartitionKey": [
-        {
-          "id": "12345678-9012-3456-7890-123456789012|PartitionKey",
-          "value": "PartitionKey"
-        }
-      ]
-    }
+    IetfLanguageTag: en,
+    Id: 12345678-9012-3456-7890-123456789012,
+    Label: Language,
+    PartitionKey: PartitionKey
   },
   {
-    "id": "12345678-9012-3456-7890-123456789012",
-    "label": "Language",
-    "type": "vertex",
-    "properties": {
-      "PartitionKey": [
-        {
-          "id": "12345678-9012-3456-7890-123456789012|PartitionKey",
-          "value": "PartitionKey"
-        }
-      ]
-    }
+    Id: 12345678-9012-3456-7890-123456789012,
+    Label: Language,
+    PartitionKey: PartitionKey
   },
   {
-    "id": "12345678-9012-3456-7890-123456789012",
-    "label": "Language",
-    "type": "vertex",
-    "properties": {
-      "IetfLanguageTag": [
-        {
-          "id": "12345678-9012-3456-7890-123456789012",
-          "value": "en"
-        }
-      ],
-      "PartitionKey": [
-        {
-          "id": "12345678-9012-3456-7890-123456789012|PartitionKey",
-          "value": "PartitionKey"
-        }
-      ]
-    }
+    IetfLanguageTag: en,
+    Id: 12345678-9012-3456-7890-123456789012,
+    Label: Language,
+    PartitionKey: PartitionKey
   },
   {
-    "id": "12345678-9012-3456-7890-123456789012",
-    "label": "Language",
-    "type": "vertex",
-    "properties": {
-      "IetfLanguageTag": [
-        {
-          "id": "12345678-9012-3456-7890-123456789012",
-          "value": "en"
-        }
-      ],
-      "PartitionKey": [
-        {
-          "id": "12345678-9012-3456-7890-123456789012|PartitionKey",
-          "value": "PartitionKey"
-        }
-      ]
-    }
+    IetfLanguageTag: en,
+    Id: 12345678-9012-3456-7890-123456789012,
+    Label: Language,
+    PartitionKey: PartitionKey
   },
   {
-    "id": "12345678-9012-3456-7890-123456789012",
-    "label": "Language",
-    "type": "vertex",
-    "properties": {
-      "PartitionKey": [
-        {
-          "id": "12345678-9012-3456-7890-123456789012|PartitionKey",
-          "value": "PartitionKey"
-        }
-      ]
-    }
+    Id: 12345678-9012-3456-7890-123456789012,
+    Label: Language,
+    PartitionKey: PartitionKey
   },
   {
-    "id": "12345678-9012-3456-7890-123456789012",
-    "label": "Language",
-    "type": "vertex",
-    "properties": {
-      "PartitionKey": [
-        {
-          "id": "12345678-9012-3456-7890-123456789012|PartitionKey",
-          "value": "PartitionKey"
-        }
-      ]
-    }
+    Id: 12345678-9012-3456-7890-123456789012,
+    Label: Language,
+    PartitionKey: PartitionKey
   },
   {
-    "id": "12345678-9012-3456-7890-123456789012",
-    "label": "Language",
-    "type": "vertex",
-    "properties": {
-      "lang": [
-        {
-          "id": "12345678-9012-3456-7890-123456789012",
-          "value": "en"
-        }
-      ],
-      "PartitionKey": [
-        {
-          "id": "12345678-9012-3456-7890-123456789012|PartitionKey",
-          "value": "PartitionKey"
-        }
-      ]
-    }
+    Id: 12345678-9012-3456-7890-123456789012,
+    Label: Language,
+    PartitionKey: PartitionKey
   }
 ]

@@ -1,14 +1,6 @@
 ﻿[
   {
-    "@type": "g:Map",
-    "@value": [
-      "item1!",
-      "item1",
-      "Id",
-      {
-        "@type": "g:Int64",
-        "@value": 7
-      }
-    ]
+    Id: 7,
+    item1!: item1
   }
 ]

@@ -5,17 +5,18 @@
     Query: {}
   },
   Message: Executing query 12345678-9012-3456-7890-123456789012 failed.,
+  Data: {},
   InnerException: {
     $type: ResponseException,
     Type: ResponseException,
     StatusCode: ServerEvaluationError,
     StatusAttributes: {
-      x-ms-activity-id: [],
-      x-ms-request-charge: [],
-      x-ms-server-time-ms: [],
-      x-ms-status-code: [],
-      x-ms-total-request-charge: [],
-      x-ms-total-server-time-ms: []
+      x-ms-activity-id: 12345678-9012-3456-7890-123456789012,
+      x-ms-request-charge: 0.0,
+      x-ms-server-time-ms: 1.1096,
+      x-ms-status-code: 400,
+      x-ms-total-request-charge: 0.0,
+      x-ms-total-server-time-ms: 1.1096
     },
     Message:
 ServerEvaluationError: 
@@ -30,13 +31,15 @@ ExceptionMessage :
 	Scope : graphparse-translate-csharpexpressionbinding
 	GraphInterOpStatusCode : QuerySyntaxError
 	HResult : 0x80131500
-
+,
+    Data: {}
   },
   StackTrace:
 at ExRam.Gremlinq.Providers.Core.GremlinqClientFactory.GremlinQueryExecutorImpl.<Execute>g__Core|3_0[T](GremlinQueryExecutorImpl this, GremlinQueryExecutionContext context, CancellationToken ct)
 at ExRam.Gremlinq.Providers.Core.GremlinqClientFactory.GremlinQueryExecutorImpl.<Execute>g__Core|3_0[T](GremlinQueryExecutorImpl this, GremlinQueryExecutionContext context, CancellationToken ct)
 at ExRam.Gremlinq.Providers.Core.GremlinqClientFactory.GremlinQueryExecutorImpl.<Execute>g__Core|3_0[T](GremlinQueryExecutorImpl this, GremlinQueryExecutionContext context, CancellationToken ct)
-at ExRam.Gremlinq.Core.AsyncEnumerable.ToArrayAsync[TSource](IAsyncEnumerable`1 source, CancellationToken ct)
-at ExRam.Gremlinq.Core.AsyncEnumerable.ToArrayAsync[TSource](IAsyncEnumerable`1 source, CancellationToken ct)
-at ExRam.Gremlinq.Tests.Infrastructure.JTokenExecutingVerifier.Verify[TElement](IGremlinQueryBase`1 query)
+at System.Collections.Generic.AsyncEnumerableHelpers.ToArrayWithLength[T](IAsyncEnumerable`1 source, CancellationToken cancellationToken)
+at System.Collections.Generic.AsyncEnumerableHelpers.ToArrayWithLength[T](IAsyncEnumerable`1 source, CancellationToken cancellationToken)
+at System.Collections.Generic.AsyncEnumerableHelpers.ToArray[T](IAsyncEnumerable`1 source, CancellationToken cancellationToken)
+at ExRam.Gremlinq.Tests.Infrastructure.ExecutingVerifier.Verify[TElement](IGremlinQueryBase`1 query)
 }

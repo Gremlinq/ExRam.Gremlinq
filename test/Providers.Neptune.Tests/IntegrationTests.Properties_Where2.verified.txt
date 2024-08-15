@@ -1,172 +1,62 @@
 ﻿[
   {
-    "@type": "g:Map",
-    "@value": [
-      "id",
-      {
-        "@type": "g:Int64",
-        "@value": 8
-      },
-      "label",
-      "Age",
-      "value",
-      {
-        "@type": "g:Int32",
-        "@value": 0
-      }
-    ]
+    Id: 8,
+    Label: Age,
+    Properties: {},
+    Value: 0
   },
   {
-    "@type": "g:Map",
-    "@value": [
-      "id",
-      {
-        "@type": "g:Int64",
-        "@value": 11
-      },
-      "label",
-      "Age",
-      "value",
-      {
-        "@type": "g:Int32",
-        "@value": 0
-      }
-    ]
+    Id: 11,
+    Label: Age,
+    Properties: {},
+    Value: 0
   },
   {
-    "@type": "g:Map",
-    "@value": [
-      "id",
-      {
-        "@type": "g:Int64",
-        "@value": 16
-      },
-      "label",
-      "Age",
-      "value",
-      {
-        "@type": "g:Int32",
-        "@value": 0
-      }
-    ]
+    Id: 16,
+    Label: Age,
+    Properties: {},
+    Value: 0
   },
   {
-    "@type": "g:Map",
-    "@value": [
-      "id",
-      {
-        "@type": "g:Int64",
-        "@value": 20
-      },
-      "label",
-      "Age",
-      "value",
-      {
-        "@type": "g:Int32",
-        "@value": 0
-      }
-    ]
+    Id: 20,
+    Label: Age,
+    Properties: {},
+    Value: 0
   },
   {
-    "@type": "g:Map",
-    "@value": [
-      "id",
-      {
-        "@type": "g:Int64",
-        "@value": 24
-      },
-      "label",
-      "Age",
-      "value",
-      {
-        "@type": "g:Int32",
-        "@value": 0
-      }
-    ]
+    Id: 24,
+    Label: Age,
+    Properties: {},
+    Value: 0
   },
   {
-    "@type": "g:Map",
-    "@value": [
-      "id",
-      {
-        "@type": "g:Int64",
-        "@value": 30
-      },
-      "label",
-      "Age",
-      "value",
-      {
-        "@type": "g:Int32",
-        "@value": 0
-      }
-    ]
+    Id: 30,
+    Label: Age,
+    Properties: {},
+    Value: 0
   },
   {
-    "@type": "g:Map",
-    "@value": [
-      "id",
-      {
-        "@type": "g:Int64",
-        "@value": 38
-      },
-      "label",
-      "Age",
-      "value",
-      {
-        "@type": "g:Int32",
-        "@value": 0
-      }
-    ]
+    Id: 38,
+    Label: Age,
+    Properties: {},
+    Value: 0
   },
   {
-    "@type": "g:Map",
-    "@value": [
-      "id",
-      {
-        "@type": "g:Int64",
-        "@value": 45
-      },
-      "label",
-      "Age",
-      "value",
-      {
-        "@type": "g:Int32",
-        "@value": 0
-      }
-    ]
+    Id: 45,
+    Label: Age,
+    Properties: {},
+    Value: 0
   },
   {
-    "@type": "g:Map",
-    "@value": [
-      "id",
-      {
-        "@type": "g:Int64",
-        "@value": 57
-      },
-      "label",
-      "Age",
-      "value",
-      {
-        "@type": "g:Int32",
-        "@value": 0
-      }
-    ]
+    Id: 57,
+    Label: Age,
+    Properties: {},
+    Value: 0
   },
   {
-    "@type": "g:Map",
-    "@value": [
-      "id",
-      {
-        "@type": "g:Int64",
-        "@value": 60
-      },
-      "label",
-      "Age",
-      "value",
-      {
-        "@type": "g:Int32",
-        "@value": 0
-      }
-    ]
+    Id: 60,
+    Label: Age,
+    Properties: {},
+    Value: 0
   }
 ]

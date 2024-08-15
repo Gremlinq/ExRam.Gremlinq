@@ -9,7 +9,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
     {
         public PasswordSecuredIntegrationTests(PasswordSecuredGremlinServerContainerFixture fixture) : base(
             fixture,
-            new JTokenExecutingVerifier())
+            new ExecutingVerifier())
         {
         }
     }

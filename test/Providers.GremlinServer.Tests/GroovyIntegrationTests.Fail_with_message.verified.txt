@@ -5,27 +5,50 @@
     Query: {}
   },
   Message: Executing query 12345678-9012-3456-7890-123456789012 failed.,
+  Data: {},
   InnerException: {
     $type: ResponseException,
     Type: ResponseException,
     StatusCode: ServerErrorFailStep,
     StatusAttributes: {
-      exceptions: {
-        @type: [],
-        @value: [
-          []
-        ]
-      },
-      failStepMessage: [],
-      stackTrace: []
+      exceptions: [
+        org.apache.tinkerpop.gremlin.process.traversal.step.sideEffect.FailStep$FailException
+      ],
+      failStepMessage:
+fail() Step Triggered
+=============================================
+Message  > There's been an error.
+Traverser> v[0]
+  Bulk   > 1
+Traversal> V().fail("There's been an error.")
+Metadata > {}
+=============================================,
+      stackTrace:
+org.apache.tinkerpop.gremlin.process.traversal.step.sideEffect.FailStep$FailException: There's been an error.
+	at org.apache.tinkerpop.gremlin.process.traversal.step.sideEffect.FailStep.sideEffect(FailStep.java:53)
+	at org.apache.tinkerpop.gremlin.process.traversal.step.sideEffect.SideEffectStep.processNextStart(SideEffectStep.java:39)
+	at org.apache.tinkerpop.gremlin.process.traversal.step.util.AbstractStep.hasNext(AbstractStep.java:155)
+	at org.apache.tinkerpop.gremlin.process.traversal.util.DefaultTraversal.hasNext(DefaultTraversal.java:192)
+	at org.apache.tinkerpop.gremlin.server.op.AbstractOpProcessor.handleIterator(AbstractOpProcessor.java:98)
+	at org.apache.tinkerpop.gremlin.server.op.AbstractEvalOpProcessor.lambda$evalOpInternal$6(AbstractEvalOpProcessor.java:267)
+	at org.apache.tinkerpop.gremlin.groovy.engine.GremlinExecutor.lambda$eval$0(GremlinExecutor.java:337)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:515)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at java.base/java.lang.Thread.run(Thread.java:829)
+
     },
-    Message: ServerErrorFailStep: There's been an error.
+    Message: ServerErrorFailStep: There's been an error.,
+    Data: {}
   },
   StackTrace:
 at ExRam.Gremlinq.Providers.Core.GremlinqClientFactory.GremlinQueryExecutorImpl.<Execute>g__Core|3_0[T](GremlinQueryExecutorImpl this, GremlinQueryExecutionContext context, CancellationToken ct)
 at ExRam.Gremlinq.Providers.Core.GremlinqClientFactory.GremlinQueryExecutorImpl.<Execute>g__Core|3_0[T](GremlinQueryExecutorImpl this, GremlinQueryExecutionContext context, CancellationToken ct)
 at ExRam.Gremlinq.Providers.Core.GremlinqClientFactory.GremlinQueryExecutorImpl.<Execute>g__Core|3_0[T](GremlinQueryExecutorImpl this, GremlinQueryExecutionContext context, CancellationToken ct)
-at ExRam.Gremlinq.Core.AsyncEnumerable.ToArrayAsync[TSource](IAsyncEnumerable`1 source, CancellationToken ct)
-at ExRam.Gremlinq.Core.AsyncEnumerable.ToArrayAsync[TSource](IAsyncEnumerable`1 source, CancellationToken ct)
-at ExRam.Gremlinq.Tests.Infrastructure.JTokenExecutingVerifier.Verify[TElement](IGremlinQueryBase`1 query)
+at System.Collections.Generic.AsyncEnumerableHelpers.ToArrayWithLength[T](IAsyncEnumerable`1 source, CancellationToken cancellationToken)
+at System.Collections.Generic.AsyncEnumerableHelpers.ToArrayWithLength[T](IAsyncEnumerable`1 source, CancellationToken cancellationToken)
+at System.Collections.Generic.AsyncEnumerableHelpers.ToArray[T](IAsyncEnumerable`1 source, CancellationToken cancellationToken)
+at ExRam.Gremlinq.Tests.Infrastructure.ExecutingVerifier.Verify[TElement](IGremlinQueryBase`1 query)
 }

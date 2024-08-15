@@ -1,59 +1,17 @@
 ﻿[
   {
-    "id": "12345678-9012-3456-7890-123456789012",
-    "label": "Company",
-    "type": "vertex",
-    "properties": {
-      "FoundingDate": [
-        {
-          "id": "12345678-9012-3456-7890-123456789012",
-          "value": -62135596800000
-        }
-      ],
-      "PartitionKey": [
-        {
-          "id": "12345678-9012-3456-7890-123456789012|PartitionKey",
-          "value": "PartitionKey"
-        }
-      ]
-    }
+    Id: 12345678-9012-3456-7890-123456789012,
+    Label: Company,
+    PartitionKey: PartitionKey
   },
   {
-    "id": "12345678-9012-3456-7890-123456789012",
-    "label": "Company",
-    "type": "vertex",
-    "properties": {
-      "FoundingDate": [
-        {
-          "id": "12345678-9012-3456-7890-123456789012",
-          "value": -62135596800000
-        }
-      ],
-      "PartitionKey": [
-        {
-          "id": "12345678-9012-3456-7890-123456789012|PartitionKey",
-          "value": "PartitionKey"
-        }
-      ]
-    }
+    Id: 12345678-9012-3456-7890-123456789012,
+    Label: Company,
+    PartitionKey: PartitionKey
   },
   {
-    "id": "12345678-9012-3456-7890-123456789012",
-    "label": "Company",
-    "type": "vertex",
-    "properties": {
-      "FoundingDate": [
-        {
-          "id": "12345678-9012-3456-7890-123456789012",
-          "value": -62135596800000
-        }
-      ],
-      "PartitionKey": [
-        {
-          "id": "12345678-9012-3456-7890-123456789012|PartitionKey",
-          "value": "PartitionKey"
-        }
-      ]
-    }
+    Id: 12345678-9012-3456-7890-123456789012,
+    Label: Company,
+    PartitionKey: PartitionKey
   }
 ]

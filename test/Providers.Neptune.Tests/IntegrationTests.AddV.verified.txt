@@ -1,40 +1,8 @@
 ﻿[
   {
-    "@type": "g:Map",
-    "@value": [
-      "id",
-      {
-        "@type": "g:Int64",
-        "@value": 47
-      },
-      "label",
-      "Language",
-      "properties",
-      {
-        "@type": "g:Map",
-        "@value": [
-          "IetfLanguageTag",
-          {
-            "@type": "g:List",
-            "@value": [
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "id",
-                  {
-                    "@type": "g:Int64",
-                    "@value": 48
-                  },
-                  "label",
-                  "IetfLanguageTag",
-                  "value",
-                  "en"
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    ]
+    IetfLanguageTag: en,
+    Id: 47,
+    Label: Language,
+    PartitionKey: PartitionKey
   }
 ]

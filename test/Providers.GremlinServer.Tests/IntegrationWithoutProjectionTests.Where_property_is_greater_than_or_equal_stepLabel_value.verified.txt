@@ -1,541 +1,145 @@
 ﻿[
-  {
-    "@type": "g:List",
-    "@value": [
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      }
-    ]
-  },
-  {
-    "@type": "g:List",
-    "@value": [
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      }
-    ]
-  },
-  {
-    "@type": "g:List",
-    "@value": [
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      }
-    ]
-  },
-  {
-    "@type": "g:List",
-    "@value": [
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      }
-    ]
-  },
-  {
-    "@type": "g:List",
-    "@value": [
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      }
-    ]
-  },
-  {
-    "@type": "g:List",
-    "@value": [
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      }
-    ]
-  },
-  {
-    "@type": "g:List",
-    "@value": [
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      }
-    ]
-  },
-  {
-    "@type": "g:List",
-    "@value": [
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      }
-    ]
-  },
-  {
-    "@type": "g:List",
-    "@value": [
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      }
-    ]
-  },
-  {
-    "@type": "g:List",
-    "@value": [
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      }
-    ]
-  },
-  {
-    "@type": "g:List",
-    "@value": [
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      },
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      }
-    ]
-  }
+  [
+    21,
+    21,
+    21,
+    21,
+    21,
+    21,
+    21,
+    21,
+    21,
+    21,
+    21
+  ],
+  [
+    21,
+    21,
+    21,
+    21,
+    21,
+    21,
+    21,
+    21,
+    21,
+    21,
+    21
+  ],
+  [
+    21,
+    21,
+    21,
+    21,
+    21,
+    21,
+    21,
+    21,
+    21,
+    21,
+    21
+  ],
+  [
+    21,
+    21,
+    21,
+    21,
+    21,
+    21,
+    21,
+    21,
+    21,
+    21,
+    21
+  ],
+  [
+    21,
+    21,
+    21,
+    21,
+    21,
+    21,
+    21,
+    21,
+    21,
+    21,
+    21
+  ],
+  [
+    21,
+    21,
+    21,
+    21,
+    21,
+    21,
+    21,
+    21,
+    21,
+    21,
+    21
+  ],
+  [
+    21,
+    21,
+    21,
+    21,
+    21,
+    21,
+    21,
+    21,
+    21,
+    21,
+    21
+  ],
+  [
+    21,
+    21,
+    21,
+    21,
+    21,
+    21,
+    21,
+    21,
+    21,
+    21,
+    21
+  ],
+  [
+    21,
+    21,
+    21,
+    21,
+    21,
+    21,
+    21,
+    21,
+    21,
+    21,
+    21
+  ],
+  [
+    21,
+    21,
+    21,
+    21,
+    21,
+    21,
+    21,
+    21,
+    21,
+    21,
+    21
+  ],
+  [
+    21,
+    21,
+    21,
+    21,
+    21,
+    21,
+    21,
+    21,
+    21,
+    21,
+    21
+  ]
 ]

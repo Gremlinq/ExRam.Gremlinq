@@ -1,167 +1,35 @@
 ﻿[
   {
-    "@type": "g:Map",
-    "@value": [
-      "Age",
-      {
-        "@type": "g:List",
-        "@value": [
-          {
-            "@type": "g:Int32",
-            "@value": 21
-          }
-        ]
-      }
-    ]
+    Age: 21
   },
   {
-    "@type": "g:Map",
-    "@value": [
-      "Age",
-      {
-        "@type": "g:List",
-        "@value": [
-          {
-            "@type": "g:Int32",
-            "@value": 21
-          }
-        ]
-      }
-    ]
+    Age: 21
   },
   {
-    "@type": "g:Map",
-    "@value": [
-      "Age",
-      {
-        "@type": "g:List",
-        "@value": [
-          {
-            "@type": "g:Int32",
-            "@value": 21
-          }
-        ]
-      }
-    ]
+    Age: 21
   },
   {
-    "@type": "g:Map",
-    "@value": [
-      "Age",
-      {
-        "@type": "g:List",
-        "@value": [
-          {
-            "@type": "g:Int32",
-            "@value": 21
-          }
-        ]
-      }
-    ]
+    Age: 21
   },
   {
-    "@type": "g:Map",
-    "@value": [
-      "Age",
-      {
-        "@type": "g:List",
-        "@value": [
-          {
-            "@type": "g:Int32",
-            "@value": 21
-          }
-        ]
-      }
-    ]
+    Age: 21
   },
   {
-    "@type": "g:Map",
-    "@value": [
-      "Age",
-      {
-        "@type": "g:List",
-        "@value": [
-          {
-            "@type": "g:Int32",
-            "@value": 21
-          }
-        ]
-      }
-    ]
+    Age: 21
   },
   {
-    "@type": "g:Map",
-    "@value": [
-      "Age",
-      {
-        "@type": "g:List",
-        "@value": [
-          {
-            "@type": "g:Int32",
-            "@value": 21
-          }
-        ]
-      }
-    ]
+    Age: 21
   },
   {
-    "@type": "g:Map",
-    "@value": [
-      "Age",
-      {
-        "@type": "g:List",
-        "@value": [
-          {
-            "@type": "g:Int32",
-            "@value": 21
-          }
-        ]
-      }
-    ]
+    Age: 21
   },
   {
-    "@type": "g:Map",
-    "@value": [
-      "Age",
-      {
-        "@type": "g:List",
-        "@value": [
-          {
-            "@type": "g:Int32",
-            "@value": 21
-          }
-        ]
-      }
-    ]
+    Age: 21
   },
   {
-    "@type": "g:Map",
-    "@value": [
-      "Age",
-      {
-        "@type": "g:List",
-        "@value": [
-          {
-            "@type": "g:Int32",
-            "@value": 21
-          }
-        ]
-      }
-    ]
+    Age: 21
   },
   {
-    "@type": "g:Map",
-    "@value": [
-      "Age",
-      {
-        "@type": "g:List",
-        "@value": [
-          {
-            "@type": "g:Int32",
-            "@value": 21
-          }
-        ]
-      }
-    ]
+    Age: 21
   }
 ]

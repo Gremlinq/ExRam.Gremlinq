@@ -1,21 +1,7 @@
 ﻿[
   {
-    "id": "12345678-9012-3456-7890-123456789012",
-    "label": "Person",
-    "type": "vertex",
-    "properties": {
-      "Age": [
-        {
-          "id": "12345678-9012-3456-7890-123456789012",
-          "value": 0
-        }
-      ],
-      "PartitionKey": [
-        {
-          "id": "12345678-9012-3456-7890-123456789012|PartitionKey",
-          "value": "PartitionKey"
-        }
-      ]
-    }
+    Id: 12345678-9012-3456-7890-123456789012,
+    Label: Person,
+    PartitionKey: PartitionKey
   }
 ]

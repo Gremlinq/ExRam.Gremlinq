@@ -1,26 +1,9 @@
 ﻿[
   {
-    "@type": "g:Map",
-    "@value": [
-      "TimeFrame",
-      {
-        "@type": "gx:Duration",
-        "@value": "PT8H"
-      },
-      "Company",
-      {
-        "@type": "g:Date",
-        "@value": -62135596800000
-      },
-      "Language",
-      "en",
-      "Country",
-      "+49",
-      "Person",
-      {
-        "@type": "g:Date",
-        "@value": 1586270616000
-      }
-    ]
+    Company: 0001-01-01 +0,
+    Country: +49,
+    Language: en,
+    Person: 2020-04-07 14:43:36 +0,
+    TimeFrame: 08:00:00
   }
 ]

@@ -1,52 +1,14 @@
 ﻿[
   {
-    "@type": "g:Vertex",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 65
-      },
-      "label": "Language",
-      "properties": {
-        "IetfLanguageTag": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 66
-              },
-              "value": "en",
-              "label": "IetfLanguageTag"
-            }
-          }
-        ]
-      }
-    }
+    IetfLanguageTag: en,
+    Id: 65,
+    Label: Language,
+    PartitionKey: PartitionKey
   },
   {
-    "@type": "g:Vertex",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 2
-      },
-      "label": "Language",
-      "properties": {
-        "IetfLanguageTag": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 3
-              },
-              "value": "en",
-              "label": "IetfLanguageTag"
-            }
-          }
-        ]
-      }
-    }
+    IetfLanguageTag: en,
+    Id: 2,
+    Label: Language,
+    PartitionKey: PartitionKey
   }
 ]

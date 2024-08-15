@@ -1,21 +1,12 @@
 ﻿[
   {
-    "id": "12345678-9012-3456-7890-123456789012",
-    "label": "Country",
-    "type": "vertex",
-    "properties": {
-      "Name": [
-        {
-          "id": "12345678-9012-3456-7890-123456789012",
-          "value": "GER"
-        }
-      ],
-      "PartitionKey": [
-        {
-          "id": "12345678-9012-3456-7890-123456789012|PartitionKey",
-          "value": "PartitionKey"
-        }
-      ]
-    }
+    Name: {
+      Id: 12345678-9012-3456-7890-123456789012,
+      Properties: {},
+      Value: GER
+    },
+    Id: 12345678-9012-3456-7890-123456789012,
+    Label: Country,
+    PartitionKey: PartitionKey
   }
 ]

@@ -1,12 +1,6 @@
 ﻿[
   {
-    "@type": "g:Property",
-    "@value": {
-      "key": "Since",
-      "value": {
-        "@type": "g:Date",
-        "@value": 1586270616000
-      }
-    }
+    Value: 2020-04-07 14:43:36 +0,
+    Key: Since
   }
 ]

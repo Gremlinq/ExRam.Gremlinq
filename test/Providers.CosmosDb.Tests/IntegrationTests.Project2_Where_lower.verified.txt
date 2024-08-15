@@ -1,7 +1,7 @@
 ﻿[
   {
-    "Item1": "item1",
-    "Item2": [
+    Item1: item1,
+    Item2: [
       42
     ]
   }

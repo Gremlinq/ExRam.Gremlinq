@@ -1,611 +1,236 @@
 ﻿[
   {
-    "@type": "g:Map",
-    "@value": [
-      "id",
-      {
-        "@type": "g:Int64",
-        "@value": 1
-      },
-      "label",
-      "CountryCallingCode",
-      "value",
-      "+49"
-    ]
+    Id: 1,
+    Label: CountryCallingCode,
+    Properties: {},
+    Value: +49
   },
   {
-    "@type": "g:Map",
-    "@value": [
-      "id",
-      {
-        "@type": "g:Int64",
-        "@value": 66
-      },
-      "label",
-      "IetfLanguageTag",
-      "value",
-      "en"
-    ]
+    Id: 66,
+    Label: IetfLanguageTag,
+    Properties: {},
+    Value: en
   },
   {
-    "@type": "g:Map",
-    "@value": [
-      "id",
-      {
-        "@type": "g:Int64",
-        "@value": 3
-      },
-      "label",
-      "IetfLanguageTag",
-      "value",
-      "en"
-    ]
+    Id: 3,
+    Label: IetfLanguageTag,
+    Properties: {},
+    Value: en
   },
   {
-    "@type": "g:Map",
-    "@value": [
-      "id",
-      {
-        "@type": "g:Int64",
-        "@value": 69
-      },
-      "label",
-      "FoundingDate",
-      "value",
-      {
-        "@type": "g:Date",
-        "@value": -62135596800000
-      }
-    ]
+    Id: 69,
+    Label: FoundingDate,
+    Properties: {},
+    Value: -62135596800000
   },
   {
-    "@type": "g:Map",
-    "@value": [
-      "id",
-      {
-        "@type": "g:Int64",
-        "@value": 70
-      },
-      "label",
-      "Locations",
-      "value",
-      "Aachen"
-    ]
+    Id: 70,
+    Label: Locations,
+    Properties: {},
+    Value: Aachen
   },
   {
-    "@type": "g:Map",
-    "@value": [
-      "id",
-      {
-        "@type": "g:Int64",
-        "@value": 6
-      },
-      "label",
-      "FoundingDate",
-      "value",
-      {
-        "@type": "g:Date",
-        "@value": -62135596800000
-      }
-    ]
+    Id: 6,
+    Label: FoundingDate,
+    Properties: {},
+    Value: -62135596800000
   },
   {
-    "@type": "g:Map",
-    "@value": [
-      "id",
-      {
-        "@type": "g:Int64",
-        "@value": 8
-      },
-      "label",
-      "Age",
-      "value",
-      {
-        "@type": "g:Int32",
-        "@value": 0
-      }
-    ]
+    Id: 8,
+    Label: Age,
+    Properties: {},
+    Value: 0
   },
   {
-    "@type": "g:Map",
-    "@value": [
-      "id",
-      {
-        "@type": "g:Int64",
-        "@value": 72
-      },
-      "label",
-      "Name",
-      "value",
-      "GER"
-    ]
+    Id: 72,
+    Label: Name,
+    Properties: {},
+    Value: GER
   },
   {
-    "@type": "g:Map",
-    "@value": [
-      "id",
-      {
-        "@type": "g:Int64",
-        "@value": 74
-      },
-      "label",
-      "Name",
-      "value",
-      "GER"
-    ]
+    Id: 74,
+    Label: Name,
+    Properties: {},
+    Value: GER
   },
   {
-    "@type": "g:Map",
-    "@value": [
-      "id",
-      {
-        "@type": "g:Int64",
-        "@value": 13
-      },
-      "label",
-      "RegistrationDate",
-      "value",
-      {
-        "@type": "g:Date",
-        "@value": 1586270616000
-      }
-    ]
+    Id: 13,
+    Label: RegistrationDate,
+    Properties: {},
+    Value: 1586270616000
   },
   {
-    "@type": "g:Map",
-    "@value": [
-      "id",
-      {
-        "@type": "g:Int64",
-        "@value": 11
-      },
-      "label",
-      "Age",
-      "value",
-      {
-        "@type": "g:Int32",
-        "@value": 0
-      }
-    ]
+    Id: 11,
+    Label: Age,
+    Properties: {},
+    Value: 0
   },
   {
-    "@type": "g:Map",
-    "@value": [
-      "id",
-      {
-        "@type": "g:Int64",
-        "@value": 12
-      },
-      "label",
-      "Name",
-      "value",
-      "Bob"
-    ]
+    Id: 12,
+    Label: Name,
+    Properties: {},
+    Value: Bob
   },
   {
-    "@type": "g:Map",
-    "@value": [
-      "id",
-      {
-        "@type": "g:Int64",
-        "@value": 77
-      },
-      "label",
-      "PhoneNumbers",
-      "value",
-      "+4912345"
-    ]
+    Id: 77,
+    Label: PhoneNumbers,
+    Properties: {},
+    Value: +4912345
   },
   {
-    "@type": "g:Map",
-    "@value": [
-      "id",
-      {
-        "@type": "g:Int64",
-        "@value": 78
-      },
-      "label",
-      "PhoneNumbers",
-      "value",
-      "+4923456"
-    ]
+    Id: 78,
+    Label: PhoneNumbers,
+    Properties: {},
+    Value: +4923456
   },
   {
-    "@type": "g:Map",
-    "@value": [
-      "id",
-      {
-        "@type": "g:Int64",
-        "@value": 76
-      },
-      "label",
-      "FoundingDate",
-      "value",
-      {
-        "@type": "g:Date",
-        "@value": -62135596800000
-      }
-    ]
+    Id: 76,
+    Label: FoundingDate,
+    Properties: {},
+    Value: -62135596800000
   },
   {
-    "@type": "g:Map",
-    "@value": [
-      "id",
-      {
-        "@type": "g:Int64",
-        "@value": 16
-      },
-      "label",
-      "Age",
-      "value",
-      {
-        "@type": "g:Int32",
-        "@value": 0
-      }
-    ]
+    Id: 16,
+    Label: Age,
+    Properties: {},
+    Value: 0
   },
   {
-    "@type": "g:Map",
-    "@value": [
-      "id",
-      {
-        "@type": "g:Int64",
-        "@value": 81
-      },
-      "label",
-      "lang",
-      "value",
-      "en"
-    ]
+    Id: 81,
+    Label: lang,
+    Properties: {},
+    Value: en
   },
   {
-    "@type": "g:Map",
-    "@value": [
-      "id",
-      {
-        "@type": "g:Int64",
-        "@value": 20
-      },
-      "label",
-      "Age",
-      "value",
-      {
-        "@type": "g:Int32",
-        "@value": 0
-      }
-    ]
+    Id: 20,
+    Label: Age,
+    Properties: {},
+    Value: 0
   },
   {
-    "@type": "g:Map",
-    "@value": [
-      "id",
-      {
-        "@type": "g:Int64",
-        "@value": 24
-      },
-      "label",
-      "Age",
-      "value",
-      {
-        "@type": "g:Int32",
-        "@value": 0
-      }
-    ]
+    Id: 24,
+    Label: Age,
+    Properties: {},
+    Value: 0
   },
   {
-    "@type": "g:Map",
-    "@value": [
-      "id",
-      {
-        "@type": "g:Int64",
-        "@value": 28
-      },
-      "label",
-      "FoundingDate",
-      "value",
-      {
-        "@type": "g:Date",
-        "@value": -62135596800000
-      }
-    ]
+    Id: 28,
+    Label: FoundingDate,
+    Properties: {},
+    Value: -62135596800000
   },
   {
-    "@type": "g:Map",
-    "@value": [
-      "id",
-      {
-        "@type": "g:Int64",
-        "@value": 30
-      },
-      "label",
-      "Age",
-      "value",
-      {
-        "@type": "g:Int32",
-        "@value": 0
-      }
-    ]
+    Id: 30,
+    Label: Age,
+    Properties: {},
+    Value: 0
   },
   {
-    "@type": "g:Map",
-    "@value": [
-      "id",
-      {
-        "@type": "g:Int64",
-        "@value": 33
-      },
-      "label",
-      "IetfLanguageTag",
-      "value",
-      "en"
-    ]
+    Id: 33,
+    Label: IetfLanguageTag,
+    Properties: {},
+    Value: en
   },
   {
-    "@type": "g:Map",
-    "@value": [
-      "id",
-      {
-        "@type": "g:Int64",
-        "@value": 35
-      },
-      "label",
-      "CountryCallingCode",
-      "value",
-      "+49"
-    ]
+    Id: 35,
+    Label: CountryCallingCode,
+    Properties: {},
+    Value: +49
   },
   {
-    "@type": "g:Map",
-    "@value": [
-      "id",
-      {
-        "@type": "g:Int64",
-        "@value": 40
-      },
-      "label",
-      "RegistrationDate",
-      "value",
-      {
-        "@type": "g:Date",
-        "@value": 1586270616000
-      }
-    ]
+    Id: 40,
+    Label: RegistrationDate,
+    Properties: {},
+    Value: 1586270616000
   },
   {
-    "@type": "g:Map",
-    "@value": [
-      "id",
-      {
-        "@type": "g:Int64",
-        "@value": 38
-      },
-      "label",
-      "Age",
-      "value",
-      {
-        "@type": "g:Int32",
-        "@value": 0
-      }
-    ]
+    Id: 38,
+    Label: Age,
+    Properties: {},
+    Value: 0
   },
   {
-    "@type": "g:Map",
-    "@value": [
-      "id",
-      {
-        "@type": "g:Int64",
-        "@value": 39
-      },
-      "label",
-      "Name",
-      "value",
-      "Bob"
-    ]
+    Id: 39,
+    Label: Name,
+    Properties: {},
+    Value: Bob
   },
   {
-    "@type": "g:Map",
-    "@value": [
-      "id",
-      {
-        "@type": "g:Int64",
-        "@value": 43
-      },
-      "label",
-      "FoundingDate",
-      "value",
-      {
-        "@type": "g:Date",
-        "@value": -62135596800000
-      }
-    ]
+    Id: 43,
+    Label: FoundingDate,
+    Properties: {},
+    Value: -62135596800000
   },
   {
-    "@type": "g:Map",
-    "@value": [
-      "id",
-      {
-        "@type": "g:Int64",
-        "@value": 45
-      },
-      "label",
-      "Age",
-      "value",
-      {
-        "@type": "g:Int32",
-        "@value": 0
-      }
-    ]
+    Id: 45,
+    Label: Age,
+    Properties: {},
+    Value: 0
   },
   {
-    "@type": "g:Map",
-    "@value": [
-      "id",
-      {
-        "@type": "g:Int64",
-        "@value": 48
-      },
-      "label",
-      "IetfLanguageTag",
-      "value",
-      "en"
-    ]
+    Id: 48,
+    Label: IetfLanguageTag,
+    Properties: {},
+    Value: en
   },
   {
-    "@type": "g:Map",
-    "@value": [
-      "id",
-      {
-        "@type": "g:Int64",
-        "@value": 53
-      },
-      "label",
-      "StartTime",
-      "value",
-      {
-        "@type": "g:Double",
-        "@value": 28800000.0
-      }
-    ]
+    Id: 53,
+    Label: StartTime,
+    Properties: {},
+    Value: 28800000
   },
   {
-    "@type": "g:Map",
-    "@value": [
-      "id",
-      {
-        "@type": "g:Int64",
-        "@value": 52
-      },
-      "label",
-      "Enabled",
-      "value",
-      false
-    ]
+    Id: 52,
+    Label: Enabled,
+    Properties: {},
+    Value: False
   },
   {
-    "@type": "g:Map",
-    "@value": [
-      "id",
-      {
-        "@type": "g:Int64",
-        "@value": 51
-      },
-      "label",
-      "Duration",
-      "value",
-      {
-        "@type": "g:Double",
-        "@value": 7200000.0
-      }
-    ]
+    Id: 51,
+    Label: Duration,
+    Properties: {},
+    Value: 7200000
   },
   {
-    "@type": "g:Map",
-    "@value": [
-      "id",
-      {
-        "@type": "g:Int64",
-        "@value": 55
-      },
-      "label",
-      "IetfLanguageTag",
-      "value",
-      "en"
-    ]
+    Id: 55,
+    Label: IetfLanguageTag,
+    Properties: {},
+    Value: en
   },
   {
-    "@type": "g:Map",
-    "@value": [
-      "id",
-      {
-        "@type": "g:Int64",
-        "@value": 58
-      },
-      "label",
-      "Image",
-      "value",
-      "AQIDBAUGBwg="
-    ]
+    Id: 58,
+    Label: Image,
+    Properties: {},
+    Value: AQIDBAUGBwg=
   },
   {
-    "@type": "g:Map",
-    "@value": [
-      "id",
-      {
-        "@type": "g:Int64",
-        "@value": 57
-      },
-      "label",
-      "Age",
-      "value",
-      {
-        "@type": "g:Int32",
-        "@value": 0
-      }
-    ]
+    Id: 57,
+    Label: Age,
+    Properties: {},
+    Value: 0
   },
   {
-    "@type": "g:Map",
-    "@value": [
-      "id",
-      {
-        "@type": "g:Int64",
-        "@value": 61
-      },
-      "label",
-      "Gender",
-      "value",
-      {
-        "@type": "g:Int32",
-        "@value": 1
-      }
-    ]
+    Id: 61,
+    Label: Gender,
+    Properties: {},
+    Value: 1
   },
   {
-    "@type": "g:Map",
-    "@value": [
-      "id",
-      {
-        "@type": "g:Int64",
-        "@value": 60
-      },
-      "label",
-      "Age",
-      "value",
-      {
-        "@type": "g:Int32",
-        "@value": 0
-      }
-    ]
+    Id: 60,
+    Label: Age,
+    Properties: {},
+    Value: 0
   },
   {
-    "@type": "g:Map",
-    "@value": [
-      "id",
-      {
-        "@type": "g:Int64",
-        "@value": 64
-      },
-      "label",
-      "RegistrationDate",
-      "value",
-      {
-        "@type": "g:Date",
-        "@value": 1586270616000
-      }
-    ]
+    Id: 64,
+    Label: RegistrationDate,
+    Properties: {},
+    Value: 1586270616000
   },
   {
-    "@type": "g:Map",
-    "@value": [
-      "id",
-      {
-        "@type": "g:Int64",
-        "@value": 63
-      },
-      "label",
-      "Name",
-      "value",
-      "Marko"
-    ]
+    Id: 63,
+    Label: Name,
+    Properties: {},
+    Value: Marko
   }
 ]

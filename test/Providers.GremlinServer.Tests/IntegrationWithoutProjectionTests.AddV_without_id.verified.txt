@@ -1,27 +1,8 @@
 ﻿[
   {
-    "@type": "g:Vertex",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 54
-      },
-      "label": "Language",
-      "properties": {
-        "IetfLanguageTag": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 55
-              },
-              "value": "en",
-              "label": "IetfLanguageTag"
-            }
-          }
-        ]
-      }
-    }
+    IetfLanguageTag: en,
+    Id: 54,
+    Label: Language,
+    PartitionKey: PartitionKey
   }
 ]

@@ -1,22 +1,6 @@
 ﻿[
   {
-    "@type": "g:Edge",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 41
-      },
-      "label": "LivesIn",
-      "inVLabel": "Country",
-      "outVLabel": "Person",
-      "inV": {
-        "@type": "g:Int64",
-        "@value": 0
-      },
-      "outV": {
-        "@type": "g:Int64",
-        "@value": 37
-      }
-    }
+    Id: 41,
+    Label: LivesIn
   }
 ]

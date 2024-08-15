@@ -1,83 +1,29 @@
 ﻿[
   {
-    "@type": "g:Map",
-    "@value": [
-      "id",
-      {
-        "@type": "g:Int64",
-        "@value": 1
-      },
-      "label",
-      "CountryCallingCode",
-      "value",
-      "+49",
-      "properties",
-      {
-        "@type": "g:Map",
-        "@value": []
-      }
-    ]
+    Id: 1,
+    Label: CountryCallingCode,
+    Properties: {},
+    Value: +49
   },
   {
-    "@type": "g:Map",
-    "@value": [
-      "id",
-      {
-        "@type": "g:Int64",
-        "@value": 72
-      },
-      "label",
-      "Name",
-      "value",
-      "GER",
-      "properties",
-      {
-        "@type": "g:Map",
-        "@value": []
-      }
-    ]
+    Id: 72,
+    Label: Name,
+    Properties: {},
+    Value: GER
   },
   {
-    "@type": "g:Map",
-    "@value": [
-      "id",
-      {
-        "@type": "g:Int64",
-        "@value": 74
-      },
-      "label",
-      "Name",
-      "value",
-      "GER",
-      "properties",
-      {
-        "@type": "g:Map",
-        "@value": [
-          "de",
-          "Deutschland",
-          "en",
-          "Germany"
-        ]
-      }
-    ]
+    Id: 74,
+    Label: Name,
+    Properties: {
+      de: Deutschland,
+      en: Germany
+    },
+    Value: GER
   },
   {
-    "@type": "g:Map",
-    "@value": [
-      "id",
-      {
-        "@type": "g:Int64",
-        "@value": 35
-      },
-      "label",
-      "CountryCallingCode",
-      "value",
-      "+49",
-      "properties",
-      {
-        "@type": "g:Map",
-        "@value": []
-      }
-    ]
+    Id: 35,
+    Label: CountryCallingCode,
+    Properties: {},
+    Value: +49
   }
 ]

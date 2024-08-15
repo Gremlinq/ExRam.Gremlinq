@@ -1,116 +1,40 @@
 ﻿[
   {
-    "id": "12345678-9012-3456-7890-123456789012",
-    "label": "Company",
-    "type": "vertex",
-    "properties": {
-      "FoundingDate": [
-        {
-          "id": "12345678-9012-3456-7890-123456789012",
-          "value": -62135596800000
-        }
-      ],
-      "PartitionKey": [
-        {
-          "id": "12345678-9012-3456-7890-123456789012|PartitionKey",
-          "value": "PartitionKey"
-        }
-      ]
-    }
+    Id: 12345678-9012-3456-7890-123456789012,
+    Label: Company,
+    PartitionKey: PartitionKey
   },
   {
-    "id": "12345678-9012-3456-7890-123456789012",
-    "label": "Company",
-    "type": "vertex",
-    "properties": {
-      "FoundingDate": [
-        {
-          "id": "12345678-9012-3456-7890-123456789012",
-          "value": -62135596800000
-        }
-      ],
-      "PartitionKey": [
-        {
-          "id": "12345678-9012-3456-7890-123456789012|PartitionKey",
-          "value": "PartitionKey"
-        }
-      ]
-    }
+    Id: 12345678-9012-3456-7890-123456789012,
+    Label: Company,
+    PartitionKey: PartitionKey
   },
   {
-    "id": "12345678-9012-3456-7890-123456789012",
-    "label": "Company",
-    "type": "vertex",
-    "properties": {
-      "FoundingDate": [
-        {
-          "id": "12345678-9012-3456-7890-123456789012",
-          "value": -62135596800000
-        }
-      ],
-      "PartitionKey": [
-        {
-          "id": "12345678-9012-3456-7890-123456789012|PartitionKey",
-          "value": "PartitionKey"
-        }
-      ]
-    }
+    Id: 12345678-9012-3456-7890-123456789012,
+    Label: Company,
+    PartitionKey: PartitionKey
   },
   {
-    "id": "12345678-9012-3456-7890-123456789012",
-    "label": "Company",
-    "type": "vertex",
-    "properties": {
-      "FoundingDate": [
-        {
-          "id": "12345678-9012-3456-7890-123456789012",
-          "value": -62135596800000
-        }
-      ],
-      "Locations": [
-        {
-          "id": "12345678-9012-3456-7890-123456789012",
-          "value": "Aachen",
-          "properties": {
-            "ValidFrom": 1546304400000
-          }
-        }
-      ],
-      "PartitionKey": [
-        {
-          "id": "12345678-9012-3456-7890-123456789012|PartitionKey",
-          "value": "PartitionKey"
-        }
-      ]
-    }
-  },
-  {
-    "id": "12345678-9012-3456-7890-123456789012",
-    "label": "Company",
-    "type": "vertex",
-    "properties": {
-      "FoundingDate": [
-        {
-          "id": "12345678-9012-3456-7890-123456789012",
-          "value": -62135596800000
-        }
-      ],
-      "PartitionKey": [
-        {
-          "id": "12345678-9012-3456-7890-123456789012|PartitionKey",
-          "value": "PartitionKey"
-        }
-      ],
-      "PhoneNumbers": [
-        {
-          "id": "12345678-9012-3456-7890-123456789012",
-          "value": "+4912345"
+    Locations: [
+      {
+        Id: 12345678-9012-3456-7890-123456789012,
+        Properties: {
+          ValidFrom: 2019-01-01 01:00 +0
         },
-        {
-          "id": "12345678-9012-3456-7890-123456789012",
-          "value": "+4923456"
-        }
-      ]
-    }
+        Value: Aachen
+      }
+    ],
+    Id: 12345678-9012-3456-7890-123456789012,
+    Label: Company,
+    PartitionKey: PartitionKey
+  },
+  {
+    PhoneNumbers: [
+      +4912345,
+      +4923456
+    ],
+    Id: 12345678-9012-3456-7890-123456789012,
+    Label: Company,
+    PartitionKey: PartitionKey
   }
 ]

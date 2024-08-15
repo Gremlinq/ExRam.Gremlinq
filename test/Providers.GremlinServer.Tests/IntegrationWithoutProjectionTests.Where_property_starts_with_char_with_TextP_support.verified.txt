@@ -1,84 +1,30 @@
 ﻿[
   {
-    "@type": "g:Vertex",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 0
+    CountryCallingCode: +49,
+    LocalizableDescription: {
+      Id: 127,
+      Label: LocalizableDescription,
+      Properties: {
+        someKey: value
       },
-      "label": "Country",
-      "properties": {
-        "CountryCallingCode": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 1
-              },
-              "value": "+49",
-              "label": "CountryCallingCode"
-            }
-          }
-        ],
-        "LocalizableDescription": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 127
-              },
-              "value": "",
-              "label": "LocalizableDescription",
-              "properties": {
-                "someKey": "value"
-              }
-            }
-          }
-        ]
-      }
-    }
+      Value: 
+    },
+    Id: 0,
+    Label: Country,
+    PartitionKey: PartitionKey
   },
   {
-    "@type": "g:Vertex",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 34
+    CountryCallingCode: +49,
+    LocalizableDescription: {
+      Id: 133,
+      Label: LocalizableDescription,
+      Properties: {
+        someKey: value
       },
-      "label": "Country",
-      "properties": {
-        "CountryCallingCode": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 35
-              },
-              "value": "+49",
-              "label": "CountryCallingCode"
-            }
-          }
-        ],
-        "LocalizableDescription": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 133
-              },
-              "value": "",
-              "label": "LocalizableDescription",
-              "properties": {
-                "someKey": "value"
-              }
-            }
-          }
-        ]
-      }
-    }
+      Value: 
+    },
+    Id: 34,
+    Label: Country,
+    PartitionKey: PartitionKey
   }
 ]

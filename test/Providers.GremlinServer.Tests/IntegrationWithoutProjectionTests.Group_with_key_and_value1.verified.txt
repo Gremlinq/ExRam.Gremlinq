@@ -1,33 +1,10 @@
 ﻿[
   {
-    "@type": "g:Map",
-    "@value": [
-      "Person",
-      {
-        "@type": "g:Vertex",
-        "@value": {
-          "id": {
-            "@type": "g:Int64",
-            "@value": 0
-          },
-          "label": "Country",
-          "properties": {
-            "CountryCallingCode": [
-              {
-                "@type": "g:VertexProperty",
-                "@value": {
-                  "id": {
-                    "@type": "g:Int64",
-                    "@value": 1
-                  },
-                  "value": "+49",
-                  "label": "CountryCallingCode"
-                }
-              }
-            ]
-          }
-        }
-      }
-    ]
+    Person: {
+      CountryCallingCode: +49,
+      Id: 0,
+      Label: Country,
+      PartitionKey: PartitionKey
+    }
   }
 ]

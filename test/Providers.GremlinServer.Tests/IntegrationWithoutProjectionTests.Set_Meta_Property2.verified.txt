@@ -1,53 +1,26 @@
 ﻿[
   {
-    "@type": "g:VertexProperty",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 12
-      },
-      "value": "Bob",
-      "label": "Name",
-      "properties": {
-        "ValidFrom": {
-          "@type": "g:Date",
-          "@value": 1586270616000
-        }
-      }
-    }
+    Id: 12,
+    Label: Name,
+    Properties: {
+      ValidFrom: 2020-04-07 14:43:36 +0
+    },
+    Value: Bob
   },
   {
-    "@type": "g:VertexProperty",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 39
-      },
-      "value": "Bob",
-      "label": "Name",
-      "properties": {
-        "ValidFrom": {
-          "@type": "g:Date",
-          "@value": 1586270616000
-        }
-      }
-    }
+    Id: 39,
+    Label: Name,
+    Properties: {
+      ValidFrom: 2020-04-07 14:43:36 +0
+    },
+    Value: Bob
   },
   {
-    "@type": "g:VertexProperty",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 63
-      },
-      "value": "Marko",
-      "label": "Name",
-      "properties": {
-        "ValidFrom": {
-          "@type": "g:Date",
-          "@value": 1586270616000
-        }
-      }
-    }
+    Id: 63,
+    Label: Name,
+    Properties: {
+      ValidFrom: 2020-04-07 14:43:36 +0
+    },
+    Value: Marko
   }
 ]

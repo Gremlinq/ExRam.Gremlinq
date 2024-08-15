@@ -1,197 +1,80 @@
 ﻿[
-  "CountryCallingCode",
-  {
-    "@type": "g:Int64",
-    "@value": 1
-  },
-  "IetfLanguageTag",
-  {
-    "@type": "g:Int64",
-    "@value": 66
-  },
-  "IetfLanguageTag",
-  {
-    "@type": "g:Int64",
-    "@value": 3
-  },
-  "FoundingDate",
-  {
-    "@type": "g:Int64",
-    "@value": 69
-  },
-  "Locations",
-  {
-    "@type": "g:Int64",
-    "@value": 70
-  },
-  "FoundingDate",
-  {
-    "@type": "g:Int64",
-    "@value": 6
-  },
-  "Age",
-  {
-    "@type": "g:Int64",
-    "@value": 8
-  },
-  "Name",
-  {
-    "@type": "g:Int64",
-    "@value": 72
-  },
-  "Name",
-  {
-    "@type": "g:Int64",
-    "@value": 74
-  },
-  "RegistrationDate",
-  {
-    "@type": "g:Int64",
-    "@value": 13
-  },
-  "Age",
-  {
-    "@type": "g:Int64",
-    "@value": 11
-  },
-  "Name",
-  {
-    "@type": "g:Int64",
-    "@value": 12
-  },
-  "PhoneNumbers",
-  {
-    "@type": "g:Int64",
-    "@value": 77
-  },
-  "PhoneNumbers",
-  {
-    "@type": "g:Int64",
-    "@value": 78
-  },
-  "FoundingDate",
-  {
-    "@type": "g:Int64",
-    "@value": 76
-  },
-  "Age",
-  {
-    "@type": "g:Int64",
-    "@value": 16
-  },
-  "lang",
-  {
-    "@type": "g:Int64",
-    "@value": 81
-  },
-  "Age",
-  {
-    "@type": "g:Int64",
-    "@value": 20
-  },
-  "Age",
-  {
-    "@type": "g:Int64",
-    "@value": 24
-  },
-  "FoundingDate",
-  {
-    "@type": "g:Int64",
-    "@value": 28
-  },
-  "Age",
-  {
-    "@type": "g:Int64",
-    "@value": 30
-  },
-  "IetfLanguageTag",
-  {
-    "@type": "g:Int64",
-    "@value": 33
-  },
-  "CountryCallingCode",
-  {
-    "@type": "g:Int64",
-    "@value": 35
-  },
-  "RegistrationDate",
-  {
-    "@type": "g:Int64",
-    "@value": 40
-  },
-  "Age",
-  {
-    "@type": "g:Int64",
-    "@value": 38
-  },
-  "Name",
-  {
-    "@type": "g:Int64",
-    "@value": 39
-  },
-  "FoundingDate",
-  {
-    "@type": "g:Int64",
-    "@value": 43
-  },
-  "Age",
-  {
-    "@type": "g:Int64",
-    "@value": 45
-  },
-  "IetfLanguageTag",
-  {
-    "@type": "g:Int64",
-    "@value": 48
-  },
-  "StartTime",
-  {
-    "@type": "g:Int64",
-    "@value": 53
-  },
-  "Enabled",
-  {
-    "@type": "g:Int64",
-    "@value": 52
-  },
-  "Duration",
-  {
-    "@type": "g:Int64",
-    "@value": 51
-  },
-  "IetfLanguageTag",
-  {
-    "@type": "g:Int64",
-    "@value": 55
-  },
-  "Image",
-  {
-    "@type": "g:Int64",
-    "@value": 58
-  },
-  "Age",
-  {
-    "@type": "g:Int64",
-    "@value": 57
-  },
-  "Gender",
-  {
-    "@type": "g:Int64",
-    "@value": 61
-  },
-  "Age",
-  {
-    "@type": "g:Int64",
-    "@value": 60
-  },
-  "RegistrationDate",
-  {
-    "@type": "g:Int64",
-    "@value": 64
-  },
-  "Name",
-  {
-    "@type": "g:Int64",
-    "@value": 63
-  }
+  CountryCallingCode,
+  1,
+  IetfLanguageTag,
+  66,
+  IetfLanguageTag,
+  3,
+  FoundingDate,
+  69,
+  Locations,
+  70,
+  FoundingDate,
+  6,
+  Age,
+  8,
+  Name,
+  72,
+  Name,
+  74,
+  RegistrationDate,
+  13,
+  Age,
+  11,
+  Name,
+  12,
+  PhoneNumbers,
+  77,
+  PhoneNumbers,
+  78,
+  FoundingDate,
+  76,
+  Age,
+  16,
+  lang,
+  81,
+  Age,
+  20,
+  Age,
+  24,
+  FoundingDate,
+  28,
+  Age,
+  30,
+  IetfLanguageTag,
+  33,
+  CountryCallingCode,
+  35,
+  RegistrationDate,
+  40,
+  Age,
+  38,
+  Name,
+  39,
+  FoundingDate,
+  43,
+  Age,
+  45,
+  IetfLanguageTag,
+  48,
+  StartTime,
+  53,
+  Enabled,
+  52,
+  Duration,
+  51,
+  IetfLanguageTag,
+  55,
+  Image,
+  58,
+  Age,
+  57,
+  Gender,
+  61,
+  Age,
+  60,
+  RegistrationDate,
+  64,
+  Name,
+  63
 ]

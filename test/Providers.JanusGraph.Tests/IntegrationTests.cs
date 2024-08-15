@@ -9,7 +9,7 @@ namespace ExRam.Gremlinq.Providers.JanusGraph.Tests
     [IntegrationTest("Windows")]
     public class IntegrationTests : QueryExecutionTest, IClassFixture<JanusGraphContainerFixture>
     {
-        public new class Verifier : JTokenExecutingVerifier
+        public new class Verifier : ExecutingVerifier
         {
             private static readonly Regex RelationIdRegex = new("\"relationId\":[\\s]?\"[0-9a-z]{3}([-][0-9a-z]{3})*\"", RegexOptions.IgnoreCase | RegexOptions.Compiled);
 

@@ -1,50 +1,29 @@
 ﻿[
   {
-    "@type": "g:VertexProperty",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 1
-      },
-      "value": "+49",
-      "label": "CountryCallingCode"
-    }
+    Id: 1,
+    Label: CountryCallingCode,
+    Properties: {},
+    Value: +49
   },
   {
-    "@type": "g:VertexProperty",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 72
-      },
-      "value": "GER",
-      "label": "Name"
-    }
+    Id: 72,
+    Label: Name,
+    Properties: {},
+    Value: GER
   },
   {
-    "@type": "g:VertexProperty",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 74
-      },
-      "value": "GER",
-      "label": "Name",
-      "properties": {
-        "de": "Deutschland",
-        "en": "Germany"
-      }
-    }
+    Id: 74,
+    Label: Name,
+    Properties: {
+      de: Deutschland,
+      en: Germany
+    },
+    Value: GER
   },
   {
-    "@type": "g:VertexProperty",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 35
-      },
-      "value": "+49",
-      "label": "CountryCallingCode"
-    }
+    Id: 35,
+    Label: CountryCallingCode,
+    Properties: {},
+    Value: +49
   }
 ]

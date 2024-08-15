@@ -1,43 +1,13 @@
 ﻿[
   {
-    "@type": "g:Vertex",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 62
-      },
-      "label": "Person",
-      "properties": {
-        "RegistrationDate": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 64
-              },
-              "value": {
-                "@type": "g:Date",
-                "@value": 1586270616000
-              },
-              "label": "RegistrationDate"
-            }
-          }
-        ],
-        "Name": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 63
-              },
-              "value": "Marko",
-              "label": "Name"
-            }
-          }
-        ]
-      }
-    }
+    RegistrationDate: 2020-04-07 14:43:36 +0,
+    Name: {
+      Id: 63,
+      Label: Name,
+      Value: Marko
+    },
+    Id: 62,
+    Label: Person,
+    PartitionKey: PartitionKey
   }
 ]

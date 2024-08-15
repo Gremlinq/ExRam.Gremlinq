@@ -1,193 +1,20 @@
 ﻿[
   {
-    "@type": "g:Map",
-    "@value": [
-      "id",
-      {
-        "@type": "g:Int64",
-        "@value": 10
-      },
-      "label",
-      "Person",
-      "properties",
-      {
-        "@type": "g:Map",
-        "@value": [
-          "GuidKey",
-          {
-            "@type": "g:List",
-            "@value": [
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "id",
-                  {
-                    "@type": "g:Int64",
-                    "@value": 83
-                  },
-                  "label",
-                  "GuidKey",
-                  "value",
-                  {
-                    "@type": "g:UUID",
-                    "@value": "12345678-9012-3456-7890-123456789012"
-                  }
-                ]
-              }
-            ]
-          },
-          "RegistrationDate",
-          {
-            "@type": "g:List",
-            "@value": [
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "id",
-                  {
-                    "@type": "g:Int64",
-                    "@value": 13
-                  },
-                  "label",
-                  "RegistrationDate",
-                  "value",
-                  {
-                    "@type": "g:Date",
-                    "@value": 1586270616000
-                  }
-                ]
-              }
-            ]
-          },
-          "StringKey1",
-          {
-            "@type": "g:List",
-            "@value": [
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "id",
-                  {
-                    "@type": "g:Int64",
-                    "@value": 146
-                  },
-                  "label",
-                  "StringKey1",
-                  "value",
-                  {
-                    "@type": "g:Int32",
-                    "@value": 36
-                  }
-                ]
-              }
-            ]
-          },
-          "Age",
-          {
-            "@type": "g:List",
-            "@value": [
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "id",
-                  {
-                    "@type": "g:Int64",
-                    "@value": 135
-                  },
-                  "label",
-                  "Age",
-                  "value",
-                  {
-                    "@type": "g:Int32",
-                    "@value": 36
-                  }
-                ]
-              }
-            ]
-          },
-          "StringKey2",
-          {
-            "@type": "g:List",
-            "@value": [
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "id",
-                  {
-                    "@type": "g:Int64",
-                    "@value": 157
-                  },
-                  "label",
-                  "StringKey2",
-                  "value",
-                  {
-                    "@type": "g:Int32",
-                    "@value": 36
-                  }
-                ]
-              }
-            ]
-          },
-          "Name",
-          {
-            "@type": "g:List",
-            "@value": [
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "id",
-                  {
-                    "@type": "g:Int64",
-                    "@value": 12
-                  },
-                  "label",
-                  "Name",
-                  "value",
-                  "Bob"
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    ]
+    Age: 36,
+    RegistrationDate: 2020-04-07 14:43:36 +0,
+    Name: {
+      Id: 12,
+      Label: Name,
+      Value: Bob
+    },
+    Id: 10,
+    Label: Person,
+    PartitionKey: PartitionKey
   },
   {
-    "@type": "g:Map",
-    "@value": [
-      "id",
-      {
-        "@type": "g:Int64",
-        "@value": 2
-      },
-      "label",
-      "Language",
-      "properties",
-      {
-        "@type": "g:Map",
-        "@value": [
-          "IetfLanguageTag",
-          {
-            "@type": "g:List",
-            "@value": [
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "id",
-                  {
-                    "@type": "g:Int64",
-                    "@value": 3
-                  },
-                  "label",
-                  "IetfLanguageTag",
-                  "value",
-                  "en"
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    ]
+    IetfLanguageTag: en,
+    Id: 2,
+    Label: Language,
+    PartitionKey: PartitionKey
   }
 ]

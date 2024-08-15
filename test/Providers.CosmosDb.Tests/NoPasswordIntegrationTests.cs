@@ -30,7 +30,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
 
         private readonly IGremlinQuerySource _g;
 
-        public NoPasswordIntegrationTests(NoPasswordFixture fixture) : base(new JTokenExecutingVerifier())
+        public NoPasswordIntegrationTests(NoPasswordFixture fixture) : base(new ExecutingVerifier())
         {
             _g = fixture.G;
         }

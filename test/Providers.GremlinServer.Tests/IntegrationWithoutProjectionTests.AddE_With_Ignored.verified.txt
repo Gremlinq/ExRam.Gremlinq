@@ -1,34 +1,7 @@
 ﻿[
   {
-    "@type": "g:Edge",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 46
-      },
-      "label": "WorksFor",
-      "inVLabel": "Company",
-      "outVLabel": "Person",
-      "inV": {
-        "@type": "g:Int64",
-        "@value": 42
-      },
-      "outV": {
-        "@type": "g:Int64",
-        "@value": 44
-      },
-      "properties": {
-        "To": {
-          "@type": "g:Property",
-          "@value": {
-            "key": "To",
-            "value": {
-              "@type": "g:Date",
-              "@value": 1586270616000
-            }
-          }
-        }
-      }
-    }
+    To: 2020-04-07 14:43:36 Utc,
+    Id: 46,
+    Label: WorksFor
   }
 ]

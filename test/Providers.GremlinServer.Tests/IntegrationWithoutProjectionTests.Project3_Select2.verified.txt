@@ -1,11 +1,6 @@
 ﻿[
   {
-    "@type": "g:Map",
-    "@value": [
-      "Item1",
-      "item1",
-      "Item2",
-      "item2"
-    ]
+    Item1: item1,
+    Item2: item2
   }
 ]

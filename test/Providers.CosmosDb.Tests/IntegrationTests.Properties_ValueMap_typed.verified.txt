@@ -59,14 +59,14 @@
   {},
   {},
   {
-    "ValidFrom": 1546304400000
+    ValidFrom: 1546304400000
   },
   {},
   {},
   {},
   {
-    "de": "Deutschland",
-    "en": "Germany"
+    de: Deutschland,
+    en: Germany
   },
   {},
   {},

@@ -1,59 +1,10 @@
 ﻿[
   {
-    "@type": "g:Vertex",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 50
-      },
-      "label": "TimeFrame",
-      "properties": {
-        "StartTime": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 53
-              },
-              "value": {
-                "@type": "gx:Duration",
-                "@value": "PT8H"
-              },
-              "label": "StartTime"
-            }
-          }
-        ],
-        "Enabled": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 52
-              },
-              "value": false,
-              "label": "Enabled"
-            }
-          }
-        ],
-        "Duration": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 51
-              },
-              "value": {
-                "@type": "gx:Duration",
-                "@value": "PT2H"
-              },
-              "label": "Duration"
-            }
-          }
-        ]
-      }
-    }
+    Enabled: false,
+    StartTime: 08:00:00,
+    Duration: 02:00:00,
+    Id: 50,
+    Label: TimeFrame,
+    PartitionKey: PartitionKey
   }
 ]

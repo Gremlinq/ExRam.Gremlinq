@@ -9,7 +9,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
     {
         public GroovyIntegrationTests(CustomGremlinServerContainerFixture fixture) : base(
             fixture,
-            new JTokenExecutingVerifier())
+            new ExecutingVerifier())
         {
         }
     }

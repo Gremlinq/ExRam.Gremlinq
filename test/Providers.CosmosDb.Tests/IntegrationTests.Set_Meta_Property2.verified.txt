@@ -1,26 +1,26 @@
 ﻿[
   {
-    "id": "12345678-9012-3456-7890-123456789012",
-    "value": "Bob",
-    "label": "Name",
-    "properties": {
-      "ValidFrom": 1586270616000
-    }
+    Id: 12345678-9012-3456-7890-123456789012,
+    Label: Name,
+    Properties: {
+      ValidFrom: 2020-04-07 14:43:36 +0
+    },
+    Value: Bob
   },
   {
-    "id": "12345678-9012-3456-7890-123456789012",
-    "value": "Bob",
-    "label": "Name",
-    "properties": {
-      "ValidFrom": 1586270616000
-    }
+    Id: 12345678-9012-3456-7890-123456789012,
+    Label: Name,
+    Properties: {
+      ValidFrom: 2020-04-07 14:43:36 +0
+    },
+    Value: Bob
   },
   {
-    "id": "12345678-9012-3456-7890-123456789012",
-    "value": "Marko",
-    "label": "Name",
-    "properties": {
-      "ValidFrom": 1586270616000
-    }
+    Id: 12345678-9012-3456-7890-123456789012,
+    Label: Name,
+    Properties: {
+      ValidFrom: 2020-04-07 14:43:36 +0
+    },
+    Value: Marko
   }
 ]

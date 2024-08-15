@@ -1,38 +1,20 @@
 ﻿[
   {
-    "@type": "g:VertexProperty",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 72
-      },
-      "value": "GER",
-      "label": "Name",
-      "properties": {
-        "metaKey": {
-          "@type": "g:Int32",
-          "@value": 1
-        }
-      }
-    }
+    Id: 72,
+    Label: Name,
+    Properties: {
+      metaKey: 1
+    },
+    Value: GER
   },
   {
-    "@type": "g:VertexProperty",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 74
-      },
-      "value": "GER",
-      "label": "Name",
-      "properties": {
-        "de": "Deutschland",
-        "en": "Germany",
-        "metaKey": {
-          "@type": "g:Int32",
-          "@value": 1
-        }
-      }
-    }
+    Id: 74,
+    Label: Name,
+    Properties: {
+      de: Deutschland,
+      en: Germany,
+      metaKey: 1
+    },
+    Value: GER
   }
 ]

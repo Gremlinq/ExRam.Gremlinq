@@ -1,9 +1,5 @@
 ﻿[
   {
-    "@type": "g:Map",
-    "@value": [
-      "item1!",
-      "item1"
-    ]
+    item1!: item1
   }
 ]

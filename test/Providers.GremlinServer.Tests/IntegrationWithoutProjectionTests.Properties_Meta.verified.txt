@@ -1,28 +1,13 @@
 ﻿[
   {
-    "@type": "g:VertexProperty",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 72
-      },
-      "value": "GER",
-      "label": "Name"
-    }
+    Id: 72,
+    Label: Name,
+    Value: GER
   },
   {
-    "@type": "g:VertexProperty",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 74
-      },
-      "value": "GER",
-      "label": "Name",
-      "properties": {
-        "de": "Deutschland",
-        "en": "Germany"
-      }
-    }
+    Id: 74,
+    Label: Name,
+    Properties: {},
+    Value: GER
   }
 ]

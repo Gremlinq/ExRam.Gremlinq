@@ -1,6 +1,3 @@
 ﻿[
-  {
-    "In": "in_value",
-    "Out": "out_value"
-  }
+  {}
 ]

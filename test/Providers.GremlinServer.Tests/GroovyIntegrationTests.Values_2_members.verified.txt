@@ -1,57 +1,24 @@
 ﻿[
-  {
-    "@type": "g:Int64",
-    "@value": 7
-  },
-  "Marko",
-  {
-    "@type": "g:Int64",
-    "@value": 10
-  },
-  "Marko",
-  {
-    "@type": "g:Int64",
-    "@value": 15
-  },
-  "Marko",
-  {
-    "@type": "g:Int64",
-    "@value": 19
-  },
-  "Marko",
-  {
-    "@type": "g:Int64",
-    "@value": 23
-  },
-  "Marko",
-  {
-    "@type": "g:Int64",
-    "@value": 29
-  },
-  "Marko",
-  {
-    "@type": "g:Int64",
-    "@value": 37
-  },
-  "Marko",
-  {
-    "@type": "g:Int64",
-    "@value": 44
-  },
-  "Marko",
-  {
-    "@type": "g:Int64",
-    "@value": 56
-  },
-  "Marko",
-  {
-    "@type": "g:Int64",
-    "@value": 59
-  },
-  "Marko",
-  {
-    "@type": "g:Int64",
-    "@value": 62
-  },
-  "Marko"
+  7,
+  Marko,
+  10,
+  Marko,
+  15,
+  Marko,
+  19,
+  Marko,
+  23,
+  Marko,
+  29,
+  Marko,
+  37,
+  Marko,
+  44,
+  Marko,
+  56,
+  Marko,
+  59,
+  Marko,
+  62,
+  Marko
 ]

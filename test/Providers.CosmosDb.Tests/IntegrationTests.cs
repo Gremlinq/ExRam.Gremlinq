@@ -8,7 +8,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
     {
         public IntegrationTests(CosmosDbEmulatorFixture fixture) : base(
             fixture,
-            new JTokenExecutingVerifier())
+            new ExecutingVerifier())
         {
         }
     }

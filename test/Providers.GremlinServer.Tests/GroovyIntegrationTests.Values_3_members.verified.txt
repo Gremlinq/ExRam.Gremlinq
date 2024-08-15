@@ -1,101 +1,35 @@
 ﻿[
-  {
-    "@type": "g:Int64",
-    "@value": 7
-  },
-  {
-    "@type": "g:Int32",
-    "@value": 0
-  },
-  "Marko",
-  {
-    "@type": "g:Int64",
-    "@value": 10
-  },
-  {
-    "@type": "g:Int32",
-    "@value": 0
-  },
-  "Marko",
-  {
-    "@type": "g:Int64",
-    "@value": 15
-  },
-  {
-    "@type": "g:Int32",
-    "@value": 0
-  },
-  "Marko",
-  {
-    "@type": "g:Int64",
-    "@value": 19
-  },
-  {
-    "@type": "g:Int32",
-    "@value": 0
-  },
-  "Marko",
-  {
-    "@type": "g:Int64",
-    "@value": 23
-  },
-  {
-    "@type": "g:Int32",
-    "@value": 0
-  },
-  "Marko",
-  {
-    "@type": "g:Int64",
-    "@value": 29
-  },
-  {
-    "@type": "g:Int32",
-    "@value": 0
-  },
-  "Marko",
-  {
-    "@type": "g:Int64",
-    "@value": 37
-  },
-  {
-    "@type": "g:Int32",
-    "@value": 0
-  },
-  "Marko",
-  {
-    "@type": "g:Int64",
-    "@value": 44
-  },
-  {
-    "@type": "g:Int32",
-    "@value": 0
-  },
-  "Marko",
-  {
-    "@type": "g:Int64",
-    "@value": 56
-  },
-  {
-    "@type": "g:Int32",
-    "@value": 0
-  },
-  "Marko",
-  {
-    "@type": "g:Int64",
-    "@value": 59
-  },
-  {
-    "@type": "g:Int32",
-    "@value": 0
-  },
-  "Marko",
-  {
-    "@type": "g:Int64",
-    "@value": 62
-  },
-  {
-    "@type": "g:Int32",
-    "@value": 0
-  },
-  "Marko"
+  7,
+  0,
+  Marko,
+  10,
+  0,
+  Marko,
+  15,
+  0,
+  Marko,
+  19,
+  0,
+  Marko,
+  23,
+  0,
+  Marko,
+  29,
+  0,
+  Marko,
+  37,
+  0,
+  Marko,
+  44,
+  0,
+  Marko,
+  56,
+  0,
+  Marko,
+  59,
+  0,
+  Marko,
+  62,
+  0,
+  Marko
 ]

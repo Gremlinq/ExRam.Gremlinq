@@ -1,22 +1,6 @@
 ﻿[
   {
-    "@type": "g:Edge",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 4
-      },
-      "label": "Speaks",
-      "inVLabel": "Language",
-      "outVLabel": "Country",
-      "inV": {
-        "@type": "g:Int64",
-        "@value": 2
-      },
-      "outV": {
-        "@type": "g:Int64",
-        "@value": 0
-      }
-    }
+    Id: 4,
+    Label: Speaks
   }
 ]

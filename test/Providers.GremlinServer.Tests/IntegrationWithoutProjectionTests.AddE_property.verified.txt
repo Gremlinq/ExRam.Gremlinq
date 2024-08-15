@@ -1,34 +1,10 @@
 ﻿[
   {
-    "@type": "g:Edge",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 26
-      },
-      "label": "LivesIn",
-      "inVLabel": "Country",
-      "outVLabel": "Person",
-      "inV": {
-        "@type": "g:Int64",
-        "@value": 25
-      },
-      "outV": {
-        "@type": "g:Int64",
-        "@value": 23
-      },
-      "properties": {
-        "Since": {
-          "@type": "g:Property",
-          "@value": {
-            "key": "Since",
-            "value": {
-              "@type": "g:Date",
-              "@value": 1586270616000
-            }
-          }
-        }
-      }
-    }
+    Since: {
+      Value: 2020-04-07 14:43:36 +0,
+      Key: Since
+    },
+    Id: 26,
+    Label: LivesIn
   }
 ]

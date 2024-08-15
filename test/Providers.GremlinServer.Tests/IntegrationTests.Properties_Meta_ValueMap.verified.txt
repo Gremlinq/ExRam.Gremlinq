@@ -1,169 +1,43 @@
 ﻿[
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
   {
-    "@type": "g:Map",
-    "@value": []
+    ValidFrom: 2019-01-01 01:00 +0
   },
-  {
-    "@type": "g:Map",
-    "@value": []
-  },
-  {
-    "@type": "g:Map",
-    "@value": []
-  },
-  {
-    "@type": "g:Map",
-    "@value": []
-  },
-  {
-    "@type": "g:Map",
-    "@value": []
-  },
-  {
-    "@type": "g:Map",
-    "@value": []
-  },
-  {
-    "@type": "g:Map",
-    "@value": []
-  },
-  {
-    "@type": "g:Map",
-    "@value": []
-  },
-  {
-    "@type": "g:Map",
-    "@value": []
-  },
-  {
-    "@type": "g:Map",
-    "@value": []
-  },
-  {
-    "@type": "g:Map",
-    "@value": []
-  },
-  {
-    "@type": "g:Map",
-    "@value": []
-  },
-  {
-    "@type": "g:Map",
-    "@value": []
-  },
-  {
-    "@type": "g:Map",
-    "@value": []
-  },
-  {
-    "@type": "g:Map",
-    "@value": []
-  },
-  {
-    "@type": "g:Map",
-    "@value": []
-  },
-  {
-    "@type": "g:Map",
-    "@value": []
-  },
-  {
-    "@type": "g:Map",
-    "@value": []
-  },
-  {
-    "@type": "g:Map",
-    "@value": []
-  },
-  {
-    "@type": "g:Map",
-    "@value": []
-  },
-  {
-    "@type": "g:Map",
-    "@value": []
-  },
-  {
-    "@type": "g:Map",
-    "@value": []
-  },
-  {
-    "@type": "g:Map",
-    "@value": []
-  },
-  {
-    "@type": "g:Map",
-    "@value": []
-  },
-  {
-    "@type": "g:Map",
-    "@value": []
-  },
-  {
-    "@type": "g:Map",
-    "@value": []
-  },
-  {
-    "@type": "g:Map",
-    "@value": []
-  },
-  {
-    "@type": "g:Map",
-    "@value": []
-  },
-  {
-    "@type": "g:Map",
-    "@value": []
-  },
-  {
-    "@type": "g:Map",
-    "@value": []
-  },
-  {
-    "@type": "g:Map",
-    "@value": []
-  },
-  {
-    "@type": "g:Map",
-    "@value": []
-  },
-  {
-    "@type": "g:Map",
-    "@value": []
-  },
-  {
-    "@type": "g:Map",
-    "@value": []
-  },
-  {
-    "@type": "g:Map",
-    "@value": []
-  },
-  {
-    "@type": "g:Map",
-    "@value": []
-  },
-  {
-    "@type": "g:Map",
-    "@value": []
-  },
-  {
-    "@type": "g:Map",
-    "@value": [
-      "ValidFrom",
-      {
-        "@type": "g:Date",
-        "@value": 1546304400000
-      }
-    ]
-  },
-  {
-    "@type": "g:Map",
-    "@value": [
-      "de",
-      "Deutschland",
-      "en",
-      "Germany"
-    ]
-  }
+  {}
 ]

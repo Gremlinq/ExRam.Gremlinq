@@ -1,507 +1,241 @@
 ﻿[
   {
-    "@type": "g:VertexProperty",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 1
-      },
-      "value": "+49",
-      "label": "CountryCallingCode"
-    }
+    Id: 1,
+    Label: CountryCallingCode,
+    Properties: {},
+    Value: +49
   },
   {
-    "@type": "g:VertexProperty",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 66
-      },
-      "value": "en",
-      "label": "IetfLanguageTag"
-    }
+    Id: 66,
+    Label: IetfLanguageTag,
+    Properties: {},
+    Value: en
   },
   {
-    "@type": "g:VertexProperty",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 3
-      },
-      "value": "en",
-      "label": "IetfLanguageTag"
-    }
+    Id: 3,
+    Label: IetfLanguageTag,
+    Properties: {},
+    Value: en
   },
   {
-    "@type": "g:VertexProperty",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 69
-      },
-      "value": {
-        "@type": "g:Date",
-        "@value": -62135596800000
-      },
-      "label": "FoundingDate"
-    }
+    Id: 69,
+    Label: FoundingDate,
+    Properties: {},
+    Value: -62135596800000
   },
   {
-    "@type": "g:VertexProperty",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 70
-      },
-      "value": "Aachen",
-      "label": "Locations",
-      "properties": {
-        "ValidFrom": {
-          "@type": "g:Date",
-          "@value": 1546304400000
-        }
-      }
-    }
+    Id: 70,
+    Label: Locations,
+    Properties: {
+      ValidFrom: 2019-01-01 01:00 +0
+    },
+    Value: Aachen
   },
   {
-    "@type": "g:VertexProperty",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 6
-      },
-      "value": {
-        "@type": "g:Date",
-        "@value": -62135596800000
-      },
-      "label": "FoundingDate"
-    }
+    Id: 6,
+    Label: FoundingDate,
+    Properties: {},
+    Value: -62135596800000
   },
   {
-    "@type": "g:VertexProperty",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 8
-      },
-      "value": {
-        "@type": "g:Int32",
-        "@value": 0
-      },
-      "label": "Age"
-    }
+    Id: 8,
+    Label: Age,
+    Properties: {},
+    Value: 0
   },
   {
-    "@type": "g:VertexProperty",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 72
-      },
-      "value": "GER",
-      "label": "Name"
-    }
+    Id: 72,
+    Label: Name,
+    Properties: {},
+    Value: GER
   },
   {
-    "@type": "g:VertexProperty",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 74
-      },
-      "value": "GER",
-      "label": "Name",
-      "properties": {
-        "de": "Deutschland",
-        "en": "Germany"
-      }
-    }
+    Id: 74,
+    Label: Name,
+    Properties: {
+      de: Deutschland,
+      en: Germany
+    },
+    Value: GER
   },
   {
-    "@type": "g:VertexProperty",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 13
-      },
-      "value": {
-        "@type": "g:Date",
-        "@value": 1586270616000
-      },
-      "label": "RegistrationDate"
-    }
+    Id: 13,
+    Label: RegistrationDate,
+    Properties: {},
+    Value: 1586270616000
   },
   {
-    "@type": "g:VertexProperty",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 11
-      },
-      "value": {
-        "@type": "g:Int32",
-        "@value": 0
-      },
-      "label": "Age"
-    }
+    Id: 11,
+    Label: Age,
+    Properties: {},
+    Value: 0
   },
   {
-    "@type": "g:VertexProperty",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 12
-      },
-      "value": "Bob",
-      "label": "Name"
-    }
+    Id: 12,
+    Label: Name,
+    Properties: {},
+    Value: Bob
   },
   {
-    "@type": "g:VertexProperty",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 77
-      },
-      "value": "+4912345",
-      "label": "PhoneNumbers"
-    }
+    Id: 77,
+    Label: PhoneNumbers,
+    Properties: {},
+    Value: +4912345
   },
   {
-    "@type": "g:VertexProperty",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 78
-      },
-      "value": "+4923456",
-      "label": "PhoneNumbers"
-    }
+    Id: 78,
+    Label: PhoneNumbers,
+    Properties: {},
+    Value: +4923456
   },
   {
-    "@type": "g:VertexProperty",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 76
-      },
-      "value": {
-        "@type": "g:Date",
-        "@value": -62135596800000
-      },
-      "label": "FoundingDate"
-    }
+    Id: 76,
+    Label: FoundingDate,
+    Properties: {},
+    Value: -62135596800000
   },
   {
-    "@type": "g:VertexProperty",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 16
-      },
-      "value": {
-        "@type": "g:Int32",
-        "@value": 0
-      },
-      "label": "Age"
-    }
+    Id: 16,
+    Label: Age,
+    Properties: {},
+    Value: 0
   },
   {
-    "@type": "g:VertexProperty",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 81
-      },
-      "value": "en",
-      "label": "lang"
-    }
+    Id: 81,
+    Label: lang,
+    Properties: {},
+    Value: en
   },
   {
-    "@type": "g:VertexProperty",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 20
-      },
-      "value": {
-        "@type": "g:Int32",
-        "@value": 0
-      },
-      "label": "Age"
-    }
+    Id: 20,
+    Label: Age,
+    Properties: {},
+    Value: 0
   },
   {
-    "@type": "g:VertexProperty",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 24
-      },
-      "value": {
-        "@type": "g:Int32",
-        "@value": 0
-      },
-      "label": "Age"
-    }
+    Id: 24,
+    Label: Age,
+    Properties: {},
+    Value: 0
   },
   {
-    "@type": "g:VertexProperty",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 28
-      },
-      "value": {
-        "@type": "g:Date",
-        "@value": -62135596800000
-      },
-      "label": "FoundingDate"
-    }
+    Id: 28,
+    Label: FoundingDate,
+    Properties: {},
+    Value: -62135596800000
   },
   {
-    "@type": "g:VertexProperty",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 30
-      },
-      "value": {
-        "@type": "g:Int32",
-        "@value": 0
-      },
-      "label": "Age"
-    }
+    Id: 30,
+    Label: Age,
+    Properties: {},
+    Value: 0
   },
   {
-    "@type": "g:VertexProperty",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 33
-      },
-      "value": "en",
-      "label": "IetfLanguageTag"
-    }
+    Id: 33,
+    Label: IetfLanguageTag,
+    Properties: {},
+    Value: en
   },
   {
-    "@type": "g:VertexProperty",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 35
-      },
-      "value": "+49",
-      "label": "CountryCallingCode"
-    }
+    Id: 35,
+    Label: CountryCallingCode,
+    Properties: {},
+    Value: +49
   },
   {
-    "@type": "g:VertexProperty",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 40
-      },
-      "value": {
-        "@type": "g:Date",
-        "@value": 1586270616000
-      },
-      "label": "RegistrationDate"
-    }
+    Id: 40,
+    Label: RegistrationDate,
+    Properties: {},
+    Value: 1586270616000
   },
   {
-    "@type": "g:VertexProperty",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 38
-      },
-      "value": {
-        "@type": "g:Int32",
-        "@value": 0
-      },
-      "label": "Age"
-    }
+    Id: 38,
+    Label: Age,
+    Properties: {},
+    Value: 0
   },
   {
-    "@type": "g:VertexProperty",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 39
-      },
-      "value": "Bob",
-      "label": "Name"
-    }
+    Id: 39,
+    Label: Name,
+    Properties: {},
+    Value: Bob
   },
   {
-    "@type": "g:VertexProperty",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 43
-      },
-      "value": {
-        "@type": "g:Date",
-        "@value": -62135596800000
-      },
-      "label": "FoundingDate"
-    }
+    Id: 43,
+    Label: FoundingDate,
+    Properties: {},
+    Value: -62135596800000
   },
   {
-    "@type": "g:VertexProperty",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 45
-      },
-      "value": {
-        "@type": "g:Int32",
-        "@value": 0
-      },
-      "label": "Age"
-    }
+    Id: 45,
+    Label: Age,
+    Properties: {},
+    Value: 0
   },
   {
-    "@type": "g:VertexProperty",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 48
-      },
-      "value": "en",
-      "label": "IetfLanguageTag"
-    }
+    Id: 48,
+    Label: IetfLanguageTag,
+    Properties: {},
+    Value: en
   },
   {
-    "@type": "g:VertexProperty",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 53
-      },
-      "value": {
-        "@type": "gx:Duration",
-        "@value": "PT8H"
-      },
-      "label": "StartTime"
-    }
+    Id: 53,
+    Label: StartTime,
+    Properties: {},
+    Value: PT8H
   },
   {
-    "@type": "g:VertexProperty",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 52
-      },
-      "value": false,
-      "label": "Enabled"
-    }
+    Id: 52,
+    Label: Enabled,
+    Properties: {},
+    Value: False
   },
   {
-    "@type": "g:VertexProperty",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 51
-      },
-      "value": {
-        "@type": "gx:Duration",
-        "@value": "PT2H"
-      },
-      "label": "Duration"
-    }
+    Id: 51,
+    Label: Duration,
+    Properties: {},
+    Value: PT2H
   },
   {
-    "@type": "g:VertexProperty",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 55
-      },
-      "value": "en",
-      "label": "IetfLanguageTag"
-    }
+    Id: 55,
+    Label: IetfLanguageTag,
+    Properties: {},
+    Value: en
   },
   {
-    "@type": "g:VertexProperty",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 58
-      },
-      "value": {
-        "@type": "gx:ByteBuffer",
-        "@value": "AQIDBAUGBwg="
-      },
-      "label": "Image"
-    }
+    Id: 58,
+    Label: Image,
+    Properties: {},
+    Value: AQIDBAUGBwg=
   },
   {
-    "@type": "g:VertexProperty",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 57
-      },
-      "value": {
-        "@type": "g:Int32",
-        "@value": 0
-      },
-      "label": "Age"
-    }
+    Id: 57,
+    Label: Age,
+    Properties: {},
+    Value: 0
   },
   {
-    "@type": "g:VertexProperty",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 61
-      },
-      "value": {
-        "@type": "g:Int32",
-        "@value": 1
-      },
-      "label": "Gender"
-    }
+    Id: 61,
+    Label: Gender,
+    Properties: {},
+    Value: 1
   },
   {
-    "@type": "g:VertexProperty",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 60
-      },
-      "value": {
-        "@type": "g:Int32",
-        "@value": 0
-      },
-      "label": "Age"
-    }
+    Id: 60,
+    Label: Age,
+    Properties: {},
+    Value: 0
   },
   {
-    "@type": "g:VertexProperty",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 64
-      },
-      "value": {
-        "@type": "g:Date",
-        "@value": 1586270616000
-      },
-      "label": "RegistrationDate"
-    }
+    Id: 64,
+    Label: RegistrationDate,
+    Properties: {},
+    Value: 1586270616000
   },
   {
-    "@type": "g:VertexProperty",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 63
-      },
-      "value": "Marko",
-      "label": "Name"
-    }
+    Id: 63,
+    Label: Name,
+    Properties: {},
+    Value: Marko
   }
 ]

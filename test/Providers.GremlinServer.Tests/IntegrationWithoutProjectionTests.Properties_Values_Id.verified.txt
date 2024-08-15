@@ -1,158 +1,41 @@
 ﻿[
-  {
-    "@type": "g:Int64",
-    "@value": 1
-  },
-  {
-    "@type": "g:Int64",
-    "@value": 66
-  },
-  {
-    "@type": "g:Int64",
-    "@value": 3
-  },
-  {
-    "@type": "g:Int64",
-    "@value": 69
-  },
-  {
-    "@type": "g:Int64",
-    "@value": 70
-  },
-  {
-    "@type": "g:Int64",
-    "@value": 6
-  },
-  {
-    "@type": "g:Int64",
-    "@value": 8
-  },
-  {
-    "@type": "g:Int64",
-    "@value": 72
-  },
-  {
-    "@type": "g:Int64",
-    "@value": 74
-  },
-  {
-    "@type": "g:Int64",
-    "@value": 13
-  },
-  {
-    "@type": "g:Int64",
-    "@value": 11
-  },
-  {
-    "@type": "g:Int64",
-    "@value": 12
-  },
-  {
-    "@type": "g:Int64",
-    "@value": 77
-  },
-  {
-    "@type": "g:Int64",
-    "@value": 78
-  },
-  {
-    "@type": "g:Int64",
-    "@value": 76
-  },
-  {
-    "@type": "g:Int64",
-    "@value": 16
-  },
-  {
-    "@type": "g:Int64",
-    "@value": 81
-  },
-  {
-    "@type": "g:Int64",
-    "@value": 20
-  },
-  {
-    "@type": "g:Int64",
-    "@value": 24
-  },
-  {
-    "@type": "g:Int64",
-    "@value": 28
-  },
-  {
-    "@type": "g:Int64",
-    "@value": 30
-  },
-  {
-    "@type": "g:Int64",
-    "@value": 33
-  },
-  {
-    "@type": "g:Int64",
-    "@value": 35
-  },
-  {
-    "@type": "g:Int64",
-    "@value": 40
-  },
-  {
-    "@type": "g:Int64",
-    "@value": 38
-  },
-  {
-    "@type": "g:Int64",
-    "@value": 39
-  },
-  {
-    "@type": "g:Int64",
-    "@value": 43
-  },
-  {
-    "@type": "g:Int64",
-    "@value": 45
-  },
-  {
-    "@type": "g:Int64",
-    "@value": 48
-  },
-  {
-    "@type": "g:Int64",
-    "@value": 53
-  },
-  {
-    "@type": "g:Int64",
-    "@value": 52
-  },
-  {
-    "@type": "g:Int64",
-    "@value": 51
-  },
-  {
-    "@type": "g:Int64",
-    "@value": 55
-  },
-  {
-    "@type": "g:Int64",
-    "@value": 58
-  },
-  {
-    "@type": "g:Int64",
-    "@value": 57
-  },
-  {
-    "@type": "g:Int64",
-    "@value": 61
-  },
-  {
-    "@type": "g:Int64",
-    "@value": 60
-  },
-  {
-    "@type": "g:Int64",
-    "@value": 64
-  },
-  {
-    "@type": "g:Int64",
-    "@value": 63
-  }
+  1,
+  66,
+  3,
+  69,
+  70,
+  6,
+  8,
+  72,
+  74,
+  13,
+  11,
+  12,
+  77,
+  78,
+  76,
+  16,
+  81,
+  20,
+  24,
+  28,
+  30,
+  33,
+  35,
+  40,
+  38,
+  39,
+  43,
+  45,
+  48,
+  53,
+  52,
+  51,
+  55,
+  58,
+  57,
+  61,
+  60,
+  64,
+  63
 ]
