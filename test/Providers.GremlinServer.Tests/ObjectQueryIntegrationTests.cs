@@ -3,6 +3,7 @@ using ExRam.Gremlinq.Tests.Infrastructure;
 
 namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 {
+    [IntegrationTest("Linux")]
     public class ObjectQueryIntegrationTests : QueryExecutionTest, IClassFixture<GremlinServerContainerFixture>
     {
         public ObjectQueryIntegrationTests(GremlinServerContainerFixture fixture) : base(
