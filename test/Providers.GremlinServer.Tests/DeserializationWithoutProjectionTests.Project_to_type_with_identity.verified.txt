@@ -1,8 +1,0 @@
-﻿[
-  {
-    In: 42,
-    Out: 42,
-    Count: 42,
-    Properties: 42
-  }
-]

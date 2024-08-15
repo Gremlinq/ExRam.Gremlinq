@@ -1,7 +1,0 @@
-﻿[
-  {
-    Id: 19,
-    Label: Person,
-    PartitionKey: PartitionKey
-  }
-]
