@@ -18,7 +18,6 @@
 fail() Step Triggered
 =============================================
 Message  > There's been an error.
-Traverser> v[4104]
   Bulk   > 1
 Traversal> V().fail("There's been an error.")
 Metadata > {}

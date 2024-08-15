@@ -19,6 +19,7 @@ namespace ExRam.Gremlinq.Providers.JanusGraph.Tests
 
             protected override SettingsTask ModifySettingsTask(SettingsTask task) => base
                 .ModifySettingsTask(task)
+                .ScrubLinesContaining("Traverser>")
                 .ScrubRegex(RelationIdRegex, "\"relationId\": \"scrubbed\"");
         }
 

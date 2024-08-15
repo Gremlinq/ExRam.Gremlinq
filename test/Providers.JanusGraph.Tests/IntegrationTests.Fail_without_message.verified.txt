@@ -18,7 +18,6 @@
 fail() Step Triggered
 ================================
 Message  > fail() step triggered
-Traverser> v[4104]
   Bulk   > 1
 Traversal> V().fail()
 Metadata > {}
