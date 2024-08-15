@@ -1,6 +1,0 @@
-﻿[
-  {
-    Id: 4,
-    Label: Speaks
-  }
-]
