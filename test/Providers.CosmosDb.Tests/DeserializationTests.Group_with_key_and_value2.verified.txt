@@ -1,9 +1,0 @@
-﻿[
-  {
-    Company: +4923456,
-    Country: PartitionKey,
-    Language: PartitionKey,
-    Person: 1586270616000,
-    TimeFrame: 28800000
-  }
-]
