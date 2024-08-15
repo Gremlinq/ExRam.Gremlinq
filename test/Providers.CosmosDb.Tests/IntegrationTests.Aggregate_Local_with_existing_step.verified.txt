@@ -12,11 +12,11 @@
     StatusCode: ServerEvaluationError,
     StatusAttributes: {
       x-ms-activity-id: 12345678-9012-3456-7890-123456789012,
-      x-ms-request-charge: 0.0,
-      x-ms-server-time-ms: 1.9278,
+      x-ms-request-charge: {Scrubbed},
+      x-ms-server-time-ms: {Scrubbed},
       x-ms-status-code: 400,
-      x-ms-total-request-charge: 0.0,
-      x-ms-total-server-time-ms: 1.9278
+      x-ms-total-request-charge: {Scrubbed},
+      x-ms-total-server-time-ms: {Scrubbed}
     },
     Message:
 ServerEvaluationError: 
