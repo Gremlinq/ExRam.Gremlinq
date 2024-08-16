@@ -10,5 +10,7 @@ public abstract class Element
 
 #if Gremlinq_Extensions
     public string? _Etag { get; set; }
+
+    public string? _Self { get; set; }
 #endif
 }
