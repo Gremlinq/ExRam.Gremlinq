@@ -8,5 +8,7 @@ public abstract class Element
 
     public string? PartitionKey { get; set; }
 
+#if Gremlinq_Extensions
     public string? _Etag { get; set; }
+#endif
 }

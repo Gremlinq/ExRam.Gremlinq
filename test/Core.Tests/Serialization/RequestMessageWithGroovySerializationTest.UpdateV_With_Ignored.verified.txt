@@ -11,16 +11,15 @@
       _b: Image,
       _c: PhoneNumbers,
       _d: SomeObscureProperty,
-      _e: _Etag,
-      _f: Name,
-      _g: Marko,
-      _h: RegistrationDate,
-      _i: DateTimeOffset_1,
-      _j: id,
-      _k: label,
-      _l: properties,
-      _m: value
+      _e: Name,
+      _f: Marko,
+      _g: RegistrationDate,
+      _h: DateTimeOffset_1,
+      _i: id,
+      _j: label,
+      _k: properties,
+      _l: value
     },
-    gremlin: g.V().hasLabel(_a).sideEffect(__.properties(_b,_c,_d,_e).drop()).property(single,_f,_g).property(single,_h,_i).project(_j,_k,_l).by(id).by(label).by(__.properties().group().by(label).by(__.project(_j,_k,_m,_l).by(id).by(label).by(value).by(__.valueMap()).fold()))
+    gremlin: g.V().hasLabel(_a).sideEffect(__.properties(_b,_c,_d).drop()).property(single,_e,_f).property(single,_g,_h).project(_i,_j,_k).by(id).by(label).by(__.properties().group().by(label).by(__.project(_i,_j,_l,_k).by(id).by(label).by(value).by(__.valueMap()).fold()))
   }
 }

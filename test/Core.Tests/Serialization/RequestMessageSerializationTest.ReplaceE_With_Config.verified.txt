@@ -28,8 +28,7 @@
                 {
                   OperatorName: properties,
                   Arguments: [
-                    PartitionKey,
-                    _Etag
+                    PartitionKey
                   ]
                 },
                 {

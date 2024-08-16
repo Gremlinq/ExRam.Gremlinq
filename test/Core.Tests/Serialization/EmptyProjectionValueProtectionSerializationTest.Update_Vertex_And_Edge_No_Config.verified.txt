@@ -19,8 +19,7 @@
               Arguments: [
                 Image,
                 PhoneNumbers,
-                SomeObscureProperty,
-                _Etag
+                SomeObscureProperty
               ]
             },
             {
@@ -99,8 +98,7 @@
             {
               OperatorName: properties,
               Arguments: [
-                PartitionKey,
-                _Etag
+                PartitionKey
               ]
             },
             {
