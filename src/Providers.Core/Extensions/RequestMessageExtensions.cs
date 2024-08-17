@@ -25,7 +25,7 @@ namespace ExRam.Gremlinq.Providers.Core
                     return new GroovyGremlinScript(
                         script,
                         includeBindings && requestMessage.Arguments.TryGetValue(Tokens.ArgsBindings, out var bindingsObject) && bindingsObject is IReadOnlyDictionary<string, object> bindings
-                            ? bindings
+                            ? bindings.ToImmutableDictionary()
                             : ImmutableDictionary<string, object>.Empty);
                 }
             }
