@@ -43,8 +43,8 @@ namespace ExRam.Gremlinq.Core
             return new GroovyGremlinScript(
                 stringBuilder.ToString(),
                 includeBindings
-                    ? bindings.ToImmutableDictionary(static kvp => (string)kvp.Value, static kvp => kvp.Key)
-                    : ImmutableDictionary<string, object>.Empty);
+                    ? bindings.ToImmutableDictionary(static kvp => (string)kvp.Value, static kvp => (object?)kvp.Key)
+                    : ImmutableDictionary<string, object?>.Empty);
         }
 
         private GroovyWriter Append(
