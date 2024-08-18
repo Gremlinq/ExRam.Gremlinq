@@ -1575,12 +1575,12 @@ namespace ExRam.Gremlinq.Core.Serialization
     }
     public readonly struct GroovyGremlinScript
     {
-        [System.Obsolete("Use GroovyGremlinScript(String, ImmutableDictionary) constructor instead.")]
+        [System.Obsolete("Use GroovyGremlinScript.From(...) instead.")]
         public GroovyGremlinScript(string script, System.Collections.Generic.IReadOnlyDictionary<string, object?> bindings) { }
-        public GroovyGremlinScript(string script, System.Collections.Immutable.ImmutableDictionary<string, object?> bindings) { }
         public System.Collections.Immutable.ImmutableDictionary<string, object?> Bindings { get; }
         public string Script { get; }
         public override string ToString() { }
+        public static ExRam.Gremlinq.Core.Serialization.GroovyGremlinScript From(string script, System.Collections.Immutable.ImmutableDictionary<string, object?>? bindings = null) { }
     }
     public static class Serializer
     {

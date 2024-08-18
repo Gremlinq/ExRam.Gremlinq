@@ -9,15 +9,15 @@ namespace ExRam.Gremlinq.Core.Serialization
         private readonly string? _script;
         private readonly ImmutableDictionary<string, object?>? _bindings;
 
-        [Obsolete($"Use {nameof(GroovyGremlinScript)}({nameof(String)}, {nameof(ImmutableDictionary<string, object>)}) constructor instead.")]
+        [Obsolete($"Use {nameof(GroovyGremlinScript)}.{nameof(From)}(...) instead.")]
         public GroovyGremlinScript(string script, IReadOnlyDictionary<string, object?> bindings) : this(script, bindings.ToImmutableDictionary())
         {
         }
 
-        public GroovyGremlinScript(string script, ImmutableDictionary<string, object?> bindings)
+        private GroovyGremlinScript(string script, ImmutableDictionary<string, object?>? bindings)
         {
             _script = script;
-            _bindings = bindings;
+            _bindings = bindings ?? ImmutableDictionary<string, object?>.Empty;
         }
 
         public override string ToString() => Script;
@@ -25,5 +25,7 @@ namespace ExRam.Gremlinq.Core.Serialization
         public string Script => _script ?? throw UninitializedStruct();
 
         public ImmutableDictionary<string, object?> Bindings => _bindings ?? throw UninitializedStruct();
+
+        public static GroovyGremlinScript From(string script, ImmutableDictionary<string, object?>? bindings = null) => new (script, bindings);
     }
 }

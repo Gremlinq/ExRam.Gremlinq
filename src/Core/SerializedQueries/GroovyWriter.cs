@@ -40,11 +40,11 @@ namespace ExRam.Gremlinq.Core
 
             groovyWriter.Append(bytecode, stringBuilder, bindings, environment);
 
-            return new GroovyGremlinScript(
+            return GroovyGremlinScript.From(
                 stringBuilder.ToString(),
                 includeBindings
                     ? bindings.ToImmutableDictionary(static kvp => (string)kvp.Value, static kvp => (object?)kvp.Key)
-                    : ImmutableDictionary<string, object?>.Empty);
+                    : null);
         }
 
         private GroovyWriter Append(

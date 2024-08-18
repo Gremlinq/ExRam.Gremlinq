@@ -22,11 +22,11 @@ namespace ExRam.Gremlinq.Providers.Core
             {
                 if (requestMessage.Arguments.TryGetValue(Tokens.ArgsGremlin, out var scriptObject) && scriptObject is string script)
                 {
-                    return new GroovyGremlinScript(
+                    return GroovyGremlinScript.From(
                         script,
                         includeBindings && requestMessage.Arguments.TryGetValue(Tokens.ArgsBindings, out var bindingsObject) && bindingsObject is IReadOnlyDictionary<string, object?> bindings
                             ? bindings.ToImmutableDictionary()
-                            : ImmutableDictionary<string, object?>.Empty);
+                            : null);
                 }
             }
 
