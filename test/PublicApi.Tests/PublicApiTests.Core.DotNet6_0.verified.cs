@@ -1579,7 +1579,7 @@ namespace ExRam.Gremlinq.Core.Serialization
         public GroovyGremlinScript(string script, System.Collections.Generic.IReadOnlyDictionary<string, object?> bindings) { }
         public System.Collections.Immutable.ImmutableDictionary<string, object?> Bindings { get; }
         public string Script { get; }
-        public ExRam.Gremlinq.Core.Serialization.GroovyGremlinScript Bind(string variable, object value) { }
+        public ExRam.Gremlinq.Core.Serialization.GroovyGremlinScript Bind(string variable, object? value) { }
         public override string ToString() { }
         public static ExRam.Gremlinq.Core.Serialization.GroovyGremlinScript From(string script, System.Collections.Immutable.ImmutableDictionary<string, object?>? bindings = null) { }
     }

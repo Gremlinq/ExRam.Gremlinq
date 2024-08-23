@@ -20,7 +20,7 @@ namespace ExRam.Gremlinq.Core.Serialization
             _bindings = bindings ?? ImmutableDictionary<string, object?>.Empty;
         }
 
-        public GroovyGremlinScript Bind(string variable, object value) => new(Script, Bindings.SetItem(variable, value));
+        public GroovyGremlinScript Bind(string variable, object? value) => new(Script, Bindings.SetItem(variable, value));
 
         public override string ToString() => Script;
 
