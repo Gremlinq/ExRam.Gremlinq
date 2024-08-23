@@ -1,0 +1,18 @@
+﻿{
+  RequestId: 12345678-9012-3456-7890-123456789012,
+  Operation: eval,
+  Processor: ,
+  Arguments: {
+    aliases: {
+      g: g
+    },
+    bindings: {
+      _a: Person,
+      _b: _a,
+      _c: Gender,
+      _d: _b,
+      _e: _c
+    },
+    gremlin: g.V().hasLabel(_a).where(__.map(__.as(_b).values(_c).as(_d).V().hasLabel(_a).values(_c).as(_e).where(_d,eq(_e))))
+  }
+}

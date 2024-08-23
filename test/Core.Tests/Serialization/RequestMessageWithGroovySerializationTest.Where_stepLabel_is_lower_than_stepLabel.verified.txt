@@ -1,0 +1,22 @@
+﻿{
+  RequestId: 12345678-9012-3456-7890-123456789012,
+  Operation: eval,
+  Processor: ,
+  Arguments: {
+    aliases: {
+      g: g
+    },
+    bindings: {
+      _a: Person,
+      _b: _a,
+      _c: Gender,
+      _d: _b,
+      _e: _c,
+      _f: id,
+      _g: label,
+      _h: properties,
+      _i: value
+    },
+    gremlin: g.V().hasLabel(_a).filter(__.as(_b).values(_c).as(_d).V().hasLabel(_a).values(_c).as(_e).where(_d,eq(_e))).project(_f,_g,_h).by(id).by(label).by(__.properties().group().by(label).by(__.project(_f,_g,_i,_h).by(id).by(label).by(value).by(__.valueMap()).fold()))
+  }
+}

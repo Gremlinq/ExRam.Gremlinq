@@ -4599,7 +4599,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Where(x => x.IntProperty1 > x.IntProperty2)
             .Verify();
 
-        [Fact(Skip = "Gremlin server fuckup")]
+        [Fact]
         public virtual Task Where_stepLabel_is_lower_than_stepLabel() => _g
             .V<Person>()
             .Where(__ => __
