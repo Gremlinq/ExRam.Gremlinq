@@ -13,6 +13,6 @@
       _d: _b,
       _e: _c
     },
-    gremlin: g.V().hasLabel(_a).where(__.map(__.as(_b).values(_c).as(_d).V().hasLabel(_a).values(_c).as(_e).where(_d,eq(_e))))
+    gremlin: g.V().hasLabel(_a).where(__.map(__.as(_b).values(_c).as(_d).V().hasLabel(_a).values(_c).as(_e).where(_d,lt(_e))))
   }
 }

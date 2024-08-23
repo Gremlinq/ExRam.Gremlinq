@@ -1,5 +1,5 @@
 ﻿{
-  Script: g.V().hasLabel(_a).where(__.map(__.as(_b).values(_c).as(_d).V().hasLabel(_a).values(_c).as(_e).where(_d,eq(_e)))),
+  Script: g.V().hasLabel(_a).where(__.map(__.as(_b).values(_c).as(_d).V().hasLabel(_a).values(_c).as(_e).where(_d,lt(_e)))),
   Bindings: {
     _a: Person,
     _b: _a,

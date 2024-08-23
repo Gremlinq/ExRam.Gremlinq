@@ -66,7 +66,7 @@
                   Arguments: [
                     _b,
                     {
-                      OperatorName: eq,
+                      OperatorName: lt,
                       Value: _c
                     }
                   ]

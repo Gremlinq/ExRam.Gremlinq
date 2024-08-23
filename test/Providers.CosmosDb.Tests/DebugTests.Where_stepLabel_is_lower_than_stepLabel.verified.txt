@@ -1,1 +1,1 @@
-﻿g.V().hasLabel('Person').where(__.map(__.as('_a').values('Gender').as('_b').V().hasLabel('Person').values('Gender').as('_c').where('_b',eq('_c'))))
+﻿g.V().hasLabel('Person').where(__.map(__.as('_a').values('Gender').as('_b').V().hasLabel('Person').values('Gender').as('_c').where('_b',lt('_c'))))

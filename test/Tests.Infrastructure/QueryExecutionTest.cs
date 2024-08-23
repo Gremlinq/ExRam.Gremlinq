@@ -4609,7 +4609,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                         .V<Person>()
                         .Values(x => x.Gender)
                             .As((__, gender2) => __
-                                .Where(p => gender1.Value == gender2.Value)))))
+                                .Where(p => gender1.Value < gender2.Value)))))
             .Verify();
 
         [Fact]

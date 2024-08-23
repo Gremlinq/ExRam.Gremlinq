@@ -74,7 +74,7 @@
               Arguments: [
                 _d,
                 {
-                  OperatorName: eq,
+                  OperatorName: lt,
                   Value: _e
                 }
               ]
