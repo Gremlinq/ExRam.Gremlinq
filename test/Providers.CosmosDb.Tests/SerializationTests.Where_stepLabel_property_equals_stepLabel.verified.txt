@@ -1,0 +1,9 @@
+﻿{
+  Script: g.V().hasLabel(_a).as(_b).V().hasLabel(_a).values(_c).as(_d).where(_b,lt(_d)).by(_c).by(),
+  Bindings: {
+    _a: Person,
+    _b: _a,
+    _c: Age,
+    _d: _b
+  }
+}

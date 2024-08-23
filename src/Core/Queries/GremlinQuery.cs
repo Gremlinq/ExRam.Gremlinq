@@ -1477,11 +1477,16 @@ namespace ExRam.Gremlinq.Core
                     {
                         traversal = traversal.Push(new WhereStepLabelAndPredicateStep(leftStepLabel, effectivePredicate));
 
-                        if (maybeLeftStepLabelValueMemberExpression is { } leftStepLabelValueMemberExpression)
-                            traversal = traversal.Push(new WherePredicateStep.ByMemberStep(GetKey(leftStepLabelValueMemberExpression)));
-
-                        if (maybyRightStepLabelValueMemberExpression is MemberExpression rightStepLabelValueMemberExpression)
-                            traversal = traversal.Push(new WherePredicateStep.ByMemberStep(GetKey(rightStepLabelValueMemberExpression)));
+                        if (maybeLeftStepLabelValueMemberExpression is not null || maybyRightStepLabelValueMemberExpression is not null)
+                        {
+                            traversal = traversal
+                                .Push(new WherePredicateStep.ByMemberStep(maybeLeftStepLabelValueMemberExpression is { } leftStepLabelValueMemberExpression
+                                    ? GetKey(leftStepLabelValueMemberExpression)
+                                    : default(Key?)))
+                                .Push(new WherePredicateStep.ByMemberStep(maybyRightStepLabelValueMemberExpression is { } rightStepLabelValueMemberExpression
+                                    ? GetKey(rightStepLabelValueMemberExpression)
+                                    : default(Key?)));
+                        }
 
                         return traversal;
                     }

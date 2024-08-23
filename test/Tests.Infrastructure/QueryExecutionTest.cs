@@ -4613,6 +4613,16 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Verify();
 
         [Fact]
+        public virtual Task Where_stepLabel_property_equals_stepLabel() => _g
+            .V<Person>()
+            .As((__, person) => __
+                .V<Person>()
+                .Values(x => x.Age)
+                    .As((__, age) => __
+                        .Where(p => person.Value.Age < age.Value)))
+            .Verify();
+
+        [Fact]
         public virtual Task Where_stepLabel_value_is_greater_than_or_equal_stepLabel_value() => _g
             .V<Person>()
             .As((__, person1) => __

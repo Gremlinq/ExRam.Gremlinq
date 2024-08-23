@@ -1,0 +1,1 @@
+﻿g.V().hasLabel('Person').as('_a').V().hasLabel('Person').values('Age').as('_b').where('_a',lt('_b')).by('Age').by()
