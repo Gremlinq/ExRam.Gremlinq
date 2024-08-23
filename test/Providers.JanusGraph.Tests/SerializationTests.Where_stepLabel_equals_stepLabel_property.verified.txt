@@ -1,0 +1,59 @@
+﻿{
+  StepInstructions: [
+    {
+      OperatorName: V
+    },
+    {
+      OperatorName: hasLabel,
+      Arguments: [
+        Person
+      ]
+    },
+    {
+      OperatorName: as,
+      Arguments: [
+        _a
+      ]
+    },
+    {
+      OperatorName: V
+    },
+    {
+      OperatorName: hasLabel,
+      Arguments: [
+        Person
+      ]
+    },
+    {
+      OperatorName: values,
+      Arguments: [
+        Age
+      ]
+    },
+    {
+      OperatorName: as,
+      Arguments: [
+        _b
+      ]
+    },
+    {
+      OperatorName: where,
+      Arguments: [
+        _b,
+        {
+          OperatorName: lt,
+          Value: _a
+        }
+      ]
+    },
+    {
+      OperatorName: by
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        Age
+      ]
+    }
+  ]
+}
