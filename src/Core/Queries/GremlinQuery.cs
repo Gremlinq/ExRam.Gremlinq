@@ -1341,23 +1341,20 @@ namespace ExRam.Gremlinq.Core
                                 if (left.IsPropertyValue(out var sourceExpression2) && sourceExpression2 is ParameterExpression && rightValue is not null and not StepLabel)
                                     return traversal.Push(new HasValueStep(effectivePredicate));
 
-                                if (leftMemberExpression.Expression?.Strip() is ParameterExpression parameterExpression2)
+                                if (left.IsVertexPropertyLabel(out var sourceExpression3) && sourceExpression3 is ParameterExpression parameterExpression3)
                                 {
-                                    if (left.IsVertexPropertyLabel(out _))
+                                    if (rightValue is StepLabel)
                                     {
-                                        if (rightValue is StepLabel)
-                                        {
-                                            return traversal
-                                                .Push(new FilterStep.ByTraversalStep(this
-                                                    .Where(
-                                                        LabelStep.Instance,
-                                                        parameterExpression2,
-                                                        semantics,
-                                                        right)));
-                                        }
-
-                                        return traversal.Push(new HasKeyStep(effectivePredicate));
+                                        return traversal
+                                            .Push(new FilterStep.ByTraversalStep(this
+                                                .Where(
+                                                    LabelStep.Instance,
+                                                    parameterExpression3,
+                                                    semantics,
+                                                    right)));
                                     }
+
+                                    return traversal.Push(new HasKeyStep(effectivePredicate));
                                 }
 
                                 var leftMemberExpressionKey = GetKey(leftMemberExpression);
