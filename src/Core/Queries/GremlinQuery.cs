@@ -1327,19 +1327,19 @@ namespace ExRam.Gremlinq.Core
                         {
                             case MemberExpression leftMemberExpression:
                             {
-                                if (leftMemberExpression.Expression?.Strip() is ParameterExpression parameterExpression)
+                                if (left.IsPropertyKey(out var sourceExpression) && sourceExpression is ParameterExpression parameterExpression)
                                 {
-                                    if (left.IsPropertyKey(out _))
-                                    {
-                                        return traversal
-                                            .Push(new FilterStep.ByTraversalStep(this
-                                                .Where(
-                                                    KeyStep.Instance,
-                                                    parameterExpression,
-                                                    semantics,
-                                                    right)));
-                                    }
+                                    return traversal
+                                        .Push(new FilterStep.ByTraversalStep(this
+                                            .Where(
+                                                KeyStep.Instance,
+                                                parameterExpression,
+                                                semantics,
+                                                right)));
+                                }
 
+                                if (leftMemberExpression.Expression?.Strip() is ParameterExpression parameterExpression2)
+                                {
                                     if (left.IsPropertyValue(out _) && rightValue is not null and not StepLabel)
                                         return traversal.Push(new HasValueStep(effectivePredicate));
 
@@ -1351,7 +1351,7 @@ namespace ExRam.Gremlinq.Core
                                                 .Push(new FilterStep.ByTraversalStep(this
                                                     .Where(
                                                         LabelStep.Instance,
-                                                        parameterExpression,
+                                                        parameterExpression2,
                                                         semantics,
                                                         right)));
                                         }
