@@ -1327,22 +1327,22 @@ namespace ExRam.Gremlinq.Core
                         {
                             case MemberExpression leftMemberExpression:
                             {
-                                if (left.IsPropertyKey(out var sourceExpression) && sourceExpression is ParameterExpression parameterExpression)
+                                if (left.IsPropertyKey(out var sourceExpression1) && sourceExpression1 is ParameterExpression parameterExpression1)
                                 {
                                     return traversal
                                         .Push(new FilterStep.ByTraversalStep(this
                                             .Where(
                                                 KeyStep.Instance,
-                                                parameterExpression,
+                                                parameterExpression1,
                                                 semantics,
                                                 right)));
                                 }
 
+                                if (left.IsPropertyValue(out var sourceExpression2) && sourceExpression2 is ParameterExpression && rightValue is not null and not StepLabel)
+                                    return traversal.Push(new HasValueStep(effectivePredicate));
+
                                 if (leftMemberExpression.Expression?.Strip() is ParameterExpression parameterExpression2)
                                 {
-                                    if (left.IsPropertyValue(out _) && rightValue is not null and not StepLabel)
-                                        return traversal.Push(new HasValueStep(effectivePredicate));
-
                                     if (left.IsVertexPropertyLabel(out _))
                                     {
                                         if (rightValue is StepLabel)
