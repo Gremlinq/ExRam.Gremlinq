@@ -35,5 +35,11 @@ namespace ExRam.Gremlinq.Core
             builder.WithNewProjection(
                 static (projection, projectionTransformation) => projectionTransformation(projection),
                 projectionTransformation);
+
+        public static FinalContinuationBuilder<TOuterQuery> Where<TOuterQuery>(this FinalContinuationBuilder<TOuterQuery> builder, Traversal traversal)
+            where TOuterQuery : GremlinQueryBase, IGremlinQueryBase => builder
+                .AddSteps(traversal.Count > 0 && traversal.Steps.All(static x => x is IFilterStep)
+                    ? traversal
+                    : new FilterStep.ByTraversalStep(traversal));
     }
 }

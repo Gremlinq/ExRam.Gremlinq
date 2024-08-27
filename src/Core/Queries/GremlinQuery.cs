@@ -191,7 +191,7 @@ namespace ExRam.Gremlinq.Core
                     return builder.OuterQuery;
 
                 if (fusedTraversals is [var single])
-                    return builder.OuterQuery.Where(single);
+                    return builder.Where(single).Build();
 
                 if (fusedTraversals.All(static traversal => traversal.Steps.All(static x => x is IFilterStep)))
                 {
@@ -818,8 +818,9 @@ namespace ExRam.Gremlinq.Core
                 {
                     [] => builder.OuterQuery
                         .None(),
-                    [var singleTraversal] => builder.OuterQuery
-                        .Where(singleTraversal),
+                    [var singleTraversal] => builder
+                        .Where(singleTraversal)
+                        .Build(),
                     _ => builder
                         .AddStep(new OrStep(LogicalStep<OrStep>.FlattenLogicalTraversals(fusedTraversals)))
                         .Build()
@@ -1213,17 +1214,7 @@ namespace ExRam.Gremlinq.Core
                 ? builder.OuterQuery
                 : filterTraversal.IsNone() && filterTraversal.SideEffectSemantics == SideEffectSemantics.Read
                     ? builder.OuterQuery.None()
-                    : builder.OuterQuery.Where(filterTraversal));
-
-        private GremlinQuery<T1, T2, T3, T4> Where(Traversal traversal) => this
-            .Continue()
-            .Build(
-                static (builder, traversal) => builder
-                    .AddSteps(traversal.Count > 0 && traversal.Steps.All(static x => x is IFilterStep)
-                        ? traversal
-                        : new FilterStep.ByTraversalStep(traversal))
-                    .Build(),
-                traversal);
+                    : builder.Where(filterTraversal).Build());
 
         private GremlinQuery<T1, T2, T3, T4> Where(Expression expression)
         {
