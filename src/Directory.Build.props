@@ -10,7 +10,7 @@
     <NoWarn>IDE0303;IDE0301$(NoWarn)</NoWarn>
     <WeaverConfiguration>
       <Weavers>
-        <NullGuard />
+        <NullGuard IncludeDebugAssert="false" />
         <ConfigureAwait/>
       </Weavers>
     </WeaverConfiguration>

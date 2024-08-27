@@ -17,7 +17,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .UseModel(GraphModel.FromBaseTypes<Vertex, Edge>()));
         }
 
-        [ReleaseOnlyFact]
+        [Fact]
         public virtual void VertexProperty_throws_on_null_value()
         {
             default(int)
@@ -88,7 +88,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Throw<ArgumentException>();
         }
 
-        [ReleaseOnlyFact]
+        [Fact]
         public virtual void NullGuard_works()
         {
             _g
