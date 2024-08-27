@@ -4830,8 +4830,8 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Where(x => ((string)(object)x.Name!.Value) == "SomeName")
             .Verify();
 
-        [Fact(Skip = "Feature!")]
-        public virtual Task Where_VertexProperty_Value3() => _g
+        [Fact]
+        public virtual Task Where_VertexProperty_Id() => _g
             .V<Person>()
             .Where(x => (int)x.Name!.Id! == 36)
             .Verify();

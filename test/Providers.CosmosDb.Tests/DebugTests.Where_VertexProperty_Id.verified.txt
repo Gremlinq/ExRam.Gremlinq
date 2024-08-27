@@ -1,0 +1,1 @@
+﻿g.V().hasLabel('Person').where(__.properties('Name').has(id,36))

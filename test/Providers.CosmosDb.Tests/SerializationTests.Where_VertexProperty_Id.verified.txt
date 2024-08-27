@@ -1,0 +1,8 @@
+﻿{
+  Script: g.V().hasLabel(_a).where(__.properties(_b).has(id,_c)),
+  Bindings: {
+    _a: Person,
+    _b: Name,
+    _c: 36
+  }
+}

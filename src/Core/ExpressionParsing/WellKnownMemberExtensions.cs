@@ -17,6 +17,8 @@ namespace ExRam.Gremlinq.Core.ExpressionParsing
 
         public static bool IsVertexPropertyLabel(this Expression expression, [NotNullWhen(true)] out Expression? sourceExpression) => expression.IsMemberAndNamed<IVertexProperty>(nameof(VertexProperty<object>.Label), out sourceExpression);
 
+        public static bool IsVertexPropertyId(this Expression expression, [NotNullWhen(true)] out Expression? sourceExpression) => expression.IsMemberAndNamed<IVertexProperty>(nameof(VertexProperty<object>.Id), out sourceExpression);
+
         public static bool IsArrayLength(this Expression expression, [NotNullWhen(true)] out Expression? sourceExpression)
         {
             if (expression is UnaryExpression { NodeType: ExpressionType.ArrayLength, Operand: { } operand })

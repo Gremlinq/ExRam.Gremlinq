@@ -1357,6 +1357,17 @@ namespace ExRam.Gremlinq.Core
                                     return traversal.Push(new HasKeyStep(effectivePredicate));
                                 }
 
+                                if (left.IsVertexPropertyId(out var sourceExpression4))
+                                {
+                                    if (sourceExpression4 is MemberExpression memberExpression4 && GetKey(sourceExpression4).RawKey is string stringKey)
+                                    {
+                                        return traversal
+                                            .Push(new FilterStep.ByTraversalStep(Traversal.Empty
+                                                .Push(new PropertiesStep(ImmutableArray<string>.Empty.Add(stringKey)))
+                                                .Push(new HasPredicateStep(T.Id, effectivePredicate))));
+                                    }
+                                }
+
                                 var leftMemberExpressionKey = GetKey(leftMemberExpression);
 
                                 // x => x.Name == P.xy(...)
