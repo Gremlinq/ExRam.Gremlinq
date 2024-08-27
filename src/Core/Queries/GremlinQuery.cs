@@ -187,15 +187,28 @@ namespace ExRam.Gremlinq.Core
                 var fusedTraversals = traversals[..count]
                     .Fuse(static (p1, p2) => p1.And(p2));
 
-                return fusedTraversals switch
+                if (fusedTraversals is [])
+                    return builder.OuterQuery;
+
+                if (fusedTraversals is [var single])
+                    return builder.OuterQuery.Where(single);
+
+                if (fusedTraversals.All(static traversal => traversal.Steps.All(static x => x is IIsOptimizableInWhere)))
                 {
-                    [] => builder.OuterQuery,
-                    [var single] => builder.OuterQuery
-                        .Where(single),
-                    var otherwise => builder
-                        .AddStep(new AndStep(otherwise.ToArray()))
-                        .Build()
-                };
+                    for (var i = 0; i < fusedTraversals.Length; i++)
+                    {
+                        builder = builder
+                            .AddSteps(fusedTraversals[i]);
+                    }
+                }
+                else
+                {
+                    builder = builder
+                        .AddStep(new AndStep(fusedTraversals.ToArray()));
+                }
+
+                return builder
+                    .Build();
             });
 
         private TTargetQuery As<TStepLabel, TTargetQuery>(Func<GremlinQuery<T1, T2, T3, T4>, TStepLabel, TTargetQuery> continuation)

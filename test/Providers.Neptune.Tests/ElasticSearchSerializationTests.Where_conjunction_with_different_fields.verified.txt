@@ -26,30 +26,17 @@
       ]
     },
     {
-      OperatorName: and,
+      OperatorName: has,
       Arguments: [
-        {
-          StepInstructions: [
-            {
-              OperatorName: has,
-              Arguments: [
-                Name,
-                Some name
-              ]
-            }
-          ]
-        },
-        {
-          StepInstructions: [
-            {
-              OperatorName: has,
-              Arguments: [
-                Age,
-                42
-              ]
-            }
-          ]
-        }
+        Name,
+        Some name
+      ]
+    },
+    {
+      OperatorName: has,
+      Arguments: [
+        Age,
+        42
       ]
     },
     {

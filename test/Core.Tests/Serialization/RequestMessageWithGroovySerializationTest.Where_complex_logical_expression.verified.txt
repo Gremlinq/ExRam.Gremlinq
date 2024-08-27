@@ -18,6 +18,6 @@
       _i: properties,
       _j: value
     },
-    gremlin: g.V().hasLabel(_a).and(__.has(_b,_c),__.has(_d,eq(_e).or(eq(_f)))).project(_g,_h,_i).by(id).by(label).by(__.properties().group().by(label).by(__.project(_g,_h,_j,_i).by(id).by(label).by(value).by(__.valueMap()).fold()))
+    gremlin: g.V().hasLabel(_a).has(_b,_c).has(_d,eq(_e).or(eq(_f))).project(_g,_h,_i).by(id).by(label).by(__.properties().group().by(label).by(__.project(_g,_h,_j,_i).by(id).by(label).by(value).by(__.valueMap()).fold()))
   }
 }

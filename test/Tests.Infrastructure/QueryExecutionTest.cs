@@ -3638,7 +3638,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Where(t => t.Age == 36 && t.Age == 42)
             .Verify();
 
-        [Fact(Skip = "Optimizable")]
+        [Fact]//(Skip = "Optimizable")]
         public virtual Task Where_conjunction_optimizable() => _g
             .V<Person>()
             .Where(t => (t.Age == 36 && t.Name!.Value == "Hallo") && t.Age == 42)

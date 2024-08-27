@@ -13,6 +13,6 @@
       _d: 42,
       _e: 99
     },
-    gremlin: g.V().hasLabel(_a).and(__.hasNot(_b),__.has(_c,eq(_d).or(eq(_e))))
+    gremlin: g.V().hasLabel(_a).hasNot(_b).has(_c,eq(_d).or(eq(_e)))
   }
 }

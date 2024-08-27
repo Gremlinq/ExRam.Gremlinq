@@ -1,5 +1,5 @@
 ﻿{
-  Script: g.V().hasLabel(_a).and(__.has(_b,_c),__.has(_d,eq(_e).or(eq(_f)))),
+  Script: g.V().hasLabel(_a).has(_b,_c).has(_d,eq(_e).or(eq(_f))),
   Bindings: {
     _a: Person,
     _b: Name,

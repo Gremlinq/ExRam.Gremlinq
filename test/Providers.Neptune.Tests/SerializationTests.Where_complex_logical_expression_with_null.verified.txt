@@ -10,38 +10,25 @@
       ]
     },
     {
-      OperatorName: and,
+      OperatorName: hasNot,
       Arguments: [
+        Name
+      ]
+    },
+    {
+      OperatorName: has,
+      Arguments: [
+        Age,
         {
-          StepInstructions: [
-            {
-              OperatorName: hasNot,
-              Arguments: [
-                Name
-              ]
-            }
-          ]
-        },
-        {
-          StepInstructions: [
-            {
-              OperatorName: has,
-              Arguments: [
-                Age,
-                {
-                  OperatorName: or,
-                  Value: {
-                    OperatorName: eq,
-                    Value: 42
-                  },
-                  Other: {
-                    OperatorName: eq,
-                    Value: 99
-                  }
-                }
-              ]
-            }
-          ]
+          OperatorName: or,
+          Value: {
+            OperatorName: eq,
+            Value: 42
+          },
+          Other: {
+            OperatorName: eq,
+            Value: 99
+          }
         }
       ]
     },

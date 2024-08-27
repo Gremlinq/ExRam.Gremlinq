@@ -1,1 +1,1 @@
-﻿g.V().hasLabel('Person').and(__.has('Name','Some name'),__.has('Age',eq(42).or(eq(99))))
+﻿g.V().hasLabel('Person').has('Name','Some name').has('Age',eq(42).or(eq(99)))
