@@ -3731,7 +3731,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Where(t => t.Age == 36 || t.Age == 42 || t.Age == 99)
             .Verify();
 
-        [Fact(Skip = "Optimization opportunity.")]
+        [Fact]
         public virtual Task Where_has_disjunction_of_three_with_or() => _g
             .V<Person>()
             .Or(
