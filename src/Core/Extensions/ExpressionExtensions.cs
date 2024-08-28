@@ -197,13 +197,17 @@ namespace ExRam.Gremlinq.Core
                                 ? (StringComparison)secondArgument.GetValue()!
                                 : StringComparison.Ordinal;
 
-                            if (methodInfo.Name == nameof(string.StartsWith) && argumentExpression.RefersToParameter(out _))
+                            if (argumentExpression.RefersToParameter(out _) && !instanceExpression.RefersToParameter(out _))
                             {
                                 if (instanceExpression.GetValue()?.ToString() is { } stringValue)
                                 {
                                     return new WhereExpression(
                                         Expression.Constant(stringValue),
-                                        StartsWithExpressionSemantics.Get(stringComparison),
+                                        methodInfo.Name switch
+                                        {
+                                            nameof(string.StartsWith) => StartsWithExpressionSemantics.Get(stringComparison),
+                                            _ => throw new ExpressionNotSupportedException(instanceMethodCallExpression)
+                                        },
                                         argumentExpression);
                                 }
                             }
