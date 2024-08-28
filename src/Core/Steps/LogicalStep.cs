@@ -5,11 +5,12 @@ namespace ExRam.Gremlinq.Core.Steps
     public abstract class LogicalStep<TStep> : Step
         where TStep : LogicalStep<TStep>
     {
+        [Obsolete("Will be removed in a future version. Use the overload taking an ImmutableArray<Traversal> instead.")]
         protected LogicalStep(string name, IEnumerable<Traversal> traversals) : this(name, traversals.ToImmutableArray())
         {
         }
 
-        private LogicalStep(string name, ImmutableArray<Traversal> traversals) : base(traversals.GetSideEffectSemanticsChange())
+        protected LogicalStep(string name, ImmutableArray<Traversal> traversals) : base(traversals.GetSideEffectSemanticsChange())
         {
             Name = name;
             Traversals = traversals;

@@ -1,4 +1,6 @@
 ﻿using System.Collections;
+using System.Collections.Immutable;
+
 using ExRam.Gremlinq.Core.Steps;
 using Gremlin.Net.Process.Traversal;
 
@@ -83,11 +85,8 @@ namespace ExRam.Gremlinq.Core
             {
                 if ((p.IsAnd() || p.IsOr()) && p.Other is { } otherP)
                 {
-                    var replacement = new Traversal[]
-                    {
-                        (p.Value as P ?? (P)P.Eq(p.Value)).GetFilterStep(key),
-                        otherP.GetFilterStep(key)
-                    };
+                    var replacement = ImmutableArray
+                        .Create<Traversal>((p.Value as P ?? (P)P.Eq(p.Value)).GetFilterStep(key), otherP.GetFilterStep(key));
 
                     if (p.IsOr())
                         return new OrStep(replacement);
