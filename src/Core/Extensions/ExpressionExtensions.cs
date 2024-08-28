@@ -206,6 +206,7 @@ namespace ExRam.Gremlinq.Core
                                         methodInfo.Name switch
                                         {
                                             nameof(string.StartsWith) => IsPrefixOfExpressionSemantics.Get(stringComparison),
+                                            nameof(string.Contains) => IsInfixOfExpressionSemantics.Get(stringComparison),
                                             _ => throw new ExpressionNotSupportedException(instanceMethodCallExpression)
                                         },
                                         Expression.Constant(stringValue));
