@@ -4387,6 +4387,12 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Where(c => "+49123".StartsWith(c.CountryCallingCode!))
             .Verify();
 
+        [Fact(Skip = "Not supported")]
+        public virtual Task Where_property_is_superstring_of_constant() => _g
+           .V<Country>()
+           .Where(c => "+49123".Contains(c.CountryCallingCode!))
+           .Verify();
+
         [Fact]
         public virtual Task Where_property_is_prefix_of_constant_case_insensitive() => _g
             .V<Country>()
