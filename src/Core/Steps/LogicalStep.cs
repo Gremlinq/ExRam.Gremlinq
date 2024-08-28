@@ -5,11 +5,7 @@ namespace ExRam.Gremlinq.Core.Steps
     public abstract class LogicalStep<TStep> : Step
         where TStep : LogicalStep<TStep>
     {
-        protected LogicalStep(string name, IEnumerable<Traversal> traversals) : this(
-            name,
-            traversals
-                .SelectMany(FlattenLogicalTraversals)
-                .ToImmutableArray())
+        protected LogicalStep(string name, IEnumerable<Traversal> traversals) : this(name, traversals.ToImmutableArray())
         {
         }
 
@@ -19,20 +15,28 @@ namespace ExRam.Gremlinq.Core.Steps
             Traversals = traversals;
         }
 
-        private static IEnumerable<Traversal> FlattenLogicalTraversals(Traversal traversal)
+        internal static ImmutableArray<Traversal> FlattenLogicalTraversals(ReadOnlySpan<Traversal> traversals)
         {
-            if (traversal is [TStep otherStep])
+            var builder = ImmutableArray.CreateBuilder<Traversal>();
+
+            FlattenLogicalTraversals(builder, traversals);
+
+            return builder.ToImmutableArray();
+
+            static void FlattenLogicalTraversals(ImmutableArray<Traversal>.Builder builder, ReadOnlySpan<Traversal> traversals)
             {
-                foreach (var subTraversal in otherStep.Traversals)
+                for (var i = 0; i < traversals.Length; i++)
                 {
-                    foreach (var flattenedSubTraversal in FlattenLogicalTraversals(subTraversal))
+                    var traversal = traversals[i];
+
+                    if (traversal is [TStep otherStep])
                     {
-                        yield return flattenedSubTraversal;
+                        FlattenLogicalTraversals(builder, otherStep.Traversals.AsSpan());
                     }
+                    else
+                        builder.Add(traversal);
                 }
             }
-            else
-                yield return traversal;
         }
 
         //TODO: Seemingly unused.

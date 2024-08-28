@@ -204,7 +204,7 @@ namespace ExRam.Gremlinq.Core
                 else
                 {
                     builder = builder
-                        .AddStep(new AndStep(fusedTraversals.ToArray()));
+                        .AddStep(new AndStep(LogicalStep<AndStep>.FlattenLogicalTraversals(fusedTraversals)));
                 }
 
                 return builder
@@ -821,7 +821,7 @@ namespace ExRam.Gremlinq.Core
                     1 => builder.OuterQuery
                         .Where(fusedTraversals[0]),
                     _ => builder
-                        .AddStep(new OrStep(fusedTraversals.ToArray()))
+                        .AddStep(new OrStep(LogicalStep<OrStep>.FlattenLogicalTraversals(fusedTraversals)))
                         .Build()
                 };
             });
