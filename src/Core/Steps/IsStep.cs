@@ -2,7 +2,7 @@
 
 namespace ExRam.Gremlinq.Core.Steps
 {
-    public sealed class IsStep : Step, IIsOptimizableInWhere
+    public sealed class IsStep : Step, IFilterStep
     {
         public IsStep(P predicate)
         {

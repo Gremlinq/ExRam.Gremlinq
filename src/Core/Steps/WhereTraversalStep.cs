@@ -1,6 +1,6 @@
 ﻿namespace ExRam.Gremlinq.Core.Steps
 {
-    public sealed class WhereTraversalStep : Step, IIsOptimizableInWhere
+    public sealed class WhereTraversalStep : Step, IFilterStep
     {
         public WhereTraversalStep(Traversal traversal) : base(traversal.GetSideEffectSemanticsChange())
         {

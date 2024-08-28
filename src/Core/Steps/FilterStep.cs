@@ -1,8 +1,8 @@
 ﻿namespace ExRam.Gremlinq.Core.Steps
 {
-    public abstract class FilterStep : Step
+    public abstract class FilterStep : Step, IFilterStep
     {
-        public sealed class ByTraversalStep : Step, IIsOptimizableInWhere
+        public sealed class ByTraversalStep : Step
         {
             public ByTraversalStep(Traversal traversal) : base(traversal.GetSideEffectSemanticsChange())
             {

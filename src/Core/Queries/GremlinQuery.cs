@@ -193,7 +193,7 @@ namespace ExRam.Gremlinq.Core
                 if (fusedTraversals is [var single])
                     return builder.OuterQuery.Where(single);
 
-                if (fusedTraversals.All(static traversal => traversal.Steps.All(static x => x is IIsOptimizableInWhere)))
+                if (fusedTraversals.All(static traversal => traversal.Steps.All(static x => x is IFilterStep)))
                 {
                     for (var i = 0; i < fusedTraversals.Length; i++)
                     {
@@ -1219,7 +1219,7 @@ namespace ExRam.Gremlinq.Core
             .Continue()
             .Build(
                 static (builder, traversal) => builder
-                    .AddSteps(traversal.Count > 0 && traversal.Steps.All(static x => x is IIsOptimizableInWhere)
+                    .AddSteps(traversal.Count > 0 && traversal.Steps.All(static x => x is IFilterStep)
                         ? traversal
                         : new FilterStep.ByTraversalStep(traversal))
                     .Build(),

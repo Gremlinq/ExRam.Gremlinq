@@ -2,7 +2,7 @@
 
 namespace ExRam.Gremlinq.Core.Steps
 {
-    public sealed class HasLabelStep : DerivedLabelNamesStep, IIsOptimizableInWhere
+    public sealed class HasLabelStep : DerivedLabelNamesStep, IFilterStep
     {
         public HasLabelStep(ImmutableArray<string> labels) : base(labels)
         {
