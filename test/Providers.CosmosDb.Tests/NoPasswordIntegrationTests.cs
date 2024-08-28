@@ -1,6 +1,5 @@
 ﻿using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Tests.Entities;
-using ExRam.Gremlinq.Tests.Fixtures;
 using ExRam.Gremlinq.Tests.Infrastructure;
 
 using ExRam.Gremlinq.Support.NewtonsoftJson;
