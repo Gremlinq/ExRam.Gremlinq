@@ -202,13 +202,13 @@ namespace ExRam.Gremlinq.Core
                                 if (instanceExpression.GetValue()?.ToString() is { } stringValue)
                                 {
                                     return new WhereExpression(
-                                        Expression.Constant(stringValue),
+                                        argumentExpression,
                                         methodInfo.Name switch
                                         {
-                                            nameof(string.StartsWith) => StartsWithExpressionSemantics.Get(stringComparison),
+                                            nameof(string.StartsWith) => IsPrefixOfExpressionSemantics.Get(stringComparison),
                                             _ => throw new ExpressionNotSupportedException(instanceMethodCallExpression)
                                         },
-                                        argumentExpression);
+                                        Expression.Constant(stringValue));
                                 }
                             }
                             else if (instanceExpression.RefersToParameter(out _))
