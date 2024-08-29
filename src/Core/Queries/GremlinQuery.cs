@@ -814,12 +814,12 @@ namespace ExRam.Gremlinq.Core
                 var fusedTraversals = traversals[..count]
                     .Fuse(static (p1, p2) => p1.Or(p2));
 
-                return fusedTraversals.Length switch
+                return fusedTraversals switch
                 {
-                    0 => builder.OuterQuery
+                    [] => builder.OuterQuery
                         .None(),
-                    1 => builder.OuterQuery
-                        .Where(fusedTraversals[0]),
+                    [var singleTraversal] => builder.OuterQuery
+                        .Where(singleTraversal),
                     _ => builder
                         .AddStep(new OrStep(LogicalStep<OrStep>.FlattenLogicalTraversals(fusedTraversals)))
                         .Build()
