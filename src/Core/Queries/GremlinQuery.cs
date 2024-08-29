@@ -725,13 +725,9 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<T1, T2, T3, T4> None() => this
             .Continue()
-            .Build(static builder => builder.OuterQuery.Steps.IsIdentity()
-                ? builder
-                    .WithSteps(NoneStep.Instance)
-                    .Build()
-                : builder
-                    .AddStep(NoneStep.Instance)
-                    .Build());
+            .Build(static builder => builder
+                .None()
+                .Build());
 
         private GremlinQuery<T1, T2, T3, T4> Not<TState>(Func<GremlinQuery<T1, T2, T3, T4>, TState, IGremlinQueryBase> continuation, TState state) => this
             .Continue()

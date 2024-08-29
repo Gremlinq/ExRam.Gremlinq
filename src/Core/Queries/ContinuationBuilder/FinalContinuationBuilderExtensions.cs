@@ -41,5 +41,12 @@ namespace ExRam.Gremlinq.Core
                 .AddSteps(traversal.Count > 0 && traversal.Steps.All(static x => x is IFilterStep)
                     ? traversal
                     : new FilterStep.ByTraversalStep(traversal));
+
+        public static FinalContinuationBuilder<TOuterQuery> None<TOuterQuery>(this FinalContinuationBuilder<TOuterQuery> builder)
+            where TOuterQuery : GremlinQueryBase, IGremlinQueryBase => builder.WithSteps(
+                static (traversal, _) => traversal.IsIdentity()
+                    ? NoneStep.Instance
+                    : traversal.Push(NoneStep.Instance),
+                0);
     }
 }
