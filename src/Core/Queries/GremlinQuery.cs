@@ -182,29 +182,30 @@ namespace ExRam.Gremlinq.Core
                 }
 
                 if (containsNoneStep && !containsWriteStep)
-                    return builder.OuterQuery.None();
-
-                var fusedTraversals = traversals[..count]
-                    .Fuse(static (p1, p2) => p1.And(p2));
-
-                if (fusedTraversals is [])
-                    return builder.OuterQuery;
-
-                if (fusedTraversals is [var single])
-                    return builder.Where(single).Build();
-
-                if (fusedTraversals.All(static traversal => traversal.Steps.All(static x => x is IFilterStep)))
-                {
-                    for (var i = 0; i < fusedTraversals.Length; i++)
-                    {
-                        builder = builder
-                            .AddSteps(fusedTraversals[i]);
-                    }
-                }
+                    builder = builder.None();
                 else
                 {
-                    builder = builder
-                        .AddStep(new AndStep(LogicalStep<AndStep>.FlattenLogicalTraversals(fusedTraversals)));
+                    var fusedTraversals = traversals[..count]
+                        .Fuse(static (p1, p2) => p1.And(p2));
+
+                    if (fusedTraversals is [var single])
+                        builder = builder.Where(single);
+                    else
+                    {
+                        if (fusedTraversals.All(static traversal => traversal.Steps.All(static x => x is IFilterStep)))
+                        {
+                            for (var i = 0; i < fusedTraversals.Length; i++)
+                            {
+                                builder = builder
+                                    .AddSteps(fusedTraversals[i]);
+                            }
+                        }
+                        else
+                        {
+                            builder = builder
+                                .AddStep(new AndStep(LogicalStep<AndStep>.FlattenLogicalTraversals(fusedTraversals)));
+                        }
+                    }
                 }
 
                 return builder
