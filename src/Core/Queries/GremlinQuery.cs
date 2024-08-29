@@ -805,23 +805,24 @@ namespace ExRam.Gremlinq.Core
                     traversals[count++] = traversal;
                 }
 
-                if (containsIdentityStep && !containsWriteStep)
-                    return builder.OuterQuery;
-
-                var fusedTraversals = traversals[..count]
-                    .Fuse(static (p1, p2) => p1.Or(p2));
-
-                return fusedTraversals switch
+                if (!containsIdentityStep || containsWriteStep)
                 {
-                    [] => builder.OuterQuery
-                        .None(),
-                    [var singleTraversal] => builder
-                        .Where(singleTraversal)
-                        .Build(),
-                    _ => builder
-                        .AddStep(new OrStep(LogicalStep<OrStep>.FlattenLogicalTraversals(fusedTraversals)))
-                        .Build()
-                };
+                    var fusedTraversals = traversals[..count]
+                        .Fuse(static (p1, p2) => p1.Or(p2));
+
+                    builder = fusedTraversals switch
+                    {
+                        [] => builder
+                            .None(),
+                        [var singleTraversal] => builder
+                            .Where(singleTraversal),
+                        _ => builder
+                            .AddStep(new OrStep(LogicalStep<OrStep>.FlattenLogicalTraversals(fusedTraversals)))
+                    };
+                }
+
+                return builder
+                    .Build();
             });
 
         private TTargetQuery Order<TTargetQuery>(Func<OrderBuilder, IOrderBuilderWithBy<TTargetQuery>> projection) where TTargetQuery : IGremlinQueryBase<T1> => projection(new OrderBuilder(this)).Build();
