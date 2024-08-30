@@ -67,7 +67,7 @@ namespace ExRam.Gremlinq.Core
 
             public IChooseBuilderWithCaseOrDefault<TTargetQuery> Default(Func<GremlinQuery<T1, T2, T3, T4>, TTargetQuery> continuation) => Default<TTargetQuery>(continuation);
 
-            public TTargetQuery TargetQuery => _continuation.Build(static builder => builder.As<TTargetQuery>().Build());
+            public TTargetQuery TargetQuery => _continuation.Build(static builder => builder.As<TTargetQuery>());
         }
     }
 }

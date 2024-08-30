@@ -61,8 +61,7 @@ namespace ExRam.Gremlinq.Core
             private LoopBuilder<TQuery> Emit() => new(_outerQuery
                 .Continue()
                 .Build(static builder => builder
-                    .AddStep(EmitStep.Instance)
-                    .Build()));
+                    .AddStep(EmitStep.Instance)));
 
             private LoopBuilder<TQuery> Times(int loopCount) => new(_outerQuery
                 .Continue()
