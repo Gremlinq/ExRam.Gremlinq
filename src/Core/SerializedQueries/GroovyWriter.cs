@@ -210,14 +210,6 @@ namespace ExRam.Gremlinq.Core
             return new();
         }
 
-        private GroovyWriter StartParameter(int parameterIndex, StringBuilder stringBuilder)
-        {
-            if (parameterIndex > 0)
-                stringBuilder.Append(',');
-
-            return new(false, _hasIdentifier);
-        }
-
         private GroovyWriter StartArray(StringBuilder stringBuilder)
         {
             stringBuilder
