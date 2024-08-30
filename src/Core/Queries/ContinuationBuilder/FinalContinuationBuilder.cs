@@ -51,15 +51,15 @@ namespace ExRam.Gremlinq.Core
             static (outer, steps, labelProjections, _) => outer.CloneAs<TTargetQuery>(steps, labelProjections),
             0);
 
-        public GremlinQuery<T1, T2, T3, T4> AutoBuild<T1, T2, T3, T4>() where T4 : IGremlinQueryBase => As<GremlinQuery<T1, T2, T3, T4>>().Build();
+        public FinalContinuationBuilder<TOuterQuery, GremlinQuery<T1, T2, T3, T4> >AutoBuild<T1, T2, T3, T4>() where T4 : IGremlinQueryBase => As<GremlinQuery<T1, T2, T3, T4>>();
 
-        public GremlinQuery<T1, T2, T3, IGremlinQueryBase> AutoBuild<T1, T2, T3>() => As<GremlinQuery<T1, T2, T3, IGremlinQueryBase>>().Build();
+        public FinalContinuationBuilder<TOuterQuery, GremlinQuery<T1, T2, T3, IGremlinQueryBase>> AutoBuild<T1, T2, T3>() => As<GremlinQuery<T1, T2, T3, IGremlinQueryBase>>();
 
-        public GremlinQuery<T1, T2, object, IGremlinQueryBase> AutoBuild<T1, T2>() => As<GremlinQuery<T1, T2, object, IGremlinQueryBase>>().Build();
+        public FinalContinuationBuilder<TOuterQuery, GremlinQuery<T1, T2, object, IGremlinQueryBase>> AutoBuild<T1, T2>() => As<GremlinQuery<T1, T2, object, IGremlinQueryBase>>();
 
-        public GremlinQuery<T1, object, object, IGremlinQueryBase> AutoBuild<T1>() => As<GremlinQuery<T1, object, object, IGremlinQueryBase>>().Build();
+        public FinalContinuationBuilder<TOuterQuery, GremlinQuery<T1, object, object, IGremlinQueryBase>> AutoBuild<T1>() => As<GremlinQuery<T1, object, object, IGremlinQueryBase>>();
 
-        public GremlinQuery<object, object, object, IGremlinQueryBase> AutoBuild() => As<GremlinQuery<object, object, object, IGremlinQueryBase>>().Build();
+        public FinalContinuationBuilder<TOuterQuery, GremlinQuery<object, object, object, IGremlinQueryBase>> AutoBuild() => As<GremlinQuery<object, object, object, IGremlinQueryBase>>();
 
         public FinalContinuationBuilder<TOuterQuery, TNewTargetQuery> As<TNewTargetQuery>() where TNewTargetQuery : IStartGremlinQuery => With(
             static (outer, steps, labelProjections, _) => new FinalContinuationBuilder<TOuterQuery, TNewTargetQuery>(outer, steps, labelProjections),
