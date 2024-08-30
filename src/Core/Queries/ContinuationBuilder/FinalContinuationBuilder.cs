@@ -1,4 +1,6 @@
 ﻿using System.Collections.Immutable;
+using System.Diagnostics;
+
 using ExRam.Gremlinq.Core.Projections;
 using ExRam.Gremlinq.Core.Steps;
 using static ExRam.Gremlinq.Core.ExceptionHelper;
@@ -45,22 +47,22 @@ namespace ExRam.Gremlinq.Core
             static (outer, steps, labelProjections, tuple) => new FinalContinuationBuilder<TOuterQuery, TTargetQuery>(outer, steps, tuple.labelProjectionsTransformation(labelProjections, tuple.state)),
             (labelProjectionsTransformation, state));
 
-        public TTargetQuery Build() => Build<TTargetQuery>();
+        public TTargetQuery Build() => With(
+            static (outer, steps, labelProjections, _) => outer.CloneAs<TTargetQuery>(steps, labelProjections),
+            0);
 
-        public GremlinQuery<T1, T2, T3, T4> AutoBuild<T1, T2, T3, T4>() where T4 : IGremlinQueryBase => Build<GremlinQuery<T1, T2, T3, T4>>();
+        public GremlinQuery<T1, T2, T3, T4> AutoBuild<T1, T2, T3, T4>() where T4 : IGremlinQueryBase => As<GremlinQuery<T1, T2, T3, T4>>().Build();
 
-        public GremlinQuery<T1, T2, T3, IGremlinQueryBase> AutoBuild<T1, T2, T3>() => Build<GremlinQuery<T1, T2, T3, IGremlinQueryBase>>();
+        public GremlinQuery<T1, T2, T3, IGremlinQueryBase> AutoBuild<T1, T2, T3>() => As<GremlinQuery<T1, T2, T3, IGremlinQueryBase>>().Build();
 
-        public GremlinQuery<T1, T2, object, IGremlinQueryBase> AutoBuild<T1, T2>() => Build<GremlinQuery<T1, T2, object, IGremlinQueryBase>>();
+        public GremlinQuery<T1, T2, object, IGremlinQueryBase> AutoBuild<T1, T2>() => As<GremlinQuery<T1, T2, object, IGremlinQueryBase>>().Build();
 
-        public GremlinQuery<T1, object, object, IGremlinQueryBase> AutoBuild<T1>() => Build<GremlinQuery<T1, object, object, IGremlinQueryBase>>();
+        public GremlinQuery<T1, object, object, IGremlinQueryBase> AutoBuild<T1>() => As<GremlinQuery<T1, object, object, IGremlinQueryBase>>().Build();
 
-        public GremlinQuery<object, object, object, IGremlinQueryBase> AutoBuild() => Build<GremlinQuery<object, object, object, IGremlinQueryBase>>();
+        public GremlinQuery<object, object, object, IGremlinQueryBase> AutoBuild() => As<GremlinQuery<object, object, object, IGremlinQueryBase>>().Build();
 
-        public TNewTargetQuery Build<TNewTargetQuery>() where TNewTargetQuery : IStartGremlinQuery => With(
-            static (outer, steps, labelProjections, _) => outer.CloneAs<TNewTargetQuery>(
-                steps,
-                labelProjections),
+        public FinalContinuationBuilder<TOuterQuery, TNewTargetQuery> As<TNewTargetQuery>() where TNewTargetQuery : IStartGremlinQuery => With(
+            static (outer, steps, labelProjections, _) => new FinalContinuationBuilder<TOuterQuery, TNewTargetQuery>(outer, steps, labelProjections),
             0);
 
         private TResult With<TState, TResult>(Func<TOuterQuery, Traversal, IImmutableDictionary<StepLabel, LabelProjections>, TState, TResult> continuation, TState state) => (_outer is { } outer && _steps is { } steps && _labelProjections is { } labelProjections)

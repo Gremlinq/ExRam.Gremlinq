@@ -107,7 +107,8 @@ namespace ExRam.Gremlinq.Core
                             builder = builder.WithNewProjection(projectionTransformation);
 
                         return builder
-                            .Build<TTargetQuery>();
+                            .As<TTargetQuery>()
+                            .Build();
                     },
                     (step, maybeProjectionTransformation));
 
@@ -347,7 +348,8 @@ namespace ExRam.Gremlinq.Core
                                             .WithNewProjection(
                                                 static (_, state) => state.falseTraversal.Projection.Lowest(state.trueTraversal.Projection),
                                                 (falseTraversal, trueTraversal))
-                                            .Build<TTargetQuery>();
+                                            .As<TTargetQuery>()
+                                            .Build();
                                     },
                                     (chooseTraversal, trueTraversal));
                         }
@@ -363,7 +365,8 @@ namespace ExRam.Gremlinq.Core
                             .WithNewProjection(
                                 static (projection, otherProjection) => projection.Lowest(otherProjection),
                                 trueTraversal.Projection)
-                            .Build<TTargetQuery>();
+                            .As<TTargetQuery>()
+                            .Build();
                     },
                     (chooseTraversal, maybeFalseChoice));
 
@@ -384,14 +387,15 @@ namespace ExRam.Gremlinq.Core
                         throw new ArgumentException("Coalesce must have at least one sub-query.");
 
                     if (traversals.All(static traversal => traversal.IsIdentity()))
-                        return builder.Build<TReturnQuery>();
+                        return builder.As<TReturnQuery>().Build();
 
                     return builder
                         .AddStep(new CoalesceStep(traversals
                             .ToImmutableArray()))
                         .WithNewProjection(traversals
                             .LowestProjection())
-                        .Build<TReturnQuery>();
+                        .As<TReturnQuery>()
+                        .Build();
                 });
 
         private GremlinQuery<T1, T2, T3, T4> Coin(double probability) => this
@@ -415,7 +419,8 @@ namespace ExRam.Gremlinq.Core
                                 ? projectionTransformation(projection)
                                 : projection,
                             tuple.maybeProjectionTransformation)
-                        .Build<TTargetQuery>(),
+                        .As<TTargetQuery>()
+                        .Build(),
                     (transformation, maybeProjectionTransformation));
 
         private GremlinQuery<TValue, object, object, IGremlinQueryBase> Constant<TValue>(TValue constant) => this
@@ -516,7 +521,8 @@ namespace ExRam.Gremlinq.Core
             .Build(static (builder, innerTraversal) => builder
                 .AddStep(new FlatMapStep(innerTraversal))
                 .WithNewProjection(innerTraversal.Projection)
-                .Build<TTargetQuery>());
+                .As<TTargetQuery>()
+                .Build());
 
         private GremlinQuery<T1[], T1, object, TNewFoldedQuery> Fold<TNewFoldedQuery>() where TNewFoldedQuery : IGremlinQueryBase => this
             .Continue()
@@ -668,7 +674,8 @@ namespace ExRam.Gremlinq.Core
                 }
 
                 return builder
-                    .Build<TTargetQuery>();
+                    .As<TTargetQuery>()
+                    .Build();
             });
 
         private TTargetQuery Loop<TTargetQuery>(Func<IStartLoopBuilder<TTargetQuery>, IFinalLoopBuilder<TTargetQuery>> loopBuilderTransformation)
@@ -683,7 +690,8 @@ namespace ExRam.Gremlinq.Core
                 : builder
                     .AddStep(new MapStep(innerTraversal))
                     .WithNewProjection(innerTraversal.Projection)
-                    .Build<TTargetQuery>());
+                    .As<TTargetQuery>()
+                    .Build());
 
         private GremlinQuery<T1, T2, T3, T4> MaxGlobal() => this
             .Continue()
@@ -696,7 +704,8 @@ namespace ExRam.Gremlinq.Core
             .Continue()
             .Build(static builder => builder
                 .AddStep(MaxStep.Local)
-                .Build<TNewQuery>());
+                .As<TNewQuery>()
+                .Build());
 
         private GremlinQuery<T1, T2, T3, T4> MeanGlobal() => this
             .Continue()
@@ -709,7 +718,8 @@ namespace ExRam.Gremlinq.Core
             .Continue()
             .Build(static builder => builder
                 .AddStep(MeanStep.Local)
-                .Build<TNewQuery>());
+                .As<TNewQuery>()
+                .Build());
 
         private GremlinQuery<T1, T2, T3, T4> MinGlobal() => this
             .Continue()
@@ -722,7 +732,8 @@ namespace ExRam.Gremlinq.Core
             .Continue()
             .Build(static builder => builder
                 .AddStep(MinStep.Local)
-                .Build<TNewQuery>());
+                .As<TNewQuery>()
+                .Build());
 
         private GremlinQuery<T1, T2, T3, T4> None() => this
             .Continue()
@@ -758,7 +769,8 @@ namespace ExRam.Gremlinq.Core
                         builder = builder.AddStep(new HasLabelStep(labels));
 
                     return builder
-                        .Build<TTargetQuery>();
+                        .As<TTargetQuery>()
+                        .Build();
                 },
                 (@this: this, model, force));
 
@@ -770,7 +782,8 @@ namespace ExRam.Gremlinq.Core
                 .WithNewProjection(
                     static (projection, otherProjection) => projection.Lowest(otherProjection),
                     continuedTraversal.Projection)
-                .Build<TTargetQuery>());
+                .As<TTargetQuery>()
+                .Build());
 
         private GremlinQuery<T1, T2, T3, T4> Or<TState>(Func<GremlinQuery<T1, T2, T3, T4>, TState, IGremlinQueryBase> continuation1, Func<GremlinQuery<T1, T2, T3, T4>, TState, IGremlinQueryBase> continuation2, TState state) => Or(this
             .Continue(ContinuationFlags.Filter)
@@ -995,7 +1008,8 @@ namespace ExRam.Gremlinq.Core
                 static (builder, tuple) => builder
                     .AddStep(new SelectStepLabelStep(ImmutableArray.Create(tuple.stepLabel)))
                     .WithNewProjection(tuple.stepLabelProjection)
-                    .Build<TNewQuery>(),
+                    .As<TNewQuery>()
+                    .Build(),
                 (stepLabel, stepLabelProjection: GetLabelProjection(stepLabel)));
 
         private TTargetQuery Select<TTargetQuery>(params Expression[] projections) where TTargetQuery : IGremlinQueryBase => this
@@ -1021,7 +1035,8 @@ namespace ExRam.Gremlinq.Core
                         .WithNewProjection(
                             static (projection, keys) => projection.If<TupleProjection>(tuple => tuple.Select(keys)),
                             keys)
-                        .Build<TTargetQuery>();
+                        .As<TTargetQuery>()
+                        .Build();
                 },
                 projections);
 
@@ -1058,7 +1073,8 @@ namespace ExRam.Gremlinq.Core
             .Build(static builder => builder
                 .AddStep(new SumStep(Scope.Local))
                 .WithNewProjection(Projection.Value)
-                .Build<TNewQuery>());
+                .As<TNewQuery>()
+                .Build());
 
         private GremlinQuery<T1, T2, T3, T4> TailGlobal(long count) => this
             .Continue()
@@ -1118,7 +1134,8 @@ namespace ExRam.Gremlinq.Core
                         .ToImmutableArray()))
                     .WithNewProjection(unionTraversals
                         .LowestProjection())
-                    .Build<TReturnQuery>());
+                    .As<TReturnQuery>()
+                    .Build());
 
         private GremlinQuery<object, object, object, IGremlinQueryBase> V(ImmutableArray<object> ids) => this
             .Continue()
