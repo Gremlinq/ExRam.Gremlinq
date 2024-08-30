@@ -387,14 +387,16 @@ namespace ExRam.Gremlinq.Core
                     if (traversals.Length == 0)
                         throw new ArgumentException("Coalesce must have at least one sub-query.");
 
-                    if (traversals.All(static traversal => traversal.IsIdentity()))
-                        return builder.As<TReturnQuery>();
+                    if (!traversals.All(static traversal => traversal.IsIdentity()))
+                    {
+                        builder = builder
+                            .AddStep(new CoalesceStep(traversals
+                                .ToImmutableArray()))
+                            .WithNewProjection(traversals
+                                .LowestProjection());
+                    }
 
                     return builder
-                        .AddStep(new CoalesceStep(traversals
-                            .ToImmutableArray()))
-                        .WithNewProjection(traversals
-                            .LowestProjection())
                         .As<TReturnQuery>();
                 });
 
