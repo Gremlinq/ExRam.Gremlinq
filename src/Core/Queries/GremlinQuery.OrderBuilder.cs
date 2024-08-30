@@ -38,8 +38,7 @@ namespace ExRam.Gremlinq.Core
                         var (key, order) = tuple;
 
                         return builder
-                            .AddStep(new OrderStep.ByMemberStep(key, order))
-                            .Build();
+                            .AddStep(new OrderStep.ByMemberStep(key, order));
                     },
                     (_query.GetKey(projection), order)));
 

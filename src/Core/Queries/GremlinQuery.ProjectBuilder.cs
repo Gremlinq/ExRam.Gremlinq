@@ -143,8 +143,7 @@ namespace ExRam.Gremlinq.Core
                                     .Continue()
                                     .Build(
                                         static (builder, key) => builder
-                                            .AddStep(new ProjectStep.ByKeyStep(key))
-                                            .Build(),
+                                            .AddStep(new ProjectStep.ByKeyStep(key)),
                                         __.GetKey(projection)),
                                 projection),
                         _names.Push(name ?? $"Item{_names.Count + 1}"),

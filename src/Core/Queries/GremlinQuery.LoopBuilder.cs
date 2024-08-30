@@ -67,8 +67,7 @@ namespace ExRam.Gremlinq.Core
                 .Continue()
                 .Build(
                     static (builder, loopCount) => builder
-                        .AddStep(new TimesStep(loopCount))
-                        .Build(),
+                        .AddStep(new TimesStep(loopCount)),
                     loopCount));
 
             private LoopBuilder<TQuery> Until(Func<TQuery, IGremlinQueryBase> untilCondition) => new(_outerQuery
