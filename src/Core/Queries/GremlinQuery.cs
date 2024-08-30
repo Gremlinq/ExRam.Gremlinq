@@ -1288,8 +1288,7 @@ namespace ExRam.Gremlinq.Core
                      propertyContinuation)
                  .Build(
                      static (builder, propertyTraversal, key) => builder
-                         .AddStep(new HasTraversalStep(key, propertyTraversal))
-                         .Build(),
+                         .AddStep(new HasTraversalStep(key, propertyTraversal)),
                      GetKey(memberExpression))
              : throw new ExpressionNotSupportedException(predicate);
 
