@@ -5,7 +5,7 @@ namespace ExRam.Gremlinq.Core
 {
     internal static class FinalContinuationBuilderExtensions
     {
-        public static FinalContinuationBuilder<TOuterQuery> AddSteps<TOuterQuery>(this FinalContinuationBuilder<TOuterQuery> builder, IEnumerable<Step> steps)
+        public static FinalContinuationBuilder<TOuterQuery, TOuterQuery> AddSteps<TOuterQuery>(this FinalContinuationBuilder<TOuterQuery, TOuterQuery> builder, IEnumerable<Step> steps)
             where TOuterQuery : GremlinQueryBase, IGremlinQueryBase
         {
             foreach (var step in steps)
@@ -16,7 +16,7 @@ namespace ExRam.Gremlinq.Core
             return builder;
         }
 
-        public static FinalContinuationBuilder<TOuterQuery> AddSteps<TOuterQuery>(this FinalContinuationBuilder<TOuterQuery> builder, Traversal traversal)
+        public static FinalContinuationBuilder<TOuterQuery, TOuterQuery> AddSteps<TOuterQuery>(this FinalContinuationBuilder<TOuterQuery, TOuterQuery> builder, Traversal traversal)
             where TOuterQuery : GremlinQueryBase, IGremlinQueryBase
         {
             for (var i = 0; i < traversal.Count; i++)
@@ -27,22 +27,22 @@ namespace ExRam.Gremlinq.Core
             return builder;
         }
 
-        public static FinalContinuationBuilder<TOuterQuery> WithNewProjection<TOuterQuery>(this FinalContinuationBuilder<TOuterQuery> builder, Projection newProjection)
+        public static FinalContinuationBuilder<TOuterQuery, TOuterQuery> WithNewProjection<TOuterQuery>(this FinalContinuationBuilder<TOuterQuery, TOuterQuery> builder, Projection newProjection)
             where TOuterQuery : GremlinQueryBase, IGremlinQueryBase => builder.WithNewProjection(static (_, newProjection) => newProjection, newProjection);
 
-        public static FinalContinuationBuilder<TOuterQuery> WithNewProjection<TOuterQuery>(this FinalContinuationBuilder<TOuterQuery> builder, Func<Projection, Projection> projectionTransformation)
+        public static FinalContinuationBuilder<TOuterQuery, TOuterQuery> WithNewProjection<TOuterQuery>(this FinalContinuationBuilder<TOuterQuery, TOuterQuery> builder, Func<Projection, Projection> projectionTransformation)
             where TOuterQuery : GremlinQueryBase, IGremlinQueryBase =>
             builder.WithNewProjection(
                 static (projection, projectionTransformation) => projectionTransformation(projection),
                 projectionTransformation);
 
-        public static FinalContinuationBuilder<TOuterQuery> Where<TOuterQuery>(this FinalContinuationBuilder<TOuterQuery> builder, Traversal traversal)
+        public static FinalContinuationBuilder<TOuterQuery, TOuterQuery> Where<TOuterQuery>(this FinalContinuationBuilder<TOuterQuery, TOuterQuery> builder, Traversal traversal)
             where TOuterQuery : GremlinQueryBase, IGremlinQueryBase => builder
                 .AddSteps(traversal.Count > 0 && traversal.Steps.All(static x => x is IFilterStep)
                     ? traversal
                     : new FilterStep.ByTraversalStep(traversal));
 
-        public static FinalContinuationBuilder<TOuterQuery> None<TOuterQuery>(this FinalContinuationBuilder<TOuterQuery> builder)
+        public static FinalContinuationBuilder<TOuterQuery, TOuterQuery> None<TOuterQuery>(this FinalContinuationBuilder<TOuterQuery, TOuterQuery> builder)
             where TOuterQuery : GremlinQueryBase, IGremlinQueryBase => builder.WithSteps(
                 static (traversal, _) => traversal.IsIdentity()
                     ? NoneStep.Instance

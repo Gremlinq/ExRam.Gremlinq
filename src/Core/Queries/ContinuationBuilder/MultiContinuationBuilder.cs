@@ -30,7 +30,7 @@ namespace ExRam.Gremlinq.Core
                 static (outer, _, continuations, flags, state) =>
                 {
                     var (builderTransformation, innerState) = state;
-                    var builder = new FinalContinuationBuilder<TOuterQuery>(outer);
+                    var builder = new FinalContinuationBuilder<TOuterQuery, TOuterQuery>(outer);
 
                     using (var owner = MemoryPool<Traversal>.Shared.Rent(continuations.Count))
                     {

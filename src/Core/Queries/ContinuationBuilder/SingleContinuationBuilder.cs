@@ -23,11 +23,11 @@ namespace ExRam.Gremlinq.Core
             static (outer, anonymous, existingContinuation, flags, state) => new MultiContinuationBuilder<TOuterQuery, TAnonymousQuery>(outer, anonymous, FastImmutableList<IGremlinQueryBase>.Empty.Push(existingContinuation).Push(state.continuation.Apply(anonymous, state.state)), flags),
             (continuation, state));
 
-        public TNewQuery Build<TNewQuery, TState>(Func<FinalContinuationBuilder<TOuterQuery>, Traversal, TState, TNewQuery> builderTransformation, TState state) => With(
+        public TNewQuery Build<TNewQuery, TState>(Func<FinalContinuationBuilder<TOuterQuery, TOuterQuery>, Traversal, TState, TNewQuery> builderTransformation, TState state) => With(
             static (outer, _, continuation, flags, state) =>
             {
                 var (builderTransformation, innerState) = state;
-                var builder = new FinalContinuationBuilder<TOuterQuery>(outer);
+                var builder = new FinalContinuationBuilder<TOuterQuery, TOuterQuery>(outer);
 
                 if (continuation is GremlinQueryBase queryBase)
                 {

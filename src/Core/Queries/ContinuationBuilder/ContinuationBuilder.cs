@@ -31,8 +31,8 @@ namespace ExRam.Gremlinq.Core
             static (outer, anonymous, flags, _) => new MultiContinuationBuilder<TOuterQuery, TAnonymousQuery>(outer, anonymous, FastImmutableList<IGremlinQueryBase>.Empty, flags),
             0);
 
-        public TNewQuery Build<TNewQuery, TState>(Func<FinalContinuationBuilder<TOuterQuery>, TState, TNewQuery> builderTransformation, TState state) => With(
-            static (outer, _, _, state) => state.builderTransformation(new FinalContinuationBuilder<TOuterQuery>(outer), state.state),
+        public TNewQuery Build<TNewQuery, TState>(Func<FinalContinuationBuilder<TOuterQuery, TOuterQuery>, TState, TNewQuery> builderTransformation, TState state) => With(
+            static (outer, _, _, state) => state.builderTransformation(new FinalContinuationBuilder<TOuterQuery, TOuterQuery>(outer), state.state),
             (builderTransformation, state));
 
         private TResult With<TState, TResult>(Func<TOuterQuery, TAnonymousQuery, ContinuationFlags, TState, TResult> continuation, TState state) => (_outer is { } outer && _anonymous is { } anonymous)
