@@ -1,8 +1,8 @@
 ﻿using System.Collections.Immutable;
-using System.Diagnostics;
 
 using ExRam.Gremlinq.Core.Projections;
 using ExRam.Gremlinq.Core.Steps;
+
 using static ExRam.Gremlinq.Core.ExceptionHelper;
 
 namespace ExRam.Gremlinq.Core
@@ -30,10 +30,6 @@ namespace ExRam.Gremlinq.Core
         public FinalContinuationBuilder<TOuterQuery, TTargetQuery> AddStep(Step step) => With(
             static (outer, steps, labelProjections, step) => new FinalContinuationBuilder<TOuterQuery, TTargetQuery>(outer, steps.Push(step), labelProjections),
             step);
-
-        public FinalContinuationBuilder<TOuterQuery, TTargetQuery> WithSteps(Traversal newSteps) => With(
-            static (outer, _, labelProjections, newSteps) => new FinalContinuationBuilder<TOuterQuery, TTargetQuery>(outer, newSteps, labelProjections),
-            newSteps);
 
         public FinalContinuationBuilder<TOuterQuery, TTargetQuery> WithSteps<TState>(Func<Traversal, TState, Traversal> traversalTransformation, TState state) => With(
             static (outer, steps, labelProjections, tuple) => new FinalContinuationBuilder<TOuterQuery, TTargetQuery>(outer, tuple.traversalTransformation(steps, tuple.state), labelProjections),
