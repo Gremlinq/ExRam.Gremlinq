@@ -734,21 +734,20 @@ namespace ExRam.Gremlinq.Core
             .Build(
                 static (builder, tuple) =>
                 {
-                    var (@this, model, force) = tuple;
+                    var (env, model, force) = tuple;
 
-                    if (!force && typeof(TNewElement).IsAssignableFrom(typeof(T1)))
-                        return @this.CloneAs<TTargetQuery>();
+                    if (force || !typeof(TNewElement).IsAssignableFrom(typeof(T1)))
+                    {
+                        var labels = model.TryGetFilterLabels(typeof(TNewElement), env.Options.GetValue(GremlinqOption.FilterLabelsVerbosity)) ?? ImmutableArray.Create(typeof(TNewElement).Name);
 
-                    var labels = model.TryGetFilterLabels(typeof(TNewElement), @this.Environment.Options.GetValue(GremlinqOption.FilterLabelsVerbosity)) ?? ImmutableArray.Create(typeof(TNewElement).Name);
-
-                    if (labels.Length > 0)
-                        builder = builder.AddStep(new HasLabelStep(labels));
+                        if (labels.Length > 0)
+                            builder = builder.AddStep(new HasLabelStep(labels));
+                    }
 
                     return builder
-                        .As<TTargetQuery>()
-                        .Build();
+                        .As<TTargetQuery>();
                 },
-                (@this: this, model, force));
+                (Environment, model, force));
 
         private TTargetQuery Optional<TTargetQuery>(Func<GremlinQuery<T1, T2, T3, T4>, TTargetQuery> optionalTraversal) where TTargetQuery : IGremlinQueryBase => this
             .Continue()
