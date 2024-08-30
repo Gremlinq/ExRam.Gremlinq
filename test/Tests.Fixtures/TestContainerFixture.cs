@@ -1,6 +1,4 @@
-﻿using System.Collections.Immutable;
-
-using Docker.DotNet;
+﻿using Docker.DotNet;
 
 using DotNet.Testcontainers.Builders;
 using DotNet.Testcontainers.Containers;
