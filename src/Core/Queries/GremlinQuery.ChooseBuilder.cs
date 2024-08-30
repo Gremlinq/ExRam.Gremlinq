@@ -31,8 +31,7 @@ namespace ExRam.Gremlinq.Core
                     _continuation
                         .With(chooseContinuation)
                         .Build(static (builder, traversal) => builder
-                            .AddStep(new ChooseOptionTraversalStep(traversal))
-                            .Build()));
+                            .AddStep(new ChooseOptionTraversalStep(traversal))));
             }
 
             public IChooseBuilderWithCase<GremlinQuery<T1, T2, T3, T4>, TPickElement, TNewTargetQuery> Case<TNewTargetQuery>(TPickElement element, Func<GremlinQuery<T1, T2, T3, T4>, TNewTargetQuery> continuation) where TNewTargetQuery : IGremlinQueryBase
@@ -61,8 +60,7 @@ namespace ExRam.Gremlinq.Core
                             .AddStep(new OptionTraversalStep(default, traversal))
                             .WithNewProjection(
                                 static (projection, otherProjection) => projection.Lowest(otherProjection),
-                                traversal.Projection)
-                            .Build()));
+                                traversal.Projection)));
             }
 
             public IChooseBuilderWithCase<GremlinQuery<T1, T2, T3, T4>, TPickElement, TTargetQuery> Case(TPickElement element, Func<GremlinQuery<T1, T2, T3, T4>, TTargetQuery> continuation) => Case<TTargetQuery>(element, continuation);

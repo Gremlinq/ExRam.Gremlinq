@@ -126,8 +126,7 @@ namespace ExRam.Gremlinq.Core
                                 .Continue()
                                 .With(projection)
                                 .Build(static (builder, traversal) => builder
-                                    .AddStep(new ProjectStep.ByTraversalStep(traversal))
-                                    .Build()),
+                                    .AddStep(new ProjectStep.ByTraversalStep(traversal))),
                             projection),
                     _names.Push(name ?? $"Item{_names.Count + 1}"),
                     _emptyProjectionProtectionDecoratorSteps);

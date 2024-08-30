@@ -535,8 +535,7 @@ namespace ExRam.Gremlinq.Core
             .Build(static (builder, innerTraversal) => builder
                 .AddStep(new FlatMapStep(innerTraversal))
                 .WithNewProjection(innerTraversal.Projection)
-                .As<TTargetQuery>()
-                .Build());
+                .As<TTargetQuery>());
 
         private GremlinQuery<T1[], T1, object, TNewFoldedQuery> Fold<TNewFoldedQuery>() where TNewFoldedQuery : IGremlinQueryBase => this
             .Continue()
@@ -558,8 +557,7 @@ namespace ExRam.Gremlinq.Core
             .With(fromVertexContinuation)
             .Build(static (builder, fromVertexTraversal) => builder
                 .AddStep(new AddEStep.FromTraversalStep(fromVertexTraversal))
-                .AsAuto<T1, TNewOutVertex, TInVertex>()
-                .Build());
+                .AsAuto<T1, TNewOutVertex, TInVertex>());
 
         private GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, IGremlinQueryBase> From<TNewElement, TNewOutVertex, TNewInVertex>(StepLabel<TNewOutVertex> label) => this
            .Continue()
@@ -701,8 +699,7 @@ namespace ExRam.Gremlinq.Core
                 }
 
                 return builder
-                    .As<TTargetQuery>()
-                    .Build();
+                    .As<TTargetQuery>();
             });
 
         private TTargetQuery Loop<TTargetQuery>(Func<IStartLoopBuilder<TTargetQuery>, IFinalLoopBuilder<TTargetQuery>> loopBuilderTransformation)
@@ -712,13 +709,12 @@ namespace ExRam.Gremlinq.Core
             .Continue()
             .With(continuation)
             .Build(static (builder, innerTraversal) => innerTraversal.IsIdentity()
-                ? builder.OuterQuery
-                    .CloneAs<TTargetQuery>()
+                ? builder
+                    .As<TTargetQuery>()
                 : builder
                     .AddStep(new MapStep(innerTraversal))
                     .WithNewProjection(innerTraversal.Projection)
-                    .As<TTargetQuery>()
-                    .Build());
+                    .As<TTargetQuery>());
 
         private GremlinQuery<T1, T2, T3, T4> MaxGlobal() => this
             .Continue()
@@ -772,13 +768,12 @@ namespace ExRam.Gremlinq.Core
             .Continue()
             .With(continuation, state)
             .Build(static (builder, innerTraversal) => innerTraversal.IsIdentity()
-                ? builder.OuterQuery
+                ? builder
                     .None()
                 : innerTraversal.IsNone()
-                    ? builder.OuterQuery
+                    ? builder
                     : builder
-                        .AddStep(new NotStep(innerTraversal))
-                        .Build());
+                        .AddStep(new NotStep(innerTraversal)));
 
         private TTargetQuery OfType<TNewElement, TTargetQuery>(IGraphElementModel model, bool force = false) where TTargetQuery : IStartGremlinQuery => this
             .Continue()
@@ -809,8 +804,7 @@ namespace ExRam.Gremlinq.Core
                 .WithNewProjection(
                     static (projection, otherProjection) => projection.Lowest(otherProjection),
                     continuedTraversal.Projection)
-                .As<TTargetQuery>()
-                .Build());
+                .As<TTargetQuery>());
 
         private GremlinQuery<T1, T2, T3, T4> Or<TState>(Func<GremlinQuery<T1, T2, T3, T4>, TState, IGremlinQueryBase> continuation1, Func<GremlinQuery<T1, T2, T3, T4>, TState, IGremlinQueryBase> continuation2, TState state) => Or(this
             .Continue(ContinuationFlags.Filter)
@@ -1079,8 +1073,7 @@ namespace ExRam.Gremlinq.Core
             .Continue()
             .With(sideEffectContinuation)
             .Build(static (builder, traversal) => builder
-                .AddStep(new SideEffectStep(traversal))
-                .Build());
+                .AddStep(new SideEffectStep(traversal)));
 
         private GremlinQuery<T1, T2, T3, T4> SimplePath() => this
             .Continue()
@@ -1136,8 +1129,7 @@ namespace ExRam.Gremlinq.Core
             .With(toVertexContinuation)
             .Build(static (builder, toVertexTraversal) => builder
                 .AddStep(new AddEStep.ToTraversalStep(toVertexTraversal))
-                .AsAuto<T1, TOutVertex, TNewInVertex>()
-                .Build());
+                .AsAuto<T1, TOutVertex, TNewInVertex>());
 
         private GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, IGremlinQueryBase> To<TNewElement, TNewOutVertex, TNewInVertex>(StepLabel stepLabel) => this
             .Continue()
@@ -1269,10 +1261,10 @@ namespace ExRam.Gremlinq.Core
             .Continue(ContinuationFlags.Filter)
             .With(filterContinuation)
             .Build(static (builder, filterTraversal) => filterTraversal.IsIdentity()
-                ? builder.OuterQuery
+                ? builder
                 : filterTraversal.IsNone() && filterTraversal.SideEffectSemantics == SideEffectSemantics.Read
-                    ? builder.OuterQuery.None()
-                    : builder.Where(filterTraversal).Build());
+                    ? builder.None()
+                    : builder.Where(filterTraversal));
 
         private GremlinQuery<T1, T2, T3, T4> Where(Expression expression)
         {
