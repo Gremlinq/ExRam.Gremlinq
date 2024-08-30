@@ -67,8 +67,7 @@ namespace ExRam.Gremlinq.Core
                                         state.keyTraversal.Projection,
                                         state.valueTraversal.Projection),
                                 (keyTraversal, valueTraversal))
-                            .As<IMapGremlinQuery<IDictionary<TKey, TValue>>>()
-                            .Build();
+                            .As<IMapGremlinQuery<IDictionary<TKey, TValue>>>();
                     });
             }
         }

@@ -26,42 +26,44 @@ namespace ExRam.Gremlinq.Core
                 (continuation, state));
 
         public TNewQuery Build<TNewQuery, TState>(FinalContinuationBuilderTransformation<TOuterQuery, TNewQuery, TState> builderTransformation, TState state)
-            where TNewQuery : IGremlinQueryBase => With(
-                static (outer, _, continuations, flags, state) =>
-                {
-                    var (builderTransformation, innerState) = state;
-                    var builder = new FinalContinuationBuilder<TOuterQuery, TOuterQuery>(outer);
-
-                    using (var owner = MemoryPool<Traversal>.Shared.Rent(continuations.Count))
+            where TNewQuery : IGremlinQueryBase => this
+                .With(
+                    static (outer, _, continuations, flags, state) =>
                     {
-                        var traversalsSpan = owner.Memory.Span;
+                        var (builderTransformation, innerState) = state;
+                        var builder = new FinalContinuationBuilder<TOuterQuery, TOuterQuery>(outer);
 
-                        if (continuations.Count > 0)
+                        using (var owner = MemoryPool<Traversal>.Shared.Rent(continuations.Count))
                         {
-                            for (var i = 0; i < continuations.Count; i++)
+                            var traversalsSpan = owner.Memory.Span;
+
+                            if (continuations.Count > 0)
                             {
-                                var continuation = continuations[i];
-
-                                if (continuation is GremlinQueryBase queryBase)
+                                for (var i = 0; i < continuations.Count; i++)
                                 {
-                                    builder = builder.WithNewLabelProjections(
-                                        static (existingProjections, additionalProjections) => existingProjections.MergeSideEffectLabelProjections(additionalProjections),
-                                        queryBase.LabelProjections);
+                                    var continuation = continuations[i];
+
+                                    if (continuation is GremlinQueryBase queryBase)
+                                    {
+                                        builder = builder.WithNewLabelProjections(
+                                            static (existingProjections, additionalProjections) => existingProjections.MergeSideEffectLabelProjections(additionalProjections),
+                                            queryBase.LabelProjections);
+                                    }
+
+                                    traversalsSpan[i] = continuation
+                                        .ToTraversal()
+                                        .Rewrite(flags);
                                 }
-
-                                traversalsSpan[i] = continuation
-                                    .ToTraversal()
-                                    .Rewrite(flags);
                             }
-                        }
 
-                        return builderTransformation(
-                            builder,
-                            traversalsSpan[..continuations.Count],
-                            innerState);
-                    }
-                },
-                (builderTransformation, state));
+                            return builderTransformation(
+                                builder,
+                                traversalsSpan[..continuations.Count],
+                                innerState);
+                        }
+                    },
+                    (builderTransformation, state))
+                .Build();
 
         private TResult With<TState, TResult>(Func<TOuterQuery, TAnonymousQuery, FastImmutableList<IGremlinQueryBase>, ContinuationFlags, TState, TResult> continuation, TState state) => _outer is { } outer && _anonymous is { } anonymous && _continuations is var continuations
             ? continuation(outer, anonymous, continuations, _flags, state)

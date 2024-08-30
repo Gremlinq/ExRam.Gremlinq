@@ -211,8 +211,7 @@ namespace ExRam.Gremlinq.Core
                     }
                 }
 
-                return builder
-                    .Build();
+                return builder;
             });
 
         private TTargetQuery As<TStepLabel, TTargetQuery>(Func<GremlinQuery<T1, T2, T3, T4>, TStepLabel, TTargetQuery> continuation)
@@ -389,15 +388,14 @@ namespace ExRam.Gremlinq.Core
                         throw new ArgumentException("Coalesce must have at least one sub-query.");
 
                     if (traversals.All(static traversal => traversal.IsIdentity()))
-                        return builder.As<TReturnQuery>().Build();
+                        return builder.As<TReturnQuery>();
 
                     return builder
                         .AddStep(new CoalesceStep(traversals
                             .ToImmutableArray()))
                         .WithNewProjection(traversals
                             .LowestProjection())
-                        .As<TReturnQuery>()
-                        .Build();
+                        .As<TReturnQuery>();
                 });
 
         private GremlinQuery<T1, T2, T3, T4> Coin(double probability) => this
@@ -827,8 +825,7 @@ namespace ExRam.Gremlinq.Core
                     };
                 }
 
-                return builder
-                    .Build();
+                return builder;
             });
 
         private TTargetQuery Order<TTargetQuery>(Func<OrderBuilder, IOrderBuilderWithBy<TTargetQuery>> projection) where TTargetQuery : IGremlinQueryBase<T1> => projection(new OrderBuilder(this)).Build();
@@ -1124,8 +1121,7 @@ namespace ExRam.Gremlinq.Core
                         .ToImmutableArray()))
                     .WithNewProjection(unionTraversals
                         .LowestProjection())
-                    .As<TReturnQuery>()
-                    .Build());
+                    .As<TReturnQuery>());
 
         private GremlinQuery<object, object, object, IGremlinQueryBase> V(ImmutableArray<object> ids) => this
             .Continue()
