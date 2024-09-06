@@ -95,6 +95,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
 
                 .Add(new ExtractPropertyValueConverterFactory())
                 .Add(new ScalarToPropertyConverterFactory())
+                .Add(new PropertyHeuristicConverterFactory())
 
                 .Add(new VertexOrEdgeConverterFactory())
                 .Add(new LabelLookupConverterFactory())
