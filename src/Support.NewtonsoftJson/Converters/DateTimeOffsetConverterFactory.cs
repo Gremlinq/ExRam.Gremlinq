@@ -2,6 +2,7 @@
 using ExRam.Gremlinq.Core.Transformation;
 using ExRam.Gremlinq.Core;
 using System.Globalization;
+using static System.Globalization.DateTimeStyles;
 
 namespace ExRam.Gremlinq.Support.NewtonsoftJson
 {
@@ -13,7 +14,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
             {
                 { Value: DateTimeOffset dateTimeOffset } => dateTimeOffset,
                 { Value: DateTime dateTime } => new DateTimeOffset(dateTime),
-                { Value: string dateTimeString } when DateTimeOffset.TryParse(dateTimeString, CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal, out var parseResult) => parseResult,
+                { Value: string dateTimeString } when DateTimeOffset.TryParse(dateTimeString, CultureInfo.InvariantCulture, AdjustToUniversal | AssumeLocal, out var parseResult) => parseResult,
                 { Type: JTokenType.Integer } => DateTimeOffset.FromUnixTimeMilliseconds(jValue.Value<long>()),
                 _ => default(DateTimeOffset?)
             };
