@@ -4,6 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 using ExRam.Gremlinq.Core.Transformation;
 using ExRam.Gremlinq.Core;
 using System.Linq.Expressions;
+using System.Reflection;
 
 namespace ExRam.Gremlinq.Support.NewtonsoftJson
 {
@@ -15,19 +16,14 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
             private readonly IGremlinQueryEnvironment _environment;
             private readonly Func<TTargetPropertyValue, TTargetProperty?> _constructor;
 
-            public ScalarToPropertyConverter(IGremlinQueryEnvironment environment)
+            public ScalarToPropertyConverter(IGremlinQueryEnvironment environment, ConstructorInfo constructor)
             {
-                if (typeof(TTargetProperty).GetConstructor(new[] { typeof(TTargetPropertyValue) }) is { } constructor)
-                {
-                    var lambdaParam = Expression.Parameter(typeof(TTargetPropertyValue));
+                var lambdaParam = Expression.Parameter(typeof(TTargetPropertyValue));
 
-                    _environment = environment;
-                    _constructor = Expression
-                        .Lambda<Func<TTargetPropertyValue, TTargetProperty?>>(Expression.New(constructor, lambdaParam), lambdaParam)
-                        .Compile();
-                }
-                else
-                    throw new ArgumentException($"{typeof(TTargetProperty).Name} does not contain a constructor that takes a value of type {typeof(TTargetPropertyValue).Name}.");
+                _environment = environment;
+                _constructor = Expression
+                    .Lambda<Func<TTargetPropertyValue, TTargetProperty?>>(Expression.New(constructor, lambdaParam), lambdaParam)
+                    .Compile();
             }
 
             public bool TryConvert(JValue serialized, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTargetProperty? value)
@@ -46,8 +42,18 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
             }
         }
 
-        public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment) => typeof(TSource) == typeof(JValue) && typeof(Property).IsAssignableFrom(typeof(TTarget)) && typeof(TTarget).IsGenericType
-            ? (IConverter<TSource, TTarget>?)Activator.CreateInstance(typeof(ScalarToPropertyConverter<,>).MakeGenericType(typeof(TTarget), typeof(TTarget).GetGenericArguments()[0]), environment)
-            : default;
+        public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment)
+        {
+            if (typeof(TSource) == typeof(JValue) && typeof(Property).IsAssignableFrom(typeof(TTarget)) && typeof(TTarget).IsGenericType)
+            {
+                if (typeof(TTarget).GetGenericArguments() is [var targetPropertyValueType])
+                {
+                    if (typeof(TTarget).GetConstructor(new[] { targetPropertyValueType }) is { } constructor)
+                        return (IConverter<TSource, TTarget>?)Activator.CreateInstance(typeof(ScalarToPropertyConverter<,>).MakeGenericType(typeof(TTarget), targetPropertyValueType), environment, constructor);
+                }
+            }
+
+            return default;
+        }
     }
 }
