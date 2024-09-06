@@ -178,6 +178,24 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
             .Verify();
 
         [Fact]
+        public Task DateTimeOffset_from_string_1() => _g
+            .Inject("2016-12-14T16:39:19.349Z")
+            .Cast<DateTimeOffset>()
+            .Verify();
+
+        [Fact]
+        public Task DateTimeOffset_from_string_2() => _g
+            .Inject("2016-01-01T12:30")
+            .Cast<DateTimeOffset>()
+            .Verify();
+
+        [Fact]
+        public Task DateTimeOffset_from_string_3() => _g
+            .Inject("2007-12-03T10:15:30+01:00")
+            .Cast<DateTimeOffset>()
+            .Verify();
+
+        [Fact]
         public async Task Deserialization_of_typed_results_is_only_called_once()
         {
             var called = 0;
