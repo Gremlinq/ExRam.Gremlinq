@@ -4,6 +4,6 @@
     Country: PartitionKey,
     Language: PartitionKey,
     Person: 1586270616000,
-    TimeFrame: 28800000
+    TimeFrame: 28800000.0
   }
 ]
