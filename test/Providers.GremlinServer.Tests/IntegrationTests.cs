@@ -1,4 +1,5 @@
 ﻿using ExRam.Gremlinq.Core;
+using ExRam.Gremlinq.Core.Execution;
 using ExRam.Gremlinq.Tests.Fixtures;
 using ExRam.Gremlinq.Tests.Infrastructure;
 
@@ -194,6 +195,27 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
             .Inject("2007-12-03T10:15:30+01:00")
             .Cast<DateTimeOffset>()
             .Verify();
+
+        [Fact]
+        public Task TimeSpan_from_int() => _g
+            .Inject(42)
+            .Cast<TimeSpan>()
+            .Verify();
+
+        [Fact]
+        public Task TimeSpan_from_float() => _g
+            .Inject(42.3)
+            .Cast<TimeSpan>()
+            .Verify();
+
+        [Fact]
+        public Task TimeSpan_from_malformed_string() => _g
+            .Inject("abc")
+            .Cast<TimeSpan>()
+            .Awaiting(_ => _
+                .FirstOrDefaultAsync())
+            .Should()
+            .ThrowAsync<GremlinQueryExecutionException>();
 
         [Fact]
         public async Task Deserialization_of_typed_results_is_only_called_once()
