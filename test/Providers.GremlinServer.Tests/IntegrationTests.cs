@@ -1,5 +1,6 @@
 ﻿using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Execution;
+using ExRam.Gremlinq.Tests.Entities;
 using ExRam.Gremlinq.Tests.Fixtures;
 using ExRam.Gremlinq.Tests.Infrastructure;
 
@@ -250,5 +251,17 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
                 .Should()
                 .Be(1);
         }
+
+        [Fact]
+        public Task Project_to_null_entity() => _g
+            .V<Person>()
+            .Limit(1)
+            .Project(b => b
+                .ToTuple()
+                .By(__ => __
+                    .Label())
+                .By(__ => __
+                    .None()))
+            .Verify();
     }
 }
