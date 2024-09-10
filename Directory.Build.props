@@ -1,7 +1,8 @@
 <Project>
   <PropertyGroup>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <SuppressTfmSupportBuildWarnings>true</SuppressTfmSupportBuildWarnings> 
+    <SuppressTfmSupportBuildWarnings>true</SuppressTfmSupportBuildWarnings>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
     <ImplicitUsings>enable</ImplicitUsings>
     <EnablePackageValidation>true</EnablePackageValidation>
     <LangVersion>12.0</LangVersion>
@@ -27,6 +28,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Nerdbank.GitVersioning" Version="3.6.143" PrivateAssets="All" />
+    <PackageReference Include="Nerdbank.GitVersioning" PrivateAssets="All" />
   </ItemGroup>
 </Project>
