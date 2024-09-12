@@ -30,21 +30,37 @@ namespace ExRam.Gremlinq.Tests.Fixtures
 
         public override async Task InitializeAsync()
         {
-            var containerBuilder = new ContainerBuilder()
-                .WithImage(await GetImage())
-                .WithName(Guid.NewGuid().ToString("N"))
-                .WithPortBinding(_port, true)
-                .WithAutoRemove(true)
-                .WithWaitStrategy(Wait
-                    .ForUnixContainer()
-                    .UntilPortIsAvailable(_port))
-                .WithReuse(false);
+            for(var i = 0; i < 42; i++)
+            {
+                try
+                {
+		            var containerBuilder = new ContainerBuilder()
+		                .WithImage(await GetImage())
+		                .WithName(Guid.NewGuid().ToString("N"))
+		                .WithPortBinding(_port, true)
+		                .WithAutoRemove(true)
+		                .WithWaitStrategy(Wait
+		                    .ForUnixContainer()
+		                    .UntilPortIsAvailable(_port))
+		                .WithReuse(false);
 
-            _container = CustomizeContainer(containerBuilder)
-                .Build();
+		            _container = CustomizeContainer(containerBuilder)
+		                .Build();
 
-            await _container
-                .StartAsync();
+		            await _container
+		                .StartAsync();
+
+                    break;
+                }
+                catch (DockerApiException)
+                {
+                    await Task.Delay(500);
+                }
+                catch (NullReferenceException)
+                {
+                    await Task.Delay(500);
+                }
+            }
 
             await base.InitializeAsync();
         }
