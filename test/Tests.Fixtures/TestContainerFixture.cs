@@ -1,5 +1,6 @@
 ﻿using Docker.DotNet;
 
+using DotNet.Testcontainers;
 using DotNet.Testcontainers.Builders;
 using DotNet.Testcontainers.Containers;
 using DotNet.Testcontainers.Images;
@@ -38,7 +39,8 @@ namespace ExRam.Gremlinq.Tests.Fixtures
                 .WithWaitStrategy(Wait
                     .ForUnixContainer()
                     .UntilPortIsAvailable(_port))
-                .WithReuse(false);
+                .WithReuse(false)
+                .WithLogger(ConsoleLogger.Instance);
 
             _container = CustomizeContainer(containerBuilder)
                 .Build();
