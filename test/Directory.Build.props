@@ -4,6 +4,7 @@
   <PropertyGroup>
     <TargetFrameworks>net8.0</TargetFrameworks>
     <TargetFrameworks Condition="'$(Configuration)' == 'Release'">net6.0;$(TargetFrameworks)</TargetFrameworks>
+    <DiagnosticMessages>true</DiagnosticMessages>
   </PropertyGroup>
 
   <ItemGroup>
