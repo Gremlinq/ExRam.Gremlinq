@@ -7,17 +7,42 @@ using DotNet.Testcontainers.Images;
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Tests.Infrastructure;
 
+using Microsoft.Extensions.Logging;
+
+using Xunit.Sdk;
+
 namespace ExRam.Gremlinq.Tests.Fixtures
 {
     public abstract class TestContainerFixtureBase : GremlinqFixture
     {
+        private sealed class DiagnosticMessageLogger : ILogger
+        {
+            private readonly IMessageSink _sink;
+
+            public DiagnosticMessageLogger(IMessageSink sink)
+            {
+                _sink = sink;
+            }
+
+            public IDisposable? BeginScope<TState>(TState state) where TState : notnull => null;
+
+            public bool IsEnabled(LogLevel logLevel) => true;
+
+            public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception? exception, Func<TState, Exception?, string> formatter)
+            {
+                _sink.OnMessage(new DiagnosticMessage(formatter(state, exception)));
+            }
+        }
+
         private readonly int _port;
+        private readonly IMessageSink _messageSink;
 
         private IContainer? _container;
 
-        protected TestContainerFixtureBase(int port = 8182)
+        protected TestContainerFixtureBase(int port, IMessageSink messageSink)
         {
             _port = port;
+            _messageSink = messageSink;
         }
 
         protected sealed override IGremlinQuerySource TransformQuerySource(IGremlinQuerySource g)
@@ -38,7 +63,8 @@ namespace ExRam.Gremlinq.Tests.Fixtures
                 .WithWaitStrategy(Wait
                     .ForUnixContainer()
                     .UntilPortIsAvailable(_port))
-                .WithReuse(false);
+                .WithReuse(false)
+                .WithLogger(new DiagnosticMessageLogger(_messageSink));
 
             _container = CustomizeContainer(containerBuilder)
                 .Build();

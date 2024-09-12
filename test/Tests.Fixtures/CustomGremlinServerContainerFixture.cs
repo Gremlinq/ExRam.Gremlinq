@@ -13,7 +13,7 @@ namespace ExRam.Gremlinq.Tests.Fixtures
 {
     public class CustomGremlinServerContainerFixture : DockerfileTestContainerFixture
     {
-        public CustomGremlinServerContainerFixture() : base("Dockerfiles/CustomGremlinServerDockerfile")
+        public CustomGremlinServerContainerFixture(IMessageSink messageSink) : base("Dockerfiles/CustomGremlinServerDockerfile", 8182, messageSink)
         {
         }
 

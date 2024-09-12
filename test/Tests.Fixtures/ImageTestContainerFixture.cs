@@ -6,7 +6,7 @@ namespace ExRam.Gremlinq.Tests.Fixtures
     {
         private readonly string _image;
 
-        protected ImageTestContainerFixture(string image, int port = 8182) : base(port)
+        protected ImageTestContainerFixture(string image, int port, IMessageSink messageSink) : base(port, messageSink)
         {
             _image = image;
         }

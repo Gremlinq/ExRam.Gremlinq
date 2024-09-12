@@ -7,7 +7,7 @@ namespace ExRam.Gremlinq.Tests.Fixtures
     {
         private readonly string _dockerfile;
 
-        protected DockerfileTestContainerFixture(string dockerfile, int port = 8182) : base(port)
+        protected DockerfileTestContainerFixture(string dockerfile, int port, IMessageSink messageSink) : base(port, messageSink)
         {
             _dockerfile = dockerfile;
         }
