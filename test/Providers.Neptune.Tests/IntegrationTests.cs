@@ -3,7 +3,7 @@ using ExRam.Gremlinq.Tests.Infrastructure;
 
 namespace ExRam.Gremlinq.Providers.Neptune.Tests
 {
-    [IntegrationTest("Linux")]
+    [IntegrationTest("Linux", true)]
     [IntegrationTest("Windows")]
     public class IntegrationTests : QueryExecutionTest, IClassFixture<NeptuneContainerFixture>
     {
