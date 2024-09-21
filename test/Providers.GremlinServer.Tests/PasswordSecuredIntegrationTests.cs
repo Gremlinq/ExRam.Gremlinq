@@ -3,7 +3,7 @@ using ExRam.Gremlinq.Tests.Infrastructure;
 
 namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 {
-    [IntegrationTest("Linux")]
+    [IntegrationTest("Linux", true)]
     [IntegrationTest("Windows")]
     public class PasswordSecuredIntegrationTests : QueryExecutionTest, IClassFixture<PasswordSecuredGremlinServerContainerFixture>
     {
