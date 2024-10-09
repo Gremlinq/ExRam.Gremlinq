@@ -91,12 +91,16 @@ namespace ExRam.Gremlinq.Providers.Core
                 {
                     var enumerable = @this._client
                         .SubmitAsync<TResult>(requestMessage)
-                        .Catch(ex =>
-                        {
-                            @this._environment.Logger.LogError(ex, "Execution of Gremlin query {requestId} failed.", requestMessage.RequestId);
+                        .Catch(
+                            static (ex, tuple) =>
+                            {
+                                var (requestMessage, @this) = tuple;
 
-                            return ex;
-                        });
+                                @this._environment.Logger.LogError(ex, "Execution of Gremlin query {requestId} failed.", requestMessage.RequestId);
+
+                                return ex;
+                            },
+                            (requestMessage, @this));
 
                     await using (var e = enumerable.GetAsyncEnumerator(ct))
                     {

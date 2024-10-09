@@ -216,7 +216,13 @@ namespace ExRam.Gremlinq.Providers.Core
                         .OverrideRequestId(context.ExecutionId)
                         .Create();
 
-                    await foreach (var response in client.SubmitAsync<List<T>>(requestMessage).Catch(ex => ex is not ArgumentException ? new GremlinQueryExecutionException(context, ex) : ex).WithCancellation(ct))
+                    var enumerable = client
+                        .SubmitAsync<List<T>>(requestMessage)
+                        .Catch(
+                            static (ex, context) => ex is not ArgumentException ? new GremlinQueryExecutionException(context, ex) : ex,
+                            context);
+
+                    await foreach (var response in enumerable.WithCancellation(ct))
                     {
                         switch (response)
                         {

@@ -115,11 +115,11 @@ namespace ExRam.Gremlinq.Core
             return list.ToArray();
         }
 
-        public static IAsyncEnumerable<T> Catch<T>(this IAsyncEnumerable<T> source, Func<Exception, Exception> exceptionTransformation)
+        public static IAsyncEnumerable<TSource> Catch<TSource, TState>(this IAsyncEnumerable<TSource> source, Func<Exception, TState, Exception> exceptionTransformation, TState state)
         {
-            return Core(source, exceptionTransformation);
+            return Core(source, exceptionTransformation, state);
 
-            static async IAsyncEnumerable<T> Core(IAsyncEnumerable<T> source, Func<Exception, Exception> exceptionTransformation, [EnumeratorCancellation] CancellationToken ct = default)
+            static async IAsyncEnumerable<TSource> Core(IAsyncEnumerable<TSource> source, Func<Exception, TState, Exception> exceptionTransformation, TState state, [EnumeratorCancellation] CancellationToken ct = default)
             {
                 await using (var enumerator = source.GetAsyncEnumerator(ct))
                 {
@@ -132,7 +132,7 @@ namespace ExRam.Gremlinq.Core
                         }
                         catch (Exception ex)
                         {
-                            throw exceptionTransformation(ex);
+                            throw exceptionTransformation(ex, state);
                         }
 
                         yield return enumerator.Current;

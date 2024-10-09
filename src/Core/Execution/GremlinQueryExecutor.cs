@@ -130,9 +130,11 @@ namespace ExRam.Gremlinq.Core.Execution
 
             public IAsyncEnumerable<T> Execute<T>(GremlinQueryExecutionContext context) => _baseExecutor
                 .Execute<T>(context)
-                .Catch(ex => ex is GremlinQueryExecutionException executionException
-                    ? _exceptionTransformation(executionException)
-                    : ex);
+                .Catch(
+                    static (ex, exceptionTransformation) => ex is GremlinQueryExecutionException executionException
+                        ? exceptionTransformation(executionException)
+                        : ex,
+                    _exceptionTransformation);
         }
 
         private sealed class SerializingGremlinQueryExecutor : IGremlinQueryExecutor
