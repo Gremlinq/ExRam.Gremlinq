@@ -89,7 +89,16 @@ namespace ExRam.Gremlinq.Providers.Core
 
                 static async IAsyncEnumerable<ResponseMessage<TResult>> LoggingCore(RequestMessage requestMessage, LoggingGremlinqClient @this, [EnumeratorCancellation] CancellationToken ct = default)
                 {
-                    await using (var e = CatchingCore(requestMessage, @this).GetAsyncEnumerator(ct))
+                    var enumerable = @this._client
+                        .SubmitAsync<TResult>(requestMessage)
+                        .Catch(ex =>
+                        {
+                            @this._environment.Logger.LogError(ex, "Execution of Gremlin query {requestId} failed.", requestMessage.RequestId);
+
+                            return ex;
+                        });
+
+                    await using (var e = enumerable.GetAsyncEnumerator(ct))
                     {
                         var moveNext = e.MoveNextAsync();
 
@@ -100,29 +109,6 @@ namespace ExRam.Gremlinq.Providers.Core
                             yield return e.Current;
 
                             moveNext = e.MoveNextAsync();
-                        }
-                    }
-
-                    static async IAsyncEnumerable<ResponseMessage<TResult>> CatchingCore(RequestMessage requestMessage, LoggingGremlinqClient @this, [EnumeratorCancellation] CancellationToken ct = default)
-                    {
-                        await using (var e = @this._client.SubmitAsync<TResult>(requestMessage).GetAsyncEnumerator(ct))
-                        {
-                            while (true)
-                            {
-                                try
-                                {
-                                    if (!await e.MoveNextAsync())
-                                        break;
-                                }
-                                catch (Exception ex)
-                                {
-                                    @this._environment.Logger.LogError(ex, "Execution of Gremlin query {requestId} failed.", requestMessage.RequestId);
-
-                                    throw;
-                                }
-
-                                yield return e.Current;
-                            }
                         }
                     }
                 }
