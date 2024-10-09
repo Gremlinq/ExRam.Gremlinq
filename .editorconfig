@@ -14,8 +14,8 @@ trim_trailing_whitespace = true
 [*.{cs,csx,vb,vbx}]
 indent_size = 4
 insert_final_newline = true
-charset = utf-8-bom
 
+charset = utf-8-bom
 # Xml project files
 [*.{csproj,vbproj,vcxproj,vcxproj.filters,proj,projitems,shproj}]
 indent_size = 2
@@ -184,6 +184,7 @@ csharp_prefer_braces = false:none
 csharp_indent_block_contents = true
 csharp_indent_braces = false
 csharp_indent_case_contents = true
+csharp_indent_case_contents_when_block = false
 csharp_indent_switch_labels = true
 csharp_indent_labels = flush_left
 
