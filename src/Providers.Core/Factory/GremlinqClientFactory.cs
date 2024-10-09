@@ -7,6 +7,8 @@ using ExRam.Gremlinq.Core.Execution;
 using Gremlin.Net.Driver.Exceptions;
 using Gremlin.Net.Driver.Messages;
 
+using Microsoft.Extensions.Logging;
+
 using static Gremlin.Net.Driver.Messages.ResponseStatusCode;
 
 namespace ExRam.Gremlinq.Providers.Core
@@ -219,7 +221,18 @@ namespace ExRam.Gremlinq.Providers.Core
                         switch (response)
                         {
                             case { Status: { Code: var code and not Success and not NoContent and not PartialContent and not Authenticate } status }:
-                                throw new GremlinQueryExecutionException(context, new ResponseException(code, status.Attributes, $"{status.Code}: {status.Message}"));
+                            {
+                                try
+                                {
+                                    throw new GremlinQueryExecutionException(context, new ResponseException(code, status.Attributes, $"{status.Code}: {status.Message}"));
+                                }
+                                catch (GremlinQueryExecutionException ex)
+                                {
+                                    environment.Logger.LogError(ex, "Execution of Gremlin query {requestId} succeeded but returned response status code {statusCode}.", requestMessage.RequestId, code);
+
+                                    throw;
+                                }
+                            }
                             case { Result.Data: { } data }:
                             {
                                 foreach (var obj in data)
