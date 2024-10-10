@@ -10,7 +10,7 @@ using static ExRam.Gremlinq.Providers.GremlinServer.Tests.LoggingIntegrationTest
 
 namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 {
-    [IntegrationTest("Linux")]
+    [IntegrationTest("Linux", true)]
     [IntegrationTest("Windows")]
     public class LoggingIntegrationTests : QueryExecutionTest, IClassFixture<LoggingFixture>
     {
