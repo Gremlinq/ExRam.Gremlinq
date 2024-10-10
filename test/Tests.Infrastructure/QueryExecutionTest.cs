@@ -20,7 +20,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         protected QueryExecutionTest(GremlinqFixture fixture, GremlinQueryVerifier verifier) : base(verifier)
         {
-            _g = fixture.G;
+            _g = fixture.GetQuerySource();
         }
 
         [Fact]

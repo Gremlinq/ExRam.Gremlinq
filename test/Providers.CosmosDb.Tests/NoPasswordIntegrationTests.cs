@@ -31,7 +31,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
 
         public NoPasswordIntegrationTests(NoPasswordFixture fixture) : base(new ExecutingVerifier())
         {
-            _g = fixture.G;
+            _g = fixture.GetQuerySource();
         }
 
         [Fact(Skip = "Flaky")]

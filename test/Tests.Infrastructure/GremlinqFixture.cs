@@ -25,6 +25,6 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         {
         }
 
-        public IGremlinQuerySource G => _g ?? throw new InvalidOperationException();
+        public virtual IGremlinQuerySource GetQuerySource() => _g ?? throw new InvalidOperationException();
     }
 }
