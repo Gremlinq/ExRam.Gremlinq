@@ -3,6 +3,7 @@
   <ItemGroup>
     <None Remove="*.verified.txt" />
     <None Remove="*.received.txt" />
+    <PackageReference Include="Verify.MicrosoftLogging" />
     <ProjectReference Include="..\Tests.Fixtures\ExRam.Gremlinq.Tests.Fixtures.csproj" />
   </ItemGroup>
 
