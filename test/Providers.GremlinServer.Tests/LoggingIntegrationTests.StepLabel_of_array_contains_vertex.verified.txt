@@ -1,0 +1,23 @@
+﻿[
+  {
+    log: {
+      Level: Debug,
+      Category: LoggingFixture,
+      Message: Executing Gremlin query 12345678-9012-3456-7890-123456789012 with groovy script g.V().fold().as(_a).V().hasLabel(_b).where(within(_a)).count() and parameter bindings {}.,
+      State: [
+        {
+          requestId: 12345678-9012-3456-7890-123456789012
+        },
+        {
+          script: g.V().fold().as(_a).V().hasLabel(_b).where(within(_a)).count()
+        },
+        {
+          bindings: {}
+        },
+        {
+          {OriginalFormat}: Executing Gremlin query {requestId} with groovy script {script} and parameter bindings {bindings}.
+        }
+      ]
+    }
+  }
+]

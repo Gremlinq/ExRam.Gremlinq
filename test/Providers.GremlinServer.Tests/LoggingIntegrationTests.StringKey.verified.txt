@@ -1,0 +1,98 @@
+﻿[
+  {
+    log: {
+      Level: Debug,
+      Category: LoggingFixture,
+      Message: Executing Gremlin query 12345678-9012-3456-7890-123456789012 with groovy script g.V(_a).hasLabel(_b).project(_a,_c,_d).by(id).by(label).by(__.properties().group().by(label).by(__.project(_a,_c,_e,_d).by(id).by(label).by(value).by(__.valueMap()).fold())) and parameter bindings {}.,
+      State: [
+        {
+          requestId: 12345678-9012-3456-7890-123456789012
+        },
+        {
+          script: g.V(_a).hasLabel(_b).project(_a,_c,_d).by(id).by(label).by(__.properties().group().by(label).by(__.project(_a,_c,_e,_d).by(id).by(label).by(value).by(__.valueMap()).fold()))
+        },
+        {
+          bindings: {}
+        },
+        {
+          {OriginalFormat}: Executing Gremlin query {requestId} with groovy script {script} and parameter bindings {bindings}.
+        }
+      ]
+    }
+  },
+  {
+    log: {
+      Level: Error,
+      Category: LoggingFixture,
+      Exception: {
+        $type: GremlinQueryExecutionException,
+        Type: GremlinQueryExecutionException,
+        ExecutionContext: {
+          ExecutionId: 12345678-9012-3456-7890-123456789012,
+          Query: {}
+        },
+        Message: Executing query 12345678-9012-3456-7890-123456789012 failed.,
+        InnerException: {
+          $type: ResponseException,
+          Type: ResponseException,
+          StatusCode: ServerError,
+          StatusAttributes: {
+            exceptions: [
+              java.lang.IllegalArgumentException
+            ],
+            stackTrace:
+java.lang.IllegalArgumentException: Expected an id that is convertible to class java.lang.Long but received class java.lang.String - [id]
+	at org.apache.tinkerpop.gremlin.tinkergraph.structure.AbstractTinkerGraph$DefaultIdManager$1.convert(AbstractTinkerGraph.java:465)
+	at org.apache.tinkerpop.gremlin.tinkergraph.structure.TinkerGraph.lambda$createElementIterator$3(TinkerGraph.java:274)
+	at org.apache.tinkerpop.gremlin.util.iterator.IteratorUtils$3.next(IteratorUtils.java:284)
+	at org.apache.tinkerpop.gremlin.util.iterator.IteratorUtils$5.advance(IteratorUtils.java:380)
+	at org.apache.tinkerpop.gremlin.util.iterator.IteratorUtils$5.next(IteratorUtils.java:361)
+	at org.apache.tinkerpop.gremlin.tinkergraph.structure.TinkerGraphIterator.tryComputeNext(TinkerGraphIterator.java:78)
+	at org.apache.tinkerpop.gremlin.tinkergraph.structure.TinkerGraphIterator.hasNext(TinkerGraphIterator.java:57)
+	at org.apache.tinkerpop.gremlin.tinkergraph.process.traversal.step.sideEffect.TinkerGraphStep.iteratorList(TinkerGraphStep.java:135)
+	at org.apache.tinkerpop.gremlin.tinkergraph.process.traversal.step.sideEffect.TinkerGraphStep.vertices(TinkerGraphStep.java:100)
+	at org.apache.tinkerpop.gremlin.tinkergraph.process.traversal.step.sideEffect.TinkerGraphStep.lambda$new$0(TinkerGraphStep.java:67)
+	at org.apache.tinkerpop.gremlin.process.traversal.step.map.GraphStep.processNextStart(GraphStep.java:158)
+	at org.apache.tinkerpop.gremlin.process.traversal.step.util.AbstractStep.hasNext(AbstractStep.java:155)
+	at org.apache.tinkerpop.gremlin.process.traversal.step.util.ExpandableStepIterator.next(ExpandableStepIterator.java:55)
+	at org.apache.tinkerpop.gremlin.process.traversal.step.map.ScalarMapStep.processNextStart(ScalarMapStep.java:39)
+	at org.apache.tinkerpop.gremlin.process.traversal.step.util.AbstractStep.hasNext(AbstractStep.java:155)
+	at org.apache.tinkerpop.gremlin.process.traversal.util.DefaultTraversal.hasNext(DefaultTraversal.java:192)
+	at org.apache.tinkerpop.gremlin.server.util.TraverserIterator.fillBulker(TraverserIterator.java:63)
+	at org.apache.tinkerpop.gremlin.server.util.TraverserIterator.hasNext(TraverserIterator.java:50)
+	at org.apache.tinkerpop.gremlin.server.op.traversal.TraversalOpProcessor.handleIterator(TraversalOpProcessor.java:350)
+	at org.apache.tinkerpop.gremlin.server.op.traversal.TraversalOpProcessor.lambda$iterateBytecodeTraversal$0(TraversalOpProcessor.java:223)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:515)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at java.base/java.lang.Thread.run(Thread.java:829)
+
+          },
+          Message: ServerError: Expected an id that is convertible to class java.lang.Long but received class java.lang.String - [id]
+        },
+        StackTrace:
+at ExRam.Gremlinq.Providers.Core.GremlinqClientFactory.GremlinQueryExecutorImpl.<Execute>g__Core|3_0[T](GremlinQueryExecutorImpl this, GremlinQueryExecutionContext context, CancellationToken ct)
+at ExRam.Gremlinq.Providers.Core.GremlinqClientFactory.GremlinQueryExecutorImpl.<Execute>g__Core|3_0[T](GremlinQueryExecutorImpl this, GremlinQueryExecutionContext context, CancellationToken ct)
+at ExRam.Gremlinq.Providers.Core.GremlinqClientFactory.GremlinQueryExecutorImpl.<Execute>g__Core|3_0[T](GremlinQueryExecutorImpl this, GremlinQueryExecutionContext context, CancellationToken ct)
+at System.Collections.Generic.AsyncEnumerableHelpers.ToArrayWithLength[T](IAsyncEnumerable`1 source, CancellationToken cancellationToken)
+at System.Collections.Generic.AsyncEnumerableHelpers.ToArrayWithLength[T](IAsyncEnumerable`1 source, CancellationToken cancellationToken)
+at System.Collections.Generic.AsyncEnumerableHelpers.ToArray[T](IAsyncEnumerable`1 source, CancellationToken cancellationToken)
+at ExRam.Gremlinq.Providers.GremlinServer.Tests.LoggingIntegrationTests.LoggingVerifier.Verify[TElement](IGremlinQueryBase`1 query)
+      },
+      Message: Execution of Gremlin query 12345678-9012-3456-7890-123456789012 succeeded but returned response status code ServerError.,
+      State: [
+        {
+          requestId: 12345678-9012-3456-7890-123456789012
+        },
+        {
+          statusCode: ServerError
+        },
+        {
+          {OriginalFormat}: Execution of Gremlin query {requestId} succeeded but returned response status code {statusCode}.
+        }
+      ]
+    }
+  }
+]

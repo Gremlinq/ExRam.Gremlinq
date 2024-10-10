@@ -1,0 +1,23 @@
+﻿[
+  {
+    log: {
+      Level: Debug,
+      Category: LoggingFixture,
+      Message: Executing Gremlin query 12345678-9012-3456-7890-123456789012 with groovy script g.V().hasLabel(_a).order().by(id,asc).limit(_b).project(_c,_d,_e).by(__.constant(_f).limit(_b).fold()).by(__.constant(_g).limit(_b).fold()).by(__.id().limit(_b).fold()).map(__.unfold().group().by(__.select(keys)).by(__.select(values).unfold())).select(_c,_e) and parameter bindings {}.,
+      State: [
+        {
+          requestId: 12345678-9012-3456-7890-123456789012
+        },
+        {
+          script: g.V().hasLabel(_a).order().by(id,asc).limit(_b).project(_c,_d,_e).by(__.constant(_f).limit(_b).fold()).by(__.constant(_g).limit(_b).fold()).by(__.id().limit(_b).fold()).map(__.unfold().group().by(__.select(keys)).by(__.select(values).unfold())).select(_c,_e)
+        },
+        {
+          bindings: {}
+        },
+        {
+          {OriginalFormat}: Executing Gremlin query {requestId} with groovy script {script} and parameter bindings {bindings}.
+        }
+      ]
+    }
+  }
+]
