@@ -151,7 +151,12 @@ namespace ExRam.Gremlinq.Providers.Core
                             }
                         }
                         else
-                            environment.Logger.LogWarning("Failed to log RequestMessage {requestId}.", requestMessage.RequestId);
+                        {
+                            environment.Logger.Log(
+                                logLevel,
+                                "Executing Gremlin query {requestId}.",
+                                requestMessage.RequestId);
+                        }
                     }
                 };
             }
