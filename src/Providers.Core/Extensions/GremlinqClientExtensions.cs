@@ -132,12 +132,23 @@ namespace ExRam.Gremlinq.Providers.Core
                     {
                         if (requestMessage.TryGetGroovyScript(environment, includeBindings) is { } groovyQuery)
                         {
-                            environment.Logger.Log(
-                                logLevel,
-                                "Executing Gremlin query {requestId} with groovy script {script} and parameter bindings {bindings}.",
-                                requestMessage.RequestId,
-                                groovyQuery.Script,
-                                JsonSerializer.Serialize(groovyQuery.Bindings, formatting));
+                            if (includeBindings)
+                            {
+                                environment.Logger.Log(
+                                    logLevel,
+                                    "Executing Gremlin query {requestId} with groovy script {script} and parameter bindings {bindings}.",
+                                    requestMessage.RequestId,
+                                    groovyQuery.Script,
+                                    JsonSerializer.Serialize(groovyQuery.Bindings, formatting));    //TODO: dont serialize anymore on breaking change.
+                            }
+                            else
+                            {
+                                environment.Logger.Log(
+                                    logLevel,
+                                    "Executing Gremlin query {requestId} with groovy script {script}.",
+                                    requestMessage.RequestId,
+                                    groovyQuery.Script);
+                            }
                         }
                         else
                             environment.Logger.LogWarning("Failed to log RequestMessage {requestId}.", requestMessage.RequestId);

@@ -3,7 +3,7 @@
     log: {
       Level: Debug,
       Category: LoggingFixture,
-      Message: Executing Gremlin query 12345678-9012-3456-7890-123456789012 with groovy script g.V().hasLabel(_a).order().by(id,asc).limit(_b).project(_c,_d).by(__.constant(_e).limit(_b).fold()).by(__.id().limit(_b).fold()).map(__.unfold().group().by(__.select(keys)).by(__.select(values).unfold())) and parameter bindings {}.,
+      Message: Executing Gremlin query 12345678-9012-3456-7890-123456789012 with groovy script g.V().hasLabel(_a).order().by(id,asc).limit(_b).project(_c,_d).by(__.constant(_e).limit(_b).fold()).by(__.id().limit(_b).fold()).map(__.unfold().group().by(__.select(keys)).by(__.select(values).unfold())).,
       State: [
         {
           requestId: 12345678-9012-3456-7890-123456789012
@@ -12,10 +12,7 @@
           script: g.V().hasLabel(_a).order().by(id,asc).limit(_b).project(_c,_d).by(__.constant(_e).limit(_b).fold()).by(__.id().limit(_b).fold()).map(__.unfold().group().by(__.select(keys)).by(__.select(values).unfold()))
         },
         {
-          bindings: {}
-        },
-        {
-          {OriginalFormat}: Executing Gremlin query {requestId} with groovy script {script} and parameter bindings {bindings}.
+          {OriginalFormat}: Executing Gremlin query {requestId} with groovy script {script}.
         }
       ]
     }
