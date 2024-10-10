@@ -74,12 +74,10 @@ namespace ExRam.Gremlinq.Providers.Core
 
             private readonly IGremlinqClient _client;
             private readonly Action<RequestMessage> _logger;
-            private readonly IGremlinQueryEnvironment _environment;
 
             public LoggingGremlinqClient(IGremlinqClient client, IGremlinQueryEnvironment environment)
             {
                 _client = client;
-                _environment = environment;
                 _logger = GetLoggingFunction(environment);
             }
 
