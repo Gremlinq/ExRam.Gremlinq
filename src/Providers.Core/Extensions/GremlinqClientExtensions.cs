@@ -90,17 +90,7 @@ namespace ExRam.Gremlinq.Providers.Core
                 static async IAsyncEnumerable<ResponseMessage<TResult>> LoggingCore(RequestMessage requestMessage, LoggingGremlinqClient @this, [EnumeratorCancellation] CancellationToken ct = default)
                 {
                     var enumerable = @this._client
-                        .SubmitAsync<TResult>(requestMessage)
-                        .Catch(
-                            static (ex, tuple) =>
-                            {
-                                var (requestMessage, @this) = tuple;
-
-                                @this._environment.Logger.LogError(ex, "Execution of Gremlin query {requestId} failed.", requestMessage.RequestId);
-
-                                return ex;
-                            },
-                            (requestMessage, @this));
+                        .SubmitAsync<TResult>(requestMessage);
 
                     await using (var e = enumerable.GetAsyncEnumerator(ct))
                     {

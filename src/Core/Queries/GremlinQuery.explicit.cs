@@ -8,7 +8,10 @@ using ExRam.Gremlinq.Core.GraphElements;
 using ExRam.Gremlinq.Core.Projections;
 using ExRam.Gremlinq.Core.Steps;
 
+using Gremlin.Net.Driver.Messages;
 using Gremlin.Net.Process.Traversal;
+
+using Microsoft.Extensions.Logging;
 
 using Path = ExRam.Gremlinq.Core.GraphElements.Path;
 
@@ -193,8 +196,23 @@ namespace ExRam.Gremlinq.Core
 
         GremlinQueryAwaiter<T1> IGremlinQueryBase<T1>.GetAwaiter() => new((this).ToArrayAsync().AsTask().GetAwaiter());
 
-        IAsyncEnumerable<T1> IGremlinQueryBase<T1>.ToAsyncEnumerable() => Environment.Executor
-            .Execute<T1>(GremlinQueryExecutionContext.Create(this));
+        IAsyncEnumerable<T1> IGremlinQueryBase<T1>.ToAsyncEnumerable()
+        {
+            var context = GremlinQueryExecutionContext.Create(this);
+
+            return Environment.Executor
+                .Execute<T1>(context)
+                .Catch(
+                    static (ex, tuple) =>
+                    {
+                        var (context, @this) = tuple;
+
+                        @this.Environment.Logger.LogError(ex, "Execution of Gremlin query {executionId} failed.", context.ExecutionId);
+
+                        return ex;
+                    },
+                    (context, this));
+        }
 
         IGremlinQuery<Path> IGremlinQueryBase.Path() => Path();
 

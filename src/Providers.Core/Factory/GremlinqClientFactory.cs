@@ -228,16 +228,7 @@ namespace ExRam.Gremlinq.Providers.Core
                         {
                             case { Status: { Code: var code and not Success and not NoContent and not PartialContent and not Authenticate } status }:
                             {
-                                try
-                                {
-                                    throw new GremlinQueryExecutionException(context, new ResponseException(code, status.Attributes, $"{status.Code}: {status.Message}"));
-                                }
-                                catch (GremlinQueryExecutionException ex)
-                                {
-                                    environment.Logger.LogError(ex, "Execution of Gremlin query {requestId} succeeded but returned response status code {statusCode}.", requestMessage.RequestId, code);
-
-                                    throw;
-                                }
+                                throw new GremlinQueryExecutionException(context, new ResponseException(code, status.Attributes, $"{status.Code}: {status.Message}"));
                             }
                             case { Result.Data: { } data }:
                             {

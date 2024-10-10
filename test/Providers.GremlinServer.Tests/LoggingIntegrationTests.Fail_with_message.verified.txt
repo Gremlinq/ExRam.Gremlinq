@@ -67,24 +67,21 @@ org.apache.tinkerpop.gremlin.process.traversal.step.sideEffect.FailStep$FailExce
           Message: ServerErrorFailStep: There's been an error.
         },
         StackTrace:
-at ExRam.Gremlinq.Providers.Core.GremlinqClientFactory.GremlinQueryExecutorImpl.<Execute>g__Core|3_0[T](GremlinQueryExecutorImpl this, GremlinQueryExecutionContext context, CancellationToken ct)
-at ExRam.Gremlinq.Providers.Core.GremlinqClientFactory.GremlinQueryExecutorImpl.<Execute>g__Core|3_0[T](GremlinQueryExecutorImpl this, GremlinQueryExecutionContext context, CancellationToken ct)
-at ExRam.Gremlinq.Providers.Core.GremlinqClientFactory.GremlinQueryExecutorImpl.<Execute>g__Core|3_0[T](GremlinQueryExecutorImpl this, GremlinQueryExecutionContext context, CancellationToken ct)
+at ExRam.Gremlinq.Core.AsyncEnumerable.<Catch>g__Core|10_0[TSource,TState](IAsyncEnumerable`1 source, Func`3 exceptionTransformation, TState state, CancellationToken ct)
+at ExRam.Gremlinq.Core.AsyncEnumerable.<Catch>g__Core|10_0[TSource,TState](IAsyncEnumerable`1 source, Func`3 exceptionTransformation, TState state, CancellationToken ct)
+at ExRam.Gremlinq.Core.AsyncEnumerable.<Catch>g__Core|10_0[TSource,TState](IAsyncEnumerable`1 source, Func`3 exceptionTransformation, TState state, CancellationToken ct)
 at System.Collections.Generic.AsyncEnumerableHelpers.ToArrayWithLength[T](IAsyncEnumerable`1 source, CancellationToken cancellationToken)
 at System.Collections.Generic.AsyncEnumerableHelpers.ToArrayWithLength[T](IAsyncEnumerable`1 source, CancellationToken cancellationToken)
 at System.Collections.Generic.AsyncEnumerableHelpers.ToArray[T](IAsyncEnumerable`1 source, CancellationToken cancellationToken)
 at ExRam.Gremlinq.Providers.GremlinServer.Tests.LoggingIntegrationTests.LoggingVerifier.Verify[TElement](IGremlinQueryBase`1 query)
       },
-      Message: Execution of Gremlin query 12345678-9012-3456-7890-123456789012 succeeded but returned response status code ServerErrorFailStep.,
+      Message: Execution of Gremlin query 12345678-9012-3456-7890-123456789012 failed.,
       State: [
         {
-          requestId: 12345678-9012-3456-7890-123456789012
+          executionId: 12345678-9012-3456-7890-123456789012
         },
         {
-          statusCode: ServerErrorFailStep
-        },
-        {
-          {OriginalFormat}: Execution of Gremlin query {requestId} succeeded but returned response status code {statusCode}.
+          {OriginalFormat}: Execution of Gremlin query {executionId} failed.
         }
       ]
     }
