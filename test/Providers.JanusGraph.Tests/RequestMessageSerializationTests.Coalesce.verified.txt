@@ -12,16 +12,7 @@
           OperatorName: V
         },
         {
-          OperatorName: coalesce,
-          Arguments: [
-            {
-              StepInstructions: [
-                {
-                  OperatorName: out
-                }
-              ]
-            }
-          ]
+          OperatorName: out
         },
         {
           OperatorName: project,

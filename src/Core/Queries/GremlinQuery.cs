@@ -382,11 +382,20 @@ namespace ExRam.Gremlinq.Core
 
                     if (!traversals.All(static traversal => traversal.IsIdentity()))
                     {
-                        builder = builder
-                            .AddStep(new CoalesceStep(traversals
-                                .ToImmutableArray()))
-                            .WithNewProjection(traversals
-                                .LowestProjection());
+                        if (traversals is [var singleTraversal])
+                        {
+                            builder = builder
+                                .AddSteps(singleTraversal)
+                                .WithNewProjection(singleTraversal.Projection);
+                        }
+                        else
+                        {
+                            builder = builder
+                                .AddStep(new CoalesceStep(traversals
+                                    .ToImmutableArray()))
+                                .WithNewProjection(traversals
+                                    .LowestProjection());
+                        }
                     }
 
                     return builder
