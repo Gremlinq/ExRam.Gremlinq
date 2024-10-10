@@ -83,9 +83,9 @@ namespace ExRam.Gremlinq.Providers.Core
 
             public IAsyncEnumerable<ResponseMessage<TResult>> SubmitAsync<TResult>(RequestMessage requestMessage)
             {
-                return LoggingCore(requestMessage, this);
+                return Core(requestMessage, this);
 
-                static async IAsyncEnumerable<ResponseMessage<TResult>> LoggingCore(RequestMessage requestMessage, LoggingGremlinqClient @this, [EnumeratorCancellation] CancellationToken ct = default)
+                static async IAsyncEnumerable<ResponseMessage<TResult>> Core(RequestMessage requestMessage, LoggingGremlinqClient @this, [EnumeratorCancellation] CancellationToken ct = default)
                 {
                     var enumerable = @this._client
                         .SubmitAsync<TResult>(requestMessage);
