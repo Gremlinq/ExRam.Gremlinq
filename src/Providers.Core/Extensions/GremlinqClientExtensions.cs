@@ -28,7 +28,7 @@ namespace ExRam.Gremlinq.Providers.Core
 
                 static async IAsyncEnumerable<ResponseMessage<TResult>> Core(RequestMessage requestMessage, RequestInterceptingGremlinqClient @this, [EnumeratorCancellation] CancellationToken ct = default)
                 {
-                    await foreach(var item in @this._baseClient.SubmitAsync<TResult>(await @this._transformation(requestMessage, ct)).WithCancellation(ct))
+                    await foreach (var item in @this._baseClient.SubmitAsync<TResult>(await @this._transformation(requestMessage, ct)).WithCancellation(ct))
                     {
                         yield return item;
                     }

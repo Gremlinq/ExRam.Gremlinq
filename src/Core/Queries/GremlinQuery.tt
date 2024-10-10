@@ -19,11 +19,11 @@ namespace ExRam.Gremlinq.Core
         IMapGremlinQuery<(<#= GetArgumentList("TItem{0}", i) #>)> IMapGremlinQueryBase<T1>.Select<<#= GetArgumentList("TItem{0}", i) #>>(<#= GetArgumentList("Expression<Func<T1, TItem{0}>> projection{0}", i) #>) => Select<IMapGremlinQuery<(<#= GetArgumentList("TItem{0}", i) #>)>>(<#= GetArgumentList("projection{0}", i) #>);
 <# } #>
 
-<# foreach(var iface in Untyped(substitutedBaseInterfaces)){ #>
+<# foreach (var iface in Untyped(substitutedBaseInterfaces)){ #>
         <#= ChangeType(iface, "TResult").Replace("Base", "") #> <#= iface #>.Cast<TResult>() => CloneAs<<#= ChangeType(iface, "TResult").Replace("Base", "") #>>();
 <# } #>
 
-<# foreach(var iface in Typed(substitutedBaseInterfaces))
+<# foreach (var iface in Typed(substitutedBaseInterfaces))
 { #>
         TTargetQuery IGremlinQueryBaseRec<T1, <#= iface #>>.Aggregate<TTargetQuery>(Func<<#= iface #>, StepLabel<IArrayGremlinQuery<T1[], T1, <#= iface #>>, T1[]>, TTargetQuery> continuation) => Aggregate(Scope.Global, continuation);
         TTargetQuery IGremlinQueryBaseRec<T1, <#= iface #>>.AggregateLocal<TTargetQuery>(Func<<#= iface #>, StepLabel<IArrayGremlinQuery<T1[], T1, <#= iface #>>, T1[]>, TTargetQuery> continuation) => Aggregate(Scope.Local, continuation);
@@ -126,12 +126,12 @@ namespace ExRam.Gremlinq.Core
 <# } #>
 
 
-<# foreach(var iface in Untyped(EdgeOrVertex(substitutedBaseInterfaces))){ #>
+<# foreach (var iface in Untyped(EdgeOrVertex(substitutedBaseInterfaces))){ #>
         <#= ChangeType(iface, "TTarget").Replace("Base", "") #> <#= iface #>.OfType<TTarget>() => OfType<TTarget, <#= ChangeType(iface, "TTarget").Replace("Base", "") #>>(<#= iface.Contains("VertexGremlinQuery") ? "Environment.Model.VerticesModel" : "Environment.Model.EdgesModel" #>);
 <# } #>
 
 
-<# foreach(var iface in Typed(Element(substitutedBaseInterfaces))){ #>
+<# foreach (var iface in Typed(Element(substitutedBaseInterfaces))){ #>
         <#= iface #> IElementGremlinQueryBaseRec<<#= iface #>>.Property(string key, object? value) => Property(key, value);
         <#= iface #> IElementGremlinQueryBaseRec<<#= iface #>>.Property(string key, Func<<#= iface #>, IGremlinQueryBase> valueTransformation) => Property(key, valueTransformation);
 
