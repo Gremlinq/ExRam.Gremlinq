@@ -7,6 +7,7 @@ using ExRam.Gremlinq.Core.Models;
 using Newtonsoft.Json.Serialization;
 using System.Reflection;
 using ExRam.Gremlinq.Core.GraphElements;
+using System.Runtime.CompilerServices;
 
 namespace ExRam.Gremlinq.Support.NewtonsoftJson
 {
@@ -118,12 +119,18 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
             [ThreadStatic]
             private static bool _canConvert;
 
-            public GraphsonJsonSerializer(IGremlinQueryEnvironment environment)
+            private static readonly ConditionalWeakTable<IGremlinQueryEnvironment, GraphsonJsonSerializer> Serializers = new();
+
+            private GraphsonJsonSerializer(IGremlinQueryEnvironment environment)
             {
                 DefaultValueHandling = DefaultValueHandling.Ignore;
                 ContractResolver = new GremlinContractResolver(environment.Model);
                 Converters.Add(new JTokenConverterConverter(environment));
             }
+
+            public static GraphsonJsonSerializer From(IGremlinQueryEnvironment environment) => Serializers.GetValue(
+                environment,
+                static environment => new GraphsonJsonSerializer(environment));
 
             public T? Deserialize<T>(JToken token)
             {
@@ -140,7 +147,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
 
             public NewtonsoftJsonSerializerConverter(IGremlinQueryEnvironment environment)
             {
-                _serializer = new GraphsonJsonSerializer(environment);
+                _serializer = GraphsonJsonSerializer.From(environment);
             }
 
             public bool TryConvert(TSource source, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
