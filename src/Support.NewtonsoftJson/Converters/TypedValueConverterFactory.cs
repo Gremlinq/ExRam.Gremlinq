@@ -45,19 +45,22 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
             {
                 if (serialized.TryGetValue("@type", out var typeName) && typeName.Type == JTokenType.String && typeName.Value<string>() is { } typeNameString && serialized.TryGetValue("@value", out var valueToken))
                 {
-                    if (GraphSONTypes.TryGetValue(typeNameString, out var moreSpecificType))
+                    if (!"g:Map".Equals(typeNameString, StringComparison.OrdinalIgnoreCase))
                     {
-                        if (typeof(TTarget) != moreSpecificType && typeof(TTarget).IsAssignableFrom(moreSpecificType))
+                        if (GraphSONTypes.TryGetValue(typeNameString, out var moreSpecificType))
                         {
-                            if (recurse.TryTransformTo(moreSpecificType).From(valueToken, _environment) is TTarget target)
+                            if (typeof(TTarget) != moreSpecificType && typeof(TTarget).IsAssignableFrom(moreSpecificType))
                             {
-                                value = target;
-                                return true;
+                                if (recurse.TryTransformTo(moreSpecificType).From(valueToken, _environment) is TTarget target)
+                                {
+                                    value = target;
+                                    return true;
+                                }
                             }
                         }
-                    }
 
-                    return recurse.TryTransform(valueToken, _environment, out value);
+                        return recurse.TryTransform(valueToken, _environment, out value);
+                    }
                 }
 
                 value = default;
