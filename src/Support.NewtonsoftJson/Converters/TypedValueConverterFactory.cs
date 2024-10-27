@@ -43,9 +43,9 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
 
             public bool TryConvert(JObject serialized, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
             {
-                if (serialized.TryGetValue("@type", out var typeName) && serialized.TryGetValue("@value", out var valueToken))
+                if (serialized.TryGetValue("@type", out var typeName) && typeName.Type == JTokenType.String && typeName.Value<string>() is { } typeNameString && serialized.TryGetValue("@value", out var valueToken))
                 {
-                    if (typeName.Type == JTokenType.String && typeName.Value<string>() is { } typeNameString && GraphSONTypes.TryGetValue(typeNameString, out var moreSpecificType))
+                    if (GraphSONTypes.TryGetValue(typeNameString, out var moreSpecificType))
                     {
                         if (typeof(TTarget) != moreSpecificType && typeof(TTarget).IsAssignableFrom(moreSpecificType))
                         {
