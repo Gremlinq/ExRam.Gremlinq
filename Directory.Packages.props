@@ -18,7 +18,7 @@
 
     <PackageVersion Include="Nerdbank.GitVersioning" Version="3.6.146" />
     <PackageVersion Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageVersion Include="NSubstitute" Version="5.1.0" />
+    <PackageVersion Include="NSubstitute" Version="5.3.0" />
     <PackageVersion Include="NullGuard.Fody" Version="3.1.1" />
 
     <PackageVersion Include="PublicApiGenerator" Version="11.1.0" />
