@@ -17,18 +17,6 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
         {
             private sealed class GremlinContractResolver : DefaultContractResolver
             {
-                private sealed class VertexPropertyPropertiesConverter<T> : JsonConverter<T>
-                {
-                    public override T? ReadJson(JsonReader reader, Type objectType, T? existingValue, bool hasExistingValue, JsonSerializer serializer)
-                    {
-                        return serializer.Deserialize<VertexPropertyPropertiesWrapper<T>>(reader) is { HasValue: true, Value: { } value }
-                            ? value
-                            : default;
-                    }
-
-                    public override void WriteJson(JsonWriter writer, T? value, JsonSerializer serializer) => throw new NotImplementedException();
-                }
-
                 private readonly IGraphModel _model;
 
                 public GremlinContractResolver(IGraphModel model)
@@ -54,8 +42,6 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                         {
                             if (member.Name == nameof(VertexProperty<object>.Id) || member.Name == nameof(VertexProperty<object>.Label))
                                 property.Writable = true;
-                            else if (member is PropertyInfo { Name: nameof(VertexProperty<object>.Properties) } propertyInfo && !typeof(IDictionary<string, object>).IsAssignableFrom(propertyInfo.PropertyType))
-                                property.Converter = (JsonConverter?)Activator.CreateInstance(typeof(VertexPropertyPropertiesConverter<>).MakeGenericType(propertyInfo.PropertyType));
                         }
                     }
 

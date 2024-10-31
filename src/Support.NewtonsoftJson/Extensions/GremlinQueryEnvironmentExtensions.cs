@@ -89,7 +89,6 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
             .ConfigureDeserializer(deserializer => deserializer
                 .Add(new DeferToNewtonsoftConverterFactory())
                 .Add(new NewtonsoftJsonSerializerConverterFactory())
-                .Add(new VertexPropertyPropertiesConverterFactory())
                 .Add(new DictionaryConverterFactory())
                 .Add(new DynamicObjectConverterFactory())
 
