@@ -16,7 +16,7 @@ namespace ExRam.Gremlinq.Core.AspNet
     }
 
     public interface IGremlinqServicesBuilder<TConfigurator> : IGremlinqServicesBuilder
-     where TConfigurator : IGremlinqConfigurator<TConfigurator>
+        where TConfigurator : IGremlinqConfigurator<TConfigurator>
     {
         IGremlinqServicesBuilder<TConfigurator> Configure(Func<TConfigurator, IConfigurationSection, TConfigurator> extraConfiguration);
 
