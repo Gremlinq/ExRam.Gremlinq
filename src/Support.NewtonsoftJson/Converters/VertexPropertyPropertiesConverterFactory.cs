@@ -18,12 +18,6 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
 
             public bool TryConvert(TSource source, ITransformer defer, ITransformer recurse, out VertexPropertyPropertiesWrapper<TOption> value)
             {
-                if (source is JObject { Count: 0 })
-                {
-                    value = VertexPropertyPropertiesWrapper<TOption>.None;
-                    return true;
-                }
-
                 if (recurse.TryTransform(source, _environment, out TOption? option))
                 {
                     value = VertexPropertyPropertiesWrapper<TOption>.From(option);

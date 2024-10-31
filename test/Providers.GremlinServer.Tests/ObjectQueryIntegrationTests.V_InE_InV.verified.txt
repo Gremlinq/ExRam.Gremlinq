@@ -31,6 +31,7 @@
     Name: {
       Id: 294,
       Label: Name,
+      Properties: {},
       Value: Marko
     },
     Id: 10,

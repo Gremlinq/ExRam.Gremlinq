@@ -6,6 +6,7 @@
     Name: {
       Id: 244,
       Label: Name,
+      Properties: {},
       Value: Marko
     },
     Id: 7,
@@ -19,6 +20,7 @@
     Name: {
       Id: 246,
       Label: Name,
+      Properties: {},
       Value: Marko
     },
     Id: 10,
@@ -32,6 +34,7 @@
     Name: {
       Id: 248,
       Label: Name,
+      Properties: {},
       Value: Marko
     },
     Id: 15,
@@ -45,6 +48,7 @@
     Name: {
       Id: 250,
       Label: Name,
+      Properties: {},
       Value: Marko
     },
     Id: 19,
@@ -58,6 +62,7 @@
     Name: {
       Id: 252,
       Label: Name,
+      Properties: {},
       Value: Marko
     },
     Id: 23,
@@ -71,6 +76,7 @@
     Name: {
       Id: 254,
       Label: Name,
+      Properties: {},
       Value: Marko
     },
     Id: 29,
@@ -84,6 +90,7 @@
     Name: {
       Id: 256,
       Label: Name,
+      Properties: {},
       Value: Marko
     },
     Id: 37,
@@ -97,6 +104,7 @@
     Name: {
       Id: 258,
       Label: Name,
+      Properties: {},
       Value: Marko
     },
     Id: 44,
@@ -110,6 +118,7 @@
     Name: {
       Id: 260,
       Label: Name,
+      Properties: {},
       Value: Marko
     },
     Id: 56,
@@ -123,6 +132,7 @@
     Name: {
       Id: 262,
       Label: Name,
+      Properties: {},
       Value: Marko
     },
     Id: 59,
@@ -136,6 +146,7 @@
     Name: {
       Id: 264,
       Label: Name,
+      Properties: {},
       Value: Marko
     },
     Id: 62,

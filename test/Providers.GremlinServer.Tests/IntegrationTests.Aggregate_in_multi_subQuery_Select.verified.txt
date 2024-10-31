@@ -11,6 +11,7 @@
         Name: {
           Id: 12,
           Label: Name,
+          Properties: {},
           Value: Bob
         },
         Id: 10,
@@ -42,6 +43,7 @@
         Name: {
           Id: 39,
           Label: Name,
+          Properties: {},
           Value: Bob
         },
         Id: 37,
@@ -70,6 +72,7 @@
         Name: {
           Id: 63,
           Label: Name,
+          Properties: {},
           Value: Marko
         },
         Id: 62,

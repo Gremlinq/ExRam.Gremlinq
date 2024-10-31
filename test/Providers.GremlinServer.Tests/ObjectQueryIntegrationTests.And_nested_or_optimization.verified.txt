@@ -29,6 +29,7 @@
     Name: {
       Id: 39,
       Label: Name,
+      Properties: {},
       Value: Bob
     },
     Id: 37,

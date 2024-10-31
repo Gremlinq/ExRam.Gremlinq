@@ -4,6 +4,7 @@
     Name: {
       Id: 63,
       Label: Name,
+      Properties: {},
       Value: Marko
     },
     Id: 62,
