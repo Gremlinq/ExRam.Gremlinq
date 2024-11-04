@@ -27,7 +27,7 @@
     <PackageVersion Include="System.Interactive.Async" Version="6.0.1" />
     <PackageVersion Include="System.Reactive" Version="6.0.1" />
 
-    <PackageVersion Include="Testcontainers" Version="3.10.0" />
+    <PackageVersion Include="Testcontainers" Version="4.0.0" />
 
     <PackageVersion Include="Verify.Xunit" Version="26.4.2" />
     <PackageVersion Include="Verify.MicrosoftLogging" Version="4.0.1" />
