@@ -25,7 +25,7 @@ Metadata > {}
 ================================,
       stackTrace:
 org.apache.tinkerpop.gremlin.process.traversal.step.sideEffect.FailStep$FailException: fail() step triggered
-	at org.apache.tinkerpop.gremlin.process.traversal.step.sideEffect.FailStep.sideEffect(FailStep.java:53)
+	at org.apache.tinkerpop.gremlin.process.traversal.step.sideEffect.FailStep.sideEffect(FailStep.java:57)
 	at org.apache.tinkerpop.gremlin.process.traversal.step.sideEffect.SideEffectStep.processNextStart(SideEffectStep.java:39)
 	at org.apache.tinkerpop.gremlin.process.traversal.step.util.AbstractStep.hasNext(AbstractStep.java:155)
 	at org.apache.tinkerpop.gremlin.process.traversal.util.DefaultTraversal.hasNext(DefaultTraversal.java:192)
