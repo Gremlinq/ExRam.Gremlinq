@@ -56,11 +56,7 @@ namespace ExRam.Gremlinq.Tests.Fixtures
                 {
                     await Task.Delay(500);
                 }
-                catch(InvalidOperationException)
-                {
-                    await Task.Delay(500);
-                }
-                catch (NullReferenceException)
+                catch (InvalidOperationException)
                 {
                     await Task.Delay(500);
                 }
