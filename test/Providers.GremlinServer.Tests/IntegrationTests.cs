@@ -8,6 +8,7 @@ using FluentAssertions;
 
 using Newtonsoft.Json.Linq;
 
+using ExRam.Gremlinq.Support.NewtonsoftJson;
 using static ExRam.Gremlinq.Core.Transformation.ConverterFactory;
 
 namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
@@ -263,5 +264,20 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
                 .By(__ => __
                     .None()))
             .Verify();
+
+        [Fact]
+        public virtual async Task RegisterNativeType()
+        {
+            await _g
+                .ConfigureEnvironment(env => env
+                    .RegisterNativeType(
+                        (languageCode, env, _, recurse) => languageCode.ToString().ToLower(),
+                        (valueToken, env, _, recurse) => Enum.TryParse<DateTimeKind>(valueToken.Value<string>(), true, out var res)
+                            ? res
+                            : default))
+                .Inject("Utc")
+                .Cast<DateTimeKind>()
+                .Verify();
+        }
     }
 }

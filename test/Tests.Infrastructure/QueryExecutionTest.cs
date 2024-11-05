@@ -6,7 +6,6 @@ using ExRam.Gremlinq.Core.Steps;
 using ExRam.Gremlinq.Tests.Entities;
 using static ExRam.Gremlinq.Core.Transformation.ConverterFactory;
 using ExRam.Gremlinq.Core;
-using ExRam.Gremlinq.Support.NewtonsoftJson;
 using Newtonsoft.Json.Linq;
 using FluentAssertions;
 
@@ -4909,20 +4908,5 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .WithSideEffect("sideEffectLabel", 36)
             .V()
             .Verify();
-
-        [Fact]
-        public virtual async Task RegisterNativeType()
-        {
-            await _g
-                .ConfigureEnvironment(env => env
-                    .RegisterNativeType(
-                        (languageCode, env, _, recurse) => languageCode.ToString().ToLower(),
-                        (valueToken, env, _, recurse) => Enum.TryParse<DateTimeKind>(valueToken.Value<string>(), true, out var res)
-                            ? res
-                            : default))
-                .Inject("Utc")
-                .Cast<DateTimeKind>()
-                .Verify();
-        }
     }
 }
