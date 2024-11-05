@@ -23,10 +23,18 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
 
                     IEnumerable<TItem> Core()
                     {
-                        if (recurse.TryTransform<JToken, TItem>(traverserValue, env, out var item))
+                        if (!(traverserValue is JValue { Value: null }))
+                        {
+                            if (recurse.TryTransform<JToken, TItem>(traverserValue, env, out var item))
+                            {
+                                for (var j = 0; j < bulk; j++)
+                                    yield return item;
+                            }
+                        }
+                        else
                         {
                             for (var j = 0; j < bulk; j++)
-                                yield return item;
+                                yield return default!;
                         }
                     }
                 }
