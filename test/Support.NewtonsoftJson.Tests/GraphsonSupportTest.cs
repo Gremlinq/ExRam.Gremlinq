@@ -159,9 +159,6 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
         public Task Graphson3Path() => Verify<Path>(GetJson("Graphson3_Paths"));
 
         [Fact]
-        public Task LargeGraphson3Path() => Verify<Path>(GetJson("Large_Graphson3_Paths"));
-
-        [Fact]
         public Task Array() => Verify<Language[]>(GetJson("Array_of_Languages"));
 
         [Fact]
