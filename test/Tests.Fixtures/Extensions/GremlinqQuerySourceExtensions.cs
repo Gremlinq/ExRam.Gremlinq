@@ -4,7 +4,7 @@ using ExRam.Gremlinq.Tests.Entities;
 
 namespace ExRam.Gremlinq.Tests.Fixtures
 {
-    internal static class GremlinqQuerySourceExtensions
+    public static class GremlinqQuerySourceExtensions
     {
         public static IGremlinQuerySource IgnoreCosmosDbSpecificProperties(this IGremlinQuerySource source)
         {
