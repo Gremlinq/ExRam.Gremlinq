@@ -10,6 +10,7 @@ using Newtonsoft.Json.Linq;
 
 using ExRam.Gremlinq.Support.NewtonsoftJson;
 using static ExRam.Gremlinq.Core.Transformation.ConverterFactory;
+using System.Runtime.CompilerServices;
 
 namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 {
@@ -22,6 +23,10 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
             new ExecutingVerifier())
         {
         }
+
+        public static string? ThisFilePath() => ThisFilePathImpl();
+
+        private static string? ThisFilePathImpl([CallerFilePath] string? callerFilePath = null) => callerFilePath;
 
         [Fact]
         public async Task FirstAsync() => (await _g
