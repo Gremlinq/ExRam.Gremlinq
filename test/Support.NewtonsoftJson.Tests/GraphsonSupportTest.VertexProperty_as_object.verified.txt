@@ -1,0 +1,10 @@
+﻿[
+  {
+    Id: 1,
+    Label: Property1,
+    Properties: {
+      metaKey: MetaValue
+    },
+    Value: 1540202009475
+  }
+]

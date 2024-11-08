@@ -143,6 +143,12 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public Task VertexProperties() => Verify<VertexProperty<object>>(GetJson("VertexProperties"));
 
         [Fact]
+        public Task VertexProperty_as_object() => Verify<object>("[ { \"value\": 1540202009475, \"id\": 1, \"label\": \"Property1\", \"properties\": { \"metaKey\": \"MetaValue\" } } ]");
+
+        [Fact]
+        public Task Property_as_object() => Verify<object>("[ { \"value\": 1540202009475, \"key\": \"Property1\" } ]");
+
+        [Fact]
         public Task VertexProperties_with_model() => Verify<VertexProperty<object, MetaPoco>>(GetJson("VertexProperties"));
 
         [Fact]
