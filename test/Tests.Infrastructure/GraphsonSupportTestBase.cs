@@ -1,10 +1,12 @@
-﻿using ExRam.Gremlinq.Core;
+﻿using System.Runtime.CompilerServices;
+
+using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.GraphElements;
 using ExRam.Gremlinq.Core.Models;
 using ExRam.Gremlinq.Tests.Entities;
 using Path = ExRam.Gremlinq.Core.GraphElements.Path;
 
-namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
+namespace ExRam.Gremlinq.Tests.Infrastructure
 {
     public abstract class GraphsonSupportTestBase<TNativeToken> : VerifyBase
     {
@@ -19,7 +21,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
             public Language? Value { get; set; }
         }
 
-        protected GraphsonSupportTestBase(IGremlinQueryEnvironment environment) : base()
+        protected GraphsonSupportTestBase(IGremlinQueryEnvironment environment, [CallerFilePath] string sourceFile = "") : base(sourceFile: sourceFile)
         {
             Environment = environment;
         }
