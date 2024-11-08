@@ -19,24 +19,15 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
             public Language? Value { get; set; }
         }
 
-        protected GraphsonSupportTestBase() : base()
+        protected GraphsonSupportTestBase(IGremlinQueryEnvironment environment) : base()
         {
-            Environment = GremlinQuerySource.g
-                .ConfigureEnvironment(env => env
-                    .UseModel(GraphModel
-                        .FromBaseTypes<Vertex, Edge>())
-                    .UseNewtonsoftJson())
-                .AsAdmin()
-                .Environment;
+            Environment = environment;
         }
 
-        protected Task Verify<T>(string token, IGremlinQueryEnvironment environment)
-        {
-            return Verify(environment
-                .Deserializer
-                .TransformTo<T[]>()
-                .From(CreateNativeToken(token), environment));
-        }
+        protected Task Verify<T>(string token, IGremlinQueryEnvironment environment) => Verify(environment
+            .Deserializer
+            .TransformTo<T[]>()
+            .From(CreateNativeToken(token), environment));
 
         protected Task Verify<T>(string token) => Verify<T>(token, Environment);
 

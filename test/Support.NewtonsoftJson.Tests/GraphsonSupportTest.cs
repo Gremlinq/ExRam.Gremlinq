@@ -1,4 +1,8 @@
-﻿using FluentAssertions;
+﻿using ExRam.Gremlinq.Core;
+using ExRam.Gremlinq.Core.Models;
+using ExRam.Gremlinq.Tests.Entities;
+
+using FluentAssertions;
 using Newtonsoft.Json.Linq;
 
 namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
@@ -13,6 +17,17 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
             }
 
             public int Value { get; }
+        }
+
+        public GraphsonSupportTest() : base(GremlinQuerySource.g
+            .ConfigureEnvironment(env => env
+                .UseModel(GraphModel
+                    .FromBaseTypes<Vertex, Edge>())
+                .UseNewtonsoftJson())
+            .AsAdmin()
+            .Environment)
+        {
+
         }
 
         [Fact]
