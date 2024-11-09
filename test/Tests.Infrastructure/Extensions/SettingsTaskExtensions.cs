@@ -9,5 +9,17 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public static SettingsTask ScrubRegex(this SettingsTask task, Regex regex, string replacement) => task.ScrubLinesWithReplace(str => regex.Replace(str, replacement));
 
         public static SettingsTask ScrubGuids(this SettingsTask task) => task.ScrubRegex(GuidRegex, "12345678-9012-3456-7890-123456789012");
+
+        public static SettingsTask UseSnapshotDirectoryOf<T>(this SettingsTask task) where T : ISourceFileNameProvider<T>
+        {
+            if (Path.GetDirectoryName(T.GetSourceFileName()) is { } directory)
+            {
+                return task
+                    .UseDirectory(directory)
+                    .UseTypeName(typeof(T).Name);
+            }
+
+            throw new InvalidOperationException();
+        }
     }
 }
