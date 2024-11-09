@@ -15,7 +15,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 {
     [IntegrationTest("Linux", true)]
     [IntegrationTest("Windows")]
-    public class IntegrationTests : QueryExecutionTest, IClassFixture<GremlinServerContainerFixture>
+    public class IntegrationTests : QueryExecutionTest, IClassFixture<GremlinServerContainerFixture>, ISourceFileNameProvider<IntegrationTests>
     {
         public IntegrationTests(GremlinServerContainerFixture fixture) : base(
             fixture,
@@ -23,7 +23,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
         {
         }
 
-        public static string ThisFilePath() => ThisFile.GetName();
+        public static string GetSourceFileName() => ThisFile.GetName();
 
         [Fact]
         public async Task FirstAsync() => (await _g
