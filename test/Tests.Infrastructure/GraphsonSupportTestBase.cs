@@ -50,7 +50,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                             .ConfigureName(x => x.Name, "replacement")))));
 
         [Fact]
-        public Task IsDescribedIn() => Verify<WorksFor>(GetJson("Single_WorksFor"));
+        public Task Edge() => Verify<WorksFor>(GetJson("Single_WorksFor"));
 
         [Fact]
         public Task DynamicData() => Verify<dynamic>("[ { \"values\": [ ], \"count\": { \"@type\": \"g:Int32\", \"@value\": 36 } } ]");
