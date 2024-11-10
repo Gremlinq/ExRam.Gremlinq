@@ -1,6 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-
-using ExRam.Gremlinq.Tests.Infrastructure;
+﻿using ExRam.Gremlinq.Tests.Infrastructure;
 
 using FluentAssertions;
 using Newtonsoft.Json.Linq;
