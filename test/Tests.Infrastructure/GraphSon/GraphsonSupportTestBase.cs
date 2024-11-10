@@ -52,7 +52,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
 
         [Fact]
-        public Task GraphSon3ReferenceVertex() => Verify<object>(GetJson("Graphson3ReferenceVertex"));
+        public Task GraphSon3ReferenceVertex() => Verify<object>(Graphson3ReferenceVertex);
 
         [Fact]
         public Task Edge() => Verify<WorksFor>(UntypedEdge);
@@ -82,61 +82,61 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public Task Mixed_Ids() => Verify<object>("[ 1, \"id2\" ]");
 
         [Fact]
-        public Task DateTime_is_UTC() => Verify<Company>(GetJson("Single_Company"));
+        public Task DateTime_is_UTC() => Verify<Company>(Single_Company);
 
         [Fact]
-        public Task Language_unknown_type() => Verify<object>(GetJson("Single_Language"));
+        public Task Language_unknown_type() => Verify<object>(Single_Language);
 
         [Fact]
-        public Task Language_strongly_typed() => Verify<Language>(GetJson("Single_Language"));
+        public Task Language_strongly_typed() => Verify<Language>(Single_Language);
 
         [Fact]
-        public Task Language_to_generic_vertex() => Verify<Vertex>(GetJson("Single_Language"));
+        public Task Language_to_generic_vertex() => Verify<Vertex>(Single_Language);
 
         [Fact]
         public Task Languages_to_object() => Verify<object>(ArrayOfLanguages);
 
         [Fact]
-        public Task Person_strongly_typed() => Verify<Person>(GetJson("Single_Person"));
+        public Task Person_strongly_typed() => Verify<Person>(Single_Person);
 
         [Fact]
-        public Task Person_with_null() => Verify<Person>(GetJson("Single_Person_with_null"));
+        public Task Person_with_null() => Verify<Person>(Single_Person_with_null);
 
         [Fact]
-        public Task Person_StringId() => Verify<Person>(GetJson("Single_Person_String_Id"));
+        public Task Person_StringId() => Verify<Person>(Single_Person_String_Id);
 
         [Fact]
-        public Task Person_lowercase_strongly_typed() => Verify<Person>(GetJson("Single_Person_lowercase_properties"));
+        public Task Person_lowercase_strongly_typed() => Verify<Person>(Single_Person_lowercase_properties);
 
         [Fact]
-        public Task Person_without_PhoneNumbers_strongly_typed() => Verify<Person>(GetJson("Single_Person_without_PhoneNumbers"));
+        public Task Person_without_PhoneNumbers_strongly_typed() => Verify<Person>(Single_Person_without_PhoneNumbers);
 
         [Fact]
-        public Task TimeFrame_strongly_typed() => Verify<TimeFrame>(GetJson("Single_TimeFrame"));
+        public Task TimeFrame_strongly_typed() => Verify<TimeFrame>(Single_TimeFrame);
 
         [Fact]
-        public Task Language_by_vertex_inheritance() => Verify<object>(GetJson("Single_Language"));
+        public Task Language_by_vertex_inheritance() => Verify<object>(Single_Language);
 
         [Fact]
-        public Task Tuple() => Verify<(Person, Language)>(GetJson("Tuple_of_Person_Language"));
+        public Task Tuple() => Verify<(Person, Language)>(Tuple_of_Person_Language);
 
         [Fact]
-        public Task Tuple_vertex_vertex() => Verify<(Vertex, Vertex)>(GetJson("Tuple_of_Person_Language"));
+        public Task Tuple_vertex_vertex() => Verify<(Vertex, Vertex)>(Tuple_of_Person_Language);
 
         [Fact]
-        public Task NamedTuple() => Verify<PersonLanguageTuple>(GetJson("Named_tuple_of_Person_Language"));
+        public Task NamedTuple() => Verify<PersonLanguageTuple>(Named_tuple_of_Person_Language);
 
         [Fact]
-        public Task Graphson2Path() => Verify<Path>(GetJson("Graphson2_Paths"));
+        public Task Graphson2Path() => Verify<Path>(Graphson2_Paths);
 
         [Fact]
-        public Task Graphson3Path() => Verify<Path>(GetJson("Graphson3_Paths"));
+        public Task Graphson3Path() => Verify<Path>(Graphson3_Paths);
 
         [Fact]
         public Task Array() => Verify<Language[]>(ArrayOfLanguages);
 
         [Fact]
-        public Task Nested_Array() => Verify<Language[][]>(GetJson("Nested_array_of_Languages"));
+        public Task Nested_Array() => Verify<Language[][]>(Nested_array_of_Languages);
 
         [Fact]
         public Task Scalar() => Verify<int>("[ 36 ]");
@@ -145,7 +145,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public Task Meta_Properties() => Verify<Country>(Country_with_meta_properties);
 
         [Fact]
-        public Task VertexProperties() => Verify<VertexProperty<object>>(GetJson("VertexProperties"));
+        public Task VertexProperties() => Verify<VertexProperty<object>>(Vertex_Properties);
 
         [Fact]
         public Task VertexProperty_as_object() => Verify<object>("[ { \"value\": 1540202009475, \"id\": 1, \"label\": \"Property1\", \"properties\": { \"metaKey\": \"MetaValue\" } } ]");
@@ -154,10 +154,10 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public Task Property_as_object() => Verify<object>("[ { \"value\": 1540202009475, \"key\": \"Property1\" } ]");
 
         [Fact]
-        public Task VertexProperties_with_model() => Verify<VertexProperty<object, MetaPoco>>(GetJson("VertexProperties"));
+        public Task VertexProperties_with_model() => Verify<VertexProperty<object, MetaPoco>>(Vertex_Properties);
 
         [Fact]
-        public Task MetaProperties() => Verify<Property<object>>(GetJson("Properties"));
+        public Task MetaProperties() => Verify<Property<object>>(Properties);
 
         [Fact]
         public Task Guid() => Verify<Guid>("[ \"FCE0765A-454F-4D00-83DA-D76790156E29\" ]");
@@ -182,7 +182,5 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                     .ConfigureVertices(_ => _
                         .ConfigureElement<Person>(conf => conf
                             .ConfigureName(x => x.Name, "replacement")))));
-
-        protected static string GetJson(string name) => new StreamReader(File.OpenRead(System.IO.Path.Combine(System.IO.Path.GetDirectoryName(SourceFileName.OfThis())!, $"../../files/GraphSon/{name}.json"))).ReadToEnd();
     }
 }

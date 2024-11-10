@@ -1,4 +1,6 @@
-﻿using ExRam.Gremlinq.Tests.Infrastructure;
+﻿using System.Diagnostics.CodeAnalysis;
+
+using ExRam.Gremlinq.Tests.Infrastructure;
 
 using FluentAssertions;
 using Newtonsoft.Json.Linq;
@@ -27,7 +29,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
         [Fact]
         public void JToken_Load_does_not_reuse()
         {
-            var token = GetJson("Single_Language");
+            var token = GraphSonStrings.Single_Language;
 
             var readToken1 = JToken.Load(new JTokenReader(token));
             var readToken2 = JToken.Load(new JTokenReader(token));
