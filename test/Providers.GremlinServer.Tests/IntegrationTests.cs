@@ -23,7 +23,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
         {
         }
 
-        public static string GetSourceFileName() => FileName.OfThis();
+        public static string GetSourceFileName() => SourceFileName.OfThis();
 
         [Fact]
         public async Task FirstAsync() => (await _g

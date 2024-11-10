@@ -2,7 +2,7 @@
 
 namespace ExRam.Gremlinq.Tests.Infrastructure
 {
-    public static class FileName
+    public static class SourceFileName
     {
         public static string Of<T>() where T : ISourceFileNameProvider<T> => T.GetSourceFileName();
 

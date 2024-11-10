@@ -169,6 +169,6 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public Task VertexPropertyWithDateTimeOffset() => Verify<VertexProperty<string, PropertyValidity>>("[ { \"id\": 166, \"value\": \"bob\", \"label\": \"Name\", \"properties\": { \"ValidFrom\": 1548112365431 } } ]");
         
-        protected static string GetJson(string name) => new StreamReader(File.OpenRead(System.IO.Path.Combine(System.IO.Path.GetDirectoryName(FileName.OfThis())!, $"../files/GraphSon/{name}.json"))).ReadToEnd();
+        protected static string GetJson(string name) => new StreamReader(File.OpenRead(System.IO.Path.Combine(System.IO.Path.GetDirectoryName(SourceFileName.OfThis())!, $"../files/GraphSon/{name}.json"))).ReadToEnd();
     }
 }
