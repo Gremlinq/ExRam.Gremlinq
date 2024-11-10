@@ -5,6 +5,7 @@ using ExRam.Gremlinq.Core.GraphElements;
 using ExRam.Gremlinq.Core.Models;
 using ExRam.Gremlinq.Tests.Entities;
 using Path = ExRam.Gremlinq.Core.GraphElements.Path;
+using static ExRam.Gremlinq.Tests.Infrastructure.GraphSonStrings;
 
 namespace ExRam.Gremlinq.Tests.Infrastructure
 {
@@ -54,16 +55,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public Task GraphSon3ReferenceVertex() => Verify<object>(GetJson("Graphson3ReferenceVertex"));
 
         [Fact]
-        public Task Configured_property_name() => Verify<Person>(
-            "[ { \"id\": 13, \"label\": \"Person\", \"type\": \"vertex\", \"properties\": { \"replacement\": [ { \"id\": 1, \"value\": \"nameValue\" } ] } } ]",
-            env => env
-                .ConfigureModel(model => model
-                    .ConfigureVertices(_ => _
-                        .ConfigureElement<Person>(conf => conf
-                            .ConfigureName(x => x.Name, "replacement")))));
-
-        [Fact]
-        public Task Edge() => Verify<WorksFor>(GetJson("Single_WorksFor"));
+        public Task Edge() => Verify<WorksFor>(UntypedEdge);
 
         [Fact]
         public Task DynamicData() => Verify<dynamic>("[ { \"values\": [ ], \"count\": { \"@type\": \"g:Int32\", \"@value\": 36 } } ]");
@@ -181,7 +173,16 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public Task VertexPropertyWithDateTimeOffset() => Verify<VertexProperty<string, PropertyValidity>>("[ { \"id\": 166, \"value\": \"bob\", \"label\": \"Name\", \"properties\": { \"ValidFrom\": 1548112365431 } } ]");
-        
+
+        [Fact]
+        public Task Configured_property_name() => Verify<Person>(
+            "[ { \"id\": 13, \"label\": \"Person\", \"type\": \"vertex\", \"properties\": { \"replacement\": [ { \"id\": 1, \"value\": \"nameValue\" } ] } } ]",
+            env => env
+                .ConfigureModel(model => model
+                    .ConfigureVertices(_ => _
+                        .ConfigureElement<Person>(conf => conf
+                            .ConfigureName(x => x.Name, "replacement")))));
+
         protected static string GetJson(string name) => new StreamReader(File.OpenRead(System.IO.Path.Combine(System.IO.Path.GetDirectoryName(SourceFileName.OfThis())!, $"../files/GraphSon/{name}.json"))).ReadToEnd();
     }
 }
