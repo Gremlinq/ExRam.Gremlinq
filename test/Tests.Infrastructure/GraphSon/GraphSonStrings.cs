@@ -57,5 +57,28 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             ]
             """;
 
+        [StringSyntax("Json")]
+        public static readonly string Country_with_meta_properties = """
+            [
+                {
+                  "id": 3,
+                  "type": "vertex",
+                  "label": "Country",
+                  "properties": {
+                    "Name": [
+                      {
+                        "id": 1,
+                        "value": "GER",
+                        "properties": {
+                          "de": "Deutschland",
+                          "en": "Germany"
+                        }
+                      }
+                    ]
+                  }
+                }
+            ]
+            """;
+
     }
 }

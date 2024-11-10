@@ -142,7 +142,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public Task Scalar() => Verify<int>("[ 36 ]");
 
         [Fact]
-        public Task Meta_Properties() => Verify<Country>(GetJson("Country_with_meta_properties"));
+        public Task Meta_Properties() => Verify<Country>(Country_with_meta_properties);
 
         [Fact]
         public Task VertexProperties() => Verify<VertexProperty<object>>(GetJson("VertexProperties"));
