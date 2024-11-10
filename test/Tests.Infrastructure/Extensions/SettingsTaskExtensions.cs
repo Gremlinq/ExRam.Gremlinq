@@ -1,4 +1,5 @@
 ﻿using System.Text.RegularExpressions;
+using static ExRam.Gremlinq.Tests.Infrastructure.SourceFileName;
 
 namespace ExRam.Gremlinq.Tests.Infrastructure
 {
@@ -12,7 +13,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         public static SettingsTask UseSnapshotDirectoryAndNameOf<T>(this SettingsTask task) where T : ISourceFileNameProvider<T>
         {
-            if (Path.GetDirectoryName(T.GetSourceFileName()) is { } directory)
+            if (Path.GetDirectoryName(Of<T>()) is { } directory)
             {
                 return task
                     .UseDirectory(directory)
