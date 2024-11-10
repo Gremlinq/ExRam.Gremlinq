@@ -12,5 +12,9 @@
 
     <PackageReference Include="System.Interactive.Async" />
   </ItemGroup>
+  
+  <ItemGroup>
+    <Folder Include="GraphSon\" />
+  </ItemGroup>
 
 </Project>

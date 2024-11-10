@@ -94,7 +94,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public Task Language_to_generic_vertex() => Verify<Vertex>(GetJson("Single_Language"));
 
         [Fact]
-        public Task Languages_to_object() => Verify<object>(GetJson("Array_of_Languages"));
+        public Task Languages_to_object() => Verify<object>(ArrayOfLanguages);
 
         [Fact]
         public Task Person_strongly_typed() => Verify<Person>(GetJson("Single_Person"));
@@ -133,7 +133,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public Task Graphson3Path() => Verify<Path>(GetJson("Graphson3_Paths"));
 
         [Fact]
-        public Task Array() => Verify<Language[]>(GetJson("Array_of_Languages"));
+        public Task Array() => Verify<Language[]>(ArrayOfLanguages);
 
         [Fact]
         public Task Nested_Array() => Verify<Language[][]>(GetJson("Nested_array_of_Languages"));

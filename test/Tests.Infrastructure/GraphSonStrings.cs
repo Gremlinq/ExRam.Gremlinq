@@ -22,5 +22,40 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
               }
             ]
             """;
+
+        [StringSyntax("Json")]
+        public static readonly string ArrayOfLanguages = """
+            [
+              [
+                {
+                  "id": 1,
+                  "label": "Language",
+                  "type":  "vertex",
+                  "properties": {
+                    "IetfLanguageTag": [
+                      {
+                        "id": 1,
+                        "value": "de"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id": 2,
+                  "label": "Language",
+                  "type": "vertex",
+                  "properties": {
+                    "IetfLanguageTag": [
+                      {
+                        "id": 2,
+                        "value": "en"
+                      }
+                    ]
+                  }
+                }
+              ]
+            ]
+            """;
+
     }
 }
