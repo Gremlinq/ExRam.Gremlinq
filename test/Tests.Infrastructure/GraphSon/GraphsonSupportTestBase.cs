@@ -183,6 +183,6 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                         .ConfigureElement<Person>(conf => conf
                             .ConfigureName(x => x.Name, "replacement")))));
 
-        protected static string GetJson(string name) => new StreamReader(File.OpenRead(System.IO.Path.Combine(System.IO.Path.GetDirectoryName(SourceFileName.OfThis())!, $"../files/GraphSon/{name}.json"))).ReadToEnd();
+        protected static string GetJson(string name) => new StreamReader(File.OpenRead(System.IO.Path.Combine(System.IO.Path.GetDirectoryName(SourceFileName.OfThis())!, $"../../files/GraphSon/{name}.json"))).ReadToEnd();
     }
 }
