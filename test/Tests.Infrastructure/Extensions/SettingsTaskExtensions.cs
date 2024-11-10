@@ -10,7 +10,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         public static SettingsTask ScrubGuids(this SettingsTask task) => task.ScrubRegex(GuidRegex, "12345678-9012-3456-7890-123456789012");
 
-        public static SettingsTask UseSnapshotDirectoryOf<T>(this SettingsTask task) where T : ISourceFileNameProvider<T>
+        public static SettingsTask UseSnapshotDirectoryAndNameOf<T>(this SettingsTask task) where T : ISourceFileNameProvider<T>
         {
             if (Path.GetDirectoryName(T.GetSourceFileName()) is { } directory)
             {
