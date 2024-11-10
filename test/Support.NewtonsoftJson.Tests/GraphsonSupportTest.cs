@@ -1,7 +1,4 @@
-﻿using ExRam.Gremlinq.Core;
-using ExRam.Gremlinq.Core.Models;
-using ExRam.Gremlinq.Tests.Entities;
-using ExRam.Gremlinq.Tests.Infrastructure;
+﻿using ExRam.Gremlinq.Tests.Infrastructure;
 
 using FluentAssertions;
 using Newtonsoft.Json.Linq;
@@ -20,13 +17,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
             public int Value { get; }
         }
 
-        public GraphsonSupportTest() : base(GremlinQuerySource.g
-            .ConfigureEnvironment(env => env
-                .UseModel(GraphModel
-                    .FromBaseTypes<Vertex, Edge>())
-                .UseNewtonsoftJson())
-            .AsAdmin()
-            .Environment)
+        public GraphsonSupportTest() : base(env => env.UseNewtonsoftJson())
         {
 
         }
@@ -51,7 +42,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
         {
             var data = "[ 42 ]";
 
-            await Verify<NativeType>(data, Environment
+            await Verify<NativeType>(data, env => env
                 .RegisterNativeType(
                     (nativeType, env, _, recurse) => 42,
                     (jValue, env, _, recurse) => jValue.Type is JTokenType.Integer
@@ -64,7 +55,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
         {
             var data = "[ \"originalString\" ]";
 
-            await Verify<object>(data, Environment
+            await Verify<object>(data, env => env
                 .RegisterNativeType(
                     (nativeType, env, _, recurse) => 42,
                     (jValue, env, _, recurse) => jValue.Type is JTokenType.Integer

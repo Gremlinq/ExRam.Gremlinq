@@ -21,21 +21,34 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             public Language? Value { get; set; }
         }
 
-        protected GraphsonSupportTestBase(IGremlinQueryEnvironment environment, [CallerFilePath] string sourceFile = "") : base(sourceFile: sourceFile)
+        protected readonly IGremlinQueryEnvironment _environment;
+
+        protected GraphsonSupportTestBase(Func<IGremlinQueryEnvironment, IGremlinQueryEnvironment> environmentTransformation, [CallerFilePath] string sourceFile = "") : base(sourceFile: sourceFile)
         {
-            Environment = environment;
+            _environment = GremlinQuerySource.g
+                .ConfigureEnvironment(env => environmentTransformation
+                    .Invoke(env
+                        .UseModel(GraphModel
+                            .FromBaseTypes<Vertex, Edge>())))
+                .AsAdmin()
+                .Environment;
         }
 
-        protected virtual Task Verify<T>(string token, IGremlinQueryEnvironment environment) => Verify(environment
-            .Deserializer
-            .TransformTo<T[]>()
-            .From(CreateNativeToken(token), environment));
+        protected virtual Task Verify<T>(string token, Func<IGremlinQueryEnvironment, IGremlinQueryEnvironment> environmentTransformation)
+        {
+            var environment = environmentTransformation
+                .Invoke(_environment);
 
-        protected Task Verify<T>(string token) => Verify<T>(token, Environment);
+            return Verify(environment
+                .Deserializer
+                .TransformTo<T[]>()
+                .From(CreateNativeToken(token), environment));
+        }
+
+        protected Task Verify<T>(string token) => Verify<T>(token, _ => _);
 
         protected abstract TNativeToken CreateNativeToken(string str);
 
-        protected IGremlinQueryEnvironment Environment { get; }
 
         [Fact]
         public Task GraphSon3ReferenceVertex() => Verify<object>(GetJson("Graphson3ReferenceVertex"));
@@ -43,7 +56,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public Task Configured_property_name() => Verify<Person>(
             "[ { \"id\": 13, \"label\": \"Person\", \"type\": \"vertex\", \"properties\": { \"replacement\": [ { \"id\": 1, \"value\": \"nameValue\" } ] } } ]",
-            Environment
+            env => env
                 .ConfigureModel(model => model
                     .ConfigureVertices(_ => _
                         .ConfigureElement<Person>(conf => conf
