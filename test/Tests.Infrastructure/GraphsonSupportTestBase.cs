@@ -26,7 +26,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             Environment = environment;
         }
 
-        protected Task Verify<T>(string token, IGremlinQueryEnvironment environment) => Verify(environment
+        protected virtual Task Verify<T>(string token, IGremlinQueryEnvironment environment) => Verify(environment
             .Deserializer
             .TransformTo<T[]>()
             .From(CreateNativeToken(token), environment));
