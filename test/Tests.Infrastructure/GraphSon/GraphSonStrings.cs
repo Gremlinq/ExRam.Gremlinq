@@ -4,7 +4,6 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 {
     public static class GraphSonStrings
     {
-        [StringSyntax("Json")]
         public static readonly string UntypedEdge = """
             [
               {
@@ -23,7 +22,6 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             ]
             """;
 
-        [StringSyntax("Json")]
         public static readonly string ArrayOfLanguages = """
             [
               [
@@ -57,7 +55,6 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             ]
             """;
 
-        [StringSyntax("Json")]
         public static readonly string Country_with_meta_properties = """
             [
               {
@@ -80,7 +77,6 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             ]
             """;
 
-        [StringSyntax("Json")]
         public static readonly string Graphson2_Paths = """
             [
               {
@@ -119,7 +115,6 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             ]
             """;
 
-        [StringSyntax("Json")]
         public static readonly string Graphson3_Paths = """
             [
               {
@@ -240,7 +235,6 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             ]
             """;
 
-        [StringSyntax("Json")]
         public static readonly string Graphson3_Tuple_of_Person_Language = """
             {
               "@type": "g:List",
@@ -313,7 +307,6 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             }
             """;
 
-        [StringSyntax("Json")]
         public static readonly string Graphson3ReferenceVertex = """
             [
               {
@@ -426,7 +419,6 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             ]
             """;
 
-        [StringSyntax("Json")]
         public static readonly string Named_tuple_of_Person_Language = """
             [
               {
@@ -466,7 +458,6 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             ]
             """;
 
-        [StringSyntax("Json")]
         public static readonly string Nested_array_of_Languages = """
             [
               [
@@ -517,7 +508,6 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             ]
             """;
 
-        [StringSyntax("Json")]
         public static readonly string Properties = """
             [
               {
@@ -531,7 +521,6 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             ]
             """;
 
-        [StringSyntax("Json")]
         public static readonly string Single_Company = """
             [
               {
@@ -556,7 +545,6 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             ]
             """;
 
-        [StringSyntax("Json")]
         public static readonly string Single_Language = """
             [
               {
@@ -575,7 +563,6 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             ]
             """;
 
-        [StringSyntax("Json")]
         public static readonly string Single_Person = """
             [
               {
@@ -616,7 +603,6 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             ]
             """;
 
-        [StringSyntax("Json")]
         public static readonly string Single_Person_lowercase_properties = """
             [
               {
@@ -651,7 +637,6 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             ]
             """;
 
-        [StringSyntax("Json")]
         public static readonly string Single_Person_String_Id = """
             [
               {
@@ -692,7 +677,6 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             ]
             """;
 
-        [StringSyntax("Json")]
         public static readonly string Single_Person_with_null = """
             [
               {
@@ -728,7 +712,6 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             ]
             """;
 
-        [StringSyntax("Json")]
         public static readonly string Single_Person_without_PhoneNumbers = """
             [
               {
@@ -753,7 +736,6 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             ]
             """;
 
-        [StringSyntax("Json")]
         public static readonly string Single_TimeFrame = """
             [
               {
@@ -784,7 +766,6 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             ]
             """;
 
-        [StringSyntax("Json")]
         public static readonly string Single_TimeFrame_with_numbers = """
             [
               {
@@ -815,7 +796,6 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             ]
             """;
 
-        [StringSyntax("Json")]
         public static readonly string Traverser = """
             [
               {
@@ -850,7 +830,6 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             ]
             """;
 
-        [StringSyntax("Json")]
         public static readonly string Tuple_of_Person_Language = """
             [
               {
@@ -890,7 +869,6 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             ]
             """;
 
-        [StringSyntax("Json")]
         public static readonly string Vertex_Properties = """
             [
               {
