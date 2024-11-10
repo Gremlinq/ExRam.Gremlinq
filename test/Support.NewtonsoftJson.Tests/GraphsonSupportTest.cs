@@ -8,7 +8,7 @@ using Newtonsoft.Json.Linq;
 
 namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
 {
-    public class GraphsonSupportTest : GraphsonSupportTestBase<JToken>
+    public class GraphsonSupportTest : GraphsonSupportTestBase<JToken>, ISourceFileNameProvider<GraphsonSupportTest>
     {
         private readonly struct NativeType
         {
@@ -30,6 +30,8 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
         {
 
         }
+
+        public static string GetSourceFileName() => SourceFileName.OfThis();
 
         [Fact]
         public void JToken_Load_does_not_reuse()
