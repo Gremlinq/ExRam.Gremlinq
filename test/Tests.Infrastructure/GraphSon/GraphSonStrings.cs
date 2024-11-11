@@ -1,6 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-
-namespace ExRam.Gremlinq.Tests.Infrastructure
+﻿namespace ExRam.Gremlinq.Tests.Infrastructure
 {
     public static class GraphSonStrings
     {
