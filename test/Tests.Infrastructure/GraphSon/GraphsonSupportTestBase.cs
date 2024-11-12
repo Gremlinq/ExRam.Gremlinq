@@ -142,6 +142,9 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public Task Scalar() => Verify<int>("[ 36 ]");
 
         [Fact]
+        public Task Scalar_as_object() => Verify<object>("[ 36 ]");
+
+        [Fact]
         public Task Meta_Properties() => Verify<Country>(Country_with_meta_properties);
 
         [Fact]
