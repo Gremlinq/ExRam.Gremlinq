@@ -120,6 +120,9 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public Task Tuple() => Verify<(Person, Language)>(Tuple_of_Person_Language);
 
         [Fact]
+        public Task GraphSon3_Tuple() => Verify<(Person, Language)>(Graphson3_Tuple_of_Person_Language);
+
+        [Fact]
         public Task Tuple_vertex_vertex() => Verify<(Vertex, Vertex)>(Tuple_of_Person_Language);
 
         [Fact]

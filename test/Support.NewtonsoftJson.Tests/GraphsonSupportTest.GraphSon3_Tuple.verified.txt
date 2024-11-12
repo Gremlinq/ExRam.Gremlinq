@@ -1,0 +1,20 @@
+﻿[
+  {
+    Item1: {
+      Age: 36,
+      Name: {
+        Id: 1,
+        Value: Name of some base entity
+      },
+      Id: 4,
+      Label: User,
+      PartitionKey: PartitionKey
+    },
+    Item2: {
+      IetfLanguageTag: de,
+      Id: 5,
+      Label: Language,
+      PartitionKey: PartitionKey
+    }
+  }
+]
