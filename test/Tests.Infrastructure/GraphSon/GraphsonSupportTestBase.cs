@@ -43,14 +43,13 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             return Verify(environment
                 .Deserializer
                 .TransformTo<T[]>()
-                .From(CreateNativeToken(token), environment));
+                .From(CreateNativeToken(token), environment)).DontScrubDateTimes();
         }
 
         protected Task Verify<T>(string token) => Verify<T>(token, _ => _);
 
         protected abstract TNativeToken CreateNativeToken(string str);
-
-
+        
         [Fact]
         public Task GraphSon3ReferenceVertex() => Verify<object>(Graphson3ReferenceVertex);
 
@@ -143,6 +142,18 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public Task Scalar_as_object() => Verify<object>("[ 36 ]");
+
+        [Fact]
+        public Task DateTime_from_string() => Verify<DateTime>("[ \"2018-12-17T08:00:00Z\" ]");
+
+        [Fact]
+        public Task DateTimeOffset_from_string() => Verify<DateTimeOffset>("[ \"2018-12-17T08:00:00Z\" ]");
+
+        [Fact]
+        public Task DateTime_from_number() => Verify<DateTime>("[ 123456789 ]");
+
+        [Fact]
+        public Task DateTimeOffset_from_number() => Verify<DateTimeOffset>("[ 123456789 ]");
 
         [Fact]
         public Task Meta_Properties() => Verify<Country>(Country_with_meta_properties);

@@ -2,7 +2,7 @@
   {
     Age: 36,
     Gender: Female,
-    RegistrationDate: DateTimeOffset_1,
+    RegistrationDate: 2016-12-14 21:14:36.295 +0,
     PhoneNumbers: [
       {
         Id: 4,
