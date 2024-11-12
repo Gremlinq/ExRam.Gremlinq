@@ -155,6 +155,12 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public Task DateTime_from_double() => Verify<DateTime>("[ 123456789.2 ]");
 
+        [Fact]
+        public Task TimeSpan_from_integer() => Verify<TimeSpan>("[ 123456789 ]");
+
+        [Fact]
+        public Task TimeSpan_from_double() => Verify<TimeSpan>("[ 123456789.2 ]");
+
         [Fact(Skip = "TODO")]
         public Task DateTime_from_invalid_string() => Verify<DateTime>("[ \"invalid_string\" ]");
 
