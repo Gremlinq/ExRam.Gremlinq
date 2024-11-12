@@ -144,6 +144,9 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public Task Scalar() => Verify<int>("[ 36 ]");
 
         [Fact]
+        public Task Property_from_Scalar() => Verify<Property<int>>("[ 36 ]");
+
+        [Fact]
         public Task Scalar_as_object() => Verify<object>("[ 36 ]");
 
         [Fact]
