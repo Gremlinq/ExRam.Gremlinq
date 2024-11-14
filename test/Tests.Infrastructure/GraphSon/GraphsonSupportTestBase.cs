@@ -58,6 +58,28 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public Task ImmutableList() => Verify<ImmutableList<int>>("[ [ 1, 3, 5 ] ]");
 
         [Fact]
+        public Task ImmutableList_from_typed_values() => Verify<ImmutableList<int>>("""
+            [
+              [
+                { "@type": "g:Int32", "@value": 1 },
+                { "@type": "g:Int32", "@value": 3 },
+                { "@type": "g:Int32", "@value": 5 }
+              ]
+            ]
+            """);
+
+        [Fact]
+        public Task ImmutableArray_from_typed_values() => Verify<ImmutableArray<int>>("""
+            [
+              [
+                { "@type": "g:Int32", "@value": 1 },
+                { "@type": "g:Int32", "@value": 3 },
+                { "@type": "g:Int32", "@value": 5 }
+              ]
+            ]
+            """);
+
+        [Fact]
         public Task GraphSon3ReferenceVertex() => Verify<object>(Graphson3ReferenceVertex);
 
         [Fact]
