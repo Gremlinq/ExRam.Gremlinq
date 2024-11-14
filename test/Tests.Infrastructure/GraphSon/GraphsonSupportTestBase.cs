@@ -6,6 +6,7 @@ using ExRam.Gremlinq.Core.Models;
 using ExRam.Gremlinq.Tests.Entities;
 using Path = ExRam.Gremlinq.Core.GraphElements.Path;
 using static ExRam.Gremlinq.Tests.Infrastructure.GraphSonStrings;
+using System.Collections.Immutable;
 
 namespace ExRam.Gremlinq.Tests.Infrastructure
 {
@@ -49,7 +50,13 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         protected Task Verify<T>(string token) => Verify<T>(token, _ => _);
 
         protected abstract TNativeToken CreateNativeToken(string str);
-        
+
+        [Fact]
+        public Task ImmutableArray() => Verify<ImmutableArray<int>>("[ [ 1, 3, 5 ] ]");
+
+        [Fact]
+        public Task ImmutableList() => Verify<ImmutableList<int>>("[ [ 1, 3, 5 ] ]");
+
         [Fact]
         public Task GraphSon3ReferenceVertex() => Verify<object>(Graphson3ReferenceVertex);
 
