@@ -55,6 +55,16 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public Task ImmutableArray() => Verify<ImmutableArray<int>>("[ [ 1, 3, 5 ] ]");
 
         [Fact]
+        public Task ImmutableDictionary() => Verify<ImmutableDictionary<string, int>>("""
+            [
+              {
+                "key1": 1,
+                "key2": 2
+              }
+            ]
+            """);
+
+        [Fact]
         public Task ImmutableList() => Verify<ImmutableList<int>>("[ [ 1, 3, 5 ] ]");
 
         [Fact]
