@@ -110,6 +110,17 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             """);
 
         [Fact]
+        public Task IList_from_typed_values() => Verify<IList<int>>("""
+            [
+              [
+                { "@type": "g:Int32", "@value": 1 },
+                { "@type": "g:Int32", "@value": 3 },
+                { "@type": "g:Int32", "@value": 5 }
+              ]
+            ]
+            """);
+
+        [Fact]
         public Task GraphSon3ReferenceVertex() => Verify<object>(Graphson3ReferenceVertex);
 
         [Fact]
