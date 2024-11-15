@@ -121,6 +121,20 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             """);
 
         [Fact]
+        public Task ImmutableDictionary_with_typed_values_from_map() => Verify<ImmutableDictionary<string, int>>("""
+            [
+              {
+                "@type": "g:Map",
+                "@value":
+                [
+                  "key1", { "@type": "g:Int32", "@value": 1 },
+                  "key2", { "@type": "g:Int32", "@value": 2 }
+                ]
+              }
+            ]
+            """);
+
+        [Fact]
         public Task GraphSon3ReferenceVertex() => Verify<object>(Graphson3ReferenceVertex);
 
         [Fact]
