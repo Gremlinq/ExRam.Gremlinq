@@ -75,6 +75,16 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             """);
 
         [Fact]
+        public Task IDictionary_with_typed_values() => Verify<IDictionary<string, int>>("""
+            [
+              {
+                "key1": { "@type": "g:Int32", "@value": 1 },
+                "key2": { "@type": "g:Int32", "@value": 2 }
+              }
+            ]
+            """);
+
+        [Fact]
         public Task ImmutableList() => Verify<ImmutableList<int>>("[ [ 1, 3, 5 ] ]");
 
         [Fact]
