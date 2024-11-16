@@ -58,6 +58,12 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public Task IReadOnlyList_from_Typed_Ints() => Verify<IReadOnlyList<int>>(Typed_Ints);
 
         [Fact]
+        public Task Queue_from_typed_Ints() => Verify<Queue<int>>(Typed_Ints);
+
+        [Fact]
+        public Task Stack_from_typed_Ints() => Verify<Stack<int>>(Typed_Ints);
+
+        [Fact]
         public Task Array() => Verify<Language[]>(ArrayOfLanguages);
 
         [Fact]
