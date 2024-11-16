@@ -887,7 +887,7 @@
             ]
             """;
 
-        public static readonly string String_Keys_Int_Values_Map = """
+        public static readonly string String_Keys_Int_Values = """
             [
               {
                 "key1": 1,
@@ -896,7 +896,7 @@
             ]
             """;
 
-        public static readonly string String_Keys_Typed_Int_Values_Map = """
+        public static readonly string String_Keys_Typed_Int_Values = """
             [
               {
                 "key1": { "@type": "g:Int32", "@value": 1 },
@@ -905,9 +905,9 @@
             ]
             """;
 
-        public static readonly string Int_List = "[ [ 1, 3, 5 ] ]";
+        public static readonly string Ints = "[ [ 1, 3, 5 ] ]";
 
-        public static readonly string Typed_Int_List = """
+        public static readonly string Typed_Ints = """
             [
               [
                 { "@type": "g:Int32", "@value": 1 },

@@ -112,16 +112,16 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public Task Guid() => Verify<Guid>("[ \"FCE0765A-454F-4D00-83DA-D76790156E29\" ]");
 
         [Fact]
-        public Task IDictionary_string_keys_typed_int_values() => Verify<IDictionary<string, int>>(String_Keys_Typed_Int_Values_Map);
+        public Task IDictionary_string_keys_typed_int_values() => Verify<IDictionary<string, int>>(String_Keys_Typed_Int_Values);
 
         [Fact]
-        public Task IList_typed_ints() => Verify<IList<int>>(Typed_Int_List);
+        public Task IList_typed_ints() => Verify<IList<int>>(Typed_Ints);
 
         [Fact]
         public Task ImmutableArray() => Verify<ImmutableArray<int>>("[ [ 1, 3, 5 ] ]");
 
         [Fact]
-        public Task ImmutableArray_typed_ints() => Verify<ImmutableArray<int>>(Typed_Int_List);
+        public Task ImmutableArray_typed_ints() => Verify<ImmutableArray<int>>(Typed_Ints);
 
         [Fact]
         public Task ImmutableDictionary_map_of_string_keys_typed_int_values() => Verify<ImmutableDictionary<string, int>>("""
@@ -138,16 +138,16 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             """);
 
         [Fact]
-        public Task ImmutableDictionary_string_keys_int_values() => Verify<ImmutableDictionary<string, int>>(String_Keys_Int_Values_Map);
+        public Task ImmutableDictionary_string_keys_int_values() => Verify<ImmutableDictionary<string, int>>(String_Keys_Int_Values);
 
         [Fact]
-        public Task ImmutableDictionary_string_keys_typed_int_values() => Verify<ImmutableDictionary<string, int>>(String_Keys_Typed_Int_Values_Map);
+        public Task ImmutableDictionary_string_keys_typed_int_values() => Verify<ImmutableDictionary<string, int>>(String_Keys_Typed_Int_Values);
 
         [Fact]
-        public Task ImmutableList_ints() => Verify<ImmutableList<int>>(Int_List);
+        public Task ImmutableList_ints() => Verify<ImmutableList<int>>(Ints);
 
         [Fact]
-        public Task ImmutableList_typed_ints() => Verify<ImmutableList<int>>(Typed_Int_List);
+        public Task ImmutableList_typed_ints() => Verify<ImmutableList<int>>(Typed_Ints);
 
         [Fact]
         public Task Int_Ids() => Verify<object>("[ 1, 2 ]");
