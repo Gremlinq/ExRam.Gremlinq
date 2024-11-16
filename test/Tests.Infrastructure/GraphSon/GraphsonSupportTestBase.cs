@@ -59,6 +59,9 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public Task IImmutableList_Ints() => Verify<IImmutableList<int>>(Typed_Ints);
 
         [Fact]
+        public Task IImmutableQueue_Ints() => Verify<IImmutableQueue<int>>(Typed_Ints);
+
+        [Fact]
         public Task ConcurrentQueue_from_typed_Ints() => Verify<ConcurrentQueue<int>>(Typed_Ints);
 
         [Fact]
