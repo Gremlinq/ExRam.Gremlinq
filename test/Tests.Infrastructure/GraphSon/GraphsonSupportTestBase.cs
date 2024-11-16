@@ -124,18 +124,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public Task ImmutableArray_typed_ints() => Verify<ImmutableArray<int>>(Typed_Ints);
 
         [Fact]
-        public Task ImmutableDictionary_map_of_string_keys_typed_int_values() => Verify<ImmutableDictionary<string, int>>("""
-            [
-              {
-                "@type": "g:Map",
-                "@value":
-                [
-                  "key1", { "@type": "g:Int32", "@value": 1 },
-                  "key2", { "@type": "g:Int32", "@value": 2 }
-                ]
-              }
-            ]
-            """);
+        public Task ImmutableDictionary_map_of_string_keys_typed_int_values() => Verify<ImmutableDictionary<string, int>>(Map_of_String_Keys_Typed_Int_Values);
 
         [Fact]
         public Task ImmutableDictionary_string_keys_int_values() => Verify<ImmutableDictionary<string, int>>(String_Keys_Int_Values);
