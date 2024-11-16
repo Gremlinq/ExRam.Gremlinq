@@ -54,6 +54,9 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         protected abstract TNativeToken CreateNativeToken(string str);
 
         [Fact]
+        public Task Int_from_double() => Verify<int>("[ 4.2 ]");
+
+        [Fact]
         public Task IImmutableDictionary_string_keys_typed_int_values() => Verify<IImmutableDictionary<string, int>>(String_Keys_Typed_Int_Values);
 
         [Fact]
