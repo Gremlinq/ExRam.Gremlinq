@@ -52,6 +52,12 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         protected abstract TNativeToken CreateNativeToken(string str);
 
         [Fact]
+        public Task IReadOnlyList_from_Ints() => Verify<IReadOnlyList<int>>(GraphSonStrings.Ints);
+
+        [Fact]
+        public Task IReadOnlyList_from_Typed_Ints() => Verify<IReadOnlyList<int>>(GraphSonStrings.Typed_Ints);
+
+        [Fact]
         public Task Array() => Verify<Language[]>(ArrayOfLanguages);
 
         [Fact]
