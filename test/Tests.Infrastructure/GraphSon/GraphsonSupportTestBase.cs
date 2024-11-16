@@ -205,6 +205,12 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public Task Nullable_null() => Verify<int?>("[ 42, null ]");
 
         [Fact]
+        public Task Object_from_double() => Verify<object>("[ 1.2 ]");
+
+        [Fact]
+        public Task Object_from_true() => Verify<object>("[ true ]");
+
+        [Fact]
         public Task Person_lowercase_strongly_typed() => Verify<Person>(Single_Person_lowercase_properties);
 
         [Fact]
@@ -245,6 +251,12 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public Task TimeSpan_from_integer() => Verify<TimeSpan>("[ 123456789 ]");
+
+        [Fact]
+        public Task TimeSpan_from_object() => Verify<TimeSpan>("[ { } ]");
+        
+        [Fact]
+        public Task TimeSpan_from_true() => Verify<TimeSpan>("[ true ]");
 
         [Fact]
         public Task Tuple() => Verify<(Person, Language)>(Tuple_of_Person_Language);
