@@ -52,6 +52,12 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         protected abstract TNativeToken CreateNativeToken(string str);
 
         [Fact]
+        public Task ImmutableQueue_from_typed_Ints() => Verify<ImmutableQueue<int>>(Typed_Ints);
+
+        [Fact]
+        public Task ImmutableStack_from_typed_Ints() => Verify<ImmutableStack<int>>(Typed_Ints);
+
+        [Fact]
         public Task IReadOnlyList_from_Ints() => Verify<IReadOnlyList<int>>(Ints);
 
         [Fact]
