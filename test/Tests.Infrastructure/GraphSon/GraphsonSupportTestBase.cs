@@ -55,7 +55,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public Task ImmutableArray() => Verify<ImmutableArray<int>>("[ [ 1, 3, 5 ] ]");
 
         [Fact]
-        public Task ImmutableDictionary() => Verify<ImmutableDictionary<string, int>>("""
+        public Task ImmutableDictionary_string_keys_int_values() => Verify<ImmutableDictionary<string, int>>("""
             [
               {
                 "key1": 1,
@@ -65,7 +65,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             """);
 
         [Fact]
-        public Task ImmutableDictionary_with_typed_values() => Verify<ImmutableDictionary<string, int>>("""
+        public Task ImmutableDictionary_string_keys_typed_int_values() => Verify<ImmutableDictionary<string, int>>("""
             [
               {
                 "key1": { "@type": "g:Int32", "@value": 1 },
@@ -75,7 +75,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             """);
 
         [Fact]
-        public Task IDictionary_with_typed_values() => Verify<IDictionary<string, int>>("""
+        public Task IDictionary_string_keys_typed_int_values() => Verify<IDictionary<string, int>>("""
             [
               {
                 "key1": { "@type": "g:Int32", "@value": 1 },
@@ -85,10 +85,10 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             """);
 
         [Fact]
-        public Task ImmutableList() => Verify<ImmutableList<int>>("[ [ 1, 3, 5 ] ]");
+        public Task ImmutableList_ints() => Verify<ImmutableList<int>>("[ [ 1, 3, 5 ] ]");
 
         [Fact]
-        public Task ImmutableList_from_typed_values() => Verify<ImmutableList<int>>("""
+        public Task ImmutableList_typed_ints() => Verify<ImmutableList<int>>("""
             [
               [
                 { "@type": "g:Int32", "@value": 1 },
@@ -99,7 +99,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             """);
 
         [Fact]
-        public Task ImmutableArray_from_typed_values() => Verify<ImmutableArray<int>>("""
+        public Task ImmutableArray_typed_ints() => Verify<ImmutableArray<int>>("""
             [
               [
                 { "@type": "g:Int32", "@value": 1 },
@@ -110,7 +110,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             """);
 
         [Fact]
-        public Task IList_from_typed_values() => Verify<IList<int>>("""
+        public Task IList_typed_ints() => Verify<IList<int>>("""
             [
               [
                 { "@type": "g:Int32", "@value": 1 },
@@ -121,7 +121,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             """);
 
         [Fact]
-        public Task ImmutableDictionary_with_typed_values_from_map() => Verify<ImmutableDictionary<string, int>>("""
+        public Task ImmutableDictionary_map_of_string_keys_typed_int_values() => Verify<ImmutableDictionary<string, int>>("""
             [
               {
                 "@type": "g:Map",
