@@ -143,7 +143,13 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public Task IDictionary_string_keys_typed_int_values() => Verify<IDictionary<string, int>>(String_Keys_Typed_Int_Values);
 
         [Fact]
+        public Task IReadOnlyDictionary_string_keys_typed_int_values() => Verify<IReadOnlyDictionary<string, int>>(String_Keys_Typed_Int_Values);
+
+        [Fact]
         public Task IList_typed_ints() => Verify<IList<int>>(Typed_Ints);
+
+        [Fact]
+        public Task ICollection_from_typed_ints() => Verify<ICollection<int>>(Typed_Ints);
 
         [Fact]
         public Task ImmutableArray() => Verify<ImmutableArray<int>>("[ [ 1, 3, 5 ] ]");
