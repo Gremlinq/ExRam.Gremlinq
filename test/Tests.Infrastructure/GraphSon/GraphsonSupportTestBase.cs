@@ -174,6 +174,9 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public Task IUntypedList_Typed_Ints() => Verify<IList>(Typed_Ints);
 
         [Fact]
+        public Task IUntypedCollection_from_typed_ints() => Verify<ICollection>(Typed_Ints);
+
+        [Fact]
         public Task ICollection_from_typed_ints() => Verify<ICollection<int>>(Typed_Ints);
 
         [Fact]
