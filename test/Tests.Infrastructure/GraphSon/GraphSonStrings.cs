@@ -904,5 +904,17 @@
               }
             ]
             """;
+
+        public static readonly string Int_List = "[ [ 1, 3, 5 ] ]";
+
+        public static readonly string Typed_Int_List = """
+            [
+              [
+                { "@type": "g:Int32", "@value": 1 },
+                { "@type": "g:Int32", "@value": 3 },
+                { "@type": "g:Int32", "@value": 5 }
+              ]
+            ]
+            """;
     }
 }
