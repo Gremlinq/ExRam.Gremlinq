@@ -20,6 +20,23 @@
             ]
             """;
 
+        public static readonly string Array_With_Traverser_With_Ints = """
+            [
+              [
+                {
+                  "@type" : "g:Traverser",
+                  "@value" : {
+                    "bulk" : {
+                      "@type" : "g:Int64",
+                      "@value" : 7
+                    },
+                    "value" : 42
+                  }
+                }
+              ]
+            ]
+            """;
+
         public static readonly string ArrayOfLanguages = """
             [
               [

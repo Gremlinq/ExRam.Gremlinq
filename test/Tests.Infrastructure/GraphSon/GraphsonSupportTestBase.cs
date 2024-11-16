@@ -169,6 +169,9 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public Task Int_Ids() => Verify<object>("[ 1, 2 ]");
 
         [Fact]
+        public Task Ints_from_Traverser() => Verify<int[]>(Array_With_Traverser_With_Ints);
+
+        [Fact]
         public Task Language_by_vertex_inheritance() => Verify<object>(Single_Language);
 
         [Fact]
