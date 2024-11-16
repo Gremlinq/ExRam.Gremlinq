@@ -63,6 +63,9 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public Task ISet_Typed_Ints() => Verify<ISet<int>>(Typed_Ints);
 
         [Fact]
+        public Task IList_Typed_Ints() => Verify<IImmutableList<int>>(Typed_Ints);
+
+        [Fact]
         public Task IImmutableList_Ints() => Verify<IImmutableList<int>>(Typed_Ints);
 
         [Fact]
@@ -168,7 +171,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public Task IReadOnlyDictionary_string_keys_typed_int_values() => Verify<IReadOnlyDictionary<string, int>>(String_Keys_Typed_Int_Values);
 
         [Fact]
-        public Task IList_typed_ints() => Verify<IList<int>>(Typed_Ints);
+        public Task IUntypedList_Typed_Ints() => Verify<IList>(Typed_Ints);
 
         [Fact]
         public Task ICollection_from_typed_ints() => Verify<ICollection<int>>(Typed_Ints);
