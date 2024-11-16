@@ -7,6 +7,7 @@ using ExRam.Gremlinq.Tests.Entities;
 using Path = ExRam.Gremlinq.Core.GraphElements.Path;
 using static ExRam.Gremlinq.Tests.Infrastructure.GraphSonStrings;
 using System.Collections.Immutable;
+using System.Collections.Concurrent;
 
 namespace ExRam.Gremlinq.Tests.Infrastructure
 {
@@ -50,6 +51,12 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         protected Task Verify<T>(string token) => Verify<T>(token, _ => _);
 
         protected abstract TNativeToken CreateNativeToken(string str);
+
+        [Fact]
+        public Task ConcurrentQueue_from_typed_Ints() => Verify<ConcurrentQueue<int>>(Typed_Ints);
+
+        [Fact]
+        public Task ConcurrentStack_from_typed_Ints() => Verify<ConcurrentStack<int>>(Typed_Ints);
 
         [Fact]
         public Task ImmutableQueue_from_typed_Ints() => Verify<ImmutableQueue<int>>(Typed_Ints);
