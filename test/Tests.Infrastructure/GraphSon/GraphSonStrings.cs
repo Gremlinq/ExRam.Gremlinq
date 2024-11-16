@@ -70,6 +70,32 @@
             ]
             """;
 
+        public static readonly string BulkSet = """
+          [
+            {
+              "@type" : "g:BulkSet",
+              "@value" : 
+              [
+                "one", 
+                {
+                  "@type" : "g:Int64",
+                  "@value" : 1
+                },
+                "two",
+                {
+                  "@type" : "g:Int64",
+                  "@value" : 2
+                },
+                "three",
+                {
+                  "@type" : "g:Int64",
+                  "@value" : 3
+                }
+              ]
+            }
+          ]
+          """;
+
         public static readonly string Country_with_meta_properties = """
             [
               {
