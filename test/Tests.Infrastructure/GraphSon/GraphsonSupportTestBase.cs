@@ -184,6 +184,9 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public Task Languages_to_object() => Verify<object>(ArrayOfLanguages);
 
         [Fact]
+        public Task List_ints() => Verify<List<int>>("[ [ 1, 2, 3 ] ]");
+
+        [Fact]
         public Task Meta_Properties() => Verify<Country>(Country_with_meta_properties);
 
         [Fact]
