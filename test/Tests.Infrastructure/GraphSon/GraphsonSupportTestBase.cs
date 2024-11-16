@@ -60,6 +60,12 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public Task IUntypedDictionary_string_keys_typed_int_values() => Verify<IDictionary>(String_Keys_Typed_Int_Values);
 
         [Fact]
+        public Task IEnumerable_from_Typed_Ints() => Verify<IEnumerable<int>>(Typed_Ints);
+
+        [Fact]
+        public Task Untyped_IEnumerable_from_Typed_Ints() => Verify<IEnumerable>(Typed_Ints);
+
+        [Fact]
         public Task ISet_Typed_Ints() => Verify<ISet<int>>(Typed_Ints);
 
         [Fact]
