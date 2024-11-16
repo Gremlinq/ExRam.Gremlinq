@@ -8,6 +8,7 @@ using Path = ExRam.Gremlinq.Core.GraphElements.Path;
 using static ExRam.Gremlinq.Tests.Infrastructure.GraphSonStrings;
 using System.Collections.Immutable;
 using System.Collections.Concurrent;
+using System.Collections;
 
 namespace ExRam.Gremlinq.Tests.Infrastructure
 {
@@ -54,6 +55,9 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public Task IImmutableDictionary_string_keys_typed_int_values() => Verify<IImmutableDictionary<string, int>>(String_Keys_Typed_Int_Values);
+
+        [Fact]
+        public Task IUntypedDictionary_string_keys_typed_int_values() => Verify<IDictionary>(String_Keys_Typed_Int_Values);
 
         [Fact]
         public Task ISet_Typed_Ints() => Verify<ISet<int>>(Typed_Ints);
