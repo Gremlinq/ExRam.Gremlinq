@@ -55,6 +55,33 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public Task Array() => Verify<Language[]>(ArrayOfLanguages);
 
         [Fact]
+        public Task Bulk_set() => Verify<string[]>("""
+          [
+            {
+              "@type" : "g:BulkSet",
+              "@value" : 
+              [
+                "one", 
+                {
+                  "@type" : "g:Int64",
+                  "@value" : 1
+                },
+                "two",
+                {
+                  "@type" : "g:Int64",
+                  "@value" : 2
+                },
+                "three",
+                {
+                  "@type" : "g:Int64",
+                  "@value" : 3
+                }
+              ]
+            }
+          ]
+          """);
+
+        [Fact]
         public Task Configured_property_name() => Verify<Person>(
             "[ { \"id\": 13, \"label\": \"Person\", \"type\": \"vertex\", \"properties\": { \"replacement\": [ { \"id\": 1, \"value\": \"nameValue\" } ] } } ]",
             env => env
