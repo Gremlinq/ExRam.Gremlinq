@@ -886,5 +886,23 @@
               }
             ]
             """;
+
+        public static readonly string String_Keys_Int_Values_Map = """
+            [
+              {
+                "key1": 1,
+                "key2": 2
+              }
+            ]
+            """;
+
+        public static readonly string String_Keys_Typed_Int_Values_Map = """
+            [
+              {
+                "key1": { "@type": "g:Int32", "@value": 1 },
+                "key2": { "@type": "g:Int32", "@value": 2 }
+              }
+            ]
+            """;
     }
 }

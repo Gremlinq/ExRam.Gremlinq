@@ -55,34 +55,13 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public Task ImmutableArray() => Verify<ImmutableArray<int>>("[ [ 1, 3, 5 ] ]");
 
         [Fact]
-        public Task ImmutableDictionary_string_keys_int_values() => Verify<ImmutableDictionary<string, int>>("""
-            [
-              {
-                "key1": 1,
-                "key2": 2
-              }
-            ]
-            """);
+        public Task ImmutableDictionary_string_keys_int_values() => Verify<ImmutableDictionary<string, int>>(String_Keys_Int_Values_Map);
 
         [Fact]
-        public Task ImmutableDictionary_string_keys_typed_int_values() => Verify<ImmutableDictionary<string, int>>("""
-            [
-              {
-                "key1": { "@type": "g:Int32", "@value": 1 },
-                "key2": { "@type": "g:Int32", "@value": 2 }
-              }
-            ]
-            """);
+        public Task ImmutableDictionary_string_keys_typed_int_values() => Verify<ImmutableDictionary<string, int>>(String_Keys_Typed_Int_Values_Map);
 
         [Fact]
-        public Task IDictionary_string_keys_typed_int_values() => Verify<IDictionary<string, int>>("""
-            [
-              {
-                "key1": { "@type": "g:Int32", "@value": 1 },
-                "key2": { "@type": "g:Int32", "@value": 2 }
-              }
-            ]
-            """);
+        public Task IDictionary_string_keys_typed_int_values() => Verify<IDictionary<string, int>>(String_Keys_Typed_Int_Values_Map);
 
         [Fact]
         public Task ImmutableList_ints() => Verify<ImmutableList<int>>("[ [ 1, 3, 5 ] ]");
