@@ -22,7 +22,10 @@ namespace ExRam.Gremlinq.Support.TestContainers.Tests
                                 .WithPortBinding(8182, true)
                                 .WithWaitStrategy(Wait
                                     .ForUnixContainer()
-                                    .UntilPortIsAvailable(8182)))))
+                                    .UntilPortIsAvailable(8182)))
+                            .ConfigureClientFactory((poolFactory, container) => poolFactory
+                                    .ConfigureBaseFactory(webSocketFactory => webSocketFactory
+                                        .ConfigureUri(_ => new Uri($"ws://localhost:{container.GetMappedPublicPort(8182)}"))))))
                     .UseNewtonsoftJson());
         }
 
