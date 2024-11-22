@@ -2,7 +2,9 @@
 
   <PropertyGroup>
     <Description>TestContainers support library for Gremlinq.</Description>
+    <GitBranch>$([System.IO.File]::ReadAlltext('$(SolutionDir)\.git\HEAD').Replace('ref: refs/heads/', '').Trim())</GitBranch>
     <IsPackable>false</IsPackable>
+    <IsPackable Condition="'$(GitBranch)' == 'main'">true</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>
