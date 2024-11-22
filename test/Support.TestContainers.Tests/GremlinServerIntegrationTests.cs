@@ -4,9 +4,11 @@ using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Support.NewtonsoftJson;
 using ExRam.Gremlinq.Providers.GremlinServer;
 using ExRam.Gremlinq.Tests.Entities;
+using ExRam.Gremlinq.Tests.Infrastructure;
 
 namespace ExRam.Gremlinq.Support.TestContainers.Tests
 {
+    [IntegrationTest("Linux", true)]
     public class GremlinServerIntegrationTests : VerifyBase
     {
         private readonly IGremlinQuerySource _g;
