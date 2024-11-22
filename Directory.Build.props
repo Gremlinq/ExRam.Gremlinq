@@ -12,10 +12,14 @@
     <Company>ExRam Innovations GmbH</Company>
     <Copyright>©2017-2019 ExRam EDV GmbH &amp; Co. KG, 2020 ExRam Innovations GmbH</Copyright>
     <PackageIcon>icon.png</PackageIcon>
-    <GitBranch>$([System.IO.File]::ReadAlltext('$(SolutionDir)\.git\HEAD').Replace('ref: refs/heads/', '').Trim())</GitBranch>
     <DefineConstants>$(SolutionName.Replace('.', '_'));$(DefineConstants)</DefineConstants>
   </PropertyGroup>
  
+  <PropertyGroup>
+    <GitRoot>$(SolutionDir)\.git\HEAD</GitRoot>
+    <GitBranch Condition="Exists($(GitRoot))">$([System.IO.File]::ReadAlltext($(GitRoot)).Replace('ref: refs/heads/', '').Trim())</GitBranch>
+  </PropertyGroup>
+
   <PropertyGroup Condition="!$(MSBuildProjectName.StartsWith('$(SolutionName)'))">
     <IsPackable>false</IsPackable>
   </PropertyGroup>  
