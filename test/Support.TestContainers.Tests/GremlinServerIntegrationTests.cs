@@ -9,11 +9,11 @@ using ExRam.Gremlinq.Tests.Infrastructure;
 namespace ExRam.Gremlinq.Support.TestContainers.Tests
 {
     [IntegrationTest("Linux", true)]
-    public class GremlinServerIntegrationTests : VerifyBase
+    public class GremlinServerIntegrationTests : GremlinqTestBase
     {
         private readonly IGremlinQuerySource _g;
 
-        public GremlinServerIntegrationTests() : base()
+        public GremlinServerIntegrationTests() : base(new ExecutingVerifier())
         {
             _g = GremlinQuerySource.g
                 .UseGremlinServer<Vertex, Edge>(configurator => configurator
