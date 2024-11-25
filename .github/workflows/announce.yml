@@ -11,15 +11,15 @@ jobs:
     steps:
       - name: Send announcement tweet!
         if: ${{ !github.event.release.prerelease }}
-        uses: dart-actions/tweet@778a594ca22c70910c9524e2455c4d85eb312d57 #1.0.1
+        uses: nearform-actions/github-action-notify-twitter@5f60ea13517272e68eac76cd26f5a8f33bf3afaa #1.2.1
         with:
-          text: |
+          message: |
             We announce the release of ExRam.Gremlinq ${{ github.event.release.tag_name }}!
 
             ExRam.Gremlinq is the first .NET object-graph-mapper for @apachetinkerpop enabled graph-databases like @dotnetonAWS Neptune, @AzureCosmosDB and @JanusGraph.
 
             https://github.com/${{github.repository}}
-          consumer-key: ${{ secrets.TWITTER_CONSUMER_API_KEY }}
-          consumer-secret: ${{ secrets.TWITTER_CONSUMER_API_SECRET }}
-          access-token: ${{ secrets.TWITTER_ACCESS_TOKEN }}
-          access-token-secret: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
+          twitter-app-key: ${{ secrets.TWITTER_CONSUMER_API_KEY }}
+          twitter-app-secret: ${{ secrets.TWITTER_CONSUMER_API_SECRET }}
+          twitter-access-token: ${{ secrets.TWITTER_ACCESS_TOKEN }}
+          twitter-access-token-secret: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
