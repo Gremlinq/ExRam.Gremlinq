@@ -27,6 +27,7 @@
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageLicenseFile Condition="$(PackageLicenseFile) == ''">LICENSE.md</PackageLicenseFile>
     <PackageLicenseDirectory Condition="$(PackageLicenseDirectory) == ''">$(SolutionDir)</PackageLicenseDirectory>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageTags>Gremlin;Tinkerpop;CosmosDB;JanusGraph;Neptune;Graph;GraphDB;</PackageTags>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <DebugType>embedded</DebugType>
@@ -39,7 +40,7 @@
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
-
+    <None Include="$(MSBuildThisFileDirectory)..\README.md" Pack="true" PackagePath="\" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" PrivateAssets="All" />
   </ItemGroup>
 
