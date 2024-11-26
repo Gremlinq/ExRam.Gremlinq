@@ -1,0 +1,607 @@
+﻿{
+  Int_from_double: 4,
+  IImmutableDictionary_string_keys_typed_int_values: {
+    key1: 1,
+    key2: 2
+  },
+  Dictionary_typed_int_keys_string_values: {
+    1: value1,
+    2: value2
+  },
+  IUntypedDictionary_string_keys_typed_int_values: {
+    key1: 1,
+    key2: 2
+  },
+  IEnumerable_from_Typed_Ints: [
+    1,
+    3,
+    5
+  ],
+  Untyped_IEnumerable_from_Typed_Ints: [
+    1,
+    3,
+    5
+  ],
+  ISet_Typed_Ints: [
+    1,
+    3,
+    5
+  ],
+  IList_Typed_Ints: [
+    1,
+    3,
+    5
+  ],
+  IImmutableList_Ints: [
+    1,
+    3,
+    5
+  ],
+  IImmutableQueue_Ints: [
+    1,
+    3,
+    5
+  ],
+  IImmutableSet_Ints: [
+    1,
+    3,
+    5
+  ],
+  IImmutableStack_Ints: [
+    5,
+    3,
+    1
+  ],
+  ConcurrentQueue_from_typed_Ints: [
+    1,
+    3,
+    5
+  ],
+  ConcurrentStack_from_typed_Ints: [
+    5,
+    3,
+    1
+  ],
+  ImmutableQueue_from_typed_Ints: [
+    1,
+    3,
+    5
+  ],
+  ImmutableStack_from_typed_Ints: [
+    5,
+    3,
+    1
+  ],
+  IReadOnlyList_from_Ints: [
+    1,
+    3,
+    5
+  ],
+  IReadOnlyList_from_Typed_Ints: [
+    1,
+    3,
+    5
+  ],
+  Queue_from_typed_Ints: [
+    1,
+    3,
+    5
+  ],
+  Stack_from_typed_Ints: [
+    5,
+    3,
+    1
+  ],
+  Array: [
+    {
+      IetfLanguageTag: de,
+      Id: 1,
+      Label: Language,
+      PartitionKey: PartitionKey
+    },
+    {
+      IetfLanguageTag: en,
+      Id: 2,
+      Label: Language,
+      PartitionKey: PartitionKey
+    }
+  ],
+  Bulk_set: [
+    one,
+    two,
+    two,
+    three,
+    three,
+    three
+  ],
+  DateTime_from_double: 1970-01-02 10:17:36.789 Utc,
+  DateTime_from_number: 1970-01-02 10:17:36.789 Utc,
+  DateTime_from_string: 2018-12-17 08:00 Utc,
+  DateTime_is_UTC: {
+    FoundingDate: 2018-12-17 08:00 Utc,
+    Name: {
+      Id: Guid_1,
+      Value: Company!
+    },
+    Id: Guid_2,
+    Label: Company,
+    PartitionKey: PartitionKey
+  },
+  DateTimeOffset_from_number: 1970-01-02 10:17:36.789 +0,
+  DateTimeOffset_from_string: 2018-12-17 08:00 +0,
+  DynamicData: {
+    count: 36
+  },
+  Edge: {
+    Role: Admin,
+    Id: 9,
+    Label: WorksFor
+  },
+  Empty_to_ints: {},
+  Graphson2Path: {
+    Labels: [
+      [
+        edge
+      ]
+    ],
+    Objects: [
+      {
+        IetfLanguageTag: de,
+        Id: 1,
+        Label: Language,
+        PartitionKey: PartitionKey
+      },
+      {
+        IetfLanguageTag: en,
+        Id: 2,
+        Label: Language,
+        PartitionKey: PartitionKey
+      }
+    ]
+  },
+  GraphSon3_Tuple: [
+    {
+      Item1: {
+        Age: 36,
+        Name: {
+          Id: 1,
+          Value: Name of some base entity
+        },
+        Id: 4,
+        Label: User,
+        PartitionKey: PartitionKey
+      },
+      Item2: {
+        IetfLanguageTag: de,
+        Id: 5,
+        Label: Language,
+        PartitionKey: PartitionKey
+      }
+    }
+  ],
+  Graphson3Path: {
+    Labels: [],
+    Objects: [
+      {
+        Name: {
+          Id: 0,
+          Label: name,
+          Value: marko
+        },
+        Id: 1,
+        Label: person,
+        PartitionKey: PartitionKey
+      }
+    ]
+  },
+  GraphSon3ReferenceVertex: {
+    Name: {
+      Id: 0,
+      Label: name,
+      Value: marko
+    },
+    Id: 1,
+    Label: person,
+    PartitionKey: PartitionKey
+  },
+  Guid: Guid_3,
+  IDictionary_string_keys_typed_int_values: {
+    key1: 1,
+    key2: 2
+  },
+  IReadOnlyDictionary_string_keys_typed_int_values: {
+    key1: 1,
+    key2: 2
+  },
+  IUntypedList_Typed_Ints: [
+    1,
+    3,
+    5
+  ],
+  IUntypedCollection_from_typed_ints: [
+    1,
+    3,
+    5
+  ],
+  ICollection_from_typed_ints: [
+    1,
+    3,
+    5
+  ],
+  ImmutableArray: [
+    1,
+    3,
+    5
+  ],
+  ImmutableArray_typed_ints: [
+    1,
+    3,
+    5
+  ],
+  ImmutableDictionary_map_of_string_keys_typed_int_values: {
+    key1: 1,
+    key2: 2
+  },
+  ImmutableDictionary_string_keys_int_values: {
+    key1: 1,
+    key2: 2
+  },
+  ImmutableDictionary_string_keys_typed_int_values: {
+    key1: 1,
+    key2: 2
+  },
+  ImmutableList_ints: [
+    1,
+    3,
+    5
+  ],
+  ImmutableList_typed_ints: [
+    1,
+    3,
+    5
+  ],
+  Int_Ids: [
+    1,
+    2
+  ],
+  Ints_from_Traverser: [
+    42,
+    42,
+    42,
+    42,
+    42,
+    42,
+    42
+  ],
+  List_Of_Ints_from_Traverser: [
+    42,
+    42,
+    42,
+    42,
+    42,
+    42,
+    42
+  ],
+  IList_Of_Ints_from_Traverser: [
+    42,
+    42,
+    42,
+    42,
+    42,
+    42,
+    42
+  ],
+  Language_by_vertex_inheritance: {
+    IetfLanguageTag: de,
+    Id: 10,
+    Label: Language,
+    PartitionKey: PartitionKey
+  },
+  Language_strongly_typed: {
+    IetfLanguageTag: de,
+    Id: 10,
+    Label: Language,
+    PartitionKey: PartitionKey
+  },
+  Language_to_generic_vertex: {
+    IetfLanguageTag: de,
+    Id: 10,
+    Label: Language,
+    PartitionKey: PartitionKey
+  },
+  Language_unknown_type: {
+    IetfLanguageTag: de,
+    Id: 10,
+    Label: Language,
+    PartitionKey: PartitionKey
+  },
+  Languages_to_object: [
+    {
+      IetfLanguageTag: de,
+      Id: 1,
+      Label: Language,
+      PartitionKey: PartitionKey
+    },
+    {
+      IetfLanguageTag: en,
+      Id: 2,
+      Label: Language,
+      PartitionKey: PartitionKey
+    }
+  ],
+  List_ints: [
+    1,
+    2,
+    3
+  ],
+  Meta_Properties: {
+    Name: {
+      Id: 1,
+      Properties: {
+        de: Deutschland,
+        en: Germany
+      },
+      Value: GER
+    },
+    Id: 3,
+    Label: Country,
+    PartitionKey: PartitionKey
+  },
+  MetaProperties: [
+    {
+      Value: metaValue1,
+      Key: metaKey1
+    },
+    {
+      Value: 36,
+      Key: metaKey2
+    }
+  ],
+  Mixed_Ids: [
+    1,
+    id2
+  ],
+  NamedTuple: {
+    Key: {
+      Age: 36,
+      Name: {
+        Id: 1,
+        Value: Name of some base entity
+      },
+      Id: 16,
+      Label: Person,
+      PartitionKey: PartitionKey
+    },
+    Value: {
+      IetfLanguageTag: de,
+      Id: 17,
+      Label: Language,
+      PartitionKey: PartitionKey
+    }
+  },
+  Nested_Array: [
+    [
+      {
+        IetfLanguageTag: en,
+        Id: 6,
+        Label: Language,
+        PartitionKey: PartitionKey
+      }
+    ],
+    [
+      {
+        IetfLanguageTag: de,
+        Id: 7,
+        Label: Language,
+        PartitionKey: PartitionKey
+      },
+      {
+        IetfLanguageTag: en,
+        Id: 8,
+        Label: Language,
+        PartitionKey: PartitionKey
+      }
+    ]
+  ],
+  Nullable: 42,
+  Nullable_null: [
+    42
+  ],
+  Object_from_double: 1.2,
+  Object_from_true: true,
+  Person_lowercase_strongly_typed: {
+    Age: 36,
+    RegistrationDate: 2016-12-14 21:14:36.295 +0,
+    PhoneNumbers: [
+      {
+        Id: 3,
+        Value: +123456
+      },
+      {
+        Id: 4,
+        Value: +234567
+      }
+    ],
+    Id: 14,
+    Label: Person,
+    PartitionKey: PartitionKey
+  },
+  Person_StringId: {
+    Age: 36,
+    Gender: Female,
+    RegistrationDate: 2016-12-14 21:14:36.295 +0,
+    PhoneNumbers: [
+      {
+        Id: 4,
+        Value: +123456
+      },
+      {
+        Id: 5,
+        Value: +234567
+      }
+    ],
+    Id: 13,
+    Label: Person,
+    PartitionKey: PartitionKey
+  },
+  Person_strongly_typed: {
+    Age: 36,
+    Gender: Female,
+    RegistrationDate: 2016-12-14 21:14:36.295 +0,
+    PhoneNumbers: [
+      {
+        Id: 4,
+        Value: +123456
+      },
+      {
+        Id: 5,
+        Value: +234567
+      }
+    ],
+    Id: 13,
+    Label: Person,
+    PartitionKey: PartitionKey
+  },
+  Person_with_null: {
+    Age: 36,
+    Gender: Female,
+    PhoneNumbers: [
+      {
+        Id: 4,
+        Value: +123456
+      },
+      {
+        Id: 5,
+        Value: +234567
+      }
+    ],
+    Id: 13,
+    Label: Person,
+    PartitionKey: PartitionKey
+  },
+  Person_without_PhoneNumbers_strongly_typed: {
+    Age: 36,
+    RegistrationDate: 2016-12-14 21:14:36.295 +0,
+    Id: 15,
+    Label: Person,
+    PartitionKey: PartitionKey
+  },
+  Property_as_object: {
+    Value: 1540202009475,
+    Key: Property1
+  },
+  Property_from_Scalar: {
+    Value: 36
+  },
+  Scalar: 36,
+  Scalar_as_object: 36,
+  String_Ids: [
+    id1,
+    id2
+  ],
+  String_Ids2: [
+    1,
+    2
+  ],
+  TimeFrame_strongly_typed: {
+    Enabled: false,
+    StartTime: 06:00:00,
+    Duration: 16:00:00,
+    Id: 11,
+    Label: TimeFrame,
+    PartitionKey: PartitionKey
+  },
+  TimeSpan_from_double: 1.10:17:36.7892000,
+  TimeSpan_from_integer: 1.10:17:36.7890000,
+  Tuple: {
+    Item1: {
+      Age: 36,
+      Name: {
+        Id: 1,
+        Value: Name of some base entity
+      },
+      Id: 16,
+      Label: Person,
+      PartitionKey: PartitionKey
+    },
+    Item2: {
+      IetfLanguageTag: de,
+      Id: 17,
+      Label: Language,
+      PartitionKey: PartitionKey
+    }
+  },
+  Tuple_vertex_vertex: {
+    Item1: {
+      Age: 36,
+      Name: {
+        Id: 1,
+        Value: Name of some base entity
+      },
+      Id: 16,
+      Label: Person,
+      PartitionKey: PartitionKey
+    },
+    Item2: {
+      IetfLanguageTag: de,
+      Id: 17,
+      Label: Language,
+      PartitionKey: PartitionKey
+    }
+  },
+  VertexProperties: [
+    {
+      Label: Property1,
+      Properties: {
+        metaKey: MetaValue
+      },
+      Value: 1540202009475
+    },
+    {
+      Label: Property2,
+      Value: Some string
+    },
+    {
+      Label: Property3,
+      Value: 36
+    }
+  ],
+  VertexProperties_with_model: [
+    {
+      Label: Property1,
+      Properties: {
+        MetaKey: MetaValue
+      },
+      Value: 1540202009475
+    },
+    {
+      Label: Property2,
+      Value: Some string
+    },
+    {
+      Label: Property3,
+      Value: 36
+    }
+  ],
+  VertexProperty_as_object: {
+    Id: 1,
+    Label: Property1,
+    Properties: {
+      metaKey: MetaValue
+    },
+    Value: 1540202009475
+  },
+  VertexPropertyWithDateTimeOffset: {
+    Id: 166,
+    Label: Name,
+    Properties: {
+      ValidFrom: 2019-01-21 23:12:45.431 +0
+    },
+    Value: bob
+  },
+  VertexPropertyWithoutProperties: {
+    Id: 166,
+    Label: Name,
+    Value: bob
+  }
+}
