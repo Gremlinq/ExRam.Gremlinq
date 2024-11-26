@@ -60,6 +60,9 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public Task IImmutableDictionary_string_keys_typed_int_values() => Verify<IImmutableDictionary<string, int>>(String_Keys_Typed_Int_Values);
 
         [Fact]
+        public Task Dictionary_typed_int_keys_string_values() => Verify<Dictionary<int, string>>(Map_of_Typed_Int_Keys_Typed_String_Values);
+
+        [Fact]
         public Task IUntypedDictionary_string_keys_typed_int_values() => Verify<IDictionary>(String_Keys_Typed_Int_Values);
 
         [Fact]

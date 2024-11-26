@@ -961,6 +961,19 @@
             ]
             """;
 
+        public static readonly string Map_of_Typed_Int_Keys_Typed_String_Values = """
+            [
+              {
+                "@type": "g:Map",
+                "@value":
+                [
+                  { "@type": "g:Int32", "@value": 1 }, "value1", 
+                  { "@type": "g:Int32", "@value": 2 }, "value2"
+                ]
+              }
+            ]
+            """;
+
         public static readonly string Ints = "[ [ 1, 3, 5 ] ]";
 
         public static readonly string Typed_Ints = """
