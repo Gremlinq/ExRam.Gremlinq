@@ -1,7 +1,5 @@
-﻿[
-  {
-    Role: Admin,
-    Id: 9,
-    Label: WorksFor
-  }
-]
+﻿{
+  Role: Admin,
+  Id: 9,
+  Label: WorksFor
+}

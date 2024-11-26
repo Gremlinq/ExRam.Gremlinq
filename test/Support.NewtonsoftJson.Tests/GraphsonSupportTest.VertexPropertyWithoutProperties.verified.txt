@@ -1,7 +1,5 @@
-﻿[
-  {
-    Id: 166,
-    Label: Name,
-    Value: bob
-  }
-]
+﻿{
+  Id: 166,
+  Label: Name,
+  Value: bob
+}

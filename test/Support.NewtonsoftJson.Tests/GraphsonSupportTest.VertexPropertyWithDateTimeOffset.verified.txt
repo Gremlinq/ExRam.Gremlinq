@@ -1,10 +1,8 @@
-﻿[
-  {
-    Id: 166,
-    Label: Name,
-    Properties: {
-      ValidFrom: 2019-01-21 23:12:45.431 +0
-    },
-    Value: bob
-  }
-]
+﻿{
+  Id: 166,
+  Label: Name,
+  Properties: {
+    ValidFrom: 2019-01-21 23:12:45.431 +0
+  },
+  Value: bob
+}

@@ -1,20 +1,18 @@
-﻿[
-  {
-    Key: {
-      Age: 36,
-      Name: {
-        Id: 1,
-        Value: Name of some base entity
-      },
-      Id: 16,
-      Label: Person,
-      PartitionKey: PartitionKey
+﻿{
+  Key: {
+    Age: 36,
+    Name: {
+      Id: 1,
+      Value: Name of some base entity
     },
-    Value: {
-      IetfLanguageTag: de,
-      Id: 17,
-      Label: Language,
-      PartitionKey: PartitionKey
-    }
+    Id: 16,
+    Label: Person,
+    PartitionKey: PartitionKey
+  },
+  Value: {
+    IetfLanguageTag: de,
+    Id: 17,
+    Label: Language,
+    PartitionKey: PartitionKey
   }
-]
+}

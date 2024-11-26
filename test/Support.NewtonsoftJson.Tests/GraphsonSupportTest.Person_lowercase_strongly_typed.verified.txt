@@ -1,19 +1,17 @@
-﻿[
-  {
-    Age: 36,
-    RegistrationDate: 2016-12-14 21:14:36.295 +0,
-    PhoneNumbers: [
-      {
-        Id: 3,
-        Value: +123456
-      },
-      {
-        Id: 4,
-        Value: +234567
-      }
-    ],
-    Id: 14,
-    Label: Person,
-    PartitionKey: PartitionKey
-  }
-]
+﻿{
+  Age: 36,
+  RegistrationDate: 2016-12-14 21:14:36.295 +0,
+  PhoneNumbers: [
+    {
+      Id: 3,
+      Value: +123456
+    },
+    {
+      Id: 4,
+      Value: +234567
+    }
+  ],
+  Id: 14,
+  Label: Person,
+  PartitionKey: PartitionKey
+}

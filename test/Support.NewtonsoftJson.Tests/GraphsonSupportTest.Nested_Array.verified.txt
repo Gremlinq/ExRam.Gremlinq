@@ -1,26 +1,24 @@
 ﻿[
   [
-    [
-      {
-        IetfLanguageTag: en,
-        Id: 6,
-        Label: Language,
-        PartitionKey: PartitionKey
-      }
-    ],
-    [
-      {
-        IetfLanguageTag: de,
-        Id: 7,
-        Label: Language,
-        PartitionKey: PartitionKey
-      },
-      {
-        IetfLanguageTag: en,
-        Id: 8,
-        Label: Language,
-        PartitionKey: PartitionKey
-      }
-    ]
+    {
+      IetfLanguageTag: en,
+      Id: 6,
+      Label: Language,
+      PartitionKey: PartitionKey
+    }
+  ],
+  [
+    {
+      IetfLanguageTag: de,
+      Id: 7,
+      Label: Language,
+      PartitionKey: PartitionKey
+    },
+    {
+      IetfLanguageTag: en,
+      Id: 8,
+      Label: Language,
+      PartitionKey: PartitionKey
+    }
   ]
 ]

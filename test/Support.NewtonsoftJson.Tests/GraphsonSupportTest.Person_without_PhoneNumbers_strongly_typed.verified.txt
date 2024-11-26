@@ -1,9 +1,7 @@
-﻿[
-  {
-    Age: 36,
-    RegistrationDate: 2016-12-14 21:14:36.295 +0,
-    Id: 15,
-    Label: Person,
-    PartitionKey: PartitionKey
-  }
-]
+﻿{
+  Age: 36,
+  RegistrationDate: 2016-12-14 21:14:36.295 +0,
+  Id: 15,
+  Label: Person,
+  PartitionKey: PartitionKey
+}

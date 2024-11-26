@@ -1,15 +1,13 @@
-﻿[
-  {
-    Name: {
-      Id: 1,
-      Properties: {
-        de: Deutschland,
-        en: Germany
-      },
-      Value: GER
+﻿{
+  Name: {
+    Id: 1,
+    Properties: {
+      de: Deutschland,
+      en: Germany
     },
-    Id: 3,
-    Label: Country,
-    PartitionKey: PartitionKey
-  }
-]
+    Value: GER
+  },
+  Id: 3,
+  Label: Country,
+  PartitionKey: PartitionKey
+}
