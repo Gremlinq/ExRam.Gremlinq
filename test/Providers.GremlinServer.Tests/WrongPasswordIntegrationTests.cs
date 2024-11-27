@@ -8,7 +8,7 @@ using Gremlin.Net.Driver.Exceptions;
 
 namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 {
-    [IntegrationTest("Linux")]
+    [IntegrationTest("Linux", true)]
     [IntegrationTest("Windows")]
     public class WrongPasswordIntegrationTests : GremlinqTestBase, IClassFixture<WrongPasswordGremlinServerContainerFixture>
     {
