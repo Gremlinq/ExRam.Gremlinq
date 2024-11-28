@@ -52,7 +52,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                             return typeof(FluentForType)
                                 .GetMethod(methodName, BindingFlags.Static | BindingFlags.NonPublic)!
                                 .MakeGenericMethod(sourceType, targetType)
-                                .Invoke(null, Array.Empty<object>()) as Delegate;
+                                .Invoke(null, []) as Delegate;
                         });
             }
 

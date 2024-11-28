@@ -94,7 +94,7 @@ namespace ExRam.Gremlinq.Core
             return this;
         }
 
-        public static implicit operator Traversal(Step step) => new(new[] { step }, Projection.Empty);
+        public static implicit operator Traversal(Step step) => new([step], Projection.Empty);
 
         public static Traversal Create<TState>(int length, TState state, SpanAction<Step, TState> action) => new(
             FastImmutableList<Step>.Create(length, state, action),

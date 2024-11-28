@@ -100,7 +100,7 @@ namespace ExRam.Gremlinq.Core
                         }
                     case string str:
                         {
-                            (stringKeys ??= new List<string>()).Add(str);
+                            (stringKeys ??= []).Add(str);
 
                             break;
                         }

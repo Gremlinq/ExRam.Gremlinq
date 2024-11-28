@@ -53,7 +53,7 @@ namespace ExRam.Gremlinq.PublicApi.Tests
                     .GeneratePublicApi(new ApiGeneratorOptions
                     {
                         IncludeAssemblyAttributes = false,
-                        DenyNamespacePrefixes = Array.Empty<string>()
+                        DenyNamespacePrefixes = []
                     }),
                 "cs")
             .UniqueForTargetFrameworkAndVersion();

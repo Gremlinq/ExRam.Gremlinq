@@ -5,7 +5,7 @@ namespace ExRam.Gremlinq.Core
     internal readonly struct FastImmutableList<T>
         where T : class
     {
-        public static readonly FastImmutableList<T> Empty = new(Array.Empty<T>());
+        public static readonly FastImmutableList<T> Empty = new([]);
 
         private readonly Memory<T?>? _items;
 

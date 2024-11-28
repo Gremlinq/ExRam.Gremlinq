@@ -235,7 +235,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
                             {
                                 Interlocked.Increment(ref called);
 
-                                return new BinaryData(new byte[] { 42 });
+                                return new BinaryData([42]);
                             }
 
                             return null;

@@ -307,7 +307,7 @@ namespace ExRam.Gremlinq.Core
                 return arguments;
             }
 
-            return Array.Empty<object>();
+            return [];
         }
     }
 }

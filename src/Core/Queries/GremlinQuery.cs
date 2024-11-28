@@ -64,7 +64,7 @@ namespace ExRam.Gremlinq.Core
                         ? this
                             .GetPropertySteps(key, value, Steps.Projection == Projection.Vertex)
                             .ToArray()
-                        : Array.Empty<PropertyStep>();
+                        : [];
 
                     if (!add && key.RawKey is string rawStringKey && localPropertySteps.All(static propertyStep => Cardinality.List.Equals(propertyStep.Cardinality)))
                         droppableKeys.Add(rawStringKey);
@@ -484,7 +484,7 @@ namespace ExRam.Gremlinq.Core
             .SideEffect(_ => _
                 .Properties<object, object, object>(
                     Projection.Empty,
-                    new[] { key })
+                    [key])
                 .Drop());
 
         private GremlinQuery<object, object, object, IGremlinQueryBase> E(ImmutableArray<object> ids) => this

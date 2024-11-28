@@ -169,7 +169,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual Task AddV_with_byte_array_property() => _g
             .AddV(new Person
             {
-                Image = new byte[] { 1, 2, 3, 4, 5, 6, 7, 8 }
+                Image = [1, 2, 3, 4, 5, 6, 7, 8]
             })
             .Verify();
 
@@ -239,8 +239,8 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual Task AddV_with_MetaModel() => _g
             .AddV(new Company
             {
-                Locations = new[]
-                {
+                Locations =
+                [
                     new VertexProperty<string, PropertyValidity>("Aachen")
                     {
                         Properties = new PropertyValidity
@@ -248,13 +248,13 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                             ValidFrom = new DateTimeOffset(2019, 01, 01, 01, 00, 00, TimeSpan.Zero)
                         }
                     }
-                }
+                ]
             })
             .Verify();
 
         [Fact]
         public virtual Task AddV_with_multi_property() => _g
-            .AddV(new Company { PhoneNumbers = new[] { "+4912345", "+4923456" } })
+            .AddV(new Company { PhoneNumbers = ["+4912345", "+4923456"] })
             .Verify();
 
         [Fact]
@@ -1193,11 +1193,10 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .ConfigureEnvironment(env => env
                 .ConfigureSerializer(ser => ser
                     .Add(Create<EStep, Step[]>((step, env, _, recurse) =>
-                        new Step[]
-                        {
-                            new VStep(ImmutableArray<object>.Empty),
-                            new OutEStep(ImmutableArray<string>.Empty)
-                        }))))
+                    [
+                        new VStep(ImmutableArray<object>.Empty),
+                        new OutEStep(ImmutableArray<string>.Empty)
+                    ]))))
             .E()
             .Verify();
 
@@ -2913,7 +2912,8 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
             await _g
                 .V<Person>()
-                .Update(new Person { Age = 21, Gender = Gender.Male, Name = "Marko", RegistrationDate = now, PhoneNumbers = new[] { new VertexProperty<string>("012345") } })
+                .Update(new Person { Age = 21, Gender = Gender.Male, Name = "Marko", RegistrationDate = now, PhoneNumbers = [new VertexProperty<string>("012345")]
+                })
                 .Verify();
         }
 
@@ -4861,7 +4861,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             var stepLabel = new StepLabel<IArrayGremlinQuery<Person[], Person, IVertexGremlinQuery<Person>>, Person[]>();
 
             await _g
-                .WithSideEffect(stepLabel, Array.Empty<Person>())
+                .WithSideEffect(stepLabel, [])
                 .V<Person>()
                 .Aggregate(stepLabel)
                 .Fold()

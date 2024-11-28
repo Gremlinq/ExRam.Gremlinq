@@ -59,7 +59,7 @@ namespace ExRam.Gremlinq.Core.Transformation
                                 return (Delegate)typeof(TransformerImpl)
                                     .GetMethod(nameof(GetTransformationFunction), BindingFlags.Instance | BindingFlags.NonPublic)!
                                     .MakeGenericMethod(staticSerializedType, actualSerializedType, requestedType)
-                                    .Invoke(@this, new object [] { environment })!;
+                                    .Invoke(@this, [environment])!;
                             },
                             this) as Func<TSource, Option<TTarget>>;
 

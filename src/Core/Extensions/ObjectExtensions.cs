@@ -48,7 +48,7 @@ namespace ExRam.Gremlinq.Core
                                 return (Func<object, IGremlinQueryEnvironment, SerializationBehaviour, IEnumerable<(Key key, object? value)>>)typeof(ObjectExtensions)
                                     .GetMethod(nameof(CreateSerializeDictionaryFunc), BindingFlags.Static | BindingFlags.NonPublic)!
                                     .MakeGenericMethod(iface.GetGenericArguments())
-                                    .Invoke(null, Array.Empty<object>())!;
+                                    .Invoke(null, [])!;
                             }
                         }
 

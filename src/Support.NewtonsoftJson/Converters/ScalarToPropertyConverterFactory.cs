@@ -48,7 +48,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
             {
                 if (typeof(TTarget).GetGenericArguments() is [var targetPropertyValueType])
                 {
-                    if (typeof(TTarget).GetConstructor(new[] { targetPropertyValueType }) is { } constructor)
+                    if (typeof(TTarget).GetConstructor([targetPropertyValueType]) is { } constructor)
                         return (IConverter<TSource, TTarget>?)Activator.CreateInstance(typeof(ScalarToPropertyConverter<,>).MakeGenericType(typeof(TTarget), targetPropertyValueType), environment, constructor);
                 }
             }
