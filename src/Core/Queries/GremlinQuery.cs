@@ -1345,7 +1345,7 @@ namespace ExRam.Gremlinq.Core
 
                                 if (left.IsVertexPropertyId(out var sourceExpression4))
                                 {
-                                    if (sourceExpression4 is MemberExpression memberExpression4 && GetKey(sourceExpression4).RawKey is string stringKey)
+                                    if (sourceExpression4 is MemberExpression memberExpression4 && GetKey(memberExpression4).RawKey is string stringKey)
                                     {
                                         return traversal
                                             .Push(new FilterStep.ByTraversalStep(Traversal.Empty
@@ -1459,17 +1459,17 @@ namespace ExRam.Gremlinq.Core
                             }
                         }
                     }
-                    else if (right.RefersToStepLabel(out var rightStepLabel, out var maybyRightStepLabelValueMemberExpression) && left.RefersToStepLabel(out var leftStepLabel, out var maybeLeftStepLabelValueMemberExpression))
+                    else if (right.RefersToStepLabel(out var rightStepLabel, out var maybeRightStepLabelValueMemberExpression) && left.RefersToStepLabel(out var leftStepLabel, out var maybeLeftStepLabelValueMemberExpression))
                     {
                         traversal = traversal.Push(new WhereStepLabelAndPredicateStep(leftStepLabel, effectivePredicate));
 
-                        if (maybeLeftStepLabelValueMemberExpression is not null || maybyRightStepLabelValueMemberExpression is not null)
+                        if (maybeLeftStepLabelValueMemberExpression is not null || maybeRightStepLabelValueMemberExpression is not null)
                         {
                             traversal = traversal
                                 .Push(new WherePredicateStep.ByMemberStep(maybeLeftStepLabelValueMemberExpression is { } leftStepLabelValueMemberExpression
                                     ? GetKey(leftStepLabelValueMemberExpression)
                                     : default(Key?)))
-                                .Push(new WherePredicateStep.ByMemberStep(maybyRightStepLabelValueMemberExpression is { } rightStepLabelValueMemberExpression
+                                .Push(new WherePredicateStep.ByMemberStep(maybeRightStepLabelValueMemberExpression is { } rightStepLabelValueMemberExpression
                                     ? GetKey(rightStepLabelValueMemberExpression)
                                     : default(Key?)));
                         }
