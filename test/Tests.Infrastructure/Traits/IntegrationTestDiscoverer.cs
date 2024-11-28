@@ -6,9 +6,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
     {
         public IEnumerable<KeyValuePair<string, string>> GetTraits(IAttributeInfo traitAttribute)
         {
-            var isCi = bool.TryParse(Environment.GetEnvironmentVariable("CI"), out var ci)
-                ? ci
-                : false;
+            var isCi = bool.TryParse(Environment.GetEnvironmentVariable("CI"), out var ci) && ci;
 
             yield return new KeyValuePair<string, string>("Category", "IntegrationTest");
 
