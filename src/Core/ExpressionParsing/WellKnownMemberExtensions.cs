@@ -69,7 +69,7 @@ namespace ExRam.Gremlinq.Core.ExpressionParsing
 
         public static bool IsCompareTo(this Expression expression, [NotNullWhen(true)] out Expression? target, [NotNullWhen(true)] out Expression? comparand, out int compareToValue)
         {
-            if (expression is BinaryExpression binaryExpression && binaryExpression.Left is MethodCallExpression { Object: { } targetExpression, Method: { } methodInfo, Arguments: [{ } firstArgument, ..] } leftMethodCallExpression && methodInfo.Name == nameof(IComparable.CompareTo) && methodInfo.GetParameters().Length == 1 && methodInfo.ReturnType == typeof(int) && binaryExpression.Right.GetValue() is IConvertible convertible)
+            if (expression is BinaryExpression { Left: MethodCallExpression { Object: { } targetExpression, Method: { Name: nameof(IComparable.CompareTo) } methodInfo, Arguments: [{ } firstArgument, ..] } } binaryExpression && methodInfo.GetParameters().Length == 1 && methodInfo.ReturnType == typeof(int) && binaryExpression.Right.GetValue() is IConvertible convertible)
             {
                 target = targetExpression;
                 comparand = firstArgument;
