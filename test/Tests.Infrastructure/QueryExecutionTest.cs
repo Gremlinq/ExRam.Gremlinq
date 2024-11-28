@@ -6,7 +6,6 @@ using ExRam.Gremlinq.Core.Steps;
 using ExRam.Gremlinq.Tests.Entities;
 using static ExRam.Gremlinq.Core.Transformation.ConverterFactory;
 using ExRam.Gremlinq.Core;
-using Newtonsoft.Json.Linq;
 using FluentAssertions;
 
 namespace ExRam.Gremlinq.Tests.Infrastructure

@@ -8,7 +8,6 @@ using ExRam.Gremlinq.Core.GraphElements;
 using ExRam.Gremlinq.Core.Projections;
 using ExRam.Gremlinq.Core.Steps;
 
-using Gremlin.Net.Driver.Messages;
 using Gremlin.Net.Process.Traversal;
 
 using Microsoft.Extensions.Logging;

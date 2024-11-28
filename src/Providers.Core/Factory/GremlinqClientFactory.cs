@@ -7,8 +7,6 @@ using ExRam.Gremlinq.Core.Execution;
 using Gremlin.Net.Driver.Exceptions;
 using Gremlin.Net.Driver.Messages;
 
-using Microsoft.Extensions.Logging;
-
 using static Gremlin.Net.Driver.Messages.ResponseStatusCode;
 
 namespace ExRam.Gremlinq.Providers.Core
