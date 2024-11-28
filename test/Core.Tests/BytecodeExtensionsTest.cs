@@ -23,10 +23,11 @@ namespace ExRam.Gremlinq.Core.Tests
                         "outerInstruction",
                         GroovyExpression.From(
                             "StaticType",
-                            ImmutableArray.Create(
+                            [
                                 new Instruction("innerInstruction1"),
                                 new Instruction("innerInstruction2"),
-                                new Instruction("innerInstruction3"))))
+                                new Instruction("innerInstruction3")
+                            ]))
                 }
             };
 

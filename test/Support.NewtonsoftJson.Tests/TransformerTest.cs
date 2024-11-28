@@ -140,7 +140,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
                 .Deserializer
                 .Add(Create<JObject, IDictionary<string, object?>>((static (jObject, env, _, recurse) =>
                 {
-                    if (recurse.TryTransformTo<JObject>().From(jObject, env) is JObject processedFragment)
+                    if (recurse.TryTransformTo<JObject>().From(jObject, env) is { } processedFragment)
                     {
                         var dict = new Dictionary<string, object?>();
 

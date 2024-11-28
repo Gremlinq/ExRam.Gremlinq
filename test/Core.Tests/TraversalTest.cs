@@ -93,19 +93,19 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public Task ToTraversal_extension()
         {
-            return Verify(new Step []{ new InjectStep(ImmutableArray.Create<object>(1)), new InjectStep(ImmutableArray.Create<object>(2)) }.ToTraversal().Steps.ToArray());
+            return Verify(new Step []{ new InjectStep([1]), new InjectStep([2]) }.ToTraversal().Steps.ToArray());
         }
 
         [Fact]
         public Task ToTraversal_extension_2()
         {
-            return Verify(new Step []{ new InjectStep(ImmutableArray.Create<object>(1)), new InjectStep(ImmutableArray.Create<object>(2)) }.Select(x => x).ToTraversal().Steps.ToArray());
+            return Verify(new Step []{ new InjectStep([1]), new InjectStep([2]) }.Select(x => x).ToTraversal().Steps.ToArray());
         }
 
         [Fact]
         public Task ToTraversal_extension_3()
         {
-            return Verify(new Step []{ new InjectStep(ImmutableArray.Create<object>(1)), new InjectStep(ImmutableArray.Create<object>(2)) }.ToList().ToTraversal().Steps.ToArray());
+            return Verify(new Step []{ new InjectStep([1]), new InjectStep([2]) }.ToList().ToTraversal().Steps.ToArray());
         }
     }
 }
