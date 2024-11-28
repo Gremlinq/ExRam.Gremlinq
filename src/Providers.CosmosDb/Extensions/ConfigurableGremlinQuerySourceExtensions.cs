@@ -184,7 +184,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb
                                 .Create<CosmosDbKey, string>((key, _, _, _) => key.Id))
                             .Add(ConverterFactory
                                 .Create<CosmosDbKey, string[]>((key, _, _, _) => key.PartitionKey is { } partitionKey
-                                    ? new[] { partitionKey, key.Id }
+                                    ? [partitionKey, key.Id]
                                     : default))
                             .Add(ConverterFactory
                                 .Create<FilterStep.ByTraversalStep, WhereTraversalStep>(static (step, _, _, _) => new WhereTraversalStep(

@@ -46,7 +46,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                                     return (Action<TElement, JToken, ITransformer>)typeof(Info<TElement>)
                                         .GetMethod(nameof(CreateSetter), BindingFlags.NonPublic | BindingFlags.Static)!
                                         .MakeGenericMethod(propertyInfo.PropertyType)
-                                        .Invoke(null, new object[] { propertyInfo, environment })!;
+                                        .Invoke(null, [propertyInfo, environment])!;
                                 }
                             }
 

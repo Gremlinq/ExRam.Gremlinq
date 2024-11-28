@@ -132,7 +132,7 @@ namespace ExRam.Gremlinq.Core.ExpressionParsing
 
                 for (var i = 0; i < ret.Length; i++)
                 {
-                    ret[i] = value.Substring(0, i);
+                    ret[i] = value[..i];
                 }
 
                 return ret;
