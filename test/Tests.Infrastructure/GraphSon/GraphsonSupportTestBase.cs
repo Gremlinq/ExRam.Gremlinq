@@ -12,6 +12,11 @@ using System.Collections;
 
 namespace ExRam.Gremlinq.Tests.Infrastructure
 {
+    public class ClassWithInitProperty
+    {
+        public string? Property { get; init; }
+    }
+
     public abstract class GraphsonSupportTestBase<TNativeToken> : VerifyBase
     {
         protected readonly IGremlinQueryEnvironment _environment;
@@ -47,6 +52,9 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public Task Int_from_double() => Verify<int>("4.2");
+
+        [Fact]
+        public Task Init_property() => Verify<ClassWithInitProperty>("""{ "Property": "Value" }""");
 
         [Fact]
         public Task IImmutableDictionary_string_keys_typed_int_values() => Verify<IImmutableDictionary<string, int>>(String_Keys_Typed_Int_Values);
