@@ -1,5 +1,6 @@
 ﻿[
   {
-    Item1: item1
+    Item1: item1,
+    Item2: 7
   }
 ]

@@ -87,10 +87,40 @@
           ]
         },
         {
-          OperatorName: select,
+          OperatorName: project,
           Arguments: [
             Item1,
-            Item3
+            Item2
+          ]
+        },
+        {
+          OperatorName: by,
+          Arguments: [
+            {
+              StepInstructions: [
+                {
+                  OperatorName: select,
+                  Arguments: [
+                    Item1
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          OperatorName: by,
+          Arguments: [
+            {
+              StepInstructions: [
+                {
+                  OperatorName: select,
+                  Arguments: [
+                    Item3
+                  ]
+                }
+              ]
+            }
           ]
         }
       ]

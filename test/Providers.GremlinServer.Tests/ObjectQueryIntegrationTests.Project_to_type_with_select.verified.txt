@@ -1,6 +1,6 @@
 ﻿[
   {
-    In: in_value,
-    Out: out_value
+    Item1: in_value,
+    Item2: out_value
   }
 ]
