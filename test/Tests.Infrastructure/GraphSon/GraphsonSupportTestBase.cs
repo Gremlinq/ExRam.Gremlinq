@@ -339,5 +339,17 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public Task VertexPropertyWithoutProperties() => Verify<VertexProperty<object, object>>("{ \"id\": 166, \"value\": \"bob\", \"label\": \"Name\" }");
+
+        [Fact]
+        public Task Lifted_Entity() => Verify<IAuthority>("""
+            {
+              "id": "123",
+              "label": "Person",
+              "properties":
+              {
+                "age": 42
+              }
+            }
+            """);
     }
 }
