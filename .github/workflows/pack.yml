@@ -49,11 +49,6 @@ jobs:
     - name: Pack
       run: dotnet pack ./${{ github.event.repository.name }}.sln -c Release --no-build
 
-    - name: Attest build provenance
-      uses: actions/attest-build-provenance@v2
-      with:
-        subject-path: ./**/${{ github.event.repository.name }}.*.nupkg
-
     - name: Copy NuGet packages to artifacts
       uses: actions/upload-artifact@50769540e7f4bd5e21e526ee35c689e35e0d6874 # 4.4.0
       with:
@@ -70,6 +65,21 @@ jobs:
         path: Version
         if-no-files-found: error
 
+  attest:
+    if: ${{ needs.pack.outputs.isPreviewRelease == 'false' }}
+    needs: [ pack ]
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16 # 4.1.8
+      with:
+        name: NuGetPackages
+        
+    - name: Attest build provenance
+      uses: actions/attest-build-provenance@v2
+      with:
+        subject-path: ./**/${{ github.event.repository.name }}.*.nupkg
+    
   draft-release:
     needs: [ pack ]
     runs-on: ubuntu-latest
