@@ -47,8 +47,7 @@ namespace ExRam.Gremlinq.Core.Models
                         catch (ReflectionTypeLoadException ex)
                         {
                             return ex.Types
-                                .Where(static x => x is not null)
-                                .Select(static x => x!);
+                                .OfType<Type>();
                         }
                     })
                     .Where(static type => type is { IsNestedPrivate: false, IsClass: true, IsAbstract: false } && typeof(TBaseType).IsAssignableFrom(type));
