@@ -22,6 +22,24 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public string? Property;
     }
 
+    public class ClassWithFieldsAndConstructor
+    {
+        public ClassWithFieldsAndConstructor(string stringArg, string? nullableStringArg, int intArg, int? nullableIntArg)
+        {
+            StringArg = stringArg;
+            NullableStringArg = nullableStringArg;
+            IntArg = intArg;
+            NullableIntArg = nullableIntArg;
+        }
+
+        public string StringArg { get; }
+        public string? NullableStringArg { get; }
+        public int IntArg { get; }
+        public int? NullableIntArg { get; }
+
+        public string? SettableString { get; set; }
+    }
+
     public abstract class GraphsonSupportTestBase<TNativeToken> : VerifyBase
     {
         protected readonly IGremlinQueryEnvironment _environment;
@@ -51,6 +69,26 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         protected Task Verify<T>(string token) => Verify<T>(token, _ => _);
 
         protected abstract TNativeToken CreateNativeToken(string str);
+
+        [Fact]
+        public Task Constructor_assertion_1() => Verify<ClassWithFieldsAndConstructor>("{ }");
+
+        [Fact]
+        public Task Constructor_assertion_2() => Verify<ClassWithFieldsAndConstructor>("""
+            {
+                "stringArg": "stringValue",
+                "intArg": 42
+            }
+            """);
+
+        [Fact]
+        public Task Constructor_assertion_3() => Verify<ClassWithFieldsAndConstructor>("""
+            {
+                "stringArg": "stringValue",
+                "intArg": 42,
+                "settableString": "settableValue"
+            }
+            """);
 
         [Fact]
         public Task String_from_int() => Verify<string>("42");

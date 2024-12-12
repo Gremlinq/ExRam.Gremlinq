@@ -1,0 +1,5 @@
+﻿{
+  StringArg: stringValue,
+  IntArg: 42,
+  SettableString: settableValue
+}
