@@ -53,6 +53,9 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         protected abstract TNativeToken CreateNativeToken(string str);
 
         [Fact]
+        public Task String_from_int() => Verify<string>("42");
+
+        [Fact]
         public Task Everything() => Verify<EverythingAllAtOnce>(EverythingAllAtOnceData);
 
         [Fact]
