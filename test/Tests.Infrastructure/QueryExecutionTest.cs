@@ -2152,10 +2152,10 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Properties_Values_typed() => _g
-                .V()
-                .Properties()
-                .Values<string>()
-                .Verify();
+            .V()
+            .Properties()
+            .Values<string>()
+            .Verify();
 
         [Fact]
         public virtual Task Properties_Values_untyped() => _g
