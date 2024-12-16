@@ -1,9 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <DefineConstants Condition="'$(AutoVerify)' == 'true'">AUTO_VERIFY;$(DefineConstants)</DefineConstants>
-  </PropertyGroup>
-  
   <ItemGroup>
     <ProjectReference Include="..\..\src\Core\ExRam.Gremlinq.Core.csproj" />
     <ProjectReference Include="..\..\src\Providers.Core\ExRam.Gremlinq.Providers.Core.csproj" />
