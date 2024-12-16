@@ -67,7 +67,7 @@ jobs:
         if-no-files-found: error
 
   attest:
-    if: ${{ needs.pack.outputs.isPreviewRelease == 'false' }}
+    if: ${{ needs.pack.outputs.isPreviewRelease == 'false' && github.event.repository.visibility == 'public' }}
     needs: [ pack ]
     runs-on: ubuntu-latest
     
