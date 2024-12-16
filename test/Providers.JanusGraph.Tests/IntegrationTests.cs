@@ -5,7 +5,7 @@ using ExRam.Gremlinq.Tests.Infrastructure;
 
 namespace ExRam.Gremlinq.Providers.JanusGraph.Tests
 {
-    [IntegrationTest("Linux")]
+    [IntegrationTest("Linux", true)]
     [IntegrationTest("Windows")]
     public class IntegrationTests : QueryExecutionTest, IClassFixture<JanusGraphContainerFixture>
     {
