@@ -7,9 +7,21 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
     [IntegrationTest("Windows")]
     public class PasswordSecuredIntegrationTests : QueryExecutionTest, IClassFixture<PasswordSecuredGremlinServerContainerFixture>
     {
+        public new class Verifier : ExecutingVerifier
+        {
+            public Verifier() : base()
+            {
+
+            }
+
+            protected override SettingsTask ModifySettingsTask(SettingsTask task) => base
+                .ModifySettingsTask(task)
+                .UseSnapshotDirectoryAndNameOf<IntegrationTests>();
+        }
+
         public PasswordSecuredIntegrationTests(PasswordSecuredGremlinServerContainerFixture fixture) : base(
             fixture,
-            new ExecutingVerifier())
+            new Verifier())
         {
         }
     }
