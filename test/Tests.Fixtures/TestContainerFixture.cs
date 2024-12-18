@@ -83,6 +83,7 @@ namespace ExRam.Gremlinq.Tests.Fixtures
             }
 
             await base.DisposeAsync();
+            GC.SuppressFinalize(this);
         }
 
         protected abstract Task<IImage> GetImage(); 

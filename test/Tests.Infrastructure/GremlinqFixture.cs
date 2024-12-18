@@ -23,6 +23,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         public virtual async ValueTask DisposeAsync()
         {
+            GC.SuppressFinalize(this);
         }
 
         public virtual IGremlinQuerySource GetQuerySource() => _g ?? throw new InvalidOperationException();
