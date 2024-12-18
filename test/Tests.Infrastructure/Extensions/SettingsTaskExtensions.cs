@@ -17,7 +17,8 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             {
                 return task
                     .UseDirectory(directory)
-                    .UseTypeName(typeof(T).Name);
+                    .UseTypeName(typeof(T).Name)
+                    .DisableRequireUniquePrefix();
             }
 
             throw new InvalidOperationException();
