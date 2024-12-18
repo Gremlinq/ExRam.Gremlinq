@@ -24,7 +24,7 @@ namespace ExRam.Gremlinq.Core.Tests
             GremlinQueryExecutor.Invalid
                 .Execute<object>(GremlinQueryExecutionContext.Create(_query))
                 .Awaiting(ex => ex
-                    .ToArrayAsync())
+                    .ToArrayAsync(TestContext.Current.CancellationToken))
                 .Should()
                 .ThrowAsync<InvalidOperationException>();
         }
@@ -34,7 +34,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             var results = await GremlinQueryExecutor.Empty
                 .Execute<object>(GremlinQueryExecutionContext.Create(_query))
-                .ToArrayAsync();
+                .ToArrayAsync(TestContext.Current.CancellationToken);
 
             results
                 .Should()
@@ -55,7 +55,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await Verify(baseExecutor
                 .RetryWithExponentialBackoff((_, ex) => true)
                 .Execute<object>(GremlinQueryExecutionContext.Create(_query))
-                .ToArrayAsync());
+                .ToArrayAsync(TestContext.Current.CancellationToken));
         }
 
         [Fact]
@@ -79,7 +79,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 })
                 .Execute<object>(GremlinQueryExecutionContext.Create(_query))
                 .Awaiting(x => x
-                    .ToArrayAsync())
+                    .ToArrayAsync(TestContext.Current.CancellationToken))
                 .Should()
                 .ThrowAsync<GremlinQueryExecutionException>()
                 .WithInnerException<GremlinQueryExecutionException, ArrayTypeMismatchException>();
@@ -114,7 +114,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .Be(0);
 
                 yield return 42;
-                await Task.Delay(TimeSpan.FromMilliseconds(random.Next(5)));
+                await Task.Delay(TimeSpan.FromMilliseconds(random.Next(5)), TestContext.Current.CancellationToken);
 
                 Interlocked.CompareExchange(ref state, 0, 1)
                     .Should()

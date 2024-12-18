@@ -28,7 +28,7 @@ namespace ExRam.Gremlinq.Tests.Fixtures
             throw new InvalidOperationException();
         }
 
-        public override async Task InitializeAsync()
+        public override async ValueTask InitializeAsync()
         {
             for(var i = 0; i < 42; i++)
             {
@@ -65,7 +65,7 @@ namespace ExRam.Gremlinq.Tests.Fixtures
             await base.InitializeAsync();
         }
 
-        public override async Task DisposeAsync()
+        public override async ValueTask DisposeAsync()
         {
             if (_container is { } container)
             {

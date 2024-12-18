@@ -28,7 +28,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
         [Fact]
         public async Task FirstAsync() => (await _g
             .Inject(42)
-            .FirstAsync())
+            .FirstAsync(TestContext.Current.CancellationToken))
                 .Should()
                 .Be(42);
 
@@ -37,14 +37,14 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
             .Inject(42)
             .None()
             .Awaiting(_ => _
-                .FirstAsync())
+                .FirstAsync(TestContext.Current.CancellationToken))
             .Should()
             .ThrowAsync<InvalidOperationException>();
 
         [Fact]
         public async Task FirstOrDefaultAsync() => (await _g
             .Inject(42)
-            .FirstOrDefaultAsync())
+            .FirstOrDefaultAsync(TestContext.Current.CancellationToken))
                 .Should()
                 .Be(42);
 
@@ -52,14 +52,14 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
         public async Task FirstOrDefaultAsync_empty() => (await _g
             .Inject(42)
             .None()
-            .FirstOrDefaultAsync())
+            .FirstOrDefaultAsync(TestContext.Current.CancellationToken))
                 .Should()
                 .Be(0);
 
         [Fact]
         public async Task SingleAsync() => (await _g
            .Inject(42)
-           .SingleAsync())
+           .SingleAsync(TestContext.Current.CancellationToken))
                .Should()
                .Be(42);
 
@@ -68,7 +68,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
             .Inject(42)
             .None()
             .Awaiting(_ => _
-                .SingleAsync())
+                .SingleAsync(TestContext.Current.CancellationToken))
             .Should()
             .ThrowAsync<InvalidOperationException>();
 
@@ -76,14 +76,14 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
         public async Task SingleAsync_two_elements() => await _g
             .Inject(42, 43)
             .Awaiting(_ => _
-                .SingleAsync())
+                .SingleAsync(TestContext.Current.CancellationToken))
             .Should()
             .ThrowAsync<InvalidOperationException>();
 
         [Fact]
         public async Task SingleOrDefaultAsync() => (await _g
             .Inject(42)
-            .SingleOrDefaultAsync())
+            .SingleOrDefaultAsync(TestContext.Current.CancellationToken))
                 .Should()
                 .Be(42);
 
@@ -91,7 +91,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
         public async Task SingleOrDefaultAsync_empty() => (await _g
             .Inject(42)
             .None()
-            .SingleOrDefaultAsync())
+            .SingleOrDefaultAsync(TestContext.Current.CancellationToken))
                 .Should()
                 .Be(0);
 
@@ -99,14 +99,14 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
         public async Task SingleOrDefaultAsync_two_elements() => await _g
             .Inject(42, 43)
             .Awaiting(_ => _
-                .SingleOrDefaultAsync())
+                .SingleOrDefaultAsync(TestContext.Current.CancellationToken))
             .Should()
             .ThrowAsync<InvalidOperationException>();
 
         [Fact]
         public async Task LastAsync() => (await _g
            .Inject(42, 43)
-           .LastAsync())
+           .LastAsync(TestContext.Current.CancellationToken))
                .Should()
                .Be(43);
 
@@ -115,14 +115,14 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
             .Inject(42)
             .None()
             .Awaiting(_ => _
-                .LastAsync())
+                .LastAsync(TestContext.Current.CancellationToken))
             .Should()
             .ThrowAsync<InvalidOperationException>();
 
         [Fact]
         public async Task LastOrDefaultAsync() => (await _g
             .Inject(42, 43)
-            .LastOrDefaultAsync())
+            .LastOrDefaultAsync(TestContext.Current.CancellationToken))
                 .Should()
                 .Be(43);
 
@@ -130,7 +130,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
         public async Task LastOrDefaultAsync_empty() => (await _g
             .Inject(42)
             .None()
-            .LastOrDefaultAsync())
+            .LastOrDefaultAsync(TestContext.Current.CancellationToken))
                 .Should()
                 .Be(0);
 
@@ -217,7 +217,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
             .Inject("abc")
             .Cast<TimeSpan>()
             .Awaiting(_ => _
-                .FirstOrDefaultAsync())
+                .FirstOrDefaultAsync(TestContext.Current.CancellationToken))
             .Should()
             .ThrowAsync<GremlinQueryExecutionException>();
 
@@ -242,7 +242,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
                         }))))
                 .Inject(42)
                 .Cast<BinaryData>()
-                .FirstAsync();
+                .FirstAsync(TestContext.Current.CancellationToken);
 
             result?
                 .ToArray()

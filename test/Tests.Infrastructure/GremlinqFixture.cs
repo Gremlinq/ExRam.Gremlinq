@@ -13,7 +13,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         protected virtual IGremlinQuerySource TransformQuerySource(IGremlinQuerySource g) => g;
 
-        public virtual async Task InitializeAsync()
+        public virtual async ValueTask InitializeAsync()
         {
             _g = TransformQuerySource(g
                 .ConfigureEnvironment(env => env
@@ -21,7 +21,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                     .AddGraphSonBinarySupport()));
         }
 
-        public virtual async Task DisposeAsync()
+        public virtual async ValueTask DisposeAsync()
         {
         }
 

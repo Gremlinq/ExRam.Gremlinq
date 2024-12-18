@@ -35,6 +35,6 @@ namespace ExRam.Gremlinq.Support.TestContainers.Tests
         public Task Inject_sum() => Verify(_g
             .Inject(1, 2, 3)
             .Sum()
-            .FirstAsync());
+            .FirstAsync(TestContext.Current.CancellationToken));
     }
 }

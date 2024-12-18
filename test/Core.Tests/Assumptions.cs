@@ -11,7 +11,7 @@ namespace ExRam.Gremlinq.Core.Tests
             var cts = new CancellationTokenSource();
 
             var waitTask = semaphore.WaitAsync(cts.Token);
-            await Task.Delay(100);
+            await Task.Delay(100, TestContext.Current.CancellationToken);
 
             waitTask.IsCompleted
                 .Should()

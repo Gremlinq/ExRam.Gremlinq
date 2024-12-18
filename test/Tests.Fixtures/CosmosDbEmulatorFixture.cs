@@ -18,7 +18,7 @@ namespace ExRam.Gremlinq.Tests.Fixtures
         private readonly string _collectionName = Guid.NewGuid().ToString("N");
         private bool _containerCreated;
 
-        public override async Task InitializeAsync()
+        public override async ValueTask InitializeAsync()
         {
             await base.InitializeAsync();
 
@@ -38,7 +38,7 @@ namespace ExRam.Gremlinq.Tests.Fixtures
             }
         }
 
-        public override async Task DisposeAsync()
+        public override async ValueTask DisposeAsync()
         {
             if (_containerCreated)
             {

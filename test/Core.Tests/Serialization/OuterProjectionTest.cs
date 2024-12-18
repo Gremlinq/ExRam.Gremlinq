@@ -1,8 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
 using ExRam.Gremlinq.Tests.Infrastructure;
 
-using Xunit.Abstractions;
-
 namespace ExRam.Gremlinq.Core.Tests
 {
     public class OuterProjectionTest : QueryExecutionTest, IClassFixture<GremlinqFixture>
@@ -16,7 +14,7 @@ namespace ExRam.Gremlinq.Core.Tests
             public override Task Verify<TElement>(IGremlinQueryBase<TElement> query) => InnerVerify(query.ToTraversal().Projection.ToTraversal(query.AsAdmin().Environment).Steps.ToArray());
         }
 
-        public OuterProjectionTest(GremlinqFixture fixture, ITestOutputHelper testOutputHelper) : base(fixture, new ProjectionVerifier())
+        public OuterProjectionTest(GremlinqFixture fixture) : base(fixture, new ProjectionVerifier())
         {
         }
     }

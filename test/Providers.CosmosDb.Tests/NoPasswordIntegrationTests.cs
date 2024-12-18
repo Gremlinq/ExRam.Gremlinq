@@ -39,7 +39,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
         {
             await _g
                 .Inject(42)
-                .ToArrayAsync()
+                .ToArrayAsync(TestContext.Current.CancellationToken)
                 .Awaiting(_ => _)
                 .Should()
                 .ThrowAsync<GremlinQueryExecutionException>()

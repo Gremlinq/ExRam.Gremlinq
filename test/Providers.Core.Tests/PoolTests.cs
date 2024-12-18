@@ -34,7 +34,7 @@ namespace ExRam.Gremlinq.Providers.Core.Tests
             await poolClient
                 .SubmitAsync<int>(RequestMessage.Build("op").Create())
                 .AsAsyncEnumerable()
-                .GetAsyncEnumerator()
+                .GetAsyncEnumerator(TestContext.Current.CancellationToken)
                 .MoveNextAsync();
 
             baseFactory
@@ -55,13 +55,13 @@ namespace ExRam.Gremlinq.Providers.Core.Tests
             await poolClient
                 .SubmitAsync<int>(RequestMessage.Build("op").Create())
                 .AsAsyncEnumerable()
-                .GetAsyncEnumerator()
+                .GetAsyncEnumerator(TestContext.Current.CancellationToken)
                 .MoveNextAsync();
 
             await poolClient
                 .SubmitAsync<int>(RequestMessage.Build("op").Create())
                 .AsAsyncEnumerable()
-                .GetAsyncEnumerator()
+                .GetAsyncEnumerator(TestContext.Current.CancellationToken)
                 .MoveNextAsync();
 
             baseFactory
@@ -93,14 +93,14 @@ namespace ExRam.Gremlinq.Providers.Core.Tests
             poolClient
                 .SubmitAsync<int>(RequestMessage.Build("op").Create())
                 .AsAsyncEnumerable()
-                .GetAsyncEnumerator()
+                .GetAsyncEnumerator(TestContext.Current.CancellationToken)
                 .MoveNextAsync()
                 .AsTask();
 
             poolClient
                 .SubmitAsync<int>(RequestMessage.Build("op").Create())
                 .AsAsyncEnumerable()
-                .GetAsyncEnumerator()
+                .GetAsyncEnumerator(TestContext.Current.CancellationToken)
                 .MoveNextAsync()
                 .AsTask();
 
@@ -135,7 +135,7 @@ namespace ExRam.Gremlinq.Providers.Core.Tests
                 poolClient
                     .SubmitAsync<int>(RequestMessage.Build("op").Create())
                     .AsAsyncEnumerable()
-                    .GetAsyncEnumerator()
+                    .GetAsyncEnumerator(TestContext.Current.CancellationToken)
                     .MoveNextAsync()
                     .AsTask();
             }
@@ -169,7 +169,7 @@ namespace ExRam.Gremlinq.Providers.Core.Tests
             await poolClient
                 .SubmitAsync<int>(RequestMessage.Build("op").Create())
                 .AsAsyncEnumerable()
-                .GetAsyncEnumerator()
+                .GetAsyncEnumerator(TestContext.Current.CancellationToken)
                 .Awaiting(__ => __
                     .MoveNextAsync())
                 .Should()
@@ -202,7 +202,7 @@ namespace ExRam.Gremlinq.Providers.Core.Tests
                 poolClient
                     .SubmitAsync<int>(RequestMessage.Build("op").Create())
                     .AsAsyncEnumerable()
-                    .GetAsyncEnumerator()
+                    .GetAsyncEnumerator(TestContext.Current.CancellationToken)
                     .Awaiting(__ => __
                         .MoveNextAsync())
                     .Should()
@@ -239,7 +239,7 @@ namespace ExRam.Gremlinq.Providers.Core.Tests
 
             var result = await System.Linq.AsyncEnumerable
                 .ToArrayAsync(poolClient
-                    .SubmitAsync<int>(RequestMessage.Build("op").Create()));
+                    .SubmitAsync<int>(RequestMessage.Build("op").Create()), TestContext.Current.CancellationToken);
 
             baseFactory
                 .Received(2)
@@ -275,7 +275,7 @@ namespace ExRam.Gremlinq.Providers.Core.Tests
             poolClient
                 .SubmitAsync<int>(RequestMessage.Build("op").Create())
                 .AsAsyncEnumerable()
-                .GetAsyncEnumerator()
+                .GetAsyncEnumerator(TestContext.Current.CancellationToken)
                 .Awaiting(__ => __
                     .MoveNextAsync())
                 .Should()

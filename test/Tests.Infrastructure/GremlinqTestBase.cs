@@ -1,6 +1,6 @@
 ﻿namespace ExRam.Gremlinq.Tests.Infrastructure
 {
-    [TestCaseOrderer("ExRam.Gremlinq.Tests.Infrastructure.SideEffectTestCaseOrderer", "ExRam.Gremlinq.Tests.Infrastructure")]
+    [TestCaseOrderer(typeof(SideEffectTestCaseOrderer))]
     public abstract class GremlinqTestBase
     {
         private static readonly AsyncLocal<GremlinqTestBase> CurrentTestBase = new();

@@ -1,5 +1,5 @@
-﻿using Xunit.Abstractions;
-using Xunit.Sdk;
+﻿using Xunit.Sdk;
+using Xunit.v3;
 
 namespace ExRam.Gremlinq.Tests.Infrastructure
 {
@@ -14,7 +14,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             {
             }
 
-            public int Compare(TTestCase? x, TTestCase? y) => GetIndex(x!.TestMethod.Method.Name).CompareTo(GetIndex(y!.TestMethod.Method.Name));
+            public int Compare(TTestCase? x, TTestCase? y) => GetIndex(x!.TestMethod!.MethodName).CompareTo(GetIndex(y!.TestMethod!.MethodName));
 
             private static int GetIndex(string str) => str.StartsWith("Drop")
                 ? 0
@@ -23,7 +23,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                     : 2;
         }
 
-        public IEnumerable<TTestCase> OrderTestCases<TTestCase>(IEnumerable<TTestCase> testCases) where TTestCase : ITestCase
+        public IReadOnlyCollection<TTestCase> OrderTestCases<TTestCase>(IReadOnlyCollection<TTestCase> testCases) where TTestCase : notnull, ITestCase
         {
             return testCases
                 .Where(testCase =>
@@ -34,8 +34,8 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                     return true;
                 })
                 .OrderBy(x => x, TestCaseComparer<TTestCase>.Instance)
-                .ThenBy(x => x!.TestMethod.Method.Name, StringComparer.OrdinalIgnoreCase);
+                .ThenBy(x => x!.TestMethod!.MethodName, StringComparer.OrdinalIgnoreCase)
+                .ToArray();
         }
-
     }
 }
