@@ -16,7 +16,6 @@
     <PackageReference Include="FluentAssertions" />
     <PackageReference Include="xunit" />
     <PackageReference Include="Verify.Xunit" />
-    <PackageReference Include="XunitContext" />
     <PackageReference Include="NSubstitute" />
   </ItemGroup>
 

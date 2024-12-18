@@ -1,6 +1,8 @@
 ﻿using System.Runtime.CompilerServices;
 using ExRam.Gremlinq.Tests.Infrastructure;
 
+using Xunit.Abstractions;
+
 namespace ExRam.Gremlinq.Core.Tests
 {
     public class OuterProjectionTest : QueryExecutionTest, IClassFixture<GremlinqFixture>

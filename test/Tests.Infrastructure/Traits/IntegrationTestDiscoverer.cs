@@ -1,4 +1,5 @@
-﻿using Xunit.Sdk;
+﻿using Xunit.Abstractions;
+using Xunit.Sdk;
 
 namespace ExRam.Gremlinq.Tests.Infrastructure
 {
