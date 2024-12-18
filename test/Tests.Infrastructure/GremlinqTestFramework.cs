@@ -1,0 +1,41 @@
+﻿using System.Reflection;
+
+using Xunit.Sdk;
+using Xunit.v3;
+
+[assembly: CollectionBehavior(DisableTestParallelization = true)]
+
+namespace ExRam.Gremlinq.Tests.Infrastructure
+{
+    public sealed class GremlinqTestFramework : XunitTestFramework
+    {
+        private sealed class GremlinqTestFrameworkExecutor : ITestFrameworkExecutor
+        {
+            private readonly ITestFrameworkExecutor _baseExecutor;
+
+            public GremlinqTestFrameworkExecutor(ITestFrameworkExecutor baseExecutor)
+            {
+                _baseExecutor = baseExecutor;
+            }
+
+            public ValueTask RunTestCases(IReadOnlyCollection<ITestCase> testCases, IMessageSink executionMessageSink, ITestFrameworkExecutionOptions executionOptions) => _baseExecutor.RunTestCases(
+                testCases
+                    .Where(testCase =>
+                    {
+                        if (testCase.Traits.TryGetValue("Category", out var categories) && categories.Contains("IntegrationTest"))
+                            return testCase.Traits.TryGetValue("ValidPlatform", out var validPlatforms) && validPlatforms.Any(validPlatform => OperatingSystem.IsOSPlatform(validPlatform));
+
+                        return true;
+                    })
+                    .ToArray(),
+                executionMessageSink,
+                executionOptions);
+        }
+
+        public override string TestFrameworkDisplayName => "hallo";
+
+        protected override ITestFrameworkDiscoverer CreateDiscoverer(Assembly assembly) => base.CreateDiscoverer(assembly);
+
+        protected override ITestFrameworkExecutor CreateExecutor(Assembly assembly) => new GremlinqTestFrameworkExecutor(base.CreateExecutor(assembly));
+    }
+}

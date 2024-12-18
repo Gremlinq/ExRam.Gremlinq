@@ -6,7 +6,7 @@
     <TargetFrameworks Condition="'$(Configuration)' == 'Release'">net6.0;net7.0;net8.0;$(TargetFrameworks)</TargetFrameworks>
   </PropertyGroup>
 
-  <ItemGroup>
+  <ItemGroup Condition="$(ProjectName.EndsWith('Tests'))">
     <Compile Include="$(MSBuildThisFileDirectory)AssemblyInfo.cs" Link="AssemblyInfo.cs" />
   </ItemGroup>
   

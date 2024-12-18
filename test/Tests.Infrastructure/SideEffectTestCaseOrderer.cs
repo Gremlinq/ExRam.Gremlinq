@@ -23,19 +23,9 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                     : 2;
         }
 
-        public IReadOnlyCollection<TTestCase> OrderTestCases<TTestCase>(IReadOnlyCollection<TTestCase> testCases) where TTestCase : notnull, ITestCase
-        {
-            return testCases
-                .Where(testCase =>
-                {
-                    if (testCase.Traits.TryGetValue("Category", out var categories) && categories.Contains("IntegrationTest"))
-                        return testCase.Traits.TryGetValue("ValidPlatform", out var validPlatforms) && validPlatforms.Any(validPlatform => OperatingSystem.IsOSPlatform(validPlatform));
-
-                    return true;
-                })
-                .OrderBy(x => x, TestCaseComparer<TTestCase>.Instance)
-                .ThenBy(x => x!.TestMethod!.MethodName, StringComparer.OrdinalIgnoreCase)
-                .ToArray();
-        }
+        public IReadOnlyCollection<TTestCase> OrderTestCases<TTestCase>(IReadOnlyCollection<TTestCase> testCases) where TTestCase : notnull, ITestCase => testCases
+            .OrderBy(x => x, TestCaseComparer<TTestCase>.Instance)
+            .ThenBy(x => x!.TestMethod!.MethodName, StringComparer.OrdinalIgnoreCase)
+            .ToArray();
     }
 }

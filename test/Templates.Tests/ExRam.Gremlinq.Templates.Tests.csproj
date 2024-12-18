@@ -9,6 +9,8 @@
   <ItemGroup>
     <PackageReference Include="Boxed.DotnetNewTest" />
     <PackageReference Include="System.Text.Json" />
+
+    <ProjectReference Include="..\Tests.Infrastructure\ExRam.Gremlinq.Tests.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
