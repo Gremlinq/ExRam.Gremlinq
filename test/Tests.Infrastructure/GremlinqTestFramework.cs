@@ -22,6 +22,14 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                 testCases
                     .Where(testCase =>
                     {
+#if Gremlinq_Extensions
+                        if (testCase.TestClassNamespace?.StartsWith("Gremlinq.Extensions") is false)
+                            return false;
+#elif ExRam_Gremlinq
+                        if (testCase.TestClassNamespace?.StartsWith("ExRam.Gremlinq") is false)
+                            return false;
+#endif
+
                         if (testCase.Traits.TryGetValue("Category", out var categories) && categories.Contains("IntegrationTest"))
                             return testCase.Traits.TryGetValue("ValidPlatform", out var validPlatforms) && validPlatforms.Any(validPlatform => OperatingSystem.IsOSPlatform(validPlatform));
 
