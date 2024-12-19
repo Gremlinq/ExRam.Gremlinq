@@ -4,6 +4,8 @@
   <PropertyGroup>
     <TargetFrameworks>net9.0</TargetFrameworks>
     <TargetFrameworks Condition="'$(Configuration)' == 'Release'">net6.0;net7.0;net8.0;$(TargetFrameworks)</TargetFrameworks>
+
+    <UseMicrosoftTestingPlatformRunner>true</UseMicrosoftTestingPlatformRunner>
   </PropertyGroup>
 
   <ItemGroup Condition="$(ProjectName.EndsWith('Tests'))">
