@@ -39,9 +39,9 @@ discount if a workshop materializes.
 
 Add some of the most-wanted features missing from the Core library to your app, like
 
+* System.Text.Json deserialization
 * Traversal strategies
 * Groovy script execution
 * Transactions
-* System.Text.Json deserialization
 
 [![#](https://img.shields.io/badge/Check_out_Gremlinq.Extensions!-EA6F1B?style=for-the-badge)](https://docs.gremlinq.net/extensions/)
