@@ -10,7 +10,7 @@ namespace ExRam.Gremlinq.Tests.Fixtures
 {
     public class WrongPasswordGremlinServerContainerFixture : DockerfileTestContainerFixture
     {
-        public WrongPasswordGremlinServerContainerFixture() : base("Dockerfiles/PasswordSecureGremlinServerDockerfile")
+        public WrongPasswordGremlinServerContainerFixture() : base("PasswordSecureGremlinServerDockerfile")
         {
         }
 
