@@ -128,7 +128,7 @@ namespace ExRam.Gremlinq.Providers.Core
                                     var slotIndex = Math.Abs(Interlocked.Increment(ref @this._currentSlotIndex) % newMaxRequestsInUse);
                                     var client = @this._slots[slotIndex];
 
-                                    await foreach (var item in client.SubmitAsync<T>(message).WithCancellation(ct))
+                                    await foreach (var item in client.SubmitAsync<T>(message).WithCancellation(ct).ConfigureAwait(false))
                                     {
                                         yield return item;
                                     }
@@ -220,7 +220,7 @@ namespace ExRam.Gremlinq.Providers.Core
                             static (ex, context) => ex is not ArgumentException ? new GremlinQueryExecutionException(context, ex) : ex,
                             context);
 
-                    await foreach (var response in enumerable.WithCancellation(ct))
+                    await foreach (var response in enumerable.WithCancellation(ct).ConfigureAwait(false))
                     {
                         switch (response)
                         {

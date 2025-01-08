@@ -28,7 +28,7 @@ namespace ExRam.Gremlinq.Providers.Core
 
                 static async IAsyncEnumerable<ResponseMessage<TResult>> Core(RequestMessage requestMessage, RequestInterceptingGremlinqClient @this, [EnumeratorCancellation] CancellationToken ct = default)
                 {
-                    await foreach (var item in @this._baseClient.SubmitAsync<TResult>(await @this._transformation(requestMessage, ct).ConfigureAwait(false)).WithCancellation(ct))
+                    await foreach (var item in @this._baseClient.SubmitAsync<TResult>(await @this._transformation(requestMessage, ct).ConfigureAwait(false)).WithCancellation(ct).ConfigureAwait(false))
                     {
                         yield return item;
                     }
@@ -55,7 +55,7 @@ namespace ExRam.Gremlinq.Providers.Core
 
                 static async IAsyncEnumerable<ResponseMessage<TResult>> Core(RequestMessage requestMessage, ObserveResultStatusAttributesGremlinqClient @this, [EnumeratorCancellation] CancellationToken ct = default)
                 {
-                    await foreach (var responseMessage in @this._baseClient.SubmitAsync<TResult>(requestMessage).WithCancellation(ct))
+                    await foreach (var responseMessage in @this._baseClient.SubmitAsync<TResult>(requestMessage).WithCancellation(ct).ConfigureAwait(false))
                     {
                         @this._observer(requestMessage, responseMessage.Status.Attributes);
 
@@ -176,7 +176,7 @@ namespace ExRam.Gremlinq.Providers.Core
 
                         try
                         {
-                            await foreach (var item in @this._baseClient.SubmitAsync<T>(message).WithCancellation(linkedCts.Token))
+                            await foreach (var item in @this._baseClient.SubmitAsync<T>(message).WithCancellation(linkedCts.Token).ConfigureAwait(false))
                             {
                                 yield return item;
                             }
