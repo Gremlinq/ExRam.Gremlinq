@@ -41,7 +41,9 @@ namespace ExRam.Gremlinq.Providers.Core
                                     if (client == GremlinqClient.Disposed)
                                         throw new ObjectDisposedException(nameof(PoolGremlinqClient));
 
+#pragma warning disable CA2007 // Consider calling ConfigureAwait on the awaited task
                                     await using (var e = client.SubmitAsync<T>(message).WithCancellation(ct).ConfigureAwait(false).GetAsyncEnumerator())
+#pragma warning restore CA2007
                                     {
                                         while (true)
                                         {

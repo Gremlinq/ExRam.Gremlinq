@@ -72,7 +72,9 @@ namespace ExRam.Gremlinq.Core.Execution
 
                     for (var i = 1; i < int.MaxValue; i++)
                     {
+#pragma warning disable CA2007 // Consider calling ConfigureAwait on the awaited task
                         await using (var enumerator = @this._baseExecutor.Execute<T>(context).WithCancellation(ct).ConfigureAwait(false).GetAsyncEnumerator())
+#pragma warning restore CA2007
                         {
                             while (true)
                             {

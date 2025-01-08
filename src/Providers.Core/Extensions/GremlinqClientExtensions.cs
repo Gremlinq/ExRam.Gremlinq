@@ -90,7 +90,9 @@ namespace ExRam.Gremlinq.Providers.Core
                     var enumerable = @this._client
                         .SubmitAsync<TResult>(requestMessage);
 
+#pragma warning disable CA2007 // Consider calling ConfigureAwait on the awaited task
                     await using (var e = enumerable.WithCancellation(ct).ConfigureAwait(false).GetAsyncEnumerator())
+#pragma warning restore CA2007
                     {
                         var moveNext = e.MoveNextAsync();
 
@@ -225,7 +227,9 @@ namespace ExRam.Gremlinq.Providers.Core
                     {
                         retryIndex++;
 
+#pragma warning disable CA2007 // Consider calling ConfigureAwait on the awaited task
                         await using (var e = @this._innerClient.SubmitAsync<T>(message).WithCancellation(ct).ConfigureAwait(false).GetAsyncEnumerator())
+#pragma warning restore CA2007
                         {
                             while (true)
                             {

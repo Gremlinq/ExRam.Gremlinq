@@ -125,7 +125,10 @@ namespace ExRam.Gremlinq.Providers.Core
                     {
                         await using (ct.Register(Dispose))
                         {
+                            //TODO: Should ConfigureAwait be called ?
+#pragma warning disable CA2007 // Consider calling ConfigureAwait on the awaited task
                             if (await new ValueTask<ResponseAndQueueUnion<T>?>(this, 0) is { } union)
+#pragma warning restore CA2007 // Consider calling ConfigureAwait on the awaited task
                             {
                                 if (union.TryGetResponse(out var response))
                                     yield return response;
@@ -235,7 +238,9 @@ namespace ExRam.Gremlinq.Providers.Core
                                         .SendCore(message, linkedCts.Token)
                                         .ConfigureAwait(false);
 
+#pragma warning disable CA2007 // Consider calling ConfigureAwait on the awaited task
                                     await using (var e = channel.WithCancellation(linkedCts.Token).ConfigureAwait(false).GetAsyncEnumerator())
+#pragma warning restore CA2007
                                     {
                                         while (true)
                                         {

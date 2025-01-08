@@ -71,7 +71,9 @@ namespace ExRam.Gremlinq.Core
 
         public static async ValueTask<TSource> SingleAsync<TSource>(this IAsyncEnumerable<TSource> source, CancellationToken ct = default)
         {
+#pragma warning disable CA2007 // Consider calling ConfigureAwait on the awaited task
             await using (var e = source.WithCancellation(ct).ConfigureAwait(false).GetAsyncEnumerator())
+#pragma warning restore CA2007
             {
                 if (!await e.MoveNextAsync())
                     throw new InvalidOperationException(NoElements);
@@ -87,7 +89,9 @@ namespace ExRam.Gremlinq.Core
 
         public static async ValueTask<TSource?> SingleOrDefaultAsync<TSource>(this IAsyncEnumerable<TSource> source, CancellationToken ct = default)
         {
+#pragma warning disable CA2007 // Consider calling ConfigureAwait on the awaited task
             await using (var e = source.WithCancellation(ct).ConfigureAwait(false).GetAsyncEnumerator())
+#pragma warning restore CA2007
             {
                 if (!await e.MoveNextAsync())
                     return default;
@@ -121,7 +125,9 @@ namespace ExRam.Gremlinq.Core
 
             static async IAsyncEnumerable<TSource> Core(IAsyncEnumerable<TSource> source, Func<Exception, TState, Exception> exceptionTransformation, TState state, [EnumeratorCancellation] CancellationToken ct = default)
             {
+#pragma warning disable CA2007 // Consider calling ConfigureAwait on the awaited task
                 await using (var enumerator = source.WithCancellation(ct).ConfigureAwait(false).GetAsyncEnumerator())
+#pragma warning restore CA2007
                 {
                     while (true)
                     {
