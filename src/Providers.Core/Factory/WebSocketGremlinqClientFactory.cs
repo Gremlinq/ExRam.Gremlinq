@@ -133,7 +133,7 @@ namespace ExRam.Gremlinq.Providers.Core
                                 {
                                     while (true)
                                     {
-                                        await semaphore.WaitAsync(ct);
+                                        await semaphore.WaitAsync(ct).ConfigureAwait(false);
 
                                         if (queue.TryDequeue(out var queuedResponse))
                                         {
@@ -141,7 +141,9 @@ namespace ExRam.Gremlinq.Providers.Core
                                             {
                                                 try
                                                 {
-                                                    await _client.SendCore(_client._factory._authMessageFactory((IReadOnlyDictionary<string, object>)queuedResponse.Status.Attributes ?? ImmutableDictionary<string, object>.Empty), ct);
+                                                    await _client
+                                                        .SendCore(_client._factory._authMessageFactory((IReadOnlyDictionary<string, object>)queuedResponse.Status.Attributes ?? ImmutableDictionary<string, object>.Empty), ct)
+                                                        .ConfigureAwait(false);
                                                 }
                                                 catch
                                                 {
@@ -229,7 +231,9 @@ namespace ExRam.Gremlinq.Providers.Core
 
                                 try
                                 {
-                                    await @this.SendCore(message, linkedCts.Token);
+                                    await @this
+                                        .SendCore(message, linkedCts.Token)
+                                        .ConfigureAwait(false);
 
                                     await using (var e = channel.WithCancellation(linkedCts.Token).ConfigureAwait(false).GetAsyncEnumerator())
                                     {
@@ -251,8 +255,8 @@ namespace ExRam.Gremlinq.Providers.Core
                                             {
                                                 @this.Dispose();
 
-                                                if (await @this._loopTcs.Task is { } task)
-                                                    await task;
+                                                if (await @this._loopTcs.Task.ConfigureAwait(false) is { } task)
+                                                    await task.ConfigureAwait(false);
 
                                                 throw;
                                             }
@@ -287,7 +291,7 @@ namespace ExRam.Gremlinq.Providers.Core
 
                 private async Task SendCore(RequestMessage requestMessage, CancellationToken ct)
                 {
-                    await _sendLock.WaitAsync(ct);
+                    await _sendLock.WaitAsync(ct).ConfigureAwait(false);
 
                     try
                     {
@@ -295,7 +299,9 @@ namespace ExRam.Gremlinq.Providers.Core
                         {
                             if (_client.State == WebSocketState.None)
                             {
-                                await _client.ConnectAsync(_factory._uri, ct);
+                                await _client
+                                    .ConnectAsync(_factory._uri, ct)
+                                    .ConfigureAwait(false);
 
                                 _loopTcs.SetResult(Loop(_cts.Token));
                             }
@@ -304,7 +310,9 @@ namespace ExRam.Gremlinq.Providers.Core
                             {
                                 using (buffer)
                                 {
-                                    await _client.SendAsync(buffer.Memory, WebSocketMessageType.Binary, true, ct);
+                                    await _client
+                                        .SendAsync(buffer.Memory, WebSocketMessageType.Binary, true, ct)
+                                        .ConfigureAwait(false);
                                 }
                             }
                             else
@@ -333,7 +341,9 @@ namespace ExRam.Gremlinq.Providers.Core
 
                             try
                             {
-                                bytes = await _client.ReceiveAsync(ct);
+                                bytes = await _client
+                                    .ReceiveAsync(ct)
+                                    .ConfigureAwait(false);
                             }
                             catch (OperationCanceledException)
                             {

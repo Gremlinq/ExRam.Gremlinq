@@ -22,7 +22,7 @@ namespace ExRam.Gremlinq.Providers.Core
                     if (read == bytes.Memory.Length)
                         bytes = bytes.Double();
 
-                    result = await client.ReceiveAsync(bytes.Memory[read..], ct);
+                    result = await client.ReceiveAsync(bytes.Memory[read..], ct).ConfigureAwait(false);
 
                     if (result.MessageType == WebSocketMessageType.Close)
                         throw new ObjectDisposedException(client.GetType().Name);

@@ -97,7 +97,7 @@ namespace ExRam.Gremlinq.Core.Execution
                                     var newContext = context.WithNewExecutionId();
                                     environment.Logger.LogInformation("Query {executionId} failed. Backing off for {waitInterval} milliseconds. It will be retried with new ExecutionId {newExecutionId}.", context.ExecutionId, waitInterval.Milliseconds, newContext.ExecutionId);
 
-                                    await waitTask;
+                                    await waitTask.ConfigureAwait(false);
 
                                     context = newContext;
 
@@ -153,7 +153,7 @@ namespace ExRam.Gremlinq.Core.Execution
 
                 static async IAsyncEnumerable<T> Core(GremlinQueryExecutionContext context, SerializingGremlinQueryExecutor @this, [EnumeratorCancellation] CancellationToken ct = default)
                 {
-                    await @this._semaphore.WaitAsync(ct);
+                    await @this._semaphore.WaitAsync(ct).ConfigureAwait(false);
 
                     try
                     {
