@@ -125,10 +125,7 @@ namespace ExRam.Gremlinq.Providers.Core
                     {
                         await using (ct.Register(Dispose))
                         {
-                            //TODO: Should ConfigureAwait be called ?
-#pragma warning disable CA2007 // Consider calling ConfigureAwait on the awaited task
-                            if (await new ValueTask<ResponseAndQueueUnion<T>?>(this, 0) is { } union)
-#pragma warning restore CA2007 // Consider calling ConfigureAwait on the awaited task
+                            if (await new ValueTask<ResponseAndQueueUnion<T>?>(this, 0).ConfigureAwait(false) is { } union)
                             {
                                 if (union.TryGetResponse(out var response))
                                     yield return response;
