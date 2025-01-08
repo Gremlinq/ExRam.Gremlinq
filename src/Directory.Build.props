@@ -11,13 +11,11 @@
     <WeaverConfiguration>
       <Weavers>
         <NullGuard IncludeDebugAssert="false" />
-        <ConfigureAwait/>
       </Weavers>
     </WeaverConfiguration>
   </PropertyGroup>
   
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)AssemblyInfo.cs" Link="AssemblyInfo.cs" />
     <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
       <_Parameter1>$(MSBuildProjectName).Tests</_Parameter1>
     </AssemblyAttribute>
@@ -45,6 +43,5 @@
   <ItemGroup>
     <PackageReference Include="Fody" PrivateAssets="All" />
     <PackageReference Include="NullGuard.Fody" PrivateAssets="All" />
-    <PackageReference Include="ConfigureAwait.Fody" PrivateAssets="All" />
   </ItemGroup>
 </Project>
