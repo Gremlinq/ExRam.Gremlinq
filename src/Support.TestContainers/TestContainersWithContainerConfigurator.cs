@@ -35,7 +35,7 @@ namespace ExRam.Gremlinq.Support.TestContainers
 
                     static async IAsyncEnumerable<ResponseMessage<T>> Core(ContainerGremlinClient @this, RequestMessage message, [EnumeratorCancellation] CancellationToken ct = default)
                     {
-                        if (await @this.TryGetBaseClient(ct) is { } baseClient)
+                        if (await @this.TryGetBaseClient(ct).ConfigureAwait(false) is { } baseClient)
                         {
                             await foreach (var item in baseClient.SubmitAsync<T>(message).WithCancellation(ct).ConfigureAwait(false))
                             {
@@ -60,7 +60,7 @@ namespace ExRam.Gremlinq.Support.TestContainers
 
                         if (Interlocked.CompareExchange(ref _baseClient, InProgressObject, null) == null)
                         {
-                            if (await _parentFactory.TryCreateContainer(ct) is { } container)
+                            if (await _parentFactory.TryCreateContainer(ct).ConfigureAwait(false) is { } container)
                             {
                                 var newClient = _parentFactory._factoryTransformation(_parentFactory._baseFactory, container)
                                     .Create(_environment);
@@ -125,7 +125,9 @@ namespace ExRam.Gremlinq.Support.TestContainers
 
                         if (Interlocked.CompareExchange(ref _container, newContainer, InProgressObject) == InProgressObject)
                         {
-                            await newContainer.StartAsync(ct);
+                            await newContainer
+                                .StartAsync(ct)
+                                .ConfigureAwait(false);
 
                             return newContainer;
                         }
