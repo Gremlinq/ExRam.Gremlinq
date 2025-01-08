@@ -72,7 +72,7 @@ namespace ExRam.Gremlinq.Core.Execution
 
                     for (var i = 1; i < int.MaxValue; i++)
                     {
-                        await using (var enumerator = @this._baseExecutor.Execute<T>(context).GetAsyncEnumerator(ct))
+                        await using (var enumerator = @this._baseExecutor.Execute<T>(context).WithCancellation(ct).ConfigureAwait(false).GetAsyncEnumerator())
                         {
                             while (true)
                             {

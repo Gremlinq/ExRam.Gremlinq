@@ -41,7 +41,7 @@ namespace ExRam.Gremlinq.Providers.Core
                                     if (client == GremlinqClient.Disposed)
                                         throw new ObjectDisposedException(nameof(PoolGremlinqClient));
 
-                                    await using (var e = client.SubmitAsync<T>(message).WithCancellation(ct).GetAsyncEnumerator())
+                                    await using (var e = client.SubmitAsync<T>(message).WithCancellation(ct).ConfigureAwait(false).GetAsyncEnumerator())
                                     {
                                         while (true)
                                         {

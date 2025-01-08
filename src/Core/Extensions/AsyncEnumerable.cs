@@ -71,7 +71,7 @@ namespace ExRam.Gremlinq.Core
 
         public static async ValueTask<TSource> SingleAsync<TSource>(this IAsyncEnumerable<TSource> source, CancellationToken ct = default)
         {
-            await using (var e = source.WithCancellation(ct).GetAsyncEnumerator())
+            await using (var e = source.WithCancellation(ct).ConfigureAwait(false).GetAsyncEnumerator())
             {
                 if (!await e.MoveNextAsync())
                     throw new InvalidOperationException(NoElements);
@@ -87,7 +87,7 @@ namespace ExRam.Gremlinq.Core
 
         public static async ValueTask<TSource?> SingleOrDefaultAsync<TSource>(this IAsyncEnumerable<TSource> source, CancellationToken ct = default)
         {
-            await using (var e = source.WithCancellation(ct).GetAsyncEnumerator())
+            await using (var e = source.WithCancellation(ct).ConfigureAwait(false).GetAsyncEnumerator())
             {
                 if (!await e.MoveNextAsync())
                     return default;
@@ -121,7 +121,7 @@ namespace ExRam.Gremlinq.Core
 
             static async IAsyncEnumerable<TSource> Core(IAsyncEnumerable<TSource> source, Func<Exception, TState, Exception> exceptionTransformation, TState state, [EnumeratorCancellation] CancellationToken ct = default)
             {
-                await using (var enumerator = source.GetAsyncEnumerator(ct))
+                await using (var enumerator = source.WithCancellation(ct).ConfigureAwait(false).GetAsyncEnumerator())
                 {
                     while (true)
                     {

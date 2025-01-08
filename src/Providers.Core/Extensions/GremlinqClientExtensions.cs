@@ -90,7 +90,7 @@ namespace ExRam.Gremlinq.Providers.Core
                     var enumerable = @this._client
                         .SubmitAsync<TResult>(requestMessage);
 
-                    await using (var e = enumerable.GetAsyncEnumerator(ct))
+                    await using (var e = enumerable.WithCancellation(ct).ConfigureAwait(false).GetAsyncEnumerator())
                     {
                         var moveNext = e.MoveNextAsync();
 
@@ -225,7 +225,7 @@ namespace ExRam.Gremlinq.Providers.Core
                     {
                         retryIndex++;
 
-                        await using (var e = @this._innerClient.SubmitAsync<T>(message).WithCancellation(ct).GetAsyncEnumerator())
+                        await using (var e = @this._innerClient.SubmitAsync<T>(message).WithCancellation(ct).ConfigureAwait(false).GetAsyncEnumerator())
                         {
                             while (true)
                             {

@@ -231,7 +231,7 @@ namespace ExRam.Gremlinq.Providers.Core
                                 {
                                     await @this.SendCore(message, linkedCts.Token);
 
-                                    await using (var e = channel.GetAsyncEnumerator(linkedCts.Token))
+                                    await using (var e = channel.WithCancellation(linkedCts.Token).ConfigureAwait(false).GetAsyncEnumerator())
                                     {
                                         while (true)
                                         {
