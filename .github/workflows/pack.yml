@@ -19,7 +19,7 @@ permissions:
 jobs:
 
   pack:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     outputs:
       semVer2: ${{ steps.nbgv.outputs.SemVer2 }}
