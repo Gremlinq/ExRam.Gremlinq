@@ -128,12 +128,21 @@ namespace ExRam.Gremlinq.Providers.Core
                             if (await new ValueTask<ResponseAndQueueUnion<T>?>(this, 0).ConfigureAwait(false) is { } union)
                             {
                                 if (union.TryGetResponse(out var response))
+                                {
+                                    // Since the below yield return is what effectively yields control back to user code,
+                                    // the receive loop may stall if user code blocks. Although technically not Gremlinq's
+                                    // fault, we take this measure.
+                                    await Task.Yield();
+
                                     yield return response;
+                                }
                                 else if (union.TryGetQueue(out var semaphore, out var queue))
                                 {
                                     while (true)
                                     {
-                                        await semaphore.WaitAsync(ct).ConfigureAwait(false);
+                                        await semaphore
+                                            .WaitAsync(ct)
+                                            .ConfigureAwait(false);
 
                                         if (queue.TryDequeue(out var queuedResponse))
                                         {
@@ -155,6 +164,9 @@ namespace ExRam.Gremlinq.Providers.Core
                                             }
                                             else
                                             {
+                                                // See above.
+                                                await Task.Yield();
+
                                                 yield return queuedResponse;
 
                                                 if (queuedResponse.Status.Code != PartialContent)
