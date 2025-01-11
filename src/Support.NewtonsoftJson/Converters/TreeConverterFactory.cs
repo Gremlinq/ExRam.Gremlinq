@@ -32,7 +32,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
 
                 foreach (var item in source)
                 {
-                    if (item is JObject itemObject && itemObject.TryGetValue("key", out var keyToken) && itemObject.TryGetValue("value", out var valueToken))
+                    if (item is JObject itemObject && itemObject.TryGetValue("key", StringComparison.OrdinalIgnoreCase, out var keyToken) && itemObject.TryGetValue("value", StringComparison.OrdinalIgnoreCase, out var valueToken))
                     {
 #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
                         if (recurse.TryTransform(keyToken, _environment, out TKey subKey) && recurse.TryTransform(valueToken, _environment, out TValue subValue))
