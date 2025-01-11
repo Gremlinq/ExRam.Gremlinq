@@ -957,6 +957,51 @@
             }
             """;
 
+        public static readonly string RootOnly_int_tree = """
+            [
+              {
+                "key": {
+                  "@type": "g:Int32",
+                  "@value": 1
+                },
+                "value": {
+                  "@type": "g:Tree",
+                  "@value": []
+                }
+              }
+            ]
+            """;
+
+        public static readonly string Branching_scalar_tree = """
+            [
+              {
+                "key": {
+                  "@type": "g:Int32",
+                  "@value": 1
+                },
+                "value": {
+                  "@type": "g:Tree",
+                  "@value": [
+                    {
+                      "key": "2",
+                      "value": {
+                        "@type": "g:Tree",
+                        "@value": []
+                      }
+                    },
+                    {
+                      "key": "3",
+                      "value": {
+                        "@type": "g:Tree",
+                        "@value": []
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+            """;
+
         public static readonly string Linear_string_tree = """
             {
               "@type": "g:Tree",

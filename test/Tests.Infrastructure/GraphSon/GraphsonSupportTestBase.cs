@@ -409,9 +409,15 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public Task RootOnly_string_tree() => Verify<Tree<string>>(GraphSonStrings.RootOnly_string_tree);
 
         [Fact]
+        public Task RootOnly_int_tree() => Verify<Tree<int>>(GraphSonStrings.RootOnly_int_tree);
+
+        [Fact]
         public Task RootOnly_string_tree_2() => Verify<Tree<string, Tree<object>>>(GraphSonStrings.RootOnly_string_tree);
 
         [Fact]
         public Task Linear_string_tree() => Verify<Tree<string>>(GraphSonStrings.Linear_string_tree);
+
+        [Fact]
+        public Task Branching_scalar_tree() => Verify<Tree<int, Tree<string>>>(GraphSonStrings.Branching_scalar_tree);
     }
 }
