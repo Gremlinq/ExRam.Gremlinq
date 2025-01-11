@@ -991,33 +991,36 @@
             """;
 
         public static readonly string Branching_scalar_tree = """
-            [
-              {
-                "key": {
-                  "@type": "g:Int32",
-                  "@value": 1
-                },
-                "value": {
-                  "@type": "g:Tree",
-                  "@value": [
-                    {
-                      "key": "2",
-                      "value": {
-                        "@type": "g:Tree",
-                        "@value": []
+            {
+              "@type": "g:Tree",
+              "@value": [
+                {
+                  "key": {
+                    "@type": "g:Int32",
+                    "@value": 1
+                  },
+                  "value": {
+                    "@type": "g:Tree",
+                    "@value": [
+                      {
+                        "key": "2",
+                        "value": {
+                          "@type": "g:Tree",
+                          "@value": []
+                        }
+                      },
+                      {
+                        "key": "3",
+                        "value": {
+                          "@type": "g:Tree",
+                          "@value": []
+                        }
                       }
-                    },
-                    {
-                      "key": "3",
-                      "value": {
-                        "@type": "g:Tree",
-                        "@value": []
-                      }
-                    }
-                  ]
+                    ]
+                  }
                 }
-              }
-            ]
+              ]
+            }
             """;
 
         public static readonly string Linear_string_tree = """
