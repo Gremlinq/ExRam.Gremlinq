@@ -11,6 +11,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
     internal sealed class TreeConverterFactory : IConverterFactory
     {
         private abstract class TreeConverterBase<TTree, TKey, TValue> : IConverter<JArray, TTree>
+            where TTree : ITree
             where TKey : notnull
         {
             private readonly IGremlinQueryEnvironment _environment;
@@ -23,7 +24,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
             public bool TryConvert(JArray source, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTree? value)
             {
                 if (source.Count == 0)
-                    value = Create(ImmutableDictionary<TKey, TValue>.Empty)!;
+                    value = Create(ImmutableDictionary<TKey, TValue>.Empty);
                 else
                 {
                     var dict = new Dictionary<TKey, TValue>();
@@ -39,7 +40,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                         }
                     }
 
-                    value = Create(dict)!;
+                    value = Create(dict);
                 }
 
                 return true;
