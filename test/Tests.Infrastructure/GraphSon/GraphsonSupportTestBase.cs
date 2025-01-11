@@ -398,5 +398,11 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public Task Empty_tree_from_untyped_array_2() => Verify<Tree<object, Tree<object>>>("[]");
+
+        [Fact]
+        public Task Empty_tree() => Verify<Tree<object>>(Empty_typed_tree);
+
+        [Fact]
+        public Task Empty_tree_2() => Verify<Tree<object, Tree<object>>>(Empty_typed_tree);
     }
 }
