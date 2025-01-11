@@ -9,6 +9,7 @@ using static ExRam.Gremlinq.Tests.Infrastructure.GraphSonStrings;
 using System.Collections.Immutable;
 using System.Collections.Concurrent;
 using System.Collections;
+using Argon;
 
 namespace ExRam.Gremlinq.Tests.Infrastructure
 {
@@ -42,7 +43,47 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
     public abstract class GraphsonSupportTestBase<TNativeToken> : VerifyBase
     {
+        public sealed class TreeConverter : JsonConverter
+        {
+            public override bool CanConvert(Type type)
+            {
+                return typeof(ITree).IsAssignableFrom(type);
+            }
+
+            public override object? ReadJson(JsonReader reader, Type type, object? existingValue, JsonSerializer serializer)
+            {
+                throw new NotImplementedException();
+            }
+
+            public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+            {
+                WriteJsonEx(writer, (dynamic)value, serializer);
+            }
+
+            public void WriteJsonEx<TKey, TValue>(JsonWriter writer, Tree<TKey, TValue> value, JsonSerializer serializer)
+                where TKey : notnull
+                where TValue : ITree
+            {
+                serializer.Serialize(writer, value.Select(kvp => new { kvp.Key, kvp.Value }).ToArray());
+            }
+
+            public void WriteJsonEx<TKey>(JsonWriter writer, Tree<TKey> value, JsonSerializer serializer)
+                where TKey : notnull
+            {
+                serializer.Serialize(writer, value.Select(kvp => new { kvp.Key, kvp.Value }).ToArray());
+            }
+        }
+
         protected readonly IGremlinQueryEnvironment _environment;
+
+        static GraphsonSupportTestBase()
+        {
+            VerifierSettings
+                .AddExtraSettings(settings =>
+                {
+                    settings.Converters.Add(new TreeConverter());
+                });
+        }
 
         protected GraphsonSupportTestBase(Func<IGremlinQueryEnvironment, IGremlinQueryEnvironment> environmentTransformation, [CallerFilePath] string sourceFile = "") : base(sourceFile: sourceFile)
         {
