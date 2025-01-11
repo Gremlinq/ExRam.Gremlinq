@@ -1033,6 +1033,147 @@
             }
             """;
 
+        public static readonly string Mixed_entity_and_scalar_tree = """
+            [
+              {
+                "key": {
+                  "@type": "g:Vertex",
+                  "@value": {
+                    "id": {
+                      "@type": "g:Int64",
+                      "@value": 0
+                    },
+                    "label": "Person",
+                    "properties": {
+                      "PartitionKey": [
+                        {
+                          "@type": "g:VertexProperty",
+                          "@value": {
+                            "id": {
+                              "@type": "g:Int64",
+                              "@value": 2
+                            },
+                            "value": "PartitionKey",
+                            "label": "PartitionKey"
+                          }
+                        }
+                      ],
+                      "Age": [
+                        {
+                          "@type": "g:VertexProperty",
+                          "@value": {
+                            "id": {
+                              "@type": "g:Int64",
+                              "@value": 1
+                            },
+                            "value": {
+                              "@type": "g:Int32",
+                              "@value": 0
+                            },
+                            "label": "Age"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                "value": {
+                  "@type": "g:Tree",
+                  "@value": [
+                    {
+                      "key": {
+                        "@type": "g:Int32",
+                        "@value": 1
+                      },
+                      "value": {
+                        "@type": "g:Tree",
+                        "@value": []
+                      }
+                    },
+                    {
+                      "key": {
+                        "@type": "g:Int32",
+                        "@value": 2
+                      },
+                      "value": {
+                        "@type": "g:Tree",
+                        "@value": []
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "key": {
+                  "@type": "g:Vertex",
+                  "@value": {
+                    "id": {
+                      "@type": "g:Int64",
+                      "@value": 3
+                    },
+                    "label": "Person",
+                    "properties": {
+                      "PartitionKey": [
+                        {
+                          "@type": "g:VertexProperty",
+                          "@value": {
+                            "id": {
+                              "@type": "g:Int64",
+                              "@value": 5
+                            },
+                            "value": "PartitionKey",
+                            "label": "PartitionKey"
+                          }
+                        }
+                      ],
+                      "Age": [
+                        {
+                          "@type": "g:VertexProperty",
+                          "@value": {
+                            "id": {
+                              "@type": "g:Int64",
+                              "@value": 4
+                            },
+                            "value": {
+                              "@type": "g:Int32",
+                              "@value": 0
+                            },
+                            "label": "Age"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                "value": {
+                  "@type": "g:Tree",
+                  "@value": [
+                    {
+                      "key": {
+                        "@type": "g:Int32",
+                        "@value": 1
+                      },
+                      "value": {
+                        "@type": "g:Tree",
+                        "@value": []
+                      }
+                    },
+                    {
+                      "key": {
+                        "@type": "g:Int32",
+                        "@value": 2
+                      },
+                      "value": {
+                        "@type": "g:Tree",
+                        "@value": []
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+            """;
+
         public static readonly string EverythingAllAtOnceData = $$"""
             {
               "Int_from_double": 4.2,
