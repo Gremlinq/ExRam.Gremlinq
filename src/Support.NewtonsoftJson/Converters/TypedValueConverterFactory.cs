@@ -21,6 +21,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
             { "g:Date", typeof(DateTimeOffset) },
             { "g:Timestamp", typeof(DateTimeOffset) },
             { "g:T", typeof(T) },
+            { "g:Tree", typeof(Tree<object>) },
 
             //Extended
             { "gx:BigDecimal", typeof(decimal) },
