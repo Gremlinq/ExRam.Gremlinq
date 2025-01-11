@@ -1,0 +1,17 @@
+﻿[
+  {
+    Key: {
+      Id: Guid_1,
+      Label: Person,
+      PartitionKey: PartitionKey
+    },
+    Value: [
+      {
+        Key: 1
+      },
+      {
+        Key: 2
+      }
+    ]
+  }
+]

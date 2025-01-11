@@ -427,6 +427,12 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public Task Mixed_entity_and_scalar_tree() => Verify<Tree<Person, Tree<int>>>(GraphSonStrings.Mixed_entity_and_scalar_tree);
 
         [Fact]
+        public Task Mixed_entity_and_scalar_as_object_tree() => Verify<Tree<object>>(GraphSonStrings.Mixed_entity_and_scalar_tree);
+
+        [Fact]
         public Task Mixed_entity_and_scalar_tree_CosmosDb() => Verify<Tree<Person, Tree<int>>>(GraphSonStrings.Mixed_entity_and_scalar_tree_CosmosDb);
+
+        [Fact]
+        public Task Mixed_entity_and_scalar_as_object_tree_CosmosDb() => Verify<Tree<object>>(GraphSonStrings.Mixed_entity_and_scalar_tree_CosmosDb);
     }
 }
