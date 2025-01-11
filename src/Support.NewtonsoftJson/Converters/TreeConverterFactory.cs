@@ -10,7 +10,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
 {
     internal sealed class TreeConverterFactory : IConverterFactory
     {
-        private abstract class TreeConverterBase<TTree, TKey, TValue> : IConverter<JArray, TTree>
+        private abstract class TreeConverterBase<TTree, TKey, TValue> : IConverter<JToken, TTree>
             where TTree : ITree
             where TKey : notnull
         {
@@ -21,9 +21,9 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                 _environment = environment;
             }
 
-            public bool TryConvert(JArray source, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTree? value)
+            public bool TryConvert(JToken source, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTree? value)
             {
-                if (source.Count == 0)
+                if (source is JArray { Count: 0 } || source is JObject { Count: 0 })
                     value = Create(ImmutableDictionary<TKey, TValue>.Empty);
                 else
                 {
@@ -31,7 +31,9 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
 
                     foreach (var item in source)
                     {
-                        if (item is JObject itemObject && itemObject.TryGetValue("key", StringComparison.OrdinalIgnoreCase, out var keyToken) && itemObject.TryGetValue("value", StringComparison.OrdinalIgnoreCase, out var valueToken))
+                        var maybeItemObject = (item as JObject) ?? (item as JProperty)?.Value as JObject;
+
+                        if (maybeItemObject is { } itemObject && itemObject.TryGetValue("key", StringComparison.OrdinalIgnoreCase, out var keyToken) && itemObject.TryGetValue("value", StringComparison.OrdinalIgnoreCase, out var valueToken))
                         {
 #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
                             if (recurse.TryTransform(keyToken, _environment, out TKey subKey) && recurse.TryTransform(valueToken, _environment, out TValue subValue))
@@ -49,7 +51,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
             protected abstract TTree Create(IReadOnlyDictionary<TKey, TValue> dictionary);
         }
 
-        private sealed class TreeConverter<TKey> : TreeConverterBase<Tree<TKey>, TKey, Tree<object>>, IConverter<JArray, Tree<TKey>>
+        private sealed class TreeConverter<TKey> : TreeConverterBase<Tree<TKey>, TKey, Tree<object>>, IConverter<JToken, Tree<TKey>>
             where TKey : notnull
         {
             public TreeConverter(IGremlinQueryEnvironment environment) : base(environment)
@@ -61,7 +63,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                 : new (dictionary);
         }
 
-        private sealed class TreeConverter<TKey, TValue> : TreeConverterBase<Tree<TKey, TValue>, TKey, TValue>, IConverter<JArray, Tree<TKey, TValue>>
+        private sealed class TreeConverter<TKey, TValue> : TreeConverterBase<Tree<TKey, TValue>, TKey, TValue>, IConverter<JToken, Tree<TKey, TValue>>
             where TKey : notnull
             where TValue : ITree
         {
@@ -76,7 +78,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
 
         public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment)
         {
-            if (typeof(TSource) == typeof(JArray) && typeof(ITree).IsAssignableFrom(typeof(TTarget)))
+            if (typeof(JToken).IsAssignableFrom(typeof(TSource)) && typeof(ITree).IsAssignableFrom(typeof(TTarget)))
             {
                 if (typeof(TTarget).IsGenericType)
                 {
