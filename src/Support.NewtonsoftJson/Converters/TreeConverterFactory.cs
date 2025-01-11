@@ -27,7 +27,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                     value = Create(ImmutableDictionary<TKey, TValue>.Empty);
                 else
                 {
-                    var dict = new Dictionary<TKey, TValue>();
+                    var dictionary = new Dictionary<TKey, TValue>();
 
                     foreach (var item in source)
                     {
@@ -35,12 +35,12 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                         {
 #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
                             if (recurse.TryTransform(keyToken, _environment, out TKey subKey) && recurse.TryTransform(valueToken, _environment, out TValue subValue))
-                                dict[subKey] = subValue;
+                                dictionary[subKey] = subValue;
 #pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
                         }
                     }
 
-                    value = Create(dict);
+                    value = Create(dictionary);
                 }
 
                 return true;
