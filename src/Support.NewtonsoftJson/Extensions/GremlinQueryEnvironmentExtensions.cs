@@ -98,6 +98,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
 
                 .Add(new VertexOrEdgeConverterFactory())
                 .Add(new LabelLookupConverterFactory())
+                .Add(new TreeConverterFactory())
 
                 .Add(new TypedValueConverterFactory())
                 .Add(new MapDeferralConverterFactory())
