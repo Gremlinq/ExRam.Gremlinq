@@ -60,10 +60,14 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             var environment = environmentTransformation
                 .Invoke(_environment);
 
-            return Verify(environment
+            var subject = environment
                 .Deserializer
                 .TransformTo<T>()
-                .From(CreateNativeToken(token), environment)).DontScrubDateTimes();
+                .From(CreateNativeToken(token), environment);
+
+            return this
+                .Verify(subject)
+                .DontScrubDateTimes();
         }
 
         protected Task Verify<T>(string token) => Verify<T>(token, _ => _);
@@ -422,6 +426,9 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public Task Branching_scalar_tree() => Verify<Tree<int, Tree<string>>>(GraphSonStrings.Branching_scalar_tree);
+
+        [Fact]
+        public Task Object_from_Branching_scalar_tree() => Verify<object>(GraphSonStrings.Branching_scalar_tree);
 
         [Fact]
         public Task Mixed_entity_and_scalar_tree() => Verify<Tree<Person, Tree<int>>>(GraphSonStrings.Mixed_entity_and_scalar_tree);
