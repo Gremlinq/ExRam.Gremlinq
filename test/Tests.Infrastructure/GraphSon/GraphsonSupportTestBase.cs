@@ -404,5 +404,8 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public Task Empty_tree_2() => Verify<Tree<object, Tree<object>>>(Empty_typed_tree);
+
+        [Fact]
+        public Task RootOnly_string_tree() => Verify<Tree<string>>(GraphSonStrings.RootOnly_string_tree);
     }
 }
