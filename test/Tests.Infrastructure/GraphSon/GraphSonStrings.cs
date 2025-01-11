@@ -972,6 +972,24 @@
             ]
             """;
 
+        public static readonly string RootOnly_int_tree_CosmosDb = """
+            {
+              "1": {
+                "key": 1,
+                "value": {
+                  "2": {
+                    "key": "2",
+                    "value": {}
+                  },
+                  "3": {
+                    "key": "3",
+                    "value": {}
+                  }
+                }
+              }
+            }
+            """;
+
         public static readonly string Branching_scalar_tree = """
             [
               {
