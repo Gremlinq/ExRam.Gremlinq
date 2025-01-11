@@ -958,18 +958,21 @@
             """;
 
         public static readonly string RootOnly_int_tree = """
-            [
-              {
-                "key": {
-                  "@type": "g:Int32",
-                  "@value": 1
-                },
-                "value": {
-                  "@type": "g:Tree",
-                  "@value": []
+            {
+              "@type": "g:Tree",
+              "@value": [
+                {
+                  "key": {
+                    "@type": "g:Int32",
+                    "@value": 1
+                  },
+                  "value": {
+                    "@type": "g:Tree",
+                    "@value": []
+                  }
                 }
-              }
-            ]
+              ]
+            }
             """;
 
         public static readonly string RootOnly_int_tree_CosmosDb = """
