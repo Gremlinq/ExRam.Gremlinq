@@ -47,7 +47,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                 return true;
             }
 
-            protected abstract TTree Create(IDictionary<TKey, TValue> dictionary);
+            protected abstract TTree Create(IReadOnlyDictionary<TKey, TValue> dictionary);
         }
 
         private sealed class TreeConverter<TKey> : TreeConverterBase<Tree<TKey>, TKey, Tree<object>>, IConverter<JArray, Tree<TKey>>
@@ -57,7 +57,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
             {
             }
 
-            protected override Tree<TKey> Create(IDictionary<TKey, Tree<object>> dictionary) => new (dictionary);
+            protected override Tree<TKey> Create(IReadOnlyDictionary<TKey, Tree<object>> dictionary) => new (dictionary);
         }
 
         private sealed class TreeConverter<TKey, TValue> : TreeConverterBase<Tree<TKey, TValue>, TKey, TValue>, IConverter<JArray, Tree<TKey, TValue>>
@@ -68,7 +68,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
             {
             }
 
-            protected override Tree<TKey, TValue> Create(IDictionary<TKey, TValue> dictionary) => new (dictionary);
+            protected override Tree<TKey, TValue> Create(IReadOnlyDictionary<TKey, TValue> dictionary) => new (dictionary);
         }
 
         public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment)
