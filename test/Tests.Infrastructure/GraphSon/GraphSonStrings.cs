@@ -934,6 +934,60 @@
             ]
             """;
 
+        public static readonly string Empty_typed_tree = """
+            {
+              "@type": "g:Tree",
+              "@value": [
+              ]
+            }
+            """;
+
+        public static readonly string RootOnly_string_tree = """
+            {
+              "@type": "g:Tree",
+              "@value": [
+                {
+                  "key": "3",
+                  "value": {
+                    "@type": "g:Tree",
+                    "@value": []
+                  }
+                }
+              ]
+            }
+            """;
+
+        public static readonly string Linear_string_tree = """
+            {
+              "@type": "g:Tree",
+              "@value": [
+                {
+                  "key": "1",
+                  "value": {
+                    "@type": "g:Tree",
+                    "@value": [
+                      {
+                        "key": "2",
+                        "value": {
+                          "@type": "g:Tree",
+                          "@value": [
+                            {
+                              "key": "3",
+                              "value": {
+                                "@type": "g:Tree",
+                                "@value": []
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+            """;
+
         public static readonly string EverythingAllAtOnceData = $$"""
             {
               "Int_from_double": 4.2,
