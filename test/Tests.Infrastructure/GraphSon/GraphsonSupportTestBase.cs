@@ -412,6 +412,9 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public Task RootOnly_int_tree() => Verify<Tree<int>>(GraphSonStrings.RootOnly_int_tree);
 
         [Fact]
+        public Task RootOnly_int_tree_CosmosDb() => Verify<Tree<int>>(GraphSonStrings.RootOnly_int_tree_CosmosDb);
+
+        [Fact]
         public Task RootOnly_string_tree_2() => Verify<Tree<string, Tree<object>>>(GraphSonStrings.RootOnly_string_tree);
 
         [Fact]
