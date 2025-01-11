@@ -448,5 +448,8 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public Task RootOnly_string_tree() => Verify<Tree<string>>(GraphSonStrings.RootOnly_string_tree);
+
+        [Fact]
+        public Task RootOnly_string_tree_2() => Verify<Tree<string, Tree<object>>>(GraphSonStrings.RootOnly_string_tree);
     }
 }
