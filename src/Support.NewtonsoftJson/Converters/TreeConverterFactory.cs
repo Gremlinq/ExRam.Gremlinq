@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System.Collections.Immutable;
+using System.Diagnostics.CodeAnalysis;
 
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Transformation;
@@ -9,60 +10,21 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
 {
     internal sealed class TreeConverterFactory : IConverterFactory
     {
-        private sealed class TreeConverter<TKey> : IConverter<JArray, Tree<TKey>>
+        private abstract class TreeConverterBase<TTree, TKey, TValue> : IConverter<JArray, TTree>
             where TKey : notnull
         {
             private readonly IGremlinQueryEnvironment _environment;
 
-            public TreeConverter(IGremlinQueryEnvironment environment)
+            public TreeConverterBase(IGremlinQueryEnvironment environment)
             {
                 _environment = environment;
             }
 
-            public bool TryConvert(JArray source, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out Tree<TKey>? value)
+            public bool TryConvert(JArray source, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTree? value)
             {
                 if (source.Count == 0)
                 {
-                    value = Tree<TKey>.Empty;
-                    return true;
-                }
-
-                var dict = new Dictionary<TKey, Tree<object>>();
-
-                foreach (var item in source)
-                {
-                    if (item is JObject itemObject && itemObject.TryGetValue("key", out var keyToken) && itemObject.TryGetValue("value", out var valueToken))
-                    {
-#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
-                        if (recurse.TryTransform(keyToken, _environment, out TKey subKey) && recurse.TryTransform(valueToken, _environment, out Tree<object> subValue))
-                        {
-                            dict[subKey] = subValue;
-                        }
-#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
-                    }
-                }
-
-                value = new Tree<TKey>(dict);
-                return true;
-            }
-        }
-
-        private sealed class TreeConverter<TKey, TValue> : IConverter<JArray, Tree<TKey, TValue>>
-            where TKey : notnull
-            where TValue : ITree
-        {
-            private readonly IGremlinQueryEnvironment _environment;
-
-            public TreeConverter(IGremlinQueryEnvironment environment)
-            {
-                _environment = environment;
-            }
-
-            public bool TryConvert(JArray source, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out Tree<TKey, TValue>? value)
-            {
-                if (source.Count == 0)
-                {
-                    value = Tree<TKey, TValue>.Empty;
+                    value = Create(ImmutableDictionary<TKey, TValue>.Empty)!;
                     return true;
                 }
 
@@ -81,9 +43,32 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                     }
                 }
 
-                value = new Tree<TKey, TValue>(dict);
+                value = Create(dict)!;
                 return true;
             }
+
+            protected abstract TTree Create(IDictionary<TKey, TValue> dictionary);
+        }
+
+        private sealed class TreeConverter<TKey> : TreeConverterBase<Tree<TKey>, TKey, Tree<object>>, IConverter<JArray, Tree<TKey>>
+            where TKey : notnull
+        {
+            public TreeConverter(IGremlinQueryEnvironment environment) : base(environment)
+            {
+            }
+
+            protected override Tree<TKey> Create(IDictionary<TKey, Tree<object>> dictionary) => new (dictionary);
+        }
+
+        private sealed class TreeConverter<TKey, TValue> : TreeConverterBase<Tree<TKey, TValue>, TKey, TValue>, IConverter<JArray, Tree<TKey, TValue>>
+            where TKey : notnull
+            where TValue : ITree
+        {
+            public TreeConverter(IGremlinQueryEnvironment environment) : base(environment)
+            {
+            }
+
+            protected override Tree<TKey, TValue> Create(IDictionary<TKey, TValue> dictionary) => new (dictionary);
         }
 
         public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment)
