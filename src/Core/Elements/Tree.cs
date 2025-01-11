@@ -3,7 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace ExRam.Gremlinq.Core
 {
-    public class Tree<K, V> : ITree, IDictionary<K, V> where V : ITree
+    public class Tree<K, V> : ITree, IDictionary<K, V> where V : ITree where K : notnull
     {
         private readonly IDictionary<K, V> _inner;
 
@@ -78,7 +78,7 @@ namespace ExRam.Gremlinq.Core
         }
     }
 
-    public class Tree<K> : Tree<K, Tree<object>>
+    public class Tree<K> : Tree<K, Tree<object>> where K : notnull
     {
         public Tree(IDictionary<K, Tree<object>> inner) : base(inner)
         {
