@@ -1,10 +1,13 @@
 ﻿using System.Collections;
+using System.Collections.Immutable;
 using System.Diagnostics.CodeAnalysis;
 
 namespace ExRam.Gremlinq.Core
 {
     public class Tree<K, V> : ITree, IDictionary<K, V> where V : ITree where K : notnull
     {
+        public static readonly Tree<K, V> Empty = new (ImmutableDictionary<K, V>.Empty);
+
         private readonly IDictionary<K, V> _inner;
 
         public Tree(IDictionary<K, V> inner)
