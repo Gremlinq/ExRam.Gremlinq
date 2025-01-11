@@ -908,6 +908,7 @@
         ExRam.Gremlinq.Core.IRepeatLoopBuilder<TQuery> Repeat(System.Func<TQuery, TQuery> loop);
         ExRam.Gremlinq.Core.IUntilLoopBuilder<TQuery> Until(System.Func<TQuery, ExRam.Gremlinq.Core.IGremlinQueryBase> condition);
     }
+    public interface ITree { }
     public interface IUntilEmitLoopBuilder<TQuery>
         where TQuery : ExRam.Gremlinq.Core.IGremlinQueryBase
     {
@@ -1111,6 +1112,26 @@
         public ExRam.Gremlinq.Core.Traversal WithProjection(ExRam.Gremlinq.Core.Projections.Projection projection) { }
         public static ExRam.Gremlinq.Core.Traversal Create<TState>(int length, TState state, System.Buffers.SpanAction<ExRam.Gremlinq.Core.Steps.Step, TState> action) { }
         public static ExRam.Gremlinq.Core.Traversal op_Implicit(ExRam.Gremlinq.Core.Steps.Step step) { }
+    }
+    public class Tree<TRoot> : ExRam.Gremlinq.Core.Tree<TRoot, ExRam.Gremlinq.Core.Tree<object>>
+        where TRoot :  notnull
+    {
+        public static readonly ExRam.Gremlinq.Core.Tree<TRoot> Empty;
+        public Tree(System.Collections.Generic.IReadOnlyDictionary<TRoot, ExRam.Gremlinq.Core.Tree<object>> inner) { }
+    }
+    public class Tree<TRoot, TSubTree> : ExRam.Gremlinq.Core.ITree, System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<TRoot, TSubTree>>, System.Collections.Generic.IReadOnlyCollection<System.Collections.Generic.KeyValuePair<TRoot, TSubTree>>, System.Collections.Generic.IReadOnlyDictionary<TRoot, TSubTree>, System.Collections.IEnumerable
+        where TRoot :  notnull
+        where TSubTree : ExRam.Gremlinq.Core.ITree
+    {
+        public static readonly ExRam.Gremlinq.Core.Tree<TRoot, TSubTree> Empty;
+        public Tree(System.Collections.Generic.IReadOnlyDictionary<TRoot, TSubTree> inner) { }
+        public int Count { get; }
+        public TSubTree this[TRoot key] { get; }
+        public System.Collections.Generic.IEnumerable<TRoot> Keys { get; }
+        public System.Collections.Generic.IEnumerable<TSubTree> Values { get; }
+        public bool ContainsKey(TRoot key) { }
+        public System.Collections.Generic.IEnumerator<System.Collections.Generic.KeyValuePair<TRoot, TSubTree>> GetEnumerator() { }
+        public bool TryGetValue(TRoot key, [System.Diagnostics.CodeAnalysis.MaybeNullWhen(false)] out TSubTree value) { }
     }
     [System.Flags]
     public enum VariableFeatures
