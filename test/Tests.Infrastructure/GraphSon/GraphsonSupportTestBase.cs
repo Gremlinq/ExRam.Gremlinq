@@ -425,5 +425,8 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public Task Mixed_entity_and_scalar_tree() => Verify<Tree<Person, Tree<int>>>(GraphSonStrings.Mixed_entity_and_scalar_tree);
+
+        [Fact]
+        public Task Mixed_entity_and_scalar_tree_CosmosDb() => Verify<Tree<Person, Tree<int>>>(GraphSonStrings.Mixed_entity_and_scalar_tree_CosmosDb);
     }
 }

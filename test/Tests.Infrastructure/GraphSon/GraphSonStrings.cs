@@ -1051,6 +1051,42 @@
             }
             """;
 
+        public static readonly string Mixed_entity_and_scalar_tree_CosmosDb = """
+            {
+              "9c64eed3-cdfe-4bfb-8e44-769146ace9e0": {
+                "key": {
+                  "id": "9c64eed3-cdfe-4bfb-8e44-769146ace9e0",
+                  "label": "Person",
+                  "type": "vertex",
+                  "properties": {
+                    "Age": [
+                      {
+                        "id": "d9490da8-835e-4ccb-b0d2-1ff38d18b996",
+                        "value": 0
+                      }
+                    ],
+                    "PartitionKey": [
+                      {
+                        "id": "9c64eed3-cdfe-4bfb-8e44-769146ace9e0|PartitionKey",
+                        "value": "PartitionKey"
+                      }
+                    ]
+                  }
+                },
+                "value": {
+                  "1": {
+                    "key": 1,
+                    "value": {}
+                  },
+                  "2": {
+                    "key": 2,
+                    "value": {}
+                  }
+                }
+              }
+            }
+            """;
+
         public static readonly string Mixed_entity_and_scalar_tree = """
             [
               {
