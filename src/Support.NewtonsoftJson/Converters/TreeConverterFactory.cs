@@ -27,8 +27,23 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                     return true;
                 }
 
-                value = null;
-                return false;
+                var dict = new Dictionary<TKey, Tree<object>>();
+
+                foreach (var item in source)
+                {
+                    if (item is JObject itemObject && itemObject.TryGetValue("key", out var keyToken) && itemObject.TryGetValue("value", out var valueToken))
+                    {
+#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
+                        if (recurse.TryTransform(keyToken, _environment, out TKey subKey) && recurse.TryTransform(valueToken, _environment, out Tree<object> subValue))
+                        {
+                            dict[subKey] = subValue;
+                        }
+#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
+                    }
+                }
+
+                value = new Tree<TKey>(dict);
+                return true;
             }
         }
 
@@ -48,6 +63,12 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                 if (source.Count == 0)
                 {
                     value = Tree<TKey, TValue>.Empty;
+                    return true;
+                }
+
+                if (recurse.TryTransform<JArray, IDictionary<TKey, TValue>>(source, _environment, out var dict))
+                {
+                    value = new Tree<TKey, TValue>(dict);
                     return true;
                 }
 
