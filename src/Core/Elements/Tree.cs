@@ -86,6 +86,8 @@ namespace ExRam.Gremlinq.Core
     public class Tree<K> : Tree<K, Tree<object>>
         where K : notnull
     {
+        public static new readonly Tree<K> Empty = new (ImmutableDictionary<K, Tree<object>>.Empty);
+
         public Tree(IDictionary<K, Tree<object>> inner) : base(inner)
         {
         }
