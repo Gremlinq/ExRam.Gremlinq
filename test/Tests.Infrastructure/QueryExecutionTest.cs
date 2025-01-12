@@ -2731,6 +2731,15 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Verify();
 
         [Fact]
+        public virtual Task Tree_mixed_entity_and_scalar() => _g
+            .V<Person>()
+            .OutE<WorksFor>()
+            .InV<Company>()
+            .Values(x => x.FoundingDate!)
+            .Tree()
+            .Verify();
+
+        [Fact]
         public virtual Task Union() => _g
             .V<Person>()
             .Union(
