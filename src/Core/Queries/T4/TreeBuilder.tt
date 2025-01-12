@@ -38,9 +38,9 @@ namespace ExRam.Gremlinq.Core
 <# } #>
         {
 <# for(var i = 1; i < 16; i++) { #>
-            ITreeBuilder<<#= GetArgumentList("TNode{0}", i, false, true) #> TNewNode<#= i+1 #>> ITreeBuilder<<#= GetArgumentList("TNode{0}", i, false) #>>.Of<TNewNode<#= i + 1 #>>()
+            ITreeBuilder<<#= GetArgumentList("TNode{0}", i, false, true) #>TNewNode> ITreeBuilder<<#= GetArgumentList("TNode{0}", i, false) #>>.Of<TNewNode>()
             {
-                return new TreeBuilder<<#= GetArgumentList("TNode{0}", i, false, true) #>TNewNode<#= i+1 #><#= GetArgumentList("object", 15 - i, true)#>>(_sourceQuery);
+                return new TreeBuilder<<#= GetArgumentList("TNode{0}", i, false, true) #>TNewNode<#= GetArgumentList("object", 15 - i, true)#>>(_sourceQuery);
             }
 
             ITreeBuilder<<#= GetArgumentList("TNode{0}", i, false, true) #> TNewNode<#= i+1 #>> ITreeBuilder<<#= GetArgumentList("TNode{0}", i, false) #>>.Of<TNewNode<#= i + 1 #>>(Func<ITreeNodeBuilder<TNewNode<#= i + 1 #>>, ITreeNodeBuilder<TNewNode<#= i + 1 #>>> nodeBuilderTransformation)
