@@ -316,7 +316,7 @@ namespace ExRam.Gremlinq.Core
             ITreeBuilder< TNewNode> ITreeBuilder.Of<TNewNode>(Func<ITreeNodeBuilder<TNewNode>, ITreeNodeBuilder<TNewNode>> nodeBuilderTransformation)
             {
                 if (nodeBuilderTransformation(TreeNodeBuilder<TNewNode>.Identity) is TreeNodeBuilder<TNewNode> projectedNodeBuilder)
-                    return new TreeBuilder<TNewNode, object, object, object, object, object, object, object, object, object, object, object, object, object, object, object>(_sourceQuery, _bySteps.Add(projectedNodeBuilder.Build()));
+                    return new TreeBuilder<TNewNode, object, object, object, object, object, object, object, object, object, object, object, object, object, object, object>(_sourceQuery, _bySteps.Add(projectedNodeBuilder.Build(_sourceQuery)));
 
                 throw new InvalidOperationException();
             }
@@ -329,7 +329,7 @@ namespace ExRam.Gremlinq.Core
             ITreeBuilder<TNode1,  TNewNode> ITreeBuilder<TNode1>.Of<TNewNode>(Func<ITreeNodeBuilder<TNewNode>, ITreeNodeBuilder<TNewNode>> nodeBuilderTransformation)
             {
                 if (nodeBuilderTransformation(TreeNodeBuilder<TNewNode>.Identity) is TreeNodeBuilder<TNewNode> projectedNodeBuilder)
-                    return new TreeBuilder<TNode1, TNewNode, object, object, object, object, object, object, object, object, object, object, object, object, object, object>(_sourceQuery, _bySteps.Add(projectedNodeBuilder.Build()));
+                    return new TreeBuilder<TNode1, TNewNode, object, object, object, object, object, object, object, object, object, object, object, object, object, object>(_sourceQuery, _bySteps.Add(projectedNodeBuilder.Build(_sourceQuery)));
 
                 throw new InvalidOperationException();
             }
@@ -342,7 +342,7 @@ namespace ExRam.Gremlinq.Core
             ITreeBuilder<TNode1, TNode2,  TNewNode> ITreeBuilder<TNode1, TNode2>.Of<TNewNode>(Func<ITreeNodeBuilder<TNewNode>, ITreeNodeBuilder<TNewNode>> nodeBuilderTransformation)
             {
                 if (nodeBuilderTransformation(TreeNodeBuilder<TNewNode>.Identity) is TreeNodeBuilder<TNewNode> projectedNodeBuilder)
-                    return new TreeBuilder<TNode1, TNode2, TNewNode, object, object, object, object, object, object, object, object, object, object, object, object, object>(_sourceQuery, _bySteps.Add(projectedNodeBuilder.Build()));
+                    return new TreeBuilder<TNode1, TNode2, TNewNode, object, object, object, object, object, object, object, object, object, object, object, object, object>(_sourceQuery, _bySteps.Add(projectedNodeBuilder.Build(_sourceQuery)));
 
                 throw new InvalidOperationException();
             }
@@ -355,7 +355,7 @@ namespace ExRam.Gremlinq.Core
             ITreeBuilder<TNode1, TNode2, TNode3,  TNewNode> ITreeBuilder<TNode1, TNode2, TNode3>.Of<TNewNode>(Func<ITreeNodeBuilder<TNewNode>, ITreeNodeBuilder<TNewNode>> nodeBuilderTransformation)
             {
                 if (nodeBuilderTransformation(TreeNodeBuilder<TNewNode>.Identity) is TreeNodeBuilder<TNewNode> projectedNodeBuilder)
-                    return new TreeBuilder<TNode1, TNode2, TNode3, TNewNode, object, object, object, object, object, object, object, object, object, object, object, object>(_sourceQuery, _bySteps.Add(projectedNodeBuilder.Build()));
+                    return new TreeBuilder<TNode1, TNode2, TNode3, TNewNode, object, object, object, object, object, object, object, object, object, object, object, object>(_sourceQuery, _bySteps.Add(projectedNodeBuilder.Build(_sourceQuery)));
 
                 throw new InvalidOperationException();
             }
@@ -368,7 +368,7 @@ namespace ExRam.Gremlinq.Core
             ITreeBuilder<TNode1, TNode2, TNode3, TNode4,  TNewNode> ITreeBuilder<TNode1, TNode2, TNode3, TNode4>.Of<TNewNode>(Func<ITreeNodeBuilder<TNewNode>, ITreeNodeBuilder<TNewNode>> nodeBuilderTransformation)
             {
                 if (nodeBuilderTransformation(TreeNodeBuilder<TNewNode>.Identity) is TreeNodeBuilder<TNewNode> projectedNodeBuilder)
-                    return new TreeBuilder<TNode1, TNode2, TNode3, TNode4, TNewNode, object, object, object, object, object, object, object, object, object, object, object>(_sourceQuery, _bySteps.Add(projectedNodeBuilder.Build()));
+                    return new TreeBuilder<TNode1, TNode2, TNode3, TNode4, TNewNode, object, object, object, object, object, object, object, object, object, object, object>(_sourceQuery, _bySteps.Add(projectedNodeBuilder.Build(_sourceQuery)));
 
                 throw new InvalidOperationException();
             }
@@ -381,7 +381,7 @@ namespace ExRam.Gremlinq.Core
             ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5,  TNewNode> ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5>.Of<TNewNode>(Func<ITreeNodeBuilder<TNewNode>, ITreeNodeBuilder<TNewNode>> nodeBuilderTransformation)
             {
                 if (nodeBuilderTransformation(TreeNodeBuilder<TNewNode>.Identity) is TreeNodeBuilder<TNewNode> projectedNodeBuilder)
-                    return new TreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNewNode, object, object, object, object, object, object, object, object, object, object>(_sourceQuery, _bySteps.Add(projectedNodeBuilder.Build()));
+                    return new TreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNewNode, object, object, object, object, object, object, object, object, object, object>(_sourceQuery, _bySteps.Add(projectedNodeBuilder.Build(_sourceQuery)));
 
                 throw new InvalidOperationException();
             }
@@ -394,7 +394,7 @@ namespace ExRam.Gremlinq.Core
             ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6,  TNewNode> ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6>.Of<TNewNode>(Func<ITreeNodeBuilder<TNewNode>, ITreeNodeBuilder<TNewNode>> nodeBuilderTransformation)
             {
                 if (nodeBuilderTransformation(TreeNodeBuilder<TNewNode>.Identity) is TreeNodeBuilder<TNewNode> projectedNodeBuilder)
-                    return new TreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNewNode, object, object, object, object, object, object, object, object, object>(_sourceQuery, _bySteps.Add(projectedNodeBuilder.Build()));
+                    return new TreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNewNode, object, object, object, object, object, object, object, object, object>(_sourceQuery, _bySteps.Add(projectedNodeBuilder.Build(_sourceQuery)));
 
                 throw new InvalidOperationException();
             }
@@ -407,7 +407,7 @@ namespace ExRam.Gremlinq.Core
             ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7,  TNewNode> ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7>.Of<TNewNode>(Func<ITreeNodeBuilder<TNewNode>, ITreeNodeBuilder<TNewNode>> nodeBuilderTransformation)
             {
                 if (nodeBuilderTransformation(TreeNodeBuilder<TNewNode>.Identity) is TreeNodeBuilder<TNewNode> projectedNodeBuilder)
-                    return new TreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNewNode, object, object, object, object, object, object, object, object>(_sourceQuery, _bySteps.Add(projectedNodeBuilder.Build()));
+                    return new TreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNewNode, object, object, object, object, object, object, object, object>(_sourceQuery, _bySteps.Add(projectedNodeBuilder.Build(_sourceQuery)));
 
                 throw new InvalidOperationException();
             }
@@ -420,7 +420,7 @@ namespace ExRam.Gremlinq.Core
             ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8,  TNewNode> ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8>.Of<TNewNode>(Func<ITreeNodeBuilder<TNewNode>, ITreeNodeBuilder<TNewNode>> nodeBuilderTransformation)
             {
                 if (nodeBuilderTransformation(TreeNodeBuilder<TNewNode>.Identity) is TreeNodeBuilder<TNewNode> projectedNodeBuilder)
-                    return new TreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNewNode, object, object, object, object, object, object, object>(_sourceQuery, _bySteps.Add(projectedNodeBuilder.Build()));
+                    return new TreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNewNode, object, object, object, object, object, object, object>(_sourceQuery, _bySteps.Add(projectedNodeBuilder.Build(_sourceQuery)));
 
                 throw new InvalidOperationException();
             }
@@ -433,7 +433,7 @@ namespace ExRam.Gremlinq.Core
             ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9,  TNewNode> ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9>.Of<TNewNode>(Func<ITreeNodeBuilder<TNewNode>, ITreeNodeBuilder<TNewNode>> nodeBuilderTransformation)
             {
                 if (nodeBuilderTransformation(TreeNodeBuilder<TNewNode>.Identity) is TreeNodeBuilder<TNewNode> projectedNodeBuilder)
-                    return new TreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNewNode, object, object, object, object, object, object>(_sourceQuery, _bySteps.Add(projectedNodeBuilder.Build()));
+                    return new TreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNewNode, object, object, object, object, object, object>(_sourceQuery, _bySteps.Add(projectedNodeBuilder.Build(_sourceQuery)));
 
                 throw new InvalidOperationException();
             }
@@ -446,7 +446,7 @@ namespace ExRam.Gremlinq.Core
             ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10,  TNewNode> ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10>.Of<TNewNode>(Func<ITreeNodeBuilder<TNewNode>, ITreeNodeBuilder<TNewNode>> nodeBuilderTransformation)
             {
                 if (nodeBuilderTransformation(TreeNodeBuilder<TNewNode>.Identity) is TreeNodeBuilder<TNewNode> projectedNodeBuilder)
-                    return new TreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNewNode, object, object, object, object, object>(_sourceQuery, _bySteps.Add(projectedNodeBuilder.Build()));
+                    return new TreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNewNode, object, object, object, object, object>(_sourceQuery, _bySteps.Add(projectedNodeBuilder.Build(_sourceQuery)));
 
                 throw new InvalidOperationException();
             }
@@ -459,7 +459,7 @@ namespace ExRam.Gremlinq.Core
             ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11,  TNewNode> ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11>.Of<TNewNode>(Func<ITreeNodeBuilder<TNewNode>, ITreeNodeBuilder<TNewNode>> nodeBuilderTransformation)
             {
                 if (nodeBuilderTransformation(TreeNodeBuilder<TNewNode>.Identity) is TreeNodeBuilder<TNewNode> projectedNodeBuilder)
-                    return new TreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNewNode, object, object, object, object>(_sourceQuery, _bySteps.Add(projectedNodeBuilder.Build()));
+                    return new TreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNewNode, object, object, object, object>(_sourceQuery, _bySteps.Add(projectedNodeBuilder.Build(_sourceQuery)));
 
                 throw new InvalidOperationException();
             }
@@ -472,7 +472,7 @@ namespace ExRam.Gremlinq.Core
             ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12,  TNewNode> ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12>.Of<TNewNode>(Func<ITreeNodeBuilder<TNewNode>, ITreeNodeBuilder<TNewNode>> nodeBuilderTransformation)
             {
                 if (nodeBuilderTransformation(TreeNodeBuilder<TNewNode>.Identity) is TreeNodeBuilder<TNewNode> projectedNodeBuilder)
-                    return new TreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNewNode, object, object, object>(_sourceQuery, _bySteps.Add(projectedNodeBuilder.Build()));
+                    return new TreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNewNode, object, object, object>(_sourceQuery, _bySteps.Add(projectedNodeBuilder.Build(_sourceQuery)));
 
                 throw new InvalidOperationException();
             }
@@ -485,7 +485,7 @@ namespace ExRam.Gremlinq.Core
             ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13,  TNewNode> ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13>.Of<TNewNode>(Func<ITreeNodeBuilder<TNewNode>, ITreeNodeBuilder<TNewNode>> nodeBuilderTransformation)
             {
                 if (nodeBuilderTransformation(TreeNodeBuilder<TNewNode>.Identity) is TreeNodeBuilder<TNewNode> projectedNodeBuilder)
-                    return new TreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNewNode, object, object>(_sourceQuery, _bySteps.Add(projectedNodeBuilder.Build()));
+                    return new TreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNewNode, object, object>(_sourceQuery, _bySteps.Add(projectedNodeBuilder.Build(_sourceQuery)));
 
                 throw new InvalidOperationException();
             }
@@ -498,7 +498,7 @@ namespace ExRam.Gremlinq.Core
             ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14,  TNewNode> ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14>.Of<TNewNode>(Func<ITreeNodeBuilder<TNewNode>, ITreeNodeBuilder<TNewNode>> nodeBuilderTransformation)
             {
                 if (nodeBuilderTransformation(TreeNodeBuilder<TNewNode>.Identity) is TreeNodeBuilder<TNewNode> projectedNodeBuilder)
-                    return new TreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNewNode, object>(_sourceQuery, _bySteps.Add(projectedNodeBuilder.Build()));
+                    return new TreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNewNode, object>(_sourceQuery, _bySteps.Add(projectedNodeBuilder.Build(_sourceQuery)));
 
                 throw new InvalidOperationException();
             }
@@ -511,7 +511,7 @@ namespace ExRam.Gremlinq.Core
             ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNode15,  TNewNode> ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNode15>.Of<TNewNode>(Func<ITreeNodeBuilder<TNewNode>, ITreeNodeBuilder<TNewNode>> nodeBuilderTransformation)
             {
                 if (nodeBuilderTransformation(TreeNodeBuilder<TNewNode>.Identity) is TreeNodeBuilder<TNewNode> projectedNodeBuilder)
-                    return new TreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNode15, TNewNode>(_sourceQuery, _bySteps.Add(projectedNodeBuilder.Build()));
+                    return new TreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNode15, TNewNode>(_sourceQuery, _bySteps.Add(projectedNodeBuilder.Build(_sourceQuery)));
 
                 throw new InvalidOperationException();
             }

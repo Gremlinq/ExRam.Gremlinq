@@ -11,21 +11,25 @@ namespace ExRam.Gremlinq.Core
         {
             private sealed class TreeNodeBuilder<TNode> : ITreeNodeBuilder<TNode>
             {
-                public static readonly TreeNodeBuilder<TNode> Identity = new(TreeStep.ByIdentityStep.Instance);
+                public static readonly TreeNodeBuilder<TNode> Identity = new();
 
-                private readonly TreeStep.ByStep _byStep;
+                private readonly Expression? _maybeExpression;
 
-                public TreeNodeBuilder(TreeStep.ByStep byStep)
+                private TreeNodeBuilder()
                 {
-                    _byStep = byStep;
+
                 }
 
-                public ITreeNodeBuilder<TNode> By<TKey>(Expression<Func<TNode, TKey>> expression)
+                public TreeNodeBuilder(Expression expression)
                 {
-                    throw new NotImplementedException();
+                    _maybeExpression = expression;
                 }
 
-                public TreeStep.ByStep Build() => _byStep;
+                public ITreeNodeBuilder<TNode> By<TKey>(Expression<Func<TNode, TKey>> expression) => new TreeNodeBuilder<TNode>(expression);
+
+                public TreeStep.ByStep Build(GremlinQuery<T1, T2, T3, T4> query) => _maybeExpression is { } expression
+                    ? new TreeStep.ByKeyStep(query.GetKey(expression))
+                    : TreeStep.ByIdentityStep.Instance;
             }
 
             private readonly GremlinQuery<T1, T2, T3, T4> _sourceQuery;
