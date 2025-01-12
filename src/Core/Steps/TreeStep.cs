@@ -9,6 +9,16 @@
             }
         }
 
+        public sealed class ByIdentityStep : ByStep
+        {
+            public static readonly ByIdentityStep Instance = new ByIdentityStep();
+
+            private ByIdentityStep()
+            {
+
+            }
+        }
+
         public sealed class ByKeyStep : ByStep
         {
             public ByKeyStep(Key key)
