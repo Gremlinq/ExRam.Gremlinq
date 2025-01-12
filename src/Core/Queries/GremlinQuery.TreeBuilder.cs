@@ -4,7 +4,7 @@ namespace ExRam.Gremlinq.Core
 {
     partial class GremlinQuery<T1, T2, T3, T4>
     {
-        private sealed partial class TreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15, TItem16>
+        private sealed partial class TreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNode15, TNode16>
         {
             private readonly GremlinQuery<T1, T2, T3, T4> _sourceQuery;
 

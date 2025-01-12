@@ -5,268 +5,268 @@ namespace ExRam.Gremlinq.Core
 {
     public interface ITreeBuilder
     {
-        ITreeBuilder<TNewItem> Of<TNewItem>() where TNewItem : notnull;
+        ITreeBuilder<TNewNode> Of<TNewNode>() where TNewNode : notnull;
     }
 
-    public interface ITreeBuilder<TItem1>
-            : ITreeBuilderResult<Tree<TItem1>>
+    public interface ITreeBuilder<TNode1>
+            : ITreeBuilderResult<Tree<TNode1>>
     
-            where TItem1 : notnull
+            where TNode1 : notnull
     
     {
-        ITreeBuilder<TItem1, TItem2> Of<TItem2>() where TItem2 : notnull;
+        ITreeBuilder<TNode1, TNode2> Of<TNode2>() where TNode2 : notnull;
     }
 
-    public interface ITreeBuilder<TItem1, TItem2>
-            : ITreeBuilderResult<Tree<TItem1, Tree<TItem2>>>
+    public interface ITreeBuilder<TNode1, TNode2>
+            : ITreeBuilderResult<Tree<TNode1, Tree<TNode2>>>
     
-            where TItem1 : notnull
-            where TItem2 : notnull
+            where TNode1 : notnull
+            where TNode2 : notnull
     
     {
-        ITreeBuilder<TItem1, TItem2, TItem3> Of<TItem3>() where TItem3 : notnull;
+        ITreeBuilder<TNode1, TNode2, TNode3> Of<TNode3>() where TNode3 : notnull;
     }
 
-    public interface ITreeBuilder<TItem1, TItem2, TItem3>
-            : ITreeBuilderResult<Tree<TItem1, Tree<TItem2, Tree<TItem3>>>>
+    public interface ITreeBuilder<TNode1, TNode2, TNode3>
+            : ITreeBuilderResult<Tree<TNode1, Tree<TNode2, Tree<TNode3>>>>
     
-            where TItem1 : notnull
-            where TItem2 : notnull
-            where TItem3 : notnull
+            where TNode1 : notnull
+            where TNode2 : notnull
+            where TNode3 : notnull
     
     {
-        ITreeBuilder<TItem1, TItem2, TItem3, TItem4> Of<TItem4>() where TItem4 : notnull;
+        ITreeBuilder<TNode1, TNode2, TNode3, TNode4> Of<TNode4>() where TNode4 : notnull;
     }
 
-    public interface ITreeBuilder<TItem1, TItem2, TItem3, TItem4>
-            : ITreeBuilderResult<Tree<TItem1, Tree<TItem2, Tree<TItem3, Tree<TItem4>>>>>
+    public interface ITreeBuilder<TNode1, TNode2, TNode3, TNode4>
+            : ITreeBuilderResult<Tree<TNode1, Tree<TNode2, Tree<TNode3, Tree<TNode4>>>>>
     
-            where TItem1 : notnull
-            where TItem2 : notnull
-            where TItem3 : notnull
-            where TItem4 : notnull
+            where TNode1 : notnull
+            where TNode2 : notnull
+            where TNode3 : notnull
+            where TNode4 : notnull
     
     {
-        ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5> Of<TItem5>() where TItem5 : notnull;
+        ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5> Of<TNode5>() where TNode5 : notnull;
     }
 
-    public interface ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5>
-            : ITreeBuilderResult<Tree<TItem1, Tree<TItem2, Tree<TItem3, Tree<TItem4, Tree<TItem5>>>>>>
+    public interface ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5>
+            : ITreeBuilderResult<Tree<TNode1, Tree<TNode2, Tree<TNode3, Tree<TNode4, Tree<TNode5>>>>>>
     
-            where TItem1 : notnull
-            where TItem2 : notnull
-            where TItem3 : notnull
-            where TItem4 : notnull
-            where TItem5 : notnull
+            where TNode1 : notnull
+            where TNode2 : notnull
+            where TNode3 : notnull
+            where TNode4 : notnull
+            where TNode5 : notnull
     
     {
-        ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6> Of<TItem6>() where TItem6 : notnull;
+        ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6> Of<TNode6>() where TNode6 : notnull;
     }
 
-    public interface ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6>
-            : ITreeBuilderResult<Tree<TItem1, Tree<TItem2, Tree<TItem3, Tree<TItem4, Tree<TItem5, Tree<TItem6>>>>>>>
+    public interface ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6>
+            : ITreeBuilderResult<Tree<TNode1, Tree<TNode2, Tree<TNode3, Tree<TNode4, Tree<TNode5, Tree<TNode6>>>>>>>
     
-            where TItem1 : notnull
-            where TItem2 : notnull
-            where TItem3 : notnull
-            where TItem4 : notnull
-            where TItem5 : notnull
-            where TItem6 : notnull
+            where TNode1 : notnull
+            where TNode2 : notnull
+            where TNode3 : notnull
+            where TNode4 : notnull
+            where TNode5 : notnull
+            where TNode6 : notnull
     
     {
-        ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7> Of<TItem7>() where TItem7 : notnull;
+        ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7> Of<TNode7>() where TNode7 : notnull;
     }
 
-    public interface ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7>
-            : ITreeBuilderResult<Tree<TItem1, Tree<TItem2, Tree<TItem3, Tree<TItem4, Tree<TItem5, Tree<TItem6, Tree<TItem7>>>>>>>>
+    public interface ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7>
+            : ITreeBuilderResult<Tree<TNode1, Tree<TNode2, Tree<TNode3, Tree<TNode4, Tree<TNode5, Tree<TNode6, Tree<TNode7>>>>>>>>
     
-            where TItem1 : notnull
-            where TItem2 : notnull
-            where TItem3 : notnull
-            where TItem4 : notnull
-            where TItem5 : notnull
-            where TItem6 : notnull
-            where TItem7 : notnull
+            where TNode1 : notnull
+            where TNode2 : notnull
+            where TNode3 : notnull
+            where TNode4 : notnull
+            where TNode5 : notnull
+            where TNode6 : notnull
+            where TNode7 : notnull
     
     {
-        ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8> Of<TItem8>() where TItem8 : notnull;
+        ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8> Of<TNode8>() where TNode8 : notnull;
     }
 
-    public interface ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8>
-            : ITreeBuilderResult<Tree<TItem1, Tree<TItem2, Tree<TItem3, Tree<TItem4, Tree<TItem5, Tree<TItem6, Tree<TItem7, Tree<TItem8>>>>>>>>>
+    public interface ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8>
+            : ITreeBuilderResult<Tree<TNode1, Tree<TNode2, Tree<TNode3, Tree<TNode4, Tree<TNode5, Tree<TNode6, Tree<TNode7, Tree<TNode8>>>>>>>>>
     
-            where TItem1 : notnull
-            where TItem2 : notnull
-            where TItem3 : notnull
-            where TItem4 : notnull
-            where TItem5 : notnull
-            where TItem6 : notnull
-            where TItem7 : notnull
-            where TItem8 : notnull
+            where TNode1 : notnull
+            where TNode2 : notnull
+            where TNode3 : notnull
+            where TNode4 : notnull
+            where TNode5 : notnull
+            where TNode6 : notnull
+            where TNode7 : notnull
+            where TNode8 : notnull
     
     {
-        ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9> Of<TItem9>() where TItem9 : notnull;
+        ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9> Of<TNode9>() where TNode9 : notnull;
     }
 
-    public interface ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9>
-            : ITreeBuilderResult<Tree<TItem1, Tree<TItem2, Tree<TItem3, Tree<TItem4, Tree<TItem5, Tree<TItem6, Tree<TItem7, Tree<TItem8, Tree<TItem9>>>>>>>>>>
+    public interface ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9>
+            : ITreeBuilderResult<Tree<TNode1, Tree<TNode2, Tree<TNode3, Tree<TNode4, Tree<TNode5, Tree<TNode6, Tree<TNode7, Tree<TNode8, Tree<TNode9>>>>>>>>>>
     
-            where TItem1 : notnull
-            where TItem2 : notnull
-            where TItem3 : notnull
-            where TItem4 : notnull
-            where TItem5 : notnull
-            where TItem6 : notnull
-            where TItem7 : notnull
-            where TItem8 : notnull
-            where TItem9 : notnull
+            where TNode1 : notnull
+            where TNode2 : notnull
+            where TNode3 : notnull
+            where TNode4 : notnull
+            where TNode5 : notnull
+            where TNode6 : notnull
+            where TNode7 : notnull
+            where TNode8 : notnull
+            where TNode9 : notnull
     
     {
-        ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10> Of<TItem10>() where TItem10 : notnull;
+        ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10> Of<TNode10>() where TNode10 : notnull;
     }
 
-    public interface ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10>
-            : ITreeBuilderResult<Tree<TItem1, Tree<TItem2, Tree<TItem3, Tree<TItem4, Tree<TItem5, Tree<TItem6, Tree<TItem7, Tree<TItem8, Tree<TItem9, Tree<TItem10>>>>>>>>>>>
+    public interface ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10>
+            : ITreeBuilderResult<Tree<TNode1, Tree<TNode2, Tree<TNode3, Tree<TNode4, Tree<TNode5, Tree<TNode6, Tree<TNode7, Tree<TNode8, Tree<TNode9, Tree<TNode10>>>>>>>>>>>
     
-            where TItem1 : notnull
-            where TItem2 : notnull
-            where TItem3 : notnull
-            where TItem4 : notnull
-            where TItem5 : notnull
-            where TItem6 : notnull
-            where TItem7 : notnull
-            where TItem8 : notnull
-            where TItem9 : notnull
-            where TItem10 : notnull
+            where TNode1 : notnull
+            where TNode2 : notnull
+            where TNode3 : notnull
+            where TNode4 : notnull
+            where TNode5 : notnull
+            where TNode6 : notnull
+            where TNode7 : notnull
+            where TNode8 : notnull
+            where TNode9 : notnull
+            where TNode10 : notnull
     
     {
-        ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11> Of<TItem11>() where TItem11 : notnull;
+        ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11> Of<TNode11>() where TNode11 : notnull;
     }
 
-    public interface ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11>
-            : ITreeBuilderResult<Tree<TItem1, Tree<TItem2, Tree<TItem3, Tree<TItem4, Tree<TItem5, Tree<TItem6, Tree<TItem7, Tree<TItem8, Tree<TItem9, Tree<TItem10, Tree<TItem11>>>>>>>>>>>>
+    public interface ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11>
+            : ITreeBuilderResult<Tree<TNode1, Tree<TNode2, Tree<TNode3, Tree<TNode4, Tree<TNode5, Tree<TNode6, Tree<TNode7, Tree<TNode8, Tree<TNode9, Tree<TNode10, Tree<TNode11>>>>>>>>>>>>
     
-            where TItem1 : notnull
-            where TItem2 : notnull
-            where TItem3 : notnull
-            where TItem4 : notnull
-            where TItem5 : notnull
-            where TItem6 : notnull
-            where TItem7 : notnull
-            where TItem8 : notnull
-            where TItem9 : notnull
-            where TItem10 : notnull
-            where TItem11 : notnull
+            where TNode1 : notnull
+            where TNode2 : notnull
+            where TNode3 : notnull
+            where TNode4 : notnull
+            where TNode5 : notnull
+            where TNode6 : notnull
+            where TNode7 : notnull
+            where TNode8 : notnull
+            where TNode9 : notnull
+            where TNode10 : notnull
+            where TNode11 : notnull
     
     {
-        ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12> Of<TItem12>() where TItem12 : notnull;
+        ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12> Of<TNode12>() where TNode12 : notnull;
     }
 
-    public interface ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12>
-            : ITreeBuilderResult<Tree<TItem1, Tree<TItem2, Tree<TItem3, Tree<TItem4, Tree<TItem5, Tree<TItem6, Tree<TItem7, Tree<TItem8, Tree<TItem9, Tree<TItem10, Tree<TItem11, Tree<TItem12>>>>>>>>>>>>>
+    public interface ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12>
+            : ITreeBuilderResult<Tree<TNode1, Tree<TNode2, Tree<TNode3, Tree<TNode4, Tree<TNode5, Tree<TNode6, Tree<TNode7, Tree<TNode8, Tree<TNode9, Tree<TNode10, Tree<TNode11, Tree<TNode12>>>>>>>>>>>>>
     
-            where TItem1 : notnull
-            where TItem2 : notnull
-            where TItem3 : notnull
-            where TItem4 : notnull
-            where TItem5 : notnull
-            where TItem6 : notnull
-            where TItem7 : notnull
-            where TItem8 : notnull
-            where TItem9 : notnull
-            where TItem10 : notnull
-            where TItem11 : notnull
-            where TItem12 : notnull
+            where TNode1 : notnull
+            where TNode2 : notnull
+            where TNode3 : notnull
+            where TNode4 : notnull
+            where TNode5 : notnull
+            where TNode6 : notnull
+            where TNode7 : notnull
+            where TNode8 : notnull
+            where TNode9 : notnull
+            where TNode10 : notnull
+            where TNode11 : notnull
+            where TNode12 : notnull
     
     {
-        ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13> Of<TItem13>() where TItem13 : notnull;
+        ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13> Of<TNode13>() where TNode13 : notnull;
     }
 
-    public interface ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13>
-            : ITreeBuilderResult<Tree<TItem1, Tree<TItem2, Tree<TItem3, Tree<TItem4, Tree<TItem5, Tree<TItem6, Tree<TItem7, Tree<TItem8, Tree<TItem9, Tree<TItem10, Tree<TItem11, Tree<TItem12, Tree<TItem13>>>>>>>>>>>>>>
+    public interface ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13>
+            : ITreeBuilderResult<Tree<TNode1, Tree<TNode2, Tree<TNode3, Tree<TNode4, Tree<TNode5, Tree<TNode6, Tree<TNode7, Tree<TNode8, Tree<TNode9, Tree<TNode10, Tree<TNode11, Tree<TNode12, Tree<TNode13>>>>>>>>>>>>>>
     
-            where TItem1 : notnull
-            where TItem2 : notnull
-            where TItem3 : notnull
-            where TItem4 : notnull
-            where TItem5 : notnull
-            where TItem6 : notnull
-            where TItem7 : notnull
-            where TItem8 : notnull
-            where TItem9 : notnull
-            where TItem10 : notnull
-            where TItem11 : notnull
-            where TItem12 : notnull
-            where TItem13 : notnull
+            where TNode1 : notnull
+            where TNode2 : notnull
+            where TNode3 : notnull
+            where TNode4 : notnull
+            where TNode5 : notnull
+            where TNode6 : notnull
+            where TNode7 : notnull
+            where TNode8 : notnull
+            where TNode9 : notnull
+            where TNode10 : notnull
+            where TNode11 : notnull
+            where TNode12 : notnull
+            where TNode13 : notnull
     
     {
-        ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14> Of<TItem14>() where TItem14 : notnull;
+        ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14> Of<TNode14>() where TNode14 : notnull;
     }
 
-    public interface ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14>
-            : ITreeBuilderResult<Tree<TItem1, Tree<TItem2, Tree<TItem3, Tree<TItem4, Tree<TItem5, Tree<TItem6, Tree<TItem7, Tree<TItem8, Tree<TItem9, Tree<TItem10, Tree<TItem11, Tree<TItem12, Tree<TItem13, Tree<TItem14>>>>>>>>>>>>>>>
+    public interface ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14>
+            : ITreeBuilderResult<Tree<TNode1, Tree<TNode2, Tree<TNode3, Tree<TNode4, Tree<TNode5, Tree<TNode6, Tree<TNode7, Tree<TNode8, Tree<TNode9, Tree<TNode10, Tree<TNode11, Tree<TNode12, Tree<TNode13, Tree<TNode14>>>>>>>>>>>>>>>
     
-            where TItem1 : notnull
-            where TItem2 : notnull
-            where TItem3 : notnull
-            where TItem4 : notnull
-            where TItem5 : notnull
-            where TItem6 : notnull
-            where TItem7 : notnull
-            where TItem8 : notnull
-            where TItem9 : notnull
-            where TItem10 : notnull
-            where TItem11 : notnull
-            where TItem12 : notnull
-            where TItem13 : notnull
-            where TItem14 : notnull
+            where TNode1 : notnull
+            where TNode2 : notnull
+            where TNode3 : notnull
+            where TNode4 : notnull
+            where TNode5 : notnull
+            where TNode6 : notnull
+            where TNode7 : notnull
+            where TNode8 : notnull
+            where TNode9 : notnull
+            where TNode10 : notnull
+            where TNode11 : notnull
+            where TNode12 : notnull
+            where TNode13 : notnull
+            where TNode14 : notnull
     
     {
-        ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15> Of<TItem15>() where TItem15 : notnull;
+        ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNode15> Of<TNode15>() where TNode15 : notnull;
     }
 
-    public interface ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15>
-            : ITreeBuilderResult<Tree<TItem1, Tree<TItem2, Tree<TItem3, Tree<TItem4, Tree<TItem5, Tree<TItem6, Tree<TItem7, Tree<TItem8, Tree<TItem9, Tree<TItem10, Tree<TItem11, Tree<TItem12, Tree<TItem13, Tree<TItem14, Tree<TItem15>>>>>>>>>>>>>>>>
+    public interface ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNode15>
+            : ITreeBuilderResult<Tree<TNode1, Tree<TNode2, Tree<TNode3, Tree<TNode4, Tree<TNode5, Tree<TNode6, Tree<TNode7, Tree<TNode8, Tree<TNode9, Tree<TNode10, Tree<TNode11, Tree<TNode12, Tree<TNode13, Tree<TNode14, Tree<TNode15>>>>>>>>>>>>>>>>
     
-            where TItem1 : notnull
-            where TItem2 : notnull
-            where TItem3 : notnull
-            where TItem4 : notnull
-            where TItem5 : notnull
-            where TItem6 : notnull
-            where TItem7 : notnull
-            where TItem8 : notnull
-            where TItem9 : notnull
-            where TItem10 : notnull
-            where TItem11 : notnull
-            where TItem12 : notnull
-            where TItem13 : notnull
-            where TItem14 : notnull
-            where TItem15 : notnull
+            where TNode1 : notnull
+            where TNode2 : notnull
+            where TNode3 : notnull
+            where TNode4 : notnull
+            where TNode5 : notnull
+            where TNode6 : notnull
+            where TNode7 : notnull
+            where TNode8 : notnull
+            where TNode9 : notnull
+            where TNode10 : notnull
+            where TNode11 : notnull
+            where TNode12 : notnull
+            where TNode13 : notnull
+            where TNode14 : notnull
+            where TNode15 : notnull
     
     {
-        ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15, TItem16> Of<TItem16>() where TItem16 : notnull;
+        ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNode15, TNode16> Of<TNode16>() where TNode16 : notnull;
     }
 
-    public interface ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15, TItem16>
-            : ITreeBuilderResult<Tree<TItem1, Tree<TItem2, Tree<TItem3, Tree<TItem4, Tree<TItem5, Tree<TItem6, Tree<TItem7, Tree<TItem8, Tree<TItem9, Tree<TItem10, Tree<TItem11, Tree<TItem12, Tree<TItem13, Tree<TItem14, Tree<TItem15, Tree<TItem16>>>>>>>>>>>>>>>>>
+    public interface ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNode15, TNode16>
+            : ITreeBuilderResult<Tree<TNode1, Tree<TNode2, Tree<TNode3, Tree<TNode4, Tree<TNode5, Tree<TNode6, Tree<TNode7, Tree<TNode8, Tree<TNode9, Tree<TNode10, Tree<TNode11, Tree<TNode12, Tree<TNode13, Tree<TNode14, Tree<TNode15, Tree<TNode16>>>>>>>>>>>>>>>>>
     
-            where TItem1 : notnull
-            where TItem2 : notnull
-            where TItem3 : notnull
-            where TItem4 : notnull
-            where TItem5 : notnull
-            where TItem6 : notnull
-            where TItem7 : notnull
-            where TItem8 : notnull
-            where TItem9 : notnull
-            where TItem10 : notnull
-            where TItem11 : notnull
-            where TItem12 : notnull
-            where TItem13 : notnull
-            where TItem14 : notnull
-            where TItem15 : notnull
-            where TItem16 : notnull
+            where TNode1 : notnull
+            where TNode2 : notnull
+            where TNode3 : notnull
+            where TNode4 : notnull
+            where TNode5 : notnull
+            where TNode6 : notnull
+            where TNode7 : notnull
+            where TNode8 : notnull
+            where TNode9 : notnull
+            where TNode10 : notnull
+            where TNode11 : notnull
+            where TNode12 : notnull
+            where TNode13 : notnull
+            where TNode14 : notnull
+            where TNode15 : notnull
+            where TNode16 : notnull
     
     {
     }
@@ -275,156 +275,156 @@ namespace ExRam.Gremlinq.Core
 
     partial class GremlinQuery<T1, T2, T3, T4>
     {
-        private sealed partial class TreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15, TItem16> :
-            ITreeBuilder<TItem1>,
+        private sealed partial class TreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNode15, TNode16> :
+            ITreeBuilder<TNode1>,
 
-            ITreeBuilder<TItem1, TItem2>,
+            ITreeBuilder<TNode1, TNode2>,
 
-            ITreeBuilder<TItem1, TItem2, TItem3>,
+            ITreeBuilder<TNode1, TNode2, TNode3>,
 
-            ITreeBuilder<TItem1, TItem2, TItem3, TItem4>,
+            ITreeBuilder<TNode1, TNode2, TNode3, TNode4>,
 
-            ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5>,
+            ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5>,
 
-            ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6>,
+            ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6>,
 
-            ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7>,
+            ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7>,
 
-            ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8>,
+            ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8>,
 
-            ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9>,
+            ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9>,
 
-            ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10>,
+            ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10>,
 
-            ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11>,
+            ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11>,
 
-            ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12>,
+            ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12>,
 
-            ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13>,
+            ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13>,
 
-            ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14>,
+            ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14>,
 
-            ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15>,
+            ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNode15>,
 
-            ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15, TItem16>,
+            ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNode15, TNode16>,
 
             ITreeBuilder
 
-                            where TItem1 : notnull
-                            where TItem2 : notnull
-                            where TItem3 : notnull
-                            where TItem4 : notnull
-                            where TItem5 : notnull
-                            where TItem6 : notnull
-                            where TItem7 : notnull
-                            where TItem8 : notnull
-                            where TItem9 : notnull
-                            where TItem10 : notnull
-                            where TItem11 : notnull
-                            where TItem12 : notnull
-                            where TItem13 : notnull
-                            where TItem14 : notnull
-                            where TItem15 : notnull
-                            where TItem16 : notnull
+                            where TNode1 : notnull
+                            where TNode2 : notnull
+                            where TNode3 : notnull
+                            where TNode4 : notnull
+                            where TNode5 : notnull
+                            where TNode6 : notnull
+                            where TNode7 : notnull
+                            where TNode8 : notnull
+                            where TNode9 : notnull
+                            where TNode10 : notnull
+                            where TNode11 : notnull
+                            where TNode12 : notnull
+                            where TNode13 : notnull
+                            where TNode14 : notnull
+                            where TNode15 : notnull
+                            where TNode16 : notnull
             
         {
 
-            ITreeBuilder<TItem1,  TNewItem2> ITreeBuilder<TItem1>.Of<TNewItem2>()
+            ITreeBuilder<TNode1,  TNewNode2> ITreeBuilder<TNode1>.Of<TNewNode2>()
             {
-                return new TreeBuilder<TItem1, TNewItem2, object, object, object, object, object, object, object, object, object, object, object, object, object, object>(_sourceQuery);
+                return new TreeBuilder<TNode1, TNewNode2, object, object, object, object, object, object, object, object, object, object, object, object, object, object>(_sourceQuery);
             }
 
-            ITreeBuilder<TItem1, TItem2,  TNewItem3> ITreeBuilder<TItem1, TItem2>.Of<TNewItem3>()
+            ITreeBuilder<TNode1, TNode2,  TNewNode3> ITreeBuilder<TNode1, TNode2>.Of<TNewNode3>()
             {
-                return new TreeBuilder<TItem1, TItem2, TNewItem3, object, object, object, object, object, object, object, object, object, object, object, object, object>(_sourceQuery);
+                return new TreeBuilder<TNode1, TNode2, TNewNode3, object, object, object, object, object, object, object, object, object, object, object, object, object>(_sourceQuery);
             }
 
-            ITreeBuilder<TItem1, TItem2, TItem3,  TNewItem4> ITreeBuilder<TItem1, TItem2, TItem3>.Of<TNewItem4>()
+            ITreeBuilder<TNode1, TNode2, TNode3,  TNewNode4> ITreeBuilder<TNode1, TNode2, TNode3>.Of<TNewNode4>()
             {
-                return new TreeBuilder<TItem1, TItem2, TItem3, TNewItem4, object, object, object, object, object, object, object, object, object, object, object, object>(_sourceQuery);
+                return new TreeBuilder<TNode1, TNode2, TNode3, TNewNode4, object, object, object, object, object, object, object, object, object, object, object, object>(_sourceQuery);
             }
 
-            ITreeBuilder<TItem1, TItem2, TItem3, TItem4,  TNewItem5> ITreeBuilder<TItem1, TItem2, TItem3, TItem4>.Of<TNewItem5>()
+            ITreeBuilder<TNode1, TNode2, TNode3, TNode4,  TNewNode5> ITreeBuilder<TNode1, TNode2, TNode3, TNode4>.Of<TNewNode5>()
             {
-                return new TreeBuilder<TItem1, TItem2, TItem3, TItem4, TNewItem5, object, object, object, object, object, object, object, object, object, object, object>(_sourceQuery);
+                return new TreeBuilder<TNode1, TNode2, TNode3, TNode4, TNewNode5, object, object, object, object, object, object, object, object, object, object, object>(_sourceQuery);
             }
 
-            ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5,  TNewItem6> ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5>.Of<TNewItem6>()
+            ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5,  TNewNode6> ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5>.Of<TNewNode6>()
             {
-                return new TreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TNewItem6, object, object, object, object, object, object, object, object, object, object>(_sourceQuery);
+                return new TreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNewNode6, object, object, object, object, object, object, object, object, object, object>(_sourceQuery);
             }
 
-            ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6,  TNewItem7> ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6>.Of<TNewItem7>()
+            ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6,  TNewNode7> ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6>.Of<TNewNode7>()
             {
-                return new TreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TNewItem7, object, object, object, object, object, object, object, object, object>(_sourceQuery);
+                return new TreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNewNode7, object, object, object, object, object, object, object, object, object>(_sourceQuery);
             }
 
-            ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7,  TNewItem8> ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7>.Of<TNewItem8>()
+            ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7,  TNewNode8> ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7>.Of<TNewNode8>()
             {
-                return new TreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TNewItem8, object, object, object, object, object, object, object, object>(_sourceQuery);
+                return new TreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNewNode8, object, object, object, object, object, object, object, object>(_sourceQuery);
             }
 
-            ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8,  TNewItem9> ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8>.Of<TNewItem9>()
+            ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8,  TNewNode9> ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8>.Of<TNewNode9>()
             {
-                return new TreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TNewItem9, object, object, object, object, object, object, object>(_sourceQuery);
+                return new TreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNewNode9, object, object, object, object, object, object, object>(_sourceQuery);
             }
 
-            ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9,  TNewItem10> ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9>.Of<TNewItem10>()
+            ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9,  TNewNode10> ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9>.Of<TNewNode10>()
             {
-                return new TreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TNewItem10, object, object, object, object, object, object>(_sourceQuery);
+                return new TreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNewNode10, object, object, object, object, object, object>(_sourceQuery);
             }
 
-            ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10,  TNewItem11> ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10>.Of<TNewItem11>()
+            ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10,  TNewNode11> ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10>.Of<TNewNode11>()
             {
-                return new TreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TNewItem11, object, object, object, object, object>(_sourceQuery);
+                return new TreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNewNode11, object, object, object, object, object>(_sourceQuery);
             }
 
-            ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11,  TNewItem12> ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11>.Of<TNewItem12>()
+            ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11,  TNewNode12> ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11>.Of<TNewNode12>()
             {
-                return new TreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TNewItem12, object, object, object, object>(_sourceQuery);
+                return new TreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNewNode12, object, object, object, object>(_sourceQuery);
             }
 
-            ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12,  TNewItem13> ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12>.Of<TNewItem13>()
+            ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12,  TNewNode13> ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12>.Of<TNewNode13>()
             {
-                return new TreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TNewItem13, object, object, object>(_sourceQuery);
+                return new TreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNewNode13, object, object, object>(_sourceQuery);
             }
 
-            ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13,  TNewItem14> ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13>.Of<TNewItem14>()
+            ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13,  TNewNode14> ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13>.Of<TNewNode14>()
             {
-                return new TreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TNewItem14, object, object>(_sourceQuery);
+                return new TreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNewNode14, object, object>(_sourceQuery);
             }
 
-            ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14,  TNewItem15> ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14>.Of<TNewItem15>()
+            ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14,  TNewNode15> ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14>.Of<TNewNode15>()
             {
-                return new TreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TNewItem15, object>(_sourceQuery);
+                return new TreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNewNode15, object>(_sourceQuery);
             }
 
-            ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15,  TNewItem16> ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15>.Of<TNewItem16>()
+            ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNode15,  TNewNode16> ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNode15>.Of<TNewNode16>()
             {
-                return new TreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15, TNewItem16>(_sourceQuery);
+                return new TreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNode15, TNewNode16>(_sourceQuery);
             }
 
-            ITreeBuilder<TNewItem> ITreeBuilder.Of<TNewItem>()
+            ITreeBuilder<TNewNode> ITreeBuilder.Of<TNewNode>()
             {
-                return new TreeBuilder<TNewItem, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15, TItem16>(_sourceQuery);
+                return new TreeBuilder<TNewNode, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNode15, TNode16>(_sourceQuery);
             }
 
-            IGremlinQuery<Tree<TItem1>> ITreeBuilderResult<Tree<TItem1>>.Build() => Build<Tree<TItem1>>();
-            IGremlinQuery<Tree<TItem1, Tree<TItem2>>> ITreeBuilderResult<Tree<TItem1, Tree<TItem2>>>.Build() => Build<Tree<TItem1, Tree<TItem2>>>();
-            IGremlinQuery<Tree<TItem1, Tree<TItem2, Tree<TItem3>>>> ITreeBuilderResult<Tree<TItem1, Tree<TItem2, Tree<TItem3>>>>.Build() => Build<Tree<TItem1, Tree<TItem2, Tree<TItem3>>>>();
-            IGremlinQuery<Tree<TItem1, Tree<TItem2, Tree<TItem3, Tree<TItem4>>>>> ITreeBuilderResult<Tree<TItem1, Tree<TItem2, Tree<TItem3, Tree<TItem4>>>>>.Build() => Build<Tree<TItem1, Tree<TItem2, Tree<TItem3, Tree<TItem4>>>>>();
-            IGremlinQuery<Tree<TItem1, Tree<TItem2, Tree<TItem3, Tree<TItem4, Tree<TItem5>>>>>> ITreeBuilderResult<Tree<TItem1, Tree<TItem2, Tree<TItem3, Tree<TItem4, Tree<TItem5>>>>>>.Build() => Build<Tree<TItem1, Tree<TItem2, Tree<TItem3, Tree<TItem4, Tree<TItem5>>>>>>();
-            IGremlinQuery<Tree<TItem1, Tree<TItem2, Tree<TItem3, Tree<TItem4, Tree<TItem5, Tree<TItem6>>>>>>> ITreeBuilderResult<Tree<TItem1, Tree<TItem2, Tree<TItem3, Tree<TItem4, Tree<TItem5, Tree<TItem6>>>>>>>.Build() => Build<Tree<TItem1, Tree<TItem2, Tree<TItem3, Tree<TItem4, Tree<TItem5, Tree<TItem6>>>>>>>();
-            IGremlinQuery<Tree<TItem1, Tree<TItem2, Tree<TItem3, Tree<TItem4, Tree<TItem5, Tree<TItem6, Tree<TItem7>>>>>>>> ITreeBuilderResult<Tree<TItem1, Tree<TItem2, Tree<TItem3, Tree<TItem4, Tree<TItem5, Tree<TItem6, Tree<TItem7>>>>>>>>.Build() => Build<Tree<TItem1, Tree<TItem2, Tree<TItem3, Tree<TItem4, Tree<TItem5, Tree<TItem6, Tree<TItem7>>>>>>>>();
-            IGremlinQuery<Tree<TItem1, Tree<TItem2, Tree<TItem3, Tree<TItem4, Tree<TItem5, Tree<TItem6, Tree<TItem7, Tree<TItem8>>>>>>>>> ITreeBuilderResult<Tree<TItem1, Tree<TItem2, Tree<TItem3, Tree<TItem4, Tree<TItem5, Tree<TItem6, Tree<TItem7, Tree<TItem8>>>>>>>>>.Build() => Build<Tree<TItem1, Tree<TItem2, Tree<TItem3, Tree<TItem4, Tree<TItem5, Tree<TItem6, Tree<TItem7, Tree<TItem8>>>>>>>>>();
-            IGremlinQuery<Tree<TItem1, Tree<TItem2, Tree<TItem3, Tree<TItem4, Tree<TItem5, Tree<TItem6, Tree<TItem7, Tree<TItem8, Tree<TItem9>>>>>>>>>> ITreeBuilderResult<Tree<TItem1, Tree<TItem2, Tree<TItem3, Tree<TItem4, Tree<TItem5, Tree<TItem6, Tree<TItem7, Tree<TItem8, Tree<TItem9>>>>>>>>>>.Build() => Build<Tree<TItem1, Tree<TItem2, Tree<TItem3, Tree<TItem4, Tree<TItem5, Tree<TItem6, Tree<TItem7, Tree<TItem8, Tree<TItem9>>>>>>>>>>();
-            IGremlinQuery<Tree<TItem1, Tree<TItem2, Tree<TItem3, Tree<TItem4, Tree<TItem5, Tree<TItem6, Tree<TItem7, Tree<TItem8, Tree<TItem9, Tree<TItem10>>>>>>>>>>> ITreeBuilderResult<Tree<TItem1, Tree<TItem2, Tree<TItem3, Tree<TItem4, Tree<TItem5, Tree<TItem6, Tree<TItem7, Tree<TItem8, Tree<TItem9, Tree<TItem10>>>>>>>>>>>.Build() => Build<Tree<TItem1, Tree<TItem2, Tree<TItem3, Tree<TItem4, Tree<TItem5, Tree<TItem6, Tree<TItem7, Tree<TItem8, Tree<TItem9, Tree<TItem10>>>>>>>>>>>();
-            IGremlinQuery<Tree<TItem1, Tree<TItem2, Tree<TItem3, Tree<TItem4, Tree<TItem5, Tree<TItem6, Tree<TItem7, Tree<TItem8, Tree<TItem9, Tree<TItem10, Tree<TItem11>>>>>>>>>>>> ITreeBuilderResult<Tree<TItem1, Tree<TItem2, Tree<TItem3, Tree<TItem4, Tree<TItem5, Tree<TItem6, Tree<TItem7, Tree<TItem8, Tree<TItem9, Tree<TItem10, Tree<TItem11>>>>>>>>>>>>.Build() => Build<Tree<TItem1, Tree<TItem2, Tree<TItem3, Tree<TItem4, Tree<TItem5, Tree<TItem6, Tree<TItem7, Tree<TItem8, Tree<TItem9, Tree<TItem10, Tree<TItem11>>>>>>>>>>>>();
-            IGremlinQuery<Tree<TItem1, Tree<TItem2, Tree<TItem3, Tree<TItem4, Tree<TItem5, Tree<TItem6, Tree<TItem7, Tree<TItem8, Tree<TItem9, Tree<TItem10, Tree<TItem11, Tree<TItem12>>>>>>>>>>>>> ITreeBuilderResult<Tree<TItem1, Tree<TItem2, Tree<TItem3, Tree<TItem4, Tree<TItem5, Tree<TItem6, Tree<TItem7, Tree<TItem8, Tree<TItem9, Tree<TItem10, Tree<TItem11, Tree<TItem12>>>>>>>>>>>>>.Build() => Build<Tree<TItem1, Tree<TItem2, Tree<TItem3, Tree<TItem4, Tree<TItem5, Tree<TItem6, Tree<TItem7, Tree<TItem8, Tree<TItem9, Tree<TItem10, Tree<TItem11, Tree<TItem12>>>>>>>>>>>>>();
-            IGremlinQuery<Tree<TItem1, Tree<TItem2, Tree<TItem3, Tree<TItem4, Tree<TItem5, Tree<TItem6, Tree<TItem7, Tree<TItem8, Tree<TItem9, Tree<TItem10, Tree<TItem11, Tree<TItem12, Tree<TItem13>>>>>>>>>>>>>> ITreeBuilderResult<Tree<TItem1, Tree<TItem2, Tree<TItem3, Tree<TItem4, Tree<TItem5, Tree<TItem6, Tree<TItem7, Tree<TItem8, Tree<TItem9, Tree<TItem10, Tree<TItem11, Tree<TItem12, Tree<TItem13>>>>>>>>>>>>>>.Build() => Build<Tree<TItem1, Tree<TItem2, Tree<TItem3, Tree<TItem4, Tree<TItem5, Tree<TItem6, Tree<TItem7, Tree<TItem8, Tree<TItem9, Tree<TItem10, Tree<TItem11, Tree<TItem12, Tree<TItem13>>>>>>>>>>>>>>();
-            IGremlinQuery<Tree<TItem1, Tree<TItem2, Tree<TItem3, Tree<TItem4, Tree<TItem5, Tree<TItem6, Tree<TItem7, Tree<TItem8, Tree<TItem9, Tree<TItem10, Tree<TItem11, Tree<TItem12, Tree<TItem13, Tree<TItem14>>>>>>>>>>>>>>> ITreeBuilderResult<Tree<TItem1, Tree<TItem2, Tree<TItem3, Tree<TItem4, Tree<TItem5, Tree<TItem6, Tree<TItem7, Tree<TItem8, Tree<TItem9, Tree<TItem10, Tree<TItem11, Tree<TItem12, Tree<TItem13, Tree<TItem14>>>>>>>>>>>>>>>.Build() => Build<Tree<TItem1, Tree<TItem2, Tree<TItem3, Tree<TItem4, Tree<TItem5, Tree<TItem6, Tree<TItem7, Tree<TItem8, Tree<TItem9, Tree<TItem10, Tree<TItem11, Tree<TItem12, Tree<TItem13, Tree<TItem14>>>>>>>>>>>>>>>();
-            IGremlinQuery<Tree<TItem1, Tree<TItem2, Tree<TItem3, Tree<TItem4, Tree<TItem5, Tree<TItem6, Tree<TItem7, Tree<TItem8, Tree<TItem9, Tree<TItem10, Tree<TItem11, Tree<TItem12, Tree<TItem13, Tree<TItem14, Tree<TItem15>>>>>>>>>>>>>>>> ITreeBuilderResult<Tree<TItem1, Tree<TItem2, Tree<TItem3, Tree<TItem4, Tree<TItem5, Tree<TItem6, Tree<TItem7, Tree<TItem8, Tree<TItem9, Tree<TItem10, Tree<TItem11, Tree<TItem12, Tree<TItem13, Tree<TItem14, Tree<TItem15>>>>>>>>>>>>>>>>.Build() => Build<Tree<TItem1, Tree<TItem2, Tree<TItem3, Tree<TItem4, Tree<TItem5, Tree<TItem6, Tree<TItem7, Tree<TItem8, Tree<TItem9, Tree<TItem10, Tree<TItem11, Tree<TItem12, Tree<TItem13, Tree<TItem14, Tree<TItem15>>>>>>>>>>>>>>>>();
-            IGremlinQuery<Tree<TItem1, Tree<TItem2, Tree<TItem3, Tree<TItem4, Tree<TItem5, Tree<TItem6, Tree<TItem7, Tree<TItem8, Tree<TItem9, Tree<TItem10, Tree<TItem11, Tree<TItem12, Tree<TItem13, Tree<TItem14, Tree<TItem15, Tree<TItem16>>>>>>>>>>>>>>>>> ITreeBuilderResult<Tree<TItem1, Tree<TItem2, Tree<TItem3, Tree<TItem4, Tree<TItem5, Tree<TItem6, Tree<TItem7, Tree<TItem8, Tree<TItem9, Tree<TItem10, Tree<TItem11, Tree<TItem12, Tree<TItem13, Tree<TItem14, Tree<TItem15, Tree<TItem16>>>>>>>>>>>>>>>>>.Build() => Build<Tree<TItem1, Tree<TItem2, Tree<TItem3, Tree<TItem4, Tree<TItem5, Tree<TItem6, Tree<TItem7, Tree<TItem8, Tree<TItem9, Tree<TItem10, Tree<TItem11, Tree<TItem12, Tree<TItem13, Tree<TItem14, Tree<TItem15, Tree<TItem16>>>>>>>>>>>>>>>>>();
+            IGremlinQuery<Tree<TNode1>> ITreeBuilderResult<Tree<TNode1>>.Build() => Build<Tree<TNode1>>();
+            IGremlinQuery<Tree<TNode1, Tree<TNode2>>> ITreeBuilderResult<Tree<TNode1, Tree<TNode2>>>.Build() => Build<Tree<TNode1, Tree<TNode2>>>();
+            IGremlinQuery<Tree<TNode1, Tree<TNode2, Tree<TNode3>>>> ITreeBuilderResult<Tree<TNode1, Tree<TNode2, Tree<TNode3>>>>.Build() => Build<Tree<TNode1, Tree<TNode2, Tree<TNode3>>>>();
+            IGremlinQuery<Tree<TNode1, Tree<TNode2, Tree<TNode3, Tree<TNode4>>>>> ITreeBuilderResult<Tree<TNode1, Tree<TNode2, Tree<TNode3, Tree<TNode4>>>>>.Build() => Build<Tree<TNode1, Tree<TNode2, Tree<TNode3, Tree<TNode4>>>>>();
+            IGremlinQuery<Tree<TNode1, Tree<TNode2, Tree<TNode3, Tree<TNode4, Tree<TNode5>>>>>> ITreeBuilderResult<Tree<TNode1, Tree<TNode2, Tree<TNode3, Tree<TNode4, Tree<TNode5>>>>>>.Build() => Build<Tree<TNode1, Tree<TNode2, Tree<TNode3, Tree<TNode4, Tree<TNode5>>>>>>();
+            IGremlinQuery<Tree<TNode1, Tree<TNode2, Tree<TNode3, Tree<TNode4, Tree<TNode5, Tree<TNode6>>>>>>> ITreeBuilderResult<Tree<TNode1, Tree<TNode2, Tree<TNode3, Tree<TNode4, Tree<TNode5, Tree<TNode6>>>>>>>.Build() => Build<Tree<TNode1, Tree<TNode2, Tree<TNode3, Tree<TNode4, Tree<TNode5, Tree<TNode6>>>>>>>();
+            IGremlinQuery<Tree<TNode1, Tree<TNode2, Tree<TNode3, Tree<TNode4, Tree<TNode5, Tree<TNode6, Tree<TNode7>>>>>>>> ITreeBuilderResult<Tree<TNode1, Tree<TNode2, Tree<TNode3, Tree<TNode4, Tree<TNode5, Tree<TNode6, Tree<TNode7>>>>>>>>.Build() => Build<Tree<TNode1, Tree<TNode2, Tree<TNode3, Tree<TNode4, Tree<TNode5, Tree<TNode6, Tree<TNode7>>>>>>>>();
+            IGremlinQuery<Tree<TNode1, Tree<TNode2, Tree<TNode3, Tree<TNode4, Tree<TNode5, Tree<TNode6, Tree<TNode7, Tree<TNode8>>>>>>>>> ITreeBuilderResult<Tree<TNode1, Tree<TNode2, Tree<TNode3, Tree<TNode4, Tree<TNode5, Tree<TNode6, Tree<TNode7, Tree<TNode8>>>>>>>>>.Build() => Build<Tree<TNode1, Tree<TNode2, Tree<TNode3, Tree<TNode4, Tree<TNode5, Tree<TNode6, Tree<TNode7, Tree<TNode8>>>>>>>>>();
+            IGremlinQuery<Tree<TNode1, Tree<TNode2, Tree<TNode3, Tree<TNode4, Tree<TNode5, Tree<TNode6, Tree<TNode7, Tree<TNode8, Tree<TNode9>>>>>>>>>> ITreeBuilderResult<Tree<TNode1, Tree<TNode2, Tree<TNode3, Tree<TNode4, Tree<TNode5, Tree<TNode6, Tree<TNode7, Tree<TNode8, Tree<TNode9>>>>>>>>>>.Build() => Build<Tree<TNode1, Tree<TNode2, Tree<TNode3, Tree<TNode4, Tree<TNode5, Tree<TNode6, Tree<TNode7, Tree<TNode8, Tree<TNode9>>>>>>>>>>();
+            IGremlinQuery<Tree<TNode1, Tree<TNode2, Tree<TNode3, Tree<TNode4, Tree<TNode5, Tree<TNode6, Tree<TNode7, Tree<TNode8, Tree<TNode9, Tree<TNode10>>>>>>>>>>> ITreeBuilderResult<Tree<TNode1, Tree<TNode2, Tree<TNode3, Tree<TNode4, Tree<TNode5, Tree<TNode6, Tree<TNode7, Tree<TNode8, Tree<TNode9, Tree<TNode10>>>>>>>>>>>.Build() => Build<Tree<TNode1, Tree<TNode2, Tree<TNode3, Tree<TNode4, Tree<TNode5, Tree<TNode6, Tree<TNode7, Tree<TNode8, Tree<TNode9, Tree<TNode10>>>>>>>>>>>();
+            IGremlinQuery<Tree<TNode1, Tree<TNode2, Tree<TNode3, Tree<TNode4, Tree<TNode5, Tree<TNode6, Tree<TNode7, Tree<TNode8, Tree<TNode9, Tree<TNode10, Tree<TNode11>>>>>>>>>>>> ITreeBuilderResult<Tree<TNode1, Tree<TNode2, Tree<TNode3, Tree<TNode4, Tree<TNode5, Tree<TNode6, Tree<TNode7, Tree<TNode8, Tree<TNode9, Tree<TNode10, Tree<TNode11>>>>>>>>>>>>.Build() => Build<Tree<TNode1, Tree<TNode2, Tree<TNode3, Tree<TNode4, Tree<TNode5, Tree<TNode6, Tree<TNode7, Tree<TNode8, Tree<TNode9, Tree<TNode10, Tree<TNode11>>>>>>>>>>>>();
+            IGremlinQuery<Tree<TNode1, Tree<TNode2, Tree<TNode3, Tree<TNode4, Tree<TNode5, Tree<TNode6, Tree<TNode7, Tree<TNode8, Tree<TNode9, Tree<TNode10, Tree<TNode11, Tree<TNode12>>>>>>>>>>>>> ITreeBuilderResult<Tree<TNode1, Tree<TNode2, Tree<TNode3, Tree<TNode4, Tree<TNode5, Tree<TNode6, Tree<TNode7, Tree<TNode8, Tree<TNode9, Tree<TNode10, Tree<TNode11, Tree<TNode12>>>>>>>>>>>>>.Build() => Build<Tree<TNode1, Tree<TNode2, Tree<TNode3, Tree<TNode4, Tree<TNode5, Tree<TNode6, Tree<TNode7, Tree<TNode8, Tree<TNode9, Tree<TNode10, Tree<TNode11, Tree<TNode12>>>>>>>>>>>>>();
+            IGremlinQuery<Tree<TNode1, Tree<TNode2, Tree<TNode3, Tree<TNode4, Tree<TNode5, Tree<TNode6, Tree<TNode7, Tree<TNode8, Tree<TNode9, Tree<TNode10, Tree<TNode11, Tree<TNode12, Tree<TNode13>>>>>>>>>>>>>> ITreeBuilderResult<Tree<TNode1, Tree<TNode2, Tree<TNode3, Tree<TNode4, Tree<TNode5, Tree<TNode6, Tree<TNode7, Tree<TNode8, Tree<TNode9, Tree<TNode10, Tree<TNode11, Tree<TNode12, Tree<TNode13>>>>>>>>>>>>>>.Build() => Build<Tree<TNode1, Tree<TNode2, Tree<TNode3, Tree<TNode4, Tree<TNode5, Tree<TNode6, Tree<TNode7, Tree<TNode8, Tree<TNode9, Tree<TNode10, Tree<TNode11, Tree<TNode12, Tree<TNode13>>>>>>>>>>>>>>();
+            IGremlinQuery<Tree<TNode1, Tree<TNode2, Tree<TNode3, Tree<TNode4, Tree<TNode5, Tree<TNode6, Tree<TNode7, Tree<TNode8, Tree<TNode9, Tree<TNode10, Tree<TNode11, Tree<TNode12, Tree<TNode13, Tree<TNode14>>>>>>>>>>>>>>> ITreeBuilderResult<Tree<TNode1, Tree<TNode2, Tree<TNode3, Tree<TNode4, Tree<TNode5, Tree<TNode6, Tree<TNode7, Tree<TNode8, Tree<TNode9, Tree<TNode10, Tree<TNode11, Tree<TNode12, Tree<TNode13, Tree<TNode14>>>>>>>>>>>>>>>.Build() => Build<Tree<TNode1, Tree<TNode2, Tree<TNode3, Tree<TNode4, Tree<TNode5, Tree<TNode6, Tree<TNode7, Tree<TNode8, Tree<TNode9, Tree<TNode10, Tree<TNode11, Tree<TNode12, Tree<TNode13, Tree<TNode14>>>>>>>>>>>>>>>();
+            IGremlinQuery<Tree<TNode1, Tree<TNode2, Tree<TNode3, Tree<TNode4, Tree<TNode5, Tree<TNode6, Tree<TNode7, Tree<TNode8, Tree<TNode9, Tree<TNode10, Tree<TNode11, Tree<TNode12, Tree<TNode13, Tree<TNode14, Tree<TNode15>>>>>>>>>>>>>>>> ITreeBuilderResult<Tree<TNode1, Tree<TNode2, Tree<TNode3, Tree<TNode4, Tree<TNode5, Tree<TNode6, Tree<TNode7, Tree<TNode8, Tree<TNode9, Tree<TNode10, Tree<TNode11, Tree<TNode12, Tree<TNode13, Tree<TNode14, Tree<TNode15>>>>>>>>>>>>>>>>.Build() => Build<Tree<TNode1, Tree<TNode2, Tree<TNode3, Tree<TNode4, Tree<TNode5, Tree<TNode6, Tree<TNode7, Tree<TNode8, Tree<TNode9, Tree<TNode10, Tree<TNode11, Tree<TNode12, Tree<TNode13, Tree<TNode14, Tree<TNode15>>>>>>>>>>>>>>>>();
+            IGremlinQuery<Tree<TNode1, Tree<TNode2, Tree<TNode3, Tree<TNode4, Tree<TNode5, Tree<TNode6, Tree<TNode7, Tree<TNode8, Tree<TNode9, Tree<TNode10, Tree<TNode11, Tree<TNode12, Tree<TNode13, Tree<TNode14, Tree<TNode15, Tree<TNode16>>>>>>>>>>>>>>>>> ITreeBuilderResult<Tree<TNode1, Tree<TNode2, Tree<TNode3, Tree<TNode4, Tree<TNode5, Tree<TNode6, Tree<TNode7, Tree<TNode8, Tree<TNode9, Tree<TNode10, Tree<TNode11, Tree<TNode12, Tree<TNode13, Tree<TNode14, Tree<TNode15, Tree<TNode16>>>>>>>>>>>>>>>>>.Build() => Build<Tree<TNode1, Tree<TNode2, Tree<TNode3, Tree<TNode4, Tree<TNode5, Tree<TNode6, Tree<TNode7, Tree<TNode8, Tree<TNode9, Tree<TNode10, Tree<TNode11, Tree<TNode12, Tree<TNode13, Tree<TNode14, Tree<TNode15, Tree<TNode16>>>>>>>>>>>>>>>>>();
         }
     }
 }

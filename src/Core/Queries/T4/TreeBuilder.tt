@@ -12,22 +12,22 @@ namespace ExRam.Gremlinq.Core
 {
     public interface ITreeBuilder
     {
-        ITreeBuilder<TNewItem> Of<TNewItem>() where TNewItem : notnull;
+        ITreeBuilder<TNewNode> Of<TNewNode>() where TNewNode : notnull;
     }
 
 <# for(var i = 1; i <= 16; i++) { #>
-    public interface ITreeBuilder<<#= GetArgumentList("TItem{0}", i, false) #>>
+    public interface ITreeBuilder<<#= GetArgumentList("TNode{0}", i, false) #>>
     <# if (i >= 1) { #>
         : ITreeBuilderResult<<#= GetTreeTypeName(i) #>>
     <# } #>
 
     <# for(var j = 1; j <= i; j++) { #>
-        where TItem<#= j  #> : notnull
+        where TNode<#= j  #> : notnull
     <# } #>
 
     {
 <# if (i < 16) { #>
-        ITreeBuilder<<#= GetArgumentList("TItem{0}", i + 1) #>> Of<TItem<#= i + 1 #>>() where TItem<#= i + 1 #> : notnull;
+        ITreeBuilder<<#= GetArgumentList("TNode{0}", i + 1) #>> Of<TNode<#= i + 1 #>>() where TNode<#= i + 1 #> : notnull;
 <# } #>
     }
 
@@ -36,29 +36,29 @@ namespace ExRam.Gremlinq.Core
 
     partial class GremlinQuery<T1, T2, T3, T4>
     {
-        private sealed partial class TreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15, TItem16> :
+        private sealed partial class TreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNode15, TNode16> :
 <# for(var i = 1; i <= 16; i++) { #>
-            ITreeBuilder<<#= GetArgumentList("TItem{0}", i) #>>,
+            ITreeBuilder<<#= GetArgumentList("TNode{0}", i) #>>,
 
 <# } #>
             ITreeBuilder
 
             <# for(var i = 1; i <= 16; i++) { #>
-                where TItem<#= i  #> : notnull
+                where TNode<#= i  #> : notnull
             <# } #>
 
         {
 <# for(var i = 1; i < 16; i++) { #>
 
-            ITreeBuilder<<#= GetArgumentList("TItem{0}", i, false, true) #> TNewItem<#= i+1 #>> ITreeBuilder<<#= GetArgumentList("TItem{0}", i, false) #>>.Of<TNewItem<#= i + 1 #>>()
+            ITreeBuilder<<#= GetArgumentList("TNode{0}", i, false, true) #> TNewNode<#= i+1 #>> ITreeBuilder<<#= GetArgumentList("TNode{0}", i, false) #>>.Of<TNewNode<#= i + 1 #>>()
             {
-                return new TreeBuilder<<#= GetArgumentList("TItem{0}", i, false, true) #>TNewItem<#= i+1 #><#= GetArgumentList("object", 15 - i, true)#>>(_sourceQuery);
+                return new TreeBuilder<<#= GetArgumentList("TNode{0}", i, false, true) #>TNewNode<#= i+1 #><#= GetArgumentList("object", 15 - i, true)#>>(_sourceQuery);
             }
 <# } #>
 
-            ITreeBuilder<TNewItem> ITreeBuilder.Of<TNewItem>()
+            ITreeBuilder<TNewNode> ITreeBuilder.Of<TNewNode>()
             {
-                return new TreeBuilder<TNewItem, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15, TItem16>(_sourceQuery);
+                return new TreeBuilder<TNewNode, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNode15, TNode16>(_sourceQuery);
             }
 
 <# for(var i = 1; i <= 16; i++) { #>

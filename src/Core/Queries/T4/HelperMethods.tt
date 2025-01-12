@@ -64,9 +64,9 @@ private static string GetTreeTypeName(int firstParameter, int lastParameter)
 {
     var parameterCount = (lastParameter - firstParameter) + 1;
     if (parameterCount == 1)
-        return $"Tree<TItem{firstParameter}>";
+        return $"Tree<TNode{firstParameter}>";
 
-    return $"Tree<TItem{firstParameter}, {GetTreeTypeName(firstParameter + 1, lastParameter)}>";
+    return $"Tree<TNode{firstParameter}, {GetTreeTypeName(firstParameter + 1, lastParameter)}>";
 }
 
 private static string GetArgumentList(string template, int argumentCount, bool hasPreceedingArguments = false, bool hasFollowingArguments = false)
