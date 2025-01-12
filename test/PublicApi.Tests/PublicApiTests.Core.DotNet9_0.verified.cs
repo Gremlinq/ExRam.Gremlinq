@@ -910,6 +910,71 @@
         ExRam.Gremlinq.Core.IUntilLoopBuilder<TQuery> Until(System.Func<TQuery, ExRam.Gremlinq.Core.IGremlinQueryBase> condition);
     }
     public interface ITree { }
+    public interface ITreeBuilder
+    {
+        ExRam.Gremlinq.Core.ITreeBuilder<TItem1> Of<TItem1>();
+    }
+    public interface ITreeBuilder<TItem1>
+    {
+        ExRam.Gremlinq.Core.ITreeBuilder<TItem1, TItem2> Of<TItem2>();
+    }
+    public interface ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10>
+    {
+        ExRam.Gremlinq.Core.ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11> Of<TItem11>();
+    }
+    public interface ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11>
+    {
+        ExRam.Gremlinq.Core.ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12> Of<TItem12>();
+    }
+    public interface ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12>
+    {
+        ExRam.Gremlinq.Core.ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13> Of<TItem13>();
+    }
+    public interface ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13>
+    {
+        ExRam.Gremlinq.Core.ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14> Of<TItem14>();
+    }
+    public interface ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14>
+    {
+        ExRam.Gremlinq.Core.ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15> Of<TItem15>();
+    }
+    public interface ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15>
+    {
+        ExRam.Gremlinq.Core.ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15, TItem16> Of<TItem16>();
+    }
+    public interface ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15, TItem16> { }
+    public interface ITreeBuilder<TItem1, TItem2>
+    {
+        ExRam.Gremlinq.Core.ITreeBuilder<TItem1, TItem2, TItem3> Of<TItem3>();
+    }
+    public interface ITreeBuilder<TItem1, TItem2, TItem3>
+    {
+        ExRam.Gremlinq.Core.ITreeBuilder<TItem1, TItem2, TItem3, TItem4> Of<TItem4>();
+    }
+    public interface ITreeBuilder<TItem1, TItem2, TItem3, TItem4>
+    {
+        ExRam.Gremlinq.Core.ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5> Of<TItem5>();
+    }
+    public interface ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5>
+    {
+        ExRam.Gremlinq.Core.ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6> Of<TItem6>();
+    }
+    public interface ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6>
+    {
+        ExRam.Gremlinq.Core.ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7> Of<TItem7>();
+    }
+    public interface ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7>
+    {
+        ExRam.Gremlinq.Core.ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8> Of<TItem8>();
+    }
+    public interface ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8>
+    {
+        ExRam.Gremlinq.Core.ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9> Of<TItem9>();
+    }
+    public interface ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9>
+    {
+        ExRam.Gremlinq.Core.ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10> Of<TItem10>();
+    }
     public interface IUntilEmitLoopBuilder<TQuery>
         where TQuery : ExRam.Gremlinq.Core.IGremlinQueryBase
     {
