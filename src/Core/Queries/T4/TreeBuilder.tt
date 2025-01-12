@@ -5,8 +5,6 @@
 <#@ import namespace="System.Collections.Generic" #>
 <#@ output extension=".cs" #>
 <#@ include file="..\T4\Constants.tt" #>
-#pragma warning disable CS0109 // Member does not hide an inherited member; new keyword is not required
-using System.Linq.Expressions;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -17,14 +15,12 @@ namespace ExRam.Gremlinq.Core
 
 <# for(var i = 1; i <= 16; i++) { #>
     public interface ITreeBuilder<<#= GetArgumentList("TNode{0}", i, false) #>>
-    <# if (i >= 1) { #>
+<# if (i >= 1) { #>
         : ITreeBuilderResult<<#= GetTreeTypeName(i) #>>
-    <# } #>
-
-    <# for(var j = 1; j <= i; j++) { #>
-        where TNode<#= j  #> : notnull
-    <# } #>
-
+<# } #>
+<# for(var j = 1; j <= i; j++) { #>
+            where TNode<#= j  #> : notnull
+<# } #>
     {
 <# if (i < 16) { #>
         ITreeBuilder<<#= GetArgumentList("TNode{0}", i + 1) #>> Of<TNode<#= i + 1 #>>() where TNode<#= i + 1 #> : notnull;
@@ -33,35 +29,30 @@ namespace ExRam.Gremlinq.Core
 
 <# } #>
 
-
     partial class GremlinQuery<T1, T2, T3, T4>
     {
         private sealed partial class TreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNode15, TNode16> :
 <# for(var i = 1; i <= 16; i++) { #>
             ITreeBuilder<<#= GetArgumentList("TNode{0}", i) #>>,
-
 <# } #>
             ITreeBuilder
-
-            <# for(var i = 1; i <= 16; i++) { #>
+<# for(var i = 1; i <= 16; i++) { #>
                 where TNode<#= i  #> : notnull
-            <# } #>
-
+<# } #>
         {
 <# for(var i = 1; i < 16; i++) { #>
-
             ITreeBuilder<<#= GetArgumentList("TNode{0}", i, false, true) #> TNewNode<#= i+1 #>> ITreeBuilder<<#= GetArgumentList("TNode{0}", i, false) #>>.Of<TNewNode<#= i + 1 #>>()
             {
                 return new TreeBuilder<<#= GetArgumentList("TNode{0}", i, false, true) #>TNewNode<#= i+1 #><#= GetArgumentList("object", 15 - i, true)#>>(_sourceQuery);
             }
-<# } #>
 
+<# } #>
             ITreeBuilder<TNewNode> ITreeBuilder.Of<TNewNode>()
             {
                 return new TreeBuilder<TNewNode, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNode15, TNode16>(_sourceQuery);
             }
-
 <# for(var i = 1; i <= 16; i++) { #>
+
             IGremlinQuery<<#= GetTreeTypeName(i) #>> ITreeBuilderResult<<#= GetTreeTypeName(i) #>>.Build() => Build<<#= GetTreeTypeName(i) #>>();
 <# } #>
         }
