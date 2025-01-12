@@ -215,6 +215,8 @@ namespace ExRam.Gremlinq.Core
 
         IGremlinQuery<Path> IGremlinQueryBase.Path() => Path();
 
+        IGremlinQuery<Tree<object>> IGremlinQueryBase.Tree() => Tree();
+
         IGremlinQuery<string> IGremlinQueryBase.Profile() => Profile();
 
         TQuery IGremlinQueryBase.Select<TQuery, TStepElement>(StepLabel<TQuery, TStepElement> label) => Select<TQuery>(label);

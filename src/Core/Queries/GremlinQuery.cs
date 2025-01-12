@@ -1083,6 +1083,13 @@ namespace ExRam.Gremlinq.Core
                     .AsAuto<TNewElement, TNewOutVertex, TNewInVertex>(),
                 stepLabel);
 
+        private GremlinQuery<Tree<object>, object, object, IGremlinQueryBase> Tree() => this
+            .Continue()
+            .Build(static builder => builder
+                .AddStep(TreeStep.Instance)
+                .WithNewProjection(Projection.Value)
+                .AsAuto<Tree<object>>());
+
         private GremlinQuery<T1, T2, T3, T4> Unfold() => this
             .Continue()
             .Build(static builder => builder
