@@ -11,7 +11,7 @@ namespace ExRam.Gremlinq.Core
         {
             private sealed class TreeNodeBuilder<TNode> : ITreeNodeBuilder<TNode>
             {
-                private static readonly TreeNodeBuilder<TNode> Identity = new(TreeStep.ByIdentityStep.Instance);
+                public static readonly TreeNodeBuilder<TNode> Identity = new(TreeStep.ByIdentityStep.Instance);
 
                 private readonly TreeStep.ByStep _byStep;
 

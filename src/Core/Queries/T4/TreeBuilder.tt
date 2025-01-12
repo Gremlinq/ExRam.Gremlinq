@@ -46,7 +46,10 @@ namespace ExRam.Gremlinq.Core
 
             ITreeBuilder<<#= GetArgumentList("TNode{0}", i, false, true) #> TNewNode<#= i+1 #>> ITreeBuilder<#= GetGenericArgumentList("TNode{0}", i) #>.Of<TNewNode<#= i + 1 #>>(Func<ITreeNodeBuilder<TNewNode<#= i + 1 #>>, ITreeNodeBuilder<TNewNode<#= i + 1 #>>> nodeBuilderTransformation)
             {
-                throw new NotImplementedException();
+                if (nodeBuilderTransformation(TreeNodeBuilder<TNewNode<#= i+1 #>>.Identity) is TreeNodeBuilder<TNewNode<#= i+1 #>> projectedNodeBuilder)
+                    return new TreeBuilder<<#= GetArgumentList("TNode{0}", i, false, true) #>TNewNode<#= i+1 #><#= GetArgumentList("object", 15 - i, true)#>>(_sourceQuery, _bySteps.Add(projectedNodeBuilder.Build()));
+
+                throw new InvalidOperationException();
             }
 
 <# } #>
