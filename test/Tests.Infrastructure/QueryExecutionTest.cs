@@ -2740,6 +2740,19 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Verify();
 
         [Fact]
+        public virtual Task Tree_with_builder() => _g
+            .V<Person>()
+            .OutE<WorksFor>()
+            .InV<Company>()
+            .Values(x => x.FoundingDate!)
+            .Tree(_ => _
+                .Of<Person>()
+                .Of<WorksFor>()
+                .Of<Company>()
+                .Of<DateTime>())
+            .Verify();
+
+        [Fact]
         public virtual Task Union() => _g
             .V<Person>()
             .Union(
