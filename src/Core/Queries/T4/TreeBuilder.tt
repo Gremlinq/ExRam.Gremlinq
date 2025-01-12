@@ -6,6 +6,7 @@
 <#@ output extension=".cs" #>
 <#@ include file="..\T4\Constants.tt" #>
 using ExRam.Gremlinq.Core.Steps;
+using System.Linq.Expressions;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -20,8 +21,10 @@ namespace ExRam.Gremlinq.Core
     {
 <# if (i < 16) { #>
         ITreeBuilder<<#= GetArgumentList("TNode{0}", i, false, true)#>TNewNode> Of<TNewNode>() where TNewNode : notnull;
+<# } #>
+<# if (i >= 1) { #>
 
-        ITreeBuilder<<#= GetArgumentList("TNode{0}", i, false, true)#>TNewNode> Of<TNewNode>(Func<ITreeNodeBuilder<TNewNode>, ITreeNodeBuilder<TNewNode>> nodeBuilderTransformation) where TNewNode : notnull;
+        ITreeBuilder<<#= GetArgumentList("TNode{0}", i - 1, false, true)#>TNewNode> By<TNewNode>(Expression<Func<TNode<#= i  #>, TNewNode>> expression) where TNewNode : notnull;
 <# } #>
     }
 
@@ -39,19 +42,19 @@ namespace ExRam.Gremlinq.Core
 <# } #>
         {
 <# for(var i = 0; i < 16; i++) { #>
+
             ITreeBuilder<<#= GetArgumentList("TNode{0}", i, false, true) #>TNewNode> ITreeBuilder<#= GetGenericArgumentList("TNode{0}", i) #>.Of<TNewNode>()
             {
                 return new TreeBuilder<<#= GetArgumentList("TNode{0}", i, false, true) #>TNewNode<#= GetArgumentList("object", 15 - i, true)#>>(_sourceQuery, _bySteps.Add(TreeStep.ByIdentityStep.Instance));
             }
+<# } #>
 
-            ITreeBuilder<<#= GetArgumentList("TNode{0}", i, false, true) #> TNewNode> ITreeBuilder<#= GetGenericArgumentList("TNode{0}", i) #>.Of<TNewNode>(Func<ITreeNodeBuilder<TNewNode>, ITreeNodeBuilder<TNewNode>> nodeBuilderTransformation)
+<# for(var i = 1; i <= 16; i++) { #>
+
+            ITreeBuilder<<#= GetArgumentList("TNode{0}", i - 1, false, true) #> TNewNode> ITreeBuilder<#= GetGenericArgumentList("TNode{0}", i) #>.By<TNewNode>(Expression<Func<TNode<#= i  #>, TNewNode>> expression)
             {
-                if (nodeBuilderTransformation(TreeNodeBuilder<TNewNode>.Identity) is TreeNodeBuilder<TNewNode> projectedNodeBuilder)
-                    return new TreeBuilder<<#= GetArgumentList("TNode{0}", i, false, true) #>TNewNode<#= GetArgumentList("object", 15 - i, true)#>>(_sourceQuery, _bySteps.Add(projectedNodeBuilder.Build(_sourceQuery)));
-
-                throw new InvalidOperationException();
+                return new TreeBuilder<<#= GetArgumentList("TNode{0}", i - 1, false, true) #>TNewNode<#= GetArgumentList("object", 16 - i, true)#>>(_sourceQuery, _bySteps.Add(new TreeStep.ByKeyStep(_sourceQuery.GetKey(expression))));
             }
-
 <# } #>
 
 <# for(var i = 1; i <= 16; i++) { #>
