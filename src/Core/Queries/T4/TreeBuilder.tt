@@ -62,7 +62,7 @@ namespace ExRam.Gremlinq.Core
             }
 
 <# for(var i = 1; i <= 16; i++) { #>
-            IGremlinQuery<<#= GetTreeTypeName(i) #>> ITreeBuilderResult<<#= GetTreeTypeName(i) #>>.Build() => throw new NotImplementedException();// Build<IGremlinQuery<<#= GetTreeTypeName(i) #>>>();
+            IGremlinQuery<<#= GetTreeTypeName(i) #>> ITreeBuilderResult<<#= GetTreeTypeName(i) #>>.Build() => Build<<#= GetTreeTypeName(i) #>>();
 <# } #>
         }
     }
