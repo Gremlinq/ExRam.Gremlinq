@@ -32,6 +32,7 @@ namespace ExRam.Gremlinq.Core.Serialization
         public static readonly Instruction profile = new(nameof(profile));
         public static readonly Instruction simplePath = new(nameof(simplePath));
         public static readonly Instruction sum = new(nameof(sum));
+        public static readonly Instruction tree = new(nameof(tree));
         public static readonly Instruction unfold = new(nameof(unfold));
         public static readonly Instruction value = new(nameof(value));
     }
