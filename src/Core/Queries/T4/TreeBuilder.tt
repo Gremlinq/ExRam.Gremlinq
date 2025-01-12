@@ -8,9 +8,11 @@
 using ExRam.Gremlinq.Core.Steps;
 using System.Linq.Expressions;
 
+<# const int maxParameters = 16; #>
+
 namespace ExRam.Gremlinq.Core
 {
-<# for(var i = 0; i <= 16; i++) { #>
+<# for(var i = 0; i <= maxParameters; i++) { #>
     public interface ITreeBuilder<#= GetGenericArgumentList("TNode{0}", i) #>
 <# if (i >= 1) { #>
         : ITreeBuilderResult<<#= GetTreeTypeName(i) #>>
@@ -19,7 +21,7 @@ namespace ExRam.Gremlinq.Core
             where TNode<#= j  #> : notnull
 <# } #>
     {
-<# if (i < 16) { #>
+<# if (i < maxParameters) { #>
         ITreeBuilder<<#= GetArgumentList("TNode{0}", i, false, true)#>TNewNode> Of<TNewNode>() where TNewNode : notnull;
 <# } #>
 <# if (i >= 1) { #>
@@ -32,16 +34,16 @@ namespace ExRam.Gremlinq.Core
 
     partial class GremlinQuery<T1, T2, T3, T4>
     {
-        private sealed partial class TreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNode15, TNode16> :
-<# for(var i = 1; i <= 16; i++) { #>
+        private sealed partial class TreeBuilder<<#= GetArgumentList("TNode{0}", maxParameters)#>> :
+<# for(var i = 1; i <= maxParameters; i++) { #>
             ITreeBuilder<<#= GetArgumentList("TNode{0}", i) #>>,
 <# } #>
             ITreeBuilder
-<# for(var i = 1; i <= 16; i++) { #>
+<# for(var i = 1; i <= maxParameters; i++) { #>
                 where TNode<#= i  #> : notnull
 <# } #>
         {
-<# for(var i = 0; i < 16; i++) { #>
+<# for(var i = 0; i < maxParameters; i++) { #>
 
             ITreeBuilder<<#= GetArgumentList("TNode{0}", i, false, true) #>TNewNode> ITreeBuilder<#= GetGenericArgumentList("TNode{0}", i) #>.Of<TNewNode>()
             {
@@ -49,7 +51,7 @@ namespace ExRam.Gremlinq.Core
             }
 <# } #>
 
-<# for(var i = 1; i <= 16; i++) { #>
+<# for(var i = 1; i <= maxParameters; i++) { #>
 
             ITreeBuilder<<#= GetArgumentList("TNode{0}", i - 1, false, true) #> TNewNode> ITreeBuilder<#= GetGenericArgumentList("TNode{0}", i) #>.By<TNewNode>(Expression<Func<TNode<#= i  #>, TNewNode>> expression)
             {
@@ -57,7 +59,7 @@ namespace ExRam.Gremlinq.Core
             }
 <# } #>
 
-<# for(var i = 1; i <= 16; i++) { #>
+<# for(var i = 1; i <= maxParameters; i++) { #>
 
             IGremlinQuery<<#= GetTreeTypeName(i) #>> ITreeBuilderResult<<#= GetTreeTypeName(i) #>>.Build() => Build<<#= GetTreeTypeName(i) #>>();
 <# } #>
