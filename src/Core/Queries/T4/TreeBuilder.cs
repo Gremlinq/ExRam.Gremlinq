@@ -6,6 +6,8 @@ namespace ExRam.Gremlinq.Core
             where TNode1 : notnull
     {
         ITreeBuilder<TNode1, TNode2> Of<TNode2>() where TNode2 : notnull;
+
+        ITreeBuilder<TNode1, TNode2> Of<TNode2>(Func<ITreeNodeBuilder<TNode2>, ITreeNodeBuilder<TNode2>> nodeBuilderTransformation) where TNode2 : notnull;
     }
 
     public interface ITreeBuilder<TNode1, TNode2>
@@ -14,6 +16,8 @@ namespace ExRam.Gremlinq.Core
             where TNode2 : notnull
     {
         ITreeBuilder<TNode1, TNode2, TNode3> Of<TNode3>() where TNode3 : notnull;
+
+        ITreeBuilder<TNode1, TNode2, TNode3> Of<TNode3>(Func<ITreeNodeBuilder<TNode3>, ITreeNodeBuilder<TNode3>> nodeBuilderTransformation) where TNode3 : notnull;
     }
 
     public interface ITreeBuilder<TNode1, TNode2, TNode3>
@@ -23,6 +27,8 @@ namespace ExRam.Gremlinq.Core
             where TNode3 : notnull
     {
         ITreeBuilder<TNode1, TNode2, TNode3, TNode4> Of<TNode4>() where TNode4 : notnull;
+
+        ITreeBuilder<TNode1, TNode2, TNode3, TNode4> Of<TNode4>(Func<ITreeNodeBuilder<TNode4>, ITreeNodeBuilder<TNode4>> nodeBuilderTransformation) where TNode4 : notnull;
     }
 
     public interface ITreeBuilder<TNode1, TNode2, TNode3, TNode4>
@@ -33,6 +39,8 @@ namespace ExRam.Gremlinq.Core
             where TNode4 : notnull
     {
         ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5> Of<TNode5>() where TNode5 : notnull;
+
+        ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5> Of<TNode5>(Func<ITreeNodeBuilder<TNode5>, ITreeNodeBuilder<TNode5>> nodeBuilderTransformation) where TNode5 : notnull;
     }
 
     public interface ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5>
@@ -44,6 +52,8 @@ namespace ExRam.Gremlinq.Core
             where TNode5 : notnull
     {
         ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6> Of<TNode6>() where TNode6 : notnull;
+
+        ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6> Of<TNode6>(Func<ITreeNodeBuilder<TNode6>, ITreeNodeBuilder<TNode6>> nodeBuilderTransformation) where TNode6 : notnull;
     }
 
     public interface ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6>
@@ -56,6 +66,8 @@ namespace ExRam.Gremlinq.Core
             where TNode6 : notnull
     {
         ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7> Of<TNode7>() where TNode7 : notnull;
+
+        ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7> Of<TNode7>(Func<ITreeNodeBuilder<TNode7>, ITreeNodeBuilder<TNode7>> nodeBuilderTransformation) where TNode7 : notnull;
     }
 
     public interface ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7>
@@ -69,6 +81,8 @@ namespace ExRam.Gremlinq.Core
             where TNode7 : notnull
     {
         ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8> Of<TNode8>() where TNode8 : notnull;
+
+        ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8> Of<TNode8>(Func<ITreeNodeBuilder<TNode8>, ITreeNodeBuilder<TNode8>> nodeBuilderTransformation) where TNode8 : notnull;
     }
 
     public interface ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8>
@@ -83,6 +97,8 @@ namespace ExRam.Gremlinq.Core
             where TNode8 : notnull
     {
         ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9> Of<TNode9>() where TNode9 : notnull;
+
+        ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9> Of<TNode9>(Func<ITreeNodeBuilder<TNode9>, ITreeNodeBuilder<TNode9>> nodeBuilderTransformation) where TNode9 : notnull;
     }
 
     public interface ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9>
@@ -98,6 +114,8 @@ namespace ExRam.Gremlinq.Core
             where TNode9 : notnull
     {
         ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10> Of<TNode10>() where TNode10 : notnull;
+
+        ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10> Of<TNode10>(Func<ITreeNodeBuilder<TNode10>, ITreeNodeBuilder<TNode10>> nodeBuilderTransformation) where TNode10 : notnull;
     }
 
     public interface ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10>
@@ -114,6 +132,8 @@ namespace ExRam.Gremlinq.Core
             where TNode10 : notnull
     {
         ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11> Of<TNode11>() where TNode11 : notnull;
+
+        ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11> Of<TNode11>(Func<ITreeNodeBuilder<TNode11>, ITreeNodeBuilder<TNode11>> nodeBuilderTransformation) where TNode11 : notnull;
     }
 
     public interface ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11>
@@ -131,6 +151,8 @@ namespace ExRam.Gremlinq.Core
             where TNode11 : notnull
     {
         ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12> Of<TNode12>() where TNode12 : notnull;
+
+        ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12> Of<TNode12>(Func<ITreeNodeBuilder<TNode12>, ITreeNodeBuilder<TNode12>> nodeBuilderTransformation) where TNode12 : notnull;
     }
 
     public interface ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12>
@@ -149,6 +171,8 @@ namespace ExRam.Gremlinq.Core
             where TNode12 : notnull
     {
         ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13> Of<TNode13>() where TNode13 : notnull;
+
+        ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13> Of<TNode13>(Func<ITreeNodeBuilder<TNode13>, ITreeNodeBuilder<TNode13>> nodeBuilderTransformation) where TNode13 : notnull;
     }
 
     public interface ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13>
@@ -168,6 +192,8 @@ namespace ExRam.Gremlinq.Core
             where TNode13 : notnull
     {
         ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14> Of<TNode14>() where TNode14 : notnull;
+
+        ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14> Of<TNode14>(Func<ITreeNodeBuilder<TNode14>, ITreeNodeBuilder<TNode14>> nodeBuilderTransformation) where TNode14 : notnull;
     }
 
     public interface ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14>
@@ -188,6 +214,8 @@ namespace ExRam.Gremlinq.Core
             where TNode14 : notnull
     {
         ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNode15> Of<TNode15>() where TNode15 : notnull;
+
+        ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNode15> Of<TNode15>(Func<ITreeNodeBuilder<TNode15>, ITreeNodeBuilder<TNode15>> nodeBuilderTransformation) where TNode15 : notnull;
     }
 
     public interface ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNode15>
@@ -209,6 +237,8 @@ namespace ExRam.Gremlinq.Core
             where TNode15 : notnull
     {
         ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNode15, TNode16> Of<TNode16>() where TNode16 : notnull;
+
+        ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNode15, TNode16> Of<TNode16>(Func<ITreeNodeBuilder<TNode16>, ITreeNodeBuilder<TNode16>> nodeBuilderTransformation) where TNode16 : notnull;
     }
 
     public interface ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNode15, TNode16>
@@ -275,9 +305,19 @@ namespace ExRam.Gremlinq.Core
                 return new TreeBuilder<TNode1, TNewNode2, object, object, object, object, object, object, object, object, object, object, object, object, object, object>(_sourceQuery);
             }
 
+            ITreeBuilder<TNode1,  TNewNode2> ITreeBuilder<TNode1>.Of<TNewNode2>(Func<ITreeNodeBuilder<TNewNode2>, ITreeNodeBuilder<TNewNode2>> nodeBuilderTransformation)
+            {
+                throw new NotImplementedException();
+            }
+
             ITreeBuilder<TNode1, TNode2,  TNewNode3> ITreeBuilder<TNode1, TNode2>.Of<TNewNode3>()
             {
                 return new TreeBuilder<TNode1, TNode2, TNewNode3, object, object, object, object, object, object, object, object, object, object, object, object, object>(_sourceQuery);
+            }
+
+            ITreeBuilder<TNode1, TNode2,  TNewNode3> ITreeBuilder<TNode1, TNode2>.Of<TNewNode3>(Func<ITreeNodeBuilder<TNewNode3>, ITreeNodeBuilder<TNewNode3>> nodeBuilderTransformation)
+            {
+                throw new NotImplementedException();
             }
 
             ITreeBuilder<TNode1, TNode2, TNode3,  TNewNode4> ITreeBuilder<TNode1, TNode2, TNode3>.Of<TNewNode4>()
@@ -285,9 +325,19 @@ namespace ExRam.Gremlinq.Core
                 return new TreeBuilder<TNode1, TNode2, TNode3, TNewNode4, object, object, object, object, object, object, object, object, object, object, object, object>(_sourceQuery);
             }
 
+            ITreeBuilder<TNode1, TNode2, TNode3,  TNewNode4> ITreeBuilder<TNode1, TNode2, TNode3>.Of<TNewNode4>(Func<ITreeNodeBuilder<TNewNode4>, ITreeNodeBuilder<TNewNode4>> nodeBuilderTransformation)
+            {
+                throw new NotImplementedException();
+            }
+
             ITreeBuilder<TNode1, TNode2, TNode3, TNode4,  TNewNode5> ITreeBuilder<TNode1, TNode2, TNode3, TNode4>.Of<TNewNode5>()
             {
                 return new TreeBuilder<TNode1, TNode2, TNode3, TNode4, TNewNode5, object, object, object, object, object, object, object, object, object, object, object>(_sourceQuery);
+            }
+
+            ITreeBuilder<TNode1, TNode2, TNode3, TNode4,  TNewNode5> ITreeBuilder<TNode1, TNode2, TNode3, TNode4>.Of<TNewNode5>(Func<ITreeNodeBuilder<TNewNode5>, ITreeNodeBuilder<TNewNode5>> nodeBuilderTransformation)
+            {
+                throw new NotImplementedException();
             }
 
             ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5,  TNewNode6> ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5>.Of<TNewNode6>()
@@ -295,9 +345,19 @@ namespace ExRam.Gremlinq.Core
                 return new TreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNewNode6, object, object, object, object, object, object, object, object, object, object>(_sourceQuery);
             }
 
+            ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5,  TNewNode6> ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5>.Of<TNewNode6>(Func<ITreeNodeBuilder<TNewNode6>, ITreeNodeBuilder<TNewNode6>> nodeBuilderTransformation)
+            {
+                throw new NotImplementedException();
+            }
+
             ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6,  TNewNode7> ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6>.Of<TNewNode7>()
             {
                 return new TreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNewNode7, object, object, object, object, object, object, object, object, object>(_sourceQuery);
+            }
+
+            ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6,  TNewNode7> ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6>.Of<TNewNode7>(Func<ITreeNodeBuilder<TNewNode7>, ITreeNodeBuilder<TNewNode7>> nodeBuilderTransformation)
+            {
+                throw new NotImplementedException();
             }
 
             ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7,  TNewNode8> ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7>.Of<TNewNode8>()
@@ -305,9 +365,19 @@ namespace ExRam.Gremlinq.Core
                 return new TreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNewNode8, object, object, object, object, object, object, object, object>(_sourceQuery);
             }
 
+            ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7,  TNewNode8> ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7>.Of<TNewNode8>(Func<ITreeNodeBuilder<TNewNode8>, ITreeNodeBuilder<TNewNode8>> nodeBuilderTransformation)
+            {
+                throw new NotImplementedException();
+            }
+
             ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8,  TNewNode9> ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8>.Of<TNewNode9>()
             {
                 return new TreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNewNode9, object, object, object, object, object, object, object>(_sourceQuery);
+            }
+
+            ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8,  TNewNode9> ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8>.Of<TNewNode9>(Func<ITreeNodeBuilder<TNewNode9>, ITreeNodeBuilder<TNewNode9>> nodeBuilderTransformation)
+            {
+                throw new NotImplementedException();
             }
 
             ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9,  TNewNode10> ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9>.Of<TNewNode10>()
@@ -315,9 +385,19 @@ namespace ExRam.Gremlinq.Core
                 return new TreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNewNode10, object, object, object, object, object, object>(_sourceQuery);
             }
 
+            ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9,  TNewNode10> ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9>.Of<TNewNode10>(Func<ITreeNodeBuilder<TNewNode10>, ITreeNodeBuilder<TNewNode10>> nodeBuilderTransformation)
+            {
+                throw new NotImplementedException();
+            }
+
             ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10,  TNewNode11> ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10>.Of<TNewNode11>()
             {
                 return new TreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNewNode11, object, object, object, object, object>(_sourceQuery);
+            }
+
+            ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10,  TNewNode11> ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10>.Of<TNewNode11>(Func<ITreeNodeBuilder<TNewNode11>, ITreeNodeBuilder<TNewNode11>> nodeBuilderTransformation)
+            {
+                throw new NotImplementedException();
             }
 
             ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11,  TNewNode12> ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11>.Of<TNewNode12>()
@@ -325,9 +405,19 @@ namespace ExRam.Gremlinq.Core
                 return new TreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNewNode12, object, object, object, object>(_sourceQuery);
             }
 
+            ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11,  TNewNode12> ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11>.Of<TNewNode12>(Func<ITreeNodeBuilder<TNewNode12>, ITreeNodeBuilder<TNewNode12>> nodeBuilderTransformation)
+            {
+                throw new NotImplementedException();
+            }
+
             ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12,  TNewNode13> ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12>.Of<TNewNode13>()
             {
                 return new TreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNewNode13, object, object, object>(_sourceQuery);
+            }
+
+            ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12,  TNewNode13> ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12>.Of<TNewNode13>(Func<ITreeNodeBuilder<TNewNode13>, ITreeNodeBuilder<TNewNode13>> nodeBuilderTransformation)
+            {
+                throw new NotImplementedException();
             }
 
             ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13,  TNewNode14> ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13>.Of<TNewNode14>()
@@ -335,14 +425,29 @@ namespace ExRam.Gremlinq.Core
                 return new TreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNewNode14, object, object>(_sourceQuery);
             }
 
+            ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13,  TNewNode14> ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13>.Of<TNewNode14>(Func<ITreeNodeBuilder<TNewNode14>, ITreeNodeBuilder<TNewNode14>> nodeBuilderTransformation)
+            {
+                throw new NotImplementedException();
+            }
+
             ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14,  TNewNode15> ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14>.Of<TNewNode15>()
             {
                 return new TreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNewNode15, object>(_sourceQuery);
             }
 
+            ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14,  TNewNode15> ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14>.Of<TNewNode15>(Func<ITreeNodeBuilder<TNewNode15>, ITreeNodeBuilder<TNewNode15>> nodeBuilderTransformation)
+            {
+                throw new NotImplementedException();
+            }
+
             ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNode15,  TNewNode16> ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNode15>.Of<TNewNode16>()
             {
                 return new TreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNode15, TNewNode16>(_sourceQuery);
+            }
+
+            ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNode15,  TNewNode16> ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNode15>.Of<TNewNode16>(Func<ITreeNodeBuilder<TNewNode16>, ITreeNodeBuilder<TNewNode16>> nodeBuilderTransformation)
+            {
+                throw new NotImplementedException();
             }
 
             ITreeBuilder<TNewNode> ITreeBuilder.Of<TNewNode>()

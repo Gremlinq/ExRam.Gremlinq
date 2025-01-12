@@ -19,6 +19,8 @@ namespace ExRam.Gremlinq.Core
     {
 <# if (i < 16) { #>
         ITreeBuilder<<#= GetArgumentList("TNode{0}", i + 1) #>> Of<TNode<#= i + 1 #>>() where TNode<#= i + 1 #> : notnull;
+
+        ITreeBuilder<<#= GetArgumentList("TNode{0}", i + 1) #>> Of<TNode<#= i + 1 #>>(Func<ITreeNodeBuilder<TNode<#= i + 1 #>>, ITreeNodeBuilder<TNode<#= i + 1 #>>> nodeBuilderTransformation) where TNode<#= i + 1 #> : notnull;
 <# } #>
     }
 
@@ -39,6 +41,11 @@ namespace ExRam.Gremlinq.Core
             ITreeBuilder<<#= GetArgumentList("TNode{0}", i, false, true) #> TNewNode<#= i+1 #>> ITreeBuilder<<#= GetArgumentList("TNode{0}", i, false) #>>.Of<TNewNode<#= i + 1 #>>()
             {
                 return new TreeBuilder<<#= GetArgumentList("TNode{0}", i, false, true) #>TNewNode<#= i+1 #><#= GetArgumentList("object", 15 - i, true)#>>(_sourceQuery);
+            }
+
+            ITreeBuilder<<#= GetArgumentList("TNode{0}", i, false, true) #> TNewNode<#= i+1 #>> ITreeBuilder<<#= GetArgumentList("TNode{0}", i, false) #>>.Of<TNewNode<#= i + 1 #>>(Func<ITreeNodeBuilder<TNewNode<#= i + 1 #>>, ITreeNodeBuilder<TNewNode<#= i + 1 #>>> nodeBuilderTransformation)
+            {
+                throw new NotImplementedException();
             }
 
 <# } #>

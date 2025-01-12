@@ -13,6 +13,11 @@ namespace ExRam.Gremlinq.Core
                 _sourceQuery = sourceQuery;
             }
 
+            ITreeBuilder<TNewNode> ITreeBuilder.Of<TNewNode>(Func<ITreeNodeBuilder<TNewNode>, ITreeNodeBuilder<TNewNode>> nodeBuilderTransformation)
+            {
+                throw new NotImplementedException();
+            }
+
             private IGremlinQuery<TTree> Build<TTree>() => _sourceQuery
                 .Continue()
                 .Build(
