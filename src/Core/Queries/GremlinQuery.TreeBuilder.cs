@@ -1,7 +1,4 @@
-﻿// ReSharper disable ArrangeThisQualifier
-using System.Collections.Immutable;
-using System.Linq.Expressions;
-using ExRam.Gremlinq.Core.Steps;
+﻿using ExRam.Gremlinq.Core.Steps;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -16,20 +13,14 @@ namespace ExRam.Gremlinq.Core
                 _sourceQuery = sourceQuery;
             }
 
-            private IGremlinQuery<TTree> Build<TTree>() 
-            {
-                return _sourceQuery
-                    .Continue()
-                    .Build(
-                        static (builder, state) =>
-                        {
-                            return builder
-                                .AddStep(TreeStep.Instance)
-                                .As<IGremlinQuery<TTree>>()
-                                .Build();
-                        },
-                        0);
-            }
+            private IGremlinQuery<TTree> Build<TTree>() => _sourceQuery
+                .Continue()
+                .Build(
+                    static (builder, state) => builder
+                        .AddStep(TreeStep.Instance)
+                        .As<IGremlinQuery<TTree>>()
+                        .Build(),
+                    0);
         }
     }
 }
