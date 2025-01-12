@@ -1,4 +1,5 @@
 ﻿using System.Collections.Immutable;
+using System.Linq.Expressions;
 
 using ExRam.Gremlinq.Core.Steps;
 
@@ -8,6 +9,25 @@ namespace ExRam.Gremlinq.Core
     {
         private sealed partial class TreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNode15, TNode16>
         {
+            private sealed class TreeNodeBuilder<TNode> : ITreeNodeBuilder<TNode>
+            {
+                private static readonly TreeNodeBuilder<TNode> Identity = new(TreeStep.ByIdentityStep.Instance);
+
+                private readonly TreeStep.ByStep _byStep;
+
+                public TreeNodeBuilder(TreeStep.ByStep byStep)
+                {
+                    _byStep = byStep;
+                }
+
+                public ITreeNodeBuilder<TNode> By<TKey>(Expression<Func<TNode, TKey>> expression)
+                {
+                    throw new NotImplementedException();
+                }
+
+                public TreeStep.ByStep Build() => _byStep;
+            }
+
             private readonly GremlinQuery<T1, T2, T3, T4> _sourceQuery;
             private readonly IImmutableList<TreeStep.ByStep> _bySteps;
 
