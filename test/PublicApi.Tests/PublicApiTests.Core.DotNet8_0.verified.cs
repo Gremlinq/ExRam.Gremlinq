@@ -438,6 +438,8 @@
                     ExRam.Gremlinq.Core.StepLabel<T15> label15,
                     ExRam.Gremlinq.Core.StepLabel<T16> label16);
         ExRam.Gremlinq.Core.IGremlinQuery<ExRam.Gremlinq.Core.Tree<object>> Tree();
+        ExRam.Gremlinq.Core.IGremlinQuery<TTree> Tree<TTree>(System.Func<ExRam.Gremlinq.Core.ITreeBuilder, ExRam.Gremlinq.Core.ITreeBuilderResult<TTree>> continuation)
+            where TTree : ExRam.Gremlinq.Core.ITree;
     }
     public interface IGremlinQueryBaseRec<TSelf> : ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IStartGremlinQuery
         where TSelf : ExRam.Gremlinq.Core.IGremlinQueryBaseRec<TSelf>
