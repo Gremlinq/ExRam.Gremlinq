@@ -69,6 +69,14 @@ private static string GetTreeTypeName(int firstParameter, int lastParameter)
     return $"Tree<TNode{firstParameter}, {GetTreeTypeName(firstParameter + 1, lastParameter)}>";
 }
 
+private static string GetGenericArgumentList(string template, int argumentCount)
+{
+    if (argumentCount > 0)
+        return $"<{GetArgumentList(template, argumentCount)}>";
+
+    return "";
+}
+
 private static string GetArgumentList(string template, int argumentCount, bool hasPreceedingArguments = false, bool hasFollowingArguments = false)
 {
     return GetArgumentList(template, ", ", argumentCount, hasPreceedingArguments, hasFollowingArguments);
