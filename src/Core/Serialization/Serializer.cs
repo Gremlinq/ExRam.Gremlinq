@@ -507,6 +507,8 @@ namespace ExRam.Gremlinq.Core.Serialization
                 : CreateInstruction("tail", recurse, env, step.Count))
             .Add<TimesStep>((step, env, _, recurse) => CreateInstruction("times", recurse, env, step.Count))
             .Add<TreeStep>((_, _, _, _) => tree)
+            .Add<TreeStep.ByIdentityStep>((_, _, _, _) => by)
+            .Add<TreeStep.ByKeyStep>((step, env, _, recurse) => CreateInstruction("by", recurse, env, step.Key))
             .Add<UnfoldStep>((_, _, _, _) => unfold)
             .Add<UnionStep>((step, env, _, recurse) => CreateInstruction("union", recurse, env, step.Traversals))
             .Add<UntilStep>((step, env, _, recurse) => CreateInstruction("until", recurse, env, step.Traversal))
