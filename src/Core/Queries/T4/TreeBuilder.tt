@@ -8,11 +8,6 @@
 
 namespace ExRam.Gremlinq.Core
 {
-    public interface ITreeBuilder
-    {
-        ITreeBuilder<TNewNode> Of<TNewNode>() where TNewNode : notnull;
-    }
-
 <# for(var i = 1; i <= 16; i++) { #>
     public interface ITreeBuilder<<#= GetArgumentList("TNode{0}", i, false) #>>
 <# if (i >= 1) { #>

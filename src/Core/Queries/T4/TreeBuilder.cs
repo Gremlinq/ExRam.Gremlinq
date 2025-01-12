@@ -1,11 +1,6 @@
 ﻿
 namespace ExRam.Gremlinq.Core
 {
-    public interface ITreeBuilder
-    {
-        ITreeBuilder<TNewNode> Of<TNewNode>() where TNewNode : notnull;
-    }
-
     public interface ITreeBuilder<TNode1>
         : ITreeBuilderResult<Tree<TNode1>>
             where TNode1 : notnull
