@@ -2426,6 +2426,10 @@ namespace ExRam.Gremlinq.Core.Steps
     {
         public static readonly ExRam.Gremlinq.Core.Steps.TreeStep Instance;
         public TreeStep() { }
+        public sealed class ByIdentityStep : ExRam.Gremlinq.Core.Steps.TreeStep.ByStep
+        {
+            public static readonly ExRam.Gremlinq.Core.Steps.TreeStep.ByIdentityStep Instance;
+        }
         public sealed class ByKeyStep : ExRam.Gremlinq.Core.Steps.TreeStep.ByStep
         {
             public ByKeyStep(ExRam.Gremlinq.Core.Key key) { }
