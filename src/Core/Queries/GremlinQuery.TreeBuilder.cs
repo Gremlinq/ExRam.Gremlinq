@@ -24,6 +24,7 @@ namespace ExRam.Gremlinq.Core
                         static (builder, state) =>
                         {
                             return builder
+                                .AddStep(TreeStep.Instance)
                                 .As<IGremlinQuery<TTree>>()
                                 .Build();
                         },
