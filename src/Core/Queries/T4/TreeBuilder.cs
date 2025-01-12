@@ -393,82 +393,82 @@ namespace ExRam.Gremlinq.Core
 
             ITreeBuilder< TNewNode> ITreeBuilder<TNode1>.By<TNewNode>(Expression<Func<TNode1, TNewNode>> expression)
             {
-                return new TreeBuilder<TNewNode, object, object, object, object, object, object, object, object, object, object, object, object, object, object, object>(_sourceQuery, _bySteps.Add(new TreeStep.ByKeyStep(_sourceQuery.GetKey(expression))));
+                return new TreeBuilder<TNewNode, object, object, object, object, object, object, object, object, object, object, object, object, object, object, object>(_sourceQuery, _bySteps.RemoveAt(_bySteps.Count - 1).Add(new TreeStep.ByKeyStep(_sourceQuery.GetKey(expression))));
             }
 
             ITreeBuilder<TNode1,  TNewNode> ITreeBuilder<TNode1, TNode2>.By<TNewNode>(Expression<Func<TNode2, TNewNode>> expression)
             {
-                return new TreeBuilder<TNode1, TNewNode, object, object, object, object, object, object, object, object, object, object, object, object, object, object>(_sourceQuery, _bySteps.Add(new TreeStep.ByKeyStep(_sourceQuery.GetKey(expression))));
+                return new TreeBuilder<TNode1, TNewNode, object, object, object, object, object, object, object, object, object, object, object, object, object, object>(_sourceQuery, _bySteps.RemoveAt(_bySteps.Count - 1).Add(new TreeStep.ByKeyStep(_sourceQuery.GetKey(expression))));
             }
 
             ITreeBuilder<TNode1, TNode2,  TNewNode> ITreeBuilder<TNode1, TNode2, TNode3>.By<TNewNode>(Expression<Func<TNode3, TNewNode>> expression)
             {
-                return new TreeBuilder<TNode1, TNode2, TNewNode, object, object, object, object, object, object, object, object, object, object, object, object, object>(_sourceQuery, _bySteps.Add(new TreeStep.ByKeyStep(_sourceQuery.GetKey(expression))));
+                return new TreeBuilder<TNode1, TNode2, TNewNode, object, object, object, object, object, object, object, object, object, object, object, object, object>(_sourceQuery, _bySteps.RemoveAt(_bySteps.Count - 1).Add(new TreeStep.ByKeyStep(_sourceQuery.GetKey(expression))));
             }
 
             ITreeBuilder<TNode1, TNode2, TNode3,  TNewNode> ITreeBuilder<TNode1, TNode2, TNode3, TNode4>.By<TNewNode>(Expression<Func<TNode4, TNewNode>> expression)
             {
-                return new TreeBuilder<TNode1, TNode2, TNode3, TNewNode, object, object, object, object, object, object, object, object, object, object, object, object>(_sourceQuery, _bySteps.Add(new TreeStep.ByKeyStep(_sourceQuery.GetKey(expression))));
+                return new TreeBuilder<TNode1, TNode2, TNode3, TNewNode, object, object, object, object, object, object, object, object, object, object, object, object>(_sourceQuery, _bySteps.RemoveAt(_bySteps.Count - 1).Add(new TreeStep.ByKeyStep(_sourceQuery.GetKey(expression))));
             }
 
             ITreeBuilder<TNode1, TNode2, TNode3, TNode4,  TNewNode> ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5>.By<TNewNode>(Expression<Func<TNode5, TNewNode>> expression)
             {
-                return new TreeBuilder<TNode1, TNode2, TNode3, TNode4, TNewNode, object, object, object, object, object, object, object, object, object, object, object>(_sourceQuery, _bySteps.Add(new TreeStep.ByKeyStep(_sourceQuery.GetKey(expression))));
+                return new TreeBuilder<TNode1, TNode2, TNode3, TNode4, TNewNode, object, object, object, object, object, object, object, object, object, object, object>(_sourceQuery, _bySteps.RemoveAt(_bySteps.Count - 1).Add(new TreeStep.ByKeyStep(_sourceQuery.GetKey(expression))));
             }
 
             ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5,  TNewNode> ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6>.By<TNewNode>(Expression<Func<TNode6, TNewNode>> expression)
             {
-                return new TreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNewNode, object, object, object, object, object, object, object, object, object, object>(_sourceQuery, _bySteps.Add(new TreeStep.ByKeyStep(_sourceQuery.GetKey(expression))));
+                return new TreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNewNode, object, object, object, object, object, object, object, object, object, object>(_sourceQuery, _bySteps.RemoveAt(_bySteps.Count - 1).Add(new TreeStep.ByKeyStep(_sourceQuery.GetKey(expression))));
             }
 
             ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6,  TNewNode> ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7>.By<TNewNode>(Expression<Func<TNode7, TNewNode>> expression)
             {
-                return new TreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNewNode, object, object, object, object, object, object, object, object, object>(_sourceQuery, _bySteps.Add(new TreeStep.ByKeyStep(_sourceQuery.GetKey(expression))));
+                return new TreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNewNode, object, object, object, object, object, object, object, object, object>(_sourceQuery, _bySteps.RemoveAt(_bySteps.Count - 1).Add(new TreeStep.ByKeyStep(_sourceQuery.GetKey(expression))));
             }
 
             ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7,  TNewNode> ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8>.By<TNewNode>(Expression<Func<TNode8, TNewNode>> expression)
             {
-                return new TreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNewNode, object, object, object, object, object, object, object, object>(_sourceQuery, _bySteps.Add(new TreeStep.ByKeyStep(_sourceQuery.GetKey(expression))));
+                return new TreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNewNode, object, object, object, object, object, object, object, object>(_sourceQuery, _bySteps.RemoveAt(_bySteps.Count - 1).Add(new TreeStep.ByKeyStep(_sourceQuery.GetKey(expression))));
             }
 
             ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8,  TNewNode> ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9>.By<TNewNode>(Expression<Func<TNode9, TNewNode>> expression)
             {
-                return new TreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNewNode, object, object, object, object, object, object, object>(_sourceQuery, _bySteps.Add(new TreeStep.ByKeyStep(_sourceQuery.GetKey(expression))));
+                return new TreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNewNode, object, object, object, object, object, object, object>(_sourceQuery, _bySteps.RemoveAt(_bySteps.Count - 1).Add(new TreeStep.ByKeyStep(_sourceQuery.GetKey(expression))));
             }
 
             ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9,  TNewNode> ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10>.By<TNewNode>(Expression<Func<TNode10, TNewNode>> expression)
             {
-                return new TreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNewNode, object, object, object, object, object, object>(_sourceQuery, _bySteps.Add(new TreeStep.ByKeyStep(_sourceQuery.GetKey(expression))));
+                return new TreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNewNode, object, object, object, object, object, object>(_sourceQuery, _bySteps.RemoveAt(_bySteps.Count - 1).Add(new TreeStep.ByKeyStep(_sourceQuery.GetKey(expression))));
             }
 
             ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10,  TNewNode> ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11>.By<TNewNode>(Expression<Func<TNode11, TNewNode>> expression)
             {
-                return new TreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNewNode, object, object, object, object, object>(_sourceQuery, _bySteps.Add(new TreeStep.ByKeyStep(_sourceQuery.GetKey(expression))));
+                return new TreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNewNode, object, object, object, object, object>(_sourceQuery, _bySteps.RemoveAt(_bySteps.Count - 1).Add(new TreeStep.ByKeyStep(_sourceQuery.GetKey(expression))));
             }
 
             ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11,  TNewNode> ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12>.By<TNewNode>(Expression<Func<TNode12, TNewNode>> expression)
             {
-                return new TreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNewNode, object, object, object, object>(_sourceQuery, _bySteps.Add(new TreeStep.ByKeyStep(_sourceQuery.GetKey(expression))));
+                return new TreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNewNode, object, object, object, object>(_sourceQuery, _bySteps.RemoveAt(_bySteps.Count - 1).Add(new TreeStep.ByKeyStep(_sourceQuery.GetKey(expression))));
             }
 
             ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12,  TNewNode> ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13>.By<TNewNode>(Expression<Func<TNode13, TNewNode>> expression)
             {
-                return new TreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNewNode, object, object, object>(_sourceQuery, _bySteps.Add(new TreeStep.ByKeyStep(_sourceQuery.GetKey(expression))));
+                return new TreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNewNode, object, object, object>(_sourceQuery, _bySteps.RemoveAt(_bySteps.Count - 1).Add(new TreeStep.ByKeyStep(_sourceQuery.GetKey(expression))));
             }
 
             ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13,  TNewNode> ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14>.By<TNewNode>(Expression<Func<TNode14, TNewNode>> expression)
             {
-                return new TreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNewNode, object, object>(_sourceQuery, _bySteps.Add(new TreeStep.ByKeyStep(_sourceQuery.GetKey(expression))));
+                return new TreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNewNode, object, object>(_sourceQuery, _bySteps.RemoveAt(_bySteps.Count - 1).Add(new TreeStep.ByKeyStep(_sourceQuery.GetKey(expression))));
             }
 
             ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14,  TNewNode> ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNode15>.By<TNewNode>(Expression<Func<TNode15, TNewNode>> expression)
             {
-                return new TreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNewNode, object>(_sourceQuery, _bySteps.Add(new TreeStep.ByKeyStep(_sourceQuery.GetKey(expression))));
+                return new TreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNewNode, object>(_sourceQuery, _bySteps.RemoveAt(_bySteps.Count - 1).Add(new TreeStep.ByKeyStep(_sourceQuery.GetKey(expression))));
             }
 
             ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNode15,  TNewNode> ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNode15, TNode16>.By<TNewNode>(Expression<Func<TNode16, TNewNode>> expression)
             {
-                return new TreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNode15, TNewNode>(_sourceQuery, _bySteps.Add(new TreeStep.ByKeyStep(_sourceQuery.GetKey(expression))));
+                return new TreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNode15, TNewNode>(_sourceQuery, _bySteps.RemoveAt(_bySteps.Count - 1).Add(new TreeStep.ByKeyStep(_sourceQuery.GetKey(expression))));
             }
 
 
