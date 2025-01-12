@@ -912,68 +912,225 @@
     public interface ITree { }
     public interface ITreeBuilder
     {
-        ExRam.Gremlinq.Core.ITreeBuilder<TItem1> Of<TItem1>();
+        ExRam.Gremlinq.Core.ITreeBuilder<TNewItem> Of<TNewItem>()
+            where TNewItem :  notnull;
     }
-    public interface ITreeBuilder<TItem1>
+    public interface ITreeBuilderResult<TTree>
+        where TTree : ExRam.Gremlinq.Core.ITree
     {
-        ExRam.Gremlinq.Core.ITreeBuilder<TItem1, TItem2> Of<TItem2>();
+        ExRam.Gremlinq.Core.IGremlinQuery<TTree> Build();
     }
-    public interface ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10>
+    public interface ITreeBuilder<TItem1> : ExRam.Gremlinq.Core.ITreeBuilderResult<ExRam.Gremlinq.Core.Tree<TItem1>>
+        where TItem1 :  notnull
     {
-        ExRam.Gremlinq.Core.ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11> Of<TItem11>();
+        ExRam.Gremlinq.Core.ITreeBuilder<TItem1, TItem2> Of<TItem2>()
+            where TItem2 :  notnull;
     }
-    public interface ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11>
+    public interface ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10> : ExRam.Gremlinq.Core.ITreeBuilderResult<ExRam.Gremlinq.Core.Tree<TItem1, ExRam.Gremlinq.Core.Tree<TItem2, ExRam.Gremlinq.Core.Tree<TItem3, ExRam.Gremlinq.Core.Tree<TItem4, ExRam.Gremlinq.Core.Tree<TItem5, ExRam.Gremlinq.Core.Tree<TItem6, ExRam.Gremlinq.Core.Tree<TItem7, ExRam.Gremlinq.Core.Tree<TItem8, ExRam.Gremlinq.Core.Tree<TItem9, ExRam.Gremlinq.Core.Tree<TItem10>>>>>>>>>>>
+        where TItem1 :  notnull
+        where TItem2 :  notnull
+        where TItem3 :  notnull
+        where TItem4 :  notnull
+        where TItem5 :  notnull
+        where TItem6 :  notnull
+        where TItem7 :  notnull
+        where TItem8 :  notnull
+        where TItem9 :  notnull
+        where TItem10 :  notnull
     {
-        ExRam.Gremlinq.Core.ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12> Of<TItem12>();
+        ExRam.Gremlinq.Core.ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11> Of<TItem11>()
+            where TItem11 :  notnull;
     }
-    public interface ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12>
+    public interface ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11> : ExRam.Gremlinq.Core.ITreeBuilderResult<ExRam.Gremlinq.Core.Tree<TItem1, ExRam.Gremlinq.Core.Tree<TItem2, ExRam.Gremlinq.Core.Tree<TItem3, ExRam.Gremlinq.Core.Tree<TItem4, ExRam.Gremlinq.Core.Tree<TItem5, ExRam.Gremlinq.Core.Tree<TItem6, ExRam.Gremlinq.Core.Tree<TItem7, ExRam.Gremlinq.Core.Tree<TItem8, ExRam.Gremlinq.Core.Tree<TItem9, ExRam.Gremlinq.Core.Tree<TItem10, ExRam.Gremlinq.Core.Tree<TItem11>>>>>>>>>>>>
+        where TItem1 :  notnull
+        where TItem2 :  notnull
+        where TItem3 :  notnull
+        where TItem4 :  notnull
+        where TItem5 :  notnull
+        where TItem6 :  notnull
+        where TItem7 :  notnull
+        where TItem8 :  notnull
+        where TItem9 :  notnull
+        where TItem10 :  notnull
+        where TItem11 :  notnull
     {
-        ExRam.Gremlinq.Core.ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13> Of<TItem13>();
+        ExRam.Gremlinq.Core.ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12> Of<TItem12>()
+            where TItem12 :  notnull;
     }
-    public interface ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13>
+    public interface ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12> : ExRam.Gremlinq.Core.ITreeBuilderResult<ExRam.Gremlinq.Core.Tree<TItem1, ExRam.Gremlinq.Core.Tree<TItem2, ExRam.Gremlinq.Core.Tree<TItem3, ExRam.Gremlinq.Core.Tree<TItem4, ExRam.Gremlinq.Core.Tree<TItem5, ExRam.Gremlinq.Core.Tree<TItem6, ExRam.Gremlinq.Core.Tree<TItem7, ExRam.Gremlinq.Core.Tree<TItem8, ExRam.Gremlinq.Core.Tree<TItem9, ExRam.Gremlinq.Core.Tree<TItem10, ExRam.Gremlinq.Core.Tree<TItem11, ExRam.Gremlinq.Core.Tree<TItem12>>>>>>>>>>>>>
+        where TItem1 :  notnull
+        where TItem2 :  notnull
+        where TItem3 :  notnull
+        where TItem4 :  notnull
+        where TItem5 :  notnull
+        where TItem6 :  notnull
+        where TItem7 :  notnull
+        where TItem8 :  notnull
+        where TItem9 :  notnull
+        where TItem10 :  notnull
+        where TItem11 :  notnull
+        where TItem12 :  notnull
     {
-        ExRam.Gremlinq.Core.ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14> Of<TItem14>();
+        ExRam.Gremlinq.Core.ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13> Of<TItem13>()
+            where TItem13 :  notnull;
     }
-    public interface ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14>
+    public interface ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13> : ExRam.Gremlinq.Core.ITreeBuilderResult<ExRam.Gremlinq.Core.Tree<TItem1, ExRam.Gremlinq.Core.Tree<TItem2, ExRam.Gremlinq.Core.Tree<TItem3, ExRam.Gremlinq.Core.Tree<TItem4, ExRam.Gremlinq.Core.Tree<TItem5, ExRam.Gremlinq.Core.Tree<TItem6, ExRam.Gremlinq.Core.Tree<TItem7, ExRam.Gremlinq.Core.Tree<TItem8, ExRam.Gremlinq.Core.Tree<TItem9, ExRam.Gremlinq.Core.Tree<TItem10, ExRam.Gremlinq.Core.Tree<TItem11, ExRam.Gremlinq.Core.Tree<TItem12, ExRam.Gremlinq.Core.Tree<TItem13>>>>>>>>>>>>>>
+        where TItem1 :  notnull
+        where TItem2 :  notnull
+        where TItem3 :  notnull
+        where TItem4 :  notnull
+        where TItem5 :  notnull
+        where TItem6 :  notnull
+        where TItem7 :  notnull
+        where TItem8 :  notnull
+        where TItem9 :  notnull
+        where TItem10 :  notnull
+        where TItem11 :  notnull
+        where TItem12 :  notnull
+        where TItem13 :  notnull
     {
-        ExRam.Gremlinq.Core.ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15> Of<TItem15>();
+        ExRam.Gremlinq.Core.ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14> Of<TItem14>()
+            where TItem14 :  notnull;
     }
-    public interface ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15>
+    public interface ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14> : ExRam.Gremlinq.Core.ITreeBuilderResult<ExRam.Gremlinq.Core.Tree<TItem1, ExRam.Gremlinq.Core.Tree<TItem2, ExRam.Gremlinq.Core.Tree<TItem3, ExRam.Gremlinq.Core.Tree<TItem4, ExRam.Gremlinq.Core.Tree<TItem5, ExRam.Gremlinq.Core.Tree<TItem6, ExRam.Gremlinq.Core.Tree<TItem7, ExRam.Gremlinq.Core.Tree<TItem8, ExRam.Gremlinq.Core.Tree<TItem9, ExRam.Gremlinq.Core.Tree<TItem10, ExRam.Gremlinq.Core.Tree<TItem11, ExRam.Gremlinq.Core.Tree<TItem12, ExRam.Gremlinq.Core.Tree<TItem13, ExRam.Gremlinq.Core.Tree<TItem14>>>>>>>>>>>>>>>
+        where TItem1 :  notnull
+        where TItem2 :  notnull
+        where TItem3 :  notnull
+        where TItem4 :  notnull
+        where TItem5 :  notnull
+        where TItem6 :  notnull
+        where TItem7 :  notnull
+        where TItem8 :  notnull
+        where TItem9 :  notnull
+        where TItem10 :  notnull
+        where TItem11 :  notnull
+        where TItem12 :  notnull
+        where TItem13 :  notnull
+        where TItem14 :  notnull
     {
-        ExRam.Gremlinq.Core.ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15, TItem16> Of<TItem16>();
+        ExRam.Gremlinq.Core.ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15> Of<TItem15>()
+            where TItem15 :  notnull;
     }
-    public interface ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15, TItem16> { }
-    public interface ITreeBuilder<TItem1, TItem2>
+    public interface ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15> : ExRam.Gremlinq.Core.ITreeBuilderResult<ExRam.Gremlinq.Core.Tree<TItem1, ExRam.Gremlinq.Core.Tree<TItem2, ExRam.Gremlinq.Core.Tree<TItem3, ExRam.Gremlinq.Core.Tree<TItem4, ExRam.Gremlinq.Core.Tree<TItem5, ExRam.Gremlinq.Core.Tree<TItem6, ExRam.Gremlinq.Core.Tree<TItem7, ExRam.Gremlinq.Core.Tree<TItem8, ExRam.Gremlinq.Core.Tree<TItem9, ExRam.Gremlinq.Core.Tree<TItem10, ExRam.Gremlinq.Core.Tree<TItem11, ExRam.Gremlinq.Core.Tree<TItem12, ExRam.Gremlinq.Core.Tree<TItem13, ExRam.Gremlinq.Core.Tree<TItem14, ExRam.Gremlinq.Core.Tree<TItem15>>>>>>>>>>>>>>>>
+        where TItem1 :  notnull
+        where TItem2 :  notnull
+        where TItem3 :  notnull
+        where TItem4 :  notnull
+        where TItem5 :  notnull
+        where TItem6 :  notnull
+        where TItem7 :  notnull
+        where TItem8 :  notnull
+        where TItem9 :  notnull
+        where TItem10 :  notnull
+        where TItem11 :  notnull
+        where TItem12 :  notnull
+        where TItem13 :  notnull
+        where TItem14 :  notnull
+        where TItem15 :  notnull
     {
-        ExRam.Gremlinq.Core.ITreeBuilder<TItem1, TItem2, TItem3> Of<TItem3>();
+        ExRam.Gremlinq.Core.ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15, TItem16> Of<TItem16>()
+            where TItem16 :  notnull;
     }
-    public interface ITreeBuilder<TItem1, TItem2, TItem3>
+    public interface ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15, TItem16> : ExRam.Gremlinq.Core.ITreeBuilderResult<ExRam.Gremlinq.Core.Tree<TItem1, ExRam.Gremlinq.Core.Tree<TItem2, ExRam.Gremlinq.Core.Tree<TItem3, ExRam.Gremlinq.Core.Tree<TItem4, ExRam.Gremlinq.Core.Tree<TItem5, ExRam.Gremlinq.Core.Tree<TItem6, ExRam.Gremlinq.Core.Tree<TItem7, ExRam.Gremlinq.Core.Tree<TItem8, ExRam.Gremlinq.Core.Tree<TItem9, ExRam.Gremlinq.Core.Tree<TItem10, ExRam.Gremlinq.Core.Tree<TItem11, ExRam.Gremlinq.Core.Tree<TItem12, ExRam.Gremlinq.Core.Tree<TItem13, ExRam.Gremlinq.Core.Tree<TItem14, ExRam.Gremlinq.Core.Tree<TItem15, ExRam.Gremlinq.Core.Tree<TItem16>>>>>>>>>>>>>>>>>
+        where TItem1 :  notnull
+        where TItem2 :  notnull
+        where TItem3 :  notnull
+        where TItem4 :  notnull
+        where TItem5 :  notnull
+        where TItem6 :  notnull
+        where TItem7 :  notnull
+        where TItem8 :  notnull
+        where TItem9 :  notnull
+        where TItem10 :  notnull
+        where TItem11 :  notnull
+        where TItem12 :  notnull
+        where TItem13 :  notnull
+        where TItem14 :  notnull
+        where TItem15 :  notnull
+        where TItem16 :  notnull { }
+    public interface ITreeBuilder<TItem1, TItem2> : ExRam.Gremlinq.Core.ITreeBuilderResult<ExRam.Gremlinq.Core.Tree<TItem1, ExRam.Gremlinq.Core.Tree<TItem2>>>
+        where TItem1 :  notnull
+        where TItem2 :  notnull
     {
-        ExRam.Gremlinq.Core.ITreeBuilder<TItem1, TItem2, TItem3, TItem4> Of<TItem4>();
+        ExRam.Gremlinq.Core.ITreeBuilder<TItem1, TItem2, TItem3> Of<TItem3>()
+            where TItem3 :  notnull;
     }
-    public interface ITreeBuilder<TItem1, TItem2, TItem3, TItem4>
+    public interface ITreeBuilder<TItem1, TItem2, TItem3> : ExRam.Gremlinq.Core.ITreeBuilderResult<ExRam.Gremlinq.Core.Tree<TItem1, ExRam.Gremlinq.Core.Tree<TItem2, ExRam.Gremlinq.Core.Tree<TItem3>>>>
+        where TItem1 :  notnull
+        where TItem2 :  notnull
+        where TItem3 :  notnull
     {
-        ExRam.Gremlinq.Core.ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5> Of<TItem5>();
+        ExRam.Gremlinq.Core.ITreeBuilder<TItem1, TItem2, TItem3, TItem4> Of<TItem4>()
+            where TItem4 :  notnull;
     }
-    public interface ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5>
+    public interface ITreeBuilder<TItem1, TItem2, TItem3, TItem4> : ExRam.Gremlinq.Core.ITreeBuilderResult<ExRam.Gremlinq.Core.Tree<TItem1, ExRam.Gremlinq.Core.Tree<TItem2, ExRam.Gremlinq.Core.Tree<TItem3, ExRam.Gremlinq.Core.Tree<TItem4>>>>>
+        where TItem1 :  notnull
+        where TItem2 :  notnull
+        where TItem3 :  notnull
+        where TItem4 :  notnull
     {
-        ExRam.Gremlinq.Core.ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6> Of<TItem6>();
+        ExRam.Gremlinq.Core.ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5> Of<TItem5>()
+            where TItem5 :  notnull;
     }
-    public interface ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6>
+    public interface ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5> : ExRam.Gremlinq.Core.ITreeBuilderResult<ExRam.Gremlinq.Core.Tree<TItem1, ExRam.Gremlinq.Core.Tree<TItem2, ExRam.Gremlinq.Core.Tree<TItem3, ExRam.Gremlinq.Core.Tree<TItem4, ExRam.Gremlinq.Core.Tree<TItem5>>>>>>
+        where TItem1 :  notnull
+        where TItem2 :  notnull
+        where TItem3 :  notnull
+        where TItem4 :  notnull
+        where TItem5 :  notnull
     {
-        ExRam.Gremlinq.Core.ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7> Of<TItem7>();
+        ExRam.Gremlinq.Core.ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6> Of<TItem6>()
+            where TItem6 :  notnull;
     }
-    public interface ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7>
+    public interface ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6> : ExRam.Gremlinq.Core.ITreeBuilderResult<ExRam.Gremlinq.Core.Tree<TItem1, ExRam.Gremlinq.Core.Tree<TItem2, ExRam.Gremlinq.Core.Tree<TItem3, ExRam.Gremlinq.Core.Tree<TItem4, ExRam.Gremlinq.Core.Tree<TItem5, ExRam.Gremlinq.Core.Tree<TItem6>>>>>>>
+        where TItem1 :  notnull
+        where TItem2 :  notnull
+        where TItem3 :  notnull
+        where TItem4 :  notnull
+        where TItem5 :  notnull
+        where TItem6 :  notnull
     {
-        ExRam.Gremlinq.Core.ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8> Of<TItem8>();
+        ExRam.Gremlinq.Core.ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7> Of<TItem7>()
+            where TItem7 :  notnull;
     }
-    public interface ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8>
+    public interface ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7> : ExRam.Gremlinq.Core.ITreeBuilderResult<ExRam.Gremlinq.Core.Tree<TItem1, ExRam.Gremlinq.Core.Tree<TItem2, ExRam.Gremlinq.Core.Tree<TItem3, ExRam.Gremlinq.Core.Tree<TItem4, ExRam.Gremlinq.Core.Tree<TItem5, ExRam.Gremlinq.Core.Tree<TItem6, ExRam.Gremlinq.Core.Tree<TItem7>>>>>>>>
+        where TItem1 :  notnull
+        where TItem2 :  notnull
+        where TItem3 :  notnull
+        where TItem4 :  notnull
+        where TItem5 :  notnull
+        where TItem6 :  notnull
+        where TItem7 :  notnull
     {
-        ExRam.Gremlinq.Core.ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9> Of<TItem9>();
+        ExRam.Gremlinq.Core.ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8> Of<TItem8>()
+            where TItem8 :  notnull;
     }
-    public interface ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9>
+    public interface ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8> : ExRam.Gremlinq.Core.ITreeBuilderResult<ExRam.Gremlinq.Core.Tree<TItem1, ExRam.Gremlinq.Core.Tree<TItem2, ExRam.Gremlinq.Core.Tree<TItem3, ExRam.Gremlinq.Core.Tree<TItem4, ExRam.Gremlinq.Core.Tree<TItem5, ExRam.Gremlinq.Core.Tree<TItem6, ExRam.Gremlinq.Core.Tree<TItem7, ExRam.Gremlinq.Core.Tree<TItem8>>>>>>>>>
+        where TItem1 :  notnull
+        where TItem2 :  notnull
+        where TItem3 :  notnull
+        where TItem4 :  notnull
+        where TItem5 :  notnull
+        where TItem6 :  notnull
+        where TItem7 :  notnull
+        where TItem8 :  notnull
     {
-        ExRam.Gremlinq.Core.ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10> Of<TItem10>();
+        ExRam.Gremlinq.Core.ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9> Of<TItem9>()
+            where TItem9 :  notnull;
+    }
+    public interface ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9> : ExRam.Gremlinq.Core.ITreeBuilderResult<ExRam.Gremlinq.Core.Tree<TItem1, ExRam.Gremlinq.Core.Tree<TItem2, ExRam.Gremlinq.Core.Tree<TItem3, ExRam.Gremlinq.Core.Tree<TItem4, ExRam.Gremlinq.Core.Tree<TItem5, ExRam.Gremlinq.Core.Tree<TItem6, ExRam.Gremlinq.Core.Tree<TItem7, ExRam.Gremlinq.Core.Tree<TItem8, ExRam.Gremlinq.Core.Tree<TItem9>>>>>>>>>>
+        where TItem1 :  notnull
+        where TItem2 :  notnull
+        where TItem3 :  notnull
+        where TItem4 :  notnull
+        where TItem5 :  notnull
+        where TItem6 :  notnull
+        where TItem7 :  notnull
+        where TItem8 :  notnull
+        where TItem9 :  notnull
+    {
+        ExRam.Gremlinq.Core.ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10> Of<TItem10>()
+            where TItem10 :  notnull;
     }
     public interface IUntilEmitLoopBuilder<TQuery>
         where TQuery : ExRam.Gremlinq.Core.IGremlinQueryBase
