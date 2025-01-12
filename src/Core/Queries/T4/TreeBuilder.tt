@@ -1,0 +1,61 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".cs" #>
+<#@ include file="..\T4\Constants.tt" #>
+#pragma warning disable CS0109 // Member does not hide an inherited member; new keyword is not required
+using System.Linq.Expressions;
+
+namespace ExRam.Gremlinq.Core
+{
+    public interface ITreeBuilder
+    {
+        ITreeBuilder<TItem1> Of<TItem1>();
+    }
+
+<# for(var i = 1; i <= 16; i++) { #>
+    public interface ITreeBuilder<<#= GetArgumentList("TItem{0}", i, false) #>>
+    <# if (i >= 1) { #>
+    //: ITreeResult<(<#= GetArgumentList("TItem{0}", i) #>)>
+    <# } #>
+    {
+<# if (i < 16) { #>
+        ITreeBuilder<<#= GetArgumentList("TItem{0}", i + 1) #>> Of<TItem<#= i + 1 #>>();
+<# } #>
+    }
+
+<# } #>
+
+
+    partial class GremlinQuery<T1, T2, T3, T4>
+    {
+        private sealed partial class TreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15, TItem16> :
+<# for(var i = 1; i <= 16; i++) { #>
+            ITreeBuilder<<#= GetArgumentList("TItem{0}", i) #>>,
+<# } #>
+            ITreeBuilder
+
+        {
+<# for(var i = 1; i < 16; i++) { #>
+
+            ITreeBuilder<<#= GetArgumentList("TItem{0}", i, false, true) #> TNewItem<#= i+1 #>> ITreeBuilder<<#= GetArgumentList("TItem{0}", i, false) #>>.Of<TNewItem<#= i + 1 #>>()
+            {
+                throw new NotImplementedException();
+            }
+<# } #>
+
+            ITreeBuilder<TNewItem> ITreeBuilder.Of<TNewItem>()
+            {
+                throw new NotImplementedException();
+            }
+
+<# for(var i = 2; i <= 16; i++) { #>
+            //IMapGremlinQuery<(<#= GetArgumentList("TItem{0}", i) #>)> IProjectTupleResult<(<#= GetArgumentList("TItem{0}", i) #>)>.Build() => Build<IMapGremlinQuery<(<#= GetArgumentList("TItem{0}", i) #>)>>();
+<# } #>
+        }
+    }
+}
+
+<#@ include file="..\T4\HelperMethods.tt" #>

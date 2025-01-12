@@ -12,6 +12,10 @@
 
   <ItemGroup>
     <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+    <None Update="Queries\T4\TreeBuilder.tt">
+      <LastGenOutput>TreeBuilder.cs</LastGenOutput>
+      <Generator>TextTemplatingFileGenerator</Generator>
+    </None>
 
     <None Update="Queries\T4\ProjectBuilder.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -21,6 +25,11 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>GremlinQuery.generated.cs</LastGenOutput>
     </None>
+    <Compile Update="Queries\T4\TreeBuilder.cs">
+      <DependentUpon>TreeBuilder.tt</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
 
     <Compile Update="Queries\T4\ProjectBuilder.cs">
       <DesignTime>True</DesignTime>
