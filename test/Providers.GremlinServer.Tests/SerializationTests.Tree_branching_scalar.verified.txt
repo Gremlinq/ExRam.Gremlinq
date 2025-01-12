@@ -1,0 +1,38 @@
+﻿{
+  StepInstructions: [
+    {
+      OperatorName: inject,
+      Arguments: [
+        42
+      ]
+    },
+    {
+      OperatorName: union,
+      Arguments: [
+        {
+          StepInstructions: [
+            {
+              OperatorName: constant,
+              Arguments: [
+                43
+              ]
+            }
+          ]
+        },
+        {
+          StepInstructions: [
+            {
+              OperatorName: constant,
+              Arguments: [
+                44
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      OperatorName: tree
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+﻿{
+  Script: g.inject(_a).tree(),
+  Bindings: {
+    _a: 42
+  }
+}

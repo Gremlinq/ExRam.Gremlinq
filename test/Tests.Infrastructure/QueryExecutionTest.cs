@@ -2709,6 +2709,28 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Verify();
 
         [Fact]
+        public virtual Task Tree_scalar_root() => _g
+            .Inject(42)
+            .Tree()
+            .Verify();
+
+        [Fact]
+        public virtual Task Tree_linear_scalar() => _g
+            .Inject(42)
+            .Constant("43")
+            .Tree()
+            .Verify();
+
+        [Fact]
+        public virtual Task Tree_branching_scalar() => _g
+            .Inject(42)
+            .Union(
+                __ => __.Constant("43"),
+                __ => __.Constant("44"))
+            .Tree()
+            .Verify();
+
+        [Fact]
         public virtual Task Union() => _g
             .V<Person>()
             .Union(
