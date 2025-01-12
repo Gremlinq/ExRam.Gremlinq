@@ -1,4 +1,6 @@
-﻿using ExRam.Gremlinq.Core.Steps;
+﻿using System.Collections.Immutable;
+
+using ExRam.Gremlinq.Core.Steps;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -7,9 +9,16 @@ namespace ExRam.Gremlinq.Core
         private sealed partial class TreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNode15, TNode16>
         {
             private readonly GremlinQuery<T1, T2, T3, T4> _sourceQuery;
+            private readonly IImmutableList<TreeStep.ByStep> _bySteps;
 
-            public TreeBuilder(GremlinQuery<T1, T2, T3, T4> sourceQuery)
+            public TreeBuilder(GremlinQuery<T1, T2, T3, T4> sourceQuery) : this(sourceQuery, ImmutableList<TreeStep.ByStep>.Empty)
             {
+
+            }
+
+            public TreeBuilder(GremlinQuery<T1, T2, T3, T4> sourceQuery, IImmutableList<TreeStep.ByStep> bySteps)
+            {
+                _bySteps = bySteps;
                 _sourceQuery = sourceQuery;
             }
 
@@ -21,11 +30,25 @@ namespace ExRam.Gremlinq.Core
             private IGremlinQuery<TTree> Build<TTree>() => _sourceQuery
                 .Continue()
                 .Build(
-                    static (builder, state) => builder
-                        .AddStep(TreeStep.Instance)
-                        .As<IGremlinQuery<TTree>>()
-                        .Build(),
-                    0);
+                    static (builder, @this) =>
+                    {
+                        builder = builder
+                            .AddStep(TreeStep.Instance);
+
+                        if (@this._bySteps.Any(byStep => byStep is not TreeStep.ByIdentityStep))
+                        {
+                            foreach (var byStep in @this._bySteps)
+                            {
+                                builder = builder
+                                    .AddStep(byStep);
+                            }
+                        }
+
+                        return builder
+                            .As<IGremlinQuery<TTree>>()
+                            .Build();
+                    },
+                    this);
         }
     }
 }
