@@ -1,0 +1,60 @@
+﻿[
+  [
+    {
+      Key: {
+        Age: 36,
+        Id: 7,
+        Label: Person,
+        PartitionKey: PartitionKey
+      },
+      Value: [
+        {
+          Key: Admin,
+          Value: [
+            {
+              Key: {
+                Id: 5,
+                Label: Company,
+                PartitionKey: PartitionKey
+              },
+              Value: [
+                {
+                  Key: 0001-01-01 +0,
+                  Value: []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      Key: {
+        Age: 36,
+        Id: 29,
+        Label: Person,
+        PartitionKey: PartitionKey
+      },
+      Value: [
+        {
+          Key: Admin,
+          Value: [
+            {
+              Key: {
+                Id: 27,
+                Label: Company,
+                PartitionKey: PartitionKey
+              },
+              Value: [
+                {
+                  Key: 0001-01-01 +0,
+                  Value: []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+]

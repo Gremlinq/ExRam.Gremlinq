@@ -1,0 +1,74 @@
+﻿{
+  SourceInstructions: [
+    {
+      OperatorName: withSideEffect,
+      Arguments: [
+        Neptune#fts.endpoint,
+        http://elastic.search.server
+      ]
+    },
+    {
+      OperatorName: withSideEffect,
+      Arguments: [
+        Neptune#fts.queryType,
+        query_string
+      ]
+    }
+  ],
+  StepInstructions: [
+    {
+      OperatorName: V
+    },
+    {
+      OperatorName: hasLabel,
+      Arguments: [
+        Person
+      ]
+    },
+    {
+      OperatorName: outE,
+      Arguments: [
+        WorksFor
+      ]
+    },
+    {
+      OperatorName: has,
+      Arguments: [
+        Role
+      ]
+    },
+    {
+      OperatorName: inV
+    },
+    {
+      OperatorName: hasLabel,
+      Arguments: [
+        Company
+      ]
+    },
+    {
+      OperatorName: values,
+      Arguments: [
+        FoundingDate
+      ]
+    },
+    {
+      OperatorName: tree
+    },
+    {
+      OperatorName: by
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        Role
+      ]
+    },
+    {
+      OperatorName: by
+    },
+    {
+      OperatorName: by
+    }
+  ]
+}

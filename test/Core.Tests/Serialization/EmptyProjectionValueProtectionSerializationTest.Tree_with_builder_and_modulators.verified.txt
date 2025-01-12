@@ -1,0 +1,58 @@
+﻿{
+  StepInstructions: [
+    {
+      OperatorName: V
+    },
+    {
+      OperatorName: hasLabel,
+      Arguments: [
+        Person
+      ]
+    },
+    {
+      OperatorName: outE,
+      Arguments: [
+        WorksFor
+      ]
+    },
+    {
+      OperatorName: has,
+      Arguments: [
+        Role
+      ]
+    },
+    {
+      OperatorName: inV
+    },
+    {
+      OperatorName: hasLabel,
+      Arguments: [
+        Company
+      ]
+    },
+    {
+      OperatorName: values,
+      Arguments: [
+        FoundingDate
+      ]
+    },
+    {
+      OperatorName: tree
+    },
+    {
+      OperatorName: by
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        Role
+      ]
+    },
+    {
+      OperatorName: by
+    },
+    {
+      OperatorName: by
+    }
+  ]
+}
