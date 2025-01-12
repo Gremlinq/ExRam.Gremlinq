@@ -1090,6 +1090,11 @@ namespace ExRam.Gremlinq.Core
                 .WithNewProjection(Projection.Value)
                 .AsAuto<Tree<object>>());
 
+        private IGremlinQuery<TTree> Tree<TTree>(Func<ITreeBuilder, ITreeBuilderResult<TTree>> continuation)
+            where TTree : ITree => new TreeBuilder<object, object, object, object, object, object, object, object, object, object, object, object, object, object, object, object>(this)
+                .Map(continuation)
+                .Build();
+
         private GremlinQuery<T1, T2, T3, T4> Unfold() => this
             .Continue()
             .Build(static builder => builder
