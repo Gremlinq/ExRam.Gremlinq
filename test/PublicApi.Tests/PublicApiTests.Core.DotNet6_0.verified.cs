@@ -437,6 +437,7 @@
                     ExRam.Gremlinq.Core.StepLabel<T14> label14,
                     ExRam.Gremlinq.Core.StepLabel<T15> label15,
                     ExRam.Gremlinq.Core.StepLabel<T16> label16);
+        ExRam.Gremlinq.Core.IGremlinQuery<ExRam.Gremlinq.Core.Tree<object>> Tree();
     }
     public interface IGremlinQueryBaseRec<TSelf> : ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IStartGremlinQuery
         where TSelf : ExRam.Gremlinq.Core.IGremlinQueryBaseRec<TSelf>
@@ -2160,6 +2161,11 @@ namespace ExRam.Gremlinq.Core.Steps
     {
         public TimesStep(int count) { }
         public int Count { get; }
+    }
+    public sealed class TreeStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public static readonly ExRam.Gremlinq.Core.Steps.TreeStep Instance;
+        public TreeStep() { }
     }
     public sealed class UnfoldStep : ExRam.Gremlinq.Core.Steps.Step
     {
