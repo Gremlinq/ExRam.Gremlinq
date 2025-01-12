@@ -1168,10 +1168,6 @@
         ExRam.Gremlinq.Core.ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNewNode> Of<TNewNode>()
             where TNewNode :  notnull;
     }
-    public interface ITreeNodeBuilder<TNode>
-    {
-        ExRam.Gremlinq.Core.ITreeNodeBuilder<TNode> By<TKey>(System.Linq.Expressions.Expression<System.Func<TNode, TKey>> expression);
-    }
     public interface IUntilEmitLoopBuilder<TQuery>
         where TQuery : ExRam.Gremlinq.Core.IGremlinQueryBase
     {

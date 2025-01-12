@@ -9,29 +9,6 @@ namespace ExRam.Gremlinq.Core
     {
         private sealed partial class TreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNode15, TNode16>
         {
-            private sealed class TreeNodeBuilder<TNode> : ITreeNodeBuilder<TNode>
-            {
-                public static readonly TreeNodeBuilder<TNode> Identity = new();
-
-                private readonly Expression? _maybeExpression;
-
-                private TreeNodeBuilder()
-                {
-
-                }
-
-                public TreeNodeBuilder(Expression expression)
-                {
-                    _maybeExpression = expression;
-                }
-
-                public ITreeNodeBuilder<TNode> By<TKey>(Expression<Func<TNode, TKey>> expression) => new TreeNodeBuilder<TNode>(expression);
-
-                public TreeStep.ByStep Build(GremlinQuery<T1, T2, T3, T4> query) => _maybeExpression is { } expression
-                    ? new TreeStep.ByKeyStep(query.GetKey(expression))
-                    : TreeStep.ByIdentityStep.Instance;
-            }
-
             private readonly GremlinQuery<T1, T2, T3, T4> _sourceQuery;
             private readonly IImmutableList<TreeStep.ByStep> _bySteps;
 
