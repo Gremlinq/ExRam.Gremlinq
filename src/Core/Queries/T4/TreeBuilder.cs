@@ -331,82 +331,82 @@ namespace ExRam.Gremlinq.Core
 
             ITreeBuilder<TItem1,  TNewItem2> ITreeBuilder<TItem1>.Of<TNewItem2>()
             {
-                throw new NotImplementedException();
+                return new TreeBuilder<TItem1, TNewItem2, object, object, object, object, object, object, object, object, object, object, object, object, object, object>(_sourceQuery);
             }
 
             ITreeBuilder<TItem1, TItem2,  TNewItem3> ITreeBuilder<TItem1, TItem2>.Of<TNewItem3>()
             {
-                throw new NotImplementedException();
+                return new TreeBuilder<TItem1, TItem2, TNewItem3, object, object, object, object, object, object, object, object, object, object, object, object, object>(_sourceQuery);
             }
 
             ITreeBuilder<TItem1, TItem2, TItem3,  TNewItem4> ITreeBuilder<TItem1, TItem2, TItem3>.Of<TNewItem4>()
             {
-                throw new NotImplementedException();
+                return new TreeBuilder<TItem1, TItem2, TItem3, TNewItem4, object, object, object, object, object, object, object, object, object, object, object, object>(_sourceQuery);
             }
 
             ITreeBuilder<TItem1, TItem2, TItem3, TItem4,  TNewItem5> ITreeBuilder<TItem1, TItem2, TItem3, TItem4>.Of<TNewItem5>()
             {
-                throw new NotImplementedException();
+                return new TreeBuilder<TItem1, TItem2, TItem3, TItem4, TNewItem5, object, object, object, object, object, object, object, object, object, object, object>(_sourceQuery);
             }
 
             ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5,  TNewItem6> ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5>.Of<TNewItem6>()
             {
-                throw new NotImplementedException();
+                return new TreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TNewItem6, object, object, object, object, object, object, object, object, object, object>(_sourceQuery);
             }
 
             ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6,  TNewItem7> ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6>.Of<TNewItem7>()
             {
-                throw new NotImplementedException();
+                return new TreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TNewItem7, object, object, object, object, object, object, object, object, object>(_sourceQuery);
             }
 
             ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7,  TNewItem8> ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7>.Of<TNewItem8>()
             {
-                throw new NotImplementedException();
+                return new TreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TNewItem8, object, object, object, object, object, object, object, object>(_sourceQuery);
             }
 
             ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8,  TNewItem9> ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8>.Of<TNewItem9>()
             {
-                throw new NotImplementedException();
+                return new TreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TNewItem9, object, object, object, object, object, object, object>(_sourceQuery);
             }
 
             ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9,  TNewItem10> ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9>.Of<TNewItem10>()
             {
-                throw new NotImplementedException();
+                return new TreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TNewItem10, object, object, object, object, object, object>(_sourceQuery);
             }
 
             ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10,  TNewItem11> ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10>.Of<TNewItem11>()
             {
-                throw new NotImplementedException();
+                return new TreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TNewItem11, object, object, object, object, object>(_sourceQuery);
             }
 
             ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11,  TNewItem12> ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11>.Of<TNewItem12>()
             {
-                throw new NotImplementedException();
+                return new TreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TNewItem12, object, object, object, object>(_sourceQuery);
             }
 
             ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12,  TNewItem13> ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12>.Of<TNewItem13>()
             {
-                throw new NotImplementedException();
+                return new TreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TNewItem13, object, object, object>(_sourceQuery);
             }
 
             ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13,  TNewItem14> ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13>.Of<TNewItem14>()
             {
-                throw new NotImplementedException();
+                return new TreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TNewItem14, object, object>(_sourceQuery);
             }
 
             ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14,  TNewItem15> ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14>.Of<TNewItem15>()
             {
-                throw new NotImplementedException();
+                return new TreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TNewItem15, object>(_sourceQuery);
             }
 
             ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15,  TNewItem16> ITreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15>.Of<TNewItem16>()
             {
-                throw new NotImplementedException();
+                return new TreeBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15, TNewItem16>(_sourceQuery);
             }
 
             ITreeBuilder<TNewItem> ITreeBuilder.Of<TNewItem>()
             {
-                throw new NotImplementedException();
+                return new TreeBuilder<TNewItem, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15, TItem16>(_sourceQuery);
             }
 
             IGremlinQuery<Tree<TItem1>> ITreeBuilderResult<Tree<TItem1>>.Build() => Build<Tree<TItem1>>();

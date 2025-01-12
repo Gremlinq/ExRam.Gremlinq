@@ -52,13 +52,13 @@ namespace ExRam.Gremlinq.Core
 
             ITreeBuilder<<#= GetArgumentList("TItem{0}", i, false, true) #> TNewItem<#= i+1 #>> ITreeBuilder<<#= GetArgumentList("TItem{0}", i, false) #>>.Of<TNewItem<#= i + 1 #>>()
             {
-                throw new NotImplementedException();
+                return new TreeBuilder<<#= GetArgumentList("TItem{0}", i, false, true) #>TNewItem<#= i+1 #><#= GetArgumentList("object", 15 - i, true)#>>(_sourceQuery);
             }
 <# } #>
 
             ITreeBuilder<TNewItem> ITreeBuilder.Of<TNewItem>()
             {
-                throw new NotImplementedException();
+                return new TreeBuilder<TNewItem, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15, TItem16>(_sourceQuery);
             }
 
 <# for(var i = 1; i <= 16; i++) { #>
