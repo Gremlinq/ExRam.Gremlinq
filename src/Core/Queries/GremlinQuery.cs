@@ -1091,7 +1091,7 @@ namespace ExRam.Gremlinq.Core
                 .AsAuto<Tree<object>>());
 
         private IGremlinQuery<TTree> Tree<TTree>(Func<ITreeBuilder, ITreeBuilderResult<TTree>> continuation)
-            where TTree : ITree => new TreeBuilder<object, object, object, object, object, object, object, object, object, object, object, object, object, object, object, object>(this)
+            where TTree : ITree => new TreeBuilder<object, object, object, object, object, object, object, object, object, object, object, object, object, object, object, object, object, object, object, object, object, object, object, object, object, object, object, object, object>(this)
                 .Map(continuation)
                 .Build();
 
