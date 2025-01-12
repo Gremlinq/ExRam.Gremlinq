@@ -25,25 +25,13 @@ namespace ExRam.Gremlinq.Core
 
         public int Count => _inner.Count;
 
-        public bool ContainsKey(TRoot key)
-        {
-            return _inner.ContainsKey(key);
-        }
+        public bool ContainsKey(TRoot key) => _inner.ContainsKey(key);
 
-        public IEnumerator<KeyValuePair<TRoot, TSubTree>> GetEnumerator()
-        {
-            return _inner.GetEnumerator();
-        }
+        public IEnumerator<KeyValuePair<TRoot, TSubTree>> GetEnumerator() => _inner.GetEnumerator();
 
-        public bool TryGetValue(TRoot key, [MaybeNullWhen(false)] out TSubTree value)
-        {
-            return _inner.TryGetValue(key, out value);
-        }
+        public bool TryGetValue(TRoot key, [MaybeNullWhen(false)] out TSubTree value) => _inner.TryGetValue(key, out value);
 
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return ((IEnumerable)_inner).GetEnumerator();
-        }
+        IEnumerator IEnumerable.GetEnumerator() => ((IEnumerable)_inner).GetEnumerator();
     }
 
     public class Tree<TRoot> : Tree<TRoot, Tree<object>>
