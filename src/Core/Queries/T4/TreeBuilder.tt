@@ -18,9 +18,9 @@ namespace ExRam.Gremlinq.Core
 <# } #>
     {
 <# if (i < 16) { #>
-        ITreeBuilder<<#= GetArgumentList("TNode{0}", i + 1) #>> Of<TNode<#= i + 1 #>>() where TNode<#= i + 1 #> : notnull;
+        ITreeBuilder<<#= GetArgumentList("TNode{0}", i, false, true)#>TNewNode> Of<TNewNode>() where TNewNode : notnull;
 
-        ITreeBuilder<<#= GetArgumentList("TNode{0}", i + 1) #>> Of<TNode<#= i + 1 #>>(Func<ITreeNodeBuilder<TNode<#= i + 1 #>>, ITreeNodeBuilder<TNode<#= i + 1 #>>> nodeBuilderTransformation) where TNode<#= i + 1 #> : notnull;
+        ITreeBuilder<<#= GetArgumentList("TNode{0}", i, false, true)#>TNewNode> Of<TNewNode>(Func<ITreeNodeBuilder<TNewNode>, ITreeNodeBuilder<TNewNode>> nodeBuilderTransformation) where TNewNode : notnull;
 <# } #>
     }
 
