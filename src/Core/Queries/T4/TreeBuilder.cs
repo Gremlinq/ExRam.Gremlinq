@@ -2,6 +2,13 @@
 
 namespace ExRam.Gremlinq.Core
 {
+    public interface ITreeBuilder
+    {
+        ITreeBuilder<TNewNode> Of<TNewNode>() where TNewNode : notnull;
+
+        ITreeBuilder<TNewNode> Of<TNewNode>(Func<ITreeNodeBuilder<TNewNode>, ITreeNodeBuilder<TNewNode>> nodeBuilderTransformation) where TNewNode : notnull;
+    }
+
     public interface ITreeBuilder<TNode1>
         : ITreeBuilderResult<Tree<TNode1>>
             where TNode1 : notnull
@@ -301,6 +308,16 @@ namespace ExRam.Gremlinq.Core
                 where TNode15 : notnull
                 where TNode16 : notnull
         {
+            ITreeBuilder<TNewNode> ITreeBuilder.Of<TNewNode>()
+            {
+                return new TreeBuilder<TNewNode, object, object, object, object, object, object, object, object, object, object, object, object, object, object, object>(_sourceQuery, _bySteps.Add(TreeStep.ByIdentityStep.Instance));
+            }
+
+            ITreeBuilder< TNewNode1> ITreeBuilder.Of<TNewNode1>(Func<ITreeNodeBuilder<TNewNode1>, ITreeNodeBuilder<TNewNode1>> nodeBuilderTransformation)
+            {
+                throw new NotImplementedException();
+            }
+
             ITreeBuilder<TNode1, TNewNode> ITreeBuilder<TNode1>.Of<TNewNode>()
             {
                 return new TreeBuilder<TNode1, TNewNode, object, object, object, object, object, object, object, object, object, object, object, object, object, object>(_sourceQuery, _bySteps.Add(TreeStep.ByIdentityStep.Instance));
@@ -451,10 +468,7 @@ namespace ExRam.Gremlinq.Core
                 throw new NotImplementedException();
             }
 
-            ITreeBuilder<TNewNode> ITreeBuilder.Of<TNewNode>()
-            {
-                return new TreeBuilder<TNewNode, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNode15, TNode16>(_sourceQuery, _bySteps.Add(TreeStep.ByIdentityStep.Instance));
-            }
+
 
             IGremlinQuery<Tree<TNode1>> ITreeBuilderResult<Tree<TNode1>>.Build() => Build<Tree<TNode1>>();
 
