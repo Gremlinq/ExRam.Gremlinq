@@ -1,6 +1,7 @@
 ﻿using System.Collections.Immutable;
 using System.Linq.Expressions;
 
+using ExRam.Gremlinq.Core.Projections;
 using ExRam.Gremlinq.Core.Steps;
 
 namespace ExRam.Gremlinq.Core
@@ -28,10 +29,12 @@ namespace ExRam.Gremlinq.Core
                 .Build(
                     static (builder, @this) =>
                     {
+                        var bySteps = @this._bySteps;
+
                         builder = builder
                             .AddStep(TreeStep.Instance);
 
-                        FinalContinuationBuilder<GremlinQuery<T1, T2, T3, T4>, GremlinQuery<T1, T2, T3, T4>> Recurse(FinalContinuationBuilder<GremlinQuery<T1, T2, T3, T4>, GremlinQuery<T1, T2, T3, T4>> builder, ImmutableStack<TreeStep.ByStep> bySteps)
+                        static FinalContinuationBuilder<GremlinQuery<T1, T2, T3, T4>, GremlinQuery<T1, T2, T3, T4>> Recurse(FinalContinuationBuilder<GremlinQuery<T1, T2, T3, T4>, GremlinQuery<T1, T2, T3, T4>> builder, ImmutableStack<TreeStep.ByStep> bySteps)
                         {
                             if (!bySteps.IsEmpty)
                             {
@@ -43,8 +46,16 @@ namespace ExRam.Gremlinq.Core
                             return builder;
                         }
 
-                        if (@this._bySteps.Any(byStep => byStep is not TreeStep.ByIdentityStep))
-                            builder = Recurse(builder, @this._bySteps);
+                        if (bySteps.Any(byStep => byStep is not TreeStep.ByIdentityStep))
+                        {
+                            builder = Recurse(builder, bySteps);
+
+                            if (bySteps.Peek() is not TreeStep.ByIdentityStep)
+                            {
+                                builder = builder
+                                    .AddStep(TreeStep.ByIdentityStep.Instance);
+                            }
+                        }
 
                         return builder
                             .As<IGremlinQuery<TTree>>()
