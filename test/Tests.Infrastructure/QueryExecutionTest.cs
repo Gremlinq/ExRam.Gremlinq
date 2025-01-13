@@ -2731,6 +2731,12 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Verify();
 
         [Fact]
+        public virtual Task Tree_with_generic_overload() => _g
+            .V<Person>()
+            .Tree<Person>()
+            .Verify();
+
+        [Fact]
         public virtual Task Tree_with_explicit_cast() => _g
             .V<Person>()
             .Tree()
