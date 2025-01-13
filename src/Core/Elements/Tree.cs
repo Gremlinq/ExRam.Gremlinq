@@ -36,12 +36,12 @@ namespace ExRam.Gremlinq.Core
         IEnumerator IEnumerable.GetEnumerator() => ((IEnumerable)_inner).GetEnumerator();
     }
 
-    public class Tree<TRoot> : Tree<TRoot, Tree<TRoot>>
-        where TRoot : notnull
+    public class Tree<TNode> : Tree<TNode, Tree<TNode>>
+        where TNode : notnull
     {
-        public static new readonly Tree<TRoot> Empty = new (ImmutableDictionary<TRoot, Tree<TRoot>>.Empty);
+        public static new readonly Tree<TNode> Empty = new (ImmutableDictionary<TNode, Tree<TNode>>.Empty);
 
-        public Tree(IReadOnlyDictionary<TRoot, Tree<TRoot>> inner) : base(inner)
+        public Tree(IReadOnlyDictionary<TNode, Tree<TNode>> inner) : base(inner)
         {
         }
     }

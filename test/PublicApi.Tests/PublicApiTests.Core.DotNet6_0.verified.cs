@@ -1693,11 +1693,11 @@
         public static ExRam.Gremlinq.Core.Traversal Create<TState>(int length, TState state, System.Buffers.SpanAction<ExRam.Gremlinq.Core.Steps.Step, TState> action) { }
         public static ExRam.Gremlinq.Core.Traversal op_Implicit(ExRam.Gremlinq.Core.Steps.Step step) { }
     }
-    public class Tree<TRoot> : ExRam.Gremlinq.Core.Tree<TRoot, ExRam.Gremlinq.Core.Tree<TRoot>>
-        where TRoot :  notnull
+    public class Tree<TNode> : ExRam.Gremlinq.Core.Tree<TNode, ExRam.Gremlinq.Core.Tree<TNode>>
+        where TNode :  notnull
     {
-        public static readonly ExRam.Gremlinq.Core.Tree<TRoot> Empty;
-        public Tree(System.Collections.Generic.IReadOnlyDictionary<TRoot, ExRam.Gremlinq.Core.Tree<TRoot>> inner) { }
+        public static readonly ExRam.Gremlinq.Core.Tree<TNode> Empty;
+        public Tree(System.Collections.Generic.IReadOnlyDictionary<TNode, ExRam.Gremlinq.Core.Tree<TNode>> inner) { }
     }
     public class Tree<TRoot, TSubTree> : ExRam.Gremlinq.Core.ITree, System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<TRoot, TSubTree>>, System.Collections.Generic.IReadOnlyCollection<System.Collections.Generic.KeyValuePair<TRoot, TSubTree>>, System.Collections.Generic.IReadOnlyDictionary<TRoot, TSubTree>, System.Collections.IEnumerable
         where TRoot :  notnull
