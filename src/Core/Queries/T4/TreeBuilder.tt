@@ -47,7 +47,7 @@ namespace ExRam.Gremlinq.Core
 
             ITreeBuilder<<#= GetArgumentList("TNode{0}", i, false, true) #>TNewNode> ITreeBuilder<#= GetGenericArgumentList("TNode{0}", i) #>.Of<TNewNode>()
             {
-                return new TreeBuilder<<#= GetArgumentList("TNode{0}", i, false, true) #>TNewNode<#= GetArgumentList("object", maxParameters - 1 - i, true)#>>(_sourceQuery, _bySteps.Add(TreeStep.ByIdentityStep.Instance));
+                return new TreeBuilder<<#= GetArgumentList("TNode{0}", i, false, true) #>TNewNode<#= GetArgumentList("object", maxParameters - 1 - i, true)#>>(_sourceQuery, _bySteps.Push(TreeStep.ByIdentityStep.Instance));
             }
 <# } #>
 
@@ -55,7 +55,7 @@ namespace ExRam.Gremlinq.Core
 
             ITreeBuilder<<#= GetArgumentList("TNode{0}", i - 1, false, true) #> TNewNode> ITreeBuilder<#= GetGenericArgumentList("TNode{0}", i) #>.By<TNewNode>(Expression<Func<TNode<#= i  #>, TNewNode>> expression)
             {
-                return new TreeBuilder<<#= GetArgumentList("TNode{0}", i - 1, false, true) #>TNewNode<#= GetArgumentList("object", maxParameters - i, true)#>>(_sourceQuery, _bySteps.RemoveAt(_bySteps.Count - 1).Add(new TreeStep.ByKeyStep(_sourceQuery.GetKey(expression))));
+                return new TreeBuilder<<#= GetArgumentList("TNode{0}", i - 1, false, true) #>TNewNode<#= GetArgumentList("object", maxParameters - i, true)#>>(_sourceQuery, _bySteps.Pop().Push(new TreeStep.ByKeyStep(_sourceQuery.GetKey(expression))));
             }
 <# } #>
 
