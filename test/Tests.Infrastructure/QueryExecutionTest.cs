@@ -2790,6 +2790,39 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Verify();
 
         [Fact]
+        public virtual Task Tree_for_code_coverage() => _g
+            .V<Person>()
+            .Tree(_ => _
+                .Of<Person>().By(x => x.Age)
+                .Of<Person>().By(x => x.Age)
+                .Of<Person>().By(x => x.Age)
+                .Of<Person>().By(x => x.Age)
+                .Of<Person>().By(x => x.Age)
+                .Of<Person>().By(x => x.Age)
+                .Of<Person>().By(x => x.Age)
+                .Of<Person>().By(x => x.Age)
+                .Of<Person>().By(x => x.Age)
+                .Of<Person>().By(x => x.Age)
+                .Of<Person>().By(x => x.Age)
+                .Of<Person>().By(x => x.Age)
+                .Of<Person>().By(x => x.Age)
+                .Of<Person>().By(x => x.Age)
+                .Of<Person>().By(x => x.Age)
+                .Of<Person>().By(x => x.Age)
+                .Of<Person>().By(x => x.Age)
+                .Of<Person>().By(x => x.Age)
+                .Of<Person>().By(x => x.Age)
+                .Of<Person>().By(x => x.Age)
+                .Of<Person>().By(x => x.Age)
+                .Of<Person>().By(x => x.Age)
+                .Of<Person>().By(x => x.Age)
+                .Of<Person>().By(x => x.Age)
+                .Of<Person>().By(x => x.Age)
+                .Of<Person>().By(x => x.Age)
+                .Of<Person>().By(x => x.Age))
+            .Verify();
+
+        [Fact]
         public virtual Task Union() => _g
             .V<Person>()
             .Union(

@@ -1,0 +1,181 @@
+﻿{
+  StepInstructions: [
+    {
+      OperatorName: V
+    },
+    {
+      OperatorName: hasLabel,
+      Arguments: [
+        Person
+      ]
+    },
+    {
+      OperatorName: tree
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        Age
+      ]
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        Age
+      ]
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        Age
+      ]
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        Age
+      ]
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        Age
+      ]
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        Age
+      ]
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        Age
+      ]
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        Age
+      ]
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        Age
+      ]
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        Age
+      ]
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        Age
+      ]
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        Age
+      ]
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        Age
+      ]
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        Age
+      ]
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        Age
+      ]
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        Age
+      ]
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        Age
+      ]
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        Age
+      ]
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        Age
+      ]
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        Age
+      ]
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        Age
+      ]
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        Age
+      ]
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        Age
+      ]
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        Age
+      ]
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        Age
+      ]
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        Age
+      ]
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        Age
+      ]
+    },
+    {
+      OperatorName: by
+    }
+  ]
+}
