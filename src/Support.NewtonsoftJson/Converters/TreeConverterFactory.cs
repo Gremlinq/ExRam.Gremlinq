@@ -51,14 +51,14 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
             protected abstract TTree Create(IReadOnlyDictionary<TKey, TValue> dictionary);
         }
 
-        private sealed class TreeConverter<TKey> : TreeConverterBase<Tree<TKey>, TKey, Tree<object>>, IConverter<JToken, Tree<TKey>>
+        private sealed class TreeConverter<TKey> : TreeConverterBase<Tree<TKey>, TKey, Tree<TKey>>, IConverter<JToken, Tree<TKey>>
             where TKey : notnull
         {
             public TreeConverter(IGremlinQueryEnvironment environment) : base(environment)
             {
             }
 
-            protected override Tree<TKey> Create(IReadOnlyDictionary<TKey, Tree<object>> dictionary) => dictionary.Count == 0
+            protected override Tree<TKey> Create(IReadOnlyDictionary<TKey, Tree<TKey>> dictionary) => dictionary.Count == 0
                 ? Tree<TKey>.Empty
                 : new (dictionary);
         }

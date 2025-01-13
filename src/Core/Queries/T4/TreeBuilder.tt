@@ -8,7 +8,7 @@
 using ExRam.Gremlinq.Core.Steps;
 using System.Linq.Expressions;
 
-<# const int maxParameters = 29; #>
+<# const int maxParameters = 27; #>
 
 namespace ExRam.Gremlinq.Core
 {

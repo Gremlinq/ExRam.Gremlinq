@@ -922,7 +922,7 @@
     {
         ExRam.Gremlinq.Core.IGremlinQuery<TTree> Build();
     }
-    public interface ITreeBuilder<TNode1> : ExRam.Gremlinq.Core.ITreeBuilderResult<ExRam.Gremlinq.Core.Tree<TNode1>>
+    public interface ITreeBuilder<TNode1> : ExRam.Gremlinq.Core.ITreeBuilderResult<ExRam.Gremlinq.Core.Tree<TNode1, ExRam.Gremlinq.Core.Tree<object>>>
         where TNode1 :  notnull
     {
         ExRam.Gremlinq.Core.ITreeBuilder<TNewNode> By<TNewNode>(System.Linq.Expressions.Expression<System.Func<TNode1, TNewNode>> expression)
@@ -930,7 +930,7 @@
         ExRam.Gremlinq.Core.ITreeBuilder<TNode1, TNewNode> Of<TNewNode>()
             where TNewNode :  notnull;
     }
-    public interface ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10> : ExRam.Gremlinq.Core.ITreeBuilderResult<ExRam.Gremlinq.Core.Tree<TNode1, ExRam.Gremlinq.Core.Tree<TNode2, ExRam.Gremlinq.Core.Tree<TNode3, ExRam.Gremlinq.Core.Tree<TNode4, ExRam.Gremlinq.Core.Tree<TNode5, ExRam.Gremlinq.Core.Tree<TNode6, ExRam.Gremlinq.Core.Tree<TNode7, ExRam.Gremlinq.Core.Tree<TNode8, ExRam.Gremlinq.Core.Tree<TNode9, ExRam.Gremlinq.Core.Tree<TNode10>>>>>>>>>>>
+    public interface ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10> : ExRam.Gremlinq.Core.ITreeBuilderResult<ExRam.Gremlinq.Core.Tree<TNode1, ExRam.Gremlinq.Core.Tree<TNode2, ExRam.Gremlinq.Core.Tree<TNode3, ExRam.Gremlinq.Core.Tree<TNode4, ExRam.Gremlinq.Core.Tree<TNode5, ExRam.Gremlinq.Core.Tree<TNode6, ExRam.Gremlinq.Core.Tree<TNode7, ExRam.Gremlinq.Core.Tree<TNode8, ExRam.Gremlinq.Core.Tree<TNode9, ExRam.Gremlinq.Core.Tree<TNode10, ExRam.Gremlinq.Core.Tree<object>>>>>>>>>>>>
         where TNode1 :  notnull
         where TNode2 :  notnull
         where TNode3 :  notnull
@@ -947,7 +947,7 @@
         ExRam.Gremlinq.Core.ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNewNode> Of<TNewNode>()
             where TNewNode :  notnull;
     }
-    public interface ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11> : ExRam.Gremlinq.Core.ITreeBuilderResult<ExRam.Gremlinq.Core.Tree<TNode1, ExRam.Gremlinq.Core.Tree<TNode2, ExRam.Gremlinq.Core.Tree<TNode3, ExRam.Gremlinq.Core.Tree<TNode4, ExRam.Gremlinq.Core.Tree<TNode5, ExRam.Gremlinq.Core.Tree<TNode6, ExRam.Gremlinq.Core.Tree<TNode7, ExRam.Gremlinq.Core.Tree<TNode8, ExRam.Gremlinq.Core.Tree<TNode9, ExRam.Gremlinq.Core.Tree<TNode10, ExRam.Gremlinq.Core.Tree<TNode11>>>>>>>>>>>>
+    public interface ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11> : ExRam.Gremlinq.Core.ITreeBuilderResult<ExRam.Gremlinq.Core.Tree<TNode1, ExRam.Gremlinq.Core.Tree<TNode2, ExRam.Gremlinq.Core.Tree<TNode3, ExRam.Gremlinq.Core.Tree<TNode4, ExRam.Gremlinq.Core.Tree<TNode5, ExRam.Gremlinq.Core.Tree<TNode6, ExRam.Gremlinq.Core.Tree<TNode7, ExRam.Gremlinq.Core.Tree<TNode8, ExRam.Gremlinq.Core.Tree<TNode9, ExRam.Gremlinq.Core.Tree<TNode10, ExRam.Gremlinq.Core.Tree<TNode11, ExRam.Gremlinq.Core.Tree<object>>>>>>>>>>>>>
         where TNode1 :  notnull
         where TNode2 :  notnull
         where TNode3 :  notnull
@@ -965,7 +965,7 @@
         ExRam.Gremlinq.Core.ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNewNode> Of<TNewNode>()
             where TNewNode :  notnull;
     }
-    public interface ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12> : ExRam.Gremlinq.Core.ITreeBuilderResult<ExRam.Gremlinq.Core.Tree<TNode1, ExRam.Gremlinq.Core.Tree<TNode2, ExRam.Gremlinq.Core.Tree<TNode3, ExRam.Gremlinq.Core.Tree<TNode4, ExRam.Gremlinq.Core.Tree<TNode5, ExRam.Gremlinq.Core.Tree<TNode6, ExRam.Gremlinq.Core.Tree<TNode7, ExRam.Gremlinq.Core.Tree<TNode8, ExRam.Gremlinq.Core.Tree<TNode9, ExRam.Gremlinq.Core.Tree<TNode10, ExRam.Gremlinq.Core.Tree<TNode11, ExRam.Gremlinq.Core.Tree<TNode12>>>>>>>>>>>>>
+    public interface ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12> : ExRam.Gremlinq.Core.ITreeBuilderResult<ExRam.Gremlinq.Core.Tree<TNode1, ExRam.Gremlinq.Core.Tree<TNode2, ExRam.Gremlinq.Core.Tree<TNode3, ExRam.Gremlinq.Core.Tree<TNode4, ExRam.Gremlinq.Core.Tree<TNode5, ExRam.Gremlinq.Core.Tree<TNode6, ExRam.Gremlinq.Core.Tree<TNode7, ExRam.Gremlinq.Core.Tree<TNode8, ExRam.Gremlinq.Core.Tree<TNode9, ExRam.Gremlinq.Core.Tree<TNode10, ExRam.Gremlinq.Core.Tree<TNode11, ExRam.Gremlinq.Core.Tree<TNode12, ExRam.Gremlinq.Core.Tree<object>>>>>>>>>>>>>>
         where TNode1 :  notnull
         where TNode2 :  notnull
         where TNode3 :  notnull
@@ -984,7 +984,7 @@
         ExRam.Gremlinq.Core.ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNewNode> Of<TNewNode>()
             where TNewNode :  notnull;
     }
-    public interface ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13> : ExRam.Gremlinq.Core.ITreeBuilderResult<ExRam.Gremlinq.Core.Tree<TNode1, ExRam.Gremlinq.Core.Tree<TNode2, ExRam.Gremlinq.Core.Tree<TNode3, ExRam.Gremlinq.Core.Tree<TNode4, ExRam.Gremlinq.Core.Tree<TNode5, ExRam.Gremlinq.Core.Tree<TNode6, ExRam.Gremlinq.Core.Tree<TNode7, ExRam.Gremlinq.Core.Tree<TNode8, ExRam.Gremlinq.Core.Tree<TNode9, ExRam.Gremlinq.Core.Tree<TNode10, ExRam.Gremlinq.Core.Tree<TNode11, ExRam.Gremlinq.Core.Tree<TNode12, ExRam.Gremlinq.Core.Tree<TNode13>>>>>>>>>>>>>>
+    public interface ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13> : ExRam.Gremlinq.Core.ITreeBuilderResult<ExRam.Gremlinq.Core.Tree<TNode1, ExRam.Gremlinq.Core.Tree<TNode2, ExRam.Gremlinq.Core.Tree<TNode3, ExRam.Gremlinq.Core.Tree<TNode4, ExRam.Gremlinq.Core.Tree<TNode5, ExRam.Gremlinq.Core.Tree<TNode6, ExRam.Gremlinq.Core.Tree<TNode7, ExRam.Gremlinq.Core.Tree<TNode8, ExRam.Gremlinq.Core.Tree<TNode9, ExRam.Gremlinq.Core.Tree<TNode10, ExRam.Gremlinq.Core.Tree<TNode11, ExRam.Gremlinq.Core.Tree<TNode12, ExRam.Gremlinq.Core.Tree<TNode13, ExRam.Gremlinq.Core.Tree<object>>>>>>>>>>>>>>>
         where TNode1 :  notnull
         where TNode2 :  notnull
         where TNode3 :  notnull
@@ -1004,7 +1004,7 @@
         ExRam.Gremlinq.Core.ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNewNode> Of<TNewNode>()
             where TNewNode :  notnull;
     }
-    public interface ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14> : ExRam.Gremlinq.Core.ITreeBuilderResult<ExRam.Gremlinq.Core.Tree<TNode1, ExRam.Gremlinq.Core.Tree<TNode2, ExRam.Gremlinq.Core.Tree<TNode3, ExRam.Gremlinq.Core.Tree<TNode4, ExRam.Gremlinq.Core.Tree<TNode5, ExRam.Gremlinq.Core.Tree<TNode6, ExRam.Gremlinq.Core.Tree<TNode7, ExRam.Gremlinq.Core.Tree<TNode8, ExRam.Gremlinq.Core.Tree<TNode9, ExRam.Gremlinq.Core.Tree<TNode10, ExRam.Gremlinq.Core.Tree<TNode11, ExRam.Gremlinq.Core.Tree<TNode12, ExRam.Gremlinq.Core.Tree<TNode13, ExRam.Gremlinq.Core.Tree<TNode14>>>>>>>>>>>>>>>
+    public interface ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14> : ExRam.Gremlinq.Core.ITreeBuilderResult<ExRam.Gremlinq.Core.Tree<TNode1, ExRam.Gremlinq.Core.Tree<TNode2, ExRam.Gremlinq.Core.Tree<TNode3, ExRam.Gremlinq.Core.Tree<TNode4, ExRam.Gremlinq.Core.Tree<TNode5, ExRam.Gremlinq.Core.Tree<TNode6, ExRam.Gremlinq.Core.Tree<TNode7, ExRam.Gremlinq.Core.Tree<TNode8, ExRam.Gremlinq.Core.Tree<TNode9, ExRam.Gremlinq.Core.Tree<TNode10, ExRam.Gremlinq.Core.Tree<TNode11, ExRam.Gremlinq.Core.Tree<TNode12, ExRam.Gremlinq.Core.Tree<TNode13, ExRam.Gremlinq.Core.Tree<TNode14, ExRam.Gremlinq.Core.Tree<object>>>>>>>>>>>>>>>>
         where TNode1 :  notnull
         where TNode2 :  notnull
         where TNode3 :  notnull
@@ -1025,7 +1025,7 @@
         ExRam.Gremlinq.Core.ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNewNode> Of<TNewNode>()
             where TNewNode :  notnull;
     }
-    public interface ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNode15> : ExRam.Gremlinq.Core.ITreeBuilderResult<ExRam.Gremlinq.Core.Tree<TNode1, ExRam.Gremlinq.Core.Tree<TNode2, ExRam.Gremlinq.Core.Tree<TNode3, ExRam.Gremlinq.Core.Tree<TNode4, ExRam.Gremlinq.Core.Tree<TNode5, ExRam.Gremlinq.Core.Tree<TNode6, ExRam.Gremlinq.Core.Tree<TNode7, ExRam.Gremlinq.Core.Tree<TNode8, ExRam.Gremlinq.Core.Tree<TNode9, ExRam.Gremlinq.Core.Tree<TNode10, ExRam.Gremlinq.Core.Tree<TNode11, ExRam.Gremlinq.Core.Tree<TNode12, ExRam.Gremlinq.Core.Tree<TNode13, ExRam.Gremlinq.Core.Tree<TNode14, ExRam.Gremlinq.Core.Tree<TNode15>>>>>>>>>>>>>>>>
+    public interface ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNode15> : ExRam.Gremlinq.Core.ITreeBuilderResult<ExRam.Gremlinq.Core.Tree<TNode1, ExRam.Gremlinq.Core.Tree<TNode2, ExRam.Gremlinq.Core.Tree<TNode3, ExRam.Gremlinq.Core.Tree<TNode4, ExRam.Gremlinq.Core.Tree<TNode5, ExRam.Gremlinq.Core.Tree<TNode6, ExRam.Gremlinq.Core.Tree<TNode7, ExRam.Gremlinq.Core.Tree<TNode8, ExRam.Gremlinq.Core.Tree<TNode9, ExRam.Gremlinq.Core.Tree<TNode10, ExRam.Gremlinq.Core.Tree<TNode11, ExRam.Gremlinq.Core.Tree<TNode12, ExRam.Gremlinq.Core.Tree<TNode13, ExRam.Gremlinq.Core.Tree<TNode14, ExRam.Gremlinq.Core.Tree<TNode15, ExRam.Gremlinq.Core.Tree<object>>>>>>>>>>>>>>>>>
         where TNode1 :  notnull
         where TNode2 :  notnull
         where TNode3 :  notnull
@@ -1047,7 +1047,7 @@
         ExRam.Gremlinq.Core.ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNode15, TNewNode> Of<TNewNode>()
             where TNewNode :  notnull;
     }
-    public interface ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNode15, TNode16> : ExRam.Gremlinq.Core.ITreeBuilderResult<ExRam.Gremlinq.Core.Tree<TNode1, ExRam.Gremlinq.Core.Tree<TNode2, ExRam.Gremlinq.Core.Tree<TNode3, ExRam.Gremlinq.Core.Tree<TNode4, ExRam.Gremlinq.Core.Tree<TNode5, ExRam.Gremlinq.Core.Tree<TNode6, ExRam.Gremlinq.Core.Tree<TNode7, ExRam.Gremlinq.Core.Tree<TNode8, ExRam.Gremlinq.Core.Tree<TNode9, ExRam.Gremlinq.Core.Tree<TNode10, ExRam.Gremlinq.Core.Tree<TNode11, ExRam.Gremlinq.Core.Tree<TNode12, ExRam.Gremlinq.Core.Tree<TNode13, ExRam.Gremlinq.Core.Tree<TNode14, ExRam.Gremlinq.Core.Tree<TNode15, ExRam.Gremlinq.Core.Tree<TNode16>>>>>>>>>>>>>>>>>
+    public interface ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNode15, TNode16> : ExRam.Gremlinq.Core.ITreeBuilderResult<ExRam.Gremlinq.Core.Tree<TNode1, ExRam.Gremlinq.Core.Tree<TNode2, ExRam.Gremlinq.Core.Tree<TNode3, ExRam.Gremlinq.Core.Tree<TNode4, ExRam.Gremlinq.Core.Tree<TNode5, ExRam.Gremlinq.Core.Tree<TNode6, ExRam.Gremlinq.Core.Tree<TNode7, ExRam.Gremlinq.Core.Tree<TNode8, ExRam.Gremlinq.Core.Tree<TNode9, ExRam.Gremlinq.Core.Tree<TNode10, ExRam.Gremlinq.Core.Tree<TNode11, ExRam.Gremlinq.Core.Tree<TNode12, ExRam.Gremlinq.Core.Tree<TNode13, ExRam.Gremlinq.Core.Tree<TNode14, ExRam.Gremlinq.Core.Tree<TNode15, ExRam.Gremlinq.Core.Tree<TNode16, ExRam.Gremlinq.Core.Tree<object>>>>>>>>>>>>>>>>>>
         where TNode1 :  notnull
         where TNode2 :  notnull
         where TNode3 :  notnull
@@ -1070,7 +1070,7 @@
         ExRam.Gremlinq.Core.ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNode15, TNode16, TNewNode> Of<TNewNode>()
             where TNewNode :  notnull;
     }
-    public interface ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNode15, TNode16, TNode17> : ExRam.Gremlinq.Core.ITreeBuilderResult<ExRam.Gremlinq.Core.Tree<TNode1, ExRam.Gremlinq.Core.Tree<TNode2, ExRam.Gremlinq.Core.Tree<TNode3, ExRam.Gremlinq.Core.Tree<TNode4, ExRam.Gremlinq.Core.Tree<TNode5, ExRam.Gremlinq.Core.Tree<TNode6, ExRam.Gremlinq.Core.Tree<TNode7, ExRam.Gremlinq.Core.Tree<TNode8, ExRam.Gremlinq.Core.Tree<TNode9, ExRam.Gremlinq.Core.Tree<TNode10, ExRam.Gremlinq.Core.Tree<TNode11, ExRam.Gremlinq.Core.Tree<TNode12, ExRam.Gremlinq.Core.Tree<TNode13, ExRam.Gremlinq.Core.Tree<TNode14, ExRam.Gremlinq.Core.Tree<TNode15, ExRam.Gremlinq.Core.Tree<TNode16, ExRam.Gremlinq.Core.Tree<TNode17>>>>>>>>>>>>>>>>>>
+    public interface ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNode15, TNode16, TNode17> : ExRam.Gremlinq.Core.ITreeBuilderResult<ExRam.Gremlinq.Core.Tree<TNode1, ExRam.Gremlinq.Core.Tree<TNode2, ExRam.Gremlinq.Core.Tree<TNode3, ExRam.Gremlinq.Core.Tree<TNode4, ExRam.Gremlinq.Core.Tree<TNode5, ExRam.Gremlinq.Core.Tree<TNode6, ExRam.Gremlinq.Core.Tree<TNode7, ExRam.Gremlinq.Core.Tree<TNode8, ExRam.Gremlinq.Core.Tree<TNode9, ExRam.Gremlinq.Core.Tree<TNode10, ExRam.Gremlinq.Core.Tree<TNode11, ExRam.Gremlinq.Core.Tree<TNode12, ExRam.Gremlinq.Core.Tree<TNode13, ExRam.Gremlinq.Core.Tree<TNode14, ExRam.Gremlinq.Core.Tree<TNode15, ExRam.Gremlinq.Core.Tree<TNode16, ExRam.Gremlinq.Core.Tree<TNode17, ExRam.Gremlinq.Core.Tree<object>>>>>>>>>>>>>>>>>>>
         where TNode1 :  notnull
         where TNode2 :  notnull
         where TNode3 :  notnull
@@ -1094,7 +1094,7 @@
         ExRam.Gremlinq.Core.ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNode15, TNode16, TNode17, TNewNode> Of<TNewNode>()
             where TNewNode :  notnull;
     }
-    public interface ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNode15, TNode16, TNode17, TNode18> : ExRam.Gremlinq.Core.ITreeBuilderResult<ExRam.Gremlinq.Core.Tree<TNode1, ExRam.Gremlinq.Core.Tree<TNode2, ExRam.Gremlinq.Core.Tree<TNode3, ExRam.Gremlinq.Core.Tree<TNode4, ExRam.Gremlinq.Core.Tree<TNode5, ExRam.Gremlinq.Core.Tree<TNode6, ExRam.Gremlinq.Core.Tree<TNode7, ExRam.Gremlinq.Core.Tree<TNode8, ExRam.Gremlinq.Core.Tree<TNode9, ExRam.Gremlinq.Core.Tree<TNode10, ExRam.Gremlinq.Core.Tree<TNode11, ExRam.Gremlinq.Core.Tree<TNode12, ExRam.Gremlinq.Core.Tree<TNode13, ExRam.Gremlinq.Core.Tree<TNode14, ExRam.Gremlinq.Core.Tree<TNode15, ExRam.Gremlinq.Core.Tree<TNode16, ExRam.Gremlinq.Core.Tree<TNode17, ExRam.Gremlinq.Core.Tree<TNode18>>>>>>>>>>>>>>>>>>>
+    public interface ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNode15, TNode16, TNode17, TNode18> : ExRam.Gremlinq.Core.ITreeBuilderResult<ExRam.Gremlinq.Core.Tree<TNode1, ExRam.Gremlinq.Core.Tree<TNode2, ExRam.Gremlinq.Core.Tree<TNode3, ExRam.Gremlinq.Core.Tree<TNode4, ExRam.Gremlinq.Core.Tree<TNode5, ExRam.Gremlinq.Core.Tree<TNode6, ExRam.Gremlinq.Core.Tree<TNode7, ExRam.Gremlinq.Core.Tree<TNode8, ExRam.Gremlinq.Core.Tree<TNode9, ExRam.Gremlinq.Core.Tree<TNode10, ExRam.Gremlinq.Core.Tree<TNode11, ExRam.Gremlinq.Core.Tree<TNode12, ExRam.Gremlinq.Core.Tree<TNode13, ExRam.Gremlinq.Core.Tree<TNode14, ExRam.Gremlinq.Core.Tree<TNode15, ExRam.Gremlinq.Core.Tree<TNode16, ExRam.Gremlinq.Core.Tree<TNode17, ExRam.Gremlinq.Core.Tree<TNode18, ExRam.Gremlinq.Core.Tree<object>>>>>>>>>>>>>>>>>>>>
         where TNode1 :  notnull
         where TNode2 :  notnull
         where TNode3 :  notnull
@@ -1119,7 +1119,7 @@
         ExRam.Gremlinq.Core.ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNode15, TNode16, TNode17, TNode18, TNewNode> Of<TNewNode>()
             where TNewNode :  notnull;
     }
-    public interface ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNode15, TNode16, TNode17, TNode18, TNode19> : ExRam.Gremlinq.Core.ITreeBuilderResult<ExRam.Gremlinq.Core.Tree<TNode1, ExRam.Gremlinq.Core.Tree<TNode2, ExRam.Gremlinq.Core.Tree<TNode3, ExRam.Gremlinq.Core.Tree<TNode4, ExRam.Gremlinq.Core.Tree<TNode5, ExRam.Gremlinq.Core.Tree<TNode6, ExRam.Gremlinq.Core.Tree<TNode7, ExRam.Gremlinq.Core.Tree<TNode8, ExRam.Gremlinq.Core.Tree<TNode9, ExRam.Gremlinq.Core.Tree<TNode10, ExRam.Gremlinq.Core.Tree<TNode11, ExRam.Gremlinq.Core.Tree<TNode12, ExRam.Gremlinq.Core.Tree<TNode13, ExRam.Gremlinq.Core.Tree<TNode14, ExRam.Gremlinq.Core.Tree<TNode15, ExRam.Gremlinq.Core.Tree<TNode16, ExRam.Gremlinq.Core.Tree<TNode17, ExRam.Gremlinq.Core.Tree<TNode18, ExRam.Gremlinq.Core.Tree<TNode19>>>>>>>>>>>>>>>>>>>>
+    public interface ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNode15, TNode16, TNode17, TNode18, TNode19> : ExRam.Gremlinq.Core.ITreeBuilderResult<ExRam.Gremlinq.Core.Tree<TNode1, ExRam.Gremlinq.Core.Tree<TNode2, ExRam.Gremlinq.Core.Tree<TNode3, ExRam.Gremlinq.Core.Tree<TNode4, ExRam.Gremlinq.Core.Tree<TNode5, ExRam.Gremlinq.Core.Tree<TNode6, ExRam.Gremlinq.Core.Tree<TNode7, ExRam.Gremlinq.Core.Tree<TNode8, ExRam.Gremlinq.Core.Tree<TNode9, ExRam.Gremlinq.Core.Tree<TNode10, ExRam.Gremlinq.Core.Tree<TNode11, ExRam.Gremlinq.Core.Tree<TNode12, ExRam.Gremlinq.Core.Tree<TNode13, ExRam.Gremlinq.Core.Tree<TNode14, ExRam.Gremlinq.Core.Tree<TNode15, ExRam.Gremlinq.Core.Tree<TNode16, ExRam.Gremlinq.Core.Tree<TNode17, ExRam.Gremlinq.Core.Tree<TNode18, ExRam.Gremlinq.Core.Tree<TNode19, ExRam.Gremlinq.Core.Tree<object>>>>>>>>>>>>>>>>>>>>>
         where TNode1 :  notnull
         where TNode2 :  notnull
         where TNode3 :  notnull
@@ -1145,7 +1145,7 @@
         ExRam.Gremlinq.Core.ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNode15, TNode16, TNode17, TNode18, TNode19, TNewNode> Of<TNewNode>()
             where TNewNode :  notnull;
     }
-    public interface ITreeBuilder<TNode1, TNode2> : ExRam.Gremlinq.Core.ITreeBuilderResult<ExRam.Gremlinq.Core.Tree<TNode1, ExRam.Gremlinq.Core.Tree<TNode2>>>
+    public interface ITreeBuilder<TNode1, TNode2> : ExRam.Gremlinq.Core.ITreeBuilderResult<ExRam.Gremlinq.Core.Tree<TNode1, ExRam.Gremlinq.Core.Tree<TNode2, ExRam.Gremlinq.Core.Tree<object>>>>
         where TNode1 :  notnull
         where TNode2 :  notnull
     {
@@ -1154,7 +1154,7 @@
         ExRam.Gremlinq.Core.ITreeBuilder<TNode1, TNode2, TNewNode> Of<TNewNode>()
             where TNewNode :  notnull;
     }
-    public interface ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNode15, TNode16, TNode17, TNode18, TNode19, TNode20> : ExRam.Gremlinq.Core.ITreeBuilderResult<ExRam.Gremlinq.Core.Tree<TNode1, ExRam.Gremlinq.Core.Tree<TNode2, ExRam.Gremlinq.Core.Tree<TNode3, ExRam.Gremlinq.Core.Tree<TNode4, ExRam.Gremlinq.Core.Tree<TNode5, ExRam.Gremlinq.Core.Tree<TNode6, ExRam.Gremlinq.Core.Tree<TNode7, ExRam.Gremlinq.Core.Tree<TNode8, ExRam.Gremlinq.Core.Tree<TNode9, ExRam.Gremlinq.Core.Tree<TNode10, ExRam.Gremlinq.Core.Tree<TNode11, ExRam.Gremlinq.Core.Tree<TNode12, ExRam.Gremlinq.Core.Tree<TNode13, ExRam.Gremlinq.Core.Tree<TNode14, ExRam.Gremlinq.Core.Tree<TNode15, ExRam.Gremlinq.Core.Tree<TNode16, ExRam.Gremlinq.Core.Tree<TNode17, ExRam.Gremlinq.Core.Tree<TNode18, ExRam.Gremlinq.Core.Tree<TNode19, ExRam.Gremlinq.Core.Tree<TNode20>>>>>>>>>>>>>>>>>>>>>
+    public interface ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNode15, TNode16, TNode17, TNode18, TNode19, TNode20> : ExRam.Gremlinq.Core.ITreeBuilderResult<ExRam.Gremlinq.Core.Tree<TNode1, ExRam.Gremlinq.Core.Tree<TNode2, ExRam.Gremlinq.Core.Tree<TNode3, ExRam.Gremlinq.Core.Tree<TNode4, ExRam.Gremlinq.Core.Tree<TNode5, ExRam.Gremlinq.Core.Tree<TNode6, ExRam.Gremlinq.Core.Tree<TNode7, ExRam.Gremlinq.Core.Tree<TNode8, ExRam.Gremlinq.Core.Tree<TNode9, ExRam.Gremlinq.Core.Tree<TNode10, ExRam.Gremlinq.Core.Tree<TNode11, ExRam.Gremlinq.Core.Tree<TNode12, ExRam.Gremlinq.Core.Tree<TNode13, ExRam.Gremlinq.Core.Tree<TNode14, ExRam.Gremlinq.Core.Tree<TNode15, ExRam.Gremlinq.Core.Tree<TNode16, ExRam.Gremlinq.Core.Tree<TNode17, ExRam.Gremlinq.Core.Tree<TNode18, ExRam.Gremlinq.Core.Tree<TNode19, ExRam.Gremlinq.Core.Tree<TNode20, ExRam.Gremlinq.Core.Tree<object>>>>>>>>>>>>>>>>>>>>>>
         where TNode1 :  notnull
         where TNode2 :  notnull
         where TNode3 :  notnull
@@ -1181,7 +1181,7 @@
         ExRam.Gremlinq.Core.ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNode15, TNode16, TNode17, TNode18, TNode19, TNode20, TNewNode> Of<TNewNode>()
             where TNewNode :  notnull;
     }
-    public interface ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNode15, TNode16, TNode17, TNode18, TNode19, TNode20, TNode21> : ExRam.Gremlinq.Core.ITreeBuilderResult<ExRam.Gremlinq.Core.Tree<TNode1, ExRam.Gremlinq.Core.Tree<TNode2, ExRam.Gremlinq.Core.Tree<TNode3, ExRam.Gremlinq.Core.Tree<TNode4, ExRam.Gremlinq.Core.Tree<TNode5, ExRam.Gremlinq.Core.Tree<TNode6, ExRam.Gremlinq.Core.Tree<TNode7, ExRam.Gremlinq.Core.Tree<TNode8, ExRam.Gremlinq.Core.Tree<TNode9, ExRam.Gremlinq.Core.Tree<TNode10, ExRam.Gremlinq.Core.Tree<TNode11, ExRam.Gremlinq.Core.Tree<TNode12, ExRam.Gremlinq.Core.Tree<TNode13, ExRam.Gremlinq.Core.Tree<TNode14, ExRam.Gremlinq.Core.Tree<TNode15, ExRam.Gremlinq.Core.Tree<TNode16, ExRam.Gremlinq.Core.Tree<TNode17, ExRam.Gremlinq.Core.Tree<TNode18, ExRam.Gremlinq.Core.Tree<TNode19, ExRam.Gremlinq.Core.Tree<TNode20, ExRam.Gremlinq.Core.Tree<TNode21>>>>>>>>>>>>>>>>>>>>>>
+    public interface ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNode15, TNode16, TNode17, TNode18, TNode19, TNode20, TNode21> : ExRam.Gremlinq.Core.ITreeBuilderResult<ExRam.Gremlinq.Core.Tree<TNode1, ExRam.Gremlinq.Core.Tree<TNode2, ExRam.Gremlinq.Core.Tree<TNode3, ExRam.Gremlinq.Core.Tree<TNode4, ExRam.Gremlinq.Core.Tree<TNode5, ExRam.Gremlinq.Core.Tree<TNode6, ExRam.Gremlinq.Core.Tree<TNode7, ExRam.Gremlinq.Core.Tree<TNode8, ExRam.Gremlinq.Core.Tree<TNode9, ExRam.Gremlinq.Core.Tree<TNode10, ExRam.Gremlinq.Core.Tree<TNode11, ExRam.Gremlinq.Core.Tree<TNode12, ExRam.Gremlinq.Core.Tree<TNode13, ExRam.Gremlinq.Core.Tree<TNode14, ExRam.Gremlinq.Core.Tree<TNode15, ExRam.Gremlinq.Core.Tree<TNode16, ExRam.Gremlinq.Core.Tree<TNode17, ExRam.Gremlinq.Core.Tree<TNode18, ExRam.Gremlinq.Core.Tree<TNode19, ExRam.Gremlinq.Core.Tree<TNode20, ExRam.Gremlinq.Core.Tree<TNode21, ExRam.Gremlinq.Core.Tree<object>>>>>>>>>>>>>>>>>>>>>>>
         where TNode1 :  notnull
         where TNode2 :  notnull
         where TNode3 :  notnull
@@ -1209,7 +1209,7 @@
         ExRam.Gremlinq.Core.ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNode15, TNode16, TNode17, TNode18, TNode19, TNode20, TNode21, TNewNode> Of<TNewNode>()
             where TNewNode :  notnull;
     }
-    public interface ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNode15, TNode16, TNode17, TNode18, TNode19, TNode20, TNode21, TNode22> : ExRam.Gremlinq.Core.ITreeBuilderResult<ExRam.Gremlinq.Core.Tree<TNode1, ExRam.Gremlinq.Core.Tree<TNode2, ExRam.Gremlinq.Core.Tree<TNode3, ExRam.Gremlinq.Core.Tree<TNode4, ExRam.Gremlinq.Core.Tree<TNode5, ExRam.Gremlinq.Core.Tree<TNode6, ExRam.Gremlinq.Core.Tree<TNode7, ExRam.Gremlinq.Core.Tree<TNode8, ExRam.Gremlinq.Core.Tree<TNode9, ExRam.Gremlinq.Core.Tree<TNode10, ExRam.Gremlinq.Core.Tree<TNode11, ExRam.Gremlinq.Core.Tree<TNode12, ExRam.Gremlinq.Core.Tree<TNode13, ExRam.Gremlinq.Core.Tree<TNode14, ExRam.Gremlinq.Core.Tree<TNode15, ExRam.Gremlinq.Core.Tree<TNode16, ExRam.Gremlinq.Core.Tree<TNode17, ExRam.Gremlinq.Core.Tree<TNode18, ExRam.Gremlinq.Core.Tree<TNode19, ExRam.Gremlinq.Core.Tree<TNode20, ExRam.Gremlinq.Core.Tree<TNode21, ExRam.Gremlinq.Core.Tree<TNode22>>>>>>>>>>>>>>>>>>>>>>>
+    public interface ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNode15, TNode16, TNode17, TNode18, TNode19, TNode20, TNode21, TNode22> : ExRam.Gremlinq.Core.ITreeBuilderResult<ExRam.Gremlinq.Core.Tree<TNode1, ExRam.Gremlinq.Core.Tree<TNode2, ExRam.Gremlinq.Core.Tree<TNode3, ExRam.Gremlinq.Core.Tree<TNode4, ExRam.Gremlinq.Core.Tree<TNode5, ExRam.Gremlinq.Core.Tree<TNode6, ExRam.Gremlinq.Core.Tree<TNode7, ExRam.Gremlinq.Core.Tree<TNode8, ExRam.Gremlinq.Core.Tree<TNode9, ExRam.Gremlinq.Core.Tree<TNode10, ExRam.Gremlinq.Core.Tree<TNode11, ExRam.Gremlinq.Core.Tree<TNode12, ExRam.Gremlinq.Core.Tree<TNode13, ExRam.Gremlinq.Core.Tree<TNode14, ExRam.Gremlinq.Core.Tree<TNode15, ExRam.Gremlinq.Core.Tree<TNode16, ExRam.Gremlinq.Core.Tree<TNode17, ExRam.Gremlinq.Core.Tree<TNode18, ExRam.Gremlinq.Core.Tree<TNode19, ExRam.Gremlinq.Core.Tree<TNode20, ExRam.Gremlinq.Core.Tree<TNode21, ExRam.Gremlinq.Core.Tree<TNode22, ExRam.Gremlinq.Core.Tree<object>>>>>>>>>>>>>>>>>>>>>>>>
         where TNode1 :  notnull
         where TNode2 :  notnull
         where TNode3 :  notnull
@@ -1238,7 +1238,7 @@
         ExRam.Gremlinq.Core.ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNode15, TNode16, TNode17, TNode18, TNode19, TNode20, TNode21, TNode22, TNewNode> Of<TNewNode>()
             where TNewNode :  notnull;
     }
-    public interface ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNode15, TNode16, TNode17, TNode18, TNode19, TNode20, TNode21, TNode22, TNode23> : ExRam.Gremlinq.Core.ITreeBuilderResult<ExRam.Gremlinq.Core.Tree<TNode1, ExRam.Gremlinq.Core.Tree<TNode2, ExRam.Gremlinq.Core.Tree<TNode3, ExRam.Gremlinq.Core.Tree<TNode4, ExRam.Gremlinq.Core.Tree<TNode5, ExRam.Gremlinq.Core.Tree<TNode6, ExRam.Gremlinq.Core.Tree<TNode7, ExRam.Gremlinq.Core.Tree<TNode8, ExRam.Gremlinq.Core.Tree<TNode9, ExRam.Gremlinq.Core.Tree<TNode10, ExRam.Gremlinq.Core.Tree<TNode11, ExRam.Gremlinq.Core.Tree<TNode12, ExRam.Gremlinq.Core.Tree<TNode13, ExRam.Gremlinq.Core.Tree<TNode14, ExRam.Gremlinq.Core.Tree<TNode15, ExRam.Gremlinq.Core.Tree<TNode16, ExRam.Gremlinq.Core.Tree<TNode17, ExRam.Gremlinq.Core.Tree<TNode18, ExRam.Gremlinq.Core.Tree<TNode19, ExRam.Gremlinq.Core.Tree<TNode20, ExRam.Gremlinq.Core.Tree<TNode21, ExRam.Gremlinq.Core.Tree<TNode22, ExRam.Gremlinq.Core.Tree<TNode23>>>>>>>>>>>>>>>>>>>>>>>>
+    public interface ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNode15, TNode16, TNode17, TNode18, TNode19, TNode20, TNode21, TNode22, TNode23> : ExRam.Gremlinq.Core.ITreeBuilderResult<ExRam.Gremlinq.Core.Tree<TNode1, ExRam.Gremlinq.Core.Tree<TNode2, ExRam.Gremlinq.Core.Tree<TNode3, ExRam.Gremlinq.Core.Tree<TNode4, ExRam.Gremlinq.Core.Tree<TNode5, ExRam.Gremlinq.Core.Tree<TNode6, ExRam.Gremlinq.Core.Tree<TNode7, ExRam.Gremlinq.Core.Tree<TNode8, ExRam.Gremlinq.Core.Tree<TNode9, ExRam.Gremlinq.Core.Tree<TNode10, ExRam.Gremlinq.Core.Tree<TNode11, ExRam.Gremlinq.Core.Tree<TNode12, ExRam.Gremlinq.Core.Tree<TNode13, ExRam.Gremlinq.Core.Tree<TNode14, ExRam.Gremlinq.Core.Tree<TNode15, ExRam.Gremlinq.Core.Tree<TNode16, ExRam.Gremlinq.Core.Tree<TNode17, ExRam.Gremlinq.Core.Tree<TNode18, ExRam.Gremlinq.Core.Tree<TNode19, ExRam.Gremlinq.Core.Tree<TNode20, ExRam.Gremlinq.Core.Tree<TNode21, ExRam.Gremlinq.Core.Tree<TNode22, ExRam.Gremlinq.Core.Tree<TNode23, ExRam.Gremlinq.Core.Tree<object>>>>>>>>>>>>>>>>>>>>>>>>>
         where TNode1 :  notnull
         where TNode2 :  notnull
         where TNode3 :  notnull
@@ -1268,7 +1268,7 @@
         ExRam.Gremlinq.Core.ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNode15, TNode16, TNode17, TNode18, TNode19, TNode20, TNode21, TNode22, TNode23, TNewNode> Of<TNewNode>()
             where TNewNode :  notnull;
     }
-    public interface ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNode15, TNode16, TNode17, TNode18, TNode19, TNode20, TNode21, TNode22, TNode23, TNode24> : ExRam.Gremlinq.Core.ITreeBuilderResult<ExRam.Gremlinq.Core.Tree<TNode1, ExRam.Gremlinq.Core.Tree<TNode2, ExRam.Gremlinq.Core.Tree<TNode3, ExRam.Gremlinq.Core.Tree<TNode4, ExRam.Gremlinq.Core.Tree<TNode5, ExRam.Gremlinq.Core.Tree<TNode6, ExRam.Gremlinq.Core.Tree<TNode7, ExRam.Gremlinq.Core.Tree<TNode8, ExRam.Gremlinq.Core.Tree<TNode9, ExRam.Gremlinq.Core.Tree<TNode10, ExRam.Gremlinq.Core.Tree<TNode11, ExRam.Gremlinq.Core.Tree<TNode12, ExRam.Gremlinq.Core.Tree<TNode13, ExRam.Gremlinq.Core.Tree<TNode14, ExRam.Gremlinq.Core.Tree<TNode15, ExRam.Gremlinq.Core.Tree<TNode16, ExRam.Gremlinq.Core.Tree<TNode17, ExRam.Gremlinq.Core.Tree<TNode18, ExRam.Gremlinq.Core.Tree<TNode19, ExRam.Gremlinq.Core.Tree<TNode20, ExRam.Gremlinq.Core.Tree<TNode21, ExRam.Gremlinq.Core.Tree<TNode22, ExRam.Gremlinq.Core.Tree<TNode23, ExRam.Gremlinq.Core.Tree<TNode24>>>>>>>>>>>>>>>>>>>>>>>>>
+    public interface ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNode15, TNode16, TNode17, TNode18, TNode19, TNode20, TNode21, TNode22, TNode23, TNode24> : ExRam.Gremlinq.Core.ITreeBuilderResult<ExRam.Gremlinq.Core.Tree<TNode1, ExRam.Gremlinq.Core.Tree<TNode2, ExRam.Gremlinq.Core.Tree<TNode3, ExRam.Gremlinq.Core.Tree<TNode4, ExRam.Gremlinq.Core.Tree<TNode5, ExRam.Gremlinq.Core.Tree<TNode6, ExRam.Gremlinq.Core.Tree<TNode7, ExRam.Gremlinq.Core.Tree<TNode8, ExRam.Gremlinq.Core.Tree<TNode9, ExRam.Gremlinq.Core.Tree<TNode10, ExRam.Gremlinq.Core.Tree<TNode11, ExRam.Gremlinq.Core.Tree<TNode12, ExRam.Gremlinq.Core.Tree<TNode13, ExRam.Gremlinq.Core.Tree<TNode14, ExRam.Gremlinq.Core.Tree<TNode15, ExRam.Gremlinq.Core.Tree<TNode16, ExRam.Gremlinq.Core.Tree<TNode17, ExRam.Gremlinq.Core.Tree<TNode18, ExRam.Gremlinq.Core.Tree<TNode19, ExRam.Gremlinq.Core.Tree<TNode20, ExRam.Gremlinq.Core.Tree<TNode21, ExRam.Gremlinq.Core.Tree<TNode22, ExRam.Gremlinq.Core.Tree<TNode23, ExRam.Gremlinq.Core.Tree<TNode24, ExRam.Gremlinq.Core.Tree<object>>>>>>>>>>>>>>>>>>>>>>>>>>
         where TNode1 :  notnull
         where TNode2 :  notnull
         where TNode3 :  notnull
@@ -1299,7 +1299,7 @@
         ExRam.Gremlinq.Core.ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNode15, TNode16, TNode17, TNode18, TNode19, TNode20, TNode21, TNode22, TNode23, TNode24, TNewNode> Of<TNewNode>()
             where TNewNode :  notnull;
     }
-    public interface ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNode15, TNode16, TNode17, TNode18, TNode19, TNode20, TNode21, TNode22, TNode23, TNode24, TNode25> : ExRam.Gremlinq.Core.ITreeBuilderResult<ExRam.Gremlinq.Core.Tree<TNode1, ExRam.Gremlinq.Core.Tree<TNode2, ExRam.Gremlinq.Core.Tree<TNode3, ExRam.Gremlinq.Core.Tree<TNode4, ExRam.Gremlinq.Core.Tree<TNode5, ExRam.Gremlinq.Core.Tree<TNode6, ExRam.Gremlinq.Core.Tree<TNode7, ExRam.Gremlinq.Core.Tree<TNode8, ExRam.Gremlinq.Core.Tree<TNode9, ExRam.Gremlinq.Core.Tree<TNode10, ExRam.Gremlinq.Core.Tree<TNode11, ExRam.Gremlinq.Core.Tree<TNode12, ExRam.Gremlinq.Core.Tree<TNode13, ExRam.Gremlinq.Core.Tree<TNode14, ExRam.Gremlinq.Core.Tree<TNode15, ExRam.Gremlinq.Core.Tree<TNode16, ExRam.Gremlinq.Core.Tree<TNode17, ExRam.Gremlinq.Core.Tree<TNode18, ExRam.Gremlinq.Core.Tree<TNode19, ExRam.Gremlinq.Core.Tree<TNode20, ExRam.Gremlinq.Core.Tree<TNode21, ExRam.Gremlinq.Core.Tree<TNode22, ExRam.Gremlinq.Core.Tree<TNode23, ExRam.Gremlinq.Core.Tree<TNode24, ExRam.Gremlinq.Core.Tree<TNode25>>>>>>>>>>>>>>>>>>>>>>>>>>
+    public interface ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNode15, TNode16, TNode17, TNode18, TNode19, TNode20, TNode21, TNode22, TNode23, TNode24, TNode25> : ExRam.Gremlinq.Core.ITreeBuilderResult<ExRam.Gremlinq.Core.Tree<TNode1, ExRam.Gremlinq.Core.Tree<TNode2, ExRam.Gremlinq.Core.Tree<TNode3, ExRam.Gremlinq.Core.Tree<TNode4, ExRam.Gremlinq.Core.Tree<TNode5, ExRam.Gremlinq.Core.Tree<TNode6, ExRam.Gremlinq.Core.Tree<TNode7, ExRam.Gremlinq.Core.Tree<TNode8, ExRam.Gremlinq.Core.Tree<TNode9, ExRam.Gremlinq.Core.Tree<TNode10, ExRam.Gremlinq.Core.Tree<TNode11, ExRam.Gremlinq.Core.Tree<TNode12, ExRam.Gremlinq.Core.Tree<TNode13, ExRam.Gremlinq.Core.Tree<TNode14, ExRam.Gremlinq.Core.Tree<TNode15, ExRam.Gremlinq.Core.Tree<TNode16, ExRam.Gremlinq.Core.Tree<TNode17, ExRam.Gremlinq.Core.Tree<TNode18, ExRam.Gremlinq.Core.Tree<TNode19, ExRam.Gremlinq.Core.Tree<TNode20, ExRam.Gremlinq.Core.Tree<TNode21, ExRam.Gremlinq.Core.Tree<TNode22, ExRam.Gremlinq.Core.Tree<TNode23, ExRam.Gremlinq.Core.Tree<TNode24, ExRam.Gremlinq.Core.Tree<TNode25, ExRam.Gremlinq.Core.Tree<object>>>>>>>>>>>>>>>>>>>>>>>>>>>
         where TNode1 :  notnull
         where TNode2 :  notnull
         where TNode3 :  notnull
@@ -1331,7 +1331,7 @@
         ExRam.Gremlinq.Core.ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNode15, TNode16, TNode17, TNode18, TNode19, TNode20, TNode21, TNode22, TNode23, TNode24, TNode25, TNewNode> Of<TNewNode>()
             where TNewNode :  notnull;
     }
-    public interface ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNode15, TNode16, TNode17, TNode18, TNode19, TNode20, TNode21, TNode22, TNode23, TNode24, TNode25, TNode26> : ExRam.Gremlinq.Core.ITreeBuilderResult<ExRam.Gremlinq.Core.Tree<TNode1, ExRam.Gremlinq.Core.Tree<TNode2, ExRam.Gremlinq.Core.Tree<TNode3, ExRam.Gremlinq.Core.Tree<TNode4, ExRam.Gremlinq.Core.Tree<TNode5, ExRam.Gremlinq.Core.Tree<TNode6, ExRam.Gremlinq.Core.Tree<TNode7, ExRam.Gremlinq.Core.Tree<TNode8, ExRam.Gremlinq.Core.Tree<TNode9, ExRam.Gremlinq.Core.Tree<TNode10, ExRam.Gremlinq.Core.Tree<TNode11, ExRam.Gremlinq.Core.Tree<TNode12, ExRam.Gremlinq.Core.Tree<TNode13, ExRam.Gremlinq.Core.Tree<TNode14, ExRam.Gremlinq.Core.Tree<TNode15, ExRam.Gremlinq.Core.Tree<TNode16, ExRam.Gremlinq.Core.Tree<TNode17, ExRam.Gremlinq.Core.Tree<TNode18, ExRam.Gremlinq.Core.Tree<TNode19, ExRam.Gremlinq.Core.Tree<TNode20, ExRam.Gremlinq.Core.Tree<TNode21, ExRam.Gremlinq.Core.Tree<TNode22, ExRam.Gremlinq.Core.Tree<TNode23, ExRam.Gremlinq.Core.Tree<TNode24, ExRam.Gremlinq.Core.Tree<TNode25, ExRam.Gremlinq.Core.Tree<TNode26>>>>>>>>>>>>>>>>>>>>>>>>>>>
+    public interface ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNode15, TNode16, TNode17, TNode18, TNode19, TNode20, TNode21, TNode22, TNode23, TNode24, TNode25, TNode26> : ExRam.Gremlinq.Core.ITreeBuilderResult<ExRam.Gremlinq.Core.Tree<TNode1, ExRam.Gremlinq.Core.Tree<TNode2, ExRam.Gremlinq.Core.Tree<TNode3, ExRam.Gremlinq.Core.Tree<TNode4, ExRam.Gremlinq.Core.Tree<TNode5, ExRam.Gremlinq.Core.Tree<TNode6, ExRam.Gremlinq.Core.Tree<TNode7, ExRam.Gremlinq.Core.Tree<TNode8, ExRam.Gremlinq.Core.Tree<TNode9, ExRam.Gremlinq.Core.Tree<TNode10, ExRam.Gremlinq.Core.Tree<TNode11, ExRam.Gremlinq.Core.Tree<TNode12, ExRam.Gremlinq.Core.Tree<TNode13, ExRam.Gremlinq.Core.Tree<TNode14, ExRam.Gremlinq.Core.Tree<TNode15, ExRam.Gremlinq.Core.Tree<TNode16, ExRam.Gremlinq.Core.Tree<TNode17, ExRam.Gremlinq.Core.Tree<TNode18, ExRam.Gremlinq.Core.Tree<TNode19, ExRam.Gremlinq.Core.Tree<TNode20, ExRam.Gremlinq.Core.Tree<TNode21, ExRam.Gremlinq.Core.Tree<TNode22, ExRam.Gremlinq.Core.Tree<TNode23, ExRam.Gremlinq.Core.Tree<TNode24, ExRam.Gremlinq.Core.Tree<TNode25, ExRam.Gremlinq.Core.Tree<TNode26, ExRam.Gremlinq.Core.Tree<object>>>>>>>>>>>>>>>>>>>>>>>>>>>>
         where TNode1 :  notnull
         where TNode2 :  notnull
         where TNode3 :  notnull
@@ -1364,7 +1364,7 @@
         ExRam.Gremlinq.Core.ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNode15, TNode16, TNode17, TNode18, TNode19, TNode20, TNode21, TNode22, TNode23, TNode24, TNode25, TNode26, TNewNode> Of<TNewNode>()
             where TNewNode :  notnull;
     }
-    public interface ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNode15, TNode16, TNode17, TNode18, TNode19, TNode20, TNode21, TNode22, TNode23, TNode24, TNode25, TNode26, TNode27> : ExRam.Gremlinq.Core.ITreeBuilderResult<ExRam.Gremlinq.Core.Tree<TNode1, ExRam.Gremlinq.Core.Tree<TNode2, ExRam.Gremlinq.Core.Tree<TNode3, ExRam.Gremlinq.Core.Tree<TNode4, ExRam.Gremlinq.Core.Tree<TNode5, ExRam.Gremlinq.Core.Tree<TNode6, ExRam.Gremlinq.Core.Tree<TNode7, ExRam.Gremlinq.Core.Tree<TNode8, ExRam.Gremlinq.Core.Tree<TNode9, ExRam.Gremlinq.Core.Tree<TNode10, ExRam.Gremlinq.Core.Tree<TNode11, ExRam.Gremlinq.Core.Tree<TNode12, ExRam.Gremlinq.Core.Tree<TNode13, ExRam.Gremlinq.Core.Tree<TNode14, ExRam.Gremlinq.Core.Tree<TNode15, ExRam.Gremlinq.Core.Tree<TNode16, ExRam.Gremlinq.Core.Tree<TNode17, ExRam.Gremlinq.Core.Tree<TNode18, ExRam.Gremlinq.Core.Tree<TNode19, ExRam.Gremlinq.Core.Tree<TNode20, ExRam.Gremlinq.Core.Tree<TNode21, ExRam.Gremlinq.Core.Tree<TNode22, ExRam.Gremlinq.Core.Tree<TNode23, ExRam.Gremlinq.Core.Tree<TNode24, ExRam.Gremlinq.Core.Tree<TNode25, ExRam.Gremlinq.Core.Tree<TNode26, ExRam.Gremlinq.Core.Tree<TNode27>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+    public interface ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNode15, TNode16, TNode17, TNode18, TNode19, TNode20, TNode21, TNode22, TNode23, TNode24, TNode25, TNode26, TNode27> : ExRam.Gremlinq.Core.ITreeBuilderResult<ExRam.Gremlinq.Core.Tree<TNode1, ExRam.Gremlinq.Core.Tree<TNode2, ExRam.Gremlinq.Core.Tree<TNode3, ExRam.Gremlinq.Core.Tree<TNode4, ExRam.Gremlinq.Core.Tree<TNode5, ExRam.Gremlinq.Core.Tree<TNode6, ExRam.Gremlinq.Core.Tree<TNode7, ExRam.Gremlinq.Core.Tree<TNode8, ExRam.Gremlinq.Core.Tree<TNode9, ExRam.Gremlinq.Core.Tree<TNode10, ExRam.Gremlinq.Core.Tree<TNode11, ExRam.Gremlinq.Core.Tree<TNode12, ExRam.Gremlinq.Core.Tree<TNode13, ExRam.Gremlinq.Core.Tree<TNode14, ExRam.Gremlinq.Core.Tree<TNode15, ExRam.Gremlinq.Core.Tree<TNode16, ExRam.Gremlinq.Core.Tree<TNode17, ExRam.Gremlinq.Core.Tree<TNode18, ExRam.Gremlinq.Core.Tree<TNode19, ExRam.Gremlinq.Core.Tree<TNode20, ExRam.Gremlinq.Core.Tree<TNode21, ExRam.Gremlinq.Core.Tree<TNode22, ExRam.Gremlinq.Core.Tree<TNode23, ExRam.Gremlinq.Core.Tree<TNode24, ExRam.Gremlinq.Core.Tree<TNode25, ExRam.Gremlinq.Core.Tree<TNode26, ExRam.Gremlinq.Core.Tree<TNode27, ExRam.Gremlinq.Core.Tree<object>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
         where TNode1 :  notnull
         where TNode2 :  notnull
         where TNode3 :  notnull
@@ -1395,79 +1395,8 @@
     {
         ExRam.Gremlinq.Core.ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNode15, TNode16, TNode17, TNode18, TNode19, TNode20, TNode21, TNode22, TNode23, TNode24, TNode25, TNode26, TNewNode> By<TNewNode>(System.Linq.Expressions.Expression<System.Func<TNode27, TNewNode>> expression)
             where TNewNode :  notnull;
-        ExRam.Gremlinq.Core.ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNode15, TNode16, TNode17, TNode18, TNode19, TNode20, TNode21, TNode22, TNode23, TNode24, TNode25, TNode26, TNode27, TNewNode> Of<TNewNode>()
-            where TNewNode :  notnull;
     }
-    public interface ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNode15, TNode16, TNode17, TNode18, TNode19, TNode20, TNode21, TNode22, TNode23, TNode24, TNode25, TNode26, TNode27, TNode28> : ExRam.Gremlinq.Core.ITreeBuilderResult<ExRam.Gremlinq.Core.Tree<TNode1, ExRam.Gremlinq.Core.Tree<TNode2, ExRam.Gremlinq.Core.Tree<TNode3, ExRam.Gremlinq.Core.Tree<TNode4, ExRam.Gremlinq.Core.Tree<TNode5, ExRam.Gremlinq.Core.Tree<TNode6, ExRam.Gremlinq.Core.Tree<TNode7, ExRam.Gremlinq.Core.Tree<TNode8, ExRam.Gremlinq.Core.Tree<TNode9, ExRam.Gremlinq.Core.Tree<TNode10, ExRam.Gremlinq.Core.Tree<TNode11, ExRam.Gremlinq.Core.Tree<TNode12, ExRam.Gremlinq.Core.Tree<TNode13, ExRam.Gremlinq.Core.Tree<TNode14, ExRam.Gremlinq.Core.Tree<TNode15, ExRam.Gremlinq.Core.Tree<TNode16, ExRam.Gremlinq.Core.Tree<TNode17, ExRam.Gremlinq.Core.Tree<TNode18, ExRam.Gremlinq.Core.Tree<TNode19, ExRam.Gremlinq.Core.Tree<TNode20, ExRam.Gremlinq.Core.Tree<TNode21, ExRam.Gremlinq.Core.Tree<TNode22, ExRam.Gremlinq.Core.Tree<TNode23, ExRam.Gremlinq.Core.Tree<TNode24, ExRam.Gremlinq.Core.Tree<TNode25, ExRam.Gremlinq.Core.Tree<TNode26, ExRam.Gremlinq.Core.Tree<TNode27, ExRam.Gremlinq.Core.Tree<TNode28>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-        where TNode1 :  notnull
-        where TNode2 :  notnull
-        where TNode3 :  notnull
-        where TNode4 :  notnull
-        where TNode5 :  notnull
-        where TNode6 :  notnull
-        where TNode7 :  notnull
-        where TNode8 :  notnull
-        where TNode9 :  notnull
-        where TNode10 :  notnull
-        where TNode11 :  notnull
-        where TNode12 :  notnull
-        where TNode13 :  notnull
-        where TNode14 :  notnull
-        where TNode15 :  notnull
-        where TNode16 :  notnull
-        where TNode17 :  notnull
-        where TNode18 :  notnull
-        where TNode19 :  notnull
-        where TNode20 :  notnull
-        where TNode21 :  notnull
-        where TNode22 :  notnull
-        where TNode23 :  notnull
-        where TNode24 :  notnull
-        where TNode25 :  notnull
-        where TNode26 :  notnull
-        where TNode27 :  notnull
-        where TNode28 :  notnull
-    {
-        ExRam.Gremlinq.Core.ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNode15, TNode16, TNode17, TNode18, TNode19, TNode20, TNode21, TNode22, TNode23, TNode24, TNode25, TNode26, TNode27, TNewNode> By<TNewNode>(System.Linq.Expressions.Expression<System.Func<TNode28, TNewNode>> expression)
-            where TNewNode :  notnull;
-        ExRam.Gremlinq.Core.ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNode15, TNode16, TNode17, TNode18, TNode19, TNode20, TNode21, TNode22, TNode23, TNode24, TNode25, TNode26, TNode27, TNode28, TNewNode> Of<TNewNode>()
-            where TNewNode :  notnull;
-    }
-    public interface ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNode15, TNode16, TNode17, TNode18, TNode19, TNode20, TNode21, TNode22, TNode23, TNode24, TNode25, TNode26, TNode27, TNode28, TNode29> : ExRam.Gremlinq.Core.ITreeBuilderResult<ExRam.Gremlinq.Core.Tree<TNode1, ExRam.Gremlinq.Core.Tree<TNode2, ExRam.Gremlinq.Core.Tree<TNode3, ExRam.Gremlinq.Core.Tree<TNode4, ExRam.Gremlinq.Core.Tree<TNode5, ExRam.Gremlinq.Core.Tree<TNode6, ExRam.Gremlinq.Core.Tree<TNode7, ExRam.Gremlinq.Core.Tree<TNode8, ExRam.Gremlinq.Core.Tree<TNode9, ExRam.Gremlinq.Core.Tree<TNode10, ExRam.Gremlinq.Core.Tree<TNode11, ExRam.Gremlinq.Core.Tree<TNode12, ExRam.Gremlinq.Core.Tree<TNode13, ExRam.Gremlinq.Core.Tree<TNode14, ExRam.Gremlinq.Core.Tree<TNode15, ExRam.Gremlinq.Core.Tree<TNode16, ExRam.Gremlinq.Core.Tree<TNode17, ExRam.Gremlinq.Core.Tree<TNode18, ExRam.Gremlinq.Core.Tree<TNode19, ExRam.Gremlinq.Core.Tree<TNode20, ExRam.Gremlinq.Core.Tree<TNode21, ExRam.Gremlinq.Core.Tree<TNode22, ExRam.Gremlinq.Core.Tree<TNode23, ExRam.Gremlinq.Core.Tree<TNode24, ExRam.Gremlinq.Core.Tree<TNode25, ExRam.Gremlinq.Core.Tree<TNode26, ExRam.Gremlinq.Core.Tree<TNode27, ExRam.Gremlinq.Core.Tree<TNode28, ExRam.Gremlinq.Core.Tree<TNode29>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-        where TNode1 :  notnull
-        where TNode2 :  notnull
-        where TNode3 :  notnull
-        where TNode4 :  notnull
-        where TNode5 :  notnull
-        where TNode6 :  notnull
-        where TNode7 :  notnull
-        where TNode8 :  notnull
-        where TNode9 :  notnull
-        where TNode10 :  notnull
-        where TNode11 :  notnull
-        where TNode12 :  notnull
-        where TNode13 :  notnull
-        where TNode14 :  notnull
-        where TNode15 :  notnull
-        where TNode16 :  notnull
-        where TNode17 :  notnull
-        where TNode18 :  notnull
-        where TNode19 :  notnull
-        where TNode20 :  notnull
-        where TNode21 :  notnull
-        where TNode22 :  notnull
-        where TNode23 :  notnull
-        where TNode24 :  notnull
-        where TNode25 :  notnull
-        where TNode26 :  notnull
-        where TNode27 :  notnull
-        where TNode28 :  notnull
-        where TNode29 :  notnull
-    {
-        ExRam.Gremlinq.Core.ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9, TNode10, TNode11, TNode12, TNode13, TNode14, TNode15, TNode16, TNode17, TNode18, TNode19, TNode20, TNode21, TNode22, TNode23, TNode24, TNode25, TNode26, TNode27, TNode28, TNewNode> By<TNewNode>(System.Linq.Expressions.Expression<System.Func<TNode29, TNewNode>> expression)
-            where TNewNode :  notnull;
-    }
-    public interface ITreeBuilder<TNode1, TNode2, TNode3> : ExRam.Gremlinq.Core.ITreeBuilderResult<ExRam.Gremlinq.Core.Tree<TNode1, ExRam.Gremlinq.Core.Tree<TNode2, ExRam.Gremlinq.Core.Tree<TNode3>>>>
+    public interface ITreeBuilder<TNode1, TNode2, TNode3> : ExRam.Gremlinq.Core.ITreeBuilderResult<ExRam.Gremlinq.Core.Tree<TNode1, ExRam.Gremlinq.Core.Tree<TNode2, ExRam.Gremlinq.Core.Tree<TNode3, ExRam.Gremlinq.Core.Tree<object>>>>>
         where TNode1 :  notnull
         where TNode2 :  notnull
         where TNode3 :  notnull
@@ -1477,7 +1406,7 @@
         ExRam.Gremlinq.Core.ITreeBuilder<TNode1, TNode2, TNode3, TNewNode> Of<TNewNode>()
             where TNewNode :  notnull;
     }
-    public interface ITreeBuilder<TNode1, TNode2, TNode3, TNode4> : ExRam.Gremlinq.Core.ITreeBuilderResult<ExRam.Gremlinq.Core.Tree<TNode1, ExRam.Gremlinq.Core.Tree<TNode2, ExRam.Gremlinq.Core.Tree<TNode3, ExRam.Gremlinq.Core.Tree<TNode4>>>>>
+    public interface ITreeBuilder<TNode1, TNode2, TNode3, TNode4> : ExRam.Gremlinq.Core.ITreeBuilderResult<ExRam.Gremlinq.Core.Tree<TNode1, ExRam.Gremlinq.Core.Tree<TNode2, ExRam.Gremlinq.Core.Tree<TNode3, ExRam.Gremlinq.Core.Tree<TNode4, ExRam.Gremlinq.Core.Tree<object>>>>>>
         where TNode1 :  notnull
         where TNode2 :  notnull
         where TNode3 :  notnull
@@ -1488,7 +1417,7 @@
         ExRam.Gremlinq.Core.ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNewNode> Of<TNewNode>()
             where TNewNode :  notnull;
     }
-    public interface ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5> : ExRam.Gremlinq.Core.ITreeBuilderResult<ExRam.Gremlinq.Core.Tree<TNode1, ExRam.Gremlinq.Core.Tree<TNode2, ExRam.Gremlinq.Core.Tree<TNode3, ExRam.Gremlinq.Core.Tree<TNode4, ExRam.Gremlinq.Core.Tree<TNode5>>>>>>
+    public interface ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5> : ExRam.Gremlinq.Core.ITreeBuilderResult<ExRam.Gremlinq.Core.Tree<TNode1, ExRam.Gremlinq.Core.Tree<TNode2, ExRam.Gremlinq.Core.Tree<TNode3, ExRam.Gremlinq.Core.Tree<TNode4, ExRam.Gremlinq.Core.Tree<TNode5, ExRam.Gremlinq.Core.Tree<object>>>>>>>
         where TNode1 :  notnull
         where TNode2 :  notnull
         where TNode3 :  notnull
@@ -1500,7 +1429,7 @@
         ExRam.Gremlinq.Core.ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNewNode> Of<TNewNode>()
             where TNewNode :  notnull;
     }
-    public interface ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6> : ExRam.Gremlinq.Core.ITreeBuilderResult<ExRam.Gremlinq.Core.Tree<TNode1, ExRam.Gremlinq.Core.Tree<TNode2, ExRam.Gremlinq.Core.Tree<TNode3, ExRam.Gremlinq.Core.Tree<TNode4, ExRam.Gremlinq.Core.Tree<TNode5, ExRam.Gremlinq.Core.Tree<TNode6>>>>>>>
+    public interface ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6> : ExRam.Gremlinq.Core.ITreeBuilderResult<ExRam.Gremlinq.Core.Tree<TNode1, ExRam.Gremlinq.Core.Tree<TNode2, ExRam.Gremlinq.Core.Tree<TNode3, ExRam.Gremlinq.Core.Tree<TNode4, ExRam.Gremlinq.Core.Tree<TNode5, ExRam.Gremlinq.Core.Tree<TNode6, ExRam.Gremlinq.Core.Tree<object>>>>>>>>
         where TNode1 :  notnull
         where TNode2 :  notnull
         where TNode3 :  notnull
@@ -1513,7 +1442,7 @@
         ExRam.Gremlinq.Core.ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNewNode> Of<TNewNode>()
             where TNewNode :  notnull;
     }
-    public interface ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7> : ExRam.Gremlinq.Core.ITreeBuilderResult<ExRam.Gremlinq.Core.Tree<TNode1, ExRam.Gremlinq.Core.Tree<TNode2, ExRam.Gremlinq.Core.Tree<TNode3, ExRam.Gremlinq.Core.Tree<TNode4, ExRam.Gremlinq.Core.Tree<TNode5, ExRam.Gremlinq.Core.Tree<TNode6, ExRam.Gremlinq.Core.Tree<TNode7>>>>>>>>
+    public interface ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7> : ExRam.Gremlinq.Core.ITreeBuilderResult<ExRam.Gremlinq.Core.Tree<TNode1, ExRam.Gremlinq.Core.Tree<TNode2, ExRam.Gremlinq.Core.Tree<TNode3, ExRam.Gremlinq.Core.Tree<TNode4, ExRam.Gremlinq.Core.Tree<TNode5, ExRam.Gremlinq.Core.Tree<TNode6, ExRam.Gremlinq.Core.Tree<TNode7, ExRam.Gremlinq.Core.Tree<object>>>>>>>>>
         where TNode1 :  notnull
         where TNode2 :  notnull
         where TNode3 :  notnull
@@ -1527,7 +1456,7 @@
         ExRam.Gremlinq.Core.ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNewNode> Of<TNewNode>()
             where TNewNode :  notnull;
     }
-    public interface ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8> : ExRam.Gremlinq.Core.ITreeBuilderResult<ExRam.Gremlinq.Core.Tree<TNode1, ExRam.Gremlinq.Core.Tree<TNode2, ExRam.Gremlinq.Core.Tree<TNode3, ExRam.Gremlinq.Core.Tree<TNode4, ExRam.Gremlinq.Core.Tree<TNode5, ExRam.Gremlinq.Core.Tree<TNode6, ExRam.Gremlinq.Core.Tree<TNode7, ExRam.Gremlinq.Core.Tree<TNode8>>>>>>>>>
+    public interface ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8> : ExRam.Gremlinq.Core.ITreeBuilderResult<ExRam.Gremlinq.Core.Tree<TNode1, ExRam.Gremlinq.Core.Tree<TNode2, ExRam.Gremlinq.Core.Tree<TNode3, ExRam.Gremlinq.Core.Tree<TNode4, ExRam.Gremlinq.Core.Tree<TNode5, ExRam.Gremlinq.Core.Tree<TNode6, ExRam.Gremlinq.Core.Tree<TNode7, ExRam.Gremlinq.Core.Tree<TNode8, ExRam.Gremlinq.Core.Tree<object>>>>>>>>>>
         where TNode1 :  notnull
         where TNode2 :  notnull
         where TNode3 :  notnull
@@ -1542,7 +1471,7 @@
         ExRam.Gremlinq.Core.ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNewNode> Of<TNewNode>()
             where TNewNode :  notnull;
     }
-    public interface ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9> : ExRam.Gremlinq.Core.ITreeBuilderResult<ExRam.Gremlinq.Core.Tree<TNode1, ExRam.Gremlinq.Core.Tree<TNode2, ExRam.Gremlinq.Core.Tree<TNode3, ExRam.Gremlinq.Core.Tree<TNode4, ExRam.Gremlinq.Core.Tree<TNode5, ExRam.Gremlinq.Core.Tree<TNode6, ExRam.Gremlinq.Core.Tree<TNode7, ExRam.Gremlinq.Core.Tree<TNode8, ExRam.Gremlinq.Core.Tree<TNode9>>>>>>>>>>
+    public interface ITreeBuilder<TNode1, TNode2, TNode3, TNode4, TNode5, TNode6, TNode7, TNode8, TNode9> : ExRam.Gremlinq.Core.ITreeBuilderResult<ExRam.Gremlinq.Core.Tree<TNode1, ExRam.Gremlinq.Core.Tree<TNode2, ExRam.Gremlinq.Core.Tree<TNode3, ExRam.Gremlinq.Core.Tree<TNode4, ExRam.Gremlinq.Core.Tree<TNode5, ExRam.Gremlinq.Core.Tree<TNode6, ExRam.Gremlinq.Core.Tree<TNode7, ExRam.Gremlinq.Core.Tree<TNode8, ExRam.Gremlinq.Core.Tree<TNode9, ExRam.Gremlinq.Core.Tree<object>>>>>>>>>>>
         where TNode1 :  notnull
         where TNode2 :  notnull
         where TNode3 :  notnull
@@ -1762,11 +1691,11 @@
         public static ExRam.Gremlinq.Core.Traversal Create<TState>(int length, TState state, System.Buffers.SpanAction<ExRam.Gremlinq.Core.Steps.Step, TState> action) { }
         public static ExRam.Gremlinq.Core.Traversal op_Implicit(ExRam.Gremlinq.Core.Steps.Step step) { }
     }
-    public class Tree<TRoot> : ExRam.Gremlinq.Core.Tree<TRoot, ExRam.Gremlinq.Core.Tree<object>>
+    public class Tree<TRoot> : ExRam.Gremlinq.Core.Tree<TRoot, ExRam.Gremlinq.Core.Tree<TRoot>>
         where TRoot :  notnull
     {
         public static readonly ExRam.Gremlinq.Core.Tree<TRoot> Empty;
-        public Tree(System.Collections.Generic.IReadOnlyDictionary<TRoot, ExRam.Gremlinq.Core.Tree<object>> inner) { }
+        public Tree(System.Collections.Generic.IReadOnlyDictionary<TRoot, ExRam.Gremlinq.Core.Tree<TRoot>> inner) { }
     }
     public class Tree<TRoot, TSubTree> : ExRam.Gremlinq.Core.ITree, System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<TRoot, TSubTree>>, System.Collections.Generic.IReadOnlyCollection<System.Collections.Generic.KeyValuePair<TRoot, TSubTree>>, System.Collections.Generic.IReadOnlyDictionary<TRoot, TSubTree>, System.Collections.IEnumerable
         where TRoot :  notnull
