@@ -215,7 +215,9 @@ namespace ExRam.Gremlinq.Core
 
         IGremlinQuery<Path> IGremlinQueryBase.Path() => Path();
 
-        IGremlinQuery<Tree<object>> IGremlinQueryBase.Tree() => Tree();
+        IGremlinQuery<Tree<object>> IGremlinQueryBase.Tree() => Tree<object>();
+
+        IGremlinQuery<Tree<TRoot>> IGremlinQueryBase.Tree<TRoot>() => Tree<TRoot>();
 
         IGremlinQuery<TTree> IGremlinQueryBase.Tree<TTree>(Func<ITreeBuilder, ITreeBuilderResult<TTree>> continuation) => Tree(continuation);
 

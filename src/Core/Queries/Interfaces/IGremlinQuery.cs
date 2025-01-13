@@ -48,6 +48,9 @@ namespace ExRam.Gremlinq.Core
         TQuery Select<TQuery, TElement>(StepLabel<TQuery, TElement> label) where TQuery : IGremlinQueryBase;
 
         IGremlinQuery<Tree<object>> Tree();
+
+        IGremlinQuery<Tree<TRoot>> Tree<TRoot>() where TRoot : notnull;
+
         IGremlinQuery<TTree> Tree<TTree>(Func<ITreeBuilder, ITreeBuilderResult<TTree>> continuation) where TTree : ITree;
 
         IArrayGremlinQuery<TElement, TArrayItem, TOriginalQuery> Cap<TElement, TArrayItem, TOriginalQuery>(StepLabel<IArrayGremlinQuery<TElement, TArrayItem, TOriginalQuery>, TElement> label) where TOriginalQuery : IGremlinQueryBase;
