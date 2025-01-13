@@ -2767,6 +2767,16 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Verify();
 
         [Fact]
+        public virtual Task Tree_with_builder_and_modulator_on_last_Of() => _g
+           .V<Person>()
+           .OutE<WorksFor>()
+           .Where(x => x.Role != null)
+           .Tree(_ => _
+               .Of<Person>()
+               .Of<WorksFor>().By(x => x.Role!))
+           .Verify();
+
+        [Fact]
         public virtual Task Union() => _g
             .V<Person>()
             .Union(

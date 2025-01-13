@@ -1,0 +1,40 @@
+﻿{
+  StepInstructions: [
+    {
+      OperatorName: V
+    },
+    {
+      OperatorName: hasLabel,
+      Arguments: [
+        Person
+      ]
+    },
+    {
+      OperatorName: outE,
+      Arguments: [
+        WorksFor
+      ]
+    },
+    {
+      OperatorName: has,
+      Arguments: [
+        Role
+      ]
+    },
+    {
+      OperatorName: tree
+    },
+    {
+      OperatorName: by
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        Role
+      ]
+    },
+    {
+      OperatorName: by
+    }
+  ]
+}
