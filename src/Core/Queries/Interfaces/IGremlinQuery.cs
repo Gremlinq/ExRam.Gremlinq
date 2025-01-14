@@ -49,7 +49,7 @@ namespace ExRam.Gremlinq.Core
 
         IGremlinQuery<Tree<object>> Tree();
 
-        IGremlinQuery<Tree<TRoot>> Tree<TRoot>() where TRoot : notnull;
+        IGremlinQuery<Tree<TNode>> Tree<TNode>() where TNode : notnull;
 
         IGremlinQuery<TTree> Tree<TTree>(Func<ITreeBuilder, ITreeBuilderResult<TTree>> continuation) where TTree : ITree;
 
