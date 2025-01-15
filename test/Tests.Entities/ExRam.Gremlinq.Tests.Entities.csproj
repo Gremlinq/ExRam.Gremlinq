@@ -2,11 +2,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Core\ExRam.Gremlinq.Core.csproj" />
-
-    <PackageReference Remove="xunit.v3"></PackageReference>
-    <PackageReference Remove="xunit.runner.visualstudio"></PackageReference>
-    <PackageReference Remove="Microsoft.NET.Test.Sdk"></PackageReference>
-
   </ItemGroup>
 
 </Project>
