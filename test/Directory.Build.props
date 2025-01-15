@@ -6,6 +6,9 @@
     <TargetFrameworks Condition="'$(Configuration)' == 'Release'">net6.0;net7.0;net8.0;$(TargetFrameworks)</TargetFrameworks>
 
     <NoWarn>CA2007;$(NoWarn)</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="$(ProjectName.EndsWith('Tests'))">
     <UseMicrosoftTestingPlatformRunner>true</UseMicrosoftTestingPlatformRunner>
   </PropertyGroup>
 
