@@ -173,6 +173,9 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public Task Bulk_set() => Verify<string[]>(BulkSet);
 
         [Fact]
+        public Task Bulk_set_as_object() => Verify<object>(BulkSet);
+
+        [Fact]
         public Task Configured_property_name() => Verify<Person>(
             "{ \"id\": 13, \"label\": \"Person\", \"type\": \"vertex\", \"properties\": { \"replacement\": [ { \"id\": 1, \"value\": \"nameValue\" } ] } }",
             env => env
