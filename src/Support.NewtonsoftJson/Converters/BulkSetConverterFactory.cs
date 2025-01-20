@@ -52,9 +52,16 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
 
         public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment)
         {
-            return typeof(TSource) == typeof(JObject) && typeof(TTarget).IsArray && !environment.SupportsType(typeof(TTarget))
-                ? (IConverter<TSource, TTarget>?)Activator.CreateInstance(typeof(BulkSetConverter<,>).MakeGenericType(typeof(TTarget), typeof(TTarget).GetElementType()!), environment)
-                : default;
+            if (typeof(TSource) == typeof(JObject) && !environment.SupportsType(typeof(TTarget)))
+            {
+                var elementType = typeof(TTarget).GetElementType() ?? typeof(object);
+                var arrayType = elementType.MakeArrayType();
+
+                if (typeof(TTarget).IsAssignableFrom(arrayType)) 
+                    return (IConverter<TSource, TTarget>?)Activator.CreateInstance(typeof(BulkSetConverter<,>).MakeGenericType(typeof(TTarget), elementType), environment);
+            }
+
+            return default;
         }
     }
 }
