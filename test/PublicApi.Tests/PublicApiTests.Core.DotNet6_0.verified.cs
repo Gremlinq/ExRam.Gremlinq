@@ -2229,8 +2229,8 @@ namespace ExRam.Gremlinq.Core.Steps
     }
     public sealed class AndStep : ExRam.Gremlinq.Core.Steps.LogicalStep<ExRam.Gremlinq.Core.Steps.AndStep>
     {
-        [System.Obsolete("Will be removed in a future version. Use the overload taking an ImmutableArray<Tr" +
-            "aversal> instead.")]
+        [System.Obsolete(("Will be removed in a future version. Use the overload taking an ImmutableArray<Tr" +
+            "aversal> instead."))]
         public AndStep(System.Collections.Generic.IEnumerable<ExRam.Gremlinq.Core.Traversal> traversals) { }
         public AndStep(System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.Traversal> traversals) { }
     }
@@ -2489,8 +2489,8 @@ namespace ExRam.Gremlinq.Core.Steps
     public abstract class LogicalStep<TStep> : ExRam.Gremlinq.Core.Steps.Step
         where TStep : ExRam.Gremlinq.Core.Steps.LogicalStep<TStep>
     {
-        [System.Obsolete("Will be removed in a future version. Use the overload taking an ImmutableArray<Tr" +
-            "aversal> instead.")]
+        [System.Obsolete(("Will be removed in a future version. Use the overload taking an ImmutableArray<Tr" +
+            "aversal> instead."))]
         protected LogicalStep(string name, System.Collections.Generic.IEnumerable<ExRam.Gremlinq.Core.Traversal> traversals) { }
         protected LogicalStep(string name, System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.Traversal> traversals) { }
         public string Name { get; }
@@ -2554,8 +2554,8 @@ namespace ExRam.Gremlinq.Core.Steps
     }
     public sealed class OrStep : ExRam.Gremlinq.Core.Steps.LogicalStep<ExRam.Gremlinq.Core.Steps.OrStep>
     {
-        [System.Obsolete("Will be removed in a future version. Use the overload taking an ImmutableArray<Tr" +
-            "aversal> instead.")]
+        [System.Obsolete(("Will be removed in a future version. Use the overload taking an ImmutableArray<Tr" +
+            "aversal> instead."))]
         public OrStep(System.Collections.Generic.IEnumerable<ExRam.Gremlinq.Core.Traversal> traversals) { }
         public OrStep(System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.Traversal> traversals) { }
     }
