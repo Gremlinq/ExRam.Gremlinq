@@ -31,6 +31,7 @@ namespace ExRam.Gremlinq.Core
         private static readonly ConcurrentDictionary<Type, QueryContinuation> QueryContinuations = new();
         private static readonly Type[] QueryGenericTypeDefinitionArguments = typeof(GremlinQueryBase<,,,>).GetGenericArguments();
         private static readonly QueryContinuation ObjectQueryContinuation = CreateQueryContinuation<object, object, object, IGremlinQueryBase>();
+        private static readonly QueryContinuation StringQueryContinuation = (query, steps, projections) => new StringGremlinQuery(query.Environment, steps ?? query.Steps, projections ?? query.LabelProjections, query.Metadata);
         private static readonly Type[] ImplementedInterfaces = typeof(GremlinQueryBase<,,,>).GetInterfaces().Append(typeof(GremlinQueryBase<,,,>)).ToArray();
         private static readonly MethodInfo TryCreateQueryContinuationMethod = typeof(GremlinQueryBase).GetMethod(nameof(CreateQueryContinuation), BindingFlags.NonPublic | BindingFlags.Static)!;
 
@@ -94,7 +95,7 @@ namespace ExRam.Gremlinq.Core
                         throw new NotSupportedException();
                     })
                 : typeof(TTargetQuery) == typeof(StringGremlinQuery)
-                    ? new QueryContinuation((query, steps, projections) => new StringGremlinQuery(Environment, steps ?? Steps, projections ?? LabelProjections, Metadata))
+                    ? StringQueryContinuation
                     : ObjectQueryContinuation;
 
             return queryFactory(this, maybeNewTraversal, maybeNewLabelProjections) is TTargetQuery newTargetQuery
