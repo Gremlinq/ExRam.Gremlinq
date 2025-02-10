@@ -58,9 +58,9 @@ namespace ExRam.Gremlinq.Core
                 : null;
         }
 
-        protected ContinuationBuilder<GremlinQueryBase<T1, T2, T3, T4>, GremlinQueryBase<T1, T2, T3, T4>> Continue(ContinuationFlags flags = ContinuationFlags.None) => Continue<T1, T2, T3, T4>(flags);
+        private ContinuationBuilder<GremlinQueryBase<T1, T2, T3, T4>, GremlinQueryBase<T1, T2, T3, T4>> Continue(ContinuationFlags flags = ContinuationFlags.None) => Continue<T1, T2, T3, T4>(flags);
 
-        protected ContinuationBuilder<GremlinQueryBase<T1, T2, T3, T4>, GremlinQueryBase<TAnon1, TAnon2, TAnon3, TAnon4>> Continue<TAnon1, TAnon2, TAnon3, TAnon4>(ContinuationFlags flags = ContinuationFlags.None) where TAnon4 : IGremlinQueryBase => new (
+        private ContinuationBuilder<GremlinQueryBase<T1, T2, T3, T4>, GremlinQueryBase<TAnon1, TAnon2, TAnon3, TAnon4>> Continue<TAnon1, TAnon2, TAnon3, TAnon4>(ContinuationFlags flags = ContinuationFlags.None) where TAnon4 : IGremlinQueryBase => new (
             this,
             new GremlinQuery<TAnon1, TAnon2, TAnon3, TAnon4>(Environment, Traversal.Empty.WithProjection(Steps.Projection), LabelProjections, Metadata), flags);
 
