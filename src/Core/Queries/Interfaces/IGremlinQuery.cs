@@ -9,6 +9,8 @@ namespace ExRam.Gremlinq.Core
     {
         TaskAwaiter GetAwaiter();
 
+        IStringGremlinQuery AsString();
+
         IGremlinQuery<TResult> Cast<TResult>();
         IGremlinQuery<long> Count();
         IGremlinQuery<long> CountLocal();

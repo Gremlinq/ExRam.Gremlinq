@@ -389,6 +389,7 @@
     }
     public interface IGremlinQueryBase : ExRam.Gremlinq.Core.IStartGremlinQuery
     {
+        ExRam.Gremlinq.Core.IStringGremlinQuery AsString();
         ExRam.Gremlinq.Core.IArrayGremlinQuery<TElement, TArrayItem, TOriginalQuery> Cap<TElement, TArrayItem, TOriginalQuery>(ExRam.Gremlinq.Core.StepLabel<ExRam.Gremlinq.Core.IArrayGremlinQuery<TElement, TArrayItem, TOriginalQuery>, TElement> label)
             where TOriginalQuery : ExRam.Gremlinq.Core.IGremlinQueryBase;
         ExRam.Gremlinq.Core.IGremlinQuery<TResult> Cast<TResult>();
@@ -2239,6 +2240,10 @@ namespace ExRam.Gremlinq.Core.Steps
     {
         public AsStep(ExRam.Gremlinq.Core.StepLabel stepLabel) { }
         public ExRam.Gremlinq.Core.StepLabel StepLabel { get; }
+    }
+    public sealed class AsStringStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public static readonly ExRam.Gremlinq.Core.Steps.AsStringStep Instance;
     }
     public sealed class BarrierStep : ExRam.Gremlinq.Core.Steps.Step
     {

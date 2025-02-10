@@ -456,5 +456,7 @@ namespace ExRam.Gremlinq.Core
         IArrayGremlinQuery<T1, T2, T4> IArrayGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T4>>.SkipLocal(long count) => Skip(count, Scope.Local);
 
         IArrayGremlinQuery<T1, T2, T4> IArrayGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T4>>.TailLocal(long count) => TailLocal(count);
+
+        IStringGremlinQuery IGremlinQueryBase.AsString() => AsString();
     }
 }

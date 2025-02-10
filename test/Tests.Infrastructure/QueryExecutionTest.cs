@@ -541,6 +541,12 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         }
 
         [Fact]
+        public virtual async Task AsString() => await _g
+            .Inject(42)
+            .AsString()
+            .Verify();
+
+        [Fact]
         public virtual async Task As_with_type_change()
         {
             IGremlinQueryBaseRec<Person, IVertexGremlinQuery<Person>> g = _g

@@ -334,6 +334,14 @@ namespace ExRam.Gremlinq.Core
                         (stepLabel, otherProjection: builder.OuterQuery.Steps.Projection)),
                 stepLabel);
 
+        private StringGremlinQuery AsString() => new (
+            Environment,
+            Steps
+                .Push(AsStringStep.Instance)
+                .WithProjection(Projection.Value),
+            LabelProjections,
+            Metadata);
+
         private GremlinQueryBase<T1, T2, T3, T4> Barrier() => this
             .Continue()
             .Build(static builder => builder

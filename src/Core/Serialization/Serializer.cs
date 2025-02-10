@@ -319,6 +319,7 @@ namespace ExRam.Gremlinq.Core.Serialization
                 ? CreateInstruction("aggregate", recurse, env, step.StepLabel)
                 : CreateInstruction("aggregate", recurse, env, step.Scope, step.StepLabel))
             .Add<AsStep>((step, env, _, recurse) => CreateInstruction("as", recurse, env, step.StepLabel))
+            .Add<AsStringStep>((step, env, _, recurse) => asString)
             .Add<BarrierStep>((_, _, _, _) => barrier)
             .Add<BothStep>((step, env, _, recurse) => CreateInstruction("both", recurse, env, step.Labels))
             .Add<BothEStep>((step, env, _, recurse) => CreateInstruction("bothE", recurse, env, step.Labels))
