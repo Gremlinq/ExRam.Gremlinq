@@ -356,6 +356,7 @@ namespace ExRam.Gremlinq.Core.Serialization
                     step.ThenTraversal))
             .Add<CoalesceStep>((step, env, _, recurse) => CreateInstruction("coalesce", recurse, env, step.Traversals))
             .Add<CoinStep>((step, env, _, recurse) => CreateInstruction("coin", recurse, env, step.Probability))
+            .Add<ConcatStringsStep>((step, env, _, recurse) => CreateInstruction("concat", recurse, env, step.Strings))
             .Add<ConstantStep>((step, env, _, recurse) => CreateInstruction("constant", recurse, env, step.Value))
             .Add<CountStep>((step, env, _, recurse) => step.Scope.Equals(Scope.Local)
                 ? CreateInstruction("count", recurse, env, step.Scope)

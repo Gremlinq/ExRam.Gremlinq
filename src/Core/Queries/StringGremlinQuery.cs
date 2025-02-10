@@ -2,6 +2,8 @@
 // ReSharper disable ArrangeThisQualifier
 using System.Collections.Immutable;
 
+using ExRam.Gremlinq.Core.Steps;
+
 namespace ExRam.Gremlinq.Core
 {
     internal sealed class StringGremlinQuery : GremlinQueryBase<string, object, object, IGremlinQueryBase>,
@@ -15,5 +17,13 @@ namespace ExRam.Gremlinq.Core
         {
 
         }
+
+        IStringGremlinQuery IStringGremlinQuery.Concat(params string[] strings) => this
+            .Continue()
+            .Build(
+                static (builder, strings) => builder
+                    .AddStep(new ConcatStringsStep(strings.ToImmutableArray()))
+                    .As<StringGremlinQuery>(),
+                strings);
     }
 }

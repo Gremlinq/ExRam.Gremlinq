@@ -1,0 +1,26 @@
+﻿{
+  StepInstructions: [
+    {
+      OperatorName: inject,
+      Arguments: [
+        42
+      ]
+    },
+    {
+      OperatorName: asString
+    },
+    {
+      OperatorName: concat,
+      Arguments: [
+        _1_,
+        _2_
+      ]
+    },
+    {
+      OperatorName: concat,
+      Arguments: [
+        _3_
+      ]
+    }
+  ]
+}

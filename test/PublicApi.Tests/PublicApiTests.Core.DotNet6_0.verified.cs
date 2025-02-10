@@ -914,7 +914,10 @@
         ExRam.Gremlinq.Core.IRepeatLoopBuilder<TQuery> Repeat(System.Func<TQuery, TQuery> loop);
         ExRam.Gremlinq.Core.IUntilLoopBuilder<TQuery> Until(System.Func<TQuery, ExRam.Gremlinq.Core.IGremlinQueryBase> condition);
     }
-    public interface IStringGremlinQuery : ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IGremlinQueryBaseRec<ExRam.Gremlinq.Core.IGremlinQuery<string>>, ExRam.Gremlinq.Core.IGremlinQueryBaseRec<string, ExRam.Gremlinq.Core.IGremlinQuery<string>>, ExRam.Gremlinq.Core.IGremlinQueryBase<string>, ExRam.Gremlinq.Core.IGremlinQuery<string>, ExRam.Gremlinq.Core.IStartGremlinQuery { }
+    public interface IStringGremlinQuery : ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IGremlinQueryBaseRec<ExRam.Gremlinq.Core.IGremlinQuery<string>>, ExRam.Gremlinq.Core.IGremlinQueryBaseRec<string, ExRam.Gremlinq.Core.IGremlinQuery<string>>, ExRam.Gremlinq.Core.IGremlinQueryBase<string>, ExRam.Gremlinq.Core.IGremlinQuery<string>, ExRam.Gremlinq.Core.IStartGremlinQuery
+    {
+        ExRam.Gremlinq.Core.IStringGremlinQuery Concat(params string[] strings);
+    }
     public interface ITree { }
     public interface ITreeBuilder
     {
@@ -2301,6 +2304,11 @@ namespace ExRam.Gremlinq.Core.Steps
     {
         public CoinStep(double probability) { }
         public double Probability { get; }
+    }
+    public sealed class ConcatStringsStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public ConcatStringsStep(System.Collections.Immutable.ImmutableArray<string> strings) { }
+        public System.Collections.Immutable.ImmutableArray<string> Strings { get; }
     }
     public sealed class ConstantStep : ExRam.Gremlinq.Core.Steps.Step
     {

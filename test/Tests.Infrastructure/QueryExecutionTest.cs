@@ -731,6 +731,14 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Verify();
 
         [Fact]
+        public virtual Task Concat_strings() => _g
+            .Inject(42)
+            .AsString()
+            .Concat("_1_", "_2_")
+            .Concat("_3_")
+            .Verify();
+
+        [Fact]
         public virtual Task Constant() => _g
             .V()
             .Constant(42)
