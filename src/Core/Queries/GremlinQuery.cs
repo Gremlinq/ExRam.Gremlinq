@@ -19,7 +19,20 @@ using Path = ExRam.Gremlinq.Core.GraphElements.Path;
 
 namespace ExRam.Gremlinq.Core
 {
-    internal sealed partial class GremlinQuery<T1, T2, T3, T4> : GremlinQueryBase
+    internal sealed partial class GremlinQuery_<T1, T2, T3, T4> : GremlinQuery<T1, T2, T3, T4>
+        where T4 : IGremlinQueryBase
+    {
+        public GremlinQuery_(
+            IGremlinQueryEnvironment environment,
+            Traversal steps,
+            IImmutableDictionary<StepLabel, LabelProjections> labelProjections,
+            IImmutableDictionary<object, object?> metadata) : base(environment, steps, labelProjections, metadata)
+        {
+
+        }
+    }
+
+    internal partial class GremlinQuery<T1, T2, T3, T4> : GremlinQueryBase
     {
         public GremlinQuery(
             IGremlinQueryEnvironment environment,
