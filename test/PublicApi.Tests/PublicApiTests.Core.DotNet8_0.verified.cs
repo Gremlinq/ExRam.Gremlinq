@@ -913,6 +913,7 @@
         ExRam.Gremlinq.Core.IRepeatLoopBuilder<TQuery> Repeat(System.Func<TQuery, TQuery> loop);
         ExRam.Gremlinq.Core.IUntilLoopBuilder<TQuery> Until(System.Func<TQuery, ExRam.Gremlinq.Core.IGremlinQueryBase> condition);
     }
+    public interface IStringGremlinQuery : ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IGremlinQueryBaseRec<ExRam.Gremlinq.Core.IGremlinQuery<string>>, ExRam.Gremlinq.Core.IGremlinQueryBaseRec<string, ExRam.Gremlinq.Core.IGremlinQuery<string>>, ExRam.Gremlinq.Core.IGremlinQueryBase<string>, ExRam.Gremlinq.Core.IGremlinQuery<string>, ExRam.Gremlinq.Core.IStartGremlinQuery { }
     public interface ITree { }
     public interface ITreeBuilder
     {
