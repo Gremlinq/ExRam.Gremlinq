@@ -7,6 +7,7 @@ using ExRam.Gremlinq.Tests.Entities;
 using static ExRam.Gremlinq.Core.Transformation.ConverterFactory;
 using ExRam.Gremlinq.Core;
 using FluentAssertions;
+using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Tests.Infrastructure
 {
@@ -737,6 +738,31 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Concat("_1_", "_2_")
             .Concat("_3_")
             .Verify();
+
+        [Fact]
+        public virtual Task Concat_traversals() => _g
+            .Inject(42)
+            .AsString()
+            .Concat(
+                __ => __
+                    .Constant("_a_"),
+                __ => __
+                    .Constant("_b_"))
+            .Concat(__ => __
+                .Constant("_c_"))
+            .Verify();
+
+        [Fact]
+        public virtual Task Concat_traversals_and_string() => _g
+           .Inject(42)
+           .AsString()
+           .Concat(
+               __ => __
+                   .Constant("_a_"),
+               __ => __
+                   .Constant("_b_"))
+           .Concat("_3_")
+           .Verify();
 
         [Fact]
         public virtual Task Constant() => _g

@@ -25,5 +25,18 @@ namespace ExRam.Gremlinq.Core
                     .AddStep(new ConcatStringsStep(strings.ToImmutableArray()))
                     .As<StringGremlinQuery>(),
                 strings);
+
+        IStringGremlinQuery IStringGremlinQuery.Concat(params Func<IStringGremlinQuery, IGremlinQueryBase<string>>[] stringTraversals) => this
+            .Continue()
+            .With(stringTraversals)
+            .Build(static (builder, stringTraversals) => builder
+                .AddStep(new ConcatTraversalsStep(stringTraversals
+                    .ToImmutableArray()))
+                .As<StringGremlinQuery>());
+
+        private ContinuationBuilder<StringGremlinQuery, StringGremlinQuery> Continue() => new(
+            this,
+            new StringGremlinQuery(Environment, Traversal.Empty.WithProjection(Steps.Projection), LabelProjections, Metadata), ContinuationFlags.None);
+
     }
 }

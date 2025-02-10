@@ -1,0 +1,44 @@
+﻿{
+  StepInstructions: [
+    {
+      OperatorName: inject,
+      Arguments: [
+        42
+      ]
+    },
+    {
+      OperatorName: asString
+    },
+    {
+      OperatorName: concat,
+      Arguments: [
+        {
+          StepInstructions: [
+            {
+              OperatorName: constant,
+              Arguments: [
+                _a_
+              ]
+            }
+          ]
+        },
+        {
+          StepInstructions: [
+            {
+              OperatorName: constant,
+              Arguments: [
+                _b_
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      OperatorName: concat,
+      Arguments: [
+        _3_
+      ]
+    }
+  ]
+}

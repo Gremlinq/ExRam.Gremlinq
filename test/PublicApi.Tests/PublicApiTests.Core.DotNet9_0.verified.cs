@@ -916,6 +916,7 @@
     }
     public interface IStringGremlinQuery : ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IGremlinQueryBaseRec<ExRam.Gremlinq.Core.IGremlinQuery<string>>, ExRam.Gremlinq.Core.IGremlinQueryBaseRec<string, ExRam.Gremlinq.Core.IGremlinQuery<string>>, ExRam.Gremlinq.Core.IGremlinQueryBase<string>, ExRam.Gremlinq.Core.IGremlinQuery<string>, ExRam.Gremlinq.Core.IStartGremlinQuery
     {
+        ExRam.Gremlinq.Core.IStringGremlinQuery Concat(params System.Func<ExRam.Gremlinq.Core.IStringGremlinQuery, ExRam.Gremlinq.Core.IGremlinQueryBase<string>>[] stringTraversals);
         ExRam.Gremlinq.Core.IStringGremlinQuery Concat(params string[] strings);
     }
     public interface ITree { }
@@ -2309,6 +2310,11 @@ namespace ExRam.Gremlinq.Core.Steps
     {
         public ConcatStringsStep(System.Collections.Immutable.ImmutableArray<string> strings) { }
         public System.Collections.Immutable.ImmutableArray<string> Strings { get; }
+    }
+    public sealed class ConcatTraversalsStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public ConcatTraversalsStep(System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.Traversal> traversals) { }
+        public System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.Traversal> Traversals { get; }
     }
     public sealed class ConstantStep : ExRam.Gremlinq.Core.Steps.Step
     {
