@@ -4,7 +4,7 @@ using System.Collections.Immutable;
 
 namespace ExRam.Gremlinq.Core
 {
-    internal sealed partial class GremlinQuery<T1, T2, T3, T4> : GremlinQueryBase<T1, T2, T3, T4>
+    internal sealed class GremlinQuery<T1, T2, T3, T4> : GremlinQueryBase<T1, T2, T3, T4>
         where T4 : IGremlinQueryBase
     {
         public GremlinQuery(
