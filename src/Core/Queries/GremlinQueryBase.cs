@@ -93,7 +93,9 @@ namespace ExRam.Gremlinq.Core
 
                         throw new NotSupportedException();
                     })
-                : ObjectQueryContinuation;
+                : typeof(TTargetQuery) == typeof(StringGremlinQuery)
+                    ? new QueryContinuation((query, steps, projections) => new StringGremlinQuery(Environment, steps ?? Steps, projections ?? LabelProjections, Metadata))
+                    : ObjectQueryContinuation;
 
             return queryFactory(this, maybeNewTraversal, maybeNewLabelProjections) is TTargetQuery newTargetQuery
                 ? newTargetQuery
@@ -334,13 +336,12 @@ namespace ExRam.Gremlinq.Core
                         (stepLabel, otherProjection: builder.OuterQuery.Steps.Projection)),
                 stepLabel);
 
-        private StringGremlinQuery AsString() => new (
-            Environment,
-            Steps
-                .Push(AsStringStep.Instance)
-                .WithProjection(Projection.Value),
-            LabelProjections,
-            Metadata);
+        private StringGremlinQuery AsString() => this
+            .Continue()
+            .Build(static builder => builder
+                .AddStep(AsStringStep.Instance)
+                .WithNewProjection(Projection.Value)
+                .As<StringGremlinQuery>());
 
         private GremlinQueryBase<T1, T2, T3, T4> Barrier() => this
             .Continue()
