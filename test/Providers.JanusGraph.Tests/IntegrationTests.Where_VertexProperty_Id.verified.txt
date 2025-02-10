@@ -16,14 +16,14 @@
       ],
       stackTrace:
 java.lang.NullPointerException: Expected valid relation id: 36
-	at com.google.common.base.Preconditions.checkNotNull(Preconditions.java:1010)
+	at com.google.common.base.Preconditions.checkNotNull(Preconditions.java:1011)
 	at org.janusgraph.graphdb.query.vertex.BaseVertexCentricQueryBuilder.addConstraint(BaseVertexCentricQueryBuilder.java:115)
 	at org.janusgraph.graphdb.query.vertex.BaseVertexCentricQueryBuilder.has(BaseVertexCentricQueryBuilder.java:147)
 	at org.janusgraph.graphdb.tinkerpop.optimize.step.JanusGraphPropertiesStep.makeQuery(JanusGraphPropertiesStep.java:124)
 	at org.janusgraph.graphdb.tinkerpop.optimize.step.JanusGraphPropertiesStep.makeQuery(JanusGraphPropertiesStep.java:117)
 	at org.janusgraph.graphdb.tinkerpop.optimize.step.fetcher.PropertiesStepBatchFetcher.makeQueryAndExecute(PropertiesStepBatchFetcher.java:34)
-	at org.janusgraph.graphdb.tinkerpop.optimize.step.fetcher.MultiQueriableStepBatchFetcher.prefetchNextBatch(MultiQueriableStepBatchFetcher.java:112)
-	at org.janusgraph.graphdb.tinkerpop.optimize.step.fetcher.MultiQueriableStepBatchFetcher.fetchData(MultiQueriableStepBatchFetcher.java:96)
+	at org.janusgraph.graphdb.tinkerpop.optimize.step.fetcher.MultiQueriableStepBatchFetcher.prefetchNextBatch(MultiQueriableStepBatchFetcher.java:121)
+	at org.janusgraph.graphdb.tinkerpop.optimize.step.fetcher.MultiQueriableStepBatchFetcher.fetchData(MultiQueriableStepBatchFetcher.java:104)
 	at org.janusgraph.graphdb.tinkerpop.optimize.step.JanusGraphPropertiesStep.flatMap(JanusGraphPropertiesStep.java:155)
 	at org.apache.tinkerpop.gremlin.process.traversal.step.map.FlatMapStep.processNextStart(FlatMapStep.java:49)
 	at org.apache.tinkerpop.gremlin.process.traversal.step.util.AbstractStep.hasNext(AbstractStep.java:155)
@@ -36,8 +36,8 @@ java.lang.NullPointerException: Expected valid relation id: 36
 	at org.janusgraph.graphdb.tinkerpop.optimize.step.JanusGraphMultiQueryStep.processNextStart(JanusGraphMultiQueryStep.java:111)
 	at org.apache.tinkerpop.gremlin.process.traversal.step.util.AbstractStep.hasNext(AbstractStep.java:155)
 	at org.apache.tinkerpop.gremlin.process.traversal.step.util.ExpandableStepIterator.hasNext(ExpandableStepIterator.java:47)
-	at org.apache.tinkerpop.gremlin.process.traversal.step.map.NoOpBarrierStep.processAllStarts(NoOpBarrierStep.java:67)
-	at org.apache.tinkerpop.gremlin.process.traversal.step.map.NoOpBarrierStep.processNextStart(NoOpBarrierStep.java:56)
+	at org.janusgraph.graphdb.tinkerpop.optimize.step.JanusGraphNoOpBarrierVertexOnlyStep.processAllStarts(JanusGraphNoOpBarrierVertexOnlyStep.java:49)
+	at org.apache.tinkerpop.gremlin.process.traversal.step.map.NoOpBarrierStep.processNextStart(NoOpBarrierStep.java:60)
 	at org.apache.tinkerpop.gremlin.process.traversal.step.util.AbstractStep.hasNext(AbstractStep.java:155)
 	at org.apache.tinkerpop.gremlin.process.traversal.step.util.ExpandableStepIterator.next(ExpandableStepIterator.java:55)
 	at org.apache.tinkerpop.gremlin.process.traversal.step.map.ScalarMapStep.processNextStart(ScalarMapStep.java:39)

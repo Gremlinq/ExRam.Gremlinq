@@ -10,7 +10,7 @@ namespace ExRam.Gremlinq.Tests.Fixtures
 {
     public class JanusGraphContainerFixture : ImageTestContainerFixture
     {
-        public JanusGraphContainerFixture() : base("janusgraph/janusgraph:1.0.0")
+        public JanusGraphContainerFixture() : base("janusgraph/janusgraph:1.1.0")
         {
 
         }
