@@ -37,6 +37,5 @@ namespace ExRam.Gremlinq.Core
         private ContinuationBuilder<StringGremlinQuery, StringGremlinQuery> Continue() => new(
             this,
             new StringGremlinQuery(Environment, Traversal.Empty.WithProjection(Steps.Projection), LabelProjections, Metadata), ContinuationFlags.None);
-
     }
 }
