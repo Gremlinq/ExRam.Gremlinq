@@ -9,6 +9,7 @@ using ExRam.Gremlinq.Tests.Infrastructure;
 namespace ExRam.Gremlinq.Support.TestContainers.Tests
 {
     [IntegrationTest("Linux", true)]
+    [IntegrationTest("Windows")]
     public class GremlinServerIntegrationTests : GremlinqTestBase
     {
         private readonly IGremlinQuerySource _g;
