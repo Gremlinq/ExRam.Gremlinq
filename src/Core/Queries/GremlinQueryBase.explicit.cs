@@ -16,7 +16,7 @@ using Path = ExRam.Gremlinq.Core.GraphElements.Path;
 
 namespace ExRam.Gremlinq.Core
 {
-    internal partial class GremlinQuery<T1, T2, T3, T4> :
+    internal partial class GremlinQueryBase<T1, T2, T3, T4> :
         IGremlinQueryAdmin,
         IGremlinQuerySource,
 
