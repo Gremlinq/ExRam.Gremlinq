@@ -34,17 +34,15 @@ namespace ExRam.Gremlinq.Core
                     .ToImmutableArray()))
                 .As<StringGremlinQuery>());
 
-        IStringGremlinQuery IStringGremlinQuery.Substring(Index startIndex)
-        {
-            throw new NotImplementedException();
-        }
+        IStringGremlinQuery IStringGremlinQuery.Substring(Index startIndex) => Substring(Range.StartAt(startIndex));
 
-        IStringGremlinQuery IStringGremlinQuery.Substring(Index startIndex, int length)
-        {
-            throw new NotImplementedException();
-        }
+        IStringGremlinQuery IStringGremlinQuery.Substring(Index startIndex, int length) => startIndex.IsFromEnd
+            ? Substring(new Range(startIndex, Index.FromEnd(Math.Max(startIndex.Value - length, 0))))
+            : Substring(new Range(startIndex, Index.FromStart(startIndex.Value + length)));
 
-        IStringGremlinQuery IStringGremlinQuery.Substring(Range range)
+        IStringGremlinQuery IStringGremlinQuery.Substring(Range range) => Substring(range);
+
+        private StringGremlinQuery Substring(Range range)
         {
             throw new NotImplementedException();
         }
