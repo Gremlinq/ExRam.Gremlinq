@@ -918,6 +918,9 @@
     {
         ExRam.Gremlinq.Core.IStringGremlinQuery Concat(params System.Func<ExRam.Gremlinq.Core.IStringGremlinQuery, ExRam.Gremlinq.Core.IGremlinQueryBase<string>>[] stringTraversals);
         ExRam.Gremlinq.Core.IStringGremlinQuery Concat(params string[] strings);
+        ExRam.Gremlinq.Core.IStringGremlinQuery Substring(System.Index startIndex);
+        ExRam.Gremlinq.Core.IStringGremlinQuery Substring(System.Range range);
+        ExRam.Gremlinq.Core.IStringGremlinQuery Substring(System.Index startIndex, int length);
     }
     public interface ITree { }
     public interface ITreeBuilder

@@ -1,6 +1,7 @@
 ﻿#pragma warning disable IDE0003
 // ReSharper disable ArrangeThisQualifier
 using System.Collections.Immutable;
+using System.Security.Cryptography;
 
 using ExRam.Gremlinq.Core.Steps;
 
@@ -15,7 +16,6 @@ namespace ExRam.Gremlinq.Core
             IImmutableDictionary<StepLabel, LabelProjections> labelProjections,
             IImmutableDictionary<object, object?> metadata) : base(environment, steps, labelProjections, metadata)
         {
-
         }
 
         IStringGremlinQuery IStringGremlinQuery.Concat(params string[] strings) => this
@@ -33,6 +33,21 @@ namespace ExRam.Gremlinq.Core
                 .AddStep(new ConcatTraversalsStep(stringTraversals
                     .ToImmutableArray()))
                 .As<StringGremlinQuery>());
+
+        IStringGremlinQuery IStringGremlinQuery.Substring(Index startIndex)
+        {
+            throw new NotImplementedException();
+        }
+
+        IStringGremlinQuery IStringGremlinQuery.Substring(Index startIndex, int length)
+        {
+            throw new NotImplementedException();
+        }
+
+        IStringGremlinQuery IStringGremlinQuery.Substring(Range range)
+        {
+            throw new NotImplementedException();
+        }
 
         private ContinuationBuilder<StringGremlinQuery, StringGremlinQuery> Continue() => new(
             this,
