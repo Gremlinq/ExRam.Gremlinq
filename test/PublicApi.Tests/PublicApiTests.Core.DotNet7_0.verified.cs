@@ -918,9 +918,9 @@
     {
         ExRam.Gremlinq.Core.IStringGremlinQuery Concat(params System.Func<ExRam.Gremlinq.Core.IStringGremlinQuery, ExRam.Gremlinq.Core.IGremlinQueryBase<string>>[] stringTraversals);
         ExRam.Gremlinq.Core.IStringGremlinQuery Concat(params string[] strings);
-        ExRam.Gremlinq.Core.IStringGremlinQuery Substring(System.Index startIndex);
+        ExRam.Gremlinq.Core.IStringGremlinQuery Substring(int startIndex);
         ExRam.Gremlinq.Core.IStringGremlinQuery Substring(System.Range range);
-        ExRam.Gremlinq.Core.IStringGremlinQuery Substring(System.Index startIndex, int length);
+        ExRam.Gremlinq.Core.IStringGremlinQuery Substring(int startIndex, int length);
     }
     public interface ITree { }
     public interface ITreeBuilder
@@ -2743,6 +2743,11 @@ namespace ExRam.Gremlinq.Core.Steps
     {
         protected Step(ExRam.Gremlinq.Core.Steps.SideEffectSemanticsChange sideEffectSemanticsChange = 0) { }
         public ExRam.Gremlinq.Core.Steps.SideEffectSemanticsChange SideEffectSemanticsChange { get; }
+    }
+    public sealed class SubstringStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public SubstringStep(System.Range range) { }
+        public System.Range Range { get; }
     }
     public sealed class SumStep : ExRam.Gremlinq.Core.Steps.Step
     {
