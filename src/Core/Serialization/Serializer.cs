@@ -512,9 +512,15 @@ namespace ExRam.Gremlinq.Core.Serialization
                     ? -step.Range.End.Value
                     : step.Range.End.Value;
 
-                return endIndex == 0 && step.Range.End.IsFromEnd
-                   ? CreateInstruction("substring", recurse, env, startIndex)
-                   : CreateInstruction("substring", recurse, env, startIndex, endIndex);
+                var length = step.Range.Start.IsFromEnd == step.Range.End.IsFromEnd
+                    ? endIndex - startIndex
+                    : default(int?);
+
+                return length is null or >= 0
+                    ? endIndex == 0 && step.Range.End.IsFromEnd
+                        ? CreateInstruction("substring", recurse, env, startIndex)
+                        : CreateInstruction("substring", recurse, env, startIndex, endIndex)
+                    : CreateInstruction("substring", recurse, env, 0, 0);
             })
             .Add<SumStep>((step, env, _, recurse) => step.Scope.Equals(Scope.Local)
                 ? CreateInstruction("sum", recurse, env, step.Scope)

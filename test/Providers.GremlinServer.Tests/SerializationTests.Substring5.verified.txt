@@ -1,0 +1,20 @@
+﻿{
+  StepInstructions: [
+    {
+      OperatorName: inject,
+      Arguments: [
+        1234567890
+      ]
+    },
+    {
+      OperatorName: asString
+    },
+    {
+      OperatorName: substring,
+      Arguments: [
+        0,
+        0
+      ]
+    }
+  ]
+}
