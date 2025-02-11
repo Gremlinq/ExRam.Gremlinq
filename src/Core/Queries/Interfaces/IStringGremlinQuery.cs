@@ -1,15 +1,15 @@
 ﻿namespace ExRam.Gremlinq.Core
 {
-    public interface IStringGremlinQuery : IGremlinQuery<string>
+    public interface IStringGremlinQuery<TString> : IGremlinQuery<TString>
     {
-        IStringGremlinQuery Concat(params string[] strings);
+        IStringGremlinQuery<TString> Concat(params string[] strings);
 
-        IStringGremlinQuery Concat(params Func<IStringGremlinQuery, IGremlinQueryBase<string>>[] stringTraversals);
+        IStringGremlinQuery<TString> Concat(params Func<IStringGremlinQuery<TString>, IGremlinQueryBase<TString>>[] stringTraversals);
 
-        IStringGremlinQuery Substring(int startIndex);
+        IStringGremlinQuery<TString> Substring(int startIndex);
 
-        IStringGremlinQuery Substring(int startIndex, int length);
+        IStringGremlinQuery<TString> Substring(int startIndex, int length);
 
-        IStringGremlinQuery Substring(Range range);
+        IStringGremlinQuery<TString> Substring(Range range);
     }
 }

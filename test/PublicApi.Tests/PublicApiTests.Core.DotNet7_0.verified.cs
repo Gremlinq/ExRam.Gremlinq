@@ -389,7 +389,7 @@
     }
     public interface IGremlinQueryBase : ExRam.Gremlinq.Core.IStartGremlinQuery
     {
-        ExRam.Gremlinq.Core.IStringGremlinQuery AsString();
+        ExRam.Gremlinq.Core.IStringGremlinQuery<string> AsString();
         ExRam.Gremlinq.Core.IArrayGremlinQuery<TElement, TArrayItem, TOriginalQuery> Cap<TElement, TArrayItem, TOriginalQuery>(ExRam.Gremlinq.Core.StepLabel<ExRam.Gremlinq.Core.IArrayGremlinQuery<TElement, TArrayItem, TOriginalQuery>, TElement> label)
             where TOriginalQuery : ExRam.Gremlinq.Core.IGremlinQueryBase;
         ExRam.Gremlinq.Core.IGremlinQuery<TResult> Cast<TResult>();
@@ -914,13 +914,13 @@
         ExRam.Gremlinq.Core.IRepeatLoopBuilder<TQuery> Repeat(System.Func<TQuery, TQuery> loop);
         ExRam.Gremlinq.Core.IUntilLoopBuilder<TQuery> Until(System.Func<TQuery, ExRam.Gremlinq.Core.IGremlinQueryBase> condition);
     }
-    public interface IStringGremlinQuery : ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IGremlinQueryBaseRec<ExRam.Gremlinq.Core.IGremlinQuery<string>>, ExRam.Gremlinq.Core.IGremlinQueryBaseRec<string, ExRam.Gremlinq.Core.IGremlinQuery<string>>, ExRam.Gremlinq.Core.IGremlinQueryBase<string>, ExRam.Gremlinq.Core.IGremlinQuery<string>, ExRam.Gremlinq.Core.IStartGremlinQuery
+    public interface IStringGremlinQuery<TString> : ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IGremlinQueryBaseRec<ExRam.Gremlinq.Core.IGremlinQuery<TString>>, ExRam.Gremlinq.Core.IGremlinQueryBaseRec<TString, ExRam.Gremlinq.Core.IGremlinQuery<TString>>, ExRam.Gremlinq.Core.IGremlinQueryBase<TString>, ExRam.Gremlinq.Core.IGremlinQuery<TString>, ExRam.Gremlinq.Core.IStartGremlinQuery
     {
-        ExRam.Gremlinq.Core.IStringGremlinQuery Concat(params System.Func<ExRam.Gremlinq.Core.IStringGremlinQuery, ExRam.Gremlinq.Core.IGremlinQueryBase<string>>[] stringTraversals);
-        ExRam.Gremlinq.Core.IStringGremlinQuery Concat(params string[] strings);
-        ExRam.Gremlinq.Core.IStringGremlinQuery Substring(int startIndex);
-        ExRam.Gremlinq.Core.IStringGremlinQuery Substring(System.Range range);
-        ExRam.Gremlinq.Core.IStringGremlinQuery Substring(int startIndex, int length);
+        ExRam.Gremlinq.Core.IStringGremlinQuery<TString> Concat(params System.Func<ExRam.Gremlinq.Core.IStringGremlinQuery<TString>, ExRam.Gremlinq.Core.IGremlinQueryBase<TString>>[] stringTraversals);
+        ExRam.Gremlinq.Core.IStringGremlinQuery<TString> Concat(params string[] strings);
+        ExRam.Gremlinq.Core.IStringGremlinQuery<TString> Substring(int startIndex);
+        ExRam.Gremlinq.Core.IStringGremlinQuery<TString> Substring(System.Range range);
+        ExRam.Gremlinq.Core.IStringGremlinQuery<TString> Substring(int startIndex, int length);
     }
     public interface ITree { }
     public interface ITreeBuilder

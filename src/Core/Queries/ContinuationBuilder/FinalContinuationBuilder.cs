@@ -47,15 +47,15 @@ namespace ExRam.Gremlinq.Core
             static (outer, steps, labelProjections, _) => outer.CloneAs<TTargetQuery>(steps, labelProjections),
             0);
 
-        public FinalContinuationBuilder<TOuterQuery, GremlinQueryBase<T1, T2, T3, T4>> AsAuto<T1, T2, T3, T4>() where T4 : IGremlinQueryBase => As<GremlinQueryBase<T1, T2, T3, T4>>();
+        public FinalContinuationBuilder<TOuterQuery, GremlinQuery<T1, T2, T3, T4>> AsAuto<T1, T2, T3, T4>() where T4 : IGremlinQueryBase => As<GremlinQuery<T1, T2, T3, T4>>();
 
-        public FinalContinuationBuilder<TOuterQuery, GremlinQueryBase<T1, T2, T3, IGremlinQueryBase>> AsAuto<T1, T2, T3>() => As<GremlinQueryBase<T1, T2, T3, IGremlinQueryBase>>();
+        public FinalContinuationBuilder<TOuterQuery, GremlinQuery<T1, T2, T3, IGremlinQueryBase>> AsAuto<T1, T2, T3>() => As<GremlinQuery<T1, T2, T3, IGremlinQueryBase>>();
 
-        public FinalContinuationBuilder<TOuterQuery, GremlinQueryBase<T1, T2, object, IGremlinQueryBase>> AsAuto<T1, T2>() => As<GremlinQueryBase<T1, T2, object, IGremlinQueryBase>>();
+        public FinalContinuationBuilder<TOuterQuery, GremlinQuery<T1, T2, object, IGremlinQueryBase>> AsAuto<T1, T2>() => As<GremlinQuery<T1, T2, object, IGremlinQueryBase>>();
 
-        public FinalContinuationBuilder<TOuterQuery, GremlinQueryBase<T1, object, object, IGremlinQueryBase>> AsAuto<T1>() => As<GremlinQueryBase<T1, object, object, IGremlinQueryBase>>();
+        public FinalContinuationBuilder<TOuterQuery, GremlinQuery<T1, object, object, IGremlinQueryBase>> AsAuto<T1>() => As<GremlinQuery<T1, object, object, IGremlinQueryBase>>();
 
-        public FinalContinuationBuilder<TOuterQuery, GremlinQueryBase<object, object, object, IGremlinQueryBase>> AsAuto() => As<GremlinQueryBase<object, object, object, IGremlinQueryBase>>();
+        public FinalContinuationBuilder<TOuterQuery, GremlinQuery<object, object, object, IGremlinQueryBase>> AsAuto() => As<GremlinQuery<object, object, object, IGremlinQueryBase>>();
 
         public FinalContinuationBuilder<TOuterQuery, TNewTargetQuery> As<TNewTargetQuery>() where TNewTargetQuery : IStartGremlinQuery => With(
             static (outer, steps, labelProjections, _) => new FinalContinuationBuilder<TOuterQuery, TNewTargetQuery>(outer, steps, labelProjections),

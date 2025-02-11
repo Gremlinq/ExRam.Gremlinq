@@ -32,7 +32,7 @@ namespace ExRam.Gremlinq.Core
 
 <# } #>
 
-    partial class GremlinQueryBase<T1, T2, T3, T4>
+    partial class GremlinQuery<T1, T2, T3, T4>
     {
         private sealed partial class TreeBuilder<<#= GetArgumentList("TNode{0}", maxParameters)#>> :
 <# for(var i = 1; i <= maxParameters; i++) { #>

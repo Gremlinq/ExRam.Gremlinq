@@ -16,7 +16,7 @@ using Path = ExRam.Gremlinq.Core.GraphElements.Path;
 
 namespace ExRam.Gremlinq.Core
 {
-    internal partial class GremlinQueryBase<T1, T2, T3, T4> :
+    internal partial class GremlinQuery<T1, T2, T3, T4> :
         IGremlinQueryAdmin,
         IGremlinQuerySource,
 
@@ -35,6 +35,8 @@ namespace ExRam.Gremlinq.Core
         IOutEdgeGremlinQuery<T1, T2>,
 
         IPropertyGremlinQuery<T1>,
+
+        IStringGremlinQuery<T1>,
 
         IVertexPropertyGremlinQuery<T1, T2>,
         IVertexPropertyGremlinQuery<T1, T2, T3>,
@@ -457,6 +459,20 @@ namespace ExRam.Gremlinq.Core
 
         IArrayGremlinQuery<T1, T2, T4> IArrayGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T4>>.TailLocal(long count) => TailLocal(count);
 
-        IStringGremlinQuery IGremlinQueryBase.AsString() => AsString();
+        IStringGremlinQuery<string> IGremlinQueryBase.AsString() => AsString();
+
+        IStringGremlinQuery<T1> IStringGremlinQuery<T1>.Concat(params string[] strings) => Concat(strings);
+
+        IStringGremlinQuery<T1> IStringGremlinQuery<T1>.Concat(params Func<IStringGremlinQuery<T1>, IGremlinQueryBase<T1>>[] stringTraversals) => Concat(stringTraversals);
+
+        IStringGremlinQuery<T1> IStringGremlinQuery<T1>.Substring(int startIndex) => startIndex >= 0
+            ? Substring(System.Range.StartAt(startIndex))
+            : throw new ArgumentOutOfRangeException();
+
+        IStringGremlinQuery<T1> IStringGremlinQuery<T1>.Substring(int startIndex, int length) => startIndex >= 0 && length >= 0
+            ? Substring(new Range(startIndex, Index.FromStart(startIndex + length)))
+            : throw new ArgumentOutOfRangeException();
+
+        IStringGremlinQuery<T1> IStringGremlinQuery<T1>.Substring(Range range) => Substring(range);
     }
 }
