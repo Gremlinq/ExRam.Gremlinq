@@ -502,6 +502,20 @@ namespace ExRam.Gremlinq.Core.Serialization
             .Add<SkipStep>((step, env, _, recurse) => step.Scope.Equals(Scope.Local)
                 ? CreateInstruction("skip", recurse, env, step.Scope, step.Count)
                 : CreateInstruction("skip", recurse, env, step.Count))
+            .Add<SubstringStep>((step, env, _, recurse) =>
+            {
+                var startIndex = step.Range.Start.IsFromEnd
+                    ? -step.Range.Start.Value
+                    : step.Range.Start.Value;
+
+                var endIndex = step.Range.End.IsFromEnd
+                    ? -step.Range.End.Value
+                    : step.Range.End.Value;
+
+                return endIndex == 0 && step.Range.End.IsFromEnd
+                   ? CreateInstruction("substring", recurse, env, startIndex)
+                   : CreateInstruction("substring", recurse, env, startIndex, endIndex);
+            })
             .Add<SumStep>((step, env, _, recurse) => step.Scope.Equals(Scope.Local)
                 ? CreateInstruction("sum", recurse, env, step.Scope)
                 : sum)

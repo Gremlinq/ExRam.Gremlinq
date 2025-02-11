@@ -1,0 +1,8 @@
+﻿{
+  Script: g.inject(_a).asString().substring(_b,_c),
+  Bindings: {
+    _a: 1234567890,
+    _b: 2,
+    _c: 5
+  }
+}

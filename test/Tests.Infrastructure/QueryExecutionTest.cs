@@ -2759,6 +2759,48 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Verify();
 
         [Fact]
+        public Task Substring9() => _g
+            .Inject("1234567890")
+            .AsString()
+            .Substring(2..^6)
+            .Verify();
+
+        [Fact]
+        public Task Substring10() => _g
+            .Inject("1234567890")
+            .AsString()
+            .Substring(6..2)
+            .Verify();
+
+        [Fact]
+        public Task Substring11() => _g
+            .Inject("1234567890")
+            .AsString()
+            .Substring(3..^2)
+            .Verify();
+
+        [Fact]
+        public Task Substring12() => _g
+            .Inject("1234567890")
+            .AsString()
+            .Substring(^6..^2)
+            .Verify();
+
+        [Fact]
+        public Task Substring13() => _g
+            .Inject("1234567890")
+            .AsString()
+            .Substring(^0..^6)
+            .Verify();
+
+        [Fact]
+        public Task Substring14() => _g
+            .Inject("1234567890")
+            .AsString()
+            .Substring(6..^2)
+            .Verify();
+
+        [Fact]
         public virtual Task SumGlobal() => _g
             .V<Person>()
             .Values(x => x.Age)

@@ -42,10 +42,13 @@ namespace ExRam.Gremlinq.Core
 
         IStringGremlinQuery IStringGremlinQuery.Substring(Range range) => Substring(range);
 
-        private StringGremlinQuery Substring(Range range)
-        {
-            throw new NotImplementedException();
-        }
+        private StringGremlinQuery Substring(Range range) => this
+            .Continue()
+            .Build(
+                static (builder, range) => builder
+                    .AddStep(new SubstringStep(range))
+                    .As<StringGremlinQuery>(),
+                range);
 
         private ContinuationBuilder<StringGremlinQuery, StringGremlinQuery> Continue() => new(
             this,
