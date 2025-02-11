@@ -1,6 +1,6 @@
 ﻿namespace ExRam.Gremlinq.Core
 {
-    public interface IStringGremlinQuery<TString> : IGremlinQuery<TString>
+    public interface IStringGremlinQuery<TString> : IGremlinQueryBaseRec<TString, IStringGremlinQuery<TString>>
     {
         IStringGremlinQuery<TString> Concat(params string[] strings);
 

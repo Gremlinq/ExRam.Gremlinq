@@ -914,7 +914,7 @@
         ExRam.Gremlinq.Core.IRepeatLoopBuilder<TQuery> Repeat(System.Func<TQuery, TQuery> loop);
         ExRam.Gremlinq.Core.IUntilLoopBuilder<TQuery> Until(System.Func<TQuery, ExRam.Gremlinq.Core.IGremlinQueryBase> condition);
     }
-    public interface IStringGremlinQuery<TString> : ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IGremlinQueryBaseRec<ExRam.Gremlinq.Core.IGremlinQuery<TString>>, ExRam.Gremlinq.Core.IGremlinQueryBaseRec<TString, ExRam.Gremlinq.Core.IGremlinQuery<TString>>, ExRam.Gremlinq.Core.IGremlinQueryBase<TString>, ExRam.Gremlinq.Core.IGremlinQuery<TString>, ExRam.Gremlinq.Core.IStartGremlinQuery
+    public interface IStringGremlinQuery<TString> : ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IGremlinQueryBaseRec<ExRam.Gremlinq.Core.IStringGremlinQuery<TString>>, ExRam.Gremlinq.Core.IGremlinQueryBaseRec<TString, ExRam.Gremlinq.Core.IStringGremlinQuery<TString>>, ExRam.Gremlinq.Core.IGremlinQueryBase<TString>, ExRam.Gremlinq.Core.IStartGremlinQuery
     {
         ExRam.Gremlinq.Core.IStringGremlinQuery<TString> Concat(params System.Func<ExRam.Gremlinq.Core.IStringGremlinQuery<TString>, ExRam.Gremlinq.Core.IGremlinQueryBase<TString>>[] stringTraversals);
         ExRam.Gremlinq.Core.IStringGremlinQuery<TString> Concat(params string[] strings);
