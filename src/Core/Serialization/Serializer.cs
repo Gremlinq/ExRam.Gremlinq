@@ -504,23 +504,40 @@ namespace ExRam.Gremlinq.Core.Serialization
                 : CreateInstruction("skip", recurse, env, step.Count))
             .Add<SubstringStep>((step, env, _, recurse) =>
             {
-                var startIndex = step.Range.Start.IsFromEnd
-                    ? -step.Range.Start.Value
-                    : step.Range.Start.Value;
+                var endIndex = step.Range.End.Value;
+                var startIndex = step.Range.Start.Value;
 
-                var endIndex = step.Range.End.IsFromEnd
-                    ? -step.Range.End.Value
-                    : step.Range.End.Value;
+                if (step.Range.End.IsFromEnd)
+                {
+                    if (endIndex == 0)
+                    {
+                        if (!step.Range.Start.IsFromEnd || startIndex >= 0)
+                            return CreateInstruction("substring", recurse, env, (step.Range.Start.IsFromEnd ? -1 : 1) * startIndex);
 
-                var length = step.Range.Start.IsFromEnd == step.Range.End.IsFromEnd
-                    ? endIndex - startIndex
-                    : default(int?);
+                        startIndex = 0;
+                    }
+                    else
+                    {
+                        endIndex = -endIndex;
 
-                return length is null or >= 0
-                    ? endIndex == 0 && step.Range.End.IsFromEnd
-                        ? CreateInstruction("substring", recurse, env, startIndex)
-                        : CreateInstruction("substring", recurse, env, startIndex, endIndex)
-                    : CreateInstruction("substring", recurse, env, 0, 0);
+                        if (step.Range.Start.IsFromEnd)
+                        {
+                            startIndex = -startIndex;
+
+                            if (endIndex - startIndex < 0)
+                                startIndex = endIndex = 0;
+                        }
+                    }
+                }
+                else
+                {
+                    if (step.Range.Start.IsFromEnd)
+                        startIndex = -startIndex;
+                    else if (endIndex - startIndex < 0)
+                        startIndex = endIndex = 0;
+                }
+
+                return CreateInstruction("substring", recurse, env, startIndex, endIndex);
             })
             .Add<SumStep>((step, env, _, recurse) => step.Scope.Equals(Scope.Local)
                 ? CreateInstruction("sum", recurse, env, step.Scope)
