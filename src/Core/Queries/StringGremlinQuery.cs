@@ -1,8 +1,6 @@
 ﻿#pragma warning disable IDE0003
 // ReSharper disable ArrangeThisQualifier
 using System.Collections.Immutable;
-using System.Security.Cryptography;
-
 using ExRam.Gremlinq.Core.Steps;
 
 namespace ExRam.Gremlinq.Core
@@ -34,11 +32,13 @@ namespace ExRam.Gremlinq.Core
                     .ToImmutableArray()))
                 .As<StringGremlinQuery>());
 
-        IStringGremlinQuery IStringGremlinQuery.Substring(Index startIndex) => Substring(Range.StartAt(startIndex));
+        IStringGremlinQuery IStringGremlinQuery.Substring(int startIndex) => startIndex >= 0
+            ? Substring(Range.StartAt(startIndex))
+            : throw new ArgumentOutOfRangeException();
 
-        IStringGremlinQuery IStringGremlinQuery.Substring(Index startIndex, int length) => startIndex.IsFromEnd
-            ? Substring(new Range(startIndex, Index.FromEnd(Math.Max(startIndex.Value - length, 0))))
-            : Substring(new Range(startIndex, Index.FromStart(startIndex.Value + length)));
+        IStringGremlinQuery IStringGremlinQuery.Substring(int startIndex, int length) => startIndex >= 0 && length >= 0
+            ? Substring(new Range(startIndex, Index.FromStart(startIndex + length)))
+            : throw new ArgumentOutOfRangeException();
 
         IStringGremlinQuery IStringGremlinQuery.Substring(Range range) => Substring(range);
 
