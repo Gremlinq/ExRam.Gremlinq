@@ -2746,8 +2746,9 @@ namespace ExRam.Gremlinq.Core.Steps
     }
     public sealed class SubstringStep : ExRam.Gremlinq.Core.Steps.Step
     {
-        public SubstringStep(System.Range range) { }
+        public SubstringStep(System.Range range, Gremlin.Net.Process.Traversal.Scope scope) { }
         public System.Range Range { get; }
+        public Gremlin.Net.Process.Traversal.Scope Scope { get; }
     }
     public sealed class SumStep : ExRam.Gremlinq.Core.Steps.Step
     {

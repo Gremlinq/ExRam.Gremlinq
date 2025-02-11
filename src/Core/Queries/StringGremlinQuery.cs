@@ -3,6 +3,8 @@
 using System.Collections.Immutable;
 using ExRam.Gremlinq.Core.Steps;
 
+using Gremlin.Net.Process.Traversal;
+
 namespace ExRam.Gremlinq.Core
 {
     internal sealed class StringGremlinQuery : GremlinQueryBase<string, object, object, IGremlinQueryBase>,
@@ -46,7 +48,7 @@ namespace ExRam.Gremlinq.Core
             .Continue()
             .Build(
                 static (builder, range) => builder
-                    .AddStep(new SubstringStep(range))
+                    .AddStep(new SubstringStep(range, Scope.Global))
                     .As<StringGremlinQuery>(),
                 range);
 
