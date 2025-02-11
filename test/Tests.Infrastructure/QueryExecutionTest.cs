@@ -2727,74 +2727,60 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public Task Substring4() => _g
             .Inject("1234567890")
             .AsString()
-            .Substring(^2)
+            .Substring(2..^3)
             .Verify();
 
         [Fact]
         public Task Substring5() => _g
             .Inject("1234567890")
             .AsString()
-            .Substring(^2, 3)
+            .Substring(^2..^6)
             .Verify();
 
         [Fact]
         public Task Substring6() => _g
             .Inject("1234567890")
             .AsString()
-            .Substring(2..^3)
+            .Substring(^6..)
             .Verify();
 
         [Fact]
         public Task Substring7() => _g
             .Inject("1234567890")
             .AsString()
-            .Substring(^2..^6)
+            .Substring(2..^6)
             .Verify();
 
         [Fact]
         public Task Substring8() => _g
             .Inject("1234567890")
             .AsString()
-            .Substring(^6..)
+            .Substring(6..2)
             .Verify();
 
         [Fact]
         public Task Substring9() => _g
             .Inject("1234567890")
             .AsString()
-            .Substring(2..^6)
+            .Substring(3..^2)
             .Verify();
 
         [Fact]
         public Task Substring10() => _g
             .Inject("1234567890")
             .AsString()
-            .Substring(6..2)
+            .Substring(^6..^2)
             .Verify();
 
         [Fact]
         public Task Substring11() => _g
             .Inject("1234567890")
             .AsString()
-            .Substring(3..^2)
-            .Verify();
-
-        [Fact]
-        public Task Substring12() => _g
-            .Inject("1234567890")
-            .AsString()
-            .Substring(^6..^2)
-            .Verify();
-
-        [Fact]
-        public Task Substring13() => _g
-            .Inject("1234567890")
-            .AsString()
             .Substring(^0..^6)
             .Verify();
 
         [Fact]
-        public Task Substring14() => _g
+        public Task Substring12() => _g
             .Inject("1234567890")
             .AsString()
             .Substring(6..^2)
