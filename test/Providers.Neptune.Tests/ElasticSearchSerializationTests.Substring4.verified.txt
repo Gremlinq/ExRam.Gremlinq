@@ -28,6 +28,10 @@
     {
       OperatorName: substring,
       Arguments: [
+        {
+          EnumName: Scope,
+          EnumValue: global
+        },
         2,
         -3
       ]

@@ -10,6 +10,6 @@
       _a: 1234567890,
       _b: 2
     },
-    gremlin: g.inject(_a).asString().substring(_b)
+    gremlin: g.inject(_a).asString().substring(global,_b)
   }
 }
