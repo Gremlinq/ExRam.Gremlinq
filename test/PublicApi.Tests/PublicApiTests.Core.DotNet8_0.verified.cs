@@ -448,6 +448,8 @@
         where TSelf : ExRam.Gremlinq.Core.IGremlinQueryBaseRec<TSelf>
     {
         TSelf And(params System.Func<TSelf, ExRam.Gremlinq.Core.IGremlinQueryBase>[] andTraversals);
+        [System.Obsolete("Deprecated. If the strongly typed overload of As is not in scope, call Cast<objec" +
+            "t>() before As(...).")]
         TTargetQuery As<TTargetQuery>(System.Func<TSelf, ExRam.Gremlinq.Core.StepLabel<TSelf, object>, TTargetQuery> continuation)
             where TTargetQuery : ExRam.Gremlinq.Core.IGremlinQueryBase;
         TSelf Barrier();
