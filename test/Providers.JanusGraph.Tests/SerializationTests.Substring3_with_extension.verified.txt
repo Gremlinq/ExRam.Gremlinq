@@ -1,0 +1,24 @@
+﻿{
+  StepInstructions: [
+    {
+      OperatorName: inject,
+      Arguments: [
+        1234567890
+      ]
+    },
+    {
+      OperatorName: asString
+    },
+    {
+      OperatorName: substring,
+      Arguments: [
+        {
+          EnumName: Scope,
+          EnumValue: global
+        },
+        2,
+        6
+      ]
+    }
+  ]
+}

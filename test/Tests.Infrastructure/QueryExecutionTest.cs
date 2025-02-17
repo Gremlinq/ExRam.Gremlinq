@@ -740,6 +740,13 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Verify();
 
         [Fact]
+        public virtual Task Concat_strings_with_extension() => _g
+            .Inject("42")
+            .Concat("_1_", "_2_")
+            .Concat("_3_")
+            .Verify();
+
+        [Fact]
         public virtual Task Concat_traversals() => _g
             .Inject(42)
             .AsString()
@@ -751,6 +758,18 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Concat(__ => __
                 .Constant("_c_"))
             .Verify();
+
+        [Fact]
+        public virtual Task Concat_traversals_with_extension() => _g
+           .Inject("42")
+           .Concat(
+               __ => __
+                   .Constant("_a_"),
+               __ => __
+                   .Constant("_b_"))
+           .Concat(__ => __
+               .Constant("_c_"))
+           .Verify();
 
         [Fact]
         public virtual Task Concat_traversals_and_string() => _g
@@ -2720,6 +2739,24 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public Task Substring3() => _g
             .Inject("1234567890")
             .AsString()
+            .Substring(2..6)
+            .Verify();
+
+        [Fact]
+        public Task Substring1_with_extension() => _g
+            .Inject("1234567890")
+            .Substring(2)
+            .Verify();
+
+        [Fact]
+        public Task Substring2_with_extension() => _g
+            .Inject("1234567890")
+            .Substring(2, 3)
+            .Verify();
+
+        [Fact]
+        public Task Substring3_with_extension() => _g
+            .Inject("1234567890")
             .Substring(2..6)
             .Verify();
 

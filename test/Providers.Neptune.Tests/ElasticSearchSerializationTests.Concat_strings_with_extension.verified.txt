@@ -1,0 +1,42 @@
+﻿{
+  SourceInstructions: [
+    {
+      OperatorName: withSideEffect,
+      Arguments: [
+        Neptune#fts.endpoint,
+        http://elastic.search.server
+      ]
+    },
+    {
+      OperatorName: withSideEffect,
+      Arguments: [
+        Neptune#fts.queryType,
+        query_string
+      ]
+    }
+  ],
+  StepInstructions: [
+    {
+      OperatorName: inject,
+      Arguments: [
+        42
+      ]
+    },
+    {
+      OperatorName: asString
+    },
+    {
+      OperatorName: concat,
+      Arguments: [
+        _1_,
+        _2_
+      ]
+    },
+    {
+      OperatorName: concat,
+      Arguments: [
+        _3_
+      ]
+    }
+  ]
+}
