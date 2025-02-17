@@ -1654,6 +1654,14 @@
         Strict = 0,
         Lenient = 1,
     }
+    public static class StringGremlinQueryExtensions
+    {
+        public static ExRam.Gremlinq.Core.IStringGremlinQuery<string> Concat(this ExRam.Gremlinq.Core.IGremlinQueryBase<string> query, params System.Func<ExRam.Gremlinq.Core.IStringGremlinQuery<string>, ExRam.Gremlinq.Core.IGremlinQueryBase<string>>[] stringTraversals) { }
+        public static ExRam.Gremlinq.Core.IStringGremlinQuery<string> Concat(this ExRam.Gremlinq.Core.IGremlinQueryBase<string> query, params string[] strings) { }
+        public static ExRam.Gremlinq.Core.IStringGremlinQuery<string> Substring(this ExRam.Gremlinq.Core.IGremlinQueryBase<string> query, int startIndex) { }
+        public static ExRam.Gremlinq.Core.IStringGremlinQuery<string> Substring(this ExRam.Gremlinq.Core.IGremlinQueryBase<string> query, System.Range range) { }
+        public static ExRam.Gremlinq.Core.IStringGremlinQuery<string> Substring(this ExRam.Gremlinq.Core.IGremlinQueryBase<string> query, int startIndex, int length) { }
+    }
     public static class TransformerClassExtensions
     {
         public static ExRam.Gremlinq.Core.TransformerClassExtensions.TryTransformToBuilder<TTarget> TryTransformTo<TTarget>(this ExRam.Gremlinq.Core.Transformation.ITransformer transformer)
