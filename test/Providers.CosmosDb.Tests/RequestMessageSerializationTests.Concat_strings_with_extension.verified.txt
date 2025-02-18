@@ -12,6 +12,6 @@
       _c: _2_,
       _d: _3_
     },
-    gremlin: g.inject(_a).asString().concat(_b,_c).concat(_d)
+    gremlin: g.inject(_a).concat(_b,_c).concat(_d)
   }
 }

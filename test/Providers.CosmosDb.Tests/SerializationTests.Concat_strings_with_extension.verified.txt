@@ -1,5 +1,5 @@
 ﻿{
-  Script: g.inject(_a).asString().concat(_b,_c).concat(_d),
+  Script: g.inject(_a).concat(_b,_c).concat(_d),
   Bindings: {
     _a: 42,
     _b: _1_,

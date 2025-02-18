@@ -15,9 +15,6 @@
           ]
         },
         {
-          OperatorName: asString
-        },
-        {
           OperatorName: concat,
           Arguments: [
             {

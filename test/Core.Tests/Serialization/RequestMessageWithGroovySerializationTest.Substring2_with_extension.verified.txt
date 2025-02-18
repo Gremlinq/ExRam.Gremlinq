@@ -11,6 +11,6 @@
       _b: 2,
       _c: 5
     },
-    gremlin: g.inject(_a).asString().substring(global,_b,_c)
+    gremlin: g.inject(_a).substring(global,_b,_c)
   }
 }
