@@ -40,6 +40,29 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public string? SettableString { get; set; }
     }
 
+    public enum Bug_1884_Enum
+    {
+        ValueA,
+        ValueB
+    }
+
+    public class Bug_1884_Entity
+    {
+        public Bug_1884_Entity()
+        {
+            MyEnum1 = Bug_1884_Enum.ValueB;
+        }
+
+        // this default value is overwritten during deserialization (as expected)
+        public DateTime CreatedAt { get; set; } = TimeProvider.System.GetUtcNow().DateTime.Date;
+
+        // after deserialization, the value of this property is always ValueB (bug)
+        public Bug_1884_Enum MyEnum1 { get; set; }
+
+        // after deserialization the value of this property is always false (bug)
+        public bool IsDeleted { get; set; } = false;
+    }
+
     public abstract class GraphsonSupportTestBase<TNativeToken> : VerifyBase
     {
         protected readonly IGremlinQueryEnvironment _environment;
@@ -73,6 +96,15 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         protected Task Verify<T>(string token) => Verify<T>(token, _ => _);
 
         protected abstract TNativeToken CreateNativeToken(string str);
+
+        [Fact]
+        public Task Bug_1884() => Verify<Bug_1884_Entity>("""
+            {
+                "CreatedAt": 123456789,
+                "MyEnum1": 0,
+                "IsDeleted": true
+            }
+            """);
 
         [Fact]
         public Task Constructor_assertion_1() => Verify<ClassWithFieldsAndConstructor>("{ }");
