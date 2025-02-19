@@ -9,60 +9,10 @@ using static ExRam.Gremlinq.Tests.Infrastructure.GraphSonStrings;
 using System.Collections.Immutable;
 using System.Collections.Concurrent;
 using System.Collections;
+using ExRam.Gremlinq.Tests.Infrastructure.GraphSon.Entities;
 
 namespace ExRam.Gremlinq.Tests.Infrastructure
 {
-    public class ClassWithInitProperty
-    {
-        public string? Property { get; init; }
-    }
-
-    public class ClassWithField
-    {
-        public string? Property;
-    }
-
-    public class ClassWithFieldsAndConstructor
-    {
-        public ClassWithFieldsAndConstructor(string stringArg, string? nullableStringArg, int intArg, int? nullableIntArg)
-        {
-            StringArg = stringArg;
-            NullableStringArg = nullableStringArg;
-            IntArg = intArg;
-            NullableIntArg = nullableIntArg;
-        }
-
-        public string StringArg { get; }
-        public string? NullableStringArg { get; }
-        public int IntArg { get; }
-        public int? NullableIntArg { get; }
-
-        public string? SettableString { get; set; }
-    }
-
-    public enum Bug_1884_Enum
-    {
-        ValueA,
-        ValueB
-    }
-
-    public class Bug_1884_Entity
-    {
-        public Bug_1884_Entity()
-        {
-            MyEnum1 = Bug_1884_Enum.ValueB;
-        }
-
-        // this default value is overwritten during deserialization (as expected)
-        public DateTime CreatedAt { get; set; } = TimeProvider.System.GetUtcNow().DateTime.Date;
-
-        // after deserialization, the value of this property is always ValueB (bug)
-        public Bug_1884_Enum MyEnum1 { get; set; }
-
-        // after deserialization the value of this property is always false (bug)
-        public bool IsDeleted { get; set; } = false;
-    }
-
     public abstract class GraphsonSupportTestBase<TNativeToken> : VerifyBase
     {
         protected readonly IGremlinQueryEnvironment _environment;
