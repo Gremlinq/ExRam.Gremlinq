@@ -109,7 +109,6 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
 
             private GraphsonJsonSerializer(IGremlinQueryEnvironment environment)
             {
-                DefaultValueHandling = DefaultValueHandling.Ignore;
                 ContractResolver = new GremlinContractResolver(environment.Model);
                 Converters.Add(new JTokenConverterConverter(environment));
             }
