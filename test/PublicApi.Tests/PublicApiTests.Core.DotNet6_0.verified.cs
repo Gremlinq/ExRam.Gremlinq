@@ -518,10 +518,7 @@
         TSelf Inject(params TElement[] elements);
         TSelf Order(System.Func<ExRam.Gremlinq.Core.IOrderBuilder<TElement, TSelf>, ExRam.Gremlinq.Core.IOrderBuilderWithBy<TElement, TSelf>> projection);
         TSelf OrderLocal(System.Func<ExRam.Gremlinq.Core.IOrderBuilder<TElement, TSelf>, ExRam.Gremlinq.Core.IOrderBuilderWithBy<TElement, TSelf>> projection);
-        [return: System.Runtime.CompilerServices.Dynamic(new bool[] {
-                false,
-                true})]
-        ExRam.Gremlinq.Core.IGremlinQuery<object> Project(System.Func<ExRam.Gremlinq.Core.IProjectBuilder<TSelf, TElement>, ExRam.Gremlinq.Core.IProjectDynamicResult> continuation);
+        ExRam.Gremlinq.Core.IGremlinQuery<dynamic> Project(System.Func<ExRam.Gremlinq.Core.IProjectBuilder<TSelf, TElement>, ExRam.Gremlinq.Core.IProjectDynamicResult> continuation);
         ExRam.Gremlinq.Core.IMapGremlinQuery<TResult> Project<TResult>(System.Func<ExRam.Gremlinq.Core.IProjectBuilder<TSelf, TElement>, ExRam.Gremlinq.Core.IProjectMapResult<TResult>> continuation);
         ExRam.Gremlinq.Core.IMapGremlinQuery<TResult> Project<TResult>(System.Func<ExRam.Gremlinq.Core.IProjectBuilder<TSelf, TElement>, ExRam.Gremlinq.Core.IProjectTupleResult<TResult>> continuation)
             where TResult : System.Runtime.CompilerServices.ITuple;
@@ -740,10 +737,7 @@
     }
     public interface IProjectDynamicResult
     {
-        [return: System.Runtime.CompilerServices.Dynamic(new bool[] {
-                false,
-                true})]
-        ExRam.Gremlinq.Core.IGremlinQuery<object> Build();
+        ExRam.Gremlinq.Core.IGremlinQuery<dynamic> Build();
     }
     public interface IProjectMapBuilder<out TSourceQuery, TElement, TTargetType> : ExRam.Gremlinq.Core.IProjectMapResult<TTargetType>
         where out TSourceQuery : ExRam.Gremlinq.Core.IGremlinQueryBase
@@ -1647,7 +1641,7 @@
         public StepLabel() { }
         [System.Runtime.CompilerServices.PreserveBaseOverrides]
         public virtual ExRam.Gremlinq.Core.StepLabel<ExRam.Gremlinq.Core.IGremlinQuery<TNewValue>, TNewValue> Cast<TNewValue>() { }
-        public static ExRam.Gremlinq.Core.StepLabel<TQuery, TElement> op_Implicit(string str) { }
+        public new static ExRam.Gremlinq.Core.StepLabel<TQuery, TElement> op_Implicit(string str) { }
     }
     public enum StringComparisonTranslationStrictness
     {
@@ -2016,8 +2010,8 @@ namespace ExRam.Gremlinq.Core.GraphElements
         public VertexProperty(TValue value) { }
         protected override System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<string, object>> GetProperties(ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment) { }
         public static ExRam.Gremlinq.Core.GraphElements.VertexProperty<TValue> op_Implicit(ExRam.Gremlinq.Core.GraphElements.VertexProperty<TValue>[] value) { }
-        public static ExRam.Gremlinq.Core.GraphElements.VertexProperty<TValue> op_Implicit(TValue value) { }
-        public static ExRam.Gremlinq.Core.GraphElements.VertexProperty<TValue> op_Implicit(TValue[] value) { }
+        public new static ExRam.Gremlinq.Core.GraphElements.VertexProperty<TValue> op_Implicit(TValue value) { }
+        public new static ExRam.Gremlinq.Core.GraphElements.VertexProperty<TValue> op_Implicit(TValue[] value) { }
     }
     public class VertexProperty<TValue, TMeta> : ExRam.Gremlinq.Core.GraphElements.Property<TValue>
     {
@@ -2028,8 +2022,8 @@ namespace ExRam.Gremlinq.Core.GraphElements
         protected virtual System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<string, object>> GetProperties(ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment) { }
         public override string ToString() { }
         public static ExRam.Gremlinq.Core.GraphElements.VertexProperty<TValue, TMeta> op_Implicit(ExRam.Gremlinq.Core.GraphElements.VertexProperty<TValue, TMeta>[] value) { }
-        public static ExRam.Gremlinq.Core.GraphElements.VertexProperty<TValue, TMeta> op_Implicit(TValue value) { }
-        public static ExRam.Gremlinq.Core.GraphElements.VertexProperty<TValue, TMeta> op_Implicit(TValue[] value) { }
+        public new static ExRam.Gremlinq.Core.GraphElements.VertexProperty<TValue, TMeta> op_Implicit(TValue value) { }
+        public new static ExRam.Gremlinq.Core.GraphElements.VertexProperty<TValue, TMeta> op_Implicit(TValue[] value) { }
     }
 }
 namespace ExRam.Gremlinq.Core.Models
