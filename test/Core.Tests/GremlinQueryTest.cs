@@ -44,6 +44,36 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public Task AsAdmin_ConfigureMetadata()
+        {
+            return Verify(_g
+                .V()
+                .AsAdmin()
+                .ConfigureMetadata<IGremlinQuerySource>(dict => dict.SetItem("key", "value"))
+                .AsAdmin()
+                .Metadata);
+        }
+
+        [Fact]
+        public Task AsAdmin_ConfigureMetadata_On_GremlinQuerySource()
+        {
+            return Verify(_g
+                .AsAdmin()
+                .ConfigureMetadata<IGremlinQuerySource>(dict => dict.SetItem("key", "value"))
+                .AsAdmin()
+                .Metadata);
+        }
+
+        [Fact]
+        public Task ConfigureMetadata_On_GremlinQuerySource()
+        {
+            return Verify(_g
+                .ConfigureMetadata(dict => dict.SetItem("key", "value"))
+                .AsAdmin()
+                .Metadata);
+        }
+
+        [Fact]
         public void ChangeQueryType_optimizes()
         {
             var query = _g
