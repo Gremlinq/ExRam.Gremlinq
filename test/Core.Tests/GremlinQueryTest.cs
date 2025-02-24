@@ -67,10 +67,12 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public Task ConfigureMetadata_On_GremlinQuerySource()
         {
+#pragma warning disable CS0618 // Type or member is obsolete
             return Verify(_g
                 .ConfigureMetadata(dict => dict.SetItem("key", "value"))
                 .AsAdmin()
                 .Metadata);
+#pragma warning restore CS0618 // Type or member is obsolete
         }
 
         [Fact]
