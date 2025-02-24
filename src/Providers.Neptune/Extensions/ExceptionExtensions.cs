@@ -22,6 +22,8 @@ namespace ExRam.Gremlinq.Providers.Neptune
 
         public static NeptuneGremlinQueryExecutionException? TryGetNeptuneGremlinQueryExecutionException(this GremlinQueryExecutionException ex)
         {
+            var ret = default(NeptuneGremlinQueryExecutionException?);
+
             if (ex.InnerException is ResponseException responseException)
             {
                 var statusCodeString = responseException.StatusCode.ToString();
@@ -34,7 +36,7 @@ namespace ExRam.Gremlinq.Providers.Neptune
 
                         if (response.Code is { Length: > 0 } errorCode && NeptuneErrorCode.From(errorCode) is var neptuneErrorCode)
                         {
-                            return response.DetailedMessage is { Length: > 0 } detailedMessage
+                            ret = response.DetailedMessage is { Length: > 0 } detailedMessage
                                 ? new NeptuneGremlinQueryExecutionException(neptuneErrorCode, ex.ExecutionContext, detailedMessage, ex)
                                 : new NeptuneGremlinQueryExecutionException(neptuneErrorCode, ex.ExecutionContext, ex);
                         }
@@ -46,7 +48,7 @@ namespace ExRam.Gremlinq.Providers.Neptune
                 }
             }
 
-            return null;
+            return ret;
         }
     }
 }
