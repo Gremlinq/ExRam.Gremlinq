@@ -12,6 +12,8 @@ namespace ExRam.Gremlinq.Core
 
         TTargetQuery ChangeQueryType<TTargetQuery>() where TTargetQuery : IStartGremlinQuery;
 
+        TTargetQuery ConfigureMetadata<TTargetQuery>(Func<IImmutableDictionary<object, object?>, IImmutableDictionary<object, object?>> metadataTransformation);
+
         IGremlinQuerySource GetSource();
 
         Traversal Steps { get; }

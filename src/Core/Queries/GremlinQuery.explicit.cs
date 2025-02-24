@@ -245,6 +245,8 @@ namespace ExRam.Gremlinq.Core
 
         TTargetQuery IGremlinQueryAdmin.ChangeQueryType<TTargetQuery>() => CloneAs<TTargetQuery>();
 
+        TTargetQuery IGremlinQueryAdmin.ConfigureMetadata<TTargetQuery>(Func<IImmutableDictionary<object, object?>, IImmutableDictionary<object, object?>> metadataTransformation) => new GremlinQuery<T1, T2, T3, T4>(Environment, Steps, LabelProjections, metadataTransformation(Metadata)).CloneAs<TTargetQuery>(); //TODO: 2 allocations.
+
         IGremlinQuerySource IGremlinQueryAdmin.GetSource() => CloneAs<IGremlinQuerySource>(maybeNewTraversal: Traversal.Empty);
 
         Traversal IGremlinQueryAdmin.Steps => Steps;
