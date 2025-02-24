@@ -383,6 +383,7 @@
             where TTargetQuery : ExRam.Gremlinq.Core.IStartGremlinQuery;
         TTargetQuery ChangeQueryType<TTargetQuery>()
             where TTargetQuery : ExRam.Gremlinq.Core.IStartGremlinQuery;
+        TTargetQuery ConfigureMetadata<TTargetQuery>(System.Func<System.Collections.Immutable.IImmutableDictionary<object, object?>, System.Collections.Immutable.IImmutableDictionary<object, object?>> metadataTransformation);
         TTargetQuery ConfigureSteps<TTargetQuery>(System.Func<ExRam.Gremlinq.Core.Traversal, ExRam.Gremlinq.Core.Traversal> configurator, System.Func<ExRam.Gremlinq.Core.Projections.Projection, ExRam.Gremlinq.Core.Projections.Projection>? projectionTransformation = null)
             where TTargetQuery : ExRam.Gremlinq.Core.IStartGremlinQuery;
         ExRam.Gremlinq.Core.IGremlinQuerySource GetSource();
