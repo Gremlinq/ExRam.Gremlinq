@@ -3,9 +3,6 @@ using Gremlin.Net.Process.Traversal;
 using ExRam.Gremlinq.Core.Transformation;
 using ExRam.Gremlinq.Providers.Core;
 using ExRam.Gremlinq.Core.Execution;
-using Gremlin.Net.Driver.Exceptions;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 using ExRam.Gremlinq.Core.Models;
 using ExRam.Gremlinq.Core;
 
@@ -42,75 +39,34 @@ namespace ExRam.Gremlinq.Providers.Neptune
                             .ToExecutor())));
         }
 
-        private record struct NeptuneErrorResponse(string? Code, string? DetailedMessage);
-
-        public static IGremlinQuerySource UseNeptune<TVertexBase, TEdgeBase>(this IGremlinQuerySource source, Func<INeptuneConfigurator, IGremlinQuerySourceTransformation> configuratorTransformation)
-        {
-            var serializerOptions = new JsonSerializerOptions()
-            {
-                PropertyNameCaseInsensitive = true,
-                Converters =
-                {
-                    new JsonStringEnumConverter(JsonNamingPolicy.CamelCase)
-                }
-            };
-            
-            return configuratorTransformation
-                .Invoke(NeptuneConfigurator.Default)
-                .Transform(source
-                    .ConfigureEnvironment(environment => environment
-                        .UseModel(GraphModel
-                            .FromBaseTypes<TVertexBase, TEdgeBase>())
-                        .ConfigureFeatureSet(featureSet => featureSet
-                            .ConfigureGraphFeatures(_ => GraphFeatures.Transactions | GraphFeatures.Persistence | GraphFeatures.ConcurrentAccess)
-                            .ConfigureVariableFeatures(_ => VariableFeatures.None)
-                            .ConfigureVertexFeatures(_ => VertexFeatures.AddVertices | VertexFeatures.RemoveVertices | VertexFeatures.MultiProperties | VertexFeatures.UserSuppliedIds | VertexFeatures.AddProperty | VertexFeatures.RemoveProperty | VertexFeatures.StringIds)
-                            .ConfigureVertexPropertyFeatures(_ => VertexPropertyFeatures.RemoveProperty | VertexPropertyFeatures.NumericIds | VertexPropertyFeatures.StringIds | VertexPropertyFeatures.Properties | VertexPropertyFeatures.BooleanValues | VertexPropertyFeatures.ByteValues | VertexPropertyFeatures.DoubleValues | VertexPropertyFeatures.FloatValues | VertexPropertyFeatures.IntegerValues | VertexPropertyFeatures.LongValues | VertexPropertyFeatures.StringValues)
-                            .ConfigureEdgeFeatures(_ => EdgeFeatures.AddEdges | EdgeFeatures.RemoveEdges | EdgeFeatures.UserSuppliedIds | EdgeFeatures.AddProperty | EdgeFeatures.RemoveProperty | EdgeFeatures.NumericIds | EdgeFeatures.StringIds | EdgeFeatures.UuidIds | EdgeFeatures.CustomIds | EdgeFeatures.AnyIds)
-                            .ConfigureEdgePropertyFeatures(_ => EdgePropertyFeatures.Properties | EdgePropertyFeatures.BooleanValues | EdgePropertyFeatures.ByteValues | EdgePropertyFeatures.DoubleValues | EdgePropertyFeatures.FloatValues | EdgePropertyFeatures.IntegerValues | EdgePropertyFeatures.LongValues | EdgePropertyFeatures.StringValues))
-                        .ConfigureOptions(options => options
-                            .SetValue(GremlinqOption.WorkaroundRangeInconsistencies, true))
-                        .ConfigureNativeTypes(nativeTypes => nativeTypes
-                            .Remove(typeof(byte[]))
-                            .Remove(typeof(TimeSpan)))
-                        .AddGraphSonBinarySupport()
-                        .ConfigureSerializer(serializer => serializer
-                            .Add(ConverterFactory
-                                .Create<PropertyStep.ByKeyStep, PropertyStep.ByKeyStep>((step, _, _, _) => Cardinality.List.Equals(step.Cardinality)
-                                    ? new PropertyStep.ByKeyStep(step.Key, step.Value, step.MetaProperties, Cardinality.Set)
-                                    : default)))
-                        .ConfigureDeserializer(deserializer => deserializer
-                            .AsIncomplete())))
+        public static IGremlinQuerySource UseNeptune<TVertexBase, TEdgeBase>(this IGremlinQuerySource source, Func<INeptuneConfigurator, IGremlinQuerySourceTransformation> configuratorTransformation) => configuratorTransformation
+            .Invoke(NeptuneConfigurator.Default)
+            .Transform(source
                 .ConfigureEnvironment(environment => environment
-                    .ConfigureExecutor(executor => executor
-                        .TransformExecutionException(ex =>
-                        {
-                            if (ex.InnerException is ResponseException responseException)
-                            {
-                                var statusCodeString = responseException.StatusCode.ToString();
-
-                                if (responseException.Message.StartsWith(statusCodeString) && responseException.Message.Length > statusCodeString.Length)
-                                {
-                                    try
-                                    {
-                                        var response = JsonSerializer.Deserialize<NeptuneErrorResponse>(responseException.Message.AsSpan()[(statusCodeString.Length + 1)..], serializerOptions);
-
-                                        if (response.Code is { Length: > 0 } errorCode && NeptuneErrorCode.From(errorCode) is var neptuneErrorCode)
-                                        {
-                                            return response.DetailedMessage is { Length: > 0 } detailedMessage
-                                                ? new NeptuneGremlinQueryExecutionException(neptuneErrorCode, ex.ExecutionContext, detailedMessage, ex)
-                                                : new NeptuneGremlinQueryExecutionException(neptuneErrorCode, ex.ExecutionContext, ex);
-                                        }
-                                    }
-                                    catch (JsonException)
-                                    {
-
-                                    }
-                                }
-                            }
-
-                            return ex;
-                        })));
-        }
+                    .UseModel(GraphModel
+                        .FromBaseTypes<TVertexBase, TEdgeBase>())
+                    .ConfigureFeatureSet(featureSet => featureSet
+                        .ConfigureGraphFeatures(_ => GraphFeatures.Transactions | GraphFeatures.Persistence | GraphFeatures.ConcurrentAccess)
+                        .ConfigureVariableFeatures(_ => VariableFeatures.None)
+                        .ConfigureVertexFeatures(_ => VertexFeatures.AddVertices | VertexFeatures.RemoveVertices | VertexFeatures.MultiProperties | VertexFeatures.UserSuppliedIds | VertexFeatures.AddProperty | VertexFeatures.RemoveProperty | VertexFeatures.StringIds)
+                        .ConfigureVertexPropertyFeatures(_ => VertexPropertyFeatures.RemoveProperty | VertexPropertyFeatures.NumericIds | VertexPropertyFeatures.StringIds | VertexPropertyFeatures.Properties | VertexPropertyFeatures.BooleanValues | VertexPropertyFeatures.ByteValues | VertexPropertyFeatures.DoubleValues | VertexPropertyFeatures.FloatValues | VertexPropertyFeatures.IntegerValues | VertexPropertyFeatures.LongValues | VertexPropertyFeatures.StringValues)
+                        .ConfigureEdgeFeatures(_ => EdgeFeatures.AddEdges | EdgeFeatures.RemoveEdges | EdgeFeatures.UserSuppliedIds | EdgeFeatures.AddProperty | EdgeFeatures.RemoveProperty | EdgeFeatures.NumericIds | EdgeFeatures.StringIds | EdgeFeatures.UuidIds | EdgeFeatures.CustomIds | EdgeFeatures.AnyIds)
+                        .ConfigureEdgePropertyFeatures(_ => EdgePropertyFeatures.Properties | EdgePropertyFeatures.BooleanValues | EdgePropertyFeatures.ByteValues | EdgePropertyFeatures.DoubleValues | EdgePropertyFeatures.FloatValues | EdgePropertyFeatures.IntegerValues | EdgePropertyFeatures.LongValues | EdgePropertyFeatures.StringValues))
+                    .ConfigureOptions(options => options
+                        .SetValue(GremlinqOption.WorkaroundRangeInconsistencies, true))
+                    .ConfigureNativeTypes(nativeTypes => nativeTypes
+                        .Remove(typeof(byte[]))
+                        .Remove(typeof(TimeSpan)))
+                    .AddGraphSonBinarySupport()
+                    .ConfigureSerializer(serializer => serializer
+                        .Add(ConverterFactory
+                            .Create<PropertyStep.ByKeyStep, PropertyStep.ByKeyStep>((step, _, _, _) => Cardinality.List.Equals(step.Cardinality)
+                                ? new PropertyStep.ByKeyStep(step.Key, step.Value, step.MetaProperties, Cardinality.Set)
+                                : default)))
+                    .ConfigureDeserializer(deserializer => deserializer
+                        .AsIncomplete())))
+            .ConfigureEnvironment(environment => environment
+                .ConfigureExecutor(executor => executor
+                    .TransformExecutionException(ex => ex.TryGetNeptuneGremlinQueryExecutionException() ?? ex)));
     }
 }
