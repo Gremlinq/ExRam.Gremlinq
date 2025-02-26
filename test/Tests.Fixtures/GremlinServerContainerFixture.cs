@@ -16,6 +16,11 @@ namespace ExRam.Gremlinq.Tests.Fixtures
         protected override IGremlinQuerySource TransformQuerySource(IContainer container, IGremlinQuerySource g) => g
             .UseGremlinServer<Vertex, Edge>(_ => _
                 .At(new UriBuilder("ws", container.Hostname, container.GetMappedPublicPort(8182)).Uri)
+                .ConfigureClientFactory(factory => factory
+                    .ConfigureClient(client => client
+                        .TransformRequest(async (requestMessage, ct) => requestMessage  //Just for demo/coverage purposes.
+                        /*.Rebuild()
+                        /*.Create()*/)))
                 .UseNewtonsoftJson())
             .IgnoreCosmosDbSpecificProperties();
     }
