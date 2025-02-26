@@ -13,12 +13,15 @@ using ExRam.Gremlinq.Tests.Infrastructure.GraphSon.Entities;
 
 namespace ExRam.Gremlinq.Tests.Infrastructure
 {
-    public abstract class GraphsonSupportTestBase<TNativeToken> : VerifyBase
+    public abstract class GraphsonSupportTestBase<TNativeToken>
     {
+        private readonly string _sourceFile;
         protected readonly IGremlinQueryEnvironment _environment;
 
-        protected GraphsonSupportTestBase(Func<IGremlinQueryEnvironment, IGremlinQueryEnvironment> environmentTransformation, [CallerFilePath] string sourceFile = "") : base(sourceFile: sourceFile)
+        protected GraphsonSupportTestBase(Func<IGremlinQueryEnvironment, IGremlinQueryEnvironment> environmentTransformation, [CallerFilePath] string sourceFile = "")
         {
+            _sourceFile = sourceFile;
+
             _environment = GremlinQuerySource.g
                 .ConfigureEnvironment(env => environmentTransformation
                     .Invoke(env
@@ -38,8 +41,8 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                 .TransformTo<T>()
                 .From(CreateNativeToken(token), environment);
 
-            return this
-                .Verify(subject)
+            return Verifier
+                .Verify(subject, sourceFile: _sourceFile)
                 .DontScrubDateTimes();
         }
 

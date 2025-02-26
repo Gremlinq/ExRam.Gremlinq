@@ -1,17 +1,10 @@
-﻿using System.Collections.Immutable;
-
-using ExRam.Gremlinq.Core.Serialization;
+﻿using ExRam.Gremlinq.Core.Serialization;
 using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
-    public class BytecodeExtensionsTest : VerifyBase
+    public class BytecodeExtensionsTest
     {
-        public BytecodeExtensionsTest() : base()
-        {
-
-        }
-
         [Fact]
         public Task GroovyExpression_is_handled_correctly()
         {

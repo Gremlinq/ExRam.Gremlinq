@@ -2,12 +2,8 @@
 
 namespace ExRam.Gremlinq.Core.Tests
 {
-    public class FastImmutableListTest : VerifyBase
+    public class FastImmutableListTest
     {
-        public FastImmutableListTest() : base()
-        {
-        }
-
         [Fact]
         public void Concurrency()
         {

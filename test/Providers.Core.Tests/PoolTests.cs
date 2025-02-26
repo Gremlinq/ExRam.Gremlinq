@@ -10,13 +10,8 @@ using NSubstitute;
 
 namespace ExRam.Gremlinq.Providers.Core.Tests
 {
-    public class PoolTests : VerifyBase
+    public class PoolTests
     {
-        public PoolTests() : base()
-        {
-
-        }
-
         [Fact]
         public async Task Pool_creates_subClient()
         {

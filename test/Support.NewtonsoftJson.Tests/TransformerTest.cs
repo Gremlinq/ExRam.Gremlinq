@@ -11,11 +11,11 @@ using static ExRam.Gremlinq.Core.Transformation.ConverterFactory;
 
 namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
 {
-    public class TransformerTest : VerifyBase
+    public class TransformerTest
     {
         private readonly IGremlinQueryEnvironment _environment;
 
-        public TransformerTest() : base()
+        public TransformerTest()
         {
             _environment = GremlinQueryEnvironment.Invalid
                 .UseModel(GraphModel.FromBaseTypes<Vertex, Edge>())

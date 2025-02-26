@@ -4,11 +4,11 @@ using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
-    public class ProjectionTest : VerifyBase
+    public class ProjectionTest
     {
         private readonly IGremlinQuerySource _g;
 
-        public ProjectionTest() : base()
+        public ProjectionTest()
         {
             _g = g
                 .ConfigureEnvironment(x => x.UseModel(GraphModel

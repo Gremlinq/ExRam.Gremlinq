@@ -1,11 +1,9 @@
-﻿using System.Collections.Immutable;
-
-using ExRam.Gremlinq.Core.Steps;
+﻿using ExRam.Gremlinq.Core.Steps;
 using FluentAssertions;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
-    public class TraversalTest : VerifyBase
+    public class TraversalTest
     {
         private readonly Traversal _traversal;
         private readonly IdentityStep _step1 = new ();
@@ -15,7 +13,7 @@ namespace ExRam.Gremlinq.Core.Tests
         private readonly IdentityStep _step5 = new ();
         private readonly IdentityStep _step6 = new ();
 
-        public TraversalTest() : base()
+        public TraversalTest()
         {
             _traversal = Traversal.Empty
                 .Push(_step1)

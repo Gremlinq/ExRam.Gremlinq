@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace ExRam.Gremlinq.Core.AspNet.Tests
 {
-    public class ProviderConfigurationSectionTests : VerifyBase
+    public class ProviderConfigurationSectionTests
     {
         private readonly IConfigurationRoot _configurationRoot;
 
@@ -12,7 +12,7 @@ namespace ExRam.Gremlinq.Core.AspNet.Tests
             
         }
 
-        public ProviderConfigurationSectionTests() : base()
+        public ProviderConfigurationSectionTests()
         {
             _configurationRoot = new ConfigurationBuilder()
                 .AddInMemoryCollection(new Dictionary<string, string?>

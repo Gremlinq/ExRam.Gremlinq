@@ -4,13 +4,8 @@ using static ExRam.Gremlinq.Core.Transformation.ConverterFactory;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
-    public class TansformerTest : VerifyBase
+    public class TansformerTest
     {
-        public TansformerTest() : base()
-        {
-
-        }
-
         [Fact]
         public async Task Empty()
         {

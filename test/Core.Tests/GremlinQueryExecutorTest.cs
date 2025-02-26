@@ -9,11 +9,11 @@ using NSubstitute;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
-    public class GremlinQueryExecutorTest : VerifyBase
+    public class GremlinQueryExecutorTest
     {
         private readonly IVertexGremlinQuery<object> _query;
 
-        public GremlinQueryExecutorTest() : base()
+        public GremlinQueryExecutorTest()
         {
             _query = GremlinQuerySource.g.V();
         }

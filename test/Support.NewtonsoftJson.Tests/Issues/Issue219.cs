@@ -8,7 +8,7 @@ using Newtonsoft.Json.Linq;
 
 namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
 {
-    public sealed class Issue219 : VerifyBase
+    public sealed class Issue219
     {
         private readonly struct CustomMemoryOwner : IMemoryOwner<byte>
         {
@@ -31,11 +31,6 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
             {
                 
             }
-        }
-
-        public Issue219() : base()
-        {
-
         }
 
         [Fact]

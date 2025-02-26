@@ -3,13 +3,8 @@ using PublicApiGenerator;
 
 namespace ExRam.Gremlinq.PublicApi.Tests
 {
-    public class PublicApiTests : VerifyBase
+    public class PublicApiTests
     {
-        public PublicApiTests() : base()
-        {
-
-        }
-
         [Fact]
         public Task Core() => Verify("ExRam.Gremlinq.Core");
 
@@ -46,7 +41,7 @@ namespace ExRam.Gremlinq.PublicApi.Tests
         [Fact]
         public Task SupportNewtonsoftJson() => Verify("ExRam.Gremlinq.Support.NewtonsoftJson");
 
-        private Task Verify(string assemblyName) => base
+        private Task Verify(string assemblyName) => Verifier
             .Verify(
                 Assembly
                     .Load(assemblyName)

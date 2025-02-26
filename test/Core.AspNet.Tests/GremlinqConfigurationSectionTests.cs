@@ -3,11 +3,11 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace ExRam.Gremlinq.Core.AspNet.Tests
 {
-    public class GremlinqConfigurationSectionTests : VerifyBase
+    public class GremlinqConfigurationSectionTests
     {
         private readonly IGremlinqConfigurationSection _section;
 
-        public GremlinqConfigurationSectionTests() : base()
+        public GremlinqConfigurationSectionTests()
         {
             var serviceCollection = new ServiceCollection()
                 .AddSingleton<IConfiguration>(new ConfigurationBuilder()

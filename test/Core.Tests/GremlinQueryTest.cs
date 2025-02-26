@@ -8,11 +8,11 @@ using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
-    public class GremlinQueryTest : VerifyBase
+    public class GremlinQueryTest
     {
         private readonly IGremlinQuerySource _g;
 
-        public GremlinQueryTest() : base()
+        public GremlinQueryTest()
         {
             _g = g
                 .ConfigureEnvironment(_ => _

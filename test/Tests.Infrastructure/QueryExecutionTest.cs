@@ -7,7 +7,6 @@ using ExRam.Gremlinq.Tests.Entities;
 using static ExRam.Gremlinq.Core.Transformation.ConverterFactory;
 using ExRam.Gremlinq.Core;
 using FluentAssertions;
-using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Tests.Infrastructure
 {

@@ -6,13 +6,8 @@ using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
-    public class GraphModelTest : VerifyBase
+    public class GraphModelTest
     {
-        public GraphModelTest() : base()
-        {
-
-        }
-
         [Fact]
         public void Fody_works()
         {

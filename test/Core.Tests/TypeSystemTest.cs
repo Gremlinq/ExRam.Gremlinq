@@ -7,7 +7,7 @@ using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
-    public class TypeSystemTest : VerifyBase
+    public class TypeSystemTest
     {
         private sealed class Vertex
         {
@@ -37,11 +37,6 @@ namespace ExRam.Gremlinq.Core.Tests
         private readonly IGremlinQuerySource _g = g
             .ConfigureEnvironment(_ => _
                 .UseModel(GraphModel.FromBaseTypes<Vertex, Edge>()));
-
-        public TypeSystemTest() : base()
-        {
-
-        }
 
         [Fact]
         public void V_Properties_String()
