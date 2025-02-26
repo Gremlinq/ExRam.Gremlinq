@@ -63,6 +63,9 @@ namespace ExRam.Gremlinq.Tests.Fixtures
                 .UseNewtonsoftJson()
                 .ConfigureClientFactory(factory => factory
                     .ConfigureClient(client => client
+                        .TransformRequest(async (requestMessage, ct) => requestMessage  //Just for demo/coverage purposes.
+                            /*.Rebuild()
+                            /*.Create()*/)
                         .ObserveResultStatusAttributes((_, attributes) =>
                         {
                             Console.WriteLine(JsonSerializer.Serialize(attributes));
