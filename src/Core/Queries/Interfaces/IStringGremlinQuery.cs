@@ -17,5 +17,11 @@
         IStringGremlinQuery<TString> ToLower();
 
         IStringGremlinQuery<TString> ToUpper();
+
+        IStringGremlinQuery<TString> Trim();
+
+        IStringGremlinQuery<TString> TrimStart();
+
+        IStringGremlinQuery<TString> TrimEnd();
     }
 }

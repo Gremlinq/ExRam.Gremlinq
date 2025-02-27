@@ -360,6 +360,24 @@ namespace ExRam.Gremlinq.Core
                 .AddStep(ToUpperStep.Global)
                 .WithNewProjection(Projection.Value));
 
+        private GremlinQuery<T1, T2, T3, T4> Trim() => this
+            .Continue()
+            .Build(static builder => builder
+                .AddStep(TrimStep.Global)
+                .WithNewProjection(Projection.Value));
+
+        private GremlinQuery<T1, T2, T3, T4> TrimStart() => this
+            .Continue()
+            .Build(static builder => builder
+                .AddStep(TrimStartStep.Global)
+                .WithNewProjection(Projection.Value));
+
+        private GremlinQuery<T1, T2, T3, T4> TrimEnd() => this
+            .Continue()
+            .Build(static builder => builder
+                .AddStep(TrimEndStep.Global)
+                .WithNewProjection(Projection.Value));
+
         private GremlinQuery<T1, T2, T3, T4> Barrier() => this
             .Continue()
             .Build(static builder => builder

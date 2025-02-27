@@ -1,0 +1,16 @@
+﻿{
+  StepInstructions: [
+    {
+      OperatorName: inject,
+      Arguments: [
+          aBcDeFg  
+      ]
+    },
+    {
+      OperatorName: asString
+    },
+    {
+      OperatorName: rTrim
+    }
+  ]
+}

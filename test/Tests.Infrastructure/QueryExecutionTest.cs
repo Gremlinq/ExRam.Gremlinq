@@ -2862,6 +2862,45 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Verify();
 
         [Fact]
+        public Task Trim() => _g
+            .Inject("  aBcDeFg  ")
+            .AsString()
+            .Trim()
+            .Verify();
+
+        [Fact]
+        public Task Trim_with_extension() => _g
+            .Inject("  aBcDeFg  ")
+            .Trim()
+            .Verify();
+
+        [Fact]
+        public Task TrimEnd() => _g
+            .Inject("  aBcDeFg  ")
+            .AsString()
+            .TrimEnd()
+            .Verify();
+
+        [Fact]
+        public Task TrimEnd_with_extension() => _g
+            .Inject("  aBcDeFg  ")
+            .TrimEnd()
+            .Verify();
+
+        [Fact]
+        public Task TrimStart() => _g
+            .Inject("  aBcDeFg  ")
+            .AsString()
+            .TrimStart()
+            .Verify();
+
+        [Fact]
+        public Task TrimStart_with_extension() => _g
+            .Inject("  aBcDeFg  ")
+            .TrimStart()
+            .Verify();
+
+        [Fact]
         public virtual Task SumGlobal() => _g
             .V<Person>()
             .Values(x => x.Age)

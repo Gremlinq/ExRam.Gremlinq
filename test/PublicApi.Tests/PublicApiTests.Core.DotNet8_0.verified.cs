@@ -923,6 +923,9 @@
         ExRam.Gremlinq.Core.IStringGremlinQuery<TString> Substring(int startIndex, int length);
         ExRam.Gremlinq.Core.IStringGremlinQuery<TString> ToLower();
         ExRam.Gremlinq.Core.IStringGremlinQuery<TString> ToUpper();
+        ExRam.Gremlinq.Core.IStringGremlinQuery<TString> Trim();
+        ExRam.Gremlinq.Core.IStringGremlinQuery<TString> TrimEnd();
+        ExRam.Gremlinq.Core.IStringGremlinQuery<TString> TrimStart();
     }
     public interface ITree { }
     public interface ITreeBuilder
@@ -1664,6 +1667,9 @@
         public static ExRam.Gremlinq.Core.IStringGremlinQuery<string> Substring(this ExRam.Gremlinq.Core.IGremlinQueryBase<string> query, int startIndex, int length) { }
         public static ExRam.Gremlinq.Core.IStringGremlinQuery<string> ToLower(this ExRam.Gremlinq.Core.IGremlinQueryBase<string> query) { }
         public static ExRam.Gremlinq.Core.IStringGremlinQuery<string> ToUpper(this ExRam.Gremlinq.Core.IGremlinQueryBase<string> query) { }
+        public static ExRam.Gremlinq.Core.IStringGremlinQuery<string> Trim(this ExRam.Gremlinq.Core.IGremlinQueryBase<string> query) { }
+        public static ExRam.Gremlinq.Core.IStringGremlinQuery<string> TrimEnd(this ExRam.Gremlinq.Core.IGremlinQueryBase<string> query) { }
+        public static ExRam.Gremlinq.Core.IStringGremlinQuery<string> TrimStart(this ExRam.Gremlinq.Core.IGremlinQueryBase<string> query) { }
     }
     public static class TransformerClassExtensions
     {
@@ -2815,6 +2821,21 @@ namespace ExRam.Gremlinq.Core.Steps
         {
             protected ByStep(ExRam.Gremlinq.Core.Steps.SideEffectSemanticsChange sideEffectSemanticsChange = 0) { }
         }
+    }
+    public sealed class TrimEndStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public static readonly ExRam.Gremlinq.Core.Steps.TrimEndStep Global;
+        public Gremlin.Net.Process.Traversal.Scope Scope { get; }
+    }
+    public sealed class TrimStartStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public static readonly ExRam.Gremlinq.Core.Steps.TrimStartStep Global;
+        public Gremlin.Net.Process.Traversal.Scope Scope { get; }
+    }
+    public sealed class TrimStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public static readonly ExRam.Gremlinq.Core.Steps.TrimStep Global;
+        public Gremlin.Net.Process.Traversal.Scope Scope { get; }
     }
     public sealed class UnfoldStep : ExRam.Gremlinq.Core.Steps.Step
     {

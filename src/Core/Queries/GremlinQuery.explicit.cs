@@ -482,5 +482,11 @@ namespace ExRam.Gremlinq.Core
         IStringGremlinQuery<T1> IStringGremlinQuery<T1>.ToLower() => ToLower();
 
         IStringGremlinQuery<T1> IStringGremlinQuery<T1>.ToUpper() => ToUpper();
+
+        IStringGremlinQuery<T1> IStringGremlinQuery<T1>.Trim() => Trim();
+
+        IStringGremlinQuery<T1> IStringGremlinQuery<T1>.TrimStart() => TrimStart();
+
+        IStringGremlinQuery<T1> IStringGremlinQuery<T1>.TrimEnd() => TrimEnd();
     }
 }

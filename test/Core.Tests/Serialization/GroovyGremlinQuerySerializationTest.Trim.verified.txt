@@ -1,0 +1,6 @@
+﻿{
+  Script: g.inject(_a).asString().trim(),
+  Bindings: {
+    _a:   aBcDeFg  
+  }
+}

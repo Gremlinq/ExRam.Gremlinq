@@ -41,5 +41,20 @@
             .AsAdmin()
             .ChangeQueryType<IStringGremlinQuery<string>>()
             .ToUpper();
+
+        public static IStringGremlinQuery<string> Trim(this IGremlinQueryBase<string> query) => query
+            .AsAdmin()
+            .ChangeQueryType<IStringGremlinQuery<string>>()
+            .Trim();
+            
+        public static IStringGremlinQuery<string> TrimStart(this IGremlinQueryBase<string> query) => query
+            .AsAdmin()
+            .ChangeQueryType<IStringGremlinQuery<string>>()
+            .TrimStart();
+
+        public static IStringGremlinQuery<string> TrimEnd(this IGremlinQueryBase<string> query) => query
+            .AsAdmin()
+            .ChangeQueryType<IStringGremlinQuery<string>>()
+            .TrimEnd();
     }
 }

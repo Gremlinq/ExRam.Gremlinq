@@ -37,6 +37,9 @@ namespace ExRam.Gremlinq.Core.Serialization
         public static readonly Instruction toLower = new(nameof(toLower));
         public static readonly Instruction toUpper = new(nameof(toUpper));
         public static readonly Instruction tree = new(nameof(tree));
+        public static readonly Instruction trim = new(nameof(trim));
+        public static readonly Instruction rTrim = new(nameof(rTrim));
+        public static readonly Instruction lTrim = new(nameof(lTrim));
         public static readonly Instruction unfold = new(nameof(unfold));
         public static readonly Instruction value = new(nameof(value));
     }
