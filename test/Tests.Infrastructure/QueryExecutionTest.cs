@@ -2823,6 +2823,45 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Verify();
 
         [Fact]
+        public Task Length() => _g
+            .Inject("aBcDeFg")
+            .AsString()
+            .Length()
+            .Verify();
+
+        [Fact]
+        public Task Length_with_extension() => _g
+            .Inject("aBcDeFg")
+            .Length()
+            .Verify();
+
+        [Fact]
+        public Task ToUpper() => _g
+            .Inject("aBcDeFg")
+            .AsString()
+            .ToUpper()
+            .Verify();
+
+        [Fact]
+        public Task ToUpper_with_extension() => _g
+            .Inject("aBcDeFg")
+            .ToUpper()
+            .Verify();
+
+        [Fact]
+        public Task ToLower() => _g
+            .Inject("aBcDeFg")
+            .AsString()
+            .ToLower()
+            .Verify();
+
+        [Fact]
+        public Task ToLower_with_extension() => _g
+            .Inject("aBcDeFg")
+            .ToLower()
+            .Verify();
+
+        [Fact]
         public virtual Task SumGlobal() => _g
             .V<Person>()
             .Values(x => x.Age)

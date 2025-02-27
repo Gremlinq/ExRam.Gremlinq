@@ -12,6 +12,11 @@
             .ChangeQueryType<IStringGremlinQuery<string>>()
             .Concat(stringTraversals);
 
+        public static IGremlinQuery<int> Length(this IGremlinQueryBase<string> query) => query
+            .AsAdmin()
+            .ChangeQueryType<IStringGremlinQuery<string>>()
+            .Length();
+
         public static IStringGremlinQuery<string> Substring(this IGremlinQueryBase<string> query, int startIndex) => query
             .AsAdmin()
             .ChangeQueryType<IStringGremlinQuery<string>>()
@@ -26,5 +31,15 @@
             .AsAdmin()
             .ChangeQueryType<IStringGremlinQuery<string>>()
             .Substring(range);
+
+        public static IStringGremlinQuery<string> ToLower(this IGremlinQueryBase<string> query) => query
+            .AsAdmin()
+            .ChangeQueryType<IStringGremlinQuery<string>>()
+            .ToLower();
+
+        public static IStringGremlinQuery<string> ToUpper(this IGremlinQueryBase<string> query) => query
+            .AsAdmin()
+            .ChangeQueryType<IStringGremlinQuery<string>>()
+            .ToUpper();
     }
 }

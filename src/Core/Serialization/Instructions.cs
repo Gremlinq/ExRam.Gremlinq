@@ -22,6 +22,7 @@ namespace ExRam.Gremlinq.Core.Serialization
         public static readonly Instruction inV = new(nameof(inV));
         public static readonly Instruction key = new(nameof(key));
         public static readonly Instruction label = new(nameof(label));
+        public static readonly Instruction length = new(nameof(length));
         public static readonly Instruction max = new(nameof(max));
         public static readonly Instruction mean = new(nameof(mean));
         public static readonly Instruction min = new(nameof(min));
@@ -33,6 +34,8 @@ namespace ExRam.Gremlinq.Core.Serialization
         public static readonly Instruction profile = new(nameof(profile));
         public static readonly Instruction simplePath = new(nameof(simplePath));
         public static readonly Instruction sum = new(nameof(sum));
+        public static readonly Instruction toLower = new(nameof(toLower));
+        public static readonly Instruction toUpper = new(nameof(toUpper));
         public static readonly Instruction tree = new(nameof(tree));
         public static readonly Instruction unfold = new(nameof(unfold));
         public static readonly Instruction value = new(nameof(value));

@@ -917,9 +917,12 @@
     {
         ExRam.Gremlinq.Core.IStringGremlinQuery<TString> Concat(params System.Func<ExRam.Gremlinq.Core.IStringGremlinQuery<TString>, ExRam.Gremlinq.Core.IGremlinQueryBase<TString>>[] stringTraversals);
         ExRam.Gremlinq.Core.IStringGremlinQuery<TString> Concat(params string[] strings);
+        ExRam.Gremlinq.Core.IGremlinQuery<int> Length();
         ExRam.Gremlinq.Core.IStringGremlinQuery<TString> Substring(int startIndex);
         ExRam.Gremlinq.Core.IStringGremlinQuery<TString> Substring(System.Range range);
         ExRam.Gremlinq.Core.IStringGremlinQuery<TString> Substring(int startIndex, int length);
+        ExRam.Gremlinq.Core.IStringGremlinQuery<TString> ToLower();
+        ExRam.Gremlinq.Core.IStringGremlinQuery<TString> ToUpper();
     }
     public interface ITree { }
     public interface ITreeBuilder
@@ -1655,9 +1658,12 @@
     {
         public static ExRam.Gremlinq.Core.IStringGremlinQuery<string> Concat(this ExRam.Gremlinq.Core.IGremlinQueryBase<string> query, params System.Func<ExRam.Gremlinq.Core.IStringGremlinQuery<string>, ExRam.Gremlinq.Core.IGremlinQueryBase<string>>[] stringTraversals) { }
         public static ExRam.Gremlinq.Core.IStringGremlinQuery<string> Concat(this ExRam.Gremlinq.Core.IGremlinQueryBase<string> query, params string[] strings) { }
+        public static ExRam.Gremlinq.Core.IGremlinQuery<int> Length(this ExRam.Gremlinq.Core.IGremlinQueryBase<string> query) { }
         public static ExRam.Gremlinq.Core.IStringGremlinQuery<string> Substring(this ExRam.Gremlinq.Core.IGremlinQueryBase<string> query, int startIndex) { }
         public static ExRam.Gremlinq.Core.IStringGremlinQuery<string> Substring(this ExRam.Gremlinq.Core.IGremlinQueryBase<string> query, System.Range range) { }
         public static ExRam.Gremlinq.Core.IStringGremlinQuery<string> Substring(this ExRam.Gremlinq.Core.IGremlinQueryBase<string> query, int startIndex, int length) { }
+        public static ExRam.Gremlinq.Core.IStringGremlinQuery<string> ToLower(this ExRam.Gremlinq.Core.IGremlinQueryBase<string> query) { }
+        public static ExRam.Gremlinq.Core.IStringGremlinQuery<string> ToUpper(this ExRam.Gremlinq.Core.IGremlinQueryBase<string> query) { }
     }
     public static class TransformerClassExtensions
     {
@@ -2503,6 +2509,10 @@ namespace ExRam.Gremlinq.Core.Steps
         public static readonly ExRam.Gremlinq.Core.Steps.LabelStep Instance;
         public LabelStep() { }
     }
+    public sealed class LengthStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public static readonly ExRam.Gremlinq.Core.Steps.LengthStep Instance;
+    }
     public sealed class LimitStep : ExRam.Gremlinq.Core.Steps.Step
     {
         public static readonly ExRam.Gremlinq.Core.Steps.LimitStep LimitGlobal1;
@@ -2776,6 +2786,14 @@ namespace ExRam.Gremlinq.Core.Steps
     {
         public TimesStep(int count) { }
         public int Count { get; }
+    }
+    public sealed class ToLowerStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public static readonly ExRam.Gremlinq.Core.Steps.ToLowerStep Instance;
+    }
+    public sealed class ToUpperStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public static readonly ExRam.Gremlinq.Core.Steps.ToUpperStep Instance;
     }
     public sealed class TreeStep : ExRam.Gremlinq.Core.Steps.Step
     {

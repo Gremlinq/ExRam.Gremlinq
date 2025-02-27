@@ -476,5 +476,11 @@ namespace ExRam.Gremlinq.Core
             : throw new ArgumentOutOfRangeException();
 
         IStringGremlinQuery<T1> IStringGremlinQuery<T1>.Substring(Range range) => Substring(range);
+
+        IGremlinQuery<int> IStringGremlinQuery<T1>.Length() => Length();
+
+        IStringGremlinQuery<T1> IStringGremlinQuery<T1>.ToLower() => ToLower();
+
+        IStringGremlinQuery<T1> IStringGremlinQuery<T1>.ToUpper() => ToUpper();
     }
 }

@@ -6,10 +6,16 @@
 
         IStringGremlinQuery<TString> Concat(params Func<IStringGremlinQuery<TString>, IGremlinQueryBase<TString>>[] stringTraversals);
 
+        IGremlinQuery<int> Length();
+
         IStringGremlinQuery<TString> Substring(int startIndex);
 
         IStringGremlinQuery<TString> Substring(int startIndex, int length);
 
         IStringGremlinQuery<TString> Substring(Range range);
+
+        IStringGremlinQuery<TString> ToLower();
+
+        IStringGremlinQuery<TString> ToUpper();
     }
 }
