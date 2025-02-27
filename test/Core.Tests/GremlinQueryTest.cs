@@ -44,6 +44,17 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void AsAdmin_AddSteps()
+        {
+            _g
+                .V()
+                .AsAdmin()
+                .AddSteps<IGremlinQuery<object>>([new InjectStep(ImmutableArray<object>.Empty.Add(0)), FoldStep.Instance])
+                .Should()
+                .NotBeNull();
+        }
+
+        [Fact]
         public Task AsAdmin_ConfigureMetadata()
         {
             return Verify(_g
