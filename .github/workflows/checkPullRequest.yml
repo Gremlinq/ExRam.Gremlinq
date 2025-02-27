@@ -25,13 +25,13 @@ jobs:
           6
           7
           8
-
-    - name: Build
-      run: dotnet build  -c Release ./${{ github.event.repository.name }}.sln
-      
+     
     - name: Test
-      run: dotnet test -c Release --no-build --collect:"XPlat Code Coverage;Format=opencover" ./${{ github.event.repository.name }}.sln 
+      run: dotnet test -c Release --collect:"XPlat Code Coverage;Format=opencover" ./${{ github.event.repository.name }}.sln 
 
+    - name: Test (Debug)
+      run: dotnet test -c Debug --collect:"XPlat Code Coverage;Format=opencover" ./${{ github.event.repository.name }}.sln 
+      
     - name: Collect coverage
       uses: codecov/codecov-action@e28ff129e5465c2c0dcc6f003fc735cb6ae0c673 # 4.5.0
       with:
@@ -61,13 +61,13 @@ jobs:
       uses: janpio/cosmos-emulator-github-action@8c35a1bfde25fc32234c163c044322af3f2e56e3
       with:
           parameter_string: "-Timeout 600 -EnableGremlin"
-
-    - name: Build
-      run: dotnet build  -c Release ./${{ github.event.repository.name }}.sln
       
     - name: Test
-      run: dotnet test -c Release --no-build --collect:"XPlat Code Coverage;Format=opencover" ./${{ github.event.repository.name }}.sln
+      run: dotnet test -c Release --collect:"XPlat Code Coverage;Format=opencover" ./${{ github.event.repository.name }}.sln
 
+    - name: Test (Debug)
+      run: dotnet test -c Debug --collect:"XPlat Code Coverage;Format=opencover" ./${{ github.event.repository.name }}.sln
+      
     - name: Collect coverage
       uses: codecov/codecov-action@e28ff129e5465c2c0dcc6f003fc735cb6ae0c673 # 4.5.0
       with:
