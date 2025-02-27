@@ -36,6 +36,7 @@ jobs:
       uses: codecov/codecov-action@0565863a31f2c772f9f0395002a31e3f06189574 # 5.4.0
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
+        disable_file_fixes: true
 
   test-windows:
     runs-on: windows-2022
@@ -72,3 +73,4 @@ jobs:
       uses: codecov/codecov-action@0565863a31f2c772f9f0395002a31e3f06189574 # 5.4.0
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
+        disable_file_fixes: true
