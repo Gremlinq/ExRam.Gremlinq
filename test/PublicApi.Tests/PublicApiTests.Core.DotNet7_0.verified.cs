@@ -2511,7 +2511,8 @@ namespace ExRam.Gremlinq.Core.Steps
     }
     public sealed class LengthStep : ExRam.Gremlinq.Core.Steps.Step
     {
-        public static readonly ExRam.Gremlinq.Core.Steps.LengthStep Instance;
+        public static readonly ExRam.Gremlinq.Core.Steps.LengthStep Global;
+        public Gremlin.Net.Process.Traversal.Scope Scope { get; }
     }
     public sealed class LimitStep : ExRam.Gremlinq.Core.Steps.Step
     {
@@ -2789,11 +2790,13 @@ namespace ExRam.Gremlinq.Core.Steps
     }
     public sealed class ToLowerStep : ExRam.Gremlinq.Core.Steps.Step
     {
-        public static readonly ExRam.Gremlinq.Core.Steps.ToLowerStep Instance;
+        public static readonly ExRam.Gremlinq.Core.Steps.ToLowerStep Global;
+        public Gremlin.Net.Process.Traversal.Scope Scope { get; }
     }
     public sealed class ToUpperStep : ExRam.Gremlinq.Core.Steps.Step
     {
-        public static readonly ExRam.Gremlinq.Core.Steps.ToUpperStep Instance;
+        public static readonly ExRam.Gremlinq.Core.Steps.ToUpperStep Global;
+        public Gremlin.Net.Process.Traversal.Scope Scope { get; }
     }
     public sealed class TreeStep : ExRam.Gremlinq.Core.Steps.Step
     {

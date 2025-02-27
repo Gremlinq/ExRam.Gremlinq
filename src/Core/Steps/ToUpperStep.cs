@@ -1,12 +1,16 @@
-﻿namespace ExRam.Gremlinq.Core.Steps
+﻿using Gremlin.Net.Process.Traversal;
+
+namespace ExRam.Gremlinq.Core.Steps
 {
     public sealed class ToUpperStep : Step
     {
-        public static readonly ToUpperStep Instance = new();
+        public static readonly ToUpperStep Global = new(Scope.Global);
 
-        private ToUpperStep()
+        private ToUpperStep(Scope scope)
         {
-
+            Scope = scope;
         }
+
+        public Scope Scope { get; }
     }
 }

@@ -344,20 +344,20 @@ namespace ExRam.Gremlinq.Core
         private GremlinQuery<int, object, object, IGremlinQueryBase> Length() => this
             .Continue()
             .Build(static builder => builder
-                .AddStep(LengthStep.Instance)
+                .AddStep(LengthStep.Global)
                 .WithNewProjection(Projection.Value)
                 .AsAuto<int>());
 
         private GremlinQuery<T1, T2, T3, T4> ToLower() => this
             .Continue()
             .Build(static builder => builder
-                .AddStep(ToLowerStep.Instance)
+                .AddStep(ToLowerStep.Global)
                 .WithNewProjection(Projection.Value));
 
         private GremlinQuery<T1, T2, T3, T4> ToUpper() => this
             .Continue()
             .Build(static builder => builder
-                .AddStep(ToUpperStep.Instance)
+                .AddStep(ToUpperStep.Global)
                 .WithNewProjection(Projection.Value));
 
         private GremlinQuery<T1, T2, T3, T4> Barrier() => this
