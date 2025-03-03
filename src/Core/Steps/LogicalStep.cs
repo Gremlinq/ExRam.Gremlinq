@@ -12,7 +12,9 @@ namespace ExRam.Gremlinq.Core.Steps
 
         protected LogicalStep(string name, ImmutableArray<Traversal> traversals) : base(traversals.GetSideEffectSemanticsChange())
         {
+#pragma warning disable CS0618 // Type or member is obsolete
             Name = name;
+#pragma warning restore CS0618 // Type or member is obsolete
             Traversals = traversals;
         }
 

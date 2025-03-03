@@ -88,6 +88,7 @@ namespace ExRam.Gremlinq.Core.Tests
             sliced[3].Should().Be(newStep);
         }
 
+#pragma warning disable CS0618 // Type or member is obsolete
         [Fact]
         public Task ToTraversal_extension()
         {
@@ -105,5 +106,6 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             return Verify(new Step []{ new InjectStep([1]), new InjectStep([2]) }.ToList().ToTraversal().Steps.ToArray());
         }
+#pragma warning restore CS0618 // Type or member is obsolete
     }
 }
