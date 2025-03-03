@@ -528,5 +528,29 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Of<Person>().By(x => x.Age)
                 .Of<Person>().By(x => x.Age))
             .Verify();
+
+        [Fact]
+        public virtual Task Tree_for_code_coverage_25() => _g
+            .V<Person>()
+            .Tree(_ => _
+                .Of<Person>().By(x => x.Age)
+                .Of<Person>().By(x => x.Age)
+                .Of<Person>().By(x => x.Age))
+            .Verify();
+
+        [Fact]
+        public virtual Task Tree_for_code_coverage_26() => _g
+            .V<Person>()
+            .Tree(_ => _
+                .Of<Person>().By(x => x.Age)
+                .Of<Person>().By(x => x.Age))
+            .Verify();
+
+        [Fact]
+        public virtual Task Tree_for_code_coverage_27() => _g
+            .V<Person>()
+            .Tree(_ => _
+                .Of<Person>().By(x => x.Age))
+            .Verify();
     }
 }
