@@ -1,0 +1,87 @@
+﻿{
+  StepInstructions: [
+    {
+      OperatorName: V
+    },
+    {
+      OperatorName: hasLabel,
+      Arguments: [
+        Country
+      ]
+    },
+    {
+      OperatorName: has,
+      Arguments: [
+        CountryCallingCode
+      ]
+    },
+    {
+      OperatorName: project,
+      Arguments: [
+        Item1,
+        Item2,
+        Item3,
+        Item4,
+        Item5,
+        Item6,
+        Item7,
+        Item8,
+        Item9
+      ]
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        CountryCallingCode
+      ]
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        CountryCallingCode
+      ]
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        CountryCallingCode
+      ]
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        CountryCallingCode
+      ]
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        CountryCallingCode
+      ]
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        CountryCallingCode
+      ]
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        CountryCallingCode
+      ]
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        CountryCallingCode
+      ]
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        CountryCallingCode
+      ]
+    }
+  ]
+}

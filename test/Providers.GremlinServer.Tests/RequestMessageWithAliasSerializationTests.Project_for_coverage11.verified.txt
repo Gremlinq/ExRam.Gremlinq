@@ -1,0 +1,111 @@
+﻿{
+  RequestId: 12345678-9012-3456-7890-123456789012,
+  Operation: bytecode,
+  Processor: traversal,
+  Arguments: {
+    aliases: {
+      g: a
+    },
+    gremlin: {
+      StepInstructions: [
+        {
+          OperatorName: V
+        },
+        {
+          OperatorName: hasLabel,
+          Arguments: [
+            Country
+          ]
+        },
+        {
+          OperatorName: has,
+          Arguments: [
+            CountryCallingCode
+          ]
+        },
+        {
+          OperatorName: project,
+          Arguments: [
+            Item1,
+            Item2,
+            Item3,
+            Item4,
+            Item5,
+            Item6,
+            Item7,
+            Item8,
+            Item9,
+            Item10,
+            Item11
+          ]
+        },
+        {
+          OperatorName: by,
+          Arguments: [
+            CountryCallingCode
+          ]
+        },
+        {
+          OperatorName: by,
+          Arguments: [
+            CountryCallingCode
+          ]
+        },
+        {
+          OperatorName: by,
+          Arguments: [
+            CountryCallingCode
+          ]
+        },
+        {
+          OperatorName: by,
+          Arguments: [
+            CountryCallingCode
+          ]
+        },
+        {
+          OperatorName: by,
+          Arguments: [
+            CountryCallingCode
+          ]
+        },
+        {
+          OperatorName: by,
+          Arguments: [
+            CountryCallingCode
+          ]
+        },
+        {
+          OperatorName: by,
+          Arguments: [
+            CountryCallingCode
+          ]
+        },
+        {
+          OperatorName: by,
+          Arguments: [
+            CountryCallingCode
+          ]
+        },
+        {
+          OperatorName: by,
+          Arguments: [
+            CountryCallingCode
+          ]
+        },
+        {
+          OperatorName: by,
+          Arguments: [
+            CountryCallingCode
+          ]
+        },
+        {
+          OperatorName: by,
+          Arguments: [
+            CountryCallingCode
+          ]
+        }
+      ]
+    }
+  }
+}

@@ -1753,6 +1753,237 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Verify();
 
         [Fact]
+        public virtual Task Project_for_coverage2() => _g
+           .V<Country>()
+           .Where(x => x.CountryCallingCode != null)
+           .Project(__ => __
+               .ToTuple()
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode))
+           .Verify();
+
+        [Fact]
+        public virtual Task Project_for_coverage3() => _g
+           .V<Country>()
+           .Where(x => x.CountryCallingCode != null)
+           .Project(__ => __
+               .ToTuple()
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode))
+           .Verify();
+
+        [Fact]
+        public virtual Task Project_for_coverage4() => _g
+           .V<Country>()
+           .Where(x => x.CountryCallingCode != null)
+           .Project(__ => __
+               .ToTuple()
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode))
+           .Verify();
+
+        [Fact]
+        public virtual Task Project_for_coverage5() => _g
+           .V<Country>()
+           .Where(x => x.CountryCallingCode != null)
+           .Project(__ => __
+               .ToTuple()
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode))
+           .Verify();
+
+        [Fact]
+        public virtual Task Project_for_coverage6() => _g
+           .V<Country>()
+           .Where(x => x.CountryCallingCode != null)
+           .Project(__ => __
+               .ToTuple()
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode))
+           .Verify();
+
+        [Fact]
+        public virtual Task Project_for_coverage7() => _g
+           .V<Country>()
+           .Where(x => x.CountryCallingCode != null)
+           .Project(__ => __
+               .ToTuple()
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode))
+           .Verify();
+
+        [Fact]
+        public virtual Task Project_for_coverage8() => _g
+           .V<Country>()
+           .Where(x => x.CountryCallingCode != null)
+           .Project(__ => __
+               .ToTuple()
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode))
+           .Verify();
+
+        [Fact]
+        public virtual Task Project_for_coverage9() => _g
+           .V<Country>()
+           .Where(x => x.CountryCallingCode != null)
+           .Project(__ => __
+               .ToTuple()
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode))
+           .Verify();
+
+        [Fact]
+        public virtual Task Project_for_coverage10() => _g
+           .V<Country>()
+           .Where(x => x.CountryCallingCode != null)
+           .Project(__ => __
+               .ToTuple()
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode))
+           .Verify();
+
+        [Fact]
+        public virtual Task Project_for_coverage11() => _g
+           .V<Country>()
+           .Where(x => x.CountryCallingCode != null)
+           .Project(__ => __
+               .ToTuple()
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode))
+           .Verify();
+
+        [Fact]
+        public virtual Task Project_for_coverage12() => _g
+           .V<Country>()
+           .Where(x => x.CountryCallingCode != null)
+           .Project(__ => __
+               .ToTuple()
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode))
+           .Verify();
+
+        [Fact]
+        public virtual Task Project_for_coverage13() => _g
+           .V<Country>()
+           .Where(x => x.CountryCallingCode != null)
+           .Project(__ => __
+               .ToTuple()
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode))
+           .Verify();
+
+        [Fact]
+        public virtual Task Project_for_coverage14() => _g
+           .V<Country>()
+           .Where(x => x.CountryCallingCode != null)
+           .Project(__ => __
+               .ToTuple()
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode))
+           .Verify();
+
+        [Fact]
+        public virtual Task Project_for_coverage15() => _g
+           .V<Country>()
+           .Where(x => x.CountryCallingCode != null)
+           .Project(__ => __
+               .ToTuple()
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode))
+           .Verify();
+
+        [Fact]
         public virtual Task Project_to_tuple_maximum_expressions() => _g
             .V<Country>()
             .Where(x => x.CountryCallingCode != null)
