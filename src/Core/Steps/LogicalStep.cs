@@ -40,8 +40,9 @@ namespace ExRam.Gremlinq.Core.Steps
             }
         }
 
-        //TODO: Seemingly unused.
+        [Obsolete("Will be removed in a future release.")]
         public string Name { get; }
+
         public ImmutableArray<Traversal> Traversals { get; }
     }
 }
