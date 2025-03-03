@@ -61,6 +61,7 @@
     }
     public static class EnumerableExtensions
     {
+        [System.Obsolete("Will be removed in a future release.")]
         public static ExRam.Gremlinq.Core.Traversal ToTraversal(this System.Collections.Generic.IEnumerable<ExRam.Gremlinq.Core.Steps.Step> source) { }
     }
     public sealed class ExpressionNotSupportedException : System.NotSupportedException
@@ -2279,12 +2280,14 @@ namespace ExRam.Gremlinq.Core.Steps
     public sealed class BothEStep : ExRam.Gremlinq.Core.Steps.DerivedLabelNamesStep
     {
         public static readonly ExRam.Gremlinq.Core.Steps.BothEStep NoLabels;
+        [System.Obsolete("Deprecated. Use BothEStep.NoLabels instead.")]
         public BothEStep() { }
         public BothEStep(System.Collections.Immutable.ImmutableArray<string> labels) { }
     }
     public sealed class BothStep : ExRam.Gremlinq.Core.Steps.DerivedLabelNamesStep
     {
         public static readonly ExRam.Gremlinq.Core.Steps.BothStep NoLabels;
+        [System.Obsolete("Deprecated. Use BothStep.NoLabels instead.")]
         public BothStep() { }
         public BothStep(System.Collections.Immutable.ImmutableArray<string> labels) { }
     }
@@ -2481,12 +2484,14 @@ namespace ExRam.Gremlinq.Core.Steps
     public sealed class InEStep : ExRam.Gremlinq.Core.Steps.DerivedLabelNamesStep
     {
         public static readonly ExRam.Gremlinq.Core.Steps.InEStep NoLabels;
+        [System.Obsolete("Deprecated. Use InEStep.NoLabels instead.")]
         public InEStep() { }
         public InEStep(System.Collections.Immutable.ImmutableArray<string> labels) { }
     }
     public sealed class InStep : ExRam.Gremlinq.Core.Steps.DerivedLabelNamesStep
     {
         public static readonly ExRam.Gremlinq.Core.Steps.InStep NoLabels;
+        [System.Obsolete("Deprecated. Use InStep.NoLabels instead.")]
         public InStep() { }
         public InStep(System.Collections.Immutable.ImmutableArray<string> labels) { }
     }
@@ -2540,6 +2545,7 @@ namespace ExRam.Gremlinq.Core.Steps
             "aversal> instead.")]
         protected LogicalStep(string name, System.Collections.Generic.IEnumerable<ExRam.Gremlinq.Core.Traversal> traversals) { }
         protected LogicalStep(string name, System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.Traversal> traversals) { }
+        [System.Obsolete("Will be removed in a future release.")]
         public string Name { get; }
         public System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.Traversal> Traversals { get; }
     }
@@ -2637,12 +2643,14 @@ namespace ExRam.Gremlinq.Core.Steps
     public sealed class OutEStep : ExRam.Gremlinq.Core.Steps.DerivedLabelNamesStep
     {
         public static readonly ExRam.Gremlinq.Core.Steps.OutEStep NoLabels;
+        [System.Obsolete("Deprecated. Use OutEStep.NoLabels instead.")]
         public OutEStep() { }
         public OutEStep(System.Collections.Immutable.ImmutableArray<string> labels) { }
     }
     public sealed class OutStep : ExRam.Gremlinq.Core.Steps.DerivedLabelNamesStep
     {
         public static readonly ExRam.Gremlinq.Core.Steps.OutStep NoLabels;
+        [System.Obsolete("Deprecated. Use OutStep.NoLabels instead.")]
         public OutStep() { }
         public OutStep(System.Collections.Immutable.ImmutableArray<string> labels) { }
     }
