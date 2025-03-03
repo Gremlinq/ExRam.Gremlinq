@@ -23,6 +23,15 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void Inequality()
+        {
+            var stepLabel1 = new StepLabel<object>();
+            var stepLabel2 = new StepLabel<object>();
+
+            (stepLabel1 != stepLabel2).Should().BeTrue();
+        }
+
+        [Fact]
         public void Identity_is_preserved_through_when_created_from_string()
         {
             StepLabel stepLabel1 = "stepLabel";
