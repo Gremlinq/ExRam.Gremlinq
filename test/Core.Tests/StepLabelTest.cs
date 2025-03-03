@@ -32,6 +32,31 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void Equals_null()
+        {
+            var stepLabel1 = new StepLabel<object>();
+
+            (stepLabel1.Equals(null)).Should().BeFalse();
+        }
+
+        [Fact]
+        public void Equals_identity()
+        {
+            var stepLabel1 = new StepLabel<object>();
+
+            (stepLabel1.Equals(stepLabel1)).Should().BeTrue();
+        }
+
+        [Fact]
+        public void Equals_other()
+        {
+            var stepLabel1 = new StepLabel<object>();
+            var stepLabel2 = new StepLabel<object>();
+
+            (stepLabel1.Equals(stepLabel2)).Should().BeFalse();
+        }
+
+        [Fact]
         public void Identity_is_preserved_through_when_created_from_string()
         {
             StepLabel stepLabel1 = "stepLabel";
