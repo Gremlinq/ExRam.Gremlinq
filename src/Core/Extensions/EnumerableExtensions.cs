@@ -5,7 +5,7 @@ namespace ExRam.Gremlinq.Core
 {
     public static class EnumerableExtensions
     {
-        //TODO: Remove on breaking change.
+        [Obsolete("Will be removed in a future release.")]
         public static Traversal ToTraversal(this IEnumerable<Step> source)
         {
             if (source is IReadOnlyList<Step> sourceList)
