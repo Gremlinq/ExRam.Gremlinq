@@ -8,7 +8,7 @@ namespace ExRam.Gremlinq.Core.Steps
         public static readonly InStep NoLabels = new();
 #pragma warning restore CS0618 // Type or member is obsolete
 
-        [Obsolete("Deprected. Use InStep.NoLabels instead.")]
+        [Obsolete("Deprecated. Use InStep.NoLabels instead.")]
         public InStep() : this(ImmutableArray<string>.Empty)
         {
         }

@@ -8,7 +8,7 @@ namespace ExRam.Gremlinq.Core.Steps
         public static readonly BothEStep NoLabels = new();
 #pragma warning restore CS0618 // Type or member is obsolete
 
-        [Obsolete("Deprected. Use BothEStep.NoLabels instead.")]
+        [Obsolete("Deprecated. Use BothEStep.NoLabels instead.")]
         public BothEStep() : this(ImmutableArray<string>.Empty)
         {
         }
