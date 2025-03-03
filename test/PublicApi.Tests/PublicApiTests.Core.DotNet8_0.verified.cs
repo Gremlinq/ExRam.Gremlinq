@@ -918,8 +918,8 @@
         ExRam.Gremlinq.Core.IStringGremlinQuery<TString> Concat(params System.Func<ExRam.Gremlinq.Core.IStringGremlinQuery<TString>, ExRam.Gremlinq.Core.IGremlinQueryBase<TString>>[] stringTraversals);
         ExRam.Gremlinq.Core.IStringGremlinQuery<TString> Concat(params string[] strings);
         ExRam.Gremlinq.Core.IGremlinQuery<int> Length();
-        ExRam.Gremlinq.Core.IStringGremlinQuery<TString> Substring(int startIndex);
         ExRam.Gremlinq.Core.IStringGremlinQuery<TString> Substring(System.Range range);
+        ExRam.Gremlinq.Core.IStringGremlinQuery<TString> Substring(int startIndex);
         ExRam.Gremlinq.Core.IStringGremlinQuery<TString> Substring(int startIndex, int length);
         ExRam.Gremlinq.Core.IStringGremlinQuery<TString> ToLower();
         ExRam.Gremlinq.Core.IStringGremlinQuery<TString> ToUpper();
@@ -1662,8 +1662,8 @@
         public static ExRam.Gremlinq.Core.IStringGremlinQuery<string> Concat(this ExRam.Gremlinq.Core.IGremlinQueryBase<string> query, params System.Func<ExRam.Gremlinq.Core.IStringGremlinQuery<string>, ExRam.Gremlinq.Core.IGremlinQueryBase<string>>[] stringTraversals) { }
         public static ExRam.Gremlinq.Core.IStringGremlinQuery<string> Concat(this ExRam.Gremlinq.Core.IGremlinQueryBase<string> query, params string[] strings) { }
         public static ExRam.Gremlinq.Core.IGremlinQuery<int> Length(this ExRam.Gremlinq.Core.IGremlinQueryBase<string> query) { }
-        public static ExRam.Gremlinq.Core.IStringGremlinQuery<string> Substring(this ExRam.Gremlinq.Core.IGremlinQueryBase<string> query, int startIndex) { }
         public static ExRam.Gremlinq.Core.IStringGremlinQuery<string> Substring(this ExRam.Gremlinq.Core.IGremlinQueryBase<string> query, System.Range range) { }
+        public static ExRam.Gremlinq.Core.IStringGremlinQuery<string> Substring(this ExRam.Gremlinq.Core.IGremlinQueryBase<string> query, int startIndex) { }
         public static ExRam.Gremlinq.Core.IStringGremlinQuery<string> Substring(this ExRam.Gremlinq.Core.IGremlinQueryBase<string> query, int startIndex, int length) { }
         public static ExRam.Gremlinq.Core.IStringGremlinQuery<string> ToLower(this ExRam.Gremlinq.Core.IGremlinQueryBase<string> query) { }
         public static ExRam.Gremlinq.Core.IStringGremlinQuery<string> ToUpper(this ExRam.Gremlinq.Core.IGremlinQueryBase<string> query) { }
@@ -2904,9 +2904,9 @@ namespace ExRam.Gremlinq.Core.Transformation
     public static class ConverterFactory
     {
         public static ExRam.Gremlinq.Core.Transformation.IConverterFactory Create<TStaticSource, TStaticTarget>(System.Func<TStaticSource, ExRam.Gremlinq.Core.IGremlinQueryEnvironment, ExRam.Gremlinq.Core.Transformation.ITransformer, ExRam.Gremlinq.Core.Transformation.ITransformer, TStaticTarget?> func)
-            where TStaticTarget :  struct { }
-        public static ExRam.Gremlinq.Core.Transformation.IConverterFactory Create<TStaticSource, TStaticTarget>(System.Func<TStaticSource, ExRam.Gremlinq.Core.IGremlinQueryEnvironment, ExRam.Gremlinq.Core.Transformation.ITransformer, ExRam.Gremlinq.Core.Transformation.ITransformer, TStaticTarget?> func)
             where TStaticTarget :  class { }
+        public static ExRam.Gremlinq.Core.Transformation.IConverterFactory Create<TStaticSource, TStaticTarget>(System.Func<TStaticSource, ExRam.Gremlinq.Core.IGremlinQueryEnvironment, ExRam.Gremlinq.Core.Transformation.ITransformer, ExRam.Gremlinq.Core.Transformation.ITransformer, TStaticTarget?> func)
+            where TStaticTarget :  struct { }
     }
     public interface IConverterFactory
     {

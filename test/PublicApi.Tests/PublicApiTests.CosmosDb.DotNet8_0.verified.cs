@@ -6,8 +6,8 @@
     }
     public static class CosmosDbConfiguratorExtensions
     {
-        public static ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfigurator<TVertexBase> At<TVertexBase>(this ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfigurator<TVertexBase> configurator, string uri, string databaseName, string graphName) { }
         public static ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfigurator<TVertexBase> At<TVertexBase>(this ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfigurator<TVertexBase> configurator, System.Uri uri, string databaseName, string graphName) { }
+        public static ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfigurator<TVertexBase> At<TVertexBase>(this ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfigurator<TVertexBase> configurator, string uri, string databaseName, string graphName) { }
         public static ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfigurator<TVertexBase> AtLocalhost<TVertexBase>(this ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfigurator<TVertexBase> configurator, string databaseName, string graphName) { }
     }
     public readonly struct CosmosDbKey : System.IEquatable<ExRam.Gremlinq.Providers.CosmosDb.CosmosDbKey>
