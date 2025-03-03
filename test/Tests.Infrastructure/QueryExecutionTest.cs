@@ -2776,6 +2776,33 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                 .Until(__ => __))
             .Verify();
 
+
+        [Fact]
+        public virtual Task Replace() => _g
+            .Inject("abcdef")
+            .AsString()
+            .Replace("bc", "xy")
+            .Verify();
+
+        [Fact]
+        public virtual Task Replace_with_extension() => _g
+            .Inject("abcdef")
+            .Replace("bc", "xy")
+            .Verify();
+
+        [Fact]
+        public virtual Task Replace_non_existing() => _g
+            .Inject("abcdef")
+            .AsString()
+            .Replace("bd", "xy")
+            .Verify();
+
+        [Fact]
+        public virtual Task Replace_non_existing_with_extension() => _g
+            .Inject("abcdef")
+            .Replace("bd", "xy")
+            .Verify();
+
         [Fact]
         public virtual async Task ReplaceE()
         {

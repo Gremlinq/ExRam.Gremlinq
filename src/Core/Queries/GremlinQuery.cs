@@ -1132,6 +1132,13 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<T1, T2, T3, T4> RangeLocal(long low, long high) => Range(low, high, Scope.Local);
 
+        private GremlinQuery<T1, T2, T3, T4> Replace(string oldValue, string newValue) => this
+            .Continue()
+            .Build(
+                static (builder, tuple) => builder
+                    .AddStep(new ReplaceStep(tuple.oldValue, tuple.newValue)),
+                (oldValue, newValue));
+
         private IGremlinQuery<TSelectedElement> Select<TSelectedElement>(StepLabel<TSelectedElement> stepLabel) => Select<IGremlinQuery<TSelectedElement>>(stepLabel);
 
         private TNewQuery Select<TNewQuery>(StepLabel stepLabel) where TNewQuery : IGremlinQueryBase => this

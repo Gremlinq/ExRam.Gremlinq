@@ -1,0 +1,17 @@
+﻿{
+  StepInstructions: [
+    {
+      OperatorName: inject,
+      Arguments: [
+        abcdef
+      ]
+    },
+    {
+      OperatorName: replace,
+      Arguments: [
+        bd,
+        xy
+      ]
+    }
+  ]
+}

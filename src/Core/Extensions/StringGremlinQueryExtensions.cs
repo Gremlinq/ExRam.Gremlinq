@@ -17,6 +17,11 @@
             .ChangeQueryType<IStringGremlinQuery<string>>()
             .Length();
 
+        public static IStringGremlinQuery<string> Replace(this IGremlinQueryBase<string> query, string oldValue, string newValue) => query
+            .AsAdmin()
+            .ChangeQueryType<IStringGremlinQuery<string>>()
+            .Replace(oldValue, newValue);
+
         public static IStringGremlinQuery<string> Substring(this IGremlinQueryBase<string> query, int startIndex) => query
             .AsAdmin()
             .ChangeQueryType<IStringGremlinQuery<string>>()

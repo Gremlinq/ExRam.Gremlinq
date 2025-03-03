@@ -497,6 +497,7 @@ namespace ExRam.Gremlinq.Core.Serialization
                 ? CreateInstruction("range", recurse, env, step.Scope, step.Lower, step.Upper)
                 : CreateInstruction("range", recurse, env, step.Lower, step.Upper))
             .Add<RepeatStep>((step, env, _, recurse) => CreateInstruction("repeat", recurse, env, step.Traversal))
+            .Add<ReplaceStep>((step, env, _, recurse) => CreateInstruction("replace", recurse, env, step.OldValue, step.NewValue))
             .Add<SelectColumnStep>((step, env, _, recurse) => CreateInstruction("select", recurse, env, step.Column))
             .Add<SelectKeysStep>((step, env, _, recurse) => CreateInstruction("select", recurse, env, step.Keys))
             .Add<SelectStepLabelStep>((step, env, _, recurse) => CreateInstruction("select", recurse, env, step.StepLabels))

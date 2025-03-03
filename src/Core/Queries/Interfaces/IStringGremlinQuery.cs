@@ -8,6 +8,8 @@
 
         IGremlinQuery<int> Length();
 
+        IStringGremlinQuery<TString> Replace(string oldValue, string newValue);
+
         IStringGremlinQuery<TString> Substring(int startIndex);
 
         IStringGremlinQuery<TString> Substring(int startIndex, int length);

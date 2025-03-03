@@ -467,6 +467,8 @@ namespace ExRam.Gremlinq.Core
 
         IStringGremlinQuery<T1> IStringGremlinQuery<T1>.Concat(params Func<IStringGremlinQuery<T1>, IGremlinQueryBase<T1>>[] stringTraversals) => Concat(stringTraversals);
 
+        IStringGremlinQuery<T1> IStringGremlinQuery<T1>.Replace(string oldValue, string newValue) => Replace(oldValue, newValue);
+
         IStringGremlinQuery<T1> IStringGremlinQuery<T1>.Substring(int startIndex) => startIndex >= 0
             ? Substring(System.Range.StartAt(startIndex))
             : throw new ArgumentOutOfRangeException();
