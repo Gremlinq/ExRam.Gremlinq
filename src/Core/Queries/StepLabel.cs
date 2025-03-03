@@ -45,7 +45,7 @@ namespace ExRam.Gremlinq.Core
 
     public class StepLabel<TElement> : StepLabel
     {
-        public StepLabel() : this(new object())
+        public StepLabel() : base()
         {
         }
 
@@ -63,7 +63,7 @@ namespace ExRam.Gremlinq.Core
     // ReSharper disable once UnusedTypeParameter
     public class StepLabel<TQuery, TElement> : StepLabel<TElement> where TQuery : IGremlinQueryBase
     {
-        public StepLabel() : this(new object())
+        public StepLabel() : base()
         {
         }
 
