@@ -920,6 +920,7 @@
         ExRam.Gremlinq.Core.IStringGremlinQuery<TString> Concat(params string[] strings);
         ExRam.Gremlinq.Core.IGremlinQuery<int> Length();
         ExRam.Gremlinq.Core.IStringGremlinQuery<TString> Replace(string oldValue, string newValue);
+        ExRam.Gremlinq.Core.IStringGremlinQuery<TString> Reverse();
         ExRam.Gremlinq.Core.IStringGremlinQuery<TString> Substring(System.Range range);
         ExRam.Gremlinq.Core.IStringGremlinQuery<TString> Substring(int startIndex);
         ExRam.Gremlinq.Core.IStringGremlinQuery<TString> Substring(int startIndex, int length);
@@ -1665,6 +1666,7 @@
         public static ExRam.Gremlinq.Core.IStringGremlinQuery<string> Concat(this ExRam.Gremlinq.Core.IGremlinQueryBase<string> query, params string[] strings) { }
         public static ExRam.Gremlinq.Core.IGremlinQuery<int> Length(this ExRam.Gremlinq.Core.IGremlinQueryBase<string> query) { }
         public static ExRam.Gremlinq.Core.IStringGremlinQuery<string> Replace(this ExRam.Gremlinq.Core.IGremlinQueryBase<string> query, string oldValue, string newValue) { }
+        public static ExRam.Gremlinq.Core.IStringGremlinQuery<string> Reverse(this ExRam.Gremlinq.Core.IGremlinQueryBase<string> query) { }
         public static ExRam.Gremlinq.Core.IStringGremlinQuery<string> Substring(this ExRam.Gremlinq.Core.IGremlinQueryBase<string> query, System.Range range) { }
         public static ExRam.Gremlinq.Core.IStringGremlinQuery<string> Substring(this ExRam.Gremlinq.Core.IGremlinQueryBase<string> query, int startIndex) { }
         public static ExRam.Gremlinq.Core.IStringGremlinQuery<string> Substring(this ExRam.Gremlinq.Core.IGremlinQueryBase<string> query, int startIndex, int length) { }
@@ -2735,6 +2737,10 @@ namespace ExRam.Gremlinq.Core.Steps
         public ReplaceStep(string oldValue, string newValue) { }
         public string NewValue { get; }
         public string OldValue { get; }
+    }
+    public sealed class ReverseStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public static readonly ExRam.Gremlinq.Core.Steps.ReverseStep Instance;
     }
     public sealed class SelectColumnStep : ExRam.Gremlinq.Core.Steps.Step
     {

@@ -1139,6 +1139,11 @@ namespace ExRam.Gremlinq.Core
                     .AddStep(new ReplaceStep(tuple.oldValue, tuple.newValue)),
                 (oldValue, newValue));
 
+        private GremlinQuery<T1, T2, T3, T4> Reverse() => this
+            .Continue()
+            .Build(static builder => builder
+                .AddStep(ReverseStep.Instance));
+
         private IGremlinQuery<TSelectedElement> Select<TSelectedElement>(StepLabel<TSelectedElement> stepLabel) => Select<IGremlinQuery<TSelectedElement>>(stepLabel);
 
         private TNewQuery Select<TNewQuery>(StepLabel stepLabel) where TNewQuery : IGremlinQueryBase => this

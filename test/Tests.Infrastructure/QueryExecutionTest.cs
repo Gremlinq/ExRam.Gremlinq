@@ -2804,6 +2804,19 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Verify();
 
         [Fact]
+        public virtual Task Reverse() => _g
+            .Inject("abcdef")
+            .AsString()
+            .Reverse()
+            .Verify();
+
+        [Fact]
+        public virtual Task Reverse_with_extension() => _g
+            .Inject("abcdef")
+            .Reverse()
+            .Verify();
+
+        [Fact]
         public virtual async Task ReplaceE()
         {
             var now = new DateTime(2020, 4, 7, 14, 43, 36, DateTimeKind.Utc);

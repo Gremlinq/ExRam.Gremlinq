@@ -1,0 +1,16 @@
+﻿{
+  StepInstructions: [
+    {
+      OperatorName: inject,
+      Arguments: [
+        abcdef
+      ]
+    },
+    {
+      OperatorName: asString
+    },
+    {
+      OperatorName: reverse
+    }
+  ]
+}

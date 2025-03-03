@@ -22,6 +22,11 @@
             .ChangeQueryType<IStringGremlinQuery<string>>()
             .Replace(oldValue, newValue);
 
+        public static IStringGremlinQuery<string> Reverse(this IGremlinQueryBase<string> query) => query
+            .AsAdmin()
+            .ChangeQueryType<IStringGremlinQuery<string>>()
+            .Reverse();
+
         public static IStringGremlinQuery<string> Substring(this IGremlinQueryBase<string> query, int startIndex) => query
             .AsAdmin()
             .ChangeQueryType<IStringGremlinQuery<string>>()

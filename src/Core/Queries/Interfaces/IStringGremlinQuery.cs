@@ -10,6 +10,8 @@
 
         IStringGremlinQuery<TString> Replace(string oldValue, string newValue);
 
+        IStringGremlinQuery<TString> Reverse();
+
         IStringGremlinQuery<TString> Substring(int startIndex);
 
         IStringGremlinQuery<TString> Substring(int startIndex, int length);
