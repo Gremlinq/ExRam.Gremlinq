@@ -1319,11 +1319,10 @@ namespace ExRam.Gremlinq.Core
 
         private TTargetQuery Unfold<TTargetQuery>() => Unfold().CloneAs<TTargetQuery>();
 
-        private TTargetQuery Union<TTargetQuery>(params Func<GremlinQuery<T1, T2, T3, T4>, TTargetQuery>[] unionTraversals)
-            where TTargetQuery : IGremlinQueryBase =>
-            Union<TTargetQuery, TTargetQuery>(unionTraversals);
+        private TTargetQuery Union<TTargetQuery>(Func<GremlinQuery<T1, T2, T3, T4>, TTargetQuery>[] unionTraversals)
+            where TTargetQuery : IGremlinQueryBase => Union<TTargetQuery, TTargetQuery>(unionTraversals);
 
-        private TReturnQuery Union<TTargetQuery, TReturnQuery>(params Func<GremlinQuery<T1, T2, T3, T4>, TTargetQuery>[] unionContinuations)
+        private TReturnQuery Union<TTargetQuery, TReturnQuery>(Func<GremlinQuery<T1, T2, T3, T4>, TTargetQuery>[] unionContinuations)
             where TTargetQuery : IGremlinQueryBase
             where TReturnQuery : IGremlinQueryBase => this
                 .Continue()
