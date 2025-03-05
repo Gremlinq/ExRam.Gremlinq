@@ -40,15 +40,22 @@ namespace ExRam.Gremlinq.Tests.Fixtures
 
         public override async ValueTask DisposeAsync()
         {
-            if (_containerCreated)
+            try
             {
-                using (var cosmosClient = new CosmosClient("https://localhost:8081", CosmosDbEmulatorAuthKey))
+                if (_containerCreated)
                 {
-                    await cosmosClient
-                        .GetDatabase(CosmosDbEmulatorDatabaseName)
-                        .GetContainer(_collectionName)
-                        .DeleteContainerAsync();
+                    using (var cosmosClient = new CosmosClient("https://localhost:8081", CosmosDbEmulatorAuthKey))
+                    {
+                        await cosmosClient
+                            .GetDatabase(CosmosDbEmulatorDatabaseName)
+                            .GetContainer(_collectionName)
+                            .DeleteContainerAsync();
+                    }
                 }
+            }
+            catch (InvalidOperationException)
+            {
+
             }
 
             await base.DisposeAsync();
