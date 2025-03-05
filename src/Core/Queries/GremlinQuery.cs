@@ -686,6 +686,61 @@ namespace ExRam.Gremlinq.Core
                 .WithNewProjection(static _ => _.Highest(Projection.Element))
                 .AsAuto<T1>());
 
+        private GremlinQuery<string, object, object, IGremlinQueryBase> Format(Expression<Func<T1, string>> stringInterpolationExpression)
+        {
+            if (stringInterpolationExpression is { Parameters: [var singleParameterExpression], Body: MethodCallExpression { Method: { Name: nameof(string.Format) } bodyMethod, Object: null, Arguments: [ConstantExpression { Value: string format }, ..] arguments } } && bodyMethod.DeclaringType == typeof(string))
+            {
+                return this
+                    .Continue()
+                    .Build(builder =>
+                    {
+                        var argumentExpressions = arguments is [_, NewArrayExpression newArrayExpression]
+                            ? newArrayExpression.Expressions.ToArray().AsSpan()
+                            : arguments.ToArray().AsSpan()[1..];
+
+                        var newArguments = new object?[argumentExpressions.Length];
+
+                        for (var i = 0; i < argumentExpressions.Length; i++)
+                        {
+                            newArguments[i] = argumentExpressions[i].Strip() switch
+                            {
+                                ParameterExpression parameterExpression when parameterExpression == singleParameterExpression => "%{_}",
+                                MemberExpression { Expression: { } memberExpressionExpression } memberExpression when memberExpressionExpression == singleParameterExpression => "%{_}",
+                                var other => other.GetValue()
+                            };
+                        }
+
+                        builder = builder
+                           .AddStep(new FormatStep(format, newArguments.ToImmutableArray()));
+
+                        for (var i = 0; i < argumentExpressions.Length; i++)
+                        {
+                            if (argumentExpressions[i].Strip() is MemberExpression { Expression: { } memberExpressionExpression } memberExpression && memberExpressionExpression == singleParameterExpression)
+                            {
+                                if (GetKey(memberExpression) is { RawKey: string rawKey })
+                                {
+                                    builder = builder
+                                        .AddStep(new FormatStep.By(new ValuesStep(ImmutableArray<string>.Empty.Add(rawKey))));
+                                }
+                                else
+                                    throw new ExpressionNotSupportedException(stringInterpolationExpression);
+                            }
+                            else if (argumentExpressions[i].Strip() is { } parameterExpression && parameterExpression == singleParameterExpression)
+                            {
+                                builder = builder
+                                    .AddStep(new FormatStep.By(IdentityStep.Instance));
+                            }
+                        }
+
+                        return builder
+                            .WithNewProjection(Projection.Value)
+                            .AsAuto<string>();
+                    });
+            }
+
+            throw new ExpressionNotSupportedException(stringInterpolationExpression);
+        }
+
         private GremlinQuery<T1, TNewOutVertex, TInVertex, IGremlinQueryBase> From<TNewOutVertex, TInVertex>(Func<GremlinQuery<TInVertex, T2, T3, T4>, IVertexGremlinQueryBase<TNewOutVertex>> fromVertexContinuation) => this
             .Continue<TInVertex, T2, T3, T4>()
             .With(fromVertexContinuation)

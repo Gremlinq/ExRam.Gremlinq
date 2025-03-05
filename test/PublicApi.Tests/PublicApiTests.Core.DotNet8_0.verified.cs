@@ -541,6 +541,7 @@
         ExRam.Gremlinq.Core.IVertexGremlinQuery<TElement> ForceVertex();
         ExRam.Gremlinq.Core.IVertexPropertyGremlinQuery<TElement, TValue> ForceVertexProperty<TValue>();
         ExRam.Gremlinq.Core.IVertexPropertyGremlinQuery<TElement, TValue, TMeta> ForceVertexProperty<TValue, TMeta>();
+        ExRam.Gremlinq.Core.IStringGremlinQuery<string> Format(System.Linq.Expressions.Expression<System.Func<TElement, string>> stringInterpolationExpression);
         ExRam.Gremlinq.Core.GremlinQueryAwaiter<TElement> GetAwaiter();
         ExRam.Gremlinq.Core.IMapGremlinQuery<System.Collections.Generic.IDictionary<TElement, TElement[]>> Group();
         ExRam.Gremlinq.Core.IGremlinQuery<TElement> Lower();
@@ -2418,6 +2419,17 @@ namespace ExRam.Gremlinq.Core.Steps
     {
         public static readonly ExRam.Gremlinq.Core.Steps.FoldStep Instance;
         public FoldStep() { }
+    }
+    public sealed class FormatStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public FormatStep(string format, System.Collections.Immutable.ImmutableArray<object?> arguments) { }
+        public System.Collections.Immutable.ImmutableArray<object?> Arguments { get; }
+        public string Format { get; }
+        public sealed class By : ExRam.Gremlinq.Core.Steps.Step
+        {
+            public By(ExRam.Gremlinq.Core.Traversal traversal) { }
+            public ExRam.Gremlinq.Core.Traversal Traversal { get; }
+        }
     }
     public sealed class GroupStep : ExRam.Gremlinq.Core.Steps.Step
     {

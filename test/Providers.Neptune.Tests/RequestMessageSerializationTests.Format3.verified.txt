@@ -1,0 +1,75 @@
+﻿{
+  RequestId: 12345678-9012-3456-7890-123456789012,
+  Operation: bytecode,
+  Processor: traversal,
+  Arguments: {
+    aliases: {
+      g: g
+    },
+    gremlin: {
+      StepInstructions: [
+        {
+          OperatorName: V
+        },
+        {
+          OperatorName: hasLabel,
+          Arguments: [
+            Person
+          ]
+        },
+        {
+          OperatorName: order
+        },
+        {
+          OperatorName: by,
+          Arguments: [
+            Name,
+            {
+              EnumName: Order,
+              EnumValue: asc
+            }
+          ]
+        },
+        {
+          OperatorName: as,
+          Arguments: [
+            _a
+          ]
+        },
+        {
+          OperatorName: format,
+          Arguments: [
+            _%{_}_%{_}_%{_a}_
+          ]
+        },
+        {
+          OperatorName: by,
+          Arguments: [
+            {
+              StepInstructions: [
+                {
+                  OperatorName: identity
+                }
+              ]
+            }
+          ]
+        },
+        {
+          OperatorName: by,
+          Arguments: [
+            {
+              StepInstructions: [
+                {
+                  OperatorName: values,
+                  Arguments: [
+                    Name
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

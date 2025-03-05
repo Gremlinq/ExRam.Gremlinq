@@ -1026,6 +1026,51 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Verify();
 
         [Fact]
+        public virtual Task Format1() => _g
+            .V<Person>()
+            .Order(_ => _
+                .By(x => x.Name))
+            .As((__, p) => __
+                .Format(x => $"_{x}_"))
+            .Verify();
+
+        [Fact]
+        public virtual Task Format2() => _g
+            .V<Person>()
+            .Order(_ => _
+                .By(x => x.Name))
+            .As((__, p) => __
+                .Format(x => $"_{x}_{x.Name}_"))
+            .Verify();
+
+        [Fact]
+        public virtual Task Format3() => _g
+            .V<Person>()
+            .Order(_ => _
+                .By(x => x.Name))
+            .As((__, p) => __
+                .Format(x => $"_{x}_{x.Name}_{p}_"))
+            .Verify();
+
+        [Fact]
+        public virtual Task Format4() => _g
+            .V<Person>()
+            .Order(_ => _
+                .By(x => x.Name))
+            .As((__, p) => __
+                .Format(x => $"_{x}_{x.Name}_{p}_{x.Age}_"))
+            .Verify();
+
+        [Fact]
+        public virtual Task Format5() => _g
+           .V<Person>()
+           .Order(_ => _
+               .By(x => x.Name))
+           .As((__, p) => __
+               .Format(x => $"_{x}_{x.Name}_{p}_{x.Age}_{42}"))
+           .Verify();
+
+        [Fact]
         public virtual Task Group() => _g
             .V<Person>()
             .Group()

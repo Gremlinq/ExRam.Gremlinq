@@ -1,0 +1,96 @@
+﻿{
+  SourceInstructions: [
+    {
+      OperatorName: withSideEffect,
+      Arguments: [
+        Neptune#fts.endpoint,
+        http://elastic.search.server
+      ]
+    },
+    {
+      OperatorName: withSideEffect,
+      Arguments: [
+        Neptune#fts.queryType,
+        query_string
+      ]
+    }
+  ],
+  StepInstructions: [
+    {
+      OperatorName: V
+    },
+    {
+      OperatorName: hasLabel,
+      Arguments: [
+        Person
+      ]
+    },
+    {
+      OperatorName: order
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        Name,
+        {
+          EnumName: Order,
+          EnumValue: asc
+        }
+      ]
+    },
+    {
+      OperatorName: as,
+      Arguments: [
+        _c
+      ]
+    },
+    {
+      OperatorName: format,
+      Arguments: [
+        _%{_}_%{_}_%{_c}_%{_}_42
+      ]
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        {
+          StepInstructions: [
+            {
+              OperatorName: identity
+            }
+          ]
+        }
+      ]
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        {
+          StepInstructions: [
+            {
+              OperatorName: values,
+              Arguments: [
+                Name
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        {
+          StepInstructions: [
+            {
+              OperatorName: values,
+              Arguments: [
+                Age
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

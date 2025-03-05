@@ -374,6 +374,23 @@ namespace ExRam.Gremlinq.Core.Serialization
                 ? CreateInstruction("fail", recurse, env, message)
                 : fail)
             .Add<FoldStep>((_, _, _, _) => fold)
+            .Add<FormatStep>((step, env, _, recurse) =>
+            {
+                var stringArguments = new string?[step.Arguments.Length];
+
+                for (var i = 0; i < step.Arguments.Length; i++)
+                {
+                    stringArguments[i] = step.Arguments[i] switch
+                    {
+                        string stringArgument => stringArgument,
+                        StepLabel stepLabel => $$"""%{{{recurse.TransformTo<string>().From(stepLabel, env)}}}""",
+                        var other => other?.ToString()
+                    };
+                }
+
+                return CreateInstruction("format", recurse, env, string.Format(step.Format, stringArguments));
+            })
+            .Add<FormatStep.By>((step, env, _, recurse) => CreateInstruction("by", recurse, env, step.Traversal))
             .Add<FilterStep.ByTraversalStep>((step, env, _, recurse) => CreateInstruction("filter", recurse, env, step.Traversal))
             .Add<FlatMapStep>((step, env, _, recurse) => CreateInstruction("flatMap", recurse, env, step.Traversal))
             .Add<GroupStep>((_, _, _, _) => group)

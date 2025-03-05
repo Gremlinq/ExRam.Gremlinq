@@ -492,5 +492,7 @@ namespace ExRam.Gremlinq.Core
         IStringGremlinQuery<T1> IStringGremlinQuery<T1>.TrimStart() => TrimStart();
 
         IStringGremlinQuery<T1> IStringGremlinQuery<T1>.TrimEnd() => TrimEnd();
+
+        IStringGremlinQuery<string> IGremlinQueryBase<T1>.Format(Expression<Func<T1, string>> stringInterpolationExpression) => Format(stringInterpolationExpression);
     }
 }

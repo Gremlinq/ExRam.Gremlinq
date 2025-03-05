@@ -62,6 +62,8 @@ namespace ExRam.Gremlinq.Core
     {
         new GremlinQueryAwaiter<TElement> GetAwaiter();
 
+        IStringGremlinQuery<string> Format(Expression<Func<TElement, string>> stringInterpolationExpression);
+
         IMapGremlinQuery<IDictionary<TElement, TElement[]>> Group();
 
         IGremlinQuery<TElement> ForceBase();
