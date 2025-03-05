@@ -1095,27 +1095,18 @@ namespace ExRam.Gremlinq.Core
                 .WithNewProjection(Projection.Value)
                 .AsAuto<string>());
 
-        private IMapGremlinQuery<TResult> Project<TResult>(Func<IProjectBuilder<GremlinQuery<T1, T2, T3, T4>, T1>, IProjectMapResult<TResult>> continuation)
-        {
-            return new ProjectBuilder(this)
-                .Map(continuation)
-                .Build();
-        }
+        private IMapGremlinQuery<TResult> Project<TResult>(Func<IProjectBuilder<GremlinQuery<T1, T2, T3, T4>, T1>, IProjectMapResult<TResult>> continuation) => new ProjectBuilder(this)
+            .Map(continuation)
+            .Build();
 
-        private IGremlinQuery<dynamic> Project(Func<IProjectBuilder<GremlinQuery<T1, T2, T3, T4>, T1>, IProjectDynamicResult> continuation)
-        {
-            return new ProjectBuilder(this)
-                .Map(continuation)
-                .Build();
-        }
+        private IGremlinQuery<dynamic> Project(Func<IProjectBuilder<GremlinQuery<T1, T2, T3, T4>, T1>, IProjectDynamicResult> continuation) => new ProjectBuilder(this)
+            .Map(continuation)
+            .Build();
 
         private IMapGremlinQuery<TResult> Project<TResult>(Func<IProjectBuilder<GremlinQuery<T1, T2, T3, T4>, T1>, IProjectTupleResult<TResult>> continuation)
-            where TResult : ITuple
-        {
-            return new ProjectBuilder(this)
+            where TResult : ITuple => new ProjectBuilder(this)
                 .Map(continuation)
                 .Build();
-        }
 
         private GremlinQuery<TNewElement, TNewPropertyValue, TNewMeta, IGremlinQueryBase> Properties<TNewElement, TNewPropertyValue, TNewMeta>(Projection projection, Expression[] projections) => Properties<TNewElement, TNewPropertyValue, TNewMeta>(
             projection,
