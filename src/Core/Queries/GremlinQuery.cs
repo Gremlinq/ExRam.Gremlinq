@@ -507,7 +507,7 @@ namespace ExRam.Gremlinq.Core
             return continuation(new ChooseBuilder<GremlinQuery<T1, T2, T3, T4>, object>(this)).TargetQuery;
         }
 
-        private TReturnQuery Coalesce<TTargetQuery, TReturnQuery>(params Func<GremlinQuery<T1, T2, T3, T4>, TTargetQuery>[] continuations)
+        private TReturnQuery Coalesce<TTargetQuery, TReturnQuery>(Func<GremlinQuery<T1, T2, T3, T4>, TTargetQuery>[] continuations)
             where TTargetQuery : IGremlinQueryBase
             where TReturnQuery : IGremlinQueryBase => this
                 .Continue()
@@ -546,14 +546,14 @@ namespace ExRam.Gremlinq.Core
                     .AddStep(new CoinStep(probability)),
                 probability);
 
-        private GremlinQuery<T1, T2, T3, T4> Concat(params string[] strings) => this
+        private GremlinQuery<T1, T2, T3, T4> Concat(string[] strings) => this
             .Continue()
             .Build(
                 static (builder, strings) => builder
                     .AddStep(new ConcatStringsStep(strings.ToImmutableArray())),
                 strings);
 
-        private GremlinQuery<T1, T2, T3, T4> Concat(params Func<IStringGremlinQuery<T1>, IGremlinQueryBase<T1>>[] stringTraversals) => this
+        private GremlinQuery<T1, T2, T3, T4> Concat(Func<IStringGremlinQuery<T1>, IGremlinQueryBase<T1>>[] stringTraversals) => this
             .Continue()
             .With(stringTraversals)
             .Build(static (builder, stringTraversals) => builder
@@ -1117,7 +1117,7 @@ namespace ExRam.Gremlinq.Core
                 .Build();
         }
 
-        private GremlinQuery<TNewElement, TNewPropertyValue, TNewMeta, IGremlinQueryBase> Properties<TNewElement, TNewPropertyValue, TNewMeta>(Projection projection, params Expression[] projections) => Properties<TNewElement, TNewPropertyValue, TNewMeta>(
+        private GremlinQuery<TNewElement, TNewPropertyValue, TNewMeta, IGremlinQueryBase> Properties<TNewElement, TNewPropertyValue, TNewMeta>(Projection projection, Expression[] projections) => Properties<TNewElement, TNewPropertyValue, TNewMeta>(
             projection,
             projections
                 .Select(projection => GetKey(projection).RawKey)
