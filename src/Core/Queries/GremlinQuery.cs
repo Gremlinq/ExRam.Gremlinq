@@ -1210,23 +1210,14 @@ namespace ExRam.Gremlinq.Core
                     .As<TNewQuery>(),
                 (stepLabel, stepLabelProjection: GetLabelProjection(stepLabel)));
 
-        private TTargetQuery Select<TTargetQuery>(params Expression[] projections) where TTargetQuery : IGremlinQueryBase => this
+        private TTargetQuery Select<TTargetQuery>(Expression expression) where TTargetQuery : IGremlinQueryBase => this
             .Continue()
             .Build(
-                static (builder, projections) =>
+                static (builder, expression) =>
                 {
-                    var keys = projections
-                        .Select(static expression =>
-                        {
-                            if (expression is LambdaExpression { Parameters: [var singleParameter], Body: { } lambdaBody } && lambdaBody.IsIndexerGet(out var target, out var indexerArgument) && target == singleParameter)
-                            {
-                                if (indexerArgument.GetValue() is string indexerArgumentValue)
-                                    return indexerArgumentValue;
-                            }
-
-                            return (Key)expression.AssumePropertyOrFieldMemberExpression().Member.Name;
-                        })
-                        .ToImmutableArray();
+                    var keys = ImmutableArray.Create(expression is LambdaExpression { Parameters: [var singleParameter], Body: { } lambdaBody } && lambdaBody.IsIndexerGet(out var target, out var indexerArgument) && target == singleParameter && indexerArgument.GetValue() is string indexerArgumentValue
+                        ? indexerArgumentValue
+                        : (Key)expression.AssumePropertyOrFieldMemberExpression().Member.Name);
 
                     return builder
                         .AddStep(new SelectKeysStep(keys))
@@ -1235,7 +1226,7 @@ namespace ExRam.Gremlinq.Core
                             keys)
                         .As<TTargetQuery>();
                 },
-                projections);
+                expression);
 
         private GremlinQuery<T1, T2, T3, T4> SideEffect(Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase> sideEffectContinuation) => this
             .Continue()
