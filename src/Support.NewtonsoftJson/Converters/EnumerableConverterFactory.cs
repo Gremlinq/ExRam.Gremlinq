@@ -64,7 +64,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
 
             public bool TryConvert(JArray serialized, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
             {
-                value = (TTarget)(object)GetEnumerable(serialized, recurse).ToList();
+                value = Unsafe.As<TTarget>(GetEnumerable(serialized, recurse).ToList());
                 return true;
             }
         }
