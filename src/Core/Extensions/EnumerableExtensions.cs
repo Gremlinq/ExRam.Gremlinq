@@ -25,7 +25,7 @@ namespace ExRam.Gremlinq.Core
 
                 sourceCollection.CopyTo(newSteps, 0);
 
-                return new(newSteps, Projection.Empty);
+                return Traversal.Empty.Push(newSteps);
             }
 
             var ret = Traversal.Empty;

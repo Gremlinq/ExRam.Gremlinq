@@ -11,15 +11,15 @@ namespace ExRam.Gremlinq.Core
         private readonly uint _writeStepsCount;
         private readonly FastImmutableList<Step> _steps;
 
-        internal Traversal(Step[] steps, Projection projection) : this(new FastImmutableList<Step>(steps, steps.Length), projection)
+        private Traversal(Step[] steps, Projection projection) : this(new FastImmutableList<Step>(steps, steps.Length), projection)
         {
         }
 
-        internal Traversal(FastImmutableList<Step> steps, Projection projection) : this(steps, SideEffectSemanticsHelper(steps.AsSpan()), projection)
+        private Traversal(FastImmutableList<Step> steps, Projection projection) : this(steps, SideEffectSemanticsHelper(steps.AsSpan()), projection)
         {
         }
 
-        internal Traversal(FastImmutableList<Step> steps, uint writeStepsCount, Projection projection)
+        private Traversal(FastImmutableList<Step> steps, uint writeStepsCount, Projection projection)
         {
             _steps = steps;
             Projection = projection;
