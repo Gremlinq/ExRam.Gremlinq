@@ -1,5 +1,6 @@
 ﻿using System.Buffers;
 using System.Diagnostics.CodeAnalysis;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 using ExRam.Gremlinq.Core;
@@ -69,9 +70,9 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
         }
 
         public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment) => typeof(TSource) == typeof(GraphSon2BinaryMessage)
-            ? (IConverter<TSource, TTarget>)(object)new DeferToNewtonsoftConverter<GraphSon2BinaryMessage>.DeferToNewtonsoftConverterImpl<TTarget>(environment)
+            ? Unsafe.As<IConverter<TSource, TTarget>>(new DeferToNewtonsoftConverter<GraphSon2BinaryMessage>.DeferToNewtonsoftConverterImpl<TTarget>(environment))
             : typeof(TSource) == typeof(GraphSon3BinaryMessage)
-                ? (IConverter<TSource, TTarget>)(object)new DeferToNewtonsoftConverter<GraphSon3BinaryMessage>.DeferToNewtonsoftConverterImpl<TTarget>(environment)
+                ? Unsafe.As<IConverter<TSource, TTarget>>(new DeferToNewtonsoftConverter<GraphSon3BinaryMessage>.DeferToNewtonsoftConverterImpl<TTarget>(environment))
                 : default;
     }
 }
