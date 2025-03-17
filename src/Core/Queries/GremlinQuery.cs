@@ -1310,9 +1310,6 @@ namespace ExRam.Gremlinq.Core
 
         private TTargetQuery Unfold<TTargetQuery>() => Unfold().CloneAs<TTargetQuery>();
 
-        private TTargetQuery Union<TTargetQuery>(Func<GremlinQuery<T1, T2, T3, T4>, TTargetQuery>[] unionTraversals)
-            where TTargetQuery : IGremlinQueryBase => Union<TTargetQuery, TTargetQuery>(unionTraversals);
-
         private TReturnQuery Union<TTargetQuery, TReturnQuery>(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, TTargetQuery>> unionContinuations)
             where TTargetQuery : IGremlinQueryBase
             where TReturnQuery : IGremlinQueryBase => this
@@ -1387,7 +1384,7 @@ namespace ExRam.Gremlinq.Core
                             .AsAuto<TValue>(),
                         stepsArray[0]),
                 _ => this
-                    .Union(stepsArray
+                    .Union<GremlinQuery<TValue, object, object, IGremlinQueryBase>, GremlinQuery<TValue, object, object, IGremlinQueryBase>>(stepsArray
                         .Select(static step => new Func<GremlinQuery<T1, T2, T3, T4>, GremlinQuery<TValue, object, object, IGremlinQueryBase>>(__ => __
                             .Continue()
                             .Build(
