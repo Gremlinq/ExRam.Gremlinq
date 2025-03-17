@@ -6,8 +6,9 @@ namespace ExRam.Gremlinq.Core
 {
     public readonly struct Traversal
     {
-        public static readonly Traversal Empty = new(FastImmutableList<Step>.Empty, SideEffectSemantics.Read, Projection.Empty);
+        public static readonly Traversal Empty = new(FastImmutableList<Step>.Empty, 0, Projection.Empty);
 
+        private readonly uint _writeStepsCount;
         private readonly FastImmutableList<Step> _steps;
 
         internal Traversal(Step[] steps, Projection projection) : this(new FastImmutableList<Step>(steps, steps.Length), projection)
@@ -18,25 +19,23 @@ namespace ExRam.Gremlinq.Core
         {
         }
 
-        internal Traversal(FastImmutableList<Step> steps, SideEffectSemantics semantics, Projection projection)
+        internal Traversal(FastImmutableList<Step> steps, uint writeStepsCount, Projection projection)
         {
             _steps = steps;
             Projection = projection;
-            SideEffectSemantics = semantics;
+            _writeStepsCount = writeStepsCount;
         }
 
         public Traversal Push(params Step[] steps) => new Traversal(
             _steps.Push(steps),
-            SideEffectSemanticsHelper(steps.AsSpan()) == SideEffectSemantics.Write
-                ? SideEffectSemantics.Write
-                : SideEffectSemantics,
+            _writeStepsCount + SideEffectSemanticsHelper(steps.AsSpan()),
             Projection);
 
         public Traversal Push(Step step) => new Traversal(
             _steps.Push(step),
             step.SideEffectSemanticsChange == SideEffectSemanticsChange.Write
-                ? SideEffectSemantics.Write
-                : SideEffectSemantics,
+                ? _writeStepsCount + 1
+                : _writeStepsCount,
             Projection);
 
         public Traversal Pop() => Pop(out _);
@@ -46,15 +45,15 @@ namespace ExRam.Gremlinq.Core
             var newSteps = _steps.Pop(out poppedStep);
 
             return poppedStep.SideEffectSemanticsChange == SideEffectSemanticsChange.Write
-                ? new Traversal(newSteps, Projection)
-                : new Traversal(newSteps, SideEffectSemantics, Projection);
+                ? new Traversal(newSteps, _writeStepsCount - 1, Projection)
+                : new Traversal(newSteps, _writeStepsCount, Projection);
         }
 
         public Traversal Slice(int start) => this[start..];
 
         public Traversal Slice(int start, int length) => new (_steps.Slice(start, length), Projection);
 
-        public Traversal WithProjection(Projection projection) => new(_steps, SideEffectSemantics, projection);
+        public Traversal WithProjection(Projection projection) => new(_steps, _writeStepsCount, projection);
 
         public Traversal IncludeProjection(IGremlinQueryEnvironment environment)
         {
@@ -81,7 +80,7 @@ namespace ExRam.Gremlinq.Core
                                     .CopyTo(newSteps[steps.Count..]);
                             });
 
-                    return new Traversal(newSteps, SideEffectSemantics, Projection.Empty);
+                    return new Traversal(newSteps, _writeStepsCount, Projection.Empty);
                 }
             }
 
@@ -100,24 +99,31 @@ namespace ExRam.Gremlinq.Core
 
         public Step this[int index] => Steps[index];
 
-        public SideEffectSemantics SideEffectSemantics { get; }
+        public SideEffectSemantics SideEffectSemantics
+        {
+            get => _writeStepsCount > 0
+                ? SideEffectSemantics.Write
+                : SideEffectSemantics.Read;
+        }
 
         public ReadOnlySpan<Step> Steps { get => _steps.AsSpan(); }
 
-        private static SideEffectSemantics SideEffectSemanticsHelper(ReadOnlySpan<Step> steps)
+        private static uint SideEffectSemanticsHelper(ReadOnlySpan<Step> steps)
         {
+            var ret = default(uint);
+
             for (var i = 0; i < steps.Length; i++)
             {
                 if (steps[i] is { } step)
                 {
                     if (step.SideEffectSemanticsChange == SideEffectSemanticsChange.Write)
-                        return SideEffectSemantics.Write;
+                        ret++;
                 }
                 else
                     throw new ArgumentNullException(nameof(steps));
             }
 
-            return SideEffectSemantics.Read;
+            return ret;
         }
     }
 }
