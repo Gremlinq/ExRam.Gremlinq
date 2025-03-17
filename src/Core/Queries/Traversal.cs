@@ -11,10 +11,6 @@ namespace ExRam.Gremlinq.Core
         private readonly uint _writeStepsCount;
         private readonly FastImmutableList<Step> _steps;
 
-        private Traversal(Step[] steps, Projection projection) : this(new FastImmutableList<Step>(steps, steps.Length), projection)
-        {
-        }
-
         private Traversal(FastImmutableList<Step> steps, Projection projection) : this(steps, SideEffectSemanticsHelper(steps.AsSpan()), projection)
         {
         }
@@ -94,7 +90,7 @@ namespace ExRam.Gremlinq.Core
             return this;
         }
 
-        public static implicit operator Traversal(Step step) => new([step], Projection.Empty);
+        public static implicit operator Traversal(Step step) => Create(1, step, static (span, step) => span[0] = step);
 
         public static Traversal Create<TState>(int length, TState state, SpanAction<Step, TState> action) => new(
             FastImmutableList<Step>.Create(length, state, action),
