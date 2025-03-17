@@ -8,6 +8,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
     internal sealed class DictionaryConverterFactory : IConverterFactory
     {
         private sealed class DictionaryConverter<TTarget> : IConverter<JObject, TTarget>
+            where TTarget : class
         {
             private readonly IGremlinQueryEnvironment _environment;
 
@@ -34,7 +35,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
         public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment)
         {
             return typeof(TSource) == typeof(JObject) && typeof(TTarget).IsAssignableFrom(typeof(Dictionary<string, object?>))
-                ? (IConverter<TSource, TTarget>)(object)new DictionaryConverter<TTarget>(environment)
+                ? (IConverter<TSource, TTarget>?)Activator.CreateInstance(typeof(DictionaryConverter<>).MakeGenericType(typeof(TTarget)), environment)
                 : default;
         }
     }
