@@ -35,6 +35,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
         }
 
         private sealed class ArrayConverter<TTargetArray, TTargetItem> : EnumerableConverter<TTargetItem>, IConverter<JArray, TTargetArray>
+            where TTargetArray : class
         {
             public ArrayConverter(IGremlinQueryEnvironment environment) : base(environment)
             {
@@ -71,7 +72,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
             if (typeof(TSource) == typeof(JArray))
             {
                 if (typeof(TTarget).IsAssignableFrom(typeof(object[])))
-                    return (IConverter<TSource, TTarget>?)(object)new ArrayConverter<TTarget, object>(environment);
+                    return (IConverter<TSource, TTarget>?)Activator.CreateInstance(typeof(ArrayConverter<,>).MakeGenericType(typeof(TTarget), typeof(object)), environment);
 
                 if (typeof(TTarget).IsArray)
                     return (IConverter<TSource, TTarget>?)Activator.CreateInstance(typeof(ArrayConverter<,>).MakeGenericType(typeof(TTarget), typeof(TTarget).GetElementType()!), environment);
