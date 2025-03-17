@@ -4,7 +4,7 @@ namespace ExRam.Gremlinq.Templates.Tests
 {
     public class RestoreAndBuildTests
     {
-        public RestoreAndBuildTests() => DotnetNew.InstallAsync<RestoreAndBuildTests>("ExRam.Gremlinq.sln").Wait();
+        public RestoreAndBuildTests() => DotnetNew.InstallAsync<RestoreAndBuildTests>("ExRam.Gremlinq.slnx").Wait();
 
         [Theory]
         [InlineData("GremlinServer")]

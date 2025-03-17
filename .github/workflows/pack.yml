@@ -49,10 +49,10 @@ jobs:
       run: find -name template.json -exec sed -i "s/TEMPLATE_GREMLINQ_VERSION_DEFAULT_VALUE/${{ steps.nbgv.outputs.NuGetPackageVersion }}/g" {} \;
 
     - name: Build
-      run: dotnet build ./${{ github.event.repository.name }}.sln -c Release -p:ContinuousIntegrationBuild=true
+      run: dotnet build ./${{ github.event.repository.name }}.slnx -c Release -p:ContinuousIntegrationBuild=true
 
     - name: Pack
-      run: dotnet pack ./${{ github.event.repository.name }}.sln -c Release --no-build
+      run: dotnet pack ./${{ github.event.repository.name }}.slnx -c Release --no-build
 
     - name: Copy NuGet packages to artifacts
       uses: actions/upload-artifact@50769540e7f4bd5e21e526ee35c689e35e0d6874 # 4.4.0

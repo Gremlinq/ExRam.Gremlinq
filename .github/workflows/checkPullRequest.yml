@@ -27,10 +27,10 @@ jobs:
           8
      
     - name: Test
-      run: dotnet test -c Release --collect:"XPlat Code Coverage;Format=opencover" ./${{ github.event.repository.name }}.sln 
+      run: dotnet test -c Release --collect:"XPlat Code Coverage;Format=opencover" ./${{ github.event.repository.name }}.slnx
 
     - name: Test (Debug)
-      run: dotnet test -c Debug --collect:"XPlat Code Coverage;Format=opencover" ./${{ github.event.repository.name }}.sln 
+      run: dotnet test -c Debug --collect:"XPlat Code Coverage;Format=opencover" ./${{ github.event.repository.name }}.slnx
       
     - name: Collect coverage
       uses: codecov/codecov-action@0565863a31f2c772f9f0395002a31e3f06189574 # 5.4.0
@@ -63,10 +63,10 @@ jobs:
           parameter_string: "-Timeout 600 -EnableGremlin"
       
     - name: Test
-      run: dotnet test -c Release --collect:"XPlat Code Coverage;Format=opencover" ./${{ github.event.repository.name }}.sln
+      run: dotnet test -c Release --collect:"XPlat Code Coverage;Format=opencover" ./${{ github.event.repository.name }}.slnx
 
     - name: Test (Debug)
-      run: dotnet test -c Debug --collect:"XPlat Code Coverage;Format=opencover" ./${{ github.event.repository.name }}.sln
+      run: dotnet test -c Debug --collect:"XPlat Code Coverage;Format=opencover" ./${{ github.event.repository.name }}.slnx
       
     - name: Collect coverage
       uses: codecov/codecov-action@0565863a31f2c772f9f0395002a31e3f06189574 # 5.4.0
