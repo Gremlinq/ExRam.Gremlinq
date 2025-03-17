@@ -56,6 +56,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
         }
 
         private sealed class ListConverter<TTarget, TTargetItem> : EnumerableConverter<TTargetItem>, IConverter<JArray, TTarget>
+            where TTarget : class
         {
             public ListConverter(IGremlinQueryEnvironment environment) : base(environment)
             {
