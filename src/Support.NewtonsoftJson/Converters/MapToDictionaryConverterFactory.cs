@@ -2,6 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using ExRam.Gremlinq.Core.Transformation;
 using ExRam.Gremlinq.Core;
+using System.Runtime.CompilerServices;
 
 namespace ExRam.Gremlinq.Support.NewtonsoftJson
 {
@@ -9,6 +10,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
     {
         private sealed class MapToDictionaryConverter<TKey, TValue, TTarget> : IConverter<JObject, TTarget>
             where TKey : notnull
+            where TTarget : class
         {
             private readonly IGremlinQueryEnvironment _environment;
 
@@ -31,7 +33,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                                 retObject.Add(key, entry);
                         }
 
-                        value = (TTarget)(object)retObject;
+                        value = Unsafe.As<TTarget>(retObject);
                         return true;
                     }
                 }
@@ -46,7 +48,8 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
             if (typeof(TSource) == typeof(JObject))
             {
                 var maybeCompatibleInterface = typeof(TTarget)
-                    .GetInterfaces().Prepend(typeof(TTarget))
+                    .GetInterfaces()
+                    .Prepend(typeof(TTarget))
                     .Select(static iface => iface is { IsGenericType: true, GenericTypeArguments: [var keyType, var valueType] } && typeof(TTarget).IsAssignableFrom(typeof(Dictionary<,>).MakeGenericType(keyType, valueType))
                         ? (keyType, valueType)
                         : default((Type keyType, Type valueType)?))
