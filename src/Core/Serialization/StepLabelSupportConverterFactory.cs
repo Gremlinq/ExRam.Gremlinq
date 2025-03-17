@@ -33,6 +33,7 @@ namespace ExRam.Gremlinq.Core.Serialization
 
         private sealed class StepLabelResolutionConverter<TStepLabel, TTarget> : IConverter<TStepLabel, TTarget>
             where TStepLabel : StepLabel
+            where TTarget : class
         {
             public bool TryConvert(TStepLabel stepLabel, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
             {
