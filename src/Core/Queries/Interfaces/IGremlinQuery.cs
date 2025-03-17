@@ -88,6 +88,7 @@ namespace ExRam.Gremlinq.Core
     public interface IGremlinQueryBaseRec<TSelf> : IGremlinQueryBase
         where TSelf : IGremlinQueryBaseRec<TSelf>
     {
+        //TODO: Span params
         TSelf And(params Func<TSelf, IGremlinQueryBase>[] andTraversals);
 
         [Obsolete("Deprecated. If the strongly typed overload of As is not in scope, call Cast<object>() before As(...).")]
@@ -103,6 +104,7 @@ namespace ExRam.Gremlinq.Core
 
         TTargetQuery Choose<TTargetQuery>(Func<IChooseBuilder<TSelf>, IChooseBuilderWithCaseOrDefault<TTargetQuery>> continuation) where TTargetQuery : IGremlinQueryBase;
 
+        //TODO: Span params
         TTargetQuery Coalesce<TTargetQuery>(params Func<TSelf, TTargetQuery>[] traversals) where TTargetQuery : IGremlinQueryBase;
         IGremlinQuery<object> Coalesce(params Func<TSelf, IGremlinQueryBase>[] traversals);
 
@@ -130,6 +132,8 @@ namespace ExRam.Gremlinq.Core
         TSelf None();
 
         TSelf Optional(Func<TSelf, TSelf> optionalTraversal);
+
+        //TODO: Span params
         TSelf Or(params Func<TSelf, IGremlinQueryBase>[] orTraversals);
 
         TSelf Order(Func<IOrderBuilder<TSelf>, IOrderBuilderWithBy<TSelf>> projection);
@@ -150,6 +154,8 @@ namespace ExRam.Gremlinq.Core
         TSelf Tail(long count);
 
         TTargetQuery Union<TTargetQuery>(params Func<TSelf, TTargetQuery>[] unionTraversals) where TTargetQuery : IGremlinQueryBase;
+
+        //TODO: Span params
         IGremlinQuery<object> Union(params Func<TSelf, IGremlinQueryBase>[] traversals);
 
         TSelf Where(Func<TSelf, IGremlinQueryBase> filterTraversal);

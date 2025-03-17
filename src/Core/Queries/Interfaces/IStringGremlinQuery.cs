@@ -4,6 +4,7 @@
     {
         IStringGremlinQuery<TString> Concat(params string[] strings);
 
+        //TODO: Span params
         IStringGremlinQuery<TString> Concat(params Func<IStringGremlinQuery<TString>, IGremlinQueryBase<TString>>[] stringTraversals);
 
         IGremlinQuery<int> Length();
