@@ -26,10 +26,12 @@ namespace ExRam.Gremlinq.Core
             _writeStepsCount = writeStepsCount;
         }
 
-        public Traversal Push(params Step[] steps) => new (
+        public Traversal Push(params ReadOnlySpan<Step> steps) => new(
             _steps.Push(steps),
-            _writeStepsCount + SideEffectSemanticsHelper(steps.AsSpan()),
+            _writeStepsCount + SideEffectSemanticsHelper(steps),
             Projection);
+
+        public Traversal Push(params Step[] steps) => Push(steps.AsSpan());
 
         public Traversal Push(Step step) => new (
             _steps.Push(step),
