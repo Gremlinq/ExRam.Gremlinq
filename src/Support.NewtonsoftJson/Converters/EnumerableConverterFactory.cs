@@ -3,6 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 using ExRam.Gremlinq.Core.Transformation;
 using ExRam.Gremlinq.Core;
 using System.Collections;
+using System.Runtime.CompilerServices;
 
 namespace ExRam.Gremlinq.Support.NewtonsoftJson
 {
@@ -45,7 +46,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
             {
                 if (!Environment.SupportsType(typeof(TTargetArray)))
                 {
-                    value = (TTargetArray)(object)GetEnumerable(serialized, recurse).ToArray();
+                    value = Unsafe.As<TTargetArray>(GetEnumerable(serialized, recurse).ToArray());
                     return true;
                 }
 
