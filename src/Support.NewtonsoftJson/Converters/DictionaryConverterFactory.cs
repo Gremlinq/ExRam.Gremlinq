@@ -2,6 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using ExRam.Gremlinq.Core.Transformation;
 using ExRam.Gremlinq.Core;
+using System.Runtime.CompilerServices;
 
 namespace ExRam.Gremlinq.Support.NewtonsoftJson
 {
@@ -27,7 +28,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                         ret.TryAdd(property.Key, item);
                 }
 
-                value = (TTarget)(object)ret;
+                value = Unsafe.As<TTarget>(ret);
                 return true;
             }
         }
