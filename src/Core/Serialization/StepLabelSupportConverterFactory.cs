@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using System.Runtime.CompilerServices;
 
 using ExRam.Gremlinq.Core.Transformation;
 
@@ -48,7 +49,7 @@ namespace ExRam.Gremlinq.Core.Serialization
                     stepLabelNames.Add(stepLabel, stepLabelMapping);
                 }
 
-                value = (TTarget)(object)(string)stepLabelMapping;
+                value = Unsafe.As<TTarget>((string)stepLabelMapping);
                 return true;
             }
         }
@@ -59,10 +60,10 @@ namespace ExRam.Gremlinq.Core.Serialization
         public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment)
         {
             if (typeof(IGremlinQueryBase).IsAssignableFrom(typeof(TSource)) && typeof(TTarget) == typeof(Traversal))
-                return (IConverter<TSource, TTarget>?)Activator.CreateInstance(typeof(DeferConverter<,>).MakeGenericType(typeof(TSource), typeof(TTarget)), environment);
+                return Unsafe.As<IConverter<TSource, TTarget>?>(Activator.CreateInstance(typeof(DeferConverter<,>).MakeGenericType(typeof(TSource), typeof(TTarget)), environment));
 
             if (typeof(StepLabel).IsAssignableFrom(typeof(TSource)) && typeof(TTarget).IsAssignableFrom(typeof(string)))
-                return (IConverter<TSource, TTarget>?)Activator.CreateInstance(typeof(StepLabelResolutionConverter<,>).MakeGenericType(typeof(TSource), typeof(TTarget)));
+                return Unsafe.As<IConverter<TSource, TTarget>?>(Activator.CreateInstance(typeof(StepLabelResolutionConverter<,>).MakeGenericType(typeof(TSource), typeof(TTarget))));
 
             return default;
         }

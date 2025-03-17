@@ -8,6 +8,7 @@ using static ExRam.Gremlinq.Core.Serialization.Instructions;
 using System.Diagnostics.CodeAnalysis;
 using Gremlin.Net.Driver.Messages;
 using Gremlin.Net.Driver;
+using System.Runtime.CompilerServices;
 
 namespace ExRam.Gremlinq.Core.Serialization
 {
@@ -42,7 +43,7 @@ namespace ExRam.Gremlinq.Core.Serialization
                 if (!environment.SupportsTypeNatively(typeof(byte[])))
                 {
                     if (typeof(TSource) == typeof(byte[]) && typeof(TTarget).IsAssignableFrom(typeof(string)))
-                        return (IConverter<TSource, TTarget>)(object)new ByteArrayToStringFallbackConverter<TTarget>(environment);
+                        return Unsafe.As<IConverter<TSource, TTarget>>(new ByteArrayToStringFallbackConverter<TTarget>(environment));
                 }
 
                 return default;
@@ -78,7 +79,7 @@ namespace ExRam.Gremlinq.Core.Serialization
                 if (!environment.SupportsTypeNatively(typeof(TimeSpan)))
                 {
                     if (typeof(TSource) == typeof(TimeSpan) && typeof(TTarget).IsAssignableFrom(typeof(double)))
-                        return (IConverter<TSource, TTarget>)(object)new TimeSpanToDoubleConverter<TTarget>(environment);
+                        return Unsafe.As<IConverter<TSource, TTarget>>(new TimeSpanToDoubleConverter<TTarget>(environment));
                 }
 
                 return default;

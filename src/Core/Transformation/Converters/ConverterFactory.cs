@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using System.Runtime.CompilerServices;
 
 namespace ExRam.Gremlinq.Core.Transformation
 {
@@ -16,7 +17,7 @@ namespace ExRam.Gremlinq.Core.Transformation
                 public ClassFuncConverter(Func<TStaticSource, IGremlinQueryEnvironment, ITransformer, ITransformer, TStaticTarget?> func, IGremlinQueryEnvironment environment)
                 {
                     _environment = environment;
-                    _func = (Func<TStaticSource, IGremlinQueryEnvironment, ITransformer, ITransformer, TTarget?>)(object)func;
+                    _func = Unsafe.As<Func<TStaticSource, IGremlinQueryEnvironment, ITransformer, ITransformer, TTarget?>>(func);
                 }
 
                 public bool TryConvert(TSource source, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
@@ -117,10 +118,10 @@ namespace ExRam.Gremlinq.Core.Transformation
                 if ((typeof(TSource).IsAssignableFrom(typeof(TStaticSource)) || typeof(TStaticSource).IsAssignableFrom(typeof(TSource))) && typeof(TTarget).IsAssignableFrom(typeof(TStaticTarget)))
                 {
                     if (typeof(TTarget).IsClass)
-                        return (IConverter<TSource, TTarget>?)Activator.CreateInstance(typeof(StructToClassFuncConverter<,>).MakeGenericType(typeof(TStaticSource), typeof(TStaticTarget), typeof(TSource), typeof(TTarget)), _func, environment);
+                        return Unsafe.As<IConverter<TSource, TTarget>?>(Activator.CreateInstance(typeof(StructToClassFuncConverter<,>).MakeGenericType(typeof(TStaticSource), typeof(TStaticTarget), typeof(TSource), typeof(TTarget)), _func, environment));
 
                     if (typeof(TStaticTarget) == typeof(TTarget))
-                        return (IConverter<TSource, TTarget>)(object)new StructToStructFuncConverter<TSource>(_func, environment);
+                        return Unsafe.As<IConverter<TSource, TTarget>>(new StructToStructFuncConverter<TSource>(_func, environment));
 
                     throw new NotSupportedException($"Unable to create an instance of {nameof(IConverter<TSource, TTarget>)} for {typeof(TSource).FullName} and {typeof(TTarget).FullName}.");
                 }
