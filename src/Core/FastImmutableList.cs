@@ -20,7 +20,7 @@ namespace ExRam.Gremlinq.Core
             _items = steps;
         }
 
-        public FastImmutableList<T> Push(params T[] items)
+        public FastImmutableList<T> Push(params ReadOnlySpan<T> items)
         {
             var ret = EnsureCapacity(Count + items.Length);
 
