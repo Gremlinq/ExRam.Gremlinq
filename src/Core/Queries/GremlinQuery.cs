@@ -243,7 +243,7 @@ namespace ExRam.Gremlinq.Core
             .With(continuation1, state)
             .With(continuation2, state));
 
-        private GremlinQuery<T1, T2, T3, T4> And(Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase>[] continuations) => And(this
+        private GremlinQuery<T1, T2, T3, T4> And(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase>> continuations) => And(this
             .Continue(ContinuationFlags.Filter)
             .With(continuations));
 
@@ -507,7 +507,7 @@ namespace ExRam.Gremlinq.Core
             return continuation(new ChooseBuilder<GremlinQuery<T1, T2, T3, T4>, object>(this)).TargetQuery;
         }
 
-        private TReturnQuery Coalesce<TTargetQuery, TReturnQuery>(Func<GremlinQuery<T1, T2, T3, T4>, TTargetQuery>[] continuations)
+        private TReturnQuery Coalesce<TTargetQuery, TReturnQuery>(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, TTargetQuery>> continuations)
             where TTargetQuery : IGremlinQueryBase
             where TReturnQuery : IGremlinQueryBase => this
                 .Continue()
@@ -553,7 +553,7 @@ namespace ExRam.Gremlinq.Core
                     .AddStep(new ConcatStringsStep(strings.ToImmutableArray())),
                 strings);
 
-        private GremlinQuery<T1, T2, T3, T4> Concat(Func<IStringGremlinQuery<T1>, IGremlinQueryBase<T1>>[] stringTraversals) => this
+        private GremlinQuery<T1, T2, T3, T4> Concat(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase<T1>>> stringTraversals) => this
             .Continue()
             .With(stringTraversals)
             .Build(static (builder, stringTraversals) => builder
@@ -979,7 +979,7 @@ namespace ExRam.Gremlinq.Core
             .With(continuation1, state)
             .With(continuation2, state));
 
-        private GremlinQuery<T1, T2, T3, T4> Or(Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase>[] continuations) => Or(this
+        private GremlinQuery<T1, T2, T3, T4> Or(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase>> continuations) => Or(this
             .Continue(ContinuationFlags.Filter)
             .With(continuations));
 
@@ -1313,7 +1313,7 @@ namespace ExRam.Gremlinq.Core
         private TTargetQuery Union<TTargetQuery>(Func<GremlinQuery<T1, T2, T3, T4>, TTargetQuery>[] unionTraversals)
             where TTargetQuery : IGremlinQueryBase => Union<TTargetQuery, TTargetQuery>(unionTraversals);
 
-        private TReturnQuery Union<TTargetQuery, TReturnQuery>(Func<GremlinQuery<T1, T2, T3, T4>, TTargetQuery>[] unionContinuations)
+        private TReturnQuery Union<TTargetQuery, TReturnQuery>(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, TTargetQuery>> unionContinuations)
             where TTargetQuery : IGremlinQueryBase
             where TReturnQuery : IGremlinQueryBase => this
                 .Continue()
