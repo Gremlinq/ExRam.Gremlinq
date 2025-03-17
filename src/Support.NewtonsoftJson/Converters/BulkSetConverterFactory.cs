@@ -8,6 +8,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
     internal sealed class BulkSetConverterFactory : IConverterFactory
     {
         private sealed class BulkSetConverter<TTargetArray, TTargetArrayItem> : IConverter<JObject, TTargetArray>
+            where TTargetArray : class
         {
             private readonly IGremlinQueryEnvironment _environment;
 
