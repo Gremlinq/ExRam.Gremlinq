@@ -4,6 +4,7 @@ using ExRam.Gremlinq.Core.Transformation;
 using ExRam.Gremlinq.Core;
 using Gremlin.Net.Process.Traversal;
 using System.Numerics;
+using System.Runtime.CompilerServices;
 
 namespace ExRam.Gremlinq.Support.NewtonsoftJson
 {
@@ -72,7 +73,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
         public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment)
         {
             return typeof(TSource) == typeof(JObject)
-                ? (IConverter<TSource, TTarget>)(object)new TypedValueConverter<TTarget>(environment)
+                ? Unsafe.As<IConverter<TSource, TTarget>>(new TypedValueConverter<TTarget>(environment))
                 : default;
         }
     }

@@ -58,7 +58,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
         private static readonly ConditionalWeakTable<IGremlinQueryEnvironment, IReadOnlyDictionary<string, Type[]>> ModelTypesForLabels = new();
 
         public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment) => typeof(TSource) == typeof(JObject) && !typeof(TTarget).IsSealed
-            ? (IConverter<TSource, TTarget>)(object)new LabelLookupConverter<TTarget>(environment)
+            ? Unsafe.As<IConverter<TSource, TTarget>>(new LabelLookupConverter<TTarget>(environment))
             : default;
     }
 }

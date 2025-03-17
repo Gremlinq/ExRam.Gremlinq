@@ -2,6 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using ExRam.Gremlinq.Core.Transformation;
 using ExRam.Gremlinq.Core;
+using System.Runtime.CompilerServices;
 
 namespace ExRam.Gremlinq.Support.NewtonsoftJson
 {
@@ -25,7 +26,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
         public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment)
         {
             return typeof(JValue).IsAssignableFrom(typeof(TSource))
-                ? (IConverter<TSource, TTarget>)(object)new NativeTypeConverter<TTarget>(environment)
+                ? Unsafe.As<IConverter<TSource, TTarget>>(new NativeTypeConverter<TTarget>(environment))
                 : default;
         }
     }

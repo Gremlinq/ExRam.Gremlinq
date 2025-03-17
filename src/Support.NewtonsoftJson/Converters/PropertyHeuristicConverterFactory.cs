@@ -3,6 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 using ExRam.Gremlinq.Core.Transformation;
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.GraphElements;
+using System.Runtime.CompilerServices;
 
 namespace ExRam.Gremlinq.Support.NewtonsoftJson
 {
@@ -42,7 +43,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
         }
 
         public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment) => typeof(JObject) == typeof(TSource) && typeof(TTarget).IsAssignableFrom(typeof(VertexProperty<object>)) && !typeof(Property<object>).IsAssignableFrom(typeof(TTarget))
-            ? (IConverter<TSource, TTarget>)(object)new PropertyHeuristicConverter<TTarget>(environment)
+            ? Unsafe.As<IConverter<TSource, TTarget>>(new PropertyHeuristicConverter<TTarget>(environment))
             : default;
     }
 }

@@ -1,4 +1,6 @@
-﻿using ExRam.Gremlinq.Core;
+﻿using System.Runtime.CompilerServices;
+
+using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Transformation;
 
 using Newtonsoft.Json.Linq;
@@ -37,7 +39,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
         public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment)
         {
             return typeof(TTarget) == typeof(TStaticTarget) && typeof(TSource) == typeof(JValue)
-                ? (IConverter<TSource, TTarget>)(object)new FixedTypeConverter(this, environment)
+                ? Unsafe.As<IConverter<TSource, TTarget>>(new FixedTypeConverter(this, environment))
                 : null;
         }
 
