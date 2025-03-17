@@ -1,5 +1,7 @@
 ﻿#pragma warning disable IDE0003
 // ReSharper disable ArrangeThisQualifier
+using System.Runtime.CompilerServices;
+
 using ExRam.Gremlinq.Core.Steps;
 
 namespace ExRam.Gremlinq.Core
@@ -73,7 +75,7 @@ namespace ExRam.Gremlinq.Core
             private LoopBuilder<TQuery> Until(Func<TQuery, IGremlinQueryBase> untilCondition) => new(_outerQuery
                 .Continue()
                 .With(
-                    static (__, untilCondition) => untilCondition((TQuery)(object)__),
+                    static (__, untilCondition) => untilCondition(Unsafe.As<TQuery>(__)),
                     untilCondition)
                 .Build(static (builder, innerTraversal) =>
                 {
@@ -89,7 +91,7 @@ namespace ExRam.Gremlinq.Core
             private LoopBuilder<TQuery> Repeat(Func<TQuery, TQuery> loop) => new(_outerQuery
                 .Continue()
                 .With(
-                    static (__, loop) => loop((TQuery)(object)__),
+                    static (__, loop) => loop(Unsafe.As<TQuery>(__)),
                     loop)
                 .Build(
                     static (builder, innerTraversal) => builder
@@ -98,7 +100,7 @@ namespace ExRam.Gremlinq.Core
                             static (projection, otherProjection) => projection.Lowest(otherProjection),
                             innerTraversal.Projection)));
 
-            public TQuery Build() => (TQuery)(object)_outerQuery;
+            public TQuery Build() => Unsafe.As<TQuery>(_outerQuery);
         }
     }
 }
