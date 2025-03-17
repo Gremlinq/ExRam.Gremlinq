@@ -44,9 +44,12 @@ namespace ExRam.Gremlinq.Core
         {
             var newSteps = _steps.Pop(out poppedStep);
 
-            return poppedStep.SideEffectSemanticsChange == SideEffectSemanticsChange.Write
-                ? new Traversal(newSteps, _writeStepsCount - 1, Projection)
-                : new Traversal(newSteps, _writeStepsCount, Projection);
+            return new Traversal(
+                newSteps,
+                poppedStep.SideEffectSemanticsChange == SideEffectSemanticsChange.Write
+                    ? _writeStepsCount - 1
+                    : _writeStepsCount,
+                Projection);
         }
 
         public Traversal Slice(int start) => this[start..];
