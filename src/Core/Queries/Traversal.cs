@@ -25,25 +25,19 @@ namespace ExRam.Gremlinq.Core
             SideEffectSemantics = semantics;
         }
 
-        public Traversal Push(params Step[] steps)
-        {
-            return new Traversal(
-                _steps.Push(steps),
-                SideEffectSemanticsHelper(steps.AsSpan()) == SideEffectSemantics.Write
-                    ? SideEffectSemantics.Write
-                    : SideEffectSemantics,
-                Projection);
-        }
+        public Traversal Push(params Step[] steps) => new Traversal(
+            _steps.Push(steps),
+            SideEffectSemanticsHelper(steps.AsSpan()) == SideEffectSemantics.Write
+                ? SideEffectSemantics.Write
+                : SideEffectSemantics,
+            Projection);
 
-        public Traversal Push(Step step)
-        {
-            return new Traversal(
-                _steps.Push(step),
-                step.SideEffectSemanticsChange == SideEffectSemanticsChange.Write
-                    ? SideEffectSemantics.Write
-                    : SideEffectSemantics,
-                Projection);
-        }
+        public Traversal Push(Step step) => new Traversal(
+            _steps.Push(step),
+            step.SideEffectSemanticsChange == SideEffectSemanticsChange.Write
+                ? SideEffectSemantics.Write
+                : SideEffectSemantics,
+            Projection);
 
         public Traversal Pop() => Pop(out _);
 
