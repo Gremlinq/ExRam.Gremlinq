@@ -19,7 +19,7 @@ namespace ExRam.Gremlinq.Core
             IUntilEmitLoopBuilder<TQuery>,
             IUntilEmitRepeatLoopBuilder<TQuery>,
             IUntilRepeatLoopBuilder<TQuery>,
-            IUntilRepeatEmitLoopBuilder<TQuery> where TQuery : IGremlinQueryBase
+            IUntilRepeatEmitLoopBuilder<TQuery> where TQuery : class, IGremlinQueryBase
         {
             private readonly GremlinQuery<T1, T2, T3, T4> _outerQuery;
 
