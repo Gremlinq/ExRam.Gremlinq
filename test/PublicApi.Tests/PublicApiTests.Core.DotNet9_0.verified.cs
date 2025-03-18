@@ -1673,6 +1673,7 @@
     public static class StringGremlinQueryExtensions
     {
         public static ExRam.Gremlinq.Core.IStringGremlinQuery<string> Concat(this ExRam.Gremlinq.Core.IGremlinQueryBase<string> query, params System.Func<ExRam.Gremlinq.Core.IStringGremlinQuery<string>, ExRam.Gremlinq.Core.IGremlinQueryBase<string>>[] stringTraversals) { }
+        public static ExRam.Gremlinq.Core.IStringGremlinQuery<string> Concat(this ExRam.Gremlinq.Core.IGremlinQueryBase<string> query, [System.Runtime.CompilerServices.ParamCollection] [System.Runtime.CompilerServices.ScopedRef] System.ReadOnlySpan<System.Func<ExRam.Gremlinq.Core.IStringGremlinQuery<string>, ExRam.Gremlinq.Core.IGremlinQueryBase<string>>> stringTraversals) { }
         public static ExRam.Gremlinq.Core.IStringGremlinQuery<string> Concat(this ExRam.Gremlinq.Core.IGremlinQueryBase<string> query, params string[] strings) { }
         public static ExRam.Gremlinq.Core.IGremlinQuery<int> Length(this ExRam.Gremlinq.Core.IGremlinQueryBase<string> query) { }
         public static ExRam.Gremlinq.Core.IStringGremlinQuery<string> Replace(this ExRam.Gremlinq.Core.IGremlinQueryBase<string> query, string oldValue, string newValue) { }
