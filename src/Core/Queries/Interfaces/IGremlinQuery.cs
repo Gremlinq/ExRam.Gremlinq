@@ -140,8 +140,11 @@ namespace ExRam.Gremlinq.Core
 
         TSelf Optional(Func<TSelf, TSelf> optionalTraversal);
 
-        //TODO: Span params
         TSelf Or(params Func<TSelf, IGremlinQueryBase>[] orTraversals);
+
+#if NET9_0_OR_GREATER
+        TSelf Or(params ReadOnlySpan<Func<TSelf, IGremlinQueryBase>> orTraversals);
+#endif
 
         TSelf Order(Func<IOrderBuilder<TSelf>, IOrderBuilderWithBy<TSelf>> projection);
         TSelf OrderLocal(Func<IOrderBuilder<TSelf>, IOrderBuilderWithBy<TSelf>> projection);

@@ -488,6 +488,7 @@
         TSelf Not(System.Func<TSelf, ExRam.Gremlinq.Core.IGremlinQueryBase> notTraversal);
         TSelf Optional(System.Func<TSelf, TSelf> optionalTraversal);
         TSelf Or(params System.Func<TSelf, ExRam.Gremlinq.Core.IGremlinQueryBase>[] orTraversals);
+        TSelf Or([System.Runtime.CompilerServices.ParamCollection] [System.Runtime.CompilerServices.ScopedRef] System.ReadOnlySpan<System.Func<TSelf, ExRam.Gremlinq.Core.IGremlinQueryBase>> orTraversals);
         TSelf Order(System.Func<ExRam.Gremlinq.Core.IOrderBuilder<TSelf>, ExRam.Gremlinq.Core.IOrderBuilderWithBy<TSelf>> projection);
         TSelf OrderLocal(System.Func<ExRam.Gremlinq.Core.IOrderBuilder<TSelf>, ExRam.Gremlinq.Core.IOrderBuilderWithBy<TSelf>> projection);
         TSelf Range(long low, long high);

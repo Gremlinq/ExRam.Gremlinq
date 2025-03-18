@@ -139,6 +139,10 @@ namespace ExRam.Gremlinq.Core
 
         IGremlinQuery<T1> IGremlinQueryBaseRec<IGremlinQuery<T1>>.Or(params Func<IGremlinQuery<T1>, IGremlinQueryBase>[] orTraversals) => Or(orTraversals);
 
+#if NET9_0_OR_GREATER
+        IGremlinQuery<T1> IGremlinQueryBaseRec<IGremlinQuery<T1>>.Or(params ReadOnlySpan<Func<IGremlinQuery<T1>, IGremlinQueryBase>> orTraversals) => Or(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase>>.CastUp(orTraversals));
+#endif
+
         IGremlinQuery<T1> IGremlinQueryBaseRec<T1, IGremlinQuery<T1>>.Order(Func<IOrderBuilder<T1, IGremlinQuery<T1>>, IOrderBuilderWithBy<T1, IGremlinQuery<T1>>> projection) => OrderGlobal(projection);
         IGremlinQuery<T1> IGremlinQueryBaseRec<T1, IGremlinQuery<T1>>.OrderLocal(Func<IOrderBuilder<T1, IGremlinQuery<T1>>, IOrderBuilderWithBy<T1, IGremlinQuery<T1>>> projection) => OrderLocal(projection);
 
@@ -245,6 +249,10 @@ namespace ExRam.Gremlinq.Core
         IMapGremlinQuery<T1> IGremlinQueryBaseRec<IMapGremlinQuery<T1>>.Optional(Func<IMapGremlinQuery<T1>, IMapGremlinQuery<T1>> optionalTraversal) => Optional(optionalTraversal);
 
         IMapGremlinQuery<T1> IGremlinQueryBaseRec<IMapGremlinQuery<T1>>.Or(params Func<IMapGremlinQuery<T1>, IGremlinQueryBase>[] orTraversals) => Or(orTraversals);
+
+#if NET9_0_OR_GREATER
+        IMapGremlinQuery<T1> IGremlinQueryBaseRec<IMapGremlinQuery<T1>>.Or(params ReadOnlySpan<Func<IMapGremlinQuery<T1>, IGremlinQueryBase>> orTraversals) => Or(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase>>.CastUp(orTraversals));
+#endif
 
         IMapGremlinQuery<T1> IGremlinQueryBaseRec<T1, IMapGremlinQuery<T1>>.Order(Func<IOrderBuilder<T1, IMapGremlinQuery<T1>>, IOrderBuilderWithBy<T1, IMapGremlinQuery<T1>>> projection) => OrderGlobal(projection);
         IMapGremlinQuery<T1> IGremlinQueryBaseRec<T1, IMapGremlinQuery<T1>>.OrderLocal(Func<IOrderBuilder<T1, IMapGremlinQuery<T1>>, IOrderBuilderWithBy<T1, IMapGremlinQuery<T1>>> projection) => OrderLocal(projection);
@@ -353,6 +361,10 @@ namespace ExRam.Gremlinq.Core
 
         IArrayGremlinQuery<T1, T2, T4> IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T4>>.Or(params Func<IArrayGremlinQuery<T1, T2, T4>, IGremlinQueryBase>[] orTraversals) => Or(orTraversals);
 
+#if NET9_0_OR_GREATER
+        IArrayGremlinQuery<T1, T2, T4> IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T4>>.Or(params ReadOnlySpan<Func<IArrayGremlinQuery<T1, T2, T4>, IGremlinQueryBase>> orTraversals) => Or(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase>>.CastUp(orTraversals));
+#endif
+
         IArrayGremlinQuery<T1, T2, T4> IGremlinQueryBaseRec<T1, IArrayGremlinQuery<T1, T2, T4>>.Order(Func<IOrderBuilder<T1, IArrayGremlinQuery<T1, T2, T4>>, IOrderBuilderWithBy<T1, IArrayGremlinQuery<T1, T2, T4>>> projection) => OrderGlobal(projection);
         IArrayGremlinQuery<T1, T2, T4> IGremlinQueryBaseRec<T1, IArrayGremlinQuery<T1, T2, T4>>.OrderLocal(Func<IOrderBuilder<T1, IArrayGremlinQuery<T1, T2, T4>>, IOrderBuilderWithBy<T1, IArrayGremlinQuery<T1, T2, T4>>> projection) => OrderLocal(projection);
 
@@ -459,6 +471,10 @@ namespace ExRam.Gremlinq.Core
         IElementGremlinQuery<T1> IGremlinQueryBaseRec<IElementGremlinQuery<T1>>.Optional(Func<IElementGremlinQuery<T1>, IElementGremlinQuery<T1>> optionalTraversal) => Optional(optionalTraversal);
 
         IElementGremlinQuery<T1> IGremlinQueryBaseRec<IElementGremlinQuery<T1>>.Or(params Func<IElementGremlinQuery<T1>, IGremlinQueryBase>[] orTraversals) => Or(orTraversals);
+
+#if NET9_0_OR_GREATER
+        IElementGremlinQuery<T1> IGremlinQueryBaseRec<IElementGremlinQuery<T1>>.Or(params ReadOnlySpan<Func<IElementGremlinQuery<T1>, IGremlinQueryBase>> orTraversals) => Or(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase>>.CastUp(orTraversals));
+#endif
 
         IElementGremlinQuery<T1> IGremlinQueryBaseRec<T1, IElementGremlinQuery<T1>>.Order(Func<IOrderBuilder<T1, IElementGremlinQuery<T1>>, IOrderBuilderWithBy<T1, IElementGremlinQuery<T1>>> projection) => OrderGlobal(projection);
         IElementGremlinQuery<T1> IGremlinQueryBaseRec<T1, IElementGremlinQuery<T1>>.OrderLocal(Func<IOrderBuilder<T1, IElementGremlinQuery<T1>>, IOrderBuilderWithBy<T1, IElementGremlinQuery<T1>>> projection) => OrderLocal(projection);
@@ -567,6 +583,10 @@ namespace ExRam.Gremlinq.Core
 
         IEdgeOrVertexGremlinQuery<T1> IGremlinQueryBaseRec<IEdgeOrVertexGremlinQuery<T1>>.Or(params Func<IEdgeOrVertexGremlinQuery<T1>, IGremlinQueryBase>[] orTraversals) => Or(orTraversals);
 
+#if NET9_0_OR_GREATER
+        IEdgeOrVertexGremlinQuery<T1> IGremlinQueryBaseRec<IEdgeOrVertexGremlinQuery<T1>>.Or(params ReadOnlySpan<Func<IEdgeOrVertexGremlinQuery<T1>, IGremlinQueryBase>> orTraversals) => Or(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase>>.CastUp(orTraversals));
+#endif
+
         IEdgeOrVertexGremlinQuery<T1> IGremlinQueryBaseRec<T1, IEdgeOrVertexGremlinQuery<T1>>.Order(Func<IOrderBuilder<T1, IEdgeOrVertexGremlinQuery<T1>>, IOrderBuilderWithBy<T1, IEdgeOrVertexGremlinQuery<T1>>> projection) => OrderGlobal(projection);
         IEdgeOrVertexGremlinQuery<T1> IGremlinQueryBaseRec<T1, IEdgeOrVertexGremlinQuery<T1>>.OrderLocal(Func<IOrderBuilder<T1, IEdgeOrVertexGremlinQuery<T1>>, IOrderBuilderWithBy<T1, IEdgeOrVertexGremlinQuery<T1>>> projection) => OrderLocal(projection);
 
@@ -673,6 +693,10 @@ namespace ExRam.Gremlinq.Core
         IVertexGremlinQuery<T1> IGremlinQueryBaseRec<IVertexGremlinQuery<T1>>.Optional(Func<IVertexGremlinQuery<T1>, IVertexGremlinQuery<T1>> optionalTraversal) => Optional(optionalTraversal);
 
         IVertexGremlinQuery<T1> IGremlinQueryBaseRec<IVertexGremlinQuery<T1>>.Or(params Func<IVertexGremlinQuery<T1>, IGremlinQueryBase>[] orTraversals) => Or(orTraversals);
+
+#if NET9_0_OR_GREATER
+        IVertexGremlinQuery<T1> IGremlinQueryBaseRec<IVertexGremlinQuery<T1>>.Or(params ReadOnlySpan<Func<IVertexGremlinQuery<T1>, IGremlinQueryBase>> orTraversals) => Or(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase>>.CastUp(orTraversals));
+#endif
 
         IVertexGremlinQuery<T1> IGremlinQueryBaseRec<T1, IVertexGremlinQuery<T1>>.Order(Func<IOrderBuilder<T1, IVertexGremlinQuery<T1>>, IOrderBuilderWithBy<T1, IVertexGremlinQuery<T1>>> projection) => OrderGlobal(projection);
         IVertexGremlinQuery<T1> IGremlinQueryBaseRec<T1, IVertexGremlinQuery<T1>>.OrderLocal(Func<IOrderBuilder<T1, IVertexGremlinQuery<T1>>, IOrderBuilderWithBy<T1, IVertexGremlinQuery<T1>>> projection) => OrderLocal(projection);
@@ -781,6 +805,10 @@ namespace ExRam.Gremlinq.Core
 
         IEdgeGremlinQuery<T1> IGremlinQueryBaseRec<IEdgeGremlinQuery<T1>>.Or(params Func<IEdgeGremlinQuery<T1>, IGremlinQueryBase>[] orTraversals) => Or(orTraversals);
 
+#if NET9_0_OR_GREATER
+        IEdgeGremlinQuery<T1> IGremlinQueryBaseRec<IEdgeGremlinQuery<T1>>.Or(params ReadOnlySpan<Func<IEdgeGremlinQuery<T1>, IGremlinQueryBase>> orTraversals) => Or(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase>>.CastUp(orTraversals));
+#endif
+
         IEdgeGremlinQuery<T1> IGremlinQueryBaseRec<T1, IEdgeGremlinQuery<T1>>.Order(Func<IOrderBuilder<T1, IEdgeGremlinQuery<T1>>, IOrderBuilderWithBy<T1, IEdgeGremlinQuery<T1>>> projection) => OrderGlobal(projection);
         IEdgeGremlinQuery<T1> IGremlinQueryBaseRec<T1, IEdgeGremlinQuery<T1>>.OrderLocal(Func<IOrderBuilder<T1, IEdgeGremlinQuery<T1>>, IOrderBuilderWithBy<T1, IEdgeGremlinQuery<T1>>> projection) => OrderLocal(projection);
 
@@ -887,6 +915,10 @@ namespace ExRam.Gremlinq.Core
         IInOrOutEdgeGremlinQuery<T1, T2> IGremlinQueryBaseRec<IInOrOutEdgeGremlinQuery<T1, T2>>.Optional(Func<IInOrOutEdgeGremlinQuery<T1, T2>, IInOrOutEdgeGremlinQuery<T1, T2>> optionalTraversal) => Optional(optionalTraversal);
 
         IInOrOutEdgeGremlinQuery<T1, T2> IGremlinQueryBaseRec<IInOrOutEdgeGremlinQuery<T1, T2>>.Or(params Func<IInOrOutEdgeGremlinQuery<T1, T2>, IGremlinQueryBase>[] orTraversals) => Or(orTraversals);
+
+#if NET9_0_OR_GREATER
+        IInOrOutEdgeGremlinQuery<T1, T2> IGremlinQueryBaseRec<IInOrOutEdgeGremlinQuery<T1, T2>>.Or(params ReadOnlySpan<Func<IInOrOutEdgeGremlinQuery<T1, T2>, IGremlinQueryBase>> orTraversals) => Or(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase>>.CastUp(orTraversals));
+#endif
 
         IInOrOutEdgeGremlinQuery<T1, T2> IGremlinQueryBaseRec<T1, IInOrOutEdgeGremlinQuery<T1, T2>>.Order(Func<IOrderBuilder<T1, IInOrOutEdgeGremlinQuery<T1, T2>>, IOrderBuilderWithBy<T1, IInOrOutEdgeGremlinQuery<T1, T2>>> projection) => OrderGlobal(projection);
         IInOrOutEdgeGremlinQuery<T1, T2> IGremlinQueryBaseRec<T1, IInOrOutEdgeGremlinQuery<T1, T2>>.OrderLocal(Func<IOrderBuilder<T1, IInOrOutEdgeGremlinQuery<T1, T2>>, IOrderBuilderWithBy<T1, IInOrOutEdgeGremlinQuery<T1, T2>>> projection) => OrderLocal(projection);
@@ -995,6 +1027,10 @@ namespace ExRam.Gremlinq.Core
 
         IEdgeGremlinQuery<T1, T2, T3> IGremlinQueryBaseRec<IEdgeGremlinQuery<T1, T2, T3>>.Or(params Func<IEdgeGremlinQuery<T1, T2, T3>, IGremlinQueryBase>[] orTraversals) => Or(orTraversals);
 
+#if NET9_0_OR_GREATER
+        IEdgeGremlinQuery<T1, T2, T3> IGremlinQueryBaseRec<IEdgeGremlinQuery<T1, T2, T3>>.Or(params ReadOnlySpan<Func<IEdgeGremlinQuery<T1, T2, T3>, IGremlinQueryBase>> orTraversals) => Or(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase>>.CastUp(orTraversals));
+#endif
+
         IEdgeGremlinQuery<T1, T2, T3> IGremlinQueryBaseRec<T1, IEdgeGremlinQuery<T1, T2, T3>>.Order(Func<IOrderBuilder<T1, IEdgeGremlinQuery<T1, T2, T3>>, IOrderBuilderWithBy<T1, IEdgeGremlinQuery<T1, T2, T3>>> projection) => OrderGlobal(projection);
         IEdgeGremlinQuery<T1, T2, T3> IGremlinQueryBaseRec<T1, IEdgeGremlinQuery<T1, T2, T3>>.OrderLocal(Func<IOrderBuilder<T1, IEdgeGremlinQuery<T1, T2, T3>>, IOrderBuilderWithBy<T1, IEdgeGremlinQuery<T1, T2, T3>>> projection) => OrderLocal(projection);
 
@@ -1101,6 +1137,10 @@ namespace ExRam.Gremlinq.Core
         IInEdgeGremlinQuery<T1, T3> IGremlinQueryBaseRec<IInEdgeGremlinQuery<T1, T3>>.Optional(Func<IInEdgeGremlinQuery<T1, T3>, IInEdgeGremlinQuery<T1, T3>> optionalTraversal) => Optional(optionalTraversal);
 
         IInEdgeGremlinQuery<T1, T3> IGremlinQueryBaseRec<IInEdgeGremlinQuery<T1, T3>>.Or(params Func<IInEdgeGremlinQuery<T1, T3>, IGremlinQueryBase>[] orTraversals) => Or(orTraversals);
+
+#if NET9_0_OR_GREATER
+        IInEdgeGremlinQuery<T1, T3> IGremlinQueryBaseRec<IInEdgeGremlinQuery<T1, T3>>.Or(params ReadOnlySpan<Func<IInEdgeGremlinQuery<T1, T3>, IGremlinQueryBase>> orTraversals) => Or(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase>>.CastUp(orTraversals));
+#endif
 
         IInEdgeGremlinQuery<T1, T3> IGremlinQueryBaseRec<T1, IInEdgeGremlinQuery<T1, T3>>.Order(Func<IOrderBuilder<T1, IInEdgeGremlinQuery<T1, T3>>, IOrderBuilderWithBy<T1, IInEdgeGremlinQuery<T1, T3>>> projection) => OrderGlobal(projection);
         IInEdgeGremlinQuery<T1, T3> IGremlinQueryBaseRec<T1, IInEdgeGremlinQuery<T1, T3>>.OrderLocal(Func<IOrderBuilder<T1, IInEdgeGremlinQuery<T1, T3>>, IOrderBuilderWithBy<T1, IInEdgeGremlinQuery<T1, T3>>> projection) => OrderLocal(projection);
@@ -1209,6 +1249,10 @@ namespace ExRam.Gremlinq.Core
 
         IOutEdgeGremlinQuery<T1, T2> IGremlinQueryBaseRec<IOutEdgeGremlinQuery<T1, T2>>.Or(params Func<IOutEdgeGremlinQuery<T1, T2>, IGremlinQueryBase>[] orTraversals) => Or(orTraversals);
 
+#if NET9_0_OR_GREATER
+        IOutEdgeGremlinQuery<T1, T2> IGremlinQueryBaseRec<IOutEdgeGremlinQuery<T1, T2>>.Or(params ReadOnlySpan<Func<IOutEdgeGremlinQuery<T1, T2>, IGremlinQueryBase>> orTraversals) => Or(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase>>.CastUp(orTraversals));
+#endif
+
         IOutEdgeGremlinQuery<T1, T2> IGremlinQueryBaseRec<T1, IOutEdgeGremlinQuery<T1, T2>>.Order(Func<IOrderBuilder<T1, IOutEdgeGremlinQuery<T1, T2>>, IOrderBuilderWithBy<T1, IOutEdgeGremlinQuery<T1, T2>>> projection) => OrderGlobal(projection);
         IOutEdgeGremlinQuery<T1, T2> IGremlinQueryBaseRec<T1, IOutEdgeGremlinQuery<T1, T2>>.OrderLocal(Func<IOrderBuilder<T1, IOutEdgeGremlinQuery<T1, T2>>, IOrderBuilderWithBy<T1, IOutEdgeGremlinQuery<T1, T2>>> projection) => OrderLocal(projection);
 
@@ -1315,6 +1359,10 @@ namespace ExRam.Gremlinq.Core
         IVertexPropertyGremlinQuery<T1, T2> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<T1, T2>>.Optional(Func<IVertexPropertyGremlinQuery<T1, T2>, IVertexPropertyGremlinQuery<T1, T2>> optionalTraversal) => Optional(optionalTraversal);
 
         IVertexPropertyGremlinQuery<T1, T2> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<T1, T2>>.Or(params Func<IVertexPropertyGremlinQuery<T1, T2>, IGremlinQueryBase>[] orTraversals) => Or(orTraversals);
+
+#if NET9_0_OR_GREATER
+        IVertexPropertyGremlinQuery<T1, T2> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<T1, T2>>.Or(params ReadOnlySpan<Func<IVertexPropertyGremlinQuery<T1, T2>, IGremlinQueryBase>> orTraversals) => Or(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase>>.CastUp(orTraversals));
+#endif
 
         IVertexPropertyGremlinQuery<T1, T2> IGremlinQueryBaseRec<T1, IVertexPropertyGremlinQuery<T1, T2>>.Order(Func<IOrderBuilder<T1, IVertexPropertyGremlinQuery<T1, T2>>, IOrderBuilderWithBy<T1, IVertexPropertyGremlinQuery<T1, T2>>> projection) => OrderGlobal(projection);
         IVertexPropertyGremlinQuery<T1, T2> IGremlinQueryBaseRec<T1, IVertexPropertyGremlinQuery<T1, T2>>.OrderLocal(Func<IOrderBuilder<T1, IVertexPropertyGremlinQuery<T1, T2>>, IOrderBuilderWithBy<T1, IVertexPropertyGremlinQuery<T1, T2>>> projection) => OrderLocal(projection);
@@ -1423,6 +1471,10 @@ namespace ExRam.Gremlinq.Core
 
         IVertexPropertyGremlinQuery<T1, T2, T3> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<T1, T2, T3>>.Or(params Func<IVertexPropertyGremlinQuery<T1, T2, T3>, IGremlinQueryBase>[] orTraversals) => Or(orTraversals);
 
+#if NET9_0_OR_GREATER
+        IVertexPropertyGremlinQuery<T1, T2, T3> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<T1, T2, T3>>.Or(params ReadOnlySpan<Func<IVertexPropertyGremlinQuery<T1, T2, T3>, IGremlinQueryBase>> orTraversals) => Or(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase>>.CastUp(orTraversals));
+#endif
+
         IVertexPropertyGremlinQuery<T1, T2, T3> IGremlinQueryBaseRec<T1, IVertexPropertyGremlinQuery<T1, T2, T3>>.Order(Func<IOrderBuilder<T1, IVertexPropertyGremlinQuery<T1, T2, T3>>, IOrderBuilderWithBy<T1, IVertexPropertyGremlinQuery<T1, T2, T3>>> projection) => OrderGlobal(projection);
         IVertexPropertyGremlinQuery<T1, T2, T3> IGremlinQueryBaseRec<T1, IVertexPropertyGremlinQuery<T1, T2, T3>>.OrderLocal(Func<IOrderBuilder<T1, IVertexPropertyGremlinQuery<T1, T2, T3>>, IOrderBuilderWithBy<T1, IVertexPropertyGremlinQuery<T1, T2, T3>>> projection) => OrderLocal(projection);
 
@@ -1530,6 +1582,10 @@ namespace ExRam.Gremlinq.Core
 
         IPropertyGremlinQuery<T1> IGremlinQueryBaseRec<IPropertyGremlinQuery<T1>>.Or(params Func<IPropertyGremlinQuery<T1>, IGremlinQueryBase>[] orTraversals) => Or(orTraversals);
 
+#if NET9_0_OR_GREATER
+        IPropertyGremlinQuery<T1> IGremlinQueryBaseRec<IPropertyGremlinQuery<T1>>.Or(params ReadOnlySpan<Func<IPropertyGremlinQuery<T1>, IGremlinQueryBase>> orTraversals) => Or(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase>>.CastUp(orTraversals));
+#endif
+
         IPropertyGremlinQuery<T1> IGremlinQueryBaseRec<T1, IPropertyGremlinQuery<T1>>.Order(Func<IOrderBuilder<T1, IPropertyGremlinQuery<T1>>, IOrderBuilderWithBy<T1, IPropertyGremlinQuery<T1>>> projection) => OrderGlobal(projection);
         IPropertyGremlinQuery<T1> IGremlinQueryBaseRec<T1, IPropertyGremlinQuery<T1>>.OrderLocal(Func<IOrderBuilder<T1, IPropertyGremlinQuery<T1>>, IOrderBuilderWithBy<T1, IPropertyGremlinQuery<T1>>> projection) => OrderLocal(projection);
 
@@ -1636,6 +1692,10 @@ namespace ExRam.Gremlinq.Core
         IStringGremlinQuery<T1> IGremlinQueryBaseRec<IStringGremlinQuery<T1>>.Optional(Func<IStringGremlinQuery<T1>, IStringGremlinQuery<T1>> optionalTraversal) => Optional(optionalTraversal);
 
         IStringGremlinQuery<T1> IGremlinQueryBaseRec<IStringGremlinQuery<T1>>.Or(params Func<IStringGremlinQuery<T1>, IGremlinQueryBase>[] orTraversals) => Or(orTraversals);
+
+#if NET9_0_OR_GREATER
+        IStringGremlinQuery<T1> IGremlinQueryBaseRec<IStringGremlinQuery<T1>>.Or(params ReadOnlySpan<Func<IStringGremlinQuery<T1>, IGremlinQueryBase>> orTraversals) => Or(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase>>.CastUp(orTraversals));
+#endif
 
         IStringGremlinQuery<T1> IGremlinQueryBaseRec<T1, IStringGremlinQuery<T1>>.Order(Func<IOrderBuilder<T1, IStringGremlinQuery<T1>>, IOrderBuilderWithBy<T1, IStringGremlinQuery<T1>>> projection) => OrderGlobal(projection);
         IStringGremlinQuery<T1> IGremlinQueryBaseRec<T1, IStringGremlinQuery<T1>>.OrderLocal(Func<IOrderBuilder<T1, IStringGremlinQuery<T1>>, IOrderBuilderWithBy<T1, IStringGremlinQuery<T1>>> projection) => OrderLocal(projection);
