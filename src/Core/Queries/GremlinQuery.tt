@@ -36,6 +36,10 @@ namespace ExRam.Gremlinq.Core
 
         <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.And(params Func<<#= iface #>, IGremlinQueryBase>[] andTraversals) => And(andTraversals);
 
+#if NET9_0_OR_GREATER
+        <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.And(params ReadOnlySpan<Func<<#= iface #>, IGremlinQueryBase>> andTraversals) => And(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase>>.CastUp(andTraversals));
+#endif
+
         TTargetQuery IGremlinQueryBaseRec<<#= iface #>>.As<TTargetQuery>(Func<<#= iface #>, StepLabel<<#= iface #>, object>, TTargetQuery> continuation) => As<StepLabel<<#= iface #>, object>, TTargetQuery>(continuation);
 
         <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.Barrier() => Barrier();

@@ -88,8 +88,11 @@ namespace ExRam.Gremlinq.Core
     public interface IGremlinQueryBaseRec<TSelf> : IGremlinQueryBase
         where TSelf : IGremlinQueryBaseRec<TSelf>
     {
-        //TODO: Span params
         TSelf And(params Func<TSelf, IGremlinQueryBase>[] andTraversals);
+
+#if NET9_0_OR_GREATER
+        TSelf And(params ReadOnlySpan<Func<TSelf, IGremlinQueryBase>> andTraversals);
+#endif
 
         [Obsolete("Deprecated. If the strongly typed overload of As is not in scope, call Cast<object>() before As(...).")]
         TTargetQuery As<TTargetQuery>(Func<TSelf, StepLabel<TSelf, object>, TTargetQuery> continuation) where TTargetQuery : IGremlinQueryBase;
