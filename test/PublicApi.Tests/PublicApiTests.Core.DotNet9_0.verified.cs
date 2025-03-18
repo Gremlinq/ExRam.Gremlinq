@@ -498,7 +498,10 @@
         TSelf Sum();
         TSelf Tail(long count);
         ExRam.Gremlinq.Core.IGremlinQuery<object> Union(params System.Func<TSelf, ExRam.Gremlinq.Core.IGremlinQueryBase>[] traversals);
+        ExRam.Gremlinq.Core.IGremlinQuery<object> Union([System.Runtime.CompilerServices.ParamCollection] [System.Runtime.CompilerServices.ScopedRef] System.ReadOnlySpan<System.Func<TSelf, ExRam.Gremlinq.Core.IGremlinQueryBase>> traversals);
         TTargetQuery Union<TTargetQuery>(params System.Func<TSelf, TTargetQuery>[] unionTraversals)
+            where TTargetQuery : ExRam.Gremlinq.Core.IGremlinQueryBase;
+        TTargetQuery Union<TTargetQuery>([System.Runtime.CompilerServices.ParamCollection] [System.Runtime.CompilerServices.ScopedRef] System.ReadOnlySpan<System.Func<TSelf, TTargetQuery>> unionTraversals)
             where TTargetQuery : ExRam.Gremlinq.Core.IGremlinQueryBase;
         TSelf Where(System.Func<TSelf, ExRam.Gremlinq.Core.IGremlinQueryBase> filterTraversal);
     }

@@ -168,6 +168,11 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery IGremlinQueryBaseRec<IGremlinQuery<T1>>.Union<TTargetQuery>(params Func<IGremlinQuery<T1>, TTargetQuery>[] unionTraversals) => Union<TTargetQuery, TTargetQuery>(unionTraversals);
         IGremlinQuery<object> IGremlinQueryBaseRec<IGremlinQuery<T1>>.Union(params Func<IGremlinQuery<T1>, IGremlinQueryBase>[] unionTraversals) => Union<IGremlinQueryBase, IGremlinQuery<object>>(unionTraversals);
 
+#if NET9_0_OR_GREATER
+        TTargetQuery IGremlinQueryBaseRec<IGremlinQuery<T1>>.Union<TTargetQuery>(params ReadOnlySpan<Func<IGremlinQuery<T1>, TTargetQuery>> unionTraversals) => Union<TTargetQuery, TTargetQuery>(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, TTargetQuery>>.CastUp(unionTraversals));
+        IGremlinQuery<object> IGremlinQueryBaseRec<IGremlinQuery<T1>>.Union(params ReadOnlySpan<Func<IGremlinQuery<T1>, IGremlinQueryBase>> unionTraversals) => Union<IGremlinQueryBase, IGremlinQuery<object>>(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase>>.CastUp(unionTraversals));
+#endif
+
         IGremlinQuery<T1> IGremlinQueryBaseRec<T1, IGremlinQuery<T1>>.Where(Expression<Func<T1, bool>> predicate) => Where(predicate);
         IGremlinQuery<T1> IGremlinQueryBaseRec<IGremlinQuery<T1>>.Where(Func<IGremlinQuery<T1>, IGremlinQueryBase> filterTraversal) => Where(filterTraversal);
         TTargetQuery IGremlinQueryBaseRec<T1, IMapGremlinQuery<T1>>.Aggregate<TTargetQuery>(Func<IMapGremlinQuery<T1>, StepLabel<IArrayGremlinQuery<T1[], T1, IMapGremlinQuery<T1>>, T1[]>, TTargetQuery> continuation) => Aggregate(Scope.Global, continuation);
@@ -278,6 +283,11 @@ namespace ExRam.Gremlinq.Core
 
         TTargetQuery IGremlinQueryBaseRec<IMapGremlinQuery<T1>>.Union<TTargetQuery>(params Func<IMapGremlinQuery<T1>, TTargetQuery>[] unionTraversals) => Union<TTargetQuery, TTargetQuery>(unionTraversals);
         IGremlinQuery<object> IGremlinQueryBaseRec<IMapGremlinQuery<T1>>.Union(params Func<IMapGremlinQuery<T1>, IGremlinQueryBase>[] unionTraversals) => Union<IGremlinQueryBase, IGremlinQuery<object>>(unionTraversals);
+
+#if NET9_0_OR_GREATER
+        TTargetQuery IGremlinQueryBaseRec<IMapGremlinQuery<T1>>.Union<TTargetQuery>(params ReadOnlySpan<Func<IMapGremlinQuery<T1>, TTargetQuery>> unionTraversals) => Union<TTargetQuery, TTargetQuery>(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, TTargetQuery>>.CastUp(unionTraversals));
+        IGremlinQuery<object> IGremlinQueryBaseRec<IMapGremlinQuery<T1>>.Union(params ReadOnlySpan<Func<IMapGremlinQuery<T1>, IGremlinQueryBase>> unionTraversals) => Union<IGremlinQueryBase, IGremlinQuery<object>>(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase>>.CastUp(unionTraversals));
+#endif
 
         IMapGremlinQuery<T1> IGremlinQueryBaseRec<T1, IMapGremlinQuery<T1>>.Where(Expression<Func<T1, bool>> predicate) => Where(predicate);
         IMapGremlinQuery<T1> IGremlinQueryBaseRec<IMapGremlinQuery<T1>>.Where(Func<IMapGremlinQuery<T1>, IGremlinQueryBase> filterTraversal) => Where(filterTraversal);
@@ -390,6 +400,11 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T4>>.Union<TTargetQuery>(params Func<IArrayGremlinQuery<T1, T2, T4>, TTargetQuery>[] unionTraversals) => Union<TTargetQuery, TTargetQuery>(unionTraversals);
         IGremlinQuery<object> IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T4>>.Union(params Func<IArrayGremlinQuery<T1, T2, T4>, IGremlinQueryBase>[] unionTraversals) => Union<IGremlinQueryBase, IGremlinQuery<object>>(unionTraversals);
 
+#if NET9_0_OR_GREATER
+        TTargetQuery IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T4>>.Union<TTargetQuery>(params ReadOnlySpan<Func<IArrayGremlinQuery<T1, T2, T4>, TTargetQuery>> unionTraversals) => Union<TTargetQuery, TTargetQuery>(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, TTargetQuery>>.CastUp(unionTraversals));
+        IGremlinQuery<object> IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T4>>.Union(params ReadOnlySpan<Func<IArrayGremlinQuery<T1, T2, T4>, IGremlinQueryBase>> unionTraversals) => Union<IGremlinQueryBase, IGremlinQuery<object>>(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase>>.CastUp(unionTraversals));
+#endif
+
         IArrayGremlinQuery<T1, T2, T4> IGremlinQueryBaseRec<T1, IArrayGremlinQuery<T1, T2, T4>>.Where(Expression<Func<T1, bool>> predicate) => Where(predicate);
         IArrayGremlinQuery<T1, T2, T4> IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T4>>.Where(Func<IArrayGremlinQuery<T1, T2, T4>, IGremlinQueryBase> filterTraversal) => Where(filterTraversal);
         TTargetQuery IGremlinQueryBaseRec<T1, IElementGremlinQuery<T1>>.Aggregate<TTargetQuery>(Func<IElementGremlinQuery<T1>, StepLabel<IArrayGremlinQuery<T1[], T1, IElementGremlinQuery<T1>>, T1[]>, TTargetQuery> continuation) => Aggregate(Scope.Global, continuation);
@@ -500,6 +515,11 @@ namespace ExRam.Gremlinq.Core
 
         TTargetQuery IGremlinQueryBaseRec<IElementGremlinQuery<T1>>.Union<TTargetQuery>(params Func<IElementGremlinQuery<T1>, TTargetQuery>[] unionTraversals) => Union<TTargetQuery, TTargetQuery>(unionTraversals);
         IGremlinQuery<object> IGremlinQueryBaseRec<IElementGremlinQuery<T1>>.Union(params Func<IElementGremlinQuery<T1>, IGremlinQueryBase>[] unionTraversals) => Union<IGremlinQueryBase, IGremlinQuery<object>>(unionTraversals);
+
+#if NET9_0_OR_GREATER
+        TTargetQuery IGremlinQueryBaseRec<IElementGremlinQuery<T1>>.Union<TTargetQuery>(params ReadOnlySpan<Func<IElementGremlinQuery<T1>, TTargetQuery>> unionTraversals) => Union<TTargetQuery, TTargetQuery>(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, TTargetQuery>>.CastUp(unionTraversals));
+        IGremlinQuery<object> IGremlinQueryBaseRec<IElementGremlinQuery<T1>>.Union(params ReadOnlySpan<Func<IElementGremlinQuery<T1>, IGremlinQueryBase>> unionTraversals) => Union<IGremlinQueryBase, IGremlinQuery<object>>(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase>>.CastUp(unionTraversals));
+#endif
 
         IElementGremlinQuery<T1> IGremlinQueryBaseRec<T1, IElementGremlinQuery<T1>>.Where(Expression<Func<T1, bool>> predicate) => Where(predicate);
         IElementGremlinQuery<T1> IGremlinQueryBaseRec<IElementGremlinQuery<T1>>.Where(Func<IElementGremlinQuery<T1>, IGremlinQueryBase> filterTraversal) => Where(filterTraversal);
@@ -612,6 +632,11 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery IGremlinQueryBaseRec<IEdgeOrVertexGremlinQuery<T1>>.Union<TTargetQuery>(params Func<IEdgeOrVertexGremlinQuery<T1>, TTargetQuery>[] unionTraversals) => Union<TTargetQuery, TTargetQuery>(unionTraversals);
         IGremlinQuery<object> IGremlinQueryBaseRec<IEdgeOrVertexGremlinQuery<T1>>.Union(params Func<IEdgeOrVertexGremlinQuery<T1>, IGremlinQueryBase>[] unionTraversals) => Union<IGremlinQueryBase, IGremlinQuery<object>>(unionTraversals);
 
+#if NET9_0_OR_GREATER
+        TTargetQuery IGremlinQueryBaseRec<IEdgeOrVertexGremlinQuery<T1>>.Union<TTargetQuery>(params ReadOnlySpan<Func<IEdgeOrVertexGremlinQuery<T1>, TTargetQuery>> unionTraversals) => Union<TTargetQuery, TTargetQuery>(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, TTargetQuery>>.CastUp(unionTraversals));
+        IGremlinQuery<object> IGremlinQueryBaseRec<IEdgeOrVertexGremlinQuery<T1>>.Union(params ReadOnlySpan<Func<IEdgeOrVertexGremlinQuery<T1>, IGremlinQueryBase>> unionTraversals) => Union<IGremlinQueryBase, IGremlinQuery<object>>(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase>>.CastUp(unionTraversals));
+#endif
+
         IEdgeOrVertexGremlinQuery<T1> IGremlinQueryBaseRec<T1, IEdgeOrVertexGremlinQuery<T1>>.Where(Expression<Func<T1, bool>> predicate) => Where(predicate);
         IEdgeOrVertexGremlinQuery<T1> IGremlinQueryBaseRec<IEdgeOrVertexGremlinQuery<T1>>.Where(Func<IEdgeOrVertexGremlinQuery<T1>, IGremlinQueryBase> filterTraversal) => Where(filterTraversal);
         TTargetQuery IGremlinQueryBaseRec<T1, IVertexGremlinQuery<T1>>.Aggregate<TTargetQuery>(Func<IVertexGremlinQuery<T1>, StepLabel<IArrayGremlinQuery<T1[], T1, IVertexGremlinQuery<T1>>, T1[]>, TTargetQuery> continuation) => Aggregate(Scope.Global, continuation);
@@ -722,6 +747,11 @@ namespace ExRam.Gremlinq.Core
 
         TTargetQuery IGremlinQueryBaseRec<IVertexGremlinQuery<T1>>.Union<TTargetQuery>(params Func<IVertexGremlinQuery<T1>, TTargetQuery>[] unionTraversals) => Union<TTargetQuery, TTargetQuery>(unionTraversals);
         IGremlinQuery<object> IGremlinQueryBaseRec<IVertexGremlinQuery<T1>>.Union(params Func<IVertexGremlinQuery<T1>, IGremlinQueryBase>[] unionTraversals) => Union<IGremlinQueryBase, IGremlinQuery<object>>(unionTraversals);
+
+#if NET9_0_OR_GREATER
+        TTargetQuery IGremlinQueryBaseRec<IVertexGremlinQuery<T1>>.Union<TTargetQuery>(params ReadOnlySpan<Func<IVertexGremlinQuery<T1>, TTargetQuery>> unionTraversals) => Union<TTargetQuery, TTargetQuery>(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, TTargetQuery>>.CastUp(unionTraversals));
+        IGremlinQuery<object> IGremlinQueryBaseRec<IVertexGremlinQuery<T1>>.Union(params ReadOnlySpan<Func<IVertexGremlinQuery<T1>, IGremlinQueryBase>> unionTraversals) => Union<IGremlinQueryBase, IGremlinQuery<object>>(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase>>.CastUp(unionTraversals));
+#endif
 
         IVertexGremlinQuery<T1> IGremlinQueryBaseRec<T1, IVertexGremlinQuery<T1>>.Where(Expression<Func<T1, bool>> predicate) => Where(predicate);
         IVertexGremlinQuery<T1> IGremlinQueryBaseRec<IVertexGremlinQuery<T1>>.Where(Func<IVertexGremlinQuery<T1>, IGremlinQueryBase> filterTraversal) => Where(filterTraversal);
@@ -834,6 +864,11 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery IGremlinQueryBaseRec<IEdgeGremlinQuery<T1>>.Union<TTargetQuery>(params Func<IEdgeGremlinQuery<T1>, TTargetQuery>[] unionTraversals) => Union<TTargetQuery, TTargetQuery>(unionTraversals);
         IGremlinQuery<object> IGremlinQueryBaseRec<IEdgeGremlinQuery<T1>>.Union(params Func<IEdgeGremlinQuery<T1>, IGremlinQueryBase>[] unionTraversals) => Union<IGremlinQueryBase, IGremlinQuery<object>>(unionTraversals);
 
+#if NET9_0_OR_GREATER
+        TTargetQuery IGremlinQueryBaseRec<IEdgeGremlinQuery<T1>>.Union<TTargetQuery>(params ReadOnlySpan<Func<IEdgeGremlinQuery<T1>, TTargetQuery>> unionTraversals) => Union<TTargetQuery, TTargetQuery>(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, TTargetQuery>>.CastUp(unionTraversals));
+        IGremlinQuery<object> IGremlinQueryBaseRec<IEdgeGremlinQuery<T1>>.Union(params ReadOnlySpan<Func<IEdgeGremlinQuery<T1>, IGremlinQueryBase>> unionTraversals) => Union<IGremlinQueryBase, IGremlinQuery<object>>(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase>>.CastUp(unionTraversals));
+#endif
+
         IEdgeGremlinQuery<T1> IGremlinQueryBaseRec<T1, IEdgeGremlinQuery<T1>>.Where(Expression<Func<T1, bool>> predicate) => Where(predicate);
         IEdgeGremlinQuery<T1> IGremlinQueryBaseRec<IEdgeGremlinQuery<T1>>.Where(Func<IEdgeGremlinQuery<T1>, IGremlinQueryBase> filterTraversal) => Where(filterTraversal);
         TTargetQuery IGremlinQueryBaseRec<T1, IInOrOutEdgeGremlinQuery<T1, T2>>.Aggregate<TTargetQuery>(Func<IInOrOutEdgeGremlinQuery<T1, T2>, StepLabel<IArrayGremlinQuery<T1[], T1, IInOrOutEdgeGremlinQuery<T1, T2>>, T1[]>, TTargetQuery> continuation) => Aggregate(Scope.Global, continuation);
@@ -944,6 +979,11 @@ namespace ExRam.Gremlinq.Core
 
         TTargetQuery IGremlinQueryBaseRec<IInOrOutEdgeGremlinQuery<T1, T2>>.Union<TTargetQuery>(params Func<IInOrOutEdgeGremlinQuery<T1, T2>, TTargetQuery>[] unionTraversals) => Union<TTargetQuery, TTargetQuery>(unionTraversals);
         IGremlinQuery<object> IGremlinQueryBaseRec<IInOrOutEdgeGremlinQuery<T1, T2>>.Union(params Func<IInOrOutEdgeGremlinQuery<T1, T2>, IGremlinQueryBase>[] unionTraversals) => Union<IGremlinQueryBase, IGremlinQuery<object>>(unionTraversals);
+
+#if NET9_0_OR_GREATER
+        TTargetQuery IGremlinQueryBaseRec<IInOrOutEdgeGremlinQuery<T1, T2>>.Union<TTargetQuery>(params ReadOnlySpan<Func<IInOrOutEdgeGremlinQuery<T1, T2>, TTargetQuery>> unionTraversals) => Union<TTargetQuery, TTargetQuery>(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, TTargetQuery>>.CastUp(unionTraversals));
+        IGremlinQuery<object> IGremlinQueryBaseRec<IInOrOutEdgeGremlinQuery<T1, T2>>.Union(params ReadOnlySpan<Func<IInOrOutEdgeGremlinQuery<T1, T2>, IGremlinQueryBase>> unionTraversals) => Union<IGremlinQueryBase, IGremlinQuery<object>>(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase>>.CastUp(unionTraversals));
+#endif
 
         IInOrOutEdgeGremlinQuery<T1, T2> IGremlinQueryBaseRec<T1, IInOrOutEdgeGremlinQuery<T1, T2>>.Where(Expression<Func<T1, bool>> predicate) => Where(predicate);
         IInOrOutEdgeGremlinQuery<T1, T2> IGremlinQueryBaseRec<IInOrOutEdgeGremlinQuery<T1, T2>>.Where(Func<IInOrOutEdgeGremlinQuery<T1, T2>, IGremlinQueryBase> filterTraversal) => Where(filterTraversal);
@@ -1056,6 +1096,11 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery IGremlinQueryBaseRec<IEdgeGremlinQuery<T1, T2, T3>>.Union<TTargetQuery>(params Func<IEdgeGremlinQuery<T1, T2, T3>, TTargetQuery>[] unionTraversals) => Union<TTargetQuery, TTargetQuery>(unionTraversals);
         IGremlinQuery<object> IGremlinQueryBaseRec<IEdgeGremlinQuery<T1, T2, T3>>.Union(params Func<IEdgeGremlinQuery<T1, T2, T3>, IGremlinQueryBase>[] unionTraversals) => Union<IGremlinQueryBase, IGremlinQuery<object>>(unionTraversals);
 
+#if NET9_0_OR_GREATER
+        TTargetQuery IGremlinQueryBaseRec<IEdgeGremlinQuery<T1, T2, T3>>.Union<TTargetQuery>(params ReadOnlySpan<Func<IEdgeGremlinQuery<T1, T2, T3>, TTargetQuery>> unionTraversals) => Union<TTargetQuery, TTargetQuery>(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, TTargetQuery>>.CastUp(unionTraversals));
+        IGremlinQuery<object> IGremlinQueryBaseRec<IEdgeGremlinQuery<T1, T2, T3>>.Union(params ReadOnlySpan<Func<IEdgeGremlinQuery<T1, T2, T3>, IGremlinQueryBase>> unionTraversals) => Union<IGremlinQueryBase, IGremlinQuery<object>>(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase>>.CastUp(unionTraversals));
+#endif
+
         IEdgeGremlinQuery<T1, T2, T3> IGremlinQueryBaseRec<T1, IEdgeGremlinQuery<T1, T2, T3>>.Where(Expression<Func<T1, bool>> predicate) => Where(predicate);
         IEdgeGremlinQuery<T1, T2, T3> IGremlinQueryBaseRec<IEdgeGremlinQuery<T1, T2, T3>>.Where(Func<IEdgeGremlinQuery<T1, T2, T3>, IGremlinQueryBase> filterTraversal) => Where(filterTraversal);
         TTargetQuery IGremlinQueryBaseRec<T1, IInEdgeGremlinQuery<T1, T3>>.Aggregate<TTargetQuery>(Func<IInEdgeGremlinQuery<T1, T3>, StepLabel<IArrayGremlinQuery<T1[], T1, IInEdgeGremlinQuery<T1, T3>>, T1[]>, TTargetQuery> continuation) => Aggregate(Scope.Global, continuation);
@@ -1166,6 +1211,11 @@ namespace ExRam.Gremlinq.Core
 
         TTargetQuery IGremlinQueryBaseRec<IInEdgeGremlinQuery<T1, T3>>.Union<TTargetQuery>(params Func<IInEdgeGremlinQuery<T1, T3>, TTargetQuery>[] unionTraversals) => Union<TTargetQuery, TTargetQuery>(unionTraversals);
         IGremlinQuery<object> IGremlinQueryBaseRec<IInEdgeGremlinQuery<T1, T3>>.Union(params Func<IInEdgeGremlinQuery<T1, T3>, IGremlinQueryBase>[] unionTraversals) => Union<IGremlinQueryBase, IGremlinQuery<object>>(unionTraversals);
+
+#if NET9_0_OR_GREATER
+        TTargetQuery IGremlinQueryBaseRec<IInEdgeGremlinQuery<T1, T3>>.Union<TTargetQuery>(params ReadOnlySpan<Func<IInEdgeGremlinQuery<T1, T3>, TTargetQuery>> unionTraversals) => Union<TTargetQuery, TTargetQuery>(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, TTargetQuery>>.CastUp(unionTraversals));
+        IGremlinQuery<object> IGremlinQueryBaseRec<IInEdgeGremlinQuery<T1, T3>>.Union(params ReadOnlySpan<Func<IInEdgeGremlinQuery<T1, T3>, IGremlinQueryBase>> unionTraversals) => Union<IGremlinQueryBase, IGremlinQuery<object>>(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase>>.CastUp(unionTraversals));
+#endif
 
         IInEdgeGremlinQuery<T1, T3> IGremlinQueryBaseRec<T1, IInEdgeGremlinQuery<T1, T3>>.Where(Expression<Func<T1, bool>> predicate) => Where(predicate);
         IInEdgeGremlinQuery<T1, T3> IGremlinQueryBaseRec<IInEdgeGremlinQuery<T1, T3>>.Where(Func<IInEdgeGremlinQuery<T1, T3>, IGremlinQueryBase> filterTraversal) => Where(filterTraversal);
@@ -1278,6 +1328,11 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery IGremlinQueryBaseRec<IOutEdgeGremlinQuery<T1, T2>>.Union<TTargetQuery>(params Func<IOutEdgeGremlinQuery<T1, T2>, TTargetQuery>[] unionTraversals) => Union<TTargetQuery, TTargetQuery>(unionTraversals);
         IGremlinQuery<object> IGremlinQueryBaseRec<IOutEdgeGremlinQuery<T1, T2>>.Union(params Func<IOutEdgeGremlinQuery<T1, T2>, IGremlinQueryBase>[] unionTraversals) => Union<IGremlinQueryBase, IGremlinQuery<object>>(unionTraversals);
 
+#if NET9_0_OR_GREATER
+        TTargetQuery IGremlinQueryBaseRec<IOutEdgeGremlinQuery<T1, T2>>.Union<TTargetQuery>(params ReadOnlySpan<Func<IOutEdgeGremlinQuery<T1, T2>, TTargetQuery>> unionTraversals) => Union<TTargetQuery, TTargetQuery>(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, TTargetQuery>>.CastUp(unionTraversals));
+        IGremlinQuery<object> IGremlinQueryBaseRec<IOutEdgeGremlinQuery<T1, T2>>.Union(params ReadOnlySpan<Func<IOutEdgeGremlinQuery<T1, T2>, IGremlinQueryBase>> unionTraversals) => Union<IGremlinQueryBase, IGremlinQuery<object>>(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase>>.CastUp(unionTraversals));
+#endif
+
         IOutEdgeGremlinQuery<T1, T2> IGremlinQueryBaseRec<T1, IOutEdgeGremlinQuery<T1, T2>>.Where(Expression<Func<T1, bool>> predicate) => Where(predicate);
         IOutEdgeGremlinQuery<T1, T2> IGremlinQueryBaseRec<IOutEdgeGremlinQuery<T1, T2>>.Where(Func<IOutEdgeGremlinQuery<T1, T2>, IGremlinQueryBase> filterTraversal) => Where(filterTraversal);
         TTargetQuery IGremlinQueryBaseRec<T1, IVertexPropertyGremlinQuery<T1, T2>>.Aggregate<TTargetQuery>(Func<IVertexPropertyGremlinQuery<T1, T2>, StepLabel<IArrayGremlinQuery<T1[], T1, IVertexPropertyGremlinQuery<T1, T2>>, T1[]>, TTargetQuery> continuation) => Aggregate(Scope.Global, continuation);
@@ -1388,6 +1443,11 @@ namespace ExRam.Gremlinq.Core
 
         TTargetQuery IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<T1, T2>>.Union<TTargetQuery>(params Func<IVertexPropertyGremlinQuery<T1, T2>, TTargetQuery>[] unionTraversals) => Union<TTargetQuery, TTargetQuery>(unionTraversals);
         IGremlinQuery<object> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<T1, T2>>.Union(params Func<IVertexPropertyGremlinQuery<T1, T2>, IGremlinQueryBase>[] unionTraversals) => Union<IGremlinQueryBase, IGremlinQuery<object>>(unionTraversals);
+
+#if NET9_0_OR_GREATER
+        TTargetQuery IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<T1, T2>>.Union<TTargetQuery>(params ReadOnlySpan<Func<IVertexPropertyGremlinQuery<T1, T2>, TTargetQuery>> unionTraversals) => Union<TTargetQuery, TTargetQuery>(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, TTargetQuery>>.CastUp(unionTraversals));
+        IGremlinQuery<object> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<T1, T2>>.Union(params ReadOnlySpan<Func<IVertexPropertyGremlinQuery<T1, T2>, IGremlinQueryBase>> unionTraversals) => Union<IGremlinQueryBase, IGremlinQuery<object>>(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase>>.CastUp(unionTraversals));
+#endif
 
         IVertexPropertyGremlinQuery<T1, T2> IGremlinQueryBaseRec<T1, IVertexPropertyGremlinQuery<T1, T2>>.Where(Expression<Func<T1, bool>> predicate) => Where(predicate);
         IVertexPropertyGremlinQuery<T1, T2> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<T1, T2>>.Where(Func<IVertexPropertyGremlinQuery<T1, T2>, IGremlinQueryBase> filterTraversal) => Where(filterTraversal);
@@ -1500,6 +1560,11 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<T1, T2, T3>>.Union<TTargetQuery>(params Func<IVertexPropertyGremlinQuery<T1, T2, T3>, TTargetQuery>[] unionTraversals) => Union<TTargetQuery, TTargetQuery>(unionTraversals);
         IGremlinQuery<object> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<T1, T2, T3>>.Union(params Func<IVertexPropertyGremlinQuery<T1, T2, T3>, IGremlinQueryBase>[] unionTraversals) => Union<IGremlinQueryBase, IGremlinQuery<object>>(unionTraversals);
 
+#if NET9_0_OR_GREATER
+        TTargetQuery IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<T1, T2, T3>>.Union<TTargetQuery>(params ReadOnlySpan<Func<IVertexPropertyGremlinQuery<T1, T2, T3>, TTargetQuery>> unionTraversals) => Union<TTargetQuery, TTargetQuery>(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, TTargetQuery>>.CastUp(unionTraversals));
+        IGremlinQuery<object> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<T1, T2, T3>>.Union(params ReadOnlySpan<Func<IVertexPropertyGremlinQuery<T1, T2, T3>, IGremlinQueryBase>> unionTraversals) => Union<IGremlinQueryBase, IGremlinQuery<object>>(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase>>.CastUp(unionTraversals));
+#endif
+
         IVertexPropertyGremlinQuery<T1, T2, T3> IGremlinQueryBaseRec<T1, IVertexPropertyGremlinQuery<T1, T2, T3>>.Where(Expression<Func<T1, bool>> predicate) => Where(predicate);
         IVertexPropertyGremlinQuery<T1, T2, T3> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<T1, T2, T3>>.Where(Func<IVertexPropertyGremlinQuery<T1, T2, T3>, IGremlinQueryBase> filterTraversal) => Where(filterTraversal);
         TTargetQuery IGremlinQueryBaseRec<T1, IPropertyGremlinQuery<T1>>.Aggregate<TTargetQuery>(Func<IPropertyGremlinQuery<T1>, StepLabel<IArrayGremlinQuery<T1[], T1, IPropertyGremlinQuery<T1>>, T1[]>, TTargetQuery> continuation) => Aggregate(Scope.Global, continuation);
@@ -1611,6 +1676,11 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery IGremlinQueryBaseRec<IPropertyGremlinQuery<T1>>.Union<TTargetQuery>(params Func<IPropertyGremlinQuery<T1>, TTargetQuery>[] unionTraversals) => Union<TTargetQuery, TTargetQuery>(unionTraversals);
         IGremlinQuery<object> IGremlinQueryBaseRec<IPropertyGremlinQuery<T1>>.Union(params Func<IPropertyGremlinQuery<T1>, IGremlinQueryBase>[] unionTraversals) => Union<IGremlinQueryBase, IGremlinQuery<object>>(unionTraversals);
 
+#if NET9_0_OR_GREATER
+        TTargetQuery IGremlinQueryBaseRec<IPropertyGremlinQuery<T1>>.Union<TTargetQuery>(params ReadOnlySpan<Func<IPropertyGremlinQuery<T1>, TTargetQuery>> unionTraversals) => Union<TTargetQuery, TTargetQuery>(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, TTargetQuery>>.CastUp(unionTraversals));
+        IGremlinQuery<object> IGremlinQueryBaseRec<IPropertyGremlinQuery<T1>>.Union(params ReadOnlySpan<Func<IPropertyGremlinQuery<T1>, IGremlinQueryBase>> unionTraversals) => Union<IGremlinQueryBase, IGremlinQuery<object>>(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase>>.CastUp(unionTraversals));
+#endif
+
         IPropertyGremlinQuery<T1> IGremlinQueryBaseRec<T1, IPropertyGremlinQuery<T1>>.Where(Expression<Func<T1, bool>> predicate) => Where(predicate);
         IPropertyGremlinQuery<T1> IGremlinQueryBaseRec<IPropertyGremlinQuery<T1>>.Where(Func<IPropertyGremlinQuery<T1>, IGremlinQueryBase> filterTraversal) => Where(filterTraversal);
         TTargetQuery IGremlinQueryBaseRec<T1, IStringGremlinQuery<T1>>.Aggregate<TTargetQuery>(Func<IStringGremlinQuery<T1>, StepLabel<IArrayGremlinQuery<T1[], T1, IStringGremlinQuery<T1>>, T1[]>, TTargetQuery> continuation) => Aggregate(Scope.Global, continuation);
@@ -1721,6 +1791,11 @@ namespace ExRam.Gremlinq.Core
 
         TTargetQuery IGremlinQueryBaseRec<IStringGremlinQuery<T1>>.Union<TTargetQuery>(params Func<IStringGremlinQuery<T1>, TTargetQuery>[] unionTraversals) => Union<TTargetQuery, TTargetQuery>(unionTraversals);
         IGremlinQuery<object> IGremlinQueryBaseRec<IStringGremlinQuery<T1>>.Union(params Func<IStringGremlinQuery<T1>, IGremlinQueryBase>[] unionTraversals) => Union<IGremlinQueryBase, IGremlinQuery<object>>(unionTraversals);
+
+#if NET9_0_OR_GREATER
+        TTargetQuery IGremlinQueryBaseRec<IStringGremlinQuery<T1>>.Union<TTargetQuery>(params ReadOnlySpan<Func<IStringGremlinQuery<T1>, TTargetQuery>> unionTraversals) => Union<TTargetQuery, TTargetQuery>(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, TTargetQuery>>.CastUp(unionTraversals));
+        IGremlinQuery<object> IGremlinQueryBaseRec<IStringGremlinQuery<T1>>.Union(params ReadOnlySpan<Func<IStringGremlinQuery<T1>, IGremlinQueryBase>> unionTraversals) => Union<IGremlinQueryBase, IGremlinQuery<object>>(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase>>.CastUp(unionTraversals));
+#endif
 
         IStringGremlinQuery<T1> IGremlinQueryBaseRec<T1, IStringGremlinQuery<T1>>.Where(Expression<Func<T1, bool>> predicate) => Where(predicate);
         IStringGremlinQuery<T1> IGremlinQueryBaseRec<IStringGremlinQuery<T1>>.Where(Func<IStringGremlinQuery<T1>, IGremlinQueryBase> filterTraversal) => Where(filterTraversal);

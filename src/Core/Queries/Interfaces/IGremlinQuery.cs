@@ -164,9 +164,12 @@ namespace ExRam.Gremlinq.Core
         TSelf Tail(long count);
 
         TTargetQuery Union<TTargetQuery>(params Func<TSelf, TTargetQuery>[] unionTraversals) where TTargetQuery : IGremlinQueryBase;
-
-        //TODO: Span params
         IGremlinQuery<object> Union(params Func<TSelf, IGremlinQueryBase>[] traversals);
+
+#if NET9_0_OR_GREATER
+        TTargetQuery Union<TTargetQuery>(params ReadOnlySpan<Func<TSelf, TTargetQuery>> unionTraversals) where TTargetQuery : IGremlinQueryBase;
+        IGremlinQuery<object> Union(params ReadOnlySpan<Func<TSelf, IGremlinQueryBase>> traversals);
+#endif
 
         TSelf Where(Func<TSelf, IGremlinQueryBase> filterTraversal);
     }
