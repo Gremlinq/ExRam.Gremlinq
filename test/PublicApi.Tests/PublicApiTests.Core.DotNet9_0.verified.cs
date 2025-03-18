@@ -926,6 +926,7 @@
     public interface IStringGremlinQuery<TString> : ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IGremlinQueryBaseRec<ExRam.Gremlinq.Core.IStringGremlinQuery<TString>>, ExRam.Gremlinq.Core.IGremlinQueryBaseRec<TString, ExRam.Gremlinq.Core.IStringGremlinQuery<TString>>, ExRam.Gremlinq.Core.IGremlinQueryBase<TString>, ExRam.Gremlinq.Core.IStartGremlinQuery
     {
         ExRam.Gremlinq.Core.IStringGremlinQuery<TString> Concat(params System.Func<ExRam.Gremlinq.Core.IStringGremlinQuery<TString>, ExRam.Gremlinq.Core.IGremlinQueryBase<TString>>[] stringTraversals);
+        ExRam.Gremlinq.Core.IStringGremlinQuery<TString> Concat([System.Runtime.CompilerServices.ParamCollection] [System.Runtime.CompilerServices.ScopedRef] System.ReadOnlySpan<System.Func<ExRam.Gremlinq.Core.IStringGremlinQuery<TString>, ExRam.Gremlinq.Core.IGremlinQueryBase<TString>>> stringTraversals);
         ExRam.Gremlinq.Core.IStringGremlinQuery<TString> Concat(params string[] strings);
         ExRam.Gremlinq.Core.IGremlinQuery<int> Length();
         ExRam.Gremlinq.Core.IStringGremlinQuery<TString> Replace(string oldValue, string newValue);
