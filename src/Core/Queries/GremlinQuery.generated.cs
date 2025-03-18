@@ -91,6 +91,11 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery IGremlinQueryBaseRec<IGremlinQuery<T1>>.Coalesce<TTargetQuery>(params Func<IGremlinQuery<T1>, TTargetQuery>[] traversals) => Coalesce<TTargetQuery, TTargetQuery>(traversals);
         IGremlinQuery<object> IGremlinQueryBaseRec<IGremlinQuery<T1>>.Coalesce(params Func<IGremlinQuery<T1>, IGremlinQueryBase>[] traversals) => Coalesce<IGremlinQueryBase, IGremlinQuery<object>>(traversals);
 
+#if NET9_0_OR_GREATER
+        TTargetQuery IGremlinQueryBaseRec<IGremlinQuery<T1>>.Coalesce<TTargetQuery>(params ReadOnlySpan<Func<IGremlinQuery<T1>, TTargetQuery>> traversals) => Coalesce<TTargetQuery, TTargetQuery>(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, TTargetQuery>>.CastUp(traversals));
+        IGremlinQuery<object> IGremlinQueryBaseRec<IGremlinQuery<T1>>.Coalesce(params ReadOnlySpan<Func<IGremlinQuery<T1>, IGremlinQueryBase>> traversals) => Coalesce<IGremlinQueryBase, IGremlinQuery<object>>(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase>>.CastUp(traversals));
+#endif
+
         IGremlinQuery<T1> IGremlinQueryBaseRec<IGremlinQuery<T1>>.Coin(double probability) => Coin(probability);
 
         IGremlinQuery<T1> IGremlinQueryBaseRec<IGremlinQuery<T1>>.CyclicPath() => CyclicPath();
@@ -192,6 +197,11 @@ namespace ExRam.Gremlinq.Core
 
         TTargetQuery IGremlinQueryBaseRec<IMapGremlinQuery<T1>>.Coalesce<TTargetQuery>(params Func<IMapGremlinQuery<T1>, TTargetQuery>[] traversals) => Coalesce<TTargetQuery, TTargetQuery>(traversals);
         IGremlinQuery<object> IGremlinQueryBaseRec<IMapGremlinQuery<T1>>.Coalesce(params Func<IMapGremlinQuery<T1>, IGremlinQueryBase>[] traversals) => Coalesce<IGremlinQueryBase, IGremlinQuery<object>>(traversals);
+
+#if NET9_0_OR_GREATER
+        TTargetQuery IGremlinQueryBaseRec<IMapGremlinQuery<T1>>.Coalesce<TTargetQuery>(params ReadOnlySpan<Func<IMapGremlinQuery<T1>, TTargetQuery>> traversals) => Coalesce<TTargetQuery, TTargetQuery>(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, TTargetQuery>>.CastUp(traversals));
+        IGremlinQuery<object> IGremlinQueryBaseRec<IMapGremlinQuery<T1>>.Coalesce(params ReadOnlySpan<Func<IMapGremlinQuery<T1>, IGremlinQueryBase>> traversals) => Coalesce<IGremlinQueryBase, IGremlinQuery<object>>(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase>>.CastUp(traversals));
+#endif
 
         IMapGremlinQuery<T1> IGremlinQueryBaseRec<IMapGremlinQuery<T1>>.Coin(double probability) => Coin(probability);
 
@@ -295,6 +305,11 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T4>>.Coalesce<TTargetQuery>(params Func<IArrayGremlinQuery<T1, T2, T4>, TTargetQuery>[] traversals) => Coalesce<TTargetQuery, TTargetQuery>(traversals);
         IGremlinQuery<object> IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T4>>.Coalesce(params Func<IArrayGremlinQuery<T1, T2, T4>, IGremlinQueryBase>[] traversals) => Coalesce<IGremlinQueryBase, IGremlinQuery<object>>(traversals);
 
+#if NET9_0_OR_GREATER
+        TTargetQuery IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T4>>.Coalesce<TTargetQuery>(params ReadOnlySpan<Func<IArrayGremlinQuery<T1, T2, T4>, TTargetQuery>> traversals) => Coalesce<TTargetQuery, TTargetQuery>(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, TTargetQuery>>.CastUp(traversals));
+        IGremlinQuery<object> IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T4>>.Coalesce(params ReadOnlySpan<Func<IArrayGremlinQuery<T1, T2, T4>, IGremlinQueryBase>> traversals) => Coalesce<IGremlinQueryBase, IGremlinQuery<object>>(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase>>.CastUp(traversals));
+#endif
+
         IArrayGremlinQuery<T1, T2, T4> IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T4>>.Coin(double probability) => Coin(probability);
 
         IArrayGremlinQuery<T1, T2, T4> IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T4>>.CyclicPath() => CyclicPath();
@@ -396,6 +411,11 @@ namespace ExRam.Gremlinq.Core
 
         TTargetQuery IGremlinQueryBaseRec<IElementGremlinQuery<T1>>.Coalesce<TTargetQuery>(params Func<IElementGremlinQuery<T1>, TTargetQuery>[] traversals) => Coalesce<TTargetQuery, TTargetQuery>(traversals);
         IGremlinQuery<object> IGremlinQueryBaseRec<IElementGremlinQuery<T1>>.Coalesce(params Func<IElementGremlinQuery<T1>, IGremlinQueryBase>[] traversals) => Coalesce<IGremlinQueryBase, IGremlinQuery<object>>(traversals);
+
+#if NET9_0_OR_GREATER
+        TTargetQuery IGremlinQueryBaseRec<IElementGremlinQuery<T1>>.Coalesce<TTargetQuery>(params ReadOnlySpan<Func<IElementGremlinQuery<T1>, TTargetQuery>> traversals) => Coalesce<TTargetQuery, TTargetQuery>(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, TTargetQuery>>.CastUp(traversals));
+        IGremlinQuery<object> IGremlinQueryBaseRec<IElementGremlinQuery<T1>>.Coalesce(params ReadOnlySpan<Func<IElementGremlinQuery<T1>, IGremlinQueryBase>> traversals) => Coalesce<IGremlinQueryBase, IGremlinQuery<object>>(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase>>.CastUp(traversals));
+#endif
 
         IElementGremlinQuery<T1> IGremlinQueryBaseRec<IElementGremlinQuery<T1>>.Coin(double probability) => Coin(probability);
 
@@ -499,6 +519,11 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery IGremlinQueryBaseRec<IEdgeOrVertexGremlinQuery<T1>>.Coalesce<TTargetQuery>(params Func<IEdgeOrVertexGremlinQuery<T1>, TTargetQuery>[] traversals) => Coalesce<TTargetQuery, TTargetQuery>(traversals);
         IGremlinQuery<object> IGremlinQueryBaseRec<IEdgeOrVertexGremlinQuery<T1>>.Coalesce(params Func<IEdgeOrVertexGremlinQuery<T1>, IGremlinQueryBase>[] traversals) => Coalesce<IGremlinQueryBase, IGremlinQuery<object>>(traversals);
 
+#if NET9_0_OR_GREATER
+        TTargetQuery IGremlinQueryBaseRec<IEdgeOrVertexGremlinQuery<T1>>.Coalesce<TTargetQuery>(params ReadOnlySpan<Func<IEdgeOrVertexGremlinQuery<T1>, TTargetQuery>> traversals) => Coalesce<TTargetQuery, TTargetQuery>(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, TTargetQuery>>.CastUp(traversals));
+        IGremlinQuery<object> IGremlinQueryBaseRec<IEdgeOrVertexGremlinQuery<T1>>.Coalesce(params ReadOnlySpan<Func<IEdgeOrVertexGremlinQuery<T1>, IGremlinQueryBase>> traversals) => Coalesce<IGremlinQueryBase, IGremlinQuery<object>>(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase>>.CastUp(traversals));
+#endif
+
         IEdgeOrVertexGremlinQuery<T1> IGremlinQueryBaseRec<IEdgeOrVertexGremlinQuery<T1>>.Coin(double probability) => Coin(probability);
 
         IEdgeOrVertexGremlinQuery<T1> IGremlinQueryBaseRec<IEdgeOrVertexGremlinQuery<T1>>.CyclicPath() => CyclicPath();
@@ -600,6 +625,11 @@ namespace ExRam.Gremlinq.Core
 
         TTargetQuery IGremlinQueryBaseRec<IVertexGremlinQuery<T1>>.Coalesce<TTargetQuery>(params Func<IVertexGremlinQuery<T1>, TTargetQuery>[] traversals) => Coalesce<TTargetQuery, TTargetQuery>(traversals);
         IGremlinQuery<object> IGremlinQueryBaseRec<IVertexGremlinQuery<T1>>.Coalesce(params Func<IVertexGremlinQuery<T1>, IGremlinQueryBase>[] traversals) => Coalesce<IGremlinQueryBase, IGremlinQuery<object>>(traversals);
+
+#if NET9_0_OR_GREATER
+        TTargetQuery IGremlinQueryBaseRec<IVertexGremlinQuery<T1>>.Coalesce<TTargetQuery>(params ReadOnlySpan<Func<IVertexGremlinQuery<T1>, TTargetQuery>> traversals) => Coalesce<TTargetQuery, TTargetQuery>(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, TTargetQuery>>.CastUp(traversals));
+        IGremlinQuery<object> IGremlinQueryBaseRec<IVertexGremlinQuery<T1>>.Coalesce(params ReadOnlySpan<Func<IVertexGremlinQuery<T1>, IGremlinQueryBase>> traversals) => Coalesce<IGremlinQueryBase, IGremlinQuery<object>>(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase>>.CastUp(traversals));
+#endif
 
         IVertexGremlinQuery<T1> IGremlinQueryBaseRec<IVertexGremlinQuery<T1>>.Coin(double probability) => Coin(probability);
 
@@ -703,6 +733,11 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery IGremlinQueryBaseRec<IEdgeGremlinQuery<T1>>.Coalesce<TTargetQuery>(params Func<IEdgeGremlinQuery<T1>, TTargetQuery>[] traversals) => Coalesce<TTargetQuery, TTargetQuery>(traversals);
         IGremlinQuery<object> IGremlinQueryBaseRec<IEdgeGremlinQuery<T1>>.Coalesce(params Func<IEdgeGremlinQuery<T1>, IGremlinQueryBase>[] traversals) => Coalesce<IGremlinQueryBase, IGremlinQuery<object>>(traversals);
 
+#if NET9_0_OR_GREATER
+        TTargetQuery IGremlinQueryBaseRec<IEdgeGremlinQuery<T1>>.Coalesce<TTargetQuery>(params ReadOnlySpan<Func<IEdgeGremlinQuery<T1>, TTargetQuery>> traversals) => Coalesce<TTargetQuery, TTargetQuery>(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, TTargetQuery>>.CastUp(traversals));
+        IGremlinQuery<object> IGremlinQueryBaseRec<IEdgeGremlinQuery<T1>>.Coalesce(params ReadOnlySpan<Func<IEdgeGremlinQuery<T1>, IGremlinQueryBase>> traversals) => Coalesce<IGremlinQueryBase, IGremlinQuery<object>>(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase>>.CastUp(traversals));
+#endif
+
         IEdgeGremlinQuery<T1> IGremlinQueryBaseRec<IEdgeGremlinQuery<T1>>.Coin(double probability) => Coin(probability);
 
         IEdgeGremlinQuery<T1> IGremlinQueryBaseRec<IEdgeGremlinQuery<T1>>.CyclicPath() => CyclicPath();
@@ -804,6 +839,11 @@ namespace ExRam.Gremlinq.Core
 
         TTargetQuery IGremlinQueryBaseRec<IInOrOutEdgeGremlinQuery<T1, T2>>.Coalesce<TTargetQuery>(params Func<IInOrOutEdgeGremlinQuery<T1, T2>, TTargetQuery>[] traversals) => Coalesce<TTargetQuery, TTargetQuery>(traversals);
         IGremlinQuery<object> IGremlinQueryBaseRec<IInOrOutEdgeGremlinQuery<T1, T2>>.Coalesce(params Func<IInOrOutEdgeGremlinQuery<T1, T2>, IGremlinQueryBase>[] traversals) => Coalesce<IGremlinQueryBase, IGremlinQuery<object>>(traversals);
+
+#if NET9_0_OR_GREATER
+        TTargetQuery IGremlinQueryBaseRec<IInOrOutEdgeGremlinQuery<T1, T2>>.Coalesce<TTargetQuery>(params ReadOnlySpan<Func<IInOrOutEdgeGremlinQuery<T1, T2>, TTargetQuery>> traversals) => Coalesce<TTargetQuery, TTargetQuery>(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, TTargetQuery>>.CastUp(traversals));
+        IGremlinQuery<object> IGremlinQueryBaseRec<IInOrOutEdgeGremlinQuery<T1, T2>>.Coalesce(params ReadOnlySpan<Func<IInOrOutEdgeGremlinQuery<T1, T2>, IGremlinQueryBase>> traversals) => Coalesce<IGremlinQueryBase, IGremlinQuery<object>>(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase>>.CastUp(traversals));
+#endif
 
         IInOrOutEdgeGremlinQuery<T1, T2> IGremlinQueryBaseRec<IInOrOutEdgeGremlinQuery<T1, T2>>.Coin(double probability) => Coin(probability);
 
@@ -907,6 +947,11 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery IGremlinQueryBaseRec<IEdgeGremlinQuery<T1, T2, T3>>.Coalesce<TTargetQuery>(params Func<IEdgeGremlinQuery<T1, T2, T3>, TTargetQuery>[] traversals) => Coalesce<TTargetQuery, TTargetQuery>(traversals);
         IGremlinQuery<object> IGremlinQueryBaseRec<IEdgeGremlinQuery<T1, T2, T3>>.Coalesce(params Func<IEdgeGremlinQuery<T1, T2, T3>, IGremlinQueryBase>[] traversals) => Coalesce<IGremlinQueryBase, IGremlinQuery<object>>(traversals);
 
+#if NET9_0_OR_GREATER
+        TTargetQuery IGremlinQueryBaseRec<IEdgeGremlinQuery<T1, T2, T3>>.Coalesce<TTargetQuery>(params ReadOnlySpan<Func<IEdgeGremlinQuery<T1, T2, T3>, TTargetQuery>> traversals) => Coalesce<TTargetQuery, TTargetQuery>(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, TTargetQuery>>.CastUp(traversals));
+        IGremlinQuery<object> IGremlinQueryBaseRec<IEdgeGremlinQuery<T1, T2, T3>>.Coalesce(params ReadOnlySpan<Func<IEdgeGremlinQuery<T1, T2, T3>, IGremlinQueryBase>> traversals) => Coalesce<IGremlinQueryBase, IGremlinQuery<object>>(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase>>.CastUp(traversals));
+#endif
+
         IEdgeGremlinQuery<T1, T2, T3> IGremlinQueryBaseRec<IEdgeGremlinQuery<T1, T2, T3>>.Coin(double probability) => Coin(probability);
 
         IEdgeGremlinQuery<T1, T2, T3> IGremlinQueryBaseRec<IEdgeGremlinQuery<T1, T2, T3>>.CyclicPath() => CyclicPath();
@@ -1008,6 +1053,11 @@ namespace ExRam.Gremlinq.Core
 
         TTargetQuery IGremlinQueryBaseRec<IInEdgeGremlinQuery<T1, T3>>.Coalesce<TTargetQuery>(params Func<IInEdgeGremlinQuery<T1, T3>, TTargetQuery>[] traversals) => Coalesce<TTargetQuery, TTargetQuery>(traversals);
         IGremlinQuery<object> IGremlinQueryBaseRec<IInEdgeGremlinQuery<T1, T3>>.Coalesce(params Func<IInEdgeGremlinQuery<T1, T3>, IGremlinQueryBase>[] traversals) => Coalesce<IGremlinQueryBase, IGremlinQuery<object>>(traversals);
+
+#if NET9_0_OR_GREATER
+        TTargetQuery IGremlinQueryBaseRec<IInEdgeGremlinQuery<T1, T3>>.Coalesce<TTargetQuery>(params ReadOnlySpan<Func<IInEdgeGremlinQuery<T1, T3>, TTargetQuery>> traversals) => Coalesce<TTargetQuery, TTargetQuery>(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, TTargetQuery>>.CastUp(traversals));
+        IGremlinQuery<object> IGremlinQueryBaseRec<IInEdgeGremlinQuery<T1, T3>>.Coalesce(params ReadOnlySpan<Func<IInEdgeGremlinQuery<T1, T3>, IGremlinQueryBase>> traversals) => Coalesce<IGremlinQueryBase, IGremlinQuery<object>>(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase>>.CastUp(traversals));
+#endif
 
         IInEdgeGremlinQuery<T1, T3> IGremlinQueryBaseRec<IInEdgeGremlinQuery<T1, T3>>.Coin(double probability) => Coin(probability);
 
@@ -1111,6 +1161,11 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery IGremlinQueryBaseRec<IOutEdgeGremlinQuery<T1, T2>>.Coalesce<TTargetQuery>(params Func<IOutEdgeGremlinQuery<T1, T2>, TTargetQuery>[] traversals) => Coalesce<TTargetQuery, TTargetQuery>(traversals);
         IGremlinQuery<object> IGremlinQueryBaseRec<IOutEdgeGremlinQuery<T1, T2>>.Coalesce(params Func<IOutEdgeGremlinQuery<T1, T2>, IGremlinQueryBase>[] traversals) => Coalesce<IGremlinQueryBase, IGremlinQuery<object>>(traversals);
 
+#if NET9_0_OR_GREATER
+        TTargetQuery IGremlinQueryBaseRec<IOutEdgeGremlinQuery<T1, T2>>.Coalesce<TTargetQuery>(params ReadOnlySpan<Func<IOutEdgeGremlinQuery<T1, T2>, TTargetQuery>> traversals) => Coalesce<TTargetQuery, TTargetQuery>(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, TTargetQuery>>.CastUp(traversals));
+        IGremlinQuery<object> IGremlinQueryBaseRec<IOutEdgeGremlinQuery<T1, T2>>.Coalesce(params ReadOnlySpan<Func<IOutEdgeGremlinQuery<T1, T2>, IGremlinQueryBase>> traversals) => Coalesce<IGremlinQueryBase, IGremlinQuery<object>>(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase>>.CastUp(traversals));
+#endif
+
         IOutEdgeGremlinQuery<T1, T2> IGremlinQueryBaseRec<IOutEdgeGremlinQuery<T1, T2>>.Coin(double probability) => Coin(probability);
 
         IOutEdgeGremlinQuery<T1, T2> IGremlinQueryBaseRec<IOutEdgeGremlinQuery<T1, T2>>.CyclicPath() => CyclicPath();
@@ -1212,6 +1267,11 @@ namespace ExRam.Gremlinq.Core
 
         TTargetQuery IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<T1, T2>>.Coalesce<TTargetQuery>(params Func<IVertexPropertyGremlinQuery<T1, T2>, TTargetQuery>[] traversals) => Coalesce<TTargetQuery, TTargetQuery>(traversals);
         IGremlinQuery<object> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<T1, T2>>.Coalesce(params Func<IVertexPropertyGremlinQuery<T1, T2>, IGremlinQueryBase>[] traversals) => Coalesce<IGremlinQueryBase, IGremlinQuery<object>>(traversals);
+
+#if NET9_0_OR_GREATER
+        TTargetQuery IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<T1, T2>>.Coalesce<TTargetQuery>(params ReadOnlySpan<Func<IVertexPropertyGremlinQuery<T1, T2>, TTargetQuery>> traversals) => Coalesce<TTargetQuery, TTargetQuery>(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, TTargetQuery>>.CastUp(traversals));
+        IGremlinQuery<object> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<T1, T2>>.Coalesce(params ReadOnlySpan<Func<IVertexPropertyGremlinQuery<T1, T2>, IGremlinQueryBase>> traversals) => Coalesce<IGremlinQueryBase, IGremlinQuery<object>>(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase>>.CastUp(traversals));
+#endif
 
         IVertexPropertyGremlinQuery<T1, T2> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<T1, T2>>.Coin(double probability) => Coin(probability);
 
@@ -1315,6 +1375,11 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<T1, T2, T3>>.Coalesce<TTargetQuery>(params Func<IVertexPropertyGremlinQuery<T1, T2, T3>, TTargetQuery>[] traversals) => Coalesce<TTargetQuery, TTargetQuery>(traversals);
         IGremlinQuery<object> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<T1, T2, T3>>.Coalesce(params Func<IVertexPropertyGremlinQuery<T1, T2, T3>, IGremlinQueryBase>[] traversals) => Coalesce<IGremlinQueryBase, IGremlinQuery<object>>(traversals);
 
+#if NET9_0_OR_GREATER
+        TTargetQuery IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<T1, T2, T3>>.Coalesce<TTargetQuery>(params ReadOnlySpan<Func<IVertexPropertyGremlinQuery<T1, T2, T3>, TTargetQuery>> traversals) => Coalesce<TTargetQuery, TTargetQuery>(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, TTargetQuery>>.CastUp(traversals));
+        IGremlinQuery<object> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<T1, T2, T3>>.Coalesce(params ReadOnlySpan<Func<IVertexPropertyGremlinQuery<T1, T2, T3>, IGremlinQueryBase>> traversals) => Coalesce<IGremlinQueryBase, IGremlinQuery<object>>(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase>>.CastUp(traversals));
+#endif
+
         IVertexPropertyGremlinQuery<T1, T2, T3> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<T1, T2, T3>>.Coin(double probability) => Coin(probability);
 
         IVertexPropertyGremlinQuery<T1, T2, T3> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<T1, T2, T3>>.CyclicPath() => CyclicPath();
@@ -1417,6 +1482,11 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery IGremlinQueryBaseRec<IPropertyGremlinQuery<T1>>.Coalesce<TTargetQuery>(params Func<IPropertyGremlinQuery<T1>, TTargetQuery>[] traversals) => Coalesce<TTargetQuery, TTargetQuery>(traversals);
         IGremlinQuery<object> IGremlinQueryBaseRec<IPropertyGremlinQuery<T1>>.Coalesce(params Func<IPropertyGremlinQuery<T1>, IGremlinQueryBase>[] traversals) => Coalesce<IGremlinQueryBase, IGremlinQuery<object>>(traversals);
 
+#if NET9_0_OR_GREATER
+        TTargetQuery IGremlinQueryBaseRec<IPropertyGremlinQuery<T1>>.Coalesce<TTargetQuery>(params ReadOnlySpan<Func<IPropertyGremlinQuery<T1>, TTargetQuery>> traversals) => Coalesce<TTargetQuery, TTargetQuery>(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, TTargetQuery>>.CastUp(traversals));
+        IGremlinQuery<object> IGremlinQueryBaseRec<IPropertyGremlinQuery<T1>>.Coalesce(params ReadOnlySpan<Func<IPropertyGremlinQuery<T1>, IGremlinQueryBase>> traversals) => Coalesce<IGremlinQueryBase, IGremlinQuery<object>>(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase>>.CastUp(traversals));
+#endif
+
         IPropertyGremlinQuery<T1> IGremlinQueryBaseRec<IPropertyGremlinQuery<T1>>.Coin(double probability) => Coin(probability);
 
         IPropertyGremlinQuery<T1> IGremlinQueryBaseRec<IPropertyGremlinQuery<T1>>.CyclicPath() => CyclicPath();
@@ -1518,6 +1588,11 @@ namespace ExRam.Gremlinq.Core
 
         TTargetQuery IGremlinQueryBaseRec<IStringGremlinQuery<T1>>.Coalesce<TTargetQuery>(params Func<IStringGremlinQuery<T1>, TTargetQuery>[] traversals) => Coalesce<TTargetQuery, TTargetQuery>(traversals);
         IGremlinQuery<object> IGremlinQueryBaseRec<IStringGremlinQuery<T1>>.Coalesce(params Func<IStringGremlinQuery<T1>, IGremlinQueryBase>[] traversals) => Coalesce<IGremlinQueryBase, IGremlinQuery<object>>(traversals);
+
+#if NET9_0_OR_GREATER
+        TTargetQuery IGremlinQueryBaseRec<IStringGremlinQuery<T1>>.Coalesce<TTargetQuery>(params ReadOnlySpan<Func<IStringGremlinQuery<T1>, TTargetQuery>> traversals) => Coalesce<TTargetQuery, TTargetQuery>(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, TTargetQuery>>.CastUp(traversals));
+        IGremlinQuery<object> IGremlinQueryBaseRec<IStringGremlinQuery<T1>>.Coalesce(params ReadOnlySpan<Func<IStringGremlinQuery<T1>, IGremlinQueryBase>> traversals) => Coalesce<IGremlinQueryBase, IGremlinQuery<object>>(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase>>.CastUp(traversals));
+#endif
 
         IStringGremlinQuery<T1> IGremlinQueryBaseRec<IStringGremlinQuery<T1>>.Coin(double probability) => Coin(probability);
 

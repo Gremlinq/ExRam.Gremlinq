@@ -107,9 +107,13 @@ namespace ExRam.Gremlinq.Core
 
         TTargetQuery Choose<TTargetQuery>(Func<IChooseBuilder<TSelf>, IChooseBuilderWithCaseOrDefault<TTargetQuery>> continuation) where TTargetQuery : IGremlinQueryBase;
 
-        //TODO: Span params
         TTargetQuery Coalesce<TTargetQuery>(params Func<TSelf, TTargetQuery>[] traversals) where TTargetQuery : IGremlinQueryBase;
         IGremlinQuery<object> Coalesce(params Func<TSelf, IGremlinQueryBase>[] traversals);
+
+#if NET9_0_OR_GREATER
+        TTargetQuery Coalesce<TTargetQuery>(params ReadOnlySpan<Func<TSelf, TTargetQuery>> traversals) where TTargetQuery : IGremlinQueryBase;
+        IGremlinQuery<object> Coalesce(params ReadOnlySpan<Func<TSelf, IGremlinQueryBase>> traversals);
+#endif
 
         TSelf CyclicPath();
 

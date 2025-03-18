@@ -463,7 +463,10 @@
         TTargetQuery Choose<TTargetQuery>(System.Func<TSelf, ExRam.Gremlinq.Core.IGremlinQueryBase> traversalPredicate, System.Func<TSelf, TTargetQuery> trueChoice, System.Func<TSelf, TTargetQuery> falseChoice)
             where TTargetQuery : ExRam.Gremlinq.Core.IGremlinQueryBase;
         ExRam.Gremlinq.Core.IGremlinQuery<object> Coalesce(params System.Func<TSelf, ExRam.Gremlinq.Core.IGremlinQueryBase>[] traversals);
+        ExRam.Gremlinq.Core.IGremlinQuery<object> Coalesce([System.Runtime.CompilerServices.ParamCollection] [System.Runtime.CompilerServices.ScopedRef] System.ReadOnlySpan<System.Func<TSelf, ExRam.Gremlinq.Core.IGremlinQueryBase>> traversals);
         TTargetQuery Coalesce<TTargetQuery>(params System.Func<TSelf, TTargetQuery>[] traversals)
+            where TTargetQuery : ExRam.Gremlinq.Core.IGremlinQueryBase;
+        TTargetQuery Coalesce<TTargetQuery>([System.Runtime.CompilerServices.ParamCollection] [System.Runtime.CompilerServices.ScopedRef] System.ReadOnlySpan<System.Func<TSelf, TTargetQuery>> traversals)
             where TTargetQuery : ExRam.Gremlinq.Core.IGremlinQueryBase;
         TSelf Coin(double probability);
         TSelf CyclicPath();
