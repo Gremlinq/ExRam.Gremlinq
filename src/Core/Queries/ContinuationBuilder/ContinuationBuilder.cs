@@ -18,29 +18,25 @@ namespace ExRam.Gremlinq.Core
         }
 
         public ContinuationBuilder<TNewOuterQuery, TAnonymousQuery> WithOuter<TNewOuterQuery>(TNewOuterQuery query)
-            where TNewOuterQuery : GremlinQueryBase, IGremlinQueryBase => With(
-                static (_, anonymous, flags, query) => new ContinuationBuilder<TNewOuterQuery, TAnonymousQuery>(query, anonymous, flags),
-                query);
+            where TNewOuterQuery : GremlinQueryBase, IGremlinQueryBase => _anonymous is { } anonymous
+                ? new ContinuationBuilder<TNewOuterQuery, TAnonymousQuery>(query, anonymous, _flags)
+                : throw UninitializedStruct();
 
         public SingleContinuationBuilder<TOuterQuery, TAnonymousQuery> With<TProjectedQuery, TState>(Func<TAnonymousQuery, TState, TProjectedQuery> continuation, TState state)
-            where TProjectedQuery : IGremlinQueryBase => With(
-                static (outer, anonymous, flags, state) => new SingleContinuationBuilder<TOuterQuery, TAnonymousQuery>(outer, anonymous, state.continuation.Apply(anonymous, state.state), flags),
-                (continuation, state));
+            where TProjectedQuery : IGremlinQueryBase => _outer is { } outer && _anonymous is { } anonymous
+                ? new SingleContinuationBuilder<TOuterQuery, TAnonymousQuery>(outer, anonymous, continuation.Apply(anonymous, state), _flags)
+                : throw UninitializedStruct();
 
-        public MultiContinuationBuilder<TOuterQuery, TAnonymousQuery> ToMulti() => With(
-            static (outer, anonymous, flags, _) => new MultiContinuationBuilder<TOuterQuery, TAnonymousQuery>(outer, anonymous, FastImmutableList<IGremlinQueryBase>.Empty, flags),
-            0);
+        public MultiContinuationBuilder<TOuterQuery, TAnonymousQuery> ToMulti() => _outer is { } outer && _anonymous is { } anonymous
+            ? new MultiContinuationBuilder<TOuterQuery, TAnonymousQuery>(outer, anonymous, FastImmutableList<IGremlinQueryBase>.Empty, _flags)
+            : throw UninitializedStruct();
 
         public TNewQuery Build<TNewQuery, TState>(Func<FinalContinuationBuilder<TOuterQuery, TOuterQuery>, TState, FinalContinuationBuilder<TOuterQuery, TNewQuery>> builderTransformation, TState state)
             where TNewQuery : IStartGremlinQuery => Build(static (builder, tuple) => tuple.builderTransformation(builder, tuple.state).Build(), (builderTransformation, state));
 
         public TNewQuery Build<TNewQuery, TState>(Func<FinalContinuationBuilder<TOuterQuery, TOuterQuery>, TState, TNewQuery> builderTransformation, TState state)
-            where TNewQuery : IStartGremlinQuery => With(
-                static (outer, _, _, state) => state.builderTransformation(new FinalContinuationBuilder<TOuterQuery, TOuterQuery>(outer), state.state),
-                (builderTransformation, state));
-
-        private TResult With<TState, TResult>(Func<TOuterQuery, TAnonymousQuery, ContinuationFlags, TState, TResult> continuation, TState state) => (_outer is { } outer && _anonymous is { } anonymous)
-            ? continuation(outer, anonymous, _flags, state)
-            : throw UninitializedStruct();
+            where TNewQuery : IStartGremlinQuery => _outer is { } outer
+                ? builderTransformation(new FinalContinuationBuilder<TOuterQuery, TOuterQuery>(outer), state)
+                : throw UninitializedStruct();
     }
 }
