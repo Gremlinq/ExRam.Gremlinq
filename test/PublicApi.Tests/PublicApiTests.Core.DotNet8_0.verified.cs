@@ -920,6 +920,7 @@
     {
         ExRam.Gremlinq.Core.IStringGremlinQuery<TString> Concat(params System.Func<ExRam.Gremlinq.Core.IStringGremlinQuery<TString>, ExRam.Gremlinq.Core.IGremlinQueryBase<TString>>[] stringTraversals);
         ExRam.Gremlinq.Core.IStringGremlinQuery<TString> Concat([System.Runtime.CompilerServices.ScopedRef] System.ReadOnlySpan<System.Func<ExRam.Gremlinq.Core.IStringGremlinQuery<TString>, ExRam.Gremlinq.Core.IGremlinQueryBase<TString>>> stringTraversals);
+        ExRam.Gremlinq.Core.IStringGremlinQuery<TString> Concat([System.Runtime.CompilerServices.ScopedRef] System.ReadOnlySpan<string> strings);
         ExRam.Gremlinq.Core.IStringGremlinQuery<TString> Concat(params string[] strings);
         ExRam.Gremlinq.Core.IGremlinQuery<int> Length();
         ExRam.Gremlinq.Core.IStringGremlinQuery<TString> Replace(string oldValue, string newValue);

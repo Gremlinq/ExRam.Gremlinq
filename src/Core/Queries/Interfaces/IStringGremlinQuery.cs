@@ -4,6 +4,8 @@
     {
         IStringGremlinQuery<TString> Concat(params string[] strings);
 
+        IStringGremlinQuery<TString> Concat(params ReadOnlySpan<string> strings);
+
         IStringGremlinQuery<TString> Concat(params Func<IStringGremlinQuery<TString>, IGremlinQueryBase<TString>>[] stringTraversals);
 
         IStringGremlinQuery<TString> Concat(params ReadOnlySpan<Func<IStringGremlinQuery<TString>, IGremlinQueryBase<TString>>> stringTraversals);

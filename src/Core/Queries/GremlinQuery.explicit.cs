@@ -462,6 +462,8 @@ namespace ExRam.Gremlinq.Core
 
         IStringGremlinQuery<T1> IStringGremlinQuery<T1>.Concat(params string[] strings) => Concat(strings);
 
+        IStringGremlinQuery<T1> IStringGremlinQuery<T1>.Concat(params ReadOnlySpan<string> strings) => Concat(strings);
+
         IStringGremlinQuery<T1> IStringGremlinQuery<T1>.Concat(params Func<IStringGremlinQuery<T1>, IGremlinQueryBase<T1>>[] stringTraversals) => Concat(stringTraversals);
 
         IStringGremlinQuery<T1> IStringGremlinQuery<T1>.Concat(params ReadOnlySpan<Func<IStringGremlinQuery<T1>, IGremlinQueryBase<T1>>> stringTraversals) => Concat(stringTraversals.Cast().To<Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase<T1>>>());
