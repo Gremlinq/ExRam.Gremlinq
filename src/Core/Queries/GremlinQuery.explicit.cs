@@ -468,7 +468,7 @@ namespace ExRam.Gremlinq.Core
         IStringGremlinQuery<T1> IStringGremlinQuery<T1>.Concat(params Func<IStringGremlinQuery<T1>, IGremlinQueryBase<T1>>[] stringTraversals) => Concat(stringTraversals);
 
 #if NET9_0_OR_GREATER
-        IStringGremlinQuery<T1> IStringGremlinQuery<T1>.Concat(params ReadOnlySpan<Func<IStringGremlinQuery<T1>, IGremlinQueryBase<T1>>> stringTraversals) => Concat(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase<T1>>>.CastUp(stringTraversals));
+        IStringGremlinQuery<T1> IStringGremlinQuery<T1>.Concat(params ReadOnlySpan<Func<IStringGremlinQuery<T1>, IGremlinQueryBase<T1>>> stringTraversals) => Concat(stringTraversals.Cast().To<Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase<T1>>>());
 #endif
 
         IStringGremlinQuery<T1> IStringGremlinQuery<T1>.Replace(string oldValue, string newValue) => Replace(oldValue, newValue);
