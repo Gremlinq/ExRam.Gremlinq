@@ -1,6 +1,4 @@
-﻿using static ExRam.Gremlinq.Core.ExceptionHelper;
-
-namespace ExRam.Gremlinq.Core
+﻿namespace ExRam.Gremlinq.Core
 {
     internal delegate FinalContinuationBuilder<TOuterQuery, TNewQuery> SpanStateBuilderTransformation<TOuterQuery, TState, TNewQuery>(FinalContinuationBuilder<TOuterQuery, TOuterQuery> a, ReadOnlySpan<TState> b)
         where TOuterQuery : GremlinQueryBase, IGremlinQueryBase
@@ -10,9 +8,9 @@ namespace ExRam.Gremlinq.Core
         where TOuterQuery : GremlinQueryBase, IGremlinQueryBase
         where TAnonymousQuery : GremlinQueryBase, IGremlinQueryBase
     {
-        private readonly TOuterQuery? _outer;
+        private readonly TOuterQuery _outer;
         private readonly ContinuationFlags _flags;
-        private readonly TAnonymousQuery? _anonymous;
+        private readonly TAnonymousQuery _anonymous;
 
         public ContinuationBuilder(TOuterQuery outer, TAnonymousQuery anonymous, ContinuationFlags flags)
         {
@@ -22,30 +20,20 @@ namespace ExRam.Gremlinq.Core
         }
 
         public ContinuationBuilder<TNewOuterQuery, TAnonymousQuery> WithOuter<TNewOuterQuery>(TNewOuterQuery query)
-            where TNewOuterQuery : GremlinQueryBase, IGremlinQueryBase => _anonymous is { } anonymous
-                ? new ContinuationBuilder<TNewOuterQuery, TAnonymousQuery>(query, anonymous, _flags)
-                : throw UninitializedStruct();
+            where TNewOuterQuery : GremlinQueryBase, IGremlinQueryBase => new (query, _anonymous, _flags);
 
         public SingleContinuationBuilder<TOuterQuery, TAnonymousQuery> With<TProjectedQuery, TState>(Func<TAnonymousQuery, TState, TProjectedQuery> continuation, TState state)
-            where TProjectedQuery : IGremlinQueryBase => _outer is { } outer && _anonymous is { } anonymous
-                ? new SingleContinuationBuilder<TOuterQuery, TAnonymousQuery>(outer, anonymous, continuation.Apply(anonymous, state), _flags)
-                : throw UninitializedStruct();
+            where TProjectedQuery : IGremlinQueryBase => new (_outer, _anonymous, continuation.Apply(_anonymous, state), _flags);
 
-        public MultiContinuationBuilder<TOuterQuery, TAnonymousQuery> ToMulti() => _outer is { } outer && _anonymous is { } anonymous
-            ? new MultiContinuationBuilder<TOuterQuery, TAnonymousQuery>(outer, anonymous, FastImmutableList<IGremlinQueryBase>.Empty, _flags)
-            : throw UninitializedStruct();
+        public MultiContinuationBuilder<TOuterQuery, TAnonymousQuery> ToMulti() => new (_outer, _anonymous, FastImmutableList<IGremlinQueryBase>.Empty, _flags);
 
         public TNewQuery Build<TNewQuery, TState>(Func<FinalContinuationBuilder<TOuterQuery, TOuterQuery>, TState, FinalContinuationBuilder<TOuterQuery, TNewQuery>> builderTransformation, TState state)
             where TNewQuery : IStartGremlinQuery => Build(static (builder, tuple) => tuple.builderTransformation(builder, tuple.state).Build(), (builderTransformation, state));
 
         public TNewQuery Build<TNewQuery, TState>(SpanStateBuilderTransformation<TOuterQuery, TState, TNewQuery> builderTransformation, ReadOnlySpan<TState> state)
-            where TNewQuery : IStartGremlinQuery => _outer is { } outer
-                ? builderTransformation(new FinalContinuationBuilder<TOuterQuery, TOuterQuery>(outer), state).Build()
-                : throw UninitializedStruct();
+            where TNewQuery : IStartGremlinQuery => builderTransformation(new FinalContinuationBuilder<TOuterQuery, TOuterQuery>(_outer), state).Build();
 
         public TNewQuery Build<TNewQuery, TState>(Func<FinalContinuationBuilder<TOuterQuery, TOuterQuery>, TState, TNewQuery> builderTransformation, TState state)
-            where TNewQuery : IStartGremlinQuery => _outer is { } outer
-                ? builderTransformation(new FinalContinuationBuilder<TOuterQuery, TOuterQuery>(outer), state)
-                : throw UninitializedStruct();
+            where TNewQuery : IStartGremlinQuery => builderTransformation(new FinalContinuationBuilder<TOuterQuery, TOuterQuery>(_outer), state);
     }
 }
