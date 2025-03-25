@@ -3,17 +3,15 @@
 using ExRam.Gremlinq.Core.Projections;
 using ExRam.Gremlinq.Core.Steps;
 
-using static ExRam.Gremlinq.Core.ExceptionHelper;
-
 namespace ExRam.Gremlinq.Core
 {
     internal readonly struct FinalContinuationBuilder<TOuterQuery, TTargetQuery>
         where TOuterQuery : GremlinQueryBase, IGremlinQueryBase
         where TTargetQuery : IStartGremlinQuery
     {
-        private readonly Traversal? _steps;
-        private readonly TOuterQuery? _outer;
-        private readonly IImmutableDictionary<StepLabel, LabelProjections>? _labelProjections;
+        private readonly Traversal _steps;
+        private readonly TOuterQuery _outer;
+        private readonly IImmutableDictionary<StepLabel, LabelProjections> _labelProjections;
 
         public FinalContinuationBuilder(TOuterQuery outerQuery) : this(outerQuery, outerQuery.Steps, outerQuery.LabelProjections)
         {
@@ -61,9 +59,7 @@ namespace ExRam.Gremlinq.Core
             static (outer, steps, labelProjections, _) => new FinalContinuationBuilder<TOuterQuery, TNewTargetQuery>(outer, steps, labelProjections),
             0);
 
-        private TResult With<TState, TResult>(Func<TOuterQuery, Traversal, IImmutableDictionary<StepLabel, LabelProjections>, TState, TResult> continuation, TState state) => (_outer is { } outer && _steps is { } steps && _labelProjections is { } labelProjections)
-            ? continuation(outer, steps, labelProjections, state)
-            : throw UninitializedStruct();
+        private TResult With<TState, TResult>(Func<TOuterQuery, Traversal, IImmutableDictionary<StepLabel, LabelProjections>, TState, TResult> continuation, TState state) => continuation(_outer, _steps, _labelProjections, state);
 
         public TOuterQuery OuterQuery => With(
             static (outer, _, _, _) => outer,

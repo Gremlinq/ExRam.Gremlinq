@@ -1,5 +1,4 @@
 ﻿using System.Buffers;
-using static ExRam.Gremlinq.Core.ExceptionHelper;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -7,9 +6,9 @@ namespace ExRam.Gremlinq.Core
         where TOuterQuery : GremlinQueryBase, IGremlinQueryBase
         where TAnonymousQuery : GremlinQueryBase, IGremlinQueryBase
     {
-        private readonly TOuterQuery? _outer;
+        private readonly TOuterQuery _outer;
         private readonly ContinuationFlags _flags;
-        private readonly TAnonymousQuery? _anonymous;
+        private readonly TAnonymousQuery _anonymous;
         private readonly FastImmutableList<IGremlinQueryBase> _continuations;
 
         public MultiContinuationBuilder(TOuterQuery outer, TAnonymousQuery anonymous, FastImmutableList<IGremlinQueryBase> continuations, ContinuationFlags flags)
@@ -65,8 +64,6 @@ namespace ExRam.Gremlinq.Core
                     (builderTransformation, state))
                 .Build();
 
-        private TResult With<TState, TResult>(Func<TOuterQuery, TAnonymousQuery, FastImmutableList<IGremlinQueryBase>, ContinuationFlags, TState, TResult> continuation, TState state) => _outer is { } outer && _anonymous is { } anonymous && _continuations is var continuations
-            ? continuation(outer, anonymous, continuations, _flags, state)
-            : throw UninitializedStruct();
+        private TResult With<TState, TResult>(Func<TOuterQuery, TAnonymousQuery, FastImmutableList<IGremlinQueryBase>, ContinuationFlags, TState, TResult> continuation, TState state) => continuation(_outer, _anonymous, _continuations, _flags, state);
     }
 }

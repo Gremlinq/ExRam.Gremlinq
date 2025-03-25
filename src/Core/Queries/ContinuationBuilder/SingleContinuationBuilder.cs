@@ -1,15 +1,13 @@
-﻿using static ExRam.Gremlinq.Core.ExceptionHelper;
-
-namespace ExRam.Gremlinq.Core
+﻿namespace ExRam.Gremlinq.Core
 {
     internal readonly struct SingleContinuationBuilder<TOuterQuery, TAnonymousQuery>
         where TOuterQuery : GremlinQueryBase, IGremlinQueryBase
         where TAnonymousQuery : GremlinQueryBase, IGremlinQueryBase
     {
-        private readonly TOuterQuery? _outer;
+        private readonly TOuterQuery _outer;
         private readonly ContinuationFlags _flags;
-        private readonly TAnonymousQuery? _anonymous;
-        private readonly IGremlinQueryBase? _continuation;
+        private readonly TAnonymousQuery _anonymous;
+        private readonly IGremlinQueryBase _continuation;
 
         public SingleContinuationBuilder(TOuterQuery outer, TAnonymousQuery anonymous, IGremlinQueryBase continuation, ContinuationFlags flags)
         {
@@ -48,8 +46,6 @@ namespace ExRam.Gremlinq.Core
             },
             (builderTransformation, state));
 
-        private TResult With<TState, TResult>(Func<TOuterQuery, TAnonymousQuery, IGremlinQueryBase, ContinuationFlags, TState, TResult> continuation, TState state) => _outer is { } outer && _anonymous is { } anonymous && _continuation is { } existingContinuation
-            ? continuation(outer, anonymous, existingContinuation, _flags, state)
-            : throw UninitializedStruct();
+        private TResult With<TState, TResult>(Func<TOuterQuery, TAnonymousQuery, IGremlinQueryBase, ContinuationFlags, TState, TResult> continuation, TState state) => continuation(_outer, _anonymous, _continuation, _flags, state);
     }
 }
