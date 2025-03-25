@@ -12,12 +12,10 @@
             .ChangeQueryType<IStringGremlinQuery<string>>()
             .Concat(stringTraversals);
 
-#if NET9_0_OR_GREATER
         public static IStringGremlinQuery<string> Concat(this IGremlinQueryBase<string> query, params ReadOnlySpan<Func<IStringGremlinQuery<string>, IGremlinQueryBase<string>>> stringTraversals) => query
             .AsAdmin()
             .ChangeQueryType<IStringGremlinQuery<string>>()
             .Concat(stringTraversals);
-#endif
 
         public static IGremlinQuery<int> Length(this IGremlinQueryBase<string> query) => query
             .AsAdmin()

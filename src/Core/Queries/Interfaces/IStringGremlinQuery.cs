@@ -6,9 +6,7 @@
 
         IStringGremlinQuery<TString> Concat(params Func<IStringGremlinQuery<TString>, IGremlinQueryBase<TString>>[] stringTraversals);
 
-#if NET9_0_OR_GREATER
         IStringGremlinQuery<TString> Concat(params ReadOnlySpan<Func<IStringGremlinQuery<TString>, IGremlinQueryBase<TString>>> stringTraversals);
-#endif
 
         IGremlinQuery<int> Length();
 

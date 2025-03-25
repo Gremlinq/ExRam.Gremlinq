@@ -450,6 +450,7 @@
         where TSelf : ExRam.Gremlinq.Core.IGremlinQueryBaseRec<TSelf>
     {
         TSelf And(params System.Func<TSelf, ExRam.Gremlinq.Core.IGremlinQueryBase>[] andTraversals);
+        TSelf And([System.Runtime.CompilerServices.ScopedRef] System.ReadOnlySpan<System.Func<TSelf, ExRam.Gremlinq.Core.IGremlinQueryBase>> andTraversals);
         [System.Obsolete("Deprecated. If the strongly typed overload of As is not in scope, call Cast<objec" +
             "t>() before As(...).")]
         TTargetQuery As<TTargetQuery>(System.Func<TSelf, ExRam.Gremlinq.Core.StepLabel<TSelf, object>, TTargetQuery> continuation)
@@ -462,7 +463,10 @@
         TTargetQuery Choose<TTargetQuery>(System.Func<TSelf, ExRam.Gremlinq.Core.IGremlinQueryBase> traversalPredicate, System.Func<TSelf, TTargetQuery> trueChoice, System.Func<TSelf, TTargetQuery> falseChoice)
             where TTargetQuery : ExRam.Gremlinq.Core.IGremlinQueryBase;
         ExRam.Gremlinq.Core.IGremlinQuery<object> Coalesce(params System.Func<TSelf, ExRam.Gremlinq.Core.IGremlinQueryBase>[] traversals);
+        ExRam.Gremlinq.Core.IGremlinQuery<object> Coalesce([System.Runtime.CompilerServices.ScopedRef] System.ReadOnlySpan<System.Func<TSelf, ExRam.Gremlinq.Core.IGremlinQueryBase>> traversals);
         TTargetQuery Coalesce<TTargetQuery>(params System.Func<TSelf, TTargetQuery>[] traversals)
+            where TTargetQuery : ExRam.Gremlinq.Core.IGremlinQueryBase;
+        TTargetQuery Coalesce<TTargetQuery>([System.Runtime.CompilerServices.ScopedRef] System.ReadOnlySpan<System.Func<TSelf, TTargetQuery>> traversals)
             where TTargetQuery : ExRam.Gremlinq.Core.IGremlinQueryBase;
         TSelf Coin(double probability);
         TSelf CyclicPath();
@@ -484,6 +488,7 @@
         TSelf Not(System.Func<TSelf, ExRam.Gremlinq.Core.IGremlinQueryBase> notTraversal);
         TSelf Optional(System.Func<TSelf, TSelf> optionalTraversal);
         TSelf Or(params System.Func<TSelf, ExRam.Gremlinq.Core.IGremlinQueryBase>[] orTraversals);
+        TSelf Or([System.Runtime.CompilerServices.ScopedRef] System.ReadOnlySpan<System.Func<TSelf, ExRam.Gremlinq.Core.IGremlinQueryBase>> orTraversals);
         TSelf Order(System.Func<ExRam.Gremlinq.Core.IOrderBuilder<TSelf>, ExRam.Gremlinq.Core.IOrderBuilderWithBy<TSelf>> projection);
         TSelf OrderLocal(System.Func<ExRam.Gremlinq.Core.IOrderBuilder<TSelf>, ExRam.Gremlinq.Core.IOrderBuilderWithBy<TSelf>> projection);
         TSelf Range(long low, long high);
@@ -493,7 +498,10 @@
         TSelf Sum();
         TSelf Tail(long count);
         ExRam.Gremlinq.Core.IGremlinQuery<object> Union(params System.Func<TSelf, ExRam.Gremlinq.Core.IGremlinQueryBase>[] traversals);
+        ExRam.Gremlinq.Core.IGremlinQuery<object> Union([System.Runtime.CompilerServices.ScopedRef] System.ReadOnlySpan<System.Func<TSelf, ExRam.Gremlinq.Core.IGremlinQueryBase>> traversals);
         TTargetQuery Union<TTargetQuery>(params System.Func<TSelf, TTargetQuery>[] unionTraversals)
+            where TTargetQuery : ExRam.Gremlinq.Core.IGremlinQueryBase;
+        TTargetQuery Union<TTargetQuery>([System.Runtime.CompilerServices.ScopedRef] System.ReadOnlySpan<System.Func<TSelf, TTargetQuery>> unionTraversals)
             where TTargetQuery : ExRam.Gremlinq.Core.IGremlinQueryBase;
         TSelf Where(System.Func<TSelf, ExRam.Gremlinq.Core.IGremlinQueryBase> filterTraversal);
     }
@@ -918,6 +926,7 @@
     public interface IStringGremlinQuery<TString> : ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IGremlinQueryBaseRec<ExRam.Gremlinq.Core.IStringGremlinQuery<TString>>, ExRam.Gremlinq.Core.IGremlinQueryBaseRec<TString, ExRam.Gremlinq.Core.IStringGremlinQuery<TString>>, ExRam.Gremlinq.Core.IGremlinQueryBase<TString>, ExRam.Gremlinq.Core.IStartGremlinQuery
     {
         ExRam.Gremlinq.Core.IStringGremlinQuery<TString> Concat(params System.Func<ExRam.Gremlinq.Core.IStringGremlinQuery<TString>, ExRam.Gremlinq.Core.IGremlinQueryBase<TString>>[] stringTraversals);
+        ExRam.Gremlinq.Core.IStringGremlinQuery<TString> Concat([System.Runtime.CompilerServices.ScopedRef] System.ReadOnlySpan<System.Func<ExRam.Gremlinq.Core.IStringGremlinQuery<TString>, ExRam.Gremlinq.Core.IGremlinQueryBase<TString>>> stringTraversals);
         ExRam.Gremlinq.Core.IStringGremlinQuery<TString> Concat(params string[] strings);
         ExRam.Gremlinq.Core.IGremlinQuery<int> Length();
         ExRam.Gremlinq.Core.IStringGremlinQuery<TString> Replace(string oldValue, string newValue);
@@ -1664,6 +1673,7 @@
     public static class StringGremlinQueryExtensions
     {
         public static ExRam.Gremlinq.Core.IStringGremlinQuery<string> Concat(this ExRam.Gremlinq.Core.IGremlinQueryBase<string> query, params System.Func<ExRam.Gremlinq.Core.IStringGremlinQuery<string>, ExRam.Gremlinq.Core.IGremlinQueryBase<string>>[] stringTraversals) { }
+        public static ExRam.Gremlinq.Core.IStringGremlinQuery<string> Concat(this ExRam.Gremlinq.Core.IGremlinQueryBase<string> query, [System.Runtime.CompilerServices.ScopedRef] System.ReadOnlySpan<System.Func<ExRam.Gremlinq.Core.IStringGremlinQuery<string>, ExRam.Gremlinq.Core.IGremlinQueryBase<string>>> stringTraversals) { }
         public static ExRam.Gremlinq.Core.IStringGremlinQuery<string> Concat(this ExRam.Gremlinq.Core.IGremlinQueryBase<string> query, params string[] strings) { }
         public static ExRam.Gremlinq.Core.IGremlinQuery<int> Length(this ExRam.Gremlinq.Core.IGremlinQueryBase<string> query) { }
         public static ExRam.Gremlinq.Core.IStringGremlinQuery<string> Replace(this ExRam.Gremlinq.Core.IGremlinQueryBase<string> query, string oldValue, string newValue) { }

@@ -89,10 +89,7 @@ namespace ExRam.Gremlinq.Core
         where TSelf : IGremlinQueryBaseRec<TSelf>
     {
         TSelf And(params Func<TSelf, IGremlinQueryBase>[] andTraversals);
-
-#if NET9_0_OR_GREATER
         TSelf And(params ReadOnlySpan<Func<TSelf, IGremlinQueryBase>> andTraversals);
-#endif
 
         [Obsolete("Deprecated. If the strongly typed overload of As is not in scope, call Cast<object>() before As(...).")]
         TTargetQuery As<TTargetQuery>(Func<TSelf, StepLabel<TSelf, object>, TTargetQuery> continuation) where TTargetQuery : IGremlinQueryBase;
@@ -108,12 +105,10 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery Choose<TTargetQuery>(Func<IChooseBuilder<TSelf>, IChooseBuilderWithCaseOrDefault<TTargetQuery>> continuation) where TTargetQuery : IGremlinQueryBase;
 
         TTargetQuery Coalesce<TTargetQuery>(params Func<TSelf, TTargetQuery>[] traversals) where TTargetQuery : IGremlinQueryBase;
-        IGremlinQuery<object> Coalesce(params Func<TSelf, IGremlinQueryBase>[] traversals);
-
-#if NET9_0_OR_GREATER
         TTargetQuery Coalesce<TTargetQuery>(params ReadOnlySpan<Func<TSelf, TTargetQuery>> traversals) where TTargetQuery : IGremlinQueryBase;
+
+        IGremlinQuery<object> Coalesce(params Func<TSelf, IGremlinQueryBase>[] traversals);
         IGremlinQuery<object> Coalesce(params ReadOnlySpan<Func<TSelf, IGremlinQueryBase>> traversals);
-#endif
 
         TSelf CyclicPath();
 
@@ -141,10 +136,7 @@ namespace ExRam.Gremlinq.Core
         TSelf Optional(Func<TSelf, TSelf> optionalTraversal);
 
         TSelf Or(params Func<TSelf, IGremlinQueryBase>[] orTraversals);
-
-#if NET9_0_OR_GREATER
         TSelf Or(params ReadOnlySpan<Func<TSelf, IGremlinQueryBase>> orTraversals);
-#endif
 
         TSelf Order(Func<IOrderBuilder<TSelf>, IOrderBuilderWithBy<TSelf>> projection);
         TSelf OrderLocal(Func<IOrderBuilder<TSelf>, IOrderBuilderWithBy<TSelf>> projection);
@@ -164,12 +156,10 @@ namespace ExRam.Gremlinq.Core
         TSelf Tail(long count);
 
         TTargetQuery Union<TTargetQuery>(params Func<TSelf, TTargetQuery>[] unionTraversals) where TTargetQuery : IGremlinQueryBase;
-        IGremlinQuery<object> Union(params Func<TSelf, IGremlinQueryBase>[] traversals);
-
-#if NET9_0_OR_GREATER
         TTargetQuery Union<TTargetQuery>(params ReadOnlySpan<Func<TSelf, TTargetQuery>> unionTraversals) where TTargetQuery : IGremlinQueryBase;
+
+        IGremlinQuery<object> Union(params Func<TSelf, IGremlinQueryBase>[] traversals);
         IGremlinQuery<object> Union(params ReadOnlySpan<Func<TSelf, IGremlinQueryBase>> traversals);
-#endif
 
         TSelf Where(Func<TSelf, IGremlinQueryBase> filterTraversal);
     }
