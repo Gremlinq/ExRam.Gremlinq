@@ -38,19 +38,19 @@ namespace ExRam.Gremlinq.Core
 
         new IEdgeOrVertexGremlinQuery<TEdge> Lower();
 
-        IPropertyGremlinQuery<Property<TValue>> Properties<TValue>(params Expression<Func<TEdge, TValue>>[] projections);
+        IPropertyGremlinQuery<Property<TValue>> Properties<TValue>(params Expression<Func<TEdge, TValue>>[] projections);           //TODO: Span
 
-        IPropertyGremlinQuery<Property<TValue>> Properties<TValue>(params Expression<Func<TEdge, Property<TValue>>>[] projections);
-        IPropertyGremlinQuery<Property<object>> Properties(params Expression<Func<TEdge, Property<object>>>[] projections);
+        IPropertyGremlinQuery<Property<TValue>> Properties<TValue>(params Expression<Func<TEdge, Property<TValue>>>[] projections); //TODO: Span
+        IPropertyGremlinQuery<Property<object>> Properties(params Expression<Func<TEdge, Property<object>>>[] projections);         //TODO: Span
 
         IInEdgeGremlinQuery<TEdge, TInVertex> To<TInVertex>(Func<IVertexGremlinQueryBase, IVertexGremlinQueryBase<TInVertex>> toVertexTraversal);
         IInEdgeGremlinQuery<TEdge, TInVertex> To<TInVertex>(StepLabel<TInVertex> stepLabel);
 
-        new IGremlinQuery<TValue> Values<TValue>(params Expression<Func<TEdge, TValue>>[] projections);
+        new IGremlinQuery<TValue> Values<TValue>(params Expression<Func<TEdge, TValue>>[] projections);         //TODO: Span
 
-        IGremlinQuery<TValue> Values<TValue>(params Expression<Func<TEdge, Property<TValue>>>[] projections);
+        IGremlinQuery<TValue> Values<TValue>(params Expression<Func<TEdge, Property<TValue>>>[] projections);   //TODO: Span
 
-        IGremlinQuery<object> Values(params Expression<Func<TEdge, Property<object>>>[] projections);
+        IGremlinQuery<object> Values(params Expression<Func<TEdge, Property<object>>>[] projections);           //TODO: Span
     }
 
     public interface IEdgeGremlinQueryBaseRec<TSelf> : IEdgeGremlinQueryBase, IElementGremlinQueryBaseRec<TSelf>

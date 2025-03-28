@@ -189,7 +189,7 @@ namespace ExRam.Gremlinq.Core
         IMapGremlinQuery<IDictionary<TNewKey, TNewValue>> Group<TNewKey, TNewValue>(Func<IGroupBuilder<TSelf>, IGroupBuilderWithKeyAndValue<TNewKey, TNewValue>> groupBuilder);
         IMapGremlinQuery<IDictionary<TNewKey, TElement[]>> Group<TNewKey>(Func<IGroupBuilder<TSelf>, IGroupBuilderWithKey<TSelf, TNewKey>> groupBuilder);
 
-        TSelf Inject(params TElement[] elements);
+        TSelf Inject(params TElement[] elements);   //TODO: Span
 
         IGremlinQuery<dynamic> Project(Func<IProjectBuilder<TSelf, TElement>, IProjectDynamicResult> continuation);
         IMapGremlinQuery<TResult> Project<TResult>(Func<IProjectBuilder<TSelf, TElement>, IProjectMapResult<TResult>> continuation);

@@ -11,16 +11,16 @@
         IGremlinQueryAdmin AsAdmin();
 
         IEdgeGremlinQuery<object> E(object id);
-        IEdgeGremlinQuery<object> E(params object[] ids);
+        IEdgeGremlinQuery<object> E(params object[] ids);           //TODO: Span
         IEdgeGremlinQuery<TEdge> E<TEdge>(object id);
-        IEdgeGremlinQuery<TEdge> E<TEdge>(params object[] ids);
+        IEdgeGremlinQuery<TEdge> E<TEdge>(params object[] ids);     //TODO: Span
 
         IVertexGremlinQuery<object> V(object id);
-        IVertexGremlinQuery<object> V(params object[] ids);
+        IVertexGremlinQuery<object> V(params object[] ids);                 //TODO: Span
         IVertexGremlinQuery<TVertex> V<TVertex>(object id);
-        IVertexGremlinQuery<TVertex> V<TVertex>(params object[] ids);
+        IVertexGremlinQuery<TVertex> V<TVertex>(params object[] ids);       //TODO: Span
 
-        IGremlinQuery<TElement> Inject<TElement>(params TElement[] elements);
+        IGremlinQuery<TElement> Inject<TElement>(params TElement[] elements);   //TODO: Span
 
         IEdgeGremlinQuery<TNewEdge> ReplaceE<TNewEdge>(TNewEdge edge);
         IVertexGremlinQuery<TNewVertex> ReplaceV<TNewVertex>(TNewVertex vertex);
