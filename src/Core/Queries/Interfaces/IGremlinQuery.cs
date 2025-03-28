@@ -176,6 +176,8 @@ namespace ExRam.Gremlinq.Core
         TSelf AggregateLocal(StepLabel<TElement[]> stepLabel);
 
         TSelf As(StepLabel<TElement> stepLabel);
+
+        [OverloadResolutionPriority(1)]
         TTargetQuery As<TTargetQuery>(Func<TSelf, StepLabel<TSelf, TElement>, TTargetQuery> continuation) where TTargetQuery : IGremlinQueryBase;
 
         TTargetQuery Choose<TTargetQuery>(Expression<Func<TElement, bool>> predicate, Func<TSelf, TTargetQuery> trueChoice, Func<TSelf, TTargetQuery> falseChoice) where TTargetQuery : IGremlinQueryBase;
