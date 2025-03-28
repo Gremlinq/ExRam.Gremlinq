@@ -20,7 +20,8 @@
         IVertexGremlinQuery<TVertex> V<TVertex>(object id);
         IVertexGremlinQuery<TVertex> V<TVertex>(params object[] ids);       //TODO: Span
 
-        IGremlinQuery<TElement> Inject<TElement>(params TElement[] elements);   //TODO: Span
+        IGremlinQuery<TElement> Inject<TElement>(params TElement[] elements);
+        IGremlinQuery<TElement> Inject<TElement>(params ReadOnlySpan<TElement> elements);
 
         IEdgeGremlinQuery<TNewEdge> ReplaceE<TNewEdge>(TNewEdge edge);
         IVertexGremlinQuery<TNewVertex> ReplaceV<TNewVertex>(TNewVertex vertex);

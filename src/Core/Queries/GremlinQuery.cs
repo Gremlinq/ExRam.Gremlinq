@@ -806,12 +806,13 @@ namespace ExRam.Gremlinq.Core
                 .WithNewProjection(Projection.Edge)
                 .AsAuto<TEdge, object, T1>());
 
-        private GremlinQuery<TNewElement, T2, T3, T4> Inject<TNewElement>(IEnumerable<TNewElement> elements) => this
+        private GremlinQuery<TNewElement, T2, T3, T4> Inject<TNewElement>(ReadOnlySpan<TNewElement> elements) => this
             .Continue()
             .Build(
                 static (builder, elements) => builder
                     .AddStep(new InjectStep(
                         elements
+                            .ToArray()  //TODO: Optimize
                             .Select(static x => (object)x!)
                             .ToImmutableArray()))
                     .WithNewProjection(Projection.Value)

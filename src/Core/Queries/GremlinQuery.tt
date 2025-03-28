@@ -77,7 +77,8 @@ namespace ExRam.Gremlinq.Core
 
         <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.Identity() => Identity();
 
-        <#= iface #> IGremlinQueryBaseRec<T1, <#= iface #>>.Inject(params T1[] elements) => Inject(elements);
+        <#= iface #> IGremlinQueryBaseRec<T1, <#= iface #>>.Inject(params T1[] elements) => Inject<T1>(elements);
+        <#= iface #> IGremlinQueryBaseRec<T1, <#= iface #>>.Inject(params ReadOnlySpan<T1> elements) => Inject(elements);
         
         <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.Limit(long count) => LimitGlobal(count);
 

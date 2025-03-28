@@ -111,7 +111,8 @@ namespace ExRam.Gremlinq.Core
 
         IGremlinQuery<T1> IGremlinQueryBaseRec<IGremlinQuery<T1>>.Identity() => Identity();
 
-        IGremlinQuery<T1> IGremlinQueryBaseRec<T1, IGremlinQuery<T1>>.Inject(params T1[] elements) => Inject(elements);
+        IGremlinQuery<T1> IGremlinQueryBaseRec<T1, IGremlinQuery<T1>>.Inject(params T1[] elements) => Inject<T1>(elements);
+        IGremlinQuery<T1> IGremlinQueryBaseRec<T1, IGremlinQuery<T1>>.Inject(params ReadOnlySpan<T1> elements) => Inject(elements);
         
         IGremlinQuery<T1> IGremlinQueryBaseRec<IGremlinQuery<T1>>.Limit(long count) => LimitGlobal(count);
 
@@ -219,7 +220,8 @@ namespace ExRam.Gremlinq.Core
 
         IMapGremlinQuery<T1> IGremlinQueryBaseRec<IMapGremlinQuery<T1>>.Identity() => Identity();
 
-        IMapGremlinQuery<T1> IGremlinQueryBaseRec<T1, IMapGremlinQuery<T1>>.Inject(params T1[] elements) => Inject(elements);
+        IMapGremlinQuery<T1> IGremlinQueryBaseRec<T1, IMapGremlinQuery<T1>>.Inject(params T1[] elements) => Inject<T1>(elements);
+        IMapGremlinQuery<T1> IGremlinQueryBaseRec<T1, IMapGremlinQuery<T1>>.Inject(params ReadOnlySpan<T1> elements) => Inject(elements);
         
         IMapGremlinQuery<T1> IGremlinQueryBaseRec<IMapGremlinQuery<T1>>.Limit(long count) => LimitGlobal(count);
 
@@ -327,7 +329,8 @@ namespace ExRam.Gremlinq.Core
 
         IArrayGremlinQuery<T1, T2, T4> IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T4>>.Identity() => Identity();
 
-        IArrayGremlinQuery<T1, T2, T4> IGremlinQueryBaseRec<T1, IArrayGremlinQuery<T1, T2, T4>>.Inject(params T1[] elements) => Inject(elements);
+        IArrayGremlinQuery<T1, T2, T4> IGremlinQueryBaseRec<T1, IArrayGremlinQuery<T1, T2, T4>>.Inject(params T1[] elements) => Inject<T1>(elements);
+        IArrayGremlinQuery<T1, T2, T4> IGremlinQueryBaseRec<T1, IArrayGremlinQuery<T1, T2, T4>>.Inject(params ReadOnlySpan<T1> elements) => Inject(elements);
         
         IArrayGremlinQuery<T1, T2, T4> IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T4>>.Limit(long count) => LimitGlobal(count);
 
@@ -435,7 +438,8 @@ namespace ExRam.Gremlinq.Core
 
         IElementGremlinQuery<T1> IGremlinQueryBaseRec<IElementGremlinQuery<T1>>.Identity() => Identity();
 
-        IElementGremlinQuery<T1> IGremlinQueryBaseRec<T1, IElementGremlinQuery<T1>>.Inject(params T1[] elements) => Inject(elements);
+        IElementGremlinQuery<T1> IGremlinQueryBaseRec<T1, IElementGremlinQuery<T1>>.Inject(params T1[] elements) => Inject<T1>(elements);
+        IElementGremlinQuery<T1> IGremlinQueryBaseRec<T1, IElementGremlinQuery<T1>>.Inject(params ReadOnlySpan<T1> elements) => Inject(elements);
         
         IElementGremlinQuery<T1> IGremlinQueryBaseRec<IElementGremlinQuery<T1>>.Limit(long count) => LimitGlobal(count);
 
@@ -543,7 +547,8 @@ namespace ExRam.Gremlinq.Core
 
         IEdgeOrVertexGremlinQuery<T1> IGremlinQueryBaseRec<IEdgeOrVertexGremlinQuery<T1>>.Identity() => Identity();
 
-        IEdgeOrVertexGremlinQuery<T1> IGremlinQueryBaseRec<T1, IEdgeOrVertexGremlinQuery<T1>>.Inject(params T1[] elements) => Inject(elements);
+        IEdgeOrVertexGremlinQuery<T1> IGremlinQueryBaseRec<T1, IEdgeOrVertexGremlinQuery<T1>>.Inject(params T1[] elements) => Inject<T1>(elements);
+        IEdgeOrVertexGremlinQuery<T1> IGremlinQueryBaseRec<T1, IEdgeOrVertexGremlinQuery<T1>>.Inject(params ReadOnlySpan<T1> elements) => Inject(elements);
         
         IEdgeOrVertexGremlinQuery<T1> IGremlinQueryBaseRec<IEdgeOrVertexGremlinQuery<T1>>.Limit(long count) => LimitGlobal(count);
 
@@ -651,7 +656,8 @@ namespace ExRam.Gremlinq.Core
 
         IVertexGremlinQuery<T1> IGremlinQueryBaseRec<IVertexGremlinQuery<T1>>.Identity() => Identity();
 
-        IVertexGremlinQuery<T1> IGremlinQueryBaseRec<T1, IVertexGremlinQuery<T1>>.Inject(params T1[] elements) => Inject(elements);
+        IVertexGremlinQuery<T1> IGremlinQueryBaseRec<T1, IVertexGremlinQuery<T1>>.Inject(params T1[] elements) => Inject<T1>(elements);
+        IVertexGremlinQuery<T1> IGremlinQueryBaseRec<T1, IVertexGremlinQuery<T1>>.Inject(params ReadOnlySpan<T1> elements) => Inject(elements);
         
         IVertexGremlinQuery<T1> IGremlinQueryBaseRec<IVertexGremlinQuery<T1>>.Limit(long count) => LimitGlobal(count);
 
@@ -759,7 +765,8 @@ namespace ExRam.Gremlinq.Core
 
         IEdgeGremlinQuery<T1> IGremlinQueryBaseRec<IEdgeGremlinQuery<T1>>.Identity() => Identity();
 
-        IEdgeGremlinQuery<T1> IGremlinQueryBaseRec<T1, IEdgeGremlinQuery<T1>>.Inject(params T1[] elements) => Inject(elements);
+        IEdgeGremlinQuery<T1> IGremlinQueryBaseRec<T1, IEdgeGremlinQuery<T1>>.Inject(params T1[] elements) => Inject<T1>(elements);
+        IEdgeGremlinQuery<T1> IGremlinQueryBaseRec<T1, IEdgeGremlinQuery<T1>>.Inject(params ReadOnlySpan<T1> elements) => Inject(elements);
         
         IEdgeGremlinQuery<T1> IGremlinQueryBaseRec<IEdgeGremlinQuery<T1>>.Limit(long count) => LimitGlobal(count);
 
@@ -867,7 +874,8 @@ namespace ExRam.Gremlinq.Core
 
         IInOrOutEdgeGremlinQuery<T1, T2> IGremlinQueryBaseRec<IInOrOutEdgeGremlinQuery<T1, T2>>.Identity() => Identity();
 
-        IInOrOutEdgeGremlinQuery<T1, T2> IGremlinQueryBaseRec<T1, IInOrOutEdgeGremlinQuery<T1, T2>>.Inject(params T1[] elements) => Inject(elements);
+        IInOrOutEdgeGremlinQuery<T1, T2> IGremlinQueryBaseRec<T1, IInOrOutEdgeGremlinQuery<T1, T2>>.Inject(params T1[] elements) => Inject<T1>(elements);
+        IInOrOutEdgeGremlinQuery<T1, T2> IGremlinQueryBaseRec<T1, IInOrOutEdgeGremlinQuery<T1, T2>>.Inject(params ReadOnlySpan<T1> elements) => Inject(elements);
         
         IInOrOutEdgeGremlinQuery<T1, T2> IGremlinQueryBaseRec<IInOrOutEdgeGremlinQuery<T1, T2>>.Limit(long count) => LimitGlobal(count);
 
@@ -975,7 +983,8 @@ namespace ExRam.Gremlinq.Core
 
         IEdgeGremlinQuery<T1, T2, T3> IGremlinQueryBaseRec<IEdgeGremlinQuery<T1, T2, T3>>.Identity() => Identity();
 
-        IEdgeGremlinQuery<T1, T2, T3> IGremlinQueryBaseRec<T1, IEdgeGremlinQuery<T1, T2, T3>>.Inject(params T1[] elements) => Inject(elements);
+        IEdgeGremlinQuery<T1, T2, T3> IGremlinQueryBaseRec<T1, IEdgeGremlinQuery<T1, T2, T3>>.Inject(params T1[] elements) => Inject<T1>(elements);
+        IEdgeGremlinQuery<T1, T2, T3> IGremlinQueryBaseRec<T1, IEdgeGremlinQuery<T1, T2, T3>>.Inject(params ReadOnlySpan<T1> elements) => Inject(elements);
         
         IEdgeGremlinQuery<T1, T2, T3> IGremlinQueryBaseRec<IEdgeGremlinQuery<T1, T2, T3>>.Limit(long count) => LimitGlobal(count);
 
@@ -1083,7 +1092,8 @@ namespace ExRam.Gremlinq.Core
 
         IInEdgeGremlinQuery<T1, T3> IGremlinQueryBaseRec<IInEdgeGremlinQuery<T1, T3>>.Identity() => Identity();
 
-        IInEdgeGremlinQuery<T1, T3> IGremlinQueryBaseRec<T1, IInEdgeGremlinQuery<T1, T3>>.Inject(params T1[] elements) => Inject(elements);
+        IInEdgeGremlinQuery<T1, T3> IGremlinQueryBaseRec<T1, IInEdgeGremlinQuery<T1, T3>>.Inject(params T1[] elements) => Inject<T1>(elements);
+        IInEdgeGremlinQuery<T1, T3> IGremlinQueryBaseRec<T1, IInEdgeGremlinQuery<T1, T3>>.Inject(params ReadOnlySpan<T1> elements) => Inject(elements);
         
         IInEdgeGremlinQuery<T1, T3> IGremlinQueryBaseRec<IInEdgeGremlinQuery<T1, T3>>.Limit(long count) => LimitGlobal(count);
 
@@ -1191,7 +1201,8 @@ namespace ExRam.Gremlinq.Core
 
         IOutEdgeGremlinQuery<T1, T2> IGremlinQueryBaseRec<IOutEdgeGremlinQuery<T1, T2>>.Identity() => Identity();
 
-        IOutEdgeGremlinQuery<T1, T2> IGremlinQueryBaseRec<T1, IOutEdgeGremlinQuery<T1, T2>>.Inject(params T1[] elements) => Inject(elements);
+        IOutEdgeGremlinQuery<T1, T2> IGremlinQueryBaseRec<T1, IOutEdgeGremlinQuery<T1, T2>>.Inject(params T1[] elements) => Inject<T1>(elements);
+        IOutEdgeGremlinQuery<T1, T2> IGremlinQueryBaseRec<T1, IOutEdgeGremlinQuery<T1, T2>>.Inject(params ReadOnlySpan<T1> elements) => Inject(elements);
         
         IOutEdgeGremlinQuery<T1, T2> IGremlinQueryBaseRec<IOutEdgeGremlinQuery<T1, T2>>.Limit(long count) => LimitGlobal(count);
 
@@ -1299,7 +1310,8 @@ namespace ExRam.Gremlinq.Core
 
         IVertexPropertyGremlinQuery<T1, T2> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<T1, T2>>.Identity() => Identity();
 
-        IVertexPropertyGremlinQuery<T1, T2> IGremlinQueryBaseRec<T1, IVertexPropertyGremlinQuery<T1, T2>>.Inject(params T1[] elements) => Inject(elements);
+        IVertexPropertyGremlinQuery<T1, T2> IGremlinQueryBaseRec<T1, IVertexPropertyGremlinQuery<T1, T2>>.Inject(params T1[] elements) => Inject<T1>(elements);
+        IVertexPropertyGremlinQuery<T1, T2> IGremlinQueryBaseRec<T1, IVertexPropertyGremlinQuery<T1, T2>>.Inject(params ReadOnlySpan<T1> elements) => Inject(elements);
         
         IVertexPropertyGremlinQuery<T1, T2> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<T1, T2>>.Limit(long count) => LimitGlobal(count);
 
@@ -1407,7 +1419,8 @@ namespace ExRam.Gremlinq.Core
 
         IVertexPropertyGremlinQuery<T1, T2, T3> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<T1, T2, T3>>.Identity() => Identity();
 
-        IVertexPropertyGremlinQuery<T1, T2, T3> IGremlinQueryBaseRec<T1, IVertexPropertyGremlinQuery<T1, T2, T3>>.Inject(params T1[] elements) => Inject(elements);
+        IVertexPropertyGremlinQuery<T1, T2, T3> IGremlinQueryBaseRec<T1, IVertexPropertyGremlinQuery<T1, T2, T3>>.Inject(params T1[] elements) => Inject<T1>(elements);
+        IVertexPropertyGremlinQuery<T1, T2, T3> IGremlinQueryBaseRec<T1, IVertexPropertyGremlinQuery<T1, T2, T3>>.Inject(params ReadOnlySpan<T1> elements) => Inject(elements);
         
         IVertexPropertyGremlinQuery<T1, T2, T3> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<T1, T2, T3>>.Limit(long count) => LimitGlobal(count);
 
@@ -1515,7 +1528,8 @@ namespace ExRam.Gremlinq.Core
 
         IPropertyGremlinQuery<T1> IGremlinQueryBaseRec<IPropertyGremlinQuery<T1>>.Identity() => Identity();
 
-        IPropertyGremlinQuery<T1> IGremlinQueryBaseRec<T1, IPropertyGremlinQuery<T1>>.Inject(params T1[] elements) => Inject(elements);
+        IPropertyGremlinQuery<T1> IGremlinQueryBaseRec<T1, IPropertyGremlinQuery<T1>>.Inject(params T1[] elements) => Inject<T1>(elements);
+        IPropertyGremlinQuery<T1> IGremlinQueryBaseRec<T1, IPropertyGremlinQuery<T1>>.Inject(params ReadOnlySpan<T1> elements) => Inject(elements);
         
         IPropertyGremlinQuery<T1> IGremlinQueryBaseRec<IPropertyGremlinQuery<T1>>.Limit(long count) => LimitGlobal(count);
 
@@ -1623,7 +1637,8 @@ namespace ExRam.Gremlinq.Core
 
         IStringGremlinQuery<T1> IGremlinQueryBaseRec<IStringGremlinQuery<T1>>.Identity() => Identity();
 
-        IStringGremlinQuery<T1> IGremlinQueryBaseRec<T1, IStringGremlinQuery<T1>>.Inject(params T1[] elements) => Inject(elements);
+        IStringGremlinQuery<T1> IGremlinQueryBaseRec<T1, IStringGremlinQuery<T1>>.Inject(params T1[] elements) => Inject<T1>(elements);
+        IStringGremlinQuery<T1> IGremlinQueryBaseRec<T1, IStringGremlinQuery<T1>>.Inject(params ReadOnlySpan<T1> elements) => Inject(elements);
         
         IStringGremlinQuery<T1> IGremlinQueryBaseRec<IStringGremlinQuery<T1>>.Limit(long count) => LimitGlobal(count);
 
