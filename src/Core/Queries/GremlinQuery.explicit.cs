@@ -95,9 +95,7 @@ namespace ExRam.Gremlinq.Core
 
         IVertexGremlinQuery<object> IEdgeGremlinQueryBase.OtherV() => OtherV<object>();
 
-        IVertexGremlinQuery<TVertex> IEdgeGremlinQueryBase.OtherV<TVertex>() => ((IEdgeGremlinQueryBase)this)
-            .OtherV()
-            .OfType<TVertex>();
+        IVertexGremlinQuery<TVertex> IEdgeGremlinQueryBase.OtherV<TVertex>() => OtherV<TVertex>();
 
         IVertexGremlinQuery<object> IEdgeGremlinQueryBase.OutV() => InOutV<object, GremlinQuery<object, object, object, IGremlinQueryBase>>(OutVStep.Instance);
 

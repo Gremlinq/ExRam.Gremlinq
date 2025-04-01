@@ -1035,12 +1035,13 @@ namespace ExRam.Gremlinq.Core
                     .Order(projection),
                 projection);
 
-        private GremlinQuery<TTarget, object, object, IGremlinQueryBase> OtherV<TTarget>() => this
+        private GremlinQuery<TNewElement, object, object, IGremlinQueryBase> OtherV<TNewElement>() => this
             .Continue()
             .Build(static builder => builder
                 .AddStep(OtherVStep.Instance)
+                .OfType<GremlinQuery<T1, T2, T3, T4>, T1, TNewElement>(builder.OuterQuery.Environment.Model.VerticesModel, false)
                 .WithNewProjection(Projection.Vertex)
-                .AsAuto<TTarget>());
+                .AsAuto<TNewElement>());
 
         private GremlinQuery<object, object, object, IGremlinQueryBase> Out() => this
             .Continue()
