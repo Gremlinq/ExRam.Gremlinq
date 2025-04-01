@@ -1337,7 +1337,7 @@ namespace ExRam.Gremlinq.Core
                     .AsAuto<TNewElement>(),
                 keys);
 
-        private GremlinQuery<TNewElement, object, object, IGremlinQueryBase> ValueMap<TNewElement>(IEnumerable<LambdaExpression> projections)
+        private GremlinQuery<TNewElement, object, object, IGremlinQueryBase> ValueMapForExpressions<TNewElement>(IEnumerable<LambdaExpression> projections)
         {
             var projectionsArray = projections
                 .ToArray<Expression>();
