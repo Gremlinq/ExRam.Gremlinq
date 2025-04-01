@@ -1328,11 +1328,11 @@ namespace ExRam.Gremlinq.Core
                 .WithNewProjection(Projection.Value)
                 .AsAuto<TNewPropertyValue>());
 
-        private GremlinQuery<TNewElement, object, object, IGremlinQueryBase> ValueMap<TNewElement>(ImmutableArray<string> keys) => this
+        private GremlinQuery<TNewElement, object, object, IGremlinQueryBase> ValueMap<TNewElement>(ReadOnlySpan<string> keys) => this
             .Continue()
             .Build(
                 static (builder, keys) => builder
-                    .AddStep(new ValueMapStep(keys))
+                    .AddStep(new ValueMapStep(keys.ToImmutableArray()))
                     .WithNewProjection(Projection.Value)
                     .AsAuto<TNewElement>(),
                 keys);

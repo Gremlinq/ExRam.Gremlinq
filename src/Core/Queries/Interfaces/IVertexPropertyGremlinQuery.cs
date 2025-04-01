@@ -14,8 +14,12 @@ namespace ExRam.Gremlinq.Core
         IGremlinQuery<object> Values(params string[] keys);         //TODO: Span
 
         new IMapGremlinQuery<IDictionary<string, TValue>> ValueMap<TValue>();
-        IMapGremlinQuery<IDictionary<string, TValue>> ValueMap<TValue>(params string[] keys);   //TODO: Span
-        IMapGremlinQuery<IDictionary<string, object>> ValueMap(params string[] keys);           //TODO: Span
+
+        IMapGremlinQuery<IDictionary<string, TValue>> ValueMap<TValue>(params string[] keys);
+        IMapGremlinQuery<IDictionary<string, TValue>> ValueMap<TValue>(params ReadOnlySpan<string> keys);
+
+        IMapGremlinQuery<IDictionary<string, object>> ValueMap(params string[] keys);
+        IMapGremlinQuery<IDictionary<string, object>> ValueMap(params ReadOnlySpan<string> keys);
     }
 
     public interface IVertexPropertyGremlinQueryBase<TProperty, TValue> :
