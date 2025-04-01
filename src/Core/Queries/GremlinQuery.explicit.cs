@@ -163,7 +163,9 @@ namespace ExRam.Gremlinq.Core
 
         IMapGremlinQuery<IDictionary<T1, T1[]>> IGremlinQueryBase<T1>.Group() => Group(static _ => _.ByKey(static __ => __));
 
-        TaskAwaiter IGremlinQueryBase.GetAwaiter() => ((Task)((IGremlinQuery<T1>)this).ToAsyncEnumerable().LastOrDefaultAsync().AsTask()).GetAwaiter();
+        TaskAwaiter IGremlinQueryBase.GetAwaiter() => ((Task)this
+            .LastOrDefaultAsync()
+            .AsTask()).GetAwaiter();
 
         IGremlinQuery<T1> IGremlinQueryBase<T1>.ForceBase() => CloneAs<IGremlinQuery<T1>>();
 
@@ -187,7 +189,10 @@ namespace ExRam.Gremlinq.Core
 
         IGremlinQuery<T1> IGremlinQueryBase<T1>.ForceValue() => CloneAs<IGremlinQuery<T1>>(maybeNewTraversal: Steps.WithProjection(Projection.Value));
 
-        GremlinQueryAwaiter<T1> IGremlinQueryBase<T1>.GetAwaiter() => new((this).ToArrayAsync().AsTask().GetAwaiter());
+        TaskAwaiter<T1[]> IGremlinQueryBase<T1>.GetAwaiter() => this
+            .ToArrayAsync()
+            .AsTask()
+            .GetAwaiter();
 
         IAsyncEnumerable<T1> IGremlinQueryBase<T1>.ToAsyncEnumerable()
         {

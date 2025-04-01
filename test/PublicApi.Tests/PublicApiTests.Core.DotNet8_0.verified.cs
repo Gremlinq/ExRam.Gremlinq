@@ -109,13 +109,6 @@
         public static TTargetQuery AddSteps<TTargetQuery>(this ExRam.Gremlinq.Core.IGremlinQueryAdmin admin, System.Collections.Generic.IEnumerable<ExRam.Gremlinq.Core.Steps.Step> steps)
             where TTargetQuery : ExRam.Gremlinq.Core.IGremlinQueryBase { }
     }
-    public struct GremlinQueryAwaiter<TElement> : System.Runtime.CompilerServices.ICriticalNotifyCompletion, System.Runtime.CompilerServices.INotifyCompletion
-    {
-        public bool IsCompleted { get; }
-        public TElement[] GetResult() { }
-        public void OnCompleted(System.Action continuation) { }
-        public void UnsafeOnCompleted(System.Action continuation) { }
-    }
     public static class GremlinQueryDebugger
     {
         public static readonly ExRam.Gremlinq.Core.IGremlinQueryDebugger Groovy;
@@ -550,7 +543,7 @@
         ExRam.Gremlinq.Core.IVertexPropertyGremlinQuery<TElement, TValue> ForceVertexProperty<TValue>();
         ExRam.Gremlinq.Core.IVertexPropertyGremlinQuery<TElement, TValue, TMeta> ForceVertexProperty<TValue, TMeta>();
         ExRam.Gremlinq.Core.IStringGremlinQuery<string> Format(System.Linq.Expressions.Expression<System.Func<TElement, string>> stringInterpolationExpression);
-        ExRam.Gremlinq.Core.GremlinQueryAwaiter<TElement> GetAwaiter();
+        System.Runtime.CompilerServices.TaskAwaiter<TElement[]> GetAwaiter();
         ExRam.Gremlinq.Core.IMapGremlinQuery<System.Collections.Generic.IDictionary<TElement, TElement[]>> Group();
         ExRam.Gremlinq.Core.IGremlinQuery<TElement> Lower();
         System.Collections.Generic.IAsyncEnumerable<TElement> ToAsyncEnumerable();

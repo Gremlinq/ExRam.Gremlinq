@@ -60,7 +60,7 @@ namespace ExRam.Gremlinq.Core
 
     public interface IGremlinQueryBase<TElement> : IGremlinQueryBase
     {
-        new GremlinQueryAwaiter<TElement> GetAwaiter();
+        new TaskAwaiter<TElement[]> GetAwaiter();
 
         IStringGremlinQuery<string> Format(Expression<Func<TElement, string>> stringInterpolationExpression);
 

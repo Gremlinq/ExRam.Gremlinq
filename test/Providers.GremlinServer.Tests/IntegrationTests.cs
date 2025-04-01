@@ -30,6 +30,10 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
             .Inject(42));
 
         [Fact]
+        public async Task Await_non_generic() => await (IGremlinQueryBase)_g
+            .Inject(42);
+
+        [Fact]
         public async Task FirstAsync() => (await _g
             .Inject(42)
             .FirstAsync(TestContext.Current.CancellationToken))
