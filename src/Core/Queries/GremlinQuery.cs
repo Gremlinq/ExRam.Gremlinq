@@ -818,16 +818,16 @@ namespace ExRam.Gremlinq.Core
                     .AsAuto<TNewElement, T2, T3, T4>(),
                 elements);
 
-        private GremlinQuery<TNewElement, object, object, IGremlinQueryBase> InOutV<TNewElement>(Step step) => this
-            .Continue()
-            .Build(
-                static (builder, step) => builder
-                    .AddStep(step)
-                    .WithNewProjection(Projection.Vertex)
-                    .AsAuto<TNewElement>(),
-                step);
-
-        private GremlinQuery<TNewElement, object, object, IGremlinQueryBase> InV<TNewElement>() => InOutV<TNewElement>(InVStep.Instance);
+        private TNewQuery InOutV<TNewElement, TNewQuery>(Step step)
+            where TNewQuery : IStartGremlinQuery => this
+                .Continue()
+                .Build(
+                    static (builder, step) => builder
+                        .AddStep(step)
+                        .OfType<GremlinQuery<T1, T2, T3, T4>, T1, TNewElement>(builder.OuterQuery.Environment.Model.VerticesModel, false)
+                        .WithNewProjection(Projection.Vertex)
+                        .As<TNewQuery>(),
+                    step);
 
         private GremlinQuery<string, object, object, IGremlinQueryBase> Key() => this
             .Continue()
@@ -1067,8 +1067,6 @@ namespace ExRam.Gremlinq.Core
                 .AddStep(new OutEStep(builder.OuterQuery.Environment.Model.EdgesModel.GetFilterLabelsOrDefault(typeof(TEdge), builder.OuterQuery.Environment.Options.GetValue(GremlinqOption.FilterLabelsVerbosity))))
                 .WithNewProjection(Projection.Edge)
                 .AsAuto<TEdge, T1>());
-
-        private GremlinQuery<TNewElement, object, object, IGremlinQueryBase> OutV<TNewElement>() => InOutV<TNewElement>(OutVStep.Instance);
 
         private GremlinQuery<Path, object, object, IGremlinQueryBase> Path() => this
             .Continue()

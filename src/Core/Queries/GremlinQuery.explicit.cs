@@ -61,13 +61,13 @@ namespace ExRam.Gremlinq.Core
 
         IEdgeGremlinQuery<T1, TNewOutVertex, T3> IInEdgeGremlinQueryBase<T1, T3>.From<TNewOutVertex>(Func<IVertexGremlinQuery<T3>, IVertexGremlinQueryBase<TNewOutVertex>> fromVertexTraversal) => From(fromVertexTraversal);
 
-        IVertexGremlinQuery<T3> IInEdgeGremlinQueryBase<T1, T3>.InV() => InV<T3>();
+        IVertexGremlinQuery<T3> IInEdgeGremlinQueryBase<T1, T3>.InV() => InOutV<object, GremlinQuery<T3, object, object, IGremlinQueryBase>>(InVStep.Instance);
 
         IEdgeGremlinQuery<T1> IInEdgeGremlinQueryBase<T1, T3>.Lower() => this;
 
         IEdgeGremlinQuery<T1> IOutEdgeGremlinQueryBase<T1, T2>.Lower() => this;
 
-        IVertexGremlinQuery<T2> IOutEdgeGremlinQueryBase<T1, T2>.OutV() => OutV<T2>();
+        IVertexGremlinQuery<T2> IOutEdgeGremlinQueryBase<T1, T2>.OutV() => InOutV<object, GremlinQuery<T2, object, object, IGremlinQueryBase>>(OutVStep.Instance);
 
         IEdgeGremlinQuery<T1, T2, TNewInVertex> IOutEdgeGremlinQueryBase<T1, T2>.To<TNewInVertex>(Func<IVertexGremlinQuery<T2>, IVertexGremlinQueryBase<TNewInVertex>> toVertexTraversal) => To(toVertexTraversal);
 
@@ -89,7 +89,7 @@ namespace ExRam.Gremlinq.Core
 
         IOutEdgeGremlinQuery<T1, TNewOutVertex> IEdgeGremlinQueryBase<T1>.From<TNewOutVertex>(Func<IVertexGremlinQueryBase, IVertexGremlinQueryBase<TNewOutVertex>> fromVertexTraversal) => From<TNewOutVertex, object>(fromVertexTraversal);
 
-        IVertexGremlinQuery<object> IEdgeGremlinQueryBase.InV() => InV<object>();
+        IVertexGremlinQuery<object> IEdgeGremlinQueryBase.InV() => InOutV<object, GremlinQuery<object, object, object, IGremlinQueryBase>>(InVStep.Instance);
 
         IVertexGremlinQuery<TVertex> IEdgeGremlinQueryBase.InV<TVertex>() => ((IEdgeGremlinQueryBase)this)
             .InV()
@@ -101,7 +101,7 @@ namespace ExRam.Gremlinq.Core
             .OtherV()
             .OfType<TVertex>();
 
-        IVertexGremlinQuery<object> IEdgeGremlinQueryBase.OutV() => OutV<object>();
+        IVertexGremlinQuery<object> IEdgeGremlinQueryBase.OutV() => InOutV<object, GremlinQuery<object, object, object, IGremlinQueryBase>>(OutVStep.Instance);
 
         IVertexGremlinQuery<TVertex> IEdgeGremlinQueryBase.OutV<TVertex>() => ((IEdgeGremlinQueryBase)this)
             .OutV()
