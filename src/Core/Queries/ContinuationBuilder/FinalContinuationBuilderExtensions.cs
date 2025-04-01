@@ -55,7 +55,7 @@ namespace ExRam.Gremlinq.Core
         public static FinalContinuationBuilder<TOuterQuery, TOuterQuery> OfType<TOuterQuery, TElement, TNewElement>(this FinalContinuationBuilder<TOuterQuery, TOuterQuery> builder, IGraphElementModel model, bool force)
             where TOuterQuery : GremlinQueryBase, IGremlinQueryBase
         {
-            if (force || !typeof(TNewElement).IsAssignableFrom(typeof(TElement)))
+            if (typeof(TNewElement) != typeof(object) && (force || !typeof(TNewElement).IsAssignableFrom(typeof(TElement))))
             {
                 var labels = model.TryGetFilterLabels(typeof(TNewElement), builder.OuterQuery.Environment.Options.GetValue(GremlinqOption.FilterLabelsVerbosity)) ?? ImmutableArray.Create(typeof(TNewElement).Name);
 
