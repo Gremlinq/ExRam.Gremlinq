@@ -810,7 +810,6 @@ namespace ExRam.Gremlinq.Core
                 static (builder, elements) => builder
                     .AddStep(new InjectStep(
                         elements
-                            .Where(static x => x is not null)
                             .Select(static x => (object)x!)
                             .ToImmutableArray()))
                     .WithNewProjection(Projection.Value)

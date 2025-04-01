@@ -731,6 +731,13 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Verify();
 
         [Fact]
+        public virtual Task Concat_strings_to_null() => _g
+            .Inject<object>(42, null!, 43)
+            .AsString()
+            .Concat("a")
+            .Verify();
+
+        [Fact]
         public virtual Task Concat_strings() => _g
             .Inject(42)
             .AsString()
