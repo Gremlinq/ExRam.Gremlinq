@@ -946,22 +946,10 @@ namespace ExRam.Gremlinq.Core
         private TTargetQuery OfType<TNewElement, TTargetQuery>(IGraphElementModel model, bool force = false) where TTargetQuery : IStartGremlinQuery => this
             .Continue()
             .Build(
-                static (builder, tuple) =>
-                {
-                    var (env, model, force) = tuple;
-
-                    if (force || !typeof(TNewElement).IsAssignableFrom(typeof(T1)))
-                    {
-                        var labels = model.TryGetFilterLabels(typeof(TNewElement), env.Options.GetValue(GremlinqOption.FilterLabelsVerbosity)) ?? ImmutableArray.Create(typeof(TNewElement).Name);
-
-                        if (labels.Length > 0)
-                            builder = builder.AddStep(new HasLabelStep(labels));
-                    }
-
-                    return builder
-                        .As<TTargetQuery>();
-                },
-                (Environment, model, force));
+                static (builder, tuple) => builder
+                    .OfType<GremlinQuery<T1, T2, T3, T4>, T1, TNewElement>(tuple.model, tuple.force)
+                    .As<TTargetQuery>(),
+                (model, force));
 
         private TTargetQuery Optional<TTargetQuery>(Func<GremlinQuery<T1, T2, T3, T4>, TTargetQuery> optionalTraversal) where TTargetQuery : IGremlinQueryBase => this
             .Continue()

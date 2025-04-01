@@ -1,4 +1,7 @@
-﻿using ExRam.Gremlinq.Core.Projections;
+﻿using System.Collections.Immutable;
+
+using ExRam.Gremlinq.Core.Models;
+using ExRam.Gremlinq.Core.Projections;
 using ExRam.Gremlinq.Core.Steps;
 
 namespace ExRam.Gremlinq.Core
@@ -48,5 +51,19 @@ namespace ExRam.Gremlinq.Core
                     ? NoneStep.Instance
                     : traversal.Push(NoneStep.Instance),
                 0);
+
+        public static FinalContinuationBuilder<TOuterQuery, TOuterQuery> OfType<TOuterQuery, TElement, TNewElement>(this FinalContinuationBuilder<TOuterQuery, TOuterQuery> builder, IGraphElementModel model, bool force)
+            where TOuterQuery : GremlinQueryBase, IGremlinQueryBase
+        {
+            if (force || !typeof(TNewElement).IsAssignableFrom(typeof(TElement)))
+            {
+                var labels = model.TryGetFilterLabels(typeof(TNewElement), builder.OuterQuery.Environment.Options.GetValue(GremlinqOption.FilterLabelsVerbosity)) ?? ImmutableArray.Create(typeof(TNewElement).Name);
+
+                if (labels.Length > 0)
+                    builder = builder.AddStep(new HasLabelStep(labels));
+            }
+
+            return builder;
+        }
     }
 }
