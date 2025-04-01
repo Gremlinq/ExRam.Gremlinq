@@ -518,6 +518,7 @@
         ExRam.Gremlinq.Core.IArrayGremlinQuery<TElement[], TElement, TSelf> ForceArray();
         ExRam.Gremlinq.Core.IMapGremlinQuery<System.Collections.Generic.IDictionary<TNewKey, TElement[]>> Group<TNewKey>(System.Func<ExRam.Gremlinq.Core.IGroupBuilder<TSelf>, ExRam.Gremlinq.Core.IGroupBuilderWithKey<TSelf, TNewKey>> groupBuilder);
         ExRam.Gremlinq.Core.IMapGremlinQuery<System.Collections.Generic.IDictionary<TNewKey, TNewValue>> Group<TNewKey, TNewValue>(System.Func<ExRam.Gremlinq.Core.IGroupBuilder<TSelf>, ExRam.Gremlinq.Core.IGroupBuilderWithKeyAndValue<TNewKey, TNewValue>> groupBuilder);
+        TSelf Inject(System.ReadOnlySpan<TElement> elements);
         TSelf Inject(params TElement[] elements);
         TSelf Order(System.Func<ExRam.Gremlinq.Core.IOrderBuilder<TElement, TSelf>, ExRam.Gremlinq.Core.IOrderBuilderWithBy<TElement, TSelf>> projection);
         TSelf OrderLocal(System.Func<ExRam.Gremlinq.Core.IOrderBuilder<TElement, TSelf>, ExRam.Gremlinq.Core.IOrderBuilderWithBy<TElement, TSelf>> projection);
@@ -897,15 +898,20 @@
             where TVertex : new();
         ExRam.Gremlinq.Core.IVertexGremlinQuery<TVertex> AddV<TVertex>(TVertex vertex);
         ExRam.Gremlinq.Core.IGremlinQueryAdmin AsAdmin();
+        ExRam.Gremlinq.Core.IEdgeGremlinQuery<object> E(System.ReadOnlySpan<object> ids);
         ExRam.Gremlinq.Core.IEdgeGremlinQuery<object> E(object id);
         ExRam.Gremlinq.Core.IEdgeGremlinQuery<object> E(params object[] ids);
+        ExRam.Gremlinq.Core.IEdgeGremlinQuery<TEdge> E<TEdge>(System.ReadOnlySpan<object> ids);
         ExRam.Gremlinq.Core.IEdgeGremlinQuery<TEdge> E<TEdge>(object id);
         ExRam.Gremlinq.Core.IEdgeGremlinQuery<TEdge> E<TEdge>(params object[] ids);
+        ExRam.Gremlinq.Core.IGremlinQuery<TElement> Inject<TElement>(System.ReadOnlySpan<TElement> elements);
         ExRam.Gremlinq.Core.IGremlinQuery<TElement> Inject<TElement>(params TElement[] elements);
         ExRam.Gremlinq.Core.IEdgeGremlinQuery<TNewEdge> ReplaceE<TNewEdge>(TNewEdge edge);
         ExRam.Gremlinq.Core.IVertexGremlinQuery<TNewVertex> ReplaceV<TNewVertex>(TNewVertex vertex);
+        ExRam.Gremlinq.Core.IVertexGremlinQuery<object> V(System.ReadOnlySpan<object> ids);
         ExRam.Gremlinq.Core.IVertexGremlinQuery<object> V(object id);
         ExRam.Gremlinq.Core.IVertexGremlinQuery<object> V(params object[] ids);
+        ExRam.Gremlinq.Core.IVertexGremlinQuery<TVertex> V<TVertex>(System.ReadOnlySpan<object> ids);
         ExRam.Gremlinq.Core.IVertexGremlinQuery<TVertex> V<TVertex>(object id);
         ExRam.Gremlinq.Core.IVertexGremlinQuery<TVertex> V<TVertex>(params object[] ids);
     }
