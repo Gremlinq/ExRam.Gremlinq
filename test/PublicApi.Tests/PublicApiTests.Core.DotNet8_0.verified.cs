@@ -1588,8 +1588,10 @@
     {
         ExRam.Gremlinq.Core.IElementGremlinQuery<object> Lower();
         ExRam.Gremlinq.Core.IPropertyGremlinQuery<ExRam.Gremlinq.Core.GraphElements.Property<object>> Properties(params string[] keys);
+        ExRam.Gremlinq.Core.IMapGremlinQuery<System.Collections.Generic.IDictionary<string, object>> ValueMap([System.Runtime.CompilerServices.ScopedRef] System.ReadOnlySpan<string> keys);
         ExRam.Gremlinq.Core.IMapGremlinQuery<System.Collections.Generic.IDictionary<string, object>> ValueMap(params string[] keys);
         new ExRam.Gremlinq.Core.IMapGremlinQuery<System.Collections.Generic.IDictionary<string, TValue>> ValueMap<TValue>();
+        ExRam.Gremlinq.Core.IMapGremlinQuery<System.Collections.Generic.IDictionary<string, TValue>> ValueMap<TValue>([System.Runtime.CompilerServices.ScopedRef] System.ReadOnlySpan<string> keys);
         ExRam.Gremlinq.Core.IMapGremlinQuery<System.Collections.Generic.IDictionary<string, TValue>> ValueMap<TValue>(params string[] keys);
         ExRam.Gremlinq.Core.IGremlinQuery<object> Values(params string[] keys);
         new ExRam.Gremlinq.Core.IGremlinQuery<TValue> Values<TValue>();
