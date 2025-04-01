@@ -277,13 +277,13 @@ namespace ExRam.Gremlinq.Core
 
         IVertexGremlinQuery<TVertex> IStartGremlinQuery.V<TVertex>(params object[] ids) => V<TVertex>(ids.ToImmutableArray());
 
-        IEdgeGremlinQuery<object> IStartGremlinQuery.E(object id) => E(ImmutableArray.Create(id));
+        IEdgeGremlinQuery<object> IStartGremlinQuery.E(object id) => E<object>(ImmutableArray.Create(id));
 
-        IEdgeGremlinQuery<object> IStartGremlinQuery.E(params object[] ids) => E(ids.ToImmutableArray());
+        IEdgeGremlinQuery<object> IStartGremlinQuery.E(params object[] ids) => E<object>(ids.ToImmutableArray());
 
-        IEdgeGremlinQuery<TEdge> IStartGremlinQuery.E<TEdge>(object id) => ((IGremlinQuerySource)this).E(id).OfType<TEdge>();
+        IEdgeGremlinQuery<TEdge> IStartGremlinQuery.E<TEdge>(object id) => E<TEdge>(ImmutableArray.Create(id));
 
-        IEdgeGremlinQuery<TEdge> IStartGremlinQuery.E<TEdge>(params object[] ids) => ((IGremlinQuerySource)this).E(ids).OfType<TEdge>();
+        IEdgeGremlinQuery<TEdge> IStartGremlinQuery.E<TEdge>(params object[] ids) => E<TEdge>(ids.ToImmutableArray());
 
         IEdgeGremlinQuery<TNewEdge> IStartGremlinQuery.ReplaceE<TNewEdge>(TNewEdge edge) => ((IGremlinQuerySource)this).E<TNewEdge>(edge!.GetId(Environment)).Update(edge);
 

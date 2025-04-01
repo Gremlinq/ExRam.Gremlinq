@@ -638,13 +638,14 @@ namespace ExRam.Gremlinq.Core
                     [key])
                 .Drop());
 
-        private GremlinQuery<object, object, object, IGremlinQueryBase> E(ImmutableArray<object> ids) => this
+        private GremlinQuery<TNewElement, object, object, IGremlinQueryBase> E<TNewElement>(ImmutableArray<object> ids) => this
             .Continue()
             .Build(
                 static (builder, ids) => builder
                     .AddStep(new EStep(ids))
+                    .OfType<GremlinQuery<T1, T2, T3, T4>, T1, TNewElement>(builder.OuterQuery.Environment.Model.EdgesModel, true)
                     .WithNewProjection(Projection.Edge)
-                    .AsAuto(),
+                    .AsAuto<TNewElement>(),
                 ids);
 
         private GremlinQuery<string, object, object, IGremlinQueryBase> Explain() => this
