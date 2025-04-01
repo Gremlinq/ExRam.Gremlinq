@@ -639,11 +639,11 @@ namespace ExRam.Gremlinq.Core
                     [key])
                 .Drop());
 
-        private GremlinQuery<TNewElement, object, object, IGremlinQueryBase> E<TNewElement>(ImmutableArray<object> ids) => this
+        private GremlinQuery<TNewElement, object, object, IGremlinQueryBase> E<TNewElement>(ReadOnlySpan<object> ids) => this
             .Continue()
             .Build(
                 static (builder, ids) => builder
-                    .AddStep(new EStep(ids))
+                    .AddStep(new EStep(ids.ToImmutableArray()))
                     .OfType<GremlinQuery<T1, T2, T3, T4>, T1, TNewElement>(builder.OuterQuery.Environment.Model.EdgesModel, true)
                     .WithNewProjection(Projection.Edge)
                     .AsAuto<TNewElement>(),

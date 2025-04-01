@@ -11,9 +11,12 @@
         IGremlinQueryAdmin AsAdmin();
 
         IEdgeGremlinQuery<object> E(object id);
-        IEdgeGremlinQuery<object> E(params object[] ids);           //TODO: Span
+        IEdgeGremlinQuery<object> E(params object[] ids);
+        IEdgeGremlinQuery<object> E(params ReadOnlySpan<object> ids);
+
         IEdgeGremlinQuery<TEdge> E<TEdge>(object id);
-        IEdgeGremlinQuery<TEdge> E<TEdge>(params object[] ids);     //TODO: Span
+        IEdgeGremlinQuery<TEdge> E<TEdge>(params object[] ids);
+        IEdgeGremlinQuery<TEdge> E<TEdge>(params ReadOnlySpan<object> ids);
 
         IVertexGremlinQuery<object> V(object id);
         IVertexGremlinQuery<object> V(params object[] ids);
