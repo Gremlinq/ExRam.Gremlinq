@@ -91,9 +91,7 @@ namespace ExRam.Gremlinq.Core
 
         IVertexGremlinQuery<object> IEdgeGremlinQueryBase.InV() => InOutV<object, GremlinQuery<object, object, object, IGremlinQueryBase>>(InVStep.Instance);
 
-        IVertexGremlinQuery<TVertex> IEdgeGremlinQueryBase.InV<TVertex>() => ((IEdgeGremlinQueryBase)this)
-            .InV()
-            .OfType<TVertex>();
+        IVertexGremlinQuery<TVertex> IEdgeGremlinQueryBase.InV<TVertex>() => InOutV<TVertex, GremlinQuery<TVertex, object, object, IGremlinQueryBase>>(InVStep.Instance);
 
         IVertexGremlinQuery<object> IEdgeGremlinQueryBase.OtherV() => OtherV<object>();
 
@@ -103,9 +101,7 @@ namespace ExRam.Gremlinq.Core
 
         IVertexGremlinQuery<object> IEdgeGremlinQueryBase.OutV() => InOutV<object, GremlinQuery<object, object, object, IGremlinQueryBase>>(OutVStep.Instance);
 
-        IVertexGremlinQuery<TVertex> IEdgeGremlinQueryBase.OutV<TVertex>() => ((IEdgeGremlinQueryBase)this)
-            .OutV()
-            .OfType<TVertex>();
+        IVertexGremlinQuery<TVertex> IEdgeGremlinQueryBase.OutV<TVertex>() => InOutV<TVertex, GremlinQuery<TVertex, object, object, IGremlinQueryBase>>(OutVStep.Instance);
 
         IPropertyGremlinQuery<Property<TValue>> IEdgeGremlinQueryBase<T1>.Properties<TValue>(params Expression<Func<T1, TValue>>[] projections) => Properties<Property<TValue>, TValue, object>(Projection.Property, projections);
 
