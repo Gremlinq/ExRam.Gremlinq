@@ -3647,6 +3647,11 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         }
 
         [Fact]
+        public virtual Task V_single_untyped() => _g
+            .V(0)
+            .Verify();
+
+        [Fact]
         public virtual Task V_Both() => _g
             .V()
             .Both<Edge>()
