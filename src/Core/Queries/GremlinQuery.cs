@@ -409,12 +409,13 @@ namespace ExRam.Gremlinq.Core
                 .WithNewProjection(Projection.Edge)
                 .AsAuto<TEdge>());
 
-        private GremlinQuery<TTarget, object, object, IGremlinQueryBase> BothV<TTarget>() => this
+        private GremlinQuery<TNewElement, object, object, IGremlinQueryBase> BothV<TNewElement>() => this
             .Continue()
             .Build(static builder => builder
                 .AddStep(BothVStep.Instance)
+                .OfType<GremlinQuery<T1, T2, T3, T4>, T1, TNewElement>(builder.OuterQuery.Environment.Model.VerticesModel, false)
                 .WithNewProjection(Projection.Vertex)
-                .AsAuto<TTarget>());
+                .AsAuto<TNewElement>());
 
         private GremlinQuery<TSelectedElement, TArrayItem, object, TQuery> Cap<TSelectedElement, TArrayItem, TQuery>(StepLabel<IArrayGremlinQuery<TSelectedElement, TArrayItem, TQuery>, TSelectedElement> stepLabel) where TQuery : IGremlinQueryBase => this
             .Continue()

@@ -81,9 +81,7 @@ namespace ExRam.Gremlinq.Core
 
         IVertexGremlinQuery<object> IEdgeGremlinQueryBase.BothV() => BothV<object>();
 
-        IVertexGremlinQuery<TVertex> IEdgeGremlinQueryBase.BothV<TVertex>() => ((IEdgeGremlinQueryBase)this)
-            .BothV()
-            .OfType<TVertex>();
+        IVertexGremlinQuery<TVertex> IEdgeGremlinQueryBase.BothV<TVertex>() => BothV<TVertex>();
 
         IOutEdgeGremlinQuery<T1, TNewOutVertex> IEdgeGremlinQueryBase<T1>.From<TNewOutVertex>(StepLabel<TNewOutVertex> stepLabel) => From<T1, TNewOutVertex, T3>(stepLabel);
 
