@@ -88,22 +88,22 @@ namespace ExRam.Gremlinq.Core
                 switch (key.RawKey)
                 {
                     case T t:
-                        {
-                            if (t.TryToStep() is { } step)
-                                yield return step;
-                            else
-                                throw new ExpressionNotSupportedException($"Can't find an appropriate Gremlin step for {t}.");
+                    {
+                        if (t.TryToStep() is { } step)
+                            yield return step;
+                        else
+                            throw new ExpressionNotSupportedException($"Can't find an appropriate Gremlin step for {t}.");
 
-                            hasYielded = true;
+                        hasYielded = true;
 
-                            break;
-                        }
+                        break;
+                    }
                     case string str:
-                        {
-                            (stringKeys ??= []).Add(str);
+                    {
+                        (stringKeys ??= []).Add(str);
 
-                            break;
-                        }
+                        break;
+                    }
                     default:
                         throw new ExpressionNotSupportedException($"Can't find an appropriate Gremlin step for {key.RawKey}.");
                 }
