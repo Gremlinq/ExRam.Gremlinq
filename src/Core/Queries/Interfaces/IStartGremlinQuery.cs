@@ -16,9 +16,12 @@
         IEdgeGremlinQuery<TEdge> E<TEdge>(params object[] ids);     //TODO: Span
 
         IVertexGremlinQuery<object> V(object id);
-        IVertexGremlinQuery<object> V(params object[] ids);                 //TODO: Span
+        IVertexGremlinQuery<object> V(params object[] ids);
+        IVertexGremlinQuery<object> V(params ReadOnlySpan<object> ids);
+
         IVertexGremlinQuery<TVertex> V<TVertex>(object id);
-        IVertexGremlinQuery<TVertex> V<TVertex>(params object[] ids);       //TODO: Span
+        IVertexGremlinQuery<TVertex> V<TVertex>(params object[] ids);
+        IVertexGremlinQuery<TVertex> V<TVertex>(params ReadOnlySpan<object> ids);
 
         IGremlinQuery<TElement> Inject<TElement>(params TElement[] elements);
         IGremlinQuery<TElement> Inject<TElement>(params ReadOnlySpan<TElement> elements);

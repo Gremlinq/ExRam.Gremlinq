@@ -1311,11 +1311,11 @@ namespace ExRam.Gremlinq.Core
                         .LowestProjection())
                     .As<TReturnQuery>());
 
-        private GremlinQuery<TNewElement, object, object, IGremlinQueryBase> V<TNewElement>(ImmutableArray<object> ids) => this
+        private GremlinQuery<TNewElement, object, object, IGremlinQueryBase> V<TNewElement>(ReadOnlySpan<object> ids) => this
             .Continue()
             .Build(
                 static (builder, ids) => builder
-                    .AddStep(new VStep(ids))
+                    .AddStep(new VStep(ids.ToImmutableArray()))
                     .OfType<GremlinQuery<T1, T2, T3, T4>, T1, TNewElement>(builder.OuterQuery.Environment.Model.VerticesModel, true)
                     .WithNewProjection(Projection.Vertex)
                     .AsAuto<TNewElement>(),
