@@ -269,13 +269,13 @@ namespace ExRam.Gremlinq.Core
 
         IVertexGremlinQuery<TVertex> IStartGremlinQuery.AddV<TVertex>() => AddV(new TVertex());
 
-        IVertexGremlinQuery<object> IStartGremlinQuery.V(object id) => V(ImmutableArray.Create(id));
+        IVertexGremlinQuery<object> IStartGremlinQuery.V(object id) => V<object>(ImmutableArray.Create(id));
 
-        IVertexGremlinQuery<object> IStartGremlinQuery.V(params object[] ids) => V(ids.ToImmutableArray());
+        IVertexGremlinQuery<object> IStartGremlinQuery.V(params object[] ids) => V<object>(ids.ToImmutableArray());
 
-        IVertexGremlinQuery<TVertex> IStartGremlinQuery.V<TVertex>(object id) => ((IStartGremlinQuery)this).V(id).OfType<TVertex>();
+        IVertexGremlinQuery<TVertex> IStartGremlinQuery.V<TVertex>(object id) => V<TVertex>(ImmutableArray.Create(id));
 
-        IVertexGremlinQuery<TVertex> IStartGremlinQuery.V<TVertex>(params object[] ids) => ((IStartGremlinQuery)this).V(ids).OfType<TVertex>();
+        IVertexGremlinQuery<TVertex> IStartGremlinQuery.V<TVertex>(params object[] ids) => V<TVertex>(ids.ToImmutableArray());
 
         IEdgeGremlinQuery<object> IStartGremlinQuery.E(object id) => E(ImmutableArray.Create(id));
 
