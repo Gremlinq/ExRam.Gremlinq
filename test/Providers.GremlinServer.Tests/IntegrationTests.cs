@@ -66,8 +66,8 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 
         [Fact]
         public async Task SingleAsync() => (await _g
-           .Inject(42)
-           .SingleAsync(TestContext.Current.CancellationToken))
+            .Inject(42)
+            .SingleAsync(TestContext.Current.CancellationToken))
                .Should()
                .Be(42);
 
@@ -113,10 +113,10 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 
         [Fact]
         public async Task LastAsync() => (await _g
-           .Inject(42, 43)
-           .LastAsync(TestContext.Current.CancellationToken))
-               .Should()
-               .Be(43);
+            .Inject(42, 43)
+            .LastAsync(TestContext.Current.CancellationToken))
+                .Should()
+                .Be(43);
 
         [Fact]
         public async Task LastAsync_empty() => await _g
