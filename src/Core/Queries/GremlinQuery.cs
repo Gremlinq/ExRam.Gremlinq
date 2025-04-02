@@ -6,6 +6,7 @@ using System.Collections.Immutable;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using CommunityToolkit.HighPerformance;
 
 using ExRam.Gremlinq.Core.ExpressionParsing;
 using ExRam.Gremlinq.Core.GraphElements;
@@ -1375,21 +1376,20 @@ namespace ExRam.Gremlinq.Core
                 .Build(
                     static (builder, projections) =>
                     {
-                        //TODO: Optimize
-                        var stepsArray = GetStepsForKeys(projections.ToArray().Select(x => builder.OuterQuery.GetKey(x))).ToArray();
+                        var steps = builder.OuterQuery.GetStepsForKeys(projections);
 
-                        if (stepsArray is [])
+                        if (steps is [])
                             throw new ExpressionNotSupportedException();
 
-                        if (stepsArray is [var singleStep])
+                        if (steps is [var singleStep])
                         {
                             builder = builder
                                 .AddStep(singleStep);
                         }
                         else
                         {
-                            builder = builder
-                                .AddStep(new UnionStep(stepsArray.Select(static x => (Traversal)x).ToImmutableArray()));
+                            builder = builder //TODO: Optimize
+                                .AddStep(new UnionStep(steps.ToArray().Select(static x => (Traversal)x).ToImmutableArray()));
                         }
 
                         return builder
