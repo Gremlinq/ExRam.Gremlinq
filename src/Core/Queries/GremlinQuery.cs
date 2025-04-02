@@ -1375,7 +1375,7 @@ namespace ExRam.Gremlinq.Core
                     .AsAuto<TValue>(),
                 0);
 
-        private GremlinQuery<TValue, object, object, IGremlinQueryBase> ValuesForKeys<TValue>(IEnumerable<Key> keys)
+        private GremlinQuery<TValue, object, object, IGremlinQueryBase> ValuesForProjections<TValue>(IEnumerable<LambdaExpression> projections)
         {
             return this
                 .Continue()
@@ -1402,10 +1402,8 @@ namespace ExRam.Gremlinq.Core
                             .WithNewProjection(Projection.Value)
                             .AsAuto<TValue>();
                     },
-                    keys);
+                    projections.Select(GetKey));
         }
-
-        private GremlinQuery<TValue, object, object, IGremlinQueryBase> ValuesForProjections<TValue>(IEnumerable<LambdaExpression> projections) => ValuesForKeys<TValue>(projections.Select(GetKey));
 
         private GremlinQuery<VertexProperty<TNewPropertyValue, TNewMeta>, TNewPropertyValue, TNewMeta, IGremlinQueryBase> VertexProperties<TNewPropertyValue, TNewMeta>(Expression[] projections) => Properties<VertexProperty<TNewPropertyValue, TNewMeta>, TNewPropertyValue, TNewMeta>(Projection.VertexProperty, projections);
 
