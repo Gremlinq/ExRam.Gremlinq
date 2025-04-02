@@ -1377,28 +1377,32 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TValue, object, object, IGremlinQueryBase> ValuesForKeys<TValue>(IEnumerable<Key> keys)
         {
-            var stepsArray = GetStepsForKeys(keys).ToArray();
+            return this
+                .Continue()
+                .Build(
+                    static (builder, keys) =>
+                    {
+                        var stepsArray = GetStepsForKeys(keys).ToArray();
 
-            return stepsArray.Length switch
-            {
-                0 => throw new ExpressionNotSupportedException(),
-                1 => this
-                    .Continue()
-                    .Build(
-                        static (builder, step) => builder
-                            .AddStep(step)
+                        if (stepsArray is [])
+                            throw new ExpressionNotSupportedException();
+
+                        if (stepsArray is [var singleStep])
+                        {
+                            builder = builder
+                                .AddStep(singleStep);
+                        }
+                        else
+                        {
+                            builder = builder
+                                .AddStep(new UnionStep(stepsArray.Select(static x => (Traversal)x).ToImmutableArray()));
+                        }
+
+                        return builder
                             .WithNewProjection(Projection.Value)
-                            .AsAuto<TValue>(),
-                        stepsArray[0]),
-                _ => this
-                    .Continue()
-                    .Build(
-                        static (builder, steps) => builder
-                            .AddStep(new UnionStep(steps.Select(x => (Traversal)x).ToImmutableArray()))
-                            .WithNewProjection(Projection.Value)
-                            .AsAuto<TValue>(),
-                        stepsArray)
-            };
+                            .AsAuto<TValue>();
+                    },
+                    keys);
         }
 
         private GremlinQuery<TValue, object, object, IGremlinQueryBase> ValuesForProjections<TValue>(IEnumerable<LambdaExpression> projections) => ValuesForKeys<TValue>(projections.Select(GetKey));
