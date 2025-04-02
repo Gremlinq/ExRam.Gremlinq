@@ -46,11 +46,14 @@ namespace ExRam.Gremlinq.Core
         IInEdgeGremlinQuery<TEdge, TInVertex> To<TInVertex>(Func<IVertexGremlinQueryBase, IVertexGremlinQueryBase<TInVertex>> toVertexTraversal);
         IInEdgeGremlinQuery<TEdge, TInVertex> To<TInVertex>(StepLabel<TInVertex> stepLabel);
 
-        new IGremlinQuery<TValue> Values<TValue>(params Expression<Func<TEdge, TValue>>[] projections);         //TODO: Span
+        new IGremlinQuery<TValue> Values<TValue>(params Expression<Func<TEdge, TValue>>[] projections);
+        new IGremlinQuery<TValue> Values<TValue>(params ReadOnlySpan<Expression<Func<TEdge, TValue>>> projections);
 
-        IGremlinQuery<TValue> Values<TValue>(params Expression<Func<TEdge, Property<TValue>>>[] projections);   //TODO: Span
+        IGremlinQuery<TValue> Values<TValue>(params Expression<Func<TEdge, Property<TValue>>>[] projections);
+        IGremlinQuery<TValue> Values<TValue>(params ReadOnlySpan<Expression<Func<TEdge, Property<TValue>>>> projections);
 
-        IGremlinQuery<object> Values(params Expression<Func<TEdge, Property<object>>>[] projections);           //TODO: Span
+        IGremlinQuery<object> Values(params Expression<Func<TEdge, Property<object>>>[] projections);
+        IGremlinQuery<object> Values(params ReadOnlySpan<Expression<Func<TEdge, Property<object>>>> projections);
     }
 
     public interface IEdgeGremlinQueryBaseRec<TSelf> : IEdgeGremlinQueryBase, IElementGremlinQueryBaseRec<TSelf>

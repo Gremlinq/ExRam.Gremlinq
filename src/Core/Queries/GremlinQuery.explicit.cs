@@ -117,11 +117,17 @@ namespace ExRam.Gremlinq.Core
 
         IGremlinQuery<TValue> IEdgeGremlinQueryBase<T1>.Values<TValue>(params Expression<Func<T1, Property<TValue>>>[] projections) => ValuesForProjections<TValue>(projections);
 
+        IGremlinQuery<TValue> IEdgeGremlinQueryBase<T1>.Values<TValue>(params ReadOnlySpan<Expression<Func<T1, Property<TValue>>>> projections) => ValuesForProjections<TValue>(projections.Cast().To<LambdaExpression>());
+
         IGremlinQuery<object> IEdgeGremlinQueryBase<T1>.Values(params Expression<Func<T1, Property<object>>>[] projections) => ValuesForProjections<object>(projections);
+
+        IGremlinQuery<object> IEdgeGremlinQueryBase<T1>.Values(params ReadOnlySpan<Expression<Func<T1, Property<object>>>> projections) => ValuesForProjections<object>(projections.Cast().To<LambdaExpression>());
 
         IEdgeGremlinQuery<T1> IEdgeGremlinQueryBase<T1>.Update(T1 element) => AddOrUpdate(element, false);
 
         IGremlinQuery<TTarget> IEdgeGremlinQueryBase<T1>.Values<TTarget>(params Expression<Func<T1, TTarget>>[] projections) => ValuesForProjections<TTarget>(projections);
+
+        IGremlinQuery<TTarget> IEdgeGremlinQueryBase<T1>.Values<TTarget>(params ReadOnlySpan<Expression<Func<T1, TTarget>>> projections) => ValuesForProjections<TTarget>(projections.Cast().To<LambdaExpression>());
 
         IElementGremlinQuery<T1> IEdgeOrVertexGremlinQueryBase<T1>.Lower() => this;
 
@@ -143,7 +149,11 @@ namespace ExRam.Gremlinq.Core
 
         IGremlinQuery<TTarget> IElementGremlinQueryBase<T1>.Values<TTarget>(params Expression<Func<T1, TTarget>>[] projections) => ValuesForProjections<TTarget>(projections);
 
+        IGremlinQuery<TTarget> IElementGremlinQueryBase<T1>.Values<TTarget>(params ReadOnlySpan<Expression<Func<T1, TTarget>>> projections) => ValuesForProjections<TTarget>(projections.Cast().To<LambdaExpression>());
+
         IGremlinQuery<TTarget> IElementGremlinQueryBase<T1>.Values<TTarget>(params Expression<Func<T1, TTarget[]>>[] projections) => ValuesForProjections<TTarget>(projections);
+
+        IGremlinQuery<TTarget> IElementGremlinQueryBase<T1>.Values<TTarget>(params ReadOnlySpan<Expression<Func<T1, TTarget[]>>> projections) => ValuesForProjections<TTarget>(projections.Cast().To<LambdaExpression>());
 
         IMapGremlinQuery<IDictionary<string, TTarget>> IElementGremlinQueryBase<T1>.ValueMap<TTarget>(params Expression<Func<T1, TTarget>>[] keys) => ValueMapForExpressions<IDictionary<string, TTarget>>(keys);
 
@@ -402,13 +412,23 @@ namespace ExRam.Gremlinq.Core
 
         IGremlinQuery<TValue> IVertexGremlinQueryBase<T1>.Values<TValue, TNewMeta>(params Expression<Func<T1, VertexProperty<TValue, TNewMeta>>>[] projections) => ValuesForProjections<TValue>(projections);
 
+        IGremlinQuery<TValue> IVertexGremlinQueryBase<T1>.Values<TValue, TNewMeta>(params ReadOnlySpan<Expression<Func<T1, VertexProperty<TValue, TNewMeta>>>> projections) => ValuesForProjections<TValue>(projections.Cast().To<LambdaExpression>());
+
         IGremlinQuery<TValue> IVertexGremlinQueryBase<T1>.Values<TValue>(params Expression<Func<T1, VertexProperty<TValue>>>[] projections) => ValuesForProjections<TValue>(projections);
+
+        IGremlinQuery<TValue> IVertexGremlinQueryBase<T1>.Values<TValue>(params ReadOnlySpan<Expression<Func<T1, VertexProperty<TValue>>>> projections) => ValuesForProjections<TValue>(projections.Cast().To<LambdaExpression>());
 
         IGremlinQuery<TTarget> IVertexGremlinQueryBase<T1>.Values<TTarget>(params Expression<Func<T1, VertexProperty<TTarget>[]>>[] projections) => ValuesForProjections<TTarget>(projections);
 
+        IGremlinQuery<TTarget> IVertexGremlinQueryBase<T1>.Values<TTarget>(params ReadOnlySpan<Expression<Func<T1, VertexProperty<TTarget>[]>>> projections) => ValuesForProjections<TTarget>(projections.Cast().To<LambdaExpression>());
+
         IGremlinQuery<TTarget> IVertexGremlinQueryBase<T1>.Values<TTarget, TTargetMeta>(params Expression<Func<T1, VertexProperty<TTarget, TTargetMeta>[]>>[] projections) => ValuesForProjections<TTarget>(projections);
 
+        IGremlinQuery<TTarget> IVertexGremlinQueryBase<T1>.Values<TTarget, TTargetMeta>(params ReadOnlySpan<Expression<Func<T1, VertexProperty<TTarget, TTargetMeta>[]>>> projections) => ValuesForProjections<TTarget>(projections.Cast().To<LambdaExpression>());
+
         IGremlinQuery<object> IVertexGremlinQueryBase<T1>.Values(params Expression<Func<T1, VertexProperty<object>>>[] projections) => ValuesForProjections<object>(projections);
+
+        IGremlinQuery<object> IVertexGremlinQueryBase<T1>.Values(params ReadOnlySpan<Expression<Func<T1, VertexProperty<object>>>> projections) => ValuesForProjections<object>(projections.Cast().To<LambdaExpression>());
 
         IVertexGremlinQuery<T1> IVertexGremlinQueryBase<T1>.Update(T1 element) => AddOrUpdate(element, false);
 
@@ -416,7 +436,11 @@ namespace ExRam.Gremlinq.Core
 
         IGremlinQuery<TTarget> IVertexGremlinQueryBase<T1>.Values<TTarget>(params Expression<Func<T1, TTarget>>[] projections) => ValuesForProjections<TTarget>(projections);
 
+        IGremlinQuery<TTarget> IVertexGremlinQueryBase<T1>.Values<TTarget>(params ReadOnlySpan<Expression<Func<T1, TTarget>>> projections) => ValuesForProjections<TTarget>(projections.Cast().To<LambdaExpression>());
+
         IGremlinQuery<TTarget> IVertexGremlinQueryBase<T1>.Values<TTarget>(params Expression<Func<T1, TTarget[]>>[] projections) => ValuesForProjections<TTarget>(projections);
+
+        IGremlinQuery<TTarget> IVertexGremlinQueryBase<T1>.Values<TTarget>(params ReadOnlySpan<Expression<Func<T1, TTarget[]>>> projections) => ValuesForProjections<TTarget>(projections.Cast().To<LambdaExpression>());
 
         IElementGremlinQuery<T1> IVertexPropertyGremlinQueryBase<T1, T2, T3>.Lower() => this;
 
@@ -429,6 +453,8 @@ namespace ExRam.Gremlinq.Core
         IGremlinQuery<T3> IVertexPropertyGremlinQueryBase<T1, T2, T3>.ValueMap() => ValueMap<T3>([]);
 
         IGremlinQuery<TTarget> IVertexPropertyGremlinQueryBase<T1, T2, T3>.Values<TTarget>(params Expression<Func<T3, TTarget>>[] projections) => ValuesForProjections<TTarget>(projections);
+
+        IGremlinQuery<TTarget> IVertexPropertyGremlinQueryBase<T1, T2, T3>.Values<TTarget>(params ReadOnlySpan<Expression<Func<T3, TTarget>>> projections) => ValuesForProjections<TTarget>(projections.Cast().To<LambdaExpression>());
 
         IVertexPropertyGremlinQuery<T1, T2, T3> IVertexPropertyGremlinQueryBase<T1, T2, T3>.Where(Expression<Func<VertexProperty<T2, T3>, bool>> predicate) => Where(predicate);
 

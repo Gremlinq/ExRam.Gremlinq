@@ -35,8 +35,11 @@ namespace ExRam.Gremlinq.Core
 
         IMapGremlinQuery<IDictionary<string, TValue>> ValueMap<TValue>(params Expression<Func<TElement, TValue>>[] keys);   //TODO: Span
 
-        IGremlinQuery<TValue> Values<TValue>(params Expression<Func<TElement, TValue>>[] projections);      //TODO: Span
-        IGremlinQuery<TValue> Values<TValue>(params Expression<Func<TElement, TValue[]>>[] projections);    //TODO: Span
+        IGremlinQuery<TValue> Values<TValue>(params Expression<Func<TElement, TValue>>[] projections);
+        IGremlinQuery<TValue> Values<TValue>(params ReadOnlySpan<Expression<Func<TElement, TValue>>> projections);
+
+        IGremlinQuery<TValue> Values<TValue>(params Expression<Func<TElement, TValue[]>>[] projections);
+        IGremlinQuery<TValue> Values<TValue>(params ReadOnlySpan<Expression<Func<TElement, TValue[]>>> projections);
     }
 
     public interface IElementGremlinQueryBaseRec<TElement, TSelf> :
