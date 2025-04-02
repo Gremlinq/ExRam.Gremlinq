@@ -450,7 +450,11 @@ namespace ExRam.Gremlinq.Core
 
         IGremlinQuery<TValue> IVertexPropertyGremlinQueryBase.Values<TValue>(params string[] keys) => ValuesForStringKeys<TValue>(keys);
 
+        IGremlinQuery<TValue> IVertexPropertyGremlinQueryBase.Values<TValue>(params ReadOnlySpan<string> keys) => ValuesForStringKeys<TValue>(keys);
+
         IGremlinQuery<object> IVertexPropertyGremlinQueryBase.Values(params string[] keys) => ValuesForStringKeys<object>(keys);
+
+        IGremlinQuery<object> IVertexPropertyGremlinQueryBase.Values(params ReadOnlySpan<string> keys) => ValuesForStringKeys<object>(keys);
 
         IPropertyGremlinQuery<Property<object>> IVertexPropertyGremlinQueryBase.Properties(params string[] keys) => Properties<Property<object>, object, object>(Projection.Property, keys);
 

@@ -1593,8 +1593,10 @@
         new ExRam.Gremlinq.Core.IMapGremlinQuery<System.Collections.Generic.IDictionary<string, TValue>> ValueMap<TValue>();
         ExRam.Gremlinq.Core.IMapGremlinQuery<System.Collections.Generic.IDictionary<string, TValue>> ValueMap<TValue>([System.Runtime.CompilerServices.ScopedRef] System.ReadOnlySpan<string> keys);
         ExRam.Gremlinq.Core.IMapGremlinQuery<System.Collections.Generic.IDictionary<string, TValue>> ValueMap<TValue>(params string[] keys);
+        ExRam.Gremlinq.Core.IGremlinQuery<object> Values([System.Runtime.CompilerServices.ScopedRef] System.ReadOnlySpan<string> keys);
         ExRam.Gremlinq.Core.IGremlinQuery<object> Values(params string[] keys);
         new ExRam.Gremlinq.Core.IGremlinQuery<TValue> Values<TValue>();
+        ExRam.Gremlinq.Core.IGremlinQuery<TValue> Values<TValue>([System.Runtime.CompilerServices.ScopedRef] System.ReadOnlySpan<string> keys);
         ExRam.Gremlinq.Core.IGremlinQuery<TValue> Values<TValue>(params string[] keys);
     }
     public interface IVertexPropertyGremlinQueryBase<TProperty, TValue> : ExRam.Gremlinq.Core.IElementGremlinQueryBase, ExRam.Gremlinq.Core.IElementGremlinQueryBase<TProperty>, ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IGremlinQueryBase<TProperty>, ExRam.Gremlinq.Core.IStartGremlinQuery, ExRam.Gremlinq.Core.IVertexPropertyGremlinQueryBase
