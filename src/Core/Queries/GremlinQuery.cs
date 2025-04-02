@@ -1361,19 +1361,12 @@ namespace ExRam.Gremlinq.Core
             .Continue()
             .Build(
                 static (builder, keys) => builder
-                    .AddStep(new ValuesStep(keys.ToImmutableArray()))
+                    .AddStep(keys is []
+                        ? ValuesStep.All
+                        : new ValuesStep(keys.ToImmutableArray()))
                     .WithNewProjection(Projection.Value)
                     .AsAuto<TValue>(),
                 keys);
-
-        private GremlinQuery<TValue, object, object, IGremlinQueryBase> Values<TValue>() => this
-            .Continue()
-            .Build(
-                static (builder, _) => builder
-                    .AddStep(ValuesStep.All)
-                    .WithNewProjection(Projection.Value)
-                    .AsAuto<TValue>(),
-                0);
 
         private GremlinQuery<TValue, object, object, IGremlinQueryBase> ValuesForProjections<TValue>(ReadOnlySpan<LambdaExpression> projections) => this
             .Continue()
