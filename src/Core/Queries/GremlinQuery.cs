@@ -1359,7 +1359,14 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TValue, object, object, IGremlinQueryBase> ValuesForKeys<TValue>(IEnumerable<Key> keys) => ValuesForSteps<TValue>(GetStepsForKeys(keys).ToArray());
 
-        private GremlinQuery<TValue, object, object, IGremlinQueryBase> ValuesForStringKeys<TValue>(IEnumerable<string> keys) => ValuesForSteps<TValue>(GetStepsForKeys(keys.Select(x => (Key)x)).ToArray());
+        private GremlinQuery<TValue, object, object, IGremlinQueryBase> ValuesForStringKeys<TValue>(IEnumerable<string> keys) => this
+            .Continue()
+            .Build(
+                static (builder, keys) => builder
+                    .AddStep(new ValuesStep(keys.ToImmutableArray()))
+                    .WithNewProjection(Projection.Value)
+                    .AsAuto<TValue>(),
+                keys);
 
         private GremlinQuery<TValue, object, object, IGremlinQueryBase> ValuesForSteps<TValue>(Step[] stepsArray)
         { 
