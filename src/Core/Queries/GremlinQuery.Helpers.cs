@@ -109,8 +109,10 @@ namespace ExRam.Gremlinq.Core
                 }
             }
 
-            if (stringKeys?.Count > 0 || !hasYielded)
-                yield return new ValuesStep(stringKeys?.ToImmutableArray() ?? ImmutableArray<string>.Empty);
+            if (stringKeys?.Count > 0)
+                yield return new ValuesStep(stringKeys.ToImmutableArray());
+            else if (!hasYielded)
+                yield return ValuesStep.All;
         }
 
         private IEnumerable<string> GetStringKeys(Expression[] projections)
