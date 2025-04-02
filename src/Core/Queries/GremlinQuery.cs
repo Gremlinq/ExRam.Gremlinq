@@ -6,6 +6,8 @@ using System.Collections.Immutable;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
+
 using CommunityToolkit.HighPerformance;
 
 using ExRam.Gremlinq.Core.ExpressionParsing;
@@ -1388,8 +1390,15 @@ namespace ExRam.Gremlinq.Core
                         }
                         else
                         {
-                            builder = builder //TODO: Optimize
-                                .AddStep(new UnionStep(steps.ToArray().Select(static x => (Traversal)x).ToImmutableArray()));
+                            var traversalArray = new Traversal[steps.Length];
+
+                            for (var i = 0; i < steps.Length; i++)
+                            {
+                                traversalArray[i] = steps[i];
+                            }
+
+                            builder = builder
+                                .AddStep(new UnionStep(ImmutableCollectionsMarshal.AsImmutableArray(traversalArray)));
                         }
 
                         return builder
