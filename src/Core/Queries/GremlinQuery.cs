@@ -1375,12 +1375,13 @@ namespace ExRam.Gremlinq.Core
                     .AsAuto<TValue>(),
                 0);
 
-        private GremlinQuery<TValue, object, object, IGremlinQueryBase> ValuesForProjections<TValue>(IEnumerable<LambdaExpression> projections) => this
+        private GremlinQuery<TValue, object, object, IGremlinQueryBase> ValuesForProjections<TValue>(ReadOnlySpan<LambdaExpression> projections) => this
             .Continue()
             .Build(
-                static (builder, keys) =>
+                static (builder, projections) =>
                 {
-                    var stepsArray = GetStepsForKeys(keys).ToArray();
+                    //TODO: Optimize
+                    var stepsArray = GetStepsForKeys(projections.ToArray().Select(x => builder.OuterQuery.GetKey(x))).ToArray();
 
                     if (stepsArray is [])
                         throw new ExpressionNotSupportedException();
@@ -1400,7 +1401,7 @@ namespace ExRam.Gremlinq.Core
                         .WithNewProjection(Projection.Value)
                         .AsAuto<TValue>();
                 },
-                projections.Select(GetKey));
+                projections);
 
         private GremlinQuery<VertexProperty<TNewPropertyValue, TNewMeta>, TNewPropertyValue, TNewMeta, IGremlinQueryBase> VertexProperties<TNewPropertyValue, TNewMeta>(Expression[] projections) => Properties<VertexProperty<TNewPropertyValue, TNewMeta>, TNewPropertyValue, TNewMeta>(Projection.VertexProperty, projections);
 
