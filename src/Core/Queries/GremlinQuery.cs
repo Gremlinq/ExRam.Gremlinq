@@ -1357,11 +1357,10 @@ namespace ExRam.Gremlinq.Core
                         stringKeys);
         }
 
-        private GremlinQuery<TValue, object, object, IGremlinQueryBase> ValuesForKeys<TValue>(IEnumerable<Key> keys)
-        {
-            var stepsArray = GetStepsForKeys(keys)
-                .ToArray();
+        private GremlinQuery<TValue, object, object, IGremlinQueryBase> ValuesForKeys<TValue>(IEnumerable<Key> keys) => ValuesForSteps<TValue>(GetStepsForKeys(keys).ToArray());
 
+        private GremlinQuery<TValue, object, object, IGremlinQueryBase> ValuesForSteps<TValue>(Step[] stepsArray)
+        { 
             return stepsArray.Length switch
             {
                 0 => throw new ExpressionNotSupportedException(),
