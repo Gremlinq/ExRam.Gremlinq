@@ -1391,19 +1391,13 @@ namespace ExRam.Gremlinq.Core
                             .AsAuto<TValue>(),
                         stepsArray[0]),
                 _ => this
-                    .Union<GremlinQuery<TValue, object, object, IGremlinQueryBase>, GremlinQuery<TValue, object, object, IGremlinQueryBase>>(stepsArray
-                        .Select(static step => new Func<GremlinQuery<T1, T2, T3, T4>, GremlinQuery<TValue, object, object, IGremlinQueryBase>>(__ => __
-                            .Continue()
-                            .Build(
-                                static (builder, step) => builder
-                                    .AddStep(step)
-                                    .WithNewProjection(Projection.Value)
-                                    .AsAuto<TValue>(),
-                                step)))
-                        .ToArray())
                     .Continue()
-                    .Build(static builder => builder
-                        .WithNewProjection(Projection.Value))
+                    .Build(
+                        static (builder, steps) => builder
+                            .AddStep(new UnionStep(steps.Select(x => (Traversal)x).ToImmutableArray()))
+                            .WithNewProjection(Projection.Value)
+                            .AsAuto<TValue>(),
+                        stepsArray)
             };
         }
 
