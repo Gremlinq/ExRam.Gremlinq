@@ -1398,10 +1398,11 @@ namespace ExRam.Gremlinq.Core
                             }
 
                             builder = builder
+                                .AddStep(new UnionStep(
 #if NET8_0_OR_GREATER
-                                .AddStep(new UnionStep(ImmutableCollectionsMarshal.AsImmutableArray(traversalArray)));
+                                    ImmutableCollectionsMarshal.AsImmutableArray(traversalArray)));
 #else
-                                .AddStep(new UnionStep(traversalArray.ToImmutableArray()));
+                                    traversalArray.ToImmutableArray()));
 #endif
                         }
 
