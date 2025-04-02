@@ -4,6 +4,8 @@ namespace ExRam.Gremlinq.Core.Steps
 {
     public sealed class ValuesStep : Step
     {
+        internal static readonly ValuesStep All = new (ImmutableArray<string>.Empty);
+
         public ValuesStep(ImmutableArray<string> keys)
         {
             Keys = keys;

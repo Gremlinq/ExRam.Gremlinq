@@ -135,9 +135,9 @@ namespace ExRam.Gremlinq.Core
 
         IMapGremlinQuery<IDictionary<string, object>> IElementGremlinQueryBase.ValueMap() => ValueMap<IDictionary<string, object>>([]);
 
-        IGremlinQuery<TValue> IElementGremlinQueryBase.Values<TValue>() => ValuesForKeys<TValue>(Array.Empty<Key>());
+        IGremlinQuery<TValue> IElementGremlinQueryBase.Values<TValue>() => Values<TValue>();
 
-        IGremlinQuery<object> IElementGremlinQueryBase.Values() => ValuesForKeys<object>(Array.Empty<Key>());
+        IGremlinQuery<object> IElementGremlinQueryBase.Values() => Values<object>();
 
         IElementGremlinQuery<T1> IElementGremlinQueryBase<T1>.Update(T1 element) => AddOrUpdate(element, false);
 
@@ -446,7 +446,7 @@ namespace ExRam.Gremlinq.Core
 
         IMapGremlinQuery<IDictionary<string, object>> IVertexPropertyGremlinQueryBase.ValueMap(params ReadOnlySpan<string> keys) => ValueMap<IDictionary<string, object>>(keys);
 
-        IGremlinQuery<TValue> IVertexPropertyGremlinQueryBase.Values<TValue>() => ValuesForKeys<TValue>(Array.Empty<Key>());
+        IGremlinQuery<TValue> IVertexPropertyGremlinQueryBase.Values<TValue>() => Values<TValue>();
 
         IGremlinQuery<TValue> IVertexPropertyGremlinQueryBase.Values<TValue>(params string[] keys) => ValuesForStringKeys<TValue>(keys);
 
