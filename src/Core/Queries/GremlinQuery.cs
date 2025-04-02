@@ -1375,35 +1375,32 @@ namespace ExRam.Gremlinq.Core
                     .AsAuto<TValue>(),
                 0);
 
-        private GremlinQuery<TValue, object, object, IGremlinQueryBase> ValuesForProjections<TValue>(IEnumerable<LambdaExpression> projections)
-        {
-            return this
-                .Continue()
-                .Build(
-                    static (builder, keys) =>
+        private GremlinQuery<TValue, object, object, IGremlinQueryBase> ValuesForProjections<TValue>(IEnumerable<LambdaExpression> projections) => this
+            .Continue()
+            .Build(
+                static (builder, keys) =>
+                {
+                    var stepsArray = GetStepsForKeys(keys).ToArray();
+
+                    if (stepsArray is [])
+                        throw new ExpressionNotSupportedException();
+
+                    if (stepsArray is [var singleStep])
                     {
-                        var stepsArray = GetStepsForKeys(keys).ToArray();
+                        builder = builder
+                            .AddStep(singleStep);
+                    }
+                    else
+                    {
+                        builder = builder
+                            .AddStep(new UnionStep(stepsArray.Select(static x => (Traversal)x).ToImmutableArray()));
+                    }
 
-                        if (stepsArray is [])
-                            throw new ExpressionNotSupportedException();
-
-                        if (stepsArray is [var singleStep])
-                        {
-                            builder = builder
-                                .AddStep(singleStep);
-                        }
-                        else
-                        {
-                            builder = builder
-                                .AddStep(new UnionStep(stepsArray.Select(static x => (Traversal)x).ToImmutableArray()));
-                        }
-
-                        return builder
-                            .WithNewProjection(Projection.Value)
-                            .AsAuto<TValue>();
-                    },
-                    projections.Select(GetKey));
-        }
+                    return builder
+                        .WithNewProjection(Projection.Value)
+                        .AsAuto<TValue>();
+                },
+                projections.Select(GetKey));
 
         private GremlinQuery<VertexProperty<TNewPropertyValue, TNewMeta>, TNewPropertyValue, TNewMeta, IGremlinQueryBase> VertexProperties<TNewPropertyValue, TNewMeta>(Expression[] projections) => Properties<VertexProperty<TNewPropertyValue, TNewMeta>, TNewPropertyValue, TNewMeta>(Projection.VertexProperty, projections);
 
