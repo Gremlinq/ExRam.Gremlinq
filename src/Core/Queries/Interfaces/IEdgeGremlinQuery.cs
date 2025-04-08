@@ -38,10 +38,14 @@ namespace ExRam.Gremlinq.Core
 
         new IEdgeOrVertexGremlinQuery<TEdge> Lower();
 
-        IPropertyGremlinQuery<Property<TValue>> Properties<TValue>(params Expression<Func<TEdge, TValue>>[] projections);           //TODO: Span
+        IPropertyGremlinQuery<Property<TValue>> Properties<TValue>(params Expression<Func<TEdge, TValue>>[] projections);
+        IPropertyGremlinQuery<Property<TValue>> Properties<TValue>(params ReadOnlySpan<Expression<Func<TEdge, TValue>>> projections);
 
-        IPropertyGremlinQuery<Property<TValue>> Properties<TValue>(params Expression<Func<TEdge, Property<TValue>>>[] projections); //TODO: Span
-        IPropertyGremlinQuery<Property<object>> Properties(params Expression<Func<TEdge, Property<object>>>[] projections);         //TODO: Span
+        IPropertyGremlinQuery<Property<TValue>> Properties<TValue>(params Expression<Func<TEdge, Property<TValue>>>[] projections);
+        IPropertyGremlinQuery<Property<TValue>> Properties<TValue>(params ReadOnlySpan<Expression<Func<TEdge, Property<TValue>>>> projections);
+
+        IPropertyGremlinQuery<Property<object>> Properties(params Expression<Func<TEdge, Property<object>>>[] projections);
+        IPropertyGremlinQuery<Property<object>> Properties(params ReadOnlySpan<Expression<Func<TEdge, Property<object>>>> projections);
 
         IInEdgeGremlinQuery<TEdge, TInVertex> To<TInVertex>(Func<IVertexGremlinQueryBase, IVertexGremlinQueryBase<TInVertex>> toVertexTraversal);
         IInEdgeGremlinQuery<TEdge, TInVertex> To<TInVertex>(StepLabel<TInVertex> stepLabel);
