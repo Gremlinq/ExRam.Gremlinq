@@ -337,6 +337,7 @@
     {
         ExRam.Gremlinq.Core.IElementGremlinQuery<TElement> Update(TElement element);
         ExRam.Gremlinq.Core.IMapGremlinQuery<System.Collections.Generic.IDictionary<string, TValue>> ValueMap<TValue>(params System.Linq.Expressions.Expression<System.Func<TElement, TValue>>[] keys);
+        ExRam.Gremlinq.Core.IMapGremlinQuery<System.Collections.Generic.IDictionary<string, TValue>> ValueMap<TValue>([System.Runtime.CompilerServices.ScopedRef] System.ReadOnlySpan<System.Linq.Expressions.Expression<System.Func<TElement, TValue>>> keys);
         ExRam.Gremlinq.Core.IGremlinQuery<TValue> Values<TValue>(params System.Linq.Expressions.Expression<System.Func<TElement, TValue>>[] projections);
         ExRam.Gremlinq.Core.IGremlinQuery<TValue> Values<TValue>(params System.Linq.Expressions.Expression<System.Func<TElement, TValue[]>>[] projections);
         ExRam.Gremlinq.Core.IGremlinQuery<TValue> Values<TValue>([System.Runtime.CompilerServices.ScopedRef] System.ReadOnlySpan<System.Linq.Expressions.Expression<System.Func<TElement, TValue>>> projections);
