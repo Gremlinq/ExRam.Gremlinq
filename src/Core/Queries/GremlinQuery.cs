@@ -1104,20 +1104,7 @@ namespace ExRam.Gremlinq.Core
                 .Map(continuation)
                 .Build();
 
-        private GremlinQuery<TNewElement, TNewPropertyValue, TNewMeta, IGremlinQueryBase> Properties<TNewElement, TNewPropertyValue, TNewMeta>(Projection projection, ReadOnlySpan<LambdaExpression> projections)
-        {
-            var stringKeys = new string[projections.Length];
-
-            for (var i = 0; i < projections.Length; i++)
-            {
-                if (GetKey(projections[i]).RawKey is string stringKey)
-                    stringKeys[i] = stringKey;
-                else
-                    throw new ExpressionNotSupportedException();
-            }
-
-            return Properties<TNewElement, TNewPropertyValue, TNewMeta>(projection, stringKeys);
-        }
+        private GremlinQuery<TNewElement, TNewPropertyValue, TNewMeta, IGremlinQueryBase> Properties<TNewElement, TNewPropertyValue, TNewMeta>(Projection projection, ReadOnlySpan<LambdaExpression> projections) => Properties<TNewElement, TNewPropertyValue, TNewMeta>(projection, GetStringKeys(projections));
 
         private GremlinQuery<TNewElement, TNewPropertyValue, TNewMeta, IGremlinQueryBase> Properties<TNewElement, TNewPropertyValue, TNewMeta>(Projection projection, ReadOnlySpan<string> keys) => this
             .Continue()
@@ -1354,24 +1341,19 @@ namespace ExRam.Gremlinq.Core
                     .AsAuto<TNewElement>(),
                 keys);
 
-        private GremlinQuery<TNewElement, object, object, IGremlinQueryBase> ValueMapForExpressions<TNewElement>(IEnumerable<LambdaExpression> projections)
+        private GremlinQuery<TNewElement, object, object, IGremlinQueryBase> ValueMapForExpressions<TNewElement>(ReadOnlySpan<LambdaExpression> projections)
         {
-            var projectionsArray = projections
-                .ToArray<Expression>();
-
-            var stringKeys = GetStringKeys(projectionsArray)
+            var stringKeys = GetStringKeys(projections)
                 .ToImmutableArray();
 
-            return stringKeys.Length != projectionsArray.Length
-                ? throw new ExpressionNotSupportedException($"One of the expressions in {nameof(ValueMap)} maps to a {nameof(T)}-token. Can't have special tokens in {nameof(ValueMap)}.")
-                : this
-                    .Continue()
-                    .Build(
-                        static (builder, stringKeys) => builder
-                            .AddStep(new ValueMapStep(stringKeys))
-                            .WithNewProjection(Projection.Value)
-                            .AsAuto<TNewElement>(),
-                        stringKeys);
+            return this
+                .Continue()
+                .Build(
+                    static (builder, stringKeys) => builder
+                        .AddStep(new ValueMapStep(stringKeys))
+                        .WithNewProjection(Projection.Value)
+                        .AsAuto<TNewElement>(),
+                    stringKeys);
         }
 
         private GremlinQuery<TValue, object, object, IGremlinQueryBase> ValuesForStringKeys<TValue>(ReadOnlySpan<string> keys) => this

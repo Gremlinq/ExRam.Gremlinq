@@ -122,13 +122,19 @@ namespace ExRam.Gremlinq.Core
             return ret.AsSpan()[..count];
         }
 
-        private IEnumerable<string> GetStringKeys(Expression[] projections)
+        private ReadOnlySpan<string> GetStringKeys(ReadOnlySpan<LambdaExpression> projections)
         {
-            foreach (var projection in projections)
+            var stringKeys = new string[projections.Length];
+
+            for (var i = 0; i < projections.Length; i++)
             {
-                if (GetKey(projection).RawKey is string str)
-                    yield return str;
+                if (GetKey(projections[i]).RawKey is string stringKey)
+                    stringKeys[i] = stringKey;
+                else
+                    throw new ExpressionNotSupportedException(projections[i]);
             }
+
+            return stringKeys;
         }
 
         private Projection GetLabelProjection(StepLabel stepLabel)
