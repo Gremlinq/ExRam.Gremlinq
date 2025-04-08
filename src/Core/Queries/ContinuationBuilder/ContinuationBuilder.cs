@@ -4,6 +4,10 @@
         where TOuterQuery : GremlinQueryBase, IGremlinQueryBase
         where TNewQuery : IStartGremlinQuery;
 
+    internal delegate FinalContinuationBuilder<TOuterQuery, TNewQuery> SpanStateBuilderTransformation<TOuterQuery, TSpanState, TState, TNewQuery>(FinalContinuationBuilder<TOuterQuery, TOuterQuery> a, ReadOnlySpan<TSpanState> b, TState c)
+        where TOuterQuery : GremlinQueryBase, IGremlinQueryBase
+        where TNewQuery : IStartGremlinQuery;
+
     internal readonly struct ContinuationBuilder<TOuterQuery, TAnonymousQuery>
         where TOuterQuery : GremlinQueryBase, IGremlinQueryBase
         where TAnonymousQuery : GremlinQueryBase, IGremlinQueryBase
@@ -35,5 +39,8 @@
 
         public TNewQuery Build<TNewQuery, TState>(Func<FinalContinuationBuilder<TOuterQuery, TOuterQuery>, TState, TNewQuery> builderTransformation, TState state)
             where TNewQuery : IStartGremlinQuery => builderTransformation(new FinalContinuationBuilder<TOuterQuery, TOuterQuery>(_outer), state);
+
+        public TNewQuery Build<TNewQuery, TSpanState, TState>(SpanStateBuilderTransformation<TOuterQuery, TSpanState, TState, TNewQuery> builderTransformation, ReadOnlySpan<TSpanState> spanState, TState state)
+            where TNewQuery : IStartGremlinQuery => builderTransformation(new FinalContinuationBuilder<TOuterQuery, TOuterQuery>(_outer), spanState, state).Build();
     }
 }

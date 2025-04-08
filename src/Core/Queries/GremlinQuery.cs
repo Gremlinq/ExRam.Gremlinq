@@ -175,7 +175,7 @@ namespace ExRam.Gremlinq.Core
                     .SideEffect(__ => __
                         .Properties<object, object, object>(
                             Projection.Empty,
-                            droppableKeys)
+                            droppableKeys.AsSpan())
                         .Drop());
             }
 
@@ -1100,20 +1100,30 @@ namespace ExRam.Gremlinq.Core
                 .Map(continuation)
                 .Build();
 
-        private GremlinQuery<TNewElement, TNewPropertyValue, TNewMeta, IGremlinQueryBase> Properties<TNewElement, TNewPropertyValue, TNewMeta>(Projection projection, Expression[] projections) => Properties<TNewElement, TNewPropertyValue, TNewMeta>(
-            projection,
-            projections
-                .Select(projection => GetKey(projection).RawKey)
-                .OfType<string>());
+        private GremlinQuery<TNewElement, TNewPropertyValue, TNewMeta, IGremlinQueryBase> Properties<TNewElement, TNewPropertyValue, TNewMeta>(Projection projection, Expression[] projections)
+        {
+            var stringKeys = new string[projections.Length];
 
-        private GremlinQuery<TNewElement, TNewPropertyValue, TNewMeta, IGremlinQueryBase> Properties<TNewElement, TNewPropertyValue, TNewMeta>(Projection projection, IEnumerable<string> keys) => this
+            for (var i = 0; i < projections.Length; i++)
+            {
+                if (GetKey(projections[i]).RawKey is string stringKey)
+                    stringKeys[i] = stringKey;
+                else
+                    throw new ExpressionNotSupportedException();
+            }
+
+            return Properties<TNewElement, TNewPropertyValue, TNewMeta>(projection, stringKeys);
+        }
+
+        private GremlinQuery<TNewElement, TNewPropertyValue, TNewMeta, IGremlinQueryBase> Properties<TNewElement, TNewPropertyValue, TNewMeta>(Projection projection, ReadOnlySpan<string> keys) => this
             .Continue()
             .Build(
-                static (builder, tuple) => builder
-                    .AddStep(new PropertiesStep(tuple.keys.ToImmutableArray()))
-                    .WithNewProjection(tuple.projection)
+                static (builder, keys, projection) => builder
+                    .AddStep(new PropertiesStep(keys.ToImmutableArray()))
+                    .WithNewProjection(projection)
                     .AsAuto<TNewElement, TNewPropertyValue, TNewMeta>(),
-                (keys, projection));
+                keys,
+                projection);
 
         private GremlinQuery<T1, T2, T3, T4> Property(LambdaExpression projection, object? value) => Property(GetKey(projection), value);
 
