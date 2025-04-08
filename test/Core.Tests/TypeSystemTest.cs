@@ -43,7 +43,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             _g
                 .V<Vertex>()
-                .Properties(x => x.String)
+                .Properties(x => x.String!)
                 .Should()
                 .BeAssignableTo<IVertexPropertyGremlinQuery<VertexProperty<string>, string>>();
         }
@@ -345,7 +345,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             _g
                 .E<Edge>()
-                .Properties(x => x.String)
+                .Properties(x => x.String!)
                 .Should()
                 .BeAssignableTo<IPropertyGremlinQuery<Property<string>>>();
         }
