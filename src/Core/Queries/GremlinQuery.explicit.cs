@@ -163,6 +163,8 @@ namespace ExRam.Gremlinq.Core
 
         IMapGremlinQuery<IDictionary<string, TTarget>> IElementGremlinQueryBase<T1>.ValueMap<TTarget>(params Expression<Func<T1, TTarget>>[] keys) => ValueMapForExpressions<IDictionary<string, TTarget>>(keys);
 
+        IMapGremlinQuery<IDictionary<string, TTarget>> IElementGremlinQueryBase<T1>.ValueMap<TTarget>(params ReadOnlySpan<Expression<Func<T1, TTarget>>> keys) => ValueMapForExpressions<IDictionary<string, TTarget>>(keys.Cast().To<LambdaExpression>());
+
         IMapGremlinQuery<T1> IGremlinQueryBase<T1>.ForceValueTuple() => CloneAs<IMapGremlinQuery<T1>>(maybeNewTraversal: Steps.WithProjection(Projection.Value));
 
         IArrayGremlinQuery<T1[], T1, IGremlinQuery<T1>> IGremlinQueryBase<T1>.ForceArray() => CloneAs<IArrayGremlinQuery<T1[], T1, IGremlinQuery<T1>>>(maybeNewTraversal: Steps.WithProjection(Projection.Value.Fold()));
