@@ -229,7 +229,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             _g
                 .V<Vertex>()
-                .Values(x => x.String)
+                .Values(x => x.String!)
                 .Should()
                 .BeAssignableTo<IGremlinQuery<string>>();
         }
@@ -375,7 +375,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             _g
                 .E<Edge>()
-                .Values(x => x.String)
+                .Values(x => x.String!)
                 .Should()
                 .BeAssignableTo<IGremlinQuery<string>>();
         }
@@ -407,22 +407,22 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Vertex>()
                 .Project(p => p
                     .ToTuple()
-                    .By(__ => __.Values(x => x.String))
-                    .By(__ => __.Values(x => x.String))
-                    .By(__ => __.Values(x => x.String))
-                    .By(__ => __.Values(x => x.String))
-                    .By(__ => __.Values(x => x.String))
-                    .By(__ => __.Values(x => x.String))
-                    .By(__ => __.Values(x => x.String))
-                    .By(__ => __.Values(x => x.String))
-                    .By(__ => __.Values(x => x.String))
-                    .By(__ => __.Values(x => x.String))
-                    .By(__ => __.Values(x => x.String))
-                    .By(__ => __.Values(x => x.String))
-                    .By(__ => __.Values(x => x.String))
-                    .By(__ => __.Values(x => x.String))
-                    .By(__ => __.Values(x => x.String))
-                    .By(__ => __.Values(x => x.String)))
+                    .By(__ => __.Values(x => x.String!))
+                    .By(__ => __.Values(x => x.String!))
+                    .By(__ => __.Values(x => x.String!))
+                    .By(__ => __.Values(x => x.String!))
+                    .By(__ => __.Values(x => x.String!))
+                    .By(__ => __.Values(x => x.String!))
+                    .By(__ => __.Values(x => x.String!))
+                    .By(__ => __.Values(x => x.String!))
+                    .By(__ => __.Values(x => x.String!))
+                    .By(__ => __.Values(x => x.String!))
+                    .By(__ => __.Values(x => x.String!))
+                    .By(__ => __.Values(x => x.String!))
+                    .By(__ => __.Values(x => x.String!))
+                    .By(__ => __.Values(x => x.String!))
+                    .By(__ => __.Values(x => x.String!))
+                    .By(__ => __.Values(x => x.String!)))
                 .Should()
                 .BeAssignableTo<IGremlinQuery<(string, string, string, string, string, string, string, string, string, string, string, string, string, string, string, string)>>();
         }

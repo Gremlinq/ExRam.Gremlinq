@@ -1570,7 +1570,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual Task OrderBy_ThenByDescending_traversal() => _g
             .V<Person>()
             .Where(x => x.Name != null)
-            .Where(x => x.Values(y => y.Gender))
+            .Where(x => x.Values(y => y.Gender!))
             .Order(b => b
                 .By(__ => __.Values(x => x.Name!))
                 .ByDescending(__ => __.Gender))
@@ -1588,7 +1588,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual Task OrderBy_traversal_ThenBy() => _g
             .V<Person>()
             .Where(x => x.Name != null)
-            .Where(x => x.Values(y => y.Gender))
+            .Where(x => x.Values(y => y.Gender!))
             .Order(b => b
                 .By(__ => __.Values(x => x.Name!))
                 .By(__ => __.Gender))
@@ -1598,10 +1598,10 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual Task OrderBy_traversal_ThenBy_traversal() => _g
             .V<Person>()
             .Where(x => x.Name != null)
-            .Where(x => x.Values(y => y.Gender))
+            .Where(x => x.Values(y => y.Gender!))
             .Order(b => b
                 .By(__ => __.Values(x => x.Name!))
-                .By(__ => __.Values(x => x.Gender)))
+                .By(__ => __.Values(x => x.Gender!)))
             .Verify();
 
         [Fact]
@@ -4196,19 +4196,19 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task Values_2_members() => _g
             .V<Person>()
-            .Values(x => x.Name, x => x.Id)
+            .Values(x => x.Name!, x => x.Id!)
             .Verify();
 
         [Fact]
         public virtual Task Values_3_members() => _g
             .V<Person>()
-            .Values(x => x.Name, x => x.Gender, x => x.Id)
+            .Values(x => x.Name!, x => x.Gender!, x => x.Id!)
             .Verify();
 
         [Fact]
         public virtual Task Values_id_member() => _g
             .V<Person>()
-            .Values(x => x.Id)
+            .Values(x => x.Id!)
             .Verify();
 
         [Fact]
@@ -5289,10 +5289,10 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .V<Person>()
             .Where(__ => __
                 .As((__, person1) => __
-                    .Values(x => x.Gender)
+                    .Values(x => x.Gender!)
                     .As((__, gender1) => __
                         .V<Person>()
-                        .Values(x => x.Gender)
+                        .Values(x => x.Gender!)
                             .As((__, gender2) => __
                                 .Where(p => gender1.Value < gender2.Value)))))
             .Verify();
@@ -5453,7 +5453,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual Task Where_Values_Id_Where() => _g
             .V<Person>()
             .Where(x => x
-                .Values(x => x.Id)
+                .Values(x => x.Id!)
                 .Where(id => (long)id! == 1L))
             .Verify();
 
@@ -5461,7 +5461,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual Task Where_Values_Label_Where() => _g
             .V<Vertex>()
             .Where(x => x
-                .Values(x => x.Label)
+                .Values(x => x.Label!)
                 .Where(label => label == "Person"))
             .Verify();
 
