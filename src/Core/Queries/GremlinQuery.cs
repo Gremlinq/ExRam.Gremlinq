@@ -175,7 +175,11 @@ namespace ExRam.Gremlinq.Core
                     .SideEffect(__ => __
                         .Properties<object, object, object>(
                             Projection.Empty,
-                            droppableKeys.AsSpan())
+#if NET5_0_OR_GREATER
+                            CollectionsMarshal.AsSpan(droppableKeys))
+#else
+                            droppableKeys.ToArray())
+#endif
                         .Drop());
             }
 
