@@ -175,6 +175,14 @@ namespace ExRam.Gremlinq.Core.Tests
             .Lower();
 
         [Fact]
+        public void Properties_on_id_throws() => _g
+            .V<Vertex>()
+            .Invoking(_ => _
+                .Properties(x => x.Id!))
+            .Should()
+            .Throw<ExpressionNotSupportedException>();
+
+        [Fact]
         public void No_parameterless_non_generic_method_throws()
         {
             var query = _g
