@@ -104,7 +104,6 @@ namespace ExRam.Gremlinq.Support.TestContainers
 
             public IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory> WithPoolSize(int poolSize) => throw new NotSupportedException();
 
-
             private async ValueTask<IContainer?> TryCreateContainer(CancellationToken ct)
             {
                 while (true)
