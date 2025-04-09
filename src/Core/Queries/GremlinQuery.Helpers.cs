@@ -80,10 +80,9 @@ namespace ExRam.Gremlinq.Core
         // ReSharper disable once SuggestBaseTypeForParameter
         private ReadOnlySpan<Step> GetStepsForKeys(ReadOnlySpan<LambdaExpression> projections)
         {
-            var count = 0;
-            var stringKeys = default(List<string>?);
-
-            var ret = new Step[projections.Length];
+            var tStepCount = 0;
+            var stringKeyCount = 0;
+            Span<object> objects = new object[projections.Length];
 
             foreach (var projection in projections)
             {
@@ -94,7 +93,7 @@ namespace ExRam.Gremlinq.Core
                     case T t:
                     {
                         if (t.TryToStep() is { } step)
-                            ret[count++] = step;
+                            objects[tStepCount++] = step;
                         else
                             throw new ExpressionNotSupportedException($"Can't find an appropriate Gremlin step for {t}.");
 
@@ -102,7 +101,7 @@ namespace ExRam.Gremlinq.Core
                     }
                     case string str:
                     {
-                        (stringKeys ??= []).Add(str);
+                        objects[^(++stringKeyCount)] = str;
 
                         break;
                     }
@@ -111,10 +110,10 @@ namespace ExRam.Gremlinq.Core
                 }
             }
 
-            if (stringKeys?.Count > 0)
-                ret[count++] = new ValuesStep(stringKeys.ToImmutableArray());
+            if (stringKeyCount > 0)
+                objects[tStepCount++] = new ValuesStep(objects[^stringKeyCount..].Cast().To<string>().ToImmutableArray());
 
-            return ret.AsSpan()[..count];
+            return objects[..tStepCount].Cast().To<Step>();
         }
 
         private ReadOnlySpan<string> GetStringKeys(ReadOnlySpan<LambdaExpression> projections)

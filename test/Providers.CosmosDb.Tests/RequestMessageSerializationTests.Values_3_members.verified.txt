@@ -8,8 +8,8 @@
     },
     bindings: {
       _a: Person,
-      _b: Name,
-      _c: Gender
+      _b: Gender,
+      _c: Name
     },
     gremlin: g.V().hasLabel(_a).union(__.id(),__.values(_b,_c))
   }

@@ -36,6 +36,8 @@ namespace ExRam.Gremlinq.Core
             return true;
         }
 
+        public static SpanCast<TSource> Cast<TSource>(this Span<TSource> span) where TSource : class => new(span);
+
         public static SpanCast<TSource> Cast<TSource>(this ReadOnlySpan<TSource> span) where TSource : class => new (span);
     }
 }

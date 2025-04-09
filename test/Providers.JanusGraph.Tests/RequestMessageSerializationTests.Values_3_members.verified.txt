@@ -32,8 +32,8 @@
                 {
                   OperatorName: values,
                   Arguments: [
-                    Name,
-                    Gender
+                    Gender,
+                    Name
                   ]
                 }
               ]
