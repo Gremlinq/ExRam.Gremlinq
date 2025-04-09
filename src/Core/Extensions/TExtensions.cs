@@ -6,16 +6,13 @@ namespace ExRam.Gremlinq.Core
 {
     internal static class TExtensions
     {
-        public static Step? TryToStep(this T t)
+        public static Step? TryToStep(this T t) => t.EnumValue switch
         {
-            return t.EnumValue switch
-            {
-                "id" => IdStep.Instance,
-                "label" => LabelStep.Instance,
-                "key" => KeyStep.Instance,
-                "value" => ValueStep.Instance,
-                _ => null
-            };
-        }
+            "id" => IdStep.Instance,
+            "label" => LabelStep.Instance,
+            "key" => KeyStep.Instance,
+            "value" => ValueStep.Instance,
+            _ => null
+        };
     }
 }
