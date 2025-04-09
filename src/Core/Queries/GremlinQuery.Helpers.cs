@@ -86,25 +86,12 @@ namespace ExRam.Gremlinq.Core
 
             foreach (var projection in projections)
             {
-                var key = GetKey(projection);
-
-                switch (key.RawKey)
+                _ = GetKey(projection).RawKey switch
                 {
-                    case T t when t.TryToStep() is { } step:
-                    {
-                        objects[tStepCount++] = step;
-
-                        break;
-                    }
-                    case string str:
-                    {
-                        objects[^(++stringKeyCount)] = str;
-
-                        break;
-                    }
-                    default:
-                        throw new ExpressionNotSupportedException(projection);
-                }
+                    T t when t.TryToStep() is { } step => objects[tStepCount++] = step,
+                    string str => objects[^(++stringKeyCount)] = str,
+                    _ => throw new ExpressionNotSupportedException(projection)
+                };
             }
 
             if (stringKeyCount > 0)
