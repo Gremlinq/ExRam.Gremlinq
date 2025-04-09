@@ -90,12 +90,9 @@ namespace ExRam.Gremlinq.Core
 
                 switch (key.RawKey)
                 {
-                    case T t:
+                    case T t when t.TryToStep() is { } step:
                     {
-                        if (t.TryToStep() is { } step)
-                            objects[tStepCount++] = step;
-                        else
-                            throw new ExpressionNotSupportedException($"Can't find an appropriate Gremlin step for {t}.");
+                        objects[tStepCount++] = step;
 
                         break;
                     }
@@ -106,7 +103,7 @@ namespace ExRam.Gremlinq.Core
                         break;
                     }
                     default:
-                        throw new ExpressionNotSupportedException($"Can't find an appropriate Gremlin step for {key.RawKey}.");
+                        throw new ExpressionNotSupportedException(projection);
                 }
             }
 
