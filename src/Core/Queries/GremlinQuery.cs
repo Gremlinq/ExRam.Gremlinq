@@ -1341,20 +1341,14 @@ namespace ExRam.Gremlinq.Core
                     .AsAuto<TNewElement>(),
                 keys);
 
-        private GremlinQuery<TNewElement, object, object, IGremlinQueryBase> ValueMapForExpressions<TNewElement>(ReadOnlySpan<LambdaExpression> projections)
-        {
-            var stringKeys = GetStringKeys(projections)
-                .ToImmutableArray();
-
-            return this
-                .Continue()
-                .Build(
-                    static (builder, stringKeys) => builder
-                        .AddStep(new ValueMapStep(stringKeys))
-                        .WithNewProjection(Projection.Value)
-                        .AsAuto<TNewElement>(),
-                    stringKeys);
-        }
+        private GremlinQuery<TNewElement, object, object, IGremlinQueryBase> ValueMapForExpressions<TNewElement>(ReadOnlySpan<LambdaExpression> projections) => this
+            .Continue()
+            .Build(
+                static (builder, stringKeys) => builder
+                    .AddStep(new ValueMapStep(stringKeys.ToImmutableArray()))
+                    .WithNewProjection(Projection.Value)
+                    .AsAuto<TNewElement>(),
+                GetStringKeys(projections));
 
         private GremlinQuery<TValue, object, object, IGremlinQueryBase> ValuesForStringKeys<TValue>(ReadOnlySpan<string> keys) => this
             .Continue()
