@@ -81,7 +81,6 @@ namespace ExRam.Gremlinq.Core
         private ReadOnlySpan<Step> GetStepsForKeys(ReadOnlySpan<LambdaExpression> projections)
         {
             var count = 0;
-            var hasYielded = false;
             var stringKeys = default(List<string>?);
 
             var ret = new Step[projections.Length];
@@ -99,8 +98,6 @@ namespace ExRam.Gremlinq.Core
                         else
                             throw new ExpressionNotSupportedException($"Can't find an appropriate Gremlin step for {t}.");
 
-                        hasYielded = true;
-
                         break;
                     }
                     case string str:
@@ -116,8 +113,6 @@ namespace ExRam.Gremlinq.Core
 
             if (stringKeys?.Count > 0)
                 ret[count++] = new ValuesStep(stringKeys.ToImmutableArray());
-            else if (!hasYielded)
-                ret[count++] = ValuesStep.All;
 
             return ret.AsSpan()[..count];
         }
