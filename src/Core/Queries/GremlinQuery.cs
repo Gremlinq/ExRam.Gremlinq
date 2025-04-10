@@ -1349,7 +1349,9 @@ namespace ExRam.Gremlinq.Core
             .Continue()
             .Build(
                 static (builder, keys) => builder
-                    .AddStep(new ValueMapStep(keys))
+                    .AddStep(keys.Length == 0
+                        ? ValueMapStep.All
+                        : new ValueMapStep(keys))
                     .WithNewProjection(Projection.Value)
                     .AsAuto<TNewElement>(),
                 keys);
