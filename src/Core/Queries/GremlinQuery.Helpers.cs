@@ -78,7 +78,7 @@ namespace ExRam.Gremlinq.Core
                     .Key;
         }
 
-        private ImmutableArray<string> GetStringKeys(ReadOnlySpan<LambdaExpression> projections)
+        private ImmutableArray<string> GetStringKeyArray(ReadOnlySpan<LambdaExpression> projections)
         {
             var stringKeys = new string[projections.Length];
 
