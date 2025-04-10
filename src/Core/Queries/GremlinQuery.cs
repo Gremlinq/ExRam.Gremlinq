@@ -729,7 +729,7 @@ namespace ExRam.Gremlinq.Core
                         }
 
                         builder = builder
-                           .AddStep(new FormatStep(format, newArguments.ToImmutableArray()));
+                           .AddStep(new FormatStep(format, newArguments.UnsafeToImmutableArray()));
 
                         for (var i = 0; i < argumentExpressions.Length; i++)
                         {
