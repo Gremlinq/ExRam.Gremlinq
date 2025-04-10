@@ -1349,7 +1349,7 @@ namespace ExRam.Gremlinq.Core
             .Continue()
             .Build(
                 static (builder, keys) => builder
-                    .AddStep(keys.Length == 0
+                    .AddStep(keys.IsEmpty
                         ? ValueMapStep.All
                         : new ValueMapStep(keys))
                     .WithNewProjection(Projection.Value)
