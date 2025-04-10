@@ -1368,7 +1368,24 @@ namespace ExRam.Gremlinq.Core
                 .Build(
                     static (builder, projections) =>
                     {
-                        var steps = builder.OuterQuery.GetStepsForKeys(projections);
+                        var tStepCount = 0;
+                        var stringKeyCount = 0;
+                        Span<object> objects = new object[projections.Length];
+
+                        foreach (var projection in projections)
+                        {
+                            _ = builder.OuterQuery.GetKey(projection).RawKey switch
+                            {
+                                T t when t.TryToStep() is { } step => objects[tStepCount++] = step,
+                                string str => objects[^(++stringKeyCount)] = str,
+                                _ => throw new ExpressionNotSupportedException(projection)
+                            };
+                        }
+
+                        if (stringKeyCount > 0)
+                            objects[tStepCount++] = new ValuesStep(objects[^stringKeyCount..].Cast().To<string>().ToImmutableArray());
+
+                        var steps = objects[..tStepCount].Cast().To<Step>();
 
                         if (steps is [])
                             throw new ExpressionNotSupportedException();

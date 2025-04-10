@@ -77,29 +77,6 @@ namespace ExRam.Gremlinq.Core
                     .Key;
         }
 
-        // ReSharper disable once SuggestBaseTypeForParameter
-        private ReadOnlySpan<Step> GetStepsForKeys(ReadOnlySpan<LambdaExpression> projections)
-        {
-            var tStepCount = 0;
-            var stringKeyCount = 0;
-            Span<object> objects = new object[projections.Length];
-
-            foreach (var projection in projections)
-            {
-                _ = GetKey(projection).RawKey switch
-                {
-                    T t when t.TryToStep() is { } step => objects[tStepCount++] = step,
-                    string str => objects[^(++stringKeyCount)] = str,
-                    _ => throw new ExpressionNotSupportedException(projection)
-                };
-            }
-
-            if (stringKeyCount > 0)
-                objects[tStepCount++] = new ValuesStep(objects[^stringKeyCount..].Cast().To<string>().ToImmutableArray());
-
-            return objects[..tStepCount].Cast().To<Step>();
-        }
-
         private ReadOnlySpan<string> GetStringKeys(ReadOnlySpan<LambdaExpression> projections)
         {
             var stringKeys = new string[projections.Length];
