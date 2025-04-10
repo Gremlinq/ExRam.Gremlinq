@@ -1418,12 +1418,7 @@ namespace ExRam.Gremlinq.Core
                             }
 
                             builder = builder
-                                .AddStep(new UnionStep(
-#if NET8_0_OR_GREATER
-                                    ImmutableCollectionsMarshal.AsImmutableArray(traversalArray)));
-#else
-                                    traversalArray.ToImmutableArray()));
-#endif
+                                .AddStep(new UnionStep(traversalArray.UnsafeToImmutableArray()));
                         }
 
                         return builder

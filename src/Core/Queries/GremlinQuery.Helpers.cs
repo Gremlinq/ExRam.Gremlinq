@@ -93,11 +93,8 @@ namespace ExRam.Gremlinq.Core
                     throw new ExpressionNotSupportedException(projections[i]);
             }
 
-#if NET8_0_OR_GREATER
-            return ImmutableCollectionsMarshal.AsImmutableArray(stringKeys);
-#else
-            return stringKeys.ToImmutableArray();
-#endif
+            return stringKeys
+                .UnsafeToImmutableArray();
         }
 
         private Projection GetLabelProjection(StepLabel stepLabel)
