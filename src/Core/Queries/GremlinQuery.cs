@@ -117,6 +117,15 @@ namespace ExRam.Gremlinq.Core
 
     internal sealed partial class GremlinQuery<T1, T2, T3, T4> : GremlinQueryBase
     {
+        [StructLayout(LayoutKind.Sequential)]
+        private struct Buffer4
+        {
+            public object _element0;
+            public object _element1;
+            public object _element2;
+            public object _element3;
+        }
+
         public GremlinQuery(
             IGremlinQueryEnvironment environment,
             Traversal steps,
@@ -1370,10 +1379,10 @@ namespace ExRam.Gremlinq.Core
                     {
                         var tStepCount = 0;
                         var stringKeyCount = 0;
-                        var singleObject = default(object)!;
+                        var buffer = default(Buffer4);
 
-                        var objects = projections.Length == 1
-                            ? MemoryMarshal.CreateSpan(ref singleObject, 1)
+                        var objects = projections.Length <= 4
+                            ? MemoryMarshal.CreateSpan(ref buffer._element0!, projections.Length)
                             : new object[projections.Length];
 
                         foreach (var projection in projections)
