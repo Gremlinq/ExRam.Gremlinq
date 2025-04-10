@@ -3,6 +3,7 @@
 using System.Collections;
 using System.Collections.Immutable;
 using System.Linq.Expressions;
+using System.Runtime.InteropServices;
 
 using ExRam.Gremlinq.Core.ExpressionParsing;
 using ExRam.Gremlinq.Core.GraphElements;
@@ -77,7 +78,7 @@ namespace ExRam.Gremlinq.Core
                     .Key;
         }
 
-        private ReadOnlySpan<string> GetStringKeys(ReadOnlySpan<LambdaExpression> projections)
+        private ImmutableArray<string> GetStringKeys(ReadOnlySpan<LambdaExpression> projections)
         {
             var stringKeys = new string[projections.Length];
 
@@ -89,7 +90,11 @@ namespace ExRam.Gremlinq.Core
                     throw new ExpressionNotSupportedException(projections[i]);
             }
 
-            return stringKeys;
+#if NET8_0_OR_GREATER
+            return ImmutableCollectionsMarshal.AsImmutableArray(stringKeys);
+#else
+            return stringKeys.ToImmutableArray();
+#endif
         }
 
         private Projection GetLabelProjection(StepLabel stepLabel)
