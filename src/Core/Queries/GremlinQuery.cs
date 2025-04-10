@@ -1119,7 +1119,9 @@ namespace ExRam.Gremlinq.Core
             .Continue()
             .Build(
                 static (builder, keys, projection) => builder
-                    .AddStep(new PropertiesStep(keys.ToImmutableArray()))
+                    .AddStep(keys is []
+                        ? PropertiesStep.All
+                        : new PropertiesStep(keys.ToImmutableArray()))
                     .WithNewProjection(projection)
                     .AsAuto<TNewElement, TNewPropertyValue, TNewMeta>(),
                 keys,
