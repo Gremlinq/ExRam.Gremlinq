@@ -1370,7 +1370,11 @@ namespace ExRam.Gremlinq.Core
                     {
                         var tStepCount = 0;
                         var stringKeyCount = 0;
-                        Span<object> objects = new object[projections.Length];
+                        var singleObject = default(object)!;
+
+                        var objects = projections.Length == 1
+                            ? MemoryMarshal.CreateSpan(ref singleObject, 1)
+                            : new object[projections.Length];
 
                         foreach (var projection in projections)
                         {
