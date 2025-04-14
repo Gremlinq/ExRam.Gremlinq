@@ -118,8 +118,8 @@ namespace ExRam.Gremlinq.Core
     internal sealed partial class GremlinQuery<T1, T2, T3, T4> : GremlinQueryBase
     {
 #if NET8_0_OR_GREATER
-        [InlineArray(4)]
-        private struct Buffer4
+        [InlineArray(8)]
+        private struct Buffer8
         {
             public object _element0;
         }
@@ -1380,9 +1380,9 @@ namespace ExRam.Gremlinq.Core
                         var stringKeyCount = 0;
 
 #if NET8_0_OR_GREATER
-                        var buffer = default(Buffer4);
+                        var buffer = default(Buffer8);
 
-                        var objects = projections.Length <= 4
+                        var objects = projections.Length <= 8
                             ? buffer[..]
                             : new object[projections.Length];
 #else
