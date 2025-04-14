@@ -38,8 +38,12 @@
 
         public MultiContinuationBuilder<TOuterQuery, TAnonymousQuery> ToMulti() => new (_outer, _anonymous, FastImmutableList<IGremlinQueryBase>.Empty, _flags);
 
+        public TOuterQuery Build(Func<FinalContinuationBuilder<TOuterQuery>, FinalContinuationBuilder<TOuterQuery>> builderTransformation)
+            => Build(static (builder, state) => state(builder).Build(), builderTransformation);
+
         public TOuterQuery Build<TState>(Func<FinalContinuationBuilder<TOuterQuery>, TState, FinalContinuationBuilder<TOuterQuery>> builderTransformation, TState state)
             => Build(static (builder, tuple) => tuple.builderTransformation(builder, tuple.state).Build(), (builderTransformation, state));
+
 
         public TNewQuery Build<TNewQuery>(Func<FinalContinuationBuilder<TOuterQuery>, TNewQuery> builderTransformation)
             where TNewQuery : IStartGremlinQuery => builderTransformation(new FinalContinuationBuilder<TOuterQuery>(_outer));
