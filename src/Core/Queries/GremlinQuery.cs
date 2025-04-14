@@ -140,8 +140,7 @@ namespace ExRam.Gremlinq.Core
                 static (builder, newEdge) => builder
                     .AddStep(new AddEStep(builder.OuterQuery.Environment.Model.EdgesModel.GetCache().GetLabel(newEdge!.GetType())))
                     .WithNewProjection(Projection.Edge)
-                    .AsAuto<TEdge, T1>()
-                    .Build(),
+                    .BuildAuto<TEdge, T1>(),
                 newEdge)
             .AddOrUpdate(newEdge, true);
 
@@ -1126,8 +1125,7 @@ namespace ExRam.Gremlinq.Core
             .Build(static builder => builder
                 .AddStep(new OutEStep(builder.OuterQuery.Environment.Model.EdgesModel.GetFilterLabelsOrDefault(typeof(TEdge), builder.OuterQuery.Environment.Options.GetValue(GremlinqOption.FilterLabelsVerbosity))))
                 .WithNewProjection(Projection.Edge)
-                .AsAuto<TEdge, T1>()
-                .Build());
+                .BuildAuto<TEdge, T1>());
 
         private GremlinQuery<Path, object, object, IGremlinQueryBase> Path() => this
             .Continue()
