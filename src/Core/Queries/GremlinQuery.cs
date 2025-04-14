@@ -225,8 +225,7 @@ namespace ExRam.Gremlinq.Core
                 static (builder, vertex) => builder
                     .AddStep(new AddVStep(builder.OuterQuery.Environment.Model.VerticesModel.GetCache().GetLabel(vertex!.GetType())))
                     .WithNewProjection(Projection.Vertex)
-                    .AsAuto<TVertex>()
-                    .Build(),
+                    .BuildAuto<TVertex>(),
                 vertex)
             .AddOrUpdate(vertex, true);
 
@@ -357,16 +356,14 @@ namespace ExRam.Gremlinq.Core
             .Build(static builder => builder
                 .AddStep(AsStringStep.Instance)
                 .WithNewProjection(Projection.Value)
-                .AsAuto<string>()
-                .Build());
+                .BuildAuto<string>());
 
         private GremlinQuery<int, object, object, IGremlinQueryBase> Length() => this
             .Continue()
             .Build(static builder => builder
                 .AddStep(LengthStep.Global)
                 .WithNewProjection(Projection.Value)
-                .AsAuto<int>()
-                .Build());
+                .BuildAuto<int>());
 
         private GremlinQuery<T1, T2, T3, T4> ToLower() => this
             .Continue()
@@ -430,8 +427,7 @@ namespace ExRam.Gremlinq.Core
             .Build(static builder => builder
                 .AddStep(new BothEStep(builder.OuterQuery.Environment.Model.EdgesModel.GetFilterLabelsOrDefault(typeof(TEdge), builder.OuterQuery.Environment.Options.GetValue(GremlinqOption.FilterLabelsVerbosity))))
                 .WithNewProjection(Projection.Edge)
-                .AsAuto<TEdge>()
-                .Build());
+                .BuildAuto<TEdge>());
 
         private GremlinQuery<TNewElement, object, object, IGremlinQueryBase> BothV<TNewElement>() => this
             .Continue()
@@ -439,8 +435,7 @@ namespace ExRam.Gremlinq.Core
                 .AddStep(BothVStep.Instance)
                 .OfType<GremlinQuery<T1, T2, T3, T4>, T1, TNewElement>(builder.OuterQuery.Environment.Model.VerticesModel, false)
                 .WithNewProjection(Projection.Vertex)
-                .AsAuto<TNewElement>()
-                .Build());
+                .BuildAuto<TNewElement>());
 
         private GremlinQuery<TSelectedElement, TArrayItem, object, TQuery> Cap<TSelectedElement, TArrayItem, TQuery>(StepLabel<IArrayGremlinQuery<TSelectedElement, TArrayItem, TQuery>, TSelectedElement> stepLabel) where TQuery : IGremlinQueryBase => this
             .Continue()
@@ -611,8 +606,7 @@ namespace ExRam.Gremlinq.Core
                 static (builder, constant) => builder
                     .AddStep(new ConstantStep(constant!))
                     .WithNewProjection(Projection.Value)
-                    .AsAuto<TValue>()
-                    .Build(),
+                    .BuildAuto<TValue>(),
                 constant);
 
         private GremlinQuery<long, object, object, IGremlinQueryBase> Count(Scope scope) => this
@@ -623,8 +617,7 @@ namespace ExRam.Gremlinq.Core
                         ? CountStep.Global
                         : CountStep.Local)
                     .WithNewProjection(Projection.Value)
-                    .AsAuto<long>()
-                    .Build(),
+                    .BuildAuto<long>(),
                 scope);
 
         private GremlinQuery<long, object, object, IGremlinQueryBase> CountGlobal() => Count(Scope.Global);
@@ -677,8 +670,7 @@ namespace ExRam.Gremlinq.Core
                     .AddStep(new EStep(ids.ToImmutableArray()))
                     .OfType<GremlinQuery<T1, T2, T3, T4>, T1, TNewElement>(builder.OuterQuery.Environment.Model.EdgesModel, true)
                     .WithNewProjection(Projection.Edge)
-                    .AsAuto<TNewElement>()
-                    .Build(),
+                    .BuildAuto<TNewElement>(),
                 ids);
 
         private GremlinQuery<string, object, object, IGremlinQueryBase> Explain() => this
@@ -686,8 +678,7 @@ namespace ExRam.Gremlinq.Core
             .Build(static builder => builder
                 .AddStep(ExplainStep.Instance)
                 .WithNewProjection(Projection.Value)
-                .AsAuto<string>()
-                .Build());
+                .BuildAuto<string>());
 
         private GremlinQuery<object, object, object, IGremlinQueryBase> Fail(string? message = null) => this
             .Continue()
@@ -721,8 +712,7 @@ namespace ExRam.Gremlinq.Core
             .Continue()
             .Build(static builder => builder
                 .WithNewProjection(static _ => _.Highest(Projection.Element))
-                .AsAuto<T1>()
-                .Build());
+                .BuildAuto<T1>());
 
         private GremlinQuery<string, object, object, IGremlinQueryBase> Format(Expression<Func<T1, string>> stringInterpolationExpression)
         {
@@ -772,8 +762,7 @@ namespace ExRam.Gremlinq.Core
 
                         return builder
                             .WithNewProjection(Projection.Value)
-                            .AsAuto<string>()
-                            .Build();
+                            .BuildAuto<string>();
                     });
             }
 
@@ -877,16 +866,14 @@ namespace ExRam.Gremlinq.Core
             .Build(static builder => builder
                 .AddStep(KeyStep.Instance)
                 .WithNewProjection(Projection.Value)
-                .AsAuto<string>()
-                .Build());
+                .BuildAuto<string>());
 
         private GremlinQuery<string, object, object, IGremlinQueryBase> Label() => this
             .Continue()
             .Build(static builder => builder
                 .AddStep(LabelStep.Instance)
                 .WithNewProjection(Projection.Value)
-                .AsAuto<string>()
-                .Build());
+                .BuildAuto<string>());
 
         private GremlinQuery<T1, T2, T3, T4> LimitGlobal(long count) => this
             .Continue()
@@ -1095,8 +1082,7 @@ namespace ExRam.Gremlinq.Core
                 .AddStep(OtherVStep.Instance)
                 .OfType<GremlinQuery<T1, T2, T3, T4>, T1, TNewElement>(builder.OuterQuery.Environment.Model.VerticesModel, false)
                 .WithNewProjection(Projection.Vertex)
-                .AsAuto<TNewElement>()
-                .Build());
+                .BuildAuto<TNewElement>());
 
         private GremlinQuery<object, object, object, IGremlinQueryBase> Out() => this
             .Continue()
@@ -1132,16 +1118,14 @@ namespace ExRam.Gremlinq.Core
             .Build(static builder => builder
                 .AddStep(PathStep.Instance)
                 .WithNewProjection(Projection.Value)
-                .AsAuto<Path>()
-                .Build());
+                .BuildAuto<Path>());
 
         private GremlinQuery<string, object, object, IGremlinQueryBase> Profile() => this
             .Continue()
             .Build(static builder => builder
                 .AddStep(ProfileStep.Instance)
                 .WithNewProjection(Projection.Value)
-                .AsAuto<string>()
-                .Build());
+                .BuildAuto<string>());
 
         private IMapGremlinQuery<TResult> Project<TResult>(Func<IProjectBuilder<GremlinQuery<T1, T2, T3, T4>, T1>, IProjectMapResult<TResult>> continuation) => new ProjectBuilder(this)
             .Map(continuation)
@@ -1346,8 +1330,7 @@ namespace ExRam.Gremlinq.Core
             .Build(static builder => builder
                 .AddStep(TreeStep.Instance)
                 .WithNewProjection(Projection.Value)
-                .AsAuto<Tree<TRoot>>()
-                .Build());
+                .BuildAuto<Tree<TRoot>>());
 
         private IGremlinQuery<TTree> Tree<TTree>(Func<ITreeBuilder, ITreeBuilderResult<TTree>> continuation)
             where TTree : ITree => new TreeBuilder<object, object, object, object, object, object, object, object, object, object, object, object, object, object, object, object, object, object, object, object, object, object, object, object, object, object, object>(this)
@@ -1382,8 +1365,7 @@ namespace ExRam.Gremlinq.Core
                     .AddStep(new VStep(ids.ToImmutableArray()))
                     .OfType<GremlinQuery<T1, T2, T3, T4>, T1, TNewElement>(builder.OuterQuery.Environment.Model.VerticesModel, true)
                     .WithNewProjection(Projection.Vertex)
-                    .AsAuto<TNewElement>()
-                    .Build(),
+                    .BuildAuto<TNewElement>(),
                 ids);
 
         private GremlinQuery<TNewPropertyValue, object, object, IGremlinQueryBase> Value<TNewPropertyValue>() => this
@@ -1391,8 +1373,7 @@ namespace ExRam.Gremlinq.Core
             .Build(static builder => builder
                 .AddStep(ValueStep.Instance)
                 .WithNewProjection(Projection.Value)
-                .AsAuto<TNewPropertyValue>()
-                .Build());
+                .BuildAuto<TNewPropertyValue>());
 
         private GremlinQuery<TNewElement, object, object, IGremlinQueryBase> ValueMap<TNewElement>(ReadOnlySpan<string> keys) => ValueMapImpl<TNewElement>(keys.ToImmutableArray());
 
@@ -1406,8 +1387,7 @@ namespace ExRam.Gremlinq.Core
                         ? ValueMapStep.All
                         : new ValueMapStep(keys))
                     .WithNewProjection(Projection.Value)
-                    .AsAuto<TNewElement>()
-                    .Build(),
+                    .BuildAuto<TNewElement>(),
                 keys);
 
         private GremlinQuery<TValue, object, object, IGremlinQueryBase> ValuesForStringKeys<TValue>(ReadOnlySpan<string> keys) => this
@@ -1418,8 +1398,7 @@ namespace ExRam.Gremlinq.Core
                         ? ValuesStep.All
                         : new ValuesStep(keys.ToImmutableArray()))
                     .WithNewProjection(Projection.Value)
-                    .AsAuto<TValue>()
-                    .Build(),
+                    .BuildAuto<TValue>(),
                 keys);
 
         private GremlinQuery<TValue, object, object, IGremlinQueryBase> ValuesForProjections<TValue>(ReadOnlySpan<LambdaExpression> projections) => projections is []
@@ -1480,8 +1459,7 @@ namespace ExRam.Gremlinq.Core
 
                         return builder
                             .WithNewProjection(Projection.Value)
-                            .AsAuto<TValue>()
-                            .Build();
+                            .BuildAuto<TValue>();
                     },
                     projections);
 
