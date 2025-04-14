@@ -38,6 +38,7 @@
 
         public MultiContinuationBuilder<TOuterQuery, TAnonymousQuery> ToMulti() => new (_outer, _anonymous, FastImmutableList<IGremlinQueryBase>.Empty, _flags);
 
+
         public TOuterQuery Build(Func<FinalContinuationBuilder<TOuterQuery>, FinalContinuationBuilder<TOuterQuery>> builderTransformation)
             => Build(static (builder, state) => state(builder).Build(), builderTransformation);
 
@@ -45,16 +46,18 @@
             => Build(static (builder, tuple) => tuple.builderTransformation(builder, tuple.state).Build(), (builderTransformation, state));
 
 
+        public TOuterQuery Build<TState>(SpanStateBuilderTransformation<TOuterQuery, TState> builderTransformation, ReadOnlySpan<TState> state)
+            => builderTransformation(new FinalContinuationBuilder<TOuterQuery>(_outer), state).Build();
+
+        public TOuterQuery Build<TSpanState, TState>(SpanStateBuilderTransformation<TOuterQuery, TSpanState, TState> builderTransformation, ReadOnlySpan<TSpanState> spanState, TState state)
+            => builderTransformation(new FinalContinuationBuilder<TOuterQuery>(_outer), spanState, state).Build();
+
+
         public TNewQuery Build<TNewQuery>(Func<FinalContinuationBuilder<TOuterQuery>, TNewQuery> builderTransformation)
             where TNewQuery : IStartGremlinQuery => builderTransformation(new FinalContinuationBuilder<TOuterQuery>(_outer));
 
         public TNewQuery Build<TNewQuery, TState>(Func<FinalContinuationBuilder<TOuterQuery>, TState, TNewQuery> builderTransformation, TState state)
             where TNewQuery : IStartGremlinQuery => builderTransformation(new FinalContinuationBuilder<TOuterQuery>(_outer), state);
-
-
-        public TOuterQuery Build<TState>(SpanStateBuilderTransformation<TOuterQuery, TState> builderTransformation, ReadOnlySpan<TState> state) => builderTransformation(new FinalContinuationBuilder<TOuterQuery>(_outer), state).Build();
-
-        public TOuterQuery Build<TSpanState, TState>(SpanStateBuilderTransformation<TOuterQuery, TSpanState, TState> builderTransformation, ReadOnlySpan<TSpanState> spanState, TState state) => builderTransformation(new FinalContinuationBuilder<TOuterQuery>(_outer), spanState, state).Build();
 
 
         public TNewQuery Build<TNewQuery, TState>(SpanStateBuilderTransformation2<TOuterQuery, TState, TNewQuery> builderTransformation, ReadOnlySpan<TState> state)
