@@ -1,10 +1,8 @@
 ﻿namespace ExRam.Gremlinq.Core
 {
-    internal delegate TNewQuery FinalContinuationBuilderTransformation<TOuterQuery, TNewQuery, in TState>(FinalContinuationBuilder<TOuterQuery> builder, Span<Traversal> traversals, TState state)
-        where TOuterQuery : GremlinQueryBase, IGremlinQueryBase
-        where TNewQuery : IStartGremlinQuery;
+    internal delegate TResult FinalContinuationBuilderTransformation<TOuterQuery, TResult, in TState>(FinalContinuationBuilder<TOuterQuery> builder, Span<Traversal> traversals, TState state)
+        where TOuterQuery : GremlinQueryBase, IGremlinQueryBase;
 
-    internal delegate TNewQuery FinalContinuationBuilderTransformation<TOuterQuery, TNewQuery>(FinalContinuationBuilder<TOuterQuery> builder, Span<Traversal> traversals)
-        where TOuterQuery : GremlinQueryBase, IGremlinQueryBase
-        where TNewQuery : IStartGremlinQuery;
+    internal delegate TResult FinalContinuationBuilderTransformation<TOuterQuery, TResult>(FinalContinuationBuilder<TOuterQuery> builder, Span<Traversal> traversals)
+        where TOuterQuery : GremlinQueryBase, IGremlinQueryBase;
 }
