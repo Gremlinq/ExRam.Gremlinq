@@ -47,7 +47,7 @@ namespace ExRam.Gremlinq.Core
 
         public GremlinQuery<T1, T2, T3, T4> BuildAuto<T1, T2, T3, T4>() where T4 : IGremlinQueryBase => As<GremlinQuery<T1, T2, T3, T4>>().Build();
 
-        public FinalContinuationBuilder<TOuterQuery, GremlinQuery<T1, T2, T3, IGremlinQueryBase>> AsAuto<T1, T2, T3>() => As<GremlinQuery<T1, T2, T3, IGremlinQueryBase>>();
+        public GremlinQuery<T1, T2, T3, IGremlinQueryBase> BuildAuto<T1, T2, T3>() => As<GremlinQuery<T1, T2, T3, IGremlinQueryBase>>().Build();
 
         public FinalContinuationBuilder<TOuterQuery, GremlinQuery<T1, T2, object, IGremlinQueryBase>> AsAuto<T1, T2>() => As<GremlinQuery<T1, T2, object, IGremlinQueryBase>>();
 
