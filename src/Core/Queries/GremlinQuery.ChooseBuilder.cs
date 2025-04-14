@@ -24,43 +24,34 @@ namespace ExRam.Gremlinq.Core
                     .WithOuter(targetQuery);
             }
 
-            public IChooseBuilderWithCondition<GremlinQuery<T1, T2, T3, T4>, TNewPickElement> On<TNewPickElement>(Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase<TNewPickElement>> chooseContinuation)
-            {
-                return new ChooseBuilder<TTargetQuery, TNewPickElement>(
-                    _continuation,
-                    _continuation
-                        .With(chooseContinuation)
-                        .Build(static (builder, traversal) => builder
-                            .AddStep(new ChooseOptionTraversalStep(traversal))));
-            }
+            public IChooseBuilderWithCondition<GremlinQuery<T1, T2, T3, T4>, TNewPickElement> On<TNewPickElement>(Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase<TNewPickElement>> chooseContinuation) => new ChooseBuilder<TTargetQuery, TNewPickElement>(
+                _continuation,
+                _continuation
+                    .With(chooseContinuation)
+                    .Build(static (builder, traversal) => builder
+                        .AddStep(new ChooseOptionTraversalStep(traversal))));
 
-            public IChooseBuilderWithCase<GremlinQuery<T1, T2, T3, T4>, TPickElement, TNewTargetQuery> Case<TNewTargetQuery>(TPickElement element, Func<GremlinQuery<T1, T2, T3, T4>, TNewTargetQuery> continuation) where TNewTargetQuery : IGremlinQueryBase
-            {
-                return new ChooseBuilder<TNewTargetQuery, TPickElement>(
-                    _continuation,
-                    _continuation
-                        .With(continuation)
-                        .Build(
-                            static (builder, traversal, element) => builder
-                                .AddStep(new OptionTraversalStep(element, traversal))
-                                .WithNewProjection(
-                                    static (projection, otherProjection) => projection.Lowest(otherProjection),
-                                    traversal.Projection),
-                            element));
-            }
-
-            public IChooseBuilderWithCaseOrDefault<TNewTargetQuery> Default<TNewTargetQuery>(Func<GremlinQuery<T1, T2, T3, T4>, TNewTargetQuery> continuation) where TNewTargetQuery : IGremlinQueryBase
-            {
-                return new ChooseBuilder<TNewTargetQuery, TPickElement>(
-                    _continuation,
-                    _continuation
-                        .With(continuation)
-                        .Build(static (builder, traversal) => builder
-                            .AddStep(new OptionTraversalStep(default, traversal))
+            public IChooseBuilderWithCase<GremlinQuery<T1, T2, T3, T4>, TPickElement, TNewTargetQuery> Case<TNewTargetQuery>(TPickElement element, Func<GremlinQuery<T1, T2, T3, T4>, TNewTargetQuery> continuation) where TNewTargetQuery : IGremlinQueryBase => new ChooseBuilder<TNewTargetQuery, TPickElement>(
+                _continuation,
+                _continuation
+                    .With(continuation)
+                    .Build(
+                        static (builder, traversal, element) => builder
+                            .AddStep(new OptionTraversalStep(element, traversal))
                             .WithNewProjection(
                                 static (projection, otherProjection) => projection.Lowest(otherProjection),
-                                traversal.Projection)));
-            }
+                                traversal.Projection),
+                        element));
+
+            public IChooseBuilderWithCaseOrDefault<TNewTargetQuery> Default<TNewTargetQuery>(Func<GremlinQuery<T1, T2, T3, T4>, TNewTargetQuery> continuation) where TNewTargetQuery : IGremlinQueryBase => new ChooseBuilder<TNewTargetQuery, TPickElement>(
+                _continuation,
+                _continuation
+                    .With(continuation)
+                    .Build(static (builder, traversal) => builder
+                        .AddStep(new OptionTraversalStep(default, traversal))
+                        .WithNewProjection(
+                            static (projection, otherProjection) => projection.Lowest(otherProjection),
+                            traversal.Projection)));
 
             public IChooseBuilderWithCase<GremlinQuery<T1, T2, T3, T4>, TPickElement, TTargetQuery> Case(TPickElement element, Func<GremlinQuery<T1, T2, T3, T4>, TTargetQuery> continuation) => Case<TTargetQuery>(element, continuation);
 
