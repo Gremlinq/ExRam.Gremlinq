@@ -117,14 +117,13 @@ namespace ExRam.Gremlinq.Core
 
     internal sealed partial class GremlinQuery<T1, T2, T3, T4> : GremlinQueryBase
     {
-        [StructLayout(LayoutKind.Sequential)]
+#if NET8_0_OR_GREATER
+        [InlineArray(4)]
         private struct Buffer4
         {
             public object _element0;
-            public object _element1;
-            public object _element2;
-            public object _element3;
         }
+#endif
 
         public GremlinQuery(
             IGremlinQueryEnvironment environment,
@@ -1379,11 +1378,16 @@ namespace ExRam.Gremlinq.Core
                     {
                         var tStepCount = 0;
                         var stringKeyCount = 0;
+
+#if NET8_0_OR_GREATER
                         var buffer = default(Buffer4);
 
                         var objects = projections.Length <= 4
-                            ? MemoryMarshal.CreateSpan(ref buffer._element0!, projections.Length)
+                            ? buffer[..]
                             : new object[projections.Length];
+#else
+                        var objects = new object[projections.Length].AsSpan();
+#endif
 
                         foreach (var projection in projections)
                         {
