@@ -214,7 +214,8 @@ namespace ExRam.Gremlinq.Core
                             }
 
                             return builder
-                                .As<TTargetQuery>();
+                                .As<TTargetQuery>()
+                                .Build();
                         },
                         (_names, _emptyProjectionProtectionDecoratorSteps));
             }

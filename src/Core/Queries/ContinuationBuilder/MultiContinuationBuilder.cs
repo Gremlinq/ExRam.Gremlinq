@@ -61,8 +61,7 @@ namespace ExRam.Gremlinq.Core
                                 innerState);
                         }
                     },
-                    (builderTransformation, state))
-                .Build();
+                    (builderTransformation, state));
 
         private TResult With<TState, TResult>(Func<TOuterQuery, TAnonymousQuery, FastImmutableList<IGremlinQueryBase>, ContinuationFlags, TState, TResult> continuation, TState state) => continuation(_outer, _anonymous, _continuations, _flags, state);
     }

@@ -314,7 +314,8 @@ namespace ExRam.Gremlinq.Core
                     }
                 }
 
-                return builder;
+                return builder
+                    .Build();
             });
 
         private TTargetQuery As<TStepLabel, TTargetQuery>(Func<GremlinQuery<T1, T2, T3, T4>, TStepLabel, TTargetQuery> continuation)
@@ -552,7 +553,8 @@ namespace ExRam.Gremlinq.Core
                     }
 
                     return builder
-                        .As<TReturnQuery>();
+                        .As<TReturnQuery>()
+                        .Build();
                 });
 
         private GremlinQuery<T1, T2, T3, T4> Coin(double probability) => this
@@ -574,7 +576,8 @@ namespace ExRam.Gremlinq.Core
             .With(stringTraversals)
             .Build(static (builder, stringTraversals) => builder
                 .AddStep(new ConcatTraversalsStep(stringTraversals
-                    .ToImmutableArray())));
+                    .ToImmutableArray()))
+                .Build());
 
         private TTargetQuery ConfigureSteps<TTargetQuery>(Func<Traversal, Traversal> transformation, Func<Projection, Projection>? maybeProjectionTransformation)
             where TTargetQuery : IStartGremlinQuery => this
@@ -1028,7 +1031,8 @@ namespace ExRam.Gremlinq.Core
                     };
                 }
 
-                return builder;
+                return builder
+                    .Build();
             });
 
         private TTargetQuery Order<TTargetQuery>(Func<OrderBuilder, IOrderBuilderWithBy<TTargetQuery>> projection) where TTargetQuery : IGremlinQueryBase<T1> => projection(new OrderBuilder(this)).Build();
@@ -1324,7 +1328,8 @@ namespace ExRam.Gremlinq.Core
                         .ToImmutableArray()))
                     .WithNewProjection(unionTraversals
                         .LowestProjection())
-                    .As<TReturnQuery>());
+                    .As<TReturnQuery>()
+                    .Build());
 
         private GremlinQuery<TNewElement, object, object, IGremlinQueryBase> V<TNewElement>(ReadOnlySpan<object> ids) => this
             .Continue()
