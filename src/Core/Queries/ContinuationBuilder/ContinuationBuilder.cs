@@ -23,10 +23,6 @@
             _anonymous = anonymous;
         }
 
-        public ContinuationBuilder<TNewOuterQuery, TAnonymousQuery> WithOuter<TNewOuterQuery>(TNewOuterQuery query)
-            where TNewOuterQuery : GremlinQueryBase, IGremlinQueryBase => new (query, _anonymous, _flags);
-
-
         public SingleContinuationBuilder<TOuterQuery, TAnonymousQuery> With<TProjectedQuery>(Func<TAnonymousQuery, TProjectedQuery> continuation)
             where TProjectedQuery : IGremlinQueryBase => With(
                 static (anonymous, continuation) => continuation(anonymous),
