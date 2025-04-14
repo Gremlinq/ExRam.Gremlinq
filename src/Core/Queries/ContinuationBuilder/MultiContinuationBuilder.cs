@@ -20,9 +20,7 @@ namespace ExRam.Gremlinq.Core
         }
 
         public MultiContinuationBuilder<TOuterQuery, TAnonymousQuery> With<TProjectedQuery, TState>(Func<TAnonymousQuery, TState, TProjectedQuery> continuation, TState state)
-            where TProjectedQuery : IGremlinQueryBase => With(
-                static (outer, anonymous, continuations, flags, state) => new MultiContinuationBuilder<TOuterQuery, TAnonymousQuery>(outer, anonymous, continuations.Push(state.continuation.Apply(anonymous, state.state)), flags),
-                (continuation, state));
+            where TProjectedQuery : IGremlinQueryBase => new (_outer, _anonymous, _continuations.Push(continuation.Apply(_anonymous, state)), _flags);
 
         public MultiContinuationBuilder<TOuterQuery, TAnonymousQuery> With<TProjectedQuery>(Func<TAnonymousQuery, TProjectedQuery> continuation)
             where TProjectedQuery : IGremlinQueryBase => With(
@@ -32,44 +30,38 @@ namespace ExRam.Gremlinq.Core
         public TNewQuery Build<TNewQuery>(FinalContinuationBuilderTransformation<TOuterQuery, TNewQuery> builderTransformation)
             where TNewQuery : IGremlinQueryBase => Build(static (builder, continuations, state) => state(builder, continuations), builderTransformation);
 
-        public TNewQuery Build<TNewQuery, TState>(FinalContinuationBuilderTransformation<TOuterQuery, TNewQuery, TState> builderTransformation, TState state)
-            where TNewQuery : IGremlinQueryBase => With(
-                static (outer, _, continuations, flags, state) =>
+        public TNewQuery Build<TNewQuery, TState>(FinalContinuationBuilderTransformation<TOuterQuery, TNewQuery, TState> builderTransformation, TState state) where TNewQuery : IGremlinQueryBase
+        {
+            var builder = new FinalContinuationBuilder<TOuterQuery>(_outer);
+
+            using (var owner = MemoryPool<Traversal>.Shared.Rent(_continuations.Count))
+            {
+                var traversalsSpan = owner.Memory.Span;
+
+                if (_continuations.Count > 0)
                 {
-                    var (builderTransformation, innerState) = state;
-                    var builder = new FinalContinuationBuilder<TOuterQuery>(outer);
-
-                    using (var owner = MemoryPool<Traversal>.Shared.Rent(continuations.Count))
+                    for (var i = 0; i < _continuations.Count; i++)
                     {
-                        var traversalsSpan = owner.Memory.Span;
+                        var continuation = _continuations[i];
 
-                        if (continuations.Count > 0)
+                        if (continuation is GremlinQueryBase queryBase)
                         {
-                            for (var i = 0; i < continuations.Count; i++)
-                            {
-                                var continuation = continuations[i];
-
-                                if (continuation is GremlinQueryBase queryBase)
-                                {
-                                    builder = builder.WithNewLabelProjections(
-                                        static (existingProjections, additionalProjections) => existingProjections.MergeSideEffectLabelProjections(additionalProjections),
-                                        queryBase.LabelProjections);
-                                }
-
-                                traversalsSpan[i] = continuation
-                                    .ToTraversal()
-                                    .Rewrite(flags);
-                            }
+                            builder = builder.WithNewLabelProjections(
+                                static (existingProjections, additionalProjections) => existingProjections.MergeSideEffectLabelProjections(additionalProjections),
+                                queryBase.LabelProjections);
                         }
 
-                        return builderTransformation(
-                            builder,
-                            traversalsSpan[..continuations.Count],
-                            innerState);
+                        traversalsSpan[i] = continuation
+                            .ToTraversal()
+                            .Rewrite(_flags);
                     }
-                },
-                (builderTransformation, state));
+                }
 
-        private TResult With<TState, TResult>(Func<TOuterQuery, TAnonymousQuery, FastImmutableList<IGremlinQueryBase>, ContinuationFlags, TState, TResult> continuation, TState state) => continuation(_outer, _anonymous, _continuations, _flags, state);
+                return builderTransformation(
+                    builder,
+                    traversalsSpan[.._continuations.Count],
+                    state);
+            }
+        }
     }
 }
