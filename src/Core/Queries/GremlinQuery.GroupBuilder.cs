@@ -10,39 +10,44 @@ namespace ExRam.Gremlinq.Core
             IGroupBuilderWithKey<GremlinQuery<T1, T2, T3, T4>, TKey>,
             IGroupBuilderWithKeyAndValue<TKey, TValue>
         {
-            private readonly MultiContinuationBuilder<GremlinQuery<T1, T2, T3, T4>, GremlinQuery<T1, T2, T3, T4>> _continuationBuilder;
+            private readonly Traversal _keyTraversal;
+            private readonly Traversal _valueTraversal;
+            private readonly GremlinQuery<T1, T2, T3, T4> _outerQuery;
 
-            public GroupBuilder(ContinuationBuilder<GremlinQuery<T1, T2, T3, T4>, GremlinQuery<T1, T2, T3, T4>> continuationBuilder) : this(continuationBuilder.ToMulti())
+            public GroupBuilder(GremlinQuery<T1, T2, T3, T4> outerQuery) : this(outerQuery, Traversal.Empty, Traversal.Empty)
             {
 
             }
 
-            private GroupBuilder(MultiContinuationBuilder<GremlinQuery<T1, T2, T3, T4>, GremlinQuery<T1, T2, T3, T4>> continuationBuilder)
+            private GroupBuilder(GremlinQuery<T1, T2, T3, T4> outerQuery, Traversal keyTraversal, Traversal valueTraversal)
             {
-                _continuationBuilder = continuationBuilder;
+                _outerQuery = outerQuery;
+                _keyTraversal = keyTraversal;
+                _valueTraversal = valueTraversal;
             }
 
-            IGroupBuilderWithKey<GremlinQuery<T1, T2, T3, T4>, TNewKey> IGroupBuilder<GremlinQuery<T1, T2, T3, T4>>.ByKey<TNewKey>(Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase<TNewKey>> keySelector)
-            {
-                return new GroupBuilder<TNewKey, object>(
-                    _continuationBuilder
-                        .With(keySelector));
-            }
+            IGroupBuilderWithKey<GremlinQuery<T1, T2, T3, T4>, TNewKey> IGroupBuilder<GremlinQuery<T1, T2, T3, T4>>.ByKey<TNewKey>(Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase<TNewKey>> keySelector) => new GroupBuilder<TNewKey, object>(
+                _outerQuery,
+                _outerQuery
+                    .Continue()
+                    .With(keySelector)
+                    .Build(static (_, traversal) => traversal),
+                _valueTraversal);
 
-            IGroupBuilderWithKeyAndValue<TKey, TNewValue> IGroupBuilderWithKey<GremlinQuery<T1, T2, T3, T4>, TKey>.ByValue<TNewValue>(Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase<TNewValue>> valueSelector)
-            {
-                return new GroupBuilder<TKey, TNewValue>(
-                    _continuationBuilder
-                        .With(valueSelector));
-            }
+            IGroupBuilderWithKeyAndValue<TKey, TNewValue> IGroupBuilderWithKey<GremlinQuery<T1, T2, T3, T4>, TKey>.ByValue<TNewValue>(Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase<TNewValue>> valueSelector) => new GroupBuilder<TKey, TNewValue>(
+                _outerQuery,
+                _keyTraversal,
+                _outerQuery
+                    .Continue()
+                    .With(valueSelector)
+                    .Build(static (_, traversal) => traversal));
 
-            IMapGremlinQuery<IDictionary<TKey, TValue>> IGroupBuilderWithKeyAndValue<TKey, TValue>.Build()
-            {
-                return _continuationBuilder
-                    .Build(static (builder, traversals) =>
+            IMapGremlinQuery<IDictionary<TKey, TValue>> IGroupBuilderWithKeyAndValue<TKey, TValue>.Build() => _outerQuery
+                .Continue()
+                .Build(
+                    static (builder, tuple) =>
                     {
-                        var keyTraversal = traversals[0];
-                        var valueTraversal = traversals[1];
+                        var (keyTraversal, valueTraversal) = tuple;
                         var valueTraversalIsSingleFoldStep = valueTraversal is [FoldStep];
 
                         builder = builder
@@ -68,8 +73,8 @@ namespace ExRam.Gremlinq.Core
                                         state.valueTraversal.Projection),
                                 (keyTraversal, valueTraversal))
                             .BuildAs<IMapGremlinQuery<IDictionary<TKey, TValue>>>();
-                    });
-            }
+                    },
+                    (_keyTraversal, _valueTraversal));
         }
     }
 }
