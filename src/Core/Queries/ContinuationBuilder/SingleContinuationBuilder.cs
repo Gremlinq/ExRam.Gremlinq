@@ -25,22 +25,7 @@
             => Build(static (builder, traversal, builderTransformation) => builderTransformation(builder, traversal), builderTransformation);
 
         public TResult Build<TResult, TState>(Func<FinalContinuationBuilder<TOuterQuery>, Traversal, TState, TResult> builderTransformation, TState state)
-        {
-            var builder = new FinalContinuationBuilder<TOuterQuery>(_outer);
-
-            if (_continuation is GremlinQueryBase queryBase)
-            {
-                builder = builder.WithNewLabelProjections(
-                    static (existingProjections, additionalProjections) => existingProjections.MergeSideEffectLabelProjections(additionalProjections),
-                    queryBase.LabelProjections);
-            }
-
-            return builderTransformation(
-                builder,
-                _continuation
-                    .ToTraversal()
-                    .Rewrite(_flags),
-                state);
-        }
+            => new MultiContinuationBuilder<TOuterQuery, TAnonymousQuery>(_outer, [_continuation], _flags)
+                .Build((builder, traversals, innerState) => builderTransformation(builder, traversals[0], innerState), state);
     }
 }
