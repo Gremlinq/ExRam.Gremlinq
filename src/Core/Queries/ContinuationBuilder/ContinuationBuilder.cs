@@ -34,12 +34,12 @@
         public MultiContinuationBuilder<TOuterQuery, TAnonymousQuery> With<TProjectedQuery, TState>(ReadOnlySpan<Func<TAnonymousQuery, TState, TProjectedQuery>> continuations, TState state)
             where TProjectedQuery : IGremlinQueryBase
         {
-            var continuationList = FastImmutableList<IGremlinQueryBase>.Empty;
+            var continuationList = new IGremlinQueryBase[continuations.Length];
 
             for (var i = 0; i < continuations.Length; i++)
             {
-                continuationList = continuationList
-                    .Push(continuations[i].Apply(_anonymous, state));
+                continuationList[i] = continuations[i]
+                    .Apply(_anonymous, state);
             }
 
             return new MultiContinuationBuilder<TOuterQuery, TAnonymousQuery>(_outer, continuationList, _flags);
@@ -48,12 +48,12 @@
         public MultiContinuationBuilder<TOuterQuery, TAnonymousQuery> With<TProjectedQuery>(ReadOnlySpan<Func<TAnonymousQuery, TProjectedQuery>> continuations)
             where TProjectedQuery : IGremlinQueryBase
         {
-            var continuationList = FastImmutableList<IGremlinQueryBase>.Empty;
+            var continuationList = new IGremlinQueryBase[continuations.Length];
 
             for (var i = 0; i < continuations.Length; i++)
             {
-                continuationList = continuationList
-                    .Push(continuations[i].Apply(_anonymous));
+                continuationList[i] = continuations[i]
+                    .Apply(_anonymous);
             }
 
             return new MultiContinuationBuilder<TOuterQuery, TAnonymousQuery>(_outer, continuationList, _flags);
