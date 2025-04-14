@@ -25,10 +25,10 @@
         public TOuterQuery Build(Func<FinalContinuationBuilder<TOuterQuery>, Traversal, FinalContinuationBuilder<TOuterQuery>> builderTransformation)
             => Build(static (builder, continuation, state) => state(builder, continuation), builderTransformation);
 
-        public TNewQuery Build<TNewQuery>(Func<FinalContinuationBuilder<TOuterQuery>, Traversal, TNewQuery> builderTransformation)
-            where TNewQuery : IStartGremlinQuery => Build(static (builder, traversal, builderTransformation) => builderTransformation(builder, traversal), builderTransformation);
+        public TResult Build<TResult>(Func<FinalContinuationBuilder<TOuterQuery>, Traversal, TResult> builderTransformation)
+            => Build(static (builder, traversal, builderTransformation) => builderTransformation(builder, traversal), builderTransformation);
 
-        public TNewQuery Build<TNewQuery, TState>(Func<FinalContinuationBuilder<TOuterQuery>, Traversal, TState, TNewQuery> builderTransformation, TState state)
+        public TResult Build<TResult, TState>(Func<FinalContinuationBuilder<TOuterQuery>, Traversal, TState, TResult> builderTransformation, TState state)
         {
             var builder = new FinalContinuationBuilder<TOuterQuery>(_outer);
 
