@@ -6,14 +6,12 @@
     {
         private readonly TOuterQuery _outer;
         private readonly ContinuationFlags _flags;
-        private readonly TAnonymousQuery _anonymous;
         private readonly IGremlinQueryBase _continuation;
 
-        public SingleContinuationBuilder(TOuterQuery outer, TAnonymousQuery anonymous, IGremlinQueryBase continuation, ContinuationFlags flags)
+        public SingleContinuationBuilder(TOuterQuery outer, IGremlinQueryBase continuation, ContinuationFlags flags)
         {
             _outer = outer;
             _flags = flags;
-            _anonymous = anonymous;
             _continuation = continuation;
         }
 

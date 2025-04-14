@@ -33,7 +33,7 @@
                 continuation);
 
         public SingleContinuationBuilder<TOuterQuery, TAnonymousQuery> With<TProjectedQuery, TState>(Func<TAnonymousQuery, TState, TProjectedQuery> continuation, TState state)
-            where TProjectedQuery : IGremlinQueryBase => new (_outer, _anonymous, continuation.Apply(_anonymous, state), _flags);
+            where TProjectedQuery : IGremlinQueryBase => new (_outer, continuation.Apply(_anonymous, state), _flags);
 
         public MultiContinuationBuilder<TOuterQuery, TAnonymousQuery> With<TProjectedQuery, TState>(ReadOnlySpan<Func<TAnonymousQuery, TState, TProjectedQuery>> continuations, TState state)
             where TProjectedQuery : IGremlinQueryBase
