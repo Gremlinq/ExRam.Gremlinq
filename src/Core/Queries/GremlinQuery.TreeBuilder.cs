@@ -59,8 +59,7 @@ namespace ExRam.Gremlinq.Core
 
                         return builder
                             .WithNewProjection(Projection.Value)
-                            .As<IGremlinQuery<TTree>>()
-                            .Build();
+                            .BuildAs<IGremlinQuery<TTree>>();
                     },
                     this);
         }

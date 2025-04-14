@@ -214,8 +214,7 @@ namespace ExRam.Gremlinq.Core
                             builder = builder.WithNewProjection(projectionTransformation);
 
                         return builder
-                            .As<TTargetQuery>()
-                            .Build();
+                            .BuildAs<TTargetQuery>();
                     },
                     (step, maybeProjectionTransformation));
 
@@ -497,8 +496,7 @@ namespace ExRam.Gremlinq.Core
                                             .WithNewProjection(
                                                 static (_, state) => state.falseTraversal.Projection.Lowest(state.trueTraversal.Projection),
                                                 (falseTraversal, trueTraversal))
-                                            .As<TTargetQuery>()
-                                            .Build();
+                                            .BuildAs<TTargetQuery>();
                                     },
                                     (chooseTraversal, trueTraversal));
                         }
@@ -514,8 +512,7 @@ namespace ExRam.Gremlinq.Core
                             .WithNewProjection(
                                 static (projection, otherProjection) => projection.Lowest(otherProjection),
                                 trueTraversal.Projection)
-                            .As<TTargetQuery>()
-                            .Build();
+                            .BuildAs<TTargetQuery>();
                     },
                     (chooseTraversal, maybeFalseChoice));
 
@@ -554,8 +551,7 @@ namespace ExRam.Gremlinq.Core
                     }
 
                     return builder
-                        .As<TReturnQuery>()
-                        .Build();
+                        .BuildAs<TReturnQuery>();
                 });
 
         private GremlinQuery<T1, T2, T3, T4> Coin(double probability) => this
@@ -593,8 +589,7 @@ namespace ExRam.Gremlinq.Core
                                 ? projectionTransformation(projection)
                                 : projection,
                             tuple.maybeProjectionTransformation)
-                        .As<TTargetQuery>()
-                        .Build(),
+                        .BuildAs<TTargetQuery>(),
                     (transformation, maybeProjectionTransformation));
 
         private GremlinQuery<TValue, object, object, IGremlinQueryBase> Constant<TValue>(TValue constant) => this
@@ -693,8 +688,7 @@ namespace ExRam.Gremlinq.Core
             .Build(static (builder, innerTraversal) => builder
                 .AddStep(new FlatMapStep(innerTraversal))
                 .WithNewProjection(innerTraversal.Projection)
-                .As<TTargetQuery>()
-                .Build());
+                .BuildAs<TTargetQuery>());
 
         private GremlinQuery<T1[], T1, object, TNewFoldedQuery> Fold<TNewFoldedQuery>() where TNewFoldedQuery : IGremlinQueryBase => this
             .Continue()
@@ -848,8 +842,7 @@ namespace ExRam.Gremlinq.Core
                         .AddStep(step)
                         .OfType<GremlinQuery<T1, T2, T3, T4>, T1, TNewElement>(builder.OuterQuery.Environment.Model.VerticesModel, false)
                         .WithNewProjection(Projection.Vertex)
-                        .As<TNewQuery>()
-                        .Build(),
+                        .BuildAs<TNewQuery>(),
                     step);
 
         private GremlinQuery<string, object, object, IGremlinQueryBase> Key() => this
@@ -899,8 +892,7 @@ namespace ExRam.Gremlinq.Core
                 }
 
                 return builder
-                    .As<TTargetQuery>()
-                    .Build();
+                    .BuildAs<TTargetQuery>();
             });
 
         private TTargetQuery Loop<TTargetQuery>(Func<IStartLoopBuilder<TTargetQuery>, IFinalLoopBuilder<TTargetQuery>> loopBuilderTransformation)
@@ -911,13 +903,11 @@ namespace ExRam.Gremlinq.Core
             .With(continuation)
             .Build(static (builder, innerTraversal) => innerTraversal.IsIdentity()
                 ? builder
-                    .As<TTargetQuery>()
-                    .Build()
+                    .BuildAs<TTargetQuery>()
                 : builder
                     .AddStep(new MapStep(innerTraversal))
                     .WithNewProjection(innerTraversal.Projection)
-                    .As<TTargetQuery>()
-                    .Build());
+                    .BuildAs<TTargetQuery>());
 
         private GremlinQuery<T1, T2, T3, T4> MaxGlobal() => this
             .Continue()
@@ -929,8 +919,7 @@ namespace ExRam.Gremlinq.Core
             .Continue()
             .Build(static builder => builder
                 .AddStep(MaxStep.Local)
-                .As<TNewQuery>()
-                .Build());
+                .BuildAs<TNewQuery>());
 
         private GremlinQuery<T1, T2, T3, T4> MeanGlobal() => this
             .Continue()
@@ -942,8 +931,7 @@ namespace ExRam.Gremlinq.Core
             .Continue()
             .Build(static builder => builder
                 .AddStep(MeanStep.Local)
-                .As<TNewQuery>()
-                .Build());
+                .BuildAs<TNewQuery>());
 
         private GremlinQuery<T1, T2, T3, T4> MinGlobal() => this
             .Continue()
@@ -955,8 +943,7 @@ namespace ExRam.Gremlinq.Core
             .Continue()
             .Build(static builder => builder
                 .AddStep(MinStep.Local)
-                .As<TNewQuery>()
-                .Build());
+                .BuildAs<TNewQuery>());
 
         private GremlinQuery<T1, T2, T3, T4> None() => this
             .Continue()
@@ -979,8 +966,7 @@ namespace ExRam.Gremlinq.Core
             .Build(
                 static (builder, tuple) => builder
                     .OfType<GremlinQuery<T1, T2, T3, T4>, T1, TNewElement>(tuple.model, tuple.force)
-                    .As<TTargetQuery>()
-                    .Build(),
+                    .BuildAs<TTargetQuery>(),
                 (model, force));
 
         private TTargetQuery Optional<TTargetQuery>(Func<GremlinQuery<T1, T2, T3, T4>, TTargetQuery> optionalTraversal) where TTargetQuery : IGremlinQueryBase => this
@@ -991,8 +977,7 @@ namespace ExRam.Gremlinq.Core
                 .WithNewProjection(
                     static (projection, otherProjection) => projection.Lowest(otherProjection),
                     continuedTraversal.Projection)
-                .As<TTargetQuery>()
-                .Build());
+                .BuildAs<TTargetQuery>());
 
         private GremlinQuery<T1, T2, T3, T4> Or<TState>(Func<GremlinQuery<T1, T2, T3, T4>, TState, IGremlinQueryBase> continuation1, Func<GremlinQuery<T1, T2, T3, T4>, TState, IGremlinQueryBase> continuation2, TState state) => Or(this
             .Continue(ContinuationFlags.Filter)
@@ -1218,8 +1203,7 @@ namespace ExRam.Gremlinq.Core
                 static (builder, tuple) => builder
                     .AddStep(new SelectStepLabelStep(ImmutableArray.Create(tuple.stepLabel)))
                     .WithNewProjection(tuple.stepLabelProjection)
-                    .As<TNewQuery>()
-                    .Build(),
+                    .BuildAs<TNewQuery>(),
                 (stepLabel, stepLabelProjection: GetLabelProjection(stepLabel)));
 
         private TTargetQuery Select<TTargetQuery>(Expression expression) where TTargetQuery : IGremlinQueryBase => this
@@ -1236,8 +1220,7 @@ namespace ExRam.Gremlinq.Core
                         .WithNewProjection(
                             static (projection, keys) => projection.If<TupleProjection>(tuple => tuple.Select(keys)),
                             keys)
-                        .As<TTargetQuery>()
-                        .Build();
+                        .BuildAs<TTargetQuery>();
                 },
                 expression);
 
@@ -1277,8 +1260,7 @@ namespace ExRam.Gremlinq.Core
             .Build(static builder => builder
                 .AddStep(new SumStep(Scope.Local))
                 .WithNewProjection(Projection.Value)
-                .As<TNewQuery>()
-                .Build());
+                .BuildAs<TNewQuery>());
 
         private GremlinQuery<T1, T2, T3, T4> TailGlobal(long count) => this
             .Continue()
@@ -1343,8 +1325,7 @@ namespace ExRam.Gremlinq.Core
                         .ToImmutableArray()))
                     .WithNewProjection(unionTraversals
                         .LowestProjection())
-                    .As<TReturnQuery>()
-                    .Build());
+                    .BuildAs<TReturnQuery>());
 
         private GremlinQuery<TNewElement, object, object, IGremlinQueryBase> V<TNewElement>(ReadOnlySpan<object> ids) => this
             .Continue()

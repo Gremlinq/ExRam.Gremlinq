@@ -45,19 +45,19 @@ namespace ExRam.Gremlinq.Core
             static (outer, steps, labelProjections, _) => outer.CloneAs<TTargetQuery>(steps, labelProjections),
             0);
 
-        public GremlinQuery<T1, T2, T3, T4> BuildAuto<T1, T2, T3, T4>() where T4 : IGremlinQueryBase => As<GremlinQuery<T1, T2, T3, T4>>().Build();
+        public GremlinQuery<T1, T2, T3, T4> BuildAuto<T1, T2, T3, T4>() where T4 : IGremlinQueryBase => BuildAs<GremlinQuery<T1, T2, T3, T4>>();
 
-        public GremlinQuery<T1, T2, T3, IGremlinQueryBase> BuildAuto<T1, T2, T3>() => As<GremlinQuery<T1, T2, T3, IGremlinQueryBase>>().Build();
+        public GremlinQuery<T1, T2, T3, IGremlinQueryBase> BuildAuto<T1, T2, T3>() => BuildAs<GremlinQuery<T1, T2, T3, IGremlinQueryBase>>();
 
-        public GremlinQuery<T1, T2, object, IGremlinQueryBase> BuildAuto<T1, T2>() => As<GremlinQuery<T1, T2, object, IGremlinQueryBase>>().Build();
+        public GremlinQuery<T1, T2, object, IGremlinQueryBase> BuildAuto<T1, T2>() => BuildAs<GremlinQuery<T1, T2, object, IGremlinQueryBase>>();
 
-        public GremlinQuery<T1, object, object, IGremlinQueryBase> BuildAuto<T1>() => As<GremlinQuery<T1, object, object, IGremlinQueryBase>>().Build();
+        public GremlinQuery<T1, object, object, IGremlinQueryBase> BuildAuto<T1>() => BuildAs<GremlinQuery<T1, object, object, IGremlinQueryBase>>();
 
-        public GremlinQuery<object, object, object, IGremlinQueryBase> BuildAuto() => As<GremlinQuery<object, object, object, IGremlinQueryBase>>().Build();
+        public GremlinQuery<object, object, object, IGremlinQueryBase> BuildAuto() => BuildAs<GremlinQuery<object, object, object, IGremlinQueryBase>>();
 
-        public FinalContinuationBuilder<TOuterQuery, TNewTargetQuery> As<TNewTargetQuery>() where TNewTargetQuery : IStartGremlinQuery => With(
+        public TNewTargetQuery BuildAs<TNewTargetQuery>() where TNewTargetQuery : IStartGremlinQuery => With(
             static (outer, steps, labelProjections, _) => new FinalContinuationBuilder<TOuterQuery, TNewTargetQuery>(outer, steps, labelProjections),
-            0);
+            0).Build();
 
         private TResult With<TState, TResult>(Func<TOuterQuery, Traversal, IImmutableDictionary<StepLabel, LabelProjections>, TState, TResult> continuation, TState state) => continuation(_outer, _steps, _labelProjections, state);
 
