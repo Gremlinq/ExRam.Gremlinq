@@ -22,14 +22,14 @@ namespace ExRam.Gremlinq.Core
                 _continuationBuilder = continuationBuilder;
             }
 
-            public IGroupBuilderWithKey<GremlinQuery<T1, T2, T3, T4>, TNewKey> ByKey<TNewKey>(Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase<TNewKey>> keySelector)
+            IGroupBuilderWithKey<GremlinQuery<T1, T2, T3, T4>, TNewKey> IGroupBuilder<GremlinQuery<T1, T2, T3, T4>>.ByKey<TNewKey>(Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase<TNewKey>> keySelector)
             {
                 return new GroupBuilder<TNewKey, object>(
                     _continuationBuilder
                         .With(keySelector));
             }
 
-            public IGroupBuilderWithKeyAndValue<TKey, TNewValue> ByValue<TNewValue>(Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase<TNewValue>> valueSelector)
+            IGroupBuilderWithKeyAndValue<TKey, TNewValue> IGroupBuilderWithKey<GremlinQuery<T1, T2, T3, T4>, TKey>.ByValue<TNewValue>(Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase<TNewValue>> valueSelector)
             {
                 return new GroupBuilder<TKey, TNewValue>(
                     _continuationBuilder
