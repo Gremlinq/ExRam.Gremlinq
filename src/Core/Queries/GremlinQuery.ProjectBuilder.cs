@@ -24,35 +24,23 @@ namespace ExRam.Gremlinq.Core
                 _emptyProjectionProtection = emptyProjectionProtection;
             }
 
-            IProjectBuilder<GremlinQuery<T1, T2, T3, T4>, T1> IProjectBuilder<GremlinQuery<T1, T2, T3, T4>, T1>.WithEmptyProjectionProtection()
-            {
-                return new ProjectBuilder(_sourceQuery, true);
-            }
+            IProjectBuilder<GremlinQuery<T1, T2, T3, T4>, T1> IProjectBuilder<GremlinQuery<T1, T2, T3, T4>, T1>.WithEmptyProjectionProtection() => new ProjectBuilder(_sourceQuery, true);
 
-            IProjectTupleBuilder<GremlinQuery<T1, T2, T3, T4>, T1> IProjectBuilder<GremlinQuery<T1, T2, T3, T4>, T1>.ToTuple()
-            {
-                return Continue<object>();
-            }
+            IProjectTupleBuilder<GremlinQuery<T1, T2, T3, T4>, T1> IProjectBuilder<GremlinQuery<T1, T2, T3, T4>, T1>.ToTuple() => Continue<object>();
 
-            IProjectDynamicBuilder<GremlinQuery<T1, T2, T3, T4>, T1> IProjectBuilder<GremlinQuery<T1, T2, T3, T4>, T1>.ToDynamic()
-            {
-                return Continue<object>();
-            }
+            IProjectDynamicBuilder<GremlinQuery<T1, T2, T3, T4>, T1> IProjectBuilder<GremlinQuery<T1, T2, T3, T4>, T1>.ToDynamic() => Continue<object>();
 
-            IProjectMapBuilder<GremlinQuery<T1, T2, T3, T4>, T1, TTargetType> IProjectBuilder<GremlinQuery<T1, T2, T3, T4>, T1>.To<TTargetType>()
-            {
-                return Continue<TTargetType>();
-            }
+            IProjectMapBuilder<GremlinQuery<T1, T2, T3, T4>, T1, TTargetType> IProjectBuilder<GremlinQuery<T1, T2, T3, T4>, T1>.To<TTargetType>() => Continue<TTargetType>();
 
             ProjectBuilder<TItem1, object, object, object, object, object, object, object, object, object, object, object, object, object, object, object> Continue<TItem1>()
-            {
-                return new ProjectBuilder<TItem1, object, object, object, object, object, object, object, object, object, object, object, object, object, object, object>(
-                    _sourceQuery.Continue().ToMulti(),
+                => new ProjectBuilder<TItem1, object, object, object, object, object, object, object, object, object, object, object, object, object, object, object>(
+                    _sourceQuery
+                        .Continue()
+                        .ToMulti(),
                     FastImmutableList<string>.Empty,
                     _emptyProjectionProtection
                         ? _sourceQuery.Environment.Options.GetValue(GremlinqOption.EmptyProjectionProtectionDecoratorSteps)
                         : Traversal.Empty);
-            }
         }
 
         private sealed partial class ProjectBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15, TItem16> :
