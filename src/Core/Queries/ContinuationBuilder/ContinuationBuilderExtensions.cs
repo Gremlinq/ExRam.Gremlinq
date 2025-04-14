@@ -17,18 +17,5 @@ namespace ExRam.Gremlinq.Core
                 ? admin.ConfigureSteps<TProjectedQuery>(static traversal => IdentityTraversal.WithProjection(traversal.Projection))
                 : continuedQuery;
         }
-
-        public static TNewQuery Build<TOuterQuery, TAnonymousQuery, TNewQuery>(this MultiContinuationBuilder<TOuterQuery, TAnonymousQuery> continuationBuilder, FinalContinuationBuilderTransformation<TOuterQuery, TNewQuery> builderTransformation)
-            where TOuterQuery : GremlinQueryBase, IGremlinQueryBase
-            where TAnonymousQuery : GremlinQueryBase, IGremlinQueryBase
-            where TNewQuery : IGremlinQueryBase => continuationBuilder
-                .Build(static (builder, continuations, state) => state(builder, continuations), builderTransformation);       
-
-        public static MultiContinuationBuilder<TOuterQuery, TAnonymousQuery> With<TOuterQuery, TAnonymousQuery, TProjectedQuery>(this MultiContinuationBuilder<TOuterQuery, TAnonymousQuery> continuationBuilder, Func<TAnonymousQuery, TProjectedQuery> continuation)
-            where TOuterQuery : GremlinQueryBase, IGremlinQueryBase
-            where TAnonymousQuery : GremlinQueryBase, IGremlinQueryBase
-            where TProjectedQuery : IGremlinQueryBase => continuationBuilder.With(
-                static (anonymous, continuation) => continuation(anonymous),
-                continuation);
     }
 }
