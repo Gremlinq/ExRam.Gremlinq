@@ -17,7 +17,7 @@ namespace ExRam.Gremlinq.Core
 
         }
 
-        public FinalContinuationBuilder(TOuterQuery outerQuery, Traversal steps, IImmutableDictionary<StepLabel, LabelProjections> labelProjections)
+        private FinalContinuationBuilder(TOuterQuery outerQuery, Traversal steps, IImmutableDictionary<StepLabel, LabelProjections> labelProjections)
         {
             _steps = steps;
             _outer = outerQuery;
