@@ -33,8 +33,15 @@
         public ContinuationBuilder<TNewOuterQuery, TAnonymousQuery> WithOuter<TNewOuterQuery>(TNewOuterQuery query)
             where TNewOuterQuery : GremlinQueryBase, IGremlinQueryBase => new (query, _anonymous, _flags);
 
+
+        public SingleContinuationBuilder<TOuterQuery, TAnonymousQuery> With<TProjectedQuery>(Func<TAnonymousQuery, TProjectedQuery> continuation)
+            where TProjectedQuery : IGremlinQueryBase => With(
+                static (anonymous, continuation) => continuation(anonymous),
+                continuation);
+
         public SingleContinuationBuilder<TOuterQuery, TAnonymousQuery> With<TProjectedQuery, TState>(Func<TAnonymousQuery, TState, TProjectedQuery> continuation, TState state)
             where TProjectedQuery : IGremlinQueryBase => new (_outer, _anonymous, continuation.Apply(_anonymous, state), _flags);
+
 
         public MultiContinuationBuilder<TOuterQuery, TAnonymousQuery> ToMulti() => new (_outer, _anonymous, FastImmutableList<IGremlinQueryBase>.Empty, _flags);
 
