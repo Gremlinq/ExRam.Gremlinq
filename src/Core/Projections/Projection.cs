@@ -23,16 +23,18 @@ namespace ExRam.Gremlinq.Core.Projections
             if (projectStep.Projections.Length != bySteps.Length)
                 throw new ArgumentException($"{nameof(projectStep)} must have the same number of projections as there are steps in {nameof(bySteps)}.");
 
-            return new TupleProjection(projectStep.Projections
-                .Select((key, i) =>
-                {
-                    var projection = bySteps[i] is ProjectStep.ByTraversalStep byTraversal
-                        ? byTraversal.Traversal.Projection
-                        : Empty;
+            var tuples = new (string Key, Projection Projection)[projectStep.Projections.Length];
 
-                    return (key, projection);
-                })
-                .ToArray());
+            for (var i = 0; i < tuples.Length; i++)
+            {
+                var projection = bySteps[i] is ProjectStep.ByTraversalStep byTraversal
+                    ? byTraversal.Traversal.Projection
+                    : Empty;
+
+                tuples[i] = (projectStep.Projections[i], projection);
+            }
+
+            return new TupleProjection(tuples);
         }
 
         public GroupProjection Group(Projection keyProjection, Projection valueProjection) => new(keyProjection, valueProjection);
