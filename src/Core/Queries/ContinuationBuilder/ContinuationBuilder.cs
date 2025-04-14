@@ -3,9 +3,6 @@
     internal delegate FinalContinuationBuilder<TOuterQuery> SpanStateBuilderTransformation<TOuterQuery, TState>(FinalContinuationBuilder<TOuterQuery> a, ReadOnlySpan<TState> b)
         where TOuterQuery : GremlinQueryBase, IGremlinQueryBase;
 
-    internal delegate FinalContinuationBuilder<TOuterQuery> SpanStateBuilderTransformation<TOuterQuery, TSpanState, TState>(FinalContinuationBuilder<TOuterQuery> a, ReadOnlySpan<TSpanState> b, TState c)
-        where TOuterQuery : GremlinQueryBase, IGremlinQueryBase;
-
     internal delegate TNewQuery SpanStateBuilderTransformation2<TOuterQuery, TState, TNewQuery>(FinalContinuationBuilder<TOuterQuery> a, ReadOnlySpan<TState> b)
         where TOuterQuery : GremlinQueryBase, IGremlinQueryBase
         where TNewQuery : IStartGremlinQuery;
@@ -69,9 +66,6 @@
 
         public TOuterQuery Build<TState>(SpanStateBuilderTransformation<TOuterQuery, TState> builderTransformation, ReadOnlySpan<TState> state)
             => builderTransformation(new FinalContinuationBuilder<TOuterQuery>(_outer), state).Build();
-
-        public TOuterQuery Build<TSpanState, TState>(SpanStateBuilderTransformation<TOuterQuery, TSpanState, TState> builderTransformation, ReadOnlySpan<TSpanState> spanState, TState state)
-            => builderTransformation(new FinalContinuationBuilder<TOuterQuery>(_outer), spanState, state).Build();
 
 
         public TNewQuery Build<TNewQuery>(Func<FinalContinuationBuilder<TOuterQuery>, TNewQuery> builderTransformation)
