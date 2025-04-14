@@ -41,9 +41,7 @@ namespace ExRam.Gremlinq.Core
             static (outer, steps, labelProjections, tuple) => new FinalContinuationBuilder<TOuterQuery, TTargetQuery>(outer, steps, tuple.labelProjectionsTransformation(labelProjections, tuple.state)),
             (labelProjectionsTransformation, state));
 
-        public TTargetQuery Build() => With(
-            static (outer, steps, labelProjections, _) => outer.CloneAs<TTargetQuery>(steps, labelProjections),
-            0);
+        public TTargetQuery Build() => BuildAs<TTargetQuery>();
 
         public GremlinQuery<T1, T2, T3, T4> BuildAuto<T1, T2, T3, T4>() where T4 : IGremlinQueryBase => BuildAs<GremlinQuery<T1, T2, T3, T4>>();
 
@@ -56,8 +54,8 @@ namespace ExRam.Gremlinq.Core
         public GremlinQuery<object, object, object, IGremlinQueryBase> BuildAuto() => BuildAs<GremlinQuery<object, object, object, IGremlinQueryBase>>();
 
         public TNewTargetQuery BuildAs<TNewTargetQuery>() where TNewTargetQuery : IStartGremlinQuery => With(
-            static (outer, steps, labelProjections, _) => new FinalContinuationBuilder<TOuterQuery, TNewTargetQuery>(outer, steps, labelProjections),
-            0).Build();
+            static (outer, steps, labelProjections, _) => outer.CloneAs<TNewTargetQuery>(steps, labelProjections),
+            0);
 
         private TResult With<TState, TResult>(Func<TOuterQuery, Traversal, IImmutableDictionary<StepLabel, LabelProjections>, TState, TResult> continuation, TState state) => continuation(_outer, _steps, _labelProjections, state);
 
