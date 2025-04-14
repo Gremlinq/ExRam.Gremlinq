@@ -8,14 +8,12 @@ namespace ExRam.Gremlinq.Core
     {
         private readonly TOuterQuery _outer;
         private readonly ContinuationFlags _flags;
-        private readonly TAnonymousQuery _anonymous;
         private readonly FastImmutableList<IGremlinQueryBase> _continuations;
 
-        public MultiContinuationBuilder(TOuterQuery outer, TAnonymousQuery anonymous, FastImmutableList<IGremlinQueryBase> continuations, ContinuationFlags flags)
+        public MultiContinuationBuilder(TOuterQuery outer, FastImmutableList<IGremlinQueryBase> continuations, ContinuationFlags flags)
         {
             _outer = outer;
             _flags = flags;
-            _anonymous = anonymous;
             _continuations = continuations;
         }
 

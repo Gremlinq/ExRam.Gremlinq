@@ -46,7 +46,7 @@
                     .Push(continuations[i].Apply(_anonymous, state));
             }
 
-            return new MultiContinuationBuilder<TOuterQuery, TAnonymousQuery>(_outer, _anonymous, continuationList, _flags);
+            return new MultiContinuationBuilder<TOuterQuery, TAnonymousQuery>(_outer, continuationList, _flags);
         }
 
         public MultiContinuationBuilder<TOuterQuery, TAnonymousQuery> With<TProjectedQuery>(ReadOnlySpan<Func<TAnonymousQuery, TProjectedQuery>> continuations)
@@ -60,10 +60,10 @@
                     .Push(continuations[i].Apply(_anonymous));
             }
 
-            return new MultiContinuationBuilder<TOuterQuery, TAnonymousQuery>(_outer, _anonymous, continuationList, _flags);
+            return new MultiContinuationBuilder<TOuterQuery, TAnonymousQuery>(_outer, continuationList, _flags);
         }
 
-        public MultiContinuationBuilder<TOuterQuery, TAnonymousQuery> ToMulti() => new (_outer, _anonymous, FastImmutableList<IGremlinQueryBase>.Empty, _flags);
+        public MultiContinuationBuilder<TOuterQuery, TAnonymousQuery> ToMulti() => new (_outer, FastImmutableList<IGremlinQueryBase>.Empty, _flags);
 
 
         public TOuterQuery Build(Func<FinalContinuationBuilder<TOuterQuery>, FinalContinuationBuilder<TOuterQuery>> builderTransformation)
