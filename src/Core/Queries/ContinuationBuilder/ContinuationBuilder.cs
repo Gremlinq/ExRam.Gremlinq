@@ -35,6 +35,20 @@
         public SingleContinuationBuilder<TOuterQuery, TAnonymousQuery> With<TProjectedQuery, TState>(Func<TAnonymousQuery, TState, TProjectedQuery> continuation, TState state)
             where TProjectedQuery : IGremlinQueryBase => new (_outer, _anonymous, continuation.Apply(_anonymous, state), _flags);
 
+        public MultiContinuationBuilder<TOuterQuery, TAnonymousQuery> With<TProjectedQuery, TState>(ReadOnlySpan<Func<TAnonymousQuery, TState, TProjectedQuery>> continuations, TState state)
+            where TProjectedQuery : IGremlinQueryBase
+        {
+            var multi = ToMulti();
+
+            for (var i = 0; i < continuations.Length; i++)
+            {
+                multi = multi
+                    .With(continuations[i], state);
+            }
+
+            return multi;
+        }
+
         public MultiContinuationBuilder<TOuterQuery, TAnonymousQuery> With<TProjectedQuery>(ReadOnlySpan<Func<TAnonymousQuery, TProjectedQuery>> continuations)
             where TProjectedQuery : IGremlinQueryBase
         {

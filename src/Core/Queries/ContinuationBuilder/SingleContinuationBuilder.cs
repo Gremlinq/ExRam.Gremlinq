@@ -17,8 +17,6 @@
             _continuation = continuation;
         }
 
-        public MultiContinuationBuilder<TOuterQuery, TAnonymousQuery> With<TState>(Func<TAnonymousQuery, TState, IGremlinQueryBase> continuation, TState state) => new (_outer, _anonymous, FastImmutableList<IGremlinQueryBase>.Empty.Push(_continuation).Push(continuation.Apply(_anonymous, state)), _flags);
-
         public TOuterQuery Build<TState>(Func<FinalContinuationBuilder<TOuterQuery>, Traversal, TState, FinalContinuationBuilder<TOuterQuery>> builderTransformation, TState state)
             => Build(static (builder, traversal, tuple) => tuple.builderTransformation(builder, traversal, tuple.state).Build(), (builderTransformation, state));
 

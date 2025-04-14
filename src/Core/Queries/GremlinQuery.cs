@@ -255,8 +255,7 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<T1, T2, T3, T4> And<TState>(Func<GremlinQuery<T1, T2, T3, T4>, TState, IGremlinQueryBase> continuation1, Func<GremlinQuery<T1, T2, T3, T4>, TState, IGremlinQueryBase> continuation2, TState state) => And(this
             .Continue(ContinuationFlags.Filter)
-            .With(continuation1, state)
-            .With(continuation2, state));
+            .With([continuation1, continuation2], state));
 
         private GremlinQuery<T1, T2, T3, T4> And(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase>> continuations) => And(this
             .Continue(ContinuationFlags.Filter)
@@ -981,8 +980,7 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<T1, T2, T3, T4> Or<TState>(Func<GremlinQuery<T1, T2, T3, T4>, TState, IGremlinQueryBase> continuation1, Func<GremlinQuery<T1, T2, T3, T4>, TState, IGremlinQueryBase> continuation2, TState state) => Or(this
             .Continue(ContinuationFlags.Filter)
-            .With(continuation1, state)
-            .With(continuation2, state));
+            .With([continuation1, continuation2], state));
 
         private GremlinQuery<T1, T2, T3, T4> Or(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase>> continuations) => Or(this
             .Continue(ContinuationFlags.Filter)
