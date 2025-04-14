@@ -679,7 +679,8 @@ namespace ExRam.Gremlinq.Core
                     .AddStep(new EStep(ids.ToImmutableArray()))
                     .OfType<GremlinQuery<T1, T2, T3, T4>, T1, TNewElement>(builder.OuterQuery.Environment.Model.EdgesModel, true)
                     .WithNewProjection(Projection.Edge)
-                    .AsAuto<TNewElement>(),
+                    .AsAuto<TNewElement>()
+                    .Build(),
                 ids);
 
         private GremlinQuery<string, object, object, IGremlinQueryBase> Explain() => this
@@ -862,7 +863,8 @@ namespace ExRam.Gremlinq.Core
                             .Select(static x => (object)x!)
                             .ToImmutableArray()))
                     .WithNewProjection(Projection.Value)
-                    .AsAuto<TNewElement, T2, T3, T4>(),
+                    .AsAuto<TNewElement, T2, T3, T4>()
+                    .Build(),
                 elements);
 
         private TNewQuery InOutV<TNewElement, TNewQuery>(Step step)
@@ -1391,7 +1393,8 @@ namespace ExRam.Gremlinq.Core
                     .AddStep(new VStep(ids.ToImmutableArray()))
                     .OfType<GremlinQuery<T1, T2, T3, T4>, T1, TNewElement>(builder.OuterQuery.Environment.Model.VerticesModel, true)
                     .WithNewProjection(Projection.Vertex)
-                    .AsAuto<TNewElement>(),
+                    .AsAuto<TNewElement>()
+                    .Build(),
                 ids);
 
         private GremlinQuery<TNewPropertyValue, object, object, IGremlinQueryBase> Value<TNewPropertyValue>() => this
@@ -1426,7 +1429,8 @@ namespace ExRam.Gremlinq.Core
                         ? ValuesStep.All
                         : new ValuesStep(keys.ToImmutableArray()))
                     .WithNewProjection(Projection.Value)
-                    .AsAuto<TValue>(),
+                    .AsAuto<TValue>()
+                    .Build(),
                 keys);
 
         private GremlinQuery<TValue, object, object, IGremlinQueryBase> ValuesForProjections<TValue>(ReadOnlySpan<LambdaExpression> projections) => projections is []
@@ -1487,7 +1491,8 @@ namespace ExRam.Gremlinq.Core
 
                         return builder
                             .WithNewProjection(Projection.Value)
-                            .AsAuto<TValue>();
+                            .AsAuto<TValue>()
+                            .Build();
                     },
                     projections);
 
