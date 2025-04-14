@@ -92,96 +92,84 @@ namespace ExRam.Gremlinq.Core
                 static (@this, memberName, projection) => @this.ByExpression<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15, TItem16>(projection, memberName),
                 projection);
 
-            private ProjectBuilder<TNewItem1, TNewItem2, TNewItem3, TNewItem4, TNewItem5, TNewItem6, TNewItem7, TNewItem8, TNewItem9, TNewItem10, TNewItem11, TNewItem12, TNewItem13, TNewItem14, TNewItem15, TNewItem16> ByLambda<TNewItem1, TNewItem2, TNewItem3, TNewItem4, TNewItem5, TNewItem6, TNewItem7, TNewItem8, TNewItem9, TNewItem10, TNewItem11, TNewItem12, TNewItem13, TNewItem14, TNewItem15, TNewItem16>(Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase> projection, string? name = default)
-            {
-                return new(
+            private ProjectBuilder<TNewItem1, TNewItem2, TNewItem3, TNewItem4, TNewItem5, TNewItem6, TNewItem7, TNewItem8, TNewItem9, TNewItem10, TNewItem11, TNewItem12, TNewItem13, TNewItem14, TNewItem15, TNewItem16> ByLambda<TNewItem1, TNewItem2, TNewItem3, TNewItem4, TNewItem5, TNewItem6, TNewItem7, TNewItem8, TNewItem9, TNewItem10, TNewItem11, TNewItem12, TNewItem13, TNewItem14, TNewItem15, TNewItem16>(Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase> projection, string? name = default) => new(
+                _outer,
+                _names
+                    .Push(name ?? $"Item{_names.Count + 1}"),
+                _bySteps
+                    .Push(new ProjectStep.ByTraversalStep(_outer
+                        .Continue()
+                        .With(projection)
+                        .Build(static (_, traversal) => traversal))),
+                _emptyProjectionProtectionDecoratorSteps);
+
+            private ProjectBuilder<TNewItem1, TNewItem2, TNewItem3, TNewItem4, TNewItem5, TNewItem6, TNewItem7, TNewItem8, TNewItem9, TNewItem10, TNewItem11, TNewItem12, TNewItem13, TNewItem14, TNewItem15, TNewItem16> ByExpression<TNewItem1, TNewItem2, TNewItem3, TNewItem4, TNewItem5, TNewItem6, TNewItem7, TNewItem8, TNewItem9, TNewItem10, TNewItem11, TNewItem12, TNewItem13, TNewItem14, TNewItem15, TNewItem16>(Expression projection, string? name = default) => projection is LambdaExpression lambdaExpression && lambdaExpression.IsIdentityExpression()
+                ? ByLambda<TNewItem1, TNewItem2, TNewItem3, TNewItem4, TNewItem5, TNewItem6, TNewItem7, TNewItem8, TNewItem9, TNewItem10, TNewItem11, TNewItem12, TNewItem13, TNewItem14, TNewItem15, TNewItem16>(static __ => __.Identity(), name)
+                : new(
                     _outer,
                     _names
                         .Push(name ?? $"Item{_names.Count + 1}"),
                     _bySteps
-                        .Push(new ProjectStep.ByTraversalStep(_outer
-                            .Continue()
-                            .With(projection)
-                            .Build(static (_, traversal) => traversal))),
+                        .Push(new ProjectStep.ByKeyStep(_outer.GetKey(projection))),
                     _emptyProjectionProtectionDecoratorSteps);
-            }
 
-            private ProjectBuilder<TNewItem1, TNewItem2, TNewItem3, TNewItem4, TNewItem5, TNewItem6, TNewItem7, TNewItem8, TNewItem9, TNewItem10, TNewItem11, TNewItem12, TNewItem13, TNewItem14, TNewItem15, TNewItem16> ByExpression<TNewItem1, TNewItem2, TNewItem3, TNewItem4, TNewItem5, TNewItem6, TNewItem7, TNewItem8, TNewItem9, TNewItem10, TNewItem11, TNewItem12, TNewItem13, TNewItem14, TNewItem15, TNewItem16>(Expression projection, string? name = default)
-            {
-                return projection is LambdaExpression lambdaExpression && lambdaExpression.IsIdentityExpression()
-                    ? ByLambda<TNewItem1, TNewItem2, TNewItem3, TNewItem4, TNewItem5, TNewItem6, TNewItem7, TNewItem8, TNewItem9, TNewItem10, TNewItem11, TNewItem12, TNewItem13, TNewItem14, TNewItem15, TNewItem16>(static __ => __.Identity(), name)
-                    : new(
-                        _outer,
-                        _names
-                            .Push(name ?? $"Item{_names.Count + 1}"),
-                        _bySteps
-                            .Push(new ProjectStep.ByKeyStep(_outer.GetKey(projection))),
-                        _emptyProjectionProtectionDecoratorSteps);
-            }
+            private IProjectMapBuilder<GremlinQuery<T1, T2, T3, T4>, T1, TItem1> By<TTargetProperty, TState>(Expression<Func<TItem1, TTargetProperty>> targetExpression, Func<ProjectBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15, TItem16>, string, TState, ProjectBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15, TItem16>> transformation, TState state) => targetExpression.Body is MemberExpression memberExpression
+                ? transformation(this, memberExpression.Member.Name, state)
+                : throw new ExpressionNotSupportedException(targetExpression);
 
-            private IProjectMapBuilder<GremlinQuery<T1, T2, T3, T4>, T1, TItem1> By<TTargetProperty, TState>(Expression<Func<TItem1, TTargetProperty>> targetExpression, Func<ProjectBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15, TItem16>, string, TState, ProjectBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15, TItem16>> transformation, TState state)
-            {
-                return targetExpression.Body is MemberExpression memberExpression
-                    ? transformation(this, memberExpression.Member.Name, state)
-                    : throw new ExpressionNotSupportedException(targetExpression);
-            }
+            private TTargetQuery Build<TTargetQuery>() where TTargetQuery : IGremlinQueryBase => _outer
+                .Continue()
+                .Build(
+                    static (builder, state) =>
+                    {
+                        var (names, bySteps, emptyProjectionProtectionDecoratorSteps) = state;
 
-            private TTargetQuery Build<TTargetQuery>() where TTargetQuery : IGremlinQueryBase
-            {
-                return _outer
-                    .Continue()
-                    .Build(
-                        static (builder, state) =>
+                        var projectStep = new ProjectStep(names.AsSpan().ToImmutableArray());
+
+                        builder = builder
+                            .AddStep(projectStep)
+                            .WithNewProjection(
+                                static (projection, tuple) => projection.Project(tuple.projectStep, tuple.bySteps.AsSpan()),
+                                (projectStep, bySteps));
+
+                        for (var i = 0; i < bySteps.Count; i++)
                         {
-                            var (names, bySteps, emptyProjectionProtectionDecoratorSteps) = state;
-
-                            var projectStep = new ProjectStep(names.AsSpan().ToImmutableArray());
-                            
-                            builder = builder
-                                .AddStep(projectStep)
-                                .WithNewProjection(
-                                    static (projection, tuple) => projection.Project(tuple.projectStep, tuple.bySteps.AsSpan()),
-                                    (projectStep, bySteps));
-
-                            for (var i = 0; i < bySteps.Count; i++)
-                            {
-                                var closureByStep = bySteps[i];
-
-                                if (emptyProjectionProtectionDecoratorSteps.Count > 0)
-                                {
-                                    var byTraversalStep = closureByStep
-                                        .ToByTraversalStep();
-
-                                    closureByStep = new ProjectStep.ByTraversalStep(Traversal
-                                        .Create(
-                                            byTraversalStep.Traversal.Count + 2,
-                                            byTraversalStep,
-                                            static (steps, byTraversalStep) =>
-                                            {
-                                                steps[^2] = LimitStep.LimitGlobal1;
-                                                steps[^1] = FoldStep.Instance;
-
-                                                byTraversalStep.Traversal.Steps
-                                                    .CopyTo(steps);
-                                            })
-                                        .WithProjection(byTraversalStep.Traversal.Projection));
-                                }
-
-                                builder = builder
-                                    .AddStep(closureByStep);
-                            }
+                            var closureByStep = bySteps[i];
 
                             if (emptyProjectionProtectionDecoratorSteps.Count > 0)
                             {
-                                builder = builder
-                                    .AddSteps(emptyProjectionProtectionDecoratorSteps);
+                                var byTraversalStep = closureByStep
+                                    .ToByTraversalStep();
+
+                                closureByStep = new ProjectStep.ByTraversalStep(Traversal
+                                    .Create(
+                                        byTraversalStep.Traversal.Count + 2,
+                                        byTraversalStep,
+                                        static (steps, byTraversalStep) =>
+                                        {
+                                            steps[^2] = LimitStep.LimitGlobal1;
+                                            steps[^1] = FoldStep.Instance;
+
+                                            byTraversalStep.Traversal.Steps
+                                                .CopyTo(steps);
+                                        })
+                                    .WithProjection(byTraversalStep.Traversal.Projection));
                             }
 
-                            return builder
-                                .BuildAs<TTargetQuery>();
-                        },
-                        (_names, _bySteps, _emptyProjectionProtectionDecoratorSteps));
-            }
+                            builder = builder
+                                .AddStep(closureByStep);
+                        }
+
+                        if (emptyProjectionProtectionDecoratorSteps.Count > 0)
+                        {
+                            builder = builder
+                                .AddSteps(emptyProjectionProtectionDecoratorSteps);
+                        }
+
+                        return builder
+                            .BuildAs<TTargetQuery>();
+                    },
+                    (_names, _bySteps, _emptyProjectionProtectionDecoratorSteps));
         }
     }
 }
