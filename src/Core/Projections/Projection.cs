@@ -18,7 +18,9 @@ namespace ExRam.Gremlinq.Core.Projections
 
         public ArrayProjection Fold() => new(this);
 
-        public TupleProjection Project(ProjectStep projectStep, ProjectStep.ByStep[] bySteps)
+        public TupleProjection Project(ProjectStep projectStep, ProjectStep.ByStep[] bySteps) => Project(projectStep, bySteps.AsSpan());
+
+        internal TupleProjection Project(ProjectStep projectStep, ReadOnlySpan<ProjectStep.ByStep> bySteps)
         {
             if (projectStep.Projections.Length != bySteps.Length)
                 throw new ArgumentException($"{nameof(projectStep)} must have the same number of projections as there are steps in {nameof(bySteps)}.");
