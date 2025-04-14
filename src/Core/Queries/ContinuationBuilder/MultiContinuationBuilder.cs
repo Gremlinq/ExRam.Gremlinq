@@ -19,14 +19,6 @@ namespace ExRam.Gremlinq.Core
             _continuations = continuations;
         }
 
-        public MultiContinuationBuilder<TOuterQuery, TAnonymousQuery> With<TProjectedQuery, TState>(Func<TAnonymousQuery, TState, TProjectedQuery> continuation, TState state)
-            where TProjectedQuery : IGremlinQueryBase => new (_outer, _anonymous, _continuations.Push(continuation.Apply(_anonymous, state)), _flags);
-
-        public MultiContinuationBuilder<TOuterQuery, TAnonymousQuery> With<TProjectedQuery>(Func<TAnonymousQuery, TProjectedQuery> continuation)
-            where TProjectedQuery : IGremlinQueryBase => With(
-                static (anonymous, continuation) => continuation(anonymous),
-                continuation);
-
         public TNewQuery Build<TNewQuery>(FinalContinuationBuilderTransformation<TOuterQuery, TNewQuery> builderTransformation)
             where TNewQuery : IGremlinQueryBase => Build(static (builder, continuations, state) => state(builder, continuations), builderTransformation);
 
