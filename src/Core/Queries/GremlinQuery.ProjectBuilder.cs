@@ -34,10 +34,9 @@ namespace ExRam.Gremlinq.Core
 
             ProjectBuilder<TItem1, object, object, object, object, object, object, object, object, object, object, object, object, object, object, object> Continue<TItem1>()
                 => new ProjectBuilder<TItem1, object, object, object, object, object, object, object, object, object, object, object, object, object, object, object>(
-                    _sourceQuery
-                        .Continue()
-                        .ToMulti(),
+                    _sourceQuery,
                     FastImmutableList<string>.Empty,
+                    FastImmutableList<ProjectStep.ByStep>.Empty,
                     _emptyProjectionProtection
                         ? _sourceQuery.Environment.Options.GetValue(GremlinqOption.EmptyProjectionProtectionDecoratorSteps)
                         : Traversal.Empty);
@@ -48,16 +47,19 @@ namespace ExRam.Gremlinq.Core
             IProjectMapBuilder<GremlinQuery<T1, T2, T3, T4>, T1, TItem1>
         {
             private readonly FastImmutableList<string> _names;
+            private readonly GremlinQuery<T1, T2, T3, T4> _outer;
+            private readonly FastImmutableList<ProjectStep.ByStep> _bySteps;
             private readonly Traversal _emptyProjectionProtectionDecoratorSteps;
-            private readonly MultiContinuationBuilder<GremlinQuery<T1, T2, T3, T4>, GremlinQuery<T1, T2, T3, T4>> _continuationBuilder;
 
             public ProjectBuilder(
-                MultiContinuationBuilder<GremlinQuery<T1, T2, T3, T4>, GremlinQuery<T1, T2, T3, T4>> continuationBuilder,
+                GremlinQuery<T1, T2, T3, T4> outer,
                 FastImmutableList<string> names,
+                FastImmutableList<ProjectStep.ByStep> bySteps,
                 Traversal emptyProjectionProtectionDecoratorSteps)
             {
                 _names = names;
-                _continuationBuilder = continuationBuilder;
+                _outer = outer;
+                _bySteps = bySteps;
                 _emptyProjectionProtectionDecoratorSteps = emptyProjectionProtectionDecoratorSteps;
             }
 
@@ -93,15 +95,14 @@ namespace ExRam.Gremlinq.Core
             private ProjectBuilder<TNewItem1, TNewItem2, TNewItem3, TNewItem4, TNewItem5, TNewItem6, TNewItem7, TNewItem8, TNewItem9, TNewItem10, TNewItem11, TNewItem12, TNewItem13, TNewItem14, TNewItem15, TNewItem16> ByLambda<TNewItem1, TNewItem2, TNewItem3, TNewItem4, TNewItem5, TNewItem6, TNewItem7, TNewItem8, TNewItem9, TNewItem10, TNewItem11, TNewItem12, TNewItem13, TNewItem14, TNewItem15, TNewItem16>(Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase> projection, string? name = default)
             {
                 return new(
-                    _continuationBuilder
-                        .With(
-                            static (__, projection) => __
-                                .Continue()
-                                .With(projection)
-                                .Build(static (builder, traversal) => builder
-                                    .AddStep(new ProjectStep.ByTraversalStep(traversal))),
-                            projection),
-                    _names.Push(name ?? $"Item{_names.Count + 1}"),
+                    _outer,
+                    _names
+                        .Push(name ?? $"Item{_names.Count + 1}"),
+                    _bySteps
+                        .Push(new ProjectStep.ByTraversalStep(_outer
+                            .Continue()
+                            .With(projection)
+                            .Build(static (_, traversal) => traversal))),
                     _emptyProjectionProtectionDecoratorSteps);
             }
 
@@ -110,16 +111,11 @@ namespace ExRam.Gremlinq.Core
                 return projection is LambdaExpression lambdaExpression && lambdaExpression.IsIdentityExpression()
                     ? ByLambda<TNewItem1, TNewItem2, TNewItem3, TNewItem4, TNewItem5, TNewItem6, TNewItem7, TNewItem8, TNewItem9, TNewItem10, TNewItem11, TNewItem12, TNewItem13, TNewItem14, TNewItem15, TNewItem16>(static __ => __.Identity(), name)
                     : new(
-                        _continuationBuilder
-                            .With(
-                                static (__, projection) => __
-                                    .Continue()
-                                    .Build(
-                                        static (builder, key) => builder
-                                            .AddStep(new ProjectStep.ByKeyStep(key)),
-                                        __.GetKey(projection)),
-                                projection),
-                        _names.Push(name ?? $"Item{_names.Count + 1}"),
+                        _outer,
+                        _names
+                            .Push(name ?? $"Item{_names.Count + 1}"),
+                        _bySteps
+                            .Push(new ProjectStep.ByKeyStep(_outer.GetKey(projection))),
                         _emptyProjectionProtectionDecoratorSteps);
             }
 
@@ -132,27 +128,22 @@ namespace ExRam.Gremlinq.Core
 
             private TTargetQuery Build<TTargetQuery>() where TTargetQuery : IGremlinQueryBase
             {
-                return _continuationBuilder
+                return _outer
+                    .Continue()
                     .Build(
-                        static (builder, traversals, state) =>
+                        static (builder, state) =>
                         {
-                            var (names, emptyProjectionProtectionDecoratorSteps) = state;
+                            var (names, bySteps, emptyProjectionProtectionDecoratorSteps) = state;
 
                             var projectStep = new ProjectStep(names.AsSpan().ToImmutableArray());
-                            var bySteps = new ProjectStep.ByStep[traversals.Length];
-
-                            for (var i = 0; i < traversals.Length; i++)
-                            {
-                                bySteps[i] = (ProjectStep.ByStep)traversals[i][0];
-                            }
-
+                            
                             builder = builder
                                 .AddStep(projectStep)
                                 .WithNewProjection(
-                                    static (projection, tuple) => projection.Project(tuple.projectStep, tuple.bySteps),
+                                    static (projection, tuple) => projection.Project(tuple.projectStep, tuple.bySteps.AsSpan()),
                                     (projectStep, bySteps));
 
-                            for (var i = 0; i < bySteps.Length; i++)
+                            for (var i = 0; i < bySteps.Count; i++)
                             {
                                 var closureByStep = bySteps[i];
 
@@ -189,7 +180,7 @@ namespace ExRam.Gremlinq.Core
                             return builder
                                 .BuildAs<TTargetQuery>();
                         },
-                        (_names, _emptyProjectionProtectionDecoratorSteps));
+                        (_names, _bySteps, _emptyProjectionProtectionDecoratorSteps));
             }
         }
     }
