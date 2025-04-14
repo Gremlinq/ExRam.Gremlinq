@@ -449,8 +449,7 @@ namespace ExRam.Gremlinq.Core
                 static (builder, stepLabel) => builder
                     .AddStep(new CapStep(stepLabel))
                     .WithNewProjection(static projection => projection.Fold())
-                    .AsAuto<TSelectedElement, TArrayItem, object, TQuery>()
-                    .Build(),
+                    .BuildAuto<TSelectedElement, TArrayItem, object, TQuery>(),
                 stepLabel);
 
         private TTargetQuery Choose<TTrueQuery, TFalseQuery, TTargetQuery>(Expression<Func<T1, bool>> predicate, Func<GremlinQuery<T1, T2, T3, T4>, TTrueQuery> trueChoice, Func<GremlinQuery<T1, T2, T3, T4>, TFalseQuery>? maybeFalseChoice = default)
@@ -717,8 +716,7 @@ namespace ExRam.Gremlinq.Core
             .Build(static builder => builder
                 .AddStep(FoldStep.Instance)
                 .WithNewProjection(static projection => projection.Fold())
-                .AsAuto<T1[], T1, object, TNewFoldedQuery>()
-                .Build());
+                .BuildAuto<T1[], T1, object, TNewFoldedQuery>());
 
         private GremlinQuery<T1, object, object, IGremlinQueryBase> ForceElement() => this
             .Continue()
@@ -863,8 +861,7 @@ namespace ExRam.Gremlinq.Core
                             .Select(static x => (object)x!)
                             .ToImmutableArray()))
                     .WithNewProjection(Projection.Value)
-                    .AsAuto<TNewElement, T2, T3, T4>()
-                    .Build(),
+                    .BuildAuto<TNewElement, T2, T3, T4>(),
                 elements);
 
         private TNewQuery InOutV<TNewElement, TNewQuery>(Step step)
