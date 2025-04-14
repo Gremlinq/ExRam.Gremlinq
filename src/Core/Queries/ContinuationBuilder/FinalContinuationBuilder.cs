@@ -5,9 +5,8 @@ using ExRam.Gremlinq.Core.Steps;
 
 namespace ExRam.Gremlinq.Core
 {
-    internal readonly struct FinalContinuationBuilder<TOuterQuery, TTargetQuery>
+    internal readonly struct FinalContinuationBuilder<TOuterQuery>
         where TOuterQuery : GremlinQueryBase, IGremlinQueryBase
-        where TTargetQuery : IStartGremlinQuery
     {
         private readonly Traversal _steps;
         private readonly TOuterQuery _outer;
@@ -25,23 +24,23 @@ namespace ExRam.Gremlinq.Core
             _labelProjections = labelProjections;
         }
 
-        public FinalContinuationBuilder<TOuterQuery, TTargetQuery> AddStep(Step step) => With(
-            static (outer, steps, labelProjections, step) => new FinalContinuationBuilder<TOuterQuery, TTargetQuery>(outer, steps.Push(step), labelProjections),
+        public FinalContinuationBuilder<TOuterQuery> AddStep(Step step) => With(
+            static (outer, steps, labelProjections, step) => new FinalContinuationBuilder<TOuterQuery>(outer, steps.Push(step), labelProjections),
             step);
 
-        public FinalContinuationBuilder<TOuterQuery, TTargetQuery> WithSteps<TState>(Func<Traversal, TState, Traversal> traversalTransformation, TState state) => With(
-            static (outer, steps, labelProjections, tuple) => new FinalContinuationBuilder<TOuterQuery, TTargetQuery>(outer, tuple.traversalTransformation(steps, tuple.state), labelProjections),
+        public FinalContinuationBuilder<TOuterQuery> WithSteps<TState>(Func<Traversal, TState, Traversal> traversalTransformation, TState state) => With(
+            static (outer, steps, labelProjections, tuple) => new FinalContinuationBuilder<TOuterQuery>(outer, tuple.traversalTransformation(steps, tuple.state), labelProjections),
             (traversalTransformation, state));
 
-        public FinalContinuationBuilder<TOuterQuery, TTargetQuery> WithNewProjection<TState>(Func<Projection, TState, Projection> projectionTransformation, TState state) => With(
-            static (outer, steps, labelProjections, tuple) => new FinalContinuationBuilder<TOuterQuery, TTargetQuery>(outer, steps.WithProjection(tuple.projectionTransformation(steps.Projection, tuple.state)), labelProjections),
+        public FinalContinuationBuilder<TOuterQuery> WithNewProjection<TState>(Func<Projection, TState, Projection> projectionTransformation, TState state) => With(
+            static (outer, steps, labelProjections, tuple) => new FinalContinuationBuilder<TOuterQuery>(outer, steps.WithProjection(tuple.projectionTransformation(steps.Projection, tuple.state)), labelProjections),
             (projectionTransformation, state));
 
-        public FinalContinuationBuilder<TOuterQuery, TTargetQuery> WithNewLabelProjections<TState>(Func<IImmutableDictionary<StepLabel, LabelProjections>, TState, IImmutableDictionary<StepLabel, LabelProjections>> labelProjectionsTransformation, TState state) => With(
-            static (outer, steps, labelProjections, tuple) => new FinalContinuationBuilder<TOuterQuery, TTargetQuery>(outer, steps, tuple.labelProjectionsTransformation(labelProjections, tuple.state)),
+        public FinalContinuationBuilder<TOuterQuery> WithNewLabelProjections<TState>(Func<IImmutableDictionary<StepLabel, LabelProjections>, TState, IImmutableDictionary<StepLabel, LabelProjections>> labelProjectionsTransformation, TState state) => With(
+            static (outer, steps, labelProjections, tuple) => new FinalContinuationBuilder<TOuterQuery>(outer, steps, tuple.labelProjectionsTransformation(labelProjections, tuple.state)),
             (labelProjectionsTransformation, state));
 
-        public TTargetQuery Build() => BuildAs<TTargetQuery>();
+        public TOuterQuery Build() => BuildAs<TOuterQuery>();
 
         public GremlinQuery<T1, T2, T3, T4> BuildAuto<T1, T2, T3, T4>() where T4 : IGremlinQueryBase => BuildAs<GremlinQuery<T1, T2, T3, T4>>();
 

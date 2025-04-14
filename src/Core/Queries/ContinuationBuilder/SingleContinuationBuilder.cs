@@ -21,16 +21,16 @@
             static (outer, anonymous, existingContinuation, flags, state) => new MultiContinuationBuilder<TOuterQuery, TAnonymousQuery>(outer, anonymous, FastImmutableList<IGremlinQueryBase>.Empty.Push(existingContinuation).Push(state.continuation.Apply(anonymous, state.state)), flags),
             (continuation, state));
 
-        public TOuterQuery Build<TState>(Func<FinalContinuationBuilder<TOuterQuery, TOuterQuery>, Traversal, TState, FinalContinuationBuilder<TOuterQuery, TOuterQuery>> builderTransformation, TState state)=> Build(static (builder, traversal, tuple) => tuple.builderTransformation(builder, traversal, tuple.state).Build(), (builderTransformation, state));
+        public TOuterQuery Build<TState>(Func<FinalContinuationBuilder<TOuterQuery>, Traversal, TState, FinalContinuationBuilder<TOuterQuery>> builderTransformation, TState state)=> Build(static (builder, traversal, tuple) => tuple.builderTransformation(builder, traversal, tuple.state).Build(), (builderTransformation, state));
 
-        public TNewQuery Build<TNewQuery>(Func<FinalContinuationBuilder<TOuterQuery, TOuterQuery>, Traversal, TNewQuery> builderTransformation)
+        public TNewQuery Build<TNewQuery>(Func<FinalContinuationBuilder<TOuterQuery>, Traversal, TNewQuery> builderTransformation)
             where TNewQuery : IStartGremlinQuery => Build(static (builder, traversal, builderTransformation) => builderTransformation(builder, traversal), builderTransformation);
 
-        public TNewQuery Build<TNewQuery, TState>(Func<FinalContinuationBuilder<TOuterQuery, TOuterQuery>, Traversal, TState, TNewQuery> builderTransformation, TState state) => With(
+        public TNewQuery Build<TNewQuery, TState>(Func<FinalContinuationBuilder<TOuterQuery>, Traversal, TState, TNewQuery> builderTransformation, TState state) => With(
             static (outer, _, continuation, flags, state) =>
             {
                 var (builderTransformation, innerState) = state;
-                var builder = new FinalContinuationBuilder<TOuterQuery, TOuterQuery>(outer);
+                var builder = new FinalContinuationBuilder<TOuterQuery>(outer);
 
                 if (continuation is GremlinQueryBase queryBase)
                 {
