@@ -404,23 +404,20 @@ namespace ExRam.Gremlinq.Core
             .Continue()
             .Build(static builder => builder
                 .AddStep(BothStep.NoLabels)
-                .AsAuto()
-                .Build());
+                .BuildAuto());
 
         private GremlinQuery<object, object, object, IGremlinQueryBase> Both<TEdge>() => this
             .Continue()
             .Build(static builder => builder
                 .AddStep(new BothStep(builder.OuterQuery.Environment.Model.EdgesModel.GetFilterLabelsOrDefault(typeof(TEdge), builder.OuterQuery.Environment.Options.GetValue(GremlinqOption.FilterLabelsVerbosity))))
-                .AsAuto()
-                .Build());
+                .BuildAuto());
 
         private GremlinQuery<object, object, object, IGremlinQueryBase> BothE() => this
             .Continue()
             .Build(static builder => builder
                 .AddStep(BothEStep.NoLabels)
                 .WithNewProjection(Projection.Edge)
-                .AsAuto()
-                .Build());
+                .BuildAuto());
 
         private GremlinQuery<TEdge, object, object, IGremlinQueryBase> BothE<TEdge>() => this
             .Continue()
@@ -653,8 +650,7 @@ namespace ExRam.Gremlinq.Core
             .Build(static builder => builder
                 .AddStep(DropStep.Instance)
                 .WithNewProjection(Projection.Empty)
-                .AsAuto()
-                .Build());
+                .BuildAuto());
 
         private GremlinQuery<T1, T2, T3, T4> DropProperties(string key) => this
             .SideEffect(_ => _
@@ -688,8 +684,7 @@ namespace ExRam.Gremlinq.Core
                         ? new FailStep(actualMessage)
                         : FailStep.NoMessage)
                     .WithNewProjection(Projection.Empty)
-                    .AsAuto()
-                    .Build(),
+                    .BuildAuto(),
                 message);
 
         private TTargetQuery FlatMap<TTargetQuery>(Func<GremlinQuery<T1, T2, T3, T4>, TTargetQuery> continuation) where TTargetQuery : IGremlinQueryBase => this
@@ -799,8 +794,7 @@ namespace ExRam.Gremlinq.Core
             .Build(static builder => builder
                 .AddStep(IdStep.Instance)
                 .WithNewProjection(Projection.Value)
-                .AsAuto()
-                .Build());
+                .BuildAuto());
 
         private GremlinQuery<T1, T2, T3, T4> Identity() => this
             .Continue()
@@ -811,23 +805,20 @@ namespace ExRam.Gremlinq.Core
             .Continue()
             .Build(static builder => builder
                 .AddStep(InStep.NoLabels)
-                .AsAuto()
-                .Build());
+                .BuildAuto());
 
         private GremlinQuery<object, object, object, IGremlinQueryBase> In<TEdge>() => this
             .Continue()
             .Build(static builder => builder
                 .AddStep(new InStep(builder.OuterQuery.Environment.Model.EdgesModel.GetFilterLabelsOrDefault(typeof(TEdge), builder.OuterQuery.Environment.Options.GetValue(GremlinqOption.FilterLabelsVerbosity))))
-                .AsAuto()
-                .Build());
+                .BuildAuto());
 
         private GremlinQuery<object, object, object, IGremlinQueryBase> InE() => this
             .Continue()
             .Build(static builder => builder
                 .AddStep(InEStep.NoLabels)
                 .WithNewProjection(Projection.Edge)
-                .AsAuto()
-                .Build());
+                .BuildAuto());
 
         private GremlinQuery<TEdge, object, T1, IGremlinQueryBase> InE<TEdge>() => this
             .Continue()
@@ -1088,23 +1079,20 @@ namespace ExRam.Gremlinq.Core
             .Continue()
             .Build(static builder => builder
                 .AddStep(OutStep.NoLabels)
-                .AsAuto()
-                .Build());
+                .BuildAuto());
 
         private GremlinQuery<object, object, object, IGremlinQueryBase> Out<TEdge>() => this
             .Continue()
             .Build(static builder => builder
                 .AddStep(new OutStep(builder.OuterQuery.Environment.Model.EdgesModel.GetFilterLabelsOrDefault(typeof(TEdge), builder.OuterQuery.Environment.Options.GetValue(GremlinqOption.FilterLabelsVerbosity))))
-                .AsAuto()
-                .Build());
+                .BuildAuto());
 
         private GremlinQuery<object, object, object, IGremlinQueryBase> OutE() => this
             .Continue()
             .Build(static builder => builder
                 .AddStep(OutEStep.NoLabels)
                 .WithNewProjection(Projection.Edge)
-                .AsAuto()
-                .Build());
+                .BuildAuto());
 
         private GremlinQuery<TEdge, T1, object, IGremlinQueryBase> OutE<TEdge>() => this
             .Continue()
@@ -1786,8 +1774,7 @@ namespace ExRam.Gremlinq.Core
                             tuple.projection,
                             static (projections, projection) => projections.WithSideEffectLabelProjection(projection)),
                         (tuple.label, projection: builder.OuterQuery.Steps.Projection))
-                    .AsAuto()
-                    .Build(),
+                    .BuildAuto(),
                 (label, value));
     }
 }
