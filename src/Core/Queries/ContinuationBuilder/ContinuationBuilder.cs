@@ -63,9 +63,6 @@
             return new MultiContinuationBuilder<TOuterQuery, TAnonymousQuery>(_outer, continuationList, _flags);
         }
 
-        public MultiContinuationBuilder<TOuterQuery, TAnonymousQuery> ToMulti() => new (_outer, FastImmutableList<IGremlinQueryBase>.Empty, _flags);
-
-
         public TOuterQuery Build(Func<FinalContinuationBuilder<TOuterQuery>, FinalContinuationBuilder<TOuterQuery>> builderTransformation)
             => Build(static (builder, state) => state(builder).Build(), builderTransformation);
 
