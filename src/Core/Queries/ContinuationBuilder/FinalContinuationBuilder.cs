@@ -26,6 +26,8 @@ namespace ExRam.Gremlinq.Core
 
         public FinalContinuationBuilder<TOuterQuery> AddStep(Step step) => new (_outer, _steps.Push(step), _labelProjections);
 
+        public FinalContinuationBuilder<TOuterQuery> AddSteps(ReadOnlySpan<Step> steps) => new(_outer, _steps.Push(steps), _labelProjections);
+
         public FinalContinuationBuilder<TOuterQuery> WithSteps<TState>(Func<Traversal, TState, Traversal> traversalTransformation, TState state) => new (_outer, traversalTransformation(_steps, state), _labelProjections);
 
         public FinalContinuationBuilder<TOuterQuery> WithNewProjection<TState>(Func<Projection, TState, Projection> projectionTransformation, TState state) => new(_outer, _steps.WithProjection(projectionTransformation(_steps.Projection, state)), _labelProjections);
