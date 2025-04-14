@@ -34,6 +34,9 @@
         public TOuterQuery Build<TState>(Func<FinalContinuationBuilder<TOuterQuery, TOuterQuery>, TState, FinalContinuationBuilder<TOuterQuery, TOuterQuery>> builderTransformation, TState state)
             => Build(static (builder, tuple) => tuple.builderTransformation(builder, tuple.state).Build(), (builderTransformation, state));
 
+        public TNewQuery Build<TNewQuery>(Func<FinalContinuationBuilder<TOuterQuery, TOuterQuery>, TNewQuery> builderTransformation)
+            where TNewQuery : IStartGremlinQuery => builderTransformation(new FinalContinuationBuilder<TOuterQuery, TOuterQuery>(_outer));
+
         public TNewQuery Build<TNewQuery, TState>(SpanStateBuilderTransformation<TOuterQuery, TState, TNewQuery> builderTransformation, ReadOnlySpan<TState> state)
             where TNewQuery : IStartGremlinQuery => builderTransformation(new FinalContinuationBuilder<TOuterQuery, TOuterQuery>(_outer), state).Build();
 
