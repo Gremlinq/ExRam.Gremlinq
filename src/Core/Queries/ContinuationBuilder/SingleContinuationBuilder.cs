@@ -29,22 +29,20 @@
         public static SingleContinuationBuilder<TOuterQuery, TAnonymousQuery> Create<TProjectedQuery, TState>(TOuterQuery outer, TAnonymousQuery anonymous, Func<TAnonymousQuery, TState, TProjectedQuery> continuation, ContinuationFlags flags, TState state)
             where TProjectedQuery : IGremlinQueryBase
         {
-            var traversal = default(Traversal);
             var finalBuilder = new FinalContinuationBuilder<TOuterQuery>(outer);
 
             return new SingleContinuationBuilder<TOuterQuery, TAnonymousQuery>(
-                finalBuilder.Apply(continuation, anonymous, flags, out traversal, state),
+                finalBuilder.Apply(continuation, anonymous, flags, out var traversal, state),
                 traversal);
         }
 
         public static SingleContinuationBuilder<TOuterQuery, TAnonymousQuery> Create<TProjectedQuery>(TOuterQuery outer, TAnonymousQuery anonymous, Func<TAnonymousQuery, TProjectedQuery> continuation, ContinuationFlags flags)
             where TProjectedQuery : IGremlinQueryBase
         {
-            var traversal = default(Traversal);
             var finalBuilder = new FinalContinuationBuilder<TOuterQuery>(outer);
 
             return new SingleContinuationBuilder<TOuterQuery, TAnonymousQuery>(
-                finalBuilder.Apply(continuation, anonymous, flags, out traversal),
+                finalBuilder.Apply(continuation, anonymous, flags, out var traversal),
                 traversal);
         }
     }
