@@ -163,7 +163,7 @@ namespace ExRam.Gremlinq.Core
                         if (emptyProjectionProtectionDecoratorSteps.Count > 0)
                         {
                             builder = builder
-                                .AddSteps(emptyProjectionProtectionDecoratorSteps);
+                                .AddSteps(emptyProjectionProtectionDecoratorSteps.Steps);
                         }
 
                         return builder

@@ -195,7 +195,10 @@ namespace ExRam.Gremlinq.Core
                 .Continue()
                 .Build(
                     static (builder, propertySteps) => builder
-                        .AddSteps(propertySteps),
+                        .AddSteps(propertySteps
+                            .AsSpan()
+                            .Cast()
+                            .To<Step>()),
                     propertySteps);
         }
 
@@ -304,7 +307,7 @@ namespace ExRam.Gremlinq.Core
                             for (var i = 0; i < fusedTraversals.Length; i++)
                             {
                                 builder = builder
-                                    .AddSteps(fusedTraversals[i]);
+                                    .AddSteps(fusedTraversals[i].Steps);
                             }
                         }
                         else
@@ -538,7 +541,7 @@ namespace ExRam.Gremlinq.Core
                         if (traversals is [var singleTraversal])
                         {
                             builder = builder
-                                .AddSteps(singleTraversal)
+                                .AddSteps(singleTraversal.Steps)
                                 .WithNewProjection(singleTraversal.Projection);
                         }
                         else
