@@ -59,35 +59,19 @@ namespace ExRam.Gremlinq.Core
 
 
         public static MultiContinuationBuilder<TOuterQuery, TAnonymousQuery> Create<TProjectedQuery, TState>(TOuterQuery outer, TAnonymousQuery anonymous, Func<TAnonymousQuery, TState, TProjectedQuery> continuation, ContinuationFlags flags, TState state)
-            where TProjectedQuery : IGremlinQueryBase
-        {
-            var continuationList = new IGremlinQueryBase[] { Apply(continuation, anonymous, state) };
-
-            return new MultiContinuationBuilder<TOuterQuery, TAnonymousQuery>(outer, continuationList, flags);
-        }
+            where TProjectedQuery : IGremlinQueryBase => new (outer, CreateContinuationQueries(anonymous, [continuation], state), flags);
 
         public static MultiContinuationBuilder<TOuterQuery, TAnonymousQuery> Create<TProjectedQuery>(TOuterQuery outer, TAnonymousQuery anonymous, Func<TAnonymousQuery, TProjectedQuery> continuation, ContinuationFlags flags)
-            where TProjectedQuery : IGremlinQueryBase
-        {
-            var continuationList = new IGremlinQueryBase[] { Apply(continuation, anonymous) };
-
-            return new MultiContinuationBuilder<TOuterQuery, TAnonymousQuery>(outer, continuationList, flags);
-        }
+            where TProjectedQuery : IGremlinQueryBase => new (outer, CreateContinuationQueries(anonymous, [continuation]), flags);
 
         public static MultiContinuationBuilder<TOuterQuery, TAnonymousQuery> Create<TProjectedQuery, TState>(TOuterQuery outer, TAnonymousQuery anonymous, ReadOnlySpan<Func<TAnonymousQuery, TState, TProjectedQuery>> continuations, ContinuationFlags flags, TState state)
-            where TProjectedQuery : IGremlinQueryBase
-        {
-            var continuationList = new IGremlinQueryBase[continuations.Length];
-
-            for (var i = 0; i < continuations.Length; i++)
-            {
-                continuationList[i] = Apply(continuations[i], anonymous, state);
-            }
-
-            return new MultiContinuationBuilder<TOuterQuery, TAnonymousQuery>(outer, continuationList, flags);
-        }
+            where TProjectedQuery : IGremlinQueryBase => new (outer, CreateContinuationQueries(anonymous, continuations, state), flags);
 
         public static MultiContinuationBuilder<TOuterQuery, TAnonymousQuery> Create<TProjectedQuery>(TOuterQuery outer, TAnonymousQuery anonymous, ReadOnlySpan<Func<TAnonymousQuery, TProjectedQuery>> continuations, ContinuationFlags flags)
+            where TProjectedQuery : IGremlinQueryBase => new (outer, CreateContinuationQueries(anonymous, continuations), flags);
+
+
+        private static IGremlinQueryBase[] CreateContinuationQueries<TProjectedQuery>(TAnonymousQuery anonymous, ReadOnlySpan<Func<TAnonymousQuery, TProjectedQuery>> continuations)
             where TProjectedQuery : IGremlinQueryBase
         {
             var continuationList = new IGremlinQueryBase[continuations.Length];
@@ -97,10 +81,21 @@ namespace ExRam.Gremlinq.Core
                 continuationList[i] = Apply(continuations[i], anonymous);
             }
 
-            return new MultiContinuationBuilder<TOuterQuery, TAnonymousQuery>(outer, continuationList, flags);
+            return continuationList;
         }
 
+        private static IGremlinQueryBase[] CreateContinuationQueries<TProjectedQuery, TState>(TAnonymousQuery anonymous, ReadOnlySpan<Func<TAnonymousQuery, TState, TProjectedQuery>> continuations, TState state)
+            where TProjectedQuery : IGremlinQueryBase
+        {
+            var continuationList = new IGremlinQueryBase[continuations.Length];
 
+            for (var i = 0; i < continuations.Length; i++)
+            {
+                continuationList[i] = Apply(continuations[i], anonymous, state);
+            }
+
+            return continuationList;
+        }
 
         private static TProjectedQuery Apply<TProjectedQuery>(Func<TAnonymousQuery, TProjectedQuery> continuation, TAnonymousQuery anonymous)
             where TProjectedQuery : IGremlinQueryBase => Apply(static (anonymous, continuation) => continuation(anonymous), anonymous, continuation);
