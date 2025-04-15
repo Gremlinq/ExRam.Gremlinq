@@ -47,10 +47,9 @@ namespace ExRam.Gremlinq.Core
 
         public static FinalContinuationBuilder<TOuterQuery> None<TOuterQuery>(this FinalContinuationBuilder<TOuterQuery> builder)
             where TOuterQuery : GremlinQueryBase, IGremlinQueryBase => builder.WithSteps(
-                static (traversal, _) => traversal.IsIdentity()
+                static traversal => traversal.IsIdentity()
                     ? NoneStep.Instance
-                    : traversal.Push(NoneStep.Instance),
-                0);
+                    : traversal.Push(NoneStep.Instance));
 
         public static FinalContinuationBuilder<TOuterQuery> OfType<TOuterQuery, TElement, TNewElement>(this FinalContinuationBuilder<TOuterQuery> builder, IGraphElementModel model, bool force)
             where TOuterQuery : GremlinQueryBase, IGremlinQueryBase
