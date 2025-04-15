@@ -4,10 +4,10 @@
         where TOuterQuery : GremlinQueryBase, IGremlinQueryBase
         where TAnonymousQuery : GremlinQueryBase, IGremlinQueryBase
     {
-        private readonly Span<Traversal> _continuations;
+        private readonly Memory<Traversal> _continuations;
         private readonly FinalContinuationBuilder<TOuterQuery> _finalBuilder;
 
-        public MultiContinuationBuilder(FinalContinuationBuilder<TOuterQuery> finalBuilder, Span<Traversal> continuations)
+        public MultiContinuationBuilder(FinalContinuationBuilder<TOuterQuery> finalBuilder, Memory<Traversal> continuations)
         {
             _finalBuilder = finalBuilder;
             _continuations = continuations;
@@ -17,7 +17,7 @@
 
         public TResult Build<TResult, TState>(FinalContinuationBuilderTransformation<TOuterQuery, TResult, TState> builderTransformation, TState state) => builderTransformation(
             _finalBuilder,
-            _continuations,
+            _continuations.Span,
             state);
 
         public static MultiContinuationBuilder<TOuterQuery, TAnonymousQuery> Create<TProjectedQuery>(TOuterQuery outer, TAnonymousQuery anonymous, ReadOnlySpan<Func<TAnonymousQuery, TProjectedQuery>> continuations, ContinuationFlags flags)
