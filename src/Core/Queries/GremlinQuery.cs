@@ -561,11 +561,12 @@ namespace ExRam.Gremlinq.Core
                 probability);
 
         private GremlinQuery<T1, T2, T3, T4> Concat(ReadOnlySpan<string> strings) => this
-           .Continue()
-           .Build(
-               static (builder, strings) => builder
-                   .AddStep(new ConcatStringsStep(strings.ToImmutableArray())),
-               strings);
+            .Continue()
+            .Build(
+                static (builder, strings) => builder
+                    .AddStep(new ConcatStringsStep(strings.ToImmutableArray()))
+                    .Build(),
+                strings);
 
         private GremlinQuery<T1, T2, T3, T4> Concat(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase<T1>>> stringTraversals) => this
             .Continue()

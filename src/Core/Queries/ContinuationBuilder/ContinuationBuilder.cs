@@ -1,12 +1,8 @@
 ﻿namespace ExRam.Gremlinq.Core
 {
-    internal delegate FinalContinuationBuilder<TOuterQuery> SpanStateBuilderTransformation<TOuterQuery, TState>(FinalContinuationBuilder<TOuterQuery> a, ReadOnlySpan<TState> b)
-        where TOuterQuery : GremlinQueryBase, IGremlinQueryBase;
-
     internal delegate TNewQuery SpanStateBuilderTransformation<TOuterQuery, TState, TNewQuery>(FinalContinuationBuilder<TOuterQuery> a, ReadOnlySpan<TState> b)
         where TOuterQuery : GremlinQueryBase, IGremlinQueryBase
         where TNewQuery : IStartGremlinQuery;
-
 
     internal readonly struct ContinuationBuilder<TOuterQuery, TAnonymousQuery>
         where TOuterQuery : GremlinQueryBase, IGremlinQueryBase
@@ -41,9 +37,6 @@
 
         public TOuterQuery Build<TState>(Func<FinalContinuationBuilder<TOuterQuery>, TState, FinalContinuationBuilder<TOuterQuery>> builderTransformation, TState state)
             => Build(static (builder, tuple) => tuple.builderTransformation(builder, tuple.state).Build(), (builderTransformation, state));
-
-        public TOuterQuery Build<TState>(SpanStateBuilderTransformation<TOuterQuery, TState> builderTransformation, ReadOnlySpan<TState> state)
-            => builderTransformation(FinalContinuationBuilder<TOuterQuery>.Create(_outer), state).Build();
 
         public TNewQuery Build<TNewQuery>(Func<FinalContinuationBuilder<TOuterQuery>, TNewQuery> builderTransformation)
             where TNewQuery : IStartGremlinQuery => builderTransformation(FinalContinuationBuilder<TOuterQuery>.Create(_outer));
