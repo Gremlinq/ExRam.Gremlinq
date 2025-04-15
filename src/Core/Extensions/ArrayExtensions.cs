@@ -12,19 +12,8 @@ namespace ExRam.Gremlinq.Core
             array.ToImmutableArray();
 #endif
 
-        public static ImmutableArray<T> UnsafeToImmutableArray<T>(this Memory<T> memory)
-        {
-            if (MemoryMarshal.TryGetArray<T>(memory, out var segment) && segment.Array is { } array)
-            {
-                if (segment.Count == array.Length)
-                {
-                    return array
-                        .UnsafeToImmutableArray();
-                }
-            }
-
-            return memory.Span
-                .ToImmutableArray();
-        }
+        public static ImmutableArray<T> UnsafeToImmutableArray<T>(this Memory<T> memory) => MemoryMarshal.TryGetArray<T>(memory, out var segment) && segment.Array is { } array && segment.Count == array.Length
+            ? array.UnsafeToImmutableArray()
+            : memory.Span.ToImmutableArray();
     }
 }
