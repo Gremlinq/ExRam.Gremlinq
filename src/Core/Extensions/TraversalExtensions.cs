@@ -18,17 +18,11 @@ namespace ExRam.Gremlinq.Core
             return SideEffectSemanticsChange.None;
         }
 
-        public static SideEffectSemanticsChange GetSideEffectSemanticsChange(this Traversal traversal)
-        {
-            return (SideEffectSemanticsChange)traversal.SideEffectSemantics;
-        }
+        public static SideEffectSemanticsChange GetSideEffectSemanticsChange(this Traversal traversal) => (SideEffectSemanticsChange)traversal.SideEffectSemantics;
 
-        public static SideEffectSemanticsChange GetSideEffectSemanticsChange(this Traversal? maybeTraversal)
-        {
-            return maybeTraversal is { } traversal
-                ? traversal.GetSideEffectSemanticsChange()
-                : SideEffectSemanticsChange.None;
-        }
+        public static SideEffectSemanticsChange GetSideEffectSemanticsChange(this Traversal? maybeTraversal) => maybeTraversal is { } traversal
+            ? traversal.GetSideEffectSemanticsChange()
+            : SideEffectSemanticsChange.None;
 
         public static Traversal Rewrite(this Traversal traversal, ContinuationFlags flags)
         {
@@ -111,9 +105,7 @@ namespace ExRam.Gremlinq.Core
             return Projection.Empty;
         }
 
-        public static Span<Traversal> Fuse(
-            this Span<Traversal> traversals,
-            Func<P, P, P> fuse)
+        public static Span<Traversal> Fuse(this Span<Traversal> traversals, Func<P, P, P> fuse)
         {
             if (traversals.Length > 0)
             {
