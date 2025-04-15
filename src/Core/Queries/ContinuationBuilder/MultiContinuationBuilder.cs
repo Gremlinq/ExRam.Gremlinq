@@ -1,11 +1,15 @@
 ﻿using System.Buffers;
 
+using ExRam.Gremlinq.Core.Steps;
+
 namespace ExRam.Gremlinq.Core
 {
     internal readonly ref struct MultiContinuationBuilder<TOuterQuery, TAnonymousQuery>
         where TOuterQuery : GremlinQueryBase, IGremlinQueryBase
         where TAnonymousQuery : GremlinQueryBase, IGremlinQueryBase
     {
+        private static readonly Traversal IdentityTraversal = IdentityStep.Instance;
+
         private readonly TOuterQuery _outer;
         private readonly ContinuationFlags _flags;
         private readonly Span<IGremlinQueryBase> _continuations;
@@ -57,7 +61,7 @@ namespace ExRam.Gremlinq.Core
         public static MultiContinuationBuilder<TOuterQuery, TAnonymousQuery> Create<TProjectedQuery, TState>(TOuterQuery outer, TAnonymousQuery anonymous, Func<TAnonymousQuery, TState, TProjectedQuery> continuation, ContinuationFlags flags, TState state)
             where TProjectedQuery : IGremlinQueryBase
         {
-            var continuationList = new IGremlinQueryBase[] { continuation.Apply(anonymous, state) };
+            var continuationList = new IGremlinQueryBase[] { Apply(continuation, anonymous, state) };
 
             return new MultiContinuationBuilder<TOuterQuery, TAnonymousQuery>(outer, continuationList, flags);
         }
@@ -65,7 +69,7 @@ namespace ExRam.Gremlinq.Core
         public static MultiContinuationBuilder<TOuterQuery, TAnonymousQuery> Create<TProjectedQuery>(TOuterQuery outer, TAnonymousQuery anonymous, Func<TAnonymousQuery, TProjectedQuery> continuation, ContinuationFlags flags)
             where TProjectedQuery : IGremlinQueryBase
         {
-            var continuationList = new IGremlinQueryBase[] { continuation.Apply(anonymous) };
+            var continuationList = new IGremlinQueryBase[] { Apply(continuation, anonymous) };
 
             return new MultiContinuationBuilder<TOuterQuery, TAnonymousQuery>(outer, continuationList, flags);
         }
@@ -77,8 +81,7 @@ namespace ExRam.Gremlinq.Core
 
             for (var i = 0; i < continuations.Length; i++)
             {
-                continuationList[i] = continuations[i]
-                    .Apply(anonymous, state);
+                continuationList[i] = Apply(continuations[i], anonymous, state);
             }
 
             return new MultiContinuationBuilder<TOuterQuery, TAnonymousQuery>(outer, continuationList, flags);
@@ -91,11 +94,26 @@ namespace ExRam.Gremlinq.Core
 
             for (var i = 0; i < continuations.Length; i++)
             {
-                continuationList[i] = continuations[i]
-                    .Apply(anonymous);
+                continuationList[i] = Apply(continuations[i], anonymous);
             }
 
             return new MultiContinuationBuilder<TOuterQuery, TAnonymousQuery>(outer, continuationList, flags);
+        }
+
+
+
+        private static TProjectedQuery Apply<TProjectedQuery>(Func<TAnonymousQuery, TProjectedQuery> continuation, TAnonymousQuery anonymous)
+            where TProjectedQuery : IGremlinQueryBase => Apply(static (anonymous, continuation) => continuation(anonymous), anonymous, continuation);
+
+        private static TProjectedQuery Apply<TProjectedQuery, TState>(Func<TAnonymousQuery, TState, TProjectedQuery> continuation, TAnonymousQuery anonymous, TState state)
+            where TProjectedQuery : IGremlinQueryBase
+        {
+            var continuedQuery = continuation(anonymous, state);
+            var admin = continuedQuery.AsAdmin();
+
+            return admin.Steps.Count == 0
+                ? admin.ConfigureSteps<TProjectedQuery>(static traversal => IdentityTraversal.WithProjection(traversal.Projection))
+                : continuedQuery;
         }
     }
 }
