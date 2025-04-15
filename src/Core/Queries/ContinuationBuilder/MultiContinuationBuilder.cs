@@ -10,7 +10,7 @@ namespace ExRam.Gremlinq.Core
         private readonly ContinuationFlags _flags;
         private readonly Span<IGremlinQueryBase> _continuations;
 
-        public MultiContinuationBuilder(TOuterQuery outer, Span<IGremlinQueryBase> continuations, ContinuationFlags flags)
+        private MultiContinuationBuilder(TOuterQuery outer, Span<IGremlinQueryBase> continuations, ContinuationFlags flags)
         {
             _outer = outer;
             _flags = flags;
@@ -51,6 +51,38 @@ namespace ExRam.Gremlinq.Core
                     traversalsSpan[.._continuations.Length],
                     state);
             }
+        }
+
+
+        public static MultiContinuationBuilder<TOuterQuery, TAnonymousQuery> Create(TOuterQuery outer, Span<IGremlinQueryBase> continuations, ContinuationFlags flags)
+            => new (outer, continuations, flags);
+
+        public static MultiContinuationBuilder<TOuterQuery, TAnonymousQuery> Create<TProjectedQuery, TState>(TOuterQuery outer, TAnonymousQuery anonymous, ReadOnlySpan<Func<TAnonymousQuery, TState, TProjectedQuery>> continuations, ContinuationFlags flags, TState state)
+            where TProjectedQuery : IGremlinQueryBase
+        {
+            var continuationList = new IGremlinQueryBase[continuations.Length];
+
+            for (var i = 0; i < continuations.Length; i++)
+            {
+                continuationList[i] = continuations[i]
+                    .Apply(anonymous, state);
+            }
+
+            return new MultiContinuationBuilder<TOuterQuery, TAnonymousQuery>(outer, continuationList, flags);
+        }
+
+        public static MultiContinuationBuilder<TOuterQuery, TAnonymousQuery> Create<TProjectedQuery>(TOuterQuery outer, TAnonymousQuery anonymous, ReadOnlySpan<Func<TAnonymousQuery, TProjectedQuery>> continuations, ContinuationFlags flags)
+            where TProjectedQuery : IGremlinQueryBase
+        {
+            var continuationList = new IGremlinQueryBase[continuations.Length];
+
+            for (var i = 0; i < continuations.Length; i++)
+            {
+                continuationList[i] = continuations[i]
+                    .Apply(anonymous);
+            }
+
+            return new MultiContinuationBuilder<TOuterQuery, TAnonymousQuery>(outer, continuationList, flags);
         }
     }
 }

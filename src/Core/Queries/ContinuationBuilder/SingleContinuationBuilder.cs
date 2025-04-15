@@ -25,7 +25,8 @@
             => Build(static (builder, traversal, builderTransformation) => builderTransformation(builder, traversal), builderTransformation);
 
         public TResult Build<TResult, TState>(Func<FinalContinuationBuilder<TOuterQuery>, Traversal, TState, TResult> builderTransformation, TState state)
-            => new MultiContinuationBuilder<TOuterQuery, TAnonymousQuery>(_outer, [_continuation], _flags)
+            => MultiContinuationBuilder<TOuterQuery, TAnonymousQuery>
+                .Create(_outer, [_continuation], _flags)
                 .Build((builder, traversals, innerState) => builderTransformation(builder, traversals[0], innerState), state);
     }
 }

@@ -32,32 +32,10 @@
             where TProjectedQuery : IGremlinQueryBase => new (_outer, continuation.Apply(_anonymous, state), _flags);
 
         public MultiContinuationBuilder<TOuterQuery, TAnonymousQuery> With<TProjectedQuery, TState>(ReadOnlySpan<Func<TAnonymousQuery, TState, TProjectedQuery>> continuations, TState state)
-            where TProjectedQuery : IGremlinQueryBase
-        {
-            var continuationList = new IGremlinQueryBase[continuations.Length];
-
-            for (var i = 0; i < continuations.Length; i++)
-            {
-                continuationList[i] = continuations[i]
-                    .Apply(_anonymous, state);
-            }
-
-            return new MultiContinuationBuilder<TOuterQuery, TAnonymousQuery>(_outer, continuationList, _flags);
-        }
+            where TProjectedQuery : IGremlinQueryBase => MultiContinuationBuilder<TOuterQuery, TAnonymousQuery>.Create(_outer, _anonymous, continuations, _flags, state);
 
         public MultiContinuationBuilder<TOuterQuery, TAnonymousQuery> With<TProjectedQuery>(ReadOnlySpan<Func<TAnonymousQuery, TProjectedQuery>> continuations)
-            where TProjectedQuery : IGremlinQueryBase
-        {
-            var continuationList = new IGremlinQueryBase[continuations.Length];
-
-            for (var i = 0; i < continuations.Length; i++)
-            {
-                continuationList[i] = continuations[i]
-                    .Apply(_anonymous);
-            }
-
-            return new MultiContinuationBuilder<TOuterQuery, TAnonymousQuery>(_outer, continuationList, _flags);
-        }
+            where TProjectedQuery : IGremlinQueryBase => MultiContinuationBuilder<TOuterQuery, TAnonymousQuery>.Create(_outer, _anonymous, continuations, _flags);
 
         public TOuterQuery Build(Func<FinalContinuationBuilder<TOuterQuery>, FinalContinuationBuilder<TOuterQuery>> builderTransformation)
             => Build(static (builder, state) => state(builder).Build(), builderTransformation);
