@@ -546,8 +546,8 @@ namespace ExRam.Gremlinq.Core
                         else
                         {
                             builder = builder
-                                .AddStep(new CoalesceStep(traversals
-                                    .ToImmutableArray()))
+                                .AddStep(new CoalesceStep(traversalsMemory
+                                    .UnsafeToImmutableArray()))
                                 .WithNewProjection(traversals
                                     .LowestProjection());
                         }
@@ -575,10 +575,9 @@ namespace ExRam.Gremlinq.Core
         private GremlinQuery<T1, T2, T3, T4> Concat(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase<T1>>> stringTraversals) => this
             .Continue()
             .With(stringTraversals)
-            .Build(static (builder, stringTraversals) => builder
-                .AddStep(new ConcatTraversalsStep(stringTraversals
-                    .Span
-                    .ToImmutableArray()))
+            .Build(static (builder, traversals) => builder
+                .AddStep(new ConcatTraversalsStep(traversals
+                    .UnsafeToImmutableArray()))
                 .Build());
 
         private TTargetQuery ConfigureSteps<TTargetQuery>(Func<Traversal, Traversal> transformation, Func<Projection, Projection>? maybeProjectionTransformation)
@@ -1326,10 +1325,10 @@ namespace ExRam.Gremlinq.Core
             where TReturnQuery : IGremlinQueryBase => this
                 .Continue()
                 .With(unionContinuations)
-                .Build(static (builder, unionTraversals) => builder
-                    .AddStep(new UnionStep(unionTraversals.Span
-                        .ToImmutableArray()))
-                    .WithNewProjection(unionTraversals.Span
+                .Build(static (builder, traversals) => builder
+                    .AddStep(new UnionStep(traversals
+                        .UnsafeToImmutableArray()))
+                    .WithNewProjection(traversals.Span
                         .LowestProjection())
                     .BuildAs<TReturnQuery>());
 

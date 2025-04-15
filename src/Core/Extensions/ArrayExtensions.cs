@@ -1,4 +1,5 @@
 ﻿using System.Collections.Immutable;
+using System.Runtime.InteropServices;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -10,5 +11,20 @@ namespace ExRam.Gremlinq.Core
 #else
             array.ToImmutableArray();
 #endif
+
+        public static ImmutableArray<T> UnsafeToImmutableArray<T>(this Memory<T> memory)
+        {
+            if (MemoryMarshal.TryGetArray<T>(memory, out var segment) && segment.Array is { } array)
+            {
+                if (segment.Count == array.Length)
+                {
+                    return array
+                        .UnsafeToImmutableArray();
+                }
+            }
+
+            return memory.Span
+                .ToImmutableArray();
+        }
     }
 }
