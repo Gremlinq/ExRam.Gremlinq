@@ -14,11 +14,6 @@ namespace ExRam.Gremlinq.Core
         private readonly TOuterQuery _outer;
         private readonly IImmutableDictionary<StepLabel, LabelProjections> _labelProjections;
 
-        public FinalContinuationBuilder(TOuterQuery outerQuery) : this(outerQuery, outerQuery.Steps, outerQuery.LabelProjections)
-        {
-
-        }
-
         private FinalContinuationBuilder(TOuterQuery outerQuery, Traversal steps, IImmutableDictionary<StepLabel, LabelProjections> labelProjections)
         {
             _steps = steps;
@@ -79,5 +74,7 @@ namespace ExRam.Gremlinq.Core
         }
 
         public TOuterQuery OuterQuery => _outer;
+
+        public static FinalContinuationBuilder<TOuterQuery> Create(TOuterQuery outerQuery) => new(outerQuery, outerQuery.Steps, outerQuery.LabelProjections);
     }
 }

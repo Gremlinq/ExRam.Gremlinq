@@ -45,15 +45,15 @@
             => Build(static (builder, tuple) => tuple.builderTransformation(builder, tuple.state).Build(), (builderTransformation, state));
 
         public TOuterQuery Build<TState>(SpanStateBuilderTransformation<TOuterQuery, TState> builderTransformation, ReadOnlySpan<TState> state)
-            => builderTransformation(new FinalContinuationBuilder<TOuterQuery>(_outer), state).Build();
+            => builderTransformation(FinalContinuationBuilder<TOuterQuery>.Create(_outer), state).Build();
 
         public TNewQuery Build<TNewQuery>(Func<FinalContinuationBuilder<TOuterQuery>, TNewQuery> builderTransformation)
-            where TNewQuery : IStartGremlinQuery => builderTransformation(new FinalContinuationBuilder<TOuterQuery>(_outer));
+            where TNewQuery : IStartGremlinQuery => builderTransformation(FinalContinuationBuilder<TOuterQuery>.Create(_outer));
 
         public TNewQuery Build<TNewQuery, TState>(Func<FinalContinuationBuilder<TOuterQuery>, TState, TNewQuery> builderTransformation, TState state)
-            where TNewQuery : IStartGremlinQuery => builderTransformation(new FinalContinuationBuilder<TOuterQuery>(_outer), state);
+            where TNewQuery : IStartGremlinQuery => builderTransformation(FinalContinuationBuilder<TOuterQuery>.Create(_outer), state);
 
         public TNewQuery Build<TNewQuery, TState>(SpanStateBuilderTransformation<TOuterQuery, TState, TNewQuery> builderTransformation, ReadOnlySpan<TState> state)
-            where TNewQuery : IStartGremlinQuery => builderTransformation(new FinalContinuationBuilder<TOuterQuery>(_outer), state);
+            where TNewQuery : IStartGremlinQuery => builderTransformation(FinalContinuationBuilder<TOuterQuery>.Create(_outer), state);
     }
 }

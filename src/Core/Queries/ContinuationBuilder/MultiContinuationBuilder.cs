@@ -24,7 +24,7 @@
             where TProjectedQuery : IGremlinQueryBase
         {
             var traversals = new Traversal[continuations.Length];
-            var finalBuilder = new FinalContinuationBuilder<TOuterQuery>(outer);
+            var finalBuilder = FinalContinuationBuilder<TOuterQuery>.Create(outer);
 
             for (var i = 0; i < continuations.Length; i++)
             {
@@ -38,7 +38,7 @@
             where TProjectedQuery : IGremlinQueryBase
         {
             var traversals = new Traversal[continuations.Length];
-            var finalBuilder = new FinalContinuationBuilder<TOuterQuery>(outer);
+            var finalBuilder = FinalContinuationBuilder<TOuterQuery>.Create(outer);
 
             for (var i = 0; i < continuations.Length; i++)
             {
