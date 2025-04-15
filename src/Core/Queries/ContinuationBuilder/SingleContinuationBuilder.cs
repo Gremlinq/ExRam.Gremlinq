@@ -4,11 +4,13 @@
         where TOuterQuery : GremlinQueryBase, IGremlinQueryBase
         where TAnonymousQuery : GremlinQueryBase, IGremlinQueryBase
     {
-        private readonly MultiContinuationBuilder<TOuterQuery, TAnonymousQuery> _multiBuilder;
+        private readonly Traversal _continuation;
+        private readonly FinalContinuationBuilder<TOuterQuery> _finalBuilder;
 
-        public SingleContinuationBuilder(MultiContinuationBuilder<TOuterQuery, TAnonymousQuery> multiBuilder)
+        public SingleContinuationBuilder(FinalContinuationBuilder<TOuterQuery> finalBuilder, Traversal continuation)
         {
-            _multiBuilder = multiBuilder;
+            _continuation = continuation;
+            _finalBuilder = finalBuilder;
         }
 
         public TOuterQuery Build<TState>(Func<FinalContinuationBuilder<TOuterQuery>, Traversal, TState, FinalContinuationBuilder<TOuterQuery>> builderTransformation, TState state)
@@ -21,13 +23,29 @@
             => Build(static (builder, traversal, builderTransformation) => builderTransformation(builder, traversal), builderTransformation);
 
         public TResult Build<TResult, TState>(Func<FinalContinuationBuilder<TOuterQuery>, Traversal, TState, TResult> builderTransformation, TState state)
-            => _multiBuilder.Build((builder, traversals, innerState) => builderTransformation(builder, traversals[0], innerState), state);
+            => builderTransformation(_finalBuilder, _continuation, state);
 
 
         public static SingleContinuationBuilder<TOuterQuery, TAnonymousQuery> Create<TProjectedQuery, TState>(TOuterQuery outer, TAnonymousQuery anonymous, Func<TAnonymousQuery, TState, TProjectedQuery> continuation, ContinuationFlags flags, TState state)
-            where TProjectedQuery : IGremlinQueryBase => new (MultiContinuationBuilder<TOuterQuery, TAnonymousQuery>.Create(outer, anonymous, continuation, flags, state));
+            where TProjectedQuery : IGremlinQueryBase
+        {
+            var traversal = default(Traversal);
+            var finalBuilder = new FinalContinuationBuilder<TOuterQuery>(outer);
+
+            return new SingleContinuationBuilder<TOuterQuery, TAnonymousQuery>(
+                finalBuilder.Apply(continuation, anonymous, flags, out traversal, state),
+                traversal);
+        }
 
         public static SingleContinuationBuilder<TOuterQuery, TAnonymousQuery> Create<TProjectedQuery>(TOuterQuery outer, TAnonymousQuery anonymous, Func<TAnonymousQuery, TProjectedQuery> continuation, ContinuationFlags flags)
-            where TProjectedQuery : IGremlinQueryBase => new (MultiContinuationBuilder<TOuterQuery, TAnonymousQuery>.Create(outer, anonymous, continuation, flags));
+            where TProjectedQuery : IGremlinQueryBase
+        {
+            var traversal = default(Traversal);
+            var finalBuilder = new FinalContinuationBuilder<TOuterQuery>(outer);
+
+            return new SingleContinuationBuilder<TOuterQuery, TAnonymousQuery>(
+                finalBuilder.Apply(continuation, anonymous, flags, out traversal),
+                traversal);
+        }
     }
 }
