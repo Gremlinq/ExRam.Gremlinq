@@ -7,7 +7,7 @@
         private readonly Memory<Traversal> _continuations;
         private readonly FinalContinuationBuilder<TOuterQuery> _finalBuilder;
 
-        public MultiContinuationBuilder(FinalContinuationBuilder<TOuterQuery> finalBuilder, Memory<Traversal> continuations)
+        private MultiContinuationBuilder(FinalContinuationBuilder<TOuterQuery> finalBuilder, Memory<Traversal> continuations)
         {
             _finalBuilder = finalBuilder;
             _continuations = continuations;
