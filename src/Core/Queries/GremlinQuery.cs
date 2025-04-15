@@ -262,8 +262,10 @@ namespace ExRam.Gremlinq.Core
             .With(continuations));
 
         private static GremlinQuery<T1, T2, T3, T4> And(MultiContinuationBuilder<GremlinQuery<T1, T2, T3, T4>, GremlinQuery<T1, T2, T3, T4>> continuationBuilder) => continuationBuilder
-            .Build(static (builder, traversals) =>
+            .Build(static (builder, traversalsMemory) =>
             {
+                var traversals = traversalsMemory.Span;
+
                 if (traversals.Length == 0)
                     throw new ArgumentException("Expected at least 1 sub-query.");
 
@@ -526,8 +528,10 @@ namespace ExRam.Gremlinq.Core
             where TReturnQuery : IGremlinQueryBase => this
                 .Continue()
                 .With(continuations)
-                .Build(static (builder, traversals) =>
+                .Build(static (builder, traversalsMemory) =>
                 {
+                    var traversals = traversalsMemory.Span;
+
                     if (traversals.Length == 0)
                         throw new ArgumentException("Coalesce must have at least one sub-query.");
 
@@ -573,6 +577,7 @@ namespace ExRam.Gremlinq.Core
             .With(stringTraversals)
             .Build(static (builder, stringTraversals) => builder
                 .AddStep(new ConcatTraversalsStep(stringTraversals
+                    .Span
                     .ToImmutableArray()))
                 .Build());
 
@@ -988,8 +993,10 @@ namespace ExRam.Gremlinq.Core
             .With(continuations));
 
         private static GremlinQuery<T1, T2, T3, T4> Or(MultiContinuationBuilder<GremlinQuery<T1, T2, T3, T4>, GremlinQuery<T1, T2, T3, T4>> continuationBuilder) => continuationBuilder
-            .Build(static (builder, traversals) =>
+            .Build(static (builder, traversalsMemory) =>
             {
+                var traversals = traversalsMemory.Span;
+
                 if (traversals.Length == 0)
                     throw new ArgumentException("Expected at least 1 sub-query.");
 
@@ -1320,9 +1327,9 @@ namespace ExRam.Gremlinq.Core
                 .Continue()
                 .With(unionContinuations)
                 .Build(static (builder, unionTraversals) => builder
-                    .AddStep(new UnionStep(unionTraversals
+                    .AddStep(new UnionStep(unionTraversals.Span
                         .ToImmutableArray()))
-                    .WithNewProjection(unionTraversals
+                    .WithNewProjection(unionTraversals.Span
                         .LowestProjection())
                     .BuildAs<TReturnQuery>());
 
