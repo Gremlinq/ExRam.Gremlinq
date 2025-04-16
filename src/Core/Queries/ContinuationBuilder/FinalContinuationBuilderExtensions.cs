@@ -43,6 +43,64 @@ namespace ExRam.Gremlinq.Core
             return builder;
         }
 
+        public static TOuterQuery And<TOuterQuery>(this FinalContinuationBuilder<TOuterQuery> builder, Memory<Traversal> traversalsMemory)
+            where TOuterQuery : GremlinQueryBase, IGremlinQueryBase
+        {
+            var traversals = traversalsMemory.Span;
+
+            if (traversals.Length == 0)
+                throw new ArgumentException("Expected at least 1 sub-query.");
+
+            var count = 0;
+            var containsNoneStep = false;
+            var containsWriteStep = false;
+
+            for (var i = 0; i < traversals.Length; i++)
+            {
+                var traversal = traversals[i];
+
+                if (traversal.IsNone())
+                    containsNoneStep = true;
+
+                if (traversal.SideEffectSemantics == SideEffectSemantics.Write)
+                    containsWriteStep = true;
+                else if (traversal.IsIdentity())
+                    continue;
+
+                traversals[count++] = traversal;
+            }
+
+            if (containsNoneStep && !containsWriteStep)
+                builder = builder.None();
+            else
+            {
+                var fusedTraversals = traversals[..count]
+                    .Fuse(static (p1, p2) => p1.And(p2));
+
+                if (fusedTraversals is [var single])
+                    builder = builder.Where(single);
+                else
+                {
+                    if (fusedTraversals.All(static traversal => traversal.Steps.All(static x => x is IFilterStep)))
+                    {
+                        for (var i = 0; i < fusedTraversals.Length; i++)
+                        {
+                            builder = builder
+                                .AddSteps(fusedTraversals[i].Steps);
+                        }
+                    }
+                    else
+                    {
+                        builder = builder
+                            .AddStep(new AndStep(LogicalStep<AndStep>.FlattenLogicalTraversals(fusedTraversals)));
+                    }
+                }
+            }
+
+            return builder
+                .Build();
+        }
+
         public static TOuterQuery Or<TOuterQuery>(this FinalContinuationBuilder<TOuterQuery> builder, Memory<Traversal> traversalsMemory)
             where TOuterQuery : GremlinQueryBase, IGremlinQueryBase
         {

@@ -259,69 +259,14 @@ namespace ExRam.Gremlinq.Core
         private GremlinQuery<T1, T2, T3, T4> And<TState>(Func<GremlinQuery<T1, T2, T3, T4>, TState, IGremlinQueryBase> continuation1, Func<GremlinQuery<T1, T2, T3, T4>, TState, IGremlinQueryBase> continuation2, TState state) => this
             .Continue(ContinuationFlags.Filter)
             .With([continuation1, continuation2], state)
-            .Build(And);
+            .Build((builder, traversals) => builder
+                .And(traversals));
 
         private GremlinQuery<T1, T2, T3, T4> And(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase>> continuations) => this
             .Continue(ContinuationFlags.Filter)
             .With(continuations)
-            .Build(And);
-
-        private static GremlinQuery<T1, T2, T3, T4> And(FinalContinuationBuilder<GremlinQuery<T1, T2, T3, T4>> builder, Memory<Traversal> traversalsMemory)
-        {
-            var traversals = traversalsMemory.Span;
-
-            if (traversals.Length == 0)
-                throw new ArgumentException("Expected at least 1 sub-query.");
-
-            var count = 0;
-            var containsNoneStep = false;
-            var containsWriteStep = false;
-
-            for (var i = 0; i < traversals.Length; i++)
-            {
-                var traversal = traversals[i];
-
-                if (traversal.IsNone())
-                    containsNoneStep = true;
-
-                if (traversal.SideEffectSemantics == SideEffectSemantics.Write)
-                    containsWriteStep = true;
-                else if (traversal.IsIdentity())
-                    continue;
-
-                traversals[count++] = traversal;
-            }
-
-            if (containsNoneStep && !containsWriteStep)
-                builder = builder.None();
-            else
-            {
-                var fusedTraversals = traversals[..count]
-                    .Fuse(static (p1, p2) => p1.And(p2));
-
-                if (fusedTraversals is [var single])
-                    builder = builder.Where(single);
-                else
-                {
-                    if (fusedTraversals.All(static traversal => traversal.Steps.All(static x => x is IFilterStep)))
-                    {
-                        for (var i = 0; i < fusedTraversals.Length; i++)
-                        {
-                            builder = builder
-                                .AddSteps(fusedTraversals[i].Steps);
-                        }
-                    }
-                    else
-                    {
-                        builder = builder
-                            .AddStep(new AndStep(LogicalStep<AndStep>.FlattenLogicalTraversals(fusedTraversals)));
-                    }
-                }
-            }
-
-            return builder
-                .Build();
-        }
+            .Build((builder, traversals) => builder
+                .And(traversals));
 
         private TTargetQuery As<TStepLabel, TTargetQuery>(Func<GremlinQuery<T1, T2, T3, T4>, TStepLabel, TTargetQuery> continuation)
             where TStepLabel : StepLabel, new()
