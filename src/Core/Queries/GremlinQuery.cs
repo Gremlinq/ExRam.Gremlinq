@@ -258,9 +258,9 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<T1, T2, T3, T4> And<TState>(Func<GremlinQuery<T1, T2, T3, T4>, TState, IGremlinQueryBase> continuation1, Func<GremlinQuery<T1, T2, T3, T4>, TState, IGremlinQueryBase> continuation2, TState state) => this
             .Continue(ContinuationFlags.Filter)
-            .With([continuation1, continuation2], state)
-            .Build((builder, traversals) => builder
-                .And(traversals.Span));
+            .With(continuation1, continuation2, state)
+            .Build(static (builder, continuation1, continuation2) => builder
+                .And([continuation1, continuation2]));
 
         private GremlinQuery<T1, T2, T3, T4> And(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase>> continuations) => this
             .Continue(ContinuationFlags.Filter)
@@ -931,9 +931,9 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<T1, T2, T3, T4> Or<TState>(Func<GremlinQuery<T1, T2, T3, T4>, TState, IGremlinQueryBase> continuation1, Func<GremlinQuery<T1, T2, T3, T4>, TState, IGremlinQueryBase> continuation2, TState state) => this
             .Continue(ContinuationFlags.Filter)
-            .With([continuation1, continuation2], state)
-            .Build(static (builder, traversals) => builder
-                .Or(traversals.Span));
+            .With(continuation1, continuation2, state)
+            .Build(static (builder, continuation1, continuation2) => builder
+                .Or([continuation1, continuation2]));
 
         private GremlinQuery<T1, T2, T3, T4> Or(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase>> continuations) => this
             .Continue(ContinuationFlags.Filter)
