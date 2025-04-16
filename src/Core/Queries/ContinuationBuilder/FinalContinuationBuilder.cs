@@ -12,26 +12,30 @@ namespace ExRam.Gremlinq.Core
 
         private readonly Traversal _steps;
         private readonly TOuterQuery _outer;
+        private readonly IImmutableDictionary<object, object?> _metadata;
         private readonly IImmutableDictionary<StepLabel, LabelProjections> _labelProjections;
 
-        private FinalContinuationBuilder(TOuterQuery outerQuery, Traversal steps, IImmutableDictionary<StepLabel, LabelProjections> labelProjections)
+        private FinalContinuationBuilder(TOuterQuery outerQuery, Traversal steps, IImmutableDictionary<StepLabel, LabelProjections> labelProjections, IImmutableDictionary<object, object?> metadata)
         {
             _steps = steps;
             _outer = outerQuery;
+            _metadata = metadata;
             _labelProjections = labelProjections;
         }
 
-        public FinalContinuationBuilder<TOuterQuery> AddStep(Step step) => new (_outer, _steps.Push(step), _labelProjections);
+        public FinalContinuationBuilder<TOuterQuery> AddStep(Step step) => new (_outer, _steps.Push(step), _labelProjections, _metadata);
 
-        public FinalContinuationBuilder<TOuterQuery> AddSteps(ReadOnlySpan<Step> steps) => new(_outer, _steps.Push(steps), _labelProjections);
+        public FinalContinuationBuilder<TOuterQuery> AddSteps(ReadOnlySpan<Step> steps) => new(_outer, _steps.Push(steps), _labelProjections, _metadata);
 
-        public FinalContinuationBuilder<TOuterQuery> WithSteps(Func<Traversal, Traversal> traversalTransformation) => new(_outer, traversalTransformation(_steps), _labelProjections);
+        public FinalContinuationBuilder<TOuterQuery> WithSteps(Func<Traversal, Traversal> traversalTransformation) => new(_outer, traversalTransformation(_steps), _labelProjections, _metadata);
 
-        public FinalContinuationBuilder<TOuterQuery> WithSteps<TState>(Func<Traversal, TState, Traversal> traversalTransformation, TState state) => new (_outer, traversalTransformation(_steps, state), _labelProjections);
+        public FinalContinuationBuilder<TOuterQuery> WithSteps<TState>(Func<Traversal, TState, Traversal> traversalTransformation, TState state) => new (_outer, traversalTransformation(_steps, state), _labelProjections, _metadata);
 
-        public FinalContinuationBuilder<TOuterQuery> WithNewProjection<TState>(Func<Projection, TState, Projection> projectionTransformation, TState state) => new(_outer, _steps.WithProjection(projectionTransformation(_steps.Projection, state)), _labelProjections);
+        public FinalContinuationBuilder<TOuterQuery> WithNewProjection<TState>(Func<Projection, TState, Projection> projectionTransformation, TState state) => new(_outer, _steps.WithProjection(projectionTransformation(_steps.Projection, state)), _labelProjections, _metadata);
 
-        public FinalContinuationBuilder<TOuterQuery> WithNewLabelProjections<TState>(Func<IImmutableDictionary<StepLabel, LabelProjections>, TState, IImmutableDictionary<StepLabel, LabelProjections>> labelProjectionsTransformation, TState state) => new(_outer, _steps, labelProjectionsTransformation(_labelProjections, state));
+        public FinalContinuationBuilder<TOuterQuery> WithNewLabelProjections<TState>(Func<IImmutableDictionary<StepLabel, LabelProjections>, TState, IImmutableDictionary<StepLabel, LabelProjections>> labelProjectionsTransformation, TState state) => new(_outer, _steps, labelProjectionsTransformation(_labelProjections, state), _metadata);
+
+        public FinalContinuationBuilder<TOuterQuery> WithMetadata(Func<IImmutableDictionary<object, object?>, IImmutableDictionary<object, object?>> metadataTransformation) => new(_outer, _steps, _labelProjections, metadataTransformation(_metadata));
 
         public TOuterQuery Build() => BuildAs<TOuterQuery>();
 
@@ -77,6 +81,6 @@ namespace ExRam.Gremlinq.Core
 
         public TOuterQuery OuterQuery => _outer;
 
-        public static FinalContinuationBuilder<TOuterQuery> Create(TOuterQuery outerQuery) => new(outerQuery, outerQuery.Steps, outerQuery.LabelProjections);
+        public static FinalContinuationBuilder<TOuterQuery> Create(TOuterQuery outerQuery) => new(outerQuery, outerQuery.Steps, outerQuery.LabelProjections, outerQuery.Metadata);
     }
 }
