@@ -722,8 +722,8 @@ namespace ExRam.Gremlinq.Core
                 .BuildAuto<T1, TNewOutVertex, TInVertex>());
 
         private GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, IGremlinQueryBase> From<TNewElement, TNewOutVertex, TNewInVertex>(StepLabel<TNewOutVertex> label) => this
-           .Continue()
-           .Build(
+            .Continue()
+            .Build(
                 static (builder, label) => builder
                     .AddStep(new AddEStep.FromLabelStep(label))
                     .BuildAuto<TNewElement, TNewOutVertex, TNewInVertex>(),
