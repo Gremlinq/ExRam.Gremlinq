@@ -29,7 +29,8 @@ namespace ExRam.Gremlinq.Core
         private delegate IGremlinQueryBase QueryContinuation(
             GremlinQueryBase existingQuery,
             Traversal? maybeNewTraversal,
-            IImmutableDictionary<StepLabel, LabelProjections>? maybeNewLabelProjections);
+            IImmutableDictionary<StepLabel, LabelProjections>? maybeNewLabelProjections,
+            IImmutableDictionary<object, object?>? maybeNewMetadata);
 
         private static readonly ConcurrentDictionary<Type, QueryContinuation> QueryContinuations = new();
         private static readonly Type[] QueryGenericTypeDefinitionArguments = typeof(GremlinQuery<,,,>).GetGenericArguments();
@@ -51,9 +52,9 @@ namespace ExRam.Gremlinq.Core
 
         public override string ToString() => $"GremlinQuery(Steps.Count: {Steps.Count})";
 
-        protected internal TTargetQuery CloneAs<TTargetQuery>(Traversal? maybeNewTraversal = null, IImmutableDictionary<StepLabel, LabelProjections>? maybeNewLabelProjections = null)
+        protected internal TTargetQuery CloneAs<TTargetQuery>(Traversal? maybeNewTraversal = null, IImmutableDictionary<StepLabel, LabelProjections>? maybeNewLabelProjections = null, IImmutableDictionary<object, object?>? maybeNewMetadata = null)
         {
-            if (maybeNewTraversal == null && maybeNewLabelProjections == null && this is TTargetQuery targetQuery)
+            if (maybeNewTraversal == null && maybeNewLabelProjections == null && maybeNewMetadata == null && this is TTargetQuery targetQuery)
                 return targetQuery;
 
             var queryFactory = typeof(TTargetQuery).IsGenericType
@@ -98,16 +99,16 @@ namespace ExRam.Gremlinq.Core
                     })
                 : ObjectQueryContinuation;
 
-            return queryFactory(this, maybeNewTraversal, maybeNewLabelProjections) is TTargetQuery newTargetQuery
+            return queryFactory(this, maybeNewTraversal, maybeNewLabelProjections, maybeNewMetadata) is TTargetQuery newTargetQuery
                 ? newTargetQuery
                 : throw new NotSupportedException($"Cannot create a query of type {typeof(TTargetQuery)}.");
         }
 
-        private static QueryContinuation CreateQueryContinuation<T1, T2, T3, T4>() where T4 : IGremlinQueryBase => (existingQuery, maybeNewTraversal, maybeNewLabelProjections) => new GremlinQuery<T1, T2, T3, T4>(
+        private static QueryContinuation CreateQueryContinuation<T1, T2, T3, T4>() where T4 : IGremlinQueryBase => (existingQuery, maybeNewTraversal, maybeNewLabelProjections, maybeNewMetadata) => new GremlinQuery<T1, T2, T3, T4>(
             existingQuery.Environment,
             maybeNewTraversal ?? existingQuery.Steps,
             maybeNewLabelProjections ?? existingQuery.LabelProjections,
-            existingQuery.Metadata);
+            maybeNewMetadata ?? existingQuery.Metadata);
 
         protected internal Traversal Steps { get; }
         protected internal IGremlinQueryEnvironment Environment { get; }
@@ -510,7 +511,12 @@ namespace ExRam.Gremlinq.Core
                     .AddStep(new CoinStep(probability)),
                 probability);
 
-        private TTargetQuery ConfigureMetadata<TTargetQuery>(Func<IImmutableDictionary<object, object?>, IImmutableDictionary<object, object?>> metadataTransformation) => new GremlinQuery<T1, T2, T3, T4>(Environment, Steps, LabelProjections, metadataTransformation(Metadata)).CloneAs<TTargetQuery>(); //TODO: 2 allocations.
+        private TTargetQuery ConfigureMetadata<TTargetQuery>(Func<IImmutableDictionary<object, object?>, IImmutableDictionary<object, object?>> metadataTransformation)
+            where TTargetQuery : IStartGremlinQuery => this
+                .Continue()
+                .Build(builder => builder
+                    .WithMetadata(metadataTransformation)
+                    .BuildAs<TTargetQuery>());
 
         private GremlinQuery<T1, T2, T3, T4> Concat(ReadOnlySpan<string> strings) => this
             .Continue()
