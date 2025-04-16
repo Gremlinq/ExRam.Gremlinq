@@ -401,69 +401,72 @@ namespace ExRam.Gremlinq.Core
                     trueChoice,
                     maybeFalseChoice);
 
-        private TTargetQuery Choose<TTrueQuery, TFalseQuery, TTargetQuery>(Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase> traversalPredicate, Func<GremlinQuery<T1, T2, T3, T4>, TTrueQuery> trueChoice, Func<GremlinQuery<T1, T2, T3, T4>, TFalseQuery>? maybeFalseChoice = default)
+        private TTargetQuery Choose<TTrueQuery, TFalseQuery, TTargetQuery>(Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase> predicateContinuation, Func<GremlinQuery<T1, T2, T3, T4>, TTrueQuery> trueContinuation, Func<GremlinQuery<T1, T2, T3, T4>, TFalseQuery>? maybeFalseContinuation = default)
             where TTrueQuery : IGremlinQueryBase
             where TFalseQuery : IGremlinQueryBase
             where TTargetQuery : IGremlinQueryBase => this
                 .Continue()
-                .With(traversalPredicate)
+                .With(predicateContinuation)
                 .Build(
-                    static (builder, traversal, choiceTuple) => builder.OuterQuery.Choose<TTrueQuery, TFalseQuery, TTargetQuery>(traversal, choiceTuple.trueChoice, choiceTuple.maybeFalseChoice),
-                    (trueChoice, maybeFalseChoice));
+                    static (builder, traversal, tuple) => builder.OuterQuery
+                        .Choose<TTrueQuery, TFalseQuery, TTargetQuery>(traversal, tuple.trueContinuation, tuple.maybeFalseContinuation),
+                    (trueContinuation, maybeFalseContinuation));
 
-        private TTargetQuery Choose<TTrueQuery, TFalseQuery, TTargetQuery>(Traversal chooseTraversal, Func<GremlinQuery<T1, T2, T3, T4>, TTrueQuery> trueChoice, Func<GremlinQuery<T1, T2, T3, T4>, TFalseQuery>? maybeFalseChoice = default)
+        private TTargetQuery Choose<TTrueQuery, TFalseQuery, TTargetQuery>(Traversal predicateTraversal, Func<GremlinQuery<T1, T2, T3, T4>, TTrueQuery> trueContinuation, Func<GremlinQuery<T1, T2, T3, T4>, TFalseQuery>? maybeFalseContinuation = default)
             where TTrueQuery : IGremlinQueryBase
             where TFalseQuery : IGremlinQueryBase
             where TTargetQuery : IGremlinQueryBase => this
                 .Continue()
-                .With(trueChoice)
+                .With(trueContinuation)
                 .Build(
                     static (builder, trueTraversal, state) =>
                     {
-                        var (chooseTraversal, maybeFalseChoice) = state;
+                        var (predicateTraversal, maybeFalseContinuation) = state;
 
-                        if (maybeFalseChoice is { } falseChoice)
+                        if (maybeFalseContinuation is { } falseContinuation)
                         {
                             return builder.OuterQuery
                                 .Continue()
-                                .With(falseChoice)
+                                .With(falseContinuation)
                                 .Build(
                                     static (builder, falseTraversal, state) =>
                                     {
-                                        var (chooseTraversal, trueTraversal) = state;
+                                        var (predicateTraversal, trueTraversal) = state;
 
                                         return builder
-                                            .AddStep(chooseTraversal is [IsStep isStep]
+                                            .AddStep(predicateTraversal is [IsStep isStep]
                                                 ? new ChoosePredicateStep(
                                                     isStep.Predicate,
                                                     trueTraversal,
                                                     falseTraversal)
                                                 : new ChooseTraversalStep(
-                                                    chooseTraversal,
+                                                    predicateTraversal,
                                                     trueTraversal,
                                                     falseTraversal))
                                             .WithNewProjection(
-                                                static (_, state) => state.falseTraversal.Projection.Lowest(state.trueTraversal.Projection),
+                                                static (_, state) => state.falseTraversal.Projection
+                                                    .Lowest(state.trueTraversal.Projection),
                                                 (falseTraversal, trueTraversal))
                                             .BuildAs<TTargetQuery>();
                                     },
-                                    (chooseTraversal, trueTraversal));
+                                    (predicateTraversal, trueTraversal));
                         }
 
                         return builder
-                            .AddStep(chooseTraversal is [IsStep isStep]
+                            .AddStep(predicateTraversal is [IsStep isStep]
                                 ? new ChoosePredicateStep(
                                     isStep.Predicate,
                                     trueTraversal)
                                 : new ChooseTraversalStep(
-                                    state.chooseTraversal,
+                                    state.predicateTraversal,
                                     trueTraversal))
                             .WithNewProjection(
-                                static (projection, otherProjection) => projection.Lowest(otherProjection),
+                                static (projection, otherProjection) => projection
+                                    .Lowest(otherProjection),
                                 trueTraversal.Projection)
                             .BuildAs<TTargetQuery>();
                     },
-                    (chooseTraversal, maybeFalseChoice));
+                    (predicateTraversal, maybeFalseContinuation));
 
         private TTargetQuery Choose<TTargetQuery>(Func<IChooseBuilder<GremlinQuery<T1, T2, T3, T4>>, IChooseBuilderWithCaseOrDefault<TTargetQuery>> continuation)
             where TTargetQuery : IGremlinQueryBase => continuation(new ChooseBuilder<GremlinQuery<T1, T2, T3, T4>, object>(this)).TargetQuery;
