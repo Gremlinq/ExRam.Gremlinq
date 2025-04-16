@@ -476,6 +476,7 @@ namespace ExRam.Gremlinq.Core
 
                         if (maybeFalseChoice is { } falseChoice)
                         {
+                            //TODO: Optimize double query creation away.
                             return builder.OuterQuery
                                 .Continue()
                                 .With(falseChoice)
@@ -518,10 +519,7 @@ namespace ExRam.Gremlinq.Core
                     (chooseTraversal, maybeFalseChoice));
 
         private TTargetQuery Choose<TTargetQuery>(Func<IChooseBuilder<GremlinQuery<T1, T2, T3, T4>>, IChooseBuilderWithCaseOrDefault<TTargetQuery>> continuation)
-            where TTargetQuery : IGremlinQueryBase
-        {
-            return continuation(new ChooseBuilder<GremlinQuery<T1, T2, T3, T4>, object>(this)).TargetQuery;
-        }
+            where TTargetQuery : IGremlinQueryBase => continuation(new ChooseBuilder<GremlinQuery<T1, T2, T3, T4>, object>(this)).TargetQuery;
 
         private TReturnQuery Coalesce<TTargetQuery, TReturnQuery>(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, TTargetQuery>> continuations)
             where TTargetQuery : IGremlinQueryBase
@@ -625,14 +623,12 @@ namespace ExRam.Gremlinq.Core
             .Build(static builder => builder
                 .AddStep(CyclicPathStep.Instance));
 
-        private string Debug()
-        {
-            var serialized = Environment.Serializer
-                .TransformTo<Bytecode>()
-                .From(this, Environment);
-
-            return Environment.Debugger.Debug(serialized, Environment);
-        }
+        private string Debug() => Environment.Debugger
+            .Debug(
+                Environment.Serializer
+                    .TransformTo<Bytecode>()
+                    .From(this, Environment),
+                Environment);
 
         private GremlinQuery<T1, T2, T3, T4> DedupGlobal() => this
             .Continue()
@@ -777,8 +773,9 @@ namespace ExRam.Gremlinq.Core
                     .BuildAuto<TNewElement, TNewOutVertex, TNewInVertex>(),
                 label);
 
-        private IMapGremlinQuery<IDictionary<TKey, TValue>> Group<TKey, TValue>(Func<IGroupBuilder<GremlinQuery<T1, T2, T3, T4>>, IGroupBuilderWithKeyAndValue<TKey, TValue>> projection) =>
-            projection(new GroupBuilder<object, object>(this)).Build();
+        private IMapGremlinQuery<IDictionary<TKey, TValue>> Group<TKey, TValue>(Func<IGroupBuilder<GremlinQuery<T1, T2, T3, T4>>, IGroupBuilderWithKeyAndValue<TKey, TValue>> projection) => projection
+            .Invoke(new GroupBuilder<object, object>(this))
+            .Build();
 
         private IMapGremlinQuery<IDictionary<TKey, T1[]>> Group<TKey>(Func<IGroupBuilder<GremlinQuery<T1, T2, T3, T4>>, IGroupBuilderWithKey<IGremlinQueryBase<T1>, TKey>> projection) => new GroupBuilder<object, object>(this)
             .Map(projection)
@@ -1142,10 +1139,9 @@ namespace ExRam.Gremlinq.Core
                 {
                     if (tuple.value == null)
                     {
-                        if (tuple.key.RawKey is string stringKey)
-                            return builder.OuterQuery.DropProperties(stringKey);
-
-                        throw new InvalidOperationException("Can't set a special property to null.");
+                        return tuple.key.RawKey is string stringKey
+                            ? builder.OuterQuery.DropProperties(stringKey)
+                            : throw new InvalidOperationException("Can't set a special property to null.");
                     }
 
                     foreach (var propertyStep in builder.OuterQuery.GetPropertySteps(tuple.key, tuple.value, builder.OuterQuery.Steps.Projection == Projection.Vertex))
