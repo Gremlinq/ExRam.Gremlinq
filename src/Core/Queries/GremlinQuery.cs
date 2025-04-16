@@ -160,7 +160,7 @@ namespace ExRam.Gremlinq.Core
 
             foreach (var (key, maybeValue) in props)
             {
-                if (!Environment.FeatureSet.Supports(VertexFeatures.UserSuppliedIds) && T.Id.Equals(key.RawKey))
+                if (T.Id.Equals(key.RawKey) && !Environment.FeatureSet.Supports(VertexFeatures.UserSuppliedIds))
                     Environment.Logger.LogWarning($"User supplied ids are not supported according to the environment's {nameof(Environment.FeatureSet)}.");
                 else
                 {
