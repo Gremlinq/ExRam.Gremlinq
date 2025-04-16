@@ -987,57 +987,14 @@ namespace ExRam.Gremlinq.Core
         private GremlinQuery<T1, T2, T3, T4> Or<TState>(Func<GremlinQuery<T1, T2, T3, T4>, TState, IGremlinQueryBase> continuation1, Func<GremlinQuery<T1, T2, T3, T4>, TState, IGremlinQueryBase> continuation2, TState state) => this
             .Continue(ContinuationFlags.Filter)
             .With([continuation1, continuation2], state)
-            .Build(Or);
+            .Build(static (builder, traversals) => builder
+                .Or(traversals));
 
         private GremlinQuery<T1, T2, T3, T4> Or(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase>> continuations) => this
             .Continue(ContinuationFlags.Filter)
             .With(continuations)
-            .Build(Or);
-
-        private static GremlinQuery<T1, T2, T3, T4> Or(FinalContinuationBuilder<GremlinQuery<T1, T2, T3, T4>> builder, Memory<Traversal> traversalsMemory)
-        {
-            var traversals = traversalsMemory.Span;
-
-            if (traversals.Length == 0)
-                throw new ArgumentException("Expected at least 1 sub-query.");
-
-            var count = 0;
-            var containsWriteStep = false;
-            var containsIdentityStep = false;
-
-            for (var i = 0; i < traversals.Length; i++)
-            {
-                var traversal = traversals[i];
-
-                if (traversal.IsIdentity())
-                    containsIdentityStep = true;
-                else if (traversal.SideEffectSemantics == SideEffectSemantics.Write)
-                    containsWriteStep = true;
-                else if (traversal.IsNone())
-                    continue;
-
-                traversals[count++] = traversal;
-            }
-
-            if (!containsIdentityStep || containsWriteStep)
-            {
-                var fusedTraversals = traversals[..count]
-                    .Fuse(static (p1, p2) => p1.Or(p2));
-
-                builder = fusedTraversals switch
-                {
-                    [] => builder
-                        .None(),
-                    [var singleTraversal] => builder
-                        .Where(singleTraversal),
-                    _ => builder
-                        .AddStep(new OrStep(LogicalStep<OrStep>.FlattenLogicalTraversals(fusedTraversals)))
-                };
-            }
-
-            return builder
-                .Build();
-        }
+            .Build(static (builder, traversals) => builder
+                .Or(traversals));
 
         private TTargetQuery Order<TTargetQuery>(Func<OrderBuilder, IOrderBuilderWithBy<TTargetQuery>> projection) where TTargetQuery : IGremlinQueryBase<T1> => projection(new OrderBuilder(this)).Build();
 

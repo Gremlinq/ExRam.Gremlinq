@@ -42,5 +42,51 @@ namespace ExRam.Gremlinq.Core
 
             return builder;
         }
+
+        public static TOuterQuery Or<TOuterQuery>(this FinalContinuationBuilder<TOuterQuery> builder, Memory<Traversal> traversalsMemory)
+            where TOuterQuery : GremlinQueryBase, IGremlinQueryBase
+        {
+            var traversals = traversalsMemory.Span;
+
+            if (traversals.Length == 0)
+                throw new ArgumentException("Expected at least 1 sub-query.");
+
+            var count = 0;
+            var containsWriteStep = false;
+            var containsIdentityStep = false;
+
+            for (var i = 0; i < traversals.Length; i++)
+            {
+                var traversal = traversals[i];
+
+                if (traversal.IsIdentity())
+                    containsIdentityStep = true;
+                else if (traversal.SideEffectSemantics == SideEffectSemantics.Write)
+                    containsWriteStep = true;
+                else if (traversal.IsNone())
+                    continue;
+
+                traversals[count++] = traversal;
+            }
+
+            if (!containsIdentityStep || containsWriteStep)
+            {
+                var fusedTraversals = traversals[..count]
+                    .Fuse(static (p1, p2) => p1.Or(p2));
+
+                builder = fusedTraversals switch
+                {
+                    [] => builder
+                        .None(),
+                    [var singleTraversal] => builder
+                        .Where(singleTraversal),
+                    _ => builder
+                        .AddStep(new OrStep(LogicalStep<OrStep>.FlattenLogicalTraversals(fusedTraversals)))
+                };
+            }
+
+            return builder
+                .Build();
+        }
     }
 }
