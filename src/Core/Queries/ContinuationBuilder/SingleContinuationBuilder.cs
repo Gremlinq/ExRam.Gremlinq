@@ -7,7 +7,7 @@
         private readonly Traversal _continuation;
         private readonly FinalContinuationBuilder<TOuterQuery> _finalBuilder;
 
-        public SingleContinuationBuilder(FinalContinuationBuilder<TOuterQuery> finalBuilder, Traversal continuation)
+        private SingleContinuationBuilder(FinalContinuationBuilder<TOuterQuery> finalBuilder, Traversal continuation)
         {
             _continuation = continuation;
             _finalBuilder = finalBuilder;

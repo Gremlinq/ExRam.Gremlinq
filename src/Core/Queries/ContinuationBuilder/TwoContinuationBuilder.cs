@@ -8,7 +8,7 @@
         private readonly Traversal _continuation2;
         private readonly FinalContinuationBuilder<TOuterQuery> _finalBuilder;
 
-        public TwoContinuationBuilder(FinalContinuationBuilder<TOuterQuery> finalBuilder, Traversal continuation1, Traversal continuation2)
+        private TwoContinuationBuilder(FinalContinuationBuilder<TOuterQuery> finalBuilder, Traversal continuation1, Traversal continuation2)
         {
             _finalBuilder = finalBuilder;
             _continuation1 = continuation1;
