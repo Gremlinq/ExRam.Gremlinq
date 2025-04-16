@@ -1413,13 +1413,13 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<T1, T2, T3, T4> Where<TProjection>(Expression<Func<T1, TProjection>> predicate, Func<IGremlinQuery<TProjection>, IGremlinQueryBase> propertyContinuation) => predicate.RefersToParameter(out _) && predicate.Body is MemberExpression memberExpression
             ? this
+                .CloneAs<GremlinQuery<TProjection, object, object, IGremlinQueryBase>>()
                 .Continue()
-                .With(
-                    static (__, propertyContinuation) => propertyContinuation(__.CloneAs<IGremlinQuery<TProjection>>()),
-                    propertyContinuation)
+                .With(propertyContinuation)
                 .Build(
                     static (builder, propertyTraversal, key) => builder
-                        .AddStep(new HasTraversalStep(key, propertyTraversal)),
+                        .AddStep(new HasTraversalStep(key, propertyTraversal))
+                        .BuildAs<GremlinQuery<T1, T2, T3, T4>>(),
                     GetKey(memberExpression))
             : throw new ExpressionNotSupportedException(predicate);
 
