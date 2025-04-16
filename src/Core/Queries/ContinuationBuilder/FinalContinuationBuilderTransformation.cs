@@ -3,7 +3,7 @@
     internal delegate TResult FinalContinuationBuilderTransformation<TOuterQuery, TResult>(FinalContinuationBuilder<TOuterQuery> builder, Memory<Traversal> traversals)
         where TOuterQuery : GremlinQueryBase, IGremlinQueryBase;
 
-    internal delegate TNewQuery FinalContinuationBuilderTransformation<TOuterQuery, TState, TNewQuery>(FinalContinuationBuilder<TOuterQuery> a, ReadOnlySpan<TState> b)
+    internal delegate TResult FinalContinuationBuilderTransformation<TOuterQuery, TState, TResult>(FinalContinuationBuilder<TOuterQuery> builder, ReadOnlySpan<TState> state)
         where TOuterQuery : GremlinQueryBase, IGremlinQueryBase
-        where TNewQuery : IStartGremlinQuery;
+        where TResult : IStartGremlinQuery;
 }
