@@ -1,9 +1,5 @@
 ﻿namespace ExRam.Gremlinq.Core
 {
-    internal delegate TNewQuery SpanStateBuilderTransformation<TOuterQuery, TState, TNewQuery>(FinalContinuationBuilder<TOuterQuery> a, ReadOnlySpan<TState> b)
-        where TOuterQuery : GremlinQueryBase, IGremlinQueryBase
-        where TNewQuery : IStartGremlinQuery;
-
     internal readonly struct ContinuationBuilder<TOuterQuery, TAnonymousQuery>
         where TOuterQuery : GremlinQueryBase, IGremlinQueryBase
         where TAnonymousQuery : GremlinQueryBase, IGremlinQueryBase
