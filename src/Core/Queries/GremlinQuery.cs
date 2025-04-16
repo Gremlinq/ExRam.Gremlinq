@@ -510,6 +510,8 @@ namespace ExRam.Gremlinq.Core
                     .AddStep(new CoinStep(probability)),
                 probability);
 
+        private TTargetQuery ConfigureMetadata<TTargetQuery>(Func<IImmutableDictionary<object, object?>, IImmutableDictionary<object, object?>> metadataTransformation) => new GremlinQuery<T1, T2, T3, T4>(Environment, Steps, LabelProjections, metadataTransformation(Metadata)).CloneAs<TTargetQuery>(); //TODO: 2 allocations.
+
         private GremlinQuery<T1, T2, T3, T4> Concat(ReadOnlySpan<string> strings) => this
             .Continue()
             .Build(
