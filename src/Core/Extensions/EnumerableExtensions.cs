@@ -1,5 +1,4 @@
-﻿using ExRam.Gremlinq.Core.Projections;
-using ExRam.Gremlinq.Core.Steps;
+﻿using ExRam.Gremlinq.Core.Steps;
 
 namespace ExRam.Gremlinq.Core
 {

@@ -3,7 +3,6 @@
 using System.Collections;
 using System.Collections.Immutable;
 using System.Linq.Expressions;
-using System.Runtime.InteropServices;
 
 using ExRam.Gremlinq.Core.ExpressionParsing;
 using ExRam.Gremlinq.Core.GraphElements;
