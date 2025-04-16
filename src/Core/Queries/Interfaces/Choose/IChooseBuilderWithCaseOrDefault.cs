@@ -3,6 +3,9 @@
     public interface IChooseBuilderWithCaseOrDefault<out TTargetQuery>
         where TTargetQuery : IGremlinQueryBase
     {
+        [Obsolete("Use Build() instead.")]
         TTargetQuery TargetQuery { get; }
+
+        TTargetQuery Build();
     }
 }

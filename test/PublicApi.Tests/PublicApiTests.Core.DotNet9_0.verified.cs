@@ -221,7 +221,9 @@
     public interface IChooseBuilderWithCaseOrDefault<out TTargetQuery>
         where out TTargetQuery : ExRam.Gremlinq.Core.IGremlinQueryBase
     {
+        [System.Obsolete("Use Build() instead.")]
         TTargetQuery TargetQuery { get; }
+        TTargetQuery Build();
     }
     public interface IChooseBuilderWithCase<out TSourceQuery, in TElement, TTargetQuery> : ExRam.Gremlinq.Core.IChooseBuilderWithCaseOrDefault<TTargetQuery>
         where out TSourceQuery : ExRam.Gremlinq.Core.IGremlinQueryBase

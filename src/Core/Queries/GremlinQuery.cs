@@ -469,7 +469,9 @@ namespace ExRam.Gremlinq.Core
                     (predicateTraversal, maybeFalseContinuation));
 
         private TTargetQuery Choose<TTargetQuery>(Func<IChooseBuilder<GremlinQuery<T1, T2, T3, T4>>, IChooseBuilderWithCaseOrDefault<TTargetQuery>> continuation)
-            where TTargetQuery : IGremlinQueryBase => continuation(new ChooseBuilder<GremlinQuery<T1, T2, T3, T4>, object>(this)).TargetQuery;
+            where TTargetQuery : IGremlinQueryBase => continuation
+                .Invoke(new ChooseBuilder<GremlinQuery<T1, T2, T3, T4>, object>(this))
+                .Build();
 
         private TReturnQuery Coalesce<TTargetQuery, TReturnQuery>(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, TTargetQuery>> continuations)
             where TTargetQuery : IGremlinQueryBase
