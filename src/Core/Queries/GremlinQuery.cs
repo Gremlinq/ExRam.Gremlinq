@@ -1416,7 +1416,7 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<T1, T2, T3, T4> Where<TProjection>(Expression<Func<T1, TProjection>> predicate, Func<IGremlinQuery<TProjection>, IGremlinQueryBase> propertyContinuation) => predicate.RefersToParameter(out _) && predicate.Body is MemberExpression memberExpression
             ? this
-                .CloneAs<GremlinQuery<TProjection, object, object, IGremlinQueryBase>>()
+                .Cast<TProjection>()
                 .Continue()
                 .With(propertyContinuation)
                 .Build(
