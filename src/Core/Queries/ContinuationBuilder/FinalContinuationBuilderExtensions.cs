@@ -43,11 +43,9 @@ namespace ExRam.Gremlinq.Core
             return builder;
         }
 
-        public static TOuterQuery And<TOuterQuery>(this FinalContinuationBuilder<TOuterQuery> builder, Memory<Traversal> traversalsMemory)
+        public static TOuterQuery And<TOuterQuery>(this FinalContinuationBuilder<TOuterQuery> builder, Span<Traversal> traversals)
             where TOuterQuery : GremlinQueryBase, IGremlinQueryBase
         {
-            var traversals = traversalsMemory.Span;
-
             if (traversals.Length == 0)
                 throw new ArgumentException("Expected at least 1 sub-query.");
 
@@ -101,11 +99,9 @@ namespace ExRam.Gremlinq.Core
                 .Build();
         }
 
-        public static TOuterQuery Or<TOuterQuery>(this FinalContinuationBuilder<TOuterQuery> builder, Memory<Traversal> traversalsMemory)
+        public static TOuterQuery Or<TOuterQuery>(this FinalContinuationBuilder<TOuterQuery> builder, Span<Traversal> traversals)
             where TOuterQuery : GremlinQueryBase, IGremlinQueryBase
         {
-            var traversals = traversalsMemory.Span;
-
             if (traversals.Length == 0)
                 throw new ArgumentException("Expected at least 1 sub-query.");
 
