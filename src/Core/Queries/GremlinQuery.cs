@@ -423,9 +423,8 @@ namespace ExRam.Gremlinq.Core
                     {
                         var (predicateTraversal, maybeFalseContinuation) = state;
 
-                        if (maybeFalseContinuation is { } falseContinuation)
-                        {
-                            return builder.OuterQuery
+                        return maybeFalseContinuation is { } falseContinuation
+                            ? builder.OuterQuery
                                 .Continue()
                                 .With(falseContinuation)
                                 .Build(
@@ -449,22 +448,20 @@ namespace ExRam.Gremlinq.Core
                                                 (falseTraversal, trueTraversal))
                                             .BuildAs<TTargetQuery>();
                                     },
-                                    (predicateTraversal, trueTraversal));
-                        }
-
-                        return builder
-                            .AddStep(predicateTraversal is [IsStep isStep]
-                                ? new ChoosePredicateStep(
-                                    isStep.Predicate,
-                                    trueTraversal)
-                                : new ChooseTraversalStep(
-                                    state.predicateTraversal,
-                                    trueTraversal))
-                            .WithNewProjection(
-                                static (projection, otherProjection) => projection
-                                    .Lowest(otherProjection),
-                                trueTraversal.Projection)
-                            .BuildAs<TTargetQuery>();
+                                    (predicateTraversal, trueTraversal))
+                            : builder
+                                .AddStep(predicateTraversal is [IsStep isStep]
+                                    ? new ChoosePredicateStep(
+                                        isStep.Predicate,
+                                        trueTraversal)
+                                    : new ChooseTraversalStep(
+                                        state.predicateTraversal,
+                                        trueTraversal))
+                                .WithNewProjection(
+                                    static (projection, otherProjection) => projection
+                                        .Lowest(otherProjection),
+                                    trueTraversal.Projection)
+                                .BuildAs<TTargetQuery>();
                     },
                     (predicateTraversal, maybeFalseContinuation));
 
