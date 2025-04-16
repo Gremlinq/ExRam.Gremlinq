@@ -6,6 +6,7 @@ using System.Collections.Immutable;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 
 using CommunityToolkit.HighPerformance;
 
@@ -769,14 +770,20 @@ namespace ExRam.Gremlinq.Core
         private GremlinQuery<TNewElement, T2, T3, T4> Inject<TNewElement>(ReadOnlySpan<TNewElement> elements) => this
             .Continue()
             .Build(
-                static (builder, elements) => builder
-                    .AddStep(new InjectStep(
-                        elements
-                            .ToArray()  //TODO: Optimize
-                            .Select(static x => (object)x!)
-                            .ToImmutableArray()))
-                    .WithNewProjection(Projection.Value)
-                    .BuildAuto<TNewElement, T2, T3, T4>(),
+                static (builder, elements) =>
+                {
+                    var injects = new object[elements.Length];
+
+                    for (var i = 0; i < elements.Length; i++)
+                    {
+                        injects[i] = elements[i]!;
+                    }
+
+                    return builder
+                        .AddStep(new InjectStep(injects.UnsafeToImmutableArray()))
+                        .WithNewProjection(Projection.Value)
+                        .BuildAuto<TNewElement, T2, T3, T4>();
+                },
                 elements);
 
         private TNewQuery InOutV<TNewElement, TNewQuery>(Step step)
