@@ -1217,13 +1217,13 @@ namespace ExRam.Gremlinq.Core
                 .Map(continuation)
                 .Build();
 
-        private GremlinQuery<T1, T2, T3, T4> Unfold() => this
-            .Continue()
-            .Build(static builder => builder
-                .AddStep(UnfoldStep.Instance)
-                .WithNewProjection(static projection => projection.If<ArrayProjection>(static array => array.Unfold())));
-
-        private TTargetQuery Unfold<TTargetQuery>() => Unfold().CloneAs<TTargetQuery>();
+        private TTargetQuery Unfold<TTargetQuery>()
+            where TTargetQuery : IStartGremlinQuery => this
+                .Continue()
+                .Build(static builder => builder
+                    .AddStep(UnfoldStep.Instance)
+                    .WithNewProjection(static projection => projection.If<ArrayProjection>(static array => array.Unfold()))
+                    .BuildAs<TTargetQuery>());
 
         private TReturnQuery Union<TTargetQuery, TReturnQuery>(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, TTargetQuery>> unionContinuations)
             where TTargetQuery : IGremlinQueryBase
