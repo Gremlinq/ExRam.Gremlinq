@@ -6,7 +6,6 @@ using System.Collections.Immutable;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
 
 using CommunityToolkit.HighPerformance;
 
@@ -425,7 +424,6 @@ namespace ExRam.Gremlinq.Core
 
                         if (maybeFalseChoice is { } falseChoice)
                         {
-                            //TODO: Optimize double query creation away.
                             return builder.OuterQuery
                                 .Continue()
                                 .With(falseChoice)
