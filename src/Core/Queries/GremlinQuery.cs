@@ -27,9 +27,9 @@ namespace ExRam.Gremlinq.Core
     {
         private delegate IGremlinQueryBase QueryContinuation(
             GremlinQueryBase existingQuery,
-            Traversal? maybeNewTraversal,
-            IImmutableDictionary<StepLabel, LabelProjections>? maybeNewLabelProjections,
-            IImmutableDictionary<object, object?>? maybeNewMetadata);
+            Traversal newTraversal,
+            IImmutableDictionary<StepLabel, LabelProjections> newLabelProjections,
+            IImmutableDictionary<object, object?> newMetadata);
 
         private static readonly ConcurrentDictionary<Type, QueryContinuation> QueryContinuations = new();
         private static readonly Type[] QueryGenericTypeDefinitionArguments = typeof(GremlinQuery<,,,>).GetGenericArguments();
@@ -51,7 +51,7 @@ namespace ExRam.Gremlinq.Core
 
         public override string ToString() => $"GremlinQuery(Steps.Count: {Steps.Count})";
 
-        protected internal TTargetQuery CloneAs<TTargetQuery>(Traversal? maybeNewTraversal = null, IImmutableDictionary<StepLabel, LabelProjections>? maybeNewLabelProjections = null, IImmutableDictionary<object, object?>? maybeNewMetadata = null)
+        protected internal TTargetQuery CloneAs<TTargetQuery>(Traversal newTraversal, IImmutableDictionary<StepLabel, LabelProjections> newLabelProjections, IImmutableDictionary<object, object?> newMetadata)
         {
             var queryFactory = typeof(TTargetQuery).IsGenericType
                 ? QueryContinuations.GetOrAdd(
@@ -95,16 +95,16 @@ namespace ExRam.Gremlinq.Core
                     })
                 : ObjectQueryContinuation;
 
-            return queryFactory(this, maybeNewTraversal, maybeNewLabelProjections, maybeNewMetadata) is TTargetQuery newTargetQuery
+            return queryFactory(this, newTraversal, newLabelProjections, newMetadata) is TTargetQuery newTargetQuery
                 ? newTargetQuery
                 : throw new NotSupportedException($"Cannot create a query of type {typeof(TTargetQuery)}.");
         }
 
-        private static QueryContinuation CreateQueryContinuation<T1, T2, T3, T4>() where T4 : IGremlinQueryBase => (existingQuery, maybeNewTraversal, maybeNewLabelProjections, maybeNewMetadata) => new GremlinQuery<T1, T2, T3, T4>(
+        private static QueryContinuation CreateQueryContinuation<T1, T2, T3, T4>() where T4 : IGremlinQueryBase => (existingQuery, newTraversal, newLabelProjections, newMetadata) => new GremlinQuery<T1, T2, T3, T4>(
             existingQuery.Environment,
-            maybeNewTraversal ?? existingQuery.Steps,
-            maybeNewLabelProjections ?? existingQuery.LabelProjections,
-            maybeNewMetadata ?? existingQuery.Metadata);
+            newTraversal,
+            newLabelProjections,
+            newMetadata);
 
         protected internal Traversal Steps { get; }
         protected internal IGremlinQueryEnvironment Environment { get; }
