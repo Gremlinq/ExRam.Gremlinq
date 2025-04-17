@@ -51,7 +51,7 @@ namespace ExRam.Gremlinq.Core
 
         public override string ToString() => $"GremlinQuery(Steps.Count: {Steps.Count})";
 
-        protected internal TTargetQuery CloneAs<TTargetQuery>(Traversal newTraversal, IImmutableDictionary<StepLabel, LabelProjections> newLabelProjections, IImmutableDictionary<object, object?> newMetadata)
+        internal static TTargetQuery CloneAs<TTargetQuery>(IGremlinQueryEnvironment environment, Traversal newTraversal, IImmutableDictionary<StepLabel, LabelProjections> newLabelProjections, IImmutableDictionary<object, object?> newMetadata)
         {
             var queryFactory = typeof(TTargetQuery).IsGenericType
                 ? QueryContinuations.GetOrAdd(
@@ -95,7 +95,7 @@ namespace ExRam.Gremlinq.Core
                     })
                 : ObjectQueryContinuation;
 
-            return queryFactory(this.Environment, newTraversal, newLabelProjections, newMetadata) is TTargetQuery newTargetQuery
+            return queryFactory(environment, newTraversal, newLabelProjections, newMetadata) is TTargetQuery newTargetQuery
                 ? newTargetQuery
                 : throw new NotSupportedException($"Cannot create a query of type {typeof(TTargetQuery)}.");
         }
