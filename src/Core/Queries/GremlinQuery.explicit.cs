@@ -165,9 +165,16 @@ namespace ExRam.Gremlinq.Core
 
         IMapGremlinQuery<IDictionary<string, TTarget>> IElementGremlinQueryBase<T1>.ValueMap<TTarget>(params ReadOnlySpan<Expression<Func<T1, TTarget>>> keys) => ValueMapForExpressions<IDictionary<string, TTarget>>(keys.Cast().To<LambdaExpression>());
 
-        IMapGremlinQuery<T1> IGremlinQueryBase<T1>.ForceValueTuple() => CloneAs<IMapGremlinQuery<T1>>(maybeNewTraversal: Steps.WithProjection(Projection.Value));
+        IMapGremlinQuery<T1> IGremlinQueryBase<T1>.ForceValueTuple() => this
+            .Continue()
+            .Build(static builder => builder
+                .WithNewProjection(Projection.Value));
 
-        IArrayGremlinQuery<T1[], T1, IGremlinQuery<T1>> IGremlinQueryBase<T1>.ForceArray() => CloneAs<IArrayGremlinQuery<T1[], T1, IGremlinQuery<T1>>>(maybeNewTraversal: Steps.WithProjection(Projection.Value.Fold()));
+        IArrayGremlinQuery<T1[], T1, IGremlinQuery<T1>> IGremlinQueryBase<T1>.ForceArray() => this
+            .Continue()
+            .Build(static builder => builder
+                .WithNewProjection(Projection.Value.Fold())
+                .BuildAs<IArrayGremlinQuery<T1[], T1, IGremlinQuery<T1>>>());
 
         IGremlinQuery<TValue> IGremlinQueryBase.Constant<TValue>(TValue constant) => Constant(constant);
 
@@ -189,23 +196,55 @@ namespace ExRam.Gremlinq.Core
 
         IElementGremlinQuery<T1> IGremlinQueryBase<T1>.ForceElement() => ForceElement();
 
-        IVertexGremlinQuery<T1> IGremlinQueryBase<T1>.ForceVertex() => CloneAs<IVertexGremlinQuery<T1>>(maybeNewTraversal: Steps.WithProjection(Projection.Vertex));
+        IVertexGremlinQuery<T1> IGremlinQueryBase<T1>.ForceVertex() => this
+            .Continue()
+            .Build(static builder => builder
+                .WithNewProjection(Projection.Vertex));
 
-        IVertexPropertyGremlinQuery<T1, TNewValue> IGremlinQueryBase<T1>.ForceVertexProperty<TNewValue>() => CloneAs<IVertexPropertyGremlinQuery<T1, TNewValue>>(maybeNewTraversal: Steps.WithProjection(Projection.Element));
+        IVertexPropertyGremlinQuery<T1, TNewValue> IGremlinQueryBase<T1>.ForceVertexProperty<TNewValue>() => this
+            .Continue()
+            .Build(static builder => builder
+                .WithNewProjection(Projection.Element)
+                .BuildAs<IVertexPropertyGremlinQuery<T1, TNewValue>>());
 
-        IVertexPropertyGremlinQuery<T1, TNewValue, TNewMeta> IGremlinQueryBase<T1>.ForceVertexProperty<TNewValue, TNewMeta>() => CloneAs<IVertexPropertyGremlinQuery<T1, TNewValue, TNewMeta>>(maybeNewTraversal: Steps.WithProjection(Projection.Element));
+        IVertexPropertyGremlinQuery<T1, TNewValue, TNewMeta> IGremlinQueryBase<T1>.ForceVertexProperty<TNewValue, TNewMeta>() => this
+            .Continue()
+            .Build(static builder => builder
+                .WithNewProjection(Projection.Element)
+                .BuildAs<IVertexPropertyGremlinQuery<T1, TNewValue, TNewMeta>>());
 
-        IPropertyGremlinQuery<T1> IGremlinQueryBase<T1>.ForceProperty() => CloneAs<IPropertyGremlinQuery<T1>>(maybeNewTraversal: Steps.WithProjection(Projection.Value));
+        IPropertyGremlinQuery<T1> IGremlinQueryBase<T1>.ForceProperty() => this
+            .Continue()
+            .Build(static builder => builder
+                .WithNewProjection(Projection.Value));
 
-        IEdgeGremlinQuery<T1> IGremlinQueryBase<T1>.ForceEdge() => CloneAs<IEdgeGremlinQuery<T1>>(maybeNewTraversal: Steps.WithProjection(Projection.Edge));
+        IEdgeGremlinQuery<T1> IGremlinQueryBase<T1>.ForceEdge() => this
+            .Continue()
+            .Build(static builder => builder
+                .WithNewProjection(Projection.Edge));
 
-        IInEdgeGremlinQuery<T1, TNewInVertex> IGremlinQueryBase<T1>.ForceInEdge<TNewInVertex>() => CloneAs<IInEdgeGremlinQuery<T1, TNewInVertex>>(maybeNewTraversal: Steps.WithProjection(Projection.Edge));
+        IInEdgeGremlinQuery<T1, TNewInVertex> IGremlinQueryBase<T1>.ForceInEdge<TNewInVertex>() => this
+            .Continue()
+            .Build(static builder => builder
+                .WithNewProjection(Projection.Edge)
+                .BuildAs<IInEdgeGremlinQuery<T1, TNewInVertex>>());
 
-        IOutEdgeGremlinQuery<T1, TNewOutVertex> IGremlinQueryBase<T1>.ForceOutEdge<TNewOutVertex>() => CloneAs<IOutEdgeGremlinQuery<T1, TNewOutVertex>>(maybeNewTraversal: Steps.WithProjection(Projection.Edge));
+        IOutEdgeGremlinQuery<T1, TNewOutVertex> IGremlinQueryBase<T1>.ForceOutEdge<TNewOutVertex>() => this
+            .Continue()
+            .Build(static builder => builder
+                .WithNewProjection(Projection.Edge)
+                .BuildAs<IOutEdgeGremlinQuery<T1, TNewOutVertex>>());
 
-        IEdgeGremlinQuery<T1, TNewOutVertex, TNewInVertex> IGremlinQueryBase<T1>.ForceEdge<TNewOutVertex, TNewInVertex>() => CloneAs<IEdgeGremlinQuery<T1, TNewOutVertex, TNewInVertex>>(maybeNewTraversal: Steps.WithProjection(Projection.Edge));
+        IEdgeGremlinQuery<T1, TNewOutVertex, TNewInVertex> IGremlinQueryBase<T1>.ForceEdge<TNewOutVertex, TNewInVertex>() => this
+            .Continue()
+            .Build(static builder => builder
+                .WithNewProjection(Projection.Edge)
+                .BuildAs<IEdgeGremlinQuery<T1, TNewOutVertex, TNewInVertex>>());
 
-        IGremlinQuery<T1> IGremlinQueryBase<T1>.ForceValue() => CloneAs<IGremlinQuery<T1>>(maybeNewTraversal: Steps.WithProjection(Projection.Value));
+        IGremlinQuery<T1> IGremlinQueryBase<T1>.ForceValue() => this
+            .Continue()
+            .Build(static builder => builder
+                .WithNewProjection(Projection.Value));
 
         TaskAwaiter<T1[]> IGremlinQueryBase<T1>.GetAwaiter() => this
             .ToArrayAsync()
@@ -262,7 +301,10 @@ namespace ExRam.Gremlinq.Core
 
         TTargetQuery IGremlinQueryAdmin.ConfigureMetadata<TTargetQuery>(Func<IImmutableDictionary<object, object?>, IImmutableDictionary<object, object?>> metadataTransformation) => ConfigureMetadata<TTargetQuery>(metadataTransformation);
 
-        IGremlinQuerySource IGremlinQueryAdmin.GetSource() => CloneAs<IGremlinQuerySource>(maybeNewTraversal: Traversal.Empty);
+        IGremlinQuerySource IGremlinQueryAdmin.GetSource() => this
+            .Continue()
+            .Build(static builder => builder
+                .WithSteps(static _ => Traversal.Empty));
 
         Traversal IGremlinQueryAdmin.Steps => Steps;
 
