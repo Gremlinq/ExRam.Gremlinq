@@ -53,9 +53,6 @@ namespace ExRam.Gremlinq.Core
 
         protected internal TTargetQuery CloneAs<TTargetQuery>(Traversal? maybeNewTraversal = null, IImmutableDictionary<StepLabel, LabelProjections>? maybeNewLabelProjections = null, IImmutableDictionary<object, object?>? maybeNewMetadata = null)
         {
-            if (maybeNewTraversal == null && maybeNewLabelProjections == null && maybeNewMetadata == null && this is TTargetQuery targetQuery)
-                return targetQuery;
-
             var queryFactory = typeof(TTargetQuery).IsGenericType
                 ? QueryContinuations.GetOrAdd(
                     typeof(TTargetQuery),
@@ -134,10 +131,13 @@ namespace ExRam.Gremlinq.Core
 
         }
 
-        private TTargetQuery CloneAs<TTargetQuery>() where TTargetQuery : IStartGremlinQuery => this
-            .Continue()
-            .Build(static builder => builder
-                .BuildAs<TTargetQuery>());
+        private TTargetQuery CloneAs<TTargetQuery>() where TTargetQuery : IStartGremlinQuery
+            => this is TTargetQuery targetQuery
+                ? targetQuery
+                : this
+                    .Continue()
+                    .Build(static builder => builder
+                        .BuildAs<TTargetQuery>());
 
         private GremlinQuery<TEdge, T1, object, IGremlinQueryBase> AddE<TEdge>(TEdge newEdge) => this
             .Continue()
