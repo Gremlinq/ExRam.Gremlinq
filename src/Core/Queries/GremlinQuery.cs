@@ -51,6 +51,8 @@ namespace ExRam.Gremlinq.Core
 
         public override string ToString() => $"GremlinQuery(Steps.Count: {Steps.Count})";
 
+        protected TTargetQuery CloneAs<TTargetQuery>() => CloneAs<TTargetQuery>(null, null, null);
+
         protected internal TTargetQuery CloneAs<TTargetQuery>(Traversal? maybeNewTraversal = null, IImmutableDictionary<StepLabel, LabelProjections>? maybeNewLabelProjections = null, IImmutableDictionary<object, object?>? maybeNewMetadata = null)
         {
             if (maybeNewTraversal == null && maybeNewLabelProjections == null && maybeNewMetadata == null && this is TTargetQuery targetQuery)
