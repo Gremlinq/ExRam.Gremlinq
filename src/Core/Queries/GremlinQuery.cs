@@ -324,10 +324,12 @@ namespace ExRam.Gremlinq.Core
                     .BuildAuto<TSelectedElement, TArrayItem, object, TQuery>(),
                 stepLabel);
 
-        private GremlinQuery<TNewElement, object, object, IGremlinQueryBase> Cast<TNewElement>() => this
-            .Continue()
-            .Build(static builder => builder
-                .BuildAs<GremlinQuery<TNewElement, object, object, IGremlinQueryBase>>());
+        private GremlinQuery<TNewElement, object, object, IGremlinQueryBase> Cast<TNewElement>() => this is GremlinQuery<TNewElement, object, object, IGremlinQueryBase> castQuery
+            ? castQuery
+            : this
+                .Continue()
+                .Build(static builder => builder
+                    .BuildAs<GremlinQuery<TNewElement, object, object, IGremlinQueryBase>>());
 
         private TTargetQuery Choose<TTrueQuery, TFalseQuery, TTargetQuery>(Expression<Func<T1, bool>> predicate, Func<GremlinQuery<T1, T2, T3, T4>, TTrueQuery> trueChoice, Func<GremlinQuery<T1, T2, T3, T4>, TFalseQuery>? maybeFalseChoice = default)
             where TTrueQuery : IGremlinQueryBase
