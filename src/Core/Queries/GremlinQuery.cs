@@ -26,7 +26,7 @@ namespace ExRam.Gremlinq.Core
     internal abstract class GremlinQueryBase
     {
         private delegate IGremlinQueryBase QueryContinuation(
-            GremlinQueryBase existingQuery,
+            IGremlinQueryEnvironment environment,
             Traversal newTraversal,
             IImmutableDictionary<StepLabel, LabelProjections> newLabelProjections,
             IImmutableDictionary<object, object?> newMetadata);
@@ -95,13 +95,13 @@ namespace ExRam.Gremlinq.Core
                     })
                 : ObjectQueryContinuation;
 
-            return queryFactory(this, newTraversal, newLabelProjections, newMetadata) is TTargetQuery newTargetQuery
+            return queryFactory(this.Environment, newTraversal, newLabelProjections, newMetadata) is TTargetQuery newTargetQuery
                 ? newTargetQuery
                 : throw new NotSupportedException($"Cannot create a query of type {typeof(TTargetQuery)}.");
         }
 
-        private static QueryContinuation CreateQueryContinuation<T1, T2, T3, T4>() where T4 : IGremlinQueryBase => (existingQuery, newTraversal, newLabelProjections, newMetadata) => new GremlinQuery<T1, T2, T3, T4>(
-            existingQuery.Environment,
+        private static QueryContinuation CreateQueryContinuation<T1, T2, T3, T4>() where T4 : IGremlinQueryBase => (environment, newTraversal, newLabelProjections, newMetadata) => new GremlinQuery<T1, T2, T3, T4>(
+            environment,
             newTraversal,
             newLabelProjections,
             newMetadata);
