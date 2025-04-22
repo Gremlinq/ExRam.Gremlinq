@@ -85,7 +85,8 @@ namespace ExRam.Gremlinq.Core
                             .AddStep(new UntilStep(innerTraversal));
                     }
 
-                    return builder;
+                    return builder
+                        .BuildAuto<T1, T2, T3, T4>();
                 }));
 
             private LoopBuilder<TQuery> Repeat(Func<TQuery, TQuery> loop) => new(_outerQuery
@@ -98,7 +99,8 @@ namespace ExRam.Gremlinq.Core
                         .AddStep(new RepeatStep(innerTraversal))
                         .WithNewProjection(
                             static (projection, otherProjection) => projection.Lowest(otherProjection),
-                            innerTraversal.Projection)));
+                            innerTraversal.Projection)
+                        .BuildAuto<T1, T2, T3, T4>()));
 
             public TQuery Build() => Unsafe.As<TQuery>(_outerQuery);
         }

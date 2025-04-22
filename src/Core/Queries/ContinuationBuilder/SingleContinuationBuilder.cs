@@ -13,12 +13,6 @@
             _finalBuilder = finalBuilder;
         }
 
-        public TOuterQuery Build<TState>(Func<FinalContinuationBuilder, Traversal, TState, FinalContinuationBuilder> builderTransformation, TState state)
-            => Build(static (builder, traversal, tuple) => tuple.builderTransformation(builder, traversal, tuple.state).BuildAs<TOuterQuery>(), (builderTransformation, state));
-
-        public TOuterQuery Build(Func<FinalContinuationBuilder, Traversal, FinalContinuationBuilder> builderTransformation)
-            => Build(static (builder, continuation, state) => state(builder, continuation), builderTransformation);
-
         public TResult Build<TResult>(Func<FinalContinuationBuilder, Traversal, TResult> builderTransformation)
             => Build(static (builder, traversal, builderTransformation) => builderTransformation(builder, traversal), builderTransformation);
 

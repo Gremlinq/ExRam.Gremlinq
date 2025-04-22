@@ -864,7 +864,8 @@ namespace ExRam.Gremlinq.Core
                 : innerTraversal.IsNone()
                     ? builder
                     : builder
-                        .AddStep(new NotStep(innerTraversal)));
+                        .AddStep(new NotStep(innerTraversal)))
+            .BuildAuto<T1, T2, T3, T4>();
 
         private TTargetQuery OfType<TNewElement, TTargetQuery>(IGraphElementModel model, bool force = false) where TTargetQuery : IStartGremlinQuery => this
             .Continue()
@@ -1095,7 +1096,8 @@ namespace ExRam.Gremlinq.Core
             .Continue()
             .With(sideEffectContinuation)
             .Build(static (builder, traversal) => builder
-                .AddStep(new SideEffectStep(traversal)));
+                .AddStep(new SideEffectStep(traversal))
+                .BuildAuto<T1, T2, T3, T4>());
 
         private GremlinQuery<T1, T2, T3, T4> SimplePath() => this
             .Continue()
@@ -1311,7 +1313,8 @@ namespace ExRam.Gremlinq.Core
                 ? builder
                 : filterTraversal.IsNone() && filterTraversal.SideEffectSemantics == SideEffectSemantics.Read
                     ? builder.None()
-                    : builder.Where(filterTraversal));
+                    : builder.Where(filterTraversal))
+            .BuildAuto<T1, T2, T3, T4>();
 
         private GremlinQuery<T1, T2, T3, T4> Where(Expression expression)
         {

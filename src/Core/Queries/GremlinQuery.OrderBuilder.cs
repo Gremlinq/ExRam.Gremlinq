@@ -47,7 +47,8 @@ namespace ExRam.Gremlinq.Core
                 .With(continuation)
                 .Build(
                     static (builder, traversal, order) => builder
-                        .AddStep(new OrderStep.ByTraversalStep(traversal, order)),
+                        .AddStep(new OrderStep.ByTraversalStep(traversal, order))
+                        .BuildAuto<T1, T2, T3, T4>(),
                     order));
         }
     }
