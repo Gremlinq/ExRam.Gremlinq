@@ -8,28 +8,25 @@ namespace ExRam.Gremlinq.Core
 {
     internal static class FinalContinuationBuilderExtensions
     {
-        public static FinalContinuationBuilder<TOuterQuery> WithNewProjection<TOuterQuery>(this FinalContinuationBuilder<TOuterQuery> builder, Projection newProjection)
-            where TOuterQuery : GremlinQueryBase, IGremlinQueryBase => builder.WithNewProjection(static (_, newProjection) => newProjection, newProjection);
+        public static FinalContinuationBuilder WithNewProjection(this FinalContinuationBuilder builder, Projection newProjection) => builder
+            .WithNewProjection(static (_, newProjection) => newProjection, newProjection);
 
-        public static FinalContinuationBuilder<TOuterQuery> WithNewProjection<TOuterQuery>(this FinalContinuationBuilder<TOuterQuery> builder, Func<Projection, Projection> projectionTransformation)
-            where TOuterQuery : GremlinQueryBase, IGremlinQueryBase =>
-            builder.WithNewProjection(
+        public static FinalContinuationBuilder WithNewProjection(this FinalContinuationBuilder builder, Func<Projection, Projection> projectionTransformation) => builder
+            .WithNewProjection(
                 static (projection, projectionTransformation) => projectionTransformation(projection),
                 projectionTransformation);
 
-        public static FinalContinuationBuilder<TOuterQuery> Where<TOuterQuery>(this FinalContinuationBuilder<TOuterQuery> builder, Traversal traversal)
-            where TOuterQuery : GremlinQueryBase, IGremlinQueryBase => builder
-                .AddSteps(traversal.Count > 0 && traversal.Steps.All(static x => x is IFilterStep)
-                    ? traversal.Steps
-                    : [new FilterStep.ByTraversalStep(traversal)]);
+        public static FinalContinuationBuilder Where(this FinalContinuationBuilder builder, Traversal traversal) => builder
+            .AddSteps(traversal.Count > 0 && traversal.Steps.All(static x => x is IFilterStep)
+                ? traversal.Steps
+                : [new FilterStep.ByTraversalStep(traversal)]);
 
-        public static FinalContinuationBuilder<TOuterQuery> None<TOuterQuery>(this FinalContinuationBuilder<TOuterQuery> builder)
-            where TOuterQuery : GremlinQueryBase, IGremlinQueryBase => builder.WithSteps(
-                static traversal => traversal.IsIdentity()
-                    ? NoneStep.Instance
-                    : traversal.Push(NoneStep.Instance));
+        public static FinalContinuationBuilder None(this FinalContinuationBuilder builder) => builder
+            .WithSteps(static traversal => traversal.IsIdentity()
+                ? NoneStep.Instance
+                : traversal.Push(NoneStep.Instance));
 
-        public static FinalContinuationBuilder<TOuterQuery> OfType<TOuterQuery, TElement, TNewElement>(this FinalContinuationBuilder<TOuterQuery> builder, IGraphElementModel model, bool force)
+        public static FinalContinuationBuilder OfType<TOuterQuery, TElement, TNewElement>(this FinalContinuationBuilder builder, IGraphElementModel model, bool force)
             where TOuterQuery : GremlinQueryBase, IGremlinQueryBase
         {
             if (typeof(TNewElement) != typeof(object) && (force || !typeof(TNewElement).IsAssignableFrom(typeof(TElement))))
@@ -43,8 +40,7 @@ namespace ExRam.Gremlinq.Core
             return builder;
         }
 
-        public static TOuterQuery And<TOuterQuery>(this FinalContinuationBuilder<TOuterQuery> builder, Span<Traversal> traversals)
-            where TOuterQuery : GremlinQueryBase, IGremlinQueryBase
+        public static FinalContinuationBuilder And(this FinalContinuationBuilder builder, Span<Traversal> traversals)
         {
             if (traversals.Length == 0)
                 throw new ArgumentException("Expected at least 1 sub-query.");
@@ -95,12 +91,10 @@ namespace ExRam.Gremlinq.Core
                 }
             }
 
-            return builder
-                .BuildAs<TOuterQuery>();
+            return builder;
         }
 
-        public static TOuterQuery Or<TOuterQuery>(this FinalContinuationBuilder<TOuterQuery> builder, Span<Traversal> traversals)
-            where TOuterQuery : GremlinQueryBase, IGremlinQueryBase
+        public static FinalContinuationBuilder Or(this FinalContinuationBuilder builder, Span<Traversal> traversals)
         {
             if (traversals.Length == 0)
                 throw new ArgumentException("Expected at least 1 sub-query.");
@@ -139,8 +133,7 @@ namespace ExRam.Gremlinq.Core
                 };
             }
 
-            return builder
-                .BuildAs<TOuterQuery>();
+            return builder;
         }
     }
 }

@@ -33,7 +33,7 @@ namespace ExRam.Gremlinq.Core
                         builder = builder
                             .AddStep(TreeStep.Instance);
 
-                        static FinalContinuationBuilder<GremlinQuery<T1, T2, T3, T4>> Recurse(FinalContinuationBuilder<GremlinQuery<T1, T2, T3, T4>> builder, ImmutableStack<TreeStep.ByStep> bySteps)
+                        static FinalContinuationBuilder Recurse(FinalContinuationBuilder builder, ImmutableStack<TreeStep.ByStep> bySteps)
                         {
                             if (!bySteps.IsEmpty)
                             {

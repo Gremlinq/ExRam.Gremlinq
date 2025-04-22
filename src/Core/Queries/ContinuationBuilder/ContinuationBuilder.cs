@@ -33,22 +33,22 @@
             where TProjectedQuery : IGremlinQueryBase => MultiContinuationBuilder<TOuterQuery, TAnonymousQuery>.Create(_outer, _anonymous, continuations, _flags, state);
 
 
-        public TOuterQuery Build(Func<FinalContinuationBuilder<TOuterQuery>, FinalContinuationBuilder<TOuterQuery>> builderTransformation)
+        public TOuterQuery Build(Func<FinalContinuationBuilder, FinalContinuationBuilder> builderTransformation)
             => Build(static (builder, state) => state(builder).BuildAs<TOuterQuery>(), builderTransformation);
 
-        public TOuterQuery Build<TState>(Func<FinalContinuationBuilder<TOuterQuery>, TState, FinalContinuationBuilder<TOuterQuery>> builderTransformation, TState state)
+        public TOuterQuery Build<TState>(Func<FinalContinuationBuilder, TState, FinalContinuationBuilder> builderTransformation, TState state)
             => Build(static (builder, tuple) => tuple.builderTransformation(builder, tuple.state).BuildAs<TOuterQuery>(), (builderTransformation, state));
 
-        public TResult Build<TResult>(Func<FinalContinuationBuilder<TOuterQuery>, TResult> builderTransformation)
-            => builderTransformation(FinalContinuationBuilder<TOuterQuery>.Create(_outer));
+        public TResult Build<TResult>(Func<FinalContinuationBuilder, TResult> builderTransformation)
+            => builderTransformation(FinalContinuationBuilder.Create(_outer));
 
-        public TResult Build<TResult, TState>(Func<FinalContinuationBuilder<TOuterQuery>, TState, TResult> builderTransformation, TState state)
-            => builderTransformation(FinalContinuationBuilder<TOuterQuery>.Create(_outer), state);
+        public TResult Build<TResult, TState>(Func<FinalContinuationBuilder, TState, TResult> builderTransformation, TState state)
+            => builderTransformation(FinalContinuationBuilder.Create(_outer), state);
 
         public TResult Build<TResult, TState>(FinalContinuationBuilderTransformation<TOuterQuery, TResult, TState> builderTransformation, ReadOnlySpan<TState> state)
-            => builderTransformation(FinalContinuationBuilder<TOuterQuery>.Create(_outer), state);
+            => builderTransformation(FinalContinuationBuilder.Create(_outer), state);
 
         public TResult Build<TResult, TSpan, TState>(FinalContinuationBuilderTransformation<TOuterQuery, TResult, TSpan, TState> builderTransformation, ReadOnlySpan<TSpan> span, TState state)
-            => builderTransformation(FinalContinuationBuilder<TOuterQuery>.Create(_outer), span, state);
+            => builderTransformation(FinalContinuationBuilder.Create(_outer), span, state);
     }
 }

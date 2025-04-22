@@ -5,9 +5,9 @@
         where TAnonymousQuery : GremlinQueryBase, IGremlinQueryBase
     {
         private readonly Memory<Traversal> _continuations;
-        private readonly FinalContinuationBuilder<TOuterQuery> _finalBuilder;
+        private readonly FinalContinuationBuilder _finalBuilder;
 
-        private MultiContinuationBuilder(FinalContinuationBuilder<TOuterQuery> finalBuilder, Memory<Traversal> continuations)
+        private MultiContinuationBuilder(FinalContinuationBuilder finalBuilder, Memory<Traversal> continuations)
         {
             _finalBuilder = finalBuilder;
             _continuations = continuations;
@@ -19,7 +19,7 @@
             where TProjectedQuery : IGremlinQueryBase
         {
             var traversals = new Traversal[continuations.Length];
-            var finalBuilder = FinalContinuationBuilder<TOuterQuery>.Create(outer);
+            var finalBuilder = FinalContinuationBuilder.Create(outer);
 
             for (var i = 0; i < continuations.Length; i++)
             {
@@ -33,7 +33,7 @@
             where TProjectedQuery : IGremlinQueryBase
         {
             var traversals = new Traversal[continuations.Length];
-            var finalBuilder = FinalContinuationBuilder<TOuterQuery>.Create(outer);
+            var finalBuilder = FinalContinuationBuilder.Create(outer);
 
             for (var i = 0; i < continuations.Length; i++)
             {

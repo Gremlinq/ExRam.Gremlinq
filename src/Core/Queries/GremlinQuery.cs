@@ -192,13 +192,15 @@ namespace ExRam.Gremlinq.Core
             .Continue(ContinuationFlags.Filter)
             .With(continuation1, continuation2, state)
             .Build(static (builder, continuation1, continuation2) => builder
-                .And([continuation1, continuation2]));
+                .And([continuation1, continuation2])
+                .BuildAuto<T1, T2, T3, T4>());
 
         private GremlinQuery<T1, T2, T3, T4> And(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase>> continuations) => this
             .Continue(ContinuationFlags.Filter)
             .With(continuations)
             .Build((builder, traversals) => builder
-                .And(traversals.Span));
+                .And(traversals.Span)
+                .BuildAuto<T1, T2, T3, T4>());
 
         private TTargetQuery As<TStepLabel, TTargetQuery>(Func<GremlinQuery<T1, T2, T3, T4>, TStepLabel, TTargetQuery> continuation)
             where TStepLabel : StepLabel, new()
@@ -886,13 +888,15 @@ namespace ExRam.Gremlinq.Core
             .Continue(ContinuationFlags.Filter)
             .With(continuation1, continuation2, state)
             .Build(static (builder, continuation1, continuation2) => builder
-                .Or([continuation1, continuation2]));
+                .Or([continuation1, continuation2])
+                .BuildAuto<T1, T2, T3, T4>());
 
         private GremlinQuery<T1, T2, T3, T4> Or(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase>> continuations) => this
             .Continue(ContinuationFlags.Filter)
             .With(continuations)
             .Build(static (builder, traversals) => builder
-                .Or(traversals.Span));
+                .Or(traversals.Span)
+                .BuildAuto<T1, T2, T3, T4>());
 
         private TTargetQuery Order<TTargetQuery>(Func<OrderBuilder, IOrderBuilderWithBy<TTargetQuery>> projection) where TTargetQuery : IGremlinQueryBase<T1> => projection(new OrderBuilder(this)).Build();
 
