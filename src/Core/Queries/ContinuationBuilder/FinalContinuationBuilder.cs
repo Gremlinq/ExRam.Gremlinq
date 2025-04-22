@@ -79,7 +79,7 @@ namespace ExRam.Gremlinq.Core
             return ret;
         }
 
-        public TOuterQuery OuterQuery => _outer;
+        public GremlinQueryBase OuterQuery => _outer;
 
         public static FinalContinuationBuilder<TOuterQuery> Create(TOuterQuery outerQuery) => new(outerQuery, outerQuery.Steps, outerQuery.LabelProjections, outerQuery.Metadata);
     }

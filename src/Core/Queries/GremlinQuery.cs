@@ -348,9 +348,9 @@ namespace ExRam.Gremlinq.Core
                 .Continue()
                 .With(predicateContinuation)
                 .Build(
-                    static (builder, traversal, tuple) => builder.OuterQuery
+                    static (builder, traversal, tuple) => tuple.@this
                         .Choose<TTrueQuery, TFalseQuery, TTargetQuery>(traversal, tuple.trueContinuation, tuple.maybeFalseContinuation),
-                    (trueContinuation, maybeFalseContinuation));
+                    (trueContinuation, maybeFalseContinuation, @this: this));
 
         private TTargetQuery Choose<TTrueQuery, TFalseQuery, TTargetQuery>(Traversal predicateTraversal, Func<GremlinQuery<T1, T2, T3, T4>, TTrueQuery> trueContinuation, Func<GremlinQuery<T1, T2, T3, T4>, TFalseQuery>? maybeFalseContinuation = default)
             where TTrueQuery : IGremlinQueryBase
@@ -361,10 +361,10 @@ namespace ExRam.Gremlinq.Core
                 .Build(
                     static (builder, trueTraversal, state) =>
                     {
-                        var (predicateTraversal, maybeFalseContinuation) = state;
+                        var (predicateTraversal, maybeFalseContinuation, @this) = state;
 
                         return maybeFalseContinuation is { } falseContinuation
-                            ? builder.OuterQuery
+                            ? @this
                                 .Continue()
                                 .With(falseContinuation)
                                 .Build(
@@ -403,7 +403,7 @@ namespace ExRam.Gremlinq.Core
                                     trueTraversal.Projection)
                                 .BuildAs<TTargetQuery>();
                     },
-                    (predicateTraversal, maybeFalseContinuation));
+                    (predicateTraversal, maybeFalseContinuation, @this: this));
 
         private TTargetQuery Choose<TTargetQuery>(Func<IChooseBuilder<GremlinQuery<T1, T2, T3, T4>>, IChooseBuilderWithCaseOrDefault<TTargetQuery>> continuation)
             where TTargetQuery : IGremlinQueryBase => continuation
@@ -997,14 +997,16 @@ namespace ExRam.Gremlinq.Core
             .Build(
                 static (builder, tuple) =>
                 {
-                    if (tuple.value == null)
+                    var (key, value, @this) = tuple;
+
+                    if (value == null)
                     {
-                        return tuple.key.RawKey is string stringKey
-                            ? builder.OuterQuery.DropProperties(stringKey)
+                        return key.RawKey is string stringKey
+                            ? @this.DropProperties(stringKey)
                             : throw new InvalidOperationException("Can't set a special property to null.");
                     }
 
-                    foreach (var propertyStep in builder.OuterQuery.GetPropertySteps(tuple.key, tuple.value, builder.OuterQuery.Steps.Projection == Projection.Vertex))
+                    foreach (var propertyStep in @this.GetPropertySteps(key, value, builder.OuterQuery.Steps.Projection == Projection.Vertex))
                     {
                         builder = builder.AddStep(propertyStep);
                     }
@@ -1012,21 +1014,21 @@ namespace ExRam.Gremlinq.Core
                     return builder
                         .Build();
                 },
-                (key, value));
+                (key, value, @this: this));
 
         private GremlinQuery<T1, T2, T3, T4> Property(Key key, Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase> valueContinuation) => this
             .Continue()
             .With(valueContinuation)
             .Build(
-                static (builder, valueTraversal, key) => builder.OuterQuery.Property(key, valueTraversal),
-                key);
+                static (builder, valueTraversal, tuple) => tuple.@this.Property(tuple.key, valueTraversal),
+                (key, @this: this));
 
         private GremlinQuery<T1, T2, T3, T4> Property(LambdaExpression projection, Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase> valueContinuation) => this
             .Continue()
             .With(valueContinuation)
             .Build(
-                static (builder, valueTraversal, projection) => builder.OuterQuery.Property(projection, valueTraversal),
-                projection);
+                static (builder, valueTraversal, tuple) => tuple.@this.Property(tuple.projection, valueTraversal),
+                (projection, @this: this));
 
         private GremlinQuery<T1, T2, T3, T4> Range(long low, long high, Scope scope) => this
             .Continue()
@@ -1236,7 +1238,7 @@ namespace ExRam.Gremlinq.Core
             : this
                 .Continue()
                 .Build(
-                    static (builder, projections) =>
+                    static (builder, projections, @this) =>
                     {
                         var tStepCount = 0;
                         var stringKeyCount = 0;
@@ -1253,7 +1255,7 @@ namespace ExRam.Gremlinq.Core
 
                         foreach (var projection in projections)
                         {
-                            _ = builder.OuterQuery.GetKey(projection).RawKey switch
+                            _ = @this.GetKey(projection).RawKey switch
                             {
                                 T t when t.TryToStep() is { } step => objects[tStepCount++] = step,
                                 string str => objects[^(++stringKeyCount)] = str,
@@ -1291,7 +1293,8 @@ namespace ExRam.Gremlinq.Core
                             .WithNewProjection(Projection.Value)
                             .BuildAuto<TValue>();
                     },
-                    projections);
+                    projections,
+                    this);
 
         private GremlinQuery<VertexProperty<TNewPropertyValue, TNewMeta>, TNewPropertyValue, TNewMeta, IGremlinQueryBase> VertexProperties<TNewPropertyValue, TNewMeta>(ReadOnlySpan<LambdaExpression> projections) => Properties<VertexProperty<TNewPropertyValue, TNewMeta>, TNewPropertyValue, TNewMeta>(Projection.VertexProperty, projections);
 
@@ -1341,17 +1344,17 @@ namespace ExRam.Gremlinq.Core
                             : this
                                 .Continue()
                                 .Build(
-                                    static (builder, whereExpression) => builder
+                                    static (builder, tuple) => builder
                                         .WithSteps(
                                             static (steps, state) =>
                                             {
-                                                var (outerQuery, whereExpression) = state;
+                                                var (outerQuery, whereExpression, @this) = state;
 
-                                                return outerQuery
+                                                return @this
                                                     .Where(steps, whereExpression.Left, whereExpression.Semantics, whereExpression.Right);
                                             },
-                                            (builder.OuterQuery, whereExpression)),
-                                    whereExpression),
+                                            (builder.OuterQuery, tuple.whereExpression, tuple.@this)),
+                                    (whereExpression, @this: this)),
 
                     _ => throw new ExpressionNotSupportedException()
                 };
