@@ -34,10 +34,10 @@
 
 
         public TOuterQuery Build(Func<FinalContinuationBuilder<TOuterQuery>, FinalContinuationBuilder<TOuterQuery>> builderTransformation)
-            => Build(static (builder, state) => state(builder).Build(), builderTransformation);
+            => Build(static (builder, state) => state(builder).BuildAs<TOuterQuery>(), builderTransformation);
 
         public TOuterQuery Build<TState>(Func<FinalContinuationBuilder<TOuterQuery>, TState, FinalContinuationBuilder<TOuterQuery>> builderTransformation, TState state)
-            => Build(static (builder, tuple) => tuple.builderTransformation(builder, tuple.state).Build(), (builderTransformation, state));
+            => Build(static (builder, tuple) => tuple.builderTransformation(builder, tuple.state).BuildAs<TOuterQuery>(), (builderTransformation, state));
 
         public TResult Build<TResult>(Func<FinalContinuationBuilder<TOuterQuery>, TResult> builderTransformation)
             => builderTransformation(FinalContinuationBuilder<TOuterQuery>.Create(_outer));

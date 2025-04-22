@@ -463,7 +463,7 @@ namespace ExRam.Gremlinq.Core
             .Build(
                 static (builder, strings) => builder
                     .AddStep(new ConcatStringsStep(strings.ToImmutableArray()))
-                    .Build(),
+                    .BuildAuto<T1, T2, T3, T4>(),
                 strings);
 
         private GremlinQuery<T1, T2, T3, T4> Concat(ReadOnlySpan<Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase<T1>>> stringTraversals) => this
@@ -472,7 +472,7 @@ namespace ExRam.Gremlinq.Core
             .Build(static (builder, traversals) => builder
                 .AddStep(new ConcatTraversalsStep(traversals
                     .UnsafeToImmutableArray()))
-                .Build());
+                .BuildAuto<T1, T2, T3, T4>());
 
         private TTargetQuery ConfigureSteps<TTargetQuery>(Func<Traversal, Traversal> transformation, Func<Projection, Projection>? maybeProjectionTransformation)
             where TTargetQuery : IStartGremlinQuery => this
@@ -901,7 +901,7 @@ namespace ExRam.Gremlinq.Core
             .Build(
                 static (builder, projection) => builder
                     .AddStep(OrderStep.Global)
-                    .Build()
+                    .BuildAuto<T1, T2, T3, T4>()
                     .Order(projection),
                 projection);
 
@@ -910,7 +910,7 @@ namespace ExRam.Gremlinq.Core
             .Build(
                 static (builder, projection) => builder
                     .AddStep(OrderStep.Local)
-                    .Build()
+                    .BuildAuto<T1, T2, T3, T4>()
                     .Order(projection),
                 projection);
 
@@ -1012,7 +1012,7 @@ namespace ExRam.Gremlinq.Core
                     }
 
                     return builder
-                        .Build();
+                        .BuildAuto<T1, T2, T3, T4>();
                 },
                 (key, value, @this: this));
 

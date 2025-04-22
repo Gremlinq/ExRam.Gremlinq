@@ -37,8 +37,6 @@ namespace ExRam.Gremlinq.Core
 
         public FinalContinuationBuilder<TOuterQuery> WithMetadata(Func<IImmutableDictionary<object, object?>, IImmutableDictionary<object, object?>> metadataTransformation) => new(_outer, _steps, _labelProjections, metadataTransformation(_metadata));
 
-        public TOuterQuery Build() => BuildAs<TOuterQuery>();
-
         public GremlinQuery<T1, T2, T3, T4> BuildAuto<T1, T2, T3, T4>() where T4 : IGremlinQueryBase => BuildAs<GremlinQuery<T1, T2, T3, T4>>();
 
         public GremlinQuery<T1, T2, T3, IGremlinQueryBase> BuildAuto<T1, T2, T3>() => BuildAs<GremlinQuery<T1, T2, T3, IGremlinQueryBase>>();

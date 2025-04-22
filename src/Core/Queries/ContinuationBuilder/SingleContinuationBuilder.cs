@@ -14,7 +14,7 @@
         }
 
         public TOuterQuery Build<TState>(Func<FinalContinuationBuilder<TOuterQuery>, Traversal, TState, FinalContinuationBuilder<TOuterQuery>> builderTransformation, TState state)
-            => Build(static (builder, traversal, tuple) => tuple.builderTransformation(builder, traversal, tuple.state).Build(), (builderTransformation, state));
+            => Build(static (builder, traversal, tuple) => tuple.builderTransformation(builder, traversal, tuple.state).BuildAs<TOuterQuery>(), (builderTransformation, state));
 
         public TOuterQuery Build(Func<FinalContinuationBuilder<TOuterQuery>, Traversal, FinalContinuationBuilder<TOuterQuery>> builderTransformation)
             => Build(static (builder, continuation, state) => state(builder, continuation), builderTransformation);

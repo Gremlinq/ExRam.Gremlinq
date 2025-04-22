@@ -96,7 +96,7 @@ namespace ExRam.Gremlinq.Core
             }
 
             return builder
-                .Build();
+                .BuildAs<TOuterQuery>();
         }
 
         public static TOuterQuery Or<TOuterQuery>(this FinalContinuationBuilder<TOuterQuery> builder, Span<Traversal> traversals)
@@ -140,7 +140,7 @@ namespace ExRam.Gremlinq.Core
             }
 
             return builder
-                .Build();
+                .BuildAs<TOuterQuery>();
         }
     }
 }
