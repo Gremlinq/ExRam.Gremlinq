@@ -15,11 +15,11 @@
             _anonymous = anonymous;
         }
 
-        public SingleContinuationBuilder<TOuterQuery, TAnonymousQuery> With<TProjectedQuery>(Func<TAnonymousQuery, TProjectedQuery> continuation)
-            where TProjectedQuery : IGremlinQueryBase => SingleContinuationBuilder<TOuterQuery, TAnonymousQuery>.Create(_outer, _anonymous, continuation, _flags);
+        public SingleContinuationBuilder<TAnonymousQuery> With<TProjectedQuery>(Func<TAnonymousQuery, TProjectedQuery> continuation)
+            where TProjectedQuery : IGremlinQueryBase => SingleContinuationBuilder<TAnonymousQuery>.Create(_outer, _anonymous, continuation, _flags);
 
-        public SingleContinuationBuilder<TOuterQuery, TAnonymousQuery> With<TProjectedQuery, TState>(Func<TAnonymousQuery, TState, TProjectedQuery> continuation, TState state)
-            where TProjectedQuery : IGremlinQueryBase => SingleContinuationBuilder<TOuterQuery, TAnonymousQuery>.Create(_outer, _anonymous, continuation, _flags, state);
+        public SingleContinuationBuilder<TAnonymousQuery> With<TProjectedQuery, TState>(Func<TAnonymousQuery, TState, TProjectedQuery> continuation, TState state)
+            where TProjectedQuery : IGremlinQueryBase => SingleContinuationBuilder<TAnonymousQuery>.Create(_outer, _anonymous, continuation, _flags, state);
 
 
         public TwoContinuationBuilder<TOuterQuery, TAnonymousQuery> With<TProjectedQuery, TState>(Func<TAnonymousQuery, TState, TProjectedQuery> continuation1, Func<TAnonymousQuery, TState, TProjectedQuery> continuation2, TState state)
