@@ -1,4 +1,5 @@
 ﻿using System.Collections.Immutable;
+using System.Runtime.CompilerServices;
 
 using ExRam.Gremlinq.Core.Projections;
 using ExRam.Gremlinq.Core.Steps;
@@ -36,15 +37,16 @@ namespace ExRam.Gremlinq.Core
 
         public FinalContinuationBuilder WithMetadata(Func<IImmutableDictionary<object, object?>, IImmutableDictionary<object, object?>> metadataTransformation) => new(_outer, _steps, _labelProjections, metadataTransformation(_metadata));
 
-        public GremlinQuery<T1, T2, T3, T4> BuildAuto<T1, T2, T3, T4>() where T4 : IGremlinQueryBase => BuildAs<GremlinQuery<T1, T2, T3, T4>>();
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public GremlinQuery<T1, T2, T3, T4> BuildAuto<T1, T2, T3, T4>() where T4 : IGremlinQueryBase => new (_outer.Environment, _steps, _labelProjections, _metadata);
 
-        public GremlinQuery<T1, T2, T3, IGremlinQueryBase> BuildAuto<T1, T2, T3>() => BuildAs<GremlinQuery<T1, T2, T3, IGremlinQueryBase>>();
+        public GremlinQuery<T1, T2, T3, IGremlinQueryBase> BuildAuto<T1, T2, T3>() => BuildAuto<T1, T2, T3, IGremlinQueryBase>();
 
-        public GremlinQuery<T1, T2, object, IGremlinQueryBase> BuildAuto<T1, T2>() => BuildAs<GremlinQuery<T1, T2, object, IGremlinQueryBase>>();
+        public GremlinQuery<T1, T2, object, IGremlinQueryBase> BuildAuto<T1, T2>() => BuildAuto<T1, T2, object, IGremlinQueryBase>();
 
-        public GremlinQuery<T1, object, object, IGremlinQueryBase> BuildAuto<T1>() => BuildAs<GremlinQuery<T1, object, object, IGremlinQueryBase>>();
+        public GremlinQuery<T1, object, object, IGremlinQueryBase> BuildAuto<T1>() => BuildAuto<T1, object, object, IGremlinQueryBase>();
 
-        public GremlinQuery<object, object, object, IGremlinQueryBase> BuildAuto() => BuildAs<GremlinQuery<object, object, object, IGremlinQueryBase>>();
+        public GremlinQuery<object, object, object, IGremlinQueryBase> BuildAuto() => BuildAuto<object, object, object, IGremlinQueryBase>();
 
         public TNewTargetQuery BuildAs<TNewTargetQuery>() where TNewTargetQuery : IStartGremlinQuery => GremlinQueryFactory.Create<TNewTargetQuery>(_outer.Environment, _steps, _labelProjections, _metadata);
 
