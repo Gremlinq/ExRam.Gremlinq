@@ -45,10 +45,10 @@
         public TResult Build<TResult, TState>(Func<FinalContinuationBuilder, TState, TResult> builderTransformation, TState state)
             => builderTransformation(FinalContinuationBuilder.Create(_outer), state);
 
-        public TResult Build<TResult, TState>(FinalContinuationBuilderTransformation<TOuterQuery, TResult, TState> builderTransformation, ReadOnlySpan<TState> state)
+        public TResult Build<TResult, TState>(FinalContinuationBuilderTransformation<TResult, TState> builderTransformation, ReadOnlySpan<TState> state)
             => builderTransformation(FinalContinuationBuilder.Create(_outer), state);
 
-        public TResult Build<TResult, TSpan, TState>(FinalContinuationBuilderTransformation<TOuterQuery, TResult, TSpan, TState> builderTransformation, ReadOnlySpan<TSpan> span, TState state)
+        public TResult Build<TResult, TSpan, TState>(FinalContinuationBuilderTransformation<TResult, TSpan, TState> builderTransformation, ReadOnlySpan<TSpan> span, TState state)
             => builderTransformation(FinalContinuationBuilder.Create(_outer), span, state);
     }
 }

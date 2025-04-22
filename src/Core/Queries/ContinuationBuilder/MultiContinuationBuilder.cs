@@ -13,7 +13,7 @@
             _continuations = continuations;
         }
 
-        public TResult Build<TResult>(FinalContinuationBuilderTransformation<TOuterQuery, TResult> builderTransformation) => builderTransformation(_finalBuilder, _continuations);
+        public TResult Build<TResult>(FinalContinuationBuilderTransformation<TResult> builderTransformation) => builderTransformation(_finalBuilder, _continuations);
 
         public static MultiContinuationBuilder<TOuterQuery, TAnonymousQuery> Create<TProjectedQuery>(TOuterQuery outer, TAnonymousQuery anonymous, ReadOnlySpan<Func<TAnonymousQuery, TProjectedQuery>> continuations, ContinuationFlags flags)
             where TProjectedQuery : IGremlinQueryBase
