@@ -47,5 +47,8 @@
 
         public TResult Build<TResult, TState>(FinalContinuationBuilderTransformation<TOuterQuery, TResult, TState> builderTransformation, ReadOnlySpan<TState> state)
             => builderTransformation(FinalContinuationBuilder<TOuterQuery>.Create(_outer), state);
+
+        public TResult Build<TResult, TSpan, TState>(FinalContinuationBuilderTransformation<TOuterQuery, TResult, TSpan, TState> builderTransformation, ReadOnlySpan<TSpan> span, TState state)
+            => builderTransformation(FinalContinuationBuilder<TOuterQuery>.Create(_outer), span, state);
     }
 }
