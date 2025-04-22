@@ -168,7 +168,8 @@ namespace ExRam.Gremlinq.Core
         IMapGremlinQuery<T1> IGremlinQueryBase<T1>.ForceValueTuple() => this
             .Continue()
             .Build(static builder => builder
-                .WithNewProjection(Projection.Value));
+                .WithNewProjection(Projection.Value)
+                .BuildAuto<T1>());
 
         IArrayGremlinQuery<T1[], T1, IGremlinQuery<T1>> IGremlinQueryBase<T1>.ForceArray() => this
             .Continue()
@@ -199,7 +200,8 @@ namespace ExRam.Gremlinq.Core
         IVertexGremlinQuery<T1> IGremlinQueryBase<T1>.ForceVertex() => this
             .Continue()
             .Build(static builder => builder
-                .WithNewProjection(Projection.Vertex));
+                .WithNewProjection(Projection.Vertex)
+                .BuildAuto<T1>());
 
         IVertexPropertyGremlinQuery<T1, TNewValue> IGremlinQueryBase<T1>.ForceVertexProperty<TNewValue>() => this
             .Continue()
@@ -216,12 +218,14 @@ namespace ExRam.Gremlinq.Core
         IPropertyGremlinQuery<T1> IGremlinQueryBase<T1>.ForceProperty() => this
             .Continue()
             .Build(static builder => builder
-                .WithNewProjection(Projection.Value));
+                .WithNewProjection(Projection.Value)
+                .BuildAuto<T1>());
 
         IEdgeGremlinQuery<T1> IGremlinQueryBase<T1>.ForceEdge() => this
             .Continue()
             .Build(static builder => builder
-                .WithNewProjection(Projection.Edge));
+                .WithNewProjection(Projection.Edge)
+                .BuildAuto<T1>());
 
         IInEdgeGremlinQuery<T1, TNewInVertex> IGremlinQueryBase<T1>.ForceInEdge<TNewInVertex>() => this
             .Continue()
@@ -244,7 +248,8 @@ namespace ExRam.Gremlinq.Core
         IGremlinQuery<T1> IGremlinQueryBase<T1>.ForceValue() => this
             .Continue()
             .Build(static builder => builder
-                .WithNewProjection(Projection.Value));
+                .WithNewProjection(Projection.Value)
+                .BuildAuto<T1>());
 
         TaskAwaiter<T1[]> IGremlinQueryBase<T1>.GetAwaiter() => this
             .ToArrayAsync()
@@ -304,7 +309,8 @@ namespace ExRam.Gremlinq.Core
         IGremlinQuerySource IGremlinQueryAdmin.GetSource() => this
             .Continue()
             .Build(static builder => builder
-                .WithSteps(static _ => Traversal.Empty));
+                .WithSteps(static _ => Traversal.Empty)
+                .BuildAs<IGremlinQuerySource>());
 
         Traversal IGremlinQueryAdmin.Steps => Steps;
 

@@ -33,12 +33,6 @@
             where TProjectedQuery : IGremlinQueryBase => MultiContinuationBuilder<TAnonymousQuery>.Create(_outer, _anonymous, continuations, _flags, state);
 
 
-        public TOuterQuery Build(Func<FinalContinuationBuilder, FinalContinuationBuilder> builderTransformation)
-            => Build(static (builder, state) => state(builder).BuildAs<TOuterQuery>(), builderTransformation);
-
-        public TOuterQuery Build<TState>(Func<FinalContinuationBuilder, TState, FinalContinuationBuilder> builderTransformation, TState state)
-            => Build(static (builder, tuple) => tuple.builderTransformation(builder, tuple.state).BuildAs<TOuterQuery>(), (builderTransformation, state));
-
         public TResult Build<TResult>(Func<FinalContinuationBuilder, TResult> builderTransformation)
             => builderTransformation(FinalContinuationBuilder.Create(_outer));
 

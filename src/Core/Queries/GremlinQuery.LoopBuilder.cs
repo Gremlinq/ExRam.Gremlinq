@@ -63,13 +63,15 @@ namespace ExRam.Gremlinq.Core
             private LoopBuilder<TQuery> Emit() => new(_outerQuery
                 .Continue()
                 .Build(static builder => builder
-                    .AddStep(EmitStep.Instance)));
+                    .AddStep(EmitStep.Instance)
+                    .BuildAuto<T1, T2, T3, T4>()));
 
             private LoopBuilder<TQuery> Times(int loopCount) => new(_outerQuery
                 .Continue()
                 .Build(
                     static (builder, loopCount) => builder
-                        .AddStep(new TimesStep(loopCount)),
+                        .AddStep(new TimesStep(loopCount))
+                        .BuildAuto<T1, T2, T3, T4>(),
                     loopCount));
 
             private LoopBuilder<TQuery> Until(Func<TQuery, IGremlinQueryBase> untilCondition) => new(_outerQuery
