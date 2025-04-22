@@ -20,7 +20,7 @@ namespace ExRam.Gremlinq.Core
         private static readonly Type[] ImplementedInterfaces = typeof(GremlinQuery<,,,>).GetInterfaces().Append(typeof(GremlinQuery<,,,>)).ToArray();
         private static readonly MethodInfo TryCreateQueryContinuationMethod = typeof(GremlinQueryFactory).GetMethod(nameof(CreateQueryContinuation), BindingFlags.NonPublic | BindingFlags.Static)!;
 
-        public static TTargetQuery CloneAs<TTargetQuery>(IGremlinQueryEnvironment environment, Traversal newTraversal, IImmutableDictionary<StepLabel, LabelProjections> newLabelProjections, IImmutableDictionary<object, object?> newMetadata)
+        public static TTargetQuery Create<TTargetQuery>(IGremlinQueryEnvironment environment, Traversal newTraversal, IImmutableDictionary<StepLabel, LabelProjections> newLabelProjections, IImmutableDictionary<object, object?> newMetadata)
         {
             var queryFactory = typeof(TTargetQuery).IsGenericType
                 ? QueryContinuations.GetOrAdd(

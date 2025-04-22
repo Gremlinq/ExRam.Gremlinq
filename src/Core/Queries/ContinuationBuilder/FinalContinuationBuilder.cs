@@ -46,7 +46,7 @@ namespace ExRam.Gremlinq.Core
 
         public GremlinQuery<object, object, object, IGremlinQueryBase> BuildAuto() => BuildAs<GremlinQuery<object, object, object, IGremlinQueryBase>>();
 
-        public TNewTargetQuery BuildAs<TNewTargetQuery>() where TNewTargetQuery : IStartGremlinQuery => GremlinQueryFactory.CloneAs<TNewTargetQuery>(_outer.Environment, _steps, _labelProjections, _metadata);
+        public TNewTargetQuery BuildAs<TNewTargetQuery>() where TNewTargetQuery : IStartGremlinQuery => GremlinQueryFactory.Create<TNewTargetQuery>(_outer.Environment, _steps, _labelProjections, _metadata);
 
         public FinalContinuationBuilder Apply<TAnonymousQuery, TProjectedQuery>(Func<TAnonymousQuery, TProjectedQuery> continuation, TAnonymousQuery anonymous, ContinuationFlags flags, out Traversal traversal)
             where TProjectedQuery : IGremlinQueryBase => Apply(static (anonymous, continuation) => continuation(anonymous), anonymous, flags, out traversal, continuation);
