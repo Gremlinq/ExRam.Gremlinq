@@ -1,7 +1,6 @@
 ﻿namespace ExRam.Gremlinq.Core
 {
-    internal readonly ref struct TwoContinuationBuilder<TOuterQuery, TAnonymousQuery>
-        where TOuterQuery : GremlinQueryBase, IGremlinQueryBase
+    internal readonly ref struct TwoContinuationBuilder<TAnonymousQuery>
         where TAnonymousQuery : GremlinQueryBase, IGremlinQueryBase
     {
         private readonly Traversal _continuation1;
@@ -18,7 +17,7 @@
         public TResult Build<TResult>(Func<FinalContinuationBuilder, Traversal, Traversal, TResult> builderTransformation)
             => builderTransformation(_finalBuilder, _continuation1, _continuation2);
 
-        public static TwoContinuationBuilder<TOuterQuery, TAnonymousQuery> Create<TProjectedQuery, TState>(TOuterQuery outer, TAnonymousQuery anonymous, Func<TAnonymousQuery, TState, TProjectedQuery> continuation1, Func<TAnonymousQuery, TState, TProjectedQuery> continuation2, ContinuationFlags flags, TState state)
+        public static TwoContinuationBuilder<TAnonymousQuery> Create<TProjectedQuery, TState>(GremlinQueryBase outer, TAnonymousQuery anonymous, Func<TAnonymousQuery, TState, TProjectedQuery> continuation1, Func<TAnonymousQuery, TState, TProjectedQuery> continuation2, ContinuationFlags flags, TState state)
             where TProjectedQuery : IGremlinQueryBase => new(
                 FinalContinuationBuilder
                     .Create(outer)
