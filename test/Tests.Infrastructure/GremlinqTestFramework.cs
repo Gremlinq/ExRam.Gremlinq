@@ -18,26 +18,27 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                 _baseExecutor = baseExecutor;
             }
 
-            public ValueTask RunTestCases(IReadOnlyCollection<ITestCase> testCases, IMessageSink executionMessageSink, ITestFrameworkExecutionOptions executionOptions) => _baseExecutor.RunTestCases(
-                testCases
-                    .Where(testCase =>
-                    {
+            public ValueTask RunTestCases(IReadOnlyCollection<ITestCase> testCases, IMessageSink executionMessageSink, ITestFrameworkExecutionOptions executionOptions, CancellationToken? cancellationToken = null) => _baseExecutor
+                .RunTestCases(
+                    testCases
+                        .Where(testCase =>
+                        {
 #if Gremlinq_Extensions
-                        if (testCase.TestClassNamespace?.StartsWith("Gremlinq.Extensions") is false)
-                            return false;
+                            if (testCase.TestClassNamespace?.StartsWith("Gremlinq.Extensions") is false)
+                                return false;
 #elif ExRam_Gremlinq
-                        if (testCase.TestClassNamespace?.StartsWith("ExRam.Gremlinq") is false)
-                            return false;
+                            if (testCase.TestClassNamespace?.StartsWith("ExRam.Gremlinq") is false)
+                                return false;
 #endif
 
-                        if (testCase.Traits.TryGetValue("Category", out var categories) && categories.Contains("IntegrationTest"))
-                            return testCase.Traits.TryGetValue("ValidPlatform", out var validPlatforms) && validPlatforms.Any(validPlatform => OperatingSystem.IsOSPlatform(validPlatform));
+                            if (testCase.Traits.TryGetValue("Category", out var categories) && categories.Contains("IntegrationTest"))
+                                return testCase.Traits.TryGetValue("ValidPlatform", out var validPlatforms) && validPlatforms.Any(validPlatform => OperatingSystem.IsOSPlatform(validPlatform));
 
-                        return true;
-                    })
-                    .ToArray(),
-                executionMessageSink,
-                executionOptions);
+                            return true;
+                        })
+                        .ToArray(),
+                    executionMessageSink,
+                    executionOptions);
         }
 
         public override string TestFrameworkDisplayName => nameof(GremlinqTestFramework);
