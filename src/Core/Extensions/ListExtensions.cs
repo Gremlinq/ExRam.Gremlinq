@@ -1,5 +1,6 @@
 ﻿#if !NET7_0_OR_GREATER
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -7,15 +8,7 @@ namespace ExRam.Gremlinq.Core
     {
         //TODO: To be worked around.
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Span<T> AsSpan<T>(this List<T> list)
-        {
-            return
-#if NET5_0_OR_GREATER
-                System.Runtime.InteropServices.CollectionsMarshal.AsSpan(list);
-#else
-                list.ToArray();
-#endif
-        }
+        public static Span<T> AsSpan<T>(this List<T> list) => CollectionsMarshal.AsSpan(list);
     }
 }
 #endif
