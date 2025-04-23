@@ -255,33 +255,22 @@ namespace ExRam.Gremlinq.Core
 
         private GroovyWriter WriteQuoted(object value, StringBuilder stringBuilder)
         {
-#if NET6_0_OR_GREATER
             var handler = new StringBuilder.AppendInterpolatedStringHandler(2, 1, stringBuilder);
             handler.AppendLiteral("'");
             handler.AppendFormatted(value);
             handler.AppendLiteral("'");
 
             stringBuilder.Append(ref handler);
-#else
-            stringBuilder
-                .Append('\'')
-                .Append(value)
-                .Append('\'');
-#endif
 
             return new(false, _hasIdentifier);
         }
 
         private GroovyWriter Write(object value, StringBuilder stringBuilder)
         {
-#if NET6_0_OR_GREATER
             var handler = new StringBuilder.AppendInterpolatedStringHandler(0, 1, stringBuilder);
             handler.AppendFormatted(value);
 
             stringBuilder.Append(ref handler);
-#else
-            stringBuilder.Append(value);
-#endif
 
             return new(false, _hasIdentifier);
         }
