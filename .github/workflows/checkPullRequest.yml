@@ -22,8 +22,6 @@ jobs:
       with:
         global-json-file: global.json
         dotnet-version: |
-          6
-          7
           8
      
     - name: Test
@@ -53,8 +51,6 @@ jobs:
       with:
         global-json-file: global.json
         dotnet-version: | 
-          6
-          7
           8
 
     - name: Start CosmosDb Emulator
