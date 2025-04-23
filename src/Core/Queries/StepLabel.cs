@@ -1,7 +1,4 @@
-﻿#pragma warning disable 660,661
-#pragma warning disable IDE0060
-
-namespace ExRam.Gremlinq.Core
+﻿namespace ExRam.Gremlinq.Core
 {
     public abstract class StepLabel : IEquatable<StepLabel>
     {
@@ -86,4 +83,3 @@ namespace ExRam.Gremlinq.Core
         public static implicit operator StepLabel<TQuery, TElement>(string str) => new(str);
         }
 }
-#pragma warning restore 660, 661
