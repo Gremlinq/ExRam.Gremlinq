@@ -10,6 +10,10 @@
   <Folder Name="/Solution Items/">
     <File Path="README.md" />
   </Folder>
+  <Folder Name="/Solution Items/workflows/" Id="02ea681e-c7d8-13c7-8484-4ac65e1b71e8" >
+    <File Path=".github/workflows/checkPullRequest.yml" />
+    <File Path=".github/workflows/pack.yml" />
+  </Folder>
   <Folder Name="/Tests/">
     <Project Path="test/Core.AspNet.Tests/ExRam.Gremlinq.Core.AspNet.Tests.csproj" />
     <Project Path="test/Core.Tests/ExRam.Gremlinq.Core.Tests.csproj" />
@@ -23,13 +27,13 @@
     <Project Path="test/Support.TestContainers.Tests/ExRam.Gremlinq.Support.TestContainers.Tests.csproj" />
     <Project Path="test/Templates.Tests/ExRam.Gremlinq.Templates.Tests.csproj" />
   </Folder>
-  <Folder Name="/Tests/AspNet/">
+  <Folder Name="/Tests/AspNet/" Id="fcf14c50-b136-1511-edf9-ae429edca974">
     <Project Path="test/Providers.CosmosDb.AspNet.Tests/ExRam.Gremlinq.Providers.CosmosDb.AspNet.Tests.csproj" />
     <Project Path="test/Providers.GremlinServer.AspNet.Tests/ExRam.Gremlinq.Providers.GremlinServer.AspNet.Tests.csproj" />
     <Project Path="test/Providers.JanusGraph.AspNet.Tests/ExRam.Gremlinq.Providers.JanusGraph.AspNet.Tests.csproj" />
     <Project Path="test/Providers.Neptune.AspNet.Tests/ExRam.Gremlinq.Providers.Neptune.AspNet.Tests.csproj" />
   </Folder>
-  <Folder Name="/Tests/Infrastructure/">
+  <Folder Name="/Tests/Infrastructure/" Id="2cdfc2b4-03a0-2a52-1000-a892d95dd3fa">
     <Project Path="test/Tests.Entities/ExRam.Gremlinq.Tests.Entities.csproj" />
     <Project Path="test/Tests.Fixtures/ExRam.Gremlinq.Tests.Fixtures.csproj" />
     <Project Path="test/Tests.Infrastructure/ExRam.Gremlinq.Tests.Infrastructure.csproj" />
