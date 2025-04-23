@@ -37,7 +37,7 @@
     <None Include="$(PackageLicenseDirectory)$(PackageLicenseFile)" Pack="true" PackagePath="\" />
     <None Include="$(MSBuildThisFileDirectory)..\README.md" Pack="true" PackagePath="\" />
    
-   <PackageReference Condition="'$(TargetFramework)' == 'netstandard2.1' or '$(TargetFramework)' == 'net5.0' or '$(TargetFramework)' == 'net6.0' or '$(TargetFramework)' == 'net7.0'" Include="Microsoft.SourceLink.GitHub" PrivateAssets="All" />
+   <PackageReference Condition="'$(TargetFramework)' == 'net5.0' or '$(TargetFramework)' == 'net6.0' or '$(TargetFramework)' == 'net7.0'" Include="Microsoft.SourceLink.GitHub" PrivateAssets="All" />
   </ItemGroup>
 
   <ItemGroup>
