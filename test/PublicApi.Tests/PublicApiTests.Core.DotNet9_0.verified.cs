@@ -59,13 +59,6 @@
         IntegerValues = 262144,
         All = 524287,
     }
-    public static class EnumerableExtensions
-    {
-        [System.Obsolete("Will be removed in a future release. To recreate the behaviour of this method in " +
-            "your own code, see https://github.com/Gremlinq/ExRam.Gremlinq/blob/12.x/src/Core" +
-            "/Extensions/EnumerableExtensions.cs.", true)]
-        public static ExRam.Gremlinq.Core.Traversal ToTraversal(this System.Collections.Generic.IEnumerable<ExRam.Gremlinq.Core.Steps.Step> source) { }
-    }
     public sealed class ExpressionNotSupportedException : System.NotSupportedException
     {
         public ExpressionNotSupportedException() { }
@@ -223,8 +216,6 @@
     public interface IChooseBuilderWithCaseOrDefault<out TTargetQuery>
         where out TTargetQuery : ExRam.Gremlinq.Core.IGremlinQueryBase
     {
-        [System.Obsolete("Use Build() instead.", true)]
-        TTargetQuery TargetQuery { get; }
         TTargetQuery Build();
     }
     public interface IChooseBuilderWithCase<out TSourceQuery, in TElement, TTargetQuery> : ExRam.Gremlinq.Core.IChooseBuilderWithCaseOrDefault<TTargetQuery>
@@ -458,10 +449,6 @@
     {
         TSelf And(params System.Func<TSelf, ExRam.Gremlinq.Core.IGremlinQueryBase>[] andTraversals);
         TSelf And([System.Runtime.CompilerServices.ParamCollection] [System.Runtime.CompilerServices.ScopedRef] System.ReadOnlySpan<System.Func<TSelf, ExRam.Gremlinq.Core.IGremlinQueryBase>> andTraversals);
-        [System.Obsolete("Deprecated. If the strongly typed overload of As is not in scope, call Cast<objec" +
-            "t>() before As(...).", true)]
-        TTargetQuery As<TTargetQuery>(System.Func<TSelf, ExRam.Gremlinq.Core.StepLabel<TSelf, object>, TTargetQuery> continuation)
-            where TTargetQuery : ExRam.Gremlinq.Core.IGremlinQueryBase;
         TSelf Barrier();
         ExRam.Gremlinq.Core.IGremlinQuery<object> Choose(System.Func<TSelf, ExRam.Gremlinq.Core.IGremlinQueryBase> traversalPredicate, System.Func<TSelf, ExRam.Gremlinq.Core.IGremlinQueryBase> trueChoice);
         TSelf Choose(System.Func<TSelf, ExRam.Gremlinq.Core.IGremlinQueryBase> traversalPredicate, System.Func<TSelf, TSelf> trueChoice);
@@ -591,9 +578,6 @@
     public interface IGremlinQuerySource : ExRam.Gremlinq.Core.IStartGremlinQuery
     {
         ExRam.Gremlinq.Core.IGremlinQuerySource ConfigureEnvironment(System.Func<ExRam.Gremlinq.Core.IGremlinQueryEnvironment, ExRam.Gremlinq.Core.IGremlinQueryEnvironment> environmentTransformation);
-        [System.Obsolete("Use AsAdmin().ConfigureMetadata<IGremlinQuerySource>(metadataTransformation) inst" +
-            "ead.", true)]
-        ExRam.Gremlinq.Core.IGremlinQuerySource ConfigureMetadata(System.Func<System.Collections.Immutable.IImmutableDictionary<object, object?>, System.Collections.Immutable.IImmutableDictionary<object, object?>> metadataTransformation);
         ExRam.Gremlinq.Core.IGremlinQuerySource WithSideEffect<TSideEffect>(ExRam.Gremlinq.Core.StepLabel<TSideEffect> label, TSideEffect value);
         TQuery WithSideEffect<TSideEffect, TQuery>(TSideEffect value, System.Func<ExRam.Gremlinq.Core.IGremlinQuerySource, ExRam.Gremlinq.Core.StepLabel<TSideEffect>, TQuery> continuation)
             where TQuery : ExRam.Gremlinq.Core.IGremlinQueryBase;
@@ -1899,8 +1883,6 @@ namespace ExRam.Gremlinq.Core.Execution
     {
         public static readonly ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor Empty;
         public static readonly ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor Invalid;
-        [System.Obsolete(@"Will be removed in a future version. Retries should be applied on a per-query basis and is better left to resilience-libraries (e.g. Polly). To recreate the behaviour of this method in your own code, see https://github.com/Gremlinq/ExRam.Gremlinq/blob/12.x/src/Core/Execution/GremlinQueryExecutor%20(Retry).cs.", true)]
-        public static ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor RetryWithExponentialBackoff(this ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor executor, System.Func<int, ExRam.Gremlinq.Core.Execution.GremlinQueryExecutionException, bool> shouldRetry) { }
         public static ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor Serialize(this ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor executor) { }
         public static ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor TransformExecutionException(this ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor executor, System.Func<ExRam.Gremlinq.Core.Execution.GremlinQueryExecutionException, ExRam.Gremlinq.Core.Execution.GremlinQueryExecutionException> exceptionTransformation) { }
         public static ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor TransformQuery(this ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor baseExecutor, System.Func<ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IGremlinQueryBase> transformation) { }
@@ -2258,8 +2240,6 @@ namespace ExRam.Gremlinq.Core.Serialization
     }
     public readonly struct GroovyGremlinScript
     {
-        [System.Obsolete("Use GroovyGremlinScript.From(...) instead.", true)]
-        public GroovyGremlinScript(string script, System.Collections.Generic.IReadOnlyDictionary<string, object?> bindings) { }
         public System.Collections.Immutable.ImmutableDictionary<string, object?> Bindings { get; }
         public string Script { get; }
         public ExRam.Gremlinq.Core.Serialization.GroovyGremlinScript Bind(string variable, object? value) { }
@@ -2311,9 +2291,6 @@ namespace ExRam.Gremlinq.Core.Steps
     }
     public sealed class AndStep : ExRam.Gremlinq.Core.Steps.LogicalStep<ExRam.Gremlinq.Core.Steps.AndStep>
     {
-        [System.Obsolete("Will be removed in a future version. Use the overload taking an ImmutableArray<Tr" +
-            "aversal> instead.", true)]
-        public AndStep(System.Collections.Generic.IEnumerable<ExRam.Gremlinq.Core.Traversal> traversals) { }
         public AndStep(System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.Traversal> traversals) { }
     }
     public sealed class AsStep : ExRam.Gremlinq.Core.Steps.Step
@@ -2333,15 +2310,11 @@ namespace ExRam.Gremlinq.Core.Steps
     public sealed class BothEStep : ExRam.Gremlinq.Core.Steps.DerivedLabelNamesStep
     {
         public static readonly ExRam.Gremlinq.Core.Steps.BothEStep NoLabels;
-        [System.Obsolete("Deprecated. Use BothEStep.NoLabels instead.", true)]
-        public BothEStep() { }
         public BothEStep(System.Collections.Immutable.ImmutableArray<string> labels) { }
     }
     public sealed class BothStep : ExRam.Gremlinq.Core.Steps.DerivedLabelNamesStep
     {
         public static readonly ExRam.Gremlinq.Core.Steps.BothStep NoLabels;
-        [System.Obsolete("Deprecated. Use BothStep.NoLabels instead.", true)]
-        public BothStep() { }
         public BothStep(System.Collections.Immutable.ImmutableArray<string> labels) { }
     }
     public sealed class BothVStep : ExRam.Gremlinq.Core.Steps.Step
@@ -2548,15 +2521,11 @@ namespace ExRam.Gremlinq.Core.Steps
     public sealed class InEStep : ExRam.Gremlinq.Core.Steps.DerivedLabelNamesStep
     {
         public static readonly ExRam.Gremlinq.Core.Steps.InEStep NoLabels;
-        [System.Obsolete("Deprecated. Use InEStep.NoLabels instead.", true)]
-        public InEStep() { }
         public InEStep(System.Collections.Immutable.ImmutableArray<string> labels) { }
     }
     public sealed class InStep : ExRam.Gremlinq.Core.Steps.DerivedLabelNamesStep
     {
         public static readonly ExRam.Gremlinq.Core.Steps.InStep NoLabels;
-        [System.Obsolete("Deprecated. Use InStep.NoLabels instead.", true)]
-        public InStep() { }
         public InStep(System.Collections.Immutable.ImmutableArray<string> labels) { }
     }
     public sealed class InVStep : ExRam.Gremlinq.Core.Steps.Step
@@ -2605,12 +2574,7 @@ namespace ExRam.Gremlinq.Core.Steps
     public abstract class LogicalStep<TStep> : ExRam.Gremlinq.Core.Steps.Step
         where TStep : ExRam.Gremlinq.Core.Steps.LogicalStep<TStep>
     {
-        [System.Obsolete("Will be removed in a future version. Use the overload taking an ImmutableArray<Tr" +
-            "aversal> instead.", true)]
-        protected LogicalStep(string name, System.Collections.Generic.IEnumerable<ExRam.Gremlinq.Core.Traversal> traversals) { }
-        protected LogicalStep(string name, System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.Traversal> traversals) { }
-        [System.Obsolete("Will be removed in a future release.")]
-        public string Name { get; }
+        protected LogicalStep(System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.Traversal> traversals) { }
         public System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.Traversal> Traversals { get; }
     }
     public sealed class MapStep : ExRam.Gremlinq.Core.Steps.Step
@@ -2671,9 +2635,6 @@ namespace ExRam.Gremlinq.Core.Steps
     }
     public sealed class OrStep : ExRam.Gremlinq.Core.Steps.LogicalStep<ExRam.Gremlinq.Core.Steps.OrStep>
     {
-        [System.Obsolete("Will be removed in a future version. Use the overload taking an ImmutableArray<Tr" +
-            "aversal> instead.", true)]
-        public OrStep(System.Collections.Generic.IEnumerable<ExRam.Gremlinq.Core.Traversal> traversals) { }
         public OrStep(System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.Traversal> traversals) { }
     }
     public sealed class OrderStep : ExRam.Gremlinq.Core.Steps.Step
@@ -2707,15 +2668,11 @@ namespace ExRam.Gremlinq.Core.Steps
     public sealed class OutEStep : ExRam.Gremlinq.Core.Steps.DerivedLabelNamesStep
     {
         public static readonly ExRam.Gremlinq.Core.Steps.OutEStep NoLabels;
-        [System.Obsolete("Deprecated. Use OutEStep.NoLabels instead.", true)]
-        public OutEStep() { }
         public OutEStep(System.Collections.Immutable.ImmutableArray<string> labels) { }
     }
     public sealed class OutStep : ExRam.Gremlinq.Core.Steps.DerivedLabelNamesStep
     {
         public static readonly ExRam.Gremlinq.Core.Steps.OutStep NoLabels;
-        [System.Obsolete("Deprecated. Use OutStep.NoLabels instead.", true)]
-        public OutStep() { }
         public OutStep(System.Collections.Immutable.ImmutableArray<string> labels) { }
     }
     public sealed class OutVStep : ExRam.Gremlinq.Core.Steps.Step
