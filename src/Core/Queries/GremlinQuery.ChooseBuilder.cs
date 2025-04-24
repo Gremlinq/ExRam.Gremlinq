@@ -83,11 +83,6 @@ namespace ExRam.Gremlinq.Core
                     .AddSteps(_steps.AsSpan())
                     .WithNewProjection(_projection)
                     .BuildAs<TTargetQuery>());
-
-            TTargetQuery IChooseBuilderWithCaseOrDefault<TTargetQuery>.TargetQuery
-            {
-                get => Build();
-            }
         }
     }
 }
