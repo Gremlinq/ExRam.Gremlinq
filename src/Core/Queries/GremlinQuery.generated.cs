@@ -72,8 +72,6 @@ namespace ExRam.Gremlinq.Core
 
         IGremlinQuery<T1> IGremlinQueryBaseRec<IGremlinQuery<T1>>.And(params ReadOnlySpan<Func<IGremlinQuery<T1>, IGremlinQueryBase>> andTraversals) => And(andTraversals.Cast().To<Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase>>());
 
-        TTargetQuery IGremlinQueryBaseRec<IGremlinQuery<T1>>.As<TTargetQuery>(Func<IGremlinQuery<T1>, StepLabel<IGremlinQuery<T1>, object>, TTargetQuery> continuation) => As<StepLabel<IGremlinQuery<T1>, object>, TTargetQuery>(continuation);
-
         IGremlinQuery<T1> IGremlinQueryBaseRec<IGremlinQuery<T1>>.Barrier() => Barrier();
 
         TTargetQuery IGremlinQueryBaseRec<IGremlinQuery<T1>>.Choose<TTargetQuery>(Func<IGremlinQuery<T1>, IGremlinQueryBase> traversalPredicate, Func<IGremlinQuery<T1>, TTargetQuery> trueChoice, Func<IGremlinQuery<T1>, TTargetQuery> falseChoice) => Choose<TTargetQuery, TTargetQuery, TTargetQuery>(traversalPredicate, trueChoice, falseChoice);
@@ -180,8 +178,6 @@ namespace ExRam.Gremlinq.Core
         IMapGremlinQuery<T1> IGremlinQueryBaseRec<IMapGremlinQuery<T1>>.And(params Func<IMapGremlinQuery<T1>, IGremlinQueryBase>[] andTraversals) => And(andTraversals);
 
         IMapGremlinQuery<T1> IGremlinQueryBaseRec<IMapGremlinQuery<T1>>.And(params ReadOnlySpan<Func<IMapGremlinQuery<T1>, IGremlinQueryBase>> andTraversals) => And(andTraversals.Cast().To<Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase>>());
-
-        TTargetQuery IGremlinQueryBaseRec<IMapGremlinQuery<T1>>.As<TTargetQuery>(Func<IMapGremlinQuery<T1>, StepLabel<IMapGremlinQuery<T1>, object>, TTargetQuery> continuation) => As<StepLabel<IMapGremlinQuery<T1>, object>, TTargetQuery>(continuation);
 
         IMapGremlinQuery<T1> IGremlinQueryBaseRec<IMapGremlinQuery<T1>>.Barrier() => Barrier();
 
@@ -290,8 +286,6 @@ namespace ExRam.Gremlinq.Core
 
         IArrayGremlinQuery<T1, T2, T4> IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T4>>.And(params ReadOnlySpan<Func<IArrayGremlinQuery<T1, T2, T4>, IGremlinQueryBase>> andTraversals) => And(andTraversals.Cast().To<Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase>>());
 
-        TTargetQuery IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T4>>.As<TTargetQuery>(Func<IArrayGremlinQuery<T1, T2, T4>, StepLabel<IArrayGremlinQuery<T1, T2, T4>, object>, TTargetQuery> continuation) => As<StepLabel<IArrayGremlinQuery<T1, T2, T4>, object>, TTargetQuery>(continuation);
-
         IArrayGremlinQuery<T1, T2, T4> IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T4>>.Barrier() => Barrier();
 
         TTargetQuery IGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T4>>.Choose<TTargetQuery>(Func<IArrayGremlinQuery<T1, T2, T4>, IGremlinQueryBase> traversalPredicate, Func<IArrayGremlinQuery<T1, T2, T4>, TTargetQuery> trueChoice, Func<IArrayGremlinQuery<T1, T2, T4>, TTargetQuery> falseChoice) => Choose<TTargetQuery, TTargetQuery, TTargetQuery>(traversalPredicate, trueChoice, falseChoice);
@@ -398,8 +392,6 @@ namespace ExRam.Gremlinq.Core
         IElementGremlinQuery<T1> IGremlinQueryBaseRec<IElementGremlinQuery<T1>>.And(params Func<IElementGremlinQuery<T1>, IGremlinQueryBase>[] andTraversals) => And(andTraversals);
 
         IElementGremlinQuery<T1> IGremlinQueryBaseRec<IElementGremlinQuery<T1>>.And(params ReadOnlySpan<Func<IElementGremlinQuery<T1>, IGremlinQueryBase>> andTraversals) => And(andTraversals.Cast().To<Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase>>());
-
-        TTargetQuery IGremlinQueryBaseRec<IElementGremlinQuery<T1>>.As<TTargetQuery>(Func<IElementGremlinQuery<T1>, StepLabel<IElementGremlinQuery<T1>, object>, TTargetQuery> continuation) => As<StepLabel<IElementGremlinQuery<T1>, object>, TTargetQuery>(continuation);
 
         IElementGremlinQuery<T1> IGremlinQueryBaseRec<IElementGremlinQuery<T1>>.Barrier() => Barrier();
 
@@ -508,8 +500,6 @@ namespace ExRam.Gremlinq.Core
 
         IEdgeOrVertexGremlinQuery<T1> IGremlinQueryBaseRec<IEdgeOrVertexGremlinQuery<T1>>.And(params ReadOnlySpan<Func<IEdgeOrVertexGremlinQuery<T1>, IGremlinQueryBase>> andTraversals) => And(andTraversals.Cast().To<Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase>>());
 
-        TTargetQuery IGremlinQueryBaseRec<IEdgeOrVertexGremlinQuery<T1>>.As<TTargetQuery>(Func<IEdgeOrVertexGremlinQuery<T1>, StepLabel<IEdgeOrVertexGremlinQuery<T1>, object>, TTargetQuery> continuation) => As<StepLabel<IEdgeOrVertexGremlinQuery<T1>, object>, TTargetQuery>(continuation);
-
         IEdgeOrVertexGremlinQuery<T1> IGremlinQueryBaseRec<IEdgeOrVertexGremlinQuery<T1>>.Barrier() => Barrier();
 
         TTargetQuery IGremlinQueryBaseRec<IEdgeOrVertexGremlinQuery<T1>>.Choose<TTargetQuery>(Func<IEdgeOrVertexGremlinQuery<T1>, IGremlinQueryBase> traversalPredicate, Func<IEdgeOrVertexGremlinQuery<T1>, TTargetQuery> trueChoice, Func<IEdgeOrVertexGremlinQuery<T1>, TTargetQuery> falseChoice) => Choose<TTargetQuery, TTargetQuery, TTargetQuery>(traversalPredicate, trueChoice, falseChoice);
@@ -616,8 +606,6 @@ namespace ExRam.Gremlinq.Core
         IVertexGremlinQuery<T1> IGremlinQueryBaseRec<IVertexGremlinQuery<T1>>.And(params Func<IVertexGremlinQuery<T1>, IGremlinQueryBase>[] andTraversals) => And(andTraversals);
 
         IVertexGremlinQuery<T1> IGremlinQueryBaseRec<IVertexGremlinQuery<T1>>.And(params ReadOnlySpan<Func<IVertexGremlinQuery<T1>, IGremlinQueryBase>> andTraversals) => And(andTraversals.Cast().To<Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase>>());
-
-        TTargetQuery IGremlinQueryBaseRec<IVertexGremlinQuery<T1>>.As<TTargetQuery>(Func<IVertexGremlinQuery<T1>, StepLabel<IVertexGremlinQuery<T1>, object>, TTargetQuery> continuation) => As<StepLabel<IVertexGremlinQuery<T1>, object>, TTargetQuery>(continuation);
 
         IVertexGremlinQuery<T1> IGremlinQueryBaseRec<IVertexGremlinQuery<T1>>.Barrier() => Barrier();
 
@@ -726,8 +714,6 @@ namespace ExRam.Gremlinq.Core
 
         IEdgeGremlinQuery<T1> IGremlinQueryBaseRec<IEdgeGremlinQuery<T1>>.And(params ReadOnlySpan<Func<IEdgeGremlinQuery<T1>, IGremlinQueryBase>> andTraversals) => And(andTraversals.Cast().To<Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase>>());
 
-        TTargetQuery IGremlinQueryBaseRec<IEdgeGremlinQuery<T1>>.As<TTargetQuery>(Func<IEdgeGremlinQuery<T1>, StepLabel<IEdgeGremlinQuery<T1>, object>, TTargetQuery> continuation) => As<StepLabel<IEdgeGremlinQuery<T1>, object>, TTargetQuery>(continuation);
-
         IEdgeGremlinQuery<T1> IGremlinQueryBaseRec<IEdgeGremlinQuery<T1>>.Barrier() => Barrier();
 
         TTargetQuery IGremlinQueryBaseRec<IEdgeGremlinQuery<T1>>.Choose<TTargetQuery>(Func<IEdgeGremlinQuery<T1>, IGremlinQueryBase> traversalPredicate, Func<IEdgeGremlinQuery<T1>, TTargetQuery> trueChoice, Func<IEdgeGremlinQuery<T1>, TTargetQuery> falseChoice) => Choose<TTargetQuery, TTargetQuery, TTargetQuery>(traversalPredicate, trueChoice, falseChoice);
@@ -834,8 +820,6 @@ namespace ExRam.Gremlinq.Core
         IInOrOutEdgeGremlinQuery<T1, T2> IGremlinQueryBaseRec<IInOrOutEdgeGremlinQuery<T1, T2>>.And(params Func<IInOrOutEdgeGremlinQuery<T1, T2>, IGremlinQueryBase>[] andTraversals) => And(andTraversals);
 
         IInOrOutEdgeGremlinQuery<T1, T2> IGremlinQueryBaseRec<IInOrOutEdgeGremlinQuery<T1, T2>>.And(params ReadOnlySpan<Func<IInOrOutEdgeGremlinQuery<T1, T2>, IGremlinQueryBase>> andTraversals) => And(andTraversals.Cast().To<Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase>>());
-
-        TTargetQuery IGremlinQueryBaseRec<IInOrOutEdgeGremlinQuery<T1, T2>>.As<TTargetQuery>(Func<IInOrOutEdgeGremlinQuery<T1, T2>, StepLabel<IInOrOutEdgeGremlinQuery<T1, T2>, object>, TTargetQuery> continuation) => As<StepLabel<IInOrOutEdgeGremlinQuery<T1, T2>, object>, TTargetQuery>(continuation);
 
         IInOrOutEdgeGremlinQuery<T1, T2> IGremlinQueryBaseRec<IInOrOutEdgeGremlinQuery<T1, T2>>.Barrier() => Barrier();
 
@@ -944,8 +928,6 @@ namespace ExRam.Gremlinq.Core
 
         IEdgeGremlinQuery<T1, T2, T3> IGremlinQueryBaseRec<IEdgeGremlinQuery<T1, T2, T3>>.And(params ReadOnlySpan<Func<IEdgeGremlinQuery<T1, T2, T3>, IGremlinQueryBase>> andTraversals) => And(andTraversals.Cast().To<Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase>>());
 
-        TTargetQuery IGremlinQueryBaseRec<IEdgeGremlinQuery<T1, T2, T3>>.As<TTargetQuery>(Func<IEdgeGremlinQuery<T1, T2, T3>, StepLabel<IEdgeGremlinQuery<T1, T2, T3>, object>, TTargetQuery> continuation) => As<StepLabel<IEdgeGremlinQuery<T1, T2, T3>, object>, TTargetQuery>(continuation);
-
         IEdgeGremlinQuery<T1, T2, T3> IGremlinQueryBaseRec<IEdgeGremlinQuery<T1, T2, T3>>.Barrier() => Barrier();
 
         TTargetQuery IGremlinQueryBaseRec<IEdgeGremlinQuery<T1, T2, T3>>.Choose<TTargetQuery>(Func<IEdgeGremlinQuery<T1, T2, T3>, IGremlinQueryBase> traversalPredicate, Func<IEdgeGremlinQuery<T1, T2, T3>, TTargetQuery> trueChoice, Func<IEdgeGremlinQuery<T1, T2, T3>, TTargetQuery> falseChoice) => Choose<TTargetQuery, TTargetQuery, TTargetQuery>(traversalPredicate, trueChoice, falseChoice);
@@ -1052,8 +1034,6 @@ namespace ExRam.Gremlinq.Core
         IInEdgeGremlinQuery<T1, T3> IGremlinQueryBaseRec<IInEdgeGremlinQuery<T1, T3>>.And(params Func<IInEdgeGremlinQuery<T1, T3>, IGremlinQueryBase>[] andTraversals) => And(andTraversals);
 
         IInEdgeGremlinQuery<T1, T3> IGremlinQueryBaseRec<IInEdgeGremlinQuery<T1, T3>>.And(params ReadOnlySpan<Func<IInEdgeGremlinQuery<T1, T3>, IGremlinQueryBase>> andTraversals) => And(andTraversals.Cast().To<Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase>>());
-
-        TTargetQuery IGremlinQueryBaseRec<IInEdgeGremlinQuery<T1, T3>>.As<TTargetQuery>(Func<IInEdgeGremlinQuery<T1, T3>, StepLabel<IInEdgeGremlinQuery<T1, T3>, object>, TTargetQuery> continuation) => As<StepLabel<IInEdgeGremlinQuery<T1, T3>, object>, TTargetQuery>(continuation);
 
         IInEdgeGremlinQuery<T1, T3> IGremlinQueryBaseRec<IInEdgeGremlinQuery<T1, T3>>.Barrier() => Barrier();
 
@@ -1162,8 +1142,6 @@ namespace ExRam.Gremlinq.Core
 
         IOutEdgeGremlinQuery<T1, T2> IGremlinQueryBaseRec<IOutEdgeGremlinQuery<T1, T2>>.And(params ReadOnlySpan<Func<IOutEdgeGremlinQuery<T1, T2>, IGremlinQueryBase>> andTraversals) => And(andTraversals.Cast().To<Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase>>());
 
-        TTargetQuery IGremlinQueryBaseRec<IOutEdgeGremlinQuery<T1, T2>>.As<TTargetQuery>(Func<IOutEdgeGremlinQuery<T1, T2>, StepLabel<IOutEdgeGremlinQuery<T1, T2>, object>, TTargetQuery> continuation) => As<StepLabel<IOutEdgeGremlinQuery<T1, T2>, object>, TTargetQuery>(continuation);
-
         IOutEdgeGremlinQuery<T1, T2> IGremlinQueryBaseRec<IOutEdgeGremlinQuery<T1, T2>>.Barrier() => Barrier();
 
         TTargetQuery IGremlinQueryBaseRec<IOutEdgeGremlinQuery<T1, T2>>.Choose<TTargetQuery>(Func<IOutEdgeGremlinQuery<T1, T2>, IGremlinQueryBase> traversalPredicate, Func<IOutEdgeGremlinQuery<T1, T2>, TTargetQuery> trueChoice, Func<IOutEdgeGremlinQuery<T1, T2>, TTargetQuery> falseChoice) => Choose<TTargetQuery, TTargetQuery, TTargetQuery>(traversalPredicate, trueChoice, falseChoice);
@@ -1270,8 +1248,6 @@ namespace ExRam.Gremlinq.Core
         IVertexPropertyGremlinQuery<T1, T2> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<T1, T2>>.And(params Func<IVertexPropertyGremlinQuery<T1, T2>, IGremlinQueryBase>[] andTraversals) => And(andTraversals);
 
         IVertexPropertyGremlinQuery<T1, T2> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<T1, T2>>.And(params ReadOnlySpan<Func<IVertexPropertyGremlinQuery<T1, T2>, IGremlinQueryBase>> andTraversals) => And(andTraversals.Cast().To<Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase>>());
-
-        TTargetQuery IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<T1, T2>>.As<TTargetQuery>(Func<IVertexPropertyGremlinQuery<T1, T2>, StepLabel<IVertexPropertyGremlinQuery<T1, T2>, object>, TTargetQuery> continuation) => As<StepLabel<IVertexPropertyGremlinQuery<T1, T2>, object>, TTargetQuery>(continuation);
 
         IVertexPropertyGremlinQuery<T1, T2> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<T1, T2>>.Barrier() => Barrier();
 
@@ -1380,8 +1356,6 @@ namespace ExRam.Gremlinq.Core
 
         IVertexPropertyGremlinQuery<T1, T2, T3> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<T1, T2, T3>>.And(params ReadOnlySpan<Func<IVertexPropertyGremlinQuery<T1, T2, T3>, IGremlinQueryBase>> andTraversals) => And(andTraversals.Cast().To<Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase>>());
 
-        TTargetQuery IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<T1, T2, T3>>.As<TTargetQuery>(Func<IVertexPropertyGremlinQuery<T1, T2, T3>, StepLabel<IVertexPropertyGremlinQuery<T1, T2, T3>, object>, TTargetQuery> continuation) => As<StepLabel<IVertexPropertyGremlinQuery<T1, T2, T3>, object>, TTargetQuery>(continuation);
-
         IVertexPropertyGremlinQuery<T1, T2, T3> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<T1, T2, T3>>.Barrier() => Barrier();
 
         TTargetQuery IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<T1, T2, T3>>.Choose<TTargetQuery>(Func<IVertexPropertyGremlinQuery<T1, T2, T3>, IGremlinQueryBase> traversalPredicate, Func<IVertexPropertyGremlinQuery<T1, T2, T3>, TTargetQuery> trueChoice, Func<IVertexPropertyGremlinQuery<T1, T2, T3>, TTargetQuery> falseChoice) => Choose<TTargetQuery, TTargetQuery, TTargetQuery>(traversalPredicate, trueChoice, falseChoice);
@@ -1489,8 +1463,6 @@ namespace ExRam.Gremlinq.Core
 
         IPropertyGremlinQuery<T1> IGremlinQueryBaseRec<IPropertyGremlinQuery<T1>>.And(params ReadOnlySpan<Func<IPropertyGremlinQuery<T1>, IGremlinQueryBase>> andTraversals) => And(andTraversals.Cast().To<Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase>>());
 
-        TTargetQuery IGremlinQueryBaseRec<IPropertyGremlinQuery<T1>>.As<TTargetQuery>(Func<IPropertyGremlinQuery<T1>, StepLabel<IPropertyGremlinQuery<T1>, object>, TTargetQuery> continuation) => As<StepLabel<IPropertyGremlinQuery<T1>, object>, TTargetQuery>(continuation);
-
         IPropertyGremlinQuery<T1> IGremlinQueryBaseRec<IPropertyGremlinQuery<T1>>.Barrier() => Barrier();
 
         TTargetQuery IGremlinQueryBaseRec<IPropertyGremlinQuery<T1>>.Choose<TTargetQuery>(Func<IPropertyGremlinQuery<T1>, IGremlinQueryBase> traversalPredicate, Func<IPropertyGremlinQuery<T1>, TTargetQuery> trueChoice, Func<IPropertyGremlinQuery<T1>, TTargetQuery> falseChoice) => Choose<TTargetQuery, TTargetQuery, TTargetQuery>(traversalPredicate, trueChoice, falseChoice);
@@ -1597,8 +1569,6 @@ namespace ExRam.Gremlinq.Core
         IStringGremlinQuery<T1> IGremlinQueryBaseRec<IStringGremlinQuery<T1>>.And(params Func<IStringGremlinQuery<T1>, IGremlinQueryBase>[] andTraversals) => And(andTraversals);
 
         IStringGremlinQuery<T1> IGremlinQueryBaseRec<IStringGremlinQuery<T1>>.And(params ReadOnlySpan<Func<IStringGremlinQuery<T1>, IGremlinQueryBase>> andTraversals) => And(andTraversals.Cast().To<Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase>>());
-
-        TTargetQuery IGremlinQueryBaseRec<IStringGremlinQuery<T1>>.As<TTargetQuery>(Func<IStringGremlinQuery<T1>, StepLabel<IStringGremlinQuery<T1>, object>, TTargetQuery> continuation) => As<StepLabel<IStringGremlinQuery<T1>, object>, TTargetQuery>(continuation);
 
         IStringGremlinQuery<T1> IGremlinQueryBaseRec<IStringGremlinQuery<T1>>.Barrier() => Barrier();
 
