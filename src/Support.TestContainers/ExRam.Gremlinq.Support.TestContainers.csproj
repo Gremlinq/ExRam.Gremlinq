@@ -4,7 +4,7 @@
     <Description>TestContainers support library for Gremlinq.</Description>
 
     <IsPackable>false</IsPackable>
-    <IsPackable Condition="'$(GitBranch)' == '12.x'">true</IsPackable>
+    <IsPackable Condition="'$(GitBranch)' == '13.x'">true</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>
