@@ -5,11 +5,8 @@ namespace ExRam.Gremlinq.Core.Steps
     public abstract class LogicalStep<TStep> : Step
         where TStep : LogicalStep<TStep>
     {
-        protected LogicalStep(string name, ImmutableArray<Traversal> traversals) : base(traversals.GetSideEffectSemanticsChange())
+        protected LogicalStep(ImmutableArray<Traversal> traversals) : base(traversals.GetSideEffectSemanticsChange())
         {
-#pragma warning disable CS0618 // Type or member is obsolete
-            Name = name;
-#pragma warning restore CS0618 // Type or member is obsolete
             Traversals = traversals;
         }
 
@@ -36,9 +33,6 @@ namespace ExRam.Gremlinq.Core.Steps
                 }
             }
         }
-
-        [Obsolete("Will be removed in a future release.")]
-        public string Name { get; }
 
         public ImmutableArray<Traversal> Traversals { get; }
     }

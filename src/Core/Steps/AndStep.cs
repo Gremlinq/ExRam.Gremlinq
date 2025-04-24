@@ -4,7 +4,7 @@ namespace ExRam.Gremlinq.Core.Steps
 {
     public sealed class AndStep : LogicalStep<AndStep>, IFilterStep
     {
-        public AndStep(ImmutableArray<Traversal> traversals) : base("and", traversals)
+        public AndStep(ImmutableArray<Traversal> traversals) : base(traversals)
         {
         }
     }
