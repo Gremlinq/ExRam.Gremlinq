@@ -5,11 +5,6 @@ namespace ExRam.Gremlinq.Core.Steps
     public abstract class LogicalStep<TStep> : Step
         where TStep : LogicalStep<TStep>
     {
-        [Obsolete("Will be removed in a future version. Use the overload taking an ImmutableArray<Traversal> instead.", true)]
-        protected LogicalStep(string name, IEnumerable<Traversal> traversals) : this(name, traversals.ToImmutableArray())
-        {
-        }
-
         protected LogicalStep(string name, ImmutableArray<Traversal> traversals) : base(traversals.GetSideEffectSemanticsChange())
         {
 #pragma warning disable CS0618 // Type or member is obsolete
