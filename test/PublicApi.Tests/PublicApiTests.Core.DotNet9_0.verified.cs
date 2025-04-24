@@ -1897,6 +1897,7 @@ namespace ExRam.Gremlinq.Core.Execution
     {
         public static readonly ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor Empty;
         public static readonly ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor Invalid;
+        [System.Obsolete(@"Will be removed in a future version. Retries should be applied on a per-query basis and is better left to resilience-libraries (e.g. Polly). To recreate the behaviour of this method in your own code, see https://github.com/Gremlinq/ExRam.Gremlinq/blob/12.x/src/Core/Execution/GremlinQueryExecutor%20(Retry).cs.")]
         public static ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor RetryWithExponentialBackoff(this ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor executor, System.Func<int, ExRam.Gremlinq.Core.Execution.GremlinQueryExecutionException, bool> shouldRetry) { }
         public static ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor Serialize(this ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor executor) { }
         public static ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor TransformExecutionException(this ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor executor, System.Func<ExRam.Gremlinq.Core.Execution.GremlinQueryExecutionException, ExRam.Gremlinq.Core.Execution.GremlinQueryExecutionException> exceptionTransformation) { }

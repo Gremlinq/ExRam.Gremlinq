@@ -78,6 +78,7 @@ namespace ExRam.Gremlinq.Core.Execution
             }
         }
 
+        [Obsolete("Will be removed in a future version. Retries should be applied on a per-query basis and is better left to resilience-libraries (e.g. Polly). To recreate the behaviour of this method in your own code, see https://github.com/Gremlinq/ExRam.Gremlinq/blob/12.x/src/Core/Execution/GremlinQueryExecutor%20(Retry).cs.")]
         public static IGremlinQueryExecutor RetryWithExponentialBackoff(this IGremlinQueryExecutor executor, Func<int, GremlinQueryExecutionException, bool> shouldRetry) => new ExponentialBackoffExecutor(executor, shouldRetry);
     }
 }
