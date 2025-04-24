@@ -9,11 +9,6 @@ namespace ExRam.Gremlinq.Core.Serialization
         private readonly string? _script;
         private readonly ImmutableDictionary<string, object?>? _bindings;
 
-        [Obsolete($"Use {nameof(GroovyGremlinScript)}.{nameof(From)}(...) instead.", true)]
-        public GroovyGremlinScript(string script, IReadOnlyDictionary<string, object?> bindings) : this(script, bindings.ToImmutableDictionary())
-        {
-        }
-
         private GroovyGremlinScript(string script, ImmutableDictionary<string, object?>? bindings)
         {
             _script = script;
