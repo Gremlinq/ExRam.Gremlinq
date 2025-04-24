@@ -52,10 +52,12 @@ namespace ExRam.Gremlinq.Core.Tests
                     _ => AsyncEnumerableEx.Throw<object>(new GremlinQueryExecutionException(_.Arg<GremlinQueryExecutionContext>(), new DivideByZeroException())),
                     _ => AsyncEnumerableEx.Return<object>("Result"));
 
+#pragma warning disable CS0618 // Type or member is obsolete
             await Verify(baseExecutor
                 .RetryWithExponentialBackoff((_, ex) => true)
                 .Execute<object>(GremlinQueryExecutionContext.Create(_query))
                 .ToArrayAsync(TestContext.Current.CancellationToken));
+#pragma warning restore CS0618 // Type or member is obsolete
         }
 
         [Fact]
