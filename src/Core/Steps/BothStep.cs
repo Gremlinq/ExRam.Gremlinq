@@ -6,11 +6,6 @@ namespace ExRam.Gremlinq.Core.Steps
     {
         public static readonly BothStep NoLabels = new(ImmutableArray<string>.Empty);
 
-        [Obsolete("Deprecated. Use BothStep.NoLabels instead.", true)]
-        public BothStep() : this(ImmutableArray<string>.Empty)
-        {
-        }
-
         public BothStep(ImmutableArray<string> labels) : base(labels)
         {
         }
