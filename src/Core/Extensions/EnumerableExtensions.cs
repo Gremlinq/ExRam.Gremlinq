@@ -4,7 +4,7 @@ namespace ExRam.Gremlinq.Core
 {
     public static class EnumerableExtensions
     {
-        [Obsolete("Will be removed in a future release. To recreate the behaviour of this method in your own code, see https://github.com/Gremlinq/ExRam.Gremlinq/blob/12.x/src/Core/Extensions/EnumerableExtensions.cs.")]
+        [Obsolete("Will be removed in a future release. To recreate the behaviour of this method in your own code, see https://github.com/Gremlinq/ExRam.Gremlinq/blob/12.x/src/Core/Extensions/EnumerableExtensions.cs.", true)]
         public static Traversal ToTraversal(this IEnumerable<Step> source)
         {
             if (source is IReadOnlyList<Step> sourceList)

@@ -6,7 +6,7 @@ namespace ExRam.Gremlinq.Core
     {
         IGremlinQuerySource ConfigureEnvironment(Func<IGremlinQueryEnvironment, IGremlinQueryEnvironment> environmentTransformation);
 
-        [Obsolete("Use AsAdmin().ConfigureMetadata<IGremlinQuerySource>(metadataTransformation) instead.")]
+        [Obsolete("Use AsAdmin().ConfigureMetadata<IGremlinQuerySource>(metadataTransformation) instead.", true)]
         IGremlinQuerySource ConfigureMetadata(Func<IImmutableDictionary<object, object?>, IImmutableDictionary<object, object?>> metadataTransformation);
 
         IGremlinQuerySource WithSideEffect<TSideEffect>(StepLabel<TSideEffect> label, TSideEffect value);

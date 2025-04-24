@@ -91,7 +91,7 @@ namespace ExRam.Gremlinq.Core
         TSelf And(params Func<TSelf, IGremlinQueryBase>[] andTraversals);
         TSelf And(params ReadOnlySpan<Func<TSelf, IGremlinQueryBase>> andTraversals);
 
-        [Obsolete("Deprecated. If the strongly typed overload of As is not in scope, call Cast<object>() before As(...).")]
+        [Obsolete("Deprecated. If the strongly typed overload of As is not in scope, call Cast<object>() before As(...).", true)]
         TTargetQuery As<TTargetQuery>(Func<TSelf, StepLabel<TSelf, object>, TTargetQuery> continuation) where TTargetQuery : IGremlinQueryBase;
 
         TSelf Coin(double probability);

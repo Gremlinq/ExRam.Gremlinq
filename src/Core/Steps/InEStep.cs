@@ -4,11 +4,9 @@ namespace ExRam.Gremlinq.Core.Steps
 {
     public sealed class InEStep : DerivedLabelNamesStep
     {
-#pragma warning disable CS0618 // Type or member is obsolete
-        public static readonly InEStep NoLabels = new();
-#pragma warning restore CS0618 // Type or member is obsolete
+        public static readonly InEStep NoLabels = new(ImmutableArray<string>.Empty);
 
-        [Obsolete("Deprecated. Use InEStep.NoLabels instead.")]
+        [Obsolete("Deprecated. Use InEStep.NoLabels instead.", true)]
         public InEStep() : this(ImmutableArray<string>.Empty)
         {
         }

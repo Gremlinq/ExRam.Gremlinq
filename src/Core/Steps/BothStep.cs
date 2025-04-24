@@ -4,11 +4,9 @@ namespace ExRam.Gremlinq.Core.Steps
 {
     public sealed class BothStep : DerivedLabelNamesStep
     {
-#pragma warning disable CS0618 // Type or member is obsolete
-        public static readonly BothStep NoLabels = new();
-#pragma warning restore CS0618 // Type or member is obsolete
+        public static readonly BothStep NoLabels = new(ImmutableArray<string>.Empty);
 
-        [Obsolete("Deprecated. Use BothStep.NoLabels instead.")]
+        [Obsolete("Deprecated. Use BothStep.NoLabels instead.", true)]
         public BothStep() : this(ImmutableArray<string>.Empty)
         {
         }
