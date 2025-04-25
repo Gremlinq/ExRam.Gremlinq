@@ -27,17 +27,6 @@ namespace ExRam.Gremlinq.Core
             _writeStepsCount + SideEffectSemanticsHelper(steps),
             Projection);
 
-        //TODO: Remove for >= .NET 9 in major bump without ObsoleteAttribute (there is no action to be taken). 
-        public Traversal Push(params Step[] steps) => Push(steps.AsSpan());
-
-        //TODO: Remove for >= .NET 9 in major bump without ObsoleteAttribute (there is no action to be taken). 
-        public Traversal Push(Step step) => new (
-            _steps.Push(step),
-            step.SideEffectSemanticsChange == SideEffectSemanticsChange.Write
-                ? _writeStepsCount + 1
-                : _writeStepsCount,
-            Projection);
-
         public Traversal Pop() => Pop(out _);
 
         public Traversal Pop(out Step poppedStep)

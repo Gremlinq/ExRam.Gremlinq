@@ -1749,8 +1749,6 @@
         public ExRam.Gremlinq.Core.Traversal IncludeProjection(ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment) { }
         public ExRam.Gremlinq.Core.Traversal Pop() { }
         public ExRam.Gremlinq.Core.Traversal Pop(out ExRam.Gremlinq.Core.Steps.Step poppedStep) { }
-        public ExRam.Gremlinq.Core.Traversal Push(ExRam.Gremlinq.Core.Steps.Step step) { }
-        public ExRam.Gremlinq.Core.Traversal Push(params ExRam.Gremlinq.Core.Steps.Step[] steps) { }
         public ExRam.Gremlinq.Core.Traversal Push([System.Runtime.CompilerServices.ScopedRef] System.ReadOnlySpan<ExRam.Gremlinq.Core.Steps.Step> steps) { }
         public ExRam.Gremlinq.Core.Traversal Slice(int start) { }
         public ExRam.Gremlinq.Core.Traversal Slice(int start, int length) { }
@@ -1897,6 +1895,7 @@ namespace ExRam.Gremlinq.Core.ExpressionParsing
     public abstract class ConstantExpressionSemantics : ExRam.Gremlinq.Core.ExpressionParsing.ExpressionSemantics
     {
         protected ConstantExpressionSemantics() { }
+        public override ExRam.Gremlinq.Core.ExpressionParsing.ExpressionSemantics Flip() { }
     }
     public sealed class ContainsExpressionSemantics : ExRam.Gremlinq.Core.ExpressionParsing.EnumerableExpressionSemantics
     {
@@ -1927,7 +1926,6 @@ namespace ExRam.Gremlinq.Core.ExpressionParsing
     public sealed class FalseExpressionSemantics : ExRam.Gremlinq.Core.ExpressionParsing.ConstantExpressionSemantics
     {
         public static readonly ExRam.Gremlinq.Core.ExpressionParsing.FalseExpressionSemantics Instance;
-        public override ExRam.Gremlinq.Core.ExpressionParsing.ExpressionSemantics Flip() { }
     }
     public sealed class GreaterThanExpressionSemantics : ExRam.Gremlinq.Core.ExpressionParsing.ObjectExpressionSemantics
     {
@@ -2029,7 +2027,6 @@ namespace ExRam.Gremlinq.Core.ExpressionParsing
     public sealed class TrueExpressionSemantics : ExRam.Gremlinq.Core.ExpressionParsing.ConstantExpressionSemantics
     {
         public static readonly ExRam.Gremlinq.Core.ExpressionParsing.TrueExpressionSemantics Instance;
-        public override ExRam.Gremlinq.Core.ExpressionParsing.ExpressionSemantics Flip() { }
     }
 }
 namespace ExRam.Gremlinq.Core.GraphElements
