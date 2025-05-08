@@ -14,7 +14,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
     [IntegrationTest("Windows")]
     public class LoggingIntegrationTests : QueryExecutionTest, IClassFixture<LoggingFixture>
     {
-        public sealed class LoggingFixture : GremlinServerContainerFixture
+        public class LoggingFixture : GremlinServerContainerFixture
         {
             private readonly RecordingProvider _recordingProvider = new ();
 
