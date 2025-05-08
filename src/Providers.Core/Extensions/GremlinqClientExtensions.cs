@@ -112,9 +112,6 @@ namespace ExRam.Gremlinq.Providers.Core
             {
                 var logLevel = environment.Options.GetValue(GremlinqOption.QueryLogLogLevel);
                 var includeBindings = (environment.Options.GetValue(GremlinqOption.QueryLogVerbosity) & QueryLogVerbosity.IncludeBindings) > QueryLogVerbosity.QueryOnly;
-                var formatting = environment.Options.GetValue(GremlinqOption.QueryLogFormatting).HasFlag(QueryLogFormatting.Indented)
-                    ? IndentedSerializerOptions
-                    : NotIndentedSerializerOptions;
 
                 return (requestMessage) =>
                 {
@@ -129,7 +126,7 @@ namespace ExRam.Gremlinq.Providers.Core
                                     "Executing Gremlin query {requestId} with groovy script {script} and parameter bindings {bindings}.",
                                     requestMessage.RequestId,
                                     groovyQuery.Script,
-                                    JsonSerializer.Serialize(groovyQuery.Bindings, formatting));    //TODO: dont serialize anymore on breaking change.
+                                    groovyQuery.Bindings);
                             }
                             else
                             {
