@@ -3,7 +3,7 @@
     log: {
       Level: Debug,
       Category: LoggingFixture,
-      Message: Executing Gremlin query 12345678-9012-3456-7890-123456789012 with groovy script g.addV(_a).property(single,_b,_c).property(single,_d,_e).property(single,_f,_g).addE(_h).from(__.V().hasLabel(_i).has(_j,_k)).project(_l,_m,_n).by(id).by(label).by(__.valueMap()).,
+      Message: Executing Gremlin query 12345678-9012-3456-7890-123456789012 with groovy script g.addV(_a).property(single,_b,_c).property(single,_d,_e).property(single,_f,_g).addE(_h).from(__.V().hasLabel(_i).has(_j,_k)).project(_l,_m,_n).by(id).by(label).by(__.valueMap()) and parameter bindings {"_b":"Age","_l":"id","_a":"Person","_c":0,"_j":"CountryCallingCode","_d":"Name","_h":"LivesIn","_k":"\u002B49","_n":"properties","_i":"Country","_m":"label","_g":"2020-04-07T14:43:36+00:00","_e":"Bob","_f":"RegistrationDate"}.,
       State: [
         {
           requestId: 12345678-9012-3456-7890-123456789012
@@ -12,7 +12,10 @@
           script: g.addV(_a).property(single,_b,_c).property(single,_d,_e).property(single,_f,_g).addE(_h).from(__.V().hasLabel(_i).has(_j,_k)).project(_l,_m,_n).by(id).by(label).by(__.valueMap())
         },
         {
-          {OriginalFormat}: Executing Gremlin query {requestId} with groovy script {script}.
+          bindings: {"_b":"Age","_l":"id","_a":"Person","_c":0,"_j":"CountryCallingCode","_d":"Name","_h":"LivesIn","_k":"\u002B49","_n":"properties","_i":"Country","_m":"label","_g":"2020-04-07T14:43:36+00:00","_e":"Bob","_f":"RegistrationDate"}
+        },
+        {
+          {OriginalFormat}: Executing Gremlin query {requestId} with groovy script {script} and parameter bindings {bindings}.
         }
       ]
     }

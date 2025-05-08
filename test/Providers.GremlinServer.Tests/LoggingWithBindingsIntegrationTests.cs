@@ -18,7 +18,9 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
                 return base
                     .GetQuerySource()
                     .ConfigureEnvironment(env => env
-                        .ConfigureLogger(_ => _recordingProvider.CreateLogger<LoggingFixture>()));
+                        .ConfigureLogger(_ => _recordingProvider.CreateLogger<LoggingFixture>())
+                        .ConfigureOptions(_ => _
+                            .SetValue(GremlinqOption.QueryLogVerbosity, QueryLogVerbosity.IncludeBindings)));
             }
         }
 

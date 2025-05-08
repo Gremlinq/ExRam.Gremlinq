@@ -3,7 +3,7 @@
     log: {
       Level: Debug,
       Category: LoggingFixture,
-      Message: Executing Gremlin query 12345678-9012-3456-7890-123456789012 with groovy script g.V().id().choose(lt(_a),__.constant(_b),__.constant(_c)).,
+      Message: Executing Gremlin query 12345678-9012-3456-7890-123456789012 with groovy script g.V().id().choose(lt(_a),__.constant(_b),__.constant(_c)) and parameter bindings {"_b":true,"_a":42,"_c":false}.,
       State: [
         {
           requestId: 12345678-9012-3456-7890-123456789012
@@ -12,7 +12,10 @@
           script: g.V().id().choose(lt(_a),__.constant(_b),__.constant(_c))
         },
         {
-          {OriginalFormat}: Executing Gremlin query {requestId} with groovy script {script}.
+          bindings: {"_b":true,"_a":42,"_c":false}
+        },
+        {
+          {OriginalFormat}: Executing Gremlin query {requestId} with groovy script {script} and parameter bindings {bindings}.
         }
       ]
     }

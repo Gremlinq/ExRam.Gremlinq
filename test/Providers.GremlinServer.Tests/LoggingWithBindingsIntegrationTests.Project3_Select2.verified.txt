@@ -3,7 +3,7 @@
     log: {
       Level: Debug,
       Category: LoggingFixture,
-      Message: Executing Gremlin query 12345678-9012-3456-7890-123456789012 with groovy script g.inject(_a).project(_b,_c,_d).by(__.constant(_e)).by(__.constant(_f)).by(__.constant(_g)).project(_b,_c).by(__.select(_b)).by(__.select(_c)).,
+      Message: Executing Gremlin query 12345678-9012-3456-7890-123456789012 with groovy script g.inject(_a).project(_b,_c,_d).by(__.constant(_e)).by(__.constant(_f)).by(__.constant(_g)).project(_b,_c).by(__.select(_b)).by(__.select(_c)) and parameter bindings {"_b":"Item1","_a":42,"_c":"Item2","_d":"Item3","_g":"item3","_e":"item1","_f":"item2"}.,
       State: [
         {
           requestId: 12345678-9012-3456-7890-123456789012
@@ -12,7 +12,10 @@
           script: g.inject(_a).project(_b,_c,_d).by(__.constant(_e)).by(__.constant(_f)).by(__.constant(_g)).project(_b,_c).by(__.select(_b)).by(__.select(_c))
         },
         {
-          {OriginalFormat}: Executing Gremlin query {requestId} with groovy script {script}.
+          bindings: {"_b":"Item1","_a":42,"_c":"Item2","_d":"Item3","_g":"item3","_e":"item1","_f":"item2"}
+        },
+        {
+          {OriginalFormat}: Executing Gremlin query {requestId} with groovy script {script} and parameter bindings {bindings}.
         }
       ]
     }

@@ -3,7 +3,7 @@
     log: {
       Level: Debug,
       Category: LoggingFixture,
-      Message: Executing Gremlin query 12345678-9012-3456-7890-123456789012 with groovy script g.V().hasLabel(_a).order().by(id,asc).limit(_b).project(_c,_d,_e,_f).by(__.constant(_g)).by(__.constant(_h)).by(id).by(__.constant(_i)).,
+      Message: Executing Gremlin query 12345678-9012-3456-7890-123456789012 with groovy script g.V().hasLabel(_a).order().by(id,asc).limit(_b).project(_c,_d,_e,_f).by(__.constant(_g)).by(__.constant(_h)).by(id).by(__.constant(_i)) and parameter bindings {"_b":1,"_a":"Person","_c":"Item1","_d":"Item2","_h":"item2","_i":"item4","_g":"item1","_e":"Item3","_f":"Item4"}.,
       State: [
         {
           requestId: 12345678-9012-3456-7890-123456789012
@@ -12,7 +12,10 @@
           script: g.V().hasLabel(_a).order().by(id,asc).limit(_b).project(_c,_d,_e,_f).by(__.constant(_g)).by(__.constant(_h)).by(id).by(__.constant(_i))
         },
         {
-          {OriginalFormat}: Executing Gremlin query {requestId} with groovy script {script}.
+          bindings: {"_b":1,"_a":"Person","_c":"Item1","_d":"Item2","_h":"item2","_i":"item4","_g":"item1","_e":"Item3","_f":"Item4"}
+        },
+        {
+          {OriginalFormat}: Executing Gremlin query {requestId} with groovy script {script} and parameter bindings {bindings}.
         }
       ]
     }
