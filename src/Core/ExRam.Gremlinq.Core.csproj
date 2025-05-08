@@ -3,7 +3,11 @@
   <PropertyGroup>
     <Description>.NET object-graph-mapper for Apache TinkerPop™ Gremlin enabled databases.</Description>
   </PropertyGroup>
-  
+
+  <ItemGroup Condition="'$(TargetFramework)'=='net6.0' or '$(TargetFramework)'=='net7.0'">
+    <PackageReference Include="System.Collections.Immutable" />
+  </ItemGroup>
+
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.HighPerformance" />
     <PackageReference Include="Gremlin.Net" />
