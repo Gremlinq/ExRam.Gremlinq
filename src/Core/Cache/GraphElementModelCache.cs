@@ -45,7 +45,7 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
-        private static readonly ConditionalWeakTable<IGraphElementModel, IGraphElementModelCache> Caches = new();
+        private static readonly ConditionalWeakTable<IGraphElementModel, IGraphElementModelCache> Caches = [];
 
         public static IGraphElementModelCache GetCache(this IGraphElementModel model)
         {
