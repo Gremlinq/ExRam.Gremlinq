@@ -87,9 +87,6 @@ namespace ExRam.Gremlinq.Core.AspNet
                                         if (Enum.TryParse<LogLevel>(loggingSection[$"{nameof(LogLevel)}"], out var logLevel))
                                             options = options.SetValue(GremlinqOption.QueryLogLogLevel, logLevel);
 
-                                        if (Enum.TryParse<QueryLogFormatting>(loggingSection["Formatting"], out var formatting))
-                                            options = options.SetValue(GremlinqOption.QueryLogFormatting, formatting);
-
                                         return options;
                                     });
                             }
