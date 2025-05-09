@@ -3,7 +3,7 @@
     log: {
       Level: Debug,
       Category: LoggingFixture,
-      Message: Executing Gremlin query 12345678-9012-3456-7890-123456789012 with groovy script g.E(_a).hasLabel(_b).property(_c,_d).property(_e,_f).property(_g,_d).project(_h,_i,_j).by(id).by(label).by(__.valueMap()) and parameter bindings {"_b":"WorksFor","_a":0,"_c":"From","_j":"properties","_d":"2020-04-07T14:43:36+00:00","_h":"id","_i":"label","_g":"To","_e":"Role","_f":"Admin"}.,
+      Message: (Message),
       State: [
         {
           requestId: 12345678-9012-3456-7890-123456789012
@@ -12,7 +12,7 @@
           script: g.E(_a).hasLabel(_b).property(_c,_d).property(_e,_f).property(_g,_d).project(_h,_i,_j).by(id).by(label).by(__.valueMap())
         },
         {
-          bindings: {"_b":"WorksFor","_a":0,"_c":"From","_j":"properties","_d":"2020-04-07T14:43:36+00:00","_h":"id","_i":"label","_g":"To","_e":"Role","_f":"Admin"}
+          bindings: {"_h":"id","_j":"properties","_a":0,"_f":"Admin","_i":"label","_d":"2020-04-07T14:43:36+00:00","_g":"To","_c":"From","_b":"WorksFor","_e":"Role"}
         },
         {
           {OriginalFormat}: Executing Gremlin query {requestId} with groovy script {script} and parameter bindings {bindings}.

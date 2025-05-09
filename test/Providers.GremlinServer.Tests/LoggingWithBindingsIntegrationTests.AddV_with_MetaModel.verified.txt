@@ -3,7 +3,7 @@
     log: {
       Level: Debug,
       Category: LoggingFixture,
-      Message: Executing Gremlin query 12345678-9012-3456-7890-123456789012 with groovy script g.addV(_a).property(single,_b,_c).property(list,_d,_e,_f,_g).project(_h,_i,_j).by(id).by(label).by(__.properties().group().by(label).by(__.project(_h,_i,_k,_j).by(id).by(label).by(value).by(__.valueMap()).fold())) and parameter bindings {"_b":"FoundingDate","_a":"Company","_c":"0001-01-01T00:00:00+00:00","_j":"properties","_d":"Locations","_h":"id","_k":"value","_i":"label","_g":"2019-01-01T01:00:00+00:00","_e":"Aachen","_f":"ValidFrom"}.,
+      Message: (Message),
       State: [
         {
           requestId: 12345678-9012-3456-7890-123456789012
@@ -12,7 +12,7 @@
           script: g.addV(_a).property(single,_b,_c).property(list,_d,_e,_f,_g).project(_h,_i,_j).by(id).by(label).by(__.properties().group().by(label).by(__.project(_h,_i,_k,_j).by(id).by(label).by(value).by(__.valueMap()).fold()))
         },
         {
-          bindings: {"_b":"FoundingDate","_a":"Company","_c":"0001-01-01T00:00:00+00:00","_j":"properties","_d":"Locations","_h":"id","_k":"value","_i":"label","_g":"2019-01-01T01:00:00+00:00","_e":"Aachen","_f":"ValidFrom"}
+          bindings: {"_h":"id","_j":"properties","_a":"Company","_f":"ValidFrom","_i":"label","_k":"value","_d":"Locations","_g":"2019-01-01T01:00:00+00:00","_c":"0001-01-01T00:00:00+00:00","_b":"FoundingDate","_e":"Aachen"}
         },
         {
           {OriginalFormat}: Executing Gremlin query {requestId} with groovy script {script} and parameter bindings {bindings}.

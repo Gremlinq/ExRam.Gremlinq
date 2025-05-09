@@ -3,7 +3,7 @@
     log: {
       Level: Debug,
       Category: LoggingFixture,
-      Message: Executing Gremlin query 12345678-9012-3456-7890-123456789012 with groovy script g.inject(_a).project(_b,_c,_d,_e).by(__.identity()).by(__.identity()).by(__.identity()).by(__.identity()) and parameter bindings {"_b":"In","_a":42,"_c":"Out","_d":"Count","_e":"Properties"}.,
+      Message: (Message),
       State: [
         {
           requestId: 12345678-9012-3456-7890-123456789012
@@ -12,7 +12,7 @@
           script: g.inject(_a).project(_b,_c,_d,_e).by(__.identity()).by(__.identity()).by(__.identity()).by(__.identity())
         },
         {
-          bindings: {"_b":"In","_a":42,"_c":"Out","_d":"Count","_e":"Properties"}
+          bindings: {"_a":42,"_d":"Count","_c":"Out","_b":"In","_e":"Properties"}
         },
         {
           {OriginalFormat}: Executing Gremlin query {requestId} with groovy script {script} and parameter bindings {bindings}.

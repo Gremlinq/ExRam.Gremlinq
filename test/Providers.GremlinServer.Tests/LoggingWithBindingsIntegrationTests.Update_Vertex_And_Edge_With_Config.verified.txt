@@ -3,7 +3,7 @@
     log: {
       Level: Debug,
       Category: LoggingFixture,
-      Message: Executing Gremlin query 12345678-9012-3456-7890-123456789012 with groovy script g.V().hasLabel(_a).sideEffect(__.properties(_b,_c,_d).drop()).property(single,_e,_f).property(single,_g,_h).outE(_i).property(_j,_h).project(_k,_l,_m).by(id).by(label).by(__.valueMap()) and parameter bindings {"_b":"Image","_l":"label","_a":"Person","_c":"PhoneNumbers","_j":"To","_d":"SomeObscureProperty","_h":"2020-04-07T14:43:36+00:00","_k":"id","_i":"WorksFor","_m":"properties","_g":"RegistrationDate","_e":"Gender","_f":0}.,
+      Message: (Message),
       State: [
         {
           requestId: 12345678-9012-3456-7890-123456789012
@@ -12,7 +12,7 @@
           script: g.V().hasLabel(_a).sideEffect(__.properties(_b,_c,_d).drop()).property(single,_e,_f).property(single,_g,_h).outE(_i).property(_j,_h).project(_k,_l,_m).by(id).by(label).by(__.valueMap())
         },
         {
-          bindings: {"_b":"Image","_l":"label","_a":"Person","_c":"PhoneNumbers","_j":"To","_d":"SomeObscureProperty","_h":"2020-04-07T14:43:36+00:00","_k":"id","_i":"WorksFor","_m":"properties","_g":"RegistrationDate","_e":"Gender","_f":0}
+          bindings: {"_h":"2020-04-07T14:43:36+00:00","_j":"To","_a":"Person","_l":"label","_f":0,"_i":"WorksFor","_k":"id","_m":"properties","_d":"SomeObscureProperty","_g":"RegistrationDate","_c":"PhoneNumbers","_b":"Image","_e":"Gender"}
         },
         {
           {OriginalFormat}: Executing Gremlin query {requestId} with groovy script {script} and parameter bindings {bindings}.

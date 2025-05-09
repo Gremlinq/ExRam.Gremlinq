@@ -3,7 +3,7 @@
     log: {
       Level: Debug,
       Category: LoggingFixture,
-      Message: Executing Gremlin query 12345678-9012-3456-7890-123456789012 with groovy script g.inject(_a).project(_b,_c,_d).by(__.constant(_e).limit(_f).fold()).by(__.constant(_g).limit(_f).fold()).by(__.identity().none().limit(_f).fold()).map(__.unfold().group().by(__.select(keys)).by(__.select(values).unfold())).project(_b,_c).by(__.select(_b).limit(_f).fold()).by(__.select(_c).limit(_f).fold()).map(__.unfold().group().by(__.select(keys)).by(__.select(values).unfold())) and parameter bindings {"_b":"Item1","_a":42,"_c":"Item2","_d":"Item3","_g":"item2","_e":"item1","_f":1}.,
+      Message: (Message),
       State: [
         {
           requestId: 12345678-9012-3456-7890-123456789012
@@ -12,7 +12,7 @@
           script: g.inject(_a).project(_b,_c,_d).by(__.constant(_e).limit(_f).fold()).by(__.constant(_g).limit(_f).fold()).by(__.identity().none().limit(_f).fold()).map(__.unfold().group().by(__.select(keys)).by(__.select(values).unfold())).project(_b,_c).by(__.select(_b).limit(_f).fold()).by(__.select(_c).limit(_f).fold()).map(__.unfold().group().by(__.select(keys)).by(__.select(values).unfold()))
         },
         {
-          bindings: {"_b":"Item1","_a":42,"_c":"Item2","_d":"Item3","_g":"item2","_e":"item1","_f":1}
+          bindings: {"_a":42,"_f":1,"_d":"Item3","_g":"item2","_c":"Item2","_b":"Item1","_e":"item1"}
         },
         {
           {OriginalFormat}: Executing Gremlin query {requestId} with groovy script {script} and parameter bindings {bindings}.

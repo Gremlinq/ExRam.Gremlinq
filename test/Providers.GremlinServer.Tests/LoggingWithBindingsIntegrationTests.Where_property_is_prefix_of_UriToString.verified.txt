@@ -3,7 +3,7 @@
     log: {
       Level: Debug,
       Category: LoggingFixture,
-      Message: Executing Gremlin query 12345678-9012-3456-7890-123456789012 with groovy script g.V().hasLabel(_a).has(_b,within(_c,_d,_e,_f,_g,_h,_i,_j,_k,_l,_m)).project(_n,_o,_p).by(id).by(label).by(__.properties().group().by(label).by(__.project(_n,_o,_q,_p).by(id).by(label).by(value).by(__.valueMap()).fold())) and parameter bindings {"_b":"CountryCallingCode","_l":"tel:\u002B4912","_a":"Country","_c":"","_j":"tel:\u002B49","_p":"properties","_d":"t","_h":"tel:\u002B","_o":"label","_k":"tel:\u002B491","_n":"id","_i":"tel:\u002B4","_q":"value","_m":"tel:\u002B49123","_g":"tel:","_e":"te","_f":"tel"}.,
+      Message: (Message),
       State: [
         {
           requestId: 12345678-9012-3456-7890-123456789012
@@ -12,7 +12,7 @@
           script: g.V().hasLabel(_a).has(_b,within(_c,_d,_e,_f,_g,_h,_i,_j,_k,_l,_m)).project(_n,_o,_p).by(id).by(label).by(__.properties().group().by(label).by(__.project(_n,_o,_q,_p).by(id).by(label).by(value).by(__.valueMap()).fold()))
         },
         {
-          bindings: {"_b":"CountryCallingCode","_l":"tel:\u002B4912","_a":"Country","_c":"","_j":"tel:\u002B49","_p":"properties","_d":"t","_h":"tel:\u002B","_o":"label","_k":"tel:\u002B491","_n":"id","_i":"tel:\u002B4","_q":"value","_m":"tel:\u002B49123","_g":"tel:","_e":"te","_f":"tel"}
+          bindings: {"_h":"tel:\u002B","_q":"value","_n":"id","_j":"tel:\u002B49","_o":"label","_a":"Country","_l":"tel:\u002B4912","_f":"tel","_i":"tel:\u002B4","_k":"tel:\u002B491","_m":"tel:\u002B49123","_d":"t","_g":"tel:","_c":"","_b":"CountryCallingCode","_p":"properties","_e":"te"}
         },
         {
           {OriginalFormat}: Executing Gremlin query {requestId} with groovy script {script} and parameter bindings {bindings}.

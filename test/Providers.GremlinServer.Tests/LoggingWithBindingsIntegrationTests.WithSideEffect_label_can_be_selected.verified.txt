@@ -3,7 +3,7 @@
     log: {
       Level: Debug,
       Category: LoggingFixture,
-      Message: Executing Gremlin query 12345678-9012-3456-7890-123456789012 with groovy script g.withSideEffect(_a,_b).V().select(_a) and parameter bindings {"_b":36,"_a":"_a"}.,
+      Message: (Message),
       State: [
         {
           requestId: 12345678-9012-3456-7890-123456789012
@@ -12,7 +12,7 @@
           script: g.withSideEffect(_a,_b).V().select(_a)
         },
         {
-          bindings: {"_b":36,"_a":"_a"}
+          bindings: {"_a":"_a","_b":36}
         },
         {
           {OriginalFormat}: Executing Gremlin query {requestId} with groovy script {script} and parameter bindings {bindings}.

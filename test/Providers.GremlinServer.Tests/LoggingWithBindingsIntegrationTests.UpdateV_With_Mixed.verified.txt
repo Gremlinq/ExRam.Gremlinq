@@ -3,7 +3,7 @@
     log: {
       Level: Debug,
       Category: LoggingFixture,
-      Message: Executing Gremlin query 12345678-9012-3456-7890-123456789012 with groovy script g.V().hasLabel(_a).sideEffect(__.properties(_b,_c,_d).drop()).property(single,_e,_f).property(single,_g,_h).project(_i,_j,_k).by(id).by(label).by(__.properties().group().by(label).by(__.project(_i,_j,_l,_k).by(id).by(label).by(value).by(__.valueMap()).fold())) and parameter bindings {"_b":"Image","_l":"value","_a":"Person","_c":"PhoneNumbers","_j":"label","_d":"SomeObscureProperty","_h":"2020-04-07T14:43:36+00:00","_k":"properties","_i":"id","_g":"RegistrationDate","_e":"Name","_f":"Marko"}.,
+      Message: (Message),
       State: [
         {
           requestId: 12345678-9012-3456-7890-123456789012
@@ -12,7 +12,7 @@
           script: g.V().hasLabel(_a).sideEffect(__.properties(_b,_c,_d).drop()).property(single,_e,_f).property(single,_g,_h).project(_i,_j,_k).by(id).by(label).by(__.properties().group().by(label).by(__.project(_i,_j,_l,_k).by(id).by(label).by(value).by(__.valueMap()).fold()))
         },
         {
-          bindings: {"_b":"Image","_l":"value","_a":"Person","_c":"PhoneNumbers","_j":"label","_d":"SomeObscureProperty","_h":"2020-04-07T14:43:36+00:00","_k":"properties","_i":"id","_g":"RegistrationDate","_e":"Name","_f":"Marko"}
+          bindings: {"_h":"2020-04-07T14:43:36+00:00","_j":"label","_a":"Person","_l":"value","_f":"Marko","_i":"id","_k":"properties","_d":"SomeObscureProperty","_g":"RegistrationDate","_c":"PhoneNumbers","_b":"Image","_e":"Name"}
         },
         {
           {OriginalFormat}: Executing Gremlin query {requestId} with groovy script {script} and parameter bindings {bindings}.
