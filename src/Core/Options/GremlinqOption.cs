@@ -89,7 +89,6 @@ namespace ExRam.Gremlinq.Core
         public static readonly GremlinqOption<StringComparisonTranslationStrictness> StringComparisonTranslationStrictness = Create(Core.StringComparisonTranslationStrictness.Strict);
 
         public static readonly GremlinqOption<LogLevel> QueryLogLogLevel = Create(LogLevel.Debug);
-        public static readonly GremlinqOption<QueryLogFormatting> QueryLogFormatting = Create(Core.QueryLogFormatting.None);
         public static readonly GremlinqOption<QueryLogVerbosity> QueryLogVerbosity = Create(Core.QueryLogVerbosity.QueryOnly);
     }
 
