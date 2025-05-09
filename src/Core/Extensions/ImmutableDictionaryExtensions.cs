@@ -1,4 +1,5 @@
-﻿using System.Collections.Immutable;
+﻿using System.Collections.Frozen;
+using System.Collections.Immutable;
 using System.Runtime.CompilerServices;
 
 using ExRam.Gremlinq.Core.Projections;
@@ -15,7 +16,7 @@ namespace ExRam.Gremlinq.Core
             return (IReadOnlyDictionary<TKey, TValue>)FastDictionaries
                 .GetValue(
                     dict,
-                    static closureDict => ((IImmutableDictionary<TKey, TValue>)closureDict).ToDictionary(static x => x.Key, static x => x.Value));
+                    static closureDict => ((IImmutableDictionary<TKey, TValue>)closureDict).ToFrozenDictionary(static x => x.Key, static x => x.Value));
         }
 
         internal static IImmutableDictionary<TKey, TValue> Set<TKey, TValue, TState>(this IImmutableDictionary<TKey, TValue> dict, TKey key, TState state, Func<TValue, TState, TValue> change)
