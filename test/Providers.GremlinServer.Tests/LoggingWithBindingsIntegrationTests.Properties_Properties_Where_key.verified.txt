@@ -12,7 +12,11 @@
           script: g.V().hasLabel(_a).properties(_b).properties().filter(__.key().is(_c))
         },
         {
-          bindings: {"_a":"Company","_c":"someKey","_b":"Locations"}
+          bindings: {
+            _a: Company,
+            _b: Locations,
+            _c: someKey
+          }
         },
         {
           {OriginalFormat}: Executing Gremlin query {requestId} with groovy script {script} and parameter bindings {bindings}.

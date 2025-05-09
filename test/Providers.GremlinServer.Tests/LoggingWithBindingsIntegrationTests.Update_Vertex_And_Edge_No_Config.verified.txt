@@ -12,7 +12,28 @@
           script: g.V().hasLabel(_a).sideEffect(__.properties(_b,_c,_d).drop()).property(single,_e,_f).property(single,_g,_h).property(single,_i,_j).property(single,_k,_l).outE(_m).property(_n,_l).property(_o,_p).property(_q,_l).project(_r,_s,_t).by(id).by(label).by(__.valueMap())
         },
         {
-          bindings: {"_h":0,"_q":"To","_t":"properties","_n":"From","_s":"label","_j":"Marko","_o":"Role","_a":"Person","_l":"2020-04-07T14:43:36+00:00","_f":21,"_i":"Name","_k":"RegistrationDate","_m":"WorksFor","_d":"SomeObscureProperty","_g":"Gender","_c":"PhoneNumbers","_b":"Image","_p":"Admin","_r":"id","_e":"Age"}
+          bindings: {
+            _a: Person,
+            _b: Image,
+            _c: PhoneNumbers,
+            _d: SomeObscureProperty,
+            _e: Age,
+            _f: 21,
+            _g: Gender,
+            _h: Male,
+            _i: Name,
+            _j: Marko,
+            _k: RegistrationDate,
+            _l: DateTimeOffset_1,
+            _m: WorksFor,
+            _n: From,
+            _o: Role,
+            _p: Admin,
+            _q: To,
+            _r: id,
+            _s: label,
+            _t: properties
+          }
         },
         {
           {OriginalFormat}: Executing Gremlin query {requestId} with groovy script {script} and parameter bindings {bindings}.

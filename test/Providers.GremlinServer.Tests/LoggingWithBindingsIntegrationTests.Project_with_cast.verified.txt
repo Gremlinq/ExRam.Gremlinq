@@ -12,7 +12,17 @@
           script: g.inject(_a).project(_b,_c,_d,_e).by(__.constant(_f)).by(__.constant(_g)).by(__.constant(_h)).by(__.constant(_i))
         },
         {
-          bindings: {"_h":"count_value","_a":42,"_f":"in_value","_i":"properties_value","_d":"count","_g":"out_value","_c":"out","_b":"in","_e":"properties"}
+          bindings: {
+            _a: 42,
+            _b: in,
+            _c: out,
+            _d: count,
+            _e: properties,
+            _f: in_value,
+            _g: out_value,
+            _h: count_value,
+            _i: properties_value
+          }
         },
         {
           {OriginalFormat}: Executing Gremlin query {requestId} with groovy script {script} and parameter bindings {bindings}.

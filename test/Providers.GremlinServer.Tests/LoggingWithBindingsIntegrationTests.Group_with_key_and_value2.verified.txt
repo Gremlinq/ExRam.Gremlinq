@@ -11,9 +11,7 @@
         {
           script: g.V().group().by(__.label()).by(__.values())
         },
-        {
-          bindings: {}
-        },
+        {},
         {
           {OriginalFormat}: Executing Gremlin query {requestId} with groovy script {script} and parameter bindings {bindings}.
         }

@@ -12,7 +12,16 @@
           script: g.V().hasLabel(_a,_b,_c,_d,_e).choose(__.has(id,_f),__.constant(_g),__.constant(_h))
         },
         {
-          bindings: {"_h":false,"_a":"Company","_f":42,"_d":"Person","_g":true,"_c":"Language","_b":"Country","_e":"TimeFrame"}
+          bindings: {
+            _a: Company,
+            _b: Country,
+            _c: Language,
+            _d: Person,
+            _e: TimeFrame,
+            _f: 42,
+            _g: true,
+            _h: false
+          }
         },
         {
           {OriginalFormat}: Executing Gremlin query {requestId} with groovy script {script} and parameter bindings {bindings}.

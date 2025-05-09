@@ -12,7 +12,11 @@
           script: g.inject(_a,_b).fold().map(__.unfold().tail(_c).fold())
         },
         {
-          bindings: {"_a":42,"_c":1,"_b":43}
+          bindings: {
+            _a: 42,
+            _b: 43,
+            _c: 1
+          }
         },
         {
           {OriginalFormat}: Executing Gremlin query {requestId} with groovy script {script} and parameter bindings {bindings}.

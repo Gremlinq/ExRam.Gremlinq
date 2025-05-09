@@ -12,7 +12,18 @@
           script: g.addV(_a).property(single,_b,_c).addE(_d).property(_e,_f).to(__.addV(_g)).project(_h,_i,_j).by(id).by(label).by(__.valueMap())
         },
         {
-          bindings: {"_h":"id","_j":"properties","_a":"Person","_f":"2020-04-07T14:43:36+00:00","_i":"label","_d":"LivesIn","_g":"Country","_c":0,"_b":"Age","_e":"Since"}
+          bindings: {
+            _a: Person,
+            _b: Age,
+            _c: 0,
+            _d: LivesIn,
+            _e: Since,
+            _f: DateTimeOffset_1,
+            _g: Country,
+            _h: id,
+            _i: label,
+            _j: properties
+          }
         },
         {
           {OriginalFormat}: Executing Gremlin query {requestId} with groovy script {script} and parameter bindings {bindings}.

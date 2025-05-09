@@ -12,7 +12,16 @@
           script: g.inject(_a).as(_b).V().hasLabel(_c).has(_d,__.where(eq(_b))).order().by(id,asc).project(_e,_f,_g).by(id).by(label).by(__.properties().group().by(label).by(__.project(_e,_f,_h,_g).by(id).by(label).by(value).by(__.valueMap()).fold()))
         },
         {
-          bindings: {"_h":"value","_a":"en","_f":"label","_d":"IetfLanguageTag","_g":"properties","_c":"Language","_b":"_a","_e":"id"}
+          bindings: {
+            _a: en,
+            _b: _a,
+            _c: Language,
+            _d: IetfLanguageTag,
+            _e: id,
+            _f: label,
+            _g: properties,
+            _h: value
+          }
         },
         {
           {OriginalFormat}: Executing Gremlin query {requestId} with groovy script {script} and parameter bindings {bindings}.

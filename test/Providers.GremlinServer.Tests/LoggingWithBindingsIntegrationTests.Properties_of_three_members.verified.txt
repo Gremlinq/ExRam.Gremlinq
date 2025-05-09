@@ -12,7 +12,16 @@
           script: g.V().hasLabel(_a).properties(_b,_c,_d).project(_e,_f,_g,_h).by(id).by(label).by(value).by(__.valueMap())
         },
         {
-          bindings: {"_h":"properties","_a":"Country","_f":"label","_d":"Languages","_g":"value","_c":"CountryCallingCode","_b":"Name","_e":"id"}
+          bindings: {
+            _a: Country,
+            _b: Name,
+            _c: CountryCallingCode,
+            _d: Languages,
+            _e: id,
+            _f: label,
+            _g: value,
+            _h: properties
+          }
         },
         {
           {OriginalFormat}: Executing Gremlin query {requestId} with groovy script {script} and parameter bindings {bindings}.

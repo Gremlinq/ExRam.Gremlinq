@@ -12,7 +12,11 @@
           script: g.V().outE().project(_a,_b,_c).by(id).by(label).by(__.valueMap())
         },
         {
-          bindings: {"_a":"id","_c":"properties","_b":"label"}
+          bindings: {
+            _a: id,
+            _b: label,
+            _c: properties
+          }
         },
         {
           {OriginalFormat}: Executing Gremlin query {requestId} with groovy script {script} and parameter bindings {bindings}.

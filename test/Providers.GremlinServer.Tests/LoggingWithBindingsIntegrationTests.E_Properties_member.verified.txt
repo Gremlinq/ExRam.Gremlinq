@@ -12,7 +12,10 @@
           script: g.E().hasLabel(_a).properties(_b)
         },
         {
-          bindings: {"_a":"LivesIn","_b":"Since"}
+          bindings: {
+            _a: LivesIn,
+            _b: Since
+          }
         },
         {
           {OriginalFormat}: Executing Gremlin query {requestId} with groovy script {script} and parameter bindings {bindings}.

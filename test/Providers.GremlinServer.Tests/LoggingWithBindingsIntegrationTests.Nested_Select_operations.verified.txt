@@ -12,7 +12,17 @@
           script: g.V().hasLabel(_a).as(_b).project(_c,_d).by(__.select(_b)).by(__.select(_b)).as(_e).project(_c,_d).by(__.select(_b)).by(__.select(_e)).project(_c,_d).by(__.select(_c).project(_f,_g,_h).by(id).by(label).by(__.properties().group().by(label).by(__.project(_f,_g,_i,_h).by(id).by(label).by(value).by(__.valueMap()).fold()))).by(__.select(_d).project(_c,_d).by(__.select(_c).project(_f,_g,_h).by(id).by(label).by(__.properties().group().by(label).by(__.project(_f,_g,_i,_h).by(id).by(label).by(value).by(__.valueMap()).fold()))).by(__.select(_d).project(_f,_g,_h).by(id).by(label).by(__.properties().group().by(label).by(__.project(_f,_g,_i,_h).by(id).by(label).by(value).by(__.valueMap()).fold()))))
         },
         {
-          bindings: {"_h":"properties","_a":"Person","_f":"id","_i":"value","_d":"Item2","_g":"label","_c":"Item1","_b":"_a","_e":"_b"}
+          bindings: {
+            _a: Person,
+            _b: _a,
+            _c: Item1,
+            _d: Item2,
+            _e: _b,
+            _f: id,
+            _g: label,
+            _h: properties,
+            _i: value
+          }
         },
         {
           {OriginalFormat}: Executing Gremlin query {requestId} with groovy script {script} and parameter bindings {bindings}.

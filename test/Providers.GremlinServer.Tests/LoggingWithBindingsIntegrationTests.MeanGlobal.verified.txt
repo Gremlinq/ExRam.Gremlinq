@@ -12,7 +12,10 @@
           script: g.V().hasLabel(_a).values(_b).mean()
         },
         {
-          bindings: {"_a":"Person","_b":"Age"}
+          bindings: {
+            _a: Person,
+            _b: Age
+          }
         },
         {
           {OriginalFormat}: Executing Gremlin query {requestId} with groovy script {script} and parameter bindings {bindings}.
