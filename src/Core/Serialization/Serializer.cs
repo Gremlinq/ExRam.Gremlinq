@@ -226,18 +226,30 @@ namespace ExRam.Gremlinq.Core.Serialization
                             }
                             else if (step is HasLabelStep hasLabelStep1)
                             {
+                                Step newStep = hasLabelStep1;
+
                                 for (; j < steps.Length; j++)
                                 {
                                     if (steps[j] is HasLabelStep hasLabelStep2)
                                     {
-                                        hasLabelStep1 = new HasLabelStep(hasLabelStep2.Labels.Intersect(hasLabelStep1.Labels).ToImmutableArray());
+                                        if (newStep is HasLabelStep newHasLabelStep)
+                                        {
+                                            var intersection = hasLabelStep2.Labels
+                                                .Intersect(newHasLabelStep.Labels)
+                                                .ToImmutableArray();
+
+                                            newStep = intersection.Length > 0
+                                                ? new HasLabelStep(intersection)
+                                                : NoneStep.Instance;
+                                        }
+
                                         continue;
                                     }
 
                                     break;
                                 }
 
-                                AddStep(hasLabelStep1, byteCode, isSourceStep, env, recurse);
+                                AddStep(newStep, byteCode, isSourceStep, env, recurse);
                                 i = j - 1;
                             }
                             else if (step is HasPredicateStep hasPredicateStep1)
