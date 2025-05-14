@@ -838,6 +838,13 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Verify();
 
         [Fact]
+        public void Contradicting_OfType() => _g
+            .V()
+            .OfType<Person>()
+            .OfType<Country>()
+            .Verify();
+
+        [Fact]
         public virtual Task Count() => _g
             .V()
             .Count()
