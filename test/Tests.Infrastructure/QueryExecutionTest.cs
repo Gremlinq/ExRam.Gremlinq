@@ -779,15 +779,15 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Concat_traversals_and_string() => _g
-           .Inject(42)
-           .AsString()
-           .Concat(
-               __ => __
-                   .Constant("_a_"),
-               __ => __
-                   .Constant("_b_"))
-           .Concat("_3_")
-           .Verify();
+            .Inject(42)
+            .AsString()
+            .Concat(
+                __ => __
+                    .Constant("_a_"),
+                __ => __
+                    .Constant("_b_"))
+            .Concat("_3_")
+            .Verify();
 
         [Fact]
         public virtual Task Constant() => _g
