@@ -1,14 +1,14 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/ExRam/ExRam.Gremlinq/13.x/assets/logo.png" alt="Gremlinq mascot" title="Gremlinq mascot" width=40% />
+  <img src="https://raw.githubusercontent.com/Gremlinq/ExRam.Gremlinq/13.x/assets/logo.png" alt="Gremlinq mascot" title="Gremlinq mascot" width=40% />
 </p>
 
 
 ExRam.Gremlinq is a .NET object-graph-mapper for [Apache TinkerPop™](http://tinkerpop.apache.org/) Gremlin enabled databases.
 
-![License](https://img.shields.io/github/license/ExRam/ExRam.Gremlinq?style=flat-square)
+![License](https://img.shields.io/github/license/Gremlinq/ExRam.Gremlinq?style=flat-square)
 ![Downloads](https://img.shields.io/nuget/dt/ExRam.Gremlinq.Core?style=flat-square&logo=nuget)
 [![#](https://img.shields.io/nuget/v/ExRam.Gremlinq.Core?style=flat-square&logo=nuget)](https://www.nuget.org/packages?q=ExRam.Gremlinq)
-![Build status](https://img.shields.io/github/actions/workflow/status/ExRam/ExRam.Gremlinq/pack.yml?style=flat-square&logo=github)
+![Build status](https://img.shields.io/github/actions/workflow/status/Gremlinq/ExRam.Gremlinq/pack.yml?style=flat-square&logo=github)
 [![codecov](https://img.shields.io/codecov/c/github/Gremlinq/ExRam.Gremlinq?logo=codecov&style=flat-square)](https://codecov.io/github/Gremlinq/ExRam.Gremlinq)
 [![#](https://img.shields.io/github/sponsors/danielcweber?logo=githubsponsors&style=flat-square)](https://github.com/sponsors/danielcweber)
 
