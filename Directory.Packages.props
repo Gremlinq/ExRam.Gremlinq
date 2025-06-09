@@ -7,8 +7,8 @@
     <PackageVersion Include="FluentAssertions" Version="[7.2.0]" />
     <PackageVersion Include="Fody" Version="6.9.2" />
     <PackageVersion Include="Gremlin.Net" Version="3.7.3" />
-    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.14.0" />
-    <PackageVersion Include="Microsoft.Azure.Cosmos" Version="3.50.0" />
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
+    <PackageVersion Include="Microsoft.Azure.Cosmos" Version="3.51.0" />
     <PackageVersion Include="Microsoft.SourceLink.GitHub" Version="8.0.0" />
     <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="9.0.5" />
     <PackageVersion Include="Nerdbank.GitVersioning" Version="3.7.115" />
@@ -20,11 +20,11 @@
     <PackageVersion Include="System.Interactive.Async" Version="6.0.1" />
     <PackageVersion Include="System.Reactive" Version="6.0.1" />
     <PackageVersion Include="System.Text.Json" Version="9.0.5" />
-    <PackageVersion Include="Testcontainers" Version="4.4.0" />
-    <PackageVersion Include="Verify.XunitV3" Version="30.3.0" />
+    <PackageVersion Include="Testcontainers" Version="4.5.0" />
+    <PackageVersion Include="Verify.XunitV3" Version="30.3.1" />
     <PackageVersion Include="Verify.MicrosoftLogging" Version="4.0.1" />
-    <PackageVersion Include="xunit.runner.visualstudio" Version="3.1.0" />
-    <PackageVersion Include="xunit.v3" Version="2.0.2" />
+    <PackageVersion Include="xunit.runner.visualstudio" Version="3.1.1" />
+    <PackageVersion Include="xunit.v3" Version="2.0.3" />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)'=='net6.0'">
     <PackageVersion Include="Microsoft.Extensions.Configuration" Version="6.0.0" />
