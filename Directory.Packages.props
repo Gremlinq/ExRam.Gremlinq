@@ -17,7 +17,7 @@
     <PackageVersion Include="NullGuard.Fody" Version="3.1.1" />
     <PackageVersion Include="PublicApiGenerator" Version="11.4.6" />
     <PackageVersion Include="System.Collections.Immutable" Version="9.0.5" />
-    <PackageVersion Include="System.Interactive.Async" Version="6.0.1" />
+    <PackageVersion Include="System.Interactive.Async" Version="6.0.3" />
     <PackageVersion Include="System.Reactive" Version="6.0.1" />
     <PackageVersion Include="System.Text.Json" Version="9.0.5" />
     <PackageVersion Include="Testcontainers" Version="4.6.0" />
