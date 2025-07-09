@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Gremlinq/ExRam.Gremlinq/next/assets/logo.png" alt="Gremlinq mascot" title="Gremlinq mascot" width=40% />
+  <img src="https://raw.githubusercontent.com/Gremlinq/ExRam.Gremlinq/13.x/assets/logo.png" alt="Gremlinq mascot" title="Gremlinq mascot" width=40% />
 </p>
 
 <br/>
