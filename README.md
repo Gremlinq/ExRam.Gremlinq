@@ -1,28 +1,26 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Gremlinq/ExRam.Gremlinq/13.x/assets/logo.png" alt="Gremlinq mascot" title="Gremlinq mascot" width=40% />
+  <img src="https://raw.githubusercontent.com/Gremlinq/ExRam.Gremlinq/next/assets/logo.png" alt="Gremlinq mascot" title="Gremlinq mascot" width=40% />
 </p>
 
+<br/>
+<br/>
 
-ExRam.Gremlinq is a .NET object-graph-mapper for [Apache TinkerPop™](http://tinkerpop.apache.org/) Gremlin enabled databases.
+Gremlinq is a .NET object-graph-mapper for [Apache TinkerPop™](http://tinkerpop.apache.org/) Gremlin enabled databases.
 
 ![License](https://img.shields.io/github/license/Gremlinq/ExRam.Gremlinq?style=flat-square)
-![Downloads](https://img.shields.io/nuget/dt/ExRam.Gremlinq.Core?style=flat-square&logo=nuget)
 [![#](https://img.shields.io/nuget/v/ExRam.Gremlinq.Core?style=flat-square&logo=nuget)](https://www.nuget.org/packages?q=ExRam.Gremlinq)
-![Build status](https://img.shields.io/github/actions/workflow/status/Gremlinq/ExRam.Gremlinq/pack.yml?style=flat-square&logo=github)
-[![codecov](https://img.shields.io/codecov/c/github/Gremlinq/ExRam.Gremlinq?logo=codecov&style=flat-square)](https://codecov.io/github/Gremlinq/ExRam.Gremlinq)
-[![#](https://img.shields.io/github/sponsors/danielcweber?logo=githubsponsors&style=flat-square)](https://github.com/sponsors/danielcweber)
 
 <br/>
 
-# 🔥 Documentation
+# Documentation
 
-Head over to the official docs for an introduction on how to get started with ExRam.Gremlinq and lots of example queries.
+Head over to the official docs for an introduction on how to get started with Gremlinq and lots of example queries.
 
 [![#](https://img.shields.io/badge/Read_the_docs!-EA6F1B?style=for-the-badge)](https://docs.gremlinq.net)
 
 <br/>
 
-# 🔥 Support
+# Support
 
 Schedule a video session with [@danielcweber](https://github.com/danielcweber) to get assistance with Gremlinq setup and
 configuration, query writing, debugging or review.
@@ -35,7 +33,7 @@ discount if a workshop materializes.
 
 <br/>
 
-# 🔥 Extensions
+# Extensions
 
 Add some of the most-wanted features missing from the Core library to your app, like
 
