@@ -8,6 +8,8 @@
 
   <ItemGroup>
     <PackageReference Include="Boxed.DotnetNewTest" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" VersionOverride="9.0.7" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" />
     <PackageReference Include="System.Text.Json" />
 
     <ProjectReference Include="..\Tests.Infrastructure\ExRam.Gremlinq.Tests.Infrastructure.csproj" />
