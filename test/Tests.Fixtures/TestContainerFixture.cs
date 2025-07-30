@@ -80,6 +80,10 @@ namespace ExRam.Gremlinq.Tests.Fixtures
                 {
 
                 }
+                catch (NullReferenceException)
+                {
+                    //TODO: Remove upon https://github.com/testcontainers/testcontainers-dotnet/issues/1496 fix.
+                }
             }
 
             await base.DisposeAsync();
