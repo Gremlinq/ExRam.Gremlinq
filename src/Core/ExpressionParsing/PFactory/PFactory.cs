@@ -28,7 +28,9 @@ namespace ExRam.Gremlinq.Core.ExpressionParsing
                     }
                     case StringExpressionSemantics stringExpressionSemantics when maybeValue is string stringValue:
                     {
+#pragma warning disable CS0618 // Type or member is obsolete
                         if (stringValue.Length == 0 || stringExpressionSemantics.Comparison == StringComparison.Ordinal || environment.Options.GetValue(GremlinqOption.StringComparisonTranslationStrictness) == StringComparisonTranslationStrictness.Lenient)
+#pragma warning restore CS0618 // Type or member is obsolete
                         {
                             switch (stringExpressionSemantics)
                             {
