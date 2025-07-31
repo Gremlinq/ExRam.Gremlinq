@@ -69,9 +69,6 @@ namespace ExRam.Gremlinq.Tests.Fixtures
                         .ObserveResultStatusAttributes((_, attributes) =>
                         {
                             Console.WriteLine(JsonSerializer.Serialize(attributes));
-                        }))))
-            .ConfigureEnvironment(env => env
-                .ConfigureOptions(options => options
-                    .SetValue(GremlinqOption.StringComparisonTranslationStrictness, StringComparisonTranslationStrictness.Lenient)));
+                        }))));
     }
 }
