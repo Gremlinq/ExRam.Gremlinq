@@ -17,9 +17,6 @@ namespace ExRam.Gremlinq.Providers.Neptune.Tests
         public async Task Where_property_contains_empty_string_with_TextP_support_strict()
         {
             await _g
-                .ConfigureEnvironment(env => env
-                    .ConfigureOptions(options => options
-                        .SetValue(GremlinqOption.StringComparisonTranslationStrictness, StringComparisonTranslationStrictness.Strict)))
                 .V<Country>()
                 .Where(c => c.CountryCallingCode!.Contains(""))
                 .Verify();
@@ -29,9 +26,6 @@ namespace ExRam.Gremlinq.Providers.Neptune.Tests
         public async Task Where_property_contains_empty_string_with_TextP_support_case_insensitive_strict()
         {
             await _g
-                .ConfigureEnvironment(env => env
-                    .ConfigureOptions(options => options
-                        .SetValue(GremlinqOption.StringComparisonTranslationStrictness, StringComparisonTranslationStrictness.Strict)))
                 .V<Country>()
                 .Where(c => c.CountryCallingCode!.Contains("", StringComparison.OrdinalIgnoreCase))
                 .Verify();
