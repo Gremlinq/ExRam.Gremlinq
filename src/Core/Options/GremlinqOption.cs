@@ -87,9 +87,8 @@ namespace ExRam.Gremlinq.Core
         public static readonly GremlinqOption<FilterLabelsVerbosity> FilterLabelsVerbosity = Create(Core.FilterLabelsVerbosity.Maximum);
         public static readonly GremlinqOption<DisabledTextPredicates> DisabledTextPredicates = Create(Core.DisabledTextPredicates.None);
 
-#pragma warning disable CS0618 // Type or member is obsolete
+        [Obsolete("Starting from version 14, Gremlinq will always behave as if StringComparisonTranslationStrictness.Strict was configured. Queries using a string comparison which is not supported on a specific database provider (e.g. case insensitive queries on Azure CosmosDb) must be modified accordingly.")]
         public static readonly GremlinqOption<StringComparisonTranslationStrictness> StringComparisonTranslationStrictness = Create(Core.StringComparisonTranslationStrictness.Strict);
-#pragma warning restore CS0618 // Type or member is obsolete
 
         public static readonly GremlinqOption<LogLevel> QueryLogLogLevel = Create(LogLevel.Debug);
         public static readonly GremlinqOption<QueryLogVerbosity> QueryLogVerbosity = Create(Core.QueryLogVerbosity.QueryOnly);
