@@ -14,9 +14,6 @@ namespace ExRam.Gremlinq.Tests.Fixtures
                     .AtLocalhost("db", "graph")
                     .WithPartitionKey(x => x.PartitionKey!)
                     .AuthenticateBy("pass")
-                    .UseNewtonsoftJson())
-            .ConfigureEnvironment(env => env
-                .ConfigureOptions(options => options
-                    .SetValue(GremlinqOption.StringComparisonTranslationStrictness, StringComparisonTranslationStrictness.Lenient)));
+                    .UseNewtonsoftJson());
     }
 }
