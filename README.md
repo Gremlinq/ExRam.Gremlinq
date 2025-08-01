@@ -2,13 +2,10 @@
   <img src="https://raw.githubusercontent.com/Gremlinq/ExRam.Gremlinq/13.x/assets/logo.png" alt="Gremlinq logo" title="Gremlinq logo" width=50% />
 </p>
 
-<br/>
-<br/>
-
-Gremlinq is a .NET object-graph-mapper for [Apache TinkerPop™](http://tinkerpop.apache.org/) Gremlin enabled databases.
-
-![License](https://img.shields.io/github/license/Gremlinq/ExRam.Gremlinq?style=flat-square)
-[![#](https://img.shields.io/nuget/v/ExRam.Gremlinq.Core?style=flat-square&logo=nuget)](https://www.nuget.org/packages?q=ExRam.Gremlinq)
+<p align="center">
+  <img src="https://img.shields.io/github/license/Gremlinq/ExRam.Gremlinq?style=flat-square" alt="License" title="License" />
+  <img src="https://img.shields.io/nuget/v/ExRam.Gremlinq.Core?style=flat-square&logo=nuget)](https://www.nuget.org/packages?q=ExRam.Gremlinq" alt="NuGet" title="NuGet" />
+</p>
 
 # Synopsis
 
