@@ -9,7 +9,7 @@ namespace ExRam.Gremlinq.Tests.Fixtures
 {
     public class GremlinServerContainerFixture : ImageTestContainerFixture
     {
-        public GremlinServerContainerFixture() : base("tinkerpop/gremlin-server:3.7.3")
+        public GremlinServerContainerFixture() : base("tinkerpop/gremlin-server:3.7.4")
         {
         }
 
