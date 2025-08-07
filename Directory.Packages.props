@@ -19,7 +19,7 @@
     <PackageVersion Include="System.Collections.Immutable" Version="9.0.7" />
     <PackageVersion Include="System.Interactive.Async" Version="6.0.3" />
     <PackageVersion Include="System.Reactive" Version="6.0.1" />
-    <PackageVersion Include="System.Text.Json" Version="9.0.7" />
+    <PackageVersion Include="System.Text.Json" Version="9.0.8" />
     <PackageVersion Include="Testcontainers" Version="4.6.0" />
     <PackageVersion Include="Verify.XunitV3" Version="30.5.0" />
     <PackageVersion Include="Verify.MicrosoftLogging" Version="4.0.1" />
