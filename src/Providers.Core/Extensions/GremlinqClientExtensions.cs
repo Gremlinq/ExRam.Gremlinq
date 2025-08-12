@@ -1,5 +1,4 @@
 ﻿using System.Runtime.CompilerServices;
-using System.Text.Json;
 
 using ExRam.Gremlinq.Core;
 
@@ -69,9 +68,6 @@ namespace ExRam.Gremlinq.Providers.Core
 
         private sealed class LoggingGremlinqClient : IGremlinqClient
         {
-            private static readonly JsonSerializerOptions IndentedSerializerOptions = new() { WriteIndented = true };
-            private static readonly JsonSerializerOptions NotIndentedSerializerOptions = new() { WriteIndented = false };
-
             private readonly IGremlinqClient _client;
             private readonly Action<RequestMessage> _logger;
 
