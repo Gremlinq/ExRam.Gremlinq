@@ -12,38 +12,7 @@
           script: g.V().limit(_a).fold().range(local,_b,_c).map(__.unfold().project(_d,_e,_f).by(id).by(label).by(__.properties().group().by(label).by(__.project(_g,_h,_i,_j).by(id).by(label).by(value).by(__.valueMap()).fold())).fold())
         },
         {
-          bindings: [
-            {
-              _a: 2
-            },
-            {
-              _b: 0
-            },
-            {
-              _c: 2
-            },
-            {
-              _d: id
-            },
-            {
-              _e: label
-            },
-            {
-              _f: properties
-            },
-            {
-              _g: id
-            },
-            {
-              _h: label
-            },
-            {
-              _i: value
-            },
-            {
-              _j: properties
-            }
-          ]
+          bindings: {}
         },
         {
           {OriginalFormat}: Executing Gremlin query {requestId} with groovy script {script} and parameter bindings {bindings}.

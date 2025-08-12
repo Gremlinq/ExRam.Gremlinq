@@ -12,20 +12,7 @@
           script: g.V().hasLabel(_a).order().by(_b,asc).as(_c).format(_d).by(__.identity())
         },
         {
-          bindings: [
-            {
-              _a: Person
-            },
-            {
-              _b: Name
-            },
-            {
-              _c: _a
-            },
-            {
-              _d: _%{_}_
-            }
-          ]
+          bindings: {}
         },
         {
           {OriginalFormat}: Executing Gremlin query {requestId} with groovy script {script} and parameter bindings {bindings}.

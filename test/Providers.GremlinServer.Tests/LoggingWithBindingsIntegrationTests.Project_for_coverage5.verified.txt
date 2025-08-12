@@ -12,44 +12,7 @@
           script: g.V().hasLabel(_a).has(_b).project(_c,_d,_e,_f,_g).by(_h).by(_i).by(_j).by(_k).by(_l)
         },
         {
-          bindings: [
-            {
-              _a: Country
-            },
-            {
-              _b: CountryCallingCode
-            },
-            {
-              _c: Item1
-            },
-            {
-              _d: Item2
-            },
-            {
-              _e: Item3
-            },
-            {
-              _f: Item4
-            },
-            {
-              _g: Item5
-            },
-            {
-              _h: CountryCallingCode
-            },
-            {
-              _i: CountryCallingCode
-            },
-            {
-              _j: CountryCallingCode
-            },
-            {
-              _k: CountryCallingCode
-            },
-            {
-              _l: CountryCallingCode
-            }
-          ]
+          bindings: {}
         },
         {
           {OriginalFormat}: Executing Gremlin query {requestId} with groovy script {script} and parameter bindings {bindings}.

@@ -12,50 +12,7 @@
           script: g.V().hasLabel(_a).sideEffect(__.properties(_b,_c,_d).drop()).property(single,_e,_f).property(single,_g,_h).outE(_i).property(_j,_k).project(_l,_m,_n).by(id).by(label).by(__.valueMap())
         },
         {
-          bindings: [
-            {
-              _a: Person
-            },
-            {
-              _b: Image
-            },
-            {
-              _c: PhoneNumbers
-            },
-            {
-              _d: SomeObscureProperty
-            },
-            {
-              _e: Gender
-            },
-            {
-              _f: Male
-            },
-            {
-              _g: RegistrationDate
-            },
-            {
-              _h: DateTimeOffset_1
-            },
-            {
-              _i: WorksFor
-            },
-            {
-              _j: To
-            },
-            {
-              _k: DateTimeOffset_1
-            },
-            {
-              _l: id
-            },
-            {
-              _m: label
-            },
-            {
-              _n: properties
-            }
-          ]
+          bindings: {}
         },
         {
           {OriginalFormat}: Executing Gremlin query {requestId} with groovy script {script} and parameter bindings {bindings}.

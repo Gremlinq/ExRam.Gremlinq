@@ -12,20 +12,7 @@
           script: g.inject(_a).asString().concat(__.constant(_b),__.constant(_c)).concat(__.constant(_d))
         },
         {
-          bindings: [
-            {
-              _a: 42
-            },
-            {
-              _b: _a_
-            },
-            {
-              _c: _b_
-            },
-            {
-              _d: _c_
-            }
-          ]
+          bindings: {}
         },
         {
           {OriginalFormat}: Executing Gremlin query {requestId} with groovy script {script} and parameter bindings {bindings}.

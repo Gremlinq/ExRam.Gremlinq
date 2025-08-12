@@ -12,56 +12,7 @@
           script: g.addE(_a).property(_b,_c).property(_d,_e).property(_f,_g).to(__.addV(_h).property(single,_i,_j)).from(__.addV(_k).property(single,_l,_m)).project(_n,_o,_p).by(id).by(label).by(__.valueMap())
         },
         {
-          bindings: [
-            {
-              _a: WorksFor
-            },
-            {
-              _b: From
-            },
-            {
-              _c: DateTimeOffset_1
-            },
-            {
-              _d: Role
-            },
-            {
-              _e: Admin
-            },
-            {
-              _f: To
-            },
-            {
-              _g: DateTimeOffset_1
-            },
-            {
-              _h: Company
-            },
-            {
-              _i: FoundingDate
-            },
-            {
-              _j: Date_MinValue
-            },
-            {
-              _k: Person
-            },
-            {
-              _l: Age
-            },
-            {
-              _m: 0
-            },
-            {
-              _n: id
-            },
-            {
-              _o: label
-            },
-            {
-              _p: properties
-            }
-          ]
+          bindings: {}
         },
         {
           {OriginalFormat}: Executing Gremlin query {requestId} with groovy script {script} and parameter bindings {bindings}.

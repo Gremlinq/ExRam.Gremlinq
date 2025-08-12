@@ -12,29 +12,7 @@
           script: g.V().fold().sideEffect(__.identity()).unfold().project(_a,_b,_c).by(id).by(label).by(__.properties().group().by(label).by(__.project(_d,_e,_f,_g).by(id).by(label).by(value).by(__.valueMap()).fold()))
         },
         {
-          bindings: [
-            {
-              _a: id
-            },
-            {
-              _b: label
-            },
-            {
-              _c: properties
-            },
-            {
-              _d: id
-            },
-            {
-              _e: label
-            },
-            {
-              _f: value
-            },
-            {
-              _g: properties
-            }
-          ]
+          bindings: {}
         },
         {
           {OriginalFormat}: Executing Gremlin query {requestId} with groovy script {script} and parameter bindings {bindings}.

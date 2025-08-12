@@ -12,26 +12,7 @@
           script: g.V().hasLabel(_a).outE(_b).has(_c).inV().hasLabel(_d).values(_e).tree().by().by(_f).by().by()
         },
         {
-          bindings: [
-            {
-              _a: Person
-            },
-            {
-              _b: WorksFor
-            },
-            {
-              _c: Role
-            },
-            {
-              _d: Company
-            },
-            {
-              _e: FoundingDate
-            },
-            {
-              _f: Role
-            }
-          ]
+          bindings: {}
         },
         {
           {OriginalFormat}: Executing Gremlin query {requestId} with groovy script {script} and parameter bindings {bindings}.

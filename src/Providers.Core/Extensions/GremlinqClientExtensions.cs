@@ -1,4 +1,6 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System.Collections;
+using System.Runtime.CompilerServices;
+using System.Text;
 
 using ExRam.Gremlinq.Core;
 
@@ -68,6 +70,43 @@ namespace ExRam.Gremlinq.Providers.Core
 
         private sealed class LoggingGremlinqClient : IGremlinqClient
         {
+            private sealed class Bindings
+            {
+                private string? _toString;
+                private readonly IEnumerable<KeyValuePair<string, object?>>? _value;
+
+                public Bindings(IEnumerable<KeyValuePair<string, object?>>? bindings)
+                {
+                    _value = bindings;
+                }
+
+                public override string? ToString()
+                {
+                    if (_toString == null)
+                    {
+                        if (_value is { } value)
+                        {
+                            var first = true;
+                            var vsb = new StringBuilder();
+
+                            foreach (var kvp in value)
+                            {
+                                if (!first)
+                                    vsb.Append(", ");
+                                else
+                                    first = false;
+
+                                vsb.Append(kvp.ToString());
+                            }
+
+                            _toString = vsb.ToString();
+                        }
+                    }
+
+                    return _toString;
+                }
+            }
+
             private readonly IGremlinqClient _client;
             private readonly Action<RequestMessage> _logger;
 
@@ -122,7 +161,7 @@ namespace ExRam.Gremlinq.Providers.Core
                                     "Executing Gremlin query {requestId} with groovy script {script} and parameter bindings {bindings}.",
                                     requestMessage.RequestId,
                                     groovyQuery.Script,
-                                    groovyQuery.Bindings);
+                                    new Bindings(groovyQuery.Bindings));
                             }
                             else
                             {

@@ -12,7 +12,7 @@
           script: g.V().properties().values()
         },
         {
-          bindings: []
+          bindings: {}
         },
         {
           {OriginalFormat}: Executing Gremlin query {requestId} with groovy script {script} and parameter bindings {bindings}.

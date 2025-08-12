@@ -12,50 +12,7 @@
           script: g.V().hasLabel(_a).has(_b,_c).has(_d,_e).has(_f,_g).project(_h,_i,_j).by(id).by(label).by(__.properties().group().by(label).by(__.project(_k,_l,_m,_n).by(id).by(label).by(value).by(__.valueMap()).fold()))
         },
         {
-          bindings: [
-            {
-              _a: Person
-            },
-            {
-              _b: Age
-            },
-            {
-              _c: 36
-            },
-            {
-              _d: Name
-            },
-            {
-              _e: Hallo
-            },
-            {
-              _f: Age
-            },
-            {
-              _g: 42
-            },
-            {
-              _h: id
-            },
-            {
-              _i: label
-            },
-            {
-              _j: properties
-            },
-            {
-              _k: id
-            },
-            {
-              _l: label
-            },
-            {
-              _m: value
-            },
-            {
-              _n: properties
-            }
-          ]
+          bindings: {}
         },
         {
           {OriginalFormat}: Executing Gremlin query {requestId} with groovy script {script} and parameter bindings {bindings}.

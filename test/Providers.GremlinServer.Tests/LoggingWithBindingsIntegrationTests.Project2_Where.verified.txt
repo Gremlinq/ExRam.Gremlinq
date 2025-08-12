@@ -12,26 +12,7 @@
           script: g.inject(_a).project(_b,_c).by(__.constant(_d)).by(__.fold()).filter(__.select(_e).count(local).is(_f))
         },
         {
-          bindings: [
-            {
-              _a: 42
-            },
-            {
-              _b: Item1
-            },
-            {
-              _c: Item2
-            },
-            {
-              _d: item1
-            },
-            {
-              _e: Item2
-            },
-            {
-              _f: 3
-            }
-          ]
+          bindings: {}
         },
         {
           {OriginalFormat}: Executing Gremlin query {requestId} with groovy script {script} and parameter bindings {bindings}.

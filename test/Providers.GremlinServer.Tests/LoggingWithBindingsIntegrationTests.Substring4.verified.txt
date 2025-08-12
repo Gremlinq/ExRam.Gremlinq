@@ -12,17 +12,7 @@
           script: g.inject(_a).asString().substring(global,_b,_c)
         },
         {
-          bindings: [
-            {
-              _a: 1234567890
-            },
-            {
-              _b: 2
-            },
-            {
-              _c: -3
-            }
-          ]
+          bindings: {}
         },
         {
           {OriginalFormat}: Executing Gremlin query {requestId} with groovy script {script} and parameter bindings {bindings}.

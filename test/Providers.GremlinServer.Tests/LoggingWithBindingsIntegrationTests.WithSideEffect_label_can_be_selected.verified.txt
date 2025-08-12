@@ -12,17 +12,7 @@
           script: g.withSideEffect(_a,_b).V().select(_c)
         },
         {
-          bindings: [
-            {
-              _a: _a
-            },
-            {
-              _b: 36
-            },
-            {
-              _c: _a
-            }
-          ]
+          bindings: {}
         },
         {
           {OriginalFormat}: Executing Gremlin query {requestId} with groovy script {script} and parameter bindings {bindings}.
