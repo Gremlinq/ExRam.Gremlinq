@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.Globalization;
+using System.Reflection;
 
 using Xunit.Sdk;
 using Xunit.v3;
@@ -39,6 +40,11 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                         .ToArray(),
                     executionMessageSink,
                     executionOptions);
+        }
+
+        static GremlinqTestFramework()
+        {
+            CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
         }
 
         public override string TestFrameworkDisplayName => nameof(GremlinqTestFramework);
