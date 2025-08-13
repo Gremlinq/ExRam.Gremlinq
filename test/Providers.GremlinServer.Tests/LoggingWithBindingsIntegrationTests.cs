@@ -10,9 +10,6 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
     [IntegrationTest("Windows")]
     public partial class LoggingWithBindingsIntegrationTests : QueryExecutionTest, IClassFixture<LoggingWithBindingsIntegrationTests.LoggingFixture>
     {
-        [GeneratedRegex("^Executing Gremlin query 12345678-9012-3456-7890-123456789012.*")]
-        private static partial Regex ExecutingMessageRegex();
-
         public class LoggingFixture : LoggingIntegrationTests.LoggingFixture
         {
             public override IGremlinQuerySource GetQuerySource() => base
@@ -22,18 +19,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
                         .SetValue(GremlinqOption.QueryLogVerbosity, QueryLogVerbosity.IncludeBindings)));
         }
 
-        public class LoggingVerifier : LoggingIntegrationTests.LoggingVerifier
-        {
-            public LoggingVerifier([CallerFilePath] string sourceFile = "") : base(sourceFile)
-            {
-            }
-
-            protected override SettingsTask ModifySettingsTask(SettingsTask task) => base
-                .ModifySettingsTask(task
-                    .ScrubRegex(ExecutingMessageRegex(), "(Message)"));
-        }
-
-        public LoggingWithBindingsIntegrationTests(LoggingFixture fixture) : base(fixture, new LoggingVerifier())
+        public LoggingWithBindingsIntegrationTests(LoggingFixture fixture) : base(fixture, new LoggingIntegrationTests.LoggingVerifier())
         {
         }
     }

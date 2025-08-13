@@ -3,7 +3,7 @@
     log: {
       Level: Debug,
       Category: LoggingFixture,
-      Message: (Message),
+      Message: Executing Gremlin query 12345678-9012-3456-7890-123456789012 with groovy script g.V().hasLabel(_a).has(_b,within(_c,_d,_e,_f,_g,_h,_i,_j,_k,_l,_m)).project(_n,_o,_p).by(id).by(label).by(__.properties().group().by(label).by(__.project(_q,_r,_s,_t).by(id).by(label).by(value).by(__.valueMap()).fold())) and parameter bindings [_a, Country], [_b, CountryCallingCode], [_c, ], [_d, t], [_e, te], [_f, tel], [_g, tel:], [_h, tel:+], [_i, tel:+4], [_j, tel:+49], [_k, tel:+491], [_l, tel:+4912], [_m, tel:+49123], [_n, id], [_o, label], [_p, properties], [_q, id], [_r, label], [_s, value], [_t, properties].,
       State: [
         {
           requestId: 12345678-9012-3456-7890-123456789012

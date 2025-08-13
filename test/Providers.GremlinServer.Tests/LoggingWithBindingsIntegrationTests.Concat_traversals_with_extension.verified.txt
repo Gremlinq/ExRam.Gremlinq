@@ -3,7 +3,7 @@
     log: {
       Level: Debug,
       Category: LoggingFixture,
-      Message: (Message),
+      Message: Executing Gremlin query 12345678-9012-3456-7890-123456789012 with groovy script g.inject(_a).concat(__.constant(_b),__.constant(_c)).concat(__.constant(_d)) and parameter bindings [_a, 42], [_b, _a_], [_c, _b_], [_d, _c_].,
       State: [
         {
           requestId: 12345678-9012-3456-7890-123456789012
