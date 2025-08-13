@@ -87,14 +87,11 @@ namespace ExRam.Gremlinq.Core
 
         public static CheapGroovyGremlinScript ToCheapGroovyScript(Bytecode bytecode, IGremlinQueryEnvironment environment, bool includeBindings)
         {
-            var stringBuilder = new StringBuilder();
             var bindings = new Bindings(new List<KeyValuePair<object, Label>>());
-            var groovyWriter = new GroovyWriter(true, false);
-
-            groovyWriter.Append(bytecode, stringBuilder, bindings, environment);
+            var script = ToGroovyScriptImpl(bytecode, environment, bindings);
 
             return CheapGroovyGremlinScript.From(
-                stringBuilder.ToString(),
+                script,
                 includeBindings
                     ? bindings.Select(kvp => new KeyValuePair<string, object?>(kvp.Value, kvp.Key))
                     : null);
@@ -102,19 +99,27 @@ namespace ExRam.Gremlinq.Core
 
         public static GroovyGremlinScript ToGroovyScript(Bytecode bytecode, IGremlinQueryEnvironment environment, bool includeBindings)
         {
-            var stringBuilder = new StringBuilder();
             var bindings = new Bindings(new Dictionary<object, Label>());
-            var groovyWriter = new GroovyWriter(true, false);
-
-            groovyWriter.Append(bytecode, stringBuilder, bindings, environment);
+            var script = ToGroovyScriptImpl(bytecode, environment, bindings);
 
             return GroovyGremlinScript.From(
-                stringBuilder.ToString(),
+                script,
                 includeBindings
                     ? bindings.ToImmutableDictionary(static kvp => (string)kvp.Value, static kvp => (object?)kvp.Key)
                     : null);
         }
 
+        private static string ToGroovyScriptImpl(Bytecode bytecode, IGremlinQueryEnvironment environment, Bindings bindings)
+        {
+            var stringBuilder = new StringBuilder();
+            var groovyWriter = new GroovyWriter(true, false);
+
+            groovyWriter
+                .Append(bytecode, stringBuilder, bindings, environment);
+
+            return stringBuilder
+                .ToString();
+        }
         private GroovyWriter Append(
             object? obj,
             StringBuilder stringBuilder,
