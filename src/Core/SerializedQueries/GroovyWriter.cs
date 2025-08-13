@@ -85,6 +85,21 @@ namespace ExRam.Gremlinq.Core
             return stringBuilder.ToString();
         }
 
+        public static CheapGroovyGremlinScript ToCheapGroovyScript(Bytecode bytecode, IGremlinQueryEnvironment environment, bool includeBindings)
+        {
+            var stringBuilder = new StringBuilder();
+            var bindings = new Bindings(new List<KeyValuePair<object, Label>>());
+            var groovyWriter = new GroovyWriter(true, false);
+
+            groovyWriter.Append(bytecode, stringBuilder, bindings, environment);
+
+            return CheapGroovyGremlinScript.From(
+                stringBuilder.ToString(),
+                includeBindings
+                    ? bindings
+                    : null);
+        }
+
         public static GroovyGremlinScript ToGroovyScript(Bytecode bytecode, IGremlinQueryEnvironment environment, bool includeBindings)
         {
             var stringBuilder = new StringBuilder();
