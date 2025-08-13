@@ -1,7 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-using System.Text.RegularExpressions;
-
-using ExRam.Gremlinq.Core;
+﻿using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Tests.Infrastructure;
 
 namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
