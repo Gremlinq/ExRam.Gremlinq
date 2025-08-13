@@ -96,7 +96,7 @@ namespace ExRam.Gremlinq.Core
             return CheapGroovyGremlinScript.From(
                 stringBuilder.ToString(),
                 includeBindings
-                    ? bindings
+                    ? bindings.Select(kvp => new KeyValuePair<string, object?>(kvp.Value, kvp.Key))
                     : null);
         }
 
