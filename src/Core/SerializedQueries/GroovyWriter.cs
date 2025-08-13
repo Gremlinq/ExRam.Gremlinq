@@ -13,6 +13,59 @@ namespace ExRam.Gremlinq.Core
 {
     internal readonly struct GroovyWriter
     {
+        private readonly struct Bindings : IEnumerable<KeyValuePair<object, Label>>
+        {
+            private readonly Dictionary<object, Label>? _dictionary;
+            private readonly List<KeyValuePair<object, Label>>? _list;
+
+            public Bindings(Dictionary<object, Label> dictionary)
+            {
+                _dictionary = dictionary;
+            }
+
+            public Bindings(List<KeyValuePair<object, Label>> list)
+            {
+                _list = list;
+            }
+
+            public Label GetOrAdd(object obj)
+            {
+                if (_list is { } list)
+                {
+                    var bindingKey = list.Count;
+                    list.Add(new KeyValuePair<object, Label>(obj, bindingKey));
+
+                    return bindingKey;
+                }
+
+                if (_dictionary is { } dictionary)
+                {
+                    if (!dictionary.TryGetValue(obj, out var bindingKey))
+                    {
+                        bindingKey = dictionary.Count;
+                        dictionary.Add(obj, bindingKey);
+                    }
+
+                    return bindingKey;
+                }
+
+                throw new InvalidOperationException();
+            }
+
+            IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+
+            public IEnumerator<KeyValuePair<object, Label>> GetEnumerator()
+            {
+                if (_list is { } list)
+                    return list.GetEnumerator();
+
+                if (_dictionary is { } dictionary)
+                    return dictionary.GetEnumerator();
+
+                throw new InvalidOperationException();
+            }
+        }
+
         private readonly bool _isEmpty;
         private readonly bool _hasIdentifier;
 
@@ -35,7 +88,7 @@ namespace ExRam.Gremlinq.Core
         public static GroovyGremlinScript ToGroovyScript(Bytecode bytecode, IGremlinQueryEnvironment environment, bool includeBindings)
         {
             var stringBuilder = new StringBuilder();
-            var bindings = new Dictionary<object, Label>();
+            var bindings = new Bindings(new Dictionary<object, Label>());
             var groovyWriter = new GroovyWriter(true, false);
 
             groovyWriter.Append(bytecode, stringBuilder, bindings, environment);
@@ -50,7 +103,7 @@ namespace ExRam.Gremlinq.Core
         private GroovyWriter Append(
             object? obj,
             StringBuilder stringBuilder,
-            Dictionary<object, Label>? bindings,
+            Bindings? maybeBindings,
             IGremlinQueryEnvironment environment,
             bool allowEnumerableExpansion = false)
         {
@@ -63,7 +116,7 @@ namespace ExRam.Gremlinq.Core
                     foreach (var instruction in expression.Instructions)
                     {
                         writer = writer
-                            .Append(instruction, stringBuilder, bindings, environment);
+                            .Append(instruction, stringBuilder, maybeBindings, environment);
                     }
 
                     return writer;
@@ -75,13 +128,13 @@ namespace ExRam.Gremlinq.Core
                     foreach (var instruction in byteCode.SourceInstructions)
                     {
                         writer = writer
-                            .Append(instruction, stringBuilder, bindings, environment);
+                            .Append(instruction, stringBuilder, maybeBindings, environment);
                     }
 
                     foreach (var instruction in byteCode.StepInstructions)
                     {
                         writer = writer
-                            .Append(instruction, stringBuilder, bindings, environment);
+                            .Append(instruction, stringBuilder, maybeBindings, environment);
                     }
 
                     return writer;
@@ -90,22 +143,22 @@ namespace ExRam.Gremlinq.Core
                 {
                     return this
                         .StartOperator(instruction.OperatorName, stringBuilder)
-                        .Append(instruction.Arguments, stringBuilder, bindings, environment, true)
+                        .Append(instruction.Arguments, stringBuilder, maybeBindings, environment, true)
                         .EndOperator(stringBuilder);
                 }
                 case P { Value: P p1, Other: { } otherP, OperatorName: { } operatorName }:
                 {
                     return this
-                        .Append(p1, stringBuilder, bindings, environment)
+                        .Append(p1, stringBuilder, maybeBindings, environment)
                         .StartOperator(operatorName, stringBuilder)
-                        .Append(otherP, stringBuilder, bindings, environment)
+                        .Append(otherP, stringBuilder, maybeBindings, environment)
                         .EndOperator(stringBuilder);
                 }
                 case P { Value: { } pValue, OperatorName: { } operatorName }:
                 {
                     return this
                         .StartOperator(operatorName, stringBuilder)
-                        .Append(pValue, stringBuilder, bindings, environment, true)
+                        .Append(pValue, stringBuilder, maybeBindings, environment, true)
                         .EndOperator(stringBuilder);
                 }
                 case EnumWrapper t:
@@ -116,19 +169,19 @@ namespace ExRam.Gremlinq.Core
                 {
                     return WriteLambda(lambda.LambdaExpression, stringBuilder);
                 }
-                case string str when bindings == null:
+                case string str when maybeBindings == null:
                 {
                     return WriteQuoted(str, stringBuilder);
                 }
-                case DateTimeOffset dateTime when bindings == null:
+                case DateTimeOffset dateTime when maybeBindings == null:
                 {
                     return WriteQuoted(dateTime.ToString("o"), stringBuilder);
                 }
-                case DateTime dateTime when bindings == null:
+                case DateTime dateTime when maybeBindings == null:
                 {
                     return WriteQuoted(dateTime.ToString("o"), stringBuilder);
                 }
-                case bool b when bindings == null:
+                case bool b when maybeBindings == null:
                 {
                     return Write(b ? "true" : "false", stringBuilder);
                 }
@@ -143,7 +196,7 @@ namespace ExRam.Gremlinq.Core
                             .TransformTo<GroovyExpression>()
                             .From(traversalStrategy, environment),
                         stringBuilder,
-                        bindings,
+                        maybeBindings,
                         environment,
                         allowEnumerableExpansion);
                 }
@@ -157,7 +210,7 @@ namespace ExRam.Gremlinq.Core
                     {
                         writer = writer
                             .StartElement(i, stringBuilder)
-                            .Append(list[i], stringBuilder, bindings, environment);
+                            .Append(list[i], stringBuilder, maybeBindings, environment);
                     }
 
                     return allowEnumerableExpansion
@@ -166,15 +219,11 @@ namespace ExRam.Gremlinq.Core
                 }
                 case null:
                     return Write("null", stringBuilder);
-                case not null when bindings != null:
+                case not null when maybeBindings is { } bindings:
                 {
-                    if (!bindings.TryGetValue(obj, out var bindingKey))
-                    {
-                        bindingKey = bindings.Count;
-                        bindings.Add(obj, bindingKey);
-                    }
-
-                    stringBuilder.Append(bindingKey);
+                    stringBuilder
+                        .Append(bindings
+                            .GetOrAdd(obj));
 
                     return new();
                 }
