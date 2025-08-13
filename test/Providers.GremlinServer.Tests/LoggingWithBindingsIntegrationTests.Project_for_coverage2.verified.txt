@@ -9,15 +9,29 @@
           requestId: 12345678-9012-3456-7890-123456789012
         },
         {
-          script: g.V().hasLabel(_a).has(_b).project(_c,_d).by(_b).by(_b)
+          script: g.V().hasLabel(_a).has(_b).project(_c,_d).by(_e).by(_f)
         },
         {
-          bindings: {
-            _a: Country,
-            _b: CountryCallingCode,
-            _c: Item1,
-            _d: Item2
-          }
+          bindings: [
+            {
+              _a: Country
+            },
+            {
+              _b: CountryCallingCode
+            },
+            {
+              _c: Item1
+            },
+            {
+              _d: Item2
+            },
+            {
+              _e: CountryCallingCode
+            },
+            {
+              _f: CountryCallingCode
+            }
+          ]
         },
         {
           {OriginalFormat}: Executing Gremlin query {requestId} with groovy script {script} and parameter bindings {bindings}.

@@ -9,19 +9,83 @@
           requestId: 12345678-9012-3456-7890-123456789012
         },
         {
-          script: g.V().hasLabel(_a).as(_b).project(_c,_d).by(__.select(_b)).by(__.select(_b)).project(_c,_d).by(__.select(_c).project(_e,_f,_g).by(id).by(label).by(__.properties().group().by(label).by(__.project(_e,_f,_h,_g).by(id).by(label).by(value).by(__.valueMap()).fold()))).by(__.select(_d).project(_e,_f,_g).by(id).by(label).by(__.properties().group().by(label).by(__.project(_e,_f,_h,_g).by(id).by(label).by(value).by(__.valueMap()).fold())))
+          script: g.V().hasLabel(_a).as(_b).project(_c,_d).by(__.select(_e)).by(__.select(_f)).project(_g,_h).by(__.select(_i).project(_j,_k,_l).by(id).by(label).by(__.properties().group().by(label).by(__.project(_m,_n,_o,_p).by(id).by(label).by(value).by(__.valueMap()).fold()))).by(__.select(_q).project(_r,_s,_t).by(id).by(label).by(__.properties().group().by(label).by(__.project(_u,_v,_w,_x).by(id).by(label).by(value).by(__.valueMap()).fold())))
         },
         {
-          bindings: {
-            _a: Person,
-            _b: _a,
-            _c: Item1,
-            _d: Item2,
-            _e: id,
-            _f: label,
-            _g: properties,
-            _h: value
-          }
+          bindings: [
+            {
+              _a: Person
+            },
+            {
+              _b: _a
+            },
+            {
+              _c: Item1
+            },
+            {
+              _d: Item2
+            },
+            {
+              _e: _a
+            },
+            {
+              _f: _a
+            },
+            {
+              _g: Item1
+            },
+            {
+              _h: Item2
+            },
+            {
+              _i: Item1
+            },
+            {
+              _j: id
+            },
+            {
+              _k: label
+            },
+            {
+              _l: properties
+            },
+            {
+              _m: id
+            },
+            {
+              _n: label
+            },
+            {
+              _o: value
+            },
+            {
+              _p: properties
+            },
+            {
+              _q: Item2
+            },
+            {
+              _r: id
+            },
+            {
+              _s: label
+            },
+            {
+              _t: properties
+            },
+            {
+              _u: id
+            },
+            {
+              _v: label
+            },
+            {
+              _w: value
+            },
+            {
+              _x: properties
+            }
+          ]
         },
         {
           {OriginalFormat}: Executing Gremlin query {requestId} with groovy script {script} and parameter bindings {bindings}.

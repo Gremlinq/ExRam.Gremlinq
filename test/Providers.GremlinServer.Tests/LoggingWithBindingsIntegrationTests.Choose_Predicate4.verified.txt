@@ -12,11 +12,17 @@
           script: g.V().id().choose(lt(_a),__.constant(_b),__.constant(_c))
         },
         {
-          bindings: {
-            _a: 42,
-            _b: true,
-            _c: false
-          }
+          bindings: [
+            {
+              _a: 42
+            },
+            {
+              _b: true
+            },
+            {
+              _c: false
+            }
+          ]
         },
         {
           {OriginalFormat}: Executing Gremlin query {requestId} with groovy script {script} and parameter bindings {bindings}.

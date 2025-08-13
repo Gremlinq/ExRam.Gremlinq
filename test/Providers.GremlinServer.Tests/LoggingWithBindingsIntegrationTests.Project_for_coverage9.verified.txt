@@ -9,22 +9,71 @@
           requestId: 12345678-9012-3456-7890-123456789012
         },
         {
-          script: g.V().hasLabel(_a).has(_b).project(_c,_d,_e,_f,_g,_h,_i,_j,_k).by(_b).by(_b).by(_b).by(_b).by(_b).by(_b).by(_b).by(_b).by(_b)
+          script: g.V().hasLabel(_a).has(_b).project(_c,_d,_e,_f,_g,_h,_i,_j,_k).by(_l).by(_m).by(_n).by(_o).by(_p).by(_q).by(_r).by(_s).by(_t)
         },
         {
-          bindings: {
-            _a: Country,
-            _b: CountryCallingCode,
-            _c: Item1,
-            _d: Item2,
-            _e: Item3,
-            _f: Item4,
-            _g: Item5,
-            _h: Item6,
-            _i: Item7,
-            _j: Item8,
-            _k: Item9
-          }
+          bindings: [
+            {
+              _a: Country
+            },
+            {
+              _b: CountryCallingCode
+            },
+            {
+              _c: Item1
+            },
+            {
+              _d: Item2
+            },
+            {
+              _e: Item3
+            },
+            {
+              _f: Item4
+            },
+            {
+              _g: Item5
+            },
+            {
+              _h: Item6
+            },
+            {
+              _i: Item7
+            },
+            {
+              _j: Item8
+            },
+            {
+              _k: Item9
+            },
+            {
+              _l: CountryCallingCode
+            },
+            {
+              _m: CountryCallingCode
+            },
+            {
+              _n: CountryCallingCode
+            },
+            {
+              _o: CountryCallingCode
+            },
+            {
+              _p: CountryCallingCode
+            },
+            {
+              _q: CountryCallingCode
+            },
+            {
+              _r: CountryCallingCode
+            },
+            {
+              _s: CountryCallingCode
+            },
+            {
+              _t: CountryCallingCode
+            }
+          ]
         },
         {
           {OriginalFormat}: Executing Gremlin query {requestId} with groovy script {script} and parameter bindings {bindings}.

@@ -9,15 +9,35 @@
           requestId: 12345678-9012-3456-7890-123456789012
         },
         {
-          script: g.V().hasLabel(_a).as(_b).V().hasLabel(_a).as(_c).where(_b,gte(_c)).by(_d).by(_d).count()
+          script: g.V().hasLabel(_a).as(_b).V().hasLabel(_c).as(_d).where(_e,gte(_f)).by(_g).by(_h).count()
         },
         {
-          bindings: {
-            _a: Person,
-            _b: _a,
-            _c: _b,
-            _d: Age
-          }
+          bindings: [
+            {
+              _a: Person
+            },
+            {
+              _b: _a
+            },
+            {
+              _c: Person
+            },
+            {
+              _d: _b
+            },
+            {
+              _e: _a
+            },
+            {
+              _f: _b
+            },
+            {
+              _g: Age
+            },
+            {
+              _h: Age
+            }
+          ]
         },
         {
           {OriginalFormat}: Executing Gremlin query {requestId} with groovy script {script} and parameter bindings {bindings}.

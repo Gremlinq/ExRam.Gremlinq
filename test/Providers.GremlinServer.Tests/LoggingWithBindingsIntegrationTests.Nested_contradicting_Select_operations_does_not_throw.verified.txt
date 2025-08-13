@@ -9,20 +9,131 @@
           requestId: 12345678-9012-3456-7890-123456789012
         },
         {
-          script: g.V().hasLabel(_a).as(_b).project(_c,_d).by(__.select(_b)).by(__.select(_b)).as(_e).project(_c,_d).by(__.select(_e)).by(__.select(_b)).project(_c,_d).by(__.select(_c).project(_c,_d).by(__.select(_c).project(_f,_g,_h).by(id).by(label).by(__.properties().group().by(label).by(__.project(_f,_g,_i,_h).by(id).by(label).by(value).by(__.valueMap()).fold()))).by(__.select(_d).project(_f,_g,_h).by(id).by(label).by(__.properties().group().by(label).by(__.project(_f,_g,_i,_h).by(id).by(label).by(value).by(__.valueMap()).fold())))).by(__.select(_d).project(_f,_g,_h).by(id).by(label).by(__.properties().group().by(label).by(__.project(_f,_g,_i,_h).by(id).by(label).by(value).by(__.valueMap()).fold())))
+          script: g.V().hasLabel(_a).as(_b).project(_c,_d).by(__.select(_e)).by(__.select(_f)).as(_g).project(_h,_i).by(__.select(_j)).by(__.select(_k)).project(_l,_m).by(__.select(_n).project(_o,_p).by(__.select(_q).project(_r,_s,_t).by(id).by(label).by(__.properties().group().by(label).by(__.project(_u,_v,_w,_x).by(id).by(label).by(value).by(__.valueMap()).fold()))).by(__.select(_y).project(_z,_ba,_bb).by(id).by(label).by(__.properties().group().by(label).by(__.project(_bc,_bd,_be,_bf).by(id).by(label).by(value).by(__.valueMap()).fold())))).by(__.select(_bg).project(_bh,_bi,_bj).by(id).by(label).by(__.properties().group().by(label).by(__.project(_bk,_bl,_bm,_bn).by(id).by(label).by(value).by(__.valueMap()).fold())))
         },
         {
-          bindings: {
-            _a: Person,
-            _b: _a,
-            _c: Item1,
-            _d: Item2,
-            _e: _b,
-            _f: id,
-            _g: label,
-            _h: properties,
-            _i: value
-          }
+          bindings: [
+            {
+              _a: Person
+            },
+            {
+              _b: _a
+            },
+            {
+              _c: Item1
+            },
+            {
+              _d: Item2
+            },
+            {
+              _e: _a
+            },
+            {
+              _f: _a
+            },
+            {
+              _g: _b
+            },
+            {
+              _h: Item1
+            },
+            {
+              _i: Item2
+            },
+            {
+              _j: _b
+            },
+            {
+              _k: _a
+            },
+            {
+              _l: Item1
+            },
+            {
+              _m: Item2
+            },
+            {
+              _n: Item1
+            },
+            {
+              _o: Item1
+            },
+            {
+              _p: Item2
+            },
+            {
+              _q: Item1
+            },
+            {
+              _r: id
+            },
+            {
+              _s: label
+            },
+            {
+              _t: properties
+            },
+            {
+              _u: id
+            },
+            {
+              _v: label
+            },
+            {
+              _w: value
+            },
+            {
+              _x: properties
+            },
+            {
+              _y: Item2
+            },
+            {
+              _z: id
+            },
+            {
+              _ba: label
+            },
+            {
+              _bb: properties
+            },
+            {
+              _bc: id
+            },
+            {
+              _bd: label
+            },
+            {
+              _be: value
+            },
+            {
+              _bf: properties
+            },
+            {
+              _bg: Item2
+            },
+            {
+              _bh: id
+            },
+            {
+              _bi: label
+            },
+            {
+              _bj: properties
+            },
+            {
+              _bk: id
+            },
+            {
+              _bl: label
+            },
+            {
+              _bm: value
+            },
+            {
+              _bn: properties
+            }
+          ]
         },
         {
           {OriginalFormat}: Executing Gremlin query {requestId} with groovy script {script} and parameter bindings {bindings}.

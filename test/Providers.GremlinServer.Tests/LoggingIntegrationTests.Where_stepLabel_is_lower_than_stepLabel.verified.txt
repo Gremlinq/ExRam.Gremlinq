@@ -3,13 +3,13 @@
     log: {
       Level: Debug,
       Category: LoggingFixture,
-      Message: Executing Gremlin query 12345678-9012-3456-7890-123456789012 with groovy script g.V().hasLabel(_a).filter(__.as(_b).values(_c).as(_d).V().hasLabel(_a).values(_c).as(_e).where(_d,lt(_e))).project(_f,_g,_h).by(id).by(label).by(__.properties().group().by(label).by(__.project(_f,_g,_i,_h).by(id).by(label).by(value).by(__.valueMap()).fold())).,
+      Message: Executing Gremlin query 12345678-9012-3456-7890-123456789012 with groovy script g.V().hasLabel(_a).filter(__.as(_b).values(_c).as(_d).V().hasLabel(_e).values(_f).as(_g).where(_h,lt(_i))).project(_j,_k,_l).by(id).by(label).by(__.properties().group().by(label).by(__.project(_m,_n,_o,_p).by(id).by(label).by(value).by(__.valueMap()).fold())).,
       State: [
         {
           requestId: 12345678-9012-3456-7890-123456789012
         },
         {
-          script: g.V().hasLabel(_a).filter(__.as(_b).values(_c).as(_d).V().hasLabel(_a).values(_c).as(_e).where(_d,lt(_e))).project(_f,_g,_h).by(id).by(label).by(__.properties().group().by(label).by(__.project(_f,_g,_i,_h).by(id).by(label).by(value).by(__.valueMap()).fold()))
+          script: g.V().hasLabel(_a).filter(__.as(_b).values(_c).as(_d).V().hasLabel(_e).values(_f).as(_g).where(_h,lt(_i))).project(_j,_k,_l).by(id).by(label).by(__.properties().group().by(label).by(__.project(_m,_n,_o,_p).by(id).by(label).by(value).by(__.valueMap()).fold()))
         },
         {
           {OriginalFormat}: Executing Gremlin query {requestId} with groovy script {script}.

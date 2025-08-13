@@ -12,10 +12,14 @@
           script: g.V().hasLabel(_a).union(__.id(),__.values(_b))
         },
         {
-          bindings: {
-            _a: Person,
-            _b: Name
-          }
+          bindings: [
+            {
+              _a: Person
+            },
+            {
+              _b: Name
+            }
+          ]
         },
         {
           {OriginalFormat}: Executing Gremlin query {requestId} with groovy script {script} and parameter bindings {bindings}.

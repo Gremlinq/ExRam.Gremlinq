@@ -12,9 +12,11 @@
           script: g.inject(_a).length()
         },
         {
-          bindings: {
-            _a: aBcDeFg
-          }
+          bindings: [
+            {
+              _a: aBcDeFg
+            }
+          ]
         },
         {
           {OriginalFormat}: Executing Gremlin query {requestId} with groovy script {script} and parameter bindings {bindings}.

@@ -3,13 +3,13 @@
     log: {
       Level: Debug,
       Category: LoggingFixture,
-      Message: Executing Gremlin query 12345678-9012-3456-7890-123456789012 with groovy script g.V().hasLabel(_a).has(_b).project(_c,_d,_e,_f,_g,_h,_i,_j,_k,_l,_m,_n,_o).by(_b).by(_b).by(_b).by(_b).by(_b).by(_b).by(_b).by(_b).by(_b).by(_b).by(_b).by(_b).by(_b).,
+      Message: Executing Gremlin query 12345678-9012-3456-7890-123456789012 with groovy script g.V().hasLabel(_a).has(_b).project(_c,_d,_e,_f,_g,_h,_i,_j,_k,_l,_m,_n,_o).by(_p).by(_q).by(_r).by(_s).by(_t).by(_u).by(_v).by(_w).by(_x).by(_y).by(_z).by(_ba).by(_bb).,
       State: [
         {
           requestId: 12345678-9012-3456-7890-123456789012
         },
         {
-          script: g.V().hasLabel(_a).has(_b).project(_c,_d,_e,_f,_g,_h,_i,_j,_k,_l,_m,_n,_o).by(_b).by(_b).by(_b).by(_b).by(_b).by(_b).by(_b).by(_b).by(_b).by(_b).by(_b).by(_b).by(_b)
+          script: g.V().hasLabel(_a).has(_b).project(_c,_d,_e,_f,_g,_h,_i,_j,_k,_l,_m,_n,_o).by(_p).by(_q).by(_r).by(_s).by(_t).by(_u).by(_v).by(_w).by(_x).by(_y).by(_z).by(_ba).by(_bb)
         },
         {
           {OriginalFormat}: Executing Gremlin query {requestId} with groovy script {script}.

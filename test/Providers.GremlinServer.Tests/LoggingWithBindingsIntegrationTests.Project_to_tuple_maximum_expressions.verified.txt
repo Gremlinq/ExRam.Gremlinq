@@ -9,29 +9,113 @@
           requestId: 12345678-9012-3456-7890-123456789012
         },
         {
-          script: g.V().hasLabel(_a).has(_b).project(_c,_d,_e,_f,_g,_h,_i,_j,_k,_l,_m,_n,_o,_p,_q,_r).by(_b).by(_b).by(_b).by(_b).by(_b).by(_b).by(_b).by(_b).by(_b).by(_b).by(_b).by(_b).by(_b).by(_b).by(_b).by(_b)
+          script: g.V().hasLabel(_a).has(_b).project(_c,_d,_e,_f,_g,_h,_i,_j,_k,_l,_m,_n,_o,_p,_q,_r).by(_s).by(_t).by(_u).by(_v).by(_w).by(_x).by(_y).by(_z).by(_ba).by(_bb).by(_bc).by(_bd).by(_be).by(_bf).by(_bg).by(_bh)
         },
         {
-          bindings: {
-            _a: Country,
-            _b: CountryCallingCode,
-            _c: Item1,
-            _d: Item2,
-            _e: Item3,
-            _f: Item4,
-            _g: Item5,
-            _h: Item6,
-            _i: Item7,
-            _j: Item8,
-            _k: Item9,
-            _l: Item10,
-            _m: Item11,
-            _n: Item12,
-            _o: Item13,
-            _p: Item14,
-            _q: Item15,
-            _r: Item16
-          }
+          bindings: [
+            {
+              _a: Country
+            },
+            {
+              _b: CountryCallingCode
+            },
+            {
+              _c: Item1
+            },
+            {
+              _d: Item2
+            },
+            {
+              _e: Item3
+            },
+            {
+              _f: Item4
+            },
+            {
+              _g: Item5
+            },
+            {
+              _h: Item6
+            },
+            {
+              _i: Item7
+            },
+            {
+              _j: Item8
+            },
+            {
+              _k: Item9
+            },
+            {
+              _l: Item10
+            },
+            {
+              _m: Item11
+            },
+            {
+              _n: Item12
+            },
+            {
+              _o: Item13
+            },
+            {
+              _p: Item14
+            },
+            {
+              _q: Item15
+            },
+            {
+              _r: Item16
+            },
+            {
+              _s: CountryCallingCode
+            },
+            {
+              _t: CountryCallingCode
+            },
+            {
+              _u: CountryCallingCode
+            },
+            {
+              _v: CountryCallingCode
+            },
+            {
+              _w: CountryCallingCode
+            },
+            {
+              _x: CountryCallingCode
+            },
+            {
+              _y: CountryCallingCode
+            },
+            {
+              _z: CountryCallingCode
+            },
+            {
+              _ba: CountryCallingCode
+            },
+            {
+              _bb: CountryCallingCode
+            },
+            {
+              _bc: CountryCallingCode
+            },
+            {
+              _bd: CountryCallingCode
+            },
+            {
+              _be: CountryCallingCode
+            },
+            {
+              _bf: CountryCallingCode
+            },
+            {
+              _bg: CountryCallingCode
+            },
+            {
+              _bh: CountryCallingCode
+            }
+          ]
         },
         {
           {OriginalFormat}: Executing Gremlin query {requestId} with groovy script {script} and parameter bindings {bindings}.

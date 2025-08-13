@@ -12,10 +12,14 @@
           script: g.inject(_a).coin(_b)
         },
         {
-          bindings: {
-            _a: 42,
-            _b: 1.0
-          }
+          bindings: [
+            {
+              _a: 42
+            },
+            {
+              _b: 1.0
+            }
+          ]
         },
         {
           {OriginalFormat}: Executing Gremlin query {requestId} with groovy script {script} and parameter bindings {bindings}.

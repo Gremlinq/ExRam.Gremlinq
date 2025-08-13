@@ -9,20 +9,50 @@
           requestId: 12345678-9012-3456-7890-123456789012
         },
         {
-          script: g.V().hasLabel(_a,_b,_c,_d,_e).has(label,_d).project(_f,_g,_h).by(id).by(label).by(__.properties().group().by(label).by(__.project(_f,_g,_i,_h).by(id).by(label).by(value).by(__.valueMap()).fold()))
+          script: g.V().hasLabel(_a,_b,_c,_d,_e).has(label,_f).project(_g,_h,_i).by(id).by(label).by(__.properties().group().by(label).by(__.project(_j,_k,_l,_m).by(id).by(label).by(value).by(__.valueMap()).fold()))
         },
         {
-          bindings: {
-            _a: Company,
-            _b: Country,
-            _c: Language,
-            _d: Person,
-            _e: TimeFrame,
-            _f: id,
-            _g: label,
-            _h: properties,
-            _i: value
-          }
+          bindings: [
+            {
+              _a: Company
+            },
+            {
+              _b: Country
+            },
+            {
+              _c: Language
+            },
+            {
+              _d: Person
+            },
+            {
+              _e: TimeFrame
+            },
+            {
+              _f: Person
+            },
+            {
+              _g: id
+            },
+            {
+              _h: label
+            },
+            {
+              _i: properties
+            },
+            {
+              _j: id
+            },
+            {
+              _k: label
+            },
+            {
+              _l: value
+            },
+            {
+              _m: properties
+            }
+          ]
         },
         {
           {OriginalFormat}: Executing Gremlin query {requestId} with groovy script {script} and parameter bindings {bindings}.

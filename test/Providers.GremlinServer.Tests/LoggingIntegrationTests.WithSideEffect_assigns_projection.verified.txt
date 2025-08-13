@@ -3,13 +3,13 @@
     log: {
       Level: Debug,
       Category: LoggingFixture,
-      Message: Executing Gremlin query 12345678-9012-3456-7890-123456789012 with groovy script g.withSideEffect(_a,[]).V().hasLabel(_b).aggregate(_a).fold().select(_a).map(__.unfold().project(_c,_d,_e).by(id).by(label).by(__.properties().group().by(label).by(__.project(_c,_d,_f,_e).by(id).by(label).by(value).by(__.valueMap()).fold())).fold()).,
+      Message: Executing Gremlin query 12345678-9012-3456-7890-123456789012 with groovy script g.withSideEffect(_a,[]).V().hasLabel(_b).aggregate(_c).fold().select(_d).map(__.unfold().project(_e,_f,_g).by(id).by(label).by(__.properties().group().by(label).by(__.project(_h,_i,_j,_k).by(id).by(label).by(value).by(__.valueMap()).fold())).fold()).,
       State: [
         {
           requestId: 12345678-9012-3456-7890-123456789012
         },
         {
-          script: g.withSideEffect(_a,[]).V().hasLabel(_b).aggregate(_a).fold().select(_a).map(__.unfold().project(_c,_d,_e).by(id).by(label).by(__.properties().group().by(label).by(__.project(_c,_d,_f,_e).by(id).by(label).by(value).by(__.valueMap()).fold())).fold())
+          script: g.withSideEffect(_a,[]).V().hasLabel(_b).aggregate(_c).fold().select(_d).map(__.unfold().project(_e,_f,_g).by(id).by(label).by(__.properties().group().by(label).by(__.project(_h,_i,_j,_k).by(id).by(label).by(value).by(__.valueMap()).fold())).fold())
         },
         {
           {OriginalFormat}: Executing Gremlin query {requestId} with groovy script {script}.

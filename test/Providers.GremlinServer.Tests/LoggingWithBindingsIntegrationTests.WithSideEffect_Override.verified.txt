@@ -12,11 +12,17 @@
           script: g.withSideEffect(_a,_b).inject(_c)
         },
         {
-          bindings: {
-            _a: stepLabel,
-            _b: sideEffect2,
-            _c: 0
-          }
+          bindings: [
+            {
+              _a: stepLabel
+            },
+            {
+              _b: sideEffect2
+            },
+            {
+              _c: 0
+            }
+          ]
         },
         {
           {OriginalFormat}: Executing Gremlin query {requestId} with groovy script {script} and parameter bindings {bindings}.

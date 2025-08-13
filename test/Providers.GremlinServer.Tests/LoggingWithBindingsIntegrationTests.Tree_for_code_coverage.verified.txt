@@ -9,13 +9,95 @@
           requestId: 12345678-9012-3456-7890-123456789012
         },
         {
-          script: g.V().hasLabel(_a).tree().by(_b).by(_b).by(_b).by(_b).by(_b).by(_b).by(_b).by(_b).by(_b).by(_b).by(_b).by(_b).by(_b).by(_b).by(_b).by(_b).by(_b).by(_b).by(_b).by(_b).by(_b).by(_b).by(_b).by(_b).by(_b).by(_b).by(_b).by()
+          script: g.V().hasLabel(_a).tree().by(_b).by(_c).by(_d).by(_e).by(_f).by(_g).by(_h).by(_i).by(_j).by(_k).by(_l).by(_m).by(_n).by(_o).by(_p).by(_q).by(_r).by(_s).by(_t).by(_u).by(_v).by(_w).by(_x).by(_y).by(_z).by(_ba).by(_bb).by()
         },
         {
-          bindings: {
-            _a: Person,
-            _b: Age
-          }
+          bindings: [
+            {
+              _a: Person
+            },
+            {
+              _b: Age
+            },
+            {
+              _c: Age
+            },
+            {
+              _d: Age
+            },
+            {
+              _e: Age
+            },
+            {
+              _f: Age
+            },
+            {
+              _g: Age
+            },
+            {
+              _h: Age
+            },
+            {
+              _i: Age
+            },
+            {
+              _j: Age
+            },
+            {
+              _k: Age
+            },
+            {
+              _l: Age
+            },
+            {
+              _m: Age
+            },
+            {
+              _n: Age
+            },
+            {
+              _o: Age
+            },
+            {
+              _p: Age
+            },
+            {
+              _q: Age
+            },
+            {
+              _r: Age
+            },
+            {
+              _s: Age
+            },
+            {
+              _t: Age
+            },
+            {
+              _u: Age
+            },
+            {
+              _v: Age
+            },
+            {
+              _w: Age
+            },
+            {
+              _x: Age
+            },
+            {
+              _y: Age
+            },
+            {
+              _z: Age
+            },
+            {
+              _ba: Age
+            },
+            {
+              _bb: Age
+            }
+          ]
         },
         {
           {OriginalFormat}: Executing Gremlin query {requestId} with groovy script {script} and parameter bindings {bindings}.

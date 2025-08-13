@@ -3,13 +3,13 @@
     log: {
       Level: Debug,
       Category: LoggingFixture,
-      Message: Executing Gremlin query 12345678-9012-3456-7890-123456789012 with groovy script g.withSideEffect(_a,_b).V().select(_a).,
+      Message: Executing Gremlin query 12345678-9012-3456-7890-123456789012 with groovy script g.withSideEffect(_a,_b).V().select(_c).,
       State: [
         {
           requestId: 12345678-9012-3456-7890-123456789012
         },
         {
-          script: g.withSideEffect(_a,_b).V().select(_a)
+          script: g.withSideEffect(_a,_b).V().select(_c)
         },
         {
           {OriginalFormat}: Executing Gremlin query {requestId} with groovy script {script}.

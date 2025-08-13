@@ -12,11 +12,17 @@
           script: g.inject(_a).replace(_b,_c)
         },
         {
-          bindings: {
-            _a: abcdef,
-            _b: bd,
-            _c: xy
-          }
+          bindings: [
+            {
+              _a: abcdef
+            },
+            {
+              _b: bd
+            },
+            {
+              _c: xy
+            }
+          ]
         },
         {
           {OriginalFormat}: Executing Gremlin query {requestId} with groovy script {script} and parameter bindings {bindings}.

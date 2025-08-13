@@ -9,19 +9,53 @@
           requestId: 12345678-9012-3456-7890-123456789012
         },
         {
-          script: g.V().hasLabel(_a).has(_b).project(_c,_d,_e,_f,_g,_h).by(_b).by(_b).by(_b).by(_b).by(_b).by(_b)
+          script: g.V().hasLabel(_a).has(_b).project(_c,_d,_e,_f,_g,_h).by(_i).by(_j).by(_k).by(_l).by(_m).by(_n)
         },
         {
-          bindings: {
-            _a: Country,
-            _b: CountryCallingCode,
-            _c: Item1,
-            _d: Item2,
-            _e: Item3,
-            _f: Item4,
-            _g: Item5,
-            _h: Item6
-          }
+          bindings: [
+            {
+              _a: Country
+            },
+            {
+              _b: CountryCallingCode
+            },
+            {
+              _c: Item1
+            },
+            {
+              _d: Item2
+            },
+            {
+              _e: Item3
+            },
+            {
+              _f: Item4
+            },
+            {
+              _g: Item5
+            },
+            {
+              _h: Item6
+            },
+            {
+              _i: CountryCallingCode
+            },
+            {
+              _j: CountryCallingCode
+            },
+            {
+              _k: CountryCallingCode
+            },
+            {
+              _l: CountryCallingCode
+            },
+            {
+              _m: CountryCallingCode
+            },
+            {
+              _n: CountryCallingCode
+            }
+          ]
         },
         {
           {OriginalFormat}: Executing Gremlin query {requestId} with groovy script {script} and parameter bindings {bindings}.

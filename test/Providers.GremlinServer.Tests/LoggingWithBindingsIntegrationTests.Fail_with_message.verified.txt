@@ -12,9 +12,11 @@
           script: g.V().fail(_a)
         },
         {
-          bindings: {
-            _a: There's been an error.
-          }
+          bindings: [
+            {
+              _a: There's been an error.
+            }
+          ]
         },
         {
           {OriginalFormat}: Executing Gremlin query {requestId} with groovy script {script} and parameter bindings {bindings}.

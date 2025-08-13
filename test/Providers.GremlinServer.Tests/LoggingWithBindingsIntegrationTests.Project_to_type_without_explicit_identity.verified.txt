@@ -12,13 +12,23 @@
           script: g.inject(_a).project(_b,_c,_d,_e).by(__.identity()).by(__.identity()).by(__.identity()).by(__.identity())
         },
         {
-          bindings: {
-            _a: 42,
-            _b: In,
-            _c: Out,
-            _d: Count,
-            _e: Properties
-          }
+          bindings: [
+            {
+              _a: 42
+            },
+            {
+              _b: In
+            },
+            {
+              _c: Out
+            },
+            {
+              _d: Count
+            },
+            {
+              _e: Properties
+            }
+          ]
         },
         {
           {OriginalFormat}: Executing Gremlin query {requestId} with groovy script {script} and parameter bindings {bindings}.

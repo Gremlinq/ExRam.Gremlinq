@@ -12,15 +12,29 @@
           script: g.V().hasLabel(_a).properties().has(_b,_c).project(_d,_e,_f,_g).by(id).by(label).by(value).by(__.valueMap())
         },
         {
-          bindings: {
-            _a: Person,
-            _b: MetaKey,
-            _c: MetaValue,
-            _d: id,
-            _e: label,
-            _f: value,
-            _g: properties
-          }
+          bindings: [
+            {
+              _a: Person
+            },
+            {
+              _b: MetaKey
+            },
+            {
+              _c: MetaValue
+            },
+            {
+              _d: id
+            },
+            {
+              _e: label
+            },
+            {
+              _f: value
+            },
+            {
+              _g: properties
+            }
+          ]
         },
         {
           {OriginalFormat}: Executing Gremlin query {requestId} with groovy script {script} and parameter bindings {bindings}.

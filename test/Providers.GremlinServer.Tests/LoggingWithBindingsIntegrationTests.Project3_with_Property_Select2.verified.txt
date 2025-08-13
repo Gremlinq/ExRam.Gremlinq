@@ -9,18 +9,44 @@
           requestId: 12345678-9012-3456-7890-123456789012
         },
         {
-          script: g.V().hasLabel(_a).order().by(id,asc).limit(_b).project(_c,_d,_e).by(__.constant(_f)).by(__.constant(_g)).by(id).project(_c,_d).by(__.select(_c)).by(__.select(_e))
+          script: g.V().hasLabel(_a).order().by(id,asc).limit(_b).project(_c,_d,_e).by(__.constant(_f)).by(__.constant(_g)).by(id).project(_h,_i).by(__.select(_j)).by(__.select(_k))
         },
         {
-          bindings: {
-            _a: Person,
-            _b: 1,
-            _c: Item1,
-            _d: Item2,
-            _e: Item3,
-            _f: item1,
-            _g: item2
-          }
+          bindings: [
+            {
+              _a: Person
+            },
+            {
+              _b: 1
+            },
+            {
+              _c: Item1
+            },
+            {
+              _d: Item2
+            },
+            {
+              _e: Item3
+            },
+            {
+              _f: item1
+            },
+            {
+              _g: item2
+            },
+            {
+              _h: Item1
+            },
+            {
+              _i: Item2
+            },
+            {
+              _j: Item1
+            },
+            {
+              _k: Item3
+            }
+          ]
         },
         {
           {OriginalFormat}: Executing Gremlin query {requestId} with groovy script {script} and parameter bindings {bindings}.

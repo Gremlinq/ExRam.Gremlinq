@@ -9,18 +9,59 @@
           requestId: 12345678-9012-3456-7890-123456789012
         },
         {
-          script: g.V().hasLabel(_a).order().by(id,asc).limit(_b).project(_c,_d,_e).by(__.constant(_f).limit(_b).fold()).by(__.constant(_g).limit(_b).fold()).by(__.id().limit(_b).fold()).map(__.unfold().group().by(__.select(keys)).by(__.select(values).unfold())).project(_c,_d).by(__.select(_c).limit(_b).fold()).by(__.select(_e).limit(_b).fold()).map(__.unfold().group().by(__.select(keys)).by(__.select(values).unfold()))
+          script: g.V().hasLabel(_a).order().by(id,asc).limit(_b).project(_c,_d,_e).by(__.constant(_f).limit(_g).fold()).by(__.constant(_h).limit(_i).fold()).by(__.id().limit(_j).fold()).map(__.unfold().group().by(__.select(keys)).by(__.select(values).unfold())).project(_k,_l).by(__.select(_m).limit(_n).fold()).by(__.select(_o).limit(_p).fold()).map(__.unfold().group().by(__.select(keys)).by(__.select(values).unfold()))
         },
         {
-          bindings: {
-            _a: Person,
-            _b: 1,
-            _c: Item1,
-            _d: Item2,
-            _e: Item3,
-            _f: item1,
-            _g: item2
-          }
+          bindings: [
+            {
+              _a: Person
+            },
+            {
+              _b: 1
+            },
+            {
+              _c: Item1
+            },
+            {
+              _d: Item2
+            },
+            {
+              _e: Item3
+            },
+            {
+              _f: item1
+            },
+            {
+              _g: 1
+            },
+            {
+              _h: item2
+            },
+            {
+              _i: 1
+            },
+            {
+              _j: 1
+            },
+            {
+              _k: Item1
+            },
+            {
+              _l: Item2
+            },
+            {
+              _m: Item1
+            },
+            {
+              _n: 1
+            },
+            {
+              _o: Item3
+            },
+            {
+              _p: 1
+            }
+          ]
         },
         {
           {OriginalFormat}: Executing Gremlin query {requestId} with groovy script {script} and parameter bindings {bindings}.

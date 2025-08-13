@@ -9,13 +9,20 @@
           requestId: 12345678-9012-3456-7890-123456789012
         },
         {
-          script: g.V().fold().as(_a).V().hasLabel(_b).not(__.where(within(_a))).count()
+          script: g.V().fold().as(_a).V().hasLabel(_b).not(__.where(within(_c))).count()
         },
         {
-          bindings: {
-            _a: _a,
-            _b: Person
-          }
+          bindings: [
+            {
+              _a: _a
+            },
+            {
+              _b: Person
+            },
+            {
+              _c: _a
+            }
+          ]
         },
         {
           {OriginalFormat}: Executing Gremlin query {requestId} with groovy script {script} and parameter bindings {bindings}.
