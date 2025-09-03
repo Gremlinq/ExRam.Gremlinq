@@ -34,6 +34,13 @@ namespace ExRam.Gremlinq.Providers.Neptune.AspNet
                         }
                     }
 
+                    if (providerSection["UseDFE"] is { } useDFEString && bool.TryParse(useDFEString, out var useDFE))
+                    {
+                        configurator = configurator
+                            .ConfigureQuerySource(source => source
+                                .UseDFE(useDFE));
+                    }
+
                     return configurator;
                 });
         }
