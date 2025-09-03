@@ -41,5 +41,35 @@ namespace ExRam.Gremlinq.Providers.Neptune.AspNet.Tests
             .GetRequiredService<IGremlinQuerySource>()
             .Inject(42)
             .Debug());
+
+        [Fact]
+        public Task UseDFE_Inject() => Verify(new ServiceCollection()
+            .AddSingleton<IConfiguration>(new ConfigurationBuilder()
+                .AddInMemoryCollection(new Dictionary<string, string?>
+                {
+                    { "Gremlinq:Neptune:UseDFE", "true" },
+                })
+                .Build())
+            .AddGremlinq(setup => setup
+                .UseNeptune<Vertex, Edge>())
+            .BuildServiceProvider()
+            .GetRequiredService<IGremlinQuerySource>()
+            .Inject(42)
+            .Debug());
+
+        [Fact]
+        public Task UseDFE_false_Inject() => Verify(new ServiceCollection()
+            .AddSingleton<IConfiguration>(new ConfigurationBuilder()
+                .AddInMemoryCollection(new Dictionary<string, string?>
+                {
+                    { "Gremlinq:Neptune:UseDFE", "false" },
+                })
+                .Build())
+            .AddGremlinq(setup => setup
+                .UseNeptune<Vertex, Edge>())
+            .BuildServiceProvider()
+            .GetRequiredService<IGremlinQuerySource>()
+            .Inject(42)
+            .Debug());
     }
 }
