@@ -4,6 +4,10 @@
     {
         public static ExRam.Gremlinq.Core.IGremlinQuerySource UseNeptune<TVertexBase, TEdgeBase>(this ExRam.Gremlinq.Core.IGremlinQuerySource source, System.Func<ExRam.Gremlinq.Providers.Neptune.INeptuneConfigurator, ExRam.Gremlinq.Core.IGremlinQuerySourceTransformation> configuratorTransformation) { }
     }
+    public static class GremlinQuerySourceExtensions
+    {
+        public static ExRam.Gremlinq.Core.IGremlinQuerySource UseDFE(this ExRam.Gremlinq.Core.IGremlinQuerySource source, bool enabled = true) { }
+    }
     public interface INeptuneConfigurator : ExRam.Gremlinq.Core.IGremlinQuerySourceTransformation, ExRam.Gremlinq.Core.IGremlinqConfigurator<ExRam.Gremlinq.Providers.Neptune.INeptuneConfigurator>, ExRam.Gremlinq.Providers.Core.IProviderConfigurator<ExRam.Gremlinq.Providers.Neptune.INeptuneConfigurator, ExRam.Gremlinq.Providers.Core.IPoolGremlinqClientFactory<ExRam.Gremlinq.Providers.Core.IWebSocketGremlinqClientFactory>> { }
     public static class NeptuneConfiguratorExtensions
     {
