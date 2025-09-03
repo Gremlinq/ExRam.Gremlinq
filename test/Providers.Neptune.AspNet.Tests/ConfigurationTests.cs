@@ -30,5 +30,16 @@ namespace ExRam.Gremlinq.Providers.Neptune.AspNet.Tests
                 .Should()
                 .NotBeNull();
         }
+
+        [Fact]
+        public Task Inject() => Verify(new ServiceCollection()
+            .AddSingleton<IConfiguration>(new ConfigurationBuilder()
+                .Build())
+            .AddGremlinq(setup => setup
+                .UseNeptune<Vertex, Edge>())
+            .BuildServiceProvider()
+            .GetRequiredService<IGremlinQuerySource>()
+            .Inject(42)
+            .Debug());
     }
 }
