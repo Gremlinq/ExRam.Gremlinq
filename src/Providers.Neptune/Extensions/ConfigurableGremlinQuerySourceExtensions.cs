@@ -8,7 +8,7 @@ using ExRam.Gremlinq.Core;
 
 namespace ExRam.Gremlinq.Providers.Neptune
 {
-    public static class ConfigurableGremlinQuerySourceExtensions
+    public static class ConfigurableGremlinQuerySourceExtensions    //TODO: Rename on breaking.
     {
         private sealed class NeptuneConfigurator : INeptuneConfigurator
         {
