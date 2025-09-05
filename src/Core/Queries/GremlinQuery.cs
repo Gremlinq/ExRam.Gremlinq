@@ -3,6 +3,7 @@
 using System.Collections;
 using System.Collections.Immutable;
 using System.Linq.Expressions;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 
 using CommunityToolkit.HighPerformance;
@@ -1354,6 +1355,10 @@ namespace ExRam.Gremlinq.Core
                 return expression switch
                 {
                     ConstantExpression { Value: bool value } => value
+                        ? this
+                        : None(),
+
+                    MemberExpression { Member: FieldInfo } fieldExpression when fieldExpression.Type == typeof(bool) => (bool)fieldExpression.GetValue()!
                         ? this
                         : None(),
 
