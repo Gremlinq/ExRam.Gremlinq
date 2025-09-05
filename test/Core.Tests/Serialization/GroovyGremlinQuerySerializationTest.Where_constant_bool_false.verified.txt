@@ -1,0 +1,6 @@
+﻿{
+  Script: g.inject(_a).none(),
+  Bindings: {
+    _a: 42
+  }
+}

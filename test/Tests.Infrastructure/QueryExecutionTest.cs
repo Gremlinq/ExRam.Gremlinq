@@ -4281,6 +4281,13 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Verify();
 
         [Fact]
+        public virtual Task Where_constant_bool_false() => _g
+            .Inject(42)
+            // ReSharper disable once RedundantBoolCompare
+            .Where(t => false)
+            .Verify();
+
+        [Fact]
         public virtual Task Where_bool_property_explicit_comparison1() => _g
             .V<TimeFrame>()
             // ReSharper disable once RedundantBoolCompare
