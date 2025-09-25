@@ -15,18 +15,69 @@ namespace ExRam.Gremlinq.Core
     {
         private readonly struct Bindings : IEnumerable<KeyValuePair<object, Label>>
         {
-            private readonly Dictionary<object, Label>? _dictionary;
-            private readonly List<KeyValuePair<object, Label>>? _list;
+            private sealed class Counter : IList<KeyValuePair<object, Label>>, IEnumerator<KeyValuePair<object, Label>>
+            {
+                private int _count;
 
-            public Bindings(Dictionary<object, Label> dictionary)
+                public KeyValuePair<object, Label> this[int index] { get => throw new NotSupportedException(); set => throw new NotSupportedException(); }
+
+                public int Count => _count;
+
+                public bool IsReadOnly => false;
+
+                public KeyValuePair<object, Label> Current => throw new InvalidOperationException();
+
+                object IEnumerator.Current => Current;
+
+                public void Add(KeyValuePair<object, Label> item) => _count++;
+
+                public void Clear() => _count = 0;
+
+                public bool Contains(KeyValuePair<object, Label> item) => false;
+
+                public void CopyTo(KeyValuePair<object, Label>[] array, int arrayIndex) => throw new NotSupportedException();
+
+                public void Dispose()
+                {
+                }
+
+                public IEnumerator<KeyValuePair<object, Label>> GetEnumerator() => this;
+
+                public int IndexOf(KeyValuePair<object, Label> item) => throw new NotSupportedException();
+
+                public void Insert(int index, KeyValuePair<object, Label> item) => throw new NotSupportedException();
+
+                public bool MoveNext() => false;
+
+                public bool Remove(KeyValuePair<object, Label> item) => throw new NotSupportedException();
+
+                public void RemoveAt(int index) => throw new NotSupportedException();
+
+                public void Reset()
+                {
+                }
+
+                IEnumerator IEnumerable.GetEnumerator() => this;
+            }
+
+            private readonly Dictionary<object, Label>? _dictionary;
+            private readonly IList<KeyValuePair<object, Label>>? _list;
+
+            private Bindings(Dictionary<object, Label> dictionary)
             {
                 _dictionary = dictionary;
             }
 
-            public Bindings(List<KeyValuePair<object, Label>> list)
+            private Bindings(IList<KeyValuePair<object, Label>> list)
             {
                 _list = list;
             }
+
+            public static Bindings CreateDictionary() => new (new Dictionary<object, Label>());
+
+            public static Bindings CreateList() => new (new List<KeyValuePair<object, Label>>());
+
+            public static Bindings CreateCounter() => new (new Counter());
 
             public Label GetOrAdd(object obj)
             {
@@ -79,7 +130,10 @@ namespace ExRam.Gremlinq.Core
 
         public static CheapGroovyGremlinScript ToCheapGroovyScript(Bytecode bytecode, IGremlinQueryEnvironment environment, bool includeBindings)
         {
-            var bindings = new Bindings(new List<KeyValuePair<object, Label>>());
+            var bindings = includeBindings
+                ? Bindings.CreateList()
+                : Bindings.CreateCounter();
+
             var script = ToGroovyScriptImpl(bytecode, environment, bindings);
 
             return CheapGroovyGremlinScript.From(
@@ -91,7 +145,7 @@ namespace ExRam.Gremlinq.Core
 
         public static GroovyGremlinScript ToGroovyScript(Bytecode bytecode, IGremlinQueryEnvironment environment, bool includeBindings)
         {
-            var bindings = new Bindings(new Dictionary<object, Label>());
+            var bindings = Bindings.CreateDictionary();
             var script = ToGroovyScriptImpl(bytecode, environment, bindings);
 
             return GroovyGremlinScript.From(
