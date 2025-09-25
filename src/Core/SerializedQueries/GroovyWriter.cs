@@ -15,45 +15,39 @@ namespace ExRam.Gremlinq.Core
     {
         private readonly struct Bindings : IEnumerable<KeyValuePair<object, Label>>
         {
-            private sealed class Counter : IList<KeyValuePair<object, Label>>, IEnumerator<KeyValuePair<object, Label>>
+            private sealed class Counter : ICollection<KeyValuePair<object, Label>>, IEnumerator<KeyValuePair<object, Label>>
             {
                 private int _count;
 
                 public KeyValuePair<object, Label> this[int index] { get => throw new NotSupportedException(); set => throw new NotSupportedException(); }
 
-                public int Count => _count;
+                int ICollection<KeyValuePair<object, Label>>.Count => _count;
 
-                public bool IsReadOnly => false;
+                bool ICollection<KeyValuePair<object, Label>>.IsReadOnly => false;
 
-                public KeyValuePair<object, Label> Current => throw new InvalidOperationException();
+                KeyValuePair<object, Label> IEnumerator<KeyValuePair<object, Label>>.Current => throw new InvalidOperationException();
 
-                object IEnumerator.Current => Current;
+                object IEnumerator.Current => throw new InvalidOperationException();
 
-                public void Add(KeyValuePair<object, Label> item) => _count++;
+                void ICollection<KeyValuePair<object, Label>>.Add(KeyValuePair<object, Label> item) => _count++;
 
-                public void Clear() => _count = 0;
+                void ICollection<KeyValuePair<object, Label>>.Clear() => _count = 0;
 
-                public bool Contains(KeyValuePair<object, Label> item) => false;
+                bool ICollection<KeyValuePair<object, Label>>.Contains(KeyValuePair<object, Label> item) => false;
 
-                public void CopyTo(KeyValuePair<object, Label>[] array, int arrayIndex) => throw new NotSupportedException();
+                void ICollection<KeyValuePair<object, Label>>.CopyTo(KeyValuePair<object, Label>[] array, int arrayIndex) => throw new NotSupportedException();
 
-                public void Dispose()
+                void IDisposable.Dispose()
                 {
                 }
 
-                public IEnumerator<KeyValuePair<object, Label>> GetEnumerator() => this;
+                IEnumerator<KeyValuePair<object, Label>> IEnumerable<KeyValuePair<object, Label>>.GetEnumerator() => this;
 
-                public int IndexOf(KeyValuePair<object, Label> item) => throw new NotSupportedException();
+                bool IEnumerator.MoveNext() => false;
 
-                public void Insert(int index, KeyValuePair<object, Label> item) => throw new NotSupportedException();
+                bool ICollection<KeyValuePair<object, Label>>.Remove(KeyValuePair<object, Label> item) => throw new NotSupportedException();
 
-                public bool MoveNext() => false;
-
-                public bool Remove(KeyValuePair<object, Label> item) => throw new NotSupportedException();
-
-                public void RemoveAt(int index) => throw new NotSupportedException();
-
-                public void Reset()
+                void IEnumerator.Reset()
                 {
                 }
 
@@ -61,14 +55,14 @@ namespace ExRam.Gremlinq.Core
             }
 
             private readonly Dictionary<object, Label>? _dictionary;
-            private readonly IList<KeyValuePair<object, Label>>? _list;
+            private readonly ICollection<KeyValuePair<object, Label>>? _list;
 
             private Bindings(Dictionary<object, Label> dictionary)
             {
                 _dictionary = dictionary;
             }
 
-            private Bindings(IList<KeyValuePair<object, Label>> list)
+            private Bindings(ICollection<KeyValuePair<object, Label>> list)
             {
                 _list = list;
             }
