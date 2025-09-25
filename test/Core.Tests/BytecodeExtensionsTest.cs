@@ -26,5 +26,39 @@ namespace ExRam.Gremlinq.Core.Tests
 
             return Verify(bytecode.ToGroovyScript(GremlinQueryEnvironment.Invalid));
         }
+
+        [Fact]
+        public Task ToGroovyScript_with_bindings()
+        {
+            var bytecode = new Bytecode()
+            {
+                StepInstructions =
+                {
+                    new Instruction(
+                        "instruction",
+                        "a",
+                        1)
+                }
+            };
+
+            return Verify(bytecode.ToGroovyScript(GremlinQueryEnvironment.Invalid, true));
+        }
+
+        [Fact]
+        public Task ToGroovyScript_without_bindings()
+        {
+            var bytecode = new Bytecode()
+            {
+                StepInstructions =
+                {
+                    new Instruction(
+                        "instruction",
+                        "a",
+                        1)
+                }
+            };
+
+            return Verify(bytecode.ToGroovyScript(GremlinQueryEnvironment.Invalid, false));
+        }
     }
 }
