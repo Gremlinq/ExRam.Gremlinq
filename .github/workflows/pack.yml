@@ -79,7 +79,7 @@ jobs:
         name: NuGetPackages
         
     - name: Attest build provenance
-      uses: actions/attest-build-provenance@v2
+      uses: actions/attest-build-provenance@e8998f949152b193b063cb0ec769d69d929409be # 2
       with:
         subject-path: ./**/${{ github.event.repository.name }}.*.nupkg
     
