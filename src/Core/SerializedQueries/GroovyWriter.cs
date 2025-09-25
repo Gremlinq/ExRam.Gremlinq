@@ -195,11 +195,11 @@ namespace ExRam.Gremlinq.Core
                 }
                 case DateTimeOffset dateTime when maybeBindings == null:
                 {
-                    return WriteQuoted(dateTime.ToString("o"), stringBuilder);
+                    return WriteQuoted(dateTime, "o", stringBuilder);
                 }
                 case DateTime dateTime when maybeBindings == null:
                 {
-                    return WriteQuoted(dateTime.ToString("o"), stringBuilder);
+                    return WriteQuoted(dateTime, "o", stringBuilder);
                 }
                 case bool b when maybeBindings == null:
                 {
@@ -322,11 +322,21 @@ namespace ExRam.Gremlinq.Core
             return new(false, true);
         }
 
-        private GroovyWriter WriteQuoted(object value, StringBuilder stringBuilder)
+        private GroovyWriter WriteQuoted(string value, StringBuilder stringBuilder)
+        {
+            stringBuilder
+                .Append('\'')
+                .Append(value)
+                .Append('\'');
+
+            return new(false, _hasIdentifier);
+        }
+
+        private GroovyWriter WriteQuoted<T>(T value, string format, StringBuilder stringBuilder)
         {
             var handler = new StringBuilder.AppendInterpolatedStringHandler(2, 1, stringBuilder);
             handler.AppendLiteral("'");
-            handler.AppendFormatted(value);
+            handler.AppendFormatted(value, format: format);
             handler.AppendLiteral("'");
 
             stringBuilder.Append(ref handler);
