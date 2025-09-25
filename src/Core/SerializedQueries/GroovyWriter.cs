@@ -344,6 +344,13 @@ namespace ExRam.Gremlinq.Core
             return new(false, _hasIdentifier);
         }
 
+        private GroovyWriter Write(string value, StringBuilder stringBuilder)
+        {
+            stringBuilder.Append(value);
+
+            return new(false, _hasIdentifier);
+        }
+
         private GroovyWriter Write(object value, StringBuilder stringBuilder)
         {
             var handler = new StringBuilder.AppendInterpolatedStringHandler(0, 1, stringBuilder);
