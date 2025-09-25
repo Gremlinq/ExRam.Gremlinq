@@ -96,7 +96,12 @@ namespace ExRam.Gremlinq.Providers.Core
                                 else
                                     first = false;
 
-                                vsb.Append(kvp.ToString());
+                                vsb
+                                    .Append('[')
+                                    .Append(kvp.Key)
+                                    .Append(", ")
+                                    .Append(kvp.Value)
+                                    .Append(']');
                             }
 
                             _toString = vsb.ToString();
