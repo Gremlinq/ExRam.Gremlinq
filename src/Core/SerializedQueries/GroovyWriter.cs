@@ -75,15 +75,7 @@ namespace ExRam.Gremlinq.Core
             _hasIdentifier = hasIdentifier;
         }
 
-        public static string ToString(Bytecode bytecode, IGremlinQueryEnvironment environment)
-        {
-            var groovyWriter = new GroovyWriter(true, false);
-            var stringBuilder = new StringBuilder();
-
-            groovyWriter.Append(bytecode, stringBuilder, null, environment);
-
-            return stringBuilder.ToString();
-        }
+        public static string ToString(Bytecode bytecode, IGremlinQueryEnvironment environment) => ToGroovyScriptImpl(bytecode, environment, null);
 
         public static CheapGroovyGremlinScript ToCheapGroovyScript(Bytecode bytecode, IGremlinQueryEnvironment environment, bool includeBindings)
         {
@@ -109,17 +101,18 @@ namespace ExRam.Gremlinq.Core
                     : null);
         }
 
-        private static string ToGroovyScriptImpl(Bytecode bytecode, IGremlinQueryEnvironment environment, Bindings bindings)
+        private static string ToGroovyScriptImpl(Bytecode bytecode, IGremlinQueryEnvironment environment, Bindings? maybeBindings)
         {
             var stringBuilder = new StringBuilder();
             var groovyWriter = new GroovyWriter(true, false);
 
             groovyWriter
-                .Append(bytecode, stringBuilder, bindings, environment);
+                .Append(bytecode, stringBuilder, maybeBindings, environment);
 
             return stringBuilder
                 .ToString();
         }
+
         private GroovyWriter Append(
             object? obj,
             StringBuilder stringBuilder,
