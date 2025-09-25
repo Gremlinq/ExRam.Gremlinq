@@ -13,7 +13,7 @@ namespace ExRam.Gremlinq.Core
 {
     internal readonly struct GroovyWriter
     {
-        private readonly struct Bindings : IEnumerable<KeyValuePair<object, Label>>
+        private readonly struct Bindings : IEnumerable<KeyValuePair<string, object?>>
         {
             private sealed class Counter : ICollection<KeyValuePair<object, Label>>, IEnumerator<KeyValuePair<object, Label>>
             {
@@ -52,6 +52,26 @@ namespace ExRam.Gremlinq.Core
                 }
 
                 IEnumerator IEnumerable.GetEnumerator() => this;
+            }
+
+            private sealed class BindingsEnumerator : IEnumerator<KeyValuePair<string, object?>>
+            {
+                private readonly IEnumerator<KeyValuePair<object, Label>> _baseEnumerator;
+
+                public BindingsEnumerator(IEnumerator<KeyValuePair<object, Label>> baseEnumerator)
+                {
+                    _baseEnumerator = baseEnumerator;
+                }
+
+                public KeyValuePair<string, object?> Current => new (_baseEnumerator.Current.Value, _baseEnumerator.Current.Key);
+
+                object IEnumerator.Current => Current;
+
+                public void Dispose() => _baseEnumerator.Dispose();
+
+                public bool MoveNext() => _baseEnumerator.MoveNext();
+
+                public void Reset() => _baseEnumerator.Reset();
             }
 
             private readonly ICollection<KeyValuePair<object, Label>>? _list;
@@ -93,15 +113,15 @@ namespace ExRam.Gremlinq.Core
                 throw new InvalidOperationException();
             }
 
+            public ImmutableDictionary<string, object?> ToImmutableDictionary() => _list is { } list
+                ? list.ToImmutableDictionary(static kvp => (string)kvp.Value, static kvp => (object?)kvp.Key)
+                : throw new InvalidOperationException();
+
+            public IEnumerator<KeyValuePair<string, object?>> GetEnumerator() => _list is { } list
+                ? new BindingsEnumerator(list.GetEnumerator())
+                : throw new InvalidOperationException();
+
             IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
-
-            public IEnumerator<KeyValuePair<object, Label>> GetEnumerator()
-            {
-                if (_list is { } list)
-                    return list.GetEnumerator();
-
-                throw new InvalidOperationException();
-            }
         }
 
         private readonly bool _isEmpty;
@@ -126,7 +146,7 @@ namespace ExRam.Gremlinq.Core
             return CheapGroovyGremlinScript.From(
                 script,
                 includeBindings
-                    ? bindings.Select(kvp => new KeyValuePair<string, object?>(kvp.Value, kvp.Key))
+                    ? bindings
                     : null);
         }
 
@@ -138,7 +158,7 @@ namespace ExRam.Gremlinq.Core
             return GroovyGremlinScript.From(
                 script,
                 includeBindings
-                    ? bindings.ToImmutableDictionary(static kvp => (string)kvp.Value, static kvp => (object?)kvp.Key)
+                    ? bindings.ToImmutableDictionary()
                     : null);
         }
 
