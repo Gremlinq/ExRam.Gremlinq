@@ -54,36 +54,24 @@ namespace ExRam.Gremlinq.Core
                 IEnumerator IEnumerable.GetEnumerator() => this;
             }
 
-            private readonly Dictionary<object, Label>? _dictionary;
             private readonly ICollection<KeyValuePair<object, Label>>? _list;
-
-            private Bindings(Dictionary<object, Label> dictionary)
-            {
-                _dictionary = dictionary;
-            }
 
             private Bindings(ICollection<KeyValuePair<object, Label>> list)
             {
                 _list = list;
             }
 
+#pragma warning disable IDE0028 // Simplify collection initialization
             public static Bindings CreateDictionary() => new (new Dictionary<object, Label>());
 
             public static Bindings CreateList() => new (new List<KeyValuePair<object, Label>>());
+#pragma warning restore IDE0028 // Simplify collection initialization
 
             public static Bindings CreateCounter() => new (new Counter());
 
             public Label GetOrAdd(object obj)
             {
-                if (_list is { } list)
-                {
-                    var bindingKey = list.Count;
-                    list.Add(new KeyValuePair<object, Label>(obj, bindingKey));
-
-                    return bindingKey;
-                }
-
-                if (_dictionary is { } dictionary)
+                if (_list is IDictionary<object, Label> dictionary)
                 {
                     if (!dictionary.TryGetValue(obj, out var bindingKey))
                     {
@@ -94,6 +82,14 @@ namespace ExRam.Gremlinq.Core
                     return bindingKey;
                 }
 
+                if (_list is { } list)
+                {
+                    var bindingKey = list.Count;
+                    list.Add(new KeyValuePair<object, Label>(obj, bindingKey));
+
+                    return bindingKey;
+                }
+                
                 throw new InvalidOperationException();
             }
 
@@ -103,9 +99,6 @@ namespace ExRam.Gremlinq.Core
             {
                 if (_list is { } list)
                     return list.GetEnumerator();
-
-                if (_dictionary is { } dictionary)
-                    return dictionary.GetEnumerator();
 
                 throw new InvalidOperationException();
             }
