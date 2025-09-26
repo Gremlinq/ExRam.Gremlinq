@@ -22,7 +22,7 @@ jobs:
     runs-on: ubuntu-24.04
 
     outputs:
-      semVer2: ${{ steps.nbgv.outputs.SemVer2 }}
+      packageVersion: ${{ steps.nbgv.outputs.NuGetPackageVersion }}
       isPreviewRelease: ${{ startsWith(steps.nbgv.outputs.PrereleaseVersionNoLeadingHyphen, 'preview') }}
 
     steps:
@@ -99,8 +99,8 @@ jobs:
       id: create_release
       uses: release-drafter/release-drafter@b1476f6e6eb133afa41ed8589daba6dc69b4d3f5 # 6.1.0
       with:
-        name: ${{ github.event.repository.name }} ${{ needs.pack.outputs.semVer2 }}
-        tag: ${{ needs.pack.outputs.semVer2 }}
+        name: ${{ github.event.repository.name }} ${{ needs.pack.outputs.packageVersion }}
+        tag: ${{ needs.pack.outputs.packageVersion }}
         commitish: ${{ github.ref }}
         publish: true
       env:
