@@ -1,6 +1,8 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Text;
 
+using CommunityToolkit.HighPerformance;
+
 using ExRam.Gremlinq.Core;
 
 using Gremlin.Net.Driver.Messages;
@@ -69,7 +71,7 @@ namespace ExRam.Gremlinq.Providers.Core
 
         private sealed class LoggingGremlinqClient : IGremlinqClient
         {
-            private sealed class Bindings
+            private sealed class Bindings : ISpanFormattable
             {
                 private string? _toString;
                 private readonly IEnumerable<KeyValuePair<string, object?>>? _value;
@@ -108,6 +110,122 @@ namespace ExRam.Gremlinq.Providers.Core
                     }
 
                     return _toString;
+                }
+
+                public bool TryFormat(Span<char> destination, out int charsWritten, ReadOnlySpan<char> format, IFormatProvider? provider)
+                {
+                    charsWritten = 0;
+
+                    if (_value is { } value)
+                    {
+                        var first = true;
+
+                        foreach (var kvp in value)
+                        {
+                            if (!first)
+                            {
+                                if (", ".AsSpan().TryCopyTo(destination))
+                                {
+                                    charsWritten += 2;
+                                    destination = destination[2..];
+                                }
+                                else
+                                {
+                                    charsWritten = 0;
+
+                                    return false;
+                                }
+                            }
+                            else
+                                first = false;
+
+                            if ("[".AsSpan().TryCopyTo(destination))
+                            {
+                                charsWritten++;
+                                destination = destination[1..];
+                            }
+                            else
+                            {
+                                charsWritten = 0;
+
+                                return false;
+                            }
+
+                            if (kvp.Key.AsSpan().TryCopyTo(destination))
+                            {
+                                charsWritten += kvp.Key.Length;
+                                destination = destination[kvp.Key.Length..];
+                            }
+                            else
+                            {
+                                charsWritten = 0;
+
+                                return false;
+                            }
+
+                            if (", ".AsSpan().TryCopyTo(destination))
+                            {
+                                charsWritten += 2;
+                                destination = destination[2..];
+                            }
+                            else
+                            {
+                                charsWritten = 0;
+
+                                return false;
+                            }
+
+                            if (kvp.Value is ISpanFormattable spanFormattableValue)
+                            {
+                                if (spanFormattableValue.TryFormat(destination, out var valueCharsWritten, format, provider))
+                                {
+                                    charsWritten += valueCharsWritten;
+                                    destination = destination[valueCharsWritten..];
+                                }
+                                else
+                                {
+                                    charsWritten = 0;
+
+                                    return false;
+                                }
+                            }
+                            else
+                            {
+                                var valueString = kvp.Value?.ToString() ?? "(null)";
+
+                                if (valueString.AsSpan().TryCopyTo(destination))
+                                {
+                                    charsWritten += valueString.Length;
+                                    destination = destination[valueString.Length..];
+                                }
+                                else
+                                {
+                                    charsWritten = 0;
+
+                                    return false;
+                                }
+                            }
+
+                            if ("]".AsSpan().TryCopyTo(destination))
+                            {
+                                charsWritten++;
+                                destination = destination[1..];
+                            }
+                            else
+                            {
+                                charsWritten = 0;
+
+                                return false;
+                            }
+                        }
+                    }
+
+                    return true;
+                }
+
+                public string ToString(string? format, IFormatProvider? formatProvider)
+                {
+                    throw new NotImplementedException();
                 }
             }
 
