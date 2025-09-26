@@ -1,10 +1,12 @@
-﻿namespace ExRam.Gremlinq.Providers.Core
+﻿using System.Runtime.CompilerServices;
+
+namespace ExRam.Gremlinq.Providers.Core
 {
-    internal sealed class Bindings : ISpanFormattable
+    internal sealed class FormattableBindings : ISpanFormattable
     {
         private readonly IEnumerable<KeyValuePair<string, object?>>? _value;
 
-        public Bindings(IEnumerable<KeyValuePair<string, object?>>? bindings)
+        public FormattableBindings(IEnumerable<KeyValuePair<string, object?>>? bindings)
         {
             _value = bindings;
         }

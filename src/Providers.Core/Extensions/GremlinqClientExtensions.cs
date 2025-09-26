@@ -122,7 +122,7 @@ namespace ExRam.Gremlinq.Providers.Core
                                     "Executing Gremlin query {requestId} with groovy script {script} and parameter bindings {bindings}.",
                                     requestMessage.RequestId,
                                     groovyQuery.Script,
-                                    new Bindings(groovyQuery.Bindings));
+                                    new FormattableBindings(groovyQuery.Bindings));
                             }
                             else
                             {
