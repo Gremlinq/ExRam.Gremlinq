@@ -73,7 +73,6 @@ namespace ExRam.Gremlinq.Providers.Core
         {
             private sealed class Bindings : ISpanFormattable
             {
-                private string? _toString;
                 private readonly IEnumerable<KeyValuePair<string, object?>>? _value;
 
                 public Bindings(IEnumerable<KeyValuePair<string, object?>>? bindings)
@@ -81,36 +80,7 @@ namespace ExRam.Gremlinq.Providers.Core
                     _value = bindings;
                 }
 
-                public override string? ToString()
-                {
-                    if (_toString == null)
-                    {
-                        if (_value is { } value)
-                        {
-                            var first = true;
-                            var vsb = new StringBuilder();
-
-                            foreach (var kvp in value)
-                            {
-                                if (!first)
-                                    vsb.Append(", ");
-                                else
-                                    first = false;
-
-                                vsb
-                                    .Append('[')
-                                    .Append(kvp.Key)
-                                    .Append(", ")
-                                    .Append(kvp.Value)
-                                    .Append(']');
-                            }
-
-                            _toString = vsb.ToString();
-                        }
-                    }
-
-                    return _toString;
-                }
+                public override string? ToString() => ToString(null, null);
 
                 public bool TryFormat(Span<char> destination, out int charsWritten, ReadOnlySpan<char> format, IFormatProvider? provider)
                 {
@@ -147,7 +117,13 @@ namespace ExRam.Gremlinq.Providers.Core
 
                 public string ToString(string? format, IFormatProvider? formatProvider)
                 {
-                    throw new NotImplementedException();
+                    var handler = new DefaultInterpolatedStringHandler(0, 1);
+
+                    handler
+                        .AppendFormatted(this, format: format);
+
+                    return handler
+                        .ToString();
                 }
             }
 
