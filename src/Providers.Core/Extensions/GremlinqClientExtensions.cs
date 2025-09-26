@@ -122,101 +122,23 @@ namespace ExRam.Gremlinq.Providers.Core
 
                         foreach (var kvp in value)
                         {
-                            if (!first)
-                            {
-                                if (", ".AsSpan().TryCopyTo(destination))
-                                {
-                                    charsWritten += 2;
-                                    destination = destination[2..];
-                                }
-                                else
-                                {
-                                    charsWritten = 0;
+                            var entryCharsWritten = 0;
 
-                                    return false;
-                                }
-                            }
-                            else
-                                first = false;
+                            var success = first
+                                ? destination.TryWrite(provider, $"[{kvp.Key}, {kvp.Value}]", out entryCharsWritten)
+                                : destination.TryWrite(provider, $", [{kvp.Key}, {kvp.Value}]", out entryCharsWritten);
 
-                            if ("[".AsSpan().TryCopyTo(destination))
-                            {
-                                charsWritten++;
-                                destination = destination[1..];
-                            }
-                            else
+                            first = false;
+
+                            if (!success)
                             {
                                 charsWritten = 0;
 
                                 return false;
                             }
 
-                            if (kvp.Key.AsSpan().TryCopyTo(destination))
-                            {
-                                charsWritten += kvp.Key.Length;
-                                destination = destination[kvp.Key.Length..];
-                            }
-                            else
-                            {
-                                charsWritten = 0;
-
-                                return false;
-                            }
-
-                            if (", ".AsSpan().TryCopyTo(destination))
-                            {
-                                charsWritten += 2;
-                                destination = destination[2..];
-                            }
-                            else
-                            {
-                                charsWritten = 0;
-
-                                return false;
-                            }
-
-                            if (kvp.Value is ISpanFormattable spanFormattableValue)
-                            {
-                                if (spanFormattableValue.TryFormat(destination, out var valueCharsWritten, format, provider))
-                                {
-                                    charsWritten += valueCharsWritten;
-                                    destination = destination[valueCharsWritten..];
-                                }
-                                else
-                                {
-                                    charsWritten = 0;
-
-                                    return false;
-                                }
-                            }
-                            else
-                            {
-                                var valueString = kvp.Value?.ToString() ?? "(null)";
-
-                                if (valueString.AsSpan().TryCopyTo(destination))
-                                {
-                                    charsWritten += valueString.Length;
-                                    destination = destination[valueString.Length..];
-                                }
-                                else
-                                {
-                                    charsWritten = 0;
-
-                                    return false;
-                                }
-                            }
-
-                            if ("]".AsSpan().TryCopyTo(destination))
-                            {
-                                charsWritten++;
-                                destination = destination[1..];
-                            }
-                            else
-                            {
-                                charsWritten = 0;
-
-                                return false;
-                            }
+                            charsWritten += entryCharsWritten;
+                            destination = destination[entryCharsWritten..];
                         }
                     }
 
