@@ -86,7 +86,7 @@ jobs:
     
   release:
     if: ${{ needs.pack.outputs.isPreviewRelease == 'false' }}
-    needs: [ attest ]
+    needs: [ pack, attest ]
     runs-on: ubuntu-24.04
 
     steps:
