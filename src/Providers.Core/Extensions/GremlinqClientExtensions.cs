@@ -117,27 +117,24 @@ namespace ExRam.Gremlinq.Providers.Core
                         {
                             if (includeBindings)
                             {
-                                environment.Logger.Log(
+                                environment.Logger.LogQuery(
                                     logLevel,
-                                    "Executing Gremlin query {requestId} with groovy script {script} and parameter bindings {bindings}.",
                                     requestMessage.RequestId,
                                     groovyQuery.Script,
                                     new FormattableBindings(groovyQuery.Bindings));
                             }
                             else
                             {
-                                environment.Logger.Log(
+                                environment.Logger.LogQuery(
                                     logLevel,
-                                    "Executing Gremlin query {requestId} with groovy script {script}.",
                                     requestMessage.RequestId,
                                     groovyQuery.Script);
                             }
                         }
                         else
                         {
-                            environment.Logger.Log(
+                            environment.Logger.LogQuery(
                                 logLevel,
-                                "Executing Gremlin query {requestId}.",
                                 requestMessage.RequestId);
                         }
                     }
