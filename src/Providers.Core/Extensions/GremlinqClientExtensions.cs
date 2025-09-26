@@ -116,27 +116,12 @@ namespace ExRam.Gremlinq.Providers.Core
                         if (requestMessage.TryGetGroovyScript(environment, includeBindings) is { } groovyQuery)
                         {
                             if (includeBindings)
-                            {
-                                environment.Logger.LogQuery(
-                                    logLevel,
-                                    requestMessage.RequestId,
-                                    groovyQuery.Script,
-                                    new FormattableBindings(groovyQuery.Bindings));
-                            }
+                                environment.Logger.LogQuery(logLevel, requestMessage.RequestId, groovyQuery.Script, new FormattableBindings(groovyQuery.Bindings));
                             else
-                            {
-                                environment.Logger.LogQuery(
-                                    logLevel,
-                                    requestMessage.RequestId,
-                                    groovyQuery.Script);
-                            }
+                                environment.Logger.LogQuery(logLevel, requestMessage.RequestId, groovyQuery.Script);
                         }
                         else
-                        {
-                            environment.Logger.LogQuery(
-                                logLevel,
-                                requestMessage.RequestId);
-                        }
+                            environment.Logger.LogQuery(logLevel, requestMessage.RequestId);
                     }
                 };
             }
