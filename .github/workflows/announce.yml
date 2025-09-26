@@ -2,9 +2,38 @@ name: Announce
 
 on:
   release:
-    types: [published]
+    types: [published, edited]
 
 jobs:
   announce:
     runs-on: ubuntu-24.04
 
+    steps:
+    - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8
+      with:
+        repository: 'Gremlinq/docs.gremlinq.net'
+        token: ${{ secrets.DOCS_TOKEN }}
+    
+    - run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+    - run: |       
+        fileName=./docs/blog/posts/$(echo ${{ github.event.release.created_at }} | tr : _).md
+
+        rm -f $fileName
+
+        echo "---" >> $fileName
+        echo "date: ${{ github.event.release.created_at}}" >> $fileName
+        echo "---" >> $fileName
+        echo "" >> $fileName
+        echo "#Release: ${{ github.event.repository.name }} ${{ github.event.release.tag_name }}" >> $fileName
+        echo "" >> $fileName
+        echo "${{ github.event.release.body }}" >> $fileName
+
+        git add $fileName
+        git commit -m "${{ github.event.repository.name }} ${{ github.event.release.tag_name }} ${{ github.event.action }}"
+        git push origin
+
+      env:
+        GH_TOKEN: ${{ secrets.DOCS_TOKEN }}
