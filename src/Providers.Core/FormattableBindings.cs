@@ -2,7 +2,7 @@
 
 namespace ExRam.Gremlinq.Providers.Core
 {
-    internal sealed class FormattableBindings : ISpanFormattable
+    internal readonly struct FormattableBindings : ISpanFormattable
     {
         private readonly IEnumerable<KeyValuePair<string, object?>>? _value;
 
