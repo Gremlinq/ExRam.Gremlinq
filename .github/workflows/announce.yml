@@ -3,6 +3,10 @@ name: Announce
 on:
   release:
     types: [published, edited]
+  workflow_call:
+    secrets:
+      DOCS_TOKEN:
+        required: true
 
 jobs:
   announce:
