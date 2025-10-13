@@ -1,6 +1,4 @@
-﻿using System.Text.RegularExpressions;
-
-using ExRam.Gremlinq.Core;
+﻿using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Providers.Core;
 using ExRam.Gremlinq.Tests.Fixtures;
 using ExRam.Gremlinq.Tests.Infrastructure;
