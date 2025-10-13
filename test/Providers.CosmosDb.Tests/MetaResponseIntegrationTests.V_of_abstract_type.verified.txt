@@ -1,0 +1,220 @@
+﻿[
+  {
+    Data: [
+      {
+        Age: 21,
+        Gender: Male,
+        RegistrationDate: 2020-04-07 14:43:36 +0,
+        Name: {
+          Id: 12345678-9012-3456-7890-123456789012,
+          Value: Marko
+        },
+        Id: 12345678-9012-3456-7890-123456789012,
+        Label: Person,
+        PartitionKey: PartitionKey
+      },
+      {
+        Id: 12345678-9012-3456-7890-123456789012,
+        Label: Company,
+        PartitionKey: PartitionKey
+      },
+      {
+        Age: 21,
+        Gender: Male,
+        RegistrationDate: 2020-04-07 14:43:36 +0,
+        Name: {
+          Id: 12345678-9012-3456-7890-123456789012,
+          Value: Marko
+        },
+        Id: 12345678-9012-3456-7890-123456789012,
+        Label: Person,
+        PartitionKey: PartitionKey
+      },
+      {
+        Age: 21,
+        Gender: Male,
+        RegistrationDate: 2020-04-07 14:43:36 +0,
+        Name: {
+          Id: 12345678-9012-3456-7890-123456789012,
+          Value: Marko
+        },
+        Id: 12345678-9012-3456-7890-123456789012,
+        Label: Person,
+        PartitionKey: PartitionKey
+      },
+      {
+        Age: 21,
+        Gender: Male,
+        RegistrationDate: 2020-04-07 14:43:36 +0,
+        Name: {
+          Id: 12345678-9012-3456-7890-123456789012,
+          Value: Marko
+        },
+        Id: 12345678-9012-3456-7890-123456789012,
+        Label: Person,
+        PartitionKey: PartitionKey
+      },
+      {
+        Age: 21,
+        Gender: Male,
+        RegistrationDate: 2020-04-07 14:43:36 +0,
+        Name: {
+          Id: 12345678-9012-3456-7890-123456789012,
+          Value: Marko
+        },
+        Id: 12345678-9012-3456-7890-123456789012,
+        Label: Person,
+        PartitionKey: PartitionKey
+      },
+      {
+        Age: 21,
+        Gender: Male,
+        RegistrationDate: 2020-04-07 14:43:36 +0,
+        Name: {
+          Id: 12345678-9012-3456-7890-123456789012,
+          Value: Marko
+        },
+        Id: 12345678-9012-3456-7890-123456789012,
+        Label: Person,
+        PartitionKey: PartitionKey
+      }
+    ],
+    ResponseStatus: {
+      Code: PartialContent,
+      Attributes: {
+        x-ms-activity-id: 12345678-9012-3456-7890-123456789012,
+        x-ms-request-charge: 12.3,
+        x-ms-server-time-ms: 21.0242,
+        x-ms-status-code: 206,
+        x-ms-total-request-charge: 12.3,
+        x-ms-total-server-time-ms: 21.0242
+      },
+      Message: 
+    }
+  },
+  {
+    Data: [
+      {
+        Id: 12345678-9012-3456-7890-123456789012,
+        Label: Company,
+        PartitionKey: PartitionKey
+      },
+      {
+        Age: 21,
+        Gender: Male,
+        RegistrationDate: 2020-04-07 14:43:36 +0,
+        Name: {
+          Id: 12345678-9012-3456-7890-123456789012,
+          Value: Marko
+        },
+        Id: 12345678-9012-3456-7890-123456789012,
+        Label: Person,
+        PartitionKey: PartitionKey
+      },
+      {
+        Age: 21,
+        Gender: Male,
+        RegistrationDate: 2020-04-07 14:43:36 +0,
+        Name: {
+          Id: 12345678-9012-3456-7890-123456789012,
+          Value: Marko
+        },
+        Id: 12345678-9012-3456-7890-123456789012,
+        Label: Person,
+        PartitionKey: PartitionKey
+      },
+      {
+        Id: 12345678-9012-3456-7890-123456789012,
+        Label: Company,
+        PartitionKey: PartitionKey
+      },
+      {
+        Age: 21,
+        Gender: Male,
+        RegistrationDate: 2020-04-07 14:43:36 +0,
+        Name: {
+          Id: 12345678-9012-3456-7890-123456789012,
+          Value: Marko
+        },
+        Id: 12345678-9012-3456-7890-123456789012,
+        Label: Person,
+        PartitionKey: PartitionKey
+      },
+      {
+        Age: 21,
+        Gender: Male,
+        RegistrationDate: 2020-04-07 14:43:36 +0,
+        Name: {
+          Id: 12345678-9012-3456-7890-123456789012,
+          Value: Marko
+        },
+        Id: 12345678-9012-3456-7890-123456789012,
+        Label: Person,
+        PartitionKey: PartitionKey
+      },
+      {
+        Age: 21,
+        Gender: Male,
+        RegistrationDate: 2020-04-07 14:43:36 +0,
+        Name: {
+          Id: 12345678-9012-3456-7890-123456789012,
+          Value: Marko
+        },
+        Id: 12345678-9012-3456-7890-123456789012,
+        Label: Person,
+        PartitionKey: PartitionKey
+      },
+      {
+        Locations: [
+          {
+            Id: 12345678-9012-3456-7890-123456789012,
+            Properties: {
+              ValidFrom: 2019-01-01 01:00 +0
+            },
+            Value: Aachen
+          }
+        ],
+        Id: 12345678-9012-3456-7890-123456789012,
+        Label: Company,
+        PartitionKey: PartitionKey
+      }
+    ],
+    ResponseStatus: {
+      Code: PartialContent,
+      Attributes: {
+        x-ms-activity-id: 12345678-9012-3456-7890-123456789012,
+        x-ms-request-charge: 0.0,
+        x-ms-server-time-ms: 0.2272,
+        x-ms-status-code: 206,
+        x-ms-total-request-charge: 12.3,
+        x-ms-total-server-time-ms: 21.2514
+      },
+      Message: 
+    }
+  },
+  {
+    Data: [
+      {
+        PhoneNumbers: [
+          +4912345,
+          +4923456
+        ],
+        Id: 12345678-9012-3456-7890-123456789012,
+        Label: Company,
+        PartitionKey: PartitionKey
+      }
+    ],
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        x-ms-activity-id: 12345678-9012-3456-7890-123456789012,
+        x-ms-request-charge: 0.0,
+        x-ms-server-time-ms: 0.0366,
+        x-ms-status-code: 200,
+        x-ms-total-request-charge: 12.3,
+        x-ms-total-server-time-ms: 21.288
+      },
+      Message: 
+    }
+  }
+]

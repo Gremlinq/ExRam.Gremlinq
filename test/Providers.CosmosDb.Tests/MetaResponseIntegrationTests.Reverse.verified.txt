@@ -1,0 +1,45 @@
+﻿{
+  Type: GremlinQueryExecutionException,
+  ExecutionContext: {
+    ExecutionId: 12345678-9012-3456-7890-123456789012,
+    Query: {}
+  },
+  Message: Executing query 12345678-9012-3456-7890-123456789012 failed.,
+  Data: {},
+  InnerException: {
+    $type: ResponseException,
+    Type: ResponseException,
+    StatusCode: ServerEvaluationError,
+    StatusAttributes: {
+      x-ms-activity-id: 12345678-9012-3456-7890-123456789012,
+      x-ms-request-charge: 0.0,
+      x-ms-server-time-ms: 1.3349,
+      x-ms-status-code: 400,
+      x-ms-total-request-charge: 0.0,
+      x-ms-total-server-time-ms: 1.3349
+    },
+    Message:
+ServerEvaluationError: 
+
+ActivityId : 12345678-9012-3456-7890-123456789012
+ExceptionType : GraphCompileException
+ExceptionMessage : 
+	Gremlin Query Compilation Error: Unable to find any method 'asString' @ line 1, column 22.
+	1 Error(s)
+	GremlinRequestId : 12345678-9012-3456-7890-123456789012
+	Context : graphcompute
+	Scope : graphparse-translate-csharpexpressionbinding
+	GraphInterOpStatusCode : QuerySyntaxError
+	HResult : 0x80131500
+,
+    Data: {}
+  },
+  StackTrace:
+at ExRam.Gremlinq.Core.AsyncEnumerable.<Catch>g__Core|8_0[TSource,TState](IAsyncEnumerable`1 source, Func`3 exceptionTransformation, TState state, CancellationToken ct)
+at ExRam.Gremlinq.Core.AsyncEnumerable.<Catch>g__Core|8_0[TSource,TState](IAsyncEnumerable`1 source, Func`3 exceptionTransformation, TState state, CancellationToken ct)
+at ExRam.Gremlinq.Core.AsyncEnumerable.<Catch>g__Core|8_0[TSource,TState](IAsyncEnumerable`1 source, Func`3 exceptionTransformation, TState state, CancellationToken ct)
+at System.Collections.Generic.AsyncEnumerableHelpers.ToArrayWithLength[T](IAsyncEnumerable`1 source, CancellationToken cancellationToken)
+at System.Collections.Generic.AsyncEnumerableHelpers.ToArrayWithLength[T](IAsyncEnumerable`1 source, CancellationToken cancellationToken)
+at System.Collections.Generic.AsyncEnumerableHelpers.ToArray[T](IAsyncEnumerable`1 source, CancellationToken cancellationToken)
+at ExRam.Gremlinq.Tests.Infrastructure.ExecutingVerifier.Verify[TElement](IGremlinQueryBase`1 query)
+}

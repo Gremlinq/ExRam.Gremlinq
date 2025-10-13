@@ -1,0 +1,31 @@
+﻿[
+  {
+    Data: [
+      {
+        CountryCallingCode: +49,
+        LocalizableDescription: {
+          Id: 12345678-9012-3456-7890-123456789012,
+          Properties: {
+            someKey: value
+          },
+          Value: 
+        },
+        Id: 12345678-9012-3456-7890-123456789012,
+        Label: Country,
+        PartitionKey: PartitionKey
+      }
+    ],
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        x-ms-activity-id: 12345678-9012-3456-7890-123456789012,
+        x-ms-request-charge: 3.02,
+        x-ms-server-time-ms: 8.05,
+        x-ms-status-code: 200,
+        x-ms-total-request-charge: 3.02,
+        x-ms-total-server-time-ms: 8.05
+      },
+      Message: 
+    }
+  }
+]

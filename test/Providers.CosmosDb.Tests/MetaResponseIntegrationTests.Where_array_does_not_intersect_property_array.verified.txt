@@ -1,0 +1,47 @@
+﻿[
+  {
+    Data: [
+      {
+        Id: 12345678-9012-3456-7890-123456789012,
+        Label: Company,
+        PartitionKey: PartitionKey
+      },
+      {
+        Id: 12345678-9012-3456-7890-123456789012,
+        Label: Company,
+        PartitionKey: PartitionKey
+      },
+      {
+        Id: 12345678-9012-3456-7890-123456789012,
+        Label: Company,
+        PartitionKey: PartitionKey
+      },
+      {
+        Locations: [
+          {
+            Id: 12345678-9012-3456-7890-123456789012,
+            Properties: {
+              ValidFrom: 2019-01-01 01:00 +0
+            },
+            Value: Aachen
+          }
+        ],
+        Id: 12345678-9012-3456-7890-123456789012,
+        Label: Company,
+        PartitionKey: PartitionKey
+      }
+    ],
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        x-ms-activity-id: 12345678-9012-3456-7890-123456789012,
+        x-ms-request-charge: 11.54,
+        x-ms-server-time-ms: 28.7939,
+        x-ms-status-code: 200,
+        x-ms-total-request-charge: 11.54,
+        x-ms-total-server-time-ms: 28.7939
+      },
+      Message: 
+    }
+  }
+]

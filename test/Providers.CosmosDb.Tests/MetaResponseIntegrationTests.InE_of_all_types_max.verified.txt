@@ -1,0 +1,68 @@
+﻿[
+  {
+    Data: [
+      {
+        Id: 12345678-9012-3456-7890-123456789012,
+        Label: LivesIn
+      },
+      {
+        Id: 12345678-9012-3456-7890-123456789012,
+        Label: Speaks
+      },
+      {
+        Role: Admin,
+        From: 2020-04-07 14:43:36 Utc,
+        To: 2020-04-07 14:43:36 Utc,
+        Id: 12345678-9012-3456-7890-123456789012,
+        Label: WorksFor
+      },
+      {
+        Id: 12345678-9012-3456-7890-123456789012,
+        Label: LivesIn
+      },
+      {
+        Id: 12345678-9012-3456-7890-123456789012,
+        Label: LivesIn
+      },
+      {
+        Id: 12345678-9012-3456-7890-123456789012,
+        Label: LivesIn
+      },
+      {
+        Since: {
+          Value: 2020-04-07 14:43:36 +0
+        },
+        Id: 12345678-9012-3456-7890-123456789012,
+        Label: LivesIn
+      },
+      {
+        Role: Admin,
+        From: 2020-04-07 14:43:36 Utc,
+        To: 2020-04-07 14:43:36 Utc,
+        Id: 12345678-9012-3456-7890-123456789012,
+        Label: WorksFor
+      },
+      {
+        Id: 12345678-9012-3456-7890-123456789012,
+        Label: Speaks
+      },
+      {
+        To: 2020-04-07 14:43:36 Utc,
+        Id: 12345678-9012-3456-7890-123456789012,
+        Label: WorksFor
+      }
+    ],
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        x-ms-activity-id: 12345678-9012-3456-7890-123456789012,
+        x-ms-request-charge: 26.2,
+        x-ms-server-time-ms: 32.7999,
+        x-ms-status-code: 200,
+        x-ms-total-request-charge: 26.2,
+        x-ms-total-server-time-ms: 32.7999
+      },
+      Message: 
+    }
+  }
+]

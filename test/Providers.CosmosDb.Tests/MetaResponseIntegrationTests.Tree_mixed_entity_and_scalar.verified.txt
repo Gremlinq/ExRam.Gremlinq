@@ -1,0 +1,120 @@
+﻿[
+  {
+    Data: [
+      [
+        {
+          Key: {
+            Age: 36,
+            Id: 12345678-9012-3456-7890-123456789012,
+            Label: Person,
+            PartitionKey: PartitionKey
+          },
+          Value: [
+            {
+              Key: {
+                Role: Admin,
+                From: 2020-04-07 14:43:36 Utc,
+                To: 2020-04-07 14:43:36 Utc,
+                Id: 12345678-9012-3456-7890-123456789012,
+                Label: WorksFor
+              },
+              Value: [
+                {
+                  Key: {
+                    Id: 12345678-9012-3456-7890-123456789012,
+                    Label: Company,
+                    PartitionKey: PartitionKey
+                  },
+                  Value: [
+                    {
+                      Key: -62135596800000,
+                      Value: []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          Key: {
+            Age: 36,
+            Id: 12345678-9012-3456-7890-123456789012,
+            Label: Person,
+            PartitionKey: PartitionKey
+          },
+          Value: [
+            {
+              Key: {
+                Role: Admin,
+                From: 2020-04-07 14:43:36 Utc,
+                To: 2020-04-07 14:43:36 Utc,
+                Id: 12345678-9012-3456-7890-123456789012,
+                Label: WorksFor
+              },
+              Value: [
+                {
+                  Key: {
+                    Id: 12345678-9012-3456-7890-123456789012,
+                    Label: Company,
+                    PartitionKey: PartitionKey
+                  },
+                  Value: [
+                    {
+                      Key: -62135596800000,
+                      Value: []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          Key: {
+            Age: 36,
+            Id: 12345678-9012-3456-7890-123456789012,
+            Label: Person,
+            PartitionKey: PartitionKey
+          },
+          Value: [
+            {
+              Key: {
+                To: 2020-04-07 14:43:36 Utc,
+                Id: 12345678-9012-3456-7890-123456789012,
+                Label: WorksFor
+              },
+              Value: [
+                {
+                  Key: {
+                    Id: 12345678-9012-3456-7890-123456789012,
+                    Label: Company,
+                    PartitionKey: PartitionKey
+                  },
+                  Value: [
+                    {
+                      Key: -62135596800000,
+                      Value: []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    ],
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        x-ms-activity-id: 12345678-9012-3456-7890-123456789012,
+        x-ms-request-charge: 19.53,
+        x-ms-server-time-ms: 30.2033,
+        x-ms-status-code: 200,
+        x-ms-total-request-charge: 19.53,
+        x-ms-total-server-time-ms: 30.2033
+      },
+      Message: 
+    }
+  }
+]

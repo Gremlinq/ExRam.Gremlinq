@@ -1,0 +1,39 @@
+﻿{
+  Type: GremlinQueryExecutionException,
+  ExecutionContext: {
+    ExecutionId: 12345678-9012-3456-7890-123456789012,
+    Query: {}
+  },
+  Message: Executing query 12345678-9012-3456-7890-123456789012 failed.,
+  Data: {},
+  InnerException: {
+    $type: ResponseException,
+    Type: ResponseException,
+    StatusCode: ServerError,
+    StatusAttributes: {
+      x-ms-activity-id: 12345678-9012-3456-7890-123456789012,
+      x-ms-request-charge: 11.76,
+      x-ms-server-time-ms: 15.3394,
+      x-ms-status-code: 500,
+      x-ms-total-request-charge: 11.76,
+      x-ms-total-server-time-ms: 15.3394
+    },
+    Message:
+ServerError: 
+
+ActivityId : 12345678-9012-3456-7890-123456789012
+ExceptionType : NullReferenceException
+ExceptionMessage : An unknown error occurred while processing this request. If the issue persists, please contact Azure Support: http://aka.ms/azure-support
+	HResult : 0x80004003
+,
+    Data: {}
+  },
+  StackTrace:
+at ExRam.Gremlinq.Core.AsyncEnumerable.<Catch>g__Core|8_0[TSource,TState](IAsyncEnumerable`1 source, Func`3 exceptionTransformation, TState state, CancellationToken ct)
+at ExRam.Gremlinq.Core.AsyncEnumerable.<Catch>g__Core|8_0[TSource,TState](IAsyncEnumerable`1 source, Func`3 exceptionTransformation, TState state, CancellationToken ct)
+at ExRam.Gremlinq.Core.AsyncEnumerable.<Catch>g__Core|8_0[TSource,TState](IAsyncEnumerable`1 source, Func`3 exceptionTransformation, TState state, CancellationToken ct)
+at System.Collections.Generic.AsyncEnumerableHelpers.ToArrayWithLength[T](IAsyncEnumerable`1 source, CancellationToken cancellationToken)
+at System.Collections.Generic.AsyncEnumerableHelpers.ToArrayWithLength[T](IAsyncEnumerable`1 source, CancellationToken cancellationToken)
+at System.Collections.Generic.AsyncEnumerableHelpers.ToArray[T](IAsyncEnumerable`1 source, CancellationToken cancellationToken)
+at ExRam.Gremlinq.Tests.Infrastructure.ExecutingVerifier.Verify[TElement](IGremlinQueryBase`1 query)
+}

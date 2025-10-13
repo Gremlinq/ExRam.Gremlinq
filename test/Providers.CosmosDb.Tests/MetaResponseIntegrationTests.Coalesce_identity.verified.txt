@@ -1,0 +1,268 @@
+﻿[
+  {
+    Data: [
+      {
+        CountryCallingCode: +49,
+        Id: 12345678-9012-3456-7890-123456789012,
+        Label: Country,
+        PartitionKey: PartitionKey
+      },
+      {
+        IetfLanguageTag: en,
+        Id: 12345678-9012-3456-7890-123456789012,
+        Label: Language,
+        PartitionKey: PartitionKey
+      },
+      {
+        Id: 12345678-9012-3456-7890-123456789012,
+        Label: Person,
+        PartitionKey: PartitionKey
+      },
+      {
+        Id: 12345678-9012-3456-7890-123456789012,
+        Label: Company,
+        PartitionKey: PartitionKey
+      },
+      {
+        RegistrationDate: 2020-04-07 14:43:36 +0,
+        Name: {
+          Id: 12345678-9012-3456-7890-123456789012,
+          Value: Bob
+        },
+        Id: 12345678-9012-3456-7890-123456789012,
+        Label: Person,
+        PartitionKey: PartitionKey
+      },
+      {
+        Id: 12345678-9012-3456-7890-123456789012,
+        Label: Person,
+        PartitionKey: PartitionKey
+      },
+      {
+        Id: 12345678-9012-3456-7890-123456789012,
+        Label: Country,
+        PartitionKey: PartitionKey
+      },
+      {
+        Id: 12345678-9012-3456-7890-123456789012,
+        Label: Person,
+        PartitionKey: PartitionKey
+      },
+      {
+        Id: 12345678-9012-3456-7890-123456789012,
+        Label: Country,
+        PartitionKey: PartitionKey
+      },
+      {
+        Id: 12345678-9012-3456-7890-123456789012,
+        Label: Person,
+        PartitionKey: PartitionKey
+      },
+      {
+        Id: 12345678-9012-3456-7890-123456789012,
+        Label: Country,
+        PartitionKey: PartitionKey
+      },
+      {
+        Id: 12345678-9012-3456-7890-123456789012,
+        Label: Person,
+        PartitionKey: PartitionKey
+      },
+      {
+        Id: 12345678-9012-3456-7890-123456789012,
+        Label: Company,
+        PartitionKey: PartitionKey
+      },
+      {
+        IetfLanguageTag: en,
+        Id: 12345678-9012-3456-7890-123456789012,
+        Label: Language,
+        PartitionKey: PartitionKey
+      },
+      {
+        CountryCallingCode: +49,
+        Id: 12345678-9012-3456-7890-123456789012,
+        Label: Country,
+        PartitionKey: PartitionKey
+      },
+      {
+        RegistrationDate: 2020-04-07 14:43:36 +0,
+        Name: {
+          Id: 12345678-9012-3456-7890-123456789012,
+          Value: Bob
+        },
+        Id: 12345678-9012-3456-7890-123456789012,
+        Label: Person,
+        PartitionKey: PartitionKey
+      }
+    ],
+    ResponseStatus: {
+      Code: PartialContent,
+      Attributes: {
+        x-ms-activity-id: 12345678-9012-3456-7890-123456789012,
+        x-ms-request-charge: 3.86,
+        x-ms-server-time-ms: 18.3118,
+        x-ms-status-code: 206,
+        x-ms-total-request-charge: 3.86,
+        x-ms-total-server-time-ms: 18.3118
+      },
+      Message: 
+    }
+  },
+  {
+    Data: [
+      {
+        Id: 12345678-9012-3456-7890-123456789012,
+        Label: Person,
+        PartitionKey: PartitionKey
+      },
+      {
+        Id: 12345678-9012-3456-7890-123456789012,
+        Label: Company,
+        PartitionKey: PartitionKey
+      },
+      {
+        IetfLanguageTag: en,
+        Id: 12345678-9012-3456-7890-123456789012,
+        Label: Language,
+        PartitionKey: PartitionKey
+      },
+      {
+        Id: 12345678-9012-3456-7890-123456789012,
+        Label: Language,
+        PartitionKey: PartitionKey
+      },
+      {
+        Enabled: false,
+        StartTime: 08:00:00,
+        Duration: 02:00:00,
+        Id: 12345678-9012-3456-7890-123456789012,
+        Label: TimeFrame,
+        PartitionKey: PartitionKey
+      },
+      {
+        IetfLanguageTag: en,
+        Id: 12345678-9012-3456-7890-123456789012,
+        Label: Language,
+        PartitionKey: PartitionKey
+      },
+      {
+        Image: AQIDBAUGBwg=,
+        Id: 12345678-9012-3456-7890-123456789012,
+        Label: Person,
+        PartitionKey: PartitionKey
+      },
+      {
+        Gender: Female,
+        Id: 12345678-9012-3456-7890-123456789012,
+        Label: Person,
+        PartitionKey: PartitionKey
+      },
+      {
+        RegistrationDate: 2020-04-07 14:43:36 +0,
+        Name: {
+          Id: 12345678-9012-3456-7890-123456789012,
+          Value: Marko
+        },
+        Id: 12345678-9012-3456-7890-123456789012,
+        Label: Person,
+        PartitionKey: PartitionKey
+      },
+      {
+        IetfLanguageTag: en,
+        Id: 12345678-9012-3456-7890-123456789012,
+        Label: Language,
+        PartitionKey: PartitionKey
+      },
+      {
+        Id: 12345678-9012-3456-7890-123456789012,
+        Label: Language,
+        PartitionKey: PartitionKey
+      },
+      {
+        Locations: [
+          {
+            Id: 12345678-9012-3456-7890-123456789012,
+            Properties: {
+              ValidFrom: 2019-01-01 01:00 +0
+            },
+            Value: Aachen
+          }
+        ],
+        Id: 12345678-9012-3456-7890-123456789012,
+        Label: Company,
+        PartitionKey: PartitionKey
+      },
+      {
+        Name: {
+          Id: 12345678-9012-3456-7890-123456789012,
+          Properties: {},
+          Value: GER
+        },
+        Id: 12345678-9012-3456-7890-123456789012,
+        Label: Country,
+        PartitionKey: PartitionKey
+      },
+      {
+        Name: {
+          Id: 12345678-9012-3456-7890-123456789012,
+          Properties: {
+            de: Deutschland,
+            en: Germany
+          },
+          Value: GER
+        },
+        Id: 12345678-9012-3456-7890-123456789012,
+        Label: Country,
+        PartitionKey: PartitionKey
+      }
+    ],
+    ResponseStatus: {
+      Code: PartialContent,
+      Attributes: {
+        x-ms-activity-id: 12345678-9012-3456-7890-123456789012,
+        x-ms-request-charge: 0.0,
+        x-ms-server-time-ms: 6.8422,
+        x-ms-status-code: 206,
+        x-ms-total-request-charge: 3.86,
+        x-ms-total-server-time-ms: 25.154000000000003
+      },
+      Message: 
+    }
+  },
+  {
+    Data: [
+      {
+        PhoneNumbers: [
+          +4912345,
+          +4923456
+        ],
+        Id: 12345678-9012-3456-7890-123456789012,
+        Label: Company,
+        PartitionKey: PartitionKey
+      },
+      {
+        Id: 12345678-9012-3456-7890-123456789012,
+        Label: Language,
+        PartitionKey: PartitionKey
+      },
+      {
+        Id: 12345678-9012-3456-7890-123456789012,
+        Label: Language,
+        PartitionKey: PartitionKey
+      }
+    ],
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        x-ms-activity-id: 12345678-9012-3456-7890-123456789012,
+        x-ms-request-charge: 0.0,
+        x-ms-server-time-ms: 0.055,
+        x-ms-status-code: 200,
+        x-ms-total-request-charge: 3.86,
+        x-ms-total-server-time-ms: 25.209000000000003
+      },
+      Message: 
+    }
+  }
+]

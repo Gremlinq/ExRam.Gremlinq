@@ -1,0 +1,37 @@
+﻿[
+  {
+    Data: [
+      {
+        Role: Admin,
+        From: 2020-04-07 14:43:36 Utc,
+        To: 2020-04-07 14:43:36 Utc,
+        Id: 12345678-9012-3456-7890-123456789012,
+        Label: WorksFor
+      },
+      {
+        Role: Admin,
+        From: 2020-04-07 14:43:36 Utc,
+        To: 2020-04-07 14:43:36 Utc,
+        Id: 12345678-9012-3456-7890-123456789012,
+        Label: WorksFor
+      },
+      {
+        To: 2020-04-07 14:43:36 Utc,
+        Id: 12345678-9012-3456-7890-123456789012,
+        Label: WorksFor
+      }
+    ],
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        x-ms-activity-id: 12345678-9012-3456-7890-123456789012,
+        x-ms-request-charge: 45.65,
+        x-ms-server-time-ms: 56.6754,
+        x-ms-status-code: 200,
+        x-ms-total-request-charge: 45.65,
+        x-ms-total-server-time-ms: 56.6754
+      },
+      Message: 
+    }
+  }
+]

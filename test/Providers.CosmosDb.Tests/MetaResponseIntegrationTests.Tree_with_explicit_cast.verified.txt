@@ -1,0 +1,160 @@
+﻿[
+  {
+    Data: [
+      [
+        {
+          Key: {
+            Age: 36,
+            Id: 12345678-9012-3456-7890-123456789012,
+            Label: Person,
+            PartitionKey: PartitionKey
+          },
+          Value: []
+        },
+        {
+          Key: {
+            Age: 36,
+            RegistrationDate: 2020-04-07 14:43:36 +0,
+            Name: {
+              Id: 12345678-9012-3456-7890-123456789012,
+              Properties: {
+                ValidFrom: 2020-04-07 14:43:36 +0
+              },
+              Value: Bob
+            },
+            Id: 12345678-9012-3456-7890-123456789012,
+            Label: Person,
+            PartitionKey: PartitionKey
+          },
+          Value: []
+        },
+        {
+          Key: {
+            Age: 36,
+            Id: 12345678-9012-3456-7890-123456789012,
+            Label: Person,
+            PartitionKey: PartitionKey
+          },
+          Value: []
+        },
+        {
+          Key: {
+            Age: 36,
+            Id: 12345678-9012-3456-7890-123456789012,
+            Label: Person,
+            PartitionKey: PartitionKey
+          },
+          Value: []
+        },
+        {
+          Key: {
+            Age: 36,
+            Id: 12345678-9012-3456-7890-123456789012,
+            Label: Person,
+            PartitionKey: PartitionKey
+          },
+          Value: []
+        },
+        {
+          Key: {
+            Age: 36,
+            Id: 12345678-9012-3456-7890-123456789012,
+            Label: Person,
+            PartitionKey: PartitionKey
+          },
+          Value: []
+        },
+        {
+          Key: {
+            Age: 36,
+            RegistrationDate: 2020-04-07 14:43:36 +0,
+            Name: {
+              Id: 12345678-9012-3456-7890-123456789012,
+              Properties: {
+                ValidFrom: 2020-04-07 14:43:36 +0
+              },
+              Value: Bob
+            },
+            Id: 12345678-9012-3456-7890-123456789012,
+            Label: Person,
+            PartitionKey: PartitionKey
+          },
+          Value: []
+        },
+        {
+          Key: {
+            Age: 36,
+            Id: 12345678-9012-3456-7890-123456789012,
+            Label: Person,
+            PartitionKey: PartitionKey
+          },
+          Value: []
+        },
+        {
+          Key: {
+            Age: 36,
+            Image: AQIDBAUGBwg=,
+            Id: 12345678-9012-3456-7890-123456789012,
+            Label: Person,
+            PartitionKey: PartitionKey
+          },
+          Value: []
+        },
+        {
+          Key: {
+            Age: 36,
+            Gender: Female,
+            Id: 12345678-9012-3456-7890-123456789012,
+            Label: Person,
+            PartitionKey: PartitionKey
+          },
+          Value: []
+        },
+        {
+          Key: {
+            Age: 36,
+            RegistrationDate: 2020-04-07 14:43:36 +0,
+            Name: {
+              Id: 12345678-9012-3456-7890-123456789012,
+              Properties: {
+                ValidFrom: 2020-04-07 14:43:36 +0
+              },
+              Value: Marko
+            },
+            Id: 12345678-9012-3456-7890-123456789012,
+            Label: Person,
+            PartitionKey: PartitionKey
+          },
+          Value: []
+        }
+      ]
+    ],
+    ResponseStatus: {
+      Code: PartialContent,
+      Attributes: {
+        x-ms-activity-id: 12345678-9012-3456-7890-123456789012,
+        x-ms-request-charge: 11.739999999999998,
+        x-ms-server-time-ms: 18.7144,
+        x-ms-status-code: 206,
+        x-ms-total-request-charge: 11.739999999999998,
+        x-ms-total-server-time-ms: 18.7144
+      },
+      Message: 
+    }
+  },
+  {
+    Data: [],
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        x-ms-activity-id: 12345678-9012-3456-7890-123456789012,
+        x-ms-request-charge: 0.0,
+        x-ms-server-time-ms: 0.0699,
+        x-ms-status-code: 200,
+        x-ms-total-request-charge: 11.739999999999998,
+        x-ms-total-server-time-ms: 18.7843
+      },
+      Message: 
+    }
+  }
+]

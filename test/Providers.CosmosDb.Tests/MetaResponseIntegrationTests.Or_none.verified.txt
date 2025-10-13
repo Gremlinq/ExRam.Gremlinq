@@ -1,0 +1,58 @@
+﻿[
+  {
+    Data: [
+      {
+        Id: 12345678-9012-3456-7890-123456789012,
+        Label: Person,
+        PartitionKey: PartitionKey
+      },
+      {
+        Id: 12345678-9012-3456-7890-123456789012,
+        Label: Person,
+        PartitionKey: PartitionKey
+      },
+      {
+        Id: 12345678-9012-3456-7890-123456789012,
+        Label: Person,
+        PartitionKey: PartitionKey
+      },
+      {
+        Id: 12345678-9012-3456-7890-123456789012,
+        Label: Person,
+        PartitionKey: PartitionKey
+      },
+      {
+        Id: 12345678-9012-3456-7890-123456789012,
+        Label: Person,
+        PartitionKey: PartitionKey
+      },
+      {
+        RegistrationDate: 2020-04-07 14:43:36 +0,
+        Name: {
+          Id: 12345678-9012-3456-7890-123456789012,
+          Value: Bob
+        },
+        Id: 12345678-9012-3456-7890-123456789012,
+        Label: Person,
+        PartitionKey: PartitionKey
+      },
+      {
+        Id: 12345678-9012-3456-7890-123456789012,
+        Label: Person,
+        PartitionKey: PartitionKey
+      }
+    ],
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        x-ms-activity-id: 12345678-9012-3456-7890-123456789012,
+        x-ms-request-charge: 16.150000000000002,
+        x-ms-server-time-ms: 27.7539,
+        x-ms-status-code: 200,
+        x-ms-total-request-charge: 16.150000000000002,
+        x-ms-total-server-time-ms: 27.7539
+      },
+      Message: 
+    }
+  }
+]

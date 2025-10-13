@@ -1,0 +1,36 @@
+﻿[
+  {
+    Data: [
+      {
+        Id: 12345678-9012-3456-7890-123456789012,
+        Label: Name,
+        Properties: {
+          metaKey: 1
+        },
+        Value: GER
+      },
+      {
+        Id: 12345678-9012-3456-7890-123456789012,
+        Label: Name,
+        Properties: {
+          de: Deutschland,
+          en: Germany,
+          metaKey: 1
+        },
+        Value: GER
+      }
+    ],
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        x-ms-activity-id: 12345678-9012-3456-7890-123456789012,
+        x-ms-request-charge: 35.220000000000006,
+        x-ms-server-time-ms: 45.6306,
+        x-ms-status-code: 200,
+        x-ms-total-request-charge: 35.220000000000006,
+        x-ms-total-server-time-ms: 45.6306
+      },
+      Message: 
+    }
+  }
+]

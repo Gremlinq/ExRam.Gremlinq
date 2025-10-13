@@ -1,0 +1,17 @@
+﻿[
+  {
+    Data: [],
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        x-ms-activity-id: 12345678-9012-3456-7890-123456789012,
+        x-ms-request-charge: 11.59,
+        x-ms-server-time-ms: 15.7265,
+        x-ms-status-code: 200,
+        x-ms-total-request-charge: 11.59,
+        x-ms-total-server-time-ms: 15.7265
+      },
+      Message: 
+    }
+  }
+]

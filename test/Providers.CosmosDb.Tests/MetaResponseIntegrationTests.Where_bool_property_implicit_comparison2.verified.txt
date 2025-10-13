@@ -1,0 +1,26 @@
+﻿[
+  {
+    Data: [
+      {
+        Enabled: false,
+        StartTime: 08:00:00,
+        Duration: 02:00:00,
+        Id: 12345678-9012-3456-7890-123456789012,
+        Label: TimeFrame,
+        PartitionKey: PartitionKey
+      }
+    ],
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        x-ms-activity-id: 12345678-9012-3456-7890-123456789012,
+        x-ms-request-charge: 11.420000000000002,
+        x-ms-server-time-ms: 17.6655,
+        x-ms-status-code: 200,
+        x-ms-total-request-charge: 11.420000000000002,
+        x-ms-total-server-time-ms: 17.6655
+      },
+      Message: 
+    }
+  }
+]
