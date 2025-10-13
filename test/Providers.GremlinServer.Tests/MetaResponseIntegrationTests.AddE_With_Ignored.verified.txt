@@ -8,7 +8,7 @@
     ResponseStatus: {
       Code: Success,
       Attributes: {
-        host: /172.17.0.1:55294
+        host: (host)
       },
       Message: 
     }

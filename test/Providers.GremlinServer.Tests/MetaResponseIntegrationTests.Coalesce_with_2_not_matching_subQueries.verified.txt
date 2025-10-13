@@ -7,7 +7,7 @@
     ResponseStatus: {
       Code: Success,
       Attributes: {
-        host: /172.17.0.1:33708
+        host: (host)
       },
       Message: 
     }
@@ -20,7 +20,7 @@
     ResponseStatus: {
       Code: Success,
       Attributes: {
-        host: /172.17.0.1:33708
+        host: (host)
       },
       Message: 
     }
@@ -35,7 +35,7 @@
     ResponseStatus: {
       Code: Success,
       Attributes: {
-        host: /172.17.0.1:33708
+        host: (host)
       },
       Message: 
     }
@@ -50,7 +50,7 @@
     ResponseStatus: {
       Code: Success,
       Attributes: {
-        host: /172.17.0.1:33708
+        host: (host)
       },
       Message: 
     }
@@ -64,7 +64,7 @@
     ResponseStatus: {
       Code: Success,
       Attributes: {
-        host: /172.17.0.1:33708
+        host: (host)
       },
       Message: 
     }
@@ -80,7 +80,7 @@
     ResponseStatus: {
       Code: Success,
       Attributes: {
-        host: /172.17.0.1:33708
+        host: (host)
       },
       Message: 
     }
@@ -93,7 +93,7 @@
     ResponseStatus: {
       Code: Success,
       Attributes: {
-        host: /172.17.0.1:33708
+        host: (host)
       },
       Message: 
     }
@@ -107,7 +107,7 @@
     ResponseStatus: {
       Code: Success,
       Attributes: {
-        host: /172.17.0.1:33708
+        host: (host)
       },
       Message: 
     }
@@ -120,7 +120,7 @@
     ResponseStatus: {
       Code: Success,
       Attributes: {
-        host: /172.17.0.1:33708
+        host: (host)
       },
       Message: 
     }
@@ -134,7 +134,7 @@
     ResponseStatus: {
       Code: Success,
       Attributes: {
-        host: /172.17.0.1:33708
+        host: (host)
       },
       Message: 
     }
@@ -151,7 +151,7 @@
     ResponseStatus: {
       Code: Success,
       Attributes: {
-        host: /172.17.0.1:33708
+        host: (host)
       },
       Message: 
     }
@@ -165,7 +165,7 @@
     ResponseStatus: {
       Code: Success,
       Attributes: {
-        host: /172.17.0.1:33708
+        host: (host)
       },
       Message: 
     }
@@ -179,7 +179,7 @@
     ResponseStatus: {
       Code: Success,
       Attributes: {
-        host: /172.17.0.1:33708
+        host: (host)
       },
       Message: 
     }
@@ -195,7 +195,7 @@
     ResponseStatus: {
       Code: Success,
       Attributes: {
-        host: /172.17.0.1:33708
+        host: (host)
       },
       Message: 
     }
@@ -210,7 +210,7 @@
     ResponseStatus: {
       Code: Success,
       Attributes: {
-        host: /172.17.0.1:33708
+        host: (host)
       },
       Message: 
     }
@@ -223,7 +223,7 @@
     ResponseStatus: {
       Code: Success,
       Attributes: {
-        host: /172.17.0.1:33708
+        host: (host)
       },
       Message: 
     }
@@ -236,7 +236,7 @@
     ResponseStatus: {
       Code: Success,
       Attributes: {
-        host: /172.17.0.1:33708
+        host: (host)
       },
       Message: 
     }
@@ -250,7 +250,7 @@
     ResponseStatus: {
       Code: Success,
       Attributes: {
-        host: /172.17.0.1:33708
+        host: (host)
       },
       Message: 
     }
@@ -264,7 +264,7 @@
     ResponseStatus: {
       Code: Success,
       Attributes: {
-        host: /172.17.0.1:33708
+        host: (host)
       },
       Message: 
     }

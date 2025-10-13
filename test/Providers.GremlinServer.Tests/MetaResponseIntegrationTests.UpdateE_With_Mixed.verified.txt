@@ -10,7 +10,7 @@
     ResponseStatus: {
       Code: Success,
       Attributes: {
-        host: /172.17.0.1:38142
+        host: (host)
       },
       Message: 
     }
@@ -24,7 +24,7 @@
     ResponseStatus: {
       Code: Success,
       Attributes: {
-        host: /172.17.0.1:38142
+        host: (host)
       },
       Message: 
     }
@@ -40,7 +40,7 @@
     ResponseStatus: {
       Code: Success,
       Attributes: {
-        host: /172.17.0.1:38142
+        host: (host)
       },
       Message: 
     }
