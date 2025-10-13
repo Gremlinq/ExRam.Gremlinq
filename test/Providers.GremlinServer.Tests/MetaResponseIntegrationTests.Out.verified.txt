@@ -1,0 +1,17 @@
+﻿[
+  {
+    Id: 5,
+    Label: Company,
+    PartitionKey: PartitionKey
+  },
+  {
+    Id: 27,
+    Label: Company,
+    PartitionKey: PartitionKey
+  },
+  {
+    Id: 42,
+    Label: Company,
+    PartitionKey: PartitionKey
+  }
+]

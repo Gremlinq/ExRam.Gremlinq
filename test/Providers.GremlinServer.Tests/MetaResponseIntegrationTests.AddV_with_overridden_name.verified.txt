@@ -1,0 +1,8 @@
+﻿[
+  {
+    IetfLanguageTag: en,
+    Id: 80,
+    Label: Language,
+    PartitionKey: PartitionKey
+  }
+]
