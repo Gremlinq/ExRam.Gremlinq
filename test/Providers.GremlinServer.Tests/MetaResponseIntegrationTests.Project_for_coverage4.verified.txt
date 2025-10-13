@@ -1,26 +1,19 @@
 ﻿[
   {
-    Value: {
-      Item1: +49,
-      Item2: +49,
-      Item3: +49,
-      Item4: +49
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+    Values: [
+      {
+        Item1: +49,
+        Item2: +49,
+        Item3: +49,
+        Item4: +49
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Item1: +49,
-      Item2: +49,
-      Item3: +49,
-      Item4: +49
-    },
+      {
+        Item1: +49,
+        Item2: +49,
+        Item3: +49,
+        Item4: +49
+      }
+    ],
     ResponseStatus: {
       Code: Success,
       Attributes: {

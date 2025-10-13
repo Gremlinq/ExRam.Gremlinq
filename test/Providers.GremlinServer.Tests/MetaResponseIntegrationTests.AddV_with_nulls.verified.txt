@@ -1,10 +1,12 @@
 ﻿[
   {
-    Value: {
-      Id: 79,
-      Label: Language,
-      PartitionKey: PartitionKey
-    },
+    Values: [
+      {
+        Id: 79,
+        Label: Language,
+        PartitionKey: PartitionKey
+      }
+    ],
     ResponseStatus: {
       Code: Success,
       Attributes: {

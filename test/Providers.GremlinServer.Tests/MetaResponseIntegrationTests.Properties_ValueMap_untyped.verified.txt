@@ -1,391 +1,51 @@
 ﻿[
   {
-    Value: {},
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+    Values: [
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {
+        ValidFrom: 2019-01-01 01:00 +0
       },
-      Message: 
-    }
-  },
-  {
-    Value: {},
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {},
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {},
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {},
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {},
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {},
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {},
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {},
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {},
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {},
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {},
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {},
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {},
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {},
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {},
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {},
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {},
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {},
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {},
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {},
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {},
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {},
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {},
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {},
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {},
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {},
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {},
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {},
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {},
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {},
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {},
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {},
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {},
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {},
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {},
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {},
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      ValidFrom: 2019-01-01 01:00 +0
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      de: Deutschland,
-      en: Germany
-    },
+      {
+        de: Deutschland,
+        en: Germany
+      }
+    ],
     ResponseStatus: {
       Code: Success,
       Attributes: {

@@ -1,106 +1,18 @@
 ﻿[
   {
-    Value: Marko,
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: Marko,
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: Marko,
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: Marko,
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: Marko,
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: Marko,
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: Marko,
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: Marko,
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: Marko,
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: Marko,
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: Marko,
+    Values: [
+      Marko,
+      Marko,
+      Marko,
+      Marko,
+      Marko,
+      Marko,
+      Marko,
+      Marko,
+      Marko,
+      Marko,
+      Marko
+    ],
     ResponseStatus: {
       Code: Success,
       Attributes: {

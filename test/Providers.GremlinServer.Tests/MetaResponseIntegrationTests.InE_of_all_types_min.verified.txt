@@ -1,136 +1,57 @@
 ﻿[
   {
-    Value: {
-      Id: 41,
-      Label: LivesIn
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+    Values: [
+      {
+        Id: 41,
+        Label: LivesIn
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 4,
-      Label: Speaks
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        Id: 4,
+        Label: Speaks
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Role: Admin,
-      From: 2020-04-07 14:43:36 Utc,
-      To: 2020-04-07 14:43:36 Utc,
-      Id: 9,
-      Label: WorksFor
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        Role: Admin,
+        From: 2020-04-07 14:43:36 Utc,
+        To: 2020-04-07 14:43:36 Utc,
+        Id: 9,
+        Label: WorksFor
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 14,
-      Label: LivesIn
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        Id: 14,
+        Label: LivesIn
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 18,
-      Label: LivesIn
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        Id: 18,
+        Label: LivesIn
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 22,
-      Label: LivesIn
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        Id: 22,
+        Label: LivesIn
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Since: {
-        Value: 2020-04-07 14:43:36 +0
+      {
+        Since: {
+          Value: 2020-04-07 14:43:36 +0
+        },
+        Id: 26,
+        Label: LivesIn
       },
-      Id: 26,
-      Label: LivesIn
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        Role: Admin,
+        From: 2020-04-07 14:43:36 Utc,
+        To: 2020-04-07 14:43:36 Utc,
+        Id: 31,
+        Label: WorksFor
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Role: Admin,
-      From: 2020-04-07 14:43:36 Utc,
-      To: 2020-04-07 14:43:36 Utc,
-      Id: 31,
-      Label: WorksFor
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        Id: 36,
+        Label: Speaks
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 36,
-      Label: Speaks
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      To: 2020-04-07 14:43:36 Utc,
-      Id: 46,
-      Label: WorksFor
-    },
+      {
+        To: 2020-04-07 14:43:36 Utc,
+        Id: 46,
+        Label: WorksFor
+      }
+    ],
     ResponseStatus: {
       Code: Success,
       Attributes: {

@@ -1,42 +1,35 @@
 ﻿[
   {
-    Value: {
-      CountryCallingCode: +49,
-      LocalizableDescription: {
-        Id: 127,
-        Label: LocalizableDescription,
-        Properties: {
-          someKey: value
+    Values: [
+      {
+        CountryCallingCode: +49,
+        LocalizableDescription: {
+          Id: 127,
+          Label: LocalizableDescription,
+          Properties: {
+            someKey: value
+          },
+          Value: 
         },
-        Value: 
+        Id: 0,
+        Label: Country,
+        PartitionKey: PartitionKey
       },
-      Id: 0,
-      Label: Country,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      CountryCallingCode: +49,
-      LocalizableDescription: {
-        Id: 133,
-        Label: LocalizableDescription,
-        Properties: {
-          someKey: value
+      {
+        CountryCallingCode: +49,
+        LocalizableDescription: {
+          Id: 133,
+          Label: LocalizableDescription,
+          Properties: {
+            someKey: value
+          },
+          Value: 
         },
-        Value: 
-      },
-      Id: 34,
-      Label: Country,
-      PartitionKey: PartitionKey
-    },
+        Id: 34,
+        Label: Country,
+        PartitionKey: PartitionKey
+      }
+    ],
     ResponseStatus: {
       Code: Success,
       Attributes: {

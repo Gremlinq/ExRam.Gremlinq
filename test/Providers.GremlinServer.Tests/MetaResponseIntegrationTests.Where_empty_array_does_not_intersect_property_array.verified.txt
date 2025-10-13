@@ -1,80 +1,46 @@
 ﻿[
   {
-    Value: {
-      Locations: [
-        {
-          Id: 70,
-          Label: Locations,
-          Properties: {
-            ValidFrom: 2019-01-01 01:00 +0
-          },
-          Value: Aachen
-        }
-      ],
-      Id: 68,
-      Label: Company,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+    Values: [
+      {
+        Locations: [
+          {
+            Id: 70,
+            Label: Locations,
+            Properties: {
+              ValidFrom: 2019-01-01 01:00 +0
+            },
+            Value: Aachen
+          }
+        ],
+        Id: 68,
+        Label: Company,
+        PartitionKey: PartitionKey
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 5,
-      Label: Company,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        Id: 5,
+        Label: Company,
+        PartitionKey: PartitionKey
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      PhoneNumbers: [
-        +4912345,
-        +4923456
-      ],
-      Id: 75,
-      Label: Company,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        PhoneNumbers: [
+          +4912345,
+          +4923456
+        ],
+        Id: 75,
+        Label: Company,
+        PartitionKey: PartitionKey
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 27,
-      Label: Company,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        Id: 27,
+        Label: Company,
+        PartitionKey: PartitionKey
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 42,
-      Label: Company,
-      PartitionKey: PartitionKey
-    },
+      {
+        Id: 42,
+        Label: Company,
+        PartitionKey: PartitionKey
+      }
+    ],
     ResponseStatus: {
       Code: Success,
       Attributes: {

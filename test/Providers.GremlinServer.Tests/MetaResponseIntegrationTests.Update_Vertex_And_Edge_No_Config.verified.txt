@@ -1,44 +1,28 @@
 ﻿[
   {
-    Value: {
-      Role: Admin,
-      From: 2020-04-07 14:43:36 Utc,
-      To: 2020-04-07 14:43:36 Utc,
-      Id: 9,
-      Label: WorksFor
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+    Values: [
+      {
+        Role: Admin,
+        From: 2020-04-07 14:43:36 Utc,
+        To: 2020-04-07 14:43:36 Utc,
+        Id: 9,
+        Label: WorksFor
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Role: Admin,
-      From: 2020-04-07 14:43:36 Utc,
-      To: 2020-04-07 14:43:36 Utc,
-      Id: 31,
-      Label: WorksFor
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        Role: Admin,
+        From: 2020-04-07 14:43:36 Utc,
+        To: 2020-04-07 14:43:36 Utc,
+        Id: 31,
+        Label: WorksFor
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Role: Admin,
-      From: 2020-04-07 14:43:36 Utc,
-      To: 2020-04-07 14:43:36 Utc,
-      Id: 46,
-      Label: WorksFor
-    },
+      {
+        Role: Admin,
+        From: 2020-04-07 14:43:36 Utc,
+        To: 2020-04-07 14:43:36 Utc,
+        Id: 46,
+        Label: WorksFor
+      }
+    ],
     ResponseStatus: {
       Code: Success,
       Attributes: {

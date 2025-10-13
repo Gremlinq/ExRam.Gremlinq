@@ -1,9 +1,11 @@
 ﻿[
   {
-    Value: {
-      Item1: in_value,
-      Item2: out_value
-    },
+    Values: [
+      {
+        Item1: in_value,
+        Item2: out_value
+      }
+    ],
     ResponseStatus: {
       Code: Success,
       Attributes: {

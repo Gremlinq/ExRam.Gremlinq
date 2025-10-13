@@ -1,146 +1,67 @@
 ﻿[
   {
-    Value: {
-      Id: 8,
-      Label: Age,
-      Properties: {},
-      Value: 0
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+    Values: [
+      {
+        Id: 8,
+        Label: Age,
+        Properties: {},
+        Value: 0
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 11,
-      Label: Age,
-      Properties: {},
-      Value: 0
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        Id: 11,
+        Label: Age,
+        Properties: {},
+        Value: 0
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 16,
-      Label: Age,
-      Properties: {},
-      Value: 0
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        Id: 16,
+        Label: Age,
+        Properties: {},
+        Value: 0
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 20,
-      Label: Age,
-      Properties: {},
-      Value: 0
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        Id: 20,
+        Label: Age,
+        Properties: {},
+        Value: 0
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 24,
-      Label: Age,
-      Properties: {},
-      Value: 0
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        Id: 24,
+        Label: Age,
+        Properties: {},
+        Value: 0
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 30,
-      Label: Age,
-      Properties: {},
-      Value: 0
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        Id: 30,
+        Label: Age,
+        Properties: {},
+        Value: 0
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 38,
-      Label: Age,
-      Properties: {},
-      Value: 0
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        Id: 38,
+        Label: Age,
+        Properties: {},
+        Value: 0
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 45,
-      Label: Age,
-      Properties: {},
-      Value: 0
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        Id: 45,
+        Label: Age,
+        Properties: {},
+        Value: 0
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 57,
-      Label: Age,
-      Properties: {},
-      Value: 0
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        Id: 57,
+        Label: Age,
+        Properties: {},
+        Value: 0
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 60,
-      Label: Age,
-      Properties: {},
-      Value: 0
-    },
+      {
+        Id: 60,
+        Label: Age,
+        Properties: {},
+        Value: 0
+      }
+    ],
     ResponseStatus: {
       Code: Success,
       Attributes: {

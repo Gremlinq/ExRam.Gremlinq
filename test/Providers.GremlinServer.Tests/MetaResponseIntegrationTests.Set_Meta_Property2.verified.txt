@@ -1,47 +1,31 @@
 ﻿[
   {
-    Value: {
-      Id: 12,
-      Label: Name,
-      Properties: {
-        ValidFrom: 2020-04-07 14:43:36 +0
+    Values: [
+      {
+        Id: 12,
+        Label: Name,
+        Properties: {
+          ValidFrom: 2020-04-07 14:43:36 +0
+        },
+        Value: Bob
       },
-      Value: Bob
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        Id: 39,
+        Label: Name,
+        Properties: {
+          ValidFrom: 2020-04-07 14:43:36 +0
+        },
+        Value: Bob
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 39,
-      Label: Name,
-      Properties: {
-        ValidFrom: 2020-04-07 14:43:36 +0
-      },
-      Value: Bob
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 63,
-      Label: Name,
-      Properties: {
-        ValidFrom: 2020-04-07 14:43:36 +0
-      },
-      Value: Marko
-    },
+      {
+        Id: 63,
+        Label: Name,
+        Properties: {
+          ValidFrom: 2020-04-07 14:43:36 +0
+        },
+        Value: Marko
+      }
+    ],
     ResponseStatus: {
       Code: Success,
       Attributes: {

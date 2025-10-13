@@ -1,230 +1,97 @@
 ﻿[
   {
-    Value: {
-      RegistrationDate: 2020-04-07 14:43:36 +0,
-      Name: {
-        Id: 12,
-        Label: Name,
-        Properties: {},
-        Value: Bob
+    Values: [
+      {
+        RegistrationDate: 2020-04-07 14:43:36 +0,
+        Name: {
+          Id: 12,
+          Label: Name,
+          Properties: {},
+          Value: Bob
+        },
+        Id: 10,
+        Label: Person,
+        PartitionKey: PartitionKey
       },
-      Id: 10,
-      Label: Person,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        IetfLanguageTag: en,
+        Id: 2,
+        Label: Language,
+        PartitionKey: PartitionKey
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      IetfLanguageTag: en,
-      Id: 2,
-      Label: Language,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        Id: 67,
+        Label: Language,
+        PartitionKey: PartitionKey
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 67,
-      Label: Language,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        Id: 5,
+        Label: Company,
+        PartitionKey: PartitionKey
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 5,
-      Label: Company,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        Id: 17,
+        Label: Country,
+        PartitionKey: PartitionKey
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 17,
-      Label: Country,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        Id: 17,
+        Label: Country,
+        PartitionKey: PartitionKey
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 17,
-      Label: Country,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        Id: 79,
+        Label: Language,
+        PartitionKey: PartitionKey
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 79,
-      Label: Language,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        Id: 21,
+        Label: Country,
+        PartitionKey: PartitionKey
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 21,
-      Label: Country,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        Id: 21,
+        Label: Country,
+        PartitionKey: PartitionKey
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 21,
-      Label: Country,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        Id: 25,
+        Label: Country,
+        PartitionKey: PartitionKey
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 25,
-      Label: Country,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        Id: 25,
+        Label: Country,
+        PartitionKey: PartitionKey
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 25,
-      Label: Country,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        Id: 27,
+        Label: Company,
+        PartitionKey: PartitionKey
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 27,
-      Label: Company,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        IetfLanguageTag: en,
+        Id: 32,
+        Label: Language,
+        PartitionKey: PartitionKey
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      IetfLanguageTag: en,
-      Id: 32,
-      Label: Language,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        CountryCallingCode: +49,
+        Id: 0,
+        Label: Country,
+        PartitionKey: PartitionKey
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      CountryCallingCode: +49,
-      Id: 0,
-      Label: Country,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        Id: 42,
+        Label: Company,
+        PartitionKey: PartitionKey
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 42,
-      Label: Company,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 49,
-      Label: Language,
-      PartitionKey: PartitionKey
-    },
+      {
+        Id: 49,
+        Label: Language,
+        PartitionKey: PartitionKey
+      }
+    ],
     ResponseStatus: {
       Code: Success,
       Attributes: {

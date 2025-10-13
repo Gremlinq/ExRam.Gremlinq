@@ -1,16 +1,9 @@
 ﻿[
   {
-    Value: _v[10]_Bob_v[10]_0_,
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: _v[37]_Bob_v[37]_0_,
+    Values: [
+      _v[10]_Bob_v[10]_0_,
+      _v[37]_Bob_v[37]_0_
+    ],
     ResponseStatus: {
       Code: Success,
       Attributes: {

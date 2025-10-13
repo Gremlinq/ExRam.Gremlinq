@@ -1,94 +1,42 @@
 ﻿[
   {
-    Value: {
-      Id: 5,
-      Label: Company,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+    Values: [
+      {
+        Id: 5,
+        Label: Company,
+        PartitionKey: PartitionKey
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 18,
-      Label: LivesIn
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        Id: 18,
+        Label: LivesIn
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 22,
-      Label: LivesIn
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        Id: 22,
+        Label: LivesIn
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Since: {
-        Value: 2020-04-07 14:43:36 +0,
-        Key: Since
+      {
+        Since: {
+          Value: 2020-04-07 14:43:36 +0,
+          Key: Since
+        },
+        Id: 26,
+        Label: LivesIn
       },
-      Id: 26,
-      Label: LivesIn
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        Id: 27,
+        Label: Company,
+        PartitionKey: PartitionKey
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 27,
-      Label: Company,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        Id: 41,
+        Label: LivesIn
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 41,
-      Label: LivesIn
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 42,
-      Label: Company,
-      PartitionKey: PartitionKey
-    },
+      {
+        Id: 42,
+        Label: Company,
+        PartitionKey: PartitionKey
+      }
+    ],
     ResponseStatus: {
       Code: Success,
       Attributes: {

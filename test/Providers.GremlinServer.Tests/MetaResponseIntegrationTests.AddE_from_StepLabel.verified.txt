@@ -1,9 +1,11 @@
 ﻿[
   {
-    Value: {
-      Id: 4,
-      Label: Speaks
-    },
+    Values: [
+      {
+        Id: 4,
+        Label: Speaks
+      }
+    ],
     ResponseStatus: {
       Code: Success,
       Attributes: {

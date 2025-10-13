@@ -1,12 +1,14 @@
 ﻿[
   {
-    Value: {
-      Role: Admin,
-      From: 2020-04-07 14:43:36 Utc,
-      To: 2020-04-07 14:43:36 Utc,
-      Id: 31,
-      Label: WorksFor
-    },
+    Values: [
+      {
+        Role: Admin,
+        From: 2020-04-07 14:43:36 Utc,
+        To: 2020-04-07 14:43:36 Utc,
+        Id: 31,
+        Label: WorksFor
+      }
+    ],
     ResponseStatus: {
       Code: Success,
       Attributes: {

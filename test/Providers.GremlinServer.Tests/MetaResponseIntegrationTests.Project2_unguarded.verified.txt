@@ -1,8 +1,10 @@
 ﻿[
   {
-    Value: {
-      Item1: item1
-    },
+    Values: [
+      {
+        Item1: item1
+      }
+    ],
     ResponseStatus: {
       Code: Success,
       Attributes: {

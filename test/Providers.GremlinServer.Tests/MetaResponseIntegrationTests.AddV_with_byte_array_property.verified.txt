@@ -1,11 +1,13 @@
 ﻿[
   {
-    Value: {
-      Image: AQIDBAUGBwg=,
-      Id: 56,
-      Label: Person,
-      PartitionKey: PartitionKey
-    },
+    Values: [
+      {
+        Image: AQIDBAUGBwg=,
+        Id: 56,
+        Label: Person,
+        PartitionKey: PartitionKey
+      }
+    ],
     ResponseStatus: {
       Code: Success,
       Attributes: {

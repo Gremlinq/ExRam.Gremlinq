@@ -1,10 +1,12 @@
 ﻿[
   {
-    Value: [
-      {
-        Key: 42,
-        Value: []
-      }
+    Values: [
+      [
+        {
+          Key: 42,
+          Value: []
+        }
+      ]
     ],
     ResponseStatus: {
       Code: Success,

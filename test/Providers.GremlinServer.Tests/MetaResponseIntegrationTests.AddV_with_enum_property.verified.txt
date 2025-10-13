@@ -1,11 +1,13 @@
 ﻿[
   {
-    Value: {
-      Gender: Female,
-      Id: 59,
-      Label: Person,
-      PartitionKey: PartitionKey
-    },
+    Values: [
+      {
+        Gender: Female,
+        Id: 59,
+        Label: Person,
+        PartitionKey: PartitionKey
+      }
+    ],
     ResponseStatus: {
       Code: Success,
       Attributes: {

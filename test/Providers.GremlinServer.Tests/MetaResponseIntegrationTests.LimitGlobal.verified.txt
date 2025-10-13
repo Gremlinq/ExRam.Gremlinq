@@ -1,11 +1,13 @@
 ﻿[
   {
-    Value: {
-      CountryCallingCode: +49,
-      Id: 0,
-      Label: Country,
-      PartitionKey: PartitionKey
-    },
+    Values: [
+      {
+        CountryCallingCode: +49,
+        Id: 0,
+        Label: Country,
+        PartitionKey: PartitionKey
+      }
+    ],
     ResponseStatus: {
       Code: Success,
       Attributes: {

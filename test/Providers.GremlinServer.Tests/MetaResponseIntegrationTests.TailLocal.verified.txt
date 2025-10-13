@@ -1,7 +1,9 @@
 ﻿[
   {
-    Value: [
-      43
+    Values: [
+      [
+        43
+      ]
     ],
     ResponseStatus: {
       Code: Success,

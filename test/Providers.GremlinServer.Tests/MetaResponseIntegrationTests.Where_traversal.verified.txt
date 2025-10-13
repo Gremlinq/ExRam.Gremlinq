@@ -1,88 +1,63 @@
 ﻿[
   {
-    Value: {
-      Age: 21,
-      Gender: Male,
-      RegistrationDate: 2020-04-07 14:43:36 +0,
-      Name: {
-        Id: 298,
-        Label: Name,
-        Properties: {},
-        Value: Marko
+    Values: [
+      {
+        Age: 21,
+        Gender: Male,
+        RegistrationDate: 2020-04-07 14:43:36 +0,
+        Name: {
+          Id: 298,
+          Label: Name,
+          Properties: {},
+          Value: Marko
+        },
+        Id: 15,
+        Label: Person,
+        PartitionKey: PartitionKey
       },
-      Id: 15,
-      Label: Person,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        Age: 21,
+        Gender: Male,
+        RegistrationDate: 2020-04-07 14:43:36 +0,
+        Name: {
+          Id: 302,
+          Label: Name,
+          Properties: {},
+          Value: Marko
+        },
+        Id: 19,
+        Label: Person,
+        PartitionKey: PartitionKey
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Age: 21,
-      Gender: Male,
-      RegistrationDate: 2020-04-07 14:43:36 +0,
-      Name: {
-        Id: 302,
-        Label: Name,
-        Properties: {},
-        Value: Marko
+      {
+        Age: 21,
+        Gender: Male,
+        RegistrationDate: 2020-04-07 14:43:36 +0,
+        Name: {
+          Id: 306,
+          Label: Name,
+          Properties: {},
+          Value: Marko
+        },
+        Id: 23,
+        Label: Person,
+        PartitionKey: PartitionKey
       },
-      Id: 19,
-      Label: Person,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Age: 21,
-      Gender: Male,
-      RegistrationDate: 2020-04-07 14:43:36 +0,
-      Name: {
-        Id: 306,
-        Label: Name,
-        Properties: {},
-        Value: Marko
-      },
-      Id: 23,
-      Label: Person,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Age: 21,
-      Gender: Male,
-      RegistrationDate: 2020-04-07 14:43:36 +0,
-      Name: {
-        Id: 314,
-        Label: Name,
-        Properties: {},
-        Value: Marko
-      },
-      Id: 37,
-      Label: Person,
-      PartitionKey: PartitionKey
-    },
+      {
+        Age: 21,
+        Gender: Male,
+        RegistrationDate: 2020-04-07 14:43:36 +0,
+        Name: {
+          Id: 314,
+          Label: Name,
+          Properties: {},
+          Value: Marko
+        },
+        Id: 37,
+        Label: Person,
+        PartitionKey: PartitionKey
+      }
+    ],
     ResponseStatus: {
       Code: Success,
       Attributes: {

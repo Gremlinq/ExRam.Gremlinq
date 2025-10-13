@@ -1,127 +1,75 @@
 ﻿[
   {
-    Value: {
-      Id: 5,
-      Label: Company,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+    Values: [
+      {
+        Id: 5,
+        Label: Company,
+        PartitionKey: PartitionKey
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      LocalizableDescription: {
-        Id: 130,
-        Label: LocalizableDescription,
-        Properties: {
-          someKey: value
+      {
+        LocalizableDescription: {
+          Id: 130,
+          Label: LocalizableDescription,
+          Properties: {
+            someKey: value
+          },
+          Value: 
         },
-        Value: 
+        Id: 17,
+        Label: Country,
+        PartitionKey: PartitionKey
       },
-      Id: 17,
-      Label: Country,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      LocalizableDescription: {
-        Id: 131,
-        Label: LocalizableDescription,
-        Properties: {
-          someKey: value
+      {
+        LocalizableDescription: {
+          Id: 131,
+          Label: LocalizableDescription,
+          Properties: {
+            someKey: value
+          },
+          Value: 
         },
-        Value: 
+        Id: 21,
+        Label: Country,
+        PartitionKey: PartitionKey
       },
-      Id: 21,
-      Label: Country,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      LocalizableDescription: {
-        Id: 132,
-        Label: LocalizableDescription,
-        Properties: {
-          someKey: value
+      {
+        LocalizableDescription: {
+          Id: 132,
+          Label: LocalizableDescription,
+          Properties: {
+            someKey: value
+          },
+          Value: 
         },
-        Value: 
+        Id: 25,
+        Label: Country,
+        PartitionKey: PartitionKey
       },
-      Id: 25,
-      Label: Country,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        Id: 27,
+        Label: Company,
+        PartitionKey: PartitionKey
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 27,
-      Label: Company,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      CountryCallingCode: +49,
-      LocalizableDescription: {
-        Id: 127,
-        Label: LocalizableDescription,
-        Properties: {
-          someKey: value
+      {
+        CountryCallingCode: +49,
+        LocalizableDescription: {
+          Id: 127,
+          Label: LocalizableDescription,
+          Properties: {
+            someKey: value
+          },
+          Value: 
         },
-        Value: 
+        Id: 0,
+        Label: Country,
+        PartitionKey: PartitionKey
       },
-      Id: 0,
-      Label: Country,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 42,
-      Label: Company,
-      PartitionKey: PartitionKey
-    },
+      {
+        Id: 42,
+        Label: Company,
+        PartitionKey: PartitionKey
+      }
+    ],
     ResponseStatus: {
       Code: Success,
       Attributes: {

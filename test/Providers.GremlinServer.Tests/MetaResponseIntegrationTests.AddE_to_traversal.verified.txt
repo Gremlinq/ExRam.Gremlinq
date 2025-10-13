@@ -1,9 +1,11 @@
 ﻿[
   {
-    Value: {
-      Id: 41,
-      Label: LivesIn
-    },
+    Values: [
+      {
+        Id: 41,
+        Label: LivesIn
+      }
+    ],
     ResponseStatus: {
       Code: Success,
       Attributes: {

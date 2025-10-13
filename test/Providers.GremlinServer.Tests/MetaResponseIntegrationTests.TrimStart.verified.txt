@@ -1,6 +1,8 @@
 ﻿[
   {
-    Value: aBcDeFg  ,
+    Values: [
+      aBcDeFg  
+    ],
     ResponseStatus: {
       Code: Success,
       Attributes: {

@@ -1,22 +1,15 @@
 ﻿[
   {
-    Value: {
-      Value: Deutschland,
-      Key: de
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+    Values: [
+      {
+        Value: Deutschland,
+        Key: de
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Value: Germany,
-      Key: en
-    },
+      {
+        Value: Germany,
+        Key: en
+      }
+    ],
     ResponseStatus: {
       Code: Success,
       Attributes: {

@@ -1,26 +1,10 @@
 ﻿[
   {
-    Value: 2019-01-01 01:00 +0,
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: Deutschland,
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: Germany,
+    Values: [
+      2019-01-01 01:00 +0,
+      Deutschland,
+      Germany
+    ],
     ResponseStatus: {
       Code: Success,
       Attributes: {

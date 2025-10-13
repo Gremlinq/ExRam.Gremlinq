@@ -1,13 +1,15 @@
 ﻿[
   {
-    Value: {
-      Enabled: false,
-      StartTime: 08:00:00,
-      Duration: 02:00:00,
-      Id: 50,
-      Label: TimeFrame,
-      PartitionKey: PartitionKey
-    },
+    Values: [
+      {
+        Enabled: false,
+        StartTime: 08:00:00,
+        Duration: 02:00:00,
+        Id: 50,
+        Label: TimeFrame,
+        PartitionKey: PartitionKey
+      }
+    ],
     ResponseStatus: {
       Code: Success,
       Attributes: {

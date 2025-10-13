@@ -1,12 +1,14 @@
 ﻿[
   {
-    Value: {
-      Since: {
-        Value: 2020-04-07 14:43:36 +0
-      },
-      Id: 26,
-      Label: LivesIn
-    },
+    Values: [
+      {
+        Since: {
+          Value: 2020-04-07 14:43:36 +0
+        },
+        Id: 26,
+        Label: LivesIn
+      }
+    ],
     ResponseStatus: {
       Code: Success,
       Attributes: {

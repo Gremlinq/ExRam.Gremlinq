@@ -1,10 +1,12 @@
 ﻿[
   {
-    Value: {
-      Item1: item1,
-      Item2: item2,
-      Item3: Person
-    },
+    Values: [
+      {
+        Item1: item1,
+        Item2: item2,
+        Item3: Person
+      }
+    ],
     ResponseStatus: {
       Code: Success,
       Attributes: {

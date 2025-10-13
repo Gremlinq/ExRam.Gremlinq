@@ -1,26 +1,10 @@
 ﻿[
   {
-    Value: 1546304400000,
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: Deutschland,
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: Germany,
+    Values: [
+      1546304400000,
+      Deutschland,
+      Germany
+    ],
     ResponseStatus: {
       Code: Success,
       Attributes: {

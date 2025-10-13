@@ -1,6 +1,8 @@
 ﻿[
   {
-    Value: 34,
+    Values: [
+      34
+    ],
     ResponseStatus: {
       Code: Success,
       Attributes: {

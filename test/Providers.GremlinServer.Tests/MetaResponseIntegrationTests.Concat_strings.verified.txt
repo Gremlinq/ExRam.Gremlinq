@@ -1,6 +1,8 @@
 ﻿[
   {
-    Value: 42_1__2__3_,
+    Values: [
+      42_1__2__3_
+    ],
     ResponseStatus: {
       Code: Success,
       Attributes: {

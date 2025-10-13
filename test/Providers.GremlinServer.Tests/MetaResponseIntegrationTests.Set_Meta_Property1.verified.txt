@@ -1,32 +1,25 @@
 ﻿[
   {
-    Value: {
-      Id: 72,
-      Label: Name,
-      Properties: {
-        metaKey: 1
+    Values: [
+      {
+        Id: 72,
+        Label: Name,
+        Properties: {
+          metaKey: 1
+        },
+        Value: GER
       },
-      Value: GER
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 74,
-      Label: Name,
-      Properties: {
-        de: Deutschland,
-        en: Germany,
-        metaKey: 1
-      },
-      Value: GER
-    },
+      {
+        Id: 74,
+        Label: Name,
+        Properties: {
+          de: Deutschland,
+          en: Germany,
+          metaKey: 1
+        },
+        Value: GER
+      }
+    ],
     ResponseStatus: {
       Code: Success,
       Attributes: {

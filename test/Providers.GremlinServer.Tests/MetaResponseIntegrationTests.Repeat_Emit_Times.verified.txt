@@ -1,41 +1,34 @@
 ﻿[
   {
-    Value: {
-      CountryCallingCode: +49,
-      LocalizableDescription: {
-        Id: 127,
-        Label: LocalizableDescription,
-        Properties: {
-          someKey: value
+    Values: [
+      {
+        CountryCallingCode: +49,
+        LocalizableDescription: {
+          Id: 127,
+          Label: LocalizableDescription,
+          Properties: {
+            someKey: value
+          },
+          Value: 
         },
-        Value: 
+        Id: 0,
+        Label: Country,
+        PartitionKey: PartitionKey
       },
-      Id: 0,
-      Label: Country,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Age: 36,
-      RegistrationDate: 2020-04-07 14:43:36 +0,
-      Name: {
-        Id: 39,
-        Label: Name,
-        Properties: {},
-        Value: Bob
-      },
-      Id: 37,
-      Label: Person,
-      PartitionKey: PartitionKey
-    },
+      {
+        Age: 36,
+        RegistrationDate: 2020-04-07 14:43:36 +0,
+        Name: {
+          Id: 39,
+          Label: Name,
+          Properties: {},
+          Value: Bob
+        },
+        Id: 37,
+        Label: Person,
+        PartitionKey: PartitionKey
+      }
+    ],
     ResponseStatus: {
       Code: Success,
       Attributes: {

@@ -1,19 +1,21 @@
 ﻿[
   {
-    Value: {
-      Name: {
-        Id: 74,
-        Label: Name,
-        Properties: {
-          de: Deutschland,
-          en: Germany
+    Values: [
+      {
+        Name: {
+          Id: 74,
+          Label: Name,
+          Properties: {
+            de: Deutschland,
+            en: Germany
+          },
+          Value: GER
         },
-        Value: GER
-      },
-      Id: 73,
-      Label: Country,
-      PartitionKey: PartitionKey
-    },
+        Id: 73,
+        Label: Country,
+        PartitionKey: PartitionKey
+      }
+    ],
     ResponseStatus: {
       Code: Success,
       Attributes: {

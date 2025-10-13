@@ -1,26 +1,10 @@
 ﻿[
   {
-    Value: 42a,
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: a,
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: 43a,
+    Values: [
+      42a,
+      a,
+      43a
+    ],
     ResponseStatus: {
       Code: Success,
       Attributes: {

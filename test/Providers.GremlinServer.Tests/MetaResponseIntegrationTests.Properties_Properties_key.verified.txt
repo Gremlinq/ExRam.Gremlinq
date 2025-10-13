@@ -1,16 +1,9 @@
 ﻿[
   {
-    Value: de,
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: en,
+    Values: [
+      de,
+      en
+    ],
     ResponseStatus: {
       Code: Success,
       Attributes: {

@@ -1,34 +1,36 @@
 ﻿[
   {
-    Value: [
-      {
-        Key: {
-          Age: 36,
-          Id: 7,
-          Label: Person,
-          PartitionKey: PartitionKey
+    Values: [
+      [
+        {
+          Key: {
+            Age: 36,
+            Id: 7,
+            Label: Person,
+            PartitionKey: PartitionKey
+          },
+          Value: [
+            {
+              Key: Admin,
+              Value: []
+            }
+          ]
         },
-        Value: [
-          {
-            Key: Admin,
-            Value: []
-          }
-        ]
-      },
-      {
-        Key: {
-          Age: 36,
-          Id: 29,
-          Label: Person,
-          PartitionKey: PartitionKey
-        },
-        Value: [
-          {
-            Key: Admin,
-            Value: []
-          }
-        ]
-      }
+        {
+          Key: {
+            Age: 36,
+            Id: 29,
+            Label: Person,
+            PartitionKey: PartitionKey
+          },
+          Value: [
+            {
+              Key: Admin,
+              Value: []
+            }
+          ]
+        }
+      ]
     ],
     ResponseStatus: {
       Code: Success,

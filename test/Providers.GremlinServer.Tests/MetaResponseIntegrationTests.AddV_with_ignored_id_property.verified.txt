@@ -1,11 +1,13 @@
 ﻿[
   {
-    Value: {
-      IetfLanguageTag: en,
-      Id: 65,
-      Label: Language,
-      PartitionKey: PartitionKey
-    },
+    Values: [
+      {
+        IetfLanguageTag: en,
+        Id: 65,
+        Label: Language,
+        PartitionKey: PartitionKey
+      }
+    ],
     ResponseStatus: {
       Code: Success,
       Attributes: {

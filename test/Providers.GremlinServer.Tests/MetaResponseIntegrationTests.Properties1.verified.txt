@@ -1,586 +1,246 @@
 ﻿[
   {
-    Value: {
-      Id: 1,
-      Label: CountryCallingCode,
-      Properties: {},
-      Value: +49
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+    Values: [
+      {
+        Id: 1,
+        Label: CountryCallingCode,
+        Properties: {},
+        Value: +49
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 66,
-      Label: IetfLanguageTag,
-      Properties: {},
-      Value: en
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        Id: 66,
+        Label: IetfLanguageTag,
+        Properties: {},
+        Value: en
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 3,
-      Label: IetfLanguageTag,
-      Properties: {},
-      Value: en
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        Id: 3,
+        Label: IetfLanguageTag,
+        Properties: {},
+        Value: en
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 69,
-      Label: FoundingDate,
-      Properties: {},
-      Value: 0001-01-01 +0
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        Id: 69,
+        Label: FoundingDate,
+        Properties: {},
+        Value: 0001-01-01 +0
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 70,
-      Label: Locations,
-      Properties: {
-        ValidFrom: 2019-01-01 01:00 +0
+      {
+        Id: 70,
+        Label: Locations,
+        Properties: {
+          ValidFrom: 2019-01-01 01:00 +0
+        },
+        Value: Aachen
       },
-      Value: Aachen
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        Id: 6,
+        Label: FoundingDate,
+        Properties: {},
+        Value: 0001-01-01 +0
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 6,
-      Label: FoundingDate,
-      Properties: {},
-      Value: 0001-01-01 +0
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        Id: 8,
+        Label: Age,
+        Properties: {},
+        Value: 0
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 8,
-      Label: Age,
-      Properties: {},
-      Value: 0
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        Id: 72,
+        Label: Name,
+        Properties: {},
+        Value: GER
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 72,
-      Label: Name,
-      Properties: {},
-      Value: GER
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        Id: 74,
+        Label: Name,
+        Properties: {
+          de: Deutschland,
+          en: Germany
+        },
+        Value: GER
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 74,
-      Label: Name,
-      Properties: {
-        de: Deutschland,
-        en: Germany
+      {
+        Id: 13,
+        Label: RegistrationDate,
+        Properties: {},
+        Value: 2020-04-07 14:43:36 +0
       },
-      Value: GER
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        Id: 11,
+        Label: Age,
+        Properties: {},
+        Value: 0
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 13,
-      Label: RegistrationDate,
-      Properties: {},
-      Value: 2020-04-07 14:43:36 +0
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        Id: 12,
+        Label: Name,
+        Properties: {},
+        Value: Bob
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 11,
-      Label: Age,
-      Properties: {},
-      Value: 0
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        Id: 77,
+        Label: PhoneNumbers,
+        Properties: {},
+        Value: +4912345
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 12,
-      Label: Name,
-      Properties: {},
-      Value: Bob
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        Id: 78,
+        Label: PhoneNumbers,
+        Properties: {},
+        Value: +4923456
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 77,
-      Label: PhoneNumbers,
-      Properties: {},
-      Value: +4912345
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        Id: 76,
+        Label: FoundingDate,
+        Properties: {},
+        Value: 0001-01-01 +0
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 78,
-      Label: PhoneNumbers,
-      Properties: {},
-      Value: +4923456
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        Id: 16,
+        Label: Age,
+        Properties: {},
+        Value: 0
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 76,
-      Label: FoundingDate,
-      Properties: {},
-      Value: 0001-01-01 +0
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        Id: 81,
+        Label: lang,
+        Properties: {},
+        Value: en
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 16,
-      Label: Age,
-      Properties: {},
-      Value: 0
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        Id: 20,
+        Label: Age,
+        Properties: {},
+        Value: 0
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 81,
-      Label: lang,
-      Properties: {},
-      Value: en
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        Id: 24,
+        Label: Age,
+        Properties: {},
+        Value: 0
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 20,
-      Label: Age,
-      Properties: {},
-      Value: 0
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        Id: 28,
+        Label: FoundingDate,
+        Properties: {},
+        Value: 0001-01-01 +0
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 24,
-      Label: Age,
-      Properties: {},
-      Value: 0
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        Id: 30,
+        Label: Age,
+        Properties: {},
+        Value: 0
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 28,
-      Label: FoundingDate,
-      Properties: {},
-      Value: 0001-01-01 +0
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        Id: 33,
+        Label: IetfLanguageTag,
+        Properties: {},
+        Value: en
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 30,
-      Label: Age,
-      Properties: {},
-      Value: 0
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        Id: 35,
+        Label: CountryCallingCode,
+        Properties: {},
+        Value: +49
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 33,
-      Label: IetfLanguageTag,
-      Properties: {},
-      Value: en
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        Id: 40,
+        Label: RegistrationDate,
+        Properties: {},
+        Value: 2020-04-07 14:43:36 +0
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 35,
-      Label: CountryCallingCode,
-      Properties: {},
-      Value: +49
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        Id: 38,
+        Label: Age,
+        Properties: {},
+        Value: 0
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 40,
-      Label: RegistrationDate,
-      Properties: {},
-      Value: 2020-04-07 14:43:36 +0
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        Id: 39,
+        Label: Name,
+        Properties: {},
+        Value: Bob
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 38,
-      Label: Age,
-      Properties: {},
-      Value: 0
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        Id: 43,
+        Label: FoundingDate,
+        Properties: {},
+        Value: 0001-01-01 +0
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 39,
-      Label: Name,
-      Properties: {},
-      Value: Bob
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        Id: 45,
+        Label: Age,
+        Properties: {},
+        Value: 0
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 43,
-      Label: FoundingDate,
-      Properties: {},
-      Value: 0001-01-01 +0
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        Id: 48,
+        Label: IetfLanguageTag,
+        Properties: {},
+        Value: en
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 45,
-      Label: Age,
-      Properties: {},
-      Value: 0
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        Id: 53,
+        Label: StartTime,
+        Properties: {},
+        Value: 08:00:00
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 48,
-      Label: IetfLanguageTag,
-      Properties: {},
-      Value: en
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        Id: 52,
+        Label: Enabled,
+        Properties: {},
+        Value: false
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 53,
-      Label: StartTime,
-      Properties: {},
-      Value: 08:00:00
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        Id: 51,
+        Label: Duration,
+        Properties: {},
+        Value: 02:00:00
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 52,
-      Label: Enabled,
-      Properties: {},
-      Value: false
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        Id: 55,
+        Label: IetfLanguageTag,
+        Properties: {},
+        Value: en
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 51,
-      Label: Duration,
-      Properties: {},
-      Value: 02:00:00
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        Id: 58,
+        Label: Image,
+        Properties: {},
+        Value: AQIDBAUGBwg=
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 55,
-      Label: IetfLanguageTag,
-      Properties: {},
-      Value: en
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        Id: 57,
+        Label: Age,
+        Properties: {},
+        Value: 0
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 58,
-      Label: Image,
-      Properties: {},
-      Value: AQIDBAUGBwg=
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        Id: 61,
+        Label: Gender,
+        Properties: {},
+        Value: 1
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 57,
-      Label: Age,
-      Properties: {},
-      Value: 0
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        Id: 60,
+        Label: Age,
+        Properties: {},
+        Value: 0
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 61,
-      Label: Gender,
-      Properties: {},
-      Value: 1
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        Id: 64,
+        Label: RegistrationDate,
+        Properties: {},
+        Value: 2020-04-07 14:43:36 +0
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 60,
-      Label: Age,
-      Properties: {},
-      Value: 0
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 64,
-      Label: RegistrationDate,
-      Properties: {},
-      Value: 2020-04-07 14:43:36 +0
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 63,
-      Label: Name,
-      Properties: {},
-      Value: Marko
-    },
+      {
+        Id: 63,
+        Label: Name,
+        Properties: {},
+        Value: Marko
+      }
+    ],
     ResponseStatus: {
       Code: Success,
       Attributes: {

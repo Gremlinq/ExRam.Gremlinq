@@ -1,11 +1,13 @@
 ﻿[
   {
-    Value: {
-      Item1: item1,
-      Item2: [
-        42
-      ]
-    },
+    Values: [
+      {
+        Item1: item1,
+        Item2: [
+          42
+        ]
+      }
+    ],
     ResponseStatus: {
       Code: Success,
       Attributes: {

@@ -1,6 +1,8 @@
 ﻿[
   {
-    Value: 42_a__b__c_,
+    Values: [
+      42_a__b__c_
+    ],
     ResponseStatus: {
       Code: Success,
       Attributes: {

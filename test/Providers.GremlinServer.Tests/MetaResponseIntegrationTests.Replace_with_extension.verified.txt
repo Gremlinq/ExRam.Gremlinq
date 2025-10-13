@@ -1,6 +1,8 @@
 ﻿[
   {
-    Value: axydef,
+    Values: [
+      axydef
+    ],
     ResponseStatus: {
       Code: Success,
       Attributes: {

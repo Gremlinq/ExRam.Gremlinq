@@ -1,6 +1,8 @@
 ﻿[
   {
-    Value: fedcba,
+    Values: [
+      fedcba
+    ],
     ResponseStatus: {
       Code: Success,
       Attributes: {

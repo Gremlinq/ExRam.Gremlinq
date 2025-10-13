@@ -1,410 +1,241 @@
 ﻿[
   {
-    Value: {
-      Age: 21,
-      Gender: Male,
-      RegistrationDate: 2020-04-07 14:43:36 +0,
-      Name: {
-        Id: 298,
-        Label: Name,
-        Properties: {},
-        Value: Marko
-      },
-      Id: 15,
-      Label: Person,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      LocalizableDescription: {
-        Id: 130,
-        Label: LocalizableDescription,
-        Properties: {
-          someKey: value
+    Values: [
+      {
+        Age: 21,
+        Gender: Male,
+        RegistrationDate: 2020-04-07 14:43:36 +0,
+        Name: {
+          Id: 298,
+          Label: Name,
+          Properties: {},
+          Value: Marko
         },
-        Value: 
+        Id: 15,
+        Label: Person,
+        PartitionKey: PartitionKey
       },
-      Id: 17,
-      Label: Country,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      CountryCallingCode: +49,
-      LocalizableDescription: {
-        Id: 127,
-        Label: LocalizableDescription,
-        Properties: {
-          someKey: value
+      {
+        LocalizableDescription: {
+          Id: 130,
+          Label: LocalizableDescription,
+          Properties: {
+            someKey: value
+          },
+          Value: 
         },
-        Value: 
+        Id: 17,
+        Label: Country,
+        PartitionKey: PartitionKey
       },
-      Id: 0,
-      Label: Country,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      CountryCallingCode: +49,
-      LocalizableDescription: {
-        Id: 127,
-        Label: LocalizableDescription,
-        Properties: {
-          someKey: value
+      {
+        CountryCallingCode: +49,
+        LocalizableDescription: {
+          Id: 127,
+          Label: LocalizableDescription,
+          Properties: {
+            someKey: value
+          },
+          Value: 
         },
-        Value: 
+        Id: 0,
+        Label: Country,
+        PartitionKey: PartitionKey
       },
-      Id: 0,
-      Label: Country,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      CountryCallingCode: +49,
-      LocalizableDescription: {
-        Id: 127,
-        Label: LocalizableDescription,
-        Properties: {
-          someKey: value
+      {
+        CountryCallingCode: +49,
+        LocalizableDescription: {
+          Id: 127,
+          Label: LocalizableDescription,
+          Properties: {
+            someKey: value
+          },
+          Value: 
         },
-        Value: 
+        Id: 0,
+        Label: Country,
+        PartitionKey: PartitionKey
       },
-      Id: 0,
-      Label: Country,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      IetfLanguageTag: en,
-      Id: 2,
-      Label: Language,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      CountryCallingCode: +49,
-      LocalizableDescription: {
-        Id: 133,
-        Label: LocalizableDescription,
-        Properties: {
-          someKey: value
+      {
+        CountryCallingCode: +49,
+        LocalizableDescription: {
+          Id: 127,
+          Label: LocalizableDescription,
+          Properties: {
+            someKey: value
+          },
+          Value: 
         },
-        Value: 
+        Id: 0,
+        Label: Country,
+        PartitionKey: PartitionKey
       },
-      Id: 34,
-      Label: Country,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        IetfLanguageTag: en,
+        Id: 2,
+        Label: Language,
+        PartitionKey: PartitionKey
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      IetfLanguageTag: en,
-      Id: 32,
-      Label: Language,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Age: 21,
-      Gender: Male,
-      RegistrationDate: 2020-04-07 14:43:36 +0,
-      Name: {
-        Id: 302,
-        Label: Name,
-        Properties: {},
-        Value: Marko
-      },
-      Id: 19,
-      Label: Person,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      LocalizableDescription: {
-        Id: 131,
-        Label: LocalizableDescription,
-        Properties: {
-          someKey: value
+      {
+        CountryCallingCode: +49,
+        LocalizableDescription: {
+          Id: 133,
+          Label: LocalizableDescription,
+          Properties: {
+            someKey: value
+          },
+          Value: 
         },
-        Value: 
+        Id: 34,
+        Label: Country,
+        PartitionKey: PartitionKey
       },
-      Id: 21,
-      Label: Country,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        IetfLanguageTag: en,
+        Id: 32,
+        Label: Language,
+        PartitionKey: PartitionKey
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Age: 21,
-      Gender: Male,
-      RegistrationDate: 2020-04-07 14:43:36 +0,
-      Name: {
-        Id: 290,
-        Label: Name,
-        Properties: {},
-        Value: Marko
-      },
-      Id: 7,
-      Label: Person,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 5,
-      Label: Company,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Age: 21,
-      Gender: Male,
-      RegistrationDate: 2020-04-07 14:43:36 +0,
-      Name: {
-        Id: 314,
-        Label: Name,
-        Properties: {},
-        Value: Marko
-      },
-      Id: 37,
-      Label: Person,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Age: 21,
-      Gender: Male,
-      RegistrationDate: 2020-04-07 14:43:36 +0,
-      Name: {
-        Id: 306,
-        Label: Name,
-        Properties: {},
-        Value: Marko
-      },
-      Id: 23,
-      Label: Person,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      LocalizableDescription: {
-        Id: 132,
-        Label: LocalizableDescription,
-        Properties: {
-          someKey: value
+      {
+        Age: 21,
+        Gender: Male,
+        RegistrationDate: 2020-04-07 14:43:36 +0,
+        Name: {
+          Id: 302,
+          Label: Name,
+          Properties: {},
+          Value: Marko
         },
-        Value: 
+        Id: 19,
+        Label: Person,
+        PartitionKey: PartitionKey
       },
-      Id: 25,
-      Label: Country,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        LocalizableDescription: {
+          Id: 131,
+          Label: LocalizableDescription,
+          Properties: {
+            someKey: value
+          },
+          Value: 
+        },
+        Id: 21,
+        Label: Country,
+        PartitionKey: PartitionKey
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Age: 21,
-      Gender: Male,
-      RegistrationDate: 2020-04-07 14:43:36 +0,
-      Name: {
-        Id: 294,
-        Label: Name,
-        Properties: {},
-        Value: Marko
+      {
+        Age: 21,
+        Gender: Male,
+        RegistrationDate: 2020-04-07 14:43:36 +0,
+        Name: {
+          Id: 290,
+          Label: Name,
+          Properties: {},
+          Value: Marko
+        },
+        Id: 7,
+        Label: Person,
+        PartitionKey: PartitionKey
       },
-      Id: 10,
-      Label: Person,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        Id: 5,
+        Label: Company,
+        PartitionKey: PartitionKey
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Age: 21,
-      Gender: Male,
-      RegistrationDate: 2020-04-07 14:43:36 +0,
-      Name: {
-        Id: 318,
-        Label: Name,
-        Properties: {},
-        Value: Marko
+      {
+        Age: 21,
+        Gender: Male,
+        RegistrationDate: 2020-04-07 14:43:36 +0,
+        Name: {
+          Id: 314,
+          Label: Name,
+          Properties: {},
+          Value: Marko
+        },
+        Id: 37,
+        Label: Person,
+        PartitionKey: PartitionKey
       },
-      Id: 44,
-      Label: Person,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        Age: 21,
+        Gender: Male,
+        RegistrationDate: 2020-04-07 14:43:36 +0,
+        Name: {
+          Id: 306,
+          Label: Name,
+          Properties: {},
+          Value: Marko
+        },
+        Id: 23,
+        Label: Person,
+        PartitionKey: PartitionKey
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 42,
-      Label: Company,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        LocalizableDescription: {
+          Id: 132,
+          Label: LocalizableDescription,
+          Properties: {
+            someKey: value
+          },
+          Value: 
+        },
+        Id: 25,
+        Label: Country,
+        PartitionKey: PartitionKey
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Age: 21,
-      Gender: Male,
-      RegistrationDate: 2020-04-07 14:43:36 +0,
-      Name: {
-        Id: 310,
-        Label: Name,
-        Properties: {},
-        Value: Marko
+      {
+        Age: 21,
+        Gender: Male,
+        RegistrationDate: 2020-04-07 14:43:36 +0,
+        Name: {
+          Id: 294,
+          Label: Name,
+          Properties: {},
+          Value: Marko
+        },
+        Id: 10,
+        Label: Person,
+        PartitionKey: PartitionKey
       },
-      Id: 29,
-      Label: Person,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        Age: 21,
+        Gender: Male,
+        RegistrationDate: 2020-04-07 14:43:36 +0,
+        Name: {
+          Id: 318,
+          Label: Name,
+          Properties: {},
+          Value: Marko
+        },
+        Id: 44,
+        Label: Person,
+        PartitionKey: PartitionKey
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 27,
-      Label: Company,
-      PartitionKey: PartitionKey
-    },
+      {
+        Id: 42,
+        Label: Company,
+        PartitionKey: PartitionKey
+      },
+      {
+        Age: 21,
+        Gender: Male,
+        RegistrationDate: 2020-04-07 14:43:36 +0,
+        Name: {
+          Id: 310,
+          Label: Name,
+          Properties: {},
+          Value: Marko
+        },
+        Id: 29,
+        Label: Person,
+        PartitionKey: PartitionKey
+      },
+      {
+        Id: 27,
+        Label: Company,
+        PartitionKey: PartitionKey
+      }
+    ],
     ResponseStatus: {
       Code: Success,
       Attributes: {

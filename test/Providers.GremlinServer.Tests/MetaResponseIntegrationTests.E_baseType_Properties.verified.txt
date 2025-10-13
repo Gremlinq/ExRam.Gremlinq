@@ -1,100 +1,39 @@
 ﻿[
   {
-    Value: {
-      Value: Admin,
-      Key: Role
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+    Values: [
+      {
+        Value: Admin,
+        Key: Role
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Value: Admin,
-      Key: Role
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        Value: Admin,
+        Key: Role
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Value: 2020-04-07 14:43:36 +0,
-      Key: From
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        Value: 2020-04-07 14:43:36 +0,
+        Key: From
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Value: 2020-04-07 14:43:36 +0,
-      Key: From
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        Value: 2020-04-07 14:43:36 +0,
+        Key: From
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Value: 2020-04-07 14:43:36 +0,
-      Key: To
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        Value: 2020-04-07 14:43:36 +0,
+        Key: To
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Value: 2020-04-07 14:43:36 +0,
-      Key: To
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        Value: 2020-04-07 14:43:36 +0,
+        Key: To
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Value: 2020-04-07 14:43:36 +0,
-      Key: To
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        Value: 2020-04-07 14:43:36 +0,
+        Key: To
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Value: 2020-04-07 14:43:36 +0,
-      Key: Since
-    },
+      {
+        Value: 2020-04-07 14:43:36 +0,
+        Key: Since
+      }
+    ],
     ResponseStatus: {
       Code: Success,
       Attributes: {

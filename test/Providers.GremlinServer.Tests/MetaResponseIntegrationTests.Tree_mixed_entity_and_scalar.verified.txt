@@ -1,106 +1,108 @@
 ﻿[
   {
-    Value: [
-      {
-        Key: {
-          Age: 36,
-          Id: 7,
-          Label: Person,
-          PartitionKey: PartitionKey
+    Values: [
+      [
+        {
+          Key: {
+            Age: 36,
+            Id: 7,
+            Label: Person,
+            PartitionKey: PartitionKey
+          },
+          Value: [
+            {
+              Key: {
+                Role: Admin,
+                From: 2020-04-07 14:43:36 Utc,
+                To: 2020-04-07 14:43:36 Utc,
+                Id: 9,
+                Label: WorksFor
+              },
+              Value: [
+                {
+                  Key: {
+                    Id: 5,
+                    Label: Company,
+                    PartitionKey: PartitionKey
+                  },
+                  Value: [
+                    {
+                      Key: 0001-01-01 +0,
+                      Value: []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
         },
-        Value: [
-          {
-            Key: {
-              Role: Admin,
-              From: 2020-04-07 14:43:36 Utc,
-              To: 2020-04-07 14:43:36 Utc,
-              Id: 9,
-              Label: WorksFor
-            },
-            Value: [
-              {
-                Key: {
-                  Id: 5,
-                  Label: Company,
-                  PartitionKey: PartitionKey
-                },
-                Value: [
-                  {
-                    Key: 0001-01-01 +0,
-                    Value: []
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      {
-        Key: {
-          Age: 36,
-          Id: 44,
-          Label: Person,
-          PartitionKey: PartitionKey
+        {
+          Key: {
+            Age: 36,
+            Id: 44,
+            Label: Person,
+            PartitionKey: PartitionKey
+          },
+          Value: [
+            {
+              Key: {
+                To: 2020-04-07 14:43:36 Utc,
+                Id: 46,
+                Label: WorksFor
+              },
+              Value: [
+                {
+                  Key: {
+                    Id: 42,
+                    Label: Company,
+                    PartitionKey: PartitionKey
+                  },
+                  Value: [
+                    {
+                      Key: 0001-01-01 +0,
+                      Value: []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
         },
-        Value: [
-          {
-            Key: {
-              To: 2020-04-07 14:43:36 Utc,
-              Id: 46,
-              Label: WorksFor
-            },
-            Value: [
-              {
-                Key: {
-                  Id: 42,
-                  Label: Company,
-                  PartitionKey: PartitionKey
-                },
-                Value: [
-                  {
-                    Key: 0001-01-01 +0,
-                    Value: []
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      {
-        Key: {
-          Age: 36,
-          Id: 29,
-          Label: Person,
-          PartitionKey: PartitionKey
-        },
-        Value: [
-          {
-            Key: {
-              Role: Admin,
-              From: 2020-04-07 14:43:36 Utc,
-              To: 2020-04-07 14:43:36 Utc,
-              Id: 31,
-              Label: WorksFor
-            },
-            Value: [
-              {
-                Key: {
-                  Id: 27,
-                  Label: Company,
-                  PartitionKey: PartitionKey
-                },
-                Value: [
-                  {
-                    Key: 0001-01-01 +0,
-                    Value: []
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      }
+        {
+          Key: {
+            Age: 36,
+            Id: 29,
+            Label: Person,
+            PartitionKey: PartitionKey
+          },
+          Value: [
+            {
+              Key: {
+                Role: Admin,
+                From: 2020-04-07 14:43:36 Utc,
+                To: 2020-04-07 14:43:36 Utc,
+                Id: 31,
+                Label: WorksFor
+              },
+              Value: [
+                {
+                  Key: {
+                    Id: 27,
+                    Label: Company,
+                    PartitionKey: PartitionKey
+                  },
+                  Value: [
+                    {
+                      Key: 0001-01-01 +0,
+                      Value: []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
     ],
     ResponseStatus: {
       Code: Success,

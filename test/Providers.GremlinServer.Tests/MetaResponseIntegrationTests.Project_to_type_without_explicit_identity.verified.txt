@@ -1,11 +1,13 @@
 ﻿[
   {
-    Value: {
-      In: 42,
-      Out: 42,
-      Count: 42,
-      Properties: 42
-    },
+    Values: [
+      {
+        In: 42,
+        Out: 42,
+        Count: 42,
+        Properties: 42
+      }
+    ],
     ResponseStatus: {
       Code: Success,
       Attributes: {

@@ -1,1044 +1,407 @@
 ﻿[
   {
-    Value: {
-      IetfLanguageTag: en,
-      Id: 2,
-      Label: Language,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      IetfLanguageTag: en,
-      Id: 2,
-      Label: Language,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      IetfLanguageTag: en,
-      Id: 2,
-      Label: Language,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      IetfLanguageTag: en,
-      Id: 2,
-      Label: Language,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      IetfLanguageTag: en,
-      Id: 2,
-      Label: Language,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      IetfLanguageTag: en,
-      Id: 2,
-      Label: Language,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      IetfLanguageTag: en,
-      Id: 2,
-      Label: Language,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      IetfLanguageTag: en,
-      Id: 2,
-      Label: Language,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 67,
-      Label: Language,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 67,
-      Label: Language,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 67,
-      Label: Language,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 67,
-      Label: Language,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 67,
-      Label: Language,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 67,
-      Label: Language,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 67,
-      Label: Language,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 67,
-      Label: Language,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 79,
-      Label: Language,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 79,
-      Label: Language,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 79,
-      Label: Language,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 79,
-      Label: Language,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 79,
-      Label: Language,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 79,
-      Label: Language,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 79,
-      Label: Language,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 79,
-      Label: Language,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 80,
-      Label: Language,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 80,
-      Label: Language,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 80,
-      Label: Language,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 80,
-      Label: Language,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 80,
-      Label: Language,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 80,
-      Label: Language,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 80,
-      Label: Language,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 80,
-      Label: Language,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      IetfLanguageTag: en,
-      Id: 32,
-      Label: Language,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      IetfLanguageTag: en,
-      Id: 32,
-      Label: Language,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      IetfLanguageTag: en,
-      Id: 32,
-      Label: Language,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      IetfLanguageTag: en,
-      Id: 32,
-      Label: Language,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      IetfLanguageTag: en,
-      Id: 32,
-      Label: Language,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      IetfLanguageTag: en,
-      Id: 32,
-      Label: Language,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      IetfLanguageTag: en,
-      Id: 32,
-      Label: Language,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      IetfLanguageTag: en,
-      Id: 32,
-      Label: Language,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      IetfLanguageTag: en,
-      Id: 47,
-      Label: Language,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      IetfLanguageTag: en,
-      Id: 47,
-      Label: Language,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      IetfLanguageTag: en,
-      Id: 47,
-      Label: Language,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      IetfLanguageTag: en,
-      Id: 47,
-      Label: Language,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      IetfLanguageTag: en,
-      Id: 47,
-      Label: Language,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      IetfLanguageTag: en,
-      Id: 47,
-      Label: Language,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      IetfLanguageTag: en,
-      Id: 47,
-      Label: Language,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      IetfLanguageTag: en,
-      Id: 47,
-      Label: Language,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 49,
-      Label: Language,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 49,
-      Label: Language,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 49,
-      Label: Language,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 49,
-      Label: Language,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 49,
-      Label: Language,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 49,
-      Label: Language,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 49,
-      Label: Language,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Id: 49,
-      Label: Language,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      IetfLanguageTag: en,
-      Id: 54,
-      Label: Language,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      IetfLanguageTag: en,
-      Id: 54,
-      Label: Language,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      IetfLanguageTag: en,
-      Id: 54,
-      Label: Language,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      IetfLanguageTag: en,
-      Id: 54,
-      Label: Language,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      IetfLanguageTag: en,
-      Id: 54,
-      Label: Language,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      IetfLanguageTag: en,
-      Id: 54,
-      Label: Language,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      IetfLanguageTag: en,
-      Id: 54,
-      Label: Language,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      IetfLanguageTag: en,
-      Id: 54,
-      Label: Language,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      IetfLanguageTag: en,
-      Id: 65,
-      Label: Language,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      IetfLanguageTag: en,
-      Id: 65,
-      Label: Language,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      IetfLanguageTag: en,
-      Id: 65,
-      Label: Language,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      IetfLanguageTag: en,
-      Id: 65,
-      Label: Language,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      IetfLanguageTag: en,
-      Id: 65,
-      Label: Language,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      IetfLanguageTag: en,
-      Id: 65,
-      Label: Language,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      IetfLanguageTag: en,
-      Id: 65,
-      Label: Language,
-      PartitionKey: PartitionKey
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
-      },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      IetfLanguageTag: en,
-      Id: 65,
-      Label: Language,
-      PartitionKey: PartitionKey
-    },
+    Values: [
+      {
+        IetfLanguageTag: en,
+        Id: 2,
+        Label: Language,
+        PartitionKey: PartitionKey
+      },
+      {
+        IetfLanguageTag: en,
+        Id: 2,
+        Label: Language,
+        PartitionKey: PartitionKey
+      },
+      {
+        IetfLanguageTag: en,
+        Id: 2,
+        Label: Language,
+        PartitionKey: PartitionKey
+      },
+      {
+        IetfLanguageTag: en,
+        Id: 2,
+        Label: Language,
+        PartitionKey: PartitionKey
+      },
+      {
+        IetfLanguageTag: en,
+        Id: 2,
+        Label: Language,
+        PartitionKey: PartitionKey
+      },
+      {
+        IetfLanguageTag: en,
+        Id: 2,
+        Label: Language,
+        PartitionKey: PartitionKey
+      },
+      {
+        IetfLanguageTag: en,
+        Id: 2,
+        Label: Language,
+        PartitionKey: PartitionKey
+      },
+      {
+        IetfLanguageTag: en,
+        Id: 2,
+        Label: Language,
+        PartitionKey: PartitionKey
+      },
+      {
+        Id: 67,
+        Label: Language,
+        PartitionKey: PartitionKey
+      },
+      {
+        Id: 67,
+        Label: Language,
+        PartitionKey: PartitionKey
+      },
+      {
+        Id: 67,
+        Label: Language,
+        PartitionKey: PartitionKey
+      },
+      {
+        Id: 67,
+        Label: Language,
+        PartitionKey: PartitionKey
+      },
+      {
+        Id: 67,
+        Label: Language,
+        PartitionKey: PartitionKey
+      },
+      {
+        Id: 67,
+        Label: Language,
+        PartitionKey: PartitionKey
+      },
+      {
+        Id: 67,
+        Label: Language,
+        PartitionKey: PartitionKey
+      },
+      {
+        Id: 67,
+        Label: Language,
+        PartitionKey: PartitionKey
+      },
+      {
+        Id: 79,
+        Label: Language,
+        PartitionKey: PartitionKey
+      },
+      {
+        Id: 79,
+        Label: Language,
+        PartitionKey: PartitionKey
+      },
+      {
+        Id: 79,
+        Label: Language,
+        PartitionKey: PartitionKey
+      },
+      {
+        Id: 79,
+        Label: Language,
+        PartitionKey: PartitionKey
+      },
+      {
+        Id: 79,
+        Label: Language,
+        PartitionKey: PartitionKey
+      },
+      {
+        Id: 79,
+        Label: Language,
+        PartitionKey: PartitionKey
+      },
+      {
+        Id: 79,
+        Label: Language,
+        PartitionKey: PartitionKey
+      },
+      {
+        Id: 79,
+        Label: Language,
+        PartitionKey: PartitionKey
+      },
+      {
+        Id: 80,
+        Label: Language,
+        PartitionKey: PartitionKey
+      },
+      {
+        Id: 80,
+        Label: Language,
+        PartitionKey: PartitionKey
+      },
+      {
+        Id: 80,
+        Label: Language,
+        PartitionKey: PartitionKey
+      },
+      {
+        Id: 80,
+        Label: Language,
+        PartitionKey: PartitionKey
+      },
+      {
+        Id: 80,
+        Label: Language,
+        PartitionKey: PartitionKey
+      },
+      {
+        Id: 80,
+        Label: Language,
+        PartitionKey: PartitionKey
+      },
+      {
+        Id: 80,
+        Label: Language,
+        PartitionKey: PartitionKey
+      },
+      {
+        Id: 80,
+        Label: Language,
+        PartitionKey: PartitionKey
+      },
+      {
+        IetfLanguageTag: en,
+        Id: 32,
+        Label: Language,
+        PartitionKey: PartitionKey
+      },
+      {
+        IetfLanguageTag: en,
+        Id: 32,
+        Label: Language,
+        PartitionKey: PartitionKey
+      },
+      {
+        IetfLanguageTag: en,
+        Id: 32,
+        Label: Language,
+        PartitionKey: PartitionKey
+      },
+      {
+        IetfLanguageTag: en,
+        Id: 32,
+        Label: Language,
+        PartitionKey: PartitionKey
+      },
+      {
+        IetfLanguageTag: en,
+        Id: 32,
+        Label: Language,
+        PartitionKey: PartitionKey
+      },
+      {
+        IetfLanguageTag: en,
+        Id: 32,
+        Label: Language,
+        PartitionKey: PartitionKey
+      },
+      {
+        IetfLanguageTag: en,
+        Id: 32,
+        Label: Language,
+        PartitionKey: PartitionKey
+      },
+      {
+        IetfLanguageTag: en,
+        Id: 32,
+        Label: Language,
+        PartitionKey: PartitionKey
+      },
+      {
+        IetfLanguageTag: en,
+        Id: 47,
+        Label: Language,
+        PartitionKey: PartitionKey
+      },
+      {
+        IetfLanguageTag: en,
+        Id: 47,
+        Label: Language,
+        PartitionKey: PartitionKey
+      },
+      {
+        IetfLanguageTag: en,
+        Id: 47,
+        Label: Language,
+        PartitionKey: PartitionKey
+      },
+      {
+        IetfLanguageTag: en,
+        Id: 47,
+        Label: Language,
+        PartitionKey: PartitionKey
+      },
+      {
+        IetfLanguageTag: en,
+        Id: 47,
+        Label: Language,
+        PartitionKey: PartitionKey
+      },
+      {
+        IetfLanguageTag: en,
+        Id: 47,
+        Label: Language,
+        PartitionKey: PartitionKey
+      },
+      {
+        IetfLanguageTag: en,
+        Id: 47,
+        Label: Language,
+        PartitionKey: PartitionKey
+      },
+      {
+        IetfLanguageTag: en,
+        Id: 47,
+        Label: Language,
+        PartitionKey: PartitionKey
+      },
+      {
+        Id: 49,
+        Label: Language,
+        PartitionKey: PartitionKey
+      },
+      {
+        Id: 49,
+        Label: Language,
+        PartitionKey: PartitionKey
+      },
+      {
+        Id: 49,
+        Label: Language,
+        PartitionKey: PartitionKey
+      },
+      {
+        Id: 49,
+        Label: Language,
+        PartitionKey: PartitionKey
+      },
+      {
+        Id: 49,
+        Label: Language,
+        PartitionKey: PartitionKey
+      },
+      {
+        Id: 49,
+        Label: Language,
+        PartitionKey: PartitionKey
+      },
+      {
+        Id: 49,
+        Label: Language,
+        PartitionKey: PartitionKey
+      },
+      {
+        Id: 49,
+        Label: Language,
+        PartitionKey: PartitionKey
+      },
+      {
+        IetfLanguageTag: en,
+        Id: 54,
+        Label: Language,
+        PartitionKey: PartitionKey
+      },
+      {
+        IetfLanguageTag: en,
+        Id: 54,
+        Label: Language,
+        PartitionKey: PartitionKey
+      },
+      {
+        IetfLanguageTag: en,
+        Id: 54,
+        Label: Language,
+        PartitionKey: PartitionKey
+      },
+      {
+        IetfLanguageTag: en,
+        Id: 54,
+        Label: Language,
+        PartitionKey: PartitionKey
+      },
+      {
+        IetfLanguageTag: en,
+        Id: 54,
+        Label: Language,
+        PartitionKey: PartitionKey
+      },
+      {
+        IetfLanguageTag: en,
+        Id: 54,
+        Label: Language,
+        PartitionKey: PartitionKey
+      },
+      {
+        IetfLanguageTag: en,
+        Id: 54,
+        Label: Language,
+        PartitionKey: PartitionKey
+      },
+      {
+        IetfLanguageTag: en,
+        Id: 54,
+        Label: Language,
+        PartitionKey: PartitionKey
+      },
+      {
+        IetfLanguageTag: en,
+        Id: 65,
+        Label: Language,
+        PartitionKey: PartitionKey
+      },
+      {
+        IetfLanguageTag: en,
+        Id: 65,
+        Label: Language,
+        PartitionKey: PartitionKey
+      },
+      {
+        IetfLanguageTag: en,
+        Id: 65,
+        Label: Language,
+        PartitionKey: PartitionKey
+      },
+      {
+        IetfLanguageTag: en,
+        Id: 65,
+        Label: Language,
+        PartitionKey: PartitionKey
+      },
+      {
+        IetfLanguageTag: en,
+        Id: 65,
+        Label: Language,
+        PartitionKey: PartitionKey
+      },
+      {
+        IetfLanguageTag: en,
+        Id: 65,
+        Label: Language,
+        PartitionKey: PartitionKey
+      },
+      {
+        IetfLanguageTag: en,
+        Id: 65,
+        Label: Language,
+        PartitionKey: PartitionKey
+      },
+      {
+        IetfLanguageTag: en,
+        Id: 65,
+        Label: Language,
+        PartitionKey: PartitionKey
+      }
+    ],
     ResponseStatus: {
       Code: Success,
       Attributes: {

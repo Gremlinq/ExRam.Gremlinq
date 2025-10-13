@@ -1,128 +1,40 @@
 ﻿[
   {
-    Value: {
-      Age: 21
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+    Values: [
+      {
+        Age: 21
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Age: 21
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        Age: 21
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Age: 21
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        Age: 21
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Age: 21
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        Age: 21
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Age: 21
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        Age: 21
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Age: 21
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        Age: 21
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Age: 21
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        Age: 21
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Age: 21
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        Age: 21
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Age: 21
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        Age: 21
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Age: 21
-    },
-    ResponseStatus: {
-      Code: Success,
-      Attributes: {
-        host: (host)
+      {
+        Age: 21
       },
-      Message: 
-    }
-  },
-  {
-    Value: {
-      Age: 21
-    },
+      {
+        Age: 21
+      }
+    ],
     ResponseStatus: {
       Code: Success,
       Attributes: {

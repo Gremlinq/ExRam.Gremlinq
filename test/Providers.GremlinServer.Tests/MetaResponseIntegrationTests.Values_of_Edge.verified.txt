@@ -1,6 +1,8 @@
 ﻿[
   {
-    Value: 2020-04-07 14:43:36 +0,
+    Values: [
+      2020-04-07 14:43:36 +0
+    ],
     ResponseStatus: {
       Code: Success,
       Attributes: {
