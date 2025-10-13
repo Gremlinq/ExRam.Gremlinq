@@ -1,50 +1,68 @@
 ﻿[
   {
-    Labels: [
-      [],
-      [],
-      []
-    ],
-    Objects: [
-      {
-        Id: 37,
-        Label: Person,
-        PartitionKey: PartitionKey
+    Value: {
+      Labels: [
+        [],
+        [],
+        []
+      ],
+      Objects: [
+        {
+          Id: 37,
+          Label: Person,
+          PartitionKey: PartitionKey
+        },
+        {
+          Id: 0,
+          Label: Country,
+          PartitionKey: PartitionKey
+        },
+        {
+          Id: 10,
+          Label: Person,
+          PartitionKey: PartitionKey
+        }
+      ]
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
       },
-      {
-        Id: 0,
-        Label: Country,
-        PartitionKey: PartitionKey
-      },
-      {
-        Id: 10,
-        Label: Person,
-        PartitionKey: PartitionKey
-      }
-    ]
+      Message: 
+    }
   },
   {
-    Labels: [
-      [],
-      [],
-      []
-    ],
-    Objects: [
-      {
-        Id: 37,
-        Label: Person,
-        PartitionKey: PartitionKey
+    Value: {
+      Labels: [
+        [],
+        [],
+        []
+      ],
+      Objects: [
+        {
+          Id: 37,
+          Label: Person,
+          PartitionKey: PartitionKey
+        },
+        {
+          Id: 0,
+          Label: Country,
+          PartitionKey: PartitionKey
+        },
+        {
+          Id: 2,
+          Label: Language,
+          PartitionKey: PartitionKey
+        }
+      ]
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
       },
-      {
-        Id: 0,
-        Label: Country,
-        PartitionKey: PartitionKey
-      },
-      {
-        Id: 2,
-        Label: Language,
-        PartitionKey: PartitionKey
-      }
-    ]
+      Message: 
+    }
   }
 ]

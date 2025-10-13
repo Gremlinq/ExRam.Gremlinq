@@ -1,29 +1,65 @@
 ﻿[
   {
-    Id: 1,
-    Label: CountryCallingCode,
-    Properties: {},
-    Value: +49
-  },
-  {
-    Id: 72,
-    Label: Name,
-    Properties: {},
-    Value: GER
-  },
-  {
-    Id: 74,
-    Label: Name,
-    Properties: {
-      de: Deutschland,
-      en: Germany
+    Value: {
+      Id: 1,
+      Label: CountryCallingCode,
+      Properties: {},
+      Value: +49
     },
-    Value: GER
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
   },
   {
-    Id: 35,
-    Label: CountryCallingCode,
-    Properties: {},
-    Value: +49
+    Value: {
+      Id: 72,
+      Label: Name,
+      Properties: {},
+      Value: GER
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
+  },
+  {
+    Value: {
+      Id: 74,
+      Label: Name,
+      Properties: {
+        de: Deutschland,
+        en: Germany
+      },
+      Value: GER
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
+  },
+  {
+    Value: {
+      Id: 35,
+      Label: CountryCallingCode,
+      Properties: {},
+      Value: +49
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
   }
 ]

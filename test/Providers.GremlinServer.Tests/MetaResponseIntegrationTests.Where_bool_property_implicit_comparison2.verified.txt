@@ -1,10 +1,19 @@
 ﻿[
   {
-    Enabled: false,
-    StartTime: 08:00:00,
-    Duration: 02:00:00,
-    Id: 50,
-    Label: TimeFrame,
-    PartitionKey: PartitionKey
+    Value: {
+      Enabled: false,
+      StartTime: 08:00:00,
+      Duration: 02:00:00,
+      Id: 50,
+      Label: TimeFrame,
+      PartitionKey: PartitionKey
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
   }
 ]

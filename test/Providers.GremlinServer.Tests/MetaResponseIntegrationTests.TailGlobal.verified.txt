@@ -1,17 +1,26 @@
 ﻿[
   {
-    Age: 36,
-    RegistrationDate: 2020-04-07 14:43:36 +0,
-    Name: {
-      Id: 63,
-      Label: Name,
-      Properties: {
-        ValidFrom: 2020-04-07 14:43:36 +0
+    Value: {
+      Age: 36,
+      RegistrationDate: 2020-04-07 14:43:36 +0,
+      Name: {
+        Id: 63,
+        Label: Name,
+        Properties: {
+          ValidFrom: 2020-04-07 14:43:36 +0
+        },
+        Value: Marko
       },
-      Value: Marko
+      Id: 62,
+      Label: Person,
+      PartitionKey: PartitionKey
     },
-    Id: 62,
-    Label: Person,
-    PartitionKey: PartitionKey
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
   }
 ]

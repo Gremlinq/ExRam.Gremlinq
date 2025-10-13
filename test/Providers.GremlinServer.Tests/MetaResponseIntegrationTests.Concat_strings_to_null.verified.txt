@@ -1,5 +1,32 @@
 ﻿[
-  42a,
-  a,
-  43a
+  {
+    Value: 42a,
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
+  },
+  {
+    Value: a,
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
+  },
+  {
+    Value: 43a,
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
+  }
 ]

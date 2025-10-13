@@ -1,7 +1,16 @@
 ﻿[
   {
-    Id: 17,
-    Label: Country,
-    PartitionKey: PartitionKey
+    Value: {
+      Id: 17,
+      Label: Country,
+      PartitionKey: PartitionKey
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
   }
 ]

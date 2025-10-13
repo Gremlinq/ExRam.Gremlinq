@@ -1,8 +1,17 @@
 ﻿[
   {
-    IetfLanguageTag: en,
-    Id: 80,
-    Label: Language,
-    PartitionKey: PartitionKey
+    Value: {
+      IetfLanguageTag: en,
+      Id: 80,
+      Label: Language,
+      PartitionKey: PartitionKey
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:55332
+      },
+      Message: 
+    }
   }
 ]

@@ -1,101 +1,272 @@
 ﻿[
   {
-    Id: 14,
-    Label: LivesIn
-  },
-  {
-    Id: 4,
-    Label: Speaks
-  },
-  {
-    CountryCallingCode: +49,
-    Id: 0,
-    Label: Country,
-    PartitionKey: PartitionKey
-  },
-  {
-    CountryCallingCode: +49,
-    Id: 0,
-    Label: Country,
-    PartitionKey: PartitionKey
-  },
-  {
-    Id: 7,
-    Label: Person,
-    PartitionKey: PartitionKey
-  },
-  {
-    Role: Admin,
-    From: 2020-04-07 14:43:36 Utc,
-    To: 2020-04-07 14:43:36 Utc,
-    Id: 9,
-    Label: WorksFor
-  },
-  {
-    Id: 18,
-    Label: LivesIn
-  },
-  {
-    Id: 15,
-    Label: Person,
-    PartitionKey: PartitionKey
-  },
-  {
-    Id: 22,
-    Label: LivesIn
-  },
-  {
-    Id: 19,
-    Label: Person,
-    PartitionKey: PartitionKey
-  },
-  {
-    Since: {
-      Value: 2020-04-07 14:43:36 +0,
-      Key: Since
+    Value: {
+      Id: 14,
+      Label: LivesIn
     },
-    Id: 26,
-    Label: LivesIn
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
   },
   {
-    Id: 23,
-    Label: Person,
-    PartitionKey: PartitionKey
+    Value: {
+      Id: 4,
+      Label: Speaks
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
   },
   {
-    Id: 29,
-    Label: Person,
-    PartitionKey: PartitionKey
+    Value: {
+      CountryCallingCode: +49,
+      Id: 0,
+      Label: Country,
+      PartitionKey: PartitionKey
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
   },
   {
-    Role: Admin,
-    From: 2020-04-07 14:43:36 Utc,
-    To: 2020-04-07 14:43:36 Utc,
-    Id: 31,
-    Label: WorksFor
+    Value: {
+      CountryCallingCode: +49,
+      Id: 0,
+      Label: Country,
+      PartitionKey: PartitionKey
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
   },
   {
-    CountryCallingCode: +49,
-    Id: 34,
-    Label: Country,
-    PartitionKey: PartitionKey
+    Value: {
+      Id: 7,
+      Label: Person,
+      PartitionKey: PartitionKey
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
   },
   {
-    Id: 36,
-    Label: Speaks
+    Value: {
+      Role: Admin,
+      From: 2020-04-07 14:43:36 Utc,
+      To: 2020-04-07 14:43:36 Utc,
+      Id: 9,
+      Label: WorksFor
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
   },
   {
-    Id: 41,
-    Label: LivesIn
+    Value: {
+      Id: 18,
+      Label: LivesIn
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
   },
   {
-    Id: 44,
-    Label: Person,
-    PartitionKey: PartitionKey
+    Value: {
+      Id: 15,
+      Label: Person,
+      PartitionKey: PartitionKey
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
   },
   {
-    To: 2020-04-07 14:43:36 Utc,
-    Id: 46,
-    Label: WorksFor
+    Value: {
+      Id: 22,
+      Label: LivesIn
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
+  },
+  {
+    Value: {
+      Id: 19,
+      Label: Person,
+      PartitionKey: PartitionKey
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
+  },
+  {
+    Value: {
+      Since: {
+        Value: 2020-04-07 14:43:36 +0,
+        Key: Since
+      },
+      Id: 26,
+      Label: LivesIn
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
+  },
+  {
+    Value: {
+      Id: 23,
+      Label: Person,
+      PartitionKey: PartitionKey
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
+  },
+  {
+    Value: {
+      Id: 29,
+      Label: Person,
+      PartitionKey: PartitionKey
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
+  },
+  {
+    Value: {
+      Role: Admin,
+      From: 2020-04-07 14:43:36 Utc,
+      To: 2020-04-07 14:43:36 Utc,
+      Id: 31,
+      Label: WorksFor
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
+  },
+  {
+    Value: {
+      CountryCallingCode: +49,
+      Id: 34,
+      Label: Country,
+      PartitionKey: PartitionKey
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
+  },
+  {
+    Value: {
+      Id: 36,
+      Label: Speaks
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
+  },
+  {
+    Value: {
+      Id: 41,
+      Label: LivesIn
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
+  },
+  {
+    Value: {
+      Id: 44,
+      Label: Person,
+      PartitionKey: PartitionKey
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
+  },
+  {
+    Value: {
+      To: 2020-04-07 14:43:36 Utc,
+      Id: 46,
+      Label: WorksFor
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
   }
 ]

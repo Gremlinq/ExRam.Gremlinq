@@ -1,18 +1,27 @@
 ﻿[
-  [
-    {
-      CountryCallingCode: +49,
-      LocalizableDescription: {
-        Id: 127,
-        Label: LocalizableDescription,
-        Properties: {
-          someKey: value
+  {
+    Value: [
+      {
+        CountryCallingCode: +49,
+        LocalizableDescription: {
+          Id: 127,
+          Label: LocalizableDescription,
+          Properties: {
+            someKey: value
+          },
+          Value: 
         },
-        Value: 
+        Id: 0,
+        Label: Country,
+        PartitionKey: PartitionKey
+      }
+    ],
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
       },
-      Id: 0,
-      Label: Country,
-      PartitionKey: PartitionKey
+      Message: 
     }
-  ]
+  }
 ]

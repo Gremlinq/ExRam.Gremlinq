@@ -1,44 +1,107 @@
 ﻿[
   {
-    Id: 7,
-    Label: Person,
-    PartitionKey: PartitionKey
-  },
-  {
-    Id: 15,
-    Label: Person,
-    PartitionKey: PartitionKey
-  },
-  {
-    Id: 19,
-    Label: Person,
-    PartitionKey: PartitionKey
-  },
-  {
-    Id: 23,
-    Label: Person,
-    PartitionKey: PartitionKey
-  },
-  {
-    Id: 29,
-    Label: Person,
-    PartitionKey: PartitionKey
-  },
-  {
-    RegistrationDate: 2020-04-07 14:43:36 +0,
-    Name: {
-      Id: 39,
-      Label: Name,
-      Properties: {},
-      Value: Bob
+    Value: {
+      Id: 7,
+      Label: Person,
+      PartitionKey: PartitionKey
     },
-    Id: 37,
-    Label: Person,
-    PartitionKey: PartitionKey
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
   },
   {
-    Id: 44,
-    Label: Person,
-    PartitionKey: PartitionKey
+    Value: {
+      Id: 15,
+      Label: Person,
+      PartitionKey: PartitionKey
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
+  },
+  {
+    Value: {
+      Id: 19,
+      Label: Person,
+      PartitionKey: PartitionKey
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
+  },
+  {
+    Value: {
+      Id: 23,
+      Label: Person,
+      PartitionKey: PartitionKey
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
+  },
+  {
+    Value: {
+      Id: 29,
+      Label: Person,
+      PartitionKey: PartitionKey
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
+  },
+  {
+    Value: {
+      RegistrationDate: 2020-04-07 14:43:36 +0,
+      Name: {
+        Id: 39,
+        Label: Name,
+        Properties: {},
+        Value: Bob
+      },
+      Id: 37,
+      Label: Person,
+      PartitionKey: PartitionKey
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
+  },
+  {
+    Value: {
+      Id: 44,
+      Label: Person,
+      PartitionKey: PartitionKey
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
   }
 ]

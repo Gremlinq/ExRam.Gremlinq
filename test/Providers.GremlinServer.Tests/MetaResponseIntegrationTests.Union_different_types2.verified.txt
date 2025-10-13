@@ -1,37 +1,100 @@
 ﻿[
   {
-    Id: 5,
-    Label: Company,
-    PartitionKey: PartitionKey
-  },
-  {
-    Id: 18,
-    Label: LivesIn
-  },
-  {
-    Id: 22,
-    Label: LivesIn
-  },
-  {
-    Since: {
-      Value: 2020-04-07 14:43:36 +0,
-      Key: Since
+    Value: {
+      Id: 5,
+      Label: Company,
+      PartitionKey: PartitionKey
     },
-    Id: 26,
-    Label: LivesIn
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
   },
   {
-    Id: 27,
-    Label: Company,
-    PartitionKey: PartitionKey
+    Value: {
+      Id: 18,
+      Label: LivesIn
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
   },
   {
-    Id: 41,
-    Label: LivesIn
+    Value: {
+      Id: 22,
+      Label: LivesIn
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
   },
   {
-    Id: 42,
-    Label: Company,
-    PartitionKey: PartitionKey
+    Value: {
+      Since: {
+        Value: 2020-04-07 14:43:36 +0,
+        Key: Since
+      },
+      Id: 26,
+      Label: LivesIn
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
+  },
+  {
+    Value: {
+      Id: 27,
+      Label: Company,
+      PartitionKey: PartitionKey
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
+  },
+  {
+    Value: {
+      Id: 41,
+      Label: LivesIn
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
+  },
+  {
+    Value: {
+      Id: 42,
+      Label: Company,
+      PartitionKey: PartitionKey
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
   }
 ]

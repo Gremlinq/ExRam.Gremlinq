@@ -1,9 +1,18 @@
 ﻿[
   {
-    Company: 0001-01-01 +0,
-    Country: +49,
-    Language: en,
-    Person: 2020-04-07 14:43:36 +0,
-    TimeFrame: 08:00:00
+    Value: {
+      Company: 0001-01-01 +0,
+      Country: +49,
+      Language: en,
+      Person: 2020-04-07 14:43:36 +0,
+      TimeFrame: 08:00:00
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
   }
 ]

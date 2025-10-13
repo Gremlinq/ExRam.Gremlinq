@@ -1,17 +1,35 @@
 ﻿[
   {
-    Id: 72,
-    Label: Name,
-    Properties: {},
-    Value: GER
+    Value: {
+      Id: 72,
+      Label: Name,
+      Properties: {},
+      Value: GER
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
   },
   {
-    Id: 74,
-    Label: Name,
-    Properties: {
-      de: Deutschland,
-      en: Germany
+    Value: {
+      Id: 74,
+      Label: Name,
+      Properties: {
+        de: Deutschland,
+        en: Germany
+      },
+      Value: GER
     },
-    Value: GER
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
   }
 ]

@@ -1,5 +1,32 @@
 ﻿[
-  _v[10]_Bob_,
-  _v[37]_Bob_,
-  _v[62]_Marko_
+  {
+    Value: _v[10]_Bob_,
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
+  },
+  {
+    Value: _v[37]_Bob_,
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
+  },
+  {
+    Value: _v[62]_Marko_,
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
+  }
 ]

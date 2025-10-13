@@ -1,6 +1,15 @@
 ﻿[
   {
-    Item1: item1,
-    Item2: 7
+    Value: {
+      Item1: item1,
+      Item2: 7
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:40228
+      },
+      Message: 
+    }
   }
 ]

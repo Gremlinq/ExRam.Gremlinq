@@ -1,7 +1,16 @@
 ﻿[
   {
-    To: 2020-04-07 14:43:36 Utc,
-    Id: 46,
-    Label: WorksFor
+    Value: {
+      To: 2020-04-07 14:43:36 Utc,
+      Id: 46,
+      Label: WorksFor
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:55294
+      },
+      Message: 
+    }
   }
 ]

@@ -1,241 +1,592 @@
 ﻿[
   {
-    Id: 1,
-    Label: CountryCallingCode,
-    Properties: {},
-    Value: +49
-  },
-  {
-    Id: 66,
-    Label: IetfLanguageTag,
-    Properties: {},
-    Value: en
-  },
-  {
-    Id: 3,
-    Label: IetfLanguageTag,
-    Properties: {},
-    Value: en
-  },
-  {
-    Id: 69,
-    Label: FoundingDate,
-    Properties: {},
-    Value: -62135596800000
-  },
-  {
-    Id: 70,
-    Label: Locations,
-    Properties: {
-      ValidFrom: 2019-01-01 01:00 +0
+    Value: {
+      Id: 1,
+      Label: CountryCallingCode,
+      Properties: {},
+      Value: +49
     },
-    Value: Aachen
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
   },
   {
-    Id: 6,
-    Label: FoundingDate,
-    Properties: {},
-    Value: -62135596800000
-  },
-  {
-    Id: 8,
-    Label: Age,
-    Properties: {},
-    Value: 0
-  },
-  {
-    Id: 72,
-    Label: Name,
-    Properties: {},
-    Value: GER
-  },
-  {
-    Id: 74,
-    Label: Name,
-    Properties: {
-      de: Deutschland,
-      en: Germany
+    Value: {
+      Id: 66,
+      Label: IetfLanguageTag,
+      Properties: {},
+      Value: en
     },
-    Value: GER
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
   },
   {
-    Id: 13,
-    Label: RegistrationDate,
-    Properties: {},
-    Value: 1586270616000
+    Value: {
+      Id: 3,
+      Label: IetfLanguageTag,
+      Properties: {},
+      Value: en
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
   },
   {
-    Id: 11,
-    Label: Age,
-    Properties: {},
-    Value: 0
+    Value: {
+      Id: 69,
+      Label: FoundingDate,
+      Properties: {},
+      Value: -62135596800000
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
   },
   {
-    Id: 12,
-    Label: Name,
-    Properties: {},
-    Value: Bob
+    Value: {
+      Id: 70,
+      Label: Locations,
+      Properties: {
+        ValidFrom: 2019-01-01 01:00 +0
+      },
+      Value: Aachen
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
   },
   {
-    Id: 77,
-    Label: PhoneNumbers,
-    Properties: {},
-    Value: +4912345
+    Value: {
+      Id: 6,
+      Label: FoundingDate,
+      Properties: {},
+      Value: -62135596800000
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
   },
   {
-    Id: 78,
-    Label: PhoneNumbers,
-    Properties: {},
-    Value: +4923456
+    Value: {
+      Id: 8,
+      Label: Age,
+      Properties: {},
+      Value: 0
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
   },
   {
-    Id: 76,
-    Label: FoundingDate,
-    Properties: {},
-    Value: -62135596800000
+    Value: {
+      Id: 72,
+      Label: Name,
+      Properties: {},
+      Value: GER
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
   },
   {
-    Id: 16,
-    Label: Age,
-    Properties: {},
-    Value: 0
+    Value: {
+      Id: 74,
+      Label: Name,
+      Properties: {
+        de: Deutschland,
+        en: Germany
+      },
+      Value: GER
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
   },
   {
-    Id: 81,
-    Label: lang,
-    Properties: {},
-    Value: en
+    Value: {
+      Id: 13,
+      Label: RegistrationDate,
+      Properties: {},
+      Value: 1586270616000
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
   },
   {
-    Id: 20,
-    Label: Age,
-    Properties: {},
-    Value: 0
+    Value: {
+      Id: 11,
+      Label: Age,
+      Properties: {},
+      Value: 0
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
   },
   {
-    Id: 24,
-    Label: Age,
-    Properties: {},
-    Value: 0
+    Value: {
+      Id: 12,
+      Label: Name,
+      Properties: {},
+      Value: Bob
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
   },
   {
-    Id: 28,
-    Label: FoundingDate,
-    Properties: {},
-    Value: -62135596800000
+    Value: {
+      Id: 77,
+      Label: PhoneNumbers,
+      Properties: {},
+      Value: +4912345
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
   },
   {
-    Id: 30,
-    Label: Age,
-    Properties: {},
-    Value: 0
+    Value: {
+      Id: 78,
+      Label: PhoneNumbers,
+      Properties: {},
+      Value: +4923456
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
   },
   {
-    Id: 33,
-    Label: IetfLanguageTag,
-    Properties: {},
-    Value: en
+    Value: {
+      Id: 76,
+      Label: FoundingDate,
+      Properties: {},
+      Value: -62135596800000
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
   },
   {
-    Id: 35,
-    Label: CountryCallingCode,
-    Properties: {},
-    Value: +49
+    Value: {
+      Id: 16,
+      Label: Age,
+      Properties: {},
+      Value: 0
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
   },
   {
-    Id: 40,
-    Label: RegistrationDate,
-    Properties: {},
-    Value: 1586270616000
+    Value: {
+      Id: 81,
+      Label: lang,
+      Properties: {},
+      Value: en
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
   },
   {
-    Id: 38,
-    Label: Age,
-    Properties: {},
-    Value: 0
+    Value: {
+      Id: 20,
+      Label: Age,
+      Properties: {},
+      Value: 0
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
   },
   {
-    Id: 39,
-    Label: Name,
-    Properties: {},
-    Value: Bob
+    Value: {
+      Id: 24,
+      Label: Age,
+      Properties: {},
+      Value: 0
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
   },
   {
-    Id: 43,
-    Label: FoundingDate,
-    Properties: {},
-    Value: -62135596800000
+    Value: {
+      Id: 28,
+      Label: FoundingDate,
+      Properties: {},
+      Value: -62135596800000
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
   },
   {
-    Id: 45,
-    Label: Age,
-    Properties: {},
-    Value: 0
+    Value: {
+      Id: 30,
+      Label: Age,
+      Properties: {},
+      Value: 0
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
   },
   {
-    Id: 48,
-    Label: IetfLanguageTag,
-    Properties: {},
-    Value: en
+    Value: {
+      Id: 33,
+      Label: IetfLanguageTag,
+      Properties: {},
+      Value: en
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
   },
   {
-    Id: 53,
-    Label: StartTime,
-    Properties: {},
-    Value: PT8H
+    Value: {
+      Id: 35,
+      Label: CountryCallingCode,
+      Properties: {},
+      Value: +49
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
   },
   {
-    Id: 52,
-    Label: Enabled,
-    Properties: {},
-    Value: False
+    Value: {
+      Id: 40,
+      Label: RegistrationDate,
+      Properties: {},
+      Value: 1586270616000
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
   },
   {
-    Id: 51,
-    Label: Duration,
-    Properties: {},
-    Value: PT2H
+    Value: {
+      Id: 38,
+      Label: Age,
+      Properties: {},
+      Value: 0
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
   },
   {
-    Id: 55,
-    Label: IetfLanguageTag,
-    Properties: {},
-    Value: en
+    Value: {
+      Id: 39,
+      Label: Name,
+      Properties: {},
+      Value: Bob
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
   },
   {
-    Id: 58,
-    Label: Image,
-    Properties: {},
-    Value: AQIDBAUGBwg=
+    Value: {
+      Id: 43,
+      Label: FoundingDate,
+      Properties: {},
+      Value: -62135596800000
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
   },
   {
-    Id: 57,
-    Label: Age,
-    Properties: {},
-    Value: 0
+    Value: {
+      Id: 45,
+      Label: Age,
+      Properties: {},
+      Value: 0
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
   },
   {
-    Id: 61,
-    Label: Gender,
-    Properties: {},
-    Value: 1
+    Value: {
+      Id: 48,
+      Label: IetfLanguageTag,
+      Properties: {},
+      Value: en
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
   },
   {
-    Id: 60,
-    Label: Age,
-    Properties: {},
-    Value: 0
+    Value: {
+      Id: 53,
+      Label: StartTime,
+      Properties: {},
+      Value: PT8H
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
   },
   {
-    Id: 64,
-    Label: RegistrationDate,
-    Properties: {},
-    Value: 1586270616000
+    Value: {
+      Id: 52,
+      Label: Enabled,
+      Properties: {},
+      Value: False
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
   },
   {
-    Id: 63,
-    Label: Name,
-    Properties: {},
-    Value: Marko
+    Value: {
+      Id: 51,
+      Label: Duration,
+      Properties: {},
+      Value: PT2H
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
+  },
+  {
+    Value: {
+      Id: 55,
+      Label: IetfLanguageTag,
+      Properties: {},
+      Value: en
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
+  },
+  {
+    Value: {
+      Id: 58,
+      Label: Image,
+      Properties: {},
+      Value: AQIDBAUGBwg=
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
+  },
+  {
+    Value: {
+      Id: 57,
+      Label: Age,
+      Properties: {},
+      Value: 0
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
+  },
+  {
+    Value: {
+      Id: 61,
+      Label: Gender,
+      Properties: {},
+      Value: 1
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
+  },
+  {
+    Value: {
+      Id: 60,
+      Label: Age,
+      Properties: {},
+      Value: 0
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
+  },
+  {
+    Value: {
+      Id: 64,
+      Label: RegistrationDate,
+      Properties: {},
+      Value: 1586270616000
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
+  },
+  {
+    Value: {
+      Id: 63,
+      Label: Name,
+      Properties: {},
+      Value: Marko
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
   }
 ]

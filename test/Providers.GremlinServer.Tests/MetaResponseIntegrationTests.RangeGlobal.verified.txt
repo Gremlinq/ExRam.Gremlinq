@@ -1,14 +1,32 @@
 ﻿[
   {
-    IetfLanguageTag: en,
-    Id: 65,
-    Label: Language,
-    PartitionKey: PartitionKey
+    Value: {
+      IetfLanguageTag: en,
+      Id: 65,
+      Label: Language,
+      PartitionKey: PartitionKey
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
   },
   {
-    IetfLanguageTag: en,
-    Id: 2,
-    Label: Language,
-    PartitionKey: PartitionKey
+    Value: {
+      IetfLanguageTag: en,
+      Id: 2,
+      Label: Language,
+      PartitionKey: PartitionKey
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
   }
 ]

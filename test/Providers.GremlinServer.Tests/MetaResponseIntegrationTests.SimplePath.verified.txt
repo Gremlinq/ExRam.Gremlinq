@@ -1,23 +1,41 @@
 ﻿[
   {
-    Age: 36,
-    RegistrationDate: 2020-04-07 14:43:36 +0,
-    Name: {
-      Id: 12,
-      Label: Name,
-      Properties: {
-        ValidFrom: 2020-04-07 14:43:36 +0
+    Value: {
+      Age: 36,
+      RegistrationDate: 2020-04-07 14:43:36 +0,
+      Name: {
+        Id: 12,
+        Label: Name,
+        Properties: {
+          ValidFrom: 2020-04-07 14:43:36 +0
+        },
+        Value: Bob
       },
-      Value: Bob
+      Id: 10,
+      Label: Person,
+      PartitionKey: PartitionKey
     },
-    Id: 10,
-    Label: Person,
-    PartitionKey: PartitionKey
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
   },
   {
-    IetfLanguageTag: en,
-    Id: 2,
-    Label: Language,
-    PartitionKey: PartitionKey
+    Value: {
+      IetfLanguageTag: en,
+      Id: 2,
+      Label: Language,
+      PartitionKey: PartitionKey
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
   }
 ]

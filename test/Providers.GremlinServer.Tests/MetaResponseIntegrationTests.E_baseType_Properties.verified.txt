@@ -1,34 +1,106 @@
 ﻿[
   {
-    Value: Admin,
-    Key: Role
+    Value: {
+      Value: Admin,
+      Key: Role
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
   },
   {
-    Value: Admin,
-    Key: Role
+    Value: {
+      Value: Admin,
+      Key: Role
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
   },
   {
-    Value: 2020-04-07 14:43:36 +0,
-    Key: From
+    Value: {
+      Value: 2020-04-07 14:43:36 +0,
+      Key: From
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
   },
   {
-    Value: 2020-04-07 14:43:36 +0,
-    Key: From
+    Value: {
+      Value: 2020-04-07 14:43:36 +0,
+      Key: From
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
   },
   {
-    Value: 2020-04-07 14:43:36 +0,
-    Key: To
+    Value: {
+      Value: 2020-04-07 14:43:36 +0,
+      Key: To
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
   },
   {
-    Value: 2020-04-07 14:43:36 +0,
-    Key: To
+    Value: {
+      Value: 2020-04-07 14:43:36 +0,
+      Key: To
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
   },
   {
-    Value: 2020-04-07 14:43:36 +0,
-    Key: To
+    Value: {
+      Value: 2020-04-07 14:43:36 +0,
+      Key: To
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
   },
   {
-    Value: 2020-04-07 14:43:36 +0,
-    Key: Since
+    Value: {
+      Value: 2020-04-07 14:43:36 +0,
+      Key: Since
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
   }
 ]

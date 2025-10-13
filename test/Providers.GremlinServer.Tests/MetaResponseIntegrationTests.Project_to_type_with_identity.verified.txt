@@ -1,8 +1,17 @@
 ﻿[
   {
-    In: 42,
-    Out: 42,
-    Count: 42,
-    Properties: 42
+    Value: {
+      In: 42,
+      Out: 42,
+      Count: 42,
+      Properties: 42
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
   }
 ]

@@ -1,62 +1,152 @@
 ﻿[
   {
-    Id: 8,
-    Label: Age,
-    Properties: {},
-    Value: 0
+    Value: {
+      Id: 8,
+      Label: Age,
+      Properties: {},
+      Value: 0
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
   },
   {
-    Id: 11,
-    Label: Age,
-    Properties: {},
-    Value: 0
+    Value: {
+      Id: 11,
+      Label: Age,
+      Properties: {},
+      Value: 0
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
   },
   {
-    Id: 16,
-    Label: Age,
-    Properties: {},
-    Value: 0
+    Value: {
+      Id: 16,
+      Label: Age,
+      Properties: {},
+      Value: 0
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
   },
   {
-    Id: 20,
-    Label: Age,
-    Properties: {},
-    Value: 0
+    Value: {
+      Id: 20,
+      Label: Age,
+      Properties: {},
+      Value: 0
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
   },
   {
-    Id: 24,
-    Label: Age,
-    Properties: {},
-    Value: 0
+    Value: {
+      Id: 24,
+      Label: Age,
+      Properties: {},
+      Value: 0
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
   },
   {
-    Id: 30,
-    Label: Age,
-    Properties: {},
-    Value: 0
+    Value: {
+      Id: 30,
+      Label: Age,
+      Properties: {},
+      Value: 0
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
   },
   {
-    Id: 38,
-    Label: Age,
-    Properties: {},
-    Value: 0
+    Value: {
+      Id: 38,
+      Label: Age,
+      Properties: {},
+      Value: 0
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
   },
   {
-    Id: 45,
-    Label: Age,
-    Properties: {},
-    Value: 0
+    Value: {
+      Id: 45,
+      Label: Age,
+      Properties: {},
+      Value: 0
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
   },
   {
-    Id: 57,
-    Label: Age,
-    Properties: {},
-    Value: 0
+    Value: {
+      Id: 57,
+      Label: Age,
+      Properties: {},
+      Value: 0
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
   },
   {
-    Id: 60,
-    Label: Age,
-    Properties: {},
-    Value: 0
+    Value: {
+      Id: 60,
+      Label: Age,
+      Properties: {},
+      Value: 0
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
   }
 ]

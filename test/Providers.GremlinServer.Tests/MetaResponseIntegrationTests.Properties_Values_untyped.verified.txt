@@ -1,5 +1,32 @@
 ﻿[
-  2019-01-01 01:00 +0,
-  Deutschland,
-  Germany
+  {
+    Value: 2019-01-01 01:00 +0,
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
+  },
+  {
+    Value: Deutschland,
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
+  },
+  {
+    Value: Germany,
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
+  }
 ]

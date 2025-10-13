@@ -1,8 +1,17 @@
 ﻿[
   {
-    In: in_value,
-    Out: out_value,
-    Count: count_value,
-    Properties: properties_value
+    Value: {
+      In: in_value,
+      Out: out_value,
+      Count: count_value,
+      Properties: properties_value
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
   }
 ]

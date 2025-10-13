@@ -1,3 +1,12 @@
 ﻿[
-  42_1__2__3_
+  {
+    Value: 42_1__2__3_,
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
+  }
 ]

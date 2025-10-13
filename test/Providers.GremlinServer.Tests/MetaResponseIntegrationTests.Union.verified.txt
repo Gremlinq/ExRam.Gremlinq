@@ -1,70 +1,133 @@
 ﻿[
   {
-    Id: 5,
-    Label: Company,
-    PartitionKey: PartitionKey
-  },
-  {
-    LocalizableDescription: {
-      Id: 130,
-      Label: LocalizableDescription,
-      Properties: {
-        someKey: value
-      },
-      Value: 
+    Value: {
+      Id: 5,
+      Label: Company,
+      PartitionKey: PartitionKey
     },
-    Id: 17,
-    Label: Country,
-    PartitionKey: PartitionKey
-  },
-  {
-    LocalizableDescription: {
-      Id: 131,
-      Label: LocalizableDescription,
-      Properties: {
-        someKey: value
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
       },
-      Value: 
-    },
-    Id: 21,
-    Label: Country,
-    PartitionKey: PartitionKey
+      Message: 
+    }
   },
   {
-    LocalizableDescription: {
-      Id: 132,
-      Label: LocalizableDescription,
-      Properties: {
-        someKey: value
+    Value: {
+      LocalizableDescription: {
+        Id: 130,
+        Label: LocalizableDescription,
+        Properties: {
+          someKey: value
+        },
+        Value: 
       },
-      Value: 
+      Id: 17,
+      Label: Country,
+      PartitionKey: PartitionKey
     },
-    Id: 25,
-    Label: Country,
-    PartitionKey: PartitionKey
-  },
-  {
-    Id: 27,
-    Label: Company,
-    PartitionKey: PartitionKey
-  },
-  {
-    CountryCallingCode: +49,
-    LocalizableDescription: {
-      Id: 127,
-      Label: LocalizableDescription,
-      Properties: {
-        someKey: value
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
       },
-      Value: 
-    },
-    Id: 0,
-    Label: Country,
-    PartitionKey: PartitionKey
+      Message: 
+    }
   },
   {
-    Id: 42,
-    Label: Company,
-    PartitionKey: PartitionKey
+    Value: {
+      LocalizableDescription: {
+        Id: 131,
+        Label: LocalizableDescription,
+        Properties: {
+          someKey: value
+        },
+        Value: 
+      },
+      Id: 21,
+      Label: Country,
+      PartitionKey: PartitionKey
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
+  },
+  {
+    Value: {
+      LocalizableDescription: {
+        Id: 132,
+        Label: LocalizableDescription,
+        Properties: {
+          someKey: value
+        },
+        Value: 
+      },
+      Id: 25,
+      Label: Country,
+      PartitionKey: PartitionKey
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
+  },
+  {
+    Value: {
+      Id: 27,
+      Label: Company,
+      PartitionKey: PartitionKey
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
+  },
+  {
+    Value: {
+      CountryCallingCode: +49,
+      LocalizableDescription: {
+        Id: 127,
+        Label: LocalizableDescription,
+        Properties: {
+          someKey: value
+        },
+        Value: 
+      },
+      Id: 0,
+      Label: Country,
+      PartitionKey: PartitionKey
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
+  },
+  {
+    Value: {
+      Id: 42,
+      Label: Company,
+      PartitionKey: PartitionKey
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
   }
 ]

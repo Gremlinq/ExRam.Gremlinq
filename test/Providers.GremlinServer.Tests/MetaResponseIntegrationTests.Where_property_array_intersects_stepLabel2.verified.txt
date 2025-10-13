@@ -1,11 +1,20 @@
 ﻿[
   {
-    PhoneNumbers: [
-      +4912345,
-      +4923456
-    ],
-    Id: 75,
-    Label: Company,
-    PartitionKey: PartitionKey
+    Value: {
+      PhoneNumbers: [
+        +4912345,
+        +4923456
+      ],
+      Id: 75,
+      Label: Company,
+      PartitionKey: PartitionKey
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
   }
 ]

@@ -1,16 +1,34 @@
 ﻿[
   {
-    Item1: +49,
-    Item2: +49,
-    Item3: +49,
-    Item4: +49,
-    Item5: +49
+    Value: {
+      Item1: +49,
+      Item2: +49,
+      Item3: +49,
+      Item4: +49,
+      Item5: +49
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
   },
   {
-    Item1: +49,
-    Item2: +49,
-    Item3: +49,
-    Item4: +49,
-    Item5: +49
+    Value: {
+      Item1: +49,
+      Item2: +49,
+      Item3: +49,
+      Item4: +49,
+      Item5: +49
+    },
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: /172.17.0.1:33708
+      },
+      Message: 
+    }
   }
 ]
