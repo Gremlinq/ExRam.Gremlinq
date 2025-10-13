@@ -214,8 +214,6 @@ namespace ExRam.Gremlinq.Providers.Core
                 return Execute<T, T>(context, static (_, value) => value);
             }
 
-            private static Func<GremlinQueryExecutorImpl, GremlinQueryExecutionContext, object> CreateExecuteMetaResponseDelegate<T>() => (executor, context) => executor.Execute<T, MetaResponse<T>>(context, static (response, value) => new MetaResponse<T>(value, response.Status));
-
             private async IAsyncEnumerable<TTransformedResult> Execute<TResult, TTransformedResult>(GremlinQueryExecutionContext context, Func<ResponseMessage<List<TResult>>, TResult, TTransformedResult> resultTransformation, [EnumeratorCancellation] CancellationToken ct = default)
             {
                 var environment = context.Query
@@ -261,6 +259,8 @@ namespace ExRam.Gremlinq.Providers.Core
                     }
                 }
             }
+
+            private static Func<GremlinQueryExecutorImpl, GremlinQueryExecutionContext, object> CreateExecuteMetaResponseDelegate<T>() => (executor, context) => executor.Execute<T, MetaResponse<T>>(context, static (response, value) => new MetaResponse<T>(value, response.Status));
         }
 
         public static TClientFactory ConfigureClient<TClientFactory>(this TClientFactory clientFactory, Func<IGremlinqClient, IGremlinqClient> clientTransformation)
