@@ -226,9 +226,9 @@ namespace ExRam.Gremlinq.Providers.Core
                     {
                         switch (response)
                         {
-                            case { Status: { Code: var code and not Success and not NoContent and not PartialContent and not Authenticate } status }:
+                            case { Status: { Code: var code and not Success and not NoContent and not PartialContent and not Authenticate, Attributes: var attributes, Message: var message } }:
                             {
-                                throw new GremlinQueryExecutionException(context, new ResponseException(code, status.Attributes, $"{status.Code}: {status.Message}"));
+                                throw new GremlinQueryExecutionException(context, new ResponseException(code, attributes, $"{code}: {message}"));
                             }
                             case { Result.Data: { } data }:
                             {
