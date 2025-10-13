@@ -1,6 +1,6 @@
 ﻿[
   {
-    Values: [
+    Data: [
       {
         IetfLanguageTag: en,
         Id: 2,

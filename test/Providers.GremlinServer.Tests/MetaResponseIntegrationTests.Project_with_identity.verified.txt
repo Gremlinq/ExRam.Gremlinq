@@ -1,6 +1,6 @@
 ﻿[
   {
-    Values: [
+    Data: [
       {
         Item1: 42,
         Item2: item2

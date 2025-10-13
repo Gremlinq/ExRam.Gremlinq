@@ -1,6 +1,6 @@
 ﻿[
   {
-    Values: [
+    Data: [
       2019-01-01 01:00 +0,
       Deutschland,
       Germany

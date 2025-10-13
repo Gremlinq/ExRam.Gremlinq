@@ -1,6 +1,6 @@
 ﻿[
   {
-    Values: [
+    Data: [
       {
         In: 42,
         Out: 42,
