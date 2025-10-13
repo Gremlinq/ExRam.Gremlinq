@@ -60,14 +60,6 @@
     ],
     ResponseStatus: {
       Code: Success,
-      Attributes: {
-        x-ms-activity-id: 12345678-9012-3456-7890-123456789012,
-        x-ms-request-charge: 19.559999999999995,
-        x-ms-server-time-ms: 24.4298,
-        x-ms-status-code: 200,
-        x-ms-total-request-charge: 19.559999999999995,
-        x-ms-total-server-time-ms: 24.4298
-      },
       Message: 
     }
   }

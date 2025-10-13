@@ -68,14 +68,6 @@
     ],
     ResponseStatus: {
       Code: PartialContent,
-      Attributes: {
-        x-ms-activity-id: 12345678-9012-3456-7890-123456789012,
-        x-ms-request-charge: 23.279999999999998,
-        x-ms-server-time-ms: 39.4325,
-        x-ms-status-code: 206,
-        x-ms-total-request-charge: 23.279999999999998,
-        x-ms-total-server-time-ms: 39.4325
-      },
       Message: 
     }
   },
@@ -112,14 +104,6 @@
     ],
     ResponseStatus: {
       Code: Success,
-      Attributes: {
-        x-ms-activity-id: 12345678-9012-3456-7890-123456789012,
-        x-ms-request-charge: 0.0,
-        x-ms-server-time-ms: 0.047,
-        x-ms-status-code: 200,
-        x-ms-total-request-charge: 23.279999999999998,
-        x-ms-total-server-time-ms: 39.479499999999994
-      },
       Message: 
     }
   }

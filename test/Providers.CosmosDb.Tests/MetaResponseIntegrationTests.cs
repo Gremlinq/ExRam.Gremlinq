@@ -10,8 +10,6 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
     [IntegrationTest("Windows", true)]
     public partial class MetaResponseIntegrationTests : QueryExecutionTest, IClassFixture<CosmosDbEmulatorFixture>
     {
-        private static readonly Regex DoubleRegex = DoubleRegexRegexImpl();
-
         private sealed class MetaResponseExecutingVerifier : ExecutingVerifier
         {
             public MetaResponseExecutingVerifier() : base()
@@ -23,8 +21,8 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .Verify(query.Cast<MetaResponse<TElement>>());
 
             protected override SettingsTask ModifySettingsTask(SettingsTask task) => base
-                .ModifySettingsTask(task);
-                //.ScrubRegex(DoubleRegex, "(double)");
+                .ModifySettingsTask(task)
+                .IgnoreMember("Attributes");
         }
 
         public MetaResponseIntegrationTests(CosmosDbEmulatorFixture fixture) : base(
@@ -32,10 +30,6 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
             new MetaResponseExecutingVerifier())
         {
         }
-
-        [GeneratedRegex(@"\d+\.\d+")]
-        private static partial Regex DoubleRegexRegexImpl();
-
 
         [Fact(Skip = "id as key cannot be scrubbed.")]
         public override Task Group_with_key_identity() => base.Group_with_key_identity();

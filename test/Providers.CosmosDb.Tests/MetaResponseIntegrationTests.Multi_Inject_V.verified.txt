@@ -96,14 +96,6 @@
     ],
     ResponseStatus: {
       Code: PartialContent,
-      Attributes: {
-        x-ms-activity-id: 12345678-9012-3456-7890-123456789012,
-        x-ms-request-charge: 12.26,
-        x-ms-server-time-ms: 17.846,
-        x-ms-status-code: 206,
-        x-ms-total-request-charge: 12.26,
-        x-ms-total-server-time-ms: 17.846
-      },
       Message: 
     }
   },
@@ -199,14 +191,6 @@
     ],
     ResponseStatus: {
       Code: PartialContent,
-      Attributes: {
-        x-ms-activity-id: 12345678-9012-3456-7890-123456789012,
-        x-ms-request-charge: 0.0,
-        x-ms-server-time-ms: 0.3272,
-        x-ms-status-code: 206,
-        x-ms-total-request-charge: 12.26,
-        x-ms-total-server-time-ms: 18.1732
-      },
       Message: 
     }
   },
@@ -252,14 +236,6 @@
     ],
     ResponseStatus: {
       Code: Success,
-      Attributes: {
-        x-ms-activity-id: 12345678-9012-3456-7890-123456789012,
-        x-ms-request-charge: 0.0,
-        x-ms-server-time-ms: 0.0599,
-        x-ms-status-code: 200,
-        x-ms-total-request-charge: 12.26,
-        x-ms-total-server-time-ms: 18.2331
-      },
       Message: 
     }
   }

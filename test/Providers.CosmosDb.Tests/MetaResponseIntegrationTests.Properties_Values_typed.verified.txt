@@ -12,11 +12,11 @@
     StatusCode: ServerEvaluationError,
     StatusAttributes: {
       x-ms-activity-id: 12345678-9012-3456-7890-123456789012,
-      x-ms-request-charge: 9.459999999999999,
-      x-ms-server-time-ms: 15.1447,
+      x-ms-request-charge: 6.66,
+      x-ms-server-time-ms: 13.0888,
       x-ms-status-code: 1002,
-      x-ms-total-request-charge: 9.459999999999999,
-      x-ms-total-server-time-ms: 15.1447
+      x-ms-total-request-charge: 6.66,
+      x-ms-total-server-time-ms: 13.0888
     },
     Message:
 ServerEvaluationError: 
