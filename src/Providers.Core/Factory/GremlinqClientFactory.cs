@@ -1,4 +1,5 @@
 ﻿using System.Collections.Concurrent;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 
 using ExRam.Gremlinq.Core;
@@ -195,50 +196,57 @@ namespace ExRam.Gremlinq.Providers.Core
 
             public IAsyncEnumerable<T> Execute<T>(GremlinQueryExecutionContext context)
             {
-                return Core(this, context);
+                return typeof(T).IsGenericType && typeof(T).GetGenericTypeDefinition() == typeof(MetaResponse<>)
+                    ? (IAsyncEnumerable<T>)typeof(GremlinQueryExecutorImpl).GetMethod(nameof(ExecuteMeta), BindingFlags.NonPublic | BindingFlags.Instance)!.MakeGenericMethod(typeof(T).GenericTypeArguments[0]).Invoke(this, [context])!
+                    : Execute<T, T>(context, static (_, value) => value);
+            }
 
-                static async IAsyncEnumerable<T> Core(GremlinQueryExecutorImpl @this, GremlinQueryExecutionContext context, [EnumeratorCancellation] CancellationToken ct = default)
+            private IAsyncEnumerable<MetaResponse<T>> ExecuteMeta<T>(GremlinQueryExecutionContext context)
+            {
+                return Execute<T, MetaResponse<T>>(context, static (response, value) => new MetaResponse<T>(value, response.Status));
+            }
+
+            private async IAsyncEnumerable<TTransformedResult> Execute<TResult, TTransformedResult>(GremlinQueryExecutionContext context, Func<ResponseMessage<List<TResult>>, TResult, TTransformedResult> resultTransformation, [EnumeratorCancellation] CancellationToken ct = default)
+            {
+                var environment = context.Query
+                    .AsAdmin()
+                    .Environment;
+
+                var client = _clients.GetOrAdd(
+                    environment,
+                    static (environment, executor) => executor._clientFactory.Create(environment),
+                    this);
+
+                var requestMessage = environment
+                    .Serializer
+                    .TransformTo<RequestMessage>()
+                    .From(context.Query, environment)
+                    .Rebuild()
+                    .OverrideRequestId(context.ExecutionId)
+                    .Create();
+
+                var enumerable = client
+                    .SubmitAsync<List<TResult>>(requestMessage)
+                    .Catch(
+                        static (ex, context) => ex is not ArgumentException ? new GremlinQueryExecutionException(context, ex) : ex,
+                        context);
+
+                await foreach (var response in enumerable.WithCancellation(ct).ConfigureAwait(false))
                 {
-                    var environment = context.Query
-                        .AsAdmin()
-                        .Environment;
-
-                    var client = @this._clients.GetOrAdd(
-                        environment,
-                        static (environment, executor) => executor._clientFactory.Create(environment),
-                        @this);
-
-                    var requestMessage = environment
-                        .Serializer
-                        .TransformTo<RequestMessage>()
-                        .From(context.Query, environment)
-                        .Rebuild()
-                        .OverrideRequestId(context.ExecutionId)
-                        .Create();
-
-                    var enumerable = client
-                        .SubmitAsync<List<T>>(requestMessage)
-                        .Catch(
-                            static (ex, context) => ex is not ArgumentException ? new GremlinQueryExecutionException(context, ex) : ex,
-                            context);
-
-                    await foreach (var response in enumerable.WithCancellation(ct).ConfigureAwait(false))
+                    switch (response)
                     {
-                        switch (response)
+                        case { Status: { Code: var code and not Success and not NoContent and not PartialContent and not Authenticate, Attributes: var attributes, Message: var message } }:
                         {
-                            case { Status: { Code: var code and not Success and not NoContent and not PartialContent and not Authenticate, Attributes: var attributes, Message: var message } }:
+                            throw new GremlinQueryExecutionException(context, new ResponseException(code, attributes, $"{code}: {message}"));
+                        }
+                        case { Result.Data: { } data }:
+                        {
+                            foreach (var obj in data)
                             {
-                                throw new GremlinQueryExecutionException(context, new ResponseException(code, attributes, $"{code}: {message}"));
+                                yield return resultTransformation(response, obj);
                             }
-                            case { Result.Data: { } data }:
-                            {
-                                foreach (var obj in data)
-                                {
-                                    yield return obj;
-                                }
 
-                                break;
-                            }
+                            break;
                         }
                     }
                 }
