@@ -4,7 +4,7 @@ namespace ExRam.Gremlinq.Providers.Core
 {
     public readonly struct MetaResponse<T>
     {
-        private readonly T[] _values;
+        private readonly T[]? _values;
         private readonly ResponseStatus? _responseStatus;
 
         internal MetaResponse(T[] values, ResponseStatus responseStatus)
@@ -13,9 +13,7 @@ namespace ExRam.Gremlinq.Providers.Core
             _responseStatus = responseStatus;
         }
 
-        public T[] Values => _responseStatus is not null
-            ? _values
-            : throw new InvalidOperationException();
+        public T[] Values => _values ?? throw new InvalidOperationException();
 
         public ResponseStatus ResponseStatus => _responseStatus ?? throw new InvalidOperationException();
     }
