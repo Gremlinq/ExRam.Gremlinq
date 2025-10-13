@@ -20,7 +20,11 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
 
             protected override SettingsTask ModifySettingsTask(SettingsTask task) => base
                 .ModifySettingsTask(task)
-                .IgnoreMember("Attributes");
+                .IgnoreMember("Attributes")
+                .ScrubMember("x-ms-server-time-ms")
+                .ScrubMember("x-ms-total-server-time-ms")
+                .ScrubMember("x-ms-request-charge")
+                .ScrubMember("x-ms-total-request-charge");
         }
 
         public MetaResponseIntegrationTests(CosmosDbEmulatorFixture fixture) : base(
