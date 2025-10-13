@@ -67,6 +67,11 @@
         ExRam.Gremlinq.Providers.Core.IWebSocketGremlinqClientFactory WithBinaryMessage<TBinaryMessage>()
             where TBinaryMessage : System.Buffers.IMemoryOwner<byte>;
     }
+    public readonly struct MetaResponse<T>
+    {
+        public T[] Data { get; }
+        public Gremlin.Net.Driver.Messages.ResponseStatus ResponseStatus { get; }
+    }
     public static class ProviderConfiguratorExtensions
     {
         public static TConfigurator At<TConfigurator>(this ExRam.Gremlinq.Providers.Core.IProviderConfigurator<TConfigurator, ExRam.Gremlinq.Providers.Core.IPoolGremlinqClientFactory<ExRam.Gremlinq.Providers.Core.IWebSocketGremlinqClientFactory>> builder, string uri)
