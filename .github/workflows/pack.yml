@@ -102,7 +102,7 @@ jobs:
         name: ${{ github.event.repository.name }} ${{ needs.pack.outputs.packageVersion }}
         tag: ${{ needs.pack.outputs.packageVersion }}
         commitish: ${{ github.ref }}
-        publish: true
+        publish: false
       env:
         GITHUB_TOKEN: ${{ secrets.CREATE_RELEASE_PAT }}
 
