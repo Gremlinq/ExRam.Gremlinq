@@ -34,13 +34,13 @@
             .Cast<TElement>()
             .Tail(1)
             .ToAsyncEnumerable()
-            .LastAsync(ct);
+            .FirstAsync(ct);
 
         public static ValueTask<TElement?> LastOrDefaultAsync<TElement>(this IGremlinQueryBase<TElement> query, CancellationToken ct = default) => query
             .Cast<TElement>()
             .Tail(1)
             .ToAsyncEnumerable()
-            .LastOrDefaultAsync(ct);
+            .FirstOrDefaultAsync(ct);
 
         internal static Traversal ToTraversal(this IGremlinQueryBase query) => query
             .AsAdmin().Steps;
