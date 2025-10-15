@@ -37,38 +37,6 @@ namespace ExRam.Gremlinq.Core
             throw new InvalidOperationException(NoElements);
         }
 
-        public static async ValueTask<TSource> LastAsync<TSource>(this IAsyncEnumerable<TSource> source, CancellationToken ct = default)
-        {
-            var hasLast = false;
-            var last = default(TSource)!;
-
-            await foreach (var item in source.WithCancellation(ct).ConfigureAwait(false))
-            {
-                last = item;
-                hasLast = true;
-            }
-
-            return hasLast
-                ? last
-                : throw new InvalidOperationException(NoElements);
-        }
-
-        public static async ValueTask<TSource?> LastOrDefaultAsync<TSource>(this IAsyncEnumerable<TSource> source, CancellationToken ct = default)
-        {
-            var hasLast = false;
-            var last = default(TSource)!;
-
-            await foreach (var item in source.WithCancellation(ct).ConfigureAwait(false))
-            {
-                last = item;
-                hasLast = true;
-            }
-
-            return hasLast
-                ? last
-                : default;
-        }
-
         public static async ValueTask<TSource> SingleAsync<TSource>(this IAsyncEnumerable<TSource> source, CancellationToken ct = default)
         {
 #pragma warning disable CA2007 // Consider calling ConfigureAwait on the awaited task
