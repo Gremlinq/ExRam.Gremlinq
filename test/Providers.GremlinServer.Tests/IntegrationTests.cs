@@ -135,6 +135,13 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
                 .Be(43);
 
         [Fact]
+        public async Task LastOrDefaultAsync_2() => (await _g
+            .Inject(42, 43, 44)
+            .LastOrDefaultAsync(TestContext.Current.CancellationToken))
+                .Should()
+                .Be(44);
+
+        [Fact]
         public async Task LastOrDefaultAsync_empty() => (await _g
             .Inject(42)
             .None()

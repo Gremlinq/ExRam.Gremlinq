@@ -37,7 +37,7 @@
 
         public static ValueTask<TElement?> LastOrDefaultAsync<TElement>(this IGremlinQueryBase<TElement> query, CancellationToken ct = default) => query
             .Cast<TElement>()
-            .Limit(2)
+            .Tail(1)
             .ToAsyncEnumerable()
             .LastOrDefaultAsync(ct);
 
