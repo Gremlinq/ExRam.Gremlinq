@@ -211,10 +211,10 @@ namespace ExRam.Gremlinq.Providers.Core
                     return (IAsyncEnumerable<T>)del.Invoke(this, context);
                 }
 
-                return Execute<T, T>(context, static (_, _, values) => values);
+                return Execute<T, T>(context, static (_, response) => response.Result.Data ?? []);
             }
 
-            private async IAsyncEnumerable<TTransformedResult> Execute<TResult, TTransformedResult>(GremlinQueryExecutionContext context, Func<RequestMessage, ResponseMessage<List<TResult>>, IEnumerable<TResult>, IEnumerable<TTransformedResult>> resultTransformation, [EnumeratorCancellation] CancellationToken ct = default)
+            private async IAsyncEnumerable<TTransformedResult> Execute<TResult, TTransformedResult>(GremlinQueryExecutionContext context, Func<RequestMessage, ResponseMessage<List<TResult>>, IEnumerable<TTransformedResult>> resultTransformation, [EnumeratorCancellation] CancellationToken ct = default)
             {
                 var environment = context.Query
                     .AsAdmin()
@@ -249,7 +249,7 @@ namespace ExRam.Gremlinq.Providers.Core
                         }
                         case { Result.Data: { } data }:
                         {
-                            foreach (var obj in resultTransformation(requestMessage, response, data))
+                            foreach (var obj in resultTransformation(requestMessage, response))
                             {
                                 yield return obj;
                             }
@@ -260,7 +260,7 @@ namespace ExRam.Gremlinq.Providers.Core
                 }
             }
 
-            private static Func<GremlinQueryExecutorImpl, GremlinQueryExecutionContext, object> CreateExecuteMetaResponseDelegate<T>() => (executor, context) => executor.Execute<T, MetaResponse<T>>(context, static (request, response, values) => [new MetaResponse<T>(request.RequestId, [.. values], response.Status)]);
+            private static Func<GremlinQueryExecutorImpl, GremlinQueryExecutionContext, object> CreateExecuteMetaResponseDelegate<T>() => (executor, context) => executor.Execute<T, MetaResponse<T>>(context, static (request, response) => [new MetaResponse<T>(request.RequestId, response.Result.Data?.ToArray(), response.Status)]);
         }
 
         public static TClientFactory ConfigureClient<TClientFactory>(this TClientFactory clientFactory, Func<IGremlinqClient, IGremlinqClient> clientTransformation)
