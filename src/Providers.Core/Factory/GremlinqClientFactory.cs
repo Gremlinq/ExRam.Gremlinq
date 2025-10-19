@@ -239,17 +239,26 @@ namespace ExRam.Gremlinq.Providers.Core
                     .OverrideRequestId(context.ExecutionId)
                     .Create();
 
-                var enumerable = client
-                    .SubmitAsync<List<TResult>>(requestMessage)
-                    .Catch(
-                        static (ex, context) => ex is not ArgumentException ? new GremlinQueryExecutionException(context, ex) : ex,
-                        context);
-
-                await foreach (var response in enumerable.WithCancellation(ct).ConfigureAwait(false))
+#pragma warning disable CA2007 // Consider calling ConfigureAwait on the awaited task
+                await using (var enumerator = client.SubmitAsync<List<TResult>>(requestMessage).GetAsyncEnumerator(ct))
+#pragma warning restore CA2007 // Consider calling ConfigureAwait on the awaited task
                 {
-                    foreach (var obj in resultTransformation(context, requestMessage, response))
+                    while (true)
                     {
-                        yield return obj;
+                        try
+                        {
+                            if (!await enumerator.MoveNextAsync().ConfigureAwait(false))
+                                break;
+                        }
+                        catch (Exception ex) when (ex is not ArgumentException)
+                        {
+                            throw new GremlinQueryExecutionException(context, ex);
+                        }
+
+                        foreach (var obj in resultTransformation(context, requestMessage, enumerator.Current))
+                        {
+                            yield return obj;
+                        }
                     }
                 }
             }
