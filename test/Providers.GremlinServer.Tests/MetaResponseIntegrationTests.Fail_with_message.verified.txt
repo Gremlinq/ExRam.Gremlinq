@@ -1,20 +1,13 @@
-﻿{
-  Type: GremlinQueryExecutionException,
-  ExecutionContext: {
-    ExecutionId: 12345678-9012-3456-7890-123456789012,
-    Query: {}
-  },
-  Message: Executing query 12345678-9012-3456-7890-123456789012 failed.,
-  Data: {},
-  InnerException: {
-    $type: ResponseException,
-    Type: ResponseException,
-    StatusCode: ServerErrorFailStep,
-    StatusAttributes: {
-      exceptions: [
-        org.apache.tinkerpop.gremlin.process.traversal.step.sideEffect.FailStep$FailException
-      ],
-      failStepMessage:
+﻿[
+  {
+    RequestId: 12345678-9012-3456-7890-123456789012,
+    ResponseStatus: {
+      Code: ServerErrorFailStep,
+      Attributes: {
+        exceptions: [
+          org.apache.tinkerpop.gremlin.process.traversal.step.sideEffect.FailStep$FailException
+        ],
+        failStepMessage:
 fail() Step Triggered
 =============================================
 Message  > There's been an error.
@@ -23,7 +16,7 @@ Traverser> v[0]
 Traversal> V().fail("There's been an error.")
 Metadata > {}
 =============================================,
-      stackTrace:
+        stackTrace:
 org.apache.tinkerpop.gremlin.process.traversal.step.sideEffect.FailStep$FailException: There's been an error.
 	at org.apache.tinkerpop.gremlin.process.traversal.step.sideEffect.FailStep.sideEffect(FailStep.java:57)
 	at org.apache.tinkerpop.gremlin.process.traversal.step.sideEffect.SideEffectStep.processNextStart(SideEffectStep.java:39)
@@ -40,16 +33,8 @@ org.apache.tinkerpop.gremlin.process.traversal.step.sideEffect.FailStep$FailExce
 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
 	at java.base/java.lang.Thread.run(Thread.java:829)
 
-    },
-    Message: ServerErrorFailStep: There's been an error.,
-    Data: {}
-  },
-  StackTrace:
-at ExRam.Gremlinq.Core.AsyncEnumerable.<Catch>g__Core|8_0[TSource,TState](IAsyncEnumerable`1 source, Func`3 exceptionTransformation, TState state, CancellationToken ct)
-at ExRam.Gremlinq.Core.AsyncEnumerable.<Catch>g__Core|8_0[TSource,TState](IAsyncEnumerable`1 source, Func`3 exceptionTransformation, TState state, CancellationToken ct)
-at ExRam.Gremlinq.Core.AsyncEnumerable.<Catch>g__Core|8_0[TSource,TState](IAsyncEnumerable`1 source, Func`3 exceptionTransformation, TState state, CancellationToken ct)
-at System.Collections.Generic.AsyncEnumerableHelpers.ToArrayWithLength[T](IAsyncEnumerable`1 source, CancellationToken cancellationToken)
-at System.Collections.Generic.AsyncEnumerableHelpers.ToArrayWithLength[T](IAsyncEnumerable`1 source, CancellationToken cancellationToken)
-at System.Collections.Generic.AsyncEnumerableHelpers.ToArray[T](IAsyncEnumerable`1 source, CancellationToken cancellationToken)
-at ExRam.Gremlinq.Tests.Infrastructure.ExecutingVerifier.Verify[TElement](IGremlinQueryBase`1 query)
-}
+      },
+      Message: There's been an error.
+    }
+  }
+]

@@ -211,10 +211,16 @@ namespace ExRam.Gremlinq.Providers.Core
                     return (IAsyncEnumerable<T>)del.Invoke(this, context);
                 }
 
-                return Execute<T, T>(context, static (_, response) => response.Result.Data ?? []);
+                return Execute<T, T>(
+                    context,
+                    static (context, _, response) => response switch
+                    {
+                        { Status: { Code: var code and not Success and not NoContent and not PartialContent and not Authenticate, Attributes: var attributes, Message: var message } } => throw new GremlinQueryExecutionException(context, new ResponseException(code, attributes, $"{code}: {message}")),
+                        _ => response.Result.Data ?? []
+                    });
             }
 
-            private async IAsyncEnumerable<TTransformedResult> Execute<TResult, TTransformedResult>(GremlinQueryExecutionContext context, Func<RequestMessage, ResponseMessage<List<TResult>>, IEnumerable<TTransformedResult>> resultTransformation, [EnumeratorCancellation] CancellationToken ct = default)
+            private async IAsyncEnumerable<TTransformedResult> Execute<TResult, TTransformedResult>(GremlinQueryExecutionContext context, Func<GremlinQueryExecutionContext, RequestMessage, ResponseMessage<List<TResult>>, IEnumerable<TTransformedResult>> resultTransformation, [EnumeratorCancellation] CancellationToken ct = default)
             {
                 var environment = context.Query
                     .AsAdmin()
@@ -241,26 +247,14 @@ namespace ExRam.Gremlinq.Providers.Core
 
                 await foreach (var response in enumerable.WithCancellation(ct).ConfigureAwait(false))
                 {
-                    switch (response)
+                    foreach (var obj in resultTransformation(context, requestMessage, response))
                     {
-                        case { Status: { Code: var code and not Success and not NoContent and not PartialContent and not Authenticate, Attributes: var attributes, Message: var message } }:
-                        {
-                            throw new GremlinQueryExecutionException(context, new ResponseException(code, attributes, $"{code}: {message}"));
-                        }
-                        case { Result.Data: { } data }:
-                        {
-                            foreach (var obj in resultTransformation(requestMessage, response))
-                            {
-                                yield return obj;
-                            }
-
-                            break;
-                        }
+                        yield return obj;
                     }
                 }
             }
 
-            private static Func<GremlinQueryExecutorImpl, GremlinQueryExecutionContext, object> CreateExecuteMetaResponseDelegate<T>() => (executor, context) => executor.Execute<T, MetaResponse<T>>(context, static (request, response) => [new MetaResponse<T>(request.RequestId, response.Result.Data?.ToArray(), response.Status)]);
+            private static Func<GremlinQueryExecutorImpl, GremlinQueryExecutionContext, object> CreateExecuteMetaResponseDelegate<T>() => (executor, context) => executor.Execute<T, MetaResponse<T>>(context, static (context, request, response) => [new MetaResponse<T>(request.RequestId, response.Result.Data?.ToArray(), response.Status)]);
         }
 
         public static TClientFactory ConfigureClient<TClientFactory>(this TClientFactory clientFactory, Func<IGremlinqClient, IGremlinqClient> clientTransformation)
