@@ -8,7 +8,7 @@ namespace ExRam.Gremlinq.Providers.Core
         private readonly Guid _requestId;
         private readonly ResponseStatus? _responseStatus;
 
-        internal MetaResponse(Guid requestId, T[] data, ResponseStatus responseStatus)
+        internal MetaResponse(Guid requestId, T[]? data, ResponseStatus responseStatus)
         {
             _data = data;
             _requestId = requestId;
@@ -19,7 +19,9 @@ namespace ExRam.Gremlinq.Providers.Core
             ? _requestId
             : throw new NotImplementedException();
 
-        public T[] Data => _data ?? throw new InvalidOperationException();
+        public T[]? Data => _responseStatus is not null
+            ? _data
+            : throw new InvalidOperationException();
 
         public ResponseStatus ResponseStatus => _responseStatus ?? throw new InvalidOperationException();
     }

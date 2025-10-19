@@ -69,7 +69,7 @@
     }
     public readonly struct MetaResponse<T>
     {
-        public T[] Data { get; }
+        public T[]? Data { get; }
         public System.Guid RequestId { get; }
         public Gremlin.Net.Driver.Messages.ResponseStatus ResponseStatus { get; }
     }
