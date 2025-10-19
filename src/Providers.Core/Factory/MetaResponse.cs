@@ -1,5 +1,7 @@
 ﻿using Gremlin.Net.Driver.Messages;
 
+using static ExRam.Gremlinq.Core.ExceptionHelper;
+
 namespace ExRam.Gremlinq.Providers.Core
 {
     public readonly struct MetaResponse<T>
@@ -17,12 +19,12 @@ namespace ExRam.Gremlinq.Providers.Core
 
         public Guid RequestId => _responseStatus is not null
             ? _requestId
-            : throw new NotImplementedException();
+            : throw UninitializedStruct();
 
         public T[]? Data => _responseStatus is not null
             ? _data
-            : throw new InvalidOperationException();
+            : throw UninitializedStruct();
 
-        public ResponseStatus ResponseStatus => _responseStatus ?? throw new InvalidOperationException();
+        public ResponseStatus ResponseStatus => _responseStatus ?? throw UninitializedStruct();
     }
 }
