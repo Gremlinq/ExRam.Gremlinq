@@ -32,7 +32,7 @@ jobs:
         echo "date: ${{ github.event.release.created_at}}" >> $fileName
         echo "---" >> $fileName
         echo "" >> $fileName
-        echo "#Release: ${{ github.event.repository.name }} ${{ github.event.release.tag_name }}" >> $fileName
+        echo "# ${{ github.event.repository.name }} ${{ github.event.release.tag_name }}" >> $fileName
         echo "" >> $fileName
         echo "${{ github.event.release.body }}" >> $fileName
 
