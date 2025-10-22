@@ -24,6 +24,6 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         protected override SettingsTask ModifySettingsTask(SettingsTask task) => base
             .ModifySettingsTask(task)
             .DontScrubGuids()
-            .ScrubGuids();
+            .ScrubGuidsWithConstant();
     }
 }

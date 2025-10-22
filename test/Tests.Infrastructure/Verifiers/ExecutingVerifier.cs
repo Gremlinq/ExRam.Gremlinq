@@ -30,6 +30,6 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .DontScrubDateTimes()
             .DontIgnoreEmptyCollections()
             .DontScrubGuids()
-            .ScrubGuids();
+            .ScrubGuidsWithConstant();
     }
 }
