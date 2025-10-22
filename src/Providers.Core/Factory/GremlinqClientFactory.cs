@@ -8,6 +8,8 @@ using ExRam.Gremlinq.Core.Execution;
 using Gremlin.Net.Driver.Exceptions;
 using Gremlin.Net.Driver.Messages;
 
+using Microsoft.Extensions.Logging;
+
 using static Gremlin.Net.Driver.Messages.ResponseStatusCode;
 
 namespace ExRam.Gremlinq.Providers.Core
@@ -245,17 +247,31 @@ namespace ExRam.Gremlinq.Providers.Core
                 {
                     while (true)
                     {
+                        IEnumerable<TTransformedResult> data;
+
                         try
                         {
-                            if (!await enumerator.MoveNextAsync().ConfigureAwait(false))
-                                break;
+                            try
+                            {
+                                if (!await enumerator.MoveNextAsync().ConfigureAwait(false))
+                                    break;
+                            }
+                            catch (Exception ex) when (ex is not ArgumentException)
+                            {
+                                throw new GremlinQueryExecutionException(context, ex);
+                            }
+
+                            data = resultTransformation(context, requestMessage, enumerator.Current);
                         }
-                        catch (Exception ex) when (ex is not ArgumentException)
+                        catch (Exception ex)
                         {
-                            throw new GremlinQueryExecutionException(context, ex);
+                            environment.Logger
+                                .LogError(ex, "Execution of Gremlin query {executionId} failed.", context.ExecutionId);
+
+                            throw;
                         }
 
-                        foreach (var obj in resultTransformation(context, requestMessage, enumerator.Current))
+                        foreach (var obj in data)
                         {
                             yield return obj;
                         }

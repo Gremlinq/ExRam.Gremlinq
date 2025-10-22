@@ -47,9 +47,10 @@ java.lang.IllegalArgumentException: Expected an id that is convertible to class 
     Data: {}
   },
   StackTrace:
-at ExRam.Gremlinq.Core.AsyncEnumerable.<Catch>g__Core|8_0[TSource,TState](IAsyncEnumerable`1 source, Func`3 exceptionTransformation, TState state, CancellationToken ct)
-at ExRam.Gremlinq.Core.AsyncEnumerable.<Catch>g__Core|8_0[TSource,TState](IAsyncEnumerable`1 source, Func`3 exceptionTransformation, TState state, CancellationToken ct)
-at ExRam.Gremlinq.Core.AsyncEnumerable.<Catch>g__Core|8_0[TSource,TState](IAsyncEnumerable`1 source, Func`3 exceptionTransformation, TState state, CancellationToken ct)
+at ExRam.Gremlinq.Providers.Core.GremlinqClientFactory.GremlinQueryExecutorImpl.<>c__4`1.<Execute>b__4_0(GremlinQueryExecutionContext context, RequestMessage _, ResponseMessage`1 response)
+at ExRam.Gremlinq.Providers.Core.GremlinqClientFactory.GremlinQueryExecutorImpl.Execute[TResult,TTransformedResult](GremlinQueryExecutionContext context, Func`4 resultTransformation, CancellationToken ct)
+at ExRam.Gremlinq.Providers.Core.GremlinqClientFactory.GremlinQueryExecutorImpl.Execute[TResult,TTransformedResult](GremlinQueryExecutionContext context, Func`4 resultTransformation, CancellationToken ct)
+at ExRam.Gremlinq.Providers.Core.GremlinqClientFactory.GremlinQueryExecutorImpl.Execute[TResult,TTransformedResult](GremlinQueryExecutionContext context, Func`4 resultTransformation, CancellationToken ct)
 at System.Collections.Generic.AsyncEnumerableHelpers.ToArrayWithLength[T](IAsyncEnumerable`1 source, CancellationToken cancellationToken)
 at System.Collections.Generic.AsyncEnumerableHelpers.ToArrayWithLength[T](IAsyncEnumerable`1 source, CancellationToken cancellationToken)
 at System.Collections.Generic.AsyncEnumerableHelpers.ToArray[T](IAsyncEnumerable`1 source, CancellationToken cancellationToken)
