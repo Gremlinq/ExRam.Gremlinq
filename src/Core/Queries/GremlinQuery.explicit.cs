@@ -18,6 +18,7 @@ namespace ExRam.Gremlinq.Core
         IGremlinQueryAdmin,
         IGremlinQuerySource,
 
+        IAsyncEnumerable<T1>,
         IGremlinQuery<T1>,
 
         IElementGremlinQuery<T1>,
@@ -249,13 +250,16 @@ namespace ExRam.Gremlinq.Core
                 .WithNewProjection(Projection.Value)
                 .BuildAuto<T1>());
 
-        TaskAwaiter<T1[]> IGremlinQueryBase<T1>.GetAwaiter() => this
+        TaskAwaiter<T1[]> IGremlinQueryBase<T1>.GetAwaiter() => (this as IAsyncEnumerable<T1>)
             .ToArrayAsync()
             .AsTask()
             .GetAwaiter();
 
-        IAsyncEnumerable<T1> IGremlinQueryBase<T1>.ToAsyncEnumerable() => Environment.Executor
-            .Execute<T1>(GremlinQueryExecutionContext.Create(this));
+        IAsyncEnumerator<T1> IAsyncEnumerable<T1>.GetAsyncEnumerator(CancellationToken ct) => Environment.Executor
+            .Execute<T1>(GremlinQueryExecutionContext.Create(this))
+            .GetAsyncEnumerator(ct);
+
+        IAsyncEnumerable<T1> IGremlinQueryBase<T1>.ToAsyncEnumerable() => this;
 
         IGremlinQuery<Path> IGremlinQueryBase.Path() => Path();
 

@@ -391,6 +391,15 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void V_AsyncEnumerable()
+        {
+            _g
+                .V<Vertex>()
+                .Should()
+                .BeAssignableTo<IAsyncEnumerable<Vertex>>();
+        }
+
+        [Fact]
         public void E_Values_String_StringEdgeProperty()
         {
             _g
