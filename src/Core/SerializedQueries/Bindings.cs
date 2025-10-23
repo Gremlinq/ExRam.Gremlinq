@@ -81,11 +81,9 @@ namespace ExRam.Gremlinq.Core
             _existing = existing;
         }
 
-#pragma warning disable IDE0028 // Simplify collection initialization
         public static Bindings CreateDictionary() => new(new Dictionary<object, Label>());
 
         public static Bindings CreateList() => new(new List<KeyValuePair<object, Label>>());
-#pragma warning restore IDE0028 // Simplify collection initialization
 
         public static Bindings CreateCounter() => new(new Counter());
 
