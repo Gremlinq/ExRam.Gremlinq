@@ -7,7 +7,7 @@ using ExRam.Gremlinq.Core.Serialization;
 
 namespace ExRam.Gremlinq.Core
 {
-    internal readonly struct Bindings : IEnumerable<KeyValuePair<string, object?>>
+    internal readonly struct Bindings
     {
         private sealed class Counter : ICollection<KeyValuePair<object, Label>>, IEnumerator<KeyValuePair<object, Label>>
         {
@@ -122,7 +122,5 @@ namespace ExRam.Gremlinq.Core
         public IEnumerator<KeyValuePair<string, object?>> GetEnumerator() => _list is { } list
             ? new BindingsEnumerator(list.GetEnumerator())
             : _existing?.GetEnumerator() ?? throw new InvalidOperationException();
-
-        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
 }
