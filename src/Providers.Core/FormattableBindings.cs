@@ -6,11 +6,11 @@ namespace ExRam.Gremlinq.Providers.Core
 {
     internal readonly struct FormattableBindings : ISpanFormattable
     {
-        private readonly Bindings? _value;
+        private readonly Bindings? _bindings;
 
         public FormattableBindings(Bindings? bindings)
         {
-            _value = bindings;
+            _bindings = bindings;
         }
 
         public override string? ToString() => ToString(null, null);
@@ -19,11 +19,11 @@ namespace ExRam.Gremlinq.Providers.Core
         {
             charsWritten = 0;
 
-            if (_value is { } value)
+            if (_bindings is { } bindings)
             {
                 var first = true;
 
-                foreach (var kvp in value)
+                foreach (var kvp in bindings)
                 {
                     var entryCharsWritten = 0;
 
