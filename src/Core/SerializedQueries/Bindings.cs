@@ -69,10 +69,16 @@ namespace ExRam.Gremlinq.Core
         }
 
         private readonly ICollection<KeyValuePair<object, Label>>? _list;
+        private readonly IEnumerable<KeyValuePair<string, object?>>? _existing;
 
         private Bindings(ICollection<KeyValuePair<object, Label>> list)
         {
             _list = list;
+        }
+
+        private Bindings(IEnumerable<KeyValuePair<string, object?>> existing)
+        {
+            _existing = existing;
         }
 
 #pragma warning disable IDE0028 // Simplify collection initialization
@@ -82,6 +88,8 @@ namespace ExRam.Gremlinq.Core
 #pragma warning restore IDE0028 // Simplify collection initialization
 
         public static Bindings CreateCounter() => new(new Counter());
+
+        public static Bindings From(IEnumerable<KeyValuePair<string, object?>> existing) => new (existing);
 
         public Label GetOrAdd(object obj)
         {
@@ -109,11 +117,13 @@ namespace ExRam.Gremlinq.Core
 
         public ImmutableDictionary<string, object?> ToImmutableDictionary() => _list is { } list
             ? list.ToImmutableDictionary(static kvp => (string)kvp.Value, static kvp => (object?)kvp.Key)
-            : throw new InvalidOperationException();
+            : _existing is { } existing
+                ? existing.ToImmutableDictionary()
+                : throw new InvalidOperationException();
 
         public IEnumerator<KeyValuePair<string, object?>> GetEnumerator() => _list is { } list
             ? new BindingsEnumerator(list.GetEnumerator())
-            : throw new InvalidOperationException();
+            : _existing?.GetEnumerator() ?? throw new InvalidOperationException();
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }

@@ -5,6 +5,8 @@ using Gremlin.Net.Driver;
 using Gremlin.Net.Driver.Messages;
 using Gremlin.Net.Process.Traversal;
 
+using Bindings = ExRam.Gremlinq.Core.Bindings;
+
 namespace ExRam.Gremlinq.Providers.Core
 {
     internal static class RequestMessageExtensions
@@ -23,7 +25,7 @@ namespace ExRam.Gremlinq.Providers.Core
                     return CheapGroovyGremlinScript.From(
                         script,
                         includeBindings && requestMessage.Arguments.TryGetValue(Tokens.ArgsBindings, out var bindingsObject) && bindingsObject is IReadOnlyDictionary<string, object?> bindings
-                            ? bindings
+                            ? Bindings.From(bindings)
                             : null);
                 }
             }
