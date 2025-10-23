@@ -1,12 +1,14 @@
 ﻿using System.Runtime.CompilerServices;
 
+using ExRam.Gremlinq.Core;
+
 namespace ExRam.Gremlinq.Providers.Core
 {
     internal readonly struct FormattableBindings : ISpanFormattable
     {
-        private readonly IEnumerable<KeyValuePair<string, object?>>? _value;
+        private readonly Bindings? _value;
 
-        public FormattableBindings(IEnumerable<KeyValuePair<string, object?>>? bindings)
+        public FormattableBindings(Bindings? bindings)
         {
             _value = bindings;
         }
