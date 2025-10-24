@@ -108,54 +108,49 @@ namespace ExRam.Gremlinq.Core
 
         public bool TryFormat(Span<char> destination, out int charsWritten, ReadOnlySpan<char> format, IFormatProvider? provider)
         {
+            var first = true;
+
             charsWritten = 0;
 
-            var first = true;
-            var entryCharsWritten = 0;
-
-            static bool Write(Span<char> destination, bool first, KeyValuePair<string, object?> kvp, IFormatProvider? provider, out int entryCharsWritten)
+            static bool Write(ref Span<char> destination, ref bool first, ref int charsWritten, KeyValuePair<string, object?> kvp, IFormatProvider? provider)
             {
-                return first
-                     ? destination.TryWrite(provider, $"[{kvp.Key}, {kvp.Value}]", out entryCharsWritten)
+                var success = first
+                     ? destination.TryWrite(provider, $"[{kvp.Key}, {kvp.Value}]", out var entryCharsWritten)
                      : destination.TryWrite(provider, $", [{kvp.Key}, {kvp.Value}]", out entryCharsWritten);
+
+                first = false;
+
+                if (success)
+                {
+                    charsWritten += entryCharsWritten;
+                    destination = destination[entryCharsWritten..];
+                }
+                else
+                {
+                    charsWritten = 0;
+                }
+
+                return success;
             }
 
             if (_list is { } list)
             {
                 foreach (var kvp in list)
                 {
-                    var success = Write(destination, first, new KeyValuePair<string, object?>(kvp.Value, kvp.Key), provider, out entryCharsWritten);
-
-                    first = false;
+                    var success = Write(ref destination, ref first, ref charsWritten, new KeyValuePair<string, object?>(kvp.Value, kvp.Key), provider);
 
                     if (!success)
-                    {
-                        charsWritten = 0;
-
                         return false;
-                    }
-
-                    charsWritten += entryCharsWritten;
-                    destination = destination[entryCharsWritten..];
                 }
             }
             else if (_existing is { } existing)
             {
                 foreach (var kvp in existing)
                 {
-                    var success = Write(destination, first, kvp, provider, out entryCharsWritten);
-
-                    first = false;
+                    var success = Write(ref destination, ref first, ref charsWritten, kvp, provider);
 
                     if (!success)
-                    {
-                        charsWritten = 0;
-
                         return false;
-                    }
-
-                    charsWritten += entryCharsWritten;
-                    destination = destination[entryCharsWritten..];
                 }
             }
 
