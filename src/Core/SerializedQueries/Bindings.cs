@@ -133,7 +133,17 @@ namespace ExRam.Gremlinq.Core
                 return success;
             }
 
-            if (_list is { } list)
+            if (_list is Dictionary<object, Label> dict)
+            {
+                foreach (var kvp in dict)
+                {
+                    var success = Write(ref destination, ref first, ref charsWritten, new KeyValuePair<string, object?>(kvp.Value, kvp.Key), provider);
+
+                    if (!success)
+                        return false;
+                }
+            }
+            else if (_list is List<KeyValuePair<object, Label>> list)
             {
                 foreach (var kvp in list)
                 {
