@@ -1,6 +1,4 @@
-﻿#pragma warning disable IDE0003 // Remove qualification
-
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Immutable;
 
 using ExRam.Gremlinq.Core.Serialization;
