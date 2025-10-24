@@ -6,7 +6,7 @@ using ExRam.Gremlinq.Tests.Infrastructure;
 namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
 {
     [IntegrationTest("Windows", true)]
-    public class IntegrationTests : CosmosDbTestBase, IClassFixture<CosmosDbEmulatorFixture>
+    public class IntegrationTests : CosmosDbIntegrationTestBase, IClassFixture<CosmosDbEmulatorFixture>
     {
         public class CosmosDbEmulatorExecutingVerifier : ExecutingVerifier
         {
@@ -27,8 +27,5 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
             new CosmosDbEmulatorExecutingVerifier())
         {
         }
-
-        [Fact(Skip = "id as key cannot be scrubbed.")]
-        public override Task Group_with_key_identity() => base.Group_with_key_identity();
     }
 }
