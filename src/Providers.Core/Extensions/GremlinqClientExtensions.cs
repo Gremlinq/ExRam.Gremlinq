@@ -4,8 +4,6 @@ using ExRam.Gremlinq.Core;
 
 using Gremlin.Net.Driver.Messages;
 
-using Microsoft.Extensions.Logging;
-
 namespace ExRam.Gremlinq.Providers.Core
 {
     public static class GremlinqClientExtensions
@@ -115,8 +113,8 @@ namespace ExRam.Gremlinq.Providers.Core
                     {
                         if (requestMessage.TryGetGroovyScript(environment, includeBindings) is { } groovyQuery)
                         {
-                            if (includeBindings)
-                                environment.Logger.LogQuery(logLevel, requestMessage.RequestId, groovyQuery.Script, new FormattableBindings(groovyQuery.Bindings));
+                            if (includeBindings && groovyQuery.Bindings is { } bindings)
+                                environment.Logger.LogQuery(logLevel, requestMessage.RequestId, groovyQuery.Script, bindings);
                             else
                                 environment.Logger.LogQuery(logLevel, requestMessage.RequestId, groovyQuery.Script);
                         }

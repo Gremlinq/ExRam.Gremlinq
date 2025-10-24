@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using ExRam.Gremlinq.Core;
+
+using Microsoft.Extensions.Logging;
 
 namespace ExRam.Gremlinq.Providers.Core
 {
@@ -11,6 +13,6 @@ namespace ExRam.Gremlinq.Providers.Core
         public static partial void LogQuery(this ILogger logger, LogLevel level, Guid requestId, string script);
 
         [LoggerMessage(EventId = 0, Message = "Executing Gremlin query {requestId} with groovy script {script} and parameter bindings {bindings}.")]
-        public static partial void LogQuery(this ILogger logger, LogLevel level, Guid requestId, string script, FormattableBindings bindings);
+        public static partial void LogQuery(this ILogger logger, LogLevel level, Guid requestId, string script, Bindings bindings);
     }
 }

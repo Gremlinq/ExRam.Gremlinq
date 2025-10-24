@@ -8,6 +8,9 @@ using ExRam.Gremlinq.Core.Serialization;
 namespace ExRam.Gremlinq.Core
 {
     internal readonly struct Bindings
+#if ExRam_Gremlinq_Providers_Core
+        : ISpanFormattable
+#endif
     {
         private sealed class Counter : ICollection<KeyValuePair<object, Label>>, IEnumerator<KeyValuePair<object, Label>>
         {
@@ -122,5 +125,50 @@ namespace ExRam.Gremlinq.Core
         public IEnumerator<KeyValuePair<string, object?>> GetEnumerator() => _list is { } list
             ? new BindingsEnumerator(list.GetEnumerator())
             : _existing?.GetEnumerator() ?? throw new InvalidOperationException();
+
+#if ExRam_Gremlinq_Providers_Core
+        public override string? ToString() => ToString(null, null);
+
+        public bool TryFormat(Span<char> destination, out int charsWritten, ReadOnlySpan<char> format, IFormatProvider? provider)
+        {
+            charsWritten = 0;
+
+            var first = true;
+
+            foreach (var kvp in this)
+            {
+                var entryCharsWritten = 0;
+
+                var success = first
+                    ? destination.TryWrite(provider, $"[{kvp.Key}, {kvp.Value}]", out entryCharsWritten)
+                    : destination.TryWrite(provider, $", [{kvp.Key}, {kvp.Value}]", out entryCharsWritten);
+
+                first = false;
+
+                if (!success)
+                {
+                    charsWritten = 0;
+
+                    return false;
+                }
+
+                charsWritten += entryCharsWritten;
+                destination = destination[entryCharsWritten..];
+            }
+
+            return true;
+        }
+
+        public string ToString(string? format, IFormatProvider? formatProvider)
+        {
+            var handler = new System.Runtime.CompilerServices.DefaultInterpolatedStringHandler(0, 1);
+
+            handler
+                .AppendFormatted(this, format: format);
+
+            return handler
+                .ToString();
+        }
+#endif
     }
 }
