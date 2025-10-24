@@ -1,0 +1,23 @@
+﻿[
+  {
+    log: {
+      Level: Debug,
+      Category: LoggingFixture,
+      Message: Query with instable bindings,
+      State: [
+        {
+          requestId: 12345678-9012-3456-7890-123456789012
+        },
+        {
+          script: g.V().hasLabel(_a).has(_b).project(_c,_d,_e,_f,_g,_h,_i).by(_b).by(_b).by(_b).by(_b).by(_b).by(_b).by(_b)
+        },
+        {
+          bindings: {}
+        },
+        {
+          {OriginalFormat}: Query with instable bindings
+        }
+      ]
+    }
+  }
+]

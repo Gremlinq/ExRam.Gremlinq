@@ -1,0 +1,20 @@
+﻿[
+  {
+    log: {
+      Level: Debug,
+      Category: LoggingFixture,
+      Message: Executing Gremlin query 12345678-9012-3456-7890-123456789012 with groovy script g.addE(_a).property(_b,_c).property(_d,_e).property(_f,_c).from(__.addV(_g).property(single,_h,_i).property(single,_j,_j)).to(__.addV(_k).property(single,_l,_m).property(single,_j,_j)).,
+      State: [
+        {
+          requestId: 12345678-9012-3456-7890-123456789012
+        },
+        {
+          script: g.addE(_a).property(_b,_c).property(_d,_e).property(_f,_c).from(__.addV(_g).property(single,_h,_i).property(single,_j,_j)).to(__.addV(_k).property(single,_l,_m).property(single,_j,_j))
+        },
+        {
+          {OriginalFormat}: Executing Gremlin query {requestId} with groovy script {script}.
+        }
+      ]
+    }
+  }
+]
