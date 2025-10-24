@@ -13,7 +13,7 @@ namespace ExRam.Gremlinq.Core
         : ISpanFormattable
 #endif
     {
-        private sealed class Counter : ICollection<KeyValuePair<object, Label>>, IEnumerator<KeyValuePair<object, Label>>
+        private sealed class Counter : ICollection<KeyValuePair<object, Label>>
         {
             private int _count;
 
@@ -23,10 +23,6 @@ namespace ExRam.Gremlinq.Core
 
             bool ICollection<KeyValuePair<object, Label>>.IsReadOnly => false;
 
-            KeyValuePair<object, Label> IEnumerator<KeyValuePair<object, Label>>.Current => throw new InvalidOperationException();
-
-            object IEnumerator.Current => throw new InvalidOperationException();
-
             void ICollection<KeyValuePair<object, Label>>.Add(KeyValuePair<object, Label> item) => _count++;
 
             void ICollection<KeyValuePair<object, Label>>.Clear() => _count = 0;
@@ -35,21 +31,11 @@ namespace ExRam.Gremlinq.Core
 
             void ICollection<KeyValuePair<object, Label>>.CopyTo(KeyValuePair<object, Label>[] array, int arrayIndex) => throw new NotSupportedException();
 
-            void IDisposable.Dispose()
-            {
-            }
-
-            IEnumerator<KeyValuePair<object, Label>> IEnumerable<KeyValuePair<object, Label>>.GetEnumerator() => this;
-
-            bool IEnumerator.MoveNext() => false;
+            IEnumerator<KeyValuePair<object, Label>> IEnumerable<KeyValuePair<object, Label>>.GetEnumerator() => throw new NotSupportedException();
 
             bool ICollection<KeyValuePair<object, Label>>.Remove(KeyValuePair<object, Label> item) => throw new NotSupportedException();
 
-            void IEnumerator.Reset()
-            {
-            }
-
-            IEnumerator IEnumerable.GetEnumerator() => this;
+            IEnumerator IEnumerable.GetEnumerator() => throw new NotSupportedException();
         }
 
         private readonly ICollection<KeyValuePair<object, Label>>? _list;
