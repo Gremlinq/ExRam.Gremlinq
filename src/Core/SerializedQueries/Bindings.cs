@@ -2,7 +2,6 @@
 
 using System.Collections;
 using System.Collections.Immutable;
-using System.ComponentModel;
 
 using ExRam.Gremlinq.Core.Serialization;
 
@@ -135,7 +134,7 @@ namespace ExRam.Gremlinq.Core
                         return false;
                 }
             }
-            else if (_existing is { } existing)
+            else if (_existing is ImmutableDictionary<string, object?> existing)
             {
                 foreach (var kvp in existing)
                 {
