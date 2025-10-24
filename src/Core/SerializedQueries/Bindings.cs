@@ -2,6 +2,7 @@
 
 using System.Collections;
 using System.Collections.Immutable;
+using System.ComponentModel;
 
 using ExRam.Gremlinq.Core.Serialization;
 
@@ -112,13 +113,18 @@ namespace ExRam.Gremlinq.Core
             var first = true;
             var entryCharsWritten = 0;
 
+            static bool Write(Span<char> destination, bool first, KeyValuePair<string, object?> kvp, IFormatProvider? provider, out int entryCharsWritten)
+            {
+                return first
+                     ? destination.TryWrite(provider, $"[{kvp.Key}, {kvp.Value}]", out entryCharsWritten)
+                     : destination.TryWrite(provider, $", [{kvp.Key}, {kvp.Value}]", out entryCharsWritten);
+            }
+
             if (_list is { } list)
             {
                 foreach (var kvp in list)
                 {
-                    var success = first
-                        ? destination.TryWrite(provider, $"[{(string)kvp.Value}, {kvp.Key}]", out entryCharsWritten)
-                        : destination.TryWrite(provider, $", [{(string)kvp.Value}, {kvp.Key}]", out entryCharsWritten);
+                    var success = Write(destination, first, new KeyValuePair<string, object?>(kvp.Value, kvp.Key), provider, out entryCharsWritten);
 
                     first = false;
 
@@ -137,9 +143,7 @@ namespace ExRam.Gremlinq.Core
             {
                 foreach (var kvp in existing)
                 {
-                    var success = first
-                        ? destination.TryWrite(provider, $"[{kvp.Key}, {kvp.Value}]", out entryCharsWritten)
-                        : destination.TryWrite(provider, $", [{kvp.Key}, {kvp.Value}]", out entryCharsWritten);
+                    var success = Write(destination, first, kvp, provider, out entryCharsWritten);
 
                     first = false;
 
