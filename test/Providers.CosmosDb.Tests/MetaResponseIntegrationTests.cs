@@ -6,7 +6,7 @@ using ExRam.Gremlinq.Tests.Infrastructure;
 namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
 {
     [IntegrationTest("Windows", true)]
-    public partial class MetaResponseIntegrationTests : QueryExecutionTest, IClassFixture<CosmosDbEmulatorFixture>
+    public partial class MetaResponseIntegrationTests : CosmosDbTestBase, IClassFixture<CosmosDbEmulatorFixture>
     {
         private sealed class MetaResponseExecutingVerifier : ExecutingVerifier
         {
@@ -35,26 +35,5 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
 
         [Fact(Skip = "id as key cannot be scrubbed.")]
         public override Task Group_with_key_identity() => base.Group_with_key_identity();
-
-        [Fact(Skip = "No case insensitivity on CosmosDb")]
-        public override Task Where_property_contains_constant_with_TextP_support_case_insensitive() => base.Where_property_contains_constant_with_TextP_support_case_insensitive();
-
-        [Fact(Skip = "No case insensitivity on CosmosDb")]
-        public override Task Where_property_ends_with_constant_with_TextP_support_case_insensitive() => base.Where_property_ends_with_constant_with_TextP_support_case_insensitive();
-
-        [Fact(Skip = "No case insensitivity on CosmosDb")]
-        public override Task Where_property_is_prefix_of_constant_case_insensitive() => base.Where_property_is_prefix_of_constant_case_insensitive();
-
-        [Fact(Skip = "No case insensitivity on CosmosDb")]
-        public override Task Where_property_is_prefix_of_expression_case_insensitive() => base.Where_property_is_prefix_of_expression_case_insensitive();
-
-        [Fact(Skip = "No case insensitivity on CosmosDb")]
-        public override Task Where_property_is_prefix_of_variable_case_insensitive() => base.Where_property_is_prefix_of_variable_case_insensitive();
-
-        [Fact(Skip = "No case insensitivity on CosmosDb")]
-        public override Task Where_string_property_equals_case_insensitive() => base.Where_string_property_equals_case_insensitive();
-
-        [Fact(Skip = "No case insensitivity on CosmosDb")]
-        public override Task Where_string_property_startsWith_case_insensitive() => base.Where_string_property_startsWith_case_insensitive();
     }
 }
