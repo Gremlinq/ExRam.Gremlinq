@@ -112,7 +112,7 @@ namespace ExRam.Gremlinq.Core
 
             charsWritten = 0;
 
-            static bool Write(ref Span<char> destination, ref bool first, ref int charsWritten, KeyValuePair<string, object?> kvp, IFormatProvider? provider)
+            static bool TryWrite(ref Span<char> destination, ref bool first, ref int charsWritten, KeyValuePair<string, object?> kvp, IFormatProvider? provider)
             {
                 var success = first
                      ? destination.TryWrite(provider, $"[{kvp.Key}, {kvp.Value}]", out var entryCharsWritten)
@@ -137,9 +137,7 @@ namespace ExRam.Gremlinq.Core
             {
                 foreach (var kvp in dict)
                 {
-                    var success = Write(ref destination, ref first, ref charsWritten, new KeyValuePair<string, object?>(kvp.Value, kvp.Key), provider);
-
-                    if (!success)
+                    if (!TryWrite(ref destination, ref first, ref charsWritten, new KeyValuePair<string, object?>(kvp.Value, kvp.Key), provider))
                         return false;
                 }
             }
@@ -147,9 +145,7 @@ namespace ExRam.Gremlinq.Core
             {
                 foreach (var kvp in list)
                 {
-                    var success = Write(ref destination, ref first, ref charsWritten, new KeyValuePair<string, object?>(kvp.Value, kvp.Key), provider);
-
-                    if (!success)
+                    if (!TryWrite(ref destination, ref first, ref charsWritten, new KeyValuePair<string, object?>(kvp.Value, kvp.Key), provider))
                         return false;
                 }
             }
@@ -157,9 +153,7 @@ namespace ExRam.Gremlinq.Core
             {
                 foreach (var kvp in existing)
                 {
-                    var success = Write(ref destination, ref first, ref charsWritten, kvp, provider);
-
-                    if (!success)
+                    if (!TryWrite(ref destination, ref first, ref charsWritten, kvp, provider))
                         return false;
                 }
             }
