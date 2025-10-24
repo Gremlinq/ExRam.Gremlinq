@@ -51,26 +51,6 @@ namespace ExRam.Gremlinq.Core
             IEnumerator IEnumerable.GetEnumerator() => this;
         }
 
-        private sealed class BindingsEnumerator : IEnumerator<KeyValuePair<string, object?>>
-        {
-            private readonly IEnumerator<KeyValuePair<object, Label>> _baseEnumerator;
-
-            public BindingsEnumerator(IEnumerator<KeyValuePair<object, Label>> baseEnumerator)
-            {
-                _baseEnumerator = baseEnumerator;
-            }
-
-            public KeyValuePair<string, object?> Current => new(_baseEnumerator.Current.Value, _baseEnumerator.Current.Key);
-
-            object IEnumerator.Current => Current;
-
-            public void Dispose() => _baseEnumerator.Dispose();
-
-            public bool MoveNext() => _baseEnumerator.MoveNext();
-
-            public void Reset() => _baseEnumerator.Reset();
-        }
-
         private readonly ICollection<KeyValuePair<object, Label>>? _list;
         private readonly IEnumerable<KeyValuePair<string, object?>>? _existing;
 
@@ -122,10 +102,6 @@ namespace ExRam.Gremlinq.Core
                 ? existing.ToImmutableDictionary()
                 : throw new InvalidOperationException();
 
-        public IEnumerator<KeyValuePair<string, object?>> GetEnumerator() => _list is { } list
-            ? new BindingsEnumerator(list.GetEnumerator())
-            : _existing?.GetEnumerator() ?? throw new InvalidOperationException();
-
 #if ExRam_Gremlinq_Providers_Core
         public override string? ToString() => ToString(null, null);
 
@@ -134,26 +110,49 @@ namespace ExRam.Gremlinq.Core
             charsWritten = 0;
 
             var first = true;
+            var entryCharsWritten = 0;
 
-            foreach (var kvp in this)
+            if (_list is { } list)
             {
-                var entryCharsWritten = 0;
-
-                var success = first
-                    ? destination.TryWrite(provider, $"[{kvp.Key}, {kvp.Value}]", out entryCharsWritten)
-                    : destination.TryWrite(provider, $", [{kvp.Key}, {kvp.Value}]", out entryCharsWritten);
-
-                first = false;
-
-                if (!success)
+                foreach (var kvp in list)
                 {
-                    charsWritten = 0;
+                    var success = first
+                        ? destination.TryWrite(provider, $"[{(string)kvp.Value}, {kvp.Key}]", out entryCharsWritten)
+                        : destination.TryWrite(provider, $", [{(string)kvp.Value}, {kvp.Key}]", out entryCharsWritten);
 
-                    return false;
+                    first = false;
+
+                    if (!success)
+                    {
+                        charsWritten = 0;
+
+                        return false;
+                    }
+
+                    charsWritten += entryCharsWritten;
+                    destination = destination[entryCharsWritten..];
                 }
+            }
+            else if (_existing is { } existing)
+            {
+                foreach (var kvp in existing)
+                {
+                    var success = first
+                        ? destination.TryWrite(provider, $"[{kvp.Key}, {kvp.Value}]", out entryCharsWritten)
+                        : destination.TryWrite(provider, $", [{kvp.Key}, {kvp.Value}]", out entryCharsWritten);
 
-                charsWritten += entryCharsWritten;
-                destination = destination[entryCharsWritten..];
+                    first = false;
+
+                    if (!success)
+                    {
+                        charsWritten = 0;
+
+                        return false;
+                    }
+
+                    charsWritten += entryCharsWritten;
+                    destination = destination[entryCharsWritten..];
+                }
             }
 
             return true;
