@@ -82,22 +82,20 @@ namespace ExRam.Gremlinq.Core.Transformation
             private Func<TStaticSource, Option<TTarget>> GetTransformationFunction<TStaticSource, TActualSource, TTarget>(IGremlinQueryEnvironment environment)
                 where TActualSource : TStaticSource
             {
-                IEnumerable<(IConverter<TActualSource, TTarget> converter, TransformerImpl overridden)> Converters()
+                var stack = _converterFactories;
+                var list = new List<(IConverter<TActualSource, TTarget> converter, TransformerImpl overridden)>();
+
+                while (stack.Count != 0)
                 {
-                    var stack = _converterFactories;
+                    var previousStack = stack.Pop(out var converterFactory);
 
-                    while (stack.Count != 0)
-                    {
-                        var previousStack = stack.Pop(out var converterFactory);
+                    if (converterFactory.TryCreate<TActualSource, TTarget>(environment) is { } converter)
+                        list.Add((converter, new TransformerImpl(previousStack, this)));
 
-                        if (converterFactory.TryCreate<TActualSource, TTarget>(environment) is { } converter)
-                            yield return (converter, new TransformerImpl(previousStack, this));
-
-                        stack = previousStack;
-                    }
+                    stack = previousStack;
                 }
 
-                var converters = Converters()
+                var converters = list
                     .ToArray();
 
                 return (staticSerialized) =>
