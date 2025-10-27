@@ -117,5 +117,9 @@ namespace ExRam.Gremlinq.Core.Transformation
         }
 
         public static readonly ITransformer Empty = new TransformerImpl(FastImmutableList<IConverterFactory>.Empty);
+
+        internal static readonly ITransformer SerializerEmpty = new TransformerImpl(FastImmutableList<IConverterFactory>.Empty.EnsureCapacity(160));
+
+        internal static readonly ITransformer DeserializerEmpty = new TransformerImpl(FastImmutableList<IConverterFactory>.Empty.EnsureCapacity(32));
     }
 }
