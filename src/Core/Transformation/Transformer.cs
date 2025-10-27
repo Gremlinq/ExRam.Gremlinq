@@ -1,5 +1,4 @@
 ﻿using System.Collections.Concurrent;
-using System.Collections.Immutable;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 
@@ -26,16 +25,16 @@ namespace ExRam.Gremlinq.Core.Transformation
             }
 
             private readonly TransformerImpl _recurse;
-            private readonly ImmutableStack<IConverterFactory> _converterFactories;
+            private readonly FastImmutableList<IConverterFactory> _converterFactories;
             private readonly ConcurrentDictionary<(IGremlinQueryEnvironment, Type, Type, Type), Delegate> _conversionDelegates = new();
 
-            public TransformerImpl(ImmutableStack<IConverterFactory> converterFactories)
+            public TransformerImpl(FastImmutableList<IConverterFactory> converterFactories)
             {
                 _recurse = this;
                 _converterFactories = converterFactories;
             }
 
-            private TransformerImpl(ImmutableStack<IConverterFactory> converterFactories, TransformerImpl recurse) : this(converterFactories)
+            private TransformerImpl(FastImmutableList<IConverterFactory> converterFactories, TransformerImpl recurse) : this(converterFactories)
             {
                 _recurse = recurse;
             }
@@ -87,7 +86,7 @@ namespace ExRam.Gremlinq.Core.Transformation
                 {
                     var stack = _converterFactories;
 
-                    while (!stack.IsEmpty)
+                    while (stack.Count != 0)
                     {
                         var previousStack = stack.Pop(out var converterFactory);
 
@@ -117,6 +116,6 @@ namespace ExRam.Gremlinq.Core.Transformation
             }
         }
 
-        public static readonly ITransformer Empty = new TransformerImpl(ImmutableStack<IConverterFactory>.Empty);
+        public static readonly ITransformer Empty = new TransformerImpl(FastImmutableList<IConverterFactory>.Empty);
     }
 }
