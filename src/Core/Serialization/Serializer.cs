@@ -86,7 +86,7 @@ namespace ExRam.Gremlinq.Core.Serialization
             }
         }
 
-        public static readonly ITransformer Default = Transformer.Empty
+        public static readonly ITransformer Default = Transformer.SerializerEmpty
             .AddBaseConverters()
             .AddDefaultStepConverters();
 
