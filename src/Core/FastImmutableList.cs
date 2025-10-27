@@ -79,8 +79,8 @@ namespace ExRam.Gremlinq.Core
 #pragma warning disable CS8619
         public ReadOnlySpan<T> AsSpan() => Items.Span[..Count];
 #pragma warning restore CS8619
-       
-        private FastImmutableList<T> EnsureCapacity(int count)
+
+        public FastImmutableList<T> EnsureCapacity(int count)
         {
             if (Items.Length < count)
             {
