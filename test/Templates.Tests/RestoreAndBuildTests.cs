@@ -1,5 +1,7 @@
 ﻿using Boxed.DotnetNewTest;
 
+using TempDirectory = Boxed.DotnetNewTest.TempDirectory;
+
 namespace ExRam.Gremlinq.Templates.Tests
 {
     public class RestoreAndBuildTests
