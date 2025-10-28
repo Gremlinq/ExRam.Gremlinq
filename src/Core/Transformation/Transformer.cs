@@ -10,7 +10,7 @@ namespace ExRam.Gremlinq.Core.Transformation
         {
             private interface IUnifiedConverter<TSource, TTarget>
             {
-                Option<TTarget> TryConvert(TSource source);
+                bool TryConvert(TSource source, out TTarget? value);
             }
 
             private readonly struct Option<T>
@@ -40,18 +40,19 @@ namespace ExRam.Gremlinq.Core.Transformation
                     _converters = converters;
                 }
 
-                public Option<TTarget> TryConvert(TStaticSource source)
+                public bool TryConvert(TStaticSource source, out TTarget? value)
                 {
                     if (source is TActualSource actualSerialized)
                     {
                         foreach (var converter in _converters)
                         {
-                            if (converter.converter.TryConvert(actualSerialized, converter.overridden, _recurse, out var value))
-                                return Option<TTarget>.From(value);
+                            if (converter.converter.TryConvert(actualSerialized, converter.overridden, _recurse, out value))
+                                return true;
                         }
                     }
 
-                    return Option<TTarget>.None;
+                    value = default;
+                    return false;
                 }
             }
 
@@ -90,7 +91,7 @@ namespace ExRam.Gremlinq.Core.Transformation
                             },
                             this);
 
-                    if ((maybeUnifiedConverter as IUnifiedConverter<TSource, TTarget>)?.TryConvert(source) is { HasValue: true, Value: { } optionValue })
+                    if ((maybeUnifiedConverter as IUnifiedConverter<TSource, TTarget>)?.TryConvert(source, out var optionValue) is true && optionValue is not null)
                     {
                         value = optionValue;
                         return true;
