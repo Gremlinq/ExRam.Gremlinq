@@ -64,7 +64,7 @@ namespace ExRam.Gremlinq.Core.Transformation
                                 var (environment, staticSerializedType, actualSerializedType, requestedType) = typeTuple;
 
                                 return typeof(TransformerImpl)
-                                    .GetMethod(nameof(GetTransformationFunction), BindingFlags.Instance | BindingFlags.NonPublic)!
+                                    .GetMethod(nameof(GetUnifiedConverter), BindingFlags.Instance | BindingFlags.NonPublic)!
                                     .MakeGenericMethod(staticSerializedType, actualSerializedType, requestedType)
                                     .Invoke(@this, [environment])!;
                             },
@@ -87,7 +87,7 @@ namespace ExRam.Gremlinq.Core.Transformation
                 return false;
             }
 
-            private IConverter<TStaticSource, TTarget> GetTransformationFunction<TStaticSource, TActualSource, TTarget>(IGremlinQueryEnvironment environment)
+            private UnifiedConverter<TStaticSource, TActualSource, TTarget> GetUnifiedConverter<TStaticSource, TActualSource, TTarget>(IGremlinQueryEnvironment environment)
                 where TActualSource : TStaticSource
             {
                 var stack = _converterFactories;
@@ -101,10 +101,7 @@ namespace ExRam.Gremlinq.Core.Transformation
                         list.Add((converter, new TransformerImpl(stack[0..^i], this)));
                 }
 
-                var converters = list
-                    .ToArray();
-
-                return new UnifiedConverter<TStaticSource, TActualSource, TTarget>(converters, _recurse);
+                return new UnifiedConverter<TStaticSource, TActualSource, TTarget>([.. list], _recurse);
             }
         }
 
