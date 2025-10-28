@@ -8,6 +8,37 @@ namespace ExRam.Gremlinq.Core.Transformation
     {
         private sealed class TransformerImpl : ITransformer
         {
+            private interface IUnifiedTransformer<TSource, TTarget>
+            {
+                Option<TTarget> Transform(TSource source);
+            }
+
+            private sealed class UnifiedTransformer<TStaticSource, TActualSource, TTarget> : IUnifiedTransformer<TStaticSource, TTarget>
+            {
+                private readonly TransformerImpl _recurse;
+                private readonly (IConverter<TActualSource, TTarget> converter, TransformerImpl overridden)[] _converters;
+
+                public UnifiedTransformer((IConverter<TActualSource, TTarget> converter, TransformerImpl overridden)[] converters, TransformerImpl recurse)
+                {
+                    _recurse = recurse;
+                    _converters = converters;
+                }
+
+                public Option<TTarget> Transform(TStaticSource source)
+                {
+                    if (source is TActualSource actualSerialized)
+                    {
+                        foreach (var converter in _converters)
+                        {
+                            if (converter.converter.TryConvert(actualSerialized, converter.overridden, _recurse, out var value))
+                                return Option<TTarget>.From(value);
+                        }
+                    }
+
+                    return Option<TTarget>.None;
+                }
+            }
+
             private readonly struct Option<T>
             {
                 public static readonly Option<T> None = new();
@@ -26,7 +57,7 @@ namespace ExRam.Gremlinq.Core.Transformation
 
             private readonly TransformerImpl _recurse;
             private readonly FastImmutableList<IConverterFactory> _converterFactories;
-            private readonly ConcurrentDictionary<(IGremlinQueryEnvironment, Type, Type, Type), Delegate> _conversionDelegates = new();
+            private readonly ConcurrentDictionary<(IGremlinQueryEnvironment, Type, Type, Type), object> _conversionDelegates = new();
 
             public TransformerImpl(FastImmutableList<IConverterFactory> converterFactories)
             {
@@ -55,14 +86,14 @@ namespace ExRam.Gremlinq.Core.Transformation
                             {
                                 var (environment, staticSerializedType, actualSerializedType, requestedType) = typeTuple;
 
-                                return (Delegate)typeof(TransformerImpl)
+                                return typeof(TransformerImpl)
                                     .GetMethod(nameof(GetTransformationFunction), BindingFlags.Instance | BindingFlags.NonPublic)!
                                     .MakeGenericMethod(staticSerializedType, actualSerializedType, requestedType)
                                     .Invoke(@this, [environment])!;
                             },
-                            this) as Func<TSource, Option<TTarget>>;
+                            this) as IUnifiedTransformer<TSource, TTarget>;
 
-                    if (maybeDeserializerDelegate is { } deserializerDelegate && deserializerDelegate(source) is { HasValue: true, Value: { } optionValue })
+                    if (maybeDeserializerDelegate is { } deserializerDelegate && deserializerDelegate.Transform(source) is { HasValue: true, Value: { } optionValue })
                     {
                         value = optionValue;
                         return true;
@@ -79,7 +110,7 @@ namespace ExRam.Gremlinq.Core.Transformation
                 return false;
             }
 
-            private Func<TStaticSource, Option<TTarget>> GetTransformationFunction<TStaticSource, TActualSource, TTarget>(IGremlinQueryEnvironment environment)
+            private IUnifiedTransformer<TStaticSource, TTarget> GetTransformationFunction<TStaticSource, TActualSource, TTarget>(IGremlinQueryEnvironment environment)
                 where TActualSource : TStaticSource
             {
                 var stack = _converterFactories;
@@ -96,19 +127,7 @@ namespace ExRam.Gremlinq.Core.Transformation
                 var converters = list
                     .ToArray();
 
-                return (staticSerialized) =>
-                {
-                    if (staticSerialized is TActualSource actualSerialized)
-                    {
-                        foreach (var converter in converters)
-                        {
-                            if (converter.converter.TryConvert(actualSerialized, converter.overridden, _recurse, out var value))
-                                return Option<TTarget>.From(value);
-                        }
-                    }
-
-                    return Option<TTarget>.None;
-                };
+                return new UnifiedTransformer<TStaticSource, TActualSource, TTarget>(converters, _recurse);
             }
         }
 
