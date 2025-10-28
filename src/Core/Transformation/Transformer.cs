@@ -57,7 +57,7 @@ namespace ExRam.Gremlinq.Core.Transformation
 
             private readonly TransformerImpl _recurse;
             private readonly FastImmutableList<IConverterFactory> _converterFactories;
-            private readonly ConcurrentDictionary<(IGremlinQueryEnvironment, Type, Type, Type), object> _conversionDelegates = new();
+            private readonly ConcurrentDictionary<(IGremlinQueryEnvironment, Type, Type, Type), object> _unifiedConverters = new();
 
             public TransformerImpl(FastImmutableList<IConverterFactory> converterFactories)
             {
@@ -70,16 +70,13 @@ namespace ExRam.Gremlinq.Core.Transformation
                 _recurse = recurse;
             }
 
-            public ITransformer Add(IConverterFactory converterFactory)
-            {
-                return new TransformerImpl(_converterFactories.Push(converterFactory));
-            }
+            public ITransformer Add(IConverterFactory converterFactory) => new TransformerImpl(_converterFactories.Push(converterFactory));
 
             public bool TryTransform<TSource, TTarget>(TSource source, IGremlinQueryEnvironment environment, [NotNullWhen(true)] out TTarget? value)
             {
                 if (source is { } actualSerialized)
                 {
-                    var maybeDeserializerDelegate = _conversionDelegates
+                    var maybeUnifiedConverter = _unifiedConverters
                         .GetOrAdd(
                             (environment, typeof(TSource), actualSerialized.GetType(), typeof(TTarget)),
                             static (typeTuple, @this) =>
@@ -91,9 +88,9 @@ namespace ExRam.Gremlinq.Core.Transformation
                                     .MakeGenericMethod(staticSerializedType, actualSerializedType, requestedType)
                                     .Invoke(@this, [environment])!;
                             },
-                            this) as IUnifiedConverter<TSource, TTarget>;
+                            this);
 
-                    if (maybeDeserializerDelegate is { } deserializerDelegate && deserializerDelegate.TryConvert(source) is { HasValue: true, Value: { } optionValue })
+                    if ((maybeUnifiedConverter as IUnifiedConverter<TSource, TTarget>)?.TryConvert(source) is { HasValue: true, Value: { } optionValue })
                     {
                         value = optionValue;
                         return true;
