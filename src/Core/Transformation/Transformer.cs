@@ -8,12 +8,7 @@ namespace ExRam.Gremlinq.Core.Transformation
     {
         private sealed class TransformerImpl : ITransformer
         {
-            private interface IUnifiedConverter<TSource, TTarget>
-            {
-                bool TryConvert(TSource source, out TTarget? value);
-            }
-
-            private sealed class UnifiedConverter<TStaticSource, TActualSource, TTarget> : IUnifiedConverter<TStaticSource, TTarget>
+            private sealed class UnifiedConverter<TStaticSource, TActualSource, TTarget> : IConverter<TStaticSource, TTarget>
             {
                 private readonly TransformerImpl _recurse;
                 private readonly (IConverter<TActualSource, TTarget> converter, TransformerImpl overridden)[] _converters;
@@ -24,7 +19,7 @@ namespace ExRam.Gremlinq.Core.Transformation
                     _converters = converters;
                 }
 
-                public bool TryConvert(TStaticSource source, out TTarget? value)
+                public bool TryConvert(TStaticSource source, ITransformer _, ITransformer __, [NotNullWhen(true)] out TTarget? value)
                 {
                     if (source is TActualSource actualSerialized)
                     {
@@ -75,7 +70,7 @@ namespace ExRam.Gremlinq.Core.Transformation
                             },
                             this);
 
-                    if ((maybeUnifiedConverter as IUnifiedConverter<TSource, TTarget>)?.TryConvert(source, out var optionValue) is true && optionValue is not null)
+                    if ((maybeUnifiedConverter as IConverter<TSource, TTarget>)?.TryConvert(source, this, this, out var optionValue) is true && optionValue is not null)
                     {
                         value = optionValue;
                         return true;
@@ -92,7 +87,7 @@ namespace ExRam.Gremlinq.Core.Transformation
                 return false;
             }
 
-            private IUnifiedConverter<TStaticSource, TTarget> GetTransformationFunction<TStaticSource, TActualSource, TTarget>(IGremlinQueryEnvironment environment)
+            private IConverter<TStaticSource, TTarget> GetTransformationFunction<TStaticSource, TActualSource, TTarget>(IGremlinQueryEnvironment environment)
                 where TActualSource : TStaticSource
             {
                 var stack = _converterFactories;
