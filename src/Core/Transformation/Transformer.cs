@@ -13,22 +13,6 @@ namespace ExRam.Gremlinq.Core.Transformation
                 bool TryConvert(TSource source, out TTarget? value);
             }
 
-            private readonly struct Option<T>
-            {
-                public static readonly Option<T> None = new();
-
-                private Option(T value)
-                {
-                    Value = value;
-                    HasValue = true;
-                }
-
-                public T Value { get; }
-                public bool HasValue { get; }
-
-                public static Option<T> From(T value) => new(value);
-            }
-
             private sealed class UnifiedConverter<TStaticSource, TActualSource, TTarget> : IUnifiedConverter<TStaticSource, TTarget>
             {
                 private readonly TransformerImpl _recurse;
