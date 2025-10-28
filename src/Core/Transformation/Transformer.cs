@@ -35,6 +35,8 @@ namespace ExRam.Gremlinq.Core.Transformation
                 }
             }
 
+            private static readonly MethodInfo GetConverterMethodInfo = typeof(TransformerImpl).GetMethod(nameof(GetUnifiedConverter), BindingFlags.Instance | BindingFlags.NonPublic)!;
+
             private readonly TransformerImpl _recurse;
             private readonly FastImmutableList<IConverterFactory> _converterFactories;
             private readonly ConcurrentDictionary<(IGremlinQueryEnvironment, Type, Type, Type), object> _unifiedConverters = new();
@@ -63,8 +65,7 @@ namespace ExRam.Gremlinq.Core.Transformation
                             {
                                 var (environment, staticSerializedType, actualSerializedType, requestedType) = typeTuple;
 
-                                return typeof(TransformerImpl)
-                                    .GetMethod(nameof(GetUnifiedConverter), BindingFlags.Instance | BindingFlags.NonPublic)!
+                                return GetConverterMethodInfo
                                     .MakeGenericMethod(staticSerializedType, actualSerializedType, requestedType)
                                     .Invoke(@this, [environment])!;
                             },
