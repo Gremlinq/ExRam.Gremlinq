@@ -85,14 +85,12 @@ namespace ExRam.Gremlinq.Core.Transformation
                 var stack = _converterFactories;
                 var list = new List<(IConverter<TActualSource, TTarget> converter, TransformerImpl overridden)>();
 
-                while (stack.Count != 0)
+                for (var i = 1; i <= stack.Count; i++)
                 {
-                    var previousStack = stack.Pop(out var converterFactory);
+                    var converterFactory = stack[^i];
 
                     if (converterFactory.TryCreate<TActualSource, TTarget>(environment) is { } converter)
-                        list.Add((converter, new TransformerImpl(previousStack, this)));
-
-                    stack = previousStack;
+                        list.Add((converter, new TransformerImpl(stack[0..^i], this)));
                 }
 
                 var converters = list
