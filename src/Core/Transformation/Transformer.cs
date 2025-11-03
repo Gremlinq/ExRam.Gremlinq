@@ -9,6 +9,7 @@ namespace ExRam.Gremlinq.Core.Transformation
         private sealed class TransformerImpl : ITransformer
         {
             private sealed class UnifiedConverter<TStaticSource, TActualSource, TTarget> : IConverter<TStaticSource, TTarget>
+                where TActualSource : TStaticSource
             {
                 private readonly TransformerImpl _recurse;
                 private readonly (IConverter<TActualSource, TTarget> converter, TransformerImpl overridden)[] _converters;
@@ -21,11 +22,11 @@ namespace ExRam.Gremlinq.Core.Transformation
 
                 public bool TryConvert(TStaticSource source, ITransformer _, ITransformer __, [NotNullWhen(true)] out TTarget? value)
                 {
-                    if (source is TActualSource actualSerialized)
+                    if (source is TActualSource actualSource)
                     {
                         foreach (var converter in _converters)
                         {
-                            if (converter.converter.TryConvert(actualSerialized, converter.overridden, _recurse, out value))
+                            if (converter.converter.TryConvert(actualSource, converter.overridden, _recurse, out value))
                                 return true;
                         }
                     }
@@ -88,18 +89,15 @@ namespace ExRam.Gremlinq.Core.Transformation
                 return false;
             }
 
-            private UnifiedConverter<TStaticSource, TActualSource, TTarget> GetUnifiedConverter<TStaticSource, TActualSource, TTarget>(IGremlinQueryEnvironment environment)
+            private IConverter<TStaticSource, TTarget> GetUnifiedConverter<TStaticSource, TActualSource, TTarget>(IGremlinQueryEnvironment environment)
                 where TActualSource : TStaticSource
             {
-                var stack = _converterFactories;
                 var list = new List<(IConverter<TActualSource, TTarget> converter, TransformerImpl overridden)>();
 
-                for (var i = 1; i <= stack.Count; i++)
+                for (var i = _converterFactories.Count - 1; i >= 0; i--)
                 {
-                    var converterFactory = stack[^i];
-
-                    if (converterFactory.TryCreate<TActualSource, TTarget>(environment) is { } converter)
-                        list.Add((converter, new TransformerImpl(stack[0..^i], this)));
+                    if (_converterFactories[i].TryCreate<TActualSource, TTarget>(environment) is { } converter)
+                        list.Add((converter, new TransformerImpl(_converterFactories[0..i], this)));
                 }
 
                 return new UnifiedConverter<TStaticSource, TActualSource, TTarget>([.. list], _recurse);
