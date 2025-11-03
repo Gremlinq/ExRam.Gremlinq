@@ -21,7 +21,7 @@
     <PackageVersion Include="System.Reactive" Version="6.1.0" />
     <PackageVersion Include="System.Text.Json" Version="9.0.10" />
     <PackageVersion Include="Testcontainers" Version="4.8.1" />
-    <PackageVersion Include="Verify.XunitV3" Version="31.3.0" />
+    <PackageVersion Include="Verify.XunitV3" Version="31.4.1" />
     <PackageVersion Include="Verify.MicrosoftLogging" Version="4.0.1" />
     <PackageVersion Include="xunit.runner.visualstudio" Version="3.1.5" />
     <PackageVersion Include="xunit.v3" Version="3.2.0" />
