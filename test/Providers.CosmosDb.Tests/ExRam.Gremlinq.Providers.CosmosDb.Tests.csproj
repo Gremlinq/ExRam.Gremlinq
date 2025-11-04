@@ -5,7 +5,6 @@
     <None Remove="*.received.txt" />
     
     <PackageReference Include="Verify.MicrosoftLogging" />
-    <PackageReference Include="Microsoft.Azure.Cosmos" VersionOverride="3.54.0" />
 
     <ProjectReference Include="..\Tests.Fixtures\ExRam.Gremlinq.Tests.Fixtures.csproj" />
   </ItemGroup>
