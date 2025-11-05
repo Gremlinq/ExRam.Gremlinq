@@ -29,7 +29,5 @@ namespace ExRam.Gremlinq.Core
     public interface IOrderBuilderWithBy<TElement, out TSourceQuery> :
         IOrderBuilderWithBy<TSourceQuery>,
         IOrderBuilder<TElement, TSourceQuery>
-        where TSourceQuery : IGremlinQueryBase<TElement>
-    {
-    }
+        where TSourceQuery : IGremlinQueryBase<TElement>;
 }

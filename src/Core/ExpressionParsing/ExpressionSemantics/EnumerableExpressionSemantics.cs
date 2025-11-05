@@ -36,7 +36,5 @@
         public override ExpressionSemantics Flip() => ContainsExpressionSemantics.Instance;
     }
 
-    public abstract class EnumerableExpressionSemantics : ExpressionSemantics
-    {
-    }
+    public abstract class EnumerableExpressionSemantics : ExpressionSemantics;
 }

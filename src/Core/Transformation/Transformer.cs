@@ -72,6 +72,7 @@ namespace ExRam.Gremlinq.Core.Transformation
                             },
                             this);
 
+                    // ReSharper disable once ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
                     if ((maybeUnifiedConverter as IConverter<TSource, TTarget>)?.TryConvert(source, this, this, out var optionValue) is true && optionValue is not null)
                     {
                         value = optionValue;
@@ -97,7 +98,7 @@ namespace ExRam.Gremlinq.Core.Transformation
                 for (var i = _converterFactories.Count - 1; i >= 0; i--)
                 {
                     if (_converterFactories[i].TryCreate<TActualSource, TTarget>(environment) is { } converter)
-                        list.Add((converter, new TransformerImpl(_converterFactories[0..i], this)));
+                        list.Add((converter, new TransformerImpl(_converterFactories[..i], this)));
                 }
 
                 return new UnifiedConverter<TStaticSource, TActualSource, TTarget>([.. list], _recurse);

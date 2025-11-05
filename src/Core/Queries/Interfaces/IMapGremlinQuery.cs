@@ -3,9 +3,7 @@
 namespace ExRam.Gremlinq.Core
 {
     public interface IMapGremlinQueryBase :
-        IGremlinQueryBase
-    {
-    }
+        IGremlinQueryBase;
 
     public interface IMapGremlinQueryBase<TElement> :
         IMapGremlinQueryBase,
@@ -32,8 +30,5 @@ namespace ExRam.Gremlinq.Core
 
     public interface IMapGremlinQuery<TElement> :
         IMapGremlinQueryBase<TElement>,
-        IGremlinQueryBaseRec<TElement, IMapGremlinQuery<TElement>>
-    {
-
-    }
+        IGremlinQueryBaseRec<TElement, IMapGremlinQuery<TElement>>;
 }

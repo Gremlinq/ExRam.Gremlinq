@@ -61,25 +61,16 @@ namespace ExRam.Gremlinq.Core
     }
 
     public interface IEdgeGremlinQueryBaseRec<TSelf> : IEdgeGremlinQueryBase, IElementGremlinQueryBaseRec<TSelf>
-        where TSelf : IEdgeGremlinQueryBaseRec<TSelf>
-    {
-
-    }
+        where TSelf : IEdgeGremlinQueryBaseRec<TSelf>;
 
     public interface IEdgeGremlinQueryBaseRec<TEdge, TSelf> :
         IEdgeGremlinQueryBaseRec<TSelf>,
         IEdgeGremlinQueryBase<TEdge>,
         IEdgeOrVertexGremlinQueryBaseRec<TEdge, TSelf>
-        where TSelf : IEdgeGremlinQueryBaseRec<TEdge, TSelf>
-    {
-
-    }
+        where TSelf : IEdgeGremlinQueryBaseRec<TEdge, TSelf>;
 
     public interface IEdgeGremlinQuery<TEdge> :
-        IEdgeGremlinQueryBaseRec<TEdge, IEdgeGremlinQuery<TEdge>>
-    {
-       
-    }
+        IEdgeGremlinQueryBaseRec<TEdge, IEdgeGremlinQuery<TEdge>>;
 
     public interface IEdgeGremlinQueryBase<TEdge, TOutVertex, TInVertex> :
         IOutEdgeGremlinQueryBase<TEdge, TOutVertex>,

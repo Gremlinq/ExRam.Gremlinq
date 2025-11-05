@@ -43,10 +43,7 @@ namespace ExRam.Gremlinq.Core
 
     public interface IVertexPropertyGremlinQuery<TProperty, TValue> :
         IVertexPropertyGremlinQueryBase<TProperty, TValue>,
-        IElementGremlinQueryBaseRec<TProperty, IVertexPropertyGremlinQuery<TProperty, TValue>>
-    {
-        
-    }
+        IElementGremlinQueryBaseRec<TProperty, IVertexPropertyGremlinQuery<TProperty, TValue>>;
 
     public interface IVertexPropertyGremlinQueryBase<TProperty, TValue, TMeta> :
         IVertexPropertyGremlinQueryBase,
@@ -71,8 +68,5 @@ namespace ExRam.Gremlinq.Core
 
     public interface IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> :
         IVertexPropertyGremlinQueryBase<TProperty, TValue, TMeta>,
-        IElementGremlinQueryBaseRec<TProperty, IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>>
-    {
-
-    }
+        IElementGremlinQueryBaseRec<TProperty, IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>>;
 }

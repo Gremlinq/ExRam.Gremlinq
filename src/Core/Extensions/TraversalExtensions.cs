@@ -26,7 +26,7 @@ namespace ExRam.Gremlinq.Core
 
         public static Traversal Rewrite(this Traversal traversal, ContinuationFlags flags)
         {
-            if (traversal is [NoneStep _, ..])
+            if (traversal is [NoneStep, ..])
             {
                 return Traversal
                     .Create(

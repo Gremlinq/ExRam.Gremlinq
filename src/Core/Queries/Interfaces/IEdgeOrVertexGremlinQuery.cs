@@ -11,9 +11,7 @@
     public interface IEdgeOrVertexGremlinQueryBaseRec<TSelf> :
         IEdgeOrVertexGremlinQueryBase,
         IElementGremlinQueryBaseRec<TSelf>
-        where TSelf : IElementGremlinQueryBaseRec<TSelf>
-    {
-    }
+        where TSelf : IElementGremlinQueryBaseRec<TSelf>;
 
     public interface IEdgeOrVertexGremlinQueryBase<TElement> :
         IEdgeOrVertexGremlinQueryBase,
@@ -26,12 +24,8 @@
         IEdgeOrVertexGremlinQueryBaseRec<TSelf>,
         IEdgeOrVertexGremlinQueryBase<TElement>,
         IElementGremlinQueryBaseRec<TElement, TSelf>
-        where TSelf : IElementGremlinQueryBaseRec<TElement, TSelf>
-    {
-    }
+        where TSelf : IElementGremlinQueryBaseRec<TElement, TSelf>;
 
     public interface IEdgeOrVertexGremlinQuery<TElement> :
-        IEdgeOrVertexGremlinQueryBaseRec<TElement, IEdgeOrVertexGremlinQuery<TElement>>
-    {
-    }
+        IEdgeOrVertexGremlinQueryBaseRec<TElement, IEdgeOrVertexGremlinQuery<TElement>>;
 }

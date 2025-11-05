@@ -11,7 +11,7 @@
 
         public sealed class ByIdentityStep : ByStep
         {
-            public static readonly ByIdentityStep Instance = new ByIdentityStep();
+            public static readonly ByIdentityStep Instance = new();
 
             private ByIdentityStep()
             {

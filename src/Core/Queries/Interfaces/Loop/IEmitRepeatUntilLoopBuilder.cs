@@ -4,8 +4,5 @@
 namespace ExRam.Gremlinq.Core
 {
     public interface IEmitRepeatUntilLoopBuilder<out TQuery> : IFinalLoopBuilder<TQuery>
-        where TQuery : IGremlinQueryBase
-    {
-
-    }
+        where TQuery : IGremlinQueryBase;
 }

@@ -42,7 +42,7 @@
 
     public class StepLabel<TElement> : StepLabel
     {
-        public StepLabel() : base()
+        public StepLabel()
         {
         }
 
@@ -60,7 +60,7 @@
     // ReSharper disable once UnusedTypeParameter
     public class StepLabel<TQuery, TElement> : StepLabel<TElement> where TQuery : IGremlinQueryBase
     {
-        public StepLabel() : base()
+        public StepLabel()
         {
         }
 

@@ -1,7 +1,4 @@
 ﻿namespace ExRam.Gremlinq.Core.Steps
 {
-    public interface ISourceStep
-    {
-
-    }
+    public interface ISourceStep;
 }

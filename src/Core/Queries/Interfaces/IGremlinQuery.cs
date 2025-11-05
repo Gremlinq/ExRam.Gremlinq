@@ -199,7 +199,5 @@ namespace ExRam.Gremlinq.Core
         TSelf Where(Expression<Func<TElement, bool>> predicate);
     }
 
-    public interface IGremlinQuery<TElement> : IGremlinQueryBaseRec<TElement, IGremlinQuery<TElement>>
-    {
-    }
+    public interface IGremlinQuery<TElement> : IGremlinQueryBaseRec<TElement, IGremlinQuery<TElement>>;
 }

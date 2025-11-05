@@ -14,8 +14,6 @@ namespace ExRam.Gremlinq.Core
         {
             private int _count;
 
-            public KeyValuePair<object, Label> this[int index] { get => throw new NotSupportedException(); set => throw new NotSupportedException(); }
-
             int ICollection<KeyValuePair<object, Label>>.Count => _count;
 
             bool ICollection<KeyValuePair<object, Label>>.IsReadOnly => false;

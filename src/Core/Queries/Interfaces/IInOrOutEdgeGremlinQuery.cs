@@ -21,22 +21,14 @@
     public interface IInOrOutEdgeGremlinQueryBaseRec<TSelf> :
         IInOrOutEdgeGremlinQueryBase,
         IEdgeGremlinQueryBaseRec<TSelf>
-        where TSelf : IInOrOutEdgeGremlinQueryBaseRec<TSelf>
-    {
-
-    }
+        where TSelf : IInOrOutEdgeGremlinQueryBaseRec<TSelf>;
 
     public interface IInOrOutEdgeGremlinQueryBaseRec<TEdge, TAdjacentVertex, TSelf> :
         IInOrOutEdgeGremlinQueryBaseRec<TSelf>,
         IInOrOutEdgeGremlinQueryBase<TEdge, TAdjacentVertex>,
         IEdgeGremlinQueryBaseRec<TEdge, TSelf>
-        where TSelf : IInOrOutEdgeGremlinQueryBaseRec<TEdge, TAdjacentVertex, TSelf>
-    {
-
-    }
+        where TSelf : IInOrOutEdgeGremlinQueryBaseRec<TEdge, TAdjacentVertex, TSelf>;
 
     public interface IInOrOutEdgeGremlinQuery<TEdge, TAdjacentVertex> :
-        IInOrOutEdgeGremlinQueryBaseRec<TEdge, TAdjacentVertex, IInOrOutEdgeGremlinQuery<TEdge, TAdjacentVertex>>
-    {
-    }
+        IInOrOutEdgeGremlinQueryBaseRec<TEdge, TAdjacentVertex, IInOrOutEdgeGremlinQuery<TEdge, TAdjacentVertex>>;
 }

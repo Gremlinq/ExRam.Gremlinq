@@ -207,7 +207,7 @@ namespace ExRam.Gremlinq.Providers.Core
                             metaArgumentType,
                             static metaArgumentType => (Func<GremlinQueryExecutorImpl, GremlinQueryExecutionContext, object>)typeof(GremlinQueryExecutorImpl)
                                 .GetMethod(nameof(CreateExecuteMetaResponseDelegate), BindingFlags.NonPublic | BindingFlags.Static)!
-                                .MakeGenericMethod(typeof(T).GenericTypeArguments[0])
+                                .MakeGenericMethod(metaArgumentType)
                                 .Invoke(null, [])!);
 
                     return (IAsyncEnumerable<T>)del.Invoke(this, context);
@@ -279,7 +279,7 @@ namespace ExRam.Gremlinq.Providers.Core
                 }
             }
 
-            private static Func<GremlinQueryExecutorImpl, GremlinQueryExecutionContext, object> CreateExecuteMetaResponseDelegate<T>() => (executor, context) => executor.Execute<T, MetaResponse<T>>(context, static (context, request, response) => [new MetaResponse<T>(request.RequestId, response.Result.Data?.ToArray(), response.Status)]);
+            private static Func<GremlinQueryExecutorImpl, GremlinQueryExecutionContext, object> CreateExecuteMetaResponseDelegate<T>() => (executor, context) => executor.Execute<T, MetaResponse<T>>(context, static (_, request, response) => [new MetaResponse<T>(request.RequestId, response.Result.Data?.ToArray(), response.Status)]);
         }
 
         public static TClientFactory ConfigureClient<TClientFactory>(this TClientFactory clientFactory, Func<IGremlinqClient, IGremlinqClient> clientTransformation)

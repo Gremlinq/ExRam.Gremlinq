@@ -20,23 +20,14 @@
     public interface IOutEdgeGremlinQueryBaseRec<TSelf> :
         IOutEdgeGremlinQueryBase,
         IEdgeGremlinQueryBaseRec<TSelf>
-        where TSelf : IOutEdgeGremlinQueryBaseRec<TSelf>
-    {
-
-    }
+        where TSelf : IOutEdgeGremlinQueryBaseRec<TSelf>;
 
     public interface IOutEdgeGremlinQueryBaseRec<TEdge, TOutVertex, TSelf> :
         IOutEdgeGremlinQueryBaseRec<TSelf>,
         IOutEdgeGremlinQueryBase<TEdge, TOutVertex>,
         IEdgeGremlinQueryBaseRec<TEdge, TSelf>
-        where TSelf : IOutEdgeGremlinQueryBaseRec<TEdge, TOutVertex, TSelf>
-    {
-
-    }
+        where TSelf : IOutEdgeGremlinQueryBaseRec<TEdge, TOutVertex, TSelf>;
 
     public interface IOutEdgeGremlinQuery<TEdge, TOutVertex> :
-        IOutEdgeGremlinQueryBaseRec<TEdge, TOutVertex, IOutEdgeGremlinQuery<TEdge, TOutVertex>>
-    {
-
-    }
+        IOutEdgeGremlinQueryBaseRec<TEdge, TOutVertex, IOutEdgeGremlinQuery<TEdge, TOutVertex>>;
 }

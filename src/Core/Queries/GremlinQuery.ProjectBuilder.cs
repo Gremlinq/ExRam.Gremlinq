@@ -33,7 +33,7 @@ namespace ExRam.Gremlinq.Core
             IProjectMapBuilder<GremlinQuery<T1, T2, T3, T4>, T1, TTargetType> IProjectBuilder<GremlinQuery<T1, T2, T3, T4>, T1>.To<TTargetType>() => Continue<TTargetType>();
 
             ProjectBuilder<TItem1, object, object, object, object, object, object, object, object, object, object, object, object, object, object, object> Continue<TItem1>()
-                => new ProjectBuilder<TItem1, object, object, object, object, object, object, object, object, object, object, object, object, object, object, object>(
+                => new(
                     _sourceQuery,
                     FastImmutableList<string>.Empty,
                     FastImmutableList<ProjectStep.ByStep>.Empty,

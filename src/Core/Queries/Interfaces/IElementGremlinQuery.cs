@@ -57,7 +57,5 @@ namespace ExRam.Gremlinq.Core
     }
 
     public interface IElementGremlinQuery<TElement> :
-        IElementGremlinQueryBaseRec<TElement, IElementGremlinQuery<TElement>>
-    {
-    }
+        IElementGremlinQueryBaseRec<TElement, IElementGremlinQuery<TElement>>;
 }

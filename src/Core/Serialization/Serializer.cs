@@ -12,7 +12,7 @@ using System.Runtime.CompilerServices;
 
 namespace ExRam.Gremlinq.Core.Serialization
 {
-    public static partial class Serializer
+    public static class Serializer
     {
         private sealed class ByteArrayToStringFallbackConverterFactory : IConverterFactory
         {
@@ -332,7 +332,7 @@ namespace ExRam.Gremlinq.Core.Serialization
                 ? CreateInstruction("aggregate", recurse, env, step.StepLabel)
                 : CreateInstruction("aggregate", recurse, env, step.Scope, step.StepLabel))
             .Add<AsStep>((step, env, _, recurse) => CreateInstruction("as", recurse, env, step.StepLabel))
-            .Add<AsStringStep>((step, env, _, recurse) => asString)
+            .Add<AsStringStep>((_, _, _, _) => asString)
             .Add<BarrierStep>((_, _, _, _) => barrier)
             .Add<BothStep>((step, env, _, recurse) => CreateInstruction("both", recurse, env, step.Labels))
             .Add<BothEStep>((step, env, _, recurse) => CreateInstruction("bothE", recurse, env, step.Labels))

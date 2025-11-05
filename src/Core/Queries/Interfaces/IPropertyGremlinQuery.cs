@@ -17,8 +17,5 @@
 
     public interface IPropertyGremlinQuery<TElement> :
         IPropertyGremlinQueryBase<TElement>,
-        IGremlinQueryBaseRec<TElement, IPropertyGremlinQuery<TElement>>
-    {
-
-    }
+        IGremlinQueryBaseRec<TElement, IPropertyGremlinQuery<TElement>>;
 }
