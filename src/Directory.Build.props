@@ -2,8 +2,8 @@
   <Import Project="..\Directory.Build.props" />
   
   <PropertyGroup>
-    <TargetFrameworks>net9.0</TargetFrameworks>
-    <TargetFrameworks Condition="'$(Configuration)'=='Release'">net6.0;net7.0;net8.0;$(TargetFrameworks)</TargetFrameworks>
+    <TargetFrameworks>net10.0</TargetFrameworks>
+    <TargetFrameworks Condition="'$(Configuration)'=='Release'">net6.0;net7.0;net8.0;net9.0;$(TargetFrameworks)</TargetFrameworks>
 
     <Product>ExRam.Gremlinq</Product>
     <Deterministic>true</Deterministic>
