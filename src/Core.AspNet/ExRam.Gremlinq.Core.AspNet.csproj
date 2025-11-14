@@ -6,11 +6,6 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Configuration" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Remove="Extensions\GremlinqConfiguratorExtensions.cs" />
-    <None Include="Extensions\GremlinqConfiguratorExtensions.cs" />
     <ProjectReference Include="..\Core\ExRam.Gremlinq.Core.csproj" />
   </ItemGroup>
 

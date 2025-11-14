@@ -1,4 +1,6 @@
 ﻿// ReSharper disable HeapView.PossibleBoxingAllocation
+#if ExRam_Gremlinq_Providers_CosmosDb_AspNet || ExRam_Gremlinq_Providers_GremlinServer_AspNet || ExRam_Gremlinq_Providers_JanusGraph_AspNet || ExRam_Gremlinq_Providers_Neptune_AspNet
+
 using ExRam.Gremlinq.Providers.Core;
 
 using Gremlin.Net.Driver;
@@ -45,3 +47,5 @@ namespace ExRam.Gremlinq.Core.AspNet
         }
     }
 }
+
+#endif
