@@ -2,8 +2,8 @@
   <Import Project="..\Directory.Build.props" />
 
   <PropertyGroup>
-    <TargetFrameworks>net9.0</TargetFrameworks>
-    <TargetFrameworks Condition="'$(Configuration)' == 'Release'">net8.0;$(TargetFrameworks)</TargetFrameworks>
+    <TargetFrameworks>net10.0</TargetFrameworks>
+    <TargetFrameworks Condition="'$(Configuration)' == 'Release'">net8.0;net9.0;$(TargetFrameworks)</TargetFrameworks>
 
     <IsPackable>false</IsPackable>
     <NoWarn>CA2007;$(NoWarn)</NoWarn>
@@ -28,7 +28,7 @@
     <PackageReference Include="NSubstitute" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'net9.0'" >
+  <ItemGroup Condition="'$(TargetFramework)' == 'net10.0'" >
     <PackageReference Include="coverlet.collector" IncludeAssets="runtime; build; native; contentfiles; analyzers; buildtransitive" PrivateAssets="all" />
   </ItemGroup>
 
