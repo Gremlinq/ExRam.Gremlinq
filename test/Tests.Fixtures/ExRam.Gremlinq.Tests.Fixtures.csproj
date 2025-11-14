@@ -25,7 +25,6 @@
     <ProjectReference Include="..\Tests.Infrastructure\ExRam.Gremlinq.Tests.Infrastructure.csproj" />
 
     <PackageReference Include="Microsoft.Azure.Cosmos" />
-    <PackageReference Include="System.Interactive.Async" />
     <PackageReference Include="Testcontainers" />
   </ItemGroup>
 
