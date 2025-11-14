@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿#if !NET10_0_OR_GREATER
+using System.Runtime.CompilerServices;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -88,3 +89,4 @@ namespace ExRam.Gremlinq.Core
         }
     }
 }
+#endif
