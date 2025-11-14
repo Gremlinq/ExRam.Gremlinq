@@ -86,33 +86,5 @@ namespace ExRam.Gremlinq.Core
 
             return list.ToArray();
         }
-
-        public static IAsyncEnumerable<TSource> Catch<TSource, TState>(this IAsyncEnumerable<TSource> source, Func<Exception, TState, Exception> exceptionTransformation, TState state)
-        {
-            return Core(source, exceptionTransformation, state);
-
-            static async IAsyncEnumerable<TSource> Core(IAsyncEnumerable<TSource> source, Func<Exception, TState, Exception> exceptionTransformation, TState state, [EnumeratorCancellation] CancellationToken ct = default)
-            {
-#pragma warning disable CA2007 // Consider calling ConfigureAwait on the awaited task
-                await using (var enumerator = source.WithCancellation(ct).ConfigureAwait(false).GetAsyncEnumerator())
-#pragma warning restore CA2007
-                {
-                    while (true)
-                    {
-                        try
-                        {
-                            if (!await enumerator.MoveNextAsync())
-                                yield break;
-                        }
-                        catch (Exception ex)
-                        {
-                            throw exceptionTransformation(ex, state);
-                        }
-
-                        yield return enumerator.Current;
-                    }
-                }
-            }
-        }
     }
 }

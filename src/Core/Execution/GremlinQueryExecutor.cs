@@ -58,13 +58,33 @@ namespace ExRam.Gremlinq.Core.Execution
                 _exceptionTransformation = exceptionTransformation;
             }
 
-            public IAsyncEnumerable<T> Execute<T>(GremlinQueryExecutionContext context) => _baseExecutor
-                .Execute<T>(context)
-                .Catch(
-                    static (ex, exceptionTransformation) => ex is GremlinQueryExecutionException executionException
-                        ? exceptionTransformation(executionException)
-                        : ex,
-                    _exceptionTransformation);
+            public IAsyncEnumerable<T> Execute<T>(GremlinQueryExecutionContext context)
+            {
+                return Core(this, context);
+
+                static async IAsyncEnumerable<T> Core(TransformExecutionExceptionGremlinQueryExecutor @this, GremlinQueryExecutionContext context, [EnumeratorCancellation] CancellationToken ct = default)
+                {
+#pragma warning disable CA2007 // Consider calling ConfigureAwait on the awaited task
+                    await using (var enumerator = @this._baseExecutor.Execute<T>(context).WithCancellation(ct).ConfigureAwait(false).GetAsyncEnumerator())
+#pragma warning restore CA2007
+                    {
+                        while (true)
+                        {
+                            try
+                            {
+                                if (!await enumerator.MoveNextAsync())
+                                    yield break;
+                            }
+                            catch (GremlinQueryExecutionException ex)
+                            {
+                                throw @this._exceptionTransformation(ex);
+                            }
+
+                            yield return enumerator.Current;
+                        }
+                    }
+                }
+            }
         }
 
         private sealed class SerializingGremlinQueryExecutor : IGremlinQueryExecutor
