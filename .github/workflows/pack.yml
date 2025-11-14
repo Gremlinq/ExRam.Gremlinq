@@ -37,6 +37,7 @@ jobs:
       with:
         global-json-file: global.json
         dotnet-version: |
+          9
           8
 
     - name: Determine semantic version
