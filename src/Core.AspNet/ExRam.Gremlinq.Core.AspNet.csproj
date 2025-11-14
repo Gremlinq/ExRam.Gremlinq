@@ -9,7 +9,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.Text.Json" VersionOverride="9.0.8" />
     <Compile Remove="Extensions\GremlinqConfiguratorExtensions.cs" />
     <None Include="Extensions\GremlinqConfiguratorExtensions.cs" />
     <ProjectReference Include="..\Core\ExRam.Gremlinq.Core.csproj" />
