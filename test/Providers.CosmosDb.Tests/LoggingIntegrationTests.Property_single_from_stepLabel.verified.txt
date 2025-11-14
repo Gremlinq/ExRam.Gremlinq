@@ -62,9 +62,8 @@ at ExRam.Gremlinq.Providers.Core.GremlinqClientFactory.GremlinQueryExecutorImpl.
 at ExRam.Gremlinq.Providers.Core.GremlinqClientFactory.GremlinQueryExecutorImpl.Execute[TResult,TTransformedResult](GremlinQueryExecutionContext context, Func`4 resultTransformation, CancellationToken ct)
 at ExRam.Gremlinq.Providers.Core.GremlinqClientFactory.GremlinQueryExecutorImpl.Execute[TResult,TTransformedResult](GremlinQueryExecutionContext context, Func`4 resultTransformation, CancellationToken ct)
 at ExRam.Gremlinq.Providers.Core.GremlinqClientFactory.GremlinQueryExecutorImpl.Execute[TResult,TTransformedResult](GremlinQueryExecutionContext context, Func`4 resultTransformation, CancellationToken ct)
-at System.Collections.Generic.AsyncEnumerableHelpers.ToArrayWithLength[T](IAsyncEnumerable`1 source, CancellationToken cancellationToken)
-at System.Collections.Generic.AsyncEnumerableHelpers.ToArrayWithLength[T](IAsyncEnumerable`1 source, CancellationToken cancellationToken)
-at System.Collections.Generic.AsyncEnumerableHelpers.ToArray[T](IAsyncEnumerable`1 source, CancellationToken cancellationToken)
+at System.Linq.AsyncEnumerable.<ToArrayAsync>g__Impl|179_0[TSource](ConfiguredCancelableAsyncEnumerable`1 source)
+at System.Linq.AsyncEnumerable.<ToArrayAsync>g__Impl|179_0[TSource](ConfiguredCancelableAsyncEnumerable`1 source)
 at ExRam.Gremlinq.Providers.CosmosDb.Tests.LoggingIntegrationTests.LoggingVerifier.Verify[TElement](IGremlinQueryBase`1 query)
       },
       Message: Execution of Gremlin query 12345678-9012-3456-7890-123456789012 failed.,
