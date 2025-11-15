@@ -6,7 +6,7 @@ namespace ExRam.Gremlinq.Core.Steps
     {
         public sealed class ByMemberStep : Step
         {
-            public ByMemberStep(Key? key = default)
+            public ByMemberStep(Key? key = null)
             {
                 Key = key;
             }

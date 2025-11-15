@@ -2,7 +2,7 @@
 {
     public abstract class ChooseStep : Step
     {
-        protected ChooseStep(Traversal thenTraversal, Traversal? elseTraversal = default, SideEffectSemanticsChange sideEffectSemanticsChange = SideEffectSemanticsChange.Write) : base(sideEffectSemanticsChange)
+        protected ChooseStep(Traversal thenTraversal, Traversal? elseTraversal = null, SideEffectSemanticsChange sideEffectSemanticsChange = SideEffectSemanticsChange.Write) : base(sideEffectSemanticsChange)
         {
             ThenTraversal = thenTraversal;
             ElseTraversal = elseTraversal;

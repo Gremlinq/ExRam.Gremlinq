@@ -37,7 +37,7 @@ namespace ExRam.Gremlinq.Core
             var steps = Items;
 
             return Count < steps.Length
-                ? Interlocked.CompareExchange(ref steps.Span[Count], item, default) != null
+                ? Interlocked.CompareExchange(ref steps.Span[Count], item, null) != null
                     ? Clone().Push(item)
                     : new FastImmutableList<T>(steps, Count + 1)
                 : EnsureCapacity(Math.Max(steps.Length * 2, 16)).Push(item);

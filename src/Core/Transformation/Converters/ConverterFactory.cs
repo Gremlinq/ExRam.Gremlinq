@@ -29,8 +29,7 @@ namespace ExRam.Gremlinq.Core.Transformation
                         return true;
                     }
 
-                    value = default;
-
+                    value = null;
                     return false;
                 }
             }
@@ -74,8 +73,7 @@ namespace ExRam.Gremlinq.Core.Transformation
                         return true;
                     }
 
-                    value = default;
-
+                    value = null;
                     return false;
                 }
             }
@@ -161,7 +159,7 @@ namespace ExRam.Gremlinq.Core.Transformation
             {
                 return (typeof(TStaticSource).IsAssignableFrom(typeof(TSource)) && (typeof(TTarget).IsAssignableFrom(typeof(TStaticTarget))))
                     ? (IConverter<TSource, TTarget>?)Activator.CreateInstance(typeof(ChainConverter<,>).MakeGenericType(typeof(TStaticSource), typeof(TIntermediateSource), typeof(TStaticTarget), typeof(TSource), typeof(TTarget)), environment)
-                    : default;
+                    : null;
             }
         }
 

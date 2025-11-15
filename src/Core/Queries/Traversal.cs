@@ -102,7 +102,7 @@ namespace ExRam.Gremlinq.Core
 
         private static uint SideEffectSemanticsHelper(ReadOnlySpan<Step> steps)
         {
-            var ret = default(uint);
+            var ret = 0U;
 
             for (var i = 0; i < steps.Length; i++)
             {

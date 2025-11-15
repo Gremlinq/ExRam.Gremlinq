@@ -274,7 +274,7 @@ namespace ExRam.Gremlinq.Core
                 }
             }
 
-            return default;
+            return null;
         }
 
         private static Array GetValue(this NewArrayExpression expression)

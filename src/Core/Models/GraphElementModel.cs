@@ -124,13 +124,13 @@ namespace ExRam.Gremlinq.Core.Models
                 ? metadata
                 : IsWithinModel(member)
                     ? MemberMetadata.Default(member.Name)
-                    : default(MemberMetadata?);
+                    : null;
 
             public ElementMetadata? TryGetMetadata(Type elementType) => _elementMetadataOverrides.TryGetValue(elementType, out var elementMetadata)
                 ? elementMetadata
                 : IsWithinModel(elementType)
                     ? new ElementMetadata(elementType.Name)
-                    : default(ElementMetadata?);
+                    : null;
 
             public IImmutableSet<Type> ElementTypes { get; }
 
@@ -190,7 +190,7 @@ namespace ExRam.Gremlinq.Core.Models
             var labels = model.GetCache().GetDerivedLabels(type);
 
             return labels.IsEmpty
-                ? default(ImmutableArray<string>?)
+                ? null
                 : labels.Length == model.ElementTypes.Count && verbosity == FilterLabelsVerbosity.Minimum
                     ? ImmutableArray<string>.Empty
                     : labels;

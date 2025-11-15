@@ -73,7 +73,7 @@ namespace ExRam.Gremlinq.Core
                         IdStep => new HasPredicateStep(T.Id, existingPredicate2),
                         LabelStep => new HasPredicateStep(T.Label, existingPredicate2),
                         ValuesStep { Keys.Length: 1 } valuesStep => existingPredicate2.GetFilterStep(valuesStep.Keys[0]),
-                        _ => default
+                        _ => null
                     };
 
                     if (newStep != null)
@@ -85,7 +85,7 @@ namespace ExRam.Gremlinq.Core
                 }
             }
             
-            return default;
+            return null;
         }
 
         public static Projection LowestProjection(this Span<Traversal> traversals)

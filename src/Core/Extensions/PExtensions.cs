@@ -38,7 +38,7 @@ namespace ExRam.Gremlinq.Core
                     case "startingWith" when textP.Value is string stringValue:
                     {
                         if (stringValue.Length == 0)
-                            return new P("true", default);
+                            return new P("true", null);
 
                         if ((disabledTextPredicates & DisabledTextPredicates.StartingWith) == 0)
                             return textP;

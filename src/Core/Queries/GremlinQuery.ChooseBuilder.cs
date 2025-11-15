@@ -68,7 +68,7 @@ namespace ExRam.Gremlinq.Core
                 return new ChooseBuilder<TNewTargetQuery, TPickElement>(
                     _query,
                     _steps
-                        .Push(new OptionTraversalStep(default, traversal)),
+                        .Push(new OptionTraversalStep(null, traversal)),
                     _projection
                         .Lowest(traversal.Projection));
             }

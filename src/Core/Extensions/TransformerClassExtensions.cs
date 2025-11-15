@@ -16,7 +16,7 @@ namespace ExRam.Gremlinq.Core
 
             public TTarget? From<TSource>(TSource source, IGremlinQueryEnvironment environment) => _transformer.TryTransform<TSource, TTarget>(source, environment, out var value)
                 ? value
-                : default;
+                : null;
         }
 
         public static TryTransformToBuilder<TTarget> TryTransformTo<TTarget>(this ITransformer transformer)

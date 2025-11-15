@@ -30,7 +30,7 @@ namespace ExRam.Gremlinq.Core
             }
             else
             {
-                if (TryGetPropertyStep(key, value, allowExplicitCardinality ? Cardinality.Single : default) is { } step)
+                if (TryGetPropertyStep(key, value, allowExplicitCardinality ? Cardinality.Single : null) is { } step)
                     yield return step;
             }
         }

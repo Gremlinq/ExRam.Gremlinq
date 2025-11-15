@@ -17,7 +17,7 @@ namespace ExRam.Gremlinq.Core
 
             }
 
-            public TreeBuilder(GremlinQuery<T1, T2, T3, T4> sourceQuery, ImmutableStack<TreeStep.ByStep> bySteps)
+            private TreeBuilder(GremlinQuery<T1, T2, T3, T4> sourceQuery, ImmutableStack<TreeStep.ByStep> bySteps)
             {
                 _bySteps = bySteps;
                 _sourceQuery = sourceQuery;

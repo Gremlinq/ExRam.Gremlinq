@@ -65,7 +65,7 @@ namespace ExRam.Gremlinq.Core.Serialization
             if (typeof(StepLabel).IsAssignableFrom(typeof(TSource)) && typeof(TTarget).IsAssignableFrom(typeof(string)))
                 return Unsafe.As<IConverter<TSource, TTarget>?>(Activator.CreateInstance(typeof(StepLabelResolutionConverter<,>).MakeGenericType(typeof(TSource), typeof(TTarget))));
 
-            return default;
+            return null;
         }
     }
 }

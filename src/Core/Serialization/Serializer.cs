@@ -46,7 +46,7 @@ namespace ExRam.Gremlinq.Core.Serialization
                         return Unsafe.As<IConverter<TSource, TTarget>>(new ByteArrayToStringFallbackConverter<TTarget>(environment));
                 }
 
-                return default;
+                return null;
             }
         }
 
@@ -82,7 +82,7 @@ namespace ExRam.Gremlinq.Core.Serialization
                         return Unsafe.As<IConverter<TSource, TTarget>>(new TimeSpanToDoubleConverter<TTarget>(environment));
                 }
 
-                return default;
+                return null;
             }
         }
 
@@ -653,7 +653,7 @@ namespace ExRam.Gremlinq.Core.Serialization
 
         private static object? NullAwareSerialize<TParam>(this ITransformer serializer, TParam maybeParameter, IGremlinQueryEnvironment env) => maybeParameter is { } parameter
             ? serializer.TransformTo<object>().From(parameter, env)
-            : default;
+            : null;
     }
 }
 
