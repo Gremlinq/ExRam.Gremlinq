@@ -24,7 +24,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                 {
                     if (serialized.TryGetValue("@value", out var valueToken) && valueToken is JArray setArray)
                     {
-                        var array = new List<TTargetArrayItem>();
+                        var array = new List<TTargetArrayItem>(setArray.Count);
 
                         for (var i = 0; i < setArray.Count; i += 2)
                         {
