@@ -10,16 +10,29 @@
         ],
         Objects: [
           {
+            RegistrationDate: 2020-04-07 14:43:36 +0,
+            Name: {
+              Id: 39,
+              Label: Name,
+              Value: Bob
+            },
             Id: 37,
             Label: Person,
             PartitionKey: PartitionKey
           },
           {
+            CountryCallingCode: +49,
             Id: 0,
             Label: Country,
             PartitionKey: PartitionKey
           },
           {
+            RegistrationDate: 2020-04-07 14:43:36 +0,
+            Name: {
+              Id: 12,
+              Label: Name,
+              Value: Bob
+            },
             Id: 10,
             Label: Person,
             PartitionKey: PartitionKey
@@ -34,16 +47,24 @@
         ],
         Objects: [
           {
+            RegistrationDate: 2020-04-07 14:43:36 +0,
+            Name: {
+              Id: 39,
+              Label: Name,
+              Value: Bob
+            },
             Id: 37,
             Label: Person,
             PartitionKey: PartitionKey
           },
           {
+            CountryCallingCode: +49,
             Id: 0,
             Label: Country,
             PartitionKey: PartitionKey
           },
           {
+            IetfLanguageTag: en,
             Id: 2,
             Label: Language,
             PartitionKey: PartitionKey
