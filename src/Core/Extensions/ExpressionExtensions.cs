@@ -173,6 +173,13 @@ namespace ExRam.Gremlinq.Core
                         semantics,
                         binaryExpression.Right);
                 }
+                case MethodCallExpression methodCallExpression when methodCallExpression.LooksLikeCollectionContains(out var collection, out var containsArgument):
+                {
+                    return new WhereExpression(
+                        collection,
+                        ContainsExpressionSemantics.Instance,
+                        containsArgument);
+                }
                 case MethodCallExpression { Object: { } targetExpression, Method: { } methodInfo, Arguments: [var firstArgument, ..] } instanceMethodCallExpression:
                 {
                     if (instanceMethodCallExpression.IsEquals(out var equalsArgument))
@@ -181,14 +188,6 @@ namespace ExRam.Gremlinq.Core
                             targetExpression,
                             EqualsExpressionSemantics.Instance,
                             equalsArgument);
-                    }
-
-                    if (instanceMethodCallExpression.LooksLikeCollectionContains(out var target, out var listContainsArgument))
-                    {
-                        return new WhereExpression(
-                            target,
-                            ContainsExpressionSemantics.Instance,
-                            listContainsArgument);
                     }
 
                     if (methodInfo.DeclaringType == typeof(string) && methodInfo.GetParameters() is { Length: 1 or 2 } parameters)
@@ -263,13 +262,6 @@ namespace ExRam.Gremlinq.Core
                                 Expressions.Null);
 
                         }
-                    }
-                    else if (staticMethodCallExpression.LooksLikeCollectionContains(out var target, out var argument))
-                    {
-                        return new WhereExpression(
-                            target,
-                            ContainsExpressionSemantics.Instance,
-                            argument);
                     }
                     
                     break;
