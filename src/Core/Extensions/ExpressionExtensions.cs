@@ -28,6 +28,11 @@ namespace ExRam.Gremlinq.Core
                         expression = objectExpression;
                         break;
                     }
+                    case MethodCallExpression { Object: null, Method: { DeclaringType: { } declaringType } method, Arguments: [{ } singleArgument] } when declaringType.IsSpanType() && method is { IsSpecialName: true, Name: "op_Implicit" or "op_Explicit" }:
+                    {
+                        expression = singleArgument;
+                        break;
+                    }
                     default:
                     {
                         return expression;
@@ -269,7 +274,21 @@ namespace ExRam.Gremlinq.Core
                                 secondArgument);
                         }
                     }
-                    
+                    else if (methodInfo.IsGenericMethod && methodInfo.DeclaringType == typeof(MemoryExtensions) && methodInfo.Name == nameof(MemoryExtensions.Contains))
+                    {
+                        if (staticMethodCallExpression.Arguments is [_, var secondArgument, ..])
+                        {
+                            if (staticMethodCallExpression.Arguments is [_, _] || (staticMethodCallExpression.Arguments is [_, _, var thirdArgument] && thirdArgument.Strip() is ConstantExpression { Value: null }))
+                            {
+                                return new WhereExpression(
+                                    firstArgument,
+                                    ContainsExpressionSemantics.Instance,
+                                    secondArgument);
+                            }
+                        }
+                    }
+
+
                     break;
                 }
             }
