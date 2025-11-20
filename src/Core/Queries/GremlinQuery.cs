@@ -1428,7 +1428,7 @@ namespace ExRam.Gremlinq.Core
                     if (left is MemberExpression && right is MemberExpression rightMember)
                     {
                         var newStepLabel = new StepLabel<T1>();
-                        var newRightExpression = Expression.MakeMemberAccess(Expression.MakeMemberAccess(Expression.Constant(newStepLabel), typeof(StepLabel<T1>).GetProperty(nameof(StepLabel<T1>.Value))!), rightMember.Member);
+                        var newRightExpression = Expression.MakeMemberAccess(Expression.MakeMemberAccess(Expression.Constant(newStepLabel), typeof(StepLabel<T1>).GetProperty(nameof(StepLabel<>.Value))!), rightMember.Member);
 
                         return Where(
                             traversal
