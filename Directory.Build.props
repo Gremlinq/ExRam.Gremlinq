@@ -5,7 +5,7 @@
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
     <ImplicitUsings>enable</ImplicitUsings>
     <EnablePackageValidation>true</EnablePackageValidation>
-    <LangVersion>13.0</LangVersion>
+    <LangVersion>14.0</LangVersion>
     <NoWarn>$(NoWarn);IDE1006;IDE0063;CS1998</NoWarn>
     <Nullable>enable</Nullable>
     <Authors>Daniel Weber</Authors>
