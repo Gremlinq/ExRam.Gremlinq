@@ -9,7 +9,6 @@ namespace ExRam.Gremlinq.Core
         public static readonly MethodInfo ObjectToString = Get<object>(_ => _.ToString());
         public static readonly MethodInfo EnumerableAny = Get<IEnumerable<object>>(_ => _.Any());
         public static readonly MethodInfo EnumerableIntersect = Get<IEnumerable<object>>(_ => _.Intersect(null!));
-        public static readonly MethodInfo EnumerableContainsElement = Get<IEnumerable<object>>(_ => _.Contains(null!));
 
         private static MethodInfo Get<TSource>(Expression<Action<TSource>> expression)
         {
