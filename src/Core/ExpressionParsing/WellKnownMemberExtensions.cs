@@ -45,30 +45,27 @@ namespace ExRam.Gremlinq.Core.ExpressionParsing
         {
             argument = null;
 
-            if (expression is MethodCallExpression { Method: { Name: nameof(Enumerable.Contains) } methodInfo } methodCallExpression && !typeof(string).IsAssignableFrom(methodInfo.DeclaringType))
+            if (expression is MethodCallExpression { Method: { Name: nameof(Enumerable.Contains) } methodInfo, Arguments: [{ } firstArgumentExpression, ..] methodCallArguments} methodCallExpression && !typeof(string).IsAssignableFrom(methodInfo.DeclaringType))
             {
+                var lastArgumentIsNullEqualityComparer = methodCallArguments[^1].Strip() is ConstantExpression { Value: null, Type: { IsGenericType: true } constantExpressionType } && constantExpressionType.GetGenericTypeDefinition() == typeof(IEqualityComparer<>);
+
                 if (methodCallExpression.Object is { } instanceExpression)
                 {
-                    if (methodCallExpression.Arguments is [{ } argumentExpression, ..])
-                    {
-                        if (methodCallExpression.Arguments is [_] || (methodCallExpression.Arguments is [_, { } lastArgument] && lastArgument.IsNullEqualityComparer()))
-                            argument = argumentExpression;
-                    }
+                    if (methodCallArguments is [_] || (methodCallArguments is [_, _] && lastArgumentIsNullEqualityComparer))
+                        argument = firstArgumentExpression;
                 }
                 else
                 {
-                    if (methodCallExpression.Arguments is [{ } thisExpression, { } argumentExpression, ..])
+                    if (methodCallArguments is [_, { } secondArgumentExpression, ..])
                     {
-                        if (methodCallExpression.Arguments is [_, _] || (methodCallExpression.Arguments is [_, _, { } lastArgument] && lastArgument.IsNullEqualityComparer()))
-                            argument = argumentExpression;
+                        if (methodCallArguments is [_, _] || (methodCallArguments is [_, _, _] && lastArgumentIsNullEqualityComparer))
+                            argument = secondArgumentExpression;
                     }
                 }
             }
 
             return argument is not null;
         }
-
-        public static bool IsNullEqualityComparer(this Expression expression) => expression.Strip() is ConstantExpression { Value: null, Type: { IsGenericType: true } constantExpressionType } && constantExpressionType.GetGenericTypeDefinition() == typeof(IEqualityComparer<>);
 
         public static bool IsIndexerGet(this Expression expression, [NotNullWhen(true)] out Expression? target, [NotNullWhen(true)] out Expression? argument)
         {
