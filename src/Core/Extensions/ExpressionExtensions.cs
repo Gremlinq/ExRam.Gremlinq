@@ -183,7 +183,7 @@ namespace ExRam.Gremlinq.Core
                             equalsArgument);
                     }
 
-                    if (instanceMethodCallExpression.IsListContains(out var listContainsArgument))
+                    if (instanceMethodCallExpression.LooksLikeCollectionContains(out var listContainsArgument))
                     {
                         return new WhereExpression(
                             targetExpression,

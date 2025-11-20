@@ -41,12 +41,23 @@ namespace ExRam.Gremlinq.Core.ExpressionParsing
             return argument is not null;
         }
 
-        public static bool IsListContains(this Expression expression, [NotNullWhen(true)] out Expression? argument)
+        public static bool LooksLikeCollectionContains(this Expression expression, [NotNullWhen(true)] out Expression? argument)
         {
-            if (expression is MethodCallExpression { Method: { Name: nameof(List<object>.Contains) } methodInfo, Arguments: [{ } argumentExpression] } && typeof(IList).IsAssignableFrom(methodInfo.DeclaringType))
-                argument = argumentExpression;
-            else
-                argument = null;
+            argument = null;
+
+            if (expression is MethodCallExpression { Method: { Name: nameof(Enumerable.Contains) } methodInfo } methodCallExpression && !typeof(string).IsAssignableFrom(methodInfo.DeclaringType))
+            {
+                if (methodCallExpression.Object is { } instanceExpression)
+                {
+                    if (methodCallExpression.Arguments is [{ } argumentExpression])
+                        argument = argumentExpression;
+                }
+                else
+                {
+                    if (methodCallExpression.Arguments is [{ } thisExpression, { } argumentExpression])
+                        argument = argumentExpression;
+                }
+            }
 
             return argument is not null;
         }
