@@ -49,18 +49,26 @@ namespace ExRam.Gremlinq.Core.ExpressionParsing
             {
                 if (methodCallExpression.Object is { } instanceExpression)
                 {
-                    if (methodCallExpression.Arguments is [{ } argumentExpression])
-                        argument = argumentExpression;
+                    if (methodCallExpression.Arguments is [{ } argumentExpression, ..])
+                    {
+                        if (methodCallExpression.Arguments is [_] || (methodCallExpression.Arguments is [_, { } lastArgument] && lastArgument.IsNullEqualityComparer()))
+                            argument = argumentExpression;
+                    }
                 }
                 else
                 {
-                    if (methodCallExpression.Arguments is [{ } thisExpression, { } argumentExpression])
-                        argument = argumentExpression;
+                    if (methodCallExpression.Arguments is [{ } thisExpression, { } argumentExpression, ..])
+                    {
+                        if (methodCallExpression.Arguments is [_, _] || (methodCallExpression.Arguments is [_, _, { } lastArgument] && lastArgument.IsNullEqualityComparer()))
+                            argument = argumentExpression;
+                    }
                 }
             }
 
             return argument is not null;
         }
+
+        public static bool IsNullEqualityComparer(this Expression expression) => expression.Strip() is ConstantExpression { Value: null, Type: { IsGenericType: true } constantExpressionType } && constantExpressionType.GetGenericTypeDefinition() == typeof(IEqualityComparer<>);
 
         public static bool IsIndexerGet(this Expression expression, [NotNullWhen(true)] out Expression? target, [NotNullWhen(true)] out Expression? argument)
         {

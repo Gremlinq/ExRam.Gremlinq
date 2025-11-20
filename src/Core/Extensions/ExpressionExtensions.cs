@@ -264,31 +264,14 @@ namespace ExRam.Gremlinq.Core
 
                         }
                     }
-                    else if (methodInfo.IsGenericMethod && methodInfo.GetGenericMethodDefinition() == WellKnownMethods.EnumerableContainsElement)
+                    else if (staticMethodCallExpression.LooksLikeCollectionContains(out var argument))
                     {
-                        if (staticMethodCallExpression.Arguments is [_, var secondArgument])
-                        {
-                            return new WhereExpression(
-                                firstArgument,
-                                ContainsExpressionSemantics.Instance,
-                                secondArgument);
-                        }
+                        return new WhereExpression(
+                            firstArgument,
+                            ContainsExpressionSemantics.Instance,
+                            argument);
                     }
-                    else if (methodInfo.IsGenericMethod && methodInfo.DeclaringType == typeof(MemoryExtensions) && methodInfo.Name == nameof(MemoryExtensions.Contains))
-                    {
-                        if (staticMethodCallExpression.Arguments is [_, var secondArgument, ..])
-                        {
-                            if (staticMethodCallExpression.Arguments is [_, _] || (staticMethodCallExpression.Arguments is [_, _, var thirdArgument] && thirdArgument.Strip() is ConstantExpression { Value: null }))
-                            {
-                                return new WhereExpression(
-                                    firstArgument,
-                                    ContainsExpressionSemantics.Instance,
-                                    secondArgument);
-                            }
-                        }
-                    }
-
-
+                    
                     break;
                 }
             }
