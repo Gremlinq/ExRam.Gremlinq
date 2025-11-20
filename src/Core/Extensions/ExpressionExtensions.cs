@@ -183,10 +183,10 @@ namespace ExRam.Gremlinq.Core
                             equalsArgument);
                     }
 
-                    if (instanceMethodCallExpression.LooksLikeCollectionContains(out var listContainsArgument))
+                    if (instanceMethodCallExpression.LooksLikeCollectionContains(out var target, out var listContainsArgument))
                     {
                         return new WhereExpression(
-                            targetExpression,
+                            target,
                             ContainsExpressionSemantics.Instance,
                             listContainsArgument);
                     }
@@ -264,10 +264,10 @@ namespace ExRam.Gremlinq.Core
 
                         }
                     }
-                    else if (staticMethodCallExpression.LooksLikeCollectionContains(out var argument))
+                    else if (staticMethodCallExpression.LooksLikeCollectionContains(out var target, out var argument))
                     {
                         return new WhereExpression(
-                            firstArgument,
+                            target,
                             ContainsExpressionSemantics.Instance,
                             argument);
                     }
