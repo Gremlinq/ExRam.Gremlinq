@@ -39,6 +39,7 @@ namespace ExRam.Gremlinq.Core.Transformation
             private static readonly MethodInfo GetConverterMethodInfo = typeof(TransformerImpl).GetMethod(nameof(GetUnifiedConverter), BindingFlags.Instance | BindingFlags.NonPublic)!;
 
             private readonly TransformerImpl _recurse;
+            private TransformerImpl?[]? _deferTransformers;
             private readonly FastImmutableList<IConverterFactory> _converterFactories;
             private readonly ConcurrentDictionary<(IGremlinQueryEnvironment, Type, Type, Type), object> _unifiedConverters = new();
 
@@ -98,7 +99,41 @@ namespace ExRam.Gremlinq.Core.Transformation
                 for (var i = _converterFactories.Count - 1; i >= 0; i--)
                 {
                     if (_converterFactories[i].TryCreate<TActualSource, TTarget>(environment) is { } converter)
-                        list.Add((converter, new TransformerImpl(_converterFactories[..i], this)));
+                    {
+                        TransformerImpl? deferTransformer = null;
+                        var deferTransformers = _deferTransformers;
+                        
+                        while (true)
+                        {
+                            if (deferTransformers is { } existingDeferTransformers)
+                            {
+                                if (existingDeferTransformers[i] is { } existingDeferTransformer)
+                                {
+                                    deferTransformer = existingDeferTransformer;
+
+                                    break;
+                                }
+                                else
+                                {
+                                    deferTransformer = new TransformerImpl(_converterFactories[..i], this);
+
+                                    if (Interlocked.CompareExchange(ref deferTransformers[i], deferTransformer, null) is { } otherDeferTransformer)
+                                        deferTransformer = otherDeferTransformer;
+
+                                    break;
+                                }
+                            }
+                            else
+                            {
+                                deferTransformers = new TransformerImpl[_converterFactories.Count];
+
+                                if (Interlocked.CompareExchange(ref _deferTransformers, deferTransformers, null) is { } otherDeferTransformers)
+                                    deferTransformers = otherDeferTransformers;
+                            }
+                        }
+
+                        list.Add((converter, deferTransformer));
+                    }
                 }
 
                 return new UnifiedConverter<TStaticSource, TActualSource, TTarget>([.. list], _recurse);
