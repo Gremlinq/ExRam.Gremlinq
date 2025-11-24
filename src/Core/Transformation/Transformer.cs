@@ -1,4 +1,5 @@
-﻿using System.Collections.Concurrent;
+﻿using System.Buffers;
+using System.Collections.Concurrent;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 
@@ -94,49 +95,61 @@ namespace ExRam.Gremlinq.Core.Transformation
             private IConverter<TStaticSource, TTarget> GetUnifiedConverter<TStaticSource, TActualSource, TTarget>(IGremlinQueryEnvironment environment)
                 where TActualSource : TStaticSource
             {
+                var tupleCount = 0;
                 var deferTransformers = _deferTransformers;
-                var list = new List<(IConverter<TActualSource, TTarget> converter, TransformerImpl overridden)>();
+                var arrayPool = ArrayPool<(IConverter<TActualSource, TTarget> converter, TransformerImpl overridden)>.Shared;
 
-                for (var i = _converterFactories.Count - 1; i >= 0; i--)
+                var tuples = arrayPool
+                    .Rent(_converterFactories.Count);
+
+                try
                 {
-                    if (_converterFactories[i].TryCreate<TActualSource, TTarget>(environment) is { } converter)
+                    for (var i = _converterFactories.Count - 1; i >= 0; i--)
                     {
-                        TransformerImpl? deferTransformer;
-
-                        while (true)
+                        if (_converterFactories[i].TryCreate<TActualSource, TTarget>(environment) is { } converter)
                         {
-                            if (deferTransformers is { } existingDeferTransformers)
-                            {
-                                if (existingDeferTransformers[i] is { } existingDeferTransformer)
-                                {
-                                    deferTransformer = existingDeferTransformer;
+                            TransformerImpl? deferTransformer;
 
-                                    break;
+                            while (true)
+                            {
+                                if (deferTransformers is { } existingDeferTransformers)
+                                {
+                                    if (existingDeferTransformers[i] is { } existingDeferTransformer)
+                                    {
+                                        deferTransformer = existingDeferTransformer;
+
+                                        break;
+                                    }
+                                    else
+                                    {
+                                        deferTransformer = new TransformerImpl(_converterFactories[..i], this);
+
+                                        if (Interlocked.CompareExchange(ref deferTransformers[i], deferTransformer, null) is { } otherDeferTransformer)
+                                            deferTransformer = otherDeferTransformer;
+
+                                        break;
+                                    }
                                 }
                                 else
                                 {
-                                    deferTransformer = new TransformerImpl(_converterFactories[..i], this);
+                                    deferTransformers = new TransformerImpl[_converterFactories.Count];
 
-                                    if (Interlocked.CompareExchange(ref deferTransformers[i], deferTransformer, null) is { } otherDeferTransformer)
-                                        deferTransformer = otherDeferTransformer;
-
-                                    break;
+                                    if (Interlocked.CompareExchange(ref _deferTransformers, deferTransformers, null) is { } otherDeferTransformers)
+                                        deferTransformers = otherDeferTransformers;
                                 }
                             }
-                            else
-                            {
-                                deferTransformers = new TransformerImpl[_converterFactories.Count];
 
-                                if (Interlocked.CompareExchange(ref _deferTransformers, deferTransformers, null) is { } otherDeferTransformers)
-                                    deferTransformers = otherDeferTransformers;
-                            }
+                            tuples[tupleCount++] = (converter, deferTransformer);
                         }
-
-                        list.Add((converter, deferTransformer));
                     }
-                }
 
-                return new UnifiedConverter<TStaticSource, TActualSource, TTarget>([.. list], _recurse);
+                    return new UnifiedConverter<TStaticSource, TActualSource, TTarget>([.. tuples[0..tupleCount]], _recurse);
+                }
+                finally
+                {
+                    arrayPool
+                        .Return(tuples);
+                }
             }
         }
 
