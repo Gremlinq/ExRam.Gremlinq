@@ -94,15 +94,15 @@ namespace ExRam.Gremlinq.Core.Transformation
             private IConverter<TStaticSource, TTarget> GetUnifiedConverter<TStaticSource, TActualSource, TTarget>(IGremlinQueryEnvironment environment)
                 where TActualSource : TStaticSource
             {
+                var deferTransformers = _deferTransformers;
                 var list = new List<(IConverter<TActualSource, TTarget> converter, TransformerImpl overridden)>();
 
                 for (var i = _converterFactories.Count - 1; i >= 0; i--)
                 {
                     if (_converterFactories[i].TryCreate<TActualSource, TTarget>(environment) is { } converter)
                     {
-                        TransformerImpl? deferTransformer = null;
-                        var deferTransformers = _deferTransformers;
-                        
+                        TransformerImpl? deferTransformer;
+
                         while (true)
                         {
                             if (deferTransformers is { } existingDeferTransformers)
