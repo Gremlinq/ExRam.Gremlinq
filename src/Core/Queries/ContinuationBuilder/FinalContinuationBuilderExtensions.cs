@@ -26,8 +26,7 @@ namespace ExRam.Gremlinq.Core
                 ? NoneStep.Instance
                 : traversal.Push(NoneStep.Instance));
 
-        public static FinalContinuationBuilder OfType<TOuterQuery, TElement, TNewElement>(this FinalContinuationBuilder builder, IGraphElementModel model, bool force)
-            where TOuterQuery : GremlinQueryBase, IGremlinQueryBase
+        public static FinalContinuationBuilder OfType<TElement, TNewElement>(this FinalContinuationBuilder builder, IGraphElementModel model, bool force)
         {
             if (typeof(TNewElement) != typeof(object) && (force || !typeof(TNewElement).IsAssignableFrom(typeof(TElement))))
             {
