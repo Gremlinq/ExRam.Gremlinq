@@ -85,7 +85,7 @@ namespace ExRam.Gremlinq.Providers.Core
                                     Dispose();
                             }
                             else
-                                throw new InvalidOperationException($"Unable to convert byte array to a {nameof(ResponseMessage<T>)} for {typeof(T).FullName}.");
+                                throw new InvalidOperationException($"Unable to convert byte array to a {nameof(ResponseMessage<>)} for {typeof(T).FullName}.");
                         }
                         catch
                         {
@@ -179,7 +179,7 @@ namespace ExRam.Gremlinq.Providers.Core
                                     throw new NotSupportedException();
                             }
                             else
-                                throw new ObjectDisposedException(nameof(Channel<T>));
+                                throw new ObjectDisposedException(nameof(Channel<>));
                         }
                     }
 

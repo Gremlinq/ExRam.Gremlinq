@@ -40,7 +40,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                         }
                         else if (declaringType.IsGenericType && declaringType.GetGenericTypeDefinition() == typeof(VertexProperty<,>))
                         {
-                            if (member.Name == nameof(VertexProperty<object>.Id) || member.Name == nameof(VertexProperty<object>.Label))
+                            if (member.Name == nameof(VertexProperty<>.Id) || member.Name == nameof(VertexProperty<>.Label))
                                 property.Writable = true;
                         }
                     }

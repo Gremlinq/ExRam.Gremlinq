@@ -125,16 +125,16 @@ namespace ExRam.Gremlinq.Providers.CosmosDb
                                                 .ToExecutor())));
                             }
 
-                            throw new InvalidOperationException($"A valid authentication key must be configured. Use {nameof(AuthenticateBy)} on {nameof(ICosmosDbConfigurator<TVertexBase>)} to configure the CosmosDb authentication key.");
+                            throw new InvalidOperationException($"A valid authentication key must be configured. Use {nameof(AuthenticateBy)} on {nameof(ICosmosDbConfigurator<>)} to configure the CosmosDb authentication key.");
                         }
 
-                        throw new InvalidOperationException($"A valid partition key must be configured. Use {nameof(WithPartitionKey)} on {nameof(ICosmosDbConfigurator<TVertexBase>)} to configure a CosmosDb partition key.");
+                        throw new InvalidOperationException($"A valid partition key must be configured. Use {nameof(WithPartitionKey)} on {nameof(ICosmosDbConfigurator<>)} to configure a CosmosDb partition key.");
                     }
 
-                    throw new InvalidOperationException($"A valid graph name must be configured. Use {nameof(OnGraph)} on {nameof(ICosmosDbConfigurator<TVertexBase>)} to configure the CosmosDb graph name.");
+                    throw new InvalidOperationException($"A valid graph name must be configured. Use {nameof(OnGraph)} on {nameof(ICosmosDbConfigurator<>)} to configure the CosmosDb graph name.");
                 }
 
-                throw new InvalidOperationException($"A valid database name must be configured. Use {nameof(OnDatabase)} on {nameof(ICosmosDbConfigurator<TVertexBase>)} to configure the CosmosDb database name.");
+                throw new InvalidOperationException($"A valid database name must be configured. Use {nameof(OnDatabase)} on {nameof(ICosmosDbConfigurator<>)} to configure the CosmosDb database name.");
             }
         }
 
