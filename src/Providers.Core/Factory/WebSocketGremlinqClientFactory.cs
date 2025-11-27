@@ -123,7 +123,10 @@ namespace ExRam.Gremlinq.Providers.Core
 
                     public async IAsyncEnumerator<ResponseMessage<T>> GetAsyncEnumerator(CancellationToken ct = default)
                     {
-                        await using (ct.Register(static @this => ((Channel<T>)@this!).Dispose(), this).ConfigureAwait(false))
+                        var ctRegistration = ct
+                            .Register(static @this => ((Channel<T>)@this!).Dispose(), this);
+
+                        try
                         {
                             if (await new ValueTask<ResponseAndQueueUnion<T>?>(this, 0).ConfigureAwait(false) is { } union)
                             {
@@ -180,6 +183,12 @@ namespace ExRam.Gremlinq.Providers.Core
                             }
                             else
                                 throw new ObjectDisposedException(nameof(Channel<>));
+                        }
+                        finally
+                        {
+                            await ctRegistration
+                                .DisposeAsync()
+                                .ConfigureAwait(false);
                         }
                     }
 
