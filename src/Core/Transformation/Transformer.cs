@@ -115,35 +115,29 @@ namespace ExRam.Gremlinq.Core.Transformation
                                 if (deferTransformers is { } existingDeferTransformers)
                                 {
                                     if (existingDeferTransformers[i] is { } existingDeferTransformer)
-                                    {
                                         deferTransformer = existingDeferTransformer;
-
-                                        break;
-                                    }
                                     else
                                     {
                                         deferTransformer = new TransformerImpl(_converterFactories[..i], this);
 
                                         if (Interlocked.CompareExchange(ref deferTransformers[i], deferTransformer, null) is { } otherDeferTransformer)
                                             deferTransformer = otherDeferTransformer;
-
-                                        break;
                                     }
-                                }
-                                else
-                                {
-                                    deferTransformers = new TransformerImpl[_converterFactories.Count];
 
-                                    if (Interlocked.CompareExchange(ref _deferTransformers, deferTransformers, null) is { } otherDeferTransformers)
-                                        deferTransformers = otherDeferTransformers;
+                                    break;
                                 }
+
+                                deferTransformers = new TransformerImpl[_converterFactories.Count];
+
+                                if (Interlocked.CompareExchange(ref _deferTransformers, deferTransformers, null) is { } otherDeferTransformers)
+                                    deferTransformers = otherDeferTransformers;
                             }
 
                             tuples[tupleCount++] = (converter, deferTransformer);
                         }
                     }
 
-                    return new UnifiedConverter<TStaticSource, TActualSource, TTarget>([.. tuples[0..tupleCount]], _recurse);
+                    return new UnifiedConverter<TStaticSource, TActualSource, TTarget>([.. tuples[..tupleCount]], _recurse);
                 }
                 finally
                 {
