@@ -26,7 +26,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
         public async Task Irrelevant()
         {
             await Verify(Transformer.Empty
-                .Add(Create<JObject, string>((serialized, env, _, recurse) => "should not be here"))
+                .Add(Create<JObject, string>((_, _, _, _) => "should not be here"))
                 .TryTransformTo<string>().From("serialized", _environment));
         }
 

@@ -360,7 +360,7 @@ namespace ExRam.Gremlinq.Core
                 .Continue()
                 .With(predicateContinuation)
                 .Build(
-                    static (builder, traversal, tuple) => tuple.@this
+                    static (_, traversal, tuple) => tuple.@this
                         .Choose<TTrueQuery, TFalseQuery, TTargetQuery>(traversal, tuple.trueContinuation, tuple.maybeFalseContinuation),
                     (trueContinuation, maybeFalseContinuation, @this: this));
 
@@ -1046,14 +1046,14 @@ namespace ExRam.Gremlinq.Core
             .Continue()
             .With(valueContinuation)
             .Build(
-                static (builder, valueTraversal, tuple) => tuple.@this.Property(tuple.key, valueTraversal),
+                static (_, valueTraversal, tuple) => tuple.@this.Property(tuple.key, valueTraversal),
                 (key, @this: this));
 
         private GremlinQuery<T1, T2, T3, T4> Property(LambdaExpression projection, Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase> valueContinuation) => this
             .Continue()
             .With(valueContinuation)
             .Build(
-                static (builder, valueTraversal, tuple) => tuple.@this.Property(tuple.projection, valueTraversal),
+                static (_, valueTraversal, tuple) => tuple.@this.Property(tuple.projection, valueTraversal),
                 (projection, @this: this));
 
         private GremlinQuery<T1, T2, T3, T4> Range(long low, long high, Scope scope) => this

@@ -6,7 +6,7 @@ using ExRam.Gremlinq.Tests.Infrastructure;
 namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
 {
     [IntegrationTest("Windows", true)]
-    public partial class MetaResponseIntegrationTests : CosmosDbIntegrationTestBase, IClassFixture<CosmosDbEmulatorFixture>
+    public class MetaResponseIntegrationTests : CosmosDbIntegrationTestBase, IClassFixture<CosmosDbEmulatorFixture>
     {
         private sealed class MetaResponseExecutingVerifier : ExecutingVerifier
         {

@@ -12,7 +12,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
             GremlinQuerySource.g
                 .UseGremlinServer<Vertex, Edge>(builder => builder
                     .ConfigureClientFactory(factory => factory
-                        .ConfigureClient((client, env) => client)));
+                        .ConfigureClient((client, _) => client)));
         }
 
         [Fact]

@@ -295,8 +295,8 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
             await _g
                 .ConfigureEnvironment(env => env
                     .RegisterNativeType(
-                        (languageCode, env, _, recurse) => languageCode.ToString().ToLower(),
-                        (valueToken, env, _, recurse) => Enum.TryParse<DateTimeKind>(valueToken.Value<string>(), true, out var res)
+                        (languageCode, _, _, _) => languageCode.ToString().ToLower(),
+                        (valueToken, _, _, _) => Enum.TryParse<DateTimeKind>(valueToken.Value<string>(), true, out var res)
                             ? res
                             : default))
                 .Inject("Utc")

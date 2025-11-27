@@ -4,7 +4,7 @@ using ExRam.Gremlinq.Tests.Infrastructure;
 namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
 {
     [IntegrationTest("Windows", true)]
-    public partial class LoggingWithBindingsIntegrationTests : CosmosDbIntegrationTestBase, IClassFixture<LoggingWithBindingsIntegrationTests.LoggingFixture>
+    public class LoggingWithBindingsIntegrationTests : CosmosDbIntegrationTestBase, IClassFixture<LoggingWithBindingsIntegrationTests.LoggingFixture>
     {
         public class LoggingFixture : LoggingIntegrationTests.LoggingFixture
         {

@@ -17,7 +17,7 @@ namespace ExRam.Gremlinq.Core.AspNet.Tests
                         { "Gremlinq:Gremlinq_key_2", "value2" }
                     })
                     .Build())
-                .AddGremlinq(s => { })
+                .AddGremlinq(_ => { })
                 .BuildServiceProvider();
 
             _section = serviceCollection

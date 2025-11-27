@@ -49,8 +49,6 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         public override string TestFrameworkDisplayName => nameof(GremlinqTestFramework);
 
-        protected override ITestFrameworkDiscoverer CreateDiscoverer(Assembly assembly) => base.CreateDiscoverer(assembly);
-
         protected override ITestFrameworkExecutor CreateExecutor(Assembly assembly) => new GremlinqTestFrameworkExecutor(base.CreateExecutor(assembly));
     }
 }

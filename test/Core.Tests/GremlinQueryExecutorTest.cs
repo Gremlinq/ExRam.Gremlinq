@@ -84,7 +84,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
             await Observable
                 .Range(1, 1000)
-                .SelectMany(x => serialized
+                .SelectMany(_ => serialized
                     .Execute<int>(GremlinQueryExecutionContext.Create(_query))
                     .ToObservable())
                 .LastOrDefaultAsync()

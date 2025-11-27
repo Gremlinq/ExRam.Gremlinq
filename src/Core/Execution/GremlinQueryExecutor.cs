@@ -2,7 +2,7 @@
 
 namespace ExRam.Gremlinq.Core.Execution
 {
-    public static partial class GremlinQueryExecutor
+    public static class GremlinQueryExecutor
     {
         private sealed class InvalidGremlinQueryExecutor : IGremlinQueryExecutor
         {

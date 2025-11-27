@@ -18,7 +18,7 @@ namespace ExRam.Gremlinq.Tests.Fixtures
                 .At(new UriBuilder("ws", container.Hostname, container.GetMappedPublicPort(8182)).Uri)
                 .ConfigureClientFactory(factory => factory
                     .ConfigureClient(client => client
-                        .TransformRequest(async (requestMessage, ct) => requestMessage  //Just for demo/coverage purposes.
+                        .TransformRequest(async (requestMessage, _) => requestMessage  //Just for demo/coverage purposes.
                         /*.Rebuild()
                         /*.Create()*/)))
                 .UseNewtonsoftJson())

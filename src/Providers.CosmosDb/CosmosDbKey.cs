@@ -4,15 +4,15 @@
     {
         private readonly string _id;
 
-        public CosmosDbKey(string id) : this(default, id, default)
+        public CosmosDbKey(string id) : this(null, id, false)
         {
         }
 
-        public CosmosDbKey(string partitionKey, string id) : this(partitionKey, id, default)
+        public CosmosDbKey(string partitionKey, string id) : this(partitionKey, id, false)
         {
         }
 
-        private CosmosDbKey(string? partitionKey, string id, bool dummy)
+        private CosmosDbKey(string? partitionKey, string id, bool _)
         {
             _id = id;
             PartitionKey = partitionKey;

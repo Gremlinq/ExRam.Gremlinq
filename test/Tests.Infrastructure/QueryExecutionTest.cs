@@ -312,7 +312,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task Aggregate_Global() => _g
             .V<Person>()
-            .Aggregate((__, aggregated) => __)
+            .Aggregate((__, _) => __)
             .Verify();
 
         [Fact]
@@ -356,7 +356,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task Aggregate_Local() => _g
             .V<Person>()
-            .AggregateLocal((__, aggregated) => __)
+            .AggregateLocal((__, _) => __)
             .Verify();
 
         [Fact]
@@ -430,7 +430,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .V<Person>()
             .And(
                 __ => __
-                    .Aggregate((__, l) => __
+                    .Aggregate((__, _) => __
                         .None()),
                 __ => __
                     .OutE())
@@ -1044,7 +1044,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .V<Person>()
             .Order(_ => _
                 .By(x => x.Name))
-            .As((__, p) => __
+            .As((__, _) => __
                 .Format(x => $"_{x}_"))
             .Verify();
 
@@ -1053,7 +1053,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .V<Person>()
             .Order(_ => _
                 .By(x => x.Name))
-            .As((__, p) => __
+            .As((__, _) => __
                 .Format(x => $"_{x}_{x.Name}_"))
             .Verify();
 
@@ -1293,7 +1293,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public Task Multi_step_serialization() => _g
             .ConfigureEnvironment(env => env
                 .ConfigureSerializer(ser => ser
-                    .Add(Create<EStep, Step[]>((step, env, _, recurse) => recurse
+                    .Add(Create<EStep, Step[]>((_, env, _, recurse) => recurse
                         .TransformTo<Step[]>()
                         .From(
                             new Step[]
@@ -1309,7 +1309,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public Task Multi_step_serialization_with_forgotten_serialize() => _g
             .ConfigureEnvironment(env => env
                 .ConfigureSerializer(ser => ser
-                    .Add(Create<EStep, Step[]>((step, env, _, recurse) =>
+                    .Add(Create<EStep, Step[]>((_, _, _, _) =>
                     [
                         new VStep(ImmutableArray<object>.Empty),
                         new OutEStep(ImmutableArray<string>.Empty)
@@ -1481,7 +1481,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .V<Person>()
             .Or(
                 __ => __
-                    .Aggregate((__, l) => __
+                    .Aggregate((__, _) => __
                         .None()),
                 __ => __
                     .OutE())
@@ -5333,7 +5333,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual Task Where_stepLabel_is_lower_than_stepLabel() => _g
             .V<Person>()
             .Where(__ => __
-                .As((__, person1) => __
+                .As((__, _) => __
                     .Values(x => x.Gender!)
                     .As((__, gender1) => __
                         .V<Person>()
@@ -5577,7 +5577,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual Task Where_with_nested_as() => _g
             .V<Company>()
             .Where(__ => __
-                .As((__, a) => __))
+                .As((__, _) => __))
             .Verify();
 
         [Fact]
@@ -5598,7 +5598,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual Task WithSideEffect_continuation() => _g
             .WithSideEffect(
                 36,
-                (__, label) => __.V())
+                (__, _) => __.V())
             .Verify();
 
         [Fact]
