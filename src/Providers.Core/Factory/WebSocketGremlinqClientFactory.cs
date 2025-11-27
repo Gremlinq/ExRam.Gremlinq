@@ -123,7 +123,7 @@ namespace ExRam.Gremlinq.Providers.Core
 
                     public async IAsyncEnumerator<ResponseMessage<T>> GetAsyncEnumerator(CancellationToken ct = default)
                     {
-                        await using (ct.Register(Dispose).ConfigureAwait(false))
+                        await using (ct.Register(static @this => ((Channel<T>)@this!).Dispose(), this).ConfigureAwait(false))
                         {
                             if (await new ValueTask<ResponseAndQueueUnion<T>?>(this, 0).ConfigureAwait(false) is { } union)
                             {
