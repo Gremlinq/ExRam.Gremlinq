@@ -2,7 +2,7 @@
 
 namespace ExRam.Gremlinq.Tests.Infrastructure
 {
-    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true, Inherited = true)]
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
     public sealed class IntegrationTestAttribute : Attribute, ITraitAttribute
     {
         public IntegrationTestAttribute(string validPlatform, bool canRunOnCI = false)

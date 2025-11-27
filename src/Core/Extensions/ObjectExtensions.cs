@@ -32,7 +32,7 @@ namespace ExRam.Gremlinq.Core
             SerializationBehaviour ignoreMask)
         {
             if (obj == null)
-                return Array.Empty<(Key key, object? value)>();
+                return [];
 
             var func = SerializerDict
                 .GetOrAdd(

@@ -266,7 +266,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
                 .Cast<BinaryData>()
                 .FirstAsync(TestContext.Current.CancellationToken);
 
-            result?
+            result
                 .ToArray()
                 .Should()
                 .Contain(42);

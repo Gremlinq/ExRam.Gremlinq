@@ -311,7 +311,7 @@ namespace ExRam.Gremlinq.Core
 
         IVertexGremlinQuery<TVertex> IStartGremlinQuery.AddV<TVertex>(TVertex vertex) => AddV(vertex);
 
-        IGremlinQuery<TNewElement> IStartGremlinQuery.Inject<TNewElement>(params TNewElement[] elements) => Inject<TNewElement>(elements);
+        IGremlinQuery<TNewElement> IStartGremlinQuery.Inject<TNewElement>(params TNewElement[] elements) => Inject(elements);
 
         IGremlinQuery<TNewElement> IStartGremlinQuery.Inject<TNewElement>(params ReadOnlySpan<TNewElement> elements) => Inject(elements);
 

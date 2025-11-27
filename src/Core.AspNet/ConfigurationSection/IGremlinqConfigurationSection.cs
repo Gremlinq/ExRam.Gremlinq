@@ -2,8 +2,5 @@
 
 namespace ExRam.Gremlinq.Core.AspNet
 {
-    public interface IGremlinqConfigurationSection : IConfigurationSection
-    {
-
-    }
+    public interface IGremlinqConfigurationSection : IConfigurationSection;
 }

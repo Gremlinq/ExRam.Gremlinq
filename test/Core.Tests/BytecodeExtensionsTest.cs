@@ -41,7 +41,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 }
             };
 
-            return Verify(bytecode.ToGroovyScript(GremlinQueryEnvironment.Invalid, true));
+            return Verify(bytecode.ToGroovyScript(GremlinQueryEnvironment.Invalid));
         }
 
         [Fact]

@@ -23,9 +23,9 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                     : 2;
         }
 
-        public IReadOnlyCollection<TTestCase> OrderTestCases<TTestCase>(IReadOnlyCollection<TTestCase> testCases) where TTestCase : notnull, ITestCase => testCases
+        public IReadOnlyCollection<TTestCase> OrderTestCases<TTestCase>(IReadOnlyCollection<TTestCase> testCases) where TTestCase : ITestCase => testCases
             .OrderBy(x => x, TestCaseComparer<TTestCase>.Instance)
-            .ThenBy(x => x!.TestMethod!.MethodName, StringComparer.OrdinalIgnoreCase)
+            .ThenBy(x => x.TestMethod!.MethodName, StringComparer.OrdinalIgnoreCase)
             .ToArray();
     }
 }

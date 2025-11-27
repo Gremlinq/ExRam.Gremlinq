@@ -126,7 +126,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
                 .TryTransformTo<dynamic>().From(original, _environment);
 
             var name = deserialized!.name;
-            var timestamp = deserialized!.timestamp;
+            var timestamp = deserialized.timestamp;
 
             await Verify((name, timestamp));
         }

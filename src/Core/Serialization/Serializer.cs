@@ -632,7 +632,7 @@ namespace ExRam.Gremlinq.Core.Serialization
             recurse.NullAwareSerialize(parameter2, env),
             recurse.NullAwareSerialize(parameter3, env));
 
-        private static Instruction CreateInstruction(string name, ITransformer recurse, IGremlinQueryEnvironment env, object[] parameters) => CreateInstruction<object>(name, recurse, env, parameters.AsSpan());
+        private static Instruction CreateInstruction(string name, ITransformer recurse, IGremlinQueryEnvironment env, object[] parameters) => CreateInstruction(name, recurse, env, parameters.AsSpan());
 
         private static Instruction CreateInstruction<TParam>(string name, ITransformer recurse, IGremlinQueryEnvironment env, ImmutableArray<TParam> parameters) => CreateInstruction(name, recurse, env, parameters.AsSpan());
 

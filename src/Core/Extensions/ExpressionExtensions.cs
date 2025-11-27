@@ -80,11 +80,11 @@ namespace ExRam.Gremlinq.Core
             else if (expression is MemberExpression outerMemberExpression)
             {
                 if (outerMemberExpression.IsStepLabelValue(out var stepLabelExpression))
-                    stepLabel = (StepLabel?)stepLabelExpression?.GetValue();
+                    stepLabel = (StepLabel?)stepLabelExpression.GetValue();
                 else if (outerMemberExpression.Expression is MemberExpression innerMemberExpression && innerMemberExpression.IsStepLabelValue(out stepLabelExpression))
                 {
                     stepLabelValueMemberExpression = outerMemberExpression;
-                    stepLabel = (StepLabel?)stepLabelExpression?.GetValue();
+                    stepLabel = (StepLabel?)stepLabelExpression.GetValue();
                 }
             }
 

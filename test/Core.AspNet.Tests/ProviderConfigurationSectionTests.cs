@@ -7,10 +7,7 @@ namespace ExRam.Gremlinq.Core.AspNet.Tests
     {
         private readonly IConfigurationRoot _configurationRoot;
 
-        private interface IMyProviderConfigurator : IGremlinqConfigurator<IMyProviderConfigurator>
-        {
-            
-        }
+        private interface IMyProviderConfigurator : IGremlinqConfigurator<IMyProviderConfigurator>;
 
         public ProviderConfigurationSectionTests()
         {

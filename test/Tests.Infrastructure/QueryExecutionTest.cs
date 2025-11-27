@@ -2655,7 +2655,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual Task Property_null() => _g
             .V<Company>()
             .Limit(1)
-            .Property(x => x.PhoneNumbers!, (string)null!)
+            .Property(x => x.PhoneNumbers!, null!)
             .Verify();
 
         [Fact]
