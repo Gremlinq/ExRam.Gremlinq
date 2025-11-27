@@ -50,7 +50,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                     return true;
                 }
 
-                value = default;
+                value = null;
                 return false;
             }
         }
@@ -91,7 +91,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                 }
             }
 
-            return default;
+            return null;
         }
     }
 }

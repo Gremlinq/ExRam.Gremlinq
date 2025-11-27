@@ -63,7 +63,7 @@ namespace ExRam.Gremlinq.Providers.Neptune
                         }
                     }
 
-                    return default;
+                    return null;
                 }
             }
 

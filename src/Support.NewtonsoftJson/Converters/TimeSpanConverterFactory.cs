@@ -14,7 +14,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                 { Type: JTokenType.String } => XmlConvert.ToTimeSpan(jValue.Value<string>()!),
                 { Type: JTokenType.Float } => TimeSpan.FromMilliseconds(jValue.Value<double>()),
                 { Type: JTokenType.Integer } => TimeSpan.FromMilliseconds(jValue.Value<long>()),
-                _ => default(TimeSpan?)
+                _ => null
             };
         }
     }

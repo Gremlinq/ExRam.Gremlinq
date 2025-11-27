@@ -152,7 +152,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
                         return dict;
                     }
 
-                    return default;
+                    return null;
                 })))
                 .TryTransformTo<IDictionary<string, object>>().From(original, _environment);
 

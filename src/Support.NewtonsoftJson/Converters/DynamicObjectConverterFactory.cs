@@ -91,7 +91,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                     return true;
                 }
 
-                value = default;
+                value = null;
                 return false;
             }
         }
@@ -100,7 +100,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
         {
             return typeof(TSource) == typeof(JObject) && typeof(TTarget) == typeof(object)
                 ? Unsafe.As<IConverter<TSource, TTarget>>(new DynamicObjectConverter(environment))
-                : default;
+                : null;
         }
     }
 }

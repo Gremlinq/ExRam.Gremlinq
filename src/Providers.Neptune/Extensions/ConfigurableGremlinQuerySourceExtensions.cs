@@ -62,7 +62,7 @@ namespace ExRam.Gremlinq.Providers.Neptune
                         .Add(ConverterFactory
                             .Create<PropertyStep.ByKeyStep, PropertyStep.ByKeyStep>((step, _, _, _) => Cardinality.List.Equals(step.Cardinality)
                                 ? new PropertyStep.ByKeyStep(step.Key, step.Value, step.MetaProperties, Cardinality.Set)
-                                : default)))
+                                : null)))
                     .ConfigureDeserializer(deserializer => deserializer
                         .AsIncomplete())))
             .ConfigureEnvironment(environment => environment

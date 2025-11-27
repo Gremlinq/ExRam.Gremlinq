@@ -47,7 +47,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                     }
                 }
 
-                value = default;
+                value = null;
                 return false;
             }
         }
@@ -63,7 +63,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                     return (IConverter<TSource, TTarget>?)Activator.CreateInstance(typeof(BulkSetConverter<,>).MakeGenericType(typeof(TTarget), elementType), environment);
             }
 
-            return default;
+            return null;
         }
     }
 }

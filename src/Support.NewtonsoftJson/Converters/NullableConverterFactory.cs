@@ -22,7 +22,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
             {
                 if (serialized.Type == JTokenType.Null)
                 {
-                    value = default!;
+                    value = null!;
                     return true;
                 }
 
@@ -32,7 +32,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                     return true;
                 }
 
-                value = default;
+                value = null;
                 return false;
             }
         }
@@ -41,7 +41,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
         {
             return typeof(JToken).IsAssignableFrom(typeof(TSource)) && typeof(TTarget).IsGenericType && typeof(TTarget).GetGenericTypeDefinition() == typeof(Nullable<>)
                 ? (IConverter<TSource, TTarget>?)Activator.CreateInstance(typeof(NullableConverter<,>).MakeGenericType(typeof(TSource), typeof(TTarget).GetGenericArguments()[0]), environment)
-                : default;
+                : null;
         }
     }
 }

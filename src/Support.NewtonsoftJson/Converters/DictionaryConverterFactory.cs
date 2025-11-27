@@ -37,7 +37,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
         {
             return typeof(TSource) == typeof(JObject) && typeof(TTarget).IsAssignableFrom(typeof(Dictionary<string, object?>))
                 ? (IConverter<TSource, TTarget>?)Activator.CreateInstance(typeof(DictionaryConverter<>).MakeGenericType(typeof(TTarget)), environment)
-                : default;
+                : null;
         }
     }
 }

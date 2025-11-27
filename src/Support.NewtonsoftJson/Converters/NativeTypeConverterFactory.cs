@@ -27,7 +27,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
         {
             return typeof(JValue).IsAssignableFrom(typeof(TSource))
                 ? Unsafe.As<IConverter<TSource, TTarget>>(new NativeTypeConverter<TTarget>(environment))
-                : default;
+                : null;
         }
     }
 }

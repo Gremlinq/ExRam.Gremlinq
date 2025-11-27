@@ -44,7 +44,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
 
             public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment) => typeof(TSource) == typeof(TNative) && typeof(TTarget).IsAssignableFrom(typeof(TSerialized))
                 ? (IConverter<TSource, TTarget>?)Activator.CreateInstance(typeof(NativeTypeSerializerConverter<>).MakeGenericType(typeof(TNative), typeof(TSerialized), typeof(TTarget)), _serializer, environment)
-                : default;
+                : null;
         }
 
         private sealed class NativeTypeDeserializerConverterFactory<TNative> : IConverterFactory
@@ -82,7 +82,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
 
             public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment) => typeof(TSource) == typeof(JValue) && typeof(TTarget) == typeof(TNative)
                 ? (IConverter<TSource, TTarget>?)Activator.CreateInstance(typeof(NativeTypeDeserializerConverter<>).MakeGenericType(typeof(TNative), typeof(TTarget)), _deserializer, environment)
-                : default;
+                : null;
         }
 
         public static IGremlinQueryEnvironment UseNewtonsoftJson(this IGremlinQueryEnvironment environment) => environment

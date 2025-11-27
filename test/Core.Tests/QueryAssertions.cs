@@ -93,7 +93,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             _g
                 .Invoking(_ => _
-                    .V<Company>(default!))
+                    .V<Company>(null!))
                 .Should()
                 .Throw<ArgumentNullException>();
         }

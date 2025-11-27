@@ -73,6 +73,6 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
             ? Unsafe.As<IConverter<TSource, TTarget>>(new DeferToNewtonsoftConverter<GraphSon2BinaryMessage>.DeferToNewtonsoftConverterImpl<TTarget>(environment))
             : typeof(TSource) == typeof(GraphSon3BinaryMessage)
                 ? Unsafe.As<IConverter<TSource, TTarget>>(new DeferToNewtonsoftConverter<GraphSon3BinaryMessage>.DeferToNewtonsoftConverterImpl<TTarget>(environment))
-                : default;
+                : null;
     }
 }

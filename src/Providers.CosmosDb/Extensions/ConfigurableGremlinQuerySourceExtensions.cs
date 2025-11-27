@@ -185,7 +185,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb
                             .Add(ConverterFactory
                                 .Create<CosmosDbKey, string[]>((key, _, _, _) => key.PartitionKey is { } partitionKey
                                     ? [partitionKey, key.Id]
-                                    : default))
+                                    : null))
                             .Add(ConverterFactory
                                 .Create<FilterStep.ByTraversalStep, WhereTraversalStep>(static (step, _, _, _) => new WhereTraversalStep(
                                     step.Traversal.Count > 0 && step.Traversal[0] is AsStep
@@ -196,7 +196,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb
                                     ? new WhereTraversalStep(Traversal.Empty.Push(
                                         KeyStep.Instance,
                                         new IsStep(p)))
-                                    : default))
+                                    : null))
                             .Add(ConverterFactory
                                 .Create<NoneStep, NotStep>((_, _, _, _) => NoneWorkaround))
                             .Add(ConverterFactory
@@ -221,7 +221,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb
                                     ? WorkaroundOrder.Incr
                                     : order.Equals(Order.Desc)
                                         ? WorkaroundOrder.Decr
-                                        : default)))
+                                        : null)))
                         .ConfigureDeserializer(deserializer => deserializer
                             .AsIncomplete())));
         }

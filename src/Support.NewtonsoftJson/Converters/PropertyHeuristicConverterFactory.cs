@@ -44,6 +44,6 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
 
         public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment) => typeof(JObject) == typeof(TSource) && typeof(TTarget).IsAssignableFrom(typeof(VertexProperty<object>)) && !typeof(Property<object>).IsAssignableFrom(typeof(TTarget))
             ? Unsafe.As<IConverter<TSource, TTarget>>(new PropertyHeuristicConverter<TTarget>(environment))
-            : default;
+            : null;
     }
 }

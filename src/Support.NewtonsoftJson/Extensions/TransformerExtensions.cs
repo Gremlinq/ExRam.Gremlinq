@@ -29,7 +29,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
             {
                 return TryGetDelegate(typeof(TSource), _type) is Func<ITransformer, TSource, IGremlinQueryEnvironment, object?> fromDelegate
                     ? fromDelegate(_deserializer, source, environment)
-                    : default;
+                    : null;
             }
 
             private static Delegate? TryGetDelegate(Type sourceType, Type targetType)
@@ -59,12 +59,12 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
             private static Func<ITransformer, TSource, IGremlinQueryEnvironment, object?> FromClass<TSource, TTarget>()
                 where TTarget : class => (deserializer, serialized, environment) => deserializer.TryTransform<TSource, TTarget>(serialized, environment, out var value)
                     ? value
-                    : default;
+                    : null;
 
             private static Func<ITransformer, TSource, IGremlinQueryEnvironment, object?> FromStruct<TSource, TTarget>()
                 where TTarget : struct => (deserializer, serialized, environment) => deserializer.TryTransform<TSource, TTarget>(serialized, environment, out var value)
                     ? value
-                    : default(TTarget?);
+                    : null;
         }
 
         public static FluentForType TryTransformTo(this ITransformer deserializer, Type type) => new(deserializer, type);

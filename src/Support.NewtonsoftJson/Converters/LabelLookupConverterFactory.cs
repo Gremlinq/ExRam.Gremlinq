@@ -59,6 +59,6 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
 
         public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment) => typeof(TSource) == typeof(JObject) && !typeof(TTarget).IsSealed
             ? Unsafe.As<IConverter<TSource, TTarget>>(new LabelLookupConverter<TTarget>(environment))
-            : default;
+            : null;
     }
 }

@@ -16,7 +16,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
         {
             private readonly IGremlinQueryEnvironment _environment;
 
-            public TreeConverterBase(IGremlinQueryEnvironment environment)
+            protected TreeConverterBase(IGremlinQueryEnvironment environment)
             {
                 _environment = environment;
             }

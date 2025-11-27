@@ -30,7 +30,7 @@ namespace ExRam.Gremlinq.Providers.Core
                 }
             }
 
-            return default;
+            return null;
         }
 
         public static RequestMessage.Builder Rebuild(this RequestMessage message) => RequestMessage

@@ -343,7 +343,7 @@ namespace ExRam.Gremlinq.Core
                 .Build(static builder => builder
                     .BuildAuto<TNewElement>());
 
-        private TTargetQuery Choose<TTrueQuery, TFalseQuery, TTargetQuery>(Expression<Func<T1, bool>> predicate, Func<GremlinQuery<T1, T2, T3, T4>, TTrueQuery> trueChoice, Func<GremlinQuery<T1, T2, T3, T4>, TFalseQuery>? maybeFalseChoice = default)
+        private TTargetQuery Choose<TTrueQuery, TFalseQuery, TTargetQuery>(Expression<Func<T1, bool>> predicate, Func<GremlinQuery<T1, T2, T3, T4>, TTrueQuery> trueChoice, Func<GremlinQuery<T1, T2, T3, T4>, TFalseQuery>? maybeFalseChoice = null)
             where TTrueQuery : IGremlinQueryBase
             where TFalseQuery : IGremlinQueryBase
             where TTargetQuery : IGremlinQueryBase => this
@@ -353,7 +353,7 @@ namespace ExRam.Gremlinq.Core
                     trueChoice,
                     maybeFalseChoice);
 
-        private TTargetQuery Choose<TTrueQuery, TFalseQuery, TTargetQuery>(Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase> predicateContinuation, Func<GremlinQuery<T1, T2, T3, T4>, TTrueQuery> trueContinuation, Func<GremlinQuery<T1, T2, T3, T4>, TFalseQuery>? maybeFalseContinuation = default)
+        private TTargetQuery Choose<TTrueQuery, TFalseQuery, TTargetQuery>(Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase> predicateContinuation, Func<GremlinQuery<T1, T2, T3, T4>, TTrueQuery> trueContinuation, Func<GremlinQuery<T1, T2, T3, T4>, TFalseQuery>? maybeFalseContinuation = null)
             where TTrueQuery : IGremlinQueryBase
             where TFalseQuery : IGremlinQueryBase
             where TTargetQuery : IGremlinQueryBase => this
@@ -364,7 +364,7 @@ namespace ExRam.Gremlinq.Core
                         .Choose<TTrueQuery, TFalseQuery, TTargetQuery>(traversal, tuple.trueContinuation, tuple.maybeFalseContinuation),
                     (trueContinuation, maybeFalseContinuation, @this: this));
 
-        private TTargetQuery Choose<TTrueQuery, TFalseQuery, TTargetQuery>(Traversal predicateTraversal, Func<GremlinQuery<T1, T2, T3, T4>, TTrueQuery> trueContinuation, Func<GremlinQuery<T1, T2, T3, T4>, TFalseQuery>? maybeFalseContinuation = default)
+        private TTargetQuery Choose<TTrueQuery, TFalseQuery, TTargetQuery>(Traversal predicateTraversal, Func<GremlinQuery<T1, T2, T3, T4>, TTrueQuery> trueContinuation, Func<GremlinQuery<T1, T2, T3, T4>, TFalseQuery>? maybeFalseContinuation = null)
             where TTrueQuery : IGremlinQueryBase
             where TFalseQuery : IGremlinQueryBase
             where TTargetQuery : IGremlinQueryBase => this

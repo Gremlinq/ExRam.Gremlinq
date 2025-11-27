@@ -17,7 +17,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                 { Value: string dateTimeString } when DateTimeOffset.TryParse(dateTimeString, CultureInfo.InvariantCulture, AdjustToUniversal | AssumeLocal, out var parseResult) => parseResult,
                 { Type: JTokenType.Integer } => DateTimeOffset.FromUnixTimeMilliseconds(jValue.Value<long>()),
                 { Type: JTokenType.Float } => DateTimeOffset.FromUnixTimeMilliseconds((long)jValue.Value<double>()),
-                _ => default(DateTimeOffset?)
+                _ => null
             };
         }
     }

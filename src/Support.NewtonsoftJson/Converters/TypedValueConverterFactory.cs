@@ -74,7 +74,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
         {
             return typeof(TSource) == typeof(JObject)
                 ? Unsafe.As<IConverter<TSource, TTarget>>(new TypedValueConverter<TTarget>(environment))
-                : default;
+                : null;
         }
     }
 }

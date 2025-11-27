@@ -12,7 +12,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
             {
                 { Value: DateTime dateTime } => dateTime,
                 _ when recurse.TryTransform<JToken, DateTimeOffset>(jValue, environment, out var dateTimeOffset) => dateTimeOffset.UtcDateTime,
-                _ => default(DateTime?)
+                _ => null
             };
         }
     }
