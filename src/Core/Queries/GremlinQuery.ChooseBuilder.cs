@@ -79,10 +79,12 @@ namespace ExRam.Gremlinq.Core
 
             public TTargetQuery Build() => _query
                 .Continue()
-                .Build(builder => builder
-                    .AddSteps(_steps.AsSpan())
-                    .WithNewProjection(_projection)
-                    .BuildAs<TTargetQuery>());
+                .Build(
+                    static (builder, tuple) => builder
+                        .AddSteps(tuple._steps.AsSpan())
+                        .WithNewProjection(tuple._projection)
+                        .BuildAs<TTargetQuery>(),
+                    (_steps, _projection));
         }
     }
 }

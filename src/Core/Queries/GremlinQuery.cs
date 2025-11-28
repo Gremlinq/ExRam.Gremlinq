@@ -465,9 +465,11 @@ namespace ExRam.Gremlinq.Core
         private TTargetQuery ConfigureMetadata<TTargetQuery>(Func<IImmutableDictionary<object, object?>, IImmutableDictionary<object, object?>> metadataTransformation)
             where TTargetQuery : IStartGremlinQuery => this
                 .Continue()
-                .Build(builder => builder
-                    .WithMetadata(metadataTransformation)
-                    .BuildAs<TTargetQuery>());
+                .Build(
+                    static (builder, metadataTransformation) => builder
+                        .WithMetadata(metadataTransformation)
+                        .BuildAs<TTargetQuery>(),
+                    metadataTransformation);
 
         private GremlinQuery<T1, T2, T3, T4> Concat(ReadOnlySpan<string> strings) => this
             .Continue()
@@ -619,50 +621,54 @@ namespace ExRam.Gremlinq.Core
             {
                 return this
                     .Continue()
-                    .Build(builder =>
-                    {
-                        var argumentExpressions = arguments is [_, NewArrayExpression newArrayExpression]
-                            ? newArrayExpression.Expressions.ToArray().AsSpan()
-                            : arguments.ToArray().AsSpan()[1..];
-
-                        var newArguments = new object?[argumentExpressions.Length];
-
-                        for (var i = 0; i < argumentExpressions.Length; i++)
+                    .Build(
+                        static (builder, tuple) =>
                         {
-                            newArguments[i] = argumentExpressions[i].Strip() switch
-                            {
-                                ParameterExpression parameterExpression when parameterExpression == singleParameterExpression => "%{_}",
-                                MemberExpression { Expression: { } memberExpressionExpression } memberExpression when memberExpressionExpression == singleParameterExpression => "%{_}",
-                                var other => other.GetValue()
-                            };
-                        }
+                            var (arguments, format, singleParameterExpression, stringInterpolationExpression, @this) = tuple;
 
-                        builder = builder
-                           .AddStep(new FormatStep(format, newArguments.UnsafeToImmutableArray()));
+                            var argumentExpressions = arguments is [_, NewArrayExpression newArrayExpression]
+                                ? newArrayExpression.Expressions.ToArray().AsSpan()
+                                : arguments.ToArray().AsSpan()[1..];
 
-                        for (var i = 0; i < argumentExpressions.Length; i++)
-                        {
-                            if (argumentExpressions[i].Strip() is MemberExpression { Expression: { } memberExpressionExpression } memberExpression && memberExpressionExpression == singleParameterExpression)
+                            var newArguments = new object?[argumentExpressions.Length];
+
+                            for (var i = 0; i < argumentExpressions.Length; i++)
                             {
-                                if (GetKey(memberExpression) is { RawKey: string rawKey })
+                                newArguments[i] = argumentExpressions[i].Strip() switch
+                                {
+                                    ParameterExpression parameterExpression when parameterExpression == singleParameterExpression => "%{_}",
+                                    MemberExpression { Expression: { } memberExpressionExpression } memberExpression when memberExpressionExpression == singleParameterExpression => "%{_}",
+                                    var other => other.GetValue()
+                                };
+                            }
+
+                            builder = builder
+                               .AddStep(new FormatStep(format, newArguments.UnsafeToImmutableArray()));
+
+                            for (var i = 0; i < argumentExpressions.Length; i++)
+                            {
+                                if (argumentExpressions[i].Strip() is MemberExpression { Expression: { } memberExpressionExpression } memberExpression && memberExpressionExpression == singleParameterExpression)
+                                {
+                                    if (@this.GetKey(memberExpression) is { RawKey: string rawKey })
+                                    {
+                                        builder = builder
+                                            .AddStep(new FormatStep.By(new ValuesStep(ImmutableArray<string>.Empty.Add(rawKey))));
+                                    }
+                                    else
+                                        throw new ExpressionNotSupportedException(stringInterpolationExpression);
+                                }
+                                else if (argumentExpressions[i].Strip() is { } parameterExpression && parameterExpression == singleParameterExpression)
                                 {
                                     builder = builder
-                                        .AddStep(new FormatStep.By(new ValuesStep(ImmutableArray<string>.Empty.Add(rawKey))));
+                                        .AddStep(new FormatStep.By(IdentityStep.Instance));
                                 }
-                                else
-                                    throw new ExpressionNotSupportedException(stringInterpolationExpression);
                             }
-                            else if (argumentExpressions[i].Strip() is { } parameterExpression && parameterExpression == singleParameterExpression)
-                            {
-                                builder = builder
-                                    .AddStep(new FormatStep.By(IdentityStep.Instance));
-                            }
-                        }
 
-                        return builder
-                            .WithNewProjection(Projection.Value)
-                            .BuildAuto<string>();
-                    });
+                            return builder
+                                .WithNewProjection(Projection.Value)
+                                .BuildAuto<string>();
+                        },
+                        (arguments, format, singleParameterExpression, stringInterpolationExpression, this));
             }
 
             throw new ExpressionNotSupportedException(stringInterpolationExpression);

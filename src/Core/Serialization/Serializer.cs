@@ -273,8 +273,11 @@ namespace ExRam.Gremlinq.Core.Serialization
                         }
                     }
 
-                    return new Bytecode()
-                        .Apply(byteCode => AddTraversal(traversal, byteCode, env, recurse));
+                    var byteCode = new Bytecode();
+
+                    AddTraversal(traversal, byteCode, env, recurse);
+
+                    return byteCode;
                 }))
             .Add(ConverterFactory
                 .Create<Bytecode, GroovyGremlinScript>((query, env, _, _) => query.ToGroovyScript(env)))
