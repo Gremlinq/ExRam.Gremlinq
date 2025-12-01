@@ -1362,7 +1362,7 @@ namespace ExRam.Gremlinq.Core
                         ? this
                         : None(),
 
-                    MemberExpression { Member: FieldInfo } fieldExpression when fieldExpression.Type == typeof(bool) => (bool)fieldExpression.GetValue()!
+                    MemberExpression memberExpression when memberExpression.Type == typeof(bool) && !memberExpression.RefersToParameter(out _) => (bool)memberExpression.GetValue()!
                         ? this
                         : None(),
 

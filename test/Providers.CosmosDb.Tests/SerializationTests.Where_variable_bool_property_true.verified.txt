@@ -1,0 +1,7 @@
+﻿{
+  Script: g.inject(_a).constant(_b),
+  Bindings: {
+    _a: 42,
+    _b: true
+  }
+}

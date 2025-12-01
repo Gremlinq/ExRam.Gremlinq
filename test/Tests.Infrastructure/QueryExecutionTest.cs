@@ -4312,6 +4312,36 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         }
 
         [Fact]
+        public virtual Task Where_variable_bool_property_true()
+        {
+            var anon = new
+            {
+                Prop = true
+            };
+
+            return _g
+                .Inject(42)
+                .Where(x => anon.Prop)
+                .Constant(true)
+                .Verify();
+        }
+
+        [Fact]
+        public virtual Task Where_variable_bool_property_false()
+        {
+            var anon = new
+            {
+                Prop = false
+            };
+
+            return _g
+                .Inject(42)
+                .Where(x => anon.Prop)
+                .Constant(false)
+                .Verify();
+        }
+
+        [Fact]
         public virtual Task Where_bool_property_explicit_comparison1() => _g
             .V<TimeFrame>()
             // ReSharper disable once RedundantBoolCompare
