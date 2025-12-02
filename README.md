@@ -39,8 +39,10 @@ discount if a workshop materializes.
 Add some of the most-wanted features missing from the Core library to your app, like
 
 * System.Text.Json deserialization
+* Request charge diagnostics for Azure CosmosDb
+* OpenTelemetry instrumentation
 * Traversal strategies
 * Groovy script execution
-* Transactions
+* Transactions (in development)
 
 [![#](https://img.shields.io/badge/Check_out_Gremlinq.Extensions!-EA6F1B?style=for-the-badge)](https://docs.gremlinq.net/extensions/)
