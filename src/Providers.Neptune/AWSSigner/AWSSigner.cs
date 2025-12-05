@@ -18,7 +18,7 @@ namespace ExRam.Gremlinq.Providers.Neptune
             {
                 private readonly KeyValuePair<string, string>[] _kvps;
 
-                public AWSV4SignerHeaders(string host, string xAmzDate, string xAmzExpires, string authorization)
+                public AWSV4SignerHeaders(DateTimeOffset timestamp, string host, string xAmzDate, string xAmzExpires, string authorization)
                 {
                     _kvps = [
                         new KeyValuePair<string, string>("host", host),
@@ -26,6 +26,8 @@ namespace ExRam.Gremlinq.Providers.Neptune
                         new KeyValuePair<string, string>("x-amz-expires", xAmzExpires),
                         new KeyValuePair<string, string>("Authorization", authorization)
                     ];
+
+                    Timestamp = timestamp;
                 }
 
                 string IReadOnlyDictionary<string, string>.this[string key]
@@ -38,6 +40,8 @@ namespace ExRam.Gremlinq.Providers.Neptune
                         throw new KeyNotFoundException();
                     }
                 }
+
+                public DateTimeOffset Timestamp { get; }
 
                 IEnumerable<string> IReadOnlyDictionary<string, string>.Keys => _kvps.Select(static x => x.Key);
 
@@ -148,7 +152,7 @@ namespace ExRam.Gremlinq.Providers.Neptune
 
                         ToHexStringLower(hashSpan1, authorizationBytes[^64..]);
 
-                        return new AWSV4SignerHeaders(_uri.Host, actualTime.ToString("yyyyMMddTHHmmssZ"), cacheTimeHeaderValue, Encoding.UTF8.GetString(authorizationBytes));
+                        return new AWSV4SignerHeaders(actualTime, _uri.Host, actualTime.ToString("yyyyMMddTHHmmssZ"), cacheTimeHeaderValue, Encoding.UTF8.GetString(authorizationBytes));
                     };
                 }
             }
