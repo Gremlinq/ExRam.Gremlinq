@@ -99,9 +99,38 @@ namespace ExRam.Gremlinq.Providers.Neptune
                 _indexConfiguration);
         }
 
+        public readonly struct AWSSignerBuilder
+        {
+            public IAWSSigner UseSigV4() => AWSSigner.EmptyV4;
+        }
+
+        public static TConfigurator UseIAMAuthentication<TConfigurator>(this TConfigurator configurator, Func<AWSSignerBuilder, IAWSSigner> builderTransformation)
+            where TConfigurator : IProviderConfigurator<TConfigurator, IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>> => configurator
+                .UseIAMAuthentication(builderTransformation(new AWSSignerBuilder()));
+
+        public static TConfigurator UseIAMAuthentication<TConfigurator>(this TConfigurator configurator, IAWSSigner signer)
+            where TConfigurator : IProviderConfigurator<TConfigurator, IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>> => configurator
+                .UseIAMAuthenticationCore(signer.ConfigureUri(uri => new UriBuilder(uri) { Path = Path.Combine(uri.AbsolutePath, "/gremlin") }.Uri));
+
         public static INeptuneConfigurator UseElasticSearch(this INeptuneConfigurator configurator, Uri elasticSearchEndPoint, NeptuneElasticSearchIndexConfiguration indexConfiguration = NeptuneElasticSearchIndexConfiguration.Standard) => new ElasticSearchAwareNeptuneConfigurator(
             configurator,
             elasticSearchEndPoint,
             indexConfiguration);
+
+        private static TConfigurator UseIAMAuthenticationCore<TConfigurator>(this TConfigurator configurator, IAWSSigner signer)
+            where TConfigurator : IProviderConfigurator<TConfigurator, IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>> => configurator
+                .ConfigureClientFactory(factory => factory
+                    .ConfigureBaseFactory(factory => factory
+                        .ConfigureClientWebSocketFactory(factory => () =>
+                        {
+                            var client = factory();
+
+                            foreach (var kvp in signer.GetIAMHeaders())
+                            {
+                                client.Options.SetRequestHeader(kvp.Key, kvp.Value);
+                            }
+
+                            return client;
+                        })));
     }
 }

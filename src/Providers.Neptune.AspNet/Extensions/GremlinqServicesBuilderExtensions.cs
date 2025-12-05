@@ -1,9 +1,28 @@
-﻿using ExRam.Gremlinq.Core.AspNet;
+﻿using ExRam.Gremlinq.Core;
+using ExRam.Gremlinq.Core.AspNet;
+using ExRam.Gremlinq.Providers.Core;
+
+using Microsoft.Extensions.DependencyInjection;
 
 namespace ExRam.Gremlinq.Providers.Neptune.AspNet
 {
     public static class GremlinqServicesBuilderExtensions
     {
+        private sealed class UseIAMAuthenticationGremlinqConfiguratorTransformation<TConfigurator> : IGremlinqConfiguratorTransformation<TConfigurator>
+           where TConfigurator : IProviderConfigurator<TConfigurator, IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>>
+        {
+            private readonly IAWSSigner _signer;
+
+            public UseIAMAuthenticationGremlinqConfiguratorTransformation(IAWSSigner signer)
+            {
+                _signer = signer;
+            }
+
+            public TConfigurator Transform(TConfigurator configurator) => ReferenceEquals(_signer, AWSSigner.Disabled)
+                ? configurator
+                : configurator.UseIAMAuthentication(_signer);
+        }
+
         public static IGremlinqServicesBuilder<INeptuneConfigurator> UseNeptune<TVertexBase, TEdgeBase>(this IGremlinqServicesBuilder setup)
         {
             return setup
@@ -43,6 +62,45 @@ namespace ExRam.Gremlinq.Providers.Neptune.AspNet
 
                     return configurator;
                 });
+        }
+
+        public static IGremlinqServicesBuilder<TConfigurator> UseIAMAuthentication<TConfigurator>(this IGremlinqServicesBuilder<TConfigurator> builder)
+            where TConfigurator : IProviderConfigurator<TConfigurator, IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>>
+        {
+            builder.Services
+                .AddSingleton(ctx =>
+                {
+                    var gremlinqSection = ctx
+                        .GetRequiredService<IGremlinqConfigurationSection>();
+
+                    var iamSection = gremlinqSection
+                        .GetSection("Neptune")
+                        .GetSection("IAM");
+
+                    if (bool.TryParse(iamSection["Disabled"], out var disabled) && disabled)
+                        return AWSSigner.Disabled;
+
+                    var signer = AWSSigner.EmptyV4;
+
+                    if (iamSection["Uri"] is { Length: > 0 } uri)
+                        signer = signer.ConfigureUri(_ => new Uri(uri));
+                    else if (gremlinqSection["Uri"] is { Length: > 0 } generalUri)
+                        signer = signer.ConfigureUri(_ => new Uri(generalUri));
+
+                    if (iamSection["Region"] is { Length: > 0 } region)
+                        signer = signer.ConfigureRegion(_ => region);
+
+                    if (iamSection["AccessKeyId"] is { Length: > 0 } accessKeyId)
+                        signer = signer.WithAccessKeyId(accessKeyId);
+
+                    if (iamSection["SecretAccessKey"] is { Length: > 0 } accessKey)
+                        signer = signer.WithSecretAccessKey(accessKey);
+
+                    return signer;
+                });
+
+            return builder
+                .Configure<UseIAMAuthenticationGremlinqConfiguratorTransformation<TConfigurator>>();
         }
     }
 }

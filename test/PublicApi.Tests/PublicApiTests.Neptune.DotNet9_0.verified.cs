@@ -1,5 +1,12 @@
 ﻿namespace ExRam.Gremlinq.Providers.Neptune
 {
+    public static class AWSSigner
+    {
+        public static readonly ExRam.Gremlinq.Providers.Neptune.IAWSSigner Disabled;
+        public static readonly ExRam.Gremlinq.Providers.Neptune.IAWSSigner EmptyV4;
+        public static System.Net.Http.Headers.HttpHeaders Sign(this ExRam.Gremlinq.Providers.Neptune.IAWSSigner signer, System.Net.Http.Headers.HttpHeaders headers, System.DateTimeOffset? time = default) { }
+        public static System.Net.Http.HttpRequestMessage Sign(this ExRam.Gremlinq.Providers.Neptune.IAWSSigner signer, System.Net.Http.HttpRequestMessage request, System.DateTimeOffset? time = default) { }
+    }
     public static class ConfigurableGremlinQuerySourceExtensions
     {
         public static ExRam.Gremlinq.Core.IGremlinQuerySource UseNeptune<TVertexBase, TEdgeBase>(this ExRam.Gremlinq.Core.IGremlinQuerySource source, System.Func<ExRam.Gremlinq.Providers.Neptune.INeptuneConfigurator, ExRam.Gremlinq.Core.IGremlinQuerySourceTransformation> configuratorTransformation) { }
@@ -8,10 +15,27 @@
     {
         public static ExRam.Gremlinq.Core.IGremlinQuerySource UseDFE(this ExRam.Gremlinq.Core.IGremlinQuerySource source, bool enabled = true) { }
     }
+    public interface IAWSSigner
+    {
+        ExRam.Gremlinq.Providers.Neptune.IAWSSigner ConfigureCacheTime(System.Func<System.TimeSpan, System.TimeSpan> transformation);
+        ExRam.Gremlinq.Providers.Neptune.IAWSSigner ConfigureRegion(System.Func<string, string> transformation);
+        ExRam.Gremlinq.Providers.Neptune.IAWSSigner ConfigureUri(System.Func<System.Uri, System.Uri> transformation);
+        System.Collections.Generic.IReadOnlyDictionary<string, string> GetIAMHeaders(System.DateTimeOffset? time = default);
+        ExRam.Gremlinq.Providers.Neptune.IAWSSigner WithAccessKeyId(string accessKeyId);
+        ExRam.Gremlinq.Providers.Neptune.IAWSSigner WithSecretAccessKey(string secretAccessKey);
+    }
     public interface INeptuneConfigurator : ExRam.Gremlinq.Core.IGremlinQuerySourceTransformation, ExRam.Gremlinq.Core.IGremlinqConfigurator<ExRam.Gremlinq.Providers.Neptune.INeptuneConfigurator>, ExRam.Gremlinq.Providers.Core.IProviderConfigurator<ExRam.Gremlinq.Providers.Neptune.INeptuneConfigurator, ExRam.Gremlinq.Providers.Core.IPoolGremlinqClientFactory<ExRam.Gremlinq.Providers.Core.IWebSocketGremlinqClientFactory>> { }
     public static class NeptuneConfiguratorExtensions
     {
         public static ExRam.Gremlinq.Providers.Neptune.INeptuneConfigurator UseElasticSearch(this ExRam.Gremlinq.Providers.Neptune.INeptuneConfigurator configurator, System.Uri elasticSearchEndPoint, ExRam.Gremlinq.Providers.Neptune.NeptuneElasticSearchIndexConfiguration indexConfiguration = 0) { }
+        public static TConfigurator UseIAMAuthentication<TConfigurator>(this TConfigurator configurator, ExRam.Gremlinq.Providers.Neptune.IAWSSigner signer)
+            where TConfigurator : ExRam.Gremlinq.Providers.Core.IProviderConfigurator<TConfigurator, ExRam.Gremlinq.Providers.Core.IPoolGremlinqClientFactory<ExRam.Gremlinq.Providers.Core.IWebSocketGremlinqClientFactory>> { }
+        public static TConfigurator UseIAMAuthentication<TConfigurator>(this TConfigurator configurator, System.Func<ExRam.Gremlinq.Providers.Neptune.NeptuneConfiguratorExtensions.AWSSignerBuilder, ExRam.Gremlinq.Providers.Neptune.IAWSSigner> builderTransformation)
+            where TConfigurator : ExRam.Gremlinq.Providers.Core.IProviderConfigurator<TConfigurator, ExRam.Gremlinq.Providers.Core.IPoolGremlinqClientFactory<ExRam.Gremlinq.Providers.Core.IWebSocketGremlinqClientFactory>> { }
+        public readonly struct AWSSignerBuilder
+        {
+            public ExRam.Gremlinq.Providers.Neptune.IAWSSigner UseSigV4() { }
+        }
     }
     public enum NeptuneElasticSearchIndexConfiguration
     {
