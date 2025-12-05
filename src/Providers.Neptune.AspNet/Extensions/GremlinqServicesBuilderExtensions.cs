@@ -85,7 +85,7 @@ namespace ExRam.Gremlinq.Providers.Neptune.AspNet
                     if (iamSection["Uri"] is { Length: > 0 } uri)
                         signer = signer.ConfigureUri(_ => new Uri(uri));
                     else if (gremlinqSection["Uri"] is { Length: > 0 } generalUri)
-                        signer = signer.ConfigureUri(_ => new Uri(generalUri));
+                        signer = signer.ConfigureUri(_ => new Uri(generalUri).EnsurePath());
 
                     if (iamSection["Region"] is { Length: > 0 } region)
                         signer = signer.ConfigureRegion(_ => region);
@@ -102,5 +102,9 @@ namespace ExRam.Gremlinq.Providers.Neptune.AspNet
             return builder
                 .Configure<UseIAMAuthenticationGremlinqConfiguratorTransformation<TConfigurator>>();
         }
+
+        private static Uri EnsurePath(this Uri uri) => uri is { AbsolutePath: null or "" or "/" }
+            ? new UriBuilder(uri) { Path = "gremlin" }.Uri
+            : uri;
     }
 }
