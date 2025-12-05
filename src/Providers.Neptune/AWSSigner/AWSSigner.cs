@@ -5,9 +5,6 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Web;
 
-using Microsoft.Extensions.Caching.Memory;
-using Microsoft.Extensions.Options;
-
 namespace ExRam.Gremlinq.Providers.Neptune
 {
     public static class AWSSigner
@@ -78,13 +75,14 @@ namespace ExRam.Gremlinq.Providers.Neptune
             private static readonly byte[] ServiceBytes = Encoding.UTF8.GetBytes(Service);
             private static readonly byte[] RequestBytes = Encoding.UTF8.GetBytes("aws4_request");
 
+            private AWSV4SignerHeaders? _latestHeaders;
+
             private readonly Uri _uri;
             private readonly string _region;
             private readonly TimeSpan _cacheTime;
             private readonly string? _accessKeyId;
             private readonly byte[]? _secretAccessKey;
             private readonly Func<DateTimeOffset, AWSV4SignerHeaders>? _headersFactory;
-            private readonly MemoryCache _memoryCache = new(Options.Create(new MemoryCacheOptions()));
 
             public static readonly AWSV4SignerImpl Empty = new (new Uri("ws://localhost:8182"), "us-east-1", null, null, null);
 
@@ -174,17 +172,10 @@ namespace ExRam.Gremlinq.Providers.Neptune
                     var actualTime = time ?? DateTimeOffset.UtcNow;
                     actualTime = new DateTimeOffset(actualTime.Ticks - (actualTime.Ticks % _cacheTime.Ticks), actualTime.Offset);
 
-                    var dateTimeStamp = actualTime.ToString("yyyyMMddTHHmmssZ");
+                    if (Volatile.Read(ref _latestHeaders) is { Timestamp: { } latestHeadersTimestamp } latestHeaders && (latestHeadersTimestamp + _cacheTime) > actualTime)
+                        return latestHeaders;
 
-                    if (_memoryCache.TryGetValue(dateTimeStamp, out AWSV4SignerHeaders? ret))
-                        return ret!;
-
-                    var headers = _headersFactory(actualTime);
-
-                    _memoryCache.Set(
-                        dateTimeStamp,
-                        headers,
-                        actualTime + _cacheTime);
+                    var headers = _latestHeaders = _headersFactory(actualTime);
 
                     return headers;
                 }
