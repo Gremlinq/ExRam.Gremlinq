@@ -172,7 +172,7 @@ namespace ExRam.Gremlinq.Providers.Neptune
                     var actualTime = time ?? DateTimeOffset.UtcNow;
                     actualTime = new DateTimeOffset(actualTime.Ticks - (actualTime.Ticks % _cacheTime.Ticks), actualTime.Offset);
 
-                    if (Volatile.Read(ref _latestHeaders) is { Timestamp: { } latestHeadersTimestamp } latestHeaders && (latestHeadersTimestamp + _cacheTime) > actualTime)
+                    if (Volatile.Read(ref _latestHeaders) is { Timestamp: { } latestHeadersTimestamp } latestHeaders && latestHeadersTimestamp <= actualTime && (latestHeadersTimestamp + _cacheTime) > actualTime)
                         return latestHeaders;
 
                     var headers = _latestHeaders = _headersFactory(actualTime);
