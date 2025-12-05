@@ -1,4 +1,5 @@
-﻿using System.Collections.Immutable;
+﻿using System.Collections;
+using System.Collections.Immutable;
 using System.Net.Http.Headers;
 using System.Security.Cryptography;
 using System.Text;
@@ -13,6 +14,59 @@ namespace ExRam.Gremlinq.Providers.Neptune
     {
         private sealed class AWSV4SignerImpl : IAWSSigner
         {
+            private sealed class AWSV4SignerHeaders : IReadOnlyDictionary<string, string>
+            {
+                private readonly KeyValuePair<string, string>[] _kvps;
+
+                public AWSV4SignerHeaders(string host, string xAmzDate, string xAmzExpires, string authorization)
+                {
+                    _kvps = [
+                        new KeyValuePair<string, string>("host", host),
+                        new KeyValuePair<string, string>("x-amz-date", xAmzDate),
+                        new KeyValuePair<string, string>("x-amz-expires", xAmzExpires),
+                        new KeyValuePair<string, string>("Authorization", authorization)
+                    ];
+                }
+
+                string IReadOnlyDictionary<string, string>.this[string key]
+                {
+                    get
+                    {
+                        if (((IReadOnlyDictionary<string, string>)this).TryGetValue(key, out var value))
+                            return value;
+
+                        throw new KeyNotFoundException();
+                    }
+                }
+
+                IEnumerable<string> IReadOnlyDictionary<string, string>.Keys => _kvps.Select(static x => x.Key);
+
+                IEnumerable<string> IReadOnlyDictionary<string, string>.Values => _kvps.Select(static x => x.Value);
+
+                int IReadOnlyCollection<KeyValuePair<string, string>>.Count => 4;
+
+                bool IReadOnlyDictionary<string, string>.ContainsKey(string key) => ((IReadOnlyDictionary<string, string>)this).TryGetValue(key, out _);
+
+                IEnumerator<KeyValuePair<string, string>> IEnumerable<KeyValuePair<string, string>>.GetEnumerator() => ((IEnumerable<KeyValuePair<string, string>>)_kvps).GetEnumerator();
+
+                IEnumerator IEnumerable.GetEnumerator() => ((IEnumerable<KeyValuePair<string, string>>)this).GetEnumerator();
+
+                bool IReadOnlyDictionary<string, string>.TryGetValue(string key, out string value)
+                {
+                    for (var i = 0; i < _kvps.Length; i++)
+                    {
+                        if (_kvps[i].Key == key)
+                        {
+                            value = _kvps[i].Value;
+                            return true;
+                        }
+                    }
+
+                    value = null!;
+                    return false;
+                }
+            }
+
             private const string Service = "neptune-db";
             private const string Algorithm = "AWS4-HMAC-SHA256";
             private const string SignedHeaders = "host;x-amz-date;x-amz-expires";
@@ -25,8 +79,8 @@ namespace ExRam.Gremlinq.Providers.Neptune
             private readonly TimeSpan _cacheTime;
             private readonly string? _accessKeyId;
             private readonly byte[]? _secretAccessKey;
+            private readonly Func<DateTimeOffset, AWSV4SignerHeaders>? _headersFactory;
             private readonly MemoryCache _memoryCache = new(Options.Create(new MemoryCacheOptions()));
-            private readonly Func<DateTimeOffset, ImmutableDictionary<string, string>>? _headersFactory;
 
             public static readonly AWSV4SignerImpl Empty = new (new Uri("ws://localhost:8182"), "us-east-1", null, null, null);
 
@@ -51,9 +105,7 @@ namespace ExRam.Gremlinq.Providers.Neptune
                     var authorizationTemplatePrefix = Encoding.UTF8.GetBytes($"{Algorithm} Credential={accessKeyId}/");
                     var authorizationTemplatePostfix = Encoding.UTF8.GetBytes($"/{region}/{Service}/aws4_request, SignedHeaders={SignedHeaders}, Signature={new string('x', 64)}");
 
-                    var baseHeaders = ImmutableDictionary<string, string>.Empty
-                        .Add("host", _uri.Host)
-                        .Add("x-amz-expires", ((int)_cacheTime.TotalSeconds).ToString());
+                    var cacheTimeHeaderValue = ((int)_cacheTime.TotalSeconds).ToString();
 
                     _headersFactory = actualTime =>
                     {
@@ -96,8 +148,7 @@ namespace ExRam.Gremlinq.Providers.Neptune
 
                         ToHexStringLower(hashSpan1, authorizationBytes[^64..]);
 
-                        return baseHeaders
-                            .Add("Authorization", Encoding.UTF8.GetString(authorizationBytes));
+                        return new AWSV4SignerHeaders(_uri.Host, actualTime.ToString("yyyyMMddTHHmmssZ"), cacheTimeHeaderValue, Encoding.UTF8.GetString(authorizationBytes));
                     };
                 }
             }
@@ -121,11 +172,10 @@ namespace ExRam.Gremlinq.Providers.Neptune
 
                     var dateTimeStamp = actualTime.ToString("yyyyMMddTHHmmssZ");
 
-                    if (_memoryCache.TryGetValue(dateTimeStamp, out ImmutableDictionary<string, string>? ret))
+                    if (_memoryCache.TryGetValue(dateTimeStamp, out AWSV4SignerHeaders? ret))
                         return ret!;
 
-                    var headers = _headersFactory(actualTime)
-                        .Add("x-amz-date", dateTimeStamp);
+                    var headers = _headersFactory(actualTime);
 
                     _memoryCache.Set(
                         dateTimeStamp,
