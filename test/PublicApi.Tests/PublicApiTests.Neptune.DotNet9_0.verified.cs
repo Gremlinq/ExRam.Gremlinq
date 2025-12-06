@@ -6,6 +6,9 @@
         public static readonly ExRam.Gremlinq.Providers.Neptune.IAWSSigner EmptySigV4;
         public static System.Net.Http.Headers.HttpHeaders Sign(this ExRam.Gremlinq.Providers.Neptune.IAWSSigner signer, System.Net.Http.Headers.HttpHeaders headers, System.DateTimeOffset? time = default) { }
         public static System.Net.Http.HttpRequestMessage Sign(this ExRam.Gremlinq.Providers.Neptune.IAWSSigner signer, System.Net.Http.HttpRequestMessage request, System.DateTimeOffset? time = default) { }
+        public static ExRam.Gremlinq.Providers.Neptune.IAWSSigner WithCacheTime(this ExRam.Gremlinq.Providers.Neptune.IAWSSigner signer, System.TimeSpan cacheTime) { }
+        public static ExRam.Gremlinq.Providers.Neptune.IAWSSigner WithRegion(this ExRam.Gremlinq.Providers.Neptune.IAWSSigner signer, string region) { }
+        public static ExRam.Gremlinq.Providers.Neptune.IAWSSigner WithUri(this ExRam.Gremlinq.Providers.Neptune.IAWSSigner signer, System.Uri uri) { }
     }
     public static class ConfigurableGremlinQuerySourceExtensions
     {

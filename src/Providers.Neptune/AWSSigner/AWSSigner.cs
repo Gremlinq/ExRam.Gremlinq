@@ -269,6 +269,15 @@ namespace ExRam.Gremlinq.Providers.Neptune
             return request;
         }
 
+        public static IAWSSigner WithUri(this IAWSSigner signer, Uri uri) => signer
+            .ConfigureUri(_ => uri);
+
+        public static IAWSSigner WithRegion(this IAWSSigner signer, string region) => signer
+            .ConfigureRegion(_ => region);
+
+        public static IAWSSigner WithCacheTime(this IAWSSigner signer, TimeSpan cacheTime) => signer
+            .ConfigureCacheTime(_ => cacheTime);
+
         public static HttpHeaders Sign(this IAWSSigner signer, HttpHeaders headers, DateTimeOffset? time = null)
         {
             foreach (var kvp in signer.GetIAMHeaders(time))
