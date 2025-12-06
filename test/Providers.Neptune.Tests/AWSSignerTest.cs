@@ -2,7 +2,7 @@
 {
     public class AWSSignerTest : VerifyBase
     {
-        private readonly IAWSSigner _signer;
+        private readonly ISigV4AWSSigner _signer;
 
         public AWSSignerTest() : base()
         {

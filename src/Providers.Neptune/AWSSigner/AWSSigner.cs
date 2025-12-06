@@ -9,7 +9,7 @@ namespace ExRam.Gremlinq.Providers.Neptune
 {
     public static class AWSSigner
     {
-        private sealed class AWSV4SignerImpl : IAWSSigner
+        private sealed class SigV4AWSSigner : ISigV4AWSSigner
         {
             private sealed class AWSV4SignerHeaders : IReadOnlyDictionary<string, string>
             {
@@ -84,9 +84,9 @@ namespace ExRam.Gremlinq.Providers.Neptune
             private readonly byte[]? _secretAccessKey;
             private readonly Func<DateTimeOffset, AWSV4SignerHeaders>? _headersFactory;
 
-            public static readonly AWSV4SignerImpl Empty = new (new Uri("ws://localhost:8182"), "us-east-1", null, null, null);
+            public static readonly SigV4AWSSigner Empty = new (new Uri("ws://localhost:8182"), "us-east-1", null, null, null);
 
-            private AWSV4SignerImpl(Uri uri, string region, string? accessKeyId, byte[]? secretAccessKey, TimeSpan? cacheTime)
+            private SigV4AWSSigner(Uri uri, string region, string? accessKeyId, byte[]? secretAccessKey, TimeSpan? cacheTime)
             {
                 if (string.IsNullOrEmpty(region))
                     throw new ArgumentException("region must not be null or empty.", nameof(region));
@@ -155,15 +155,15 @@ namespace ExRam.Gremlinq.Providers.Neptune
                 }
             }
 
-            public IAWSSigner ConfigureUri(Func<Uri, Uri> transformation) => new AWSV4SignerImpl(transformation(_uri), _region, _accessKeyId, _secretAccessKey, _cacheTime);
+            public ISigV4AWSSigner ConfigureUri(Func<Uri, Uri> transformation) => new SigV4AWSSigner(transformation(_uri), _region, _accessKeyId, _secretAccessKey, _cacheTime);
 
-            public IAWSSigner ConfigureRegion(Func<string, string> transformation) => new AWSV4SignerImpl(_uri, transformation(_region), _accessKeyId, _secretAccessKey, _cacheTime);
+            public ISigV4AWSSigner ConfigureRegion(Func<string, string> transformation) => new SigV4AWSSigner(_uri, transformation(_region), _accessKeyId, _secretAccessKey, _cacheTime);
 
-            public IAWSSigner ConfigureCacheTime(Func<TimeSpan, TimeSpan> transformation) => new AWSV4SignerImpl(_uri, _region, _accessKeyId, _secretAccessKey, transformation(_cacheTime));
+            public ISigV4AWSSigner ConfigureCacheTime(Func<TimeSpan, TimeSpan> transformation) => new SigV4AWSSigner(_uri, _region, _accessKeyId, _secretAccessKey, transformation(_cacheTime));
 
-            public IAWSSigner WithAccessKeyId(string accessKeyId) => new AWSV4SignerImpl(_uri, _region, accessKeyId, _secretAccessKey, _cacheTime);
+            public ISigV4AWSSigner WithAccessKeyId(string accessKeyId) => new SigV4AWSSigner(_uri, _region, accessKeyId, _secretAccessKey, _cacheTime);
 
-            public IAWSSigner WithSecretAccessKey(string secretAccessKey) => new AWSV4SignerImpl(_uri, _region, _accessKeyId, Encoding.UTF8.GetBytes("AWS4" + secretAccessKey), _cacheTime);
+            public ISigV4AWSSigner WithSecretAccessKey(string secretAccessKey) => new SigV4AWSSigner(_uri, _region, _accessKeyId, Encoding.UTF8.GetBytes("AWS4" + secretAccessKey), _cacheTime);
 
             public IReadOnlyDictionary<string, string> GetIAMHeaders(DateTimeOffset? time = null)
             {
@@ -254,7 +254,7 @@ namespace ExRam.Gremlinq.Providers.Neptune
             public IAWSSigner WithSecretAccessKey(string secretAccessKey) => this;
         }
 
-        public static readonly IAWSSigner EmptySigV4 = AWSV4SignerImpl.Empty;
+        public static readonly ISigV4AWSSigner EmptySigV4 = SigV4AWSSigner.Empty;
         public static readonly IAWSSigner Disabled = DisabledAWSSigner.Instance;
 
         public static HttpRequestMessage Sign(this IAWSSigner signer, HttpRequestMessage request, DateTimeOffset? time = null)
@@ -269,13 +269,13 @@ namespace ExRam.Gremlinq.Providers.Neptune
             return request;
         }
 
-        public static IAWSSigner WithUri(this IAWSSigner signer, Uri uri) => signer
+        public static ISigV4AWSSigner WithUri(this ISigV4AWSSigner signer, Uri uri) => signer
             .ConfigureUri(_ => uri);
 
-        public static IAWSSigner WithRegion(this IAWSSigner signer, string region) => signer
+        public static ISigV4AWSSigner WithRegion(this ISigV4AWSSigner signer, string region) => signer
             .ConfigureRegion(_ => region);
 
-        public static IAWSSigner WithCacheTime(this IAWSSigner signer, TimeSpan cacheTime) => signer
+        public static ISigV4AWSSigner WithCacheTime(this ISigV4AWSSigner signer, TimeSpan cacheTime) => signer
             .ConfigureCacheTime(_ => cacheTime);
 
         public static HttpHeaders Sign(this IAWSSigner signer, HttpHeaders headers, DateTimeOffset? time = null)
