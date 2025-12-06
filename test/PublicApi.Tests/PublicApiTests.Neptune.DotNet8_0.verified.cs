@@ -3,7 +3,7 @@
     public static class AWSSigner
     {
         public static readonly ExRam.Gremlinq.Providers.Neptune.IAWSSigner Disabled;
-        public static readonly ExRam.Gremlinq.Providers.Neptune.IAWSSigner EmptyV4;
+        public static readonly ExRam.Gremlinq.Providers.Neptune.IAWSSigner EmptySigV4;
         public static System.Net.Http.Headers.HttpHeaders Sign(this ExRam.Gremlinq.Providers.Neptune.IAWSSigner signer, System.Net.Http.Headers.HttpHeaders headers, System.DateTimeOffset? time = default) { }
         public static System.Net.Http.HttpRequestMessage Sign(this ExRam.Gremlinq.Providers.Neptune.IAWSSigner signer, System.Net.Http.HttpRequestMessage request, System.DateTimeOffset? time = default) { }
     }

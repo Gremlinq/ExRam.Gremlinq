@@ -254,7 +254,7 @@ namespace ExRam.Gremlinq.Providers.Neptune
             public IAWSSigner WithSecretAccessKey(string secretAccessKey) => this;
         }
 
-        public static readonly IAWSSigner EmptyV4 = AWSV4SignerImpl.Empty;
+        public static readonly IAWSSigner EmptySigV4 = AWSV4SignerImpl.Empty;
         public static readonly IAWSSigner Disabled = DisabledAWSSigner.Instance;
 
         public static HttpRequestMessage Sign(this IAWSSigner signer, HttpRequestMessage request, DateTimeOffset? time = null)

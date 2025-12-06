@@ -6,7 +6,7 @@
 
         public AWSSignerTest() : base()
         {
-            _signer = AWSSigner.EmptyV4
+            _signer = AWSSigner.EmptySigV4
                 .ConfigureUri(_ => new Uri("http://some.host.com"))
                 .ConfigureRegion(_ => "eu-central-1")
                 .WithAccessKeyId("accessKeyId")

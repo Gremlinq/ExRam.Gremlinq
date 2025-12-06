@@ -80,7 +80,7 @@ namespace ExRam.Gremlinq.Providers.Neptune.AspNet
                     if (bool.TryParse(iamSection["Disabled"], out var disabled) && disabled)
                         return AWSSigner.Disabled;
 
-                    var signer = AWSSigner.EmptyV4;
+                    var signer = AWSSigner.EmptySigV4;
 
                     if (iamSection["Uri"] is { Length: > 0 } uri)
                         signer = signer.ConfigureUri(_ => new Uri(uri));
