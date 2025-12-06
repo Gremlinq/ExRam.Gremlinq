@@ -19,6 +19,12 @@ namespace ExRam.Gremlinq.Templates.Console
                .UseTEMPLATEPROVIDER<Vertex, Edge>(configurator => configurator
 #if (provider == "Neptune")
                     .At(new Uri("wss://your.neptune.endpoint/"))
+                    .UseIAMAuthentication(_ => _
+                        .UseSigV4()
+                        .WithUri(new Uri("wss://your.neptune.endpoint/"))
+                        .WithRegion("us-east-1")
+                        .WithAccessKeyId("accessKeyId")
+                        .WithSecretAccessKey("secretAccessKey"))
 #elif (provider == "CosmosDb")
                     .At(new Uri("wss://your.cosmosdb.endpoint/"))
                     .OnDatabase("your database name")
