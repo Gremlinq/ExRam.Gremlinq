@@ -15,6 +15,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services
     .AddGremlinq(setup => setup
         .UseTEMPLATEPROVIDER<Vertex, Edge>()
+#if (provider == "Neptune")
+        .UseIAMAuthentication()
+#endif
         .UseNewtonsoftJson())
     .AddControllers();
 
