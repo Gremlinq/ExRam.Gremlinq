@@ -235,9 +235,9 @@ namespace ExRam.Gremlinq.Providers.Neptune
             private static InvalidOperationException Throw(string messageDetail) => throw new InvalidOperationException($"Missing Neptune IAM configuration: {messageDetail}");
         }
 
-        private sealed class DisabledAWSSigner : IAWSSigner
+        private sealed class DisabledAWSSigner : IDisabledAWSSigner
         {
-            public static IAWSSigner Instance = new DisabledAWSSigner();
+            public static DisabledAWSSigner Instance = new ();
 
             private DisabledAWSSigner()
             {
@@ -245,10 +245,12 @@ namespace ExRam.Gremlinq.Providers.Neptune
             }
 
             public IReadOnlyDictionary<string, string> GetIAMHeaders(DateTimeOffset? time = null) => ImmutableDictionary<string, string>.Empty;
+
+            public IAWSSigner UseSigV4() => SigV4AWSSigner.Empty;
         }
 
         public static readonly ISigV4AWSSigner EmptySigV4 = SigV4AWSSigner.Empty;
-        public static readonly IAWSSigner Disabled = DisabledAWSSigner.Instance;
+        public static readonly IDisabledAWSSigner Disabled = DisabledAWSSigner.Instance;
 
         public static HttpRequestMessage Sign(this IAWSSigner signer, HttpRequestMessage request, DateTimeOffset? time = null)
         {

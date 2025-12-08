@@ -68,7 +68,7 @@ namespace ExRam.Gremlinq.Providers.Neptune.AspNet
             where TConfigurator : IProviderConfigurator<TConfigurator, IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>>
         {
             builder.Services
-                .AddSingleton(ctx =>
+                .AddSingleton<IAWSSigner>(ctx =>
                 {
                     var gremlinqSection = ctx
                         .GetRequiredService<IGremlinqConfigurationSection>();

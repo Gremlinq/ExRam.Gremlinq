@@ -99,9 +99,9 @@ namespace ExRam.Gremlinq.Providers.Neptune
                 _indexConfiguration);
         }
 
-        public static TConfigurator UseIAMAuthentication<TConfigurator>(this TConfigurator configurator, Func<AWSSignerBuilder, IAWSSigner> builderTransformation)
+        public static TConfigurator UseIAMAuthentication<TConfigurator>(this TConfigurator configurator, Func<IDisabledAWSSigner, IAWSSigner> builderTransformation)
             where TConfigurator : IProviderConfigurator<TConfigurator, IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>> => configurator
-                .UseIAMAuthentication(builderTransformation(new AWSSignerBuilder()));
+                .UseIAMAuthentication(builderTransformation(AWSSigner.Disabled));
 
         public static TConfigurator UseIAMAuthentication<TConfigurator>(this TConfigurator configurator, IAWSSigner signer)
             where TConfigurator : IProviderConfigurator<TConfigurator, IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>> => configurator
