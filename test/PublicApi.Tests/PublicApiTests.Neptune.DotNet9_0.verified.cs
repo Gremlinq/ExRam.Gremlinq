@@ -10,6 +10,10 @@
         public static ExRam.Gremlinq.Providers.Neptune.ISigV4AWSSigner WithRegion(this ExRam.Gremlinq.Providers.Neptune.ISigV4AWSSigner signer, string region) { }
         public static ExRam.Gremlinq.Providers.Neptune.ISigV4AWSSigner WithUri(this ExRam.Gremlinq.Providers.Neptune.ISigV4AWSSigner signer, System.Uri uri) { }
     }
+    public readonly struct AWSSignerBuilder
+    {
+        public ExRam.Gremlinq.Providers.Neptune.IAWSSigner UseSigV4() { }
+    }
     public static class ConfigurableGremlinQuerySourceExtensions
     {
         public static ExRam.Gremlinq.Core.IGremlinQuerySource UseNeptune<TVertexBase, TEdgeBase>(this ExRam.Gremlinq.Core.IGremlinQuerySource source, System.Func<ExRam.Gremlinq.Providers.Neptune.INeptuneConfigurator, ExRam.Gremlinq.Core.IGremlinQuerySourceTransformation> configuratorTransformation) { }
@@ -36,12 +40,8 @@
         public static ExRam.Gremlinq.Providers.Neptune.INeptuneConfigurator UseElasticSearch(this ExRam.Gremlinq.Providers.Neptune.INeptuneConfigurator configurator, System.Uri elasticSearchEndPoint, ExRam.Gremlinq.Providers.Neptune.NeptuneElasticSearchIndexConfiguration indexConfiguration = 0) { }
         public static TConfigurator UseIAMAuthentication<TConfigurator>(this TConfigurator configurator, ExRam.Gremlinq.Providers.Neptune.IAWSSigner signer)
             where TConfigurator : ExRam.Gremlinq.Providers.Core.IProviderConfigurator<TConfigurator, ExRam.Gremlinq.Providers.Core.IPoolGremlinqClientFactory<ExRam.Gremlinq.Providers.Core.IWebSocketGremlinqClientFactory>> { }
-        public static TConfigurator UseIAMAuthentication<TConfigurator>(this TConfigurator configurator, System.Func<ExRam.Gremlinq.Providers.Neptune.NeptuneConfiguratorExtensions.AWSSignerBuilder, ExRam.Gremlinq.Providers.Neptune.IAWSSigner> builderTransformation)
+        public static TConfigurator UseIAMAuthentication<TConfigurator>(this TConfigurator configurator, System.Func<ExRam.Gremlinq.Providers.Neptune.AWSSignerBuilder, ExRam.Gremlinq.Providers.Neptune.IAWSSigner> builderTransformation)
             where TConfigurator : ExRam.Gremlinq.Providers.Core.IProviderConfigurator<TConfigurator, ExRam.Gremlinq.Providers.Core.IPoolGremlinqClientFactory<ExRam.Gremlinq.Providers.Core.IWebSocketGremlinqClientFactory>> { }
-        public readonly struct AWSSignerBuilder
-        {
-            public ExRam.Gremlinq.Providers.Neptune.IAWSSigner UseSigV4() { }
-        }
     }
     public enum NeptuneElasticSearchIndexConfiguration
     {

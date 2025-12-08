@@ -99,11 +99,6 @@ namespace ExRam.Gremlinq.Providers.Neptune
                 _indexConfiguration);
         }
 
-        public readonly struct AWSSignerBuilder
-        {
-            public IAWSSigner UseSigV4() => AWSSigner.EmptySigV4;
-        }
-
         public static TConfigurator UseIAMAuthentication<TConfigurator>(this TConfigurator configurator, Func<AWSSignerBuilder, IAWSSigner> builderTransformation)
             where TConfigurator : IProviderConfigurator<TConfigurator, IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>> => configurator
                 .UseIAMAuthentication(builderTransformation(new AWSSignerBuilder()));
