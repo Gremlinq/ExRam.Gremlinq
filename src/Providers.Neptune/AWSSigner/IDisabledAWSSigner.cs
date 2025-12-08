@@ -2,6 +2,6 @@
 {
     public interface IDisabledAWSSigner : IAWSSigner
     {
-        IAWSSigner UseSigV4();
+        ISigV4AWSSigner UseSigV4();
     }
 }

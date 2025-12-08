@@ -24,7 +24,7 @@
     }
     public interface IDisabledAWSSigner : ExRam.Gremlinq.Providers.Neptune.IAWSSigner
     {
-        ExRam.Gremlinq.Providers.Neptune.IAWSSigner UseSigV4();
+        ExRam.Gremlinq.Providers.Neptune.ISigV4AWSSigner UseSigV4();
     }
     public interface INeptuneConfigurator : ExRam.Gremlinq.Core.IGremlinQuerySourceTransformation, ExRam.Gremlinq.Core.IGremlinqConfigurator<ExRam.Gremlinq.Providers.Neptune.INeptuneConfigurator>, ExRam.Gremlinq.Providers.Core.IProviderConfigurator<ExRam.Gremlinq.Providers.Neptune.INeptuneConfigurator, ExRam.Gremlinq.Providers.Core.IPoolGremlinqClientFactory<ExRam.Gremlinq.Providers.Core.IWebSocketGremlinqClientFactory>> { }
     public interface ISigV4AWSSigner : ExRam.Gremlinq.Providers.Neptune.IAWSSigner

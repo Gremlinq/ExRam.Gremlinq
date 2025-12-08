@@ -246,7 +246,7 @@ namespace ExRam.Gremlinq.Providers.Neptune
 
             public IReadOnlyDictionary<string, string> GetIAMHeaders(DateTimeOffset? time = null) => ImmutableDictionary<string, string>.Empty;
 
-            public IAWSSigner UseSigV4() => SigV4AWSSigner.Empty;
+            public ISigV4AWSSigner UseSigV4() => SigV4AWSSigner.Empty;
         }
 
         public static readonly ISigV4AWSSigner EmptySigV4 = SigV4AWSSigner.Empty;
