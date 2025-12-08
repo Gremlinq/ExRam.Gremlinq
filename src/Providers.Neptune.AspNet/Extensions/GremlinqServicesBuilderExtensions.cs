@@ -83,12 +83,12 @@ namespace ExRam.Gremlinq.Providers.Neptune.AspNet
                     var signer = AWSSigner.EmptySigV4;
 
                     if (iamSection["Uri"] is { Length: > 0 } uri)
-                        signer = signer.ConfigureUri(_ => new Uri(uri));
+                        signer = signer.WithUri(new Uri(uri));
                     else if (gremlinqSection["Uri"] is { Length: > 0 } generalUri)
-                        signer = signer.ConfigureUri(_ => new Uri(generalUri).EnsurePath());
+                        signer = signer.WithUri(new Uri(generalUri).EnsurePath());
 
                     if (iamSection["Region"] is { Length: > 0 } region)
-                        signer = signer.ConfigureRegion(_ => region);
+                        signer = signer.WithRegion(region);
 
                     if (iamSection["AccessKeyId"] is { Length: > 0 } accessKeyId)
                         signer = signer.WithAccessKeyId(accessKeyId);
