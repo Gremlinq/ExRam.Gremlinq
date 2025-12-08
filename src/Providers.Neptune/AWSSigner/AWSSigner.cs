@@ -91,16 +91,19 @@ namespace ExRam.Gremlinq.Providers.Neptune
                 if (string.IsNullOrEmpty(region))
                     throw new ArgumentException("region must not be null or empty.", nameof(region));
 
-                _uri = uri;
                 _region = region;
                 _accessKeyId = accessKeyId;
                 _secretAccessKey = secretAccessKey;
                 _cacheTime = cacheTime ?? TimeSpan.FromMinutes(5);
 
+                _uri = uri is { AbsolutePath: null or "" or "/" }
+                    ? new UriBuilder(uri) { Path = "gremlin" }.Uri
+                    : uri;
+
                 if (accessKeyId is not null && secretAccessKey is not null)
                 {
                     var regionBytes = Encoding.UTF8.GetBytes(region);
-                    var canonicalRequestPrefix = Encoding.UTF8.GetBytes($"GET\n{string.Join("/", uri.AbsolutePath.Split('/').Select(Uri.EscapeDataString))}\n{GetCanonicalQueryParams(uri.Query)}\nhost:{uri.Host}\nx-amz-date:");
+                    var canonicalRequestPrefix = Encoding.UTF8.GetBytes($"GET\n{string.Join("/", _uri.AbsolutePath.Split('/').Select(Uri.EscapeDataString))}\n{GetCanonicalQueryParams(_uri.Query)}\nhost:{_uri.Host}\nx-amz-date:");
                     var canonicalRequestPostfix = Encoding.UTF8.GetBytes($"\nx-amz-expires:{(int)_cacheTime.TotalSeconds}\n\n{SignedHeaders}\ne3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855");
                     var stringToSignTemplate = Encoding.UTF8.GetBytes($"{Algorithm}\nyyyyMMddTHHmmssZ\nyyyyMMdd/{region}/{Service}/aws4_request\n{new string('x', 64)}");
 
