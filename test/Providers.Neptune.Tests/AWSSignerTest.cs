@@ -14,6 +14,10 @@
         }
 
         [Fact]
+        public Task Neptune_EuCentral_1_implicit_path() => Verify(_signer
+            .GetIAMHeaders(DateTimeOffset.Parse("01.01.2021 09:00")));
+
+        [Fact]
         public Task Neptune_EuCentral_1_with_explicit_path() => Verify(_signer
             .ConfigureUri(_ => new Uri("http://some.host.com/specificPath"))
             .GetIAMHeaders(DateTimeOffset.Parse("01.01.2021 09:00")));
