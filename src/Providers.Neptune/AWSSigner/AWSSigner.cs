@@ -244,17 +244,7 @@ namespace ExRam.Gremlinq.Providers.Neptune
 
             }
 
-            public IAWSSigner ConfigureCacheTime(Func<TimeSpan, TimeSpan> transformation) => this;
-
-            public IAWSSigner ConfigureRegion(Func<string, string> transformation) => this;
-
-            public IAWSSigner ConfigureUri(Func<Uri, Uri> transformation) => this;
-
             public IReadOnlyDictionary<string, string> GetIAMHeaders(DateTimeOffset? time = null) => ImmutableDictionary<string, string>.Empty;
-
-            public IAWSSigner WithAccessKeyId(string accessKeyId) => this;
-
-            public IAWSSigner WithSecretAccessKey(string secretAccessKey) => this;
         }
 
         public static readonly ISigV4AWSSigner EmptySigV4 = SigV4AWSSigner.Empty;
