@@ -16,6 +16,11 @@ namespace ExRam.Gremlinq.Tests.Fixtures
         protected override IGremlinQuerySource TransformQuerySource(IContainer container, IGremlinQuerySource g) => g
             .UseNeptune<Vertex, Edge>(_ => _
                 .At(new UriBuilder("ws", container.Hostname, container.GetMappedPublicPort(8182)).Uri)
+                .UseIAMAuthentication(_ => _
+                    .UseSigV4()
+                    .WithUri(new UriBuilder("ws", container.Hostname, container.GetMappedPublicPort(8182)).Uri)
+                    .WithAccessKeyId("accessKeyId")
+                    .WithSecretAccessKey("secretAccessKey"))
                 .UseNewtonsoftJson())
             .IgnoreCosmosDbSpecificProperties();
     }
