@@ -6,6 +6,7 @@ using ExRam.Gremlinq.Testing.AirRoutes;
 using ExRam.Gremlinq.Tests.Fixtures;
 using ExRam.Gremlinq.Tests.Infrastructure;
 using ExRam.Gremlinq.Support.NewtonsoftJson;
+using FluentAssertions;
 
 namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 {
@@ -40,6 +41,30 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
                 .CreateAirRoutesSmall(TestContext.Current.CancellationToken);
 
             await Verify( _source.V().Count().FirstAsync(TestContext.Current.CancellationToken));
+        }
+
+        [Fact]
+        public async Task Idempotency()
+        {
+            await _source
+                .CreateAirRoutesSmall(TestContext.Current.CancellationToken);
+
+            var first = await _source
+                .V()
+                .Count()
+                .FirstAsync(TestContext.Current.CancellationToken);
+
+            await _source
+                .CreateAirRoutesSmall(TestContext.Current.CancellationToken);
+
+            var second = await _source
+                .V()
+                .Count()
+                .FirstAsync(TestContext.Current.CancellationToken);
+
+            second
+                .Should()
+                .Be(first);
         }
     }
 }

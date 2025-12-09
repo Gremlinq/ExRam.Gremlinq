@@ -108,43 +108,55 @@ namespace ExRam.Gremlinq.Testing.AirRoutes.Generator
                                             .WriteLine("await source")
                                             .Indent(writer =>
                                             {
+                                                writer = writer
+                                                    .WriteLine(".Inject(0)");
+
                                                 foreach (var node in nodes)
                                                 {
                                                     if (node.Data is { } nodeData)
                                                     {
+                                                        var nodeId = $"airport_{node.Id}";
+
                                                         if (nodeData.Any(nodeDataKey => nodeDataKey.Key == "labelV" && nodeDataKey.Text == "airport"))
                                                         {
                                                             if (nodeData.FirstOrDefault(nodeDataKey => nodeDataKey.Key == "code") is { Text: { Length: > 0 } code })
                                                             {
                                                                 writer = writer
-                                                                    .WriteLine(".AddV(new Airport {")
-                                                                    .Indent(writer =>
-                                                                    {
-                                                                        writer = writer
-                                                                            .WriteLine($"Id =\"airport_{node.Id}\",")
-                                                                            .WriteLine($"Code = \"{code}\",");
-
-                                                                        foreach (var data in nodeData)
-                                                                        {
-                                                                            writer = data.Key switch
+                                                                    .WriteLine(".Coalesce(")
+                                                                    .Indent(writer => writer
+                                                                        .WriteLine("__ => __")
+                                                                        .Indent(writer => writer
+                                                                            .WriteLine($".V(\"{nodeId}\"),"))
+                                                                        .WriteLine("__ => __")
+                                                                        .Indent(writer => writer
+                                                                            .WriteLine(".AddV(new Airport {")
+                                                                            .Indent(writer =>
                                                                             {
-                                                                                "icao" => writer.WriteLine($"ICAO = \"{data.Text}\","),
-                                                                                "city" => writer.WriteLine($"City = \"{data.Text}\","),
-                                                                                "desc" => writer.WriteLine($"Description = \"{data.Text}\","),
-                                                                                "region" => writer.WriteLine($"Region = \"{data.Text}\","),
-                                                                                "runways" => writer.WriteLine($"Runways = {data.Text},"),
-                                                                                "longestRunway" => writer.WriteLine($"LongestRunway = {data.Text},"),
-                                                                                "elev" => writer.WriteLine($"Elevation = {data.Text},"),
-                                                                                "country" => writer.WriteLine($"Country = \"{data.Text}\","),
-                                                                                "lat" => writer.WriteLine($"Latitude = {data.Text},"),
-                                                                                "lon" => writer.WriteLine($"Longitude = {data.Text},"),
-                                                                                _ => writer
-                                                                            };
-                                                                        }
+                                                                                writer = writer
+                                                                                    .WriteLine($"Id =\"{nodeId}\",")
+                                                                                    .WriteLine($"Code = \"{code}\",");
 
-                                                                        return writer;
-                                                                    })
-                                                                    .WriteLine("})");
+                                                                                foreach (var data in nodeData)
+                                                                                {
+                                                                                    writer = data.Key switch
+                                                                                    {
+                                                                                        "icao" => writer.WriteLine($"ICAO = \"{data.Text}\","),
+                                                                                        "city" => writer.WriteLine($"City = \"{data.Text}\","),
+                                                                                        "desc" => writer.WriteLine($"Description = \"{data.Text}\","),
+                                                                                        "region" => writer.WriteLine($"Region = \"{data.Text}\","),
+                                                                                        "runways" => writer.WriteLine($"Runways = {data.Text},"),
+                                                                                        "longestRunway" => writer.WriteLine($"LongestRunway = {data.Text},"),
+                                                                                        "elev" => writer.WriteLine($"Elevation = {data.Text},"),
+                                                                                        "country" => writer.WriteLine($"Country = \"{data.Text}\","),
+                                                                                        "lat" => writer.WriteLine($"Latitude = {data.Text},"),
+                                                                                        "lon" => writer.WriteLine($"Longitude = {data.Text},"),
+                                                                                        _ => writer
+                                                                                    };
+                                                                                }
+
+                                                                                return writer;
+                                                                            })
+                                                                            .WriteLine("}))")));
                                                             }
                                                         }
                                                     }
@@ -166,6 +178,8 @@ namespace ExRam.Gremlinq.Testing.AirRoutes.Generator
                                                     {
                                                         foreach (var edge in edgeGroup)
                                                         {
+                                                            var routeId = $"airroute_{edge.Id}";
+
                                                             if (edge.Data is { } edgeData)
                                                             {
                                                                 if (edgeData.Any(nodeDataKey => nodeDataKey.Key == "labelE" && nodeDataKey.Text == "route"))
@@ -175,14 +189,22 @@ namespace ExRam.Gremlinq.Testing.AirRoutes.Generator
                                                                         writer = writer
                                                                             .WriteLine(".SideEffect(__ => __")
                                                                             .Indent(writer => writer
-                                                                                .WriteLine(".AddE(new Route {")
-                                                                                   .Indent(writer => writer
-                                                                                       .WriteLine($"Id = \"route_{edge.Id}\",")
-                                                                                       .WriteLine($"Distance = {dist}"))
-                                                                                   .WriteLine("})")
-                                                                                   .WriteLine(".To(__ => __")
-                                                                                   .Indent(writer => writer
-                                                                                       .WriteLine($".V<Airport>(\"airport_{edge.Target}\")))")));
+                                                                                .WriteLine(".Coalesce(")
+                                                                                .Indent(writer => writer
+                                                                                    .WriteLine("__ => __")
+                                                                                    .Indent(writer => writer
+                                                                                        .WriteLine(".OutE<Route>()")
+                                                                                        .WriteLine($".Where(x => x.Id == \"{routeId}\"),"))
+                                                                                    .WriteLine("__ => __")
+                                                                                    .Indent(writer => writer
+                                                                                        .WriteLine(".AddE(new Route {")
+                                                                                           .Indent(writer => writer
+                                                                                               .WriteLine($"Id = \"{routeId}\",")
+                                                                                               .WriteLine($"Distance = {dist}"))
+                                                                                           .WriteLine("})")
+                                                                                           .WriteLine(".To(__ => __")
+                                                                                           .Indent(writer => writer
+                                                                                               .WriteLine($".V<Airport>(\"airport_{edge.Target}\"))))")))));
                                                                     }
                                                                 }
                                                             }
