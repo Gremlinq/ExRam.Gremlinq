@@ -101,7 +101,7 @@ namespace ExRam.Gremlinq.Testing.AirRoutes.Generator
                                 .WriteLine($"public static async Task {methodName}(this IGremlinQuerySource source, CancellationToken ct = default)")
                                 .Block(writer =>
                                 {
-                                    var nodeCodes = new Dictionary<int, string>();
+                                    //var nodeCodes = new Dictionary<int, string>();
 
                                     if (graphml.Graph?.Node is { } nodes)
                                     {
@@ -113,8 +113,6 @@ namespace ExRam.Gremlinq.Testing.AirRoutes.Generator
                                                 {
                                                     if (nodeData.FirstOrDefault(nodeDataKey => nodeDataKey.Key == "code") is { Text: { Length: > 0 } code })
                                                     {
-                                                        nodeCodes[node.Id] = code;
-
                                                         writer = writer
                                                             .WriteLine("await source")
                                                             .Indent(writer => writer
@@ -122,6 +120,7 @@ namespace ExRam.Gremlinq.Testing.AirRoutes.Generator
                                                                 .Indent(writer =>
                                                                 {
                                                                     writer = writer
+                                                                        .WriteLine($"Id =\"airport_{node.Id}\",")
                                                                         .WriteLine($"Code = \"{code}\",");
 
                                                                     foreach (var data in nodeData)
@@ -159,30 +158,26 @@ namespace ExRam.Gremlinq.Testing.AirRoutes.Generator
                                     {
                                         foreach (var edge in edges)
                                         {
-                                            if (nodeCodes.TryGetValue(edge.Source, out var srcCode) && nodeCodes.TryGetValue(edge.Target, out var trgtCode))
+                                            if (edge.Data is { } edgeData)
                                             {
-                                                if (edge.Data is { } edgeData)
+                                                if (edgeData.Any(nodeDataKey => nodeDataKey.Key == "labelE" && nodeDataKey.Text == "route"))
                                                 {
-                                                    if (edgeData.Any(nodeDataKey => nodeDataKey.Key == "labelE" && nodeDataKey.Text == "route"))
+                                                    if (edgeData.FirstOrDefault(nodeDataKey => nodeDataKey.Key == "dist") is { Text: { Length: > 0 } dist })
                                                     {
-                                                        if (edgeData.FirstOrDefault(nodeDataKey => nodeDataKey.Key == "dist") is { Text: { Length: > 0 } dist })
-                                                        {
-                                                            writer = writer
-                                                                .WriteLine("await source")
+                                                        writer = writer
+                                                            .WriteLine("await source")
+                                                            .Indent(writer => writer
+                                                                .WriteLine($".V<Airport>(\"airport_{edge.Source}\")")
+                                                                .WriteLine(".AddE(new Route {")
                                                                 .Indent(writer => writer
-                                                                    .WriteLine(".V<Airport>()")
-                                                                    .WriteLine($".Where(x => x.Code == \"{srcCode}\")")
-                                                                    .WriteLine(".AddE(new Route {")
-                                                                    .Indent(writer => writer
-                                                                        .WriteLine($"Distance = {dist}"))
-                                                                    .WriteLine("})")
-                                                                    .WriteLine(".To(__ => __")
-                                                                    .Indent(writer => writer
-                                                                        .WriteLine(".V<Airport>()")
-                                                                        .WriteLine($".Where(x => x.Code == \"{trgtCode}\"))"))
-                                                                    .WriteLine(".ToArrayAsync(ct);"))
-                                                                .WriteLine();
-                                                        }
+                                                                    .WriteLine($"Id = \"route_{edge.Id}\",")
+                                                                    .WriteLine($"Distance = {dist}"))
+                                                                .WriteLine("})")
+                                                                .WriteLine(".To(__ => __")
+                                                                .Indent(writer => writer
+                                                                    .WriteLine($".V<Airport>(\"airport_{edge.Target}\"))"))
+                                                                .WriteLine(".ToArrayAsync(ct);"))
+                                                            .WriteLine();
                                                     }
                                                 }
                                             }
