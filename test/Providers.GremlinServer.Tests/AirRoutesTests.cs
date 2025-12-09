@@ -20,15 +20,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
             public string? Id { get; set; }
         }
 
-        internal abstract class Vertex : Element
-        {
-        }
-
-        internal abstract class Edge : Element
-        {
-        }
-
-        internal sealed class Airport : Vertex
+        internal sealed class Airport : Element
         {
             public string? Code { get; set; }
             public string? ICAO { get; set; }
@@ -44,7 +36,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
             public int LongestRunway { get; set; }
         }
 
-        internal sealed class Route : Edge
+        internal sealed class Route : Element
         {
             public long Distance { get; set; }
         }
@@ -56,7 +48,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
             }
 
             protected override IGremlinQuerySource TransformQuerySource(IContainer container, IGremlinQuerySource g) => g
-                .UseGremlinServer<Vertex, Edge>(_ => _
+                .UseGremlinServer<Airport, Route>(_ => _
                     .At(new UriBuilder("ws", container.Hostname, container.GetMappedPublicPort(8182)).Uri)
                     .UseNewtonsoftJson());
         }
@@ -78,7 +70,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
             var airports = await _source
                 .V<Airport>();
 
-            await Verify( _source.V().Count().FirstAsync(TestContext.Current.CancellationToken));
+            await Verify(_source.V().Count().FirstAsync(TestContext.Current.CancellationToken));
         }
 
         [Fact]
