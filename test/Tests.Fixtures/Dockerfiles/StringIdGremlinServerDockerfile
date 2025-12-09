@@ -1,5 +1,6 @@
 ﻿FROM tinkerpop/gremlin-server:3.7.5
 
+RUN sed -i 's/LONG/STRING/g' /opt/gremlin-server/conf/tinkergraph-empty.properties
 RUN echo >> /opt/gremlin-server/conf/tinkergraph-empty.properties
 RUN echo "gremlin.tinkergraph.vertexIdManager=STRING" >> /opt/gremlin-server/conf/tinkergraph-empty.properties
 RUN echo "gremlin.tinkergraph.edgeIdManager=STRING" >> /opt/gremlin-server/conf/tinkergraph-empty.properties
