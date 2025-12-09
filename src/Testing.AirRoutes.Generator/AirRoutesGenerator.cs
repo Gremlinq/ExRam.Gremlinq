@@ -29,7 +29,7 @@ namespace ExRam.Gremlinq.Testing.AirRoutes.Generator
                             """
                             namespace ExRam.Gremlinq.Testing.AirRoutes
                             {
-                                internal sealed class Airport
+                                public sealed class Airport
                                 {
                                     public string? Code { get; set; }
                                     public string? ICAO { get; set; }
@@ -53,7 +53,7 @@ namespace ExRam.Gremlinq.Testing.AirRoutes.Generator
                             """
                             namespace ExRam.Gremlinq.Testing.AirRoutes
                             {
-                                internal sealed class Route
+                                public sealed class Route
                                 {
                                     public long Distance { get; set; }
                                 }
