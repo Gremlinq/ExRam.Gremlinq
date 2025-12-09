@@ -1,22 +1,4 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
-  <ItemGroup>
-    <None Remove="Dockerfiles\CustomGremlinServerDockerfile" />
-    <None Remove="Dockerfiles\PasswordSecureGremlinServerDockerfile" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="Dockerfiles\CustomGremlinServerDockerfile">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Dockerfiles\StringIdGremlinServerDockerfile">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Dockerfiles\PasswordSecureGremlinServerDockerfile">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\..\src\Core\ExRam.Gremlinq.Core.csproj" />
     <ProjectReference Include="..\..\src\Providers.CosmosDb\ExRam.Gremlinq.Providers.CosmosDb.csproj" />
