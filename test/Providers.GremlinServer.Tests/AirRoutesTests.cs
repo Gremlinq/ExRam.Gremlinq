@@ -13,9 +13,9 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
     [IntegrationTest("Windows")]
     public class AirRoutesTests : IClassFixture<AirRoutesTests.Fixture>
     {
-        public class Fixture : ImageTestContainerFixture
+        public class Fixture : DockerfileTestContainerFixture
         {
-            public Fixture() : base("tinkerpop/gremlin-server:3.7.5")
+            public Fixture() : base("StringIdGremlinServerDockerfile")
             {
             }
 
