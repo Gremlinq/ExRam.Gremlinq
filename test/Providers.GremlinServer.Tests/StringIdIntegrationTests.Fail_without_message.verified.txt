@@ -16,13 +16,13 @@
       ],
       failStepMessage:
 fail() Step Triggered
-================================
+==================================================
 Message  > fail() step triggered
-Traverser> v[0]
+Traverser> v[12345678-9012-3456-7890-123456789012]
   Bulk   > 1
 Traversal> V().fail()
 Metadata > {}
-================================,
+==================================================,
       stackTrace:
 org.apache.tinkerpop.gremlin.process.traversal.step.sideEffect.FailStep$FailException: fail() step triggered
 	at org.apache.tinkerpop.gremlin.process.traversal.step.sideEffect.FailStep.sideEffect(FailStep.java:57)
@@ -49,6 +49,9 @@ at ExRam.Gremlinq.Providers.Core.GremlinqClientFactory.GremlinQueryExecutorImpl.
 at ExRam.Gremlinq.Providers.Core.GremlinqClientFactory.GremlinQueryExecutorImpl.Execute[TResult,TTransformedResult](GremlinQueryExecutionContext context, Func`4 resultTransformation, CancellationToken ct)
 at ExRam.Gremlinq.Providers.Core.GremlinqClientFactory.GremlinQueryExecutorImpl.Execute[TResult,TTransformedResult](GremlinQueryExecutionContext context, Func`4 resultTransformation, CancellationToken ct)
 at ExRam.Gremlinq.Providers.Core.GremlinqClientFactory.GremlinQueryExecutorImpl.Execute[TResult,TTransformedResult](GremlinQueryExecutionContext context, Func`4 resultTransformation, CancellationToken ct)
+at System.Linq.AsyncEnumerableEx.<IgnoreElements>g__Core|98_0[TSource](IAsyncEnumerable`1 source, CancellationToken cancellationToken)
+at System.Linq.AsyncEnumerableEx.<IgnoreElements>g__Core|98_0[TSource](IAsyncEnumerable`1 source, CancellationToken cancellationToken)
+at System.Linq.AsyncEnumerableEx.<IgnoreElements>g__Core|98_0[TSource](IAsyncEnumerable`1 source, CancellationToken cancellationToken)
 at System.Linq.AsyncEnumerable.<ToArrayAsync>g__Impl|179_0[TSource](ConfiguredCancelableAsyncEnumerable`1 source)
 at System.Linq.AsyncEnumerable.<ToArrayAsync>g__Impl|179_0[TSource](ConfiguredCancelableAsyncEnumerable`1 source)
 at ExRam.Gremlinq.Tests.Infrastructure.ExecutingVerifier.Verify[TElement](IGremlinQueryBase`1 query)

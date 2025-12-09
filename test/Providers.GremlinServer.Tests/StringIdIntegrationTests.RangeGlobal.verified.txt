@@ -1,13 +1,1 @@
-﻿[
-  {
-    IetfLanguageTag: en,
-    Id: 1,
-    Label: Language,
-    PartitionKey: PartitionKey
-  },
-  {
-    Id: 2,
-    Label: Company,
-    PartitionKey: PartitionKey
-  }
-]
+﻿[]

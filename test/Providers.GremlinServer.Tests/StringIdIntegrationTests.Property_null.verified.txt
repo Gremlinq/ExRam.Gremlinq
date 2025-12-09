@@ -1,7 +1,1 @@
-﻿[
-  {
-    Id: 2,
-    Label: Company,
-    PartitionKey: PartitionKey
-  }
-]
+﻿[]

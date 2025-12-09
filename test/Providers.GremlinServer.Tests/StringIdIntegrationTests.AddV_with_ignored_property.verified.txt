@@ -1,7 +1,1 @@
-﻿[
-  {
-    Id: 26,
-    Label: Language,
-    PartitionKey: PartitionKey
-  }
-]
+﻿[]

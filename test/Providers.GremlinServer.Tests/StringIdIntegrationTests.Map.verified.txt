@@ -1,17 +1,1 @@
-﻿[
-  {
-    Id: 2,
-    Label: Company,
-    PartitionKey: PartitionKey
-  },
-  {
-    Id: 11,
-    Label: Company,
-    PartitionKey: PartitionKey
-  },
-  {
-    Id: 16,
-    Label: Company,
-    PartitionKey: PartitionKey
-  }
-]
+﻿[]

@@ -1,8 +1,1 @@
-﻿[
-  {
-    Gender: Female,
-    Id: 23,
-    Label: Person,
-    PartitionKey: PartitionKey
-  }
-]
+﻿[]

@@ -4,6 +4,7 @@ using ExRam.Gremlinq.Providers.Core;
 using ExRam.Gremlinq.Tests.Entities;
 using ExRam.Gremlinq.Support.NewtonsoftJson;
 using ExRam.Gremlinq.Providers.GremlinServer;
+using ExRam.Gremlinq.Tests.Infrastructure;
 
 namespace ExRam.Gremlinq.Tests.Fixtures
 {
@@ -17,6 +18,9 @@ namespace ExRam.Gremlinq.Tests.Fixtures
             .UseGremlinServer<Vertex, Edge>(_ => _
                 .At(new UriBuilder("ws", container.Hostname, container.GetMappedPublicPort(8182)).Uri)
                 .UseNewtonsoftJson())
+                        .ConfigureEnvironment(environment => environment
+                .ConfigureExecutor(_ => _
+                    .IgnoreResults()))
             .IgnoreCosmosDbSpecificProperties();
     }
 }
