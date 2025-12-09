@@ -9,6 +9,9 @@
     <Content Include="Dockerfiles\CustomGremlinServerDockerfile">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Dockerfiles\StringIdGremlinServerDockerfile">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Dockerfiles\PasswordSecureGremlinServerDockerfile">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
