@@ -2,6 +2,7 @@
 #pragma warning disable RS1042 // Implementations of this interface are not allowed
 
 using System;
+using System.Collections.Generic;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 
@@ -156,31 +157,42 @@ namespace ExRam.Gremlinq.Testing.AirRoutes.Generator
 
                                     if (graphml.Graph?.Edge is { } edges)
                                     {
-                                        foreach (var edge in edges)
+                                        foreach (var edgeGroup in edges.GroupBy(x => x.Source))
                                         {
-                                            if (edge.Data is { } edgeData)
-                                            {
-                                                if (edgeData.Any(nodeDataKey => nodeDataKey.Key == "labelE" && nodeDataKey.Text == "route"))
-                                                {
-                                                    if (edgeData.FirstOrDefault(nodeDataKey => nodeDataKey.Key == "dist") is { Text: { Length: > 0 } dist })
+                                            writer = writer
+                                                .WriteLine("await source")
+                                                .Indent(writer => writer
+                                                    .WriteLine($".V<Airport>(\"airport_{edgeGroup.Key}\")")
+                                                    .Do(writer =>
                                                     {
-                                                        writer = writer
-                                                            .WriteLine("await source")
-                                                            .Indent(writer => writer
-                                                                .WriteLine($".V<Airport>(\"airport_{edge.Source}\")")
-                                                                .WriteLine(".AddE(new Route {")
-                                                                .Indent(writer => writer
-                                                                    .WriteLine($"Id = \"route_{edge.Id}\",")
-                                                                    .WriteLine($"Distance = {dist}"))
-                                                                .WriteLine("})")
-                                                                .WriteLine(".To(__ => __")
-                                                                .Indent(writer => writer
-                                                                    .WriteLine($".V<Airport>(\"airport_{edge.Target}\"))"))
-                                                                .WriteLine(".ToArrayAsync(ct);"))
-                                                            .WriteLine();
-                                                    }
-                                                }
-                                            }
+                                                        foreach (var edge in edgeGroup)
+                                                        {
+                                                            if (edge.Data is { } edgeData)
+                                                            {
+                                                                if (edgeData.Any(nodeDataKey => nodeDataKey.Key == "labelE" && nodeDataKey.Text == "route"))
+                                                                {
+                                                                    if (edgeData.FirstOrDefault(nodeDataKey => nodeDataKey.Key == "dist") is { Text: { Length: > 0 } dist })
+                                                                    {
+                                                                        writer = writer
+                                                                            .WriteLine(".SideEffect(__ => __")
+                                                                            .Indent(writer => writer
+                                                                                .WriteLine(".AddE(new Route {")
+                                                                                   .Indent(writer => writer
+                                                                                       .WriteLine($"Id = \"route_{edge.Id}\",")
+                                                                                       .WriteLine($"Distance = {dist}"))
+                                                                                   .WriteLine("})")
+                                                                                   .WriteLine(".To(__ => __")
+                                                                                   .Indent(writer => writer
+                                                                                       .WriteLine($".V<Airport>(\"airport_{edge.Target}\")))")));
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+
+                                                        return writer
+                                                            .WriteLine(".ToArrayAsync(ct);");
+                                                    }))
+                                                .WriteLine();
                                         }
                                     }
 

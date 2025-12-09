@@ -47,6 +47,14 @@
             return new(writer, _level, lineLength);
         }
 
+
+        public CodeWriter Do(Func<CodeWriter, CodeWriter> continuation)
+        {
+            var continuedWriter = continuation(new CodeWriter(_stringWriter, _level, _lineLength));
+
+            return new(continuedWriter._stringWriter, _level, continuedWriter._lineLength);
+        }
+
         public CodeWriter Block<TState>(Func<CodeWriter, TState, CodeWriter> continuation, TState state)
         {
             return this
