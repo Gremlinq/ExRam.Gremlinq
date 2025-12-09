@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Description>AirRoutes for ExRam.Gremlinq!</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Core\ExRam.Gremlinq.Core.csproj" />
+    <ProjectReference Include="..\Testing.AirRoutes.Generator\ExRam.Gremlinq.Testing.AirRoutes.Generator.csproj" OutputItemType="Analyzer" />
+  </ItemGroup>
+  
+</Project>
