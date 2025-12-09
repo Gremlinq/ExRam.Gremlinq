@@ -102,9 +102,7 @@ namespace ExRam.Gremlinq.Testing.AirRoutes.Generator
                                 .WriteLine($"public static async Task {methodName}(this IGremlinQuerySource source, CancellationToken ct = default)")
                                 .Block(writer =>
                                 {
-                                    //var nodeCodes = new Dictionary<int, string>();
-
-                                    if (graphml.Graph?.Node is { } nodes)
+                                    if (graphml.Graph?.Node is { } nodes && graphml.Graph?.Edge is { } edges)
                                     {
                                         foreach (var node in nodes)
                                         {
@@ -153,10 +151,7 @@ namespace ExRam.Gremlinq.Testing.AirRoutes.Generator
                                                 }
                                             }
                                         }
-                                    }
 
-                                    if (graphml.Graph?.Edge is { } edges)
-                                    {
                                         foreach (var edgeGroup in edges.GroupBy(x => x.Source))
                                         {
                                             writer = writer
