@@ -7,6 +7,7 @@ using ExRam.Gremlinq.Tests.Fixtures;
 using ExRam.Gremlinq.Tests.Infrastructure;
 using ExRam.Gremlinq.Support.NewtonsoftJson;
 using FluentAssertions;
+using ExRam.Gremlinq.Core.Models;
 
 namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 {
@@ -14,6 +15,40 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
     [IntegrationTest("Windows")]
     public class AirRoutesTests : IClassFixture<AirRoutesTests.Fixture>
     {
+        internal abstract class Element
+        {
+            public string? Id { get; set; }
+        }
+
+        internal abstract class Vertex : Element
+        {
+        }
+
+        internal abstract class Edge : Element
+        {
+        }
+
+        internal sealed class Airport : Vertex
+        {
+            public string? Code { get; set; }
+            public string? ICAO { get; set; }
+            public string? City { get; set; }
+            public string? Region { get; set; }
+            public string? Country { get; set; }
+            public string? Description { get; set; }
+
+            public int Runways { get; set; }
+            public int Elevation { get; set; }
+            public double Latitude { get; set; }
+            public double Longitude { get; set; }
+            public int LongestRunway { get; set; }
+        }
+
+        internal sealed class Route : Edge
+        {
+            public long Distance { get; set; }
+        }
+
         public class Fixture : DockerfileTestContainerFixture
         {
             public Fixture() : base("StringIdGremlinServerDockerfile")
@@ -39,6 +74,9 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
         {
             await _source
                 .CreateAirRoutesSmall(TestContext.Current.CancellationToken);
+
+            var airports = await _source
+                .V<Airport>();
 
             await Verify( _source.V().Count().FirstAsync(TestContext.Current.CancellationToken));
         }

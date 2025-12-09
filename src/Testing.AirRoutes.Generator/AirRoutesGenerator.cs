@@ -1,13 +1,9 @@
 ﻿#pragma warning disable RS1035 // Do not use APIs banned for analyzers
 #pragma warning disable RS1042 // Implementations of this interface are not allowed
 
-using System;
-using System.Collections.Generic;
-using System.Xml.Linq;
 using System.Xml.Serialization;
 
 using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace ExRam.Gremlinq.Testing.AirRoutes.Generator
 {
@@ -30,21 +26,12 @@ namespace ExRam.Gremlinq.Testing.AirRoutes.Generator
                             """
                             namespace ExRam.Gremlinq.Testing.AirRoutes
                             {
-                                public abstract class Element
+                                internal abstract class Element
                                 {
                                     public string? Id { get; set; }
                                 }
 
-                                public abstract class Vertex : Element
-                                {
-                                }
-
-                                public abstract class Edge : Element
-                                {
-
-                                }
-
-                                public sealed class Airport : Vertex
+                                internal sealed class Airport : Element//Vertex
                                 {
                                     public string? Code { get; set; }
                                     public string? ICAO { get; set; }
@@ -60,7 +47,7 @@ namespace ExRam.Gremlinq.Testing.AirRoutes.Generator
                                     public int LongestRunway { get; set; }
                                 }
 
-                                public sealed class Route : Edge
+                                internal sealed class Route : Element//Edge
                                 {
                                     public long Distance { get; set; }
                                 }
@@ -94,6 +81,7 @@ namespace ExRam.Gremlinq.Testing.AirRoutes.Generator
                         .Create()
                         .WriteLine("#nullable enable")
                         .WriteLine("using ExRam.Gremlinq.Core;")
+                        .WriteLine("using ExRam.Gremlinq.Core.Models;")
                         .WriteLine()
                         .WriteLine("namespace ExRam.Gremlinq.Testing.AirRoutes")
                         .Block(writer => writer
@@ -105,7 +93,13 @@ namespace ExRam.Gremlinq.Testing.AirRoutes.Generator
                                     if (graphml.Graph?.Node is { } nodes && graphml.Graph?.Edge is { } edges)
                                     {
                                         writer = writer
-                                            .WriteLine("await source")
+                                            .WriteLine("source = source")
+                                            .Indent(writer => writer
+                                                .WriteLine(".ConfigureEnvironment(env => env")
+                                                .Indent(writer => writer
+                                                    .WriteLine(".UseModel(GraphModel.FromBaseTypes<Airport, Route>()));")))
+                                            .WriteLine()
+                                            .WriteLine("await source")              
                                             .Indent(writer =>
                                             {
                                                 writer = writer
