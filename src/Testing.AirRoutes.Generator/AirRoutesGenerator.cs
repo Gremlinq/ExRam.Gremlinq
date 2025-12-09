@@ -25,11 +25,25 @@ namespace ExRam.Gremlinq.Testing.AirRoutes.Generator
                 {
                     context
                         .AddSource(
-                            "Airport",
+                            "Entities",
                             """
                             namespace ExRam.Gremlinq.Testing.AirRoutes
                             {
-                                public sealed class Airport
+                                public abstract class Element
+                                {
+                                    public string? Id { get; set; }
+                                }
+
+                                public abstract class Vertex : Element
+                                {
+                                }
+
+                                public abstract class Edge : Element
+                                {
+
+                                }
+
+                                public sealed class Airport : Vertex
                                 {
                                     public string? Code { get; set; }
                                     public string? ICAO { get; set; }
@@ -44,16 +58,8 @@ namespace ExRam.Gremlinq.Testing.AirRoutes.Generator
                                     public double Longitude { get; set; }
                                     public int LongestRunway { get; set; }
                                 }
-                            }
-                            """);
 
-                    context
-                        .AddSource(
-                            "Route",
-                            """
-                            namespace ExRam.Gremlinq.Testing.AirRoutes
-                            {
-                                public sealed class Route
+                                public sealed class Route : Edge
                                 {
                                     public long Distance { get; set; }
                                 }
