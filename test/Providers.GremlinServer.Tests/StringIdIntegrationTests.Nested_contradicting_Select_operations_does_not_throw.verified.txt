@@ -1,0 +1,280 @@
+﻿[
+  {
+    Item1: {
+      Item1: {
+        Id: 3,
+        Label: Person,
+        PartitionKey: PartitionKey
+      },
+      Item2: {
+        Id: 3,
+        Label: Person,
+        PartitionKey: PartitionKey
+      }
+    },
+    Item2: {
+      Id: 3,
+      Label: Person,
+      PartitionKey: PartitionKey
+    }
+  },
+  {
+    Item1: {
+      Item1: {
+        RegistrationDate: 2020-04-07 14:43:36 +0,
+        Name: {
+          Id: 12345678-9012-3456-7890-123456789012,
+          Label: Name,
+          Properties: {},
+          Value: Bob
+        },
+        Id: 4,
+        Label: Person,
+        PartitionKey: PartitionKey
+      },
+      Item2: {
+        RegistrationDate: 2020-04-07 14:43:36 +0,
+        Name: {
+          Id: 12345678-9012-3456-7890-123456789012,
+          Label: Name,
+          Properties: {},
+          Value: Bob
+        },
+        Id: 4,
+        Label: Person,
+        PartitionKey: PartitionKey
+      }
+    },
+    Item2: {
+      RegistrationDate: 2020-04-07 14:43:36 +0,
+      Name: {
+        Id: 12345678-9012-3456-7890-123456789012,
+        Label: Name,
+        Properties: {},
+        Value: Bob
+      },
+      Id: 4,
+      Label: Person,
+      PartitionKey: PartitionKey
+    }
+  },
+  {
+    Item1: {
+      Item1: {
+        Id: 5,
+        Label: Person,
+        PartitionKey: PartitionKey
+      },
+      Item2: {
+        Id: 5,
+        Label: Person,
+        PartitionKey: PartitionKey
+      }
+    },
+    Item2: {
+      Id: 5,
+      Label: Person,
+      PartitionKey: PartitionKey
+    }
+  },
+  {
+    Item1: {
+      Item1: {
+        Id: 7,
+        Label: Person,
+        PartitionKey: PartitionKey
+      },
+      Item2: {
+        Id: 7,
+        Label: Person,
+        PartitionKey: PartitionKey
+      }
+    },
+    Item2: {
+      Id: 7,
+      Label: Person,
+      PartitionKey: PartitionKey
+    }
+  },
+  {
+    Item1: {
+      Item1: {
+        Id: 9,
+        Label: Person,
+        PartitionKey: PartitionKey
+      },
+      Item2: {
+        Id: 9,
+        Label: Person,
+        PartitionKey: PartitionKey
+      }
+    },
+    Item2: {
+      Id: 9,
+      Label: Person,
+      PartitionKey: PartitionKey
+    }
+  },
+  {
+    Item1: {
+      Item1: {
+        Id: 12,
+        Label: Person,
+        PartitionKey: PartitionKey
+      },
+      Item2: {
+        Id: 12,
+        Label: Person,
+        PartitionKey: PartitionKey
+      }
+    },
+    Item2: {
+      Id: 12,
+      Label: Person,
+      PartitionKey: PartitionKey
+    }
+  },
+  {
+    Item1: {
+      Item1: {
+        RegistrationDate: 2020-04-07 14:43:36 +0,
+        Name: {
+          Id: 12345678-9012-3456-7890-123456789012,
+          Label: Name,
+          Properties: {},
+          Value: Bob
+        },
+        Id: 15,
+        Label: Person,
+        PartitionKey: PartitionKey
+      },
+      Item2: {
+        RegistrationDate: 2020-04-07 14:43:36 +0,
+        Name: {
+          Id: 12345678-9012-3456-7890-123456789012,
+          Label: Name,
+          Properties: {},
+          Value: Bob
+        },
+        Id: 15,
+        Label: Person,
+        PartitionKey: PartitionKey
+      }
+    },
+    Item2: {
+      RegistrationDate: 2020-04-07 14:43:36 +0,
+      Name: {
+        Id: 12345678-9012-3456-7890-123456789012,
+        Label: Name,
+        Properties: {},
+        Value: Bob
+      },
+      Id: 15,
+      Label: Person,
+      PartitionKey: PartitionKey
+    }
+  },
+  {
+    Item1: {
+      Item1: {
+        Id: 17,
+        Label: Person,
+        PartitionKey: PartitionKey
+      },
+      Item2: {
+        Id: 17,
+        Label: Person,
+        PartitionKey: PartitionKey
+      }
+    },
+    Item2: {
+      Id: 17,
+      Label: Person,
+      PartitionKey: PartitionKey
+    }
+  },
+  {
+    Item1: {
+      Item1: {
+        Image: AQIDBAUGBwg=,
+        Id: 22,
+        Label: Person,
+        PartitionKey: PartitionKey
+      },
+      Item2: {
+        Image: AQIDBAUGBwg=,
+        Id: 22,
+        Label: Person,
+        PartitionKey: PartitionKey
+      }
+    },
+    Item2: {
+      Image: AQIDBAUGBwg=,
+      Id: 22,
+      Label: Person,
+      PartitionKey: PartitionKey
+    }
+  },
+  {
+    Item1: {
+      Item1: {
+        Gender: Female,
+        Id: 23,
+        Label: Person,
+        PartitionKey: PartitionKey
+      },
+      Item2: {
+        Gender: Female,
+        Id: 23,
+        Label: Person,
+        PartitionKey: PartitionKey
+      }
+    },
+    Item2: {
+      Gender: Female,
+      Id: 23,
+      Label: Person,
+      PartitionKey: PartitionKey
+    }
+  },
+  {
+    Item1: {
+      Item1: {
+        RegistrationDate: 2020-04-07 14:43:36 +0,
+        Name: {
+          Id: 12345678-9012-3456-7890-123456789012,
+          Label: Name,
+          Properties: {},
+          Value: Marko
+        },
+        Id: 24,
+        Label: Person,
+        PartitionKey: PartitionKey
+      },
+      Item2: {
+        RegistrationDate: 2020-04-07 14:43:36 +0,
+        Name: {
+          Id: 12345678-9012-3456-7890-123456789012,
+          Label: Name,
+          Properties: {},
+          Value: Marko
+        },
+        Id: 24,
+        Label: Person,
+        PartitionKey: PartitionKey
+      }
+    },
+    Item2: {
+      RegistrationDate: 2020-04-07 14:43:36 +0,
+      Name: {
+        Id: 12345678-9012-3456-7890-123456789012,
+        Label: Name,
+        Properties: {},
+        Value: Marko
+      },
+      Id: 24,
+      Label: Person,
+      PartitionKey: PartitionKey
+    }
+  }
+]

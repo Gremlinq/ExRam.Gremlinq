@@ -1,0 +1,110 @@
+﻿[
+  {
+    CountryCallingCode: +49,
+    LocalizableDescription: {
+      Id: 12345678-9012-3456-7890-123456789012,
+      Label: LocalizableDescription,
+      Properties: {
+        someKey: value
+      },
+      Value: 
+    },
+    Id: 0,
+    Label: Country,
+    PartitionKey: PartitionKey
+  },
+  {
+    LocalizableDescription: {
+      Id: 12345678-9012-3456-7890-123456789012,
+      Label: LocalizableDescription,
+      Properties: {
+        someKey: value
+      },
+      Value: 
+    },
+    Id: 6,
+    Label: Country,
+    PartitionKey: PartitionKey
+  },
+  {
+    LocalizableDescription: {
+      Id: 12345678-9012-3456-7890-123456789012,
+      Label: LocalizableDescription,
+      Properties: {
+        someKey: value
+      },
+      Value: 
+    },
+    Id: 8,
+    Label: Country,
+    PartitionKey: PartitionKey
+  },
+  {
+    LocalizableDescription: {
+      Id: 12345678-9012-3456-7890-123456789012,
+      Label: LocalizableDescription,
+      Properties: {
+        someKey: value
+      },
+      Value: 
+    },
+    Id: 10,
+    Label: Country,
+    PartitionKey: PartitionKey
+  },
+  {
+    CountryCallingCode: +49,
+    LocalizableDescription: {
+      Id: 12345678-9012-3456-7890-123456789012,
+      Label: LocalizableDescription,
+      Properties: {
+        someKey: value
+      },
+      Value: 
+    },
+    Id: 14,
+    Label: Country,
+    PartitionKey: PartitionKey
+  },
+  {
+    Name: {
+      Id: 12345678-9012-3456-7890-123456789012,
+      Label: Name,
+      Properties: {},
+      Value: GER
+    },
+    LocalizableDescription: {
+      Id: 12345678-9012-3456-7890-123456789012,
+      Label: LocalizableDescription,
+      Properties: {
+        someKey: value
+      },
+      Value: 
+    },
+    Id: 28,
+    Label: Country,
+    PartitionKey: PartitionKey
+  },
+  {
+    Name: {
+      Id: 12345678-9012-3456-7890-123456789012,
+      Label: Name,
+      Properties: {
+        de: Deutschland,
+        en: Germany
+      },
+      Value: GER
+    },
+    LocalizableDescription: {
+      Id: 12345678-9012-3456-7890-123456789012,
+      Label: LocalizableDescription,
+      Properties: {
+        someKey: value
+      },
+      Value: 
+    },
+    Id: 29,
+    Label: Country,
+    PartitionKey: PartitionKey
+  }
+]

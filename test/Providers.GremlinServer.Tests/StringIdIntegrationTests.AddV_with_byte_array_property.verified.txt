@@ -1,0 +1,8 @@
+﻿[
+  {
+    Image: AQIDBAUGBwg=,
+    Id: 22,
+    Label: Person,
+    PartitionKey: PartitionKey
+  }
+]

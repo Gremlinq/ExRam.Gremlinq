@@ -1,0 +1,9 @@
+﻿[
+  {
+    Company: +4912345,
+    Country: GER,
+    Language: en,
+    Person: 2020-04-07 14:43:36 +0,
+    TimeFrame: 08:00:00
+  }
+]

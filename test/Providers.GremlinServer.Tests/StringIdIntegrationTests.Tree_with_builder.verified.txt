@@ -1,0 +1,101 @@
+﻿[
+  [
+    {
+      Key: {
+        Age: 36,
+        Id: 17,
+        Label: Person,
+        PartitionKey: PartitionKey
+      },
+      Value: [
+        {
+          Key: {
+            To: 2020-04-07 14:43:36 Utc,
+            Id: 12345678-9012-3456-7890-123456789012,
+            Label: WorksFor
+          },
+          Value: [
+            {
+              Key: {
+                Id: 16,
+                Label: Company,
+                PartitionKey: PartitionKey
+              },
+              Value: [
+                {
+                  Value: []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      Key: {
+        Age: 36,
+        Id: 3,
+        Label: Person,
+        PartitionKey: PartitionKey
+      },
+      Value: [
+        {
+          Key: {
+            Role: Admin,
+            From: 2020-04-07 14:43:36 Utc,
+            To: 2020-04-07 14:43:36 Utc,
+            Id: 12345678-9012-3456-7890-123456789012,
+            Label: WorksFor
+          },
+          Value: [
+            {
+              Key: {
+                Id: 2,
+                Label: Company,
+                PartitionKey: PartitionKey
+              },
+              Value: [
+                {
+                  Value: []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      Key: {
+        Age: 36,
+        Id: 12,
+        Label: Person,
+        PartitionKey: PartitionKey
+      },
+      Value: [
+        {
+          Key: {
+            Role: Admin,
+            From: 2020-04-07 14:43:36 Utc,
+            To: 2020-04-07 14:43:36 Utc,
+            Id: 12345678-9012-3456-7890-123456789012,
+            Label: WorksFor
+          },
+          Value: [
+            {
+              Key: {
+                Id: 11,
+                Label: Company,
+                PartitionKey: PartitionKey
+              },
+              Value: [
+                {
+                  Value: []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+]

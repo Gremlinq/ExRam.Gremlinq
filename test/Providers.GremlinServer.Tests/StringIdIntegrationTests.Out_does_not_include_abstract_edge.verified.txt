@@ -1,0 +1,38 @@
+﻿[
+  {
+    Id: 2,
+    Label: Company,
+    PartitionKey: PartitionKey
+  },
+  {
+    Id: 6,
+    Label: Country,
+    PartitionKey: PartitionKey
+  },
+  {
+    Id: 8,
+    Label: Country,
+    PartitionKey: PartitionKey
+  },
+  {
+    Id: 10,
+    Label: Country,
+    PartitionKey: PartitionKey
+  },
+  {
+    Id: 11,
+    Label: Company,
+    PartitionKey: PartitionKey
+  },
+  {
+    CountryCallingCode: +49,
+    Id: 0,
+    Label: Country,
+    PartitionKey: PartitionKey
+  },
+  {
+    Id: 16,
+    Label: Company,
+    PartitionKey: PartitionKey
+  }
+]

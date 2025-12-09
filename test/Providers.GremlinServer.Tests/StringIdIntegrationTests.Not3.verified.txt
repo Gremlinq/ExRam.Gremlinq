@@ -1,0 +1,112 @@
+﻿[
+  {
+    CountryCallingCode: +49,
+    Id: 0,
+    Label: Country,
+    PartitionKey: PartitionKey
+  },
+  {
+    IetfLanguageTag: en,
+    Id: 1,
+    Label: Language,
+    PartitionKey: PartitionKey
+  },
+  {
+    Id: 6,
+    Label: Country,
+    PartitionKey: PartitionKey
+  },
+  {
+    Id: 8,
+    Label: Country,
+    PartitionKey: PartitionKey
+  },
+  {
+    Id: 10,
+    Label: Country,
+    PartitionKey: PartitionKey
+  },
+  {
+    IetfLanguageTag: en,
+    Id: 13,
+    Label: Language,
+    PartitionKey: PartitionKey
+  },
+  {
+    CountryCallingCode: +49,
+    Id: 14,
+    Label: Country,
+    PartitionKey: PartitionKey
+  },
+  {
+    IetfLanguageTag: en,
+    Id: 18,
+    Label: Language,
+    PartitionKey: PartitionKey
+  },
+  {
+    Id: 19,
+    Label: Language,
+    PartitionKey: PartitionKey
+  },
+  {
+    Enabled: false,
+    StartTime: 08:00:00,
+    Duration: 02:00:00,
+    Id: 20,
+    Label: TimeFrame,
+    PartitionKey: PartitionKey
+  },
+  {
+    IetfLanguageTag: en,
+    Id: 21,
+    Label: Language,
+    PartitionKey: PartitionKey
+  },
+  {
+    IetfLanguageTag: en,
+    Id: 25,
+    Label: Language,
+    PartitionKey: PartitionKey
+  },
+  {
+    Id: 26,
+    Label: Language,
+    PartitionKey: PartitionKey
+  },
+  {
+    Name: {
+      Id: 12345678-9012-3456-7890-123456789012,
+      Label: Name,
+      Properties: {},
+      Value: GER
+    },
+    Id: 28,
+    Label: Country,
+    PartitionKey: PartitionKey
+  },
+  {
+    Name: {
+      Id: 12345678-9012-3456-7890-123456789012,
+      Label: Name,
+      Properties: {
+        de: Deutschland,
+        en: Germany
+      },
+      Value: GER
+    },
+    Id: 29,
+    Label: Country,
+    PartitionKey: PartitionKey
+  },
+  {
+    Id: 31,
+    Label: Language,
+    PartitionKey: PartitionKey
+  },
+  {
+    Id: 32,
+    Label: Language,
+    PartitionKey: PartitionKey
+  }
+]

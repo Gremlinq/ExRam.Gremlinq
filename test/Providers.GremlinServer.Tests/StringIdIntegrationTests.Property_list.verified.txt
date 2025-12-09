@@ -1,0 +1,10 @@
+﻿[
+  {
+    PhoneNumbers: [
+      +4912345
+    ],
+    Id: 2,
+    Label: Company,
+    PartitionKey: PartitionKey
+  }
+]

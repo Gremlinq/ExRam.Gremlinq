@@ -1,0 +1,96 @@
+﻿[
+  {
+    CountryCallingCode: +49,
+    LocalizableDescription: {
+      Id: 12345678-9012-3456-7890-123456789012,
+      Label: LocalizableDescription,
+      Properties: {
+        someKey: value
+      },
+      Value: 
+    },
+    Id: 0,
+    Label: Country,
+    PartitionKey: PartitionKey
+  },
+  {
+    IetfLanguageTag: en,
+    Id: 1,
+    Label: Language,
+    PartitionKey: PartitionKey
+  },
+  {
+    Id: 2,
+    Label: Company,
+    PartitionKey: PartitionKey
+  },
+  {
+    Age: 21,
+    Gender: Male,
+    RegistrationDate: 2020-04-07 14:43:36 +0,
+    Name: {
+      Id: 12345678-9012-3456-7890-123456789012,
+      Label: Name,
+      Properties: {},
+      Value: Marko
+    },
+    Id: 4,
+    Label: Person,
+    PartitionKey: PartitionKey
+  },
+  {
+    LocalizableDescription: {
+      Id: 12345678-9012-3456-7890-123456789012,
+      Label: LocalizableDescription,
+      Properties: {
+        someKey: value
+      },
+      Value: 
+    },
+    Id: 6,
+    Label: Country,
+    PartitionKey: PartitionKey
+  },
+  {
+    LocalizableDescription: {
+      Id: 12345678-9012-3456-7890-123456789012,
+      Label: LocalizableDescription,
+      Properties: {
+        someKey: value
+      },
+      Value: 
+    },
+    Id: 8,
+    Label: Country,
+    PartitionKey: PartitionKey
+  },
+  {
+    LocalizableDescription: {
+      Id: 12345678-9012-3456-7890-123456789012,
+      Label: LocalizableDescription,
+      Properties: {
+        someKey: value
+      },
+      Value: 
+    },
+    Id: 10,
+    Label: Country,
+    PartitionKey: PartitionKey
+  },
+  {
+    Id: 11,
+    Label: Company,
+    PartitionKey: PartitionKey
+  },
+  {
+    IetfLanguageTag: en,
+    Id: 13,
+    Label: Language,
+    PartitionKey: PartitionKey
+  },
+  {
+    Id: 16,
+    Label: Company,
+    PartitionKey: PartitionKey
+  }
+]

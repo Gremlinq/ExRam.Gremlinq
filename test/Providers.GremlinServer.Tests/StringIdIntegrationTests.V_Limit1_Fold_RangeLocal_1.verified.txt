@@ -1,0 +1,18 @@
+﻿[
+  [
+    {
+      CountryCallingCode: +49,
+      LocalizableDescription: {
+        Id: 12345678-9012-3456-7890-123456789012,
+        Label: LocalizableDescription,
+        Properties: {
+          someKey: value
+        },
+        Value: 
+      },
+      Id: 0,
+      Label: Country,
+      PartitionKey: PartitionKey
+    }
+  ]
+]

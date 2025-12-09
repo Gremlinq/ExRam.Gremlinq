@@ -1,0 +1,7 @@
+﻿[
+  {
+    Id: 7,
+    Label: Person,
+    PartitionKey: PartitionKey
+  }
+]

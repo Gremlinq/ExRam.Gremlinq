@@ -1,0 +1,98 @@
+﻿[
+  {
+    Id: 3,
+    Label: Person,
+    PartitionKey: PartitionKey
+  },
+  {
+    RegistrationDate: 2020-04-07 14:43:36 +0,
+    Name: {
+      Id: 12345678-9012-3456-7890-123456789012,
+      Label: Name,
+      Properties: {},
+      Value: Bob
+    },
+    Id: 4,
+    Label: Person,
+    PartitionKey: PartitionKey
+  },
+  {
+    CountryCallingCode: +49,
+    Id: 0,
+    Label: Country,
+    PartitionKey: PartitionKey
+  },
+  {
+    RegistrationDate: 2020-04-07 14:43:36 +0,
+    Name: {
+      Id: 12345678-9012-3456-7890-123456789012,
+      Label: Name,
+      Properties: {},
+      Value: Bob
+    },
+    Id: 15,
+    Label: Person,
+    PartitionKey: PartitionKey
+  },
+  {
+    RegistrationDate: 2020-04-07 14:43:36 +0,
+    Name: {
+      Id: 12345678-9012-3456-7890-123456789012,
+      Label: Name,
+      Properties: {},
+      Value: Bob
+    },
+    Id: 15,
+    Label: Person,
+    PartitionKey: PartitionKey
+  },
+  {
+    Id: 5,
+    Label: Person,
+    PartitionKey: PartitionKey
+  },
+  {
+    Id: 7,
+    Label: Person,
+    PartitionKey: PartitionKey
+  },
+  {
+    Id: 9,
+    Label: Person,
+    PartitionKey: PartitionKey
+  },
+  {
+    Id: 12,
+    Label: Person,
+    PartitionKey: PartitionKey
+  },
+  {
+    Id: 17,
+    Label: Person,
+    PartitionKey: PartitionKey
+  },
+  {
+    Image: AQIDBAUGBwg=,
+    Id: 22,
+    Label: Person,
+    PartitionKey: PartitionKey
+  },
+  {
+    Gender: Female,
+    Id: 23,
+    Label: Person,
+    PartitionKey: PartitionKey
+  },
+  {
+    RegistrationDate: 2020-04-07 14:43:36 +0,
+    Name: {
+      Id: 12345678-9012-3456-7890-123456789012,
+      Label: Name,
+      Properties: {},
+      Value: Marko
+    },
+    Id: 24,
+    Label: Person,
+    PartitionKey: PartitionKey
+  }
+]
