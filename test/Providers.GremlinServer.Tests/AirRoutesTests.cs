@@ -39,8 +39,6 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
             await _source
                 .CreateAirRoutesSmall(TestContext.Current.CancellationToken);
 
-            var airports = await _source.V();
-
             await Verify( _source.V().Count().FirstAsync(TestContext.Current.CancellationToken));
         }
     }
