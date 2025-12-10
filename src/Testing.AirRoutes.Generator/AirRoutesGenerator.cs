@@ -42,7 +42,8 @@ namespace ExRam.Gremlinq.Testing.AirRoutes.Generator
                                                 .UseModel(GraphModel.FromBaseTypes<Airport, Route>()))
                                             .V<Airport>()
                                             .Where(airport => airport.Id!.StartsWith("airport_"))
-                                            .Drop();
+                                            .Drop()
+                                            .ToArrayAsync(ct);
                                     }
                                 }
                             }
