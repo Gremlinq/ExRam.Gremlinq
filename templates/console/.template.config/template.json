@@ -15,9 +15,12 @@
       "type": "parameter",
       "isRequired": true,
       "datatype": "choice",
-      "defaultValue": "GremlinServer",
-      "replaces": "TEMPLATEPROVIDER",
+      "defaultValue": "GremlinServerContainer",
       "choices": [
+        {
+          "choice": "GremlinServerContainer",
+          "description": "Modded Gremlin Server in a local Docker container."
+        },
         {
           "choice": "GremlinServer",
           "description": "Gremlin Server"
@@ -35,6 +38,33 @@
           "description": "JanusGraph"
         }
       ]
+    },
+    "actualProvider": {
+      "type": "generated",
+      "generator": "switch",
+      "replaces": "TEMPLATEPROVIDER",
+      "parameters": {
+        "evaluator": "C++",
+        "datatype": "string",
+        "cases": [
+          {
+            "condition": "(provider == 'GremlinServer' || provider == 'GremlinServerContainer')",
+            "value": "GremlinServer"
+          },
+          {
+            "condition": "(provider == 'CosmosDb')",
+            "value": "CosmosDb"
+          },
+          {
+            "condition": "(provider == 'Neptune')",
+            "value": "Neptune"
+          },
+          {
+            "condition": "(provider == 'JanusGraph')",
+            "value": "JanusGraph"
+          }
+        ]
+      }
     },
     "version": {
       "description": "The version of ExRam.Gremlinq being referenced",

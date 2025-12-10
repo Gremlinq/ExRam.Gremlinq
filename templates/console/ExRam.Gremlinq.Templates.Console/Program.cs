@@ -5,7 +5,7 @@ using ExRam.Gremlinq.Providers.Core;
 using ExRam.Gremlinq.Providers.TEMPLATEPROVIDER;
 using ExRam.Gremlinq.Testing.AirRoutes;
 using ExRam.Gremlinq.Support.NewtonsoftJson;
-#if (provider == "GremlinServer")
+#if (provider == "GremlinServerContainer")
 using ExRam.Gremlinq.Support.TestContainers;
 #endif
 
@@ -19,7 +19,7 @@ namespace ExRam.Gremlinq.Templates.Console
         {
             _g = GremlinQuerySource.g
                 .UseTEMPLATEPROVIDER<Vertex, Edge>(configurator => configurator
-#if (provider == "Neptune")
+#if (actualProvider == "Neptune")
                     .At(new Uri("wss://your.neptune.endpoint/"))
                     .UseIAMAuthentication(_ => _
                         .UseSigV4()
@@ -27,13 +27,13 @@ namespace ExRam.Gremlinq.Templates.Console
                         .WithRegion("us-east-1")
                         .WithAccessKeyId("accessKeyId")
                         .WithSecretAccessKey("secretAccessKey"))
-#elif (provider == "CosmosDb")
+#elif (actualProvider == "CosmosDb")
                     .At(new Uri("wss://your.cosmosdb.endpoint/"))
                     .OnDatabase("your database name")
                     .OnGraph("your graph name")
                     .WithPartitionKey(x => x.PartitionKey!)
                     .AuthenticateBy("your auth key")
-#elif (provider == "GremlinServer")
+#elif (provider == "GremlinServerContainer")
                     .UseGremlinServerModContainer()
 #else
                     .AtLocalhost()

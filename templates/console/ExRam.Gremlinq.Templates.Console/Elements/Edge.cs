@@ -2,7 +2,7 @@
 {
     public class Edge
     {
-#if (provider == "GremlinServer" || provider == "JanusGraph")
+#if (actualProvider == "GremlinServer" || actualProvider == "JanusGraph")
         public long? Id { get; set; }
 #else
         public string? Id { get; set; }

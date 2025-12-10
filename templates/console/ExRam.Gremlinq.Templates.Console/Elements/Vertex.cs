@@ -2,12 +2,12 @@
 {
     public class Vertex
     {
-#if (provider == "GremlinServer" || provider == "JanusGraph")
+#if (actualProvider == "GremlinServer" || actualProvider == "JanusGraph")
         public long? Id { get; set; }
 #else
         public string? Id { get; set; }
 #endif
-#if (provider == "CosmosDb")
+#if (actualProvider == "CosmosDb")
 
         public string? PartitionKey { get; set; } = "PartitionKey";
 #endif
