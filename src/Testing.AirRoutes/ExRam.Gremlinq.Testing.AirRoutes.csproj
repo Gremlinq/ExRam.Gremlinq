@@ -2,7 +2,6 @@
 
   <PropertyGroup>
     <Description>AirRoutes for ExRam.Gremlinq!</Description>
-    <IsPackable>false</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>
