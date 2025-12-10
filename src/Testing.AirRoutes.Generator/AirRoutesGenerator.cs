@@ -95,7 +95,7 @@ namespace ExRam.Gremlinq.Testing.AirRoutes.Generator
                     Generate(
                         "CreateAirRoutesSmall",
                         """
-                        /// Creates a small AirRoutes set if it not exists in the database.
+                        /// Creates a small AirRoutes set if it does not exist in the database.
                         /// This method is idempotent, however, commenting out its uses will save time once the database has been populated.
                         """,
                         "https://raw.githubusercontent.com/krlawrence/graph/refs/heads/master/sample-data/air-routes-small-latest.graphml"));
