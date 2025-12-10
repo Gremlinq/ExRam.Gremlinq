@@ -14,6 +14,14 @@ namespace ExRam.Gremlinq.Support.TestContainers
             where TConfigurator : IProviderConfigurator<TConfigurator, IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>> => configurator
                 .UseTestContainersWithDefaultSetup("tinkerpop/gremlin-server", tag);
 
+        /// <summary>
+        ///  Runs a container from the 'ghcr.io/gremlinq/gremlin-server-mod' image upon GremlinClient creation.
+        ///  See https://github.com/Gremlinq/Gremlinq.Dockerfiles.GremlinServerMod
+        /// </summary>
+        /// <typeparam name="TConfigurator"></typeparam>
+        /// <param name="configurator"></param>
+        /// <param name="tag"></param>
+        /// <returns></returns>
         public static TConfigurator UseGremlinServerModContainer<TConfigurator>(this IProviderConfigurator<TConfigurator, IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>> configurator, string tag = "3")
             where TConfigurator : IProviderConfigurator<TConfigurator, IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>> => configurator
                 .UseTestContainersWithDefaultSetup("ghcr.io/gremlinq/gremlin-server-mod", tag);
