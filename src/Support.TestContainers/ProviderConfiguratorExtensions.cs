@@ -10,15 +10,15 @@ namespace ExRam.Gremlinq.Support.TestContainers
             where TConfigurator : IProviderConfigurator<TConfigurator, IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>> => configurator
                 .ConfigureClientFactory(factory => continuation(new TestContainersConfigurator(factory)));
 
-        public static TConfigurator UseGremlinServerContainer<TConfigurator>(this IProviderConfigurator<TConfigurator, IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>> configurator, Func<TestContainersConfigurator, IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>> continuation, string tag = "latest")
+        public static TConfigurator UseGremlinServerContainer<TConfigurator>(this IProviderConfigurator<TConfigurator, IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>> configurator, string tag = "latest")
             where TConfigurator : IProviderConfigurator<TConfigurator, IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>> => configurator
                 .UseTestContainersWithDefaultSetup("tinkerpop/gremlin-server", tag);
 
-        public static TConfigurator UseGremlinServerModContainer<TConfigurator>(this IProviderConfigurator<TConfigurator, IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>> configurator, Func<TestContainersConfigurator, IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>> continuation, string tag = "3")
+        public static TConfigurator UseGremlinServerModContainer<TConfigurator>(this IProviderConfigurator<TConfigurator, IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>> configurator, string tag = "3")
             where TConfigurator : IProviderConfigurator<TConfigurator, IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>> => configurator
                 .UseTestContainersWithDefaultSetup("ghcr.io/gremlinq/gremlin-server-mod", tag);
 
-        public static TConfigurator UseJanusGraphContainer<TConfigurator>(this IProviderConfigurator<TConfigurator, IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>> configurator, Func<TestContainersConfigurator, IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>> continuation, string tag = "latest")
+        public static TConfigurator UseJanusGraphContainer<TConfigurator>(this IProviderConfigurator<TConfigurator, IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>> configurator, string tag = "latest")
             where TConfigurator : IProviderConfigurator<TConfigurator, IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>> => configurator
                 .UseTestContainersWithDefaultSetup("janusgraph/janusgraph", tag);
 
