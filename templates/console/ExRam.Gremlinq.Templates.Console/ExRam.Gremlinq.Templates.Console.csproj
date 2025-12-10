@@ -9,7 +9,10 @@
   <ItemGroup>
     <PackageReference Include="ExRam.Gremlinq.Providers.TEMPLATEPROVIDER" Version="TEMPLATE_GREMLINQ_VERSION" />
     <PackageReference Include="ExRam.Gremlinq.Support.NewtonsoftJson" Version="TEMPLATE_GREMLINQ_VERSION" />
-    <PackageReference Include="ExRam.Gremlinq.Testing.AirRoutes" Version="13.4.1-preview.28" />
+    <PackageReference Include="ExRam.Gremlinq.Testing.AirRoutes" Version="TEMPLATE_GREMLINQ_VERSION" />
+<!--#if (provider == "GremlinServer") -->
+    <PackageReference Include="ExRam.Gremlinq.Support.TestContainers" Version="TEMPLATE_GREMLINQ_VERSION" />
+<!--#endif -->
   </ItemGroup>
 
 </Project>

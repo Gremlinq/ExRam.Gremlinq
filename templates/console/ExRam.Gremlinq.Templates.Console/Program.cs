@@ -5,6 +5,9 @@ using ExRam.Gremlinq.Providers.Core;
 using ExRam.Gremlinq.Providers.TEMPLATEPROVIDER;
 using ExRam.Gremlinq.Testing.AirRoutes;
 using ExRam.Gremlinq.Support.NewtonsoftJson;
+#if (provider == "GremlinServer")
+using ExRam.Gremlinq.Support.TestContainers;
+#endif
 
 namespace ExRam.Gremlinq.Templates.Console
 {
@@ -15,7 +18,7 @@ namespace ExRam.Gremlinq.Templates.Console
         public Program()
         {
             _g = GremlinQuerySource.g
-               .UseTEMPLATEPROVIDER<Vertex, Edge>(configurator => configurator
+                .UseTEMPLATEPROVIDER<Vertex, Edge>(configurator => configurator
 #if (provider == "Neptune")
                     .At(new Uri("wss://your.neptune.endpoint/"))
                     .UseIAMAuthentication(_ => _
@@ -30,6 +33,8 @@ namespace ExRam.Gremlinq.Templates.Console
                     .OnGraph("your graph name")
                     .WithPartitionKey(x => x.PartitionKey!)
                     .AuthenticateBy("your auth key")
+#elif (provider == "GremlinServer")
+                    .UseGremlinServerModContainer()
 #else
                     .AtLocalhost()
 #endif
