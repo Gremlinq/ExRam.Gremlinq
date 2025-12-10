@@ -13,14 +13,14 @@ namespace ExRam.Gremlinq.Templates.Tests
         [InlineData("CosmosDb")]
         [InlineData("Neptune")]
         [InlineData("JanusGraph")]
-        public Task Gremlinq_Console(string provider) => Test("gremlinq-console", "Gremlinq.Console.Template.TestProject", provider);
+        public Task Gremlinq_Console(string provider) => Test("gremlinq-console", "ConsoleTest", provider);
 
         [Theory]
         [InlineData("GremlinServer")]
         [InlineData("CosmosDb")]
         [InlineData("Neptune")]
         [InlineData("JanusGraph")]
-        public Task Gremlinq_AspNet(string provider) => Test("gremlinq-aspnet", "Gremlinq.AspNet.Template.TestProject", provider);
+        public Task Gremlinq_AspNet(string provider) => Test("gremlinq-aspnet", "AspNetTest", provider);
 
         private async Task Test(string template, string name, string provider)
         {
