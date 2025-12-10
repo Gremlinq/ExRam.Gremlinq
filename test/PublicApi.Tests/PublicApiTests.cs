@@ -41,6 +41,9 @@ namespace ExRam.Gremlinq.PublicApi.Tests
         [Fact]
         public Task SupportNewtonsoftJson() => Verify("ExRam.Gremlinq.Support.NewtonsoftJson");
 
+        [Fact]
+        public Task SupportTestContainers() => Verify("ExRam.Gremlinq.Support.TestContainers");
+
         private Task Verify(string assemblyName) => Verifier
             .Verify(
                 Assembly
