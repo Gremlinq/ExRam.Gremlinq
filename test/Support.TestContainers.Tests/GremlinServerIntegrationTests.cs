@@ -18,17 +18,16 @@ namespace ExRam.Gremlinq.Support.TestContainers.Tests
         {
             _g = GremlinQuerySource.g
                 .UseGremlinServer<Vertex, Edge>(configurator => configurator
-                    .ConfigureClientFactory(factory => factory
-                        .UseTestContainers(c => c
-                            .ConfigureContainer(builder => builder
-                                .WithImage("tinkerpop/gremlin-server")
-                                .WithPortBinding(8182, true)
-                                .WithWaitStrategy(Wait
-                                    .ForUnixContainer()
-                                    .UntilInternalTcpPortIsAvailable(8182)))
-                            .ConfigureClientFactory((poolFactory, container) => poolFactory
-                                    .ConfigureBaseFactory(webSocketFactory => webSocketFactory
-                                        .ConfigureUri(_ => new Uri($"ws://localhost:{container.GetMappedPublicPort(8182)}"))))))
+                    .UseTestContainers(c => c
+                        .ConfigureContainer(builder => builder
+                            .WithImage("tinkerpop/gremlin-server")
+                            .WithPortBinding(8182, true)
+                            .WithWaitStrategy(Wait
+                                .ForUnixContainer()
+                                .UntilInternalTcpPortIsAvailable(8182)))
+                        .ConfigureClientFactory((poolFactory, container) => poolFactory
+                                .ConfigureBaseFactory(webSocketFactory => webSocketFactory
+                                    .ConfigureUri(_ => new Uri($"ws://localhost:{container.GetMappedPublicPort(8182)}")))))
                     .UseNewtonsoftJson());
         }
 
