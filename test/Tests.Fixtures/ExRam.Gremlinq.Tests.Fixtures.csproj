@@ -6,6 +6,7 @@
     <ProjectReference Include="..\..\src\Providers.JanusGraph\ExRam.Gremlinq.Providers.JanusGraph.csproj" />
     <ProjectReference Include="..\..\src\Providers.Neptune\ExRam.Gremlinq.Providers.Neptune.csproj" />
     <ProjectReference Include="..\..\src\Support.NewtonsoftJson\ExRam.Gremlinq.Support.NewtonsoftJson.csproj" />
+    <ProjectReference Include="..\..\src\Support.TestContainers\ExRam.Gremlinq.Support.TestContainers.csproj" />
     <ProjectReference Include="..\Tests.Entities\ExRam.Gremlinq.Tests.Entities.csproj" />
     <ProjectReference Include="..\Tests.Infrastructure\ExRam.Gremlinq.Tests.Infrastructure.csproj" />
 

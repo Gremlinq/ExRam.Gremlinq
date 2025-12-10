@@ -1,23 +1,17 @@
-﻿using DotNet.Testcontainers.Containers;
-using ExRam.Gremlinq.Core;
-using ExRam.Gremlinq.Providers.Core;
+﻿using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Tests.Entities;
 using ExRam.Gremlinq.Support.NewtonsoftJson;
 using ExRam.Gremlinq.Providers.JanusGraph;
 using ExRam.Gremlinq.Tests.Infrastructure;
+using ExRam.Gremlinq.Support.TestContainers;
 
 namespace ExRam.Gremlinq.Tests.Fixtures
 {
-    public class JanusGraphContainerFixture : ImageTestContainerFixture
+    public class JanusGraphContainerFixture : GremlinqFixture
     {
-        public JanusGraphContainerFixture() : base("janusgraph/janusgraph:1.1.0")
-        {
-
-        }
-
-        protected override IGremlinQuerySource TransformQuerySource(IContainer container, IGremlinQuerySource g) => g
+        protected override IGremlinQuerySource TransformQuerySource(IGremlinQuerySource g) => g
             .UseJanusGraph<Vertex, Edge>(builder => builder
-                .At(new UriBuilder("ws", container.Hostname, container.GetMappedPublicPort(8182)).Uri)
+                .UseJanusGraphContainer("1.1.0")
                 .UseNewtonsoftJson())
             .ConfigureEnvironment(environment => environment
                 .ConfigureExecutor(_ => _

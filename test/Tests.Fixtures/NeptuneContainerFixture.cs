@@ -1,26 +1,22 @@
-﻿using DotNet.Testcontainers.Containers;
-using ExRam.Gremlinq.Core;
-using ExRam.Gremlinq.Providers.Core;
-using ExRam.Gremlinq.Tests.Entities;
+﻿using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Providers.Neptune;
 using ExRam.Gremlinq.Support.NewtonsoftJson;
+using ExRam.Gremlinq.Support.TestContainers;
+using ExRam.Gremlinq.Tests.Entities;
+using ExRam.Gremlinq.Tests.Infrastructure;
 
 namespace ExRam.Gremlinq.Tests.Fixtures
 {
-    public class NeptuneContainerFixture : ImageTestContainerFixture
+    public class NeptuneContainerFixture : GremlinqFixture
     {
-        public NeptuneContainerFixture() : base("tinkerpop/gremlin-server:3.7.5")
-        {
-        }
-
-        protected override IGremlinQuerySource TransformQuerySource(IContainer container, IGremlinQuerySource g) => g
+        protected override IGremlinQuerySource TransformQuerySource(IGremlinQuerySource g) => g
             .UseNeptune<Vertex, Edge>(_ => _
-                .At(new UriBuilder("ws", container.Hostname, container.GetMappedPublicPort(8182)).Uri)
                 .UseIAMAuthentication(_ => _
                     .UseSigV4()
-                    .WithUri(new UriBuilder("ws", container.Hostname, container.GetMappedPublicPort(8182)).Uri)
+                    .WithUri(new Uri("http://localhost:8182"))
                     .WithAccessKeyId("accessKeyId")
                     .WithSecretAccessKey("secretAccessKey"))
+                .UseGremlinServerContainer("3.7.5")
                 .UseNewtonsoftJson())
             .IgnoreCosmosDbSpecificProperties();
     }
