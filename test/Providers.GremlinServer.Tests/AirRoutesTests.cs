@@ -8,6 +8,7 @@ using ExRam.Gremlinq.Tests.Infrastructure;
 using ExRam.Gremlinq.Support.NewtonsoftJson;
 using FluentAssertions;
 using ExRam.Gremlinq.Core.Models;
+using ExRam.Gremlinq.Support.TestContainers;
 
 namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 {
@@ -41,15 +42,11 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
             public long Distance { get; set; }
         }
 
-        public class Fixture : DockerfileTestContainerFixture
+        public class Fixture : GremlinqFixture
         {
-            public Fixture() : base("StringIdGremlinServerDockerfile")
-            {
-            }
-
-            protected override IGremlinQuerySource TransformQuerySource(IContainer container, IGremlinQuerySource g) => g
+            protected override IGremlinQuerySource TransformQuerySource(IGremlinQuerySource g) => g
                 .UseGremlinServer<Airport, Route>(_ => _
-                    .At(new UriBuilder("ws", container.Hostname, container.GetMappedPublicPort(8182)).Uri)
+                    .UseGremlinServerModContainer()
                     .UseNewtonsoftJson());
         }
 

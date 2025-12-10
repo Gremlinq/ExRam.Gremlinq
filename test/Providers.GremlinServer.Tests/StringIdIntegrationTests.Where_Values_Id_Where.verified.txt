@@ -17,7 +17,7 @@
       stackTrace:
 java.lang.IllegalArgumentException: Expected an id that is convertible to class java.lang.String but received class java.lang.Long - [1]
 	at org.apache.tinkerpop.gremlin.tinkergraph.structure.AbstractTinkerGraph$DefaultIdManager$5.convert(AbstractTinkerGraph.java:587)
-	at org.apache.tinkerpop.gremlin.tinkergraph.structure.TinkerGraph.lambda$createElementIterator$3(TinkerGraph.java:274)
+	at org.apache.tinkerpop.gremlin.tinkergraph.structure.TinkerTransactionGraph.lambda$createElementIterator$7(TinkerTransactionGraph.java:362)
 	at org.apache.tinkerpop.gremlin.util.iterator.IteratorUtils$3.next(IteratorUtils.java:284)
 	at org.apache.tinkerpop.gremlin.util.iterator.IteratorUtils$5.advance(IteratorUtils.java:380)
 	at org.apache.tinkerpop.gremlin.util.iterator.IteratorUtils$5.next(IteratorUtils.java:361)
@@ -27,6 +27,9 @@ java.lang.IllegalArgumentException: Expected an id that is convertible to class 
 	at org.apache.tinkerpop.gremlin.tinkergraph.process.traversal.step.sideEffect.TinkerGraphStep.vertices(TinkerGraphStep.java:100)
 	at org.apache.tinkerpop.gremlin.tinkergraph.process.traversal.step.sideEffect.TinkerGraphStep.lambda$new$0(TinkerGraphStep.java:67)
 	at org.apache.tinkerpop.gremlin.process.traversal.step.map.GraphStep.processNextStart(GraphStep.java:158)
+	at org.apache.tinkerpop.gremlin.process.traversal.step.util.AbstractStep.hasNext(AbstractStep.java:155)
+	at org.apache.tinkerpop.gremlin.process.traversal.step.util.ExpandableStepIterator.next(ExpandableStepIterator.java:55)
+	at org.apache.tinkerpop.gremlin.process.traversal.step.map.ScalarMapStep.processNextStart(ScalarMapStep.java:39)
 	at org.apache.tinkerpop.gremlin.process.traversal.step.util.AbstractStep.hasNext(AbstractStep.java:155)
 	at org.apache.tinkerpop.gremlin.process.traversal.step.util.ExpandableStepIterator.next(ExpandableStepIterator.java:55)
 	at org.apache.tinkerpop.gremlin.process.traversal.step.map.ScalarMapStep.processNextStart(ScalarMapStep.java:39)
