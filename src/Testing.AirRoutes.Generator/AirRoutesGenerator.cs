@@ -21,6 +21,31 @@ namespace ExRam.Gremlinq.Testing.AirRoutes.Generator
                 .RegisterForPostInitialization(context =>
                 {
                     context
+                       .AddSource(
+                           "RemoveAirRoutes",
+                           """
+                            #nullable enable
+                            using ExRam.Gremlinq.Core;
+                            using ExRam.Gremlinq.Core.Models;
+
+                            namespace ExRam.Gremlinq.Testing.AirRoutes
+                            {
+                                public static partial class GremlinQuerySourceExtensions
+                                {
+                                    public static async Task RemoveAirRoutes(this IGremlinQuerySource source, CancellationToken ct = default)
+                                    {
+                                        await source
+                                            .ConfigureEnvironment(env => env
+                                                .UseModel(GraphModel.FromBaseTypes<Airport, Route>()))
+                                            .V<Airport>()
+                                            .Where(airport => airport.Id!.StartsWith("airport_"))
+                                            .Drop();
+                                    }
+                                }
+                            }
+                            """);
+
+                    context
                         .AddSource(
                             "Entities",
                             """
@@ -59,10 +84,10 @@ namespace ExRam.Gremlinq.Testing.AirRoutes.Generator
         public void Execute(GeneratorExecutionContext context)
         {
             //context
-            //    .AddSource("AirRoutes.g", Generate("CreateAirRoutes", "https://raw.githubusercontent.com/krlawrence/graph/refs/heads/master/sample-data/air-routes-latest.graphml"));
+            //    .AddSource("AirRoutes", Generate("CreateAirRoutes", "https://raw.githubusercontent.com/krlawrence/graph/refs/heads/master/sample-data/air-routes-latest.graphml"));
 
             context
-                .AddSource("AirRoutesSmall.g", Generate("CreateAirRoutesSmall", "https://raw.githubusercontent.com/krlawrence/graph/refs/heads/master/sample-data/air-routes-small-latest.graphml"));
+                .AddSource("AirRoutesSmall", Generate("CreateAirRoutesSmall", "https://raw.githubusercontent.com/krlawrence/graph/refs/heads/master/sample-data/air-routes-small-latest.graphml"));
         }
 
         public string Generate(string methodName, string uri)
@@ -85,7 +110,7 @@ namespace ExRam.Gremlinq.Testing.AirRoutes.Generator
                         .WriteLine()
                         .WriteLine("namespace ExRam.Gremlinq.Testing.AirRoutes")
                         .Block(writer => writer
-                            .WriteLine("public static partial class GremlinQuerySourceExtensions")
+                            .WriteLine("partial class GremlinQuerySourceExtensions")
                             .Block(writer => writer
                                 .WriteLine($"public static async Task {methodName}(this IGremlinQuerySource source, CancellationToken ct = default)")
                                 .Block(writer =>
