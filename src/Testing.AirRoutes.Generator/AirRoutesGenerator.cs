@@ -32,6 +32,9 @@ namespace ExRam.Gremlinq.Testing.AirRoutes.Generator
                             {
                                 public static partial class GremlinQuerySourceExtensions
                                 {
+                                    /// <summary>
+                                    ///  Removes any AirRoutes data from the database.
+                                    /// </summary>
                                     public static async Task RemoveAirRoutes(this IGremlinQuerySource source, CancellationToken ct = default)
                                     {
                                         await source
@@ -87,10 +90,18 @@ namespace ExRam.Gremlinq.Testing.AirRoutes.Generator
             //    .AddSource("AirRoutes", Generate("CreateAirRoutes", "https://raw.githubusercontent.com/krlawrence/graph/refs/heads/master/sample-data/air-routes-latest.graphml"));
 
             context
-                .AddSource("AirRoutesSmall", Generate("CreateAirRoutesSmall", "https://raw.githubusercontent.com/krlawrence/graph/refs/heads/master/sample-data/air-routes-small-latest.graphml"));
+                .AddSource(
+                    "AirRoutesSmall",
+                    Generate(
+                        "CreateAirRoutesSmall",
+                        """
+                        /// Creates a small AirRoutes set if it not exists in the database.
+                        /// This method is idempotent, however, commenting out its uses will save time once the database has been populated.
+                        """,
+                        "https://raw.githubusercontent.com/krlawrence/graph/refs/heads/master/sample-data/air-routes-small-latest.graphml"));
         }
 
-        public string Generate(string methodName, string uri)
+        public string Generate(string methodName, string summary, string uri)
         {
             using (var httpClient = new HttpClient())
             {
@@ -112,6 +123,11 @@ namespace ExRam.Gremlinq.Testing.AirRoutes.Generator
                         .Block(writer => writer
                             .WriteLine("partial class GremlinQuerySourceExtensions")
                             .Block(writer => writer
+                                .WriteLine("/// <summary>")
+                                .WriteLine(summary)
+                                .Write("/// AirRoutes data taken from ").WriteLine(uri)
+                                .WriteLine("/// With many thanks to author Kelvin R. Lawrence.")
+                                .WriteLine("/// </summary>")
                                 .WriteLine($"public static async Task {methodName}(this IGremlinQuerySource source, CancellationToken ct = default)")
                                 .Block(writer =>
                                 {
