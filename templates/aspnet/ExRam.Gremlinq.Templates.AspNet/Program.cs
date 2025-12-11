@@ -8,13 +8,19 @@ using ExRam.Gremlinq.Support.NewtonsoftJson.AspNet;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-
+#if (useTestContainers)
+using ExRam.Gremlinq.Support.TestContainers;
+#endif
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services
     .AddGremlinq(setup => setup
         .UseTEMPLATEPROVIDER<Vertex, Edge>()
+#if (provider == "GremlinServer" && useTestContainers)
+        .Configure((configurator, _) => configurator
+            .UseGremlinServerModContainer())
+#endif
 #if (provider == "Neptune")
         .UseIAMAuthentication()
 #endif

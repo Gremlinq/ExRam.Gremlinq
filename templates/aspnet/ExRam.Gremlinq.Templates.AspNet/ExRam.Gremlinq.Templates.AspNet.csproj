@@ -8,6 +8,10 @@
   <ItemGroup>
     <PackageReference Include="ExRam.Gremlinq.Providers.TEMPLATEPROVIDER.AspNet" Version="TEMPLATE_GREMLINQ_VERSION" />
     <PackageReference Include="ExRam.Gremlinq.Support.NewtonsoftJson.AspNet" Version="TEMPLATE_GREMLINQ_VERSION" />
+    <PackageReference Include="ExRam.Gremlinq.Testing.AirRoutes" Version="TEMPLATE_GREMLINQ_VERSION" />
+<!--#if (useTestContainers) -->
+    <PackageReference Include="ExRam.Gremlinq.Support.TestContainers" Version="TEMPLATE_GREMLINQ_VERSION" />
+<!--#endif -->
   </ItemGroup>
 
 </Project>
