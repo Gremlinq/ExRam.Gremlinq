@@ -62,7 +62,7 @@ namespace ExRam.Gremlinq.Templates.Console
             // Let's find out about the airports with a code starting with the letter 'J'
             var airportCodesStartingWithLetterJ = await _g
                 .V<Airport>()
-                .Where(a => a.Code!.StartsWith("J"))
+                .Where(airport => airport.Code!.StartsWith("J"))
                 .ToArrayAsync();
 
             airportCodesStartingWithLetterJ
@@ -72,7 +72,7 @@ namespace ExRam.Gremlinq.Templates.Console
             // Where can we go to from Seattle?
             var destinationsFromSeattle = await _g
                 .V<Airport>()
-                .Where(a => a.Code == "SEA")
+                .Where(airport => airport.Code == "SEA")
                 .Out<Route>()
                 .OfType<Airport>()
                 .ToArrayAsync();
@@ -84,9 +84,9 @@ namespace ExRam.Gremlinq.Templates.Console
             // But which of these have a distance only up to 1500 miles?
             var reachableWithin1500Miles = await _g
                 .V<Airport>()
-                .Where(a => a.Code == "SEA")
+                .Where(airport => airport.Code == "SEA")
                 .OutE<Route>()
-                .Where(r => r.Distance <= 1500)
+                .Where(route => route.Distance <= 1500)
                 .InV<Airport>()
                 .ToArrayAsync();
 
@@ -97,7 +97,7 @@ namespace ExRam.Gremlinq.Templates.Console
             // What routes go into SEA?
             var routesIntoSEA = await _g
                 .V<Airport>()
-                .Where(a => a.Code == "SEA")
+                .Where(airport => airport.Code == "SEA")
                 .In<Route>()
                 .OfType<Airport>()
                 .ToArrayAsync();
@@ -112,7 +112,7 @@ namespace ExRam.Gremlinq.Templates.Console
             // There might be duplicates, so we take care of that with the Dedup-operator.
             var withinOneOrTwoFlights = await _g
                 .V<Airport>()
-                .Where(a => a.Code == "SEA")
+                .Where(airport => airport.Code == "SEA")
                 .Union(
                     __ => __
                         .Out<Route>(),
@@ -130,7 +130,7 @@ namespace ExRam.Gremlinq.Templates.Console
             // The same query can be written even shorter:
             await _g
                 .V<Airport>()
-                .Where(a => a.Code == "JFK")
+                .Where(airport => airport.Code == "JFK")
                 .Out<Route>()
                 .Union(
                     __ => __,
@@ -146,13 +146,13 @@ namespace ExRam.Gremlinq.Templates.Console
 
             var destinationsWithRoutesToAtlanta = await _g
                 .V<Airport>()
-                .Where(a => a.Code == "SEA")
+                .Where(airport => airport.Code == "SEA")
                 .Out<Route>()
                 .OfType<Airport>()
                 .Where(__ => __
                     .Out<Route>()
                     .OfType<Airport>()
-                    .Where(a => a.Code == "ATL"))
+                    .Where(airport => airport.Code == "ATL"))
                 .ToArrayAsync();
 
             destinationsWithRoutesToAtlanta
@@ -165,7 +165,7 @@ namespace ExRam.Gremlinq.Templates.Console
             var orderedByCode = await _g
                 .V<Airport>()
                 .Order(o => o
-                    .By(x => x.Code))
+                    .By(airport => airport.Code))
                 .ToArrayAsync();
 
             orderedByCode
@@ -179,8 +179,8 @@ namespace ExRam.Gremlinq.Templates.Console
                     .ByDescending(__ => __
                         .OutE<Route>()
                         .Order(o => o
-                            .ByDescending(x => x.Distance))
-                        .Values(x => x.Distance)))
+                            .ByDescending(route => route.Distance))
+                        .Values(route => route.Distance)))
                 .ToArrayAsync();
 
             orderedByLongestRoute
@@ -194,9 +194,9 @@ namespace ExRam.Gremlinq.Templates.Console
                     .ByDescending(__ => __
                         .OutE<Route>()
                         .Order(o => o
-                            .ByDescending(x => x.Distance))
-                        .Values(x => x.Distance))
-                    .By(x => x.Code))
+                            .ByDescending(route => route.Distance))
+                        .Values(route => route.Distance))
+                    .By(airport => airport.Code))
                 .ToArrayAsync();
 
             orderedByLongestRouteThenCode
@@ -211,8 +211,8 @@ namespace ExRam.Gremlinq.Templates.Console
                     .ByDescending(__ => __
                         .OutE<Route>()
                         .Order(o => o
-                            .ByDescending(x => x.Distance))
-                        .Values(x => x.Distance)))
+                            .ByDescending(route => route.Distance))
+                        .Values(route => route.Distance)))
                 .Limit(5)
                 .ToArrayAsync();
 
@@ -227,7 +227,7 @@ namespace ExRam.Gremlinq.Templates.Console
             // we capture SEA in a StepLabel and filter out our eventual destinations on those that are not SEA!
             var withinTwoFlightsWithNoReturn = await _g
                 .V<Airport>()
-                .Where(a => a.Code == "SEA")
+                .Where(departure => departure.Code == "SEA")
                 .As((__, sea) => __
                     .Out<Route>()
                     .Out<Route>()
