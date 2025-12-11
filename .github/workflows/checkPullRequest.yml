@@ -42,6 +42,6 @@ jobs:
       run: dotnet test -c Debug --solution ./${{ github.event.repository.name }}.slnx --coverage --coverage-output-format cobertura
       
     - name: Collect coverage
-      uses: codecov/codecov-action@0565863a31f2c772f9f0395002a31e3f06189574 # 5.4.0
+      uses: codecov/codecov-action@671740ac38dd9b0130fbe1cec585b89eea48d3de # 5.5.2
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
