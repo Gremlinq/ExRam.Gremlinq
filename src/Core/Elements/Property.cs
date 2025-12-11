@@ -69,7 +69,7 @@
         /// <summary>
         /// Gets or sets the property value.
         /// </summary>
-        /// <exception cref="ArgumentNullException">Thrown when attempting to set a null value.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when attempting to set a null value (applies even to nullable value types).</exception>
         public TValue Value
         {
             get => _value;
