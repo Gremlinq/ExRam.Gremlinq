@@ -16,10 +16,7 @@
   <ItemGroup Condition="$(ProjectName.EndsWith('Tests'))">
     <Compile Include="$(MSBuildThisFileDirectory)AssemblyInfo.cs" Link="AssemblyInfo.cs" />
 
-    <PackageReference Include="xunit.v3" />
-    <PackageReference Include="xunit.runner.visualstudio" />
-
-    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="xunit.v3.mtp-v2" />
   </ItemGroup>
 
   <ItemGroup>

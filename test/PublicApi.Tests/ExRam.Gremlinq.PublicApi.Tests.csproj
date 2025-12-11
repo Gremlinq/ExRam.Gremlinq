@@ -1,10 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+  </PropertyGroup>
+  
   <ItemGroup>
     <PackageReference Include="PublicApiGenerator" />
-  </ItemGroup>
 
-  <ItemGroup>
     <ProjectReference Include="..\..\src\Core\ExRam.Gremlinq.Core.csproj" />
     <ProjectReference Include="..\..\src\Providers.CosmosDb.AspNet\ExRam.Gremlinq.Providers.CosmosDb.AspNet.csproj" />
     <ProjectReference Include="..\..\src\Providers.CosmosDb\ExRam.Gremlinq.Providers.CosmosDb.csproj" />
@@ -17,9 +19,7 @@
     <ProjectReference Include="..\..\src\Support.NewtonsoftJson\ExRam.Gremlinq.Support.NewtonsoftJson.csproj" />
     <ProjectReference Include="..\..\src\Support.TestContainers\ExRam.Gremlinq.Support.TestContainers.csproj" />
     <ProjectReference Include="..\Tests.Infrastructure\ExRam.Gremlinq.Tests.Infrastructure.csproj" />
-  </ItemGroup>
 
-  <ItemGroup>
     <Compile Remove="*.verified.cs" />
     <Compile Remove="*.received.cs" />
   </ItemGroup>

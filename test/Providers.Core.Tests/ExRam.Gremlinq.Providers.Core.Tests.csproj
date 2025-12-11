@@ -1,11 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+  </PropertyGroup>
+  
   <ItemGroup>
     <None Remove="*.verified.json" />
     <None Remove="*.received.json" />
-  </ItemGroup>
 
-  <ItemGroup>
     <ProjectReference Include="..\PublicApi.Tests\ExRam.Gremlinq.PublicApi.Tests.csproj" />
   </ItemGroup>
 

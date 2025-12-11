@@ -1,9 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+  </PropertyGroup>
+  
   <ItemGroup>
     <None Remove="*.verified.txt" />
     <None Remove="*.received.txt" />
+
     <PackageReference Include="Verify.MicrosoftLogging" />
+
     <ProjectReference Include="..\..\src\Testing.AirRoutes\ExRam.Gremlinq.Testing.AirRoutes.csproj" />
     <ProjectReference Include="..\Tests.Fixtures\ExRam.Gremlinq.Tests.Fixtures.csproj" />
   </ItemGroup>

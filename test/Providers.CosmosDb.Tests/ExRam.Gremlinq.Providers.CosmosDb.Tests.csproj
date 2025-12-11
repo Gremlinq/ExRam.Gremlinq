@@ -1,5 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+  </PropertyGroup>
+  
   <ItemGroup>
     <None Remove="*.verified.txt" />
     <None Remove="*.received.txt" />
