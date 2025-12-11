@@ -9,17 +9,16 @@
     <NoWarn>CA2007;$(NoWarn)</NoWarn>
   </PropertyGroup>
 
-  <PropertyGroup Condition="$(ProjectName.EndsWith('Tests'))">
+  <PropertyGroup Condition="$(MSBuildProjectName.EndsWith('Tests'))">
+    <OutputType>Exe</OutputType>
     <UseMicrosoftTestingPlatformRunner>true</UseMicrosoftTestingPlatformRunner>
+    <EnableMicrosoftTestingPlatform>true</EnableMicrosoftTestingPlatform>
   </PropertyGroup>
 
-  <ItemGroup Condition="$(ProjectName.EndsWith('Tests'))">
+  <ItemGroup Condition="$(MSBuildProjectName.EndsWith('Tests'))">
     <Compile Include="$(MSBuildThisFileDirectory)AssemblyInfo.cs" Link="AssemblyInfo.cs" />
 
-    <PackageReference Include="xunit.v3" />
-    <PackageReference Include="xunit.runner.visualstudio" />
-
-    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="xunit.v3.mtp-v2" />
   </ItemGroup>
 
   <ItemGroup>
