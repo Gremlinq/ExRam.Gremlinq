@@ -164,7 +164,7 @@ namespace ExRam.Gremlinq.Templates.Console
             // Order all the airports by their code
             var orderedByCode = await _g
                 .V<Airport>()
-                .Order(orderBuilder => orderBuilder
+                .Order(o => o
                     .By(x => x.Code))
                 .ToArrayAsync();
 
@@ -175,7 +175,7 @@ namespace ExRam.Gremlinq.Templates.Console
             // A somewhat more complex query: Order all airports by their longest route (longest first):
             var orderedByLongestRoute = await _g
                 .V<Airport>()
-                .Order(orderBuilder => orderBuilder
+                .Order(o => o
                     .ByDescending(__ => __
                         .OutE<Route>()
                         .Order(o => o
@@ -190,7 +190,7 @@ namespace ExRam.Gremlinq.Templates.Console
             // Order all airports by their longest route (descending), then lexically by their code (ascending)
             var orderedByLongestRouteThenCode = await _g
                 .V<Airport>()
-                .Order(orderBuilder => orderBuilder
+                .Order(o => o
                     .ByDescending(__ => __
                         .OutE<Route>()
                         .Order(o => o
@@ -207,7 +207,7 @@ namespace ExRam.Gremlinq.Templates.Console
             // Get only the 5 airports with the longest routes.
             var onlyFiveAirportsOrderedByLongestRoute = await _g
                 .V<Airport>()
-                .Order(orderBuilder => orderBuilder
+                .Order(o => o
                     .ByDescending(__ => __
                         .OutE<Route>()
                         .Order(o => o
