@@ -36,6 +36,12 @@
         }
       ]
     },
+    "useTestContainers": {
+      "type": "parameter",
+      "isRequired": false,
+      "datatype": "bool",
+      "defaultValue": "false"
+    },
     "version": {
       "description": "The version of ExRam.Gremlinq being referenced",
       "type": "parameter",
