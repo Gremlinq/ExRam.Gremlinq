@@ -36,10 +36,10 @@ jobs:
           parameter_string: "-Timeout 600 -EnableGremlin"
 
     - name: Test
-      run: dotnet test -c Release --collect:"XPlat Code Coverage;Format=opencover" ./${{ github.event.repository.name }}.slnx
+      run: dotnet test -c Release --solution ./${{ github.event.repository.name }}.slnx --coverage
 
     - name: Test (Debug)
-      run: dotnet test -c Debug --collect:"XPlat Code Coverage;Format=opencover" ./${{ github.event.repository.name }}.slnx
+      run: dotnet test -c Debug --solution ./${{ github.event.repository.name }}.slnx --coverage
       
     - name: Collect coverage
       uses: codecov/codecov-action@0565863a31f2c772f9f0395002a31e3f06189574 # 5.4.0
