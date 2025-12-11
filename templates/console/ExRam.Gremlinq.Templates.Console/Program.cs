@@ -110,7 +110,7 @@ namespace ExRam.Gremlinq.Templates.Console
 
             // Let's find out all the airports that are reachable from SEA by one or two flights.
             // There might be duplicates, so we take care of that with the Dedup-operator.
-            var whithinOneOrTwoFlights = await _g
+            var withinOneOrTwoFlights = await _g
                 .V<Airport>()
                 .Where(a => a.Code == "SEA")
                 .Union(
@@ -123,7 +123,7 @@ namespace ExRam.Gremlinq.Templates.Console
                 .Dedup()
                 .ToArrayAsync();
 
-            whithinOneOrTwoFlights
+            withinOneOrTwoFlights
                 .WriteToConsole("Reachable from SEA with one or two consecutive flights");
 
 
@@ -204,8 +204,7 @@ namespace ExRam.Gremlinq.Templates.Console
 
 
             // This is how we limit results:
-            // Get only the 5 airports with the longest routes. Also, don't get the whole airport
-            // but only its description.
+            // Get only the 5 airports with the longest routes.
             var onlyFiveAirportsOrderedByLongestRoute = await _g
                 .V<Airport>()
                 .Order(orderBuilder => orderBuilder
@@ -218,7 +217,7 @@ namespace ExRam.Gremlinq.Templates.Console
                 .ToArrayAsync();
 
             onlyFiveAirportsOrderedByLongestRoute
-                .WriteToConsole("Airports ordered by their longest route, then by their code");
+                .WriteToConsole("Top 5 airports with the longest routes");
             // Analogous to Limit, there is also Range, Skip and Tail. Try it out!
 
 
