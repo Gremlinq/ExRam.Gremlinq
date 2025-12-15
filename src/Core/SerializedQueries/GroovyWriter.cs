@@ -147,6 +147,14 @@ namespace ExRam.Gremlinq.Core
                 {
                     return Write(b ? "true" : "false", stringBuilder);
                 }
+                case Guid g when maybeBindings == null:
+                {
+                    return this
+                        .Identifier("UUID", stringBuilder)
+                        .StartOperator("fromString", stringBuilder)
+                        .WriteQuoted(g.ToString("D"), stringBuilder)
+                        .EndOperator(stringBuilder);
+                }
                 case Type type:
                 {
                     return Write(type.Name, stringBuilder);

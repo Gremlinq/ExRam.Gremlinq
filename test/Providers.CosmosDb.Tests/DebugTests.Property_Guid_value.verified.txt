@@ -1,1 +1,1 @@
-﻿g.V().hasLabel('Person').property(single,'GuidKey',aebacdfb-2c00-4808-a8b6-8d62217a8059)
+﻿g.V().hasLabel('Person').property(single,'GuidKey',UUID.fromString('aebacdfb-2c00-4808-a8b6-8d62217a8059'))
