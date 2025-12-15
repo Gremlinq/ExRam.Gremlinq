@@ -52,8 +52,7 @@ namespace ExRam.Gremlinq.Templates.Console
                 .CreateAirRoutesSmall();
 #endif      // --8<-- [end:createAirRoutes]
 
-            /* Let's start out with some simple queries: */
-
+            #region Simple Queries
             // Retrieve all airports from the database.
 #if (true)  // --8<-- [start:allAirports]
             var airports = await _g
@@ -85,7 +84,9 @@ namespace ExRam.Gremlinq.Templates.Console
             airportCodesStartingWithLetterJ
                 .WriteToConsole("Here's a list of airports whose code starts with the letter 'J'");
 #endif      // --8<-- [end:codeStartingWithJ]
+            #endregion
 
+            #region Walking The Graph
             // Where can we go to from Seattle?
 #if (true)  // --8<-- [start:destinationsFromSEA]
             var destinationsFromSeattle = await _g
@@ -138,9 +139,9 @@ namespace ExRam.Gremlinq.Templates.Console
             twoFlightsFromSeattle
                 .WriteToConsole("The following airports can be reached from Seattle (SEA) by taking two flights");
 #endif      // --8<-- [end:twoFlights]
+            #endregion
 
-            /* Now let's dive into some Gremlinq-operators with sub-queries! */
-
+            #region Sub-Queries
 #if (true)  // --8<-- [start:oneOrTwoFlights]
             // Let's find out all the airports that are reachable from SEA by one or two flights.
             // There might be duplicates, so we take care of that with the Dedup-operator.
@@ -193,9 +194,9 @@ namespace ExRam.Gremlinq.Templates.Console
             destinationsWithRoutesToAtlanta
                 .WriteToConsole("From SEA, we can go to these airports and connect to ATL from there");
 #endif      // --8<-- [end:SEATwoHopsToAtlanta]
+            #endregion
 
-            // Now we're gonna write a couple of queries with some orderings.
-
+            #region Orderings
             // Order all the airports by their code
 #if (true)  // --8<-- [start:airportsOrderedByCode]
             var orderedByCode = await _g
@@ -240,8 +241,9 @@ namespace ExRam.Gremlinq.Templates.Console
             orderedByLongestRouteThenCode
                 .WriteToConsole("Airports ordered by their longest route, then by their code");
 #endif      // --8<-- [end:airportsByLongestRouteAndCode]
+            #endregion
 
-            // This is how we limit results:
+            #region Limit, Range, Skip and Tail
             // Get only the 5 airports with the longest routes.
 #if (true)  // --8<-- [start:firstFiveAirports]
             var onlyFiveAirportsOrderedByLongestRoute = await _g
@@ -260,7 +262,7 @@ namespace ExRam.Gremlinq.Templates.Console
 #endif      // --8<-- [end:firstFiveAirports]
 
 #if (true)  // --8<-- [start:fiveAirportsWithRange]
-            var results = await _g
+            var fiveAirportsWithRange = await _g
                 .V<Airport>()
                 .Order(orderBuilder => orderBuilder
                     .ByDescending(__ => __
@@ -270,6 +272,9 @@ namespace ExRam.Gremlinq.Templates.Console
                         .Values(x => x.Distance)))
                 .Range(0, 5)
                 .ToArrayAsync();
+
+            fiveAirportsWithRange
+                .WriteToConsole("Top 5 airports with the longest routes, but queries with the Range-operator");
 #endif      // --8<-- [end:fiveAirportsWithRange]
 
 #if (true)  // --8<-- [start:skipFirstFiveResults]
@@ -283,6 +288,9 @@ namespace ExRam.Gremlinq.Templates.Console
                         .Values(x => x.Distance)))
                 .Skip(5)
                 .ToArrayAsync();
+
+            skipFirstFiveResults
+                .WriteToConsole("All the airports without those 5 with the longest routes");
 #endif      // --8<-- [end:fiveAirportsWithRange]
 
 #if (true)  // --8<-- [start:tailFiveResults]
@@ -296,13 +304,18 @@ namespace ExRam.Gremlinq.Templates.Console
                         .Values(x => x.Distance)))
                 .Tail(5)
                 .ToArrayAsync();
+
+            tailFiveResults
+                .WriteToConsole("The 5 airports with the shortest routes.");
 #endif      // --8<-- [end:tailFiveResults]
+            #endregion
 
-
-            /* Dive into StepLabels: */
+            #region Step Labels
 
             // What airports are reachable from SEA within two hops? To avoid just returning to Seattle,
             // we capture SEA in a StepLabel and filter out our eventual destinations on those that are not SEA!
+
+            // Hover over the `sea` variable to inspect its type and how it captures type information for later use.
 #if (true)  // --8<-- [start:withinTwoFlightsWithNoReturn]
             var withinTwoFlightsWithNoReturn = await _g
                 .V<Airport>()
@@ -318,20 +331,24 @@ namespace ExRam.Gremlinq.Templates.Console
             withinTwoFlightsWithNoReturn
                 .WriteToConsole("We can go, by two flights, from SEA to these airports without returning to SEA");
 #endif      // --8<-- [end:withinTwoFlightsWithNoReturn]
+            #endregion
 
             #region Projections
-#if (true)  // --8<-- [start:projectToTuple]
-            var projectToTuple = await _g
+#if (true)  // --8<-- [start:projectedTuple]
+            var projectedTuple = await _g
                 .V<Airport>()
                 .Project(p => p
                     .ToTuple()
                     .By(x => x.Code!)
                     .By(x => x.Description!))
-                .ToArrayAsync();
-#endif      // --8<-- [end:projectToTuple]
+                .FirstAsync();
 
-#if (true)  // --8<-- [start:projectToTupleWithSubQuery]
-            var projectToTupleWithSubQuery = await _g
+            Console
+                .WriteLine($"One of the projected tuples is {projectedTuple.Item2} ({projectedTuple.Item1})");
+#endif      // --8<-- [end:projectedTuple]
+
+#if (true)  // --8<-- [start:projectedTupleWithSubQuery]
+            var projectedTupleWithSubQuery = await _g
                 .V<Airport>()
                 .Project(p => p
                     .ToTuple()
@@ -342,7 +359,7 @@ namespace ExRam.Gremlinq.Templates.Console
                         .Values(x => x.Code!)
                         .Fold()))
                 .ToArrayAsync();
-#endif      // --8<-- [end:projectToTupleWithSubQuery]
+#endif      // --8<-- [end:projectedTupleWithSubQuery]
 
 #if (true)  // --8<-- [start:projectToDynamic]
             var projectToDynamic = await _g
