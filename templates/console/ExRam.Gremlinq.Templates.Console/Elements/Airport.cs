@@ -1,5 +1,6 @@
 ﻿namespace ExRam.Gremlinq.Templates.Console
 {
+#if (true) // --8<-- [start:airport]
     public sealed class Airport : Vertex
     {
         public string? Code { get; set; }
@@ -15,4 +16,5 @@
         public double Longitude { get; set; }
         public int LongestRunway { get; set; }
     }
+#endif // --8<-- [end:airport]
 }

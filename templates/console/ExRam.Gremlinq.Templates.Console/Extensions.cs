@@ -6,6 +6,7 @@ namespace ExRam.Gremlinq.Templates.Console
 {
     public static class Extensions
     {
+#if (true) // --8<-- [start:writeToConsole]
         public static void WriteToConsole(this Airport[] airports, string caption)
         {
             Console
@@ -20,5 +21,6 @@ namespace ExRam.Gremlinq.Templates.Console
             Console
                 .WriteLine();
         }
+#endif  // --8<-- [end:writeToConsole]
     }
 }
