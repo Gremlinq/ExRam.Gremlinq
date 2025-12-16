@@ -405,9 +405,9 @@ namespace ExRam.Gremlinq.Templates.Console
                 .Map(__ => __
                     .Out<Route>()
                     .OfType<Airport>()
-                    .Values(x => x.Code!)
                     .Fold()
-                    .Unfold())
+                    .Unfold()
+                    .Values(x => x.Code!))
                 .ToArrayAsync();
 #endif      // --8<-- [end:foldFilterUnfold]
 
