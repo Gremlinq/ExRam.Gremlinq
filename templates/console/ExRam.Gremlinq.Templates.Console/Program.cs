@@ -77,15 +77,15 @@ namespace ExRam.Gremlinq.Templates.Console
 #endif      // --8<-- [end:howManyAirports]
 
             // Let's find out about the airports with a code starting with the letter 'J'
-#if (true)  // --8<-- [start:codeStartingWithJ]
-            var airportCodesStartingWithLetterJ = await _g
+#if (true)  // --8<-- [start:airportCodesStartingWithLetterS]
+            var airportCodesStartingWithLetterS = await _g
                 .V<Airport>()
-                .Where(airport => airport.Code!.StartsWith("J"))
+                .Where(airport => airport.Code!.StartsWith("S"))
                 .ToArrayAsync();
 
-            airportCodesStartingWithLetterJ
-                .WriteToConsole("Here's a list of airports whose code starts with the letter 'J'");
-#endif      // --8<-- [end:codeStartingWithJ]
+            airportCodesStartingWithLetterS
+                .WriteToConsole("Here's a list of airports whose code starts with the letter 'S'");
+#endif      // --8<-- [end:airportCodesStartingWithLetterS]
             #endregion
 
             #region Walking The Graph
@@ -135,7 +135,9 @@ namespace ExRam.Gremlinq.Templates.Console
                 .V<Airport>()
                 .Where(airport => airport.Code == "SEA")
                 .Out<Route>()
+                .Out<Route>()
                 .OfType<Airport>()
+                .Dedup()
                 .ToArrayAsync();
 
             twoFlightsFromSeattle
@@ -483,13 +485,14 @@ namespace ExRam.Gremlinq.Templates.Console
                             .Out<Route>()
                             .OfType<Airport>())
                         .Times(3))
+                    .Dedup()
                     .Values(x => x.Code!)
                     .Fold())
                 .ToArrayAsync();
 #endif      // --8<-- [end:threeFlights]
 
-#if (true)  // --8<-- [start:repeatEmitUntilAtlantaOrLoop]
-            var repeatEmitUntil = await _g
+#if (true)  // --8<-- [start:repeatEmitUntilAtlanta]
+            var repeatEmitUntilAtlanta = await _g
                 .V<Airport>()
                 .Where(x => x.Code == "SEA")
                 .Loop(l => l
@@ -498,15 +501,12 @@ namespace ExRam.Gremlinq.Templates.Console
                         .OfType<Airport>())
                     .Emit()
                     .Until(__ => __
-                        .Or(
-                            __ => __
-                                .Where(a => a.Code == "ATL"),
-                            __ => __
-                                .CyclicPath())))
+                        .Where(a => a.Code == "ATL")))
                 .Dedup()
+                .Limit(10)
                 .Values(x => x.Code!)
                 .ToArrayAsync();
-#endif      // --8<-- [end:repeatEmitUntilAtlantaOrLoop]
+#endif      // --8<-- [end:repeatEmitUntilAtlanta]
             #endregion
 
             #region Tree
