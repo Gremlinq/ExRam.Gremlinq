@@ -492,33 +492,32 @@ namespace ExRam.Gremlinq.Templates.Console
             #endregion
 
             #region Tree
-#if (true)  // --8<-- [start:twoHopUntypedTree]
-            var twoHopUntypedTree = await _g
+#if (true)  // --8<-- [start:untypedTree]
+            var untypedTree = await _g
                 .V<Airport>()
                 .Where(a => a.Code == "SEA")
                 .Out<Route>()
                 .Out<Route>()
                 .Tree()
                 .FirstAsync();
-
+#endif      // --8<-- [end:untypedTree]
             // Although there is no static type information,
             // the nodes are still deserialized to instances
             // of the correct type
-            Debug.Assert(twoHopUntypedTree.Keys.First() is Airport);
-#endif      // --8<-- [end:twoHopUntypedTree]
+            Debug.Assert(untypedTree.Keys.First() is Airport);
 
-#if (true)  // --8<-- [start:twoHopTree]
-            var twoHopTree = await _g
+#if (true)  // --8<-- [start:typedTree]
+            var typedTree = await _g
                 .V<Airport>()
                 .Where(a => a.Code == "SEA")
                 .Out<Route>()
                 .Out<Route>()
                 .Tree<Airport>()
                 .FirstAsync();
-#endif      // --8<-- [end:twoHopTree]
+#endif      // --8<-- [end:typedTree]
 
-#if (true)  // --8<-- [start:mixedTypeTree]
-            var mixedTypeTree = await _g
+#if (true)  // --8<-- [start:typedTreeWithOf]
+            var typedTreeWithOf = await _g
                 .V<Airport>()
                 .OutE<Route>()
                 .InV<Airport>()
@@ -527,10 +526,10 @@ namespace ExRam.Gremlinq.Templates.Console
                     .Of<Route>()
                     .Of<Airport>())
                 .FirstAsync();
-#endif      // --8<-- [end:mixedTypeTree]
+#endif      // --8<-- [end:typedTreeWithOf]
 
-#if (true)  // --8<-- [start:mixedTypeTreeWithBy]
-            var mixedTypeTreeWithBy = await _g
+#if (true)  // --8<-- [start:typedTreeWithOfAndBy]
+            var typedTreeWithOfAndBy = await _g
                 .V<Airport>()
                 .Out<Route>()
                 .OfType<Airport>()
@@ -538,9 +537,9 @@ namespace ExRam.Gremlinq.Templates.Console
                     .Of<Airport>().By(x => x.Code!)
                     .Of<Airport>().By(x => x.Description!))
                 .FirstAsync();
+#endif      // --8<-- [end:typedTreeWithOfAndBy]
 
-            var destinationNamesOfSEA = mixedTypeTreeWithBy["SEA"].Keys.ToArray();
-#endif      // --8<-- [end:mixedTypeTreeWithBy]
+            var destinationNamesOfSEA = typedTreeWithOfAndBy["SEA"].Keys.ToArray();
             #endregion
 
             #region Format
