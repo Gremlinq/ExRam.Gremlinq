@@ -45,9 +45,9 @@ namespace ExRam.Gremlinq.Templates.Console
 
         public async Task Run()
         {
-#if (true)  // --8<-- [start:createAirRoutes]
             /* This call will check for existing routes and airports, so it can safely be called multiple times.
                Also, it can be commented out once it has run on the database */
+#if (true)  // --8<-- [start:createAirRoutes]
             await _g
                 .CreateAirRoutesSmall();
 #endif      // --8<-- [end:createAirRoutes]
@@ -74,8 +74,8 @@ namespace ExRam.Gremlinq.Templates.Console
                 .WriteLine($"There are {airportCount} airports in the database.\n");
 #endif      // --8<-- [end:howManyAirports]
 
-#if (true)  // --8<-- [start:codeStartingWithJ]
             // Let's find out about the airports with a code starting with the letter 'J'
+#if (true)  // --8<-- [start:codeStartingWithJ]
             var airportCodesStartingWithLetterJ = await _g
                 .V<Airport>()
                 .Where(airport => airport.Code!.StartsWith("J"))
@@ -100,20 +100,6 @@ namespace ExRam.Gremlinq.Templates.Console
                 .WriteToConsole("The following airports can be reached from Seattle (SEA)");
 #endif      // --8<-- [end:destinationsFromSEA]
 
-            // But which of these have a distance only up to 1500 miles?
-#if (true)  // --8<-- [start:within1500Miles]
-            var reachableWithin1500Miles = await _g
-                .V<Airport>()
-                .Where(airport => airport.Code == "SEA")
-                .OutE<Route>()
-                .Where(route => route.Distance <= 1500)
-                .InV<Airport>()
-                .ToArrayAsync();
-
-            reachableWithin1500Miles
-                .WriteToConsole("The following airports can be reached from Seattle (SEA) within 1500 miles distance");
-#endif      // --8<-- [end:within1500Miles]
-
             // What routes go into SEA?
 #if (true)  // --8<-- [start:departuresToSEA]
             var routesIntoSEA = await _g
@@ -126,6 +112,20 @@ namespace ExRam.Gremlinq.Templates.Console
             routesIntoSEA
                 .WriteToConsole("There's a number of airports that have routes to Seattle");
 #endif      // --8<-- [end:departuresToSEA]
+
+            // Which routes out of SEA have a distance of only up to 1500 miles?
+#if (true)  // --8<-- [start:within1500Miles]
+            var within1500Miles = await _g
+                .V<Airport>()
+                .Where(airport => airport.Code == "SEA")
+                .OutE<Route>()
+                .Where(route => route.Distance <= 1500)
+                .InV<Airport>()
+                .ToArrayAsync();
+
+            within1500Miles
+                .WriteToConsole("The following airports can be reached from Seattle (SEA) within 1500 miles distance");
+#endif      // --8<-- [end:within1500Miles]
 
             // What airports  are reachable from SEA by taking two flights?
 #if (true)  // --8<-- [start:twoFlights]
@@ -142,9 +142,9 @@ namespace ExRam.Gremlinq.Templates.Console
             #endregion
 
             #region Sub-Queries
-#if (true)  // --8<-- [start:oneOrTwoFlights]
             // Let's find out all the airports that are reachable from SEA by one or two flights.
             // There might be duplicates, so we take care of that with the Dedup-operator.
+#if (true)  // --8<-- [start:withinOneOrTwoFlights]
             var withinOneOrTwoFlights = await _g
                 .V<Airport>()
                 .Where(airport => airport.Code == "SEA")
@@ -160,10 +160,10 @@ namespace ExRam.Gremlinq.Templates.Console
 
             withinOneOrTwoFlights
                 .WriteToConsole("Reachable from SEA with one or two consecutive flights");
-#endif      // --8<-- [end:oneOrTwoFlights]
+#endif      // --8<-- [end:withinOneOrTwoFlights]
 
             // The same query can be written even shorter:
-#if (true)  // --8<-- [start:simplerOneOrTwoFlights]
+#if (true)  // --8<-- [start:simplerWithinOneOrTwoFlights]
             await _g
                 .V<Airport>()
                 .Where(airport => airport.Code == "SEA")
@@ -175,11 +175,11 @@ namespace ExRam.Gremlinq.Templates.Console
                 .OfType<Airport>()
                 .Dedup()
                 .ToArrayAsync();
-#endif      // --8<-- [end:simplerOneOrTwoFlights]
+#endif      // --8<-- [end:simplerWithinOneOrTwoFlights]
 
             // Now let's apply a filter defined by a traversal:
             // Which airports reachable from SEA have a subsequent route to Atlanta ?
-#if (true)  // --8<-- [start:SEATwoHopsToAtlanta]
+#if (true)  // --8<-- [start:destinationsWithRoutesToAtlanta]
             var destinationsWithRoutesToAtlanta = await _g
                 .V<Airport>()
                 .Where(airport => airport.Code == "SEA")
@@ -193,12 +193,12 @@ namespace ExRam.Gremlinq.Templates.Console
 
             destinationsWithRoutesToAtlanta
                 .WriteToConsole("From SEA, we can go to these airports and connect to ATL from there");
-#endif      // --8<-- [end:SEATwoHopsToAtlanta]
+#endif      // --8<-- [end:destinationsWithRoutesToAtlanta]
             #endregion
 
             #region Orderings
             // Order all the airports by their code
-#if (true)  // --8<-- [start:airportsOrderedByCode]
+#if (true)  // --8<-- [start:orderedByCode]
             var orderedByCode = await _g
                 .V<Airport>()
                 .Order(o => o
@@ -207,10 +207,10 @@ namespace ExRam.Gremlinq.Templates.Console
 
             orderedByCode
                 .WriteToConsole("Airports, nicely ordered by their code");
-#endif      // --8<-- [end:airportsOrderedByCode]
+#endif      // --8<-- [end:orderedByCode]
 
             // A somewhat more complex query: Order all airports by their longest route (longest first):
-#if (true)  // --8<-- [start:airportsByLongestRoute]
+#if (true)  // --8<-- [start:orderedByLongestRoute]
             var orderedByLongestRoute = await _g
                 .V<Airport>()
                 .Order(o => o
@@ -223,10 +223,10 @@ namespace ExRam.Gremlinq.Templates.Console
 
             orderedByLongestRoute
                 .WriteToConsole("Airports ordered by their longest route");
-#endif      // --8<-- [end:airportsByLongestRoute]
+#endif      // --8<-- [end:orderedByLongestRoute]
 
             // Order all airports by their longest route (descending), then lexically by their code (ascending)
-#if (true)  // --8<-- [start:airportsByLongestRouteAndCode]
+#if (true)  // --8<-- [start:orderedByLongestRouteThenCode]
             var orderedByLongestRouteThenCode = await _g
                 .V<Airport>()
                 .Order(o => o
@@ -240,13 +240,13 @@ namespace ExRam.Gremlinq.Templates.Console
 
             orderedByLongestRouteThenCode
                 .WriteToConsole("Airports ordered by their longest route, then by their code");
-#endif      // --8<-- [end:airportsByLongestRouteAndCode]
+#endif      // --8<-- [end:orderedByLongestRouteThenCode]
             #endregion
 
             #region Limit, Range, Skip and Tail
             // Get only the 5 airports with the longest routes.
-#if (true)  // --8<-- [start:firstFiveAirports]
-            var onlyFiveAirportsOrderedByLongestRoute = await _g
+#if (true)  // --8<-- [start:fiveAirportsOrderedByLongestRoute]
+            var fiveAirportsOrderedByLongestRoute = await _g
                 .V<Airport>()
                 .Order(o => o
                     .ByDescending(__ => __
@@ -257,9 +257,9 @@ namespace ExRam.Gremlinq.Templates.Console
                 .Limit(5)
                 .ToArrayAsync();
 
-            onlyFiveAirportsOrderedByLongestRoute
+            fiveAirportsOrderedByLongestRoute
                 .WriteToConsole("Top 5 airports with the longest routes");
-#endif      // --8<-- [end:firstFiveAirports]
+#endif      // --8<-- [end:fiveAirportsOrderedByLongestRoute]
 
 #if (true)  // --8<-- [start:fiveAirportsWithRange]
             var fiveAirportsWithRange = await _g
@@ -339,12 +339,13 @@ namespace ExRam.Gremlinq.Templates.Console
                 .V<Airport>()
                 .Project(p => p
                     .ToTuple()
+                    .By(x => x.Description!)
                     .By(x => x.Code!)
-                    .By(x => x.Description!))
+                    .By(__ => __.Out<Route>().Count()))
                 .FirstAsync();
 
             Console
-                .WriteLine($"One of the projected tuples is {projectedTuple.Item2} ({projectedTuple.Item1})");
+                .WriteLine($"{projectedTuple.Item1} ({projectedTuple.Item2}) has {projectedTuple.Item3} outgoing routes.");
 #endif      // --8<-- [end:projectedTuple]
 
 #if (true)  // --8<-- [start:projectedTupleWithSubQuery]
@@ -412,6 +413,18 @@ namespace ExRam.Gremlinq.Templates.Console
                 .ToArrayAsync();
 #endif      // --8<-- [end:fold]
 
+#if (true)  // --8<-- [start:foldFilterUnfold]
+            var foldFilterUnfold = await _g
+                .V<Airport>()
+                .Map(__ => __
+                    .Out<Route>()
+                    .OfType<Airport>()
+                    .Values(x => x.Code!)
+                    .Fold()
+                    .Unfold())
+                .ToArrayAsync();
+#endif      // --8<-- [end:foldFilterUnfold]
+
 #if (true)  // --8<-- [start:sumOfRoutes]
             var sumOfRoutes = await _g
                 .V<Airport>()
@@ -456,7 +469,7 @@ namespace ExRam.Gremlinq.Templates.Console
                         .Values(x => x.Code!)))
                 .ToArrayAsync();
 #endif      // --8<-- [end:groupCodesByNumberOfRoutes]
-#endregion
+            #endregion
 
             #region Loops
 #if (true)  // --8<-- [start:threeFlights]
@@ -473,7 +486,7 @@ namespace ExRam.Gremlinq.Templates.Console
                 .ToArrayAsync();
 #endif      // --8<-- [end:threeFlights]
 
-#if (true)  // --8<-- [start:repeatEmitUntil]
+#if (true)  // --8<-- [start:repeatEmitUntilAtlantaOrLoop]
             var repeatEmitUntil = await _g
                 .V<Airport>()
                 .Where(x => x.Code == "SEA")
@@ -483,15 +496,19 @@ namespace ExRam.Gremlinq.Templates.Console
                         .OfType<Airport>())
                     .Emit()
                     .Until(__ => __
-                        .CyclicPath()))
+                        .Or(
+                            __ => __
+                                .Where(a => a.Code == "ATL"),
+                            __ => __
+                                .CyclicPath())))
                 .Dedup()
                 .Values(x => x.Code!)
                 .ToArrayAsync();
-#endif      // --8<-- [end:repeatEmitUntil]
-#endregion
+#endif      // --8<-- [end:repeatEmitUntilAtlantaOrLoop]
+            #endregion
 
             #region Tree
-#if (true)  // --8<-- [start:two-hop-untyped-tree]
+#if (true)  // --8<-- [start:twoHopUntypedTree]
             var twoHopUntypedTree = await _g
                 .V<Airport>()
                 .Where(a => a.Code == "SEA")
@@ -504,9 +521,9 @@ namespace ExRam.Gremlinq.Templates.Console
             // the nodes are still deserialized to instances
             // of the correct type
             Debug.Assert(twoHopUntypedTree.Keys.First() is Airport);
-#endif      // --8<-- [end:two-hop-untyped-tree]
+#endif      // --8<-- [end:twoHopUntypedTree]
 
-#if (true)  // --8<-- [start:two-hop-tree]
+#if (true)  // --8<-- [start:twoHopTree]
             var twoHopTree = await _g
                 .V<Airport>()
                 .Where(a => a.Code == "SEA")
@@ -514,9 +531,9 @@ namespace ExRam.Gremlinq.Templates.Console
                 .Out<Route>()
                 .Tree<Airport>()
                 .FirstAsync();
-#endif      // --8<-- [end:two-hop-tree]
+#endif      // --8<-- [end:twoHopTree]
 
-#if (true)  // --8<-- [start:mixed-type-tree]
+#if (true)  // --8<-- [start:mixedTypeTree]
             var mixedTypeTree = await _g
                 .V<Airport>()
                 .OutE<Route>()
@@ -526,9 +543,9 @@ namespace ExRam.Gremlinq.Templates.Console
                     .Of<Route>()
                     .Of<Airport>())
                 .FirstAsync();
-#endif      // --8<-- [end:mixed-type-tree]
+#endif      // --8<-- [end:mixedTypeTree]
 
-#if (true)  // --8<-- [start:mixed-type-tree-with-by]
+#if (true)  // --8<-- [start:mixedTypeTreeWithBy]
             var mixedTypeTreeWithBy = await _g
                 .V<Airport>()
                 .Out<Route>()
@@ -539,8 +556,8 @@ namespace ExRam.Gremlinq.Templates.Console
                 .FirstAsync();
 
             var destinationNamesOfSEA = mixedTypeTreeWithBy["SEA"].Keys.ToArray();
-#endif      // --8<-- [end:mixed-type-tree-with-by]
-#endregion
+#endif      // --8<-- [end:mixedTypeTreeWithBy]
+            #endregion
 
             #region Format
 #if (true)  // --8<-- [start:formatted-airports]
