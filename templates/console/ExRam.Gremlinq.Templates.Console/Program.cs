@@ -3,7 +3,9 @@ using System.Linq;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using ExRam.Gremlinq.Core;
+#if (!useTestContainers)
 using ExRam.Gremlinq.Providers.Core;
+#endif
 using ExRam.Gremlinq.Providers.TEMPLATEPROVIDER;
 using ExRam.Gremlinq.Testing.AirRoutes;
 using ExRam.Gremlinq.Support.NewtonsoftJson;
