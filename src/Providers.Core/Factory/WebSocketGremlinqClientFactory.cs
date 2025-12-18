@@ -8,6 +8,8 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks.Sources;
 
+using CommunityToolkit.HighPerformance.Buffers;
+
 using ExRam.Gremlinq.Core;
 
 using Gremlin.Net.Driver;
@@ -358,15 +360,22 @@ namespace ExRam.Gremlinq.Providers.Core
                 {
                     using (this)
                     {
+                        Task<MemoryOwner<byte>>? maybeReceiveTask = null;
+
                         while (!ct.IsCancellationRequested)
                         {
-                            IMemoryOwner<byte>? bytes;
+                            IMemoryOwner<byte>? maybeBytes = null;
 
                             try
                             {
-                                bytes = await _client
-                                    .ReceiveAsync(ct)
-                                    .ConfigureAwait(false);
+                                if (maybeReceiveTask is { } receiveTask)
+                                {
+                                    maybeBytes = await receiveTask
+                                        .ConfigureAwait(false);
+                                }
+
+                                maybeReceiveTask = _client
+                                    .ReceiveAsync(ct);
                             }
                             catch (OperationCanceledException)
                             {
@@ -381,7 +390,7 @@ namespace ExRam.Gremlinq.Providers.Core
                                 return;
                             }
 
-                            if (_environment.Deserializer.TryTransform(bytes, _environment, out TBinaryMessage? binaryMessage))
+                            if (maybeBytes is { } bytes && _environment.Deserializer.TryTransform(bytes, _environment, out TBinaryMessage? binaryMessage))
                             {
                                 using (binaryMessage)
                                 {
