@@ -9,7 +9,7 @@ namespace ExRam.Gremlinq.Providers.Core
         public static async Task<MemoryOwner<byte>> ReceiveAsync(this ClientWebSocket client, CancellationToken ct)
         {
             var read = 0;
-            var bytes = MemoryOwner<byte>.Allocate(2048);
+            var bytes = MemoryOwner<byte>.Allocate(8192);
 
             try
             {
