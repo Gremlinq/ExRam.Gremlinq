@@ -88,21 +88,20 @@ namespace ExRam.Gremlinq.Core
             return null;
         }
 
-        public static Projection LowestProjection(this Span<Traversal> traversals)
+        public static Projection? LowestProjection(this Span<Traversal> traversals)
         {
             if (traversals is [var first, .. var remainder])
             {
-                var projection = first.Projection;
+                if (first.IsNone())
+                    return remainder.LowestProjection();
 
-                foreach (var traversal in remainder)
-                {
-                    projection = projection.Lowest(traversal.Projection);
-                }
+                if (remainder.LowestProjection() is { } lowestRemainder)
+                    return first.Projection.Lowest(lowestRemainder);
 
-                return projection;
+                return first.Projection;
             }
 
-            return Projection.Empty;
+            return null;
         }
 
         public static Span<Traversal> Fuse(this Span<Traversal> traversals, Func<P, P, P> fuse)

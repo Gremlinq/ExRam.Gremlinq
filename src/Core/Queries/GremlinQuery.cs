@@ -445,8 +445,7 @@ namespace ExRam.Gremlinq.Core
                             builder = builder
                                 .AddStep(new CoalesceStep(traversalsMemory
                                     .UnsafeToImmutableArray()))
-                                .WithNewProjection(traversals
-                                    .LowestProjection());
+                                .WithNewProjection(traversals.LowestProjection() ?? Projection.Empty);
                         }
                     }
 
@@ -1226,8 +1225,7 @@ namespace ExRam.Gremlinq.Core
                 .Build(static (builder, traversals) => builder
                     .AddStep(new UnionStep(traversals
                         .UnsafeToImmutableArray()))
-                    .WithNewProjection(traversals.Span
-                        .LowestProjection())
+                    .WithNewProjection(traversals.Span.LowestProjection() ?? Projection.Empty)
                     .BuildAs<TReturnQuery>());
 
         private GremlinQuery<TNewElement, object, object, IGremlinQueryBase> V<TNewElement>(ReadOnlySpan<object> ids) => this

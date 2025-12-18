@@ -79,5 +79,53 @@ namespace ExRam.Gremlinq.Core.Tests
                 .ToTraversal()
                 .Projection);
         }
+
+        [Fact]
+        public virtual Task Where_variable_bool_property_true()
+        {
+            var anon = new
+            {
+                Prop = true
+            };
+
+            return Verify(_g
+                .V()
+                .Where(x => anon.Prop)
+                .ToTraversal()
+                .Projection);
+        }
+
+        [Fact]
+        public virtual Task Where_variable_bool_property_false()
+        {
+            var anon = new
+            {
+                Prop = true
+            };
+
+            return Verify(_g
+                .V()
+                .Where(x => anon.Prop)
+                .ToTraversal()
+                .Projection);
+        }
+
+        [Fact]
+        public virtual Task Coalesce_Where_variable_bool_property_false()
+        {
+            var anon = new
+            {
+                Prop = false
+            };
+
+            return Verify(_g
+                .V()
+                .Coalesce(
+                    __ => __,
+                    __ => __
+                        .Where(x => anon.Prop))
+                .ToTraversal()
+                .Projection);
+        }
     }
 }
