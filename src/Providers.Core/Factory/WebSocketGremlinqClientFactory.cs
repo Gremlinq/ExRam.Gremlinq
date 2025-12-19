@@ -390,18 +390,24 @@ namespace ExRam.Gremlinq.Providers.Core
                                 return;
                             }
 
-                            if (maybeBytes is { } bytes && _environment.Deserializer.TryTransform(bytes, _environment, out TBinaryMessage? binaryMessage))
+                            if (maybeBytes is { } bytes)
                             {
-                                using (binaryMessage)
+                                using (bytes)
                                 {
-                                    if (_environment.Deserializer.TryTransform(binaryMessage, _environment, out ResponseMessageEnvelope responseMessageEnvelope))
+                                    if (_environment.Deserializer.TryTransform(bytes, _environment, out TBinaryMessage? binaryMessage))
                                     {
-                                        if (responseMessageEnvelope is { Status: { Code: var statusCode, Message: var message } responseStatus, RequestId: { } requestId })
+                                        using (binaryMessage)
                                         {
-                                            if (_channels.TryGetValue(requestId, out var otherChannel))
-                                                otherChannel.Signal(binaryMessage, requestId, responseStatus);
-                                            else if (statusCode >= Unauthorized)
-                                                throw new ResponseException(statusCode, ImmutableDictionary<string, object>.Empty, $"The server returned a response indicating failure, but the response could not be mapped to a request: {message}");
+                                            if (_environment.Deserializer.TryTransform(binaryMessage, _environment, out ResponseMessageEnvelope responseMessageEnvelope))
+                                            {
+                                                if (responseMessageEnvelope is { Status: { Code: var statusCode, Message: var message } responseStatus, RequestId: { } requestId })
+                                                {
+                                                    if (_channels.TryGetValue(requestId, out var otherChannel))
+                                                        otherChannel.Signal(binaryMessage, requestId, responseStatus);
+                                                    else if (statusCode >= Unauthorized)
+                                                        throw new ResponseException(statusCode, ImmutableDictionary<string, object>.Empty, $"The server returned a response indicating failure, but the response could not be mapped to a request: {message}");
+                                                }
+                                            }
                                         }
                                     }
                                 }
