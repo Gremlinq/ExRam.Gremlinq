@@ -364,7 +364,7 @@ namespace ExRam.Gremlinq.Providers.Core
 
                         while (true)
                         {
-                            IMemoryOwner<byte>? maybeBytes = null;
+                            MemoryOwner<byte>? maybeBytes = null;
 
                             try
                             {
