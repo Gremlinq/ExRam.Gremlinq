@@ -362,7 +362,7 @@ namespace ExRam.Gremlinq.Providers.Core
                     {
                         Task<MemoryOwner<byte>>? maybeReceiveTask = null;
 
-                        while (!ct.IsCancellationRequested)
+                        while (true)
                         {
                             IMemoryOwner<byte>? maybeBytes = null;
 
@@ -373,9 +373,17 @@ namespace ExRam.Gremlinq.Providers.Core
                                     maybeBytes = await receiveTask
                                         .ConfigureAwait(false);
                                 }
+                                else if (ct.IsCancellationRequested)
+                                    break;
 
-                                maybeReceiveTask = _client
-                                    .ReceiveAsync(ct);
+                                if (ct.IsCancellationRequested)
+                                {
+                                    maybeBytes?.Dispose();
+
+                                    break;
+                                }
+                                else
+                                    maybeReceiveTask = _client.ReceiveAsync(ct);
                             }
                             catch (OperationCanceledException)
                             {
