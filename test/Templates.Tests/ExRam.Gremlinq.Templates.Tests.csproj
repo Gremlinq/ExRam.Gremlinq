@@ -10,7 +10,7 @@
     <PackageReference Include="Boxed.DotnetNewTest" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" />
 
-    <ProjectReference Include="..\Tests.Infrastructure\ExRam.Gremlinq.Tests.Infrastructure.csproj" />
+    <ProjectReference Include="../Tests.Infrastructure/ExRam.Gremlinq.Tests.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

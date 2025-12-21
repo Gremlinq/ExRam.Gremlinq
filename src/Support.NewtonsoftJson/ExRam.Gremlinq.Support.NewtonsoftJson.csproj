@@ -7,14 +7,14 @@
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" />
 
-    <ProjectReference Include="..\Providers.Core\ExRam.Gremlinq.Providers.Core.csproj" />
+    <ProjectReference Include="../Providers.Core/ExRam.Gremlinq.Providers.Core.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="..\Core\Cache\GremlinQueryEnvironmentCache.cs" Link="Cache\GremlinQueryEnvironmentCache.cs" />
-    <Compile Include="..\Core\Cache\IGremlinQueryEnvironmentCache.cs" Link="Cache\IGremlinQueryEnvironmentCache.cs" />
-    <Compile Include="..\Core\Extensions\GraphElementModelExtensions.cs" Link="Extensions\GraphElementModelExtensions.cs" />
-    <Compile Include="..\Core\Extensions\TypeExtensions.cs" Link="Extensions\TypeExtensions.cs" />
+    <Compile Include="../Core/Cache/GremlinQueryEnvironmentCache.cs" Link="Cache/GremlinQueryEnvironmentCache.cs" />
+    <Compile Include="../Core/Cache/IGremlinQueryEnvironmentCache.cs" Link="Cache/IGremlinQueryEnvironmentCache.cs" />
+    <Compile Include="../Core/Extensions/GraphElementModelExtensions.cs" Link="Extensions/GraphElementModelExtensions.cs" />
+    <Compile Include="../Core/Extensions/TypeExtensions.cs" Link="Extensions/TypeExtensions.cs" />
   </ItemGroup>
 
 </Project>

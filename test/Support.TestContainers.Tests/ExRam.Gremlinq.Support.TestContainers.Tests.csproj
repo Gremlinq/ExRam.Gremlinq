@@ -1,15 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <Compile Remove="Verifier\**" />
-    <EmbeddedResource Remove="Verifier\**" />
+    <Compile Remove="Verifier/**" />
+    <EmbeddedResource Remove="Verifier/**" />
     <None Remove="*.verified.txt" />
     <None Remove="*.received.txt" />
-    <None Remove="Verifier\**" />
-    <ProjectReference Include="..\..\src\Providers.GremlinServer\ExRam.Gremlinq.Providers.GremlinServer.csproj" />
-    <ProjectReference Include="..\..\src\Support.NewtonsoftJson\ExRam.Gremlinq.Support.NewtonsoftJson.csproj" />
-    <ProjectReference Include="..\..\src\Support.TestContainers\ExRam.Gremlinq.Support.TestContainers.csproj" />
-    <ProjectReference Include="..\Tests.Infrastructure\ExRam.Gremlinq.Tests.Infrastructure.csproj" />
+    <None Remove="Verifier/**" />
+    <ProjectReference Include="../../src/Providers.GremlinServer/ExRam.Gremlinq.Providers.GremlinServer.csproj" />
+    <ProjectReference Include="../../src/Support.NewtonsoftJson/ExRam.Gremlinq.Support.NewtonsoftJson.csproj" />
+    <ProjectReference Include="../../src/Support.TestContainers/ExRam.Gremlinq.Support.TestContainers.csproj" />
+    <ProjectReference Include="../Tests.Infrastructure/ExRam.Gremlinq.Tests.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

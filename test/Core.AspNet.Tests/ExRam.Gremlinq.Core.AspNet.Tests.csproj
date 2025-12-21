@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <None Remove="**\*.verified.txt" />
-    <None Remove="**\*.received.txt" />
+    <None Remove="**/*.verified.txt" />
+    <None Remove="**/*.received.txt" />
   </ItemGroup>
 
   <ItemGroup>
@@ -10,8 +10,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Core.AspNet\ExRam.Gremlinq.Core.AspNet.csproj" />
-    <ProjectReference Include="..\Tests.Infrastructure\ExRam.Gremlinq.Tests.Infrastructure.csproj" />
+    <ProjectReference Include="../../src/Core.AspNet/ExRam.Gremlinq.Core.AspNet.csproj" />
+    <ProjectReference Include="../Tests.Infrastructure/ExRam.Gremlinq.Tests.Infrastructure.csproj" />
   </ItemGroup>
 
   </Project>

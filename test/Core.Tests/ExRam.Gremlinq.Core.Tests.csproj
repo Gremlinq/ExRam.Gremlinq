@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <None Remove="**\*.verified.txt" />
-    <None Remove="**\*.received.txt" />
+    <None Remove="**/*.verified.txt" />
+    <None Remove="**/*.received.txt" />
   </ItemGroup>
 
   <ItemGroup>
@@ -10,7 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Tests.Fixtures\ExRam.Gremlinq.Tests.Fixtures.csproj" />
+    <ProjectReference Include="../Tests.Fixtures/ExRam.Gremlinq.Tests.Fixtures.csproj" />
   </ItemGroup>
 
 </Project>

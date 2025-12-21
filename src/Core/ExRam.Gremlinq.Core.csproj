@@ -19,31 +19,31 @@
 
   <ItemGroup>
     <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
-    <None Update="Queries\T4\TreeBuilder.tt">
+    <None Update="Queries/T4/TreeBuilder.tt">
       <LastGenOutput>TreeBuilder.cs</LastGenOutput>
       <Generator>TextTemplatingFileGenerator</Generator>
     </None>
 
-    <None Update="Queries\T4\ProjectBuilder.tt">
+    <None Update="Queries/T4/ProjectBuilder.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>ProjectBuilder.cs</LastGenOutput>
     </None>
-    <None Update="Queries\GremlinQuery.tt">
+    <None Update="Queries/GremlinQuery.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>GremlinQuery.generated.cs</LastGenOutput>
     </None>
-    <Compile Update="Queries\T4\TreeBuilder.cs">
+    <Compile Update="Queries/T4/TreeBuilder.cs">
       <DependentUpon>TreeBuilder.tt</DependentUpon>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
 
-    <Compile Update="Queries\T4\ProjectBuilder.cs">
+    <Compile Update="Queries/T4/ProjectBuilder.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>ProjectBuilder.tt</DependentUpon>
     </Compile>
-    <Compile Update="Queries\GremlinQuery.generated.cs">
+    <Compile Update="Queries/GremlinQuery.generated.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>GremlinQuery.tt</DependentUpon>

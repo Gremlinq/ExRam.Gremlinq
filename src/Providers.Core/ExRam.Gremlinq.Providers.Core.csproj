@@ -5,16 +5,16 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="..\Core\ExceptionHelper.cs" Link="ExceptionHelper.cs" />
-    <Compile Include="..\Core\Extensions\AsyncEnumerable.cs" Link="Extensions\AsyncEnumerable.cs" />
-    <Compile Include="..\Core\Serialization\Label.cs" Link="Groovy\Label.cs" />
-    <Compile Include="..\Core\SerializedQueries\Bindings.cs" Link="Groovy\Bindings.cs" />
-    <Compile Include="..\Core\SerializedQueries\CheapGroovyGremlinScript.cs" Link="Groovy\CheapGroovyGremlinScript.cs" />
-    <Compile Include="..\Core\SerializedQueries\GroovyWriter.cs" Link="Groovy\GroovyWriter.cs" />
+    <Compile Include="../Core/ExceptionHelper.cs" Link="ExceptionHelper.cs" />
+    <Compile Include="../Core/Extensions/AsyncEnumerable.cs" Link="Extensions/AsyncEnumerable.cs" />
+    <Compile Include="../Core/Serialization/Label.cs" Link="Groovy/Label.cs" />
+    <Compile Include="../Core/SerializedQueries/Bindings.cs" Link="Groovy/Bindings.cs" />
+    <Compile Include="../Core/SerializedQueries/CheapGroovyGremlinScript.cs" Link="Groovy/CheapGroovyGremlinScript.cs" />
+    <Compile Include="../Core/SerializedQueries/GroovyWriter.cs" Link="Groovy/GroovyWriter.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Core\ExRam.Gremlinq.Core.csproj" />
+    <ProjectReference Include="../Core/ExRam.Gremlinq.Core.csproj" />
   </ItemGroup>
 
 </Project>

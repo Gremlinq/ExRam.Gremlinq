@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Configuration" />
-    <ProjectReference Include="..\Core\ExRam.Gremlinq.Core.csproj" />
+    <ProjectReference Include="../Core/ExRam.Gremlinq.Core.csproj" />
   </ItemGroup>
 
 </Project>

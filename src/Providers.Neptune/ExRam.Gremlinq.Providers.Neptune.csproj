@@ -5,12 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="..\Core\ExceptionHelper.cs" Link="ExceptionHelper.cs" />
-    <Compile Include="..\Core\Extensions\TransformerInternalExtensions.cs" Link="Extensions\TransformerInternalExtensions.cs" />
+    <Compile Include="../Core/ExceptionHelper.cs" Link="ExceptionHelper.cs" />
+    <Compile Include="../Core/Extensions/TransformerInternalExtensions.cs" Link="Extensions/TransformerInternalExtensions.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Providers.Core\ExRam.Gremlinq.Providers.Core.csproj" />
+    <ProjectReference Include="../Providers.Core/ExRam.Gremlinq.Providers.Core.csproj" />
   </ItemGroup>
 
 </Project>

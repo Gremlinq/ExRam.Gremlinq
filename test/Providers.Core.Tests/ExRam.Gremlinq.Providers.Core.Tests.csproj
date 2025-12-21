@@ -6,7 +6,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\PublicApi.Tests\ExRam.Gremlinq.PublicApi.Tests.csproj" />
+    <ProjectReference Include="../PublicApi.Tests/ExRam.Gremlinq.PublicApi.Tests.csproj" />
   </ItemGroup>
 
 </Project>
