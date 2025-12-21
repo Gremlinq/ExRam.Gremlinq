@@ -16,11 +16,9 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
             public int Compare(TTestCase? x, TTestCase? y) => GetIndex(x!.TestMethod!.MethodName).CompareTo(GetIndex(y!.TestMethod!.MethodName));
 
-            private static int GetIndex(string str) => str.StartsWith("Drop")
-                ? 0
-                : str.StartsWith("Add")
-                    ? 1
-                    : 2;
+            private static int GetIndex(string str) => str.StartsWith("Add")
+                ? 1
+                : 2;
         }
 
         public IReadOnlyCollection<TTestCase> OrderTestCases<TTestCase>(IReadOnlyCollection<TTestCase> testCases) where TTestCase : ITestCase => testCases
