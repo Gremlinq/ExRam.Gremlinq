@@ -1,12 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <!-- The package metadata. Fill in the properties marked as TODO below -->
-    <!-- Follow the instructions on https://learn.microsoft.com/en-us/nuget/create-packages/package-authoring-best-practices -->
     <PackageId>ExRam.Gremlinq.Templates</PackageId>
     <Description>'dotnet new' templates for ExRam.Gremlinq.</Description>
-
-    <!-- Keep package type as 'Template' to show the package as a template package on nuget.org and make your template available in dotnet new search.-->
     <PackageType>Template</PackageType>
     <TargetFrameworks>netstandard2.0</TargetFrameworks>
     <IncludeContentInPack>true</IncludeContentInPack>
@@ -14,21 +10,12 @@
     <ContentTargetFolders>content</ContentTargetFolders>
     <NoWarn>$(NoWarn);NU5128</NoWarn>
     <NoDefaultExcludes>true</NoDefaultExcludes>
-  </PropertyGroup>
-
-  <PropertyGroup>
     <LocalizeTemplates>false</LocalizeTemplates>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.TemplateEngine.Tasks" Version="*" PrivateAssets="all" IsImplicitlyDefined="true" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Compile Remove="**/*" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Include="console/**/*" />
     <Content Include="aspnet/**/*" />
   </ItemGroup>
