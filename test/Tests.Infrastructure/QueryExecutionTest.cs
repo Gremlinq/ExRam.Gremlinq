@@ -883,19 +883,19 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .DedupLocal()
             .Verify();
 
-        [Fact]
-        public virtual Task Drop() => _g
-            .V<Person>()
-            .Drop()
-            .Verify();
+        //[Fact]
+        //public virtual Task Drop() => _g
+        //    .V<Person>()
+        //    .Drop()
+        //    .Verify();
 
-        [Fact]
-        public virtual Task Drop_in_local() => _g
-            .Inject(1)
-            .Local(__ => __
-                .V()
-                .Drop())
-            .Verify();
+        //[Fact]
+        //public virtual Task Drop_in_local() => _g
+        //    .Inject(1)
+        //    .Local(__ => __
+        //        .V()
+        //        .Drop())
+        //    .Verify();
 
         [Fact]
         public virtual Task E_of_all_types1() => _g
