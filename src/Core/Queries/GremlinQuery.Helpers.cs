@@ -15,6 +15,12 @@ namespace ExRam.Gremlinq.Core
 {
     partial class GremlinQuery<T1, T2, T3, T4>
     {
+        private Cardinality? GetCardinality(object value, bool allowExplicitCardinality) => allowExplicitCardinality
+            ? (value is not Traversal && value is IEnumerable && !Environment.SupportsType(value.GetType()))
+                ? Cardinality.List
+                : Cardinality.Single
+            : null;
+
         private IEnumerable<PropertyStep> GetPropertySteps(Key key, object value, bool allowExplicitCardinality)
         {
             if (value is not Traversal && value is IEnumerable enumerable && !Environment.SupportsType(value.GetType()))

@@ -1,12 +1,13 @@
 ﻿#pragma warning disable IDE0003
 // ReSharper disable ArrangeThisQualifier
+using System.Buffers;
 using System.Collections;
 using System.Collections.Immutable;
 using System.Linq.Expressions;
-using System.Reflection;
 using System.Runtime.CompilerServices;
 
 using CommunityToolkit.HighPerformance;
+using CommunityToolkit.HighPerformance.Buffers;
 
 using ExRam.Gremlinq.Core.ExpressionParsing;
 using ExRam.Gremlinq.Core.GraphElements;
@@ -92,47 +93,55 @@ namespace ExRam.Gremlinq.Core
                         : SerializationBehaviour.IgnoreOnUpdate)
                 .ToArray();
 
-            var droppableKeys = new List<string>();
-            var propertySteps = new List<PropertyStep>();
-
-            foreach (var (key, maybeValue) in props)
-            {
-                if (T.Id.Equals(key.RawKey) && !Environment.FeatureSet.Supports(VertexFeatures.UserSuppliedIds))
-                    Environment.Logger.LogWarning($"User supplied ids are not supported according to the environment's {nameof(Environment.FeatureSet)}.");
-                else
-                {
-                    var localPropertySteps = maybeValue is { } value
-                        ? this
-                            .GetPropertySteps(key, value, Steps.Projection == Projection.Vertex)
-                            .ToArray()
-                        : [];
-
-                    if (!add && key.RawKey is string rawStringKey && localPropertySteps.All(static propertyStep => Cardinality.List.Equals(propertyStep.Cardinality)))
-                        droppableKeys.Add(rawStringKey);
-
-                    propertySteps.AddRange(localPropertySteps);
-                }
-            }
-
-            if (droppableKeys.Count > 0)
-            {
-                ret = ret
-                    .SideEffect(__ => __
-                        .Properties<object, object, object>(
-                            Projection.Empty,
-                            droppableKeys.AsSpan())
-                        .Drop());
-            }
-
             return ret
                 .Continue()
                 .Build(
-                    static (builder, propertySteps) => builder
-                        .AddSteps(propertySteps
-                            .AsSpan()
-                            .Cast()
-                            .To<Step>()),
-                    propertySteps)
+                    static (builder, tuple) =>
+                    {
+                        var (@this, props, add) = tuple;
+
+                        using (var droppableKeys = SpanOwner<string>.Allocate(props.Length))
+                        {
+                            var droppableKeysIndex = 0;
+                            var propertySteps = new List<PropertyStep>();
+
+                            foreach (var (key, maybeValue) in props)
+                            {
+                                var cardinalityIsList = maybeValue is { } value
+                                    ? Cardinality.List.Equals(@this.GetCardinality(value, @this.Steps.Projection == Projection.Vertex))
+                                    : true;
+
+                                if (!add && key.RawKey is string rawStringKey && cardinalityIsList)
+                                    droppableKeys.Span[droppableKeysIndex++] = rawStringKey;
+                            }
+
+                            if (droppableKeysIndex > 0)
+                            {
+                                builder = builder
+                                    .AddStep(new SideEffectStep(Traversal.Empty.Push(new PropertiesStep(ImmutableArray.Create(droppableKeys.Span[..droppableKeysIndex])), DropStep.Instance)));
+                            }
+
+                            foreach (var (key, maybeValue) in props)
+                            {
+                                if (T.Id.Equals(key.RawKey) && !@this.Environment.FeatureSet.Supports(VertexFeatures.UserSuppliedIds))
+                                    @this.Environment.Logger.LogWarning($"User supplied ids are not supported according to the environment's {nameof(Environment.FeatureSet)}.");
+                                else
+                                {
+                                    var localPropertySteps = maybeValue is { } value
+                                        ? @this
+                                            .GetPropertySteps(key, value, @this.Steps.Projection == Projection.Vertex)
+                                            .ToArray()
+                                        : [];
+
+                                    builder = builder
+                                        .AddSteps(localPropertySteps);
+                                }
+                            }
+
+                            return builder;
+                        }
+                    },
+                    (this, props, add))
                 .BuildAuto<T1, T2, T3, T4>();
         }
 
