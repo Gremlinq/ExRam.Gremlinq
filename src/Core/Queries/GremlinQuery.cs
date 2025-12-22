@@ -103,7 +103,6 @@ namespace ExRam.Gremlinq.Core
                         using (var droppableKeys = SpanOwner<string>.Allocate(props.Length))
                         {
                             var droppableKeysIndex = 0;
-                            var propertySteps = new List<PropertyStep>();
 
                             foreach (var (key, maybeValue) in props)
                             {
