@@ -130,14 +130,11 @@ namespace ExRam.Gremlinq.Core
                                     @this.Environment.Logger.LogWarning($"User supplied ids are not supported according to the environment's {nameof(Environment.FeatureSet)}.");
                                 else
                                 {
-                                    var localPropertySteps = maybeValue is { } value
-                                        ? @this
-                                            .GetPropertySteps(key, value, @this.Steps.Projection == Projection.Vertex)
-                                            .ToArray()
-                                        : [];
-
-                                    builder = builder
-                                        .AddSteps(localPropertySteps);
+                                    if (maybeValue is { } value)
+                                    {
+                                        builder = builder
+                                            .AddPropertySteps(key, value, @this.Steps.Projection == Projection.Vertex, @this.Environment);
+                                    }
                                 }
                             }
 
@@ -1047,12 +1044,8 @@ namespace ExRam.Gremlinq.Core
                             : throw new InvalidOperationException("Can't set a special property to null.");
                     }
 
-                    foreach (var propertyStep in @this.GetPropertySteps(key, value, builder.OuterQuery.Steps.Projection == Projection.Vertex))
-                    {
-                        builder = builder.AddStep(propertyStep);
-                    }
-
                     return builder
+                        .AddPropertySteps(key, value, builder.OuterQuery.Steps.Projection == Projection.Vertex, @this.Environment)
                         .BuildAuto<T1, T2, T3, T4>();
                 },
                 (key, value, @this: this));

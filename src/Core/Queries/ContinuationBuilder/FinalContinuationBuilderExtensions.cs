@@ -1,8 +1,12 @@
-﻿using System.Collections.Immutable;
+﻿using System.Collections;
+using System.Collections.Immutable;
 
+using ExRam.Gremlinq.Core.GraphElements;
 using ExRam.Gremlinq.Core.Models;
 using ExRam.Gremlinq.Core.Projections;
 using ExRam.Gremlinq.Core.Steps;
+
+using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -133,6 +137,52 @@ namespace ExRam.Gremlinq.Core
                             .AddStep(new OrStep(LogicalStep<OrStep>.FlattenLogicalTraversals(fusedTraversals)))
                     };
                 }
+
+                return builder;
+            }
+
+            public FinalContinuationBuilder AddPropertySteps(Key key, object value, bool allowExplicitCardinality, IGremlinQueryEnvironment environment)
+            {
+                if (value is not Traversal && value is IEnumerable enumerable && !environment.SupportsType(value.GetType()))
+                {
+                    if (!allowExplicitCardinality)
+                        throw new NotSupportedException($"A value of type {value.GetType()} is not supported for property '{key}'.");
+
+                    foreach (var item in enumerable)
+                    {
+                        builder = builder
+                            .AddPropertyStep(key, item, Cardinality.List, environment);
+                    }
+                }
+                else
+                {
+                    builder = builder
+                        .AddPropertyStep(key, value, allowExplicitCardinality ? Cardinality.Single : null, environment);
+                }
+
+                return builder;
+            }
+
+            private FinalContinuationBuilder AddPropertyStep(Key key, object value, Cardinality? cardinality, IGremlinQueryEnvironment environment)
+            {
+                var actualValue = value;
+                var metaProperties = ImmutableArray<KeyValuePair<string, object>>.Empty;
+
+                if (actualValue is Property property)
+                {
+                    if (property is IVertexProperty vertexProperty)
+                    {
+                        metaProperties = vertexProperty
+                            .GetProperties(environment)
+                            .Select(static kvp => new KeyValuePair<string, object>(kvp.Key, kvp.Value))
+                            .ToImmutableArray();
+                    }
+
+                    actualValue = property.GetValue();
+                }
+
+                if (actualValue != null)
+                    builder = builder.AddStep(new PropertyStep.ByKeyStep(key, actualValue, metaProperties, cardinality));
 
                 return builder;
             }
