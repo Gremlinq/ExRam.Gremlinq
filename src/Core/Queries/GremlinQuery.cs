@@ -118,7 +118,10 @@ namespace ExRam.Gremlinq.Core
                             if (droppableKeysIndex > 0)
                             {
                                 builder = builder
-                                    .AddStep(new SideEffectStep(Traversal.Empty.Push(new PropertiesStep(ImmutableArray.Create(droppableKeys.Span[..droppableKeysIndex])), DropStep.Instance)));
+                                    .AddStep(new SideEffectStep(
+                                        Traversal.Empty.Push(
+                                            new PropertiesStep(ImmutableArray.Create(droppableKeys.Span[..droppableKeysIndex])),
+                                            DropStep.Instance)));
                             }
 
                             foreach (var (key, maybeValue) in props)
