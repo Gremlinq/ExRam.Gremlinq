@@ -6,6 +6,6 @@
     aliases: {
       g: g
     },
-    gremlin: g.V().fold().sideEffect(__.identity()).unfold()
+    gremlin: g.V().fold().unfold()
   }
 }

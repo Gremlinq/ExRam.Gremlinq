@@ -1,1 +1,1 @@
-﻿g.V().fold().sideEffect(__.identity()).unfold()
+﻿g.V().fold().unfold()

@@ -7,18 +7,6 @@
       OperatorName: fold
     },
     {
-      OperatorName: sideEffect,
-      Arguments: [
-        {
-          StepInstructions: [
-            {
-              OperatorName: identity
-            }
-          ]
-        }
-      ]
-    },
-    {
       OperatorName: unfold
     },
     {

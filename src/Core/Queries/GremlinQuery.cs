@@ -1122,9 +1122,17 @@ namespace ExRam.Gremlinq.Core
         private GremlinQuery<T1, T2, T3, T4> SideEffect(Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase> sideEffectContinuation) => this
             .Continue()
             .With(sideEffectContinuation)
-            .Build(static (builder, traversal) => builder
-                .AddStep(new SideEffectStep(traversal))
-                .BuildAuto<T1, T2, T3, T4>());
+            .Build(static (builder, traversal) =>
+            {
+                if (!traversal.IsIdentity())
+                {
+                    builder = builder
+                        .AddStep(new SideEffectStep(traversal));
+                }
+
+                return builder
+                    .BuildAuto<T1, T2, T3, T4>();
+            });
 
         private GremlinQuery<T1, T2, T3, T4> SimplePath() => this
             .Continue()

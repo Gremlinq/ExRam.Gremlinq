@@ -2943,6 +2943,34 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         }
 
         [Fact]
+        public virtual Task SideEffect_identity() => _g
+            .Inject(42)
+            .SideEffect(__ => __)
+            .Verify();
+
+        [Fact]
+        public virtual Task SideEffect_explicit_identity() => _g
+            .Inject(42)
+            .SideEffect(__ => __
+                .Identity())
+            .Verify();
+
+        [Fact]
+        public virtual Task SideEffect_SideEffect_Identity() => _g
+            .Inject(42)
+            .SideEffect(__ => __
+                .SideEffect(__ => __
+                    .Identity()))
+            .Verify();
+
+        [Fact]
+        public virtual Task SideEffect_Identity_identity() => _g
+            .Inject(42)
+            .SideEffect(__ => __
+                .Identity())
+            .Verify();
+
+        [Fact]
         public virtual Task SimplePath() => _g
             .V()
             .Out()
