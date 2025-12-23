@@ -109,7 +109,7 @@ namespace ExRam.Gremlinq.Providers.Core
                     for (var i = 0; i < poolSize; i++)
                     {
                         _slots[i] = new PoolSlotGremlinqClient(this)
-                            .Retry((retry, ex) => ex is ObjectDisposedException && retry == 0);
+                            .Retry(static (retry, ex) => ex is ObjectDisposedException && retry == 0);
                     }
                 }
 

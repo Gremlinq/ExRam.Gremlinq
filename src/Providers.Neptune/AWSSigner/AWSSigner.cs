@@ -138,14 +138,14 @@ namespace ExRam.Gremlinq.Providers.Neptune
                         timeSpan.CopyTo(canonicalRequestBytes[canonicalRequestPrefix.Length..]);
                         timeSpan.CopyTo(stringToSignBytes[17..]);
 
-                        timeSpan[0..8].CopyTo(stringToSignBytes[34..]);
-                        timeSpan[0..8].CopyTo(authorizationBytes[authorizationTemplatePrefix.Length..]);
+                        timeSpan[..8].CopyTo(stringToSignBytes[34..]);
+                        timeSpan[..8].CopyTo(authorizationBytes[authorizationTemplatePrefix.Length..]);
 
                         SHA256.HashData(canonicalRequestBytes, hashSpan1);
 
                         ToHexStringLower(hashSpan1, stringToSignBytes[^64..]);
 
-                        HMACSHA256.HashData(secretAccessKey, timeSpan[0..8], hashSpan1);
+                        HMACSHA256.HashData(secretAccessKey, timeSpan[..8], hashSpan1);
                         HMACSHA256.HashData(hashSpan1, regionBytes, hashSpan2);
                         HMACSHA256.HashData(hashSpan2, ServiceBytes, hashSpan1);
                         HMACSHA256.HashData(hashSpan1, RequestBytes, hashSpan2);
@@ -175,7 +175,7 @@ namespace ExRam.Gremlinq.Providers.Neptune
                     var actualTime = time ?? DateTimeOffset.UtcNow;
                     actualTime = new DateTimeOffset(actualTime.Ticks - (actualTime.Ticks % _cacheTime.Ticks), actualTime.Offset);
 
-                    if (Volatile.Read(ref _latestHeaders) is { Timestamp: { } latestHeadersTimestamp } latestHeaders && latestHeadersTimestamp <= actualTime && (latestHeadersTimestamp + _cacheTime) > actualTime)
+                    if (Volatile.Read(ref _latestHeaders) is { Timestamp: var latestHeadersTimestamp } latestHeaders && latestHeadersTimestamp <= actualTime && (latestHeadersTimestamp + _cacheTime) > actualTime)
                         return latestHeaders;
 
                     var headers = _latestHeaders = _headersFactory(actualTime);
@@ -192,7 +192,7 @@ namespace ExRam.Gremlinq.Providers.Neptune
                 throw Throw("SecretAccessKey.");
             }
 
-            public static void ToHexStringLower(ReadOnlySpan<byte> source, Span<byte> utf8Destination)
+            private static void ToHexStringLower(ReadOnlySpan<byte> source, Span<byte> utf8Destination)
             {
 #if NET10_0_OR_GREATER
                 Convert.TryToHexStringLower(source, utf8Destination, out _);
@@ -225,7 +225,7 @@ namespace ExRam.Gremlinq.Providers.Neptune
                     {
                         var escapedValue = Uri.EscapeDataString(value);
 
-                        values.Add(escapedValue, new[] { $"{escapedValue}=" });
+                        values.Add(escapedValue, [$"{escapedValue}="]);
                     }
                 }
 
@@ -237,7 +237,7 @@ namespace ExRam.Gremlinq.Providers.Neptune
 
         private sealed class DisabledAWSSigner : IDisabledAWSSigner
         {
-            public static DisabledAWSSigner Instance = new ();
+            public static readonly DisabledAWSSigner Instance = new ();
 
             private DisabledAWSSigner()
             {

@@ -85,7 +85,7 @@ namespace ExRam.Gremlinq.Core
                 : throw new InvalidOperationException();
 
 #if ExRam_Gremlinq_Providers_Core
-        public override string? ToString() => ToString(null, null);
+        public override string ToString() => ToString(null, null);
 
         public bool TryFormat(Span<char> destination, out int charsWritten, ReadOnlySpan<char> format, IFormatProvider? provider)
         {
