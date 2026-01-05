@@ -8,51 +8,51 @@ namespace ExRam.Gremlinq.PublicApi.Tests
     public class PublicApiTests
     {
         [Fact]
-        public Task Core() => Verify("ExRam.Gremlinq.Core");
+        public Task Core() => Verify();
 
         [Fact]
-        public Task Core_AspNet() => Verify("ExRam.Gremlinq.Core.AspNet");
+        public Task Core_AspNet() => Verify();
 
         [Fact]
-        public Task Providers_Core() => Verify("ExRam.Gremlinq.Providers.Core");
+        public Task Providers_Core() => Verify();
 
         [Fact]
-        public Task Providers_CosmosDb() => Verify("ExRam.Gremlinq.Providers.CosmosDb");
+        public Task Providers_CosmosDb() => Verify();
 
         [Fact]
-        public Task Providers_CosmosDb_AspNet() => Verify("ExRam.Gremlinq.Providers.CosmosDb.AspNet");
+        public Task Providers_CosmosDb_AspNet() => Verify();
 
         [Fact]
-        public Task Providers_GremlinServer() => Verify("ExRam.Gremlinq.Providers.GremlinServer");
+        public Task Providers_GremlinServer() => Verify();
 
         [Fact]
-        public Task Providers_GremlinServer_AspNet() => Verify("ExRam.Gremlinq.Providers.GremlinServer.AspNet");
+        public Task Providers_GremlinServer_AspNet() => Verify();
 
         [Fact]
-        public Task Providers_JanusGraph() => Verify("ExRam.Gremlinq.Providers.JanusGraph");
+        public Task Providers_JanusGraph() => Verify();
 
         [Fact]
-        public Task Providers_JanusGraph_AspNet() => Verify("ExRam.Gremlinq.Providers.JanusGraph.AspNet");
+        public Task Providers_JanusGraph_AspNet() => Verify();
 
         [Fact]
-        public Task Providers_Neptune() => Verify("ExRam.Gremlinq.Providers.Neptune");
+        public Task Providers_Neptune() => Verify();
 
         [Fact]
-        public Task Providers_Neptune_AspNet() => Verify("ExRam.Gremlinq.Providers.Neptune.AspNet");
+        public Task Providers_Neptune_AspNet() => Verify();
 
         [Fact]
-        public Task Support_NewtonsoftJson() => Verify("ExRam.Gremlinq.Support.NewtonsoftJson");
+        public Task Support_NewtonsoftJson() => Verify();
 
         [Fact]
-        public Task Support_NewtonsoftJson_AspNet() => Verify("ExRam.Gremlinq.Support.NewtonsoftJson.AspNet");
+        public Task Support_NewtonsoftJson_AspNet() => Verify();
 
         [Fact]
-        public Task Support_TestContainers() => Verify("ExRam.Gremlinq.Support.TestContainers");
+        public Task Support_TestContainers() => Verify();
 
-        private Task Verify(string assemblyName) => Verifier
+        private Task Verify([CallerMemberName] string methodName = "") => Verifier
             .Verify(
                 Assembly
-                    .Load(assemblyName)
+                    .Load("ExRam.Gremlinq." + methodName.Replace('_', '.'))
                     .GeneratePublicApi(new ApiGeneratorOptions
                     {
                         IncludeAssemblyAttributes = false,
