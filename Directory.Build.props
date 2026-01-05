@@ -16,7 +16,7 @@
   </PropertyGroup>
  
   <PropertyGroup>
-    <GitRoot>$(SolutionDir)\.git\HEAD</GitRoot>
+    <GitRoot>$(SolutionDir)/.git/HEAD</GitRoot>
     <GitBranch Condition="Exists($(GitRoot))">$([System.IO.File]::ReadAlltext($(GitRoot)).Replace('ref: refs/heads/', '').Trim())</GitBranch>
   </PropertyGroup>
 
@@ -25,7 +25,7 @@
   </PropertyGroup>  
 
   <ItemGroup Condition="'$(IsPackable)' == 'true'">
-    <None Include="$(MSBuildThisFileDirectory)assets\$(PackageIcon)">
+    <None Include="$(MSBuildThisFileDirectory)assets/$(PackageIcon)">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
