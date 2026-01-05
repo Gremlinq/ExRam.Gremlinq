@@ -360,6 +360,7 @@ namespace ExRam.Gremlinq.Providers.Core
                 {
                     using (this)
                     {
+                        Exception? maybeEx = null;
                         Task<MemoryOwner<byte>>? maybeReceiveTask = null;
 
                         while (true)
@@ -373,8 +374,9 @@ namespace ExRam.Gremlinq.Providers.Core
                                     maybeBytes = await receiveTask
                                         .ConfigureAwait(false);
                                 }
-                                else if (ct.IsCancellationRequested)
-                                    break;
+
+                                if (maybeEx is { } ex)
+                                    throw ex;
 
                                 if (ct.IsCancellationRequested)
                                 {
@@ -382,8 +384,9 @@ namespace ExRam.Gremlinq.Providers.Core
 
                                     break;
                                 }
-                                else
-                                    maybeReceiveTask = _client.ReceiveAsync(ct);
+
+                                maybeReceiveTask = _client
+                                    .ReceiveAsync(ct);
                             }
                             catch (OperationCanceledException)
                             {
@@ -402,21 +405,28 @@ namespace ExRam.Gremlinq.Providers.Core
                             {
                                 using (bytes)
                                 {
-                                    if (_environment.Deserializer.TryTransform(bytes, _environment, out TBinaryMessage? binaryMessage))
+                                    try
                                     {
-                                        using (binaryMessage)
+                                        if (_environment.Deserializer.TryTransform(bytes, _environment, out TBinaryMessage? binaryMessage))
                                         {
-                                            if (_environment.Deserializer.TryTransform(binaryMessage, _environment, out ResponseMessageEnvelope responseMessageEnvelope))
+                                            using (binaryMessage)
                                             {
-                                                if (responseMessageEnvelope is { Status: { Code: var statusCode, Message: var message } responseStatus, RequestId: { } requestId })
+                                                if (_environment.Deserializer.TryTransform(binaryMessage, _environment, out ResponseMessageEnvelope responseMessageEnvelope))
                                                 {
-                                                    if (_channels.TryGetValue(requestId, out var otherChannel))
-                                                        otherChannel.Signal(binaryMessage, requestId, responseStatus);
-                                                    else if (statusCode >= Unauthorized)
-                                                        throw new ResponseException(statusCode, ImmutableDictionary<string, object>.Empty, $"The server returned a response indicating failure, but the response could not be mapped to a request: {message}");
+                                                    if (responseMessageEnvelope is { Status: { Code: var statusCode, Message: var message } responseStatus, RequestId: { } requestId })
+                                                    {
+                                                        if (_channels.TryGetValue(requestId, out var otherChannel))
+                                                            otherChannel.Signal(binaryMessage, requestId, responseStatus);
+                                                        else if (statusCode >= Unauthorized)
+                                                            throw new ResponseException(statusCode, ImmutableDictionary<string, object>.Empty, $"The server returned a response indicating failure, but the response could not be mapped to a request: {message}");
+                                                    }
                                                 }
                                             }
                                         }
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        maybeEx = ex;
                                     }
                                 }
                             }
