@@ -119,7 +119,7 @@ namespace ExRam.Gremlinq.Support.TestContainers
 
                     if (Interlocked.CompareExchange(ref _container, InProgressObject, null) == null)
                     {
-                        var newContainer = _containerBuilderTransformation(new ContainerBuilder())
+                        var newContainer = _containerBuilderTransformation(new ContainerBuilder("tinkerpop/gremlin-server"))
                             .Build();
 
                         if (Interlocked.CompareExchange(ref _container, newContainer, InProgressObject) == InProgressObject)

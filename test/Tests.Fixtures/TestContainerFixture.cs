@@ -34,8 +34,7 @@ namespace ExRam.Gremlinq.Tests.Fixtures
             {
                 try
                 {
-		            var containerBuilder = new ContainerBuilder()
-		                .WithImage(await GetImage())
+		            var containerBuilder = new ContainerBuilder(await GetImage())
 		                .WithName(Guid.NewGuid().ToString("N"))
 		                .WithPortBinding(_port, true)
 		                .WithAutoRemove(true)
