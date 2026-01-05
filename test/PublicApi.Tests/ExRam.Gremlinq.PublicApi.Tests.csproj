@@ -5,19 +5,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../../src/Core/ExRam.Gremlinq.Core.csproj" />
     <ProjectReference Include="../../src/Providers.CosmosDb.AspNet/ExRam.Gremlinq.Providers.CosmosDb.AspNet.csproj" />
-    <ProjectReference Include="../../src/Providers.CosmosDb/ExRam.Gremlinq.Providers.CosmosDb.csproj" />
     <ProjectReference Include="../../src/Providers.GremlinServer.AspNet/ExRam.Gremlinq.Providers.GremlinServer.AspNet.csproj" />
-    <ProjectReference Include="../../src/Providers.GremlinServer/ExRam.Gremlinq.Providers.GremlinServer.csproj" />
     <ProjectReference Include="../../src/Providers.Neptune.AspNet/ExRam.Gremlinq.Providers.Neptune.AspNet.csproj" />
-    <ProjectReference Include="../../src/Providers.Neptune/ExRam.Gremlinq.Providers.Neptune.csproj" />
     <ProjectReference Include="../../src/Providers.JanusGraph.AspNet/ExRam.Gremlinq.Providers.JanusGraph.AspNet.csproj" />
-    <ProjectReference Include="../../src/Providers.JanusGraph/ExRam.Gremlinq.Providers.JanusGraph.csproj" />
-    <ProjectReference Include="../../src/Support.NewtonsoftJson/ExRam.Gremlinq.Support.NewtonsoftJson.csproj" />
     <ProjectReference Include="../../src/Support.TestContainers/ExRam.Gremlinq.Support.TestContainers.csproj" />
     <ProjectReference Include="../Tests.Infrastructure/ExRam.Gremlinq.Tests.Infrastructure.csproj" />
-    <ProjectReference Include="..\..\src\Support.NewtonsoftJson.AspNet\ExRam.Gremlinq.Support.NewtonsoftJson.AspNet.csproj" />
+    <ProjectReference Include="../../src/Support.NewtonsoftJson.AspNet/ExRam.Gremlinq.Support.NewtonsoftJson.AspNet.csproj" />
   </ItemGroup>
 
   <ItemGroup>
