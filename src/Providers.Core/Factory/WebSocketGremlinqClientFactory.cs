@@ -419,8 +419,6 @@ namespace ExRam.Gremlinq.Providers.Core
                                                     {
                                                         if (_channels.TryGetValue(requestId, out var otherChannel))
                                                             otherChannel.Signal(binaryMessage, requestId, responseStatus);
-                                                        else if (statusCode >= Unauthorized)
-                                                            throw new ResponseException(statusCode, ImmutableDictionary<string, object>.Empty, $"The server returned a response indicating failure, but the response could not be mapped to a request: {message}");
                                                     }
                                                 }
                                             }
