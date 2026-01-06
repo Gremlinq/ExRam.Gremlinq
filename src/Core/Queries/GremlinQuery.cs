@@ -558,6 +558,14 @@ namespace ExRam.Gremlinq.Core
                     .BuildAuto<T1, T2, T3, T4>(),
                 duration);
 
+        private GremlinQuery<long, object, object, IGremlinQueryBase> DateDiff(DateTimeOffset other) => this
+            .Continue()
+            .Build(
+                static (builder, other) => builder
+                    .AddStep(new DateDiffStep.Constant(other))
+                    .BuildAuto<long>(),
+                other);
+
         private string Debug() => Environment.Debugger
             .Debug(
                 Environment.Serializer

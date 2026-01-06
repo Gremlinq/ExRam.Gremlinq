@@ -241,6 +241,7 @@
     public interface IDateGremlinQuery<TDate> : ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IGremlinQueryBaseRec<ExRam.Gremlinq.Core.IDateGremlinQuery<TDate>>, ExRam.Gremlinq.Core.IGremlinQueryBaseRec<TDate, ExRam.Gremlinq.Core.IDateGremlinQuery<TDate>>, ExRam.Gremlinq.Core.IGremlinQueryBase<TDate>, ExRam.Gremlinq.Core.IStartGremlinQuery
     {
         ExRam.Gremlinq.Core.IDateGremlinQuery<TDate> Add(System.TimeSpan duration);
+        ExRam.Gremlinq.Core.IGremlinQuery<long> Diff(System.DateTimeOffset other);
     }
     public interface IEdgeGremlinQueryBase : ExRam.Gremlinq.Core.IEdgeOrVertexGremlinQueryBase, ExRam.Gremlinq.Core.IElementGremlinQueryBase, ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IStartGremlinQuery
     {
@@ -2396,6 +2397,15 @@ namespace ExRam.Gremlinq.Core.Steps
         public DateAddStep(Gremlin.Net.Process.Traversal.DT dateToken, int value) { }
         public Gremlin.Net.Process.Traversal.DT DateToken { get; }
         public int Value { get; }
+    }
+    public abstract class DateDiffStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        protected DateDiffStep() { }
+        public sealed class Constant : ExRam.Gremlinq.Core.Steps.DateDiffStep
+        {
+            public Constant(System.DateTimeOffset value) { }
+            public System.DateTimeOffset Value { get; }
+        }
     }
     public sealed class DedupStep : ExRam.Gremlinq.Core.Steps.Step
     {
