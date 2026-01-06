@@ -24,5 +24,35 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Should()
                 .ThrowAsync<OperationCanceledException>();
         }
+
+        [Fact]
+        public async Task SemaphoreSlim_WaitAsync_is_stuck_upon_disposal()
+        {
+            var semaphore = new SemaphoreSlim(0);
+            var cts = new CancellationTokenSource();
+
+            var waitTask = semaphore.WaitAsync(cts.Token);
+            await Task.Delay(100, TestContext.Current.CancellationToken);
+
+            waitTask.IsCompleted
+                .Should()
+                .BeFalse();
+
+            semaphore.Dispose();
+
+            await Task.Delay(100, TestContext.Current.CancellationToken);
+
+            waitTask.IsCompleted
+                .Should()
+                .BeFalse();
+
+            cts.Cancel();
+
+            await Task.Delay(100, TestContext.Current.CancellationToken);
+
+            waitTask.IsCompleted
+                .Should()
+                .BeFalse();
+        }
     }
 }
