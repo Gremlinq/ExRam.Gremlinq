@@ -49,6 +49,9 @@ namespace ExRam.Gremlinq.PublicApi.Tests
         [Fact]
         public Task Support_TestContainers() => Verify();
 
+        [Fact]
+        public Task Testing_AirRoutes() => Verify();
+
         private static Task Verify([CallerMemberName] string methodName = "") => Verifier
             .Verify(
                 Assembly

@@ -12,6 +12,7 @@
     <ProjectReference Include="../../src/Support.TestContainers/ExRam.Gremlinq.Support.TestContainers.csproj" />
     <ProjectReference Include="../Tests.Infrastructure/ExRam.Gremlinq.Tests.Infrastructure.csproj" />
     <ProjectReference Include="../../src/Support.NewtonsoftJson.AspNet/ExRam.Gremlinq.Support.NewtonsoftJson.AspNet.csproj" />
+    <ProjectReference Include="..\..\src\Testing.AirRoutes\ExRam.Gremlinq.Testing.AirRoutes.csproj" />
   </ItemGroup>
 
   <ItemGroup>
