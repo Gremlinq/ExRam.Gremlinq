@@ -49,7 +49,7 @@ namespace ExRam.Gremlinq.PublicApi.Tests
         [Fact]
         public Task Support_TestContainers() => Verify();
 
-        private Task Verify([CallerMemberName] string methodName = "") => Verifier
+        private static Task Verify([CallerMemberName] string methodName = "") => Verifier
             .Verify(
                 Assembly
                     .Load("ExRam.Gremlinq." + methodName.Replace('_', '.'))
