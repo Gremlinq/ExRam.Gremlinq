@@ -253,6 +253,13 @@ namespace ExRam.Gremlinq.Core
                 .WithNewProjection(Projection.Value)
                 .BuildAuto<string>());
 
+        private GremlinQuery<DateTimeOffset, object, object, IGremlinQueryBase> AsDate() => this
+            .Continue()
+            .Build(static builder => builder
+                .AddStep(AsDateStep.Instance)
+                .WithNewProjection(Projection.Value)
+                .BuildAuto<DateTimeOffset>());
+
         private GremlinQuery<int, object, object, IGremlinQueryBase> Length() => this
             .Continue()
             .Build(static builder => builder

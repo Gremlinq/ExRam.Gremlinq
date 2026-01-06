@@ -23,7 +23,8 @@
         "IVertexPropertyGremlinQuery<TProperty, TValue>",
         "IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>",
         "IPropertyGremlinQuery<T1>",
-        "IStringGremlinQuery<T1>"
+        "IStringGremlinQuery<T1>",
+        "IDateGremlinQuery<T1>"
     };
 
     var substitutedBaseInterfaces = baseInterfaces

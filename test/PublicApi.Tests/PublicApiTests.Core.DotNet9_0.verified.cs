@@ -238,6 +238,7 @@
     {
         ExRam.Gremlinq.Core.IChooseBuilderWithCondition<TSourceQuery, TElement> On<TElement>(System.Func<TSourceQuery, ExRam.Gremlinq.Core.IGremlinQueryBase<TElement>> chooseTraversal);
     }
+    public interface IDateGremlinQuery<TDate> : ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IGremlinQueryBaseRec<ExRam.Gremlinq.Core.IDateGremlinQuery<TDate>>, ExRam.Gremlinq.Core.IGremlinQueryBaseRec<TDate, ExRam.Gremlinq.Core.IDateGremlinQuery<TDate>>, ExRam.Gremlinq.Core.IGremlinQueryBase<TDate>, ExRam.Gremlinq.Core.IStartGremlinQuery { }
     public interface IEdgeGremlinQueryBase : ExRam.Gremlinq.Core.IEdgeOrVertexGremlinQueryBase, ExRam.Gremlinq.Core.IElementGremlinQueryBase, ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IStartGremlinQuery
     {
         ExRam.Gremlinq.Core.IVertexGremlinQuery<object> BothV();
@@ -389,6 +390,7 @@
     }
     public interface IGremlinQueryBase : ExRam.Gremlinq.Core.IStartGremlinQuery
     {
+        ExRam.Gremlinq.Core.IDateGremlinQuery<System.DateTimeOffset> AsDate();
         ExRam.Gremlinq.Core.IStringGremlinQuery<string> AsString();
         ExRam.Gremlinq.Core.IArrayGremlinQuery<TElement, TArrayItem, TOriginalQuery> Cap<TElement, TArrayItem, TOriginalQuery>(ExRam.Gremlinq.Core.StepLabel<ExRam.Gremlinq.Core.IArrayGremlinQuery<TElement, TArrayItem, TOriginalQuery>, TElement> label)
             where TOriginalQuery : ExRam.Gremlinq.Core.IGremlinQueryBase;
@@ -2290,6 +2292,10 @@ namespace ExRam.Gremlinq.Core.Steps
     public sealed class AndStep : ExRam.Gremlinq.Core.Steps.LogicalStep<ExRam.Gremlinq.Core.Steps.AndStep>
     {
         public AndStep(System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.Traversal> traversals) { }
+    }
+    public sealed class AsDateStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public static readonly ExRam.Gremlinq.Core.Steps.AsDateStep Instance;
     }
     public sealed class AsStep : ExRam.Gremlinq.Core.Steps.Step
     {
