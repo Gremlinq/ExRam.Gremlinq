@@ -156,7 +156,7 @@ namespace ExRam.Gremlinq.Providers.Core
                                                 try
                                                 {
                                                     await _client
-                                                        .SendCore(_client._factory._authMessageFactory((IReadOnlyDictionary<string, object>)queuedResponse.Status.Attributes ?? ImmutableDictionary<string, object>.Empty), ct)
+                                                        .SendCore(_client._factory._authMessageFactory((IReadOnlyDictionary<string, object>)queuedResponse.Status.Attributes ?? ImmutableDictionary<string, object>.Empty))
                                                         .ConfigureAwait(false);
                                                 }
                                                 catch
@@ -255,7 +255,7 @@ namespace ExRam.Gremlinq.Providers.Core
                                 try
                                 {
                                     await @this
-                                        .SendCore(message, linkedCts.Token)
+                                        .SendCore(message)
                                         .ConfigureAwait(false);
 
 #pragma warning disable CA2007 // Consider calling ConfigureAwait on the awaited task
@@ -314,9 +314,11 @@ namespace ExRam.Gremlinq.Providers.Core
                     }
                 }
 
-                private async Task SendCore(RequestMessage requestMessage, CancellationToken ct)
+                private async Task SendCore(RequestMessage requestMessage)
                 {
-                    await _sendLock.WaitAsync(ct).ConfigureAwait(false);
+                    await _sendLock
+                        .WaitAsync(_cts.Token)
+                        .ConfigureAwait(false);
 
                     try
                     {
@@ -325,7 +327,7 @@ namespace ExRam.Gremlinq.Providers.Core
                             if (_client.State == WebSocketState.None)
                             {
                                 await _client
-                                    .ConnectAsync(_factory._uri, ct)
+                                    .ConnectAsync(_factory._uri, _cts.Token)
                                     .ConfigureAwait(false);
 
                                 _loopTcs.SetResult(Loop(_cts.Token));
@@ -336,7 +338,7 @@ namespace ExRam.Gremlinq.Providers.Core
                                 using (buffer)
                                 {
                                     await _client
-                                        .SendAsync(buffer.Memory, WebSocketMessageType.Binary, true, ct)
+                                        .SendAsync(buffer.Memory, WebSocketMessageType.Binary, true, _cts.Token)
                                         .ConfigureAwait(false);
                                 }
                             }
