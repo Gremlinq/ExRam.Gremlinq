@@ -570,6 +570,8 @@ namespace ExRam.Gremlinq.Core
 
         IDateGremlinQuery<T1> IDateGremlinQuery<T1>.Add(TimeSpan duration) => DateAdd(duration);
 
+        IGremlinQuery<long> IDateGremlinQuery<T1>.Diff(DateTimeOffset other) => DateDiff(other);
+
         IStringGremlinQuery<T1> IStringGremlinQuery<T1>.Concat(params string[] strings) => Concat(strings);
 
         IStringGremlinQuery<T1> IStringGremlinQuery<T1>.Concat(params ReadOnlySpan<string> strings) => Concat(strings);

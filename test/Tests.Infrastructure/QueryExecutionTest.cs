@@ -600,6 +600,13 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Verify();
 
         [Fact]
+        public virtual async Task DateDiff_constant() => await _g
+            .Inject("2023-08-02T00:00:00Z")
+            .AsDate()
+            .Diff(DateTimeOffset.Parse("2023-08-03T00:00:00Z"))
+            .Verify();
+
+        [Fact]
         public virtual async Task As_with_type_change()
         {
             IGremlinQueryBaseRec<Person, IVertexGremlinQuery<Person>> g = _g
