@@ -10,5 +10,7 @@
         IDateGremlinQuery<TDate> Add(TimeSpan duration);
 
         IGremlinQuery<long> Diff(DateTimeOffset other);
+
+        IGremlinQuery<long> Diff(Func<IDateGremlinQuery<TDate>, IGremlinQueryBase<DateTimeOffset>> other);
     }
 }

@@ -566,6 +566,13 @@ namespace ExRam.Gremlinq.Core
                     .BuildAuto<long>(),
                 other);
 
+        private GremlinQuery<long, object, object, IGremlinQueryBase> DateDiff(Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase<DateTimeOffset>> other) => this
+            .Continue()
+            .With(other)
+            .Build(static (builder, otherTraversal) => builder
+                .AddStep(new DateDiffStep.Traversal(otherTraversal))
+                .BuildAuto<long>());
+
         private string Debug() => Environment.Debugger
             .Debug(
                 Environment.Serializer

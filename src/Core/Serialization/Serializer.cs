@@ -382,6 +382,7 @@ namespace ExRam.Gremlinq.Core.Serialization
             .Add<CyclicPathStep>((_, _, _, _) => cyclicPath)
             .Add<DateAddStep>((step, env, _, recurse) => CreateInstruction("dateAdd", recurse, env, step.DateToken, step.Value))
             .Add<DateDiffStep.Constant>((step, env, _, recurse) => CreateInstruction("dateDiff", recurse, env, step.Value))
+            .Add<DateDiffStep.Traversal>((step, env, _, recurse) => CreateInstruction("dateDiff", recurse, env, step.ValueTraversal))
             .Add<DedupStep>((step, env, _, recurse) => step.Scope.Equals(Scope.Local)
                 ? CreateInstruction("dedup", recurse, env, step.Scope)
                 : dedup)
