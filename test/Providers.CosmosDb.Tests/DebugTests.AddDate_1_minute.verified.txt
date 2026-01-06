@@ -1,0 +1,1 @@
+﻿g.inject(1690934400000).asDate().dateAdd(minute,1)

@@ -380,6 +380,7 @@ namespace ExRam.Gremlinq.Core.Serialization
                 ? CreateInstruction("count", recurse, env, step.Scope)
                 : count)
             .Add<CyclicPathStep>((_, _, _, _) => cyclicPath)
+            .Add<DateAddStep>((step, env, _, recurse) => CreateInstruction("dateAdd", recurse, env, step.DateToken, step.Value))
             .Add<DedupStep>((step, env, _, recurse) => step.Scope.Equals(Scope.Local)
                 ? CreateInstruction("dedup", recurse, env, step.Scope)
                 : dedup)

@@ -238,7 +238,10 @@
     {
         ExRam.Gremlinq.Core.IChooseBuilderWithCondition<TSourceQuery, TElement> On<TElement>(System.Func<TSourceQuery, ExRam.Gremlinq.Core.IGremlinQueryBase<TElement>> chooseTraversal);
     }
-    public interface IDateGremlinQuery<TDate> : ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IGremlinQueryBaseRec<ExRam.Gremlinq.Core.IDateGremlinQuery<TDate>>, ExRam.Gremlinq.Core.IGremlinQueryBaseRec<TDate, ExRam.Gremlinq.Core.IDateGremlinQuery<TDate>>, ExRam.Gremlinq.Core.IGremlinQueryBase<TDate>, ExRam.Gremlinq.Core.IStartGremlinQuery { }
+    public interface IDateGremlinQuery<TDate> : ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IGremlinQueryBaseRec<ExRam.Gremlinq.Core.IDateGremlinQuery<TDate>>, ExRam.Gremlinq.Core.IGremlinQueryBaseRec<TDate, ExRam.Gremlinq.Core.IDateGremlinQuery<TDate>>, ExRam.Gremlinq.Core.IGremlinQueryBase<TDate>, ExRam.Gremlinq.Core.IStartGremlinQuery
+    {
+        ExRam.Gremlinq.Core.IDateGremlinQuery<TDate> Add(System.TimeSpan duration);
+    }
     public interface IEdgeGremlinQueryBase : ExRam.Gremlinq.Core.IEdgeOrVertexGremlinQueryBase, ExRam.Gremlinq.Core.IElementGremlinQueryBase, ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IStartGremlinQuery
     {
         ExRam.Gremlinq.Core.IVertexGremlinQuery<object> BothV();
@@ -2387,6 +2390,12 @@ namespace ExRam.Gremlinq.Core.Steps
     {
         public static readonly ExRam.Gremlinq.Core.Steps.CyclicPathStep Instance;
         public CyclicPathStep() { }
+    }
+    public sealed class DateAddStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public DateAddStep(Gremlin.Net.Process.Traversal.DT dateToken, int value) { }
+        public Gremlin.Net.Process.Traversal.DT DateToken { get; }
+        public int Value { get; }
     }
     public sealed class DedupStep : ExRam.Gremlinq.Core.Steps.Step
     {

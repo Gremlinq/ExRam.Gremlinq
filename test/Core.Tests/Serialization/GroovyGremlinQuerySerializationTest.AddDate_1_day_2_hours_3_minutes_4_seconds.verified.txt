@@ -1,0 +1,10 @@
+﻿{
+  Script: g.inject(_a).asDate().dateAdd(day,_b).dateAdd(hour,_c).dateAdd(minute,_d).dateAdd(second,_e),
+  Bindings: {
+    _a: 1690934400000,
+    _b: 1,
+    _c: 2,
+    _d: 3,
+    _e: 4
+  }
+}

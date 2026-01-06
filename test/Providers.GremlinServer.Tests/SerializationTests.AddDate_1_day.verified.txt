@@ -1,0 +1,23 @@
+﻿{
+  StepInstructions: [
+    {
+      OperatorName: inject,
+      Arguments: [
+        1690934400000
+      ]
+    },
+    {
+      OperatorName: asDate
+    },
+    {
+      OperatorName: dateAdd,
+      Arguments: [
+        {
+          EnumName: DT,
+          EnumValue: day
+        },
+        1
+      ]
+    }
+  ]
+}

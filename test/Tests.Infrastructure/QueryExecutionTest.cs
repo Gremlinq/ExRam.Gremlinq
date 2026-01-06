@@ -565,6 +565,41 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Verify();
 
         [Fact]
+        public virtual async Task AddDate_1_day() => await _g
+            .Inject(1690934400000)
+            .AsDate()
+            .Add(TimeSpan.FromDays(1))
+            .Verify();
+
+        [Fact]
+        public virtual async Task AddDate_1_hour() => await _g
+            .Inject(1690934400000)
+            .AsDate()
+            .Add(TimeSpan.FromHours(1))
+            .Verify();
+
+        [Fact]
+        public virtual async Task AddDate_1_minute() => await _g
+            .Inject(1690934400000)
+            .AsDate()
+            .Add(TimeSpan.FromMinutes(1))
+            .Verify();
+
+        [Fact]
+        public virtual async Task AddDate_1_second() => await _g
+            .Inject(1690934400000)
+            .AsDate()
+            .Add(TimeSpan.FromSeconds(1))
+            .Verify();
+
+        [Fact]
+        public virtual async Task AddDate_1_day_2_hours_3_minutes_4_seconds() => await _g
+            .Inject(1690934400000)
+            .AsDate()
+            .Add(new TimeSpan(1, 2, 3, 4))
+            .Verify();
+
+        [Fact]
         public virtual async Task As_with_type_change()
         {
             IGremlinQueryBaseRec<Person, IVertexGremlinQuery<Person>> g = _g

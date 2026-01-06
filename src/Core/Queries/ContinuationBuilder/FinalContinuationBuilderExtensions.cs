@@ -163,6 +163,10 @@ namespace ExRam.Gremlinq.Core
                 return builder;
             }
 
+            public FinalContinuationBuilder DateAdd(DT dateToken, int value) => value != 0
+                ? builder.AddStep(new DateAddStep(dateToken, value))
+                : builder;
+
             private FinalContinuationBuilder AddPropertyStep(Key key, object value, Cardinality? cardinality, IGremlinQueryEnvironment environment)
             {
                 var actualValue = value;

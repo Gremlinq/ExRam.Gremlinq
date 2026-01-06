@@ -1,0 +1,7 @@
+﻿{
+  Script: g.inject(_a).asDate().dateAdd(second,_b),
+  Bindings: {
+    _a: 1690934400000,
+    _b: 1
+  }
+}
