@@ -10,6 +10,7 @@ namespace ExRam.Gremlinq.Core
         TaskAwaiter GetAwaiter();
 
         IStringGremlinQuery<string> AsString();
+        IDateGremlinQuery<DateTimeOffset> AsDate();
 
         IGremlinQuery<TResult> Cast<TResult>();
         IGremlinQuery<long> Count();

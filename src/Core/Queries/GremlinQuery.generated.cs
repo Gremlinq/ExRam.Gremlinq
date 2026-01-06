@@ -1664,6 +1664,113 @@ namespace ExRam.Gremlinq.Core
 
         IStringGremlinQuery<T1> IGremlinQueryBaseRec<T1, IStringGremlinQuery<T1>>.Where(Expression<Func<T1, bool>> predicate) => Where(predicate);
         IStringGremlinQuery<T1> IGremlinQueryBaseRec<IStringGremlinQuery<T1>>.Where(Func<IStringGremlinQuery<T1>, IGremlinQueryBase> filterTraversal) => Where(filterTraversal);
+        TTargetQuery IGremlinQueryBaseRec<T1, IDateGremlinQuery<T1>>.Aggregate<TTargetQuery>(Func<IDateGremlinQuery<T1>, StepLabel<IArrayGremlinQuery<T1[], T1, IDateGremlinQuery<T1>>, T1[]>, TTargetQuery> continuation) => Aggregate(Scope.Global, continuation);
+        TTargetQuery IGremlinQueryBaseRec<T1, IDateGremlinQuery<T1>>.AggregateLocal<TTargetQuery>(Func<IDateGremlinQuery<T1>, StepLabel<IArrayGremlinQuery<T1[], T1, IDateGremlinQuery<T1>>, T1[]>, TTargetQuery> continuation) => Aggregate(Scope.Local, continuation);
+
+        IDateGremlinQuery<T1> IGremlinQueryBaseRec<T1, IDateGremlinQuery<T1>>.Aggregate(StepLabel<T1[]> stepLabel) => Aggregate(Scope.Global, stepLabel);
+        IDateGremlinQuery<T1> IGremlinQueryBaseRec<T1, IDateGremlinQuery<T1>>.AggregateLocal(StepLabel<T1[]> stepLabel) => Aggregate(Scope.Local, stepLabel);
+
+        TTargetQuery IGremlinQueryBaseRec<T1, IDateGremlinQuery<T1>>.As<TTargetQuery>(Func<IDateGremlinQuery<T1>, StepLabel<IDateGremlinQuery<T1>, T1>, TTargetQuery> continuation) => As<StepLabel<IDateGremlinQuery<T1>, T1>, TTargetQuery>(continuation);
+        IDateGremlinQuery<T1> IGremlinQueryBaseRec<T1, IDateGremlinQuery<T1>>.As(StepLabel<T1> stepLabel) => As(stepLabel);
+
+        IDateGremlinQuery<T1> IGremlinQueryBaseRec<IDateGremlinQuery<T1>>.And(params Func<IDateGremlinQuery<T1>, IGremlinQueryBase>[] andTraversals) => And(andTraversals);
+
+        IDateGremlinQuery<T1> IGremlinQueryBaseRec<IDateGremlinQuery<T1>>.And(params ReadOnlySpan<Func<IDateGremlinQuery<T1>, IGremlinQueryBase>> andTraversals) => And(andTraversals.Cast().To<Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase>>());
+
+        IDateGremlinQuery<T1> IGremlinQueryBaseRec<IDateGremlinQuery<T1>>.Barrier() => Barrier();
+
+        TTargetQuery IGremlinQueryBaseRec<IDateGremlinQuery<T1>>.Choose<TTargetQuery>(Func<IDateGremlinQuery<T1>, IGremlinQueryBase> traversalPredicate, Func<IDateGremlinQuery<T1>, TTargetQuery> trueChoice, Func<IDateGremlinQuery<T1>, TTargetQuery> falseChoice) => Choose<TTargetQuery, TTargetQuery, TTargetQuery>(traversalPredicate, trueChoice, falseChoice);
+        IDateGremlinQuery<T1> IGremlinQueryBaseRec<IDateGremlinQuery<T1>>.Choose(Func<IDateGremlinQuery<T1>, IGremlinQueryBase> traversalPredicate, Func<IDateGremlinQuery<T1>, IDateGremlinQuery<T1>> trueChoice) => Choose<IDateGremlinQuery<T1>, IDateGremlinQuery<T1>, IDateGremlinQuery<T1>>(traversalPredicate, trueChoice);
+        IGremlinQuery<object> IGremlinQueryBaseRec<IDateGremlinQuery<T1>>.Choose(Func<IDateGremlinQuery<T1>, IGremlinQueryBase> traversalPredicate, Func<IDateGremlinQuery<T1>, IGremlinQueryBase> trueChoice) => Choose<IGremlinQueryBase, IGremlinQueryBase, IGremlinQuery<object>>(traversalPredicate, trueChoice);
+        
+        TTargetQuery IGremlinQueryBaseRec<IDateGremlinQuery<T1>>.Choose<TTargetQuery>(Func<IChooseBuilder<IDateGremlinQuery<T1>>, IChooseBuilderWithCaseOrDefault<TTargetQuery>> continuation) => Choose<TTargetQuery>(continuation);
+
+        TTargetQuery IGremlinQueryBaseRec<T1, IDateGremlinQuery<T1>>.Choose<TTargetQuery>(Expression<Func<T1, bool>> predicate, Func<IDateGremlinQuery<T1>, TTargetQuery> trueChoice, Func<IDateGremlinQuery<T1>, TTargetQuery> falseChoice) => Choose<TTargetQuery, TTargetQuery, TTargetQuery>(predicate, trueChoice, falseChoice);
+        IDateGremlinQuery<T1> IGremlinQueryBaseRec<T1, IDateGremlinQuery<T1>>.Choose(Expression<Func<T1, bool>> predicate, Func<IDateGremlinQuery<T1>, IDateGremlinQuery<T1>> trueChoice) => Choose<IDateGremlinQuery<T1>, IDateGremlinQuery<T1>, IDateGremlinQuery<T1>>(predicate, trueChoice);
+        IGremlinQuery<object> IGremlinQueryBaseRec<T1, IDateGremlinQuery<T1>>.Choose(Expression<Func<T1, bool>> predicate, Func<IDateGremlinQuery<T1>, IGremlinQueryBase> trueChoice) => Choose<IGremlinQueryBase, IGremlinQueryBase, IGremlinQuery<object>>(predicate, trueChoice);
+
+        TTargetQuery IGremlinQueryBaseRec<IDateGremlinQuery<T1>>.Coalesce<TTargetQuery>(params Func<IDateGremlinQuery<T1>, TTargetQuery>[] traversals) => Coalesce<TTargetQuery, TTargetQuery>(traversals);
+        IGremlinQuery<object> IGremlinQueryBaseRec<IDateGremlinQuery<T1>>.Coalesce(params Func<IDateGremlinQuery<T1>, IGremlinQueryBase>[] traversals) => Coalesce<IGremlinQueryBase, IGremlinQuery<object>>(traversals);
+
+        TTargetQuery IGremlinQueryBaseRec<IDateGremlinQuery<T1>>.Coalesce<TTargetQuery>(params ReadOnlySpan<Func<IDateGremlinQuery<T1>, TTargetQuery>> traversals) => Coalesce<TTargetQuery, TTargetQuery>(traversals.Cast().To<Func<GremlinQuery<T1, T2, T3, T4>, TTargetQuery>>());
+        IGremlinQuery<object> IGremlinQueryBaseRec<IDateGremlinQuery<T1>>.Coalesce(params ReadOnlySpan<Func<IDateGremlinQuery<T1>, IGremlinQueryBase>> traversals) => Coalesce<IGremlinQueryBase, IGremlinQuery<object>>(traversals.Cast().To<Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase>>());
+
+        IDateGremlinQuery<T1> IGremlinQueryBaseRec<IDateGremlinQuery<T1>>.Coin(double probability) => Coin(probability);
+
+        IDateGremlinQuery<T1> IGremlinQueryBaseRec<IDateGremlinQuery<T1>>.CyclicPath() => CyclicPath();
+
+        IDateGremlinQuery<T1> IGremlinQueryBaseRec<IDateGremlinQuery<T1>>.Dedup() => DedupGlobal();
+
+        IDateGremlinQuery<T1> IGremlinQueryBaseRec<IDateGremlinQuery<T1>>.DedupLocal() => DedupLocal();
+
+        TTargetQuery IGremlinQueryBaseRec<IDateGremlinQuery<T1>>.FlatMap<TTargetQuery>(Func<IDateGremlinQuery<T1>, TTargetQuery> mapping) => FlatMap(mapping);
+
+        IArrayGremlinQuery<T1[], T1, IDateGremlinQuery<T1>> IGremlinQueryBaseRec<T1, IDateGremlinQuery<T1>>.ForceArray() => CloneAs<IArrayGremlinQuery<T1[], T1, IDateGremlinQuery<T1>>>();
+
+        IArrayGremlinQuery<T1[], T1, IDateGremlinQuery<T1>> IGremlinQueryBaseRec<T1, IDateGremlinQuery<T1>>.Fold() => Fold<IDateGremlinQuery<T1>>();
+
+        IMapGremlinQuery<IDictionary<TNewKey, TNewValue>> IGremlinQueryBaseRec<T1, IDateGremlinQuery<T1>>.Group<TNewKey, TNewValue>(Func<IGroupBuilder<IDateGremlinQuery<T1>>, IGroupBuilderWithKeyAndValue<TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);
+        IMapGremlinQuery<IDictionary<TNewKey, T1[]>> IGremlinQueryBaseRec<T1, IDateGremlinQuery<T1>>.Group<TNewKey>(Func<IGroupBuilder<IDateGremlinQuery<T1>>, IGroupBuilderWithKey<IDateGremlinQuery<T1>, TNewKey>> groupBuilder) => Group(groupBuilder);
+
+        IDateGremlinQuery<T1> IGremlinQueryBaseRec<IDateGremlinQuery<T1>>.Identity() => Identity();
+
+        IDateGremlinQuery<T1> IGremlinQueryBaseRec<T1, IDateGremlinQuery<T1>>.Inject(params T1[] elements) => Inject<T1>(elements);
+        IDateGremlinQuery<T1> IGremlinQueryBaseRec<T1, IDateGremlinQuery<T1>>.Inject(params ReadOnlySpan<T1> elements) => Inject(elements);
+        
+        IDateGremlinQuery<T1> IGremlinQueryBaseRec<IDateGremlinQuery<T1>>.Limit(long count) => LimitGlobal(count);
+
+        TTargetQuery IGremlinQueryBaseRec<IDateGremlinQuery<T1>>.Local<TTargetQuery>(Func<IDateGremlinQuery<T1> , TTargetQuery> localTraversal) => Local(localTraversal);
+
+        IDateGremlinQuery<T1> IGremlinQueryBaseRec<IDateGremlinQuery<T1>>.Loop(Func<IStartLoopBuilder<IDateGremlinQuery<T1>>, IFinalLoopBuilder<IDateGremlinQuery<T1>>> loopBuilderTransformation) => Loop(loopBuilderTransformation);
+
+        TTargetQuery IGremlinQueryBaseRec<IDateGremlinQuery<T1>>.Map<TTargetQuery>(Func<IDateGremlinQuery<T1>, TTargetQuery> mapping) => Map(mapping);
+
+        IDateGremlinQuery<T1> IGremlinQueryBaseRec<IDateGremlinQuery<T1>>.Max() => MaxGlobal();
+
+        IDateGremlinQuery<T1> IGremlinQueryBaseRec<IDateGremlinQuery<T1>>.Mean() => MeanGlobal();
+
+        IDateGremlinQuery<T1> IGremlinQueryBaseRec<IDateGremlinQuery<T1>>.Min() => MinGlobal();
+
+        IDateGremlinQuery<T1> IGremlinQueryBaseRec<IDateGremlinQuery<T1>>.Not(Func<IDateGremlinQuery<T1>, IGremlinQueryBase> notTraversal) => Not(static (__, notTraversal) => notTraversal(__), notTraversal);
+
+        IDateGremlinQuery<T1> IGremlinQueryBaseRec<IDateGremlinQuery<T1>>.None() => None();
+
+        IDateGremlinQuery<T1> IGremlinQueryBaseRec<IDateGremlinQuery<T1>>.Optional(Func<IDateGremlinQuery<T1>, IDateGremlinQuery<T1>> optionalTraversal) => Optional(optionalTraversal);
+
+        IDateGremlinQuery<T1> IGremlinQueryBaseRec<IDateGremlinQuery<T1>>.Or(params Func<IDateGremlinQuery<T1>, IGremlinQueryBase>[] orTraversals) => Or(orTraversals);
+
+        IDateGremlinQuery<T1> IGremlinQueryBaseRec<IDateGremlinQuery<T1>>.Or(params ReadOnlySpan<Func<IDateGremlinQuery<T1>, IGremlinQueryBase>> orTraversals) => Or(orTraversals.Cast().To<Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase>>());
+
+        IDateGremlinQuery<T1> IGremlinQueryBaseRec<T1, IDateGremlinQuery<T1>>.Order(Func<IOrderBuilder<T1, IDateGremlinQuery<T1>>, IOrderBuilderWithBy<T1, IDateGremlinQuery<T1>>> projection) => OrderGlobal(projection);
+        IDateGremlinQuery<T1> IGremlinQueryBaseRec<T1, IDateGremlinQuery<T1>>.OrderLocal(Func<IOrderBuilder<T1, IDateGremlinQuery<T1>>, IOrderBuilderWithBy<T1, IDateGremlinQuery<T1>>> projection) => OrderLocal(projection);
+
+        IDateGremlinQuery<T1> IGremlinQueryBaseRec<IDateGremlinQuery<T1>>.Order(Func<IOrderBuilder<IDateGremlinQuery<T1>>, IOrderBuilderWithBy<IDateGremlinQuery<T1>>> projection) => OrderGlobal(projection);
+        IDateGremlinQuery<T1> IGremlinQueryBaseRec<IDateGremlinQuery<T1>>.OrderLocal(Func<IOrderBuilder<IDateGremlinQuery<T1>>, IOrderBuilderWithBy<IDateGremlinQuery<T1>>> projection) => OrderLocal(projection);
+
+        IGremlinQuery<dynamic> IGremlinQueryBaseRec<T1, IDateGremlinQuery<T1>>.Project(Func<IProjectBuilder<IDateGremlinQuery<T1>, T1>, IProjectDynamicResult> continuation) => Project(continuation);
+        IMapGremlinQuery<TResult> IGremlinQueryBaseRec<T1, IDateGremlinQuery<T1>>.Project<TResult>(Func<IProjectBuilder<IDateGremlinQuery<T1>, T1>, IProjectMapResult<TResult>> continuation) => Project(continuation);
+        IMapGremlinQuery<TResult> IGremlinQueryBaseRec<T1, IDateGremlinQuery<T1>>.Project<TResult>(Func<IProjectBuilder<IDateGremlinQuery<T1>, T1>, IProjectTupleResult<TResult>> continuation) => Project<TResult>(continuation);
+
+        IDateGremlinQuery<T1> IGremlinQueryBaseRec<IDateGremlinQuery<T1>>.Range(long low, long high) => RangeGlobal(low, high);
+
+        IDateGremlinQuery<T1> IGremlinQueryBaseRec<IDateGremlinQuery<T1>>.SideEffect(Func<IDateGremlinQuery<T1>, IGremlinQueryBase> sideEffectTraversal) => SideEffect(sideEffectTraversal);
+
+        IDateGremlinQuery<T1> IGremlinQueryBaseRec<IDateGremlinQuery<T1>>.SimplePath() => SimplePath();
+
+        IDateGremlinQuery<T1> IGremlinQueryBaseRec<IDateGremlinQuery<T1>>.Skip(long count) => Skip(count, Scope.Global);
+
+        IDateGremlinQuery<T1> IGremlinQueryBaseRec<IDateGremlinQuery<T1>>.Sum() => SumGlobal();
+
+        IDateGremlinQuery<T1> IGremlinQueryBaseRec<IDateGremlinQuery<T1>>.Tail(long count) => TailGlobal(count);
+
+        TTargetQuery IGremlinQueryBaseRec<IDateGremlinQuery<T1>>.Union<TTargetQuery>(params Func<IDateGremlinQuery<T1>, TTargetQuery>[] unionTraversals) => Union<TTargetQuery, TTargetQuery>(unionTraversals);
+        IGremlinQuery<object> IGremlinQueryBaseRec<IDateGremlinQuery<T1>>.Union(params Func<IDateGremlinQuery<T1>, IGremlinQueryBase>[] unionTraversals) => Union<IGremlinQueryBase, IGremlinQuery<object>>(unionTraversals);
+
+        TTargetQuery IGremlinQueryBaseRec<IDateGremlinQuery<T1>>.Union<TTargetQuery>(params ReadOnlySpan<Func<IDateGremlinQuery<T1>, TTargetQuery>> unionTraversals) => Union<TTargetQuery, TTargetQuery>(unionTraversals.Cast().To<Func<GremlinQuery<T1, T2, T3, T4>, TTargetQuery>>());
+        IGremlinQuery<object> IGremlinQueryBaseRec<IDateGremlinQuery<T1>>.Union(params ReadOnlySpan<Func<IDateGremlinQuery<T1>, IGremlinQueryBase>> unionTraversals) => Union<IGremlinQueryBase, IGremlinQuery<object>>(unionTraversals.Cast().To<Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase>>());
+
+        IDateGremlinQuery<T1> IGremlinQueryBaseRec<T1, IDateGremlinQuery<T1>>.Where(Expression<Func<T1, bool>> predicate) => Where(predicate);
+        IDateGremlinQuery<T1> IGremlinQueryBaseRec<IDateGremlinQuery<T1>>.Where(Func<IDateGremlinQuery<T1>, IGremlinQueryBase> filterTraversal) => Where(filterTraversal);
 
 
         IVertexGremlinQuery<TTarget> IVertexGremlinQueryBase.OfType<TTarget>() => OfType<TTarget, IVertexGremlinQuery<TTarget>>(Environment.Model.VerticesModel);

@@ -5,6 +5,7 @@ namespace ExRam.Gremlinq.Core.Serialization
     internal static class Instructions
     {
         public static readonly Instruction asString = new(nameof(asString));
+        public static readonly Instruction asDate = new(nameof(asDate));
         public static readonly Instruction barrier = new(nameof(barrier));
         public static readonly Instruction bothV = new(nameof(bothV));
         public static readonly Instruction by = new(nameof(by));

@@ -36,6 +36,7 @@ namespace ExRam.Gremlinq.Core
         IPropertyGremlinQuery<T1>,
 
         IStringGremlinQuery<T1>,
+        IDateGremlinQuery<T1>,
 
         IVertexPropertyGremlinQuery<T1, T2>,
         IVertexPropertyGremlinQuery<T1, T2, T3>,
@@ -564,6 +565,8 @@ namespace ExRam.Gremlinq.Core
         IArrayGremlinQuery<T1, T2, T4> IArrayGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T4>>.TailLocal(long count) => TailLocal(count);
 
         IStringGremlinQuery<string> IGremlinQueryBase.AsString() => AsString();
+
+        IDateGremlinQuery<DateTimeOffset> IGremlinQueryBase.AsDate() => AsDate();
 
         IStringGremlinQuery<T1> IStringGremlinQuery<T1>.Concat(params string[] strings) => Concat(strings);
 
