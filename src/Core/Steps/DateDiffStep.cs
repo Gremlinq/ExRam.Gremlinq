@@ -11,5 +11,15 @@
 
             public DateTimeOffset Value { get; }
         }
+
+        public sealed class Traversal : DateDiffStep
+        {
+            public Traversal(Core.Traversal valueTraversal)
+            {
+                ValueTraversal = valueTraversal;
+            }
+
+            public Core.Traversal ValueTraversal { get; }
+        }
     }
 }

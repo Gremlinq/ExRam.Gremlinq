@@ -242,6 +242,7 @@
     {
         ExRam.Gremlinq.Core.IDateGremlinQuery<TDate> Add(System.TimeSpan duration);
         ExRam.Gremlinq.Core.IGremlinQuery<long> Diff(System.DateTimeOffset other);
+        ExRam.Gremlinq.Core.IGremlinQuery<long> Diff(System.Func<ExRam.Gremlinq.Core.IDateGremlinQuery<TDate>, ExRam.Gremlinq.Core.IGremlinQueryBase<System.DateTimeOffset>> other);
     }
     public interface IEdgeGremlinQueryBase : ExRam.Gremlinq.Core.IEdgeOrVertexGremlinQueryBase, ExRam.Gremlinq.Core.IElementGremlinQueryBase, ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IStartGremlinQuery
     {
@@ -2405,6 +2406,11 @@ namespace ExRam.Gremlinq.Core.Steps
         {
             public Constant(System.DateTimeOffset value) { }
             public System.DateTimeOffset Value { get; }
+        }
+        public sealed class Traversal : ExRam.Gremlinq.Core.Steps.DateDiffStep
+        {
+            public Traversal(ExRam.Gremlinq.Core.Traversal valueTraversal) { }
+            public ExRam.Gremlinq.Core.Traversal ValueTraversal { get; }
         }
     }
     public sealed class DedupStep : ExRam.Gremlinq.Core.Steps.Step

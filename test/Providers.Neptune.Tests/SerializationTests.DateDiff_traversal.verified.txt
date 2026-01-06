@@ -1,0 +1,31 @@
+﻿{
+  StepInstructions: [
+    {
+      OperatorName: inject,
+      Arguments: [
+        DateTimeOffset_1
+      ]
+    },
+    {
+      OperatorName: asDate
+    },
+    {
+      OperatorName: dateDiff,
+      Arguments: [
+        {
+          StepInstructions: [
+            {
+              OperatorName: constant,
+              Arguments: [
+                DateTimeOffset_2
+              ]
+            },
+            {
+              OperatorName: asDate
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

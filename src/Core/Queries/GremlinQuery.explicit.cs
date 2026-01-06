@@ -572,6 +572,8 @@ namespace ExRam.Gremlinq.Core
 
         IGremlinQuery<long> IDateGremlinQuery<T1>.Diff(DateTimeOffset other) => DateDiff(other);
 
+        IGremlinQuery<long> IDateGremlinQuery<T1>.Diff(Func<IDateGremlinQuery<T1>, IGremlinQueryBase<DateTimeOffset>> other) => DateDiff(other);
+
         IStringGremlinQuery<T1> IStringGremlinQuery<T1>.Concat(params string[] strings) => Concat(strings);
 
         IStringGremlinQuery<T1> IStringGremlinQuery<T1>.Concat(params ReadOnlySpan<string> strings) => Concat(strings);
