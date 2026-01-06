@@ -125,73 +125,61 @@ namespace ExRam.Gremlinq.Providers.Core
 
                     public async IAsyncEnumerator<ResponseMessage<T>> GetAsyncEnumerator(CancellationToken ct = default)
                     {
-                        var ctRegistration = ct
-                            .Register(static @this => ((Channel<T>)@this!).Dispose(), this);
-
-                        try
+                        if (await new ValueTask<ResponseAndQueueUnion<T>?>(this, 0).ConfigureAwait(false) is { } union)
                         {
-                            if (await new ValueTask<ResponseAndQueueUnion<T>?>(this, 0).ConfigureAwait(false) is { } union)
+                            if (union.TryGetResponse(out var response))
                             {
-                                if (union.TryGetResponse(out var response))
-                                {
-                                    // Since the below yield return is what effectively yields control back to user code,
-                                    // the receive loop may stall if user code blocks. Although technically not Gremlinq's
-                                    // fault, we take this measure.
-                                    await Task.Yield();
+                                // Since the below yield return is what effectively yields control back to user code,
+                                // the receive loop may stall if user code blocks. Although technically not Gremlinq's
+                                // fault, we take this measure.
+                                await Task.Yield();
 
-                                    yield return response;
-                                }
-                                else if (union.TryGetQueue(out var semaphore, out var queue))
+                                yield return response;
+                            }
+                            else if (union.TryGetQueue(out var semaphore, out var queue))
+                            {
+                                while (true)
                                 {
-                                    while (true)
+                                    await semaphore
+                                        .WaitAsync(ct)
+                                        .ConfigureAwait(false);
+
+                                    if (queue.TryDequeue(out var queuedResponse))
                                     {
-                                        await semaphore
-                                            .WaitAsync(ct)
-                                            .ConfigureAwait(false);
-
-                                        if (queue.TryDequeue(out var queuedResponse))
+                                        if (queuedResponse.Status.Code is Authenticate)
                                         {
-                                            if (queuedResponse.Status.Code is Authenticate)
+                                            try
                                             {
-                                                try
+                                                await _client
+                                                    .SendCore(_client._factory._authMessageFactory((IReadOnlyDictionary<string, object>)queuedResponse.Status.Attributes ?? ImmutableDictionary<string, object>.Empty))
+                                                    .ConfigureAwait(false);
+                                            }
+                                            catch
+                                            {
+                                                using (this)
                                                 {
-                                                    await _client
-                                                        .SendCore(_client._factory._authMessageFactory((IReadOnlyDictionary<string, object>)queuedResponse.Status.Attributes ?? ImmutableDictionary<string, object>.Empty))
-                                                        .ConfigureAwait(false);
-                                                }
-                                                catch
-                                                {
-                                                    using (this)
-                                                    {
-                                                        throw;
-                                                    }
+                                                    throw;
                                                 }
                                             }
-                                            else
-                                            {
-                                                // See above.
-                                                await Task.Yield();
+                                        }
+                                        else
+                                        {
+                                            // See above.
+                                            await Task.Yield();
 
-                                                yield return queuedResponse;
+                                            yield return queuedResponse;
 
-                                                if (queuedResponse.Status.Code != PartialContent)
-                                                    break;
-                                            }
+                                            if (queuedResponse.Status.Code != PartialContent)
+                                                break;
                                         }
                                     }
                                 }
-                                else
-                                    throw new NotSupportedException();
                             }
                             else
-                                throw new ObjectDisposedException(nameof(Channel<>));
+                                throw new NotSupportedException();
                         }
-                        finally
-                        {
-                            await ctRegistration
-                                .DisposeAsync()
-                                .ConfigureAwait(false);
-                        }
+                        else
+                            throw new ObjectDisposedException(nameof(Channel<>));
                     }
 
                     public void Dispose()
