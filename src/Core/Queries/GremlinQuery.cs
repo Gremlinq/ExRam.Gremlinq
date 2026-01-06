@@ -547,6 +547,17 @@ namespace ExRam.Gremlinq.Core
                 .AddStep(CyclicPathStep.Instance)
                 .BuildAuto<T1, T2, T3, T4>());
 
+        private GremlinQuery<T1, T2, T3, T4> DateAdd(TimeSpan duration) => this
+            .Continue()
+            .Build(
+                static (builder, duration) => builder
+                    .DateAdd(DT.Day, duration.Days)
+                    .DateAdd(DT.Hour, duration.Hours)
+                    .DateAdd(DT.Minute, duration.Minutes)
+                    .DateAdd(DT.Second, duration.Seconds)
+                    .BuildAuto<T1, T2, T3, T4>(),
+                duration);
+
         private string Debug() => Environment.Debugger
             .Debug(
                 Environment.Serializer
