@@ -360,7 +360,6 @@ namespace ExRam.Gremlinq.Providers.Core
                 {
                     using (this)
                     {
-                        Exception? maybeEx = null;
                         Task<MemoryOwner<byte>>? maybeReceiveTask = null;
 
                         while (true)
@@ -374,9 +373,8 @@ namespace ExRam.Gremlinq.Providers.Core
                                     maybeBytes = await receiveTask
                                         .ConfigureAwait(false);
                                 }
-
-                                if (maybeEx is { } ex)
-                                    throw ex;
+                                else if (ct.IsCancellationRequested)
+                                    break;
 
                                 if (ct.IsCancellationRequested)
                                 {
@@ -384,9 +382,8 @@ namespace ExRam.Gremlinq.Providers.Core
 
                                     break;
                                 }
-
-                                maybeReceiveTask = _client
-                                    .ReceiveAsync(ct);
+                                else
+                                    maybeReceiveTask = _client.ReceiveAsync(ct);
                             }
                             catch (OperationCanceledException)
                             {
@@ -405,28 +402,21 @@ namespace ExRam.Gremlinq.Providers.Core
                             {
                                 using (bytes)
                                 {
-                                    try
+                                    if (_environment.Deserializer.TryTransform(bytes, _environment, out TBinaryMessage? binaryMessage))
                                     {
-                                        if (_environment.Deserializer.TryTransform(bytes, _environment, out TBinaryMessage? binaryMessage))
+                                        using (binaryMessage)
                                         {
-                                            using (binaryMessage)
+                                            if (_environment.Deserializer.TryTransform(binaryMessage, _environment, out ResponseMessageEnvelope responseMessageEnvelope))
                                             {
-                                                if (_environment.Deserializer.TryTransform(binaryMessage, _environment, out ResponseMessageEnvelope responseMessageEnvelope))
+                                                if (responseMessageEnvelope is { Status: { Code: var statusCode, Message: var message } responseStatus, RequestId: { } requestId })
                                                 {
-                                                    if (responseMessageEnvelope is { Status: { Code: var statusCode, Message: var message } responseStatus, RequestId: { } requestId })
-                                                    {
-                                                        if (_channels.TryGetValue(requestId, out var otherChannel))
-                                                            otherChannel.Signal(binaryMessage, requestId, responseStatus);
-                                                        else if (statusCode >= Unauthorized)
-                                                            throw new ResponseException(statusCode, ImmutableDictionary<string, object>.Empty, $"The server returned a response indicating failure, but the response could not be mapped to a request: {message}");
-                                                    }
+                                                    if (_channels.TryGetValue(requestId, out var otherChannel))
+                                                        otherChannel.Signal(binaryMessage, requestId, responseStatus);
+                                                    else if (statusCode >= Unauthorized)
+                                                        throw new ResponseException(statusCode, ImmutableDictionary<string, object>.Empty, $"The server returned a response indicating failure, but the response could not be mapped to a request: {message}");
                                                 }
                                             }
                                         }
-                                    }
-                                    catch (Exception ex)
-                                    {
-                                        maybeEx = ex;
                                     }
                                 }
                             }
