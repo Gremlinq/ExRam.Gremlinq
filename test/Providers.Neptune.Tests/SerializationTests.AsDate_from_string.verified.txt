@@ -1,0 +1,13 @@
+﻿{
+  StepInstructions: [
+    {
+      OperatorName: inject,
+      Arguments: [
+        DateTimeOffset_1
+      ]
+    },
+    {
+      OperatorName: asDate
+    }
+  ]
+}

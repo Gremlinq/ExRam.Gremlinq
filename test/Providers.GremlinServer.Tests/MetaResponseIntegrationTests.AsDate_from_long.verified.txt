@@ -1,0 +1,15 @@
+﻿[
+  {
+    RequestId: 12345678-9012-3456-7890-123456789012,
+    Data: [
+      2023-08-02 +0
+    ],
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: (host)
+      },
+      Message: 
+    }
+  }
+]

@@ -1,0 +1,13 @@
+﻿{
+  StepInstructions: [
+    {
+      OperatorName: inject,
+      Arguments: [
+        1690934400000
+      ]
+    },
+    {
+      OperatorName: asDate
+    }
+  ]
+}
