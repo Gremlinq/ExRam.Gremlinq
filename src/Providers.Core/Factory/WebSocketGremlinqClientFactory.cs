@@ -27,7 +27,7 @@ namespace ExRam.Gremlinq.Providers.Core
         {
             private sealed class WebSocketGremlinqClient : DisposableBase, IGremlinqClient
             {
-                private interface IChannel : IDisposable
+                private interface IChannel
                 {
                     void Signal(TBinaryMessage buffer, Guid requestId, ResponseStatus responseStatus);
                 }
@@ -84,24 +84,23 @@ namespace ExRam.Gremlinq.Providers.Core
                                 if (payload.Result is { } payloadResult)
                                     Signal(new ResponseMessage<T>(requestId, responseStatus, payloadResult));
                                 else
-                                    Dispose();
+                                    Signal(null);
                             }
                             else
                                 throw new InvalidOperationException($"Unable to convert byte array to a {nameof(ResponseMessage<>)} for {typeof(T).FullName}.");
                         }
                         catch
                         {
-                            using (this)
-                            {
-                                throw;
-                            }
+                            Signal(null);
+
+                            throw;
                         }
                     }
 
                     public async IAsyncEnumerator<ResponseMessage<T>> GetAsyncEnumerator(CancellationToken ct = default)
                     {
                         var ctRegistration = ct
-                            .Register(static @this => ((Channel<T>)@this!).Dispose(), this);
+                            .Register(static @this => ((Channel<T>)@this!).Signal(null), this);
 
                         try
                         {
@@ -118,43 +117,36 @@ namespace ExRam.Gremlinq.Providers.Core
                                 }
                                 else if (union.TryGetQueue(out var semaphore, out var queue))
                                 {
-                                    while (true)
+                                    using (semaphore)
                                     {
-                                        await semaphore
-                                            .WaitAsync(ct)
-                                            .ConfigureAwait(false);
-
-                                        if (queue.TryDequeue(out var queuedResponse))
+                                        while (true)
                                         {
-                                            if (queuedResponse.Status.Code is Authenticate)
+                                            await semaphore
+                                                .WaitAsync(ct)
+                                                .ConfigureAwait(false);
+
+                                            if (queue.TryDequeue(out var queuedResponse))
                                             {
-                                                try
+                                                if (queuedResponse.Status.Code is Authenticate)
                                                 {
                                                     await _client
                                                         .SendCore(_client._factory._authMessageFactory((IReadOnlyDictionary<string, object>)queuedResponse.Status.Attributes ?? ImmutableDictionary<string, object>.Empty))
                                                         .ConfigureAwait(false);
                                                 }
-                                                catch
+                                                else
                                                 {
-                                                    using (this)
-                                                    {
-                                                        throw;
-                                                    }
+                                                    // See above.
+                                                    await Task.Yield();
+
+                                                    yield return queuedResponse;
+
+                                                    if (queuedResponse.Status.Code != PartialContent)
+                                                        break;
                                                 }
                                             }
                                             else
-                                            {
-                                                // See above.
-                                                await Task.Yield();
-
-                                                yield return queuedResponse;
-
-                                                if (queuedResponse.Status.Code != PartialContent)
-                                                    break;
-                                            }
+                                                yield break;
                                         }
-                                        else
-                                            yield break;
                                     }
                                 }
                                 else
@@ -170,8 +162,6 @@ namespace ExRam.Gremlinq.Providers.Core
                                 .ConfigureAwait(false);
                         }
                     }
-
-                    public void Dispose() => Signal(null);
 
                     private void Signal(ResponseMessage<T>? maybeResponse)
                     {
@@ -242,54 +232,52 @@ namespace ExRam.Gremlinq.Providers.Core
                         if (@this._client.CloseStatus is not null)
                             throw new ObjectDisposedException(nameof(WebSocketGremlinqClient));
 
-                        using (var channel = new Channel<T>(@this))
+                        using (var linkedCts = CancellationTokenSource.CreateLinkedTokenSource(ct, @this._cts.Token))
                         {
-                            using (var linkedCts = CancellationTokenSource.CreateLinkedTokenSource(ct, @this._cts.Token))
-                            {
-                                @this._channels.TryAdd(message.RequestId, channel);
+                            var channel = new Channel<T>(@this);
+                            @this._channels.TryAdd(message.RequestId, channel);
 
-                                try
-                                {
-                                    await @this
-                                        .SendCore(message)
-                                        .ConfigureAwait(false);
+                            try
+                            {
+                                await @this
+                                    .SendCore(message)
+                                    .ConfigureAwait(false);
 
 #pragma warning disable CA2007 // Consider calling ConfigureAwait on the awaited task
-                                    await using (var e = channel.WithCancellation(linkedCts.Token).ConfigureAwait(false).GetAsyncEnumerator())
+                                await using (var e = channel.WithCancellation(linkedCts.Token).ConfigureAwait(false).GetAsyncEnumerator())
 #pragma warning restore CA2007
+                                {
+                                    while (true)
                                     {
-                                        while (true)
+                                        try
                                         {
                                             try
                                             {
-                                                try
-                                                {
-                                                    if (!await e.MoveNextAsync())
-                                                        break;
-                                                }
-                                                catch (ObjectDisposedException ex)
-                                                {
-                                                    throw new OperationCanceledException(null, ex);
-                                                }
+                                                if (!await e.MoveNextAsync())
+                                                    break;
                                             }
-                                            catch
+                                            catch (ObjectDisposedException ex)
                                             {
-                                                @this.Dispose();
-
-                                                if (await @this._loopTcs.Task.ConfigureAwait(false) is { } task)
-                                                    await task.ConfigureAwait(false);
-
-                                                throw;
+                                                throw new OperationCanceledException(null, ex);
                                             }
-
-                                            yield return e.Current;
                                         }
+                                        catch
+                                        {
+                                            @this.Dispose();
+
+                                            if (await @this._loopTcs.Task.ConfigureAwait(false) is { } task)
+                                                await task.ConfigureAwait(false);
+
+                                            throw;
+                                        }
+
+                                        yield return e.Current;
                                     }
                                 }
-                                finally
-                                {
-                                    @this._channels.TryRemove(message.RequestId, out _);
-                                }
+                            }
+                            finally
+                            {
+                                @this._channels.TryRemove(message.RequestId, out _);
                             }
                         }
                     }
