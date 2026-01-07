@@ -383,25 +383,34 @@ namespace ExRam.Gremlinq.Providers.Core
                                 return;
                             }
 
-                            if (maybeBytes is { } bytes)
+                            try
                             {
-                                using (bytes)
+                                if (maybeBytes is { } bytes)
                                 {
-                                    if (_environment.Deserializer.TryTransform(bytes, _environment, out TBinaryMessage? binaryMessage))
+                                    using (bytes)
                                     {
-                                        using (binaryMessage)
+                                        if (_environment.Deserializer.TryTransform(bytes, _environment, out TBinaryMessage? binaryMessage))
                                         {
-                                            if (_environment.Deserializer.TryTransform(binaryMessage, _environment, out ResponseMessageEnvelope responseMessageEnvelope))
+                                            using (binaryMessage)
                                             {
-                                                if (responseMessageEnvelope is { Status: { } responseStatus, RequestId: { } requestId })
+                                                if (_environment.Deserializer.TryTransform(binaryMessage, _environment, out ResponseMessageEnvelope responseMessageEnvelope))
                                                 {
-                                                    if (_channels.TryGetValue(requestId, out var otherChannel))
-                                                        otherChannel.Signal(binaryMessage, requestId, responseStatus);
+                                                    if (responseMessageEnvelope is { Status: { } responseStatus, RequestId: { } requestId })
+                                                    {
+                                                        if (_channels.TryGetValue(requestId, out var otherChannel))
+                                                            otherChannel.Signal(binaryMessage, requestId, responseStatus);
+                                                    }
                                                 }
                                             }
                                         }
                                     }
                                 }
+                            }
+                            catch
+                            {
+                                (await maybeReceiveTask.ConfigureAwait(false))?.Dispose();
+
+                                throw;
                             }
                         }
                     }
