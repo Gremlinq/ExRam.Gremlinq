@@ -178,6 +178,8 @@ namespace ExRam.Gremlinq.Providers.Core
                                                     break;
                                             }
                                         }
+                                        else
+                                            yield break;
                                     }
                                 }
                                 else
