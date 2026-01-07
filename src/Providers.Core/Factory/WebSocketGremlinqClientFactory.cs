@@ -313,7 +313,7 @@ namespace ExRam.Gremlinq.Providers.Core
                                     .ConnectAsync(_factory._uri, _cts.Token)
                                     .ConfigureAwait(false);
 
-                                _loopTcs.SetResult(Loop(_cts.Token));
+                                _loopTcs.SetResult(Loop());
                             }
 
                             if (_environment.Serializer.TryTransform(requestMessage, _environment, out TBinaryMessage? buffer))
@@ -341,8 +341,10 @@ namespace ExRam.Gremlinq.Providers.Core
                     }
                 }
 
-                private async Task Loop(CancellationToken ct)
+                private async Task Loop()
                 {
+                    var ct = _cts.Token;
+
                     using (this)
                     {
                         Task<MemoryOwner<byte>>? maybeReceiveTask = null;
