@@ -13,7 +13,6 @@ using CommunityToolkit.HighPerformance.Buffers;
 using ExRam.Gremlinq.Core;
 
 using Gremlin.Net.Driver;
-using Gremlin.Net.Driver.Exceptions;
 using Gremlin.Net.Driver.Messages;
 
 using static Gremlin.Net.Driver.Messages.ResponseStatusCode;
