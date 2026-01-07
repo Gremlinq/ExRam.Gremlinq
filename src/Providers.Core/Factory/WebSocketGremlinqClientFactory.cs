@@ -358,16 +358,8 @@ namespace ExRam.Gremlinq.Providers.Core
                                     maybeBytes = await receiveTask
                                         .ConfigureAwait(false);
                                 }
-                                else if (ct.IsCancellationRequested)
-                                    break;
-
-                                if (ct.IsCancellationRequested)
-                                {
-                                    maybeBytes?.Dispose();
-
-                                    break;
-                                }
-                                else
+                                
+                                if (!ct.IsCancellationRequested)
                                     maybeReceiveTask = _client.ReceiveAsync(ct);
                             }
                             catch (OperationCanceledException)
@@ -389,6 +381,9 @@ namespace ExRam.Gremlinq.Providers.Core
                                 {
                                     using (bytes)
                                     {
+                                        if (ct.IsCancellationRequested)
+                                            break;
+
                                         if (_environment.Deserializer.TryTransform(bytes, _environment, out TBinaryMessage? binaryMessage))
                                         {
                                             using (binaryMessage)
@@ -408,7 +403,8 @@ namespace ExRam.Gremlinq.Providers.Core
                             }
                             catch
                             {
-                                (await maybeReceiveTask.ConfigureAwait(false))?.Dispose();
+                                if (maybeReceiveTask is { } receiveTask)
+                                    (await receiveTask.ConfigureAwait(false)).Dispose();
 
                                 throw;
                             }
