@@ -4,6 +4,12 @@
     {
         public static ExRam.Gremlinq.Core.Serialization.GroovyGremlinScript ToGroovyScript(this Gremlin.Net.Process.Traversal.Bytecode bytecode, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, bool includeBindings = true) { }
     }
+    public static class DateGremlinQueryExtensions
+    {
+        public static ExRam.Gremlinq.Core.IDateGremlinQuery<System.DateTimeOffset> Add(this ExRam.Gremlinq.Core.IGremlinQueryBase<System.DateTimeOffset> query, System.TimeSpan duration) { }
+        public static ExRam.Gremlinq.Core.IGremlinQuery<long> Diff(this ExRam.Gremlinq.Core.IGremlinQueryBase<System.DateTimeOffset> query, System.DateTimeOffset other) { }
+        public static ExRam.Gremlinq.Core.IGremlinQuery<long> Diff(this ExRam.Gremlinq.Core.IGremlinQueryBase<System.DateTimeOffset> query, System.Func<ExRam.Gremlinq.Core.IDateGremlinQuery<System.DateTimeOffset>, ExRam.Gremlinq.Core.IGremlinQueryBase<System.DateTimeOffset>> other) { }
+    }
     [System.Flags]
     public enum DisabledTextPredicates
     {

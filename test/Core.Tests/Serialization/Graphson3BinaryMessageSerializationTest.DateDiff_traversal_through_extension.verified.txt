@@ -1,0 +1,1 @@
+﻿!application/vnd.gremlin-v3.0+json{"requestId":"12345678-9012-3456-7890-123456789012","op":"bytecode","processor":"traversal","args":{"gremlin":{"@type":"g:Bytecode","@value":{"step":[["inject",{"@type":"g:Date","@value":1690934400000}],["dateDiff",{"@type":"g:Bytecode","@value":{"step":[["constant","2023-08-03T00:00:00Z"],["asDate"]]}}]]}},"aliases":{"g":"g"}}}

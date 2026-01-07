@@ -1,0 +1,38 @@
+﻿{
+  RequestId: 12345678-9012-3456-7890-123456789012,
+  Operation: bytecode,
+  Processor: traversal,
+  Arguments: {
+    aliases: {
+      g: g
+    },
+    gremlin: {
+      StepInstructions: [
+        {
+          OperatorName: inject,
+          Arguments: [
+            DateTimeOffset_1
+          ]
+        },
+        {
+          OperatorName: dateDiff,
+          Arguments: [
+            {
+              StepInstructions: [
+                {
+                  OperatorName: constant,
+                  Arguments: [
+                    DateTimeOffset_2
+                  ]
+                },
+                {
+                  OperatorName: asDate
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

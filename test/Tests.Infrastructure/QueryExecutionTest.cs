@@ -600,6 +600,12 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Verify();
 
         [Fact]
+        public virtual async Task AddDate_1_day_2_hours_3_minutes_4_seconds_through_extension() => await _g
+            .Inject(DateTimeOffset.Parse("2023-08-02T00:00:00Z"))
+            .Add(new TimeSpan(1, 2, 3, 4))
+            .Verify();
+
+        [Fact]
         public virtual async Task DateDiff_constant() => await _g
             .Inject("2023-08-02T00:00:00Z")
             .AsDate()
@@ -607,9 +613,23 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Verify();
 
         [Fact]
+        public virtual async Task DateDiff_constant_through_extension() => await _g
+            .Inject(DateTimeOffset.Parse("2023-08-02T00:00:00Z"))
+            .Diff(DateTimeOffset.Parse("2023-08-03T00:00:00Z"))
+            .Verify();
+
+        [Fact]
         public virtual async Task DateDiff_traversal() => await _g
             .Inject("2023-08-02T00:00:00Z")
             .AsDate()
+            .Diff(__ => __
+                .Constant("2023-08-03T00:00:00Z")
+                .AsDate())
+            .Verify();
+
+        [Fact]
+        public virtual async Task DateDiff_traversal_through_extension() => await _g
+            .Inject(DateTimeOffset.Parse("2023-08-02T00:00:00Z"))
             .Diff(__ => __
                 .Constant("2023-08-03T00:00:00Z")
                 .AsDate())

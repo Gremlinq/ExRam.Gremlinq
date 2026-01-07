@@ -1,0 +1,16 @@
+﻿{
+  StepInstructions: [
+    {
+      OperatorName: inject,
+      Arguments: [
+        DateTimeOffset_1
+      ]
+    },
+    {
+      OperatorName: dateDiff,
+      Arguments: [
+        DateTimeOffset_2
+      ]
+    }
+  ]
+}

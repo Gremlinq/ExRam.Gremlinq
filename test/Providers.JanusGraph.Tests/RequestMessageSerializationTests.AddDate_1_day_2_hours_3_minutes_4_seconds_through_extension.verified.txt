@@ -1,0 +1,60 @@
+﻿{
+  RequestId: 12345678-9012-3456-7890-123456789012,
+  Operation: bytecode,
+  Processor: traversal,
+  Arguments: {
+    aliases: {
+      g: g
+    },
+    gremlin: {
+      StepInstructions: [
+        {
+          OperatorName: inject,
+          Arguments: [
+            DateTimeOffset_1
+          ]
+        },
+        {
+          OperatorName: dateAdd,
+          Arguments: [
+            {
+              EnumName: DT,
+              EnumValue: day
+            },
+            1
+          ]
+        },
+        {
+          OperatorName: dateAdd,
+          Arguments: [
+            {
+              EnumName: DT,
+              EnumValue: hour
+            },
+            2
+          ]
+        },
+        {
+          OperatorName: dateAdd,
+          Arguments: [
+            {
+              EnumName: DT,
+              EnumValue: minute
+            },
+            3
+          ]
+        },
+        {
+          OperatorName: dateAdd,
+          Arguments: [
+            {
+              EnumName: DT,
+              EnumValue: second
+            },
+            4
+          ]
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,1 @@
+﻿g.inject('2023-08-02T00:00:00.0000000+00:00').dateAdd(day,1).dateAdd(hour,2).dateAdd(minute,3).dateAdd(second,4)

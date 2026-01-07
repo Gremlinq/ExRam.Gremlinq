@@ -1,0 +1,66 @@
+﻿{
+  SourceInstructions: [
+    {
+      OperatorName: withSideEffect,
+      Arguments: [
+        Neptune#fts.endpoint,
+        http://elastic.search.server
+      ]
+    },
+    {
+      OperatorName: withSideEffect,
+      Arguments: [
+        Neptune#fts.queryType,
+        query_string
+      ]
+    }
+  ],
+  StepInstructions: [
+    {
+      OperatorName: inject,
+      Arguments: [
+        DateTimeOffset_1
+      ]
+    },
+    {
+      OperatorName: dateAdd,
+      Arguments: [
+        {
+          EnumName: DT,
+          EnumValue: day
+        },
+        1
+      ]
+    },
+    {
+      OperatorName: dateAdd,
+      Arguments: [
+        {
+          EnumName: DT,
+          EnumValue: hour
+        },
+        2
+      ]
+    },
+    {
+      OperatorName: dateAdd,
+      Arguments: [
+        {
+          EnumName: DT,
+          EnumValue: minute
+        },
+        3
+      ]
+    },
+    {
+      OperatorName: dateAdd,
+      Arguments: [
+        {
+          EnumName: DT,
+          EnumValue: second
+        },
+        4
+      ]
+    }
+  ]
+}
