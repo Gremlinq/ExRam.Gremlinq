@@ -393,7 +393,7 @@ namespace ExRam.Gremlinq.Providers.Core
                                         {
                                             if (_environment.Deserializer.TryTransform(binaryMessage, _environment, out ResponseMessageEnvelope responseMessageEnvelope))
                                             {
-                                                if (responseMessageEnvelope is { Status: { Code: var statusCode, Message: var message } responseStatus, RequestId: { } requestId })
+                                                if (responseMessageEnvelope is { Status: { } responseStatus, RequestId: { } requestId })
                                                 {
                                                     if (_channels.TryGetValue(requestId, out var otherChannel))
                                                         otherChannel.Signal(binaryMessage, requestId, responseStatus);
