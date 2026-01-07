@@ -98,31 +98,6 @@ namespace ExRam.Gremlinq.Providers.Core
                         }
                     }
 
-                    private void Signal(ResponseMessage<T> response)
-                    {
-                        while (true)
-                        {
-                            if (_valueTaskSource.GetStatus(0) > ValueTaskSourceStatus.Pending)
-                            {
-                                if (_valueTaskSource.GetResult(0) is { } union && union.TryGetQueue(out var semaphore, out var queue))
-                                {
-                                    queue.Enqueue(response);
-                                    semaphore.Release();
-                                }
-
-                                return;
-                            }
-
-                            if (response.Status.Code is not PartialContent and not Authenticate)
-                            {
-                                if (_valueTaskSource.TrySetResult(ResponseAndQueueUnion<T>.From(response)))
-                                    return;
-                            }
-                            else
-                                _valueTaskSource.TrySetResult(ResponseAndQueueUnion<T>.CreateQueue());
-                        }
-                    }
-
                     public async IAsyncEnumerator<ResponseMessage<T>> GetAsyncEnumerator(CancellationToken ct = default)
                     {
                         var ctRegistration = ct
@@ -210,6 +185,31 @@ namespace ExRam.Gremlinq.Providers.Core
 
                             if (_valueTaskSource.TrySetResult(null))
                                 return;
+                        }
+                    }
+
+                    private void Signal(ResponseMessage<T> response)
+                    {
+                        while (true)
+                        {
+                            if (_valueTaskSource.GetStatus(0) > ValueTaskSourceStatus.Pending)
+                            {
+                                if (_valueTaskSource.GetResult(0) is { } union && union.TryGetQueue(out var semaphore, out var queue))
+                                {
+                                    queue.Enqueue(response);
+                                    semaphore.Release();
+                                }
+
+                                return;
+                            }
+
+                            if (response.Status.Code is not PartialContent and not Authenticate)
+                            {
+                                if (_valueTaskSource.TrySetResult(ResponseAndQueueUnion<T>.From(response)))
+                                    return;
+                            }
+                            else
+                                _valueTaskSource.TrySetResult(ResponseAndQueueUnion<T>.CreateQueue());
                         }
                     }
 
