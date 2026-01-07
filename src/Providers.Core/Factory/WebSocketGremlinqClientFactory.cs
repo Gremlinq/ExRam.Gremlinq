@@ -171,24 +171,9 @@ namespace ExRam.Gremlinq.Providers.Core
                         }
                     }
 
-                    public void Dispose()
-                    {
-                        while (true)
-                        {
-                            if (_valueTaskSource.GetStatus(0) is var status and > ValueTaskSourceStatus.Pending)
-                            {
-                                if (status == ValueTaskSourceStatus.Succeeded && _valueTaskSource.GetResult(0) is { } union && union.TryGetQueue(out var semaphore, out _))
-                                    semaphore.Dispose();
+                    public void Dispose() => Signal(null);
 
-                                return;
-                            }
-
-                            if (_valueTaskSource.TrySetResult(null))
-                                return;
-                        }
-                    }
-
-                    private void Signal(ResponseMessage<T> response)
+                    private void Signal(ResponseMessage<T>? maybeResponse)
                     {
                         while (true)
                         {
@@ -196,20 +181,29 @@ namespace ExRam.Gremlinq.Providers.Core
                             {
                                 if (_valueTaskSource.GetResult(0) is { } union && union.TryGetQueue(out var semaphore, out var queue))
                                 {
-                                    queue.Enqueue(response);
+                                    if (maybeResponse is { } response)
+                                        queue.Enqueue(response);
+
                                     semaphore.Release();
                                 }
 
                                 return;
                             }
-
-                            if (response.Status.Code is not PartialContent and not Authenticate)
+                            else
                             {
-                                if (_valueTaskSource.TrySetResult(ResponseAndQueueUnion<T>.From(response)))
+                                if (maybeResponse is { } response)
+                                {
+                                    if (response.Status.Code is not PartialContent and not Authenticate)
+                                    {
+                                        if (_valueTaskSource.TrySetResult(ResponseAndQueueUnion<T>.From(response)))
+                                            return;
+                                    }
+                                    else
+                                        _valueTaskSource.TrySetResult(ResponseAndQueueUnion<T>.CreateQueue());
+                                }
+                                else if (_valueTaskSource.TrySetResult(null))
                                     return;
                             }
-                            else
-                                _valueTaskSource.TrySetResult(ResponseAndQueueUnion<T>.CreateQueue());
                         }
                     }
 
