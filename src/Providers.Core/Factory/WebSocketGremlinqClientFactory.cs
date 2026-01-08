@@ -211,8 +211,8 @@ namespace ExRam.Gremlinq.Providers.Core
                 private readonly SemaphoreSlim _sendLock = new(1);
                 private readonly CancellationTokenSource _cts = new();
                 private readonly IGremlinQueryEnvironment _environment;
-                private readonly TaskCompletionSource<Task?> _loopTcs = new();
                 private readonly ConcurrentDictionary<Guid, IChannel> _channels = new();
+                private readonly TaskCompletionSource<Exception?> _loopExceptionTcs = new();
                 private readonly WebSocketGremlinqClientFactoryImpl<TBinaryMessage> _factory;
 
                 public WebSocketGremlinqClient(WebSocketGremlinqClientFactoryImpl<TBinaryMessage> factory, ClientWebSocket client, IGremlinQueryEnvironment environment)
@@ -260,12 +260,12 @@ namespace ExRam.Gremlinq.Providers.Core
                                                 throw new OperationCanceledException(null, ex);
                                             }
                                         }
-                                        catch
+                                        catch (Exception ex)
                                         {
                                             @this.Dispose();
 
-                                            if (await @this._loopTcs.Task.ConfigureAwait(false) is { } task)
-                                                await task.ConfigureAwait(false);
+                                            if (await @this._loopExceptionTcs.Task.ConfigureAwait(false) is { } loopException)
+                                                throw new AggregateException(ex, loopException);
 
                                             throw;
                                         }
@@ -291,9 +291,82 @@ namespace ExRam.Gremlinq.Providers.Core
                             using (_cts)
                             {
                                 _cts.Cancel();
-                                _loopTcs.TrySetResult(null);
+                                _loopExceptionTcs.TrySetResult(null);
                             }
                         }
+                    }
+                }
+
+                private static void ReceiveContinuation(Task<MemoryOwner<byte>>? maybeTask, object? state)
+                {
+                    var client = (WebSocketGremlinqClient)state!;
+
+                    if (maybeTask is { } task)
+                    {
+                        if (task.IsCompletedSuccessfully)
+                        {
+                            if (task.Result is { } bytes)
+                            {
+                                using (bytes)
+                                {
+                                    if (!client._cts.Token.IsCancellationRequested)
+                                    {
+                                        client._client
+                                            .ReceiveAsync(client._cts.Token)
+                                            .ContinueWith(ReceiveContinuation, client);
+                                    }
+
+                                    try
+                                    {
+                                        if (client._environment.Deserializer.TryTransform(bytes, client._environment, out TBinaryMessage? binaryMessage))
+                                        {
+                                            using (binaryMessage)
+                                            {
+                                                if (client._environment.Deserializer.TryTransform(binaryMessage, client._environment, out ResponseMessageEnvelope responseMessageEnvelope))
+                                                {
+                                                    if (responseMessageEnvelope is { Status: { } responseStatus, RequestId: { } requestId })
+                                                    {
+                                                        if (client._channels.TryGetValue(requestId, out var otherChannel))
+                                                            otherChannel.Signal(binaryMessage, requestId, responseStatus);
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        using (client)
+                                        {
+                                            client._loopExceptionTcs
+                                                .TrySetResult(ex);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        else if (task.Exception?.GetBaseException() is {  } ex)
+                        {
+                            if (ex is OperationCanceledException or InvalidOperationException or WebSocketException)
+                            {
+                                client._loopExceptionTcs
+                                    .TrySetResult(null);
+                            }
+                            else
+                            {
+                                client._loopExceptionTcs
+                                    .TrySetResult(ex);
+                            }
+                        }
+                        else
+                        {
+                            client._loopExceptionTcs
+                                .TrySetCanceled();
+                        }
+                    }
+                    else
+                    {
+                        client._client.ReceiveAsync(client._cts.Token)
+                            .ContinueWith(ReceiveContinuation, client);
                     }
                 }
 
@@ -313,7 +386,7 @@ namespace ExRam.Gremlinq.Providers.Core
                                     .ConnectAsync(_factory._uri, _cts.Token)
                                     .ConfigureAwait(false);
 
-                                _loopTcs.SetResult(Loop());
+                                ReceiveContinuation(null, this);
                             }
 
                             if (_environment.Serializer.TryTransform(requestMessage, _environment, out TBinaryMessage? buffer))
@@ -338,79 +411,6 @@ namespace ExRam.Gremlinq.Providers.Core
                         Dispose();
 
                         throw;
-                    }
-                }
-
-                private async Task Loop()
-                {
-                    var ct = _cts.Token;
-
-                    using (this)
-                    {
-                        Task<MemoryOwner<byte>>? maybeReceiveTask = null;
-
-                        while (true)
-                        {
-                            MemoryOwner<byte>? maybeBytes = null;
-
-                            try
-                            {
-                                if (maybeReceiveTask is { } receiveTask)
-                                {
-                                    maybeBytes = await receiveTask
-                                        .ConfigureAwait(false);
-                                }
-                                
-                                if (!ct.IsCancellationRequested)
-                                    maybeReceiveTask = _client.ReceiveAsync(ct);
-                            }
-                            catch (OperationCanceledException)
-                            {
-                                return;
-                            }
-                            catch (InvalidOperationException)
-                            {
-                                return;
-                            }
-                            catch (WebSocketException)
-                            {
-                                return;
-                            }
-
-                            try
-                            {
-                                if (maybeBytes is { } bytes)
-                                {
-                                    using (bytes)
-                                    {
-                                        if (ct.IsCancellationRequested)
-                                            break;
-
-                                        if (_environment.Deserializer.TryTransform(bytes, _environment, out TBinaryMessage? binaryMessage))
-                                        {
-                                            using (binaryMessage)
-                                            {
-                                                if (_environment.Deserializer.TryTransform(binaryMessage, _environment, out ResponseMessageEnvelope responseMessageEnvelope))
-                                                {
-                                                    if (responseMessageEnvelope is { Status: { } responseStatus, RequestId: { } requestId })
-                                                    {
-                                                        if (_channels.TryGetValue(requestId, out var otherChannel))
-                                                            otherChannel.Signal(binaryMessage, requestId, responseStatus);
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                            catch
-                            {
-                                if (maybeReceiveTask is { } receiveTask)
-                                    (await receiveTask.ConfigureAwait(false)).Dispose();
-
-                                throw;
-                            }
-                        }
                     }
                 }
             }
