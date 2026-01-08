@@ -24,134 +24,111 @@ namespace ExRam.Gremlinq.Providers.Core
         private sealed class WebSocketGremlinqClientFactoryImpl<TBinaryMessage> : IWebSocketGremlinqClientFactory
             where TBinaryMessage : IMemoryOwner<byte>
         {
+            private readonly record struct ResponseTuple(TBinaryMessage BinaryMessage, Guid RequestId, ResponseStatus ResponseStatus);
+
+            private readonly struct ResponseAndQueueUnion
+            {
+                private readonly ResponseTuple? _response;
+                private readonly SemaphoreSlim? _semaphore;
+                private readonly ConcurrentQueue<ResponseTuple>? _queue;
+
+                private ResponseAndQueueUnion(SemaphoreSlim semaphore, ConcurrentQueue<ResponseTuple> queue)
+                {
+                    _queue = queue;
+                    _semaphore = semaphore;
+                }
+
+                private ResponseAndQueueUnion(ResponseTuple response)
+                {
+                    _response = response;
+                }
+
+                public bool TryGetResponse([NotNullWhen(true)] out ResponseTuple response)
+                {
+                    if (_response is { } actualResponse)
+                    {
+                        response = actualResponse;
+                        return true;
+                    }
+
+                    response = default;
+                    return false;
+                }
+
+                public bool TryGetQueue([NotNullWhen(true)] out SemaphoreSlim? semaphore, [NotNullWhen(true)] out ConcurrentQueue<ResponseTuple>? queue)
+                {
+                    queue = _queue;
+                    semaphore = _semaphore;
+
+                    return queue is not null && semaphore is not null;
+                }
+
+                public static ResponseAndQueueUnion From(ResponseTuple response) => new(response);
+
+                public static ResponseAndQueueUnion CreateQueue() => new(new(0), new());
+            }
+
             private sealed class WebSocketGremlinqClient : DisposableBase, IGremlinqClient
             {
-                private interface IChannel
-                {
-                    void Signal(TBinaryMessage buffer, Guid requestId, ResponseStatus responseStatus);
-                }
-
-                private readonly struct ResponseAndQueueUnion<T>
-                {
-                    private readonly SemaphoreSlim? _semaphore;
-                    private readonly ResponseMessage<T>? _response;
-                    private readonly ConcurrentQueue<ResponseMessage<T>>? _queue;
-
-                    private ResponseAndQueueUnion(SemaphoreSlim semaphore, ConcurrentQueue<ResponseMessage<T>> queue)
-                    {
-                        _queue = queue;
-                        _semaphore = semaphore;
-                    }
-
-                    private ResponseAndQueueUnion(ResponseMessage<T> response)
-                    {
-                        _response = response;
-                    }
-
-                    public bool TryGetResponse([NotNullWhen(true)] out ResponseMessage<T>? response) => (response = _response) is not null;
-
-                    public bool TryGetQueue([NotNullWhen(true)] out SemaphoreSlim? semaphore, [NotNullWhen(true)] out ConcurrentQueue<ResponseMessage<T>>? queue)
-                    {
-                        queue = _queue;
-                        semaphore = _semaphore;
-
-                        return queue is not null && semaphore is not null;
-                    }
-
-                    public static ResponseAndQueueUnion<T> From(ResponseMessage<T> response) => new(response);
-
-                    public static ResponseAndQueueUnion<T> CreateQueue() => new(new(0), new());
-                }
-
-                private sealed class Channel<T> : IChannel, IAsyncEnumerable<ResponseMessage<T>>, IValueTaskSource<ResponseAndQueueUnion<T>?>
+                private sealed class Channel : IDisposable, IAsyncEnumerable<ResponseTuple>, IValueTaskSource<ResponseAndQueueUnion?>
                 {
                     private readonly WebSocketGremlinqClient _client;
 
-                    private ValueTaskSourceCore<ResponseAndQueueUnion<T>?> _valueTaskSource;
+                    private ValueTaskSourceCore<ResponseAndQueueUnion?> _valueTaskSource;
 
                     public Channel(WebSocketGremlinqClient client)
                     {
                         _client = client;
                     }
 
-                    public void Signal(TBinaryMessage buffer, Guid requestId, ResponseStatus responseStatus)
-                    {
-                        try
-                        {
-                            if (_client._environment.Deserializer.TryTransform(buffer, _client._environment, out ResponseMessagePayload<T> payload))
-                            {
-                                Signal(payload.Result is { } payloadResult
-                                    ? new ResponseMessage<T>(requestId, responseStatus, payloadResult)
-                                    : null);
-                            }
-                            else
-                                throw new InvalidOperationException($"Unable to convert byte array to a {nameof(ResponseMessage<>)} for {typeof(T).FullName}.");
-                        }
-                        catch
-                        {
-                            Signal(null);
+                    public void Signal(TBinaryMessage buffer, Guid requestId, ResponseStatus responseStatus) => Signal(new ResponseTuple(buffer, requestId, responseStatus));
 
-                            throw;
-                        }
-                    }
+                    public void SignalCompletion() => Signal(null);
 
-                    public async IAsyncEnumerator<ResponseMessage<T>> GetAsyncEnumerator(CancellationToken ct = default)
+                    public async IAsyncEnumerator<ResponseTuple> GetAsyncEnumerator(CancellationToken ct = default)
                     {
                         var ctRegistration = ct
-                            .Register(static @this => ((Channel<T>)@this!).Signal(null), this);
+                            .Register(static @this => ((Channel)@this!).SignalCompletion(), this);
 
                         try
                         {
-                            if (await new ValueTask<ResponseAndQueueUnion<T>?>(this, 0).ConfigureAwait(false) is { } union)
+                            if (await new ValueTask<ResponseAndQueueUnion?>(this, 0).ConfigureAwait(false) is { } union)
                             {
                                 if (union.TryGetResponse(out var response))
-                                {
-                                    // Since the below yield return is what effectively yields control back to user code,
-                                    // the receive loop may stall if user code blocks. Although technically not Gremlinq's
-                                    // fault, we take this measure.
-                                    await Task.Yield();
-
                                     yield return response;
-                                }
                                 else if (union.TryGetQueue(out var semaphore, out var queue))
                                 {
-                                    using (semaphore)
+                                    while (true)
                                     {
-                                        while (true)
+                                        await semaphore
+                                            .WaitAsync(ct)
+                                            .ConfigureAwait(false);
+
+                                        if (queue.TryDequeue(out var queuedResponse))
                                         {
-                                            await semaphore
-                                                .WaitAsync(ct)
-                                                .ConfigureAwait(false);
-
-                                            if (queue.TryDequeue(out var queuedResponse))
+                                            if (queuedResponse.ResponseStatus.Code is Authenticate)
                                             {
-                                                if (queuedResponse.Status.Code is Authenticate)
-                                                {
-                                                    await _client
-                                                        .SendCore(_client._factory._authMessageFactory((IReadOnlyDictionary<string, object>)queuedResponse.Status.Attributes ?? ImmutableDictionary<string, object>.Empty))
-                                                        .ConfigureAwait(false);
-                                                }
-                                                else
-                                                {
-                                                    // See above.
-                                                    await Task.Yield();
-
-                                                    yield return queuedResponse;
-
-                                                    if (queuedResponse.Status.Code != PartialContent)
-                                                        break;
-                                                }
+                                                await _client
+                                                    .SendCore(_client._factory._authMessageFactory((IReadOnlyDictionary<string, object>)queuedResponse.ResponseStatus.Attributes ?? ImmutableDictionary<string, object>.Empty))
+                                                    .ConfigureAwait(false);
                                             }
                                             else
-                                                yield break;
+                                            {
+                                                yield return queuedResponse;
+
+                                                if (queuedResponse.ResponseStatus.Code != PartialContent)
+                                                    break;
+                                            }
                                         }
+                                        else
+                                            yield break;
                                     }
                                 }
                                 else
                                     throw new NotSupportedException();
                             }
                             else
-                                throw new ObjectDisposedException(nameof(Channel<>));
+                                throw new ObjectDisposedException(nameof(Channel));
                         }
                         finally
                         {
@@ -161,7 +138,16 @@ namespace ExRam.Gremlinq.Providers.Core
                         }
                     }
 
-                    private void Signal(ResponseMessage<T>? maybeResponse)
+                    public void Dispose()
+                    {
+                        _valueTaskSource
+                            .TrySetResult(null);
+
+                        if (_valueTaskSource.GetResult(0) is { } union && union.TryGetQueue(out var semaphore, out var _))
+                            semaphore.Dispose();
+                    }
+
+                    private void Signal(ResponseTuple? maybeResponseTuple)
                     {
                         while (true)
                         {
@@ -169,25 +155,26 @@ namespace ExRam.Gremlinq.Providers.Core
                             {
                                 if (_valueTaskSource.GetResult(0) is { } union && union.TryGetQueue(out var semaphore, out var queue))
                                 {
-                                    if (maybeResponse is { } response)
+                                    if (maybeResponseTuple is { } response)
                                         queue.Enqueue(response);
 
-                                    semaphore.Release();
+                                    semaphore
+                                        .Release();
                                 }
 
                                 return;
                             }
                             else
                             {
-                                if (maybeResponse is { } response)
+                                if (maybeResponseTuple is { } response)
                                 {
-                                    if (response.Status.Code is not PartialContent and not Authenticate)
+                                    if (response.ResponseStatus.Code is not PartialContent and not Authenticate)
                                     {
-                                        if (_valueTaskSource.TrySetResult(ResponseAndQueueUnion<T>.From(response)))
+                                        if (_valueTaskSource.TrySetResult(ResponseAndQueueUnion.From(response)))
                                             return;
                                     }
                                     else
-                                        _valueTaskSource.TrySetResult(ResponseAndQueueUnion<T>.CreateQueue());
+                                        _valueTaskSource.TrySetResult(ResponseAndQueueUnion.CreateQueue());
                                 }
                                 else if (_valueTaskSource.TrySetResult(null))
                                     return;
@@ -195,11 +182,11 @@ namespace ExRam.Gremlinq.Providers.Core
                         }
                     }
 
-                    ResponseAndQueueUnion<T>? IValueTaskSource<ResponseAndQueueUnion<T>?>.GetResult(short token) => _valueTaskSource.GetResult(token);
+                    ResponseAndQueueUnion? IValueTaskSource<ResponseAndQueueUnion?>.GetResult(short token) => _valueTaskSource.GetResult(token);
 
-                    ValueTaskSourceStatus IValueTaskSource<ResponseAndQueueUnion<T>?>.GetStatus(short token) => _valueTaskSource.GetStatus(token);
+                    ValueTaskSourceStatus IValueTaskSource<ResponseAndQueueUnion?>.GetStatus(short token) => _valueTaskSource.GetStatus(token);
 
-                    void IValueTaskSource<ResponseAndQueueUnion<T>?>.OnCompleted(Action<object?> continuation, object? state, short token, ValueTaskSourceOnCompletedFlags flags) => _valueTaskSource.OnCompleted(continuation, state, token, flags);
+                    void IValueTaskSource<ResponseAndQueueUnion?>.OnCompleted(Action<object?> continuation, object? state, short token, ValueTaskSourceOnCompletedFlags flags) => _valueTaskSource.OnCompleted(continuation, state, token, flags);
                 }
 
                 private record struct ResponseMessagePayload<T>(ResponseResult<T>? Result);
@@ -211,7 +198,7 @@ namespace ExRam.Gremlinq.Providers.Core
                 private readonly CancellationTokenSource _cts = new();
                 private readonly IGremlinQueryEnvironment _environment;
                 private readonly TaskCompletionSource<Task?> _loopTcs = new();
-                private readonly ConcurrentDictionary<Guid, IChannel> _channels = new();
+                private readonly ConcurrentDictionary<Guid, Channel> _channels = new();
                 private readonly WebSocketGremlinqClientFactoryImpl<TBinaryMessage> _factory;
 
                 public WebSocketGremlinqClient(WebSocketGremlinqClientFactoryImpl<TBinaryMessage> factory, ClientWebSocket client, IGremlinQueryEnvironment environment)
@@ -232,50 +219,82 @@ namespace ExRam.Gremlinq.Providers.Core
 
                         using (var linkedCts = CancellationTokenSource.CreateLinkedTokenSource(ct, @this._cts.Token))
                         {
-                            var channel = new Channel<T>(@this);
-                            @this._channels.TryAdd(message.RequestId, channel);
-
-                            try
+                            using (var channel = new Channel(@this))
                             {
-                                await @this
-                                    .SendCore(message)
-                                    .ConfigureAwait(false);
 
 #pragma warning disable CA2007 // Consider calling ConfigureAwait on the awaited task
                                 await using (var e = channel.WithCancellation(linkedCts.Token).ConfigureAwait(false).GetAsyncEnumerator())
 #pragma warning restore CA2007
                                 {
-                                    while (true)
+                                    try
                                     {
-                                        try
+                                        @this._channels
+                                            .TryAdd(message.RequestId, channel);
+
+                                        await @this
+                                            .SendCore(message)
+                                            .ConfigureAwait(false);
+
+                                        while (true)
                                         {
                                             try
                                             {
-                                                if (!await e.MoveNextAsync())
-                                                    break;
+                                                try
+                                                {
+                                                    if (!await e.MoveNextAsync())
+                                                        break;
+                                                }
+                                                catch (ObjectDisposedException ex)
+                                                {
+                                                    throw new OperationCanceledException(null, ex);
+                                                }
                                             }
-                                            catch (ObjectDisposedException ex)
+                                            catch
                                             {
-                                                throw new OperationCanceledException(null, ex);
+                                                @this.Dispose();
+
+                                                if (await @this._loopTcs.Task.ConfigureAwait(false) is { } task)
+                                                    await task.ConfigureAwait(false);
+
+                                                throw;
+                                            }
+
+                                            var (binaryMessage, requestId, responseStatus) = e.Current;
+
+                                            using (binaryMessage)
+                                            {
+                                                // Since the below yield return is what effectively yields control back to user code,
+                                                // the receive loop may stall if continations were executed synchronously up to here and
+                                                // user code blocks. Although technically not Gremlinq's fault, we take this measure.
+                                                await Task.Yield();
+
+                                                if (@this._environment.Deserializer.TryTransform(binaryMessage, @this._environment, out ResponseMessagePayload<T> payload))
+                                                {
+                                                    if (payload.Result is { } payloadResult)
+                                                        yield return new ResponseMessage<T>(requestId, responseStatus, payloadResult);
+                                                    else
+                                                        yield break;
+                                                }
+                                                else
+                                                    throw new InvalidOperationException($"Unable to convert byte array to a {nameof(ResponseMessage<>)} for {typeof(T).FullName}.");
                                             }
                                         }
-                                        catch
+                                    }
+                                    finally
+                                    {
+                                        @this._channels
+                                            .TryRemove(message.RequestId, out _);
+
+                                        channel
+                                            .SignalCompletion();
+
+                                        while (await e.MoveNextAsync())
                                         {
-                                            @this.Dispose();
-
-                                            if (await @this._loopTcs.Task.ConfigureAwait(false) is { } task)
-                                                await task.ConfigureAwait(false);
-
-                                            throw;
+                                            e.Current.BinaryMessage
+                                                .Dispose();
                                         }
-
-                                        yield return e.Current;
                                     }
                                 }
-                            }
-                            finally
-                            {
-                                @this._channels.TryRemove(message.RequestId, out _);
                             }
                         }
                     }
@@ -380,23 +399,35 @@ namespace ExRam.Gremlinq.Providers.Core
                             {
                                 if (maybeBytes is { } bytes)
                                 {
-                                    using (bytes)
-                                    {
-                                        if (ct.IsCancellationRequested)
-                                            break;
+                                    if (ct.IsCancellationRequested)
+                                        break;
 
-                                        if (_environment.Deserializer.TryTransform(bytes, _environment, out TBinaryMessage? binaryMessage))
+                                    if (_environment.Deserializer.TryTransform(bytes, _environment, out TBinaryMessage? binaryMessage))
+                                    {
+                                        try
+                                        {
+                                            if (_environment.Deserializer.TryTransform(binaryMessage, _environment, out ResponseMessageEnvelope responseMessageEnvelope))
+                                            {
+                                                if (responseMessageEnvelope is { Status: { } responseStatus, RequestId: { } requestId })
+                                                {
+                                                    if (_channels.TryGetValue(requestId, out var otherChannel))
+                                                    {
+                                                        otherChannel
+                                                            .Signal(binaryMessage, requestId, responseStatus);
+
+                                                        continue;
+                                                    }
+                                                }
+                                            }
+
+                                            binaryMessage
+                                                .Dispose();
+                                        }
+                                        catch
                                         {
                                             using (binaryMessage)
                                             {
-                                                if (_environment.Deserializer.TryTransform(binaryMessage, _environment, out ResponseMessageEnvelope responseMessageEnvelope))
-                                                {
-                                                    if (responseMessageEnvelope is { Status: { } responseStatus, RequestId: { } requestId })
-                                                    {
-                                                        if (_channels.TryGetValue(requestId, out var otherChannel))
-                                                            otherChannel.Signal(binaryMessage, requestId, responseStatus);
-                                                    }
-                                                }
+                                                throw;
                                             }
                                         }
                                     }
