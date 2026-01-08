@@ -416,7 +416,12 @@ namespace ExRam.Gremlinq.Providers.Core
                                 if (maybeBytes is { } bytes)
                                 {
                                     if (ct.IsCancellationRequested)
+                                    {
+                                        bytes
+                                            .Dispose();
+
                                         break;
+                                    }
 
                                     try
                                     {
@@ -449,6 +454,9 @@ namespace ExRam.Gremlinq.Providers.Core
                                                 }
                                             }
                                         }
+
+                                        bytes
+                                            .Dispose();
                                     }
                                     catch
                                     {
