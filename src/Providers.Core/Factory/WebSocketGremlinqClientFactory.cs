@@ -80,10 +80,9 @@ namespace ExRam.Gremlinq.Providers.Core
                         {
                             if (_client._environment.Deserializer.TryTransform(buffer, _client._environment, out ResponseMessagePayload<T> payload))
                             {
-                                if (payload.Result is { } payloadResult)
-                                    Signal(new ResponseMessage<T>(requestId, responseStatus, payloadResult));
-                                else
-                                    Signal(null);
+                                Signal(payload.Result is { } payloadResult
+                                    ? new ResponseMessage<T>(requestId, responseStatus, payloadResult)
+                                    : null);
                             }
                             else
                                 throw new InvalidOperationException($"Unable to convert byte array to a {nameof(ResponseMessage<>)} for {typeof(T).FullName}.");
