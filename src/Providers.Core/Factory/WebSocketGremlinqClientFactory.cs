@@ -128,9 +128,12 @@ namespace ExRam.Gremlinq.Providers.Core
                                         {
                                             if (queuedResponse.ResponseStatus.Code is Authenticate)
                                             {
-                                                await _client
-                                                    .SendCore(_client._factory._authMessageFactory((IReadOnlyDictionary<string, object>)queuedResponse.ResponseStatus.Attributes ?? ImmutableDictionary<string, object>.Empty))
-                                                    .ConfigureAwait(false);
+                                                using (queuedResponse.BinaryMessage)
+                                                {
+                                                    await _client
+                                                        .SendCore(_client._factory._authMessageFactory((IReadOnlyDictionary<string, object>)queuedResponse.ResponseStatus.Attributes ?? ImmutableDictionary<string, object>.Empty))
+                                                        .ConfigureAwait(false);
+                                                }
                                             }
                                             else
                                             {
