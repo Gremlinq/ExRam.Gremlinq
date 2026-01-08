@@ -18,5 +18,10 @@ namespace ExRam.Gremlinq.Providers.Neptune.Tests
         public Task Native_TimeSpan() => _source
             .Inject(TimeSpan.FromMinutes(10))
             .Verify();
+
+        [Fact]
+        public void Dummy()
+        {
+        }
     }
 }
