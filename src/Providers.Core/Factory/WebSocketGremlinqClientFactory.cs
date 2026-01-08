@@ -221,7 +221,6 @@ namespace ExRam.Gremlinq.Providers.Core
                         {
                             using (var channel = new Channel(@this))
                             {
-
 #pragma warning disable CA2007 // Consider calling ConfigureAwait on the awaited task
                                 await using (var e = channel.WithCancellation(linkedCts.Token).ConfigureAwait(false).GetAsyncEnumerator())
 #pragma warning restore CA2007
