@@ -29,13 +29,11 @@ namespace ExRam.Gremlinq.Providers.Core
             private readonly struct ResponseAndQueueUnion
             {
                 private readonly ResponseTuple? _response;
-                private readonly SemaphoreSlim? _semaphore;
-                private readonly ConcurrentQueue<ResponseTuple>? _queue;
+                private readonly SynchronizedConcurrentQueue? _queue;
 
-                private ResponseAndQueueUnion(SemaphoreSlim semaphore, ConcurrentQueue<ResponseTuple> queue)
+                private ResponseAndQueueUnion(SynchronizedConcurrentQueue queue)
                 {
                     _queue = queue;
-                    _semaphore = semaphore;
                 }
 
                 private ResponseAndQueueUnion(ResponseTuple response)
@@ -55,17 +53,43 @@ namespace ExRam.Gremlinq.Providers.Core
                     return false;
                 }
 
-                public bool TryGetQueue([NotNullWhen(true)] out SemaphoreSlim? semaphore, [NotNullWhen(true)] out ConcurrentQueue<ResponseTuple>? queue)
+                public bool TryGetQueue([NotNullWhen(true)] out SynchronizedConcurrentQueue? queue)
                 {
                     queue = _queue;
-                    semaphore = _semaphore;
 
-                    return queue is not null && semaphore is not null;
+                    return queue is not null;
                 }
 
                 public static ResponseAndQueueUnion From(ResponseTuple response) => new(response);
 
-                public static ResponseAndQueueUnion CreateQueue() => new(new(0), new());
+                public static ResponseAndQueueUnion CreateQueue() => new(new SynchronizedConcurrentQueue());
+            }
+
+            private sealed class SynchronizedConcurrentQueue : ConcurrentQueue<ResponseTuple>, IDisposable
+            {
+                private readonly SemaphoreSlim _semaphore = new(0);
+
+                public void Dispose() => _semaphore.Dispose();
+
+                public void Enqueue(ResponseTuple? maybeResponseTuple)
+                {
+                    if (maybeResponseTuple is { } responseTuple)
+                        base.Enqueue(responseTuple);
+
+                    _semaphore
+                        .Release();
+                }
+
+                public async ValueTask<ResponseTuple?> TryDequeue(CancellationToken ct)
+                {
+                    await _semaphore
+                        .WaitAsync(ct)
+                        .ConfigureAwait(false);
+
+                    return TryDequeue(out var result)
+                        ? result
+                        : null;
+                }
             }
 
             private sealed class WebSocketGremlinqClient : DisposableBase, IGremlinqClient
@@ -96,15 +120,11 @@ namespace ExRam.Gremlinq.Providers.Core
                             {
                                 if (union.TryGetResponse(out var response))
                                     yield return response;
-                                else if (union.TryGetQueue(out var semaphore, out var queue))
+                                else if (union.TryGetQueue(out var queue))
                                 {
                                     while (true)
                                     {
-                                        await semaphore
-                                            .WaitAsync(ct)
-                                            .ConfigureAwait(false);
-
-                                        if (queue.TryDequeue(out var queuedResponse))
+                                        if (await queue.TryDequeue(ct).ConfigureAwait(false) is { } queuedResponse)
                                         {
                                             if (queuedResponse.ResponseStatus.Code is Authenticate)
                                             {
@@ -143,8 +163,8 @@ namespace ExRam.Gremlinq.Providers.Core
                         _valueTaskSource
                             .TrySetResult(null);
 
-                        if (_valueTaskSource.GetResult(0) is { } union && union.TryGetQueue(out var semaphore, out var _))
-                            semaphore.Dispose();
+                        if (_valueTaskSource.GetResult(0) is { } union && union.TryGetQueue(out var queue))
+                            queue.Dispose();
                     }
 
                     private void Signal(ResponseTuple? maybeResponseTuple)
@@ -153,13 +173,10 @@ namespace ExRam.Gremlinq.Providers.Core
                         {
                             if (_valueTaskSource.GetStatus(0) > ValueTaskSourceStatus.Pending)
                             {
-                                if (_valueTaskSource.GetResult(0) is { } union && union.TryGetQueue(out var semaphore, out var queue))
+                                if (_valueTaskSource.GetResult(0) is { } union && union.TryGetQueue(out var queue))
                                 {
-                                    if (maybeResponseTuple is { } response)
-                                        queue.Enqueue(response);
-
-                                    semaphore
-                                        .Release();
+                                    queue
+                                        .Enqueue(maybeResponseTuple);
                                 }
 
                                 return;
