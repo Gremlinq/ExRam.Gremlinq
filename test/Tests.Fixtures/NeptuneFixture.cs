@@ -12,13 +12,13 @@ namespace ExRam.Gremlinq.Tests.Fixtures
         protected override IGremlinQuerySource TransformQuerySource(IGremlinQuerySource g) => base
             .TransformQuerySource(g)
             .UseNeptune<Vertex, Edge>(configurator => configurator
-                .At(new Uri(Environment.GetEnvironmentVariable("Gremlinq:Neptune:Uri")!))
+                .At(new Uri(Environment.GetEnvironmentVariable("Gremlinq:Neptune:Uri") ?? "wss://localhost:8182"))
                 .UseIAMAuthentication(iam => iam
                     .UseSigV4()
-                    .WithUri(new Uri(Environment.GetEnvironmentVariable("Gremlinq:Neptune:Uri")!))
+                    .WithUri(new Uri(Environment.GetEnvironmentVariable("Gremlinq:Neptune:Uri") ?? "wss://localhost:8182"))
                     .WithRegion("eu-central-1")
-                    .WithAccessKeyId(Environment.GetEnvironmentVariable("Gremlinq:Neptune:IAM:AccessKeyId")!)
-                    .WithSecretAccessKey(Environment.GetEnvironmentVariable("Gremlinq:Neptune:IAM:SecretAccessKey")!))
+                    .WithAccessKeyId(Environment.GetEnvironmentVariable("Gremlinq:Neptune:IAM:AccessKeyId") ?? "accessKeyId")
+                    .WithSecretAccessKey(Environment.GetEnvironmentVariable("Gremlinq:Neptune:IAM:SecretAccessKey") ?? "secretAccessKey"))
                 .UseNewtonsoftJson());
     }
 }
