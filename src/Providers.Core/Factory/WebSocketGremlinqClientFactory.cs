@@ -418,33 +418,43 @@ namespace ExRam.Gremlinq.Providers.Core
                                     if (ct.IsCancellationRequested)
                                         break;
 
-                                    if (_environment.Deserializer.TryTransform(bytes, _environment, out TBinaryMessage? binaryMessage))
+                                    try
                                     {
-                                        try
+                                        if (_environment.Deserializer.TryTransform(bytes, _environment, out TBinaryMessage? binaryMessage))
                                         {
-                                            if (_environment.Deserializer.TryTransform(binaryMessage, _environment, out ResponseMessageEnvelope responseMessageEnvelope))
+                                            try
                                             {
-                                                if (responseMessageEnvelope is { Status: { } responseStatus, RequestId: { } requestId })
+                                                if (_environment.Deserializer.TryTransform(binaryMessage, _environment, out ResponseMessageEnvelope responseMessageEnvelope))
                                                 {
-                                                    if (_channels.TryGetValue(requestId, out var otherChannel))
+                                                    if (responseMessageEnvelope is { Status: { } responseStatus, RequestId: { } requestId })
                                                     {
-                                                        otherChannel
-                                                            .Signal(binaryMessage, requestId, responseStatus);
+                                                        if (_channels.TryGetValue(requestId, out var otherChannel))
+                                                        {
+                                                            otherChannel
+                                                                .Signal(binaryMessage, requestId, responseStatus);
 
-                                                        continue;
+                                                            continue;
+                                                        }
                                                     }
                                                 }
-                                            }
 
-                                            binaryMessage
-                                                .Dispose();
-                                        }
-                                        catch
-                                        {
-                                            using (binaryMessage)
-                                            {
-                                                throw;
+                                                binaryMessage
+                                                    .Dispose();
                                             }
+                                            catch
+                                            {
+                                                using (binaryMessage)
+                                                {
+                                                    throw;
+                                                }
+                                            }
+                                        }
+                                    }
+                                    catch
+                                    {
+                                        using (bytes)
+                                        {
+                                            throw;
                                         }
                                     }
                                 }
