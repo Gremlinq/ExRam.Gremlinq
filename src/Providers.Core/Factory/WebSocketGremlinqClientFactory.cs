@@ -280,7 +280,7 @@ namespace ExRam.Gremlinq.Providers.Core
                                             using (binaryMessage)
                                             {
                                                 // Since the below yield return is what effectively yields control back to user code,
-                                                // the receive loop may stall if continations were executed synchronously up to here and
+                                                // the receive loop may stall if continuations were executed synchronously up to here and
                                                 // user code blocks. Although technically not Gremlinq's fault, we take this measure.
                                                 await Task.Yield();
 
