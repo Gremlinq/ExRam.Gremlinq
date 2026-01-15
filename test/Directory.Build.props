@@ -18,7 +18,7 @@
   <ItemGroup Condition="$(MSBuildProjectName.EndsWith('Tests'))">
     <Compile Include="$(MSBuildThisFileDirectory)AssemblyInfo.cs" Link="AssemblyInfo.cs" />
     <PackageReference Include="xunit.v3.mtp-v2" />
-    <PackageReference Include="Microsoft.Testing.Extensions.CodeCoverage" />
+    <PackageReference Include="coverlet.MTP" />
   </ItemGroup>
 
   <ItemGroup>
