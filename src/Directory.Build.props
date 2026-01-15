@@ -8,11 +8,6 @@
     <Product>ExRam.Gremlinq</Product>
     <Deterministic>true</Deterministic>
     <NoWarn>IDE0303;IDE0301$(NoWarn)</NoWarn>
-    <WeaverConfiguration>
-      <Weavers>
-        <NullGuard IncludeDebugAssert="false" />
-      </Weavers>
-    </WeaverConfiguration>
   </PropertyGroup>
   
   <ItemGroup>
@@ -38,10 +33,5 @@
     <None Include="$(MSBuildThisFileDirectory)../README.md" Pack="true" PackagePath="/" />
    
    <PackageReference Condition="'$(TargetFramework)' == 'net6.0' or '$(TargetFramework)' == 'net7.0'" Include="Microsoft.SourceLink.GitHub" PrivateAssets="All" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Fody" PrivateAssets="All" />
-    <PackageReference Include="NullGuard.Fody" PrivateAssets="All" />
   </ItemGroup>
 </Project>

@@ -18,20 +18,6 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public virtual void VertexProperty_throws_on_null_value()
-        {
-            default(int)
-                .Invoking(_ => new VertexProperty<string>(null!))
-                .Should()
-                .Throw<ArgumentNullException>();
-
-            new VertexProperty<string>("")
-                .Invoking(_ => _.Value = null!)
-                .Should()
-                .Throw<ArgumentNullException>();
-        }
-
-        [Fact]
         public virtual async Task Aggregate_Cap_type()
         {
             _g
@@ -86,16 +72,6 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Invoking(_ => _.Limit(-1))
                 .Should()
                 .Throw<ArgumentException>();
-        }
-
-        [Fact]
-        public virtual void NullGuard_works()
-        {
-            _g
-                .Invoking(_ => _
-                    .V<Company>(null!))
-                .Should()
-                .Throw<ArgumentNullException>();
         }
 
         [Fact]
