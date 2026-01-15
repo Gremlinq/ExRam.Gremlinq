@@ -34,7 +34,7 @@ jobs:
         echo "" >> $fileName
         echo "# ${{ github.event.repository.name }} ${{ github.event.release.tag_name }}" >> $fileName
         echo "" >> $fileName
-        echo "${{ github.event.release.body }}" >> $fileName
+        printf '%s\n' "$RELEASE_BODY" >> $fileName
 
         git add $fileName
         git commit -m "${{ github.event.repository.name }} ${{ github.event.release.tag_name }} ${{ github.event.action }}"
@@ -42,3 +42,5 @@ jobs:
 
       env:
         GH_TOKEN: ${{ secrets.DOCS_TOKEN }}
+        RELEASE_BODY: ${{ github.event.release.body }}
+
