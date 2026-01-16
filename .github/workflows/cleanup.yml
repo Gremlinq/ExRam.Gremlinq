@@ -15,4 +15,5 @@ jobs:
         package-name: ${{ github.event.registry_package.name }}
         package-type: nuget
         min-versions-to-keep: 10
+        delete-only-pre-release-versions: true
 
