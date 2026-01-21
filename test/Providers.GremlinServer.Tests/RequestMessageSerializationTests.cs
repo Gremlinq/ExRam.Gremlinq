@@ -4,9 +4,9 @@ using Gremlin.Net.Driver.Messages;
 
 namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 {
-    public class RequestMessageSerializationTests : QueryExecutionTest, IClassFixture<GremlinServerFixture>
+    public class RequestMessageSerializationTests : QueryExecutionTest, IClassFixture<GremlinServerContainerFixture>
     {
-        public RequestMessageSerializationTests(GremlinServerFixture fixture) : base(
+        public RequestMessageSerializationTests(GremlinServerContainerFixture fixture) : base(
             fixture,
             new SerializingVerifier<RequestMessage>())
         {

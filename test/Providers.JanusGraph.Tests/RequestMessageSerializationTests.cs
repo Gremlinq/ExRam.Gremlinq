@@ -4,9 +4,9 @@ using Gremlin.Net.Driver.Messages;
 
 namespace ExRam.Gremlinq.Providers.JanusGraph.Tests
 {
-    public class RequestMessageSerializationTests : QueryExecutionTest, IClassFixture<JanusGraphFixture>
+    public class RequestMessageSerializationTests : QueryExecutionTest, IClassFixture<JanusGraphContainerFixture>
     {
-        public RequestMessageSerializationTests(JanusGraphFixture fixture) : base(
+        public RequestMessageSerializationTests(JanusGraphContainerFixture fixture) : base(
             fixture,
             new SerializingVerifier<RequestMessage>())
         {

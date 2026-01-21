@@ -3,9 +3,9 @@ using ExRam.Gremlinq.Tests.Infrastructure;
 
 namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 {
-    public class DebugTests : QueryExecutionTest, IClassFixture<GremlinServerFixture>
+    public class DebugTests : QueryExecutionTest, IClassFixture<GremlinServerContainerFixture>
     {
-        public DebugTests(GremlinServerFixture fixture) : base(
+        public DebugTests(GremlinServerContainerFixture fixture) : base(
             fixture,
             new DebugGremlinQueryVerifier())
         {
