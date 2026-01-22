@@ -256,7 +256,7 @@ namespace ExRam.Gremlinq.Providers.Core
                                 if (!await enumerator.MoveNextAsync().ConfigureAwait(false))
                                     break;
                             }
-                            catch (Exception ex) when (ex is not ArgumentException)
+                            catch (Exception ex) when (ex is not ArgumentException and not OperationCanceledException)
                             {
                                 throw new GremlinQueryExecutionException(context, ex);
                             }
