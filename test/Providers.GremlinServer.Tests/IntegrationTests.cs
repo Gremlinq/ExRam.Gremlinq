@@ -241,7 +241,8 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
             .Awaiting(_ => _
                 .FirstOrDefaultAsync(TestContext.Current.CancellationToken))
             .Should()
-            .ThrowAsync<GremlinQueryExecutionException>();
+            .ThrowAsync<GremlinQueryExecutionException>()
+            .WithInnerException<GremlinQueryExecutionException, FormatException>();
 
         [Fact]
         public async Task Deserialization_of_typed_results_is_only_called_once()
