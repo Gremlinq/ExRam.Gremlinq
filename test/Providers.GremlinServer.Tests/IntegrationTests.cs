@@ -26,6 +26,25 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
         public static string GetSourceFileName() => SourceFileName.OfThis();
 
         [Fact]
+        public async Task Already_cancelled()
+        {
+            var cts = new CancellationTokenSource();
+
+            await _g
+                .Inject(42);
+
+            cts.Cancel();
+
+            await _g
+                .Inject(42.3)
+                .Cast<TimeSpan>()
+                .Awaiting(_ => _
+                    .FirstAsync(cts.Token))
+                .Should()
+                .ThrowAsync<OperationCanceledException>();
+        }
+
+        [Fact]
         public async Task Await() => await Verify(await _g
             .Inject(42));
 
