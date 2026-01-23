@@ -142,14 +142,7 @@ namespace ExRam.Gremlinq.Providers.Core
                                 var union = await new ValueTask<SingleOrQueue<T>>(this, 0).ConfigureAwait(false);
 
                                 if (union.TryGetResponse(out var responseUnion))
-                                {
-                                    // Since the below yield return is what effectively yields control back to user code,
-                                    // the receive loop may stall if user code blocks. Although technically not Gremlinq's
-                                    // fault, we take this measure.
-                                    await Task.Yield();
-
                                     yield return responseUnion.Response;
-                                }
                                 else if (union.TryGetQueue(out var semaphore, out var queue))
                                 {
                                     using (semaphore)
@@ -172,9 +165,6 @@ namespace ExRam.Gremlinq.Providers.Core
                                                 }
                                                 else
                                                 {
-                                                    // See above.
-                                                    await Task.Yield();
-
                                                     yield return queuedResponse;
 
                                                     if (queuedResponse.Status.Code != PartialContent)
@@ -297,6 +287,11 @@ namespace ExRam.Gremlinq.Providers.Core
 
                                         throw;
                                     }
+
+                                    // Since the below yield return is what effectively yields control back to user code,
+                                    // the receive loop may stall if user code blocks. Although technically not Gremlinq's
+                                    // fault, we take this measure.
+                                    await Task.Yield();
 
                                     yield return e.Current;
                                 }
