@@ -7,7 +7,7 @@ on:
 
 jobs:
   cleanup:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-slim
 
     steps:
     - uses: actions/delete-package-versions@e5bc658cc4c965c472efe991f8beea3981499c55 # 5

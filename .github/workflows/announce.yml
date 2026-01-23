@@ -10,7 +10,7 @@ on:
 
 jobs:
   announce:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-slim
     if: ${{ github.event.release.draft != 'true' }}
 
     steps:
