@@ -4,6 +4,7 @@ using ExRam.Gremlinq.Core;
 
 namespace ExRam.Gremlinq.Templates.AspNet
 {
+#if (true)  // --8<-- [start:airportsController]
     [ApiController]
     [Route("/airports")]
     public class AirportsController : ControllerBase
@@ -33,4 +34,5 @@ namespace ExRam.Gremlinq.Templates.AspNet
                 : NotFound();
         }
     }
+#if (true)  // --8<-- [end:airportsController]
 }
