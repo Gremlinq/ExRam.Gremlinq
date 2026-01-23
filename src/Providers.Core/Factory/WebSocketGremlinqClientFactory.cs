@@ -33,24 +33,21 @@ namespace ExRam.Gremlinq.Providers.Core
 
                 private readonly struct ResponseOrException<T>
                 {
-                    private readonly Exception? _exception;
-                    private readonly ResponseMessage<T>? _response;
+                    private readonly object? _value;
 
                     private ResponseOrException(Exception? exception) : this()
                     {
-                        _exception = exception;
+                        _value = exception;
                     }
 
                     private ResponseOrException(ResponseMessage<T> response) : this()
                     {
-                        _response = response;
+                        _value = response;
                     }
 
-                    public ResponseMessage<T> Response => _exception is { } exception
-                        ? throw exception
-                        : _response!;
+                    public Exception? Exception => _value as Exception;
 
-                    public Exception? Exception => _exception;
+                    public ResponseMessage<T> Response => (_value as ResponseMessage<T>) ?? throw (Exception)_value!;
 
                     public static ResponseOrException<T> From(Exception ex) => new(ex);
 
