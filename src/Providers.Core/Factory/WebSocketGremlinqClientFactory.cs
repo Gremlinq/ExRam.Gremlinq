@@ -130,7 +130,7 @@ namespace ExRam.Gremlinq.Providers.Core
                     public async IAsyncEnumerator<ResponseMessage<T>> GetAsyncEnumerator(CancellationToken ct = default)
                     {
                         var ctRegistration = ct
-                            .Register(static @this => ((Channel<T>)@this!).Signal(ResponseOrException<T>.From(new ObjectDisposedException(nameof(Channel<>)))), this);
+                            .Register(static (@this, ct) => ((Channel<T>)@this!).Signal(ResponseOrException<T>.From(new OperationCanceledException(ct))), this);
 
                         try
                         {
