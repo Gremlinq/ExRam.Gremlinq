@@ -273,17 +273,10 @@ namespace ExRam.Gremlinq.Providers.Core
                                     {
                                         try
                                         {
-                                            try
-                                            {
-                                                if (!await e.MoveNextAsync())
-                                                    break;
-                                            }
-                                            catch (ObjectDisposedException ex)
-                                            {
-                                                throw new OperationCanceledException(null, ex);
-                                            }
+                                            if (!await e.MoveNextAsync())
+                                                break;
                                         }
-                                        catch
+                                        catch (Exception ex) when (ex is not OperationCanceledException)
                                         {
                                             @this.Dispose();
 
