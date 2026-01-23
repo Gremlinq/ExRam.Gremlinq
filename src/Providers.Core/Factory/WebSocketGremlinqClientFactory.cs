@@ -129,64 +129,76 @@ namespace ExRam.Gremlinq.Providers.Core
 
                     public async IAsyncEnumerator<ResponseMessage<T>> GetAsyncEnumerator(CancellationToken ct = default)
                     {
-                        var ctRegistration = ct
-                            .UnsafeRegister(static (@this, ct) => ((Channel<T>)@this!).Signal(ResponseOrException<T>.From(new OperationCanceledException(ct))), this);
+                        var clientCtRegistration = _client._cts.Token
+                            .UnsafeRegister(static (@this, ct) => ((Channel<T>)@this!).Signal(ResponseOrException<T>.From(new ObjectDisposedException(nameof(Channel<>)))), this);
 
                         try
                         {
-                            var union = await new ValueTask<SingleOrQueue<T>>(this, 0).ConfigureAwait(false);
+                            var ctRegistration = ct
+                                .UnsafeRegister(static (@this, ct) => ((Channel<T>)@this!).Signal(ResponseOrException<T>.From(new OperationCanceledException(ct))), this);
 
-                            if (union.TryGetResponse(out var responseUnion))
+                            try
                             {
-                                // Since the below yield return is what effectively yields control back to user code,
-                                // the receive loop may stall if user code blocks. Although technically not Gremlinq's
-                                // fault, we take this measure.
-                                await Task.Yield();
+                                var union = await new ValueTask<SingleOrQueue<T>>(this, 0).ConfigureAwait(false);
 
-                                yield return responseUnion.Response;
-                            }
-                            else if (union.TryGetQueue(out var semaphore, out var queue))
-                            {
-                                using (semaphore)
+                                if (union.TryGetResponse(out var responseUnion))
                                 {
-                                    while (true)
+                                    // Since the below yield return is what effectively yields control back to user code,
+                                    // the receive loop may stall if user code blocks. Although technically not Gremlinq's
+                                    // fault, we take this measure.
+                                    await Task.Yield();
+
+                                    yield return responseUnion.Response;
+                                }
+                                else if (union.TryGetQueue(out var semaphore, out var queue))
+                                {
+                                    using (semaphore)
                                     {
-                                        await semaphore
-                                            .WaitAsync(ct)
-                                            .ConfigureAwait(false);
-
-                                        if (queue.TryDequeue(out var queuedResponseUnion))
+                                        while (true)
                                         {
-                                            var queuedResponse = queuedResponseUnion.Response;
+                                            await semaphore
+                                                .WaitAsync(ct)
+                                                .ConfigureAwait(false);
 
-                                            if (queuedResponse.Status.Code is Authenticate)
+                                            if (queue.TryDequeue(out var queuedResponseUnion))
                                             {
-                                                await _client
-                                                    .SendCore(_client._factory._authMessageFactory((IReadOnlyDictionary<string, object>)queuedResponse.Status.Attributes ?? ImmutableDictionary<string, object>.Empty))
-                                                    .ConfigureAwait(false);
+                                                var queuedResponse = queuedResponseUnion.Response;
+
+                                                if (queuedResponse.Status.Code is Authenticate)
+                                                {
+                                                    await _client
+                                                        .SendCore(_client._factory._authMessageFactory((IReadOnlyDictionary<string, object>)queuedResponse.Status.Attributes ?? ImmutableDictionary<string, object>.Empty))
+                                                        .ConfigureAwait(false);
+                                                }
+                                                else
+                                                {
+                                                    // See above.
+                                                    await Task.Yield();
+
+                                                    yield return queuedResponse;
+
+                                                    if (queuedResponse.Status.Code != PartialContent)
+                                                        break;
+                                                }
                                             }
                                             else
-                                            {
-                                                // See above.
-                                                await Task.Yield();
-
-                                                yield return queuedResponse;
-
-                                                if (queuedResponse.Status.Code != PartialContent)
-                                                    break;
-                                            }
+                                                yield break;
                                         }
-                                        else
-                                            yield break;
                                     }
                                 }
+                                else
+                                    throw new NotSupportedException();
                             }
-                            else
-                                throw new NotSupportedException();
+                            finally
+                            {
+                                await ctRegistration
+                                    .DisposeAsync()
+                                    .ConfigureAwait(false);
+                            }
                         }
                         finally
                         {
-                            await ctRegistration
+                            await clientCtRegistration
                                 .DisposeAsync()
                                 .ConfigureAwait(false);
                         }
@@ -254,46 +266,45 @@ namespace ExRam.Gremlinq.Providers.Core
                         if (@this._client.CloseStatus is not null)
                             throw new ObjectDisposedException(nameof(WebSocketGremlinqClient));
 
-                        using (var linkedCts = CancellationTokenSource.CreateLinkedTokenSource(ct, @this._cts.Token))
-                        {
-                            var channel = new Channel<T>(@this);
-                            @this._channels.TryAdd(message.RequestId, channel);
+                        var channel = new Channel<T>(@this);
 
-                            try
-                            {
-                                await @this
-                                    .SendCore(message)
-                                    .ConfigureAwait(false);
+                        @this._channels
+                            .TryAdd(message.RequestId, channel);
+
+                        try
+                        {
+                            await @this
+                                .SendCore(message)
+                                .ConfigureAwait(false);
 
 #pragma warning disable CA2007 // Consider calling ConfigureAwait on the awaited task
-                                await using (var e = channel.WithCancellation(linkedCts.Token).ConfigureAwait(false).GetAsyncEnumerator())
+                            await using (var e = channel.WithCancellation(ct).ConfigureAwait(false).GetAsyncEnumerator())
 #pragma warning restore CA2007
+                            {
+                                while (true)
                                 {
-                                    while (true)
+                                    try
                                     {
-                                        try
-                                        {
-                                            if (!await e.MoveNextAsync())
-                                                break;
-                                        }
-                                        catch (Exception ex) when (ex is not OperationCanceledException)
-                                        {
-                                            @this.Dispose();
-
-                                            if (await @this._loopTcs.Task.ConfigureAwait(false) is { } task)
-                                                await task.ConfigureAwait(false);
-
-                                            throw;
-                                        }
-
-                                        yield return e.Current;
+                                        if (!await e.MoveNextAsync())
+                                            break;
                                     }
+                                    catch (Exception ex) when (ex is not OperationCanceledException)
+                                    {
+                                        @this.Dispose();
+
+                                        if (await @this._loopTcs.Task.ConfigureAwait(false) is { } task)
+                                            await task.ConfigureAwait(false);
+
+                                        throw;
+                                    }
+
+                                    yield return e.Current;
                                 }
                             }
-                            finally
-                            {
-                                @this._channels.TryRemove(message.RequestId, out _);
-                            }
+                        }
+                        finally
+                        {
+                            @this._channels.TryRemove(message.RequestId, out _);
                         }
                     }
                 }
