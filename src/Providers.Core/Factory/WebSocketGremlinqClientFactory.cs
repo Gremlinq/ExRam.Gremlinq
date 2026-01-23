@@ -31,17 +31,17 @@ namespace ExRam.Gremlinq.Providers.Core
                     void Signal(TBinaryMessage buffer, Guid requestId, ResponseStatus responseStatus);
                 }
 
-                private readonly struct ResponseAndExceptionUnion<T>
+                private readonly struct ResponseOrException<T>
                 {
                     private readonly Exception? _exception;
                     private readonly ResponseMessage<T>? _response;
 
-                    private ResponseAndExceptionUnion(Exception? exception) : this()
+                    private ResponseOrException(Exception? exception) : this()
                     {
                         _exception = exception;
                     }
 
-                    private ResponseAndExceptionUnion(ResponseMessage<T> response) : this()
+                    private ResponseOrException(ResponseMessage<T> response) : this()
                     {
                         _response = response;
                     }
@@ -52,29 +52,29 @@ namespace ExRam.Gremlinq.Providers.Core
 
                     public Exception? Exception => _exception;
 
-                    public static ResponseAndExceptionUnion<T> From(Exception ex) => new(ex);
+                    public static ResponseOrException<T> From(Exception ex) => new(ex);
 
-                    public static ResponseAndExceptionUnion<T> From(ResponseMessage<T> response) => new(response);
+                    public static ResponseOrException<T> From(ResponseMessage<T> response) => new(response);
                 }
 
-                private readonly struct ResponseAndQueueUnion<T>
+                private readonly struct SingleOrQueue<T>
                 {
                     private readonly SemaphoreSlim? _semaphore;
-                    private readonly ResponseAndExceptionUnion<T>? _response;
-                    private readonly ConcurrentQueue<ResponseAndExceptionUnion<T>>? _queue;
+                    private readonly ResponseOrException<T>? _response;
+                    private readonly ConcurrentQueue<ResponseOrException<T>>? _queue;
 
-                    private ResponseAndQueueUnion(SemaphoreSlim semaphore, ConcurrentQueue<ResponseAndExceptionUnion<T>> queue)
+                    private SingleOrQueue(SemaphoreSlim semaphore, ConcurrentQueue<ResponseOrException<T>> queue)
                     {
                         _queue = queue;
                         _semaphore = semaphore;
                     }
 
-                    private ResponseAndQueueUnion(ResponseAndExceptionUnion<T> response)
+                    private SingleOrQueue(ResponseOrException<T> response)
                     {
                         _response = response;
                     }
 
-                    public bool TryGetResponse([NotNullWhen(true)] out ResponseAndExceptionUnion<T> response)
+                    public bool TryGetResponse([NotNullWhen(true)] out ResponseOrException<T> response)
                     {
                         if (_response is { } availableResponse)
                         {
@@ -86,7 +86,7 @@ namespace ExRam.Gremlinq.Providers.Core
                         return false;
                     }
 
-                    public bool TryGetQueue([NotNullWhen(true)] out SemaphoreSlim? semaphore, [NotNullWhen(true)] out ConcurrentQueue<ResponseAndExceptionUnion<T>>? queue)
+                    public bool TryGetQueue([NotNullWhen(true)] out SemaphoreSlim? semaphore, [NotNullWhen(true)] out ConcurrentQueue<ResponseOrException<T>>? queue)
                     {
                         queue = _queue;
                         semaphore = _semaphore;
@@ -94,16 +94,16 @@ namespace ExRam.Gremlinq.Providers.Core
                         return queue is not null && semaphore is not null;
                     }
 
-                    public static ResponseAndQueueUnion<T> From(ResponseAndExceptionUnion<T> response) => new(response);
+                    public static SingleOrQueue<T> From(ResponseOrException<T> response) => new(response);
 
-                    public static ResponseAndQueueUnion<T> CreateQueue() => new(new(0), new());
+                    public static SingleOrQueue<T> CreateQueue() => new(new(0), new());
                 }
 
-                private sealed class Channel<T> : IChannel, IAsyncEnumerable<ResponseMessage<T>>, IValueTaskSource<ResponseAndQueueUnion<T>>
+                private sealed class Channel<T> : IChannel, IAsyncEnumerable<ResponseMessage<T>>, IValueTaskSource<SingleOrQueue<T>>
                 {
                     private readonly WebSocketGremlinqClient _client;
 
-                    private ValueTaskSourceCore<ResponseAndQueueUnion<T>> _valueTaskSource;
+                    private ValueTaskSourceCore<SingleOrQueue<T>> _valueTaskSource;
 
                     public Channel(WebSocketGremlinqClient client)
                     {
@@ -117,27 +117,27 @@ namespace ExRam.Gremlinq.Providers.Core
                             if (_client._environment.Deserializer.TryTransform(buffer, _client._environment, out ResponseMessagePayload<T> payload))
                             {
                                 if (payload.Result is { } payloadResult)
-                                    Signal(ResponseAndExceptionUnion<T>.From(new ResponseMessage<T>(requestId, responseStatus, payloadResult)));
+                                    Signal(ResponseOrException<T>.From(new ResponseMessage<T>(requestId, responseStatus, payloadResult)));
                                 else
-                                    Signal(ResponseAndExceptionUnion<T>.From(new ObjectDisposedException(nameof(Channel<>))));
+                                    Signal(ResponseOrException<T>.From(new ObjectDisposedException(nameof(Channel<>))));
                             }
                             else
                                 throw new InvalidOperationException($"Unable to convert byte array to a {nameof(ResponseMessage<>)} for {typeof(T).FullName}.");
                         }
                         catch (Exception ex)
                         {
-                            Signal(ResponseAndExceptionUnion<T>.From(ex));
+                            Signal(ResponseOrException<T>.From(ex));
                         }
                     }
 
                     public async IAsyncEnumerator<ResponseMessage<T>> GetAsyncEnumerator(CancellationToken ct = default)
                     {
                         var ctRegistration = ct
-                            .Register(static @this => ((Channel<T>)@this!).Signal(ResponseAndExceptionUnion<T>.From(new ObjectDisposedException(nameof(Channel<>)))), this);
+                            .Register(static @this => ((Channel<T>)@this!).Signal(ResponseOrException<T>.From(new ObjectDisposedException(nameof(Channel<>)))), this);
 
                         try
                         {
-                            var union = await new ValueTask<ResponseAndQueueUnion<T>>(this, 0).ConfigureAwait(false);
+                            var union = await new ValueTask<SingleOrQueue<T>>(this, 0).ConfigureAwait(false);
 
                             if (union.TryGetResponse(out var responseUnion))
                             {
@@ -195,7 +195,7 @@ namespace ExRam.Gremlinq.Providers.Core
                         }
                     }
 
-                    private void Signal(ResponseAndExceptionUnion<T> responseUnion)
+                    private void Signal(ResponseOrException<T> responseUnion)
                     {
                         while (true)
                         {
@@ -213,20 +213,20 @@ namespace ExRam.Gremlinq.Providers.Core
                             {
                                 if (responseUnion.Exception is not null || responseUnion.Response.Status.Code is not PartialContent and not Authenticate)
                                 {
-                                    if (_valueTaskSource.TrySetResult(ResponseAndQueueUnion<T>.From(responseUnion)))
+                                    if (_valueTaskSource.TrySetResult(SingleOrQueue<T>.From(responseUnion)))
                                         return;
                                 }
                                 else
-                                    _valueTaskSource.TrySetResult(ResponseAndQueueUnion<T>.CreateQueue());
+                                    _valueTaskSource.TrySetResult(SingleOrQueue<T>.CreateQueue());
                             }
                         }
                     }
 
-                    ResponseAndQueueUnion<T> IValueTaskSource<ResponseAndQueueUnion<T>>.GetResult(short token) => _valueTaskSource.GetResult(token);
+                    SingleOrQueue<T> IValueTaskSource<SingleOrQueue<T>>.GetResult(short token) => _valueTaskSource.GetResult(token);
 
-                    ValueTaskSourceStatus IValueTaskSource<ResponseAndQueueUnion<T>>.GetStatus(short token) => _valueTaskSource.GetStatus(token);
+                    ValueTaskSourceStatus IValueTaskSource<SingleOrQueue<T>>.GetStatus(short token) => _valueTaskSource.GetStatus(token);
 
-                    void IValueTaskSource<ResponseAndQueueUnion<T>>.OnCompleted(Action<object?> continuation, object? state, short token, ValueTaskSourceOnCompletedFlags flags) => _valueTaskSource.OnCompleted(continuation, state, token, flags);
+                    void IValueTaskSource<SingleOrQueue<T>>.OnCompleted(Action<object?> continuation, object? state, short token, ValueTaskSourceOnCompletedFlags flags) => _valueTaskSource.OnCompleted(continuation, state, token, flags);
                 }
 
                 private record struct ResponseMessagePayload<T>(ResponseResult<T>? Result);
