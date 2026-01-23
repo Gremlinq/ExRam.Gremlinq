@@ -55,7 +55,7 @@ namespace ExRam.Gremlinq.Providers.Core
                                                 if (!await e.MoveNextAsync())
                                                     break;
                                             }
-                                            catch
+                                            catch (Exception ex) when (ex is not OperationCanceledException)
                                             {
                                                 using (client)
                                                 {
