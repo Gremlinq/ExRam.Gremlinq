@@ -17,6 +17,8 @@
             _continuations = continuations;
         }
 
+        public ArrayPoolMultiContinuationBuilder<TAnonymousQuery, TProjectedQuery> UseArrayPool() => ArrayPoolMultiContinuationBuilder<TAnonymousQuery, TProjectedQuery>.Create(_outer, _anonymous, _continuations, _flags);
+
         public TResult Build<TResult>(FinalContinuationBuilderTransformation<TResult> builderTransformation)
         {
             var traversals = new Traversal[_continuations.Length];
