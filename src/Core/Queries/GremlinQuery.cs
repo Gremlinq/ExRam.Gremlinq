@@ -210,7 +210,7 @@ namespace ExRam.Gremlinq.Core
             .Continue(ContinuationFlags.Filter)
             .With(continuations)
             .UseArrayPool()
-            .Build((builder, traversals) => builder
+            .Build(static (builder, traversals) => builder
                 .And(traversals)
                 .BuildAuto<T1, T2, T3, T4>());
 
