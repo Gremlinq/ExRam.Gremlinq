@@ -4,28 +4,33 @@
         where TAnonymousQuery : GremlinQueryBase, IGremlinQueryBase
         where TProjectedQuery : IGremlinQueryBase
     {
-        private readonly Memory<Traversal> _continuations;
-        private readonly FinalContinuationBuilder _finalBuilder;
+        private readonly GremlinQueryBase _outer;
+        private readonly ContinuationFlags _flags;
+        private readonly TAnonymousQuery _anonymous;
+        private readonly ReadOnlySpan<Func<TAnonymousQuery, TProjectedQuery>> _continuations;
 
-        private MultiContinuationBuilder(FinalContinuationBuilder finalBuilder, Memory<Traversal> continuations)
+        public MultiContinuationBuilder(GremlinQueryBase outer, TAnonymousQuery anonymous, ReadOnlySpan<Func<TAnonymousQuery, TProjectedQuery>> continuations, ContinuationFlags flags)
         {
-            _finalBuilder = finalBuilder;
+            _outer = outer;
+            _flags = flags;
+            _anonymous = anonymous;
             _continuations = continuations;
         }
 
-        public TResult Build<TResult>(FinalContinuationBuilderTransformation<TResult> builderTransformation) => builderTransformation(_finalBuilder, _continuations);
-
-        public static MultiContinuationBuilder<TAnonymousQuery, TProjectedQuery> Create(GremlinQueryBase outer, TAnonymousQuery anonymous, ReadOnlySpan<Func<TAnonymousQuery, TProjectedQuery>> continuations, ContinuationFlags flags)
+        public TResult Build<TResult>(FinalContinuationBuilderTransformation<TResult> builderTransformation)
         {
-            var traversals = new Traversal[continuations.Length];
-            var finalBuilder = FinalContinuationBuilder.Create(outer);
+            var traversals = new Traversal[_continuations.Length];
+            var finalBuilder = FinalContinuationBuilder.Create(_outer);
 
-            for (var i = 0; i < continuations.Length; i++)
+            for (var i = 0; i < _continuations.Length; i++)
             {
-                finalBuilder = finalBuilder.Apply(continuations[i], anonymous, flags, out traversals[i]);
+                finalBuilder = finalBuilder
+                    .Apply(_continuations[i], _anonymous, _flags, out traversals[i]);
             }
 
-            return new MultiContinuationBuilder<TAnonymousQuery, TProjectedQuery>(finalBuilder, traversals);
+            return builderTransformation(finalBuilder, traversals);
         }
+
+        public static MultiContinuationBuilder<TAnonymousQuery, TProjectedQuery> Create(GremlinQueryBase outer, TAnonymousQuery anonymous, ReadOnlySpan<Func<TAnonymousQuery, TProjectedQuery>> continuations, ContinuationFlags flags) => new(outer, anonymous, continuations, flags);
     }
 }
