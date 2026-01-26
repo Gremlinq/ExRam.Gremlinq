@@ -1,7 +1,8 @@
 ﻿namespace ExRam.Gremlinq.Core
 {
-    internal readonly ref struct MultiContinuationBuilder<TAnonymousQuery>
+    internal readonly ref struct MultiContinuationBuilder<TAnonymousQuery, TProjectedQuery>
         where TAnonymousQuery : GremlinQueryBase, IGremlinQueryBase
+        where TProjectedQuery : IGremlinQueryBase
     {
         private readonly Memory<Traversal> _continuations;
         private readonly FinalContinuationBuilder _finalBuilder;
@@ -14,8 +15,7 @@
 
         public TResult Build<TResult>(FinalContinuationBuilderTransformation<TResult> builderTransformation) => builderTransformation(_finalBuilder, _continuations);
 
-        public static MultiContinuationBuilder<TAnonymousQuery> Create<TProjectedQuery>(GremlinQueryBase outer, TAnonymousQuery anonymous, ReadOnlySpan<Func<TAnonymousQuery, TProjectedQuery>> continuations, ContinuationFlags flags)
-            where TProjectedQuery : IGremlinQueryBase
+        public static MultiContinuationBuilder<TAnonymousQuery, TProjectedQuery> Create(GremlinQueryBase outer, TAnonymousQuery anonymous, ReadOnlySpan<Func<TAnonymousQuery, TProjectedQuery>> continuations, ContinuationFlags flags)
         {
             var traversals = new Traversal[continuations.Length];
             var finalBuilder = FinalContinuationBuilder.Create(outer);
@@ -25,7 +25,7 @@
                 finalBuilder = finalBuilder.Apply(continuations[i], anonymous, flags, out traversals[i]);
             }
 
-            return new MultiContinuationBuilder<TAnonymousQuery>(finalBuilder, traversals);
+            return new MultiContinuationBuilder<TAnonymousQuery, TProjectedQuery>(finalBuilder, traversals);
         }
     }
 }

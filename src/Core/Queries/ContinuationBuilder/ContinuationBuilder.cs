@@ -23,8 +23,8 @@
         public TwoContinuationBuilder<TAnonymousQuery> With<TProjectedQuery, TState>(Func<TAnonymousQuery, TState, TProjectedQuery> continuation1, Func<TAnonymousQuery, TState, TProjectedQuery> continuation2, TState state)
             where TProjectedQuery : IGremlinQueryBase => TwoContinuationBuilder<TAnonymousQuery>.Create(_query, _anonymous, continuation1, continuation2, _flags, state);
 
-        public MultiContinuationBuilder<TAnonymousQuery> With<TProjectedQuery>(ReadOnlySpan<Func<TAnonymousQuery, TProjectedQuery>> continuations)
-            where TProjectedQuery : IGremlinQueryBase => MultiContinuationBuilder<TAnonymousQuery>.Create(_query, _anonymous, continuations, _flags);
+        public MultiContinuationBuilder<TAnonymousQuery, TProjectedQuery> With<TProjectedQuery>(ReadOnlySpan<Func<TAnonymousQuery, TProjectedQuery>> continuations)
+            where TProjectedQuery : IGremlinQueryBase => MultiContinuationBuilder<TAnonymousQuery, TProjectedQuery>.Create(_query, _anonymous, continuations, _flags);
 
 
         public TResult Build<TResult>(Func<FinalContinuationBuilder, TResult> builderTransformation)
