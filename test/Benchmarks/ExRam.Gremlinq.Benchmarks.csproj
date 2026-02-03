@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net10.0</TargetFramework>
+    <TargetFrameworks>net10.0</TargetFrameworks>
     <IsPackable>false</IsPackable>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
@@ -16,6 +16,7 @@
   <ItemGroup>
     <ProjectReference Include="../../src/Core/ExRam.Gremlinq.Core.csproj" />
     <ProjectReference Include="../../src/Providers.Core/ExRam.Gremlinq.Providers.Core.csproj" />
+    <ProjectReference Include="..\Tests.Entities\ExRam.Gremlinq.Tests.Entities.csproj" />
   </ItemGroup>
 
 </Project>
