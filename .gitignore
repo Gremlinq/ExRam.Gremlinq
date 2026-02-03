@@ -172,3 +172,6 @@ $RECYCLE.BIN/
 # Codecov
 coverage.*.opencover.xml
 /.idea
+
+# BenchmarkDotNet artifacts
+**/BenchmarkDotNet.Artifacts/
