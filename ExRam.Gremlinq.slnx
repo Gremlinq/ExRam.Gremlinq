@@ -7,6 +7,7 @@
     <File Path=".github/workflows/pack.yml" />
   </Folder>
   <Folder Name="/Tests/">
+    <Project Path="test/Benchmarks/ExRam.Gremlinq.Benchmarks.csproj" />
     <Project Path="test/Core.AspNet.Tests/ExRam.Gremlinq.Core.AspNet.Tests.csproj" />
     <Project Path="test/Core.Tests/ExRam.Gremlinq.Core.Tests.csproj" />
     <Project Path="test/Providers.Core.Tests/ExRam.Gremlinq.Providers.Core.Tests.csproj" />

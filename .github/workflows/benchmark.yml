@@ -1,0 +1,59 @@
+name: Benchmark
+
+on:
+  push:
+    branches: [ 13.x ]
+    paths-ignore:
+      - '**/*.md'
+      - '**/*.txt'
+  pull_request:
+    branches: [ 13.x ]
+    paths-ignore:
+      - '**/*.md'
+      - '**/*.txt'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  deployments: write
+
+env:
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
+  DOTNET_GENERATE_ASPNET_CERTIFICATE: false
+  DOTNET_NOLOGO: true
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+  NUGET_XMLDOC_MODE: skip
+
+jobs:
+  benchmark:
+    name: Run Benchmarks
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.0.x'
+
+      - name: Run benchmarks
+        run: |
+          cd test/Benchmarks
+          dotnet run -c Release -- --filter '*' --exporters json --join
+
+      - name: Store benchmark result
+        uses: benchmark-action/github-action-benchmark@v1
+        with:
+          name: ExRam.Gremlinq Benchmarks
+          tool: 'benchmarkdotnet'
+          output-file-path: test/Benchmarks/BenchmarkDotNet.Artifacts/results/BenchmarkRun-joined-*.json
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          auto-push: true
+          gh-pages-branch: gh-pages
+          benchmark-data-dir-path: benchmarks
+          alert-threshold: '120%'
+          comment-on-alert: true
+          fail-on-alert: false
+          save-data-file: ${{ github.event_name != 'pull_request' }}
