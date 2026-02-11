@@ -20,13 +20,5 @@
   <ItemGroup>
     <ProjectReference Include="..\Core.Generators\ExRam.Gremlinq.Core.Generators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
-    <None Update="Queries/T4/TreeBuilder.tt">
-      <LastGenOutput>TreeBuilder.cs</LastGenOutput>
-      <Generator>TextTemplatingFileGenerator</Generator>
-    </None>
-  </ItemGroup>
   
 </Project>
