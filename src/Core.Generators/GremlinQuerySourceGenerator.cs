@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using Microsoft.CodeAnalysis;
+using static ExRam.Gremlinq.Core.Generators.ArgumentListExtensions;
 
 namespace ExRam.Gremlinq.Core.Generators
 {
@@ -330,24 +331,5 @@ namespace ExRam.Gremlinq.Core.Generators
             return typeParams.Length > 0 ? typeParams[0] : null;
         }
 
-        private static string GetArgumentList(string template, int argumentCount)
-        {
-            return GetArgumentList(template, ", ", argumentCount);
         }
-
-        private static string GetArgumentList(string template, string separator, int argumentCount)
-        {
-            var sb = new StringBuilder();
-
-            for (var i = 1; i <= argumentCount; i++)
-            {
-                if (i > 1)
-                    sb.Append(separator);
-
-                sb.Append(string.Format(template, i));
-            }
-
-            return sb.ToString();
-        }
-    }
 }

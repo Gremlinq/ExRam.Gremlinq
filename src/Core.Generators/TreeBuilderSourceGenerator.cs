@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using Microsoft.CodeAnalysis;
+using static ExRam.Gremlinq.Core.Generators.ArgumentListExtensions;
 
 namespace ExRam.Gremlinq.Core.Generators
 {
@@ -174,38 +175,5 @@ namespace ExRam.Gremlinq.Core.Generators
             return $"Tree<TNode{firstParameter}, {GetTreeTypeName(firstParameter + 1, lastParameter)}>";
         }
 
-        private static string GetGenericArgumentList(string template, int argumentCount)
-        {
-            if (argumentCount > 0)
-                return $"<{GetArgumentList(template, argumentCount)}>";
-
-            return "";
         }
-
-        private static string GetArgumentList(string template, int argumentCount, bool hasPreceedingArguments = false, bool hasFollowingArguments = false)
-        {
-            return GetArgumentList(template, ", ", argumentCount, hasPreceedingArguments, hasFollowingArguments);
-        }
-
-        private static string GetArgumentList(string template, string separator, int argumentCount, bool hasPreceedingArguments = false, bool hasFollowingArguments = false)
-        {
-            var sb = new StringBuilder();
-
-            if (argumentCount > 0 && hasPreceedingArguments)
-                sb.Append(separator);
-
-            for (var i = 1; i <= argumentCount; i++)
-            {
-                if (i > 1)
-                    sb.Append(separator);
-
-                sb.Append(string.Format(template, i));
-            }
-
-            if (argumentCount > 0 && hasFollowingArguments)
-                sb.Append(separator);
-
-            return sb.ToString();
-        }
-    }
 }
