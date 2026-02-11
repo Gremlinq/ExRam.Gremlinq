@@ -58,15 +58,15 @@ namespace ExRam.Gremlinq.Core.Generator
                     .Replace("TOriginalQuery", "T4"))
                 .ToArray();
 
-            var sb = new StringBuilder();
-            sb.AppendLine("#nullable enable");
-            sb.AppendLine("using System.Linq.Expressions;");
-            sb.AppendLine("using Gremlin.Net.Process.Traversal;");
-            sb.AppendLine();
-            sb.AppendLine("namespace ExRam.Gremlinq.Core");
-            sb.AppendLine("{");
-            sb.AppendLine("    partial class GremlinQuery<T1, T2, T3, T4>");
-            sb.AppendLine("    {");
+            var sb = new StringBuilder()
+                .AppendLine("#nullable enable")
+                .AppendLine("using System.Linq.Expressions;")
+                .AppendLine("using Gremlin.Net.Process.Traversal;")
+                .AppendLine()
+                .AppendLine("namespace ExRam.Gremlinq.Core")
+                .AppendLine("{")
+                .AppendLine("    partial class GremlinQuery<T1, T2, T3, T4>")
+                .AppendLine("    {");
 
             GenerateSelectOverloads(sb);
             GenerateCastOverloads(sb, substitutedBaseInterfaces);
@@ -74,8 +74,9 @@ namespace ExRam.Gremlinq.Core.Generator
             GenerateOfTypeOverloads(sb, substitutedBaseInterfaces);
             GenerateElementOverloads(sb, substitutedBaseInterfaces);
 
-            sb.AppendLine("   }");
-            sb.AppendLine("}");
+            sb
+                .AppendLine("   }")
+                .AppendLine("}");
 
             context.AddSource("GremlinQuery.generated.cs", sb.ToString());
             context.CancellationToken.ThrowIfCancellationRequested();
@@ -89,8 +90,9 @@ namespace ExRam.Gremlinq.Core.Generator
                 var labelParams = GetArgumentList("StepLabel<TItem{0}> label{0}", i);
                 var byChain = GetArgumentList(".By(__ => __.Select(label{0}))", "", i);
 
-                sb.AppendLine($"        IMapGremlinQuery<({typeArgs})> IGremlinQueryBase.Select<{typeArgs}>({labelParams}) => Project<({typeArgs})>(p => p.ToTuple(){byChain});");
-                sb.AppendLine();
+                sb
+                    .AppendLine($"        IMapGremlinQuery<({typeArgs})> IGremlinQueryBase.Select<{typeArgs}>({labelParams}) => Project<({typeArgs})>(p => p.ToTuple(){byChain});")
+                    .AppendLine();
 
                 var projectionParams = GetArgumentList("Expression<Func<T1, TItem{0}>> projection{0}", i);
                 var projByChain = GetArgumentList(".By(__ => __.Select<IGremlinQuery<TItem{0}>>(projection{0}))", "", i);
@@ -98,7 +100,8 @@ namespace ExRam.Gremlinq.Core.Generator
                 sb.AppendLine($"        IMapGremlinQuery<({typeArgs})> IMapGremlinQueryBase<T1>.Select<{typeArgs}>({projectionParams}) => Project<({typeArgs})>(p => p.ToTuple(){projByChain});");
             }
 
-            sb.AppendLine();
+            sb
+                .AppendLine();
         }
 
         private static void GenerateCastOverloads(StringBuilder sb, string[] substitutedBaseInterfaces)
@@ -109,161 +112,136 @@ namespace ExRam.Gremlinq.Core.Generator
                 sb.AppendLine($"        {changed} {iface}.Cast<TResult>() => Cast<TResult>();");
             }
 
-            sb.AppendLine();
+            sb
+                .AppendLine();
         }
 
         private static void GenerateTypedInterfaceImplementations(StringBuilder sb, string[] substitutedBaseInterfaces)
         {
             foreach (var iface in Typed(substitutedBaseInterfaces))
             {
-                sb.AppendLine($"        TTargetQuery IGremlinQueryBaseRec<T1, {iface}>.Aggregate<TTargetQuery>(Func<{iface}, StepLabel<IArrayGremlinQuery<T1[], T1, {iface}>, T1[]>, TTargetQuery> continuation) => Aggregate(Scope.Global, continuation);");
-                sb.AppendLine($"        TTargetQuery IGremlinQueryBaseRec<T1, {iface}>.AggregateLocal<TTargetQuery>(Func<{iface}, StepLabel<IArrayGremlinQuery<T1[], T1, {iface}>, T1[]>, TTargetQuery> continuation) => Aggregate(Scope.Local, continuation);");
-                sb.AppendLine();
+                sb
+                    .AppendLine($"        TTargetQuery IGremlinQueryBaseRec<T1, {iface}>.Aggregate<TTargetQuery>(Func<{iface}, StepLabel<IArrayGremlinQuery<T1[], T1, {iface}>, T1[]>, TTargetQuery> continuation) => Aggregate(Scope.Global, continuation);")
+                    .AppendLine($"        TTargetQuery IGremlinQueryBaseRec<T1, {iface}>.AggregateLocal<TTargetQuery>(Func<{iface}, StepLabel<IArrayGremlinQuery<T1[], T1, {iface}>, T1[]>, TTargetQuery> continuation) => Aggregate(Scope.Local, continuation);")
+                    .AppendLine()
+                    .AppendLine($"        {iface} IGremlinQueryBaseRec<T1, {iface}>.Aggregate(StepLabel<T1[]> stepLabel) => Aggregate(Scope.Global, stepLabel);")
+                    .AppendLine($"        {iface} IGremlinQueryBaseRec<T1, {iface}>.AggregateLocal(StepLabel<T1[]> stepLabel) => Aggregate(Scope.Local, stepLabel);")
+                    .AppendLine()
+                    .AppendLine($"        TTargetQuery IGremlinQueryBaseRec<T1, {iface}>.As<TTargetQuery>(Func<{iface}, StepLabel<{iface}, T1>, TTargetQuery> continuation) => As<StepLabel<{iface}, T1>, TTargetQuery>(continuation);")
+                    .AppendLine($"        {iface} IGremlinQueryBaseRec<T1, {iface}>.As(StepLabel<T1> stepLabel) => As(stepLabel);")
+                    .AppendLine()
+                    .AppendLine($"        {iface} IGremlinQueryBaseRec<{iface}>.And(params Func<{iface}, IGremlinQueryBase>[] andTraversals) => And(andTraversals);")
+                    .AppendLine()
+                    .AppendLine($"        {iface} IGremlinQueryBaseRec<{iface}>.And(params ReadOnlySpan<Func<{iface}, IGremlinQueryBase>> andTraversals) => And(andTraversals.Cast().To<Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase>>());")
+                    .AppendLine()
+                    .AppendLine($"        {iface} IGremlinQueryBaseRec<{iface}>.Barrier() => Barrier();")
+                    .AppendLine();
 
-                sb.AppendLine($"        {iface} IGremlinQueryBaseRec<T1, {iface}>.Aggregate(StepLabel<T1[]> stepLabel) => Aggregate(Scope.Global, stepLabel);");
-                sb.AppendLine($"        {iface} IGremlinQueryBaseRec<T1, {iface}>.AggregateLocal(StepLabel<T1[]> stepLabel) => Aggregate(Scope.Local, stepLabel);");
-                sb.AppendLine();
+                sb
+                    .AppendLine($"        TTargetQuery IGremlinQueryBaseRec<{iface}>.Choose<TTargetQuery>(Func<{iface}, IGremlinQueryBase> traversalPredicate, Func<{iface}, TTargetQuery> trueChoice, Func<{iface}, TTargetQuery> falseChoice) => Choose<TTargetQuery, TTargetQuery, TTargetQuery>(traversalPredicate, trueChoice, falseChoice);")
+                    .AppendLine($"        {iface} IGremlinQueryBaseRec<{iface}>.Choose(Func<{iface}, IGremlinQueryBase> traversalPredicate, Func<{iface}, {iface}> trueChoice) => Choose<{iface}, {iface}, {iface}>(traversalPredicate, trueChoice);")
+                    .AppendLine($"        IGremlinQuery<object> IGremlinQueryBaseRec<{iface}>.Choose(Func<{iface}, IGremlinQueryBase> traversalPredicate, Func<{iface}, IGremlinQueryBase> trueChoice) => Choose<IGremlinQueryBase, IGremlinQueryBase, IGremlinQuery<object>>(traversalPredicate, trueChoice);")
+                    .AppendLine("        ")
+                    .AppendLine($"        TTargetQuery IGremlinQueryBaseRec<{iface}>.Choose<TTargetQuery>(Func<IChooseBuilder<{iface}>, IChooseBuilderWithCaseOrDefault<TTargetQuery>> continuation) => Choose<TTargetQuery>(continuation);")
+                    .AppendLine()
+                    .AppendLine($"        TTargetQuery IGremlinQueryBaseRec<T1, {iface}>.Choose<TTargetQuery>(Expression<Func<T1, bool>> predicate, Func<{iface}, TTargetQuery> trueChoice, Func<{iface}, TTargetQuery> falseChoice) => Choose<TTargetQuery, TTargetQuery, TTargetQuery>(predicate, trueChoice, falseChoice);")
+                    .AppendLine($"        {iface} IGremlinQueryBaseRec<T1, {iface}>.Choose(Expression<Func<T1, bool>> predicate, Func<{iface}, {iface}> trueChoice) => Choose<{iface}, {iface}, {iface}>(predicate, trueChoice);")
+                    .AppendLine($"        IGremlinQuery<object> IGremlinQueryBaseRec<T1, {iface}>.Choose(Expression<Func<T1, bool>> predicate, Func<{iface}, IGremlinQueryBase> trueChoice) => Choose<IGremlinQueryBase, IGremlinQueryBase, IGremlinQuery<object>>(predicate, trueChoice);")
+                    .AppendLine();
 
-                sb.AppendLine($"        TTargetQuery IGremlinQueryBaseRec<T1, {iface}>.As<TTargetQuery>(Func<{iface}, StepLabel<{iface}, T1>, TTargetQuery> continuation) => As<StepLabel<{iface}, T1>, TTargetQuery>(continuation);");
-                sb.AppendLine($"        {iface} IGremlinQueryBaseRec<T1, {iface}>.As(StepLabel<T1> stepLabel) => As(stepLabel);");
-                sb.AppendLine();
+                sb
+                    .AppendLine($"        TTargetQuery IGremlinQueryBaseRec<{iface}>.Coalesce<TTargetQuery>(params Func<{iface}, TTargetQuery>[] traversals) => Coalesce<TTargetQuery, TTargetQuery>(traversals);")
+                    .AppendLine($"        IGremlinQuery<object> IGremlinQueryBaseRec<{iface}>.Coalesce(params Func<{iface}, IGremlinQueryBase>[] traversals) => Coalesce<IGremlinQueryBase, IGremlinQuery<object>>(traversals);")
+                    .AppendLine()
+                    .AppendLine($"        TTargetQuery IGremlinQueryBaseRec<{iface}>.Coalesce<TTargetQuery>(params ReadOnlySpan<Func<{iface}, TTargetQuery>> traversals) => Coalesce<TTargetQuery, TTargetQuery>(traversals.Cast().To<Func<GremlinQuery<T1, T2, T3, T4>, TTargetQuery>>());")
+                    .AppendLine($"        IGremlinQuery<object> IGremlinQueryBaseRec<{iface}>.Coalesce(params ReadOnlySpan<Func<{iface}, IGremlinQueryBase>> traversals) => Coalesce<IGremlinQueryBase, IGremlinQuery<object>>(traversals.Cast().To<Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase>>());")
+                    .AppendLine();
 
-                sb.AppendLine($"        {iface} IGremlinQueryBaseRec<{iface}>.And(params Func<{iface}, IGremlinQueryBase>[] andTraversals) => And(andTraversals);");
-                sb.AppendLine();
-                sb.AppendLine($"        {iface} IGremlinQueryBaseRec<{iface}>.And(params ReadOnlySpan<Func<{iface}, IGremlinQueryBase>> andTraversals) => And(andTraversals.Cast().To<Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase>>());");
-                sb.AppendLine();
+                sb
+                    .AppendLine($"        {iface} IGremlinQueryBaseRec<{iface}>.Coin(double probability) => Coin(probability);")
+                    .AppendLine()
+                    .AppendLine($"        {iface} IGremlinQueryBaseRec<{iface}>.CyclicPath() => CyclicPath();")
+                    .AppendLine()
+                    .AppendLine($"        {iface} IGremlinQueryBaseRec<{iface}>.Dedup() => DedupGlobal();")
+                    .AppendLine()
+                    .AppendLine($"        {iface} IGremlinQueryBaseRec<{iface}>.DedupLocal() => DedupLocal();")
+                    .AppendLine()
+                    .AppendLine($"        TTargetQuery IGremlinQueryBaseRec<{iface}>.FlatMap<TTargetQuery>(Func<{iface}, TTargetQuery> mapping) => FlatMap(mapping);")
+                    .AppendLine()
+                    .AppendLine($"        IArrayGremlinQuery<T1[], T1, {iface}> IGremlinQueryBaseRec<T1, {iface}>.ForceArray() => CloneAs<IArrayGremlinQuery<T1[], T1, {iface}>>();")
+                    .AppendLine()
+                    .AppendLine($"        IArrayGremlinQuery<T1[], T1, {iface}> IGremlinQueryBaseRec<T1, {iface}>.Fold() => Fold<{iface}>();")
+                    .AppendLine()
+                    .AppendLine($"        IMapGremlinQuery<IDictionary<TNewKey, TNewValue>> IGremlinQueryBaseRec<T1, {iface}>.Group<TNewKey, TNewValue>(Func<IGroupBuilder<{iface}>, IGroupBuilderWithKeyAndValue<TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);")
+                    .AppendLine($"        IMapGremlinQuery<IDictionary<TNewKey, T1[]>> IGremlinQueryBaseRec<T1, {iface}>.Group<TNewKey>(Func<IGroupBuilder<{iface}>, IGroupBuilderWithKey<{iface}, TNewKey>> groupBuilder) => Group(groupBuilder);")
+                    .AppendLine()
+                    .AppendLine($"        {iface} IGremlinQueryBaseRec<{iface}>.Identity() => Identity();")
+                    .AppendLine();
 
-                sb.AppendLine($"        {iface} IGremlinQueryBaseRec<{iface}>.Barrier() => Barrier();");
-                sb.AppendLine();
+                sb
+                    .AppendLine($"        {iface} IGremlinQueryBaseRec<T1, {iface}>.Inject(params T1[] elements) => Inject<T1>(elements);")
+                    .AppendLine($"        {iface} IGremlinQueryBaseRec<T1, {iface}>.Inject(params ReadOnlySpan<T1> elements) => Inject(elements);")
+                    .AppendLine("        ")
+                    .AppendLine($"        {iface} IGremlinQueryBaseRec<{iface}>.Limit(long count) => LimitGlobal(count);")
+                    .AppendLine()
+                    .AppendLine($"        TTargetQuery IGremlinQueryBaseRec<{iface}>.Local<TTargetQuery>(Func<{iface} , TTargetQuery> localTraversal) => Local(localTraversal);")
+                    .AppendLine()
+                    .AppendLine($"        {iface} IGremlinQueryBaseRec<{iface}>.Loop(Func<IStartLoopBuilder<{iface}>, IFinalLoopBuilder<{iface}>> loopBuilderTransformation) => Loop(loopBuilderTransformation);")
+                    .AppendLine()
+                    .AppendLine($"        TTargetQuery IGremlinQueryBaseRec<{iface}>.Map<TTargetQuery>(Func<{iface}, TTargetQuery> mapping) => Map(mapping);")
+                    .AppendLine()
+                    .AppendLine($"        {iface} IGremlinQueryBaseRec<{iface}>.Max() => MaxGlobal();")
+                    .AppendLine()
+                    .AppendLine($"        {iface} IGremlinQueryBaseRec<{iface}>.Mean() => MeanGlobal();")
+                    .AppendLine()
+                    .AppendLine($"        {iface} IGremlinQueryBaseRec<{iface}>.Min() => MinGlobal();")
+                    .AppendLine()
+                    .AppendLine($"        {iface} IGremlinQueryBaseRec<{iface}>.Not(Func<{iface}, IGremlinQueryBase> notTraversal) => Not(static (__, notTraversal) => notTraversal(__), notTraversal);")
+                    .AppendLine()
+                    .AppendLine($"        {iface} IGremlinQueryBaseRec<{iface}>.None() => None();")
+                    .AppendLine()
+                    .AppendLine($"        {iface} IGremlinQueryBaseRec<{iface}>.Optional(Func<{iface}, {iface}> optionalTraversal) => Optional(optionalTraversal);")
+                    .AppendLine()
+                    .AppendLine($"        {iface} IGremlinQueryBaseRec<{iface}>.Or(params Func<{iface}, IGremlinQueryBase>[] orTraversals) => Or(orTraversals);")
+                    .AppendLine()
+                    .AppendLine($"        {iface} IGremlinQueryBaseRec<{iface}>.Or(params ReadOnlySpan<Func<{iface}, IGremlinQueryBase>> orTraversals) => Or(orTraversals.Cast().To<Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase>>());")
+                    .AppendLine();
 
-                sb.AppendLine($"        TTargetQuery IGremlinQueryBaseRec<{iface}>.Choose<TTargetQuery>(Func<{iface}, IGremlinQueryBase> traversalPredicate, Func<{iface}, TTargetQuery> trueChoice, Func<{iface}, TTargetQuery> falseChoice) => Choose<TTargetQuery, TTargetQuery, TTargetQuery>(traversalPredicate, trueChoice, falseChoice);");
-                sb.AppendLine($"        {iface} IGremlinQueryBaseRec<{iface}>.Choose(Func<{iface}, IGremlinQueryBase> traversalPredicate, Func<{iface}, {iface}> trueChoice) => Choose<{iface}, {iface}, {iface}>(traversalPredicate, trueChoice);");
-                sb.AppendLine($"        IGremlinQuery<object> IGremlinQueryBaseRec<{iface}>.Choose(Func<{iface}, IGremlinQueryBase> traversalPredicate, Func<{iface}, IGremlinQueryBase> trueChoice) => Choose<IGremlinQueryBase, IGremlinQueryBase, IGremlinQuery<object>>(traversalPredicate, trueChoice);");
-                sb.AppendLine("        ");
-                sb.AppendLine($"        TTargetQuery IGremlinQueryBaseRec<{iface}>.Choose<TTargetQuery>(Func<IChooseBuilder<{iface}>, IChooseBuilderWithCaseOrDefault<TTargetQuery>> continuation) => Choose<TTargetQuery>(continuation);");
-                sb.AppendLine();
-
-                sb.AppendLine($"        TTargetQuery IGremlinQueryBaseRec<T1, {iface}>.Choose<TTargetQuery>(Expression<Func<T1, bool>> predicate, Func<{iface}, TTargetQuery> trueChoice, Func<{iface}, TTargetQuery> falseChoice) => Choose<TTargetQuery, TTargetQuery, TTargetQuery>(predicate, trueChoice, falseChoice);");
-                sb.AppendLine($"        {iface} IGremlinQueryBaseRec<T1, {iface}>.Choose(Expression<Func<T1, bool>> predicate, Func<{iface}, {iface}> trueChoice) => Choose<{iface}, {iface}, {iface}>(predicate, trueChoice);");
-                sb.AppendLine($"        IGremlinQuery<object> IGremlinQueryBaseRec<T1, {iface}>.Choose(Expression<Func<T1, bool>> predicate, Func<{iface}, IGremlinQueryBase> trueChoice) => Choose<IGremlinQueryBase, IGremlinQueryBase, IGremlinQuery<object>>(predicate, trueChoice);");
-                sb.AppendLine();
-
-                sb.AppendLine($"        TTargetQuery IGremlinQueryBaseRec<{iface}>.Coalesce<TTargetQuery>(params Func<{iface}, TTargetQuery>[] traversals) => Coalesce<TTargetQuery, TTargetQuery>(traversals);");
-                sb.AppendLine($"        IGremlinQuery<object> IGremlinQueryBaseRec<{iface}>.Coalesce(params Func<{iface}, IGremlinQueryBase>[] traversals) => Coalesce<IGremlinQueryBase, IGremlinQuery<object>>(traversals);");
-                sb.AppendLine();
-                sb.AppendLine($"        TTargetQuery IGremlinQueryBaseRec<{iface}>.Coalesce<TTargetQuery>(params ReadOnlySpan<Func<{iface}, TTargetQuery>> traversals) => Coalesce<TTargetQuery, TTargetQuery>(traversals.Cast().To<Func<GremlinQuery<T1, T2, T3, T4>, TTargetQuery>>());");
-                sb.AppendLine($"        IGremlinQuery<object> IGremlinQueryBaseRec<{iface}>.Coalesce(params ReadOnlySpan<Func<{iface}, IGremlinQueryBase>> traversals) => Coalesce<IGremlinQueryBase, IGremlinQuery<object>>(traversals.Cast().To<Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase>>());");
-                sb.AppendLine();
-
-                sb.AppendLine($"        {iface} IGremlinQueryBaseRec<{iface}>.Coin(double probability) => Coin(probability);");
-                sb.AppendLine();
-
-                sb.AppendLine($"        {iface} IGremlinQueryBaseRec<{iface}>.CyclicPath() => CyclicPath();");
-                sb.AppendLine();
-
-                sb.AppendLine($"        {iface} IGremlinQueryBaseRec<{iface}>.Dedup() => DedupGlobal();");
-                sb.AppendLine();
-
-                sb.AppendLine($"        {iface} IGremlinQueryBaseRec<{iface}>.DedupLocal() => DedupLocal();");
-                sb.AppendLine();
-
-                sb.AppendLine($"        TTargetQuery IGremlinQueryBaseRec<{iface}>.FlatMap<TTargetQuery>(Func<{iface}, TTargetQuery> mapping) => FlatMap(mapping);");
-                sb.AppendLine();
-
-                sb.AppendLine($"        IArrayGremlinQuery<T1[], T1, {iface}> IGremlinQueryBaseRec<T1, {iface}>.ForceArray() => CloneAs<IArrayGremlinQuery<T1[], T1, {iface}>>();");
-                sb.AppendLine();
-
-                sb.AppendLine($"        IArrayGremlinQuery<T1[], T1, {iface}> IGremlinQueryBaseRec<T1, {iface}>.Fold() => Fold<{iface}>();");
-                sb.AppendLine();
-
-                sb.AppendLine($"        IMapGremlinQuery<IDictionary<TNewKey, TNewValue>> IGremlinQueryBaseRec<T1, {iface}>.Group<TNewKey, TNewValue>(Func<IGroupBuilder<{iface}>, IGroupBuilderWithKeyAndValue<TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);");
-                sb.AppendLine($"        IMapGremlinQuery<IDictionary<TNewKey, T1[]>> IGremlinQueryBaseRec<T1, {iface}>.Group<TNewKey>(Func<IGroupBuilder<{iface}>, IGroupBuilderWithKey<{iface}, TNewKey>> groupBuilder) => Group(groupBuilder);");
-                sb.AppendLine();
-
-                sb.AppendLine($"        {iface} IGremlinQueryBaseRec<{iface}>.Identity() => Identity();");
-                sb.AppendLine();
-
-                sb.AppendLine($"        {iface} IGremlinQueryBaseRec<T1, {iface}>.Inject(params T1[] elements) => Inject<T1>(elements);");
-                sb.AppendLine($"        {iface} IGremlinQueryBaseRec<T1, {iface}>.Inject(params ReadOnlySpan<T1> elements) => Inject(elements);");
-                sb.AppendLine("        ");
-
-                sb.AppendLine($"        {iface} IGremlinQueryBaseRec<{iface}>.Limit(long count) => LimitGlobal(count);");
-                sb.AppendLine();
-
-                sb.AppendLine($"        TTargetQuery IGremlinQueryBaseRec<{iface}>.Local<TTargetQuery>(Func<{iface} , TTargetQuery> localTraversal) => Local(localTraversal);");
-                sb.AppendLine();
-
-                sb.AppendLine($"        {iface} IGremlinQueryBaseRec<{iface}>.Loop(Func<IStartLoopBuilder<{iface}>, IFinalLoopBuilder<{iface}>> loopBuilderTransformation) => Loop(loopBuilderTransformation);");
-                sb.AppendLine();
-
-                sb.AppendLine($"        TTargetQuery IGremlinQueryBaseRec<{iface}>.Map<TTargetQuery>(Func<{iface}, TTargetQuery> mapping) => Map(mapping);");
-                sb.AppendLine();
-
-                sb.AppendLine($"        {iface} IGremlinQueryBaseRec<{iface}>.Max() => MaxGlobal();");
-                sb.AppendLine();
-
-                sb.AppendLine($"        {iface} IGremlinQueryBaseRec<{iface}>.Mean() => MeanGlobal();");
-                sb.AppendLine();
-
-                sb.AppendLine($"        {iface} IGremlinQueryBaseRec<{iface}>.Min() => MinGlobal();");
-                sb.AppendLine();
-
-                sb.AppendLine($"        {iface} IGremlinQueryBaseRec<{iface}>.Not(Func<{iface}, IGremlinQueryBase> notTraversal) => Not(static (__, notTraversal) => notTraversal(__), notTraversal);");
-                sb.AppendLine();
-
-                sb.AppendLine($"        {iface} IGremlinQueryBaseRec<{iface}>.None() => None();");
-                sb.AppendLine();
-
-                sb.AppendLine($"        {iface} IGremlinQueryBaseRec<{iface}>.Optional(Func<{iface}, {iface}> optionalTraversal) => Optional(optionalTraversal);");
-                sb.AppendLine();
-
-                sb.AppendLine($"        {iface} IGremlinQueryBaseRec<{iface}>.Or(params Func<{iface}, IGremlinQueryBase>[] orTraversals) => Or(orTraversals);");
-                sb.AppendLine();
-                sb.AppendLine($"        {iface} IGremlinQueryBaseRec<{iface}>.Or(params ReadOnlySpan<Func<{iface}, IGremlinQueryBase>> orTraversals) => Or(orTraversals.Cast().To<Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase>>());");
-                sb.AppendLine();
-
-                sb.AppendLine($"        {iface} IGremlinQueryBaseRec<T1, {iface}>.Order(Func<IOrderBuilder<T1, {iface}>, IOrderBuilderWithBy<T1, {iface}>> projection) => OrderGlobal(projection);");
-                sb.AppendLine($"        {iface} IGremlinQueryBaseRec<T1, {iface}>.OrderLocal(Func<IOrderBuilder<T1, {iface}>, IOrderBuilderWithBy<T1, {iface}>> projection) => OrderLocal(projection);");
-                sb.AppendLine();
-                sb.AppendLine($"        {iface} IGremlinQueryBaseRec<{iface}>.Order(Func<IOrderBuilder<{iface}>, IOrderBuilderWithBy<{iface}>> projection) => OrderGlobal(projection);");
-                sb.AppendLine($"        {iface} IGremlinQueryBaseRec<{iface}>.OrderLocal(Func<IOrderBuilder<{iface}>, IOrderBuilderWithBy<{iface}>> projection) => OrderLocal(projection);");
-                sb.AppendLine();
-
-                sb.AppendLine($"        IGremlinQuery<dynamic> IGremlinQueryBaseRec<T1, {iface}>.Project(Func<IProjectBuilder<{iface}, T1>, IProjectDynamicResult> continuation) => Project(continuation);");
-                sb.AppendLine($"        IMapGremlinQuery<TResult> IGremlinQueryBaseRec<T1, {iface}>.Project<TResult>(Func<IProjectBuilder<{iface}, T1>, IProjectMapResult<TResult>> continuation) => Project(continuation);");
-                sb.AppendLine($"        IMapGremlinQuery<TResult> IGremlinQueryBaseRec<T1, {iface}>.Project<TResult>(Func<IProjectBuilder<{iface}, T1>, IProjectTupleResult<TResult>> continuation) => Project<TResult>(continuation);");
-                sb.AppendLine();
-
-                sb.AppendLine($"        {iface} IGremlinQueryBaseRec<{iface}>.Range(long low, long high) => RangeGlobal(low, high);");
-                sb.AppendLine();
-
-                sb.AppendLine($"        {iface} IGremlinQueryBaseRec<{iface}>.SideEffect(Func<{iface}, IGremlinQueryBase> sideEffectTraversal) => SideEffect(sideEffectTraversal);");
-                sb.AppendLine();
-
-                sb.AppendLine($"        {iface} IGremlinQueryBaseRec<{iface}>.SimplePath() => SimplePath();");
-                sb.AppendLine();
-
-                sb.AppendLine($"        {iface} IGremlinQueryBaseRec<{iface}>.Skip(long count) => Skip(count, Scope.Global);");
-                sb.AppendLine();
-
-                sb.AppendLine($"        {iface} IGremlinQueryBaseRec<{iface}>.Sum() => SumGlobal();");
-                sb.AppendLine();
-
-                sb.AppendLine($"        {iface} IGremlinQueryBaseRec<{iface}>.Tail(long count) => TailGlobal(count);");
-                sb.AppendLine();
-
-                sb.AppendLine($"        TTargetQuery IGremlinQueryBaseRec<{iface}>.Union<TTargetQuery>(params Func<{iface}, TTargetQuery>[] unionTraversals) => Union<TTargetQuery, TTargetQuery>(unionTraversals);");
-                sb.AppendLine($"        IGremlinQuery<object> IGremlinQueryBaseRec<{iface}>.Union(params Func<{iface}, IGremlinQueryBase>[] unionTraversals) => Union<IGremlinQueryBase, IGremlinQuery<object>>(unionTraversals);");
-                sb.AppendLine();
-                sb.AppendLine($"        TTargetQuery IGremlinQueryBaseRec<{iface}>.Union<TTargetQuery>(params ReadOnlySpan<Func<{iface}, TTargetQuery>> unionTraversals) => Union<TTargetQuery, TTargetQuery>(unionTraversals.Cast().To<Func<GremlinQuery<T1, T2, T3, T4>, TTargetQuery>>());");
-                sb.AppendLine($"        IGremlinQuery<object> IGremlinQueryBaseRec<{iface}>.Union(params ReadOnlySpan<Func<{iface}, IGremlinQueryBase>> unionTraversals) => Union<IGremlinQueryBase, IGremlinQuery<object>>(unionTraversals.Cast().To<Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase>>());");
-                sb.AppendLine();
-
-                sb.AppendLine($"        {iface} IGremlinQueryBaseRec<T1, {iface}>.Where(Expression<Func<T1, bool>> predicate) => Where(predicate);");
-                sb.AppendLine($"        {iface} IGremlinQueryBaseRec<{iface}>.Where(Func<{iface}, IGremlinQueryBase> filterTraversal) => Where(filterTraversal);");
+                sb
+                    .AppendLine($"        {iface} IGremlinQueryBaseRec<T1, {iface}>.Order(Func<IOrderBuilder<T1, {iface}>, IOrderBuilderWithBy<T1, {iface}>> projection) => OrderGlobal(projection);")
+                    .AppendLine($"        {iface} IGremlinQueryBaseRec<T1, {iface}>.OrderLocal(Func<IOrderBuilder<T1, {iface}>, IOrderBuilderWithBy<T1, {iface}>> projection) => OrderLocal(projection);")
+                    .AppendLine()
+                    .AppendLine($"        {iface} IGremlinQueryBaseRec<{iface}>.Order(Func<IOrderBuilder<{iface}>, IOrderBuilderWithBy<{iface}>> projection) => OrderGlobal(projection);")
+                    .AppendLine($"        {iface} IGremlinQueryBaseRec<{iface}>.OrderLocal(Func<IOrderBuilder<{iface}>, IOrderBuilderWithBy<{iface}>> projection) => OrderLocal(projection);")
+                    .AppendLine()
+                    .AppendLine($"        IGremlinQuery<dynamic> IGremlinQueryBaseRec<T1, {iface}>.Project(Func<IProjectBuilder<{iface}, T1>, IProjectDynamicResult> continuation) => Project(continuation);")
+                    .AppendLine($"        IMapGremlinQuery<TResult> IGremlinQueryBaseRec<T1, {iface}>.Project<TResult>(Func<IProjectBuilder<{iface}, T1>, IProjectMapResult<TResult>> continuation) => Project(continuation);")
+                    .AppendLine($"        IMapGremlinQuery<TResult> IGremlinQueryBaseRec<T1, {iface}>.Project<TResult>(Func<IProjectBuilder<{iface}, T1>, IProjectTupleResult<TResult>> continuation) => Project<TResult>(continuation);")
+                    .AppendLine()
+                    .AppendLine($"        {iface} IGremlinQueryBaseRec<{iface}>.Range(long low, long high) => RangeGlobal(low, high);")
+                    .AppendLine()
+                    .AppendLine($"        {iface} IGremlinQueryBaseRec<{iface}>.SideEffect(Func<{iface}, IGremlinQueryBase> sideEffectTraversal) => SideEffect(sideEffectTraversal);")
+                    .AppendLine()
+                    .AppendLine($"        {iface} IGremlinQueryBaseRec<{iface}>.SimplePath() => SimplePath();")
+                    .AppendLine()
+                    .AppendLine($"        {iface} IGremlinQueryBaseRec<{iface}>.Skip(long count) => Skip(count, Scope.Global);")
+                    .AppendLine()
+                    .AppendLine($"        {iface} IGremlinQueryBaseRec<{iface}>.Sum() => SumGlobal();")
+                    .AppendLine()
+                    .AppendLine($"        {iface} IGremlinQueryBaseRec<{iface}>.Tail(long count) => TailGlobal(count);")
+                    .AppendLine()
+                    .AppendLine($"        TTargetQuery IGremlinQueryBaseRec<{iface}>.Union<TTargetQuery>(params Func<{iface}, TTargetQuery>[] unionTraversals) => Union<TTargetQuery, TTargetQuery>(unionTraversals);")
+                    .AppendLine($"        IGremlinQuery<object> IGremlinQueryBaseRec<{iface}>.Union(params Func<{iface}, IGremlinQueryBase>[] unionTraversals) => Union<IGremlinQueryBase, IGremlinQuery<object>>(unionTraversals);")
+                    .AppendLine()
+                    .AppendLine($"        TTargetQuery IGremlinQueryBaseRec<{iface}>.Union<TTargetQuery>(params ReadOnlySpan<Func<{iface}, TTargetQuery>> unionTraversals) => Union<TTargetQuery, TTargetQuery>(unionTraversals.Cast().To<Func<GremlinQuery<T1, T2, T3, T4>, TTargetQuery>>());")
+                    .AppendLine($"        IGremlinQuery<object> IGremlinQueryBaseRec<{iface}>.Union(params ReadOnlySpan<Func<{iface}, IGremlinQueryBase>> unionTraversals) => Union<IGremlinQueryBase, IGremlinQuery<object>>(unionTraversals.Cast().To<Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase>>());")
+                    .AppendLine()
+                    .AppendLine($"        {iface} IGremlinQueryBaseRec<T1, {iface}>.Where(Expression<Func<T1, bool>> predicate) => Where(predicate);")
+                    .AppendLine($"        {iface} IGremlinQueryBaseRec<{iface}>.Where(Func<{iface}, IGremlinQueryBase> filterTraversal) => Where(filterTraversal);");
             }
 
-            sb.AppendLine();
+            sb
+                .AppendLine();
         }
 
         private static void GenerateOfTypeOverloads(StringBuilder sb, string[] substitutedBaseInterfaces)
@@ -277,23 +255,23 @@ namespace ExRam.Gremlinq.Core.Generator
                 sb.AppendLine($"        {changed} {iface}.OfType<TTarget>() => OfType<TTarget, {changed}>({model});");
             }
 
-            sb.AppendLine();
+            sb
+                .AppendLine();
         }
 
         private static void GenerateElementOverloads(StringBuilder sb, string[] substitutedBaseInterfaces)
         {
             foreach (var iface in Typed(Element(substitutedBaseInterfaces)))
             {
-                sb.AppendLine($"        {iface} IElementGremlinQueryBaseRec<{iface}>.Property(string key, object? value) => Property(key, value);");
-                sb.AppendLine($"        {iface} IElementGremlinQueryBaseRec<{iface}>.Property(string key, Func<{iface}, IGremlinQueryBase> valueTransformation) => Property(key, valueTransformation);");
-                sb.AppendLine();
-
-                sb.AppendLine($"        {iface} IElementGremlinQueryBaseRec<T1, {iface}>.Property<TProjectedValue>(Expression<Func<T1, TProjectedValue>> projection, TProjectedValue value) => Property(projection, value);");
-                sb.AppendLine($"        {iface} IElementGremlinQueryBaseRec<T1, {iface}>.Property<TProjectedValue>(Expression<Func<T1, TProjectedValue>> projection, StepLabel<TProjectedValue> stepLabel) => Property(projection, __ => __.Select(stepLabel));");
-                sb.AppendLine($"        {iface} IElementGremlinQueryBaseRec<T1, {iface}>.Property<TProjectedValue>(Expression<Func<T1, TProjectedValue>> projection, Func<{iface}, IGremlinQueryBase<TProjectedValue>> valueTraversal) => Property(projection, valueTraversal);");
-                sb.AppendLine();
-
-                sb.AppendLine($"        {iface} IElementGremlinQueryBaseRec<T1, {iface}>.Where<TProjection>(Expression<Func<T1, TProjection>> projection, Func<IGremlinQuery<TProjection>, IGremlinQueryBase> propertyTraversal) => Where(projection, propertyTraversal);");
+                sb
+                    .AppendLine($"        {iface} IElementGremlinQueryBaseRec<{iface}>.Property(string key, object? value) => Property(key, value);")
+                    .AppendLine($"        {iface} IElementGremlinQueryBaseRec<{iface}>.Property(string key, Func<{iface}, IGremlinQueryBase> valueTransformation) => Property(key, valueTransformation);")
+                    .AppendLine()
+                    .AppendLine($"        {iface} IElementGremlinQueryBaseRec<T1, {iface}>.Property<TProjectedValue>(Expression<Func<T1, TProjectedValue>> projection, TProjectedValue value) => Property(projection, value);")
+                    .AppendLine($"        {iface} IElementGremlinQueryBaseRec<T1, {iface}>.Property<TProjectedValue>(Expression<Func<T1, TProjectedValue>> projection, StepLabel<TProjectedValue> stepLabel) => Property(projection, __ => __.Select(stepLabel));")
+                    .AppendLine($"        {iface} IElementGremlinQueryBaseRec<T1, {iface}>.Property<TProjectedValue>(Expression<Func<T1, TProjectedValue>> projection, Func<{iface}, IGremlinQueryBase<TProjectedValue>> valueTraversal) => Property(projection, valueTraversal);")
+                    .AppendLine()
+                    .AppendLine($"        {iface} IElementGremlinQueryBaseRec<T1, {iface}>.Where<TProjection>(Expression<Func<T1, TProjection>> projection, Func<IGremlinQuery<TProjection>, IGremlinQueryBase> propertyTraversal) => Where(projection, propertyTraversal);");
             }
         }
 
