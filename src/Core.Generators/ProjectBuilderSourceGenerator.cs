@@ -1,5 +1,4 @@
-﻿using System.Text;
-using Microsoft.CodeAnalysis;
+﻿using Microsoft.CodeAnalysis;
 using static ExRam.Gremlinq.Core.Generators.ArgumentListExtensions;
 
 namespace ExRam.Gremlinq.Core.Generators
@@ -14,92 +13,102 @@ namespace ExRam.Gremlinq.Core.Generators
 
         private static void Execute(IncrementalGeneratorPostInitializationContext context)
         {
-            var sb = new StringBuilder()
-                .AppendLine("#pragma warning disable CS0109 // Member does not hide an inherited member; new keyword is not required")
-                .AppendLine("using System.Linq.Expressions;")
-                .AppendLine()
-                .AppendLine("namespace ExRam.Gremlinq.Core")
-                .AppendLine("{");
+            var code = CodeWriter
+                .Create()
+                .WriteLine("#pragma warning disable CS0109 // Member does not hide an inherited member; new keyword is not required")
+                .WriteLine("using System.Linq.Expressions;")
+                .WriteLine()
+                .WriteLine("namespace ExRam.Gremlinq.Core")
+                .Block(writer => writer
+                    .Do(GenerateInterfaces)
+                    .Do(GenerateProjectBuilderClass))
+                .Code();
 
-            GenerateInterfaces(sb);
-            GenerateProjectBuilderClass(sb);
-
-            sb
-                .AppendLine("}");
-
-            context.AddSource("ProjectBuilder.generated.cs", sb.ToString());
+            context.AddSource("ProjectBuilder.generated.cs", code);
             context.CancellationToken.ThrowIfCancellationRequested();
         }
 
-        private static void GenerateInterfaces(StringBuilder sb)
+        private static CodeWriter GenerateInterfaces(CodeWriter writer)
         {
             for (var i = 0; i <= 16; i++)
             {
                 var typeArgs = GetArgumentList("TItem{0}", i, hasPreceedingArguments: true);
 
-                sb
-                    .AppendLine($"    public interface IProjectTupleBuilder<out TSourceQuery, TElement{typeArgs}>");
+                writer = writer
+                    .Write($"public interface IProjectTupleBuilder<out TSourceQuery, TElement{typeArgs}>");
 
                 if (i >= 2)
                 {
                     var tupleArgs = GetArgumentList("TItem{0}", i);
-                    sb
-                        .AppendLine($"        : IProjectTupleResult<({tupleArgs})>");
+                    writer = writer
+                        .WriteLine()
+                        .Indent(w => w
+                            .Write($": IProjectTupleResult<({tupleArgs})>"));
                 }
 
-                sb
-                    .AppendLine("        where TSourceQuery : IGremlinQueryBase");
+                writer = writer
+                    .WriteLine()
+                    .Indent(w => w
+                        .Write("where TSourceQuery : IGremlinQueryBase"));
 
                 if (i < 16)
                 {
                     var nextTypeArgs = GetArgumentList("TItem{0}", i + 1);
 
-                    sb
-                        .AppendLine("    {")
-                        .AppendLine($"        IProjectTupleBuilder<TSourceQuery, TElement, {nextTypeArgs}> By<TItem{i + 1}>(Func<TSourceQuery, IGremlinQueryBase<TItem{i + 1}>> projection);")
-                        .AppendLine($"        IProjectTupleBuilder<TSourceQuery, TElement, {nextTypeArgs}> By<TItem{i + 1}>(Expression<Func<TElement, TItem{i + 1}>> projection);")
-                        .AppendLine("    }");
+                    writer = writer
+                        .WriteLine()
+                        .Block(w => w
+                            .WriteLine($"IProjectTupleBuilder<TSourceQuery, TElement, {nextTypeArgs}> By<TItem{i + 1}>(Func<TSourceQuery, IGremlinQueryBase<TItem{i + 1}>> projection);")
+                            .WriteLine($"IProjectTupleBuilder<TSourceQuery, TElement, {nextTypeArgs}> By<TItem{i + 1}>(Expression<Func<TElement, TItem{i + 1}>> projection);"));
                 }
                 else
                 {
-                    sb
-                        .AppendLine("    ;");
+                    writer = writer
+                        .WriteLine()
+                        .WriteLine(";");
                 }
 
-                sb
-                    .AppendLine();
+                writer = writer
+                    .WriteLine();
             }
+
+            return writer;
         }
 
-        private static void GenerateProjectBuilderClass(StringBuilder sb)
+        private static CodeWriter GenerateProjectBuilderClass(CodeWriter writer)
         {
-            sb
-                .AppendLine()
-                .AppendLine("    partial class GremlinQuery<T1, T2, T3, T4>")
-                .AppendLine("    {")
-                .AppendLine("        private sealed partial class ProjectBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15, TItem16> :");
+            return writer
+                .WriteLine()
+                .WriteLine("partial class GremlinQuery<T1, T2, T3, T4>")
+                .Block(w =>
+                {
+                    w = w
+                        .Write("private sealed partial class ProjectBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15, TItem16> :");
 
-            for (var i = 2; i <= 16; i++)
-            {
-                var args = GetArgumentList("TItem{0}", i);
-                sb
-                    .AppendLine($"            IProjectTupleBuilder<GremlinQuery<T1, T2, T3, T4>, T1, {args}>,");
-            }
+                    for (var i = 2; i <= 16; i++)
+                    {
+                        var args = GetArgumentList("TItem{0}", i);
+                        w = w
+                            .WriteLine()
+                            .Indent(w2 => w2
+                                .Write($"IProjectTupleBuilder<GremlinQuery<T1, T2, T3, T4>, T1, {args}>,"));
+                    }
 
-            sb
-                .AppendLine("            IProjectTupleBuilder<GremlinQuery<T1, T2, T3, T4>, T1>,")
-                .AppendLine("            IProjectTupleBuilder<GremlinQuery<T1, T2, T3, T4>, T1, TItem1>")
-                .AppendLine("        {");
+                    w = w
+                        .WriteLine()
+                        .Indent(w2 => w2
+                            .WriteLine("IProjectTupleBuilder<GremlinQuery<T1, T2, T3, T4>, T1>,")
+                            .Write("IProjectTupleBuilder<GremlinQuery<T1, T2, T3, T4>, T1, TItem1>"));
 
-            GenerateByOverloads(sb);
-            GenerateBuildOverloads(sb);
-
-            sb
-                .AppendLine("        }")
-                .AppendLine("    }");
+                    return w
+                        .WriteLine()
+                        .Block(w2 => w2
+                            .Do(GenerateByOverloads)
+                            .Do(GenerateBuildOverloads));
+                });
         }
 
-        private static void GenerateByOverloads(StringBuilder sb)
+        private static CodeWriter GenerateByOverloads(CodeWriter writer)
         {
             for (var i = 0; i < 16; i++)
             {
@@ -108,32 +117,31 @@ namespace ExRam.Gremlinq.Core.Generators
                 var byLambdaArgs = GetArgumentList("TItem{0}", i, hasFollowingArguments: true) + $"TNewItem{i + 1}" + GetArgumentList("object", 15 - i, hasPreceedingArguments: true);
                 var byExpressionArgs = GetArgumentList("TItem{0}", i, hasFollowingArguments: true) + $"TNewItem{i + 1}" + GetArgumentList("object", 15 - i, hasPreceedingArguments: true);
 
-                sb
-                    .AppendLine()
-                    .AppendLine($"            IProjectTupleBuilder<GremlinQuery<T1, T2, T3, T4>, T1, {returnTypeArgs}> IProjectTupleBuilder<GremlinQuery<T1, T2, T3, T4>, T1{interfaceTypeArgs}>.By<TNewItem{i + 1}>(Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase<TNewItem{i + 1}>> projection)")
-                    .AppendLine("            {")
-                    .AppendLine($"                return ByLambda<{byLambdaArgs}>(projection);")
-                    .AppendLine("            }")
-                    .AppendLine()
-                    .AppendLine($"            IProjectTupleBuilder<GremlinQuery<T1, T2, T3, T4>, T1, {returnTypeArgs}> IProjectTupleBuilder<GremlinQuery<T1, T2, T3, T4>, T1{interfaceTypeArgs}>.By<TNewItem{i + 1}>(Expression<Func<T1, TNewItem{i + 1}>> projection)")
-                    .AppendLine("            {")
-                    .AppendLine($"                return ByExpression<{byExpressionArgs}>(projection);")
-                    .AppendLine("            }");
+                writer = writer
+                    .WriteLine()
+                    .WriteLine($"IProjectTupleBuilder<GremlinQuery<T1, T2, T3, T4>, T1, {returnTypeArgs}> IProjectTupleBuilder<GremlinQuery<T1, T2, T3, T4>, T1{interfaceTypeArgs}>.By<TNewItem{i + 1}>(Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase<TNewItem{i + 1}>> projection)")
+                    .Block(w => w
+                        .WriteLine($"return ByLambda<{byLambdaArgs}>(projection);"))
+                    .WriteLine()
+                    .WriteLine($"IProjectTupleBuilder<GremlinQuery<T1, T2, T3, T4>, T1, {returnTypeArgs}> IProjectTupleBuilder<GremlinQuery<T1, T2, T3, T4>, T1{interfaceTypeArgs}>.By<TNewItem{i + 1}>(Expression<Func<T1, TNewItem{i + 1}>> projection)")
+                    .Block(w => w
+                        .WriteLine($"return ByExpression<{byExpressionArgs}>(projection);"));
             }
 
-            sb
-                .AppendLine();
+            return writer
+                .WriteLine();
         }
 
-        private static void GenerateBuildOverloads(StringBuilder sb)
+        private static CodeWriter GenerateBuildOverloads(CodeWriter writer)
         {
             for (var i = 2; i <= 16; i++)
             {
                 var tupleArgs = GetArgumentList("TItem{0}", i);
-                sb
-                    .AppendLine($"            IMapGremlinQuery<({tupleArgs})> IProjectTupleResult<({tupleArgs})>.Build() => Build<IMapGremlinQuery<({tupleArgs})>>();");
+                writer = writer
+                    .WriteLine($"IMapGremlinQuery<({tupleArgs})> IProjectTupleResult<({tupleArgs})>.Build() => Build<IMapGremlinQuery<({tupleArgs})>>();");
             }
-        }
 
+            return writer;
         }
+    }
 }

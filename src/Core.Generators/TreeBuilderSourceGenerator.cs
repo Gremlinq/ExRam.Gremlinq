@@ -1,5 +1,4 @@
-﻿using System.Text;
-using Microsoft.CodeAnalysis;
+﻿using Microsoft.CodeAnalysis;
 using static ExRam.Gremlinq.Core.Generators.ArgumentListExtensions;
 
 namespace ExRam.Gremlinq.Core.Generators
@@ -16,106 +15,118 @@ namespace ExRam.Gremlinq.Core.Generators
 
         private static void Execute(IncrementalGeneratorPostInitializationContext context)
         {
-            var sb = new StringBuilder()
-                .AppendLine("using ExRam.Gremlinq.Core.Steps;")
-                .AppendLine("using System.Linq.Expressions;")
-                .AppendLine()
-                .AppendLine("namespace ExRam.Gremlinq.Core")
-                .AppendLine("{");
+            var code = CodeWriter
+                .Create()
+                .WriteLine("using ExRam.Gremlinq.Core.Steps;")
+                .WriteLine("using System.Linq.Expressions;")
+                .WriteLine()
+                .WriteLine("namespace ExRam.Gremlinq.Core")
+                .Block(writer => writer
+                    .Do(GenerateInterfaces)
+                    .Do(GenerateTreeBuilderClass))
+                .Code();
 
-            GenerateInterfaces(sb);
-            GenerateTreeBuilderClass(sb);
-
-            sb
-                .AppendLine("}");
-
-            context.AddSource("TreeBuilder.generated.cs", sb.ToString());
+            context.AddSource("TreeBuilder.generated.cs", code);
             context.CancellationToken.ThrowIfCancellationRequested();
         }
 
-        private static void GenerateInterfaces(StringBuilder sb)
+        private static CodeWriter GenerateInterfaces(CodeWriter writer)
         {
             for (var i = 0; i <= MaxParameters; i++)
             {
                 var genericArgList = GetGenericArgumentList("TNode{0}", i);
 
-                sb
-                    .AppendLine($"    public interface ITreeBuilder{genericArgList}");
+                writer = writer
+                    .Write($"public interface ITreeBuilder{genericArgList}");
 
                 if (i >= 1)
                 {
-                    sb
-                        .AppendLine($"        : ITreeBuilderResult<{GetTreeTypeName(i)}>");
+                    writer = writer
+                        .WriteLine()
+                        .Indent(w => w
+                            .Write($": ITreeBuilderResult<{GetTreeTypeName(i)}>"));
                 }
 
                 for (var j = 1; j <= i; j++)
                 {
-                    sb
-                        .AppendLine($"            where TNode{j} : notnull");
+                    writer = writer
+                        .WriteLine()
+                        .Indent(w => w
+                            .Indent(w2 => w2
+                                .Write($"where TNode{j} : notnull")));
                 }
 
-                sb
-                    .AppendLine("    {");
+                writer = writer
+                    .WriteLine()
+                    .Block(w =>
+                    {
+                        if (i < MaxParameters)
+                        {
+                            var ofArgs = GetArgumentList("TNode{0}", i, hasFollowingArguments: true) + "TNewNode";
+                            w = w
+                                .WriteLine($"ITreeBuilder<{ofArgs}> Of<TNewNode>() where TNewNode : notnull;");
+                        }
 
-                if (i < MaxParameters)
-                {
-                    var ofArgs = GetArgumentList("TNode{0}", i, hasFollowingArguments: true) + "TNewNode";
-                    sb
-                        .AppendLine($"        ITreeBuilder<{ofArgs}> Of<TNewNode>() where TNewNode : notnull;");
-                }
+                        if (i >= 1)
+                        {
+                            var byArgs = GetArgumentList("TNode{0}", i - 1, hasFollowingArguments: true) + "TNewNode";
+                            w = w
+                                .WriteLine()
+                                .WriteLine($"ITreeBuilder<{byArgs}> By<TNewNode>(Expression<Func<TNode{i}, TNewNode>> expression) where TNewNode : notnull;");
+                        }
 
-                if (i >= 1)
-                {
-                    var byArgs = GetArgumentList("TNode{0}", i - 1, hasFollowingArguments: true) + "TNewNode";
-                    sb
-                        .AppendLine()
-                        .AppendLine($"        ITreeBuilder<{byArgs}> By<TNewNode>(Expression<Func<TNode{i}, TNewNode>> expression) where TNewNode : notnull;");
-                }
-
-                sb
-                    .AppendLine("    }")
-                    .AppendLine();
+                        return w;
+                    })
+                    .WriteLine();
             }
+
+            return writer;
         }
 
-        private static void GenerateTreeBuilderClass(StringBuilder sb)
+        private static CodeWriter GenerateTreeBuilderClass(CodeWriter writer)
         {
             var classTypeArgs = GetArgumentList("TNode{0}", MaxParameters);
 
-            sb
-                .AppendLine()
-                .AppendLine("    partial class GremlinQuery<T1, T2, T3, T4>")
-                .AppendLine("    {")
-                .AppendLine($"        private sealed partial class TreeBuilder<{classTypeArgs}> :");
+            return writer
+                .WriteLine()
+                .WriteLine("partial class GremlinQuery<T1, T2, T3, T4>")
+                .Block(w =>
+                {
+                    w = w
+                        .Write($"private sealed partial class TreeBuilder<{classTypeArgs}> :");
 
-            for (var i = 1; i <= MaxParameters; i++)
-            {
-                sb
-                    .AppendLine($"            ITreeBuilder<{GetArgumentList("TNode{0}", i)}>,");
-            }
+                    for (var i = 1; i <= MaxParameters; i++)
+                    {
+                        w = w
+                            .WriteLine()
+                            .Indent(w2 => w2
+                                .Write($"ITreeBuilder<{GetArgumentList("TNode{0}", i)}>,"));
+                    }
 
-            sb
-                .AppendLine("            ITreeBuilder");
+                    w = w
+                        .WriteLine()
+                        .Indent(w2 => w2
+                            .Write("ITreeBuilder"));
 
-            for (var i = 1; i <= MaxParameters; i++)
-            {
-                sb
-                    .AppendLine($"                where TNode{i} : notnull");
-            }
+                    for (var i = 1; i <= MaxParameters; i++)
+                    {
+                        w = w
+                            .WriteLine()
+                            .Indent(w2 => w2
+                                .Indent(w3 => w3
+                                    .Write($"where TNode{i} : notnull")));
+                    }
 
-            sb
-                .AppendLine("        {");
-
-            GenerateOfOverloads(sb);
-            GenerateByOverloads(sb);
-            GenerateBuildOverloads(sb);
-
-            sb
-                .AppendLine("        }")
-                .AppendLine("    }");
+                    return w
+                        .WriteLine()
+                        .Block(w2 => w2
+                            .Do(GenerateOfOverloads)
+                            .Do(GenerateByOverloads)
+                            .Do(GenerateBuildOverloads));
+                });
         }
 
-        private static void GenerateOfOverloads(StringBuilder sb)
+        private static CodeWriter GenerateOfOverloads(CodeWriter writer)
         {
             for (var i = 0; i < MaxParameters; i++)
             {
@@ -123,16 +134,17 @@ namespace ExRam.Gremlinq.Core.Generators
                 var returnArgs = GetArgumentList("TNode{0}", i, hasFollowingArguments: true) + "TNewNode";
                 var ctorArgs = GetArgumentList("TNode{0}", i, hasFollowingArguments: true) + "TNewNode" + GetArgumentList("object", MaxParameters - 1 - i, hasPreceedingArguments: true);
 
-                sb
-                    .AppendLine()
-                    .AppendLine($"            ITreeBuilder<{returnArgs}> ITreeBuilder{interfaceGenericArgs}.Of<TNewNode>()")
-                    .AppendLine("            {")
-                    .AppendLine($"                return new TreeBuilder<{ctorArgs}>(_sourceQuery, _bySteps.Push(TreeStep.ByIdentityStep.Instance));")
-                    .AppendLine("            }");
+                writer = writer
+                    .WriteLine()
+                    .WriteLine($"ITreeBuilder<{returnArgs}> ITreeBuilder{interfaceGenericArgs}.Of<TNewNode>()")
+                    .Block(w => w
+                        .WriteLine($"return new TreeBuilder<{ctorArgs}>(_sourceQuery, _bySteps.Push(TreeStep.ByIdentityStep.Instance));"));
             }
+
+            return writer;
         }
 
-        private static void GenerateByOverloads(StringBuilder sb)
+        private static CodeWriter GenerateByOverloads(CodeWriter writer)
         {
             for (var i = 1; i <= MaxParameters; i++)
             {
@@ -140,25 +152,28 @@ namespace ExRam.Gremlinq.Core.Generators
                 var returnArgs = GetArgumentList("TNode{0}", i - 1, hasFollowingArguments: true) + " TNewNode";
                 var ctorArgs = GetArgumentList("TNode{0}", i - 1, hasFollowingArguments: true) + "TNewNode" + GetArgumentList("object", MaxParameters - i, hasPreceedingArguments: true);
 
-                sb
-                    .AppendLine()
-                    .AppendLine($"            ITreeBuilder<{returnArgs}> ITreeBuilder<{interfaceArgs}>.By<TNewNode>(Expression<Func<TNode{i}, TNewNode>> expression)")
-                    .AppendLine("            {")
-                    .AppendLine($"                return new TreeBuilder<{ctorArgs}>(_sourceQuery, _bySteps.Pop().Push(new TreeStep.ByKeyStep(_sourceQuery.GetKey(expression))));")
-                    .AppendLine("            }");
+                writer = writer
+                    .WriteLine()
+                    .WriteLine($"ITreeBuilder<{returnArgs}> ITreeBuilder<{interfaceArgs}>.By<TNewNode>(Expression<Func<TNode{i}, TNewNode>> expression)")
+                    .Block(w => w
+                        .WriteLine($"return new TreeBuilder<{ctorArgs}>(_sourceQuery, _bySteps.Pop().Push(new TreeStep.ByKeyStep(_sourceQuery.GetKey(expression))));"));
             }
+
+            return writer;
         }
 
-        private static void GenerateBuildOverloads(StringBuilder sb)
+        private static CodeWriter GenerateBuildOverloads(CodeWriter writer)
         {
             for (var i = 1; i <= MaxParameters; i++)
             {
                 var treeType = GetTreeTypeName(i);
 
-                sb
-                    .AppendLine()
-                    .AppendLine($"            IGremlinQuery<{treeType}> ITreeBuilderResult<{treeType}>.Build() => Build<{treeType}>();");
+                writer = writer
+                    .WriteLine()
+                    .WriteLine($"IGremlinQuery<{treeType}> ITreeBuilderResult<{treeType}>.Build() => Build<{treeType}>();");
             }
+
+            return writer;
         }
 
         private static string GetTreeTypeName(int parameterCount)
@@ -174,6 +189,5 @@ namespace ExRam.Gremlinq.Core.Generators
 
             return $"Tree<TNode{firstParameter}, {GetTreeTypeName(firstParameter + 1, lastParameter)}>";
         }
-
-        }
+    }
 }
