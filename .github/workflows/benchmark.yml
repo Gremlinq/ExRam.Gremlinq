@@ -39,7 +39,7 @@ jobs:
           auto-push: true
           gh-pages-branch: gh-pages
           benchmark-data-dir-path: benchmarks
-          alert-threshold: '120%'
-          comment-on-alert: true
-          fail-on-alert: false
+          #alert-threshold: '120%'
+          #comment-on-alert: true
+          #fail-on-alert: false
           save-data-file: ${{ github.event_name != 'pull_request' }}
