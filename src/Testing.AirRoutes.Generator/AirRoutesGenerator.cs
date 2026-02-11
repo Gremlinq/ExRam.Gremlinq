@@ -3,6 +3,8 @@
 
 using System.Xml.Serialization;
 
+using ExRam.Gremlinq.Core.Generators;
+
 using Microsoft.CodeAnalysis;
 
 namespace ExRam.Gremlinq.Testing.AirRoutes.Generator

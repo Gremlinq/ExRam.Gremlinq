@@ -1,4 +1,4 @@
-﻿namespace ExRam.Gremlinq.Testing.AirRoutes.Generator
+﻿namespace ExRam.Gremlinq.Core.Generators
 {
     internal readonly struct CodeWriter
     {
