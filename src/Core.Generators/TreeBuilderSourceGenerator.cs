@@ -1,9 +1,7 @@
 ﻿using System.Text;
 using Microsoft.CodeAnalysis;
 
-#nullable enable
-
-namespace ExRam.Gremlinq.Core.Generator
+namespace ExRam.Gremlinq.Core.Generators
 {
     [Generator]
     public class TreeBuilderSourceGenerator : IIncrementalGenerator

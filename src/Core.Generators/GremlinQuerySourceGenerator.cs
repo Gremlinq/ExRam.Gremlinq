@@ -1,7 +1,7 @@
 ﻿using System.Text;
 using Microsoft.CodeAnalysis;
 
-namespace ExRam.Gremlinq.Core.Generator
+namespace ExRam.Gremlinq.Core.Generators
 {
     [Generator]
     public class GremlinQuerySourceGenerator : IIncrementalGenerator
