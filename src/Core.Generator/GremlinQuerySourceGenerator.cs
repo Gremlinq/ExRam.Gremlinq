@@ -1,8 +1,6 @@
 ﻿using System.Text;
 using Microsoft.CodeAnalysis;
 
-#nullable enable
-
 namespace ExRam.Gremlinq.Core.Generator
 {
     [Generator]
