@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Text;
 using Microsoft.CodeAnalysis;
 
 #nullable enable
@@ -141,7 +138,7 @@ namespace ExRam.Gremlinq.Core.Generator
                     .AppendLine($"        TTargetQuery IGremlinQueryBaseRec<{iface}>.Choose<TTargetQuery>(Func<{iface}, IGremlinQueryBase> traversalPredicate, Func<{iface}, TTargetQuery> trueChoice, Func<{iface}, TTargetQuery> falseChoice) => Choose<TTargetQuery, TTargetQuery, TTargetQuery>(traversalPredicate, trueChoice, falseChoice);")
                     .AppendLine($"        {iface} IGremlinQueryBaseRec<{iface}>.Choose(Func<{iface}, IGremlinQueryBase> traversalPredicate, Func<{iface}, {iface}> trueChoice) => Choose<{iface}, {iface}, {iface}>(traversalPredicate, trueChoice);")
                     .AppendLine($"        IGremlinQuery<object> IGremlinQueryBaseRec<{iface}>.Choose(Func<{iface}, IGremlinQueryBase> traversalPredicate, Func<{iface}, IGremlinQueryBase> trueChoice) => Choose<IGremlinQueryBase, IGremlinQueryBase, IGremlinQuery<object>>(traversalPredicate, trueChoice);")
-                    .AppendLine("        ")
+                    .AppendLine()
                     .AppendLine($"        TTargetQuery IGremlinQueryBaseRec<{iface}>.Choose<TTargetQuery>(Func<IChooseBuilder<{iface}>, IChooseBuilderWithCaseOrDefault<TTargetQuery>> continuation) => Choose<TTargetQuery>(continuation);")
                     .AppendLine()
                     .AppendLine($"        TTargetQuery IGremlinQueryBaseRec<T1, {iface}>.Choose<TTargetQuery>(Expression<Func<T1, bool>> predicate, Func<{iface}, TTargetQuery> trueChoice, Func<{iface}, TTargetQuery> falseChoice) => Choose<TTargetQuery, TTargetQuery, TTargetQuery>(predicate, trueChoice, falseChoice);")
