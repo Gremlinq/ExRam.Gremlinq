@@ -1,16 +1,7 @@
 name: Benchmark
 
 on:
-  push:
-    branches: [ 13.x ]
-    paths-ignore:
-      - '**/*.md'
-      - '**/*.txt'
   pull_request:
-    branches: [ 13.x ]
-    paths-ignore:
-      - '**/*.md'
-      - '**/*.txt'
   workflow_dispatch:
 
 permissions:
