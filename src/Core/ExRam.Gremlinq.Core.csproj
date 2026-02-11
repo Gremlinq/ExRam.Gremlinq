@@ -27,12 +27,6 @@
       <LastGenOutput>TreeBuilder.cs</LastGenOutput>
       <Generator>TextTemplatingFileGenerator</Generator>
     </None>
-
-    <Compile Update="Queries/T4/TreeBuilder.cs">
-      <DependentUpon>TreeBuilder.tt</DependentUpon>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
   </ItemGroup>
   
 </Project>
