@@ -43,6 +43,7 @@
   <Project Path="src/Support.NewtonsoftJson.AspNet/ExRam.Gremlinq.Support.NewtonsoftJson.AspNet.csproj" />
   <Project Path="src/Support.NewtonsoftJson/ExRam.Gremlinq.Support.NewtonsoftJson.csproj" />
   <Project Path="src/Support.TestContainers/ExRam.Gremlinq.Support.TestContainers.csproj" />
+  <Project Path="src/Core.Generator/ExRam.Gremlinq.Core.Generator.csproj" />
   <Project Path="src/Testing.AirRoutes.Generator/ExRam.Gremlinq.Testing.AirRoutes.Generator.csproj" />
   <Project Path="src/Testing.AirRoutes/ExRam.Gremlinq.Testing.AirRoutes.csproj" />
   <Project Path="templates/ExRam.Gremlinq.Templates.csproj" />
