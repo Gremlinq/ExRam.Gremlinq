@@ -34,7 +34,7 @@ namespace ExRam.Gremlinq.Core.Generators
         {
             for (var i = 0; i <= 16; i++)
             {
-                var typeArgs = GetArgumentList("TItem{0}", i, hasPreceedingArguments: true);
+                var typeArgs = GetArgumentList("TItem{0}", i, hasPrecedingArguments: true);
 
                 sb
                     .AppendLine($"    public interface IProjectTupleBuilder<out TSourceQuery, TElement{typeArgs}>");
@@ -103,9 +103,9 @@ namespace ExRam.Gremlinq.Core.Generators
             for (var i = 0; i < 16; i++)
             {
                 var returnTypeArgs = GetArgumentList("TItem{0}", i, hasFollowingArguments: true) + $" TNewItem{i + 1}";
-                var interfaceTypeArgs = GetArgumentList("TItem{0}", i, hasPreceedingArguments: true);
-                var byLambdaArgs = GetArgumentList("TItem{0}", i, hasFollowingArguments: true) + $"TNewItem{i + 1}" + GetArgumentList("object", 15 - i, hasPreceedingArguments: true);
-                var byExpressionArgs = GetArgumentList("TItem{0}", i, hasFollowingArguments: true) + $"TNewItem{i + 1}" + GetArgumentList("object", 15 - i, hasPreceedingArguments: true);
+                var interfaceTypeArgs = GetArgumentList("TItem{0}", i, hasPrecedingArguments: true);
+                var byLambdaArgs = GetArgumentList("TItem{0}", i, hasFollowingArguments: true) + $"TNewItem{i + 1}" + GetArgumentList("object", 15 - i, hasPrecedingArguments: true);
+                var byExpressionArgs = GetArgumentList("TItem{0}", i, hasFollowingArguments: true) + $"TNewItem{i + 1}" + GetArgumentList("object", 15 - i, hasPrecedingArguments: true);
 
                 sb
                     .AppendLine()
@@ -134,9 +134,9 @@ namespace ExRam.Gremlinq.Core.Generators
             }
         }
 
-        private static string GetArgumentList(string template, int argumentCount, bool hasPreceedingArguments = false, bool hasFollowingArguments = false)
+        private static string GetArgumentList(string template, int argumentCount, bool hasPrecedingArguments = false, bool hasFollowingArguments = false)
         {
-            return GetArgumentList(template, ", ", argumentCount, hasPreceedingArguments, hasFollowingArguments);
+            return GetArgumentList(template, ", ", argumentCount, hasPrecedingArguments, hasFollowingArguments);
         }
 
         private static string GetArgumentList(string template, string separator, int argumentCount, bool hasPreceedingArguments = false, bool hasFollowingArguments = false)
