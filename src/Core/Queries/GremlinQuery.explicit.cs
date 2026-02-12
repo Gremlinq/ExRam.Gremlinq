@@ -410,6 +410,36 @@ namespace ExRam.Gremlinq.Core
 
         IVertexGremlinQuery<object> IVertexGremlinQueryBase.Both<TEdge>() => Both(TypeArrayCache<TEdge>.Types);
 
+        IVertexGremlinQuery<object> IVertexGremlinQueryBase.Both<TEdge1, TEdge2>() => Both(TypeArrayCache<TEdge1, TEdge2>.Types);
+
+        IVertexGremlinQuery<object> IVertexGremlinQueryBase.Both<TEdge1, TEdge2, TEdge3>() => Both(TypeArrayCache<TEdge1, TEdge2, TEdge3>.Types);
+
+        IVertexGremlinQuery<object> IVertexGremlinQueryBase.Both<TEdge1, TEdge2, TEdge3, TEdge4>() => Both(TypeArrayCache<TEdge1, TEdge2, TEdge3, TEdge4>.Types);
+
+        IVertexGremlinQuery<object> IVertexGremlinQueryBase.Both<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5>() => Both(TypeArrayCache<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5>.Types);
+
+        IVertexGremlinQuery<object> IVertexGremlinQueryBase.Both<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6>() => Both(TypeArrayCache<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6>.Types);
+
+        IVertexGremlinQuery<object> IVertexGremlinQueryBase.Both<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7>() => Both(TypeArrayCache<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7>.Types);
+
+        IVertexGremlinQuery<object> IVertexGremlinQueryBase.Both<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7, TEdge8>() => Both(TypeArrayCache<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7, TEdge8>.Types);
+
+        IVertexGremlinQuery<object> IVertexGremlinQueryBase.Both<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7, TEdge8, TEdge9>() => Both(TypeArrayCache<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7, TEdge8, TEdge9>.Types);
+
+        IVertexGremlinQuery<object> IVertexGremlinQueryBase.Both<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7, TEdge8, TEdge9, TEdge10>() => Both(TypeArrayCache<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7, TEdge8, TEdge9, TEdge10>.Types);
+
+        IVertexGremlinQuery<object> IVertexGremlinQueryBase.Both<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7, TEdge8, TEdge9, TEdge10, TEdge11>() => Both(TypeArrayCache<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7, TEdge8, TEdge9, TEdge10, TEdge11>.Types);
+
+        IVertexGremlinQuery<object> IVertexGremlinQueryBase.Both<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7, TEdge8, TEdge9, TEdge10, TEdge11, TEdge12>() => Both(TypeArrayCache<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7, TEdge8, TEdge9, TEdge10, TEdge11, TEdge12>.Types);
+
+        IVertexGremlinQuery<object> IVertexGremlinQueryBase.Both<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7, TEdge8, TEdge9, TEdge10, TEdge11, TEdge12, TEdge13>() => Both(TypeArrayCache<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7, TEdge8, TEdge9, TEdge10, TEdge11, TEdge12, TEdge13>.Types);
+
+        IVertexGremlinQuery<object> IVertexGremlinQueryBase.Both<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7, TEdge8, TEdge9, TEdge10, TEdge11, TEdge12, TEdge13, TEdge14>() => Both(TypeArrayCache<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7, TEdge8, TEdge9, TEdge10, TEdge11, TEdge12, TEdge13, TEdge14>.Types);
+
+        IVertexGremlinQuery<object> IVertexGremlinQueryBase.Both<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7, TEdge8, TEdge9, TEdge10, TEdge11, TEdge12, TEdge13, TEdge14, TEdge15>() => Both(TypeArrayCache<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7, TEdge8, TEdge9, TEdge10, TEdge11, TEdge12, TEdge13, TEdge14, TEdge15>.Types);
+
+        IVertexGremlinQuery<object> IVertexGremlinQueryBase.Both<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7, TEdge8, TEdge9, TEdge10, TEdge11, TEdge12, TEdge13, TEdge14, TEdge15, TEdge16>() => Both(TypeArrayCache<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7, TEdge8, TEdge9, TEdge10, TEdge11, TEdge12, TEdge13, TEdge14, TEdge15, TEdge16>.Types);
+
         IEdgeGremlinQuery<object> IVertexGremlinQueryBase.BothE() => BothE();
 
         IEdgeGremlinQuery<TEdge> IVertexGremlinQueryBase.BothE<TEdge>() => BothE<TEdge>();
