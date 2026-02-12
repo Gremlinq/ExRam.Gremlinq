@@ -307,5 +307,11 @@ namespace ExRam.Gremlinq.Core.Tests
             .V<Person>()
             .Both<Edge1, Edge2, Edge3, Edge4, Edge5, Edge6, Edge7, Edge8, Edge9, Edge10, Edge11, Edge12, Edge13, Edge14, Edge15, Edge16>()
             .Verify();
+
+        [Fact]
+        public virtual Task Labels_are_distinct() => _g
+            .V<Person>()
+            .Out<Edge1, Edge2, Edge3, Edge1, Edge2, Edge3, Edge4, Edge5, Edge5, Edge6>()
+            .Verify();
     }
 }
