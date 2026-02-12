@@ -47,7 +47,7 @@ namespace ExRam.Gremlinq.Core.Tests
             var model = GraphModel.FromBaseTypes<Vertex, Edge>();
 
             await Verify(model.VerticesModel
-                .TryGetFilterLabels(typeof(Authority), FilterLabelsVerbosity.Maximum) ?? ImmutableArray<string>.Empty);
+                .GetFilterLabels(typeof(Authority), FilterLabelsVerbosity.Maximum));
         }
 
         [Fact]
@@ -380,12 +380,12 @@ namespace ExRam.Gremlinq.Core.Tests
             var a = GraphModel
                 .FromBaseTypes<NonAbstractBaseVertex, NonAbstractBaseEdge>()
                 .VerticesModel
-                .TryGetFilterLabels(typeof(NonAbstractBaseVertex), FilterLabelsVerbosity.Maximum);
+                .GetFilterLabels(typeof(NonAbstractBaseVertex), FilterLabelsVerbosity.Maximum);
 
             await Verify(GraphModel
                 .FromBaseTypes<NonAbstractBaseVertex, NonAbstractBaseEdge>()
                 .VerticesModel
-                .TryGetFilterLabels(typeof(NonAbstractBaseVertex), FilterLabelsVerbosity.Maximum));
+                .GetFilterLabels(typeof(NonAbstractBaseVertex), FilterLabelsVerbosity.Maximum));
         }
     }
 }

@@ -36,7 +36,8 @@ namespace ExRam.Gremlinq.Core
             {
                 if (typeof(TNewElement) != typeof(object) && (force || !typeof(TNewElement).IsAssignableFrom(typeof(TElement))))
                 {
-                    var labels = model.TryGetFilterLabels(typeof(TNewElement), builder.OuterQuery.Environment.Options.GetValue(GremlinqOption.FilterLabelsVerbosity)) ?? ImmutableArray.Create(typeof(TNewElement).Name);
+                    var labels = model
+                        .GetFilterLabels(typeof(TNewElement), builder.OuterQuery.Environment.Options.GetValue(GremlinqOption.FilterLabelsVerbosity));
 
                     if (labels.Length > 0)
                         builder = builder.AddStep(new HasLabelStep(labels));

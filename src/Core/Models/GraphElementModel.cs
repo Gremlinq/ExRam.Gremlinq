@@ -185,12 +185,14 @@ namespace ExRam.Gremlinq.Core.Models
                 metadata.SerializationBehaviour)
             : metadata);
 
-        internal static ImmutableArray<string>? TryGetFilterLabels(this IGraphElementModel model, Type type, FilterLabelsVerbosity verbosity)
+        internal static ImmutableArray<string> GetFilterLabels(this IGraphElementModel model, Type type, FilterLabelsVerbosity verbosity)
         {
-            var labels = model.GetCache().GetDerivedLabels(type);
+            var labels = model
+                .GetCache()
+                .GetDerivedLabels(type);
 
             return labels.IsEmpty
-                ? null
+                ? ImmutableArray.Create(type.Name)
                 : labels.Length == model.ElementTypes.Count && verbosity == FilterLabelsVerbosity.Minimum
                     ? ImmutableArray<string>.Empty
                     : labels;
@@ -198,6 +200,6 @@ namespace ExRam.Gremlinq.Core.Models
 
         internal static IGraphElementModel FromBaseType<TType>() => GraphElementModelImpl<TType>.Empty.AddAssemblies(typeof(TType).Assembly);
 
-        internal static ImmutableArray<string> GetFilterLabelsOrDefault(this IGraphElementModel model, Type type, FilterLabelsVerbosity verbosity) => model.TryGetFilterLabels(type, verbosity) ?? ImmutableArray.Create(type.Name);
+        internal static ImmutableArray<string> GetFilterLabelsOrDefault(this IGraphElementModel model, Type type, FilterLabelsVerbosity verbosity) => model.GetFilterLabels(type, verbosity);
     }
 }
