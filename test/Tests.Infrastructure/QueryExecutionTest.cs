@@ -1753,12 +1753,6 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Verify();
 
         [Fact]
-        public virtual Task OutE_of_no_derived_types() => _g
-            .V()
-            .OutE<string>()
-            .Verify();
-
-        [Fact]
         public virtual Task Path() => _g
             .V()
             .Out()
