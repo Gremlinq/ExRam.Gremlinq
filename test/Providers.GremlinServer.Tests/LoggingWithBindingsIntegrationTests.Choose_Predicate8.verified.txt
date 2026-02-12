@@ -3,13 +3,13 @@
     log: {
       Level: Debug,
       Category: LoggingFixture,
-      Message: Executing Gremlin query 12345678-9012-3456-7890-123456789012 with groovy script g.V().hasLabel(_a,_b,_c,_d,_e).choose(__.has(id,_f),__.constant(_g),__.constant(_h)) and parameter bindings [_a, Company], [_b, Country], [_c, Language], [_d, Person], [_e, TimeFrame], [_f, 42], [_g, True], [_h, False].,
+      Message: Executing Gremlin query 12345678-9012-3456-7890-123456789012 with groovy script g.V().hasLabel(_a,_b,_c,_d,_e,_f).choose(__.has(id,_g),__.constant(_h),__.constant(_i)) and parameter bindings [_a, Company], [_b, Country], [_c, EntityWithTwoIntProperties], [_d, Language], [_e, Person], [_f, TimeFrame], [_g, 42], [_h, True], [_i, False].,
       State: [
         {
           requestId: 12345678-9012-3456-7890-123456789012
         },
         {
-          script: g.V().hasLabel(_a,_b,_c,_d,_e).choose(__.has(id,_f),__.constant(_g),__.constant(_h))
+          script: g.V().hasLabel(_a,_b,_c,_d,_e,_f).choose(__.has(id,_g),__.constant(_h),__.constant(_i))
         },
         {
           bindings: {}

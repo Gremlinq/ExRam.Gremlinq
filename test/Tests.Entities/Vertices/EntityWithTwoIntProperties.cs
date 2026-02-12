@@ -1,6 +1,6 @@
 ﻿namespace ExRam.Gremlinq.Tests.Entities
 {
-    public class EntityWithTwoIntProperties
+    public class EntityWithTwoIntProperties : Vertex
     {
         public int IntProperty1 { get; set; }
 

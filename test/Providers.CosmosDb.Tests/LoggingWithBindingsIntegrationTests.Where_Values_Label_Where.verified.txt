@@ -9,7 +9,7 @@
           requestId: 12345678-9012-3456-7890-123456789012
         },
         {
-          script: g.V().hasLabel(_a,_b,_c,_d,_e).has(label,_d)
+          script: g.V().hasLabel(_a,_b,_c,_d,_e,_f).has(label,_e)
         },
         {
           bindings: {}

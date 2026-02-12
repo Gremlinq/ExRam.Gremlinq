@@ -1,10 +1,11 @@
 ﻿{
-  Script: g.V().hasLabel(_a,_b,_c,_d,_e).has(label,_d),
+  Script: g.V().hasLabel(_a,_b,_c,_d,_e,_f).has(label,_e),
   Bindings: {
     _a: Company,
     _b: Country,
-    _c: Language,
-    _d: Person,
-    _e: TimeFrame
+    _c: EntityWithTwoIntProperties,
+    _d: Language,
+    _e: Person,
+    _f: TimeFrame
   }
 }

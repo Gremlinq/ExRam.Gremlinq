@@ -3,13 +3,13 @@
     log: {
       Level: Debug,
       Category: LoggingFixture,
-      Message: Executing Gremlin query 12345678-9012-3456-7890-123456789012 with groovy script g.V().hasLabel(_a,_b,_c,_d,_e).has(label,_f).project(_g,_h,_i).by(id).by(label).by(__.properties().group().by(label).by(__.project(_j,_k,_l,_m).by(id).by(label).by(value).by(__.valueMap()).fold())) and parameter bindings [_a, Company], [_b, Country], [_c, Language], [_d, Person], [_e, TimeFrame], [_f, Person], [_g, id], [_h, label], [_i, properties], [_j, id], [_k, label], [_l, value], [_m, properties].,
+      Message: Executing Gremlin query 12345678-9012-3456-7890-123456789012 with groovy script g.V().hasLabel(_a,_b,_c,_d,_e,_f).has(label,_g).project(_h,_i,_j).by(id).by(label).by(__.properties().group().by(label).by(__.project(_k,_l,_m,_n).by(id).by(label).by(value).by(__.valueMap()).fold())) and parameter bindings [_a, Company], [_b, Country], [_c, EntityWithTwoIntProperties], [_d, Language], [_e, Person], [_f, TimeFrame], [_g, Person], [_h, id], [_i, label], [_j, properties], [_k, id], [_l, label], [_m, value], [_n, properties].,
       State: [
         {
           requestId: 12345678-9012-3456-7890-123456789012
         },
         {
-          script: g.V().hasLabel(_a,_b,_c,_d,_e).has(label,_f).project(_g,_h,_i).by(id).by(label).by(__.properties().group().by(label).by(__.project(_j,_k,_l,_m).by(id).by(label).by(value).by(__.valueMap()).fold()))
+          script: g.V().hasLabel(_a,_b,_c,_d,_e,_f).has(label,_g).project(_h,_i,_j).by(id).by(label).by(__.properties().group().by(label).by(__.project(_k,_l,_m,_n).by(id).by(label).by(value).by(__.valueMap()).fold()))
         },
         {
           bindings: {}

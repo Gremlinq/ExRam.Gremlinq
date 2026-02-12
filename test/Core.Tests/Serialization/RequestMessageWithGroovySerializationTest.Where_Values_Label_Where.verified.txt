@@ -9,14 +9,15 @@
     bindings: {
       _a: Company,
       _b: Country,
-      _c: Language,
-      _d: Person,
-      _e: TimeFrame,
-      _f: id,
-      _g: label,
-      _h: properties,
-      _i: value
+      _c: EntityWithTwoIntProperties,
+      _d: Language,
+      _e: Person,
+      _f: TimeFrame,
+      _g: id,
+      _h: label,
+      _i: properties,
+      _j: value
     },
-    gremlin: g.V().hasLabel(_a,_b,_c,_d,_e).has(label,_d).project(_f,_g,_h).by(id).by(label).by(__.properties().group().by(label).by(__.project(_f,_g,_i,_h).by(id).by(label).by(value).by(__.valueMap()).fold()))
+    gremlin: g.V().hasLabel(_a,_b,_c,_d,_e,_f).has(label,_e).project(_g,_h,_i).by(id).by(label).by(__.properties().group().by(label).by(__.project(_g,_h,_j,_i).by(id).by(label).by(value).by(__.valueMap()).fold()))
   }
 }
