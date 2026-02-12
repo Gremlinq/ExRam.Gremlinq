@@ -42,7 +42,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task TryGetFilterLabels_does_not_include_abstract_type()
+        public async Task GetFilterLabels_does_not_include_abstract_type()
         {
             var model = GraphModel.FromBaseTypes<Vertex, Edge>();
 
