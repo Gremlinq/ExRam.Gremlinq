@@ -318,7 +318,7 @@ namespace ExRam.Gremlinq.Core
         private GremlinQuery<object, object, object, IGremlinQueryBase> Both<TEdge>() => this
             .Continue()
             .Build(static builder => builder
-                .AddStep(new BothStep(builder.OuterQuery.Environment.Model.EdgesModel.GetFilterLabelsOrDefault(typeof(TEdge), builder.OuterQuery.Environment.Options.GetValue(GremlinqOption.FilterLabelsVerbosity))))
+                .AddStep(new BothStep(builder.OuterQuery.Environment.Model.EdgesModel.GetFilterLabels(typeof(TEdge), builder.OuterQuery.Environment.Options.GetValue(GremlinqOption.FilterLabelsVerbosity))))
                 .BuildAuto());
 
         private GremlinQuery<object, object, object, IGremlinQueryBase> BothE() => this
@@ -331,7 +331,7 @@ namespace ExRam.Gremlinq.Core
         private GremlinQuery<TEdge, object, object, IGremlinQueryBase> BothE<TEdge>() => this
             .Continue()
             .Build(static builder => builder
-                .AddStep(new BothEStep(builder.OuterQuery.Environment.Model.EdgesModel.GetFilterLabelsOrDefault(typeof(TEdge), builder.OuterQuery.Environment.Options.GetValue(GremlinqOption.FilterLabelsVerbosity))))
+                .AddStep(new BothEStep(builder.OuterQuery.Environment.Model.EdgesModel.GetFilterLabels(typeof(TEdge), builder.OuterQuery.Environment.Options.GetValue(GremlinqOption.FilterLabelsVerbosity))))
                 .WithNewProjection(Projection.Edge)
                 .BuildAuto<TEdge>());
 
@@ -764,7 +764,7 @@ namespace ExRam.Gremlinq.Core
             .Continue()
             .Build(
                 static (builder, edgeType) => builder
-                    .AddStep(new InStep(builder.OuterQuery.Environment.Model.EdgesModel.GetFilterLabelsOrDefault(edgeType, builder.OuterQuery.Environment.Options.GetValue(GremlinqOption.FilterLabelsVerbosity))))
+                    .AddStep(new InStep(builder.OuterQuery.Environment.Model.EdgesModel.GetFilterLabels(edgeType, builder.OuterQuery.Environment.Options.GetValue(GremlinqOption.FilterLabelsVerbosity))))
                     .BuildAuto(),
                 edgeType);
 
@@ -778,7 +778,7 @@ namespace ExRam.Gremlinq.Core
         private GremlinQuery<TEdge, object, T1, IGremlinQueryBase> InE<TEdge>() => this
             .Continue()
             .Build(static builder => builder
-                .AddStep(new InEStep(builder.OuterQuery.Environment.Model.EdgesModel.GetFilterLabelsOrDefault(typeof(TEdge), builder.OuterQuery.Environment.Options.GetValue(GremlinqOption.FilterLabelsVerbosity))))
+                .AddStep(new InEStep(builder.OuterQuery.Environment.Model.EdgesModel.GetFilterLabels(typeof(TEdge), builder.OuterQuery.Environment.Options.GetValue(GremlinqOption.FilterLabelsVerbosity))))
                 .WithNewProjection(Projection.Edge)
                 .BuildAuto<TEdge, object, T1>());
 
@@ -1006,7 +1006,7 @@ namespace ExRam.Gremlinq.Core
             .Continue()
             .Build(
                 static (builder, edgeType) => builder
-                    .AddStep(new OutStep(builder.OuterQuery.Environment.Model.EdgesModel.GetFilterLabelsOrDefault(edgeType, builder.OuterQuery.Environment.Options.GetValue(GremlinqOption.FilterLabelsVerbosity))))
+                    .AddStep(new OutStep(builder.OuterQuery.Environment.Model.EdgesModel.GetFilterLabels(edgeType, builder.OuterQuery.Environment.Options.GetValue(GremlinqOption.FilterLabelsVerbosity))))
                     .BuildAuto(),
                 edgeType);
 
@@ -1020,7 +1020,7 @@ namespace ExRam.Gremlinq.Core
         private GremlinQuery<TEdge, T1, object, IGremlinQueryBase> OutE<TEdge>() => this
             .Continue()
             .Build(static builder => builder
-                .AddStep(new OutEStep(builder.OuterQuery.Environment.Model.EdgesModel.GetFilterLabelsOrDefault(typeof(TEdge), builder.OuterQuery.Environment.Options.GetValue(GremlinqOption.FilterLabelsVerbosity))))
+                .AddStep(new OutEStep(builder.OuterQuery.Environment.Model.EdgesModel.GetFilterLabels(typeof(TEdge), builder.OuterQuery.Environment.Options.GetValue(GremlinqOption.FilterLabelsVerbosity))))
                 .WithNewProjection(Projection.Edge)
                 .BuildAuto<TEdge, T1>());
 
