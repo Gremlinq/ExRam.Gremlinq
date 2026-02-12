@@ -408,7 +408,7 @@ namespace ExRam.Gremlinq.Core
 
         IVertexGremlinQuery<object> IVertexGremlinQueryBase.Both() => Both();
 
-        IVertexGremlinQuery<object> IVertexGremlinQueryBase.Both<TEdge>() => Both<TEdge>();
+        IVertexGremlinQuery<object> IVertexGremlinQueryBase.Both<TEdge>() => Both(typeof(TEdge));
 
         IEdgeGremlinQuery<object> IVertexGremlinQueryBase.BothE() => BothE();
 
