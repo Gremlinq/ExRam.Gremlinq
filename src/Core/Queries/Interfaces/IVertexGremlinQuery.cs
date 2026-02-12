@@ -41,6 +41,21 @@ namespace ExRam.Gremlinq.Core
 
         IVertexGremlinQuery<object> Out();
         IVertexGremlinQuery<object> Out<TEdge>();
+        IVertexGremlinQuery<object> Out<TEdge1, TEdge2>();
+        IVertexGremlinQuery<object> Out<TEdge1, TEdge2, TEdge3>();
+        IVertexGremlinQuery<object> Out<TEdge1, TEdge2, TEdge3, TEdge4>();
+        IVertexGremlinQuery<object> Out<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5>();
+        IVertexGremlinQuery<object> Out<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6>();
+        IVertexGremlinQuery<object> Out<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7>();
+        IVertexGremlinQuery<object> Out<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7, TEdge8>();
+        IVertexGremlinQuery<object> Out<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7, TEdge8, TEdge9>();
+        IVertexGremlinQuery<object> Out<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7, TEdge8, TEdge9, TEdge10>();
+        IVertexGremlinQuery<object> Out<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7, TEdge8, TEdge9, TEdge10, TEdge11>();
+        IVertexGremlinQuery<object> Out<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7, TEdge8, TEdge9, TEdge10, TEdge11, TEdge12>();
+        IVertexGremlinQuery<object> Out<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7, TEdge8, TEdge9, TEdge10, TEdge11, TEdge12, TEdge13>();
+        IVertexGremlinQuery<object> Out<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7, TEdge8, TEdge9, TEdge10, TEdge11, TEdge12, TEdge13, TEdge14>();
+        IVertexGremlinQuery<object> Out<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7, TEdge8, TEdge9, TEdge10, TEdge11, TEdge12, TEdge13, TEdge14, TEdge15>();
+        IVertexGremlinQuery<object> Out<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7, TEdge8, TEdge9, TEdge10, TEdge11, TEdge12, TEdge13, TEdge14, TEdge15, TEdge16>();
 
         IEdgeGremlinQuery<object> OutE();
         IEdgeGremlinQuery<TEdge> OutE<TEdge>();
