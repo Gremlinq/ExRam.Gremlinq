@@ -9,7 +9,7 @@ namespace ExRam.Gremlinq.Core.Tests
 {
     public class TypeSystemTest
     {
-        private sealed class Vertex
+        public sealed class Vertex
         {
             public string? String { get; }
             public string[]? Strings { get; }
@@ -27,7 +27,7 @@ namespace ExRam.Gremlinq.Core.Tests
             public VertexProperty<object, object>[]? MetaObjectVertexProperties { get; }
         }
 
-        private sealed class Edge
+        public sealed class Edge
         {
             public string? String { get; }
 
