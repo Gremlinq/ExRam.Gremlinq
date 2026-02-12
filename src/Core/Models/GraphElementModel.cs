@@ -192,7 +192,7 @@ namespace ExRam.Gremlinq.Core.Models
                 .GetDerivedLabels(type);
 
             return labels.IsEmpty
-                ? throw new InvalidOperationException($"The graph model neither contains '{type}', nor does it know of any type derived from {type}.")
+                ? throw new InvalidOperationException($"The graph model does not contain any non-abstract types assignable to '{type.FullName}'.")
                 : labels.Length == model.ElementTypes.Count && verbosity == FilterLabelsVerbosity.Minimum
                     ? ImmutableArray<string>.Empty
                     : labels;
