@@ -416,7 +416,7 @@ namespace ExRam.Gremlinq.Core
 
         IVertexGremlinQuery<object> IVertexGremlinQueryBase.In() => In();
 
-        IVertexGremlinQuery<object> IVertexGremlinQueryBase.In<TEdge>() => In<TEdge>();
+        IVertexGremlinQuery<object> IVertexGremlinQueryBase.In<TEdge>() => In(typeof(TEdge));
 
         IEdgeGremlinQuery<object> IVertexGremlinQueryBase.InE() => InE();
 
@@ -426,7 +426,7 @@ namespace ExRam.Gremlinq.Core
 
         IVertexGremlinQuery<object> IVertexGremlinQueryBase.Out() => Out();
 
-        IVertexGremlinQuery<object> IVertexGremlinQueryBase.Out<TEdge>() => Out<TEdge>();
+        IVertexGremlinQuery<object> IVertexGremlinQueryBase.Out<TEdge>() => Out(typeof(TEdge));
 
         IEdgeGremlinQuery<TEdge> IVertexGremlinQueryBase.OutE<TEdge>() => OutE<TEdge>();
 
