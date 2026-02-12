@@ -1,0 +1,143 @@
+﻿{
+  StepInstructions: [
+    {
+      OperatorName: V
+    },
+    {
+      OperatorName: hasLabel,
+      Arguments: [
+        Person
+      ]
+    },
+    {
+      OperatorName: in,
+      Arguments: [
+        Edge1,
+        Edge10,
+        Edge11,
+        Edge12,
+        Edge13,
+        Edge14,
+        Edge15,
+        Edge2,
+        Edge3,
+        Edge4,
+        Edge5,
+        Edge6,
+        Edge7,
+        Edge8,
+        Edge9
+      ]
+    },
+    {
+      OperatorName: project,
+      Arguments: [
+        id,
+        label,
+        properties
+      ]
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        {
+          EnumName: T,
+          EnumValue: id
+        }
+      ]
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        {
+          EnumName: T,
+          EnumValue: label
+        }
+      ]
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        {
+          StepInstructions: [
+            {
+              OperatorName: properties
+            },
+            {
+              OperatorName: group
+            },
+            {
+              OperatorName: by,
+              Arguments: [
+                {
+                  EnumName: T,
+                  EnumValue: label
+                }
+              ]
+            },
+            {
+              OperatorName: by,
+              Arguments: [
+                {
+                  StepInstructions: [
+                    {
+                      OperatorName: project,
+                      Arguments: [
+                        id,
+                        label,
+                        value,
+                        properties
+                      ]
+                    },
+                    {
+                      OperatorName: by,
+                      Arguments: [
+                        {
+                          EnumName: T,
+                          EnumValue: id
+                        }
+                      ]
+                    },
+                    {
+                      OperatorName: by,
+                      Arguments: [
+                        {
+                          EnumName: T,
+                          EnumValue: label
+                        }
+                      ]
+                    },
+                    {
+                      OperatorName: by,
+                      Arguments: [
+                        {
+                          EnumName: T,
+                          EnumValue: value
+                        }
+                      ]
+                    },
+                    {
+                      OperatorName: by,
+                      Arguments: [
+                        {
+                          StepInstructions: [
+                            {
+                              OperatorName: valueMap
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      OperatorName: fold
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
