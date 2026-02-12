@@ -185,14 +185,14 @@ namespace ExRam.Gremlinq.Core.Models
                 metadata.SerializationBehaviour)
             : metadata);
 
-        internal static ImmutableArray<string> GetFilterLabels(this IGraphElementModel model, Type type, FilterLabelsVerbosity verbosity)
+        internal static ImmutableArray<string> GetFilterLabels(this IGraphElementModel model, Type[] types, FilterLabelsVerbosity verbosity)
         {
             var labels = model
                 .GetCache()
-                .GetDerivedLabels(type);
+                .GetDerivedLabels(types);
 
             return labels.IsEmpty
-                ? throw new InvalidOperationException($"The graph model does not contain any non-abstract types assignable to '{type.FullName}'.")
+                ? throw new InvalidOperationException($"The graph model does not contain any non-abstract types assignable to '{types[0].FullName}'.")
                 : labels.Length == model.ElementTypes.Count && verbosity == FilterLabelsVerbosity.Minimum
                     ? ImmutableArray<string>.Empty
                     : labels;

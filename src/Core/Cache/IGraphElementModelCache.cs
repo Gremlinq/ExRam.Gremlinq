@@ -5,6 +5,7 @@ namespace ExRam.Gremlinq.Core
     internal interface IGraphElementModelCache
     {
         string GetLabel(Type type);
-        ImmutableArray<string> GetDerivedLabels(Type type);
+
+        ImmutableArray<string> GetDerivedLabels(Type[] types);
     }
 }

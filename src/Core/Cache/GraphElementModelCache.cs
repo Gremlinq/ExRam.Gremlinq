@@ -11,7 +11,7 @@ namespace ExRam.Gremlinq.Core
         {
             private readonly IGraphElementModel _model;
             private readonly ConcurrentDictionary<Type, string> _labels = new();
-            private readonly ConcurrentDictionary<Type, ImmutableArray<string>> _derivedLabels = new();
+            private readonly ConcurrentDictionary<Type[], ImmutableArray<string>> _derivedLabels = new();
 
             public GraphElementModelCacheImpl(IGraphElementModel model)
             {
@@ -31,13 +31,13 @@ namespace ExRam.Gremlinq.Core
                         _model);
             }
 
-            public ImmutableArray<string> GetDerivedLabels(Type type)
+            public ImmutableArray<string> GetDerivedLabels(Type[] types)
             {
                 return _derivedLabels
                     .GetOrAdd(
-                        type,
-                        static (closureType, closureModel) => closureModel.ElementTypes
-                            .Where(elementType => !elementType.IsAbstract && closureType.IsAssignableFrom(elementType))
+                        types,
+                        static (closureTypes, closureModel) => closureModel.ElementTypes
+                            .Where(elementType => !elementType.IsAbstract && closureTypes.Any(closureType => closureType.IsAssignableFrom(elementType)))
                             .Select(elementType => closureModel.GetMetadata(elementType).Label)
                             .OrderBy(static x => x)
                             .ToImmutableArray(),

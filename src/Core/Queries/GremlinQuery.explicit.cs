@@ -408,7 +408,7 @@ namespace ExRam.Gremlinq.Core
 
         IVertexGremlinQuery<object> IVertexGremlinQueryBase.Both() => Both();
 
-        IVertexGremlinQuery<object> IVertexGremlinQueryBase.Both<TEdge>() => Both(typeof(TEdge));
+        IVertexGremlinQuery<object> IVertexGremlinQueryBase.Both<TEdge>() => Both(TypeArrayCache<TEdge>.Types);
 
         IEdgeGremlinQuery<object> IVertexGremlinQueryBase.BothE() => BothE();
 
@@ -416,7 +416,7 @@ namespace ExRam.Gremlinq.Core
 
         IVertexGremlinQuery<object> IVertexGremlinQueryBase.In() => In();
 
-        IVertexGremlinQuery<object> IVertexGremlinQueryBase.In<TEdge>() => In(typeof(TEdge));
+        IVertexGremlinQuery<object> IVertexGremlinQueryBase.In<TEdge>() => In(TypeArrayCache<TEdge>.Types);
 
         IEdgeGremlinQuery<object> IVertexGremlinQueryBase.InE() => InE();
 
@@ -426,7 +426,7 @@ namespace ExRam.Gremlinq.Core
 
         IVertexGremlinQuery<object> IVertexGremlinQueryBase.Out() => Out();
 
-        IVertexGremlinQuery<object> IVertexGremlinQueryBase.Out<TEdge>() => Out(typeof(TEdge));
+        IVertexGremlinQuery<object> IVertexGremlinQueryBase.Out<TEdge>() => Out(TypeArrayCache<TEdge>.Types);
 
         IEdgeGremlinQuery<TEdge> IVertexGremlinQueryBase.OutE<TEdge>() => OutE<TEdge>();
 
