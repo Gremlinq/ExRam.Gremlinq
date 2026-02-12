@@ -18,6 +18,14 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public virtual void OutE_of_no_derived_types() => _g
+            .V()
+            .Invoking(_ => _
+                .OutE<string>())
+            .Should()
+            .Throw<InvalidOperationException>();
+
+        [Fact]
         public virtual void VertexProperty_throws_on_null_value()
         {
             default(int)
