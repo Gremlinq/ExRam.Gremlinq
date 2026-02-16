@@ -35,7 +35,7 @@ jobs:
           name: ExRam.Gremlinq Benchmarks
           tool: 'benchmarkdotnet'
           output-file-path: test/Benchmarks/BenchmarkDotNet.Artifacts/results/ExRam.Gremlinq.Benchmarks.QueryBuildingBenchmarks-report-full-compressed.json
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.PUSH_TO_GH_PAGES_BRANCH_PAT }}
           auto-push: true
           gh-pages-branch: gh-pages
           benchmark-data-dir-path: benchmarks
