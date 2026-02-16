@@ -1,0 +1,16 @@
+﻿{
+  RequestId: 12345678-9012-3456-7890-123456789012,
+  Operation: eval,
+  Processor: ,
+  Arguments: {
+    aliases: {
+      g: g
+    },
+    bindings: {
+      _a: LivesIn,
+      _b: Speaks,
+      _c: WorksFor
+    },
+    gremlin: g.V().both(_a,_b,_c)
+  }
+}

@@ -1,0 +1,99 @@
+﻿[
+  {
+    IetfLanguageTag: en,
+    Id: 2,
+    Label: Language,
+    PartitionKey: PartitionKey
+  },
+  {
+    CountryCallingCode: +49,
+    LocalizableDescription: {
+      Id: 127,
+      Label: LocalizableDescription,
+      Properties: {
+        someKey: value
+      },
+      Value: 
+    },
+    Id: 0,
+    Label: Country,
+    PartitionKey: PartitionKey
+  },
+  {
+    Age: 21,
+    Gender: Male,
+    RegistrationDate: 2020-04-07 14:43:36 +0,
+    Name: {
+      Id: 290,
+      Label: Name,
+      Properties: {},
+      Value: Marko
+    },
+    Id: 7,
+    Label: Person,
+    PartitionKey: PartitionKey
+  },
+  {
+    Id: 5,
+    Label: Company,
+    PartitionKey: PartitionKey
+  },
+  {
+    Age: 21,
+    Gender: Male,
+    RegistrationDate: 2020-04-07 14:43:36 +0,
+    Name: {
+      Id: 310,
+      Label: Name,
+      Properties: {},
+      Value: Marko
+    },
+    Id: 29,
+    Label: Person,
+    PartitionKey: PartitionKey
+  },
+  {
+    Id: 27,
+    Label: Company,
+    PartitionKey: PartitionKey
+  },
+  {
+    CountryCallingCode: +49,
+    LocalizableDescription: {
+      Id: 133,
+      Label: LocalizableDescription,
+      Properties: {
+        someKey: value
+      },
+      Value: 
+    },
+    Id: 34,
+    Label: Country,
+    PartitionKey: PartitionKey
+  },
+  {
+    IetfLanguageTag: en,
+    Id: 32,
+    Label: Language,
+    PartitionKey: PartitionKey
+  },
+  {
+    Age: 21,
+    Gender: Male,
+    RegistrationDate: 2020-04-07 14:43:36 +0,
+    Name: {
+      Id: 318,
+      Label: Name,
+      Properties: {},
+      Value: Marko
+    },
+    Id: 44,
+    Label: Person,
+    PartitionKey: PartitionKey
+  },
+  {
+    Id: 42,
+    Label: Company,
+    PartitionKey: PartitionKey
+  }
+]

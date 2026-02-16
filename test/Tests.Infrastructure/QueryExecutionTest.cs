@@ -1227,6 +1227,18 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Verify();
 
         [Fact]
+        public virtual Task In_2() => _g
+            .V<Person>()
+            .In<WorksFor, LivesIn>()
+            .Verify();
+
+        [Fact]
+        public virtual Task In_3() => _g
+            .V<Person>()
+            .In<WorksFor, LivesIn, Speaks>()
+            .Verify();
+
+        [Fact]
         public virtual Task In_of_all_types_max() => _g
             .V()
             .In<object>()
@@ -1714,6 +1726,18 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual Task Out() => _g
             .V<Person>()
             .Out<WorksFor>()
+            .Verify();
+
+        [Fact]
+        public virtual Task Out_2() => _g
+            .V<Person>()
+            .Out<WorksFor, LivesIn>()
+            .Verify();
+
+        [Fact]
+        public virtual Task Out_3() => _g
+            .V<Person>()
+            .Out<WorksFor, LivesIn, Speaks>()
             .Verify();
 
         [Fact]
@@ -3760,6 +3784,18 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .V()
             .Both<Edge>()
             .Verify();
+
+        [Fact]
+        public virtual Task V_Both_2() => _g
+           .V()
+           .Both<WorksFor, Speaks>()
+           .Verify();
+
+        [Fact]
+        public virtual Task V_Both_3() => _g
+           .V()
+           .Both<WorksFor, Speaks, LivesIn>()
+           .Verify();
 
         [Fact]
         public virtual Task V_BothE() => _g
