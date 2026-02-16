@@ -36,10 +36,10 @@ jobs:
           parameter_string: "-Timeout 600 -EnableGremlin"
 
     - name: Test
-      run: dotnet test -c Release --solution ./${{ github.event.repository.name }}.slnx --coverage --coverage-output-format cobertura --ignore-exit-code 8 --results-directory ./Coverage
+      run: dotnet test -c Release --solution ./${{ github.event.repository.name }}.slnx --coverlet --coverlet-output-format opencover --ignore-exit-code 8 --results-directory ./Coverage
 
     - name: Test (Debug)
-      run: dotnet test -c Debug --solution ./${{ github.event.repository.name }}.slnx --coverage --coverage-output-format cobertura --ignore-exit-code 8 --results-directory ./Coverage
+      run: dotnet test -c Debug --solution ./${{ github.event.repository.name }}.slnx --coverlet --coverlet-output-format opencover --ignore-exit-code 8 --results-directory ./Coverage
       
     - name: Collect coverage
       uses: codecov/codecov-action@671740ac38dd9b0130fbe1cec585b89eea48d3de # 5.5.2
