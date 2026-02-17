@@ -406,7 +406,7 @@ namespace ExRam.Gremlinq.Core
 
         IInOrOutEdgeGremlinQuery<TEdge, T1> IVertexGremlinQueryBase<T1>.AddE<TEdge>() => AddE(new TEdge());
 
-        IVertexGremlinQuery<object> IVertexGremlinQueryBase.Both() => Both();
+        IVertexGremlinQuery<object> IVertexGremlinQueryBase.Both() => Both(null);
 
         IVertexGremlinQuery<object> IVertexGremlinQueryBase.Both<TEdge>() => Both(TypeArrayCache<TEdge>.Types);
 
