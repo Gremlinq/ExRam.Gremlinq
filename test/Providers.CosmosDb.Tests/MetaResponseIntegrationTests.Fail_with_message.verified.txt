@@ -8,7 +8,7 @@
 ActivityId : 12345678-9012-3456-7890-123456789012
 ExceptionType : GraphCompileException
 ExceptionMessage : 
-	Gremlin Query Compilation Error: Unable to find any method 'fail' @ line 1, column 11.
+	Gremlin Query Compilation Error: Unable to bind to method 'fail'. @ line 1, column 11.
 	1 Error(s)
 	GremlinRequestId : 12345678-9012-3456-7890-123456789012
 	Context : graphcompute

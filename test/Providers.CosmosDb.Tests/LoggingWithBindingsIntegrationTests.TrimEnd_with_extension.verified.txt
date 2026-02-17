@@ -51,7 +51,7 @@ ServerEvaluationError:
 ActivityId : 12345678-9012-3456-7890-123456789012
 ExceptionType : GraphCompileException
 ExceptionMessage : 
-	Gremlin Query Compilation Error: Unable to find any method 'rTrim' @ line 1, column 19.
+	Gremlin Query Compilation Error: Unable to bind to method 'rTrim'. @ line 1, column 19.
 	1 Error(s)
 	GremlinRequestId : 12345678-9012-3456-7890-123456789012
 	Context : graphcompute
