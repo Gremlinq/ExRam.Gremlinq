@@ -749,19 +749,15 @@ namespace ExRam.Gremlinq.Core
                 .AddStep(IdentityStep.Instance)
                 .BuildAuto<T1, T2, T3, T4>());
 
-        private GremlinQuery<object, object, object, IGremlinQueryBase> In() => this
-            .Continue()
-            .Build(static builder => builder
-                .AddStep(InStep.NoLabels)
-                .BuildAuto());
-
-        private GremlinQuery<object, object, object, IGremlinQueryBase> In(Type[] edgeTypes) => this
+        private GremlinQuery<object, object, object, IGremlinQueryBase> In(Type[]? maybeEdgeTypes) => this
             .Continue()
             .Build(
-                static (builder, edgeTypes) => builder
-                    .AddStep(new InStep(builder.OuterQuery.Environment.Model.EdgesModel.GetFilterLabels(edgeTypes, builder.OuterQuery.Environment.Options.GetValue(GremlinqOption.FilterLabelsVerbosity))))
+                static (builder, step) => builder
+                    .AddStep(step)
                     .BuildAuto(),
-                edgeTypes);
+                maybeEdgeTypes is { } edgeTypes
+                    ? new InStep(Environment.Model.EdgesModel.GetFilterLabels(edgeTypes, Environment.Options.GetValue(GremlinqOption.FilterLabelsVerbosity)))
+                    : InStep.NoLabels);
 
         private GremlinQuery<TEdge, object, T1, IGremlinQueryBase> InE<TEdge>(Type[]? maybeEdgeTypes) => this
             .Continue()
