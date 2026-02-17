@@ -198,10 +198,12 @@ csharp_style_var_elsewhere = true:suggestion
 csharp_preserve_single_line_blocks = true
 csharp_preserve_single_line_statements = true
 
-# Prefer method-like constructs to have a block body
-csharp_style_expression_bodied_methods = false:none
+# Expression-bodied methods are used extensively throughout the codebase
+# NOTE: Changed from false:none to true:none to match actual codebase usage (~1000+ expression-bodied methods).
+csharp_style_expression_bodied_methods = true:suggestion
 csharp_style_expression_bodied_constructors = false:none
 csharp_style_expression_bodied_operators = false:none
+csharp_style_expression_bodied_lambdas = true:suggestion
 
 # Prefer property-like constructs to have an expression-body
 csharp_style_expression_bodied_properties = true:none
@@ -255,8 +257,57 @@ csharp_space_between_method_declaration_parameter_list_parentheses = false
 csharp_space_between_parentheses = false
 csharp_space_between_square_brackets = false
 
-# other
+# Namespace declarations
+csharp_style_namespace_declarations = block_scoped:suggestion
+
+# Using directives
+csharp_using_directive_placement = outside_namespace:suggestion
+
+# Prefer target-typed new (widely used in the codebase)
+csharp_style_implicit_object_creation_when_type_is_apparent = true:suggestion
+
+# Prefer simple using statement (disabled - codebase uses block-style using)
+csharp_prefer_simple_using_statement = false:none
+
+# Static local functions and lambdas (heavily used in the codebase)
+csharp_prefer_static_local_function = true:suggestion
+csharp_prefer_static_anonymous_function = true:suggestion
+
+# Prefer switch expression
+csharp_style_prefer_switch_expression = true:suggestion
+
+# Range and index operators
+csharp_style_prefer_range_operator = true:suggestion
+csharp_style_prefer_index_operator = true:suggestion
+
+# Null checking
+csharp_style_prefer_null_check_over_type_check = true:suggestion
+
+# Prefer not using primary constructors
 csharp_style_prefer_primary_constructors = false
+
+# Prefer pattern matching over mixed approaches
+csharp_style_prefer_not_pattern = true:suggestion
+csharp_style_prefer_extended_property_pattern = true:suggestion
+
+# Prefer simplified boolean expressions
+dotnet_style_prefer_simplified_boolean_expressions = true:suggestion
+
+# Prefer compound assignment
+dotnet_style_prefer_compound_assignment = true:suggestion
+
+# Prefer simplified interpolation
+dotnet_style_prefer_simplified_interpolation = true:suggestion
+
+# Top-level statements (not used in the codebase)
+csharp_style_prefer_top_level_statements = false:suggestion
+
+# Prefer readonly struct
+csharp_style_prefer_readonly_struct = true:suggestion
+
+# Prefer tuple swap and UTF-8 string literals
+csharp_style_prefer_tuple_swap = true:suggestion
+csharp_style_prefer_utf8_string_literals = true:suggestion
 
 # xUnit
 dotnet_diagnostic.xUnit1004.severity = none
