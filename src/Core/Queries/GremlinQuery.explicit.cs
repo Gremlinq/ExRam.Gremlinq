@@ -508,7 +508,7 @@ namespace ExRam.Gremlinq.Core
 
         IVertexGremlinQuery<object> IVertexGremlinQueryBase.In<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7, TEdge8, TEdge9, TEdge10, TEdge11, TEdge12, TEdge13, TEdge14, TEdge15, TEdge16>() => In(TypeArrayCache<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7, TEdge8, TEdge9, TEdge10, TEdge11, TEdge12, TEdge13, TEdge14, TEdge15, TEdge16>.Types);
 
-        IEdgeGremlinQuery<object> IVertexGremlinQueryBase.InE() => InE();
+        IEdgeGremlinQuery<object> IVertexGremlinQueryBase.InE() => InE<object>(null);
 
         IEdgeGremlinQuery<TEdge> IVertexGremlinQueryBase.InE<TEdge>() => InE<TEdge>(TypeArrayCache<TEdge>.Types);
 
