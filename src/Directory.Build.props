@@ -13,6 +13,7 @@
         <NullGuard IncludeDebugAssert="false" />
       </Weavers>
     </WeaverConfiguration>
+    <EnforceCodeStyleInBuild>false</EnforceCodeStyleInBuild>
   </PropertyGroup>
   
   <ItemGroup>
