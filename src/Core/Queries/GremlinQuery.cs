@@ -984,19 +984,15 @@ namespace ExRam.Gremlinq.Core
                 .WithNewProjection(Projection.Vertex)
                 .BuildAuto<TNewElement>());
 
-        private GremlinQuery<object, object, object, IGremlinQueryBase> Out() => this
-            .Continue()
-            .Build(static builder => builder
-                .AddStep(OutStep.NoLabels)
-                .BuildAuto());
-
-        private GremlinQuery<object, object, object, IGremlinQueryBase> Out(Type[] edgeTypes) => this
+        private GremlinQuery<object, object, object, IGremlinQueryBase> Out(Type[]? maybeEdgeTypes) => this
             .Continue()
             .Build(
-                static (builder, edgeTypes) => builder
-                    .AddStep(new OutStep(builder.OuterQuery.Environment.Model.EdgesModel.GetFilterLabels(edgeTypes, builder.OuterQuery.Environment.Options.GetValue(GremlinqOption.FilterLabelsVerbosity))))
+                static (builder, step) => builder
+                    .AddStep(step)
                     .BuildAuto(),
-                edgeTypes);
+                maybeEdgeTypes is { } edgeTypes
+                    ? new OutStep(Environment.Model.EdgesModel.GetFilterLabels(edgeTypes, Environment.Options.GetValue(GremlinqOption.FilterLabelsVerbosity)))
+                    : OutStep.NoLabels);
 
         private GremlinQuery<TEdge, T1, object, IGremlinQueryBase> OutE<TEdge>(Type[]? maybeEdgeTypes) => this
             .Continue()
