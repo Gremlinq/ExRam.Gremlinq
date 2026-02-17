@@ -580,7 +580,7 @@ namespace ExRam.Gremlinq.Core
 
         IEdgeGremlinQuery<TEdge> IVertexGremlinQueryBase.OutE<TEdge>() => OutE<TEdge>(TypeArrayCache<TEdge>.Types);
 
-        IEdgeGremlinQuery<object> IVertexGremlinQueryBase.OutE() => OutE();
+        IEdgeGremlinQuery<object> IVertexGremlinQueryBase.OutE() => OutE<object>(null);
 
         IOutEdgeGremlinQuery<TEdge, T1> IVertexGremlinQueryBase<T1>.OutE<TEdge>() => OutE<TEdge>(TypeArrayCache<TEdge>.Types);
 
