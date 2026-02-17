@@ -1,0 +1,7 @@
+﻿{
+  Script: g.V().hasLabel(_a).outE(_b),
+  Bindings: {
+    _a: Person,
+    _b: WorksFor
+  }
+}

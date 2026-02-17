@@ -1,0 +1,10 @@
+﻿{
+  Script: g.V().bothE(_a,_b).project(_c,_d,_e).by(id).by(label).by(__.valueMap()),
+  Bindings: {
+    _a: Speaks,
+    _b: WorksFor,
+    _c: id,
+    _d: label,
+    _e: properties
+  }
+}

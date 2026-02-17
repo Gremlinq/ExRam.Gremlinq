@@ -1,0 +1,1 @@
+﻿g.V().bothE('Speaks','WorksFor').project('id','label','properties').by(id).by(label).by(__.valueMap())

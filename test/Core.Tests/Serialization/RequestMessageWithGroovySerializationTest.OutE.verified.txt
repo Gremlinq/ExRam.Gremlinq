@@ -1,0 +1,18 @@
+﻿{
+  RequestId: 12345678-9012-3456-7890-123456789012,
+  Operation: eval,
+  Processor: ,
+  Arguments: {
+    aliases: {
+      g: g
+    },
+    bindings: {
+      _a: Person,
+      _b: WorksFor,
+      _c: id,
+      _d: label,
+      _e: properties
+    },
+    gremlin: g.V().hasLabel(_a).outE(_b).project(_c,_d,_e).by(id).by(label).by(__.valueMap())
+  }
+}
