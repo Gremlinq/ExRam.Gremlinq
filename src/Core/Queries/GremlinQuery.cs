@@ -337,6 +337,15 @@ namespace ExRam.Gremlinq.Core
                 .WithNewProjection(Projection.Edge)
                 .BuildAuto<TEdge>());
 
+        private GremlinQuery<object, object, object, IGremlinQueryBase> BothE(Type[] edgeTypes) => this
+            .Continue()
+            .Build(
+                static (builder, edgeTypes) => builder
+                    .AddStep(new BothEStep(builder.OuterQuery.Environment.Model.EdgesModel.GetFilterLabels(edgeTypes, builder.OuterQuery.Environment.Options.GetValue(GremlinqOption.FilterLabelsVerbosity))))
+                    .WithNewProjection(Projection.Edge)
+                    .BuildAuto<object>(),
+                edgeTypes);
+
         private GremlinQuery<TNewElement, object, object, IGremlinQueryBase> BothV<TNewElement>() => this
             .Continue()
             .Build(static builder => builder
@@ -784,6 +793,15 @@ namespace ExRam.Gremlinq.Core
                 .WithNewProjection(Projection.Edge)
                 .BuildAuto<TEdge, object, T1>());
 
+        private GremlinQuery<object, object, T1, IGremlinQueryBase> InE(Type[] edgeTypes) => this
+            .Continue()
+            .Build(
+                static (builder, edgeTypes) => builder
+                    .AddStep(new InEStep(builder.OuterQuery.Environment.Model.EdgesModel.GetFilterLabels(edgeTypes, builder.OuterQuery.Environment.Options.GetValue(GremlinqOption.FilterLabelsVerbosity))))
+                    .WithNewProjection(Projection.Edge)
+                    .BuildAuto<object, object, T1>(),
+                edgeTypes);
+
         private GremlinQuery<TNewElement, T2, T3, T4> Inject<TNewElement>(ReadOnlySpan<TNewElement> elements) => this
             .Continue()
             .Build(
@@ -1025,6 +1043,15 @@ namespace ExRam.Gremlinq.Core
                 .AddStep(new OutEStep(builder.OuterQuery.Environment.Model.EdgesModel.GetFilterLabels(TypeArrayCache<TEdge>.Types, builder.OuterQuery.Environment.Options.GetValue(GremlinqOption.FilterLabelsVerbosity))))
                 .WithNewProjection(Projection.Edge)
                 .BuildAuto<TEdge, T1>());
+
+        private GremlinQuery<object, T1, object, IGremlinQueryBase> OutE(Type[] edgeTypes) => this
+            .Continue()
+            .Build(
+                static (builder, edgeTypes) => builder
+                    .AddStep(new OutEStep(builder.OuterQuery.Environment.Model.EdgesModel.GetFilterLabels(edgeTypes, builder.OuterQuery.Environment.Options.GetValue(GremlinqOption.FilterLabelsVerbosity))))
+                    .WithNewProjection(Projection.Edge)
+                    .BuildAuto<object, T1>(),
+                edgeTypes);
 
         private GremlinQuery<Path, object, object, IGremlinQueryBase> Path() => this
             .Continue()

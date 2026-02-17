@@ -1,0 +1,67 @@
+﻿{
+  StepInstructions: [
+    {
+      OperatorName: V
+    },
+    {
+      OperatorName: hasLabel,
+      Arguments: [
+        Person
+      ]
+    },
+    {
+      OperatorName: bothE,
+      Arguments: [
+        Edge1,
+        Edge10,
+        Edge11,
+        Edge2,
+        Edge3,
+        Edge4,
+        Edge5,
+        Edge6,
+        Edge7,
+        Edge8,
+        Edge9
+      ]
+    },
+    {
+      OperatorName: project,
+      Arguments: [
+        id,
+        label,
+        properties
+      ]
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        {
+          EnumName: T,
+          EnumValue: id
+        }
+      ]
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        {
+          EnumName: T,
+          EnumValue: label
+        }
+      ]
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        {
+          StepInstructions: [
+            {
+              OperatorName: valueMap
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
