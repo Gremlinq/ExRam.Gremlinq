@@ -42,7 +42,6 @@ namespace ExRam.Gremlinq.Core
         IEdgeGremlinQuery<object> BothE<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7, TEdge8, TEdge9, TEdge10, TEdge11, TEdge12, TEdge13, TEdge14, TEdge15>();
         IEdgeGremlinQuery<object> BothE<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7, TEdge8, TEdge9, TEdge10, TEdge11, TEdge12, TEdge13, TEdge14, TEdge15, TEdge16>();
 
-
         new IVertexGremlinQuery<TResult> Cast<TResult>();
         
         IVertexGremlinQuery<object> In();
@@ -131,11 +130,43 @@ namespace ExRam.Gremlinq.Core
         new IInOrOutEdgeGremlinQuery<TEdge, TVertex> AddE<TEdge>(TEdge edge);
         new IInOrOutEdgeGremlinQuery<TEdge, TVertex> AddE<TEdge>() where TEdge : new();
 
+        new IInEdgeGremlinQuery<object, TVertex> InE();
         new IInEdgeGremlinQuery<TEdge, TVertex> InE<TEdge>();
+        new IInEdgeGremlinQuery<object, TVertex> InE<TEdge1, TEdge2>();
+        new IInEdgeGremlinQuery<object, TVertex> InE<TEdge1, TEdge2, TEdge3>();
+        new IInEdgeGremlinQuery<object, TVertex> InE<TEdge1, TEdge2, TEdge3, TEdge4>();
+        new IInEdgeGremlinQuery<object, TVertex> InE<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5>();
+        new IInEdgeGremlinQuery<object, TVertex> InE<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6>();
+        new IInEdgeGremlinQuery<object, TVertex> InE<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7>();
+        new IInEdgeGremlinQuery<object, TVertex> InE<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7, TEdge8>();
+        new IInEdgeGremlinQuery<object, TVertex> InE<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7, TEdge8, TEdge9>();
+        new IInEdgeGremlinQuery<object, TVertex> InE<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7, TEdge8, TEdge9, TEdge10>();
+        new IInEdgeGremlinQuery<object, TVertex> InE<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7, TEdge8, TEdge9, TEdge10, TEdge11>();
+        new IInEdgeGremlinQuery<object, TVertex> InE<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7, TEdge8, TEdge9, TEdge10, TEdge11, TEdge12>();
+        new IInEdgeGremlinQuery<object, TVertex> InE<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7, TEdge8, TEdge9, TEdge10, TEdge11, TEdge12, TEdge13>();
+        new IInEdgeGremlinQuery<object, TVertex> InE<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7, TEdge8, TEdge9, TEdge10, TEdge11, TEdge12, TEdge13, TEdge14>();
+        new IInEdgeGremlinQuery<object, TVertex> InE<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7, TEdge8, TEdge9, TEdge10, TEdge11, TEdge12, TEdge13, TEdge14, TEdge15>();
+        new IInEdgeGremlinQuery<object, TVertex> InE<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7, TEdge8, TEdge9, TEdge10, TEdge11, TEdge12, TEdge13, TEdge14, TEdge15, TEdge16>();
 
         new IEdgeOrVertexGremlinQuery<TVertex> Lower();
 
+        new IOutEdgeGremlinQuery<object, TVertex> OutE();
         new IOutEdgeGremlinQuery<TEdge, TVertex> OutE<TEdge>();
+        new IOutEdgeGremlinQuery<object, TVertex> OutE<TEdge1, TEdge2>();
+        new IOutEdgeGremlinQuery<object, TVertex> OutE<TEdge1, TEdge2, TEdge3>();
+        new IOutEdgeGremlinQuery<object, TVertex> OutE<TEdge1, TEdge2, TEdge3, TEdge4>();
+        new IOutEdgeGremlinQuery<object, TVertex> OutE<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5>();
+        new IOutEdgeGremlinQuery<object, TVertex> OutE<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6>();
+        new IOutEdgeGremlinQuery<object, TVertex> OutE<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7>();
+        new IOutEdgeGremlinQuery<object, TVertex> OutE<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7, TEdge8>();
+        new IOutEdgeGremlinQuery<object, TVertex> OutE<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7, TEdge8, TEdge9>();
+        new IOutEdgeGremlinQuery<object, TVertex> OutE<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7, TEdge8, TEdge9, TEdge10>();
+        new IOutEdgeGremlinQuery<object, TVertex> OutE<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7, TEdge8, TEdge9, TEdge10, TEdge11>();
+        new IOutEdgeGremlinQuery<object, TVertex> OutE<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7, TEdge8, TEdge9, TEdge10, TEdge11, TEdge12>();
+        new IOutEdgeGremlinQuery<object, TVertex> OutE<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7, TEdge8, TEdge9, TEdge10, TEdge11, TEdge12, TEdge13>();
+        new IOutEdgeGremlinQuery<object, TVertex> OutE<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7, TEdge8, TEdge9, TEdge10, TEdge11, TEdge12, TEdge13, TEdge14>();
+        new IOutEdgeGremlinQuery<object, TVertex> OutE<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7, TEdge8, TEdge9, TEdge10, TEdge11, TEdge12, TEdge13, TEdge14, TEdge15>();
+        new IOutEdgeGremlinQuery<object, TVertex> OutE<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7, TEdge8, TEdge9, TEdge10, TEdge11, TEdge12, TEdge13, TEdge14, TEdge15, TEdge16>();
 
         IVertexPropertyGremlinQuery<VertexProperty<object>, object> Properties();
         IVertexPropertyGremlinQuery<VertexProperty<TValue>, TValue> Properties<TValue>();
