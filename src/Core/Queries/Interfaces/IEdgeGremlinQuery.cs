@@ -72,6 +72,22 @@ namespace ExRam.Gremlinq.Core
     public interface IEdgeGremlinQuery<TEdge> :
         IEdgeGremlinQueryBaseRec<TEdge, IEdgeGremlinQuery<TEdge>>;
 
+    public interface IEdgeGremlinQueryBase<TEdge, TAdjacentVertex> :
+        IEdgeGremlinQueryBase<TEdge>
+    {
+        new IEdgeGremlinQuery<TEdge> Lower();
+    }
+
+    public interface IEdgeGremlinQuery<TEdge, TAdjacentVertex> :
+        IEdgeGremlinQueryBase<TEdge, TAdjacentVertex>,
+        IEdgeGremlinQueryBaseRec<TEdge, IEdgeGremlinQuery<TEdge, TAdjacentVertex>>
+    {
+        new IEdgeGremlinQuery<TEdge> Lower();
+
+        IInEdgeGremlinQuery<TEdge, TAdjacentVertex> AsInEdge();
+        IOutEdgeGremlinQuery<TEdge, TAdjacentVertex> AsOutEdge();
+    }
+
     public interface IEdgeGremlinQueryBase<TEdge, TOutVertex, TInVertex> :
         IOutEdgeGremlinQueryBase<TEdge, TOutVertex>,
         IInEdgeGremlinQueryBase<TEdge, TInVertex>
