@@ -20,13 +20,13 @@
     public interface IInEdgeGremlinQueryBaseRec<TSelf> :
         IInEdgeGremlinQueryBase,
         IEdgeGremlinQueryBaseRec<TSelf>
-        where TSelf : IInEdgeGremlinQueryBaseRec<TSelf>;
+            where TSelf : IInEdgeGremlinQueryBaseRec<TSelf>;
 
     public interface IInEdgeGremlinQueryBaseRec<TEdge, TInVertex, TSelf> :
         IInEdgeGremlinQueryBaseRec<TSelf>,
         IInEdgeGremlinQueryBase<TEdge, TInVertex>,
         IEdgeGremlinQueryBaseRec<TEdge, TSelf>
-        where TSelf : IInEdgeGremlinQueryBaseRec<TEdge, TInVertex, TSelf>;
+            where TSelf : IInEdgeGremlinQueryBaseRec<TEdge, TInVertex, TSelf>;
 
     public interface IInEdgeGremlinQuery<TEdge, TInVertex> :
         IInEdgeGremlinQueryBaseRec<TEdge, TInVertex, IInEdgeGremlinQuery<TEdge, TInVertex>>;
