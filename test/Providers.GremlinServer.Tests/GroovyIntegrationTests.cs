@@ -17,17 +17,14 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
     {
         public class Fixture : CustomGremlinServerContainerFixture
         {
-            protected override IGremlinQuerySource TransformQuerySource(IContainer container, IGremlinQuerySource g)
-            {
-                return base
-                    .TransformQuerySource(container, g)
-                    .ConfigureEnvironment(env => env
-                        .ConfigureSerializer(ser => ser
-                            .Add(ConverterFactory
-                                .Create<Bytecode, RequestMessage>((bytecode, env, _, recurse) => recurse.TryTransform(bytecode, env, out GroovyGremlinScript groovyQuery) && recurse.TryTransform(groovyQuery, env, out RequestMessage? message)
-                                    ? message
-                                    : null))));
-            }
+            protected override IGremlinQuerySource TransformQuerySource(IContainer container, IGremlinQuerySource g) => base
+                .TransformQuerySource(container, g)
+                .ConfigureEnvironment(env => env
+                    .ConfigureSerializer(ser => ser
+                        .Add(ConverterFactory
+                            .Create<Bytecode, RequestMessage>((bytecode, env, _, recurse) => recurse.TryTransform(bytecode, env, out GroovyGremlinScript groovyQuery) && recurse.TryTransform(groovyQuery, env, out RequestMessage? message)
+                                ? message
+                                : null))));
         }
 
         public GroovyIntegrationTests(Fixture fixture) : base(

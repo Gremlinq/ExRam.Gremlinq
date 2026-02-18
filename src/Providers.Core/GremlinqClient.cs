@@ -10,10 +10,7 @@ namespace ExRam.Gremlinq.Providers.Core
             {
             }
 
-            public IAsyncEnumerable<ResponseMessage<T>> SubmitAsync<T>(RequestMessage message)
-            {
-                throw new ObjectDisposedException(nameof(DisposedGremlinqClient));
-            }
+            public IAsyncEnumerable<ResponseMessage<T>> SubmitAsync<T>(RequestMessage message) => throw new ObjectDisposedException(nameof(DisposedGremlinqClient));
         }
 
         public static readonly IGremlinqClient Disposed = new DisposedGremlinqClient();

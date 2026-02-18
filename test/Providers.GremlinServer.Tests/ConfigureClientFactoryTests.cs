@@ -7,21 +7,15 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
     public class ConfigureClientFactoryTests
     {
         [Fact]
-        public void ConfigureClient_1()
-        {
-            GremlinQuerySource.g
-                .UseGremlinServer<Vertex, Edge>(builder => builder
-                    .ConfigureClientFactory(factory => factory
-                        .ConfigureClient((client, _) => client)));
-        }
+        public void ConfigureClient_1() => GremlinQuerySource.g
+            .UseGremlinServer<Vertex, Edge>(builder => builder
+                .ConfigureClientFactory(factory => factory
+                    .ConfigureClient((client, _) => client)));
 
         [Fact]
-        public void ConfigureClient_2()
-        {
-            GremlinQuerySource.g
-                .UseGremlinServer<Vertex, Edge>(builder => builder
-                    .ConfigureClientFactory(factory => factory
-                        .ConfigureClient(client => client)));
-        }
+        public void ConfigureClient_2() => GremlinQuerySource.g
+            .UseGremlinServer<Vertex, Edge>(builder => builder
+                .ConfigureClientFactory(factory => factory
+                    .ConfigureClient(client => client)));
     }
 }

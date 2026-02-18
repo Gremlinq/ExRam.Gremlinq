@@ -13,12 +13,9 @@ namespace ExRam.Gremlinq.Benchmarks
         private IGremlinQuerySource _g = null!;
 
         [GlobalSetup]
-        public void Setup()
-        {
-            _g = g
-                .ConfigureEnvironment(env => env
-                .UseModel(GraphModel.FromBaseTypes<Vertex, Edge>()));
-        }
+        public void Setup() => _g = g
+            .ConfigureEnvironment(env => env
+            .UseModel(GraphModel.FromBaseTypes<Vertex, Edge>()));
 
         [Benchmark]
         public object SimpleVertexQuery() => _g

@@ -87,8 +87,7 @@ namespace ExRam.Gremlinq.Testing.AirRoutes.Generator
                 });
         }
 
-        public void Execute(GeneratorExecutionContext context)
-        {
+        public void Execute(GeneratorExecutionContext context) =>
             //context
             //    .AddSource("AirRoutes", Generate("CreateAirRoutes", "https://raw.githubusercontent.com/krlawrence/graph/refs/heads/master/sample-data/air-routes-latest.graphml"));
 
@@ -102,7 +101,6 @@ namespace ExRam.Gremlinq.Testing.AirRoutes.Generator
                         /// This method is idempotent, however, commenting out its uses will save time once the database has been populated.
                         """,
                         "https://raw.githubusercontent.com/krlawrence/graph/refs/heads/master/sample-data/air-routes-small-latest.graphml"));
-        }
 
         public string Generate(string methodName, string summary, string uri)
         {

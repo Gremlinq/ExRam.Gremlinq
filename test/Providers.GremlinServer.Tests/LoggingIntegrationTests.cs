@@ -18,13 +18,10 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
         {
             private readonly RecordingProvider _recordingProvider = new ();
 
-            public override IGremlinQuerySource GetQuerySource()
-            {
-                return base
-                    .GetQuerySource()
-                    .ConfigureEnvironment(env => env
-                        .ConfigureLogger(_ => _recordingProvider.CreateLogger<LoggingFixture>()));
-            }
+            public override IGremlinQuerySource GetQuerySource() => base
+                .GetQuerySource()
+                .ConfigureEnvironment(env => env
+                    .ConfigureLogger(_ => _recordingProvider.CreateLogger<LoggingFixture>()));
         }
 
         public class LoggingVerifier : GremlinQueryVerifier

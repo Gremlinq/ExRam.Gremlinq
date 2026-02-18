@@ -20,35 +20,17 @@
                 EdgePropertyFeatures = edgePropertyFeatures;
             }
 
-            public IFeatureSet ConfigureGraphFeatures(Func<GraphFeatures, GraphFeatures> config)
-            {
-                return new FeatureSetImpl(config(GraphFeatures), VariableFeatures, VertexFeatures, VertexPropertyFeatures, EdgeFeatures, EdgePropertyFeatures);
-            }
+            public IFeatureSet ConfigureGraphFeatures(Func<GraphFeatures, GraphFeatures> config) => new FeatureSetImpl(config(GraphFeatures), VariableFeatures, VertexFeatures, VertexPropertyFeatures, EdgeFeatures, EdgePropertyFeatures);
 
-            public IFeatureSet ConfigureVariableFeatures(Func<VariableFeatures, VariableFeatures> config)
-            {
-                return new FeatureSetImpl(GraphFeatures, config(VariableFeatures), VertexFeatures, VertexPropertyFeatures, EdgeFeatures, EdgePropertyFeatures);
-            }
+            public IFeatureSet ConfigureVariableFeatures(Func<VariableFeatures, VariableFeatures> config) => new FeatureSetImpl(GraphFeatures, config(VariableFeatures), VertexFeatures, VertexPropertyFeatures, EdgeFeatures, EdgePropertyFeatures);
 
-            public IFeatureSet ConfigureVertexFeatures(Func<VertexFeatures, VertexFeatures> config)
-            {
-                return new FeatureSetImpl(GraphFeatures, VariableFeatures, config(VertexFeatures), VertexPropertyFeatures, EdgeFeatures, EdgePropertyFeatures);
-            }
+            public IFeatureSet ConfigureVertexFeatures(Func<VertexFeatures, VertexFeatures> config) => new FeatureSetImpl(GraphFeatures, VariableFeatures, config(VertexFeatures), VertexPropertyFeatures, EdgeFeatures, EdgePropertyFeatures);
 
-            public IFeatureSet ConfigureVertexPropertyFeatures(Func<VertexPropertyFeatures, VertexPropertyFeatures> config)
-            {
-                return new FeatureSetImpl(GraphFeatures, VariableFeatures, VertexFeatures, config(VertexPropertyFeatures), EdgeFeatures, EdgePropertyFeatures);
-            }
+            public IFeatureSet ConfigureVertexPropertyFeatures(Func<VertexPropertyFeatures, VertexPropertyFeatures> config) => new FeatureSetImpl(GraphFeatures, VariableFeatures, VertexFeatures, config(VertexPropertyFeatures), EdgeFeatures, EdgePropertyFeatures);
 
-            public IFeatureSet ConfigureEdgeFeatures(Func<EdgeFeatures, EdgeFeatures> config)
-            {
-                return new FeatureSetImpl(GraphFeatures, VariableFeatures, VertexFeatures, VertexPropertyFeatures, config(EdgeFeatures), EdgePropertyFeatures);
-            }
+            public IFeatureSet ConfigureEdgeFeatures(Func<EdgeFeatures, EdgeFeatures> config) => new FeatureSetImpl(GraphFeatures, VariableFeatures, VertexFeatures, VertexPropertyFeatures, config(EdgeFeatures), EdgePropertyFeatures);
 
-            public IFeatureSet ConfigureEdgePropertyFeatures(Func<EdgePropertyFeatures, EdgePropertyFeatures> config)
-            {
-                return new FeatureSetImpl(GraphFeatures, VariableFeatures, VertexFeatures, VertexPropertyFeatures, EdgeFeatures, config(EdgePropertyFeatures));
-            }
+            public IFeatureSet ConfigureEdgePropertyFeatures(Func<EdgePropertyFeatures, EdgePropertyFeatures> config) => new FeatureSetImpl(GraphFeatures, VariableFeatures, VertexFeatures, VertexPropertyFeatures, EdgeFeatures, config(EdgePropertyFeatures));
 
             public GraphFeatures GraphFeatures { get; }
             public EdgePropertyFeatures EdgePropertyFeatures { get; }

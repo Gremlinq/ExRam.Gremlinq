@@ -192,15 +192,14 @@ namespace ExRam.Gremlinq.Providers.Neptune
                 throw Throw("SecretAccessKey.");
             }
 
-            private static void ToHexStringLower(ReadOnlySpan<byte> source, Span<byte> utf8Destination)
-            {
+            private static void ToHexStringLower(ReadOnlySpan<byte> source, Span<byte> utf8Destination) =>
 #if NET10_0_OR_GREATER
                 Convert.TryToHexStringLower(source, utf8Destination, out _);
 #else
                 //TODO: Optimize for less allocations
                 Encoding.UTF8.GetBytes(Convert.ToHexString(source).ToLowerInvariant()).CopyTo(utf8Destination);
 #endif
-            }
+
 
             private static string GetCanonicalQueryParams(string queryString)
             {

@@ -13,18 +13,12 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         protected virtual IGremlinQuerySource TransformQuerySource(IGremlinQuerySource g) => g;
 
-        public virtual async ValueTask InitializeAsync()
-        {
-            _g = TransformQuerySource(g
-                .ConfigureEnvironment(env => env
-                    .UseModel(GraphModel.FromBaseTypes<Vertex, Edge>())
-                    .AddGraphSonBinarySupport()));
-        }
+        public virtual async ValueTask InitializeAsync() => _g = TransformQuerySource(g
+            .ConfigureEnvironment(env => env
+                .UseModel(GraphModel.FromBaseTypes<Vertex, Edge>())
+                .AddGraphSonBinarySupport()));
 
-        public virtual async ValueTask DisposeAsync()
-        {
-            GC.SuppressFinalize(this);
-        }
+        public virtual async ValueTask DisposeAsync() => GC.SuppressFinalize(this);
 
         public virtual IGremlinQuerySource GetQuerySource() => _g ?? throw new InvalidOperationException();
     }

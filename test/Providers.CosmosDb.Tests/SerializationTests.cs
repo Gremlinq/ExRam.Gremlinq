@@ -16,43 +16,28 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
         }
 
         [Fact]
-        public async Task CosmosDbKey()
-        {
-            await _g
-                .V<Person>(new CosmosDbKey("pk", "id"))
-                .Verify();
-        }
+        public async Task CosmosDbKey() => await _g
+            .V<Person>(new CosmosDbKey("pk", "id"))
+            .Verify();
 
         [Fact]
-        public async Task Inlined_CosmosDbKey()
-        {
-            await _g
-                .V<Person>(new CosmosDbKey("pk", "id"))
-                .Verify();
-        }
+        public async Task Inlined_CosmosDbKey() => await _g
+            .V<Person>(new CosmosDbKey("pk", "id"))
+            .Verify();
 
         [Fact]
-        public async Task CosmosDbKey_with_null_partitionKey()
-        {
-            await _g
-                .V<Person>(new CosmosDbKey("id"))
-                .Verify();
-        }
+        public async Task CosmosDbKey_with_null_partitionKey() => await _g
+            .V<Person>(new CosmosDbKey("id"))
+            .Verify();
 
         [Fact]
-        public async Task Mixed_StringKey_CosmosDbKey()
-        {
-            await _g
-                .V<Person>(new CosmosDbKey("pk", "id"), "id2")
-                .Verify();
-        }
+        public async Task Mixed_StringKey_CosmosDbKey() => await _g
+            .V<Person>(new CosmosDbKey("pk", "id"), "id2")
+            .Verify();
 
         [Fact]
-        public async Task Mixed_StringKey_CosmosDbKey_with_null_partitionKey()
-        {
-            await _g
-                .V<Person>(new CosmosDbKey("id"), "id2")
-                .Verify();
-        }
+        public async Task Mixed_StringKey_CosmosDbKey_with_null_partitionKey() => await _g
+            .V<Person>(new CosmosDbKey("id"), "id2")
+            .Verify();
     }
 }

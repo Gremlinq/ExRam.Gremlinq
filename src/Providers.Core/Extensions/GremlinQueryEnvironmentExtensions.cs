@@ -34,9 +34,7 @@ namespace ExRam.Gremlinq.Providers.Core
             : throw new ArgumentException();
 
         private static IGremlinQueryEnvironment AddGraphSonBinarySupport<TBinaryMessage>(this IGremlinQueryEnvironment environment, GraphSONWriter writer, byte[] header, Func<IMemoryOwner<byte>, TBinaryMessage> bufferFactory)
-            where TBinaryMessage : struct, IMemoryOwner<byte>
-        {
-            return environment
+            where TBinaryMessage : struct, IMemoryOwner<byte> => environment
                 .ConfigureSerializer(serializer => serializer
                     .Add(Create<RequestMessage, TBinaryMessage>((message, _, _, _) =>
                     {
@@ -63,6 +61,5 @@ namespace ExRam.Gremlinq.Providers.Core
                     })))
                 .ConfigureDeserializer(deserializer => deserializer
                     .Add(Create<IMemoryOwner<byte>, TBinaryMessage>((owner, _, _, _) => bufferFactory(owner))));
-        }
     }
 }

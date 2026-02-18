@@ -68,12 +68,9 @@ namespace ExRam.Gremlinq.Core.Projections
             return Empty;
         }
 
-        internal Projection Highest(Projection other)
-        {
-            return IsHigherOrEqualThan(other)
-                ? this
-                : other;
-        }
+        internal Projection Highest(Projection other) => IsHigherOrEqualThan(other)
+            ? this
+            : other;
 
         private bool IsHigherOrEqualThan(Projection other)
         {

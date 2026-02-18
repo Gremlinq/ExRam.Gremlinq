@@ -6,14 +6,11 @@ namespace ExRam.Gremlinq.Tests.Fixtures
 {
     public static class GremlinqQuerySourceExtensions
     {
-        public static IGremlinQuerySource IgnoreCosmosDbSpecificProperties(this IGremlinQuerySource source)
-        {
-            return source
-                .ConfigureEnvironment(env => env
-                    .ConfigureModel(model => model
-                        .ConfigureElements(v => v
-                            .ConfigureElement<Element>(conf => conf
-                                .IgnoreAlways(p => p.PartitionKey)))));
-        }
+        public static IGremlinQuerySource IgnoreCosmosDbSpecificProperties(this IGremlinQuerySource source) => source
+            .ConfigureEnvironment(env => env
+                .ConfigureModel(model => model
+                    .ConfigureElements(v => v
+                        .ConfigureElement<Element>(conf => conf
+                            .IgnoreAlways(p => p.PartitionKey)))));
     }
 }

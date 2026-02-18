@@ -310,18 +310,15 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
             .Verify();
 
         [Fact]
-        public virtual async Task RegisterNativeType()
-        {
-            await _g
-                .ConfigureEnvironment(env => env
-                    .RegisterNativeType(
-                        (languageCode, _, _, _) => languageCode.ToString().ToLower(),
-                        (valueToken, _, _, _) => Enum.TryParse<DateTimeKind>(valueToken.Value<string>(), true, out var res)
-                            ? res
-                            : default))
-                .Inject("Utc")
-                .Cast<DateTimeKind>()
-                .Verify();
-        }
+        public virtual async Task RegisterNativeType() => await _g
+            .ConfigureEnvironment(env => env
+                .RegisterNativeType(
+                    (languageCode, _, _, _) => languageCode.ToString().ToLower(),
+                    (valueToken, _, _, _) => Enum.TryParse<DateTimeKind>(valueToken.Value<string>(), true, out var res)
+                        ? res
+                        : default))
+            .Inject("Utc")
+            .Cast<DateTimeKind>()
+            .Verify();
     }
 }

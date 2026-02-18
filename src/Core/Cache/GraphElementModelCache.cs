@@ -18,40 +18,31 @@ namespace ExRam.Gremlinq.Core
                 _model = model;
             }
 
-            public string GetLabel(Type type)
-            {
-                return _labels
-                    .GetOrAdd(
-                        type,
-                        static (closureType, closureModel) => closureType
-                            .GetTypeHierarchy()
-                            .Where(static type => !type.IsAbstract)
-                            .Select(type => closureModel.GetMetadata(type).Label)
-                            .FirstOrDefault() ?? closureType.Name,
-                        _model);
-            }
+            public string GetLabel(Type type) => _labels
+                .GetOrAdd(
+                    type,
+                    static (closureType, closureModel) => closureType
+                        .GetTypeHierarchy()
+                        .Where(static type => !type.IsAbstract)
+                        .Select(type => closureModel.GetMetadata(type).Label)
+                        .FirstOrDefault() ?? closureType.Name,
+                    _model);
 
-            public ImmutableArray<string> GetDerivedLabels(Type[] types)
-            {
-                return _derivedLabels
-                    .GetOrAdd(
-                        types,
-                        static (closureTypes, closureModel) => closureModel.ElementTypes
-                            .Where(elementType => !elementType.IsAbstract && closureTypes.Any(closureType => closureType.IsAssignableFrom(elementType)))
-                            .Select(elementType => closureModel.GetMetadata(elementType).Label)
-                            .OrderBy(static x => x)
-                            .ToImmutableArray(),
-                        _model);
-            }
+            public ImmutableArray<string> GetDerivedLabels(Type[] types) => _derivedLabels
+                .GetOrAdd(
+                    types,
+                    static (closureTypes, closureModel) => closureModel.ElementTypes
+                        .Where(elementType => !elementType.IsAbstract && closureTypes.Any(closureType => closureType.IsAssignableFrom(elementType)))
+                        .Select(elementType => closureModel.GetMetadata(elementType).Label)
+                        .OrderBy(static x => x)
+                        .ToImmutableArray(),
+                    _model);
         }
 
         private static readonly ConditionalWeakTable<IGraphElementModel, IGraphElementModelCache> Caches = [];
 
-        public static IGraphElementModelCache GetCache(this IGraphElementModel model)
-        {
-            return Caches.GetValue(
-                model,
-                static closure => new GraphElementModelCacheImpl(closure));
-        }
+        public static IGraphElementModelCache GetCache(this IGraphElementModel model) => Caches.GetValue(
+            model,
+            static closure => new GraphElementModelCacheImpl(closure));
     }
 }

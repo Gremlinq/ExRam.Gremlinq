@@ -72,10 +72,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                     return true;
                 }
 
-                public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer)
-                {
-                    throw new NotSupportedException($"Cannot write to {nameof(JTokenConverterConverter)}.");
-                }
+                public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer) => throw new NotSupportedException($"Cannot write to {nameof(JTokenConverterConverter)}.");
 
                 public override object? ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer)
                 {
@@ -161,11 +158,8 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
             }
         }
 
-        public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment)
-        {
-            return typeof(JToken).IsAssignableFrom(typeof(TSource))
-                ? (IConverter<TSource, TTarget>?)Activator.CreateInstance(typeof(NewtonsoftJsonSerializerConverter<,>).MakeGenericType(typeof(TSource), typeof(TTarget)), environment)
-                : null;
-        }
+        public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment) => typeof(JToken).IsAssignableFrom(typeof(TSource))
+            ? (IConverter<TSource, TTarget>?)Activator.CreateInstance(typeof(NewtonsoftJsonSerializerConverter<,>).MakeGenericType(typeof(TSource), typeof(TTarget)), environment)
+            : null;
     }
 }

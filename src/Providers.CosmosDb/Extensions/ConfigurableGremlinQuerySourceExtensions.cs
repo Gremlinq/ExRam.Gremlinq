@@ -150,80 +150,77 @@ namespace ExRam.Gremlinq.Providers.CosmosDb
 
         private static readonly NotStep NoneWorkaround = new(IdentityStep.Instance);
 
-        public static IGremlinQuerySource UseCosmosDb<TVertexBase, TEdgeBase>(this IGremlinQuerySource source, Func<ICosmosDbConfigurator<TVertexBase>, IGremlinQuerySourceTransformation> configuratorTransformation)
-        {
-            return configuratorTransformation
-                .Invoke(CosmosDbConfigurator<TVertexBase>.Default)
-                .Transform(source
-                    .ConfigureEnvironment(environment => environment
-                        .UseModel(GraphModel
-                            .FromBaseTypes<TVertexBase, TEdgeBase>())
-                        .ConfigureFeatureSet(featureSet => featureSet
-                            .ConfigureGraphFeatures(_ => GraphFeatures.Transactions | GraphFeatures.Persistence | GraphFeatures.ConcurrentAccess)
-                            .ConfigureVariableFeatures(_ => VariableFeatures.BooleanValues | VariableFeatures.IntegerValues | VariableFeatures.ByteValues | VariableFeatures.DoubleValues | VariableFeatures.FloatValues | VariableFeatures.IntegerValues | VariableFeatures.LongValues | VariableFeatures.StringValues)
-                            .ConfigureVertexFeatures(_ => VertexFeatures.RemoveVertices | VertexFeatures.MetaProperties | VertexFeatures.AddVertices | VertexFeatures.MultiProperties | VertexFeatures.StringIds | VertexFeatures.UserSuppliedIds | VertexFeatures.AddProperty | VertexFeatures.RemoveProperty)
-                            .ConfigureVertexPropertyFeatures(_ => VertexPropertyFeatures.StringIds | VertexPropertyFeatures.UserSuppliedIds | VertexPropertyFeatures.RemoveProperty | VertexPropertyFeatures.BooleanValues | VertexPropertyFeatures.ByteValues | VertexPropertyFeatures.DoubleValues | VertexPropertyFeatures.FloatValues | VertexPropertyFeatures.IntegerValues | VertexPropertyFeatures.LongValues | VertexPropertyFeatures.StringValues)
-                            .ConfigureEdgeFeatures(_ => EdgeFeatures.AddEdges | EdgeFeatures.RemoveEdges | EdgeFeatures.StringIds | EdgeFeatures.UserSuppliedIds | EdgeFeatures.AddProperty | EdgeFeatures.RemoveProperty)
-                            .ConfigureEdgePropertyFeatures(_ => EdgePropertyFeatures.Properties | EdgePropertyFeatures.BooleanValues | EdgePropertyFeatures.ByteValues | EdgePropertyFeatures.DoubleValues | EdgePropertyFeatures.FloatValues | EdgePropertyFeatures.IntegerValues | EdgePropertyFeatures.LongValues | EdgePropertyFeatures.StringValues))
-                        .ConfigureOptions(options => options
-                            .SetValue(GremlinqOption.WorkaroundRangeInconsistencies, true)
-                            .SetValue(GremlinqOption.VertexProjectionSteps, Traversal.Empty)
-                            .SetValue(GremlinqOption.EdgeProjectionSteps, Traversal.Empty)
-                            .SetValue(GremlinqOption.VertexPropertyProjectionSteps, Traversal.Empty)
-                            .ConfigureValue(GremlinqOption.DisabledTextPredicates, option => option | DisabledTextPredicates.Regex | DisabledTextPredicates.NotRegex))
-                        .ConfigureNativeTypes(nativeTypes => nativeTypes
-                            .Remove(typeof(byte[]))
-                            .Remove(typeof(TimeSpan)))
-                        .AddGraphSonBinarySupport()
-                        .ConfigureSerializer(serializer => serializer
-                             .Add(ConverterFactory
-                                .Create<Bytecode, RequestMessage>((bytecode, env, _, recurse) => recurse.TryTransform(bytecode, env, out GroovyGremlinScript groovyQuery) && recurse.TryTransform(groovyQuery, env, out RequestMessage? message)
-                                    ? message
-                                    : null))
-                            .Add(ConverterFactory
-                                .Create<CosmosDbKey, string>((key, _, _, _) => key.Id))
-                            .Add(ConverterFactory
-                                .Create<CosmosDbKey, string[]>((key, _, _, _) => key.PartitionKey is { } partitionKey
-                                    ? [partitionKey, key.Id]
-                                    : null))
-                            .Add(ConverterFactory
-                                .Create<FilterStep.ByTraversalStep, WhereTraversalStep>(static (step, _, _, _) => new WhereTraversalStep(
-                                    step.Traversal.Count > 0 && step.Traversal[0] is AsStep
-                                        ? new MapStep(step.Traversal)
-                                        : step.Traversal)))
-                            .Add(ConverterFactory
-                                .Create<HasKeyStep, WhereTraversalStep>((step, _, _, _) => step.Argument is P p && (!p.OperatorName.Equals("eq", StringComparison.OrdinalIgnoreCase))
-                                    ? new WhereTraversalStep(Traversal.Empty.Push(
-                                        KeyStep.Instance,
-                                        new IsStep(p)))
-                                    : null))
-                            .Add(ConverterFactory
-                                .Create<NoneStep, NotStep>((_, _, _, _) => NoneWorkaround))
-                            .Add(ConverterFactory
-                                .Create<SkipStep, RangeStep>((step, _, _, _) => new RangeStep(step.Count, -1, step.Scope)))
-                            .Guard<LimitStep>(step =>
-                            {
-                                if (step.Count > int.MaxValue)
-                                    throw new ArgumentOutOfRangeException(nameof(step), "CosmosDb doesn't currently support values for 'Limit' outside the range of a 32-bit-integer.");
-                            })
-                            .Guard<TailStep>(step =>
-                            {
-                                if (step.Count > int.MaxValue)
-                                    throw new ArgumentOutOfRangeException(nameof(step), "CosmosDb doesn't currently support values for 'Tail' outside the range of a 32-bit-integer.");
-                            })
-                            .Guard<RangeStep>(step =>
-                            {
-                                if (step.Lower > int.MaxValue || step.Upper > int.MaxValue)
-                                    throw new ArgumentOutOfRangeException(nameof(step), "CosmosDb doesn't currently support values for 'Range' outside the range of a 32-bit-integer.");
-                            })
-                            .Add(ConverterFactory
-                                .Create<Order, WorkaroundOrder>((order, _, _, _) => order.Equals(Order.Asc)
-                                    ? WorkaroundOrder.Incr
-                                    : order.Equals(Order.Desc)
-                                        ? WorkaroundOrder.Decr
-                                        : null)))
-                        .ConfigureDeserializer(deserializer => deserializer
-                            .AsIncomplete())));
-        }
+        public static IGremlinQuerySource UseCosmosDb<TVertexBase, TEdgeBase>(this IGremlinQuerySource source, Func<ICosmosDbConfigurator<TVertexBase>, IGremlinQuerySourceTransformation> configuratorTransformation) => configuratorTransformation
+            .Invoke(CosmosDbConfigurator<TVertexBase>.Default)
+            .Transform(source
+                .ConfigureEnvironment(environment => environment
+                    .UseModel(GraphModel
+                        .FromBaseTypes<TVertexBase, TEdgeBase>())
+                    .ConfigureFeatureSet(featureSet => featureSet
+                        .ConfigureGraphFeatures(_ => GraphFeatures.Transactions | GraphFeatures.Persistence | GraphFeatures.ConcurrentAccess)
+                        .ConfigureVariableFeatures(_ => VariableFeatures.BooleanValues | VariableFeatures.IntegerValues | VariableFeatures.ByteValues | VariableFeatures.DoubleValues | VariableFeatures.FloatValues | VariableFeatures.IntegerValues | VariableFeatures.LongValues | VariableFeatures.StringValues)
+                        .ConfigureVertexFeatures(_ => VertexFeatures.RemoveVertices | VertexFeatures.MetaProperties | VertexFeatures.AddVertices | VertexFeatures.MultiProperties | VertexFeatures.StringIds | VertexFeatures.UserSuppliedIds | VertexFeatures.AddProperty | VertexFeatures.RemoveProperty)
+                        .ConfigureVertexPropertyFeatures(_ => VertexPropertyFeatures.StringIds | VertexPropertyFeatures.UserSuppliedIds | VertexPropertyFeatures.RemoveProperty | VertexPropertyFeatures.BooleanValues | VertexPropertyFeatures.ByteValues | VertexPropertyFeatures.DoubleValues | VertexPropertyFeatures.FloatValues | VertexPropertyFeatures.IntegerValues | VertexPropertyFeatures.LongValues | VertexPropertyFeatures.StringValues)
+                        .ConfigureEdgeFeatures(_ => EdgeFeatures.AddEdges | EdgeFeatures.RemoveEdges | EdgeFeatures.StringIds | EdgeFeatures.UserSuppliedIds | EdgeFeatures.AddProperty | EdgeFeatures.RemoveProperty)
+                        .ConfigureEdgePropertyFeatures(_ => EdgePropertyFeatures.Properties | EdgePropertyFeatures.BooleanValues | EdgePropertyFeatures.ByteValues | EdgePropertyFeatures.DoubleValues | EdgePropertyFeatures.FloatValues | EdgePropertyFeatures.IntegerValues | EdgePropertyFeatures.LongValues | EdgePropertyFeatures.StringValues))
+                    .ConfigureOptions(options => options
+                        .SetValue(GremlinqOption.WorkaroundRangeInconsistencies, true)
+                        .SetValue(GremlinqOption.VertexProjectionSteps, Traversal.Empty)
+                        .SetValue(GremlinqOption.EdgeProjectionSteps, Traversal.Empty)
+                        .SetValue(GremlinqOption.VertexPropertyProjectionSteps, Traversal.Empty)
+                        .ConfigureValue(GremlinqOption.DisabledTextPredicates, option => option | DisabledTextPredicates.Regex | DisabledTextPredicates.NotRegex))
+                    .ConfigureNativeTypes(nativeTypes => nativeTypes
+                        .Remove(typeof(byte[]))
+                        .Remove(typeof(TimeSpan)))
+                    .AddGraphSonBinarySupport()
+                    .ConfigureSerializer(serializer => serializer
+                         .Add(ConverterFactory
+                            .Create<Bytecode, RequestMessage>((bytecode, env, _, recurse) => recurse.TryTransform(bytecode, env, out GroovyGremlinScript groovyQuery) && recurse.TryTransform(groovyQuery, env, out RequestMessage? message)
+                                ? message
+                                : null))
+                        .Add(ConverterFactory
+                            .Create<CosmosDbKey, string>((key, _, _, _) => key.Id))
+                        .Add(ConverterFactory
+                            .Create<CosmosDbKey, string[]>((key, _, _, _) => key.PartitionKey is { } partitionKey
+                                ? [partitionKey, key.Id]
+                                : null))
+                        .Add(ConverterFactory
+                            .Create<FilterStep.ByTraversalStep, WhereTraversalStep>(static (step, _, _, _) => new WhereTraversalStep(
+                                step.Traversal.Count > 0 && step.Traversal[0] is AsStep
+                                    ? new MapStep(step.Traversal)
+                                    : step.Traversal)))
+                        .Add(ConverterFactory
+                            .Create<HasKeyStep, WhereTraversalStep>((step, _, _, _) => step.Argument is P p && (!p.OperatorName.Equals("eq", StringComparison.OrdinalIgnoreCase))
+                                ? new WhereTraversalStep(Traversal.Empty.Push(
+                                    KeyStep.Instance,
+                                    new IsStep(p)))
+                                : null))
+                        .Add(ConverterFactory
+                            .Create<NoneStep, NotStep>((_, _, _, _) => NoneWorkaround))
+                        .Add(ConverterFactory
+                            .Create<SkipStep, RangeStep>((step, _, _, _) => new RangeStep(step.Count, -1, step.Scope)))
+                        .Guard<LimitStep>(step =>
+                        {
+                            if (step.Count > int.MaxValue)
+                                throw new ArgumentOutOfRangeException(nameof(step), "CosmosDb doesn't currently support values for 'Limit' outside the range of a 32-bit-integer.");
+                        })
+                        .Guard<TailStep>(step =>
+                        {
+                            if (step.Count > int.MaxValue)
+                                throw new ArgumentOutOfRangeException(nameof(step), "CosmosDb doesn't currently support values for 'Tail' outside the range of a 32-bit-integer.");
+                        })
+                        .Guard<RangeStep>(step =>
+                        {
+                            if (step.Lower > int.MaxValue || step.Upper > int.MaxValue)
+                                throw new ArgumentOutOfRangeException(nameof(step), "CosmosDb doesn't currently support values for 'Range' outside the range of a 32-bit-integer.");
+                        })
+                        .Add(ConverterFactory
+                            .Create<Order, WorkaroundOrder>((order, _, _, _) => order.Equals(Order.Asc)
+                                ? WorkaroundOrder.Incr
+                                : order.Equals(Order.Desc)
+                                    ? WorkaroundOrder.Decr
+                                    : null)))
+                    .ConfigureDeserializer(deserializer => deserializer
+                        .AsIncomplete())));
     }
 }

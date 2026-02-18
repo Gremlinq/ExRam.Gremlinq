@@ -35,24 +35,21 @@ namespace ExRam.Gremlinq.Providers.GremlinServer
                             .ToExecutor())));
         }
 
-        public static IGremlinQuerySource UseGremlinServer<TVertexBase, TEdgeBase>(this IGremlinQuerySource source, Func<IGremlinServerConfigurator, IGremlinQuerySourceTransformation> configuratorTransformation)
-        {
-            return configuratorTransformation
-                .Invoke(GremlinServerConfigurator.Default)
-                .Transform(source
-                    .ConfigureEnvironment(environment => environment
-                        .UseModel(GraphModel
-                            .FromBaseTypes<TVertexBase, TEdgeBase>())
-                        .ConfigureOptions(options => options
-                            .SetValue(GremlinqOption.WorkaroundRangeInconsistencies, true))
-                        .ConfigureFeatureSet(featureSet => featureSet
-                            .ConfigureGraphFeatures(graphFeatures => graphFeatures & ~(GraphFeatures.Transactions | GraphFeatures.ThreadedTransactions | GraphFeatures.ConcurrentAccess))
-                            .ConfigureVertexFeatures(vertexFeatures => vertexFeatures & ~(VertexFeatures.Upsert | VertexFeatures.CustomIds))
-                            .ConfigureVertexPropertyFeatures(vPropertiesFeatures => vPropertiesFeatures & ~(VertexPropertyFeatures.CustomIds))
-                            .ConfigureEdgeFeatures(edgeProperties => edgeProperties & ~(EdgeFeatures.Upsert | EdgeFeatures.CustomIds)))
-                        .AddGraphSonBinarySupport()
-                        .ConfigureDeserializer(deserializer => deserializer
-                            .AsIncomplete())));
-        }
+        public static IGremlinQuerySource UseGremlinServer<TVertexBase, TEdgeBase>(this IGremlinQuerySource source, Func<IGremlinServerConfigurator, IGremlinQuerySourceTransformation> configuratorTransformation) => configuratorTransformation
+            .Invoke(GremlinServerConfigurator.Default)
+            .Transform(source
+                .ConfigureEnvironment(environment => environment
+                    .UseModel(GraphModel
+                        .FromBaseTypes<TVertexBase, TEdgeBase>())
+                    .ConfigureOptions(options => options
+                        .SetValue(GremlinqOption.WorkaroundRangeInconsistencies, true))
+                    .ConfigureFeatureSet(featureSet => featureSet
+                        .ConfigureGraphFeatures(graphFeatures => graphFeatures & ~(GraphFeatures.Transactions | GraphFeatures.ThreadedTransactions | GraphFeatures.ConcurrentAccess))
+                        .ConfigureVertexFeatures(vertexFeatures => vertexFeatures & ~(VertexFeatures.Upsert | VertexFeatures.CustomIds))
+                        .ConfigureVertexPropertyFeatures(vPropertiesFeatures => vPropertiesFeatures & ~(VertexPropertyFeatures.CustomIds))
+                        .ConfigureEdgeFeatures(edgeProperties => edgeProperties & ~(EdgeFeatures.Upsert | EdgeFeatures.CustomIds)))
+                    .AddGraphSonBinarySupport()
+                    .ConfigureDeserializer(deserializer => deserializer
+                        .AsIncomplete())));
     }
 }

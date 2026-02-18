@@ -18,18 +18,15 @@ namespace ExRam.Gremlinq.Core
 
         public bool Equals(Key other) => Equals(_key, other._key);
 
-        public int CompareTo(Key other)
+        public int CompareTo(Key other) => _key switch
         {
-            return _key switch
-            {
-                T t1 when other._key is T t2 => StringComparer.OrdinalIgnoreCase.Compare(t1.EnumValue, t2.EnumValue),
-                T => -1,
-                string str1 when other._key is string str2 => StringComparer.OrdinalIgnoreCase.Compare(str1, str2),
-                string => 1,
-                null => other._key is null ? 0 : -1,
-                _ => throw new InvalidOperationException($"Cannot compare {nameof(Key)}.")
-            };
-        }
+            T t1 when other._key is T t2 => StringComparer.OrdinalIgnoreCase.Compare(t1.EnumValue, t2.EnumValue),
+            T => -1,
+            string str1 when other._key is string str2 => StringComparer.OrdinalIgnoreCase.Compare(str1, str2),
+            string => 1,
+            null => other._key is null ? 0 : -1,
+            _ => throw new InvalidOperationException($"Cannot compare {nameof(Key)}.")
+        };
 
         public override bool Equals(object? obj) => obj is Key other && Equals(other);
 

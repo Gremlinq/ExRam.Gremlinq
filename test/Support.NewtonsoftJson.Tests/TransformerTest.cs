@@ -23,20 +23,14 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
         }
 
         [Fact]
-        public async Task Irrelevant()
-        {
-            await Verify(Transformer.Empty
-                .Add(Create<JObject, string>((_, _, _, _) => "should not be here"))
-                .TryTransformTo<string>().From("serialized", _environment));
-        }
+        public async Task Irrelevant() => await Verify(Transformer.Empty
+            .Add(Create<JObject, string>((_, _, _, _) => "should not be here"))
+            .TryTransformTo<string>().From("serialized", _environment));
 
         [Fact]
-        public async Task More_specific_type_is_deserialized()
-        {
-            await Verify(_environment
-                .Deserializer
-                .TryTransformTo<object>().From(JObject.Parse("{ \"@type\": \"g:Date\", \"@value\": 1657527969000 }"), _environment));
-        }
+        public async Task More_specific_type_is_deserialized() => await Verify(_environment
+            .Deserializer
+            .TryTransformTo<object>().From(JObject.Parse("{ \"@type\": \"g:Date\", \"@value\": 1657527969000 }"), _environment));
 
         [Fact]
         public async Task JObject_is_not_changed()

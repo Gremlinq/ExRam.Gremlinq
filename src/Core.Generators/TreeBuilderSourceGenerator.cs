@@ -8,10 +8,7 @@ namespace ExRam.Gremlinq.Core.Generators
     {
         private const int MaxParameters = 27;
 
-        public void Initialize(IncrementalGeneratorInitializationContext context)
-        {
-            context.RegisterPostInitializationOutput(Execute);
-        }
+        public void Initialize(IncrementalGeneratorInitializationContext context) => context.RegisterPostInitializationOutput(Execute);
 
         private static void Execute(IncrementalGeneratorPostInitializationContext context)
         {
@@ -176,10 +173,7 @@ namespace ExRam.Gremlinq.Core.Generators
             return writer;
         }
 
-        private static string GetTreeTypeName(int parameterCount)
-        {
-            return GetTreeTypeName(1, parameterCount);
-        }
+        private static string GetTreeTypeName(int parameterCount) => GetTreeTypeName(1, parameterCount);
 
         private static string GetTreeTypeName(int firstParameter, int lastParameter)
         {

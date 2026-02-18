@@ -13,19 +13,13 @@ namespace ExRam.Gremlinq.Core.Tests
 
 
         [Fact]
-        public Task MaxDepth()
-        {
-            return _g
-                .Inject(0)
-                .Map(GetLambda(29))
-                .Verify();
-        }
+        public Task MaxDepth() => _g
+            .Inject(0)
+            .Map(GetLambda(29))
+            .Verify();
 
-        private Func<IGremlinQuery<int>, IGremlinQuery<int>> GetLambda(int i)
-        {
-            return i == 0
-                ? __ => __.Constant(1)
-                : __ => __.Map(GetLambda(i - 1));
-        }
+        private Func<IGremlinQuery<int>, IGremlinQuery<int>> GetLambda(int i) => i == 0
+            ? __ => __.Constant(1)
+            : __ => __.Map(GetLambda(i - 1));
     }
 }

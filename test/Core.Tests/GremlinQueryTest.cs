@@ -20,60 +20,45 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public void ChangeQueryType_to_IGremlinQuerySource()
-        {
-            _g
-                .V()
-                .AsAdmin()
-                .ChangeQueryType<IGremlinQuerySource>()
-                .Should()
-                .NotBeNull();
-        }
+        public void ChangeQueryType_to_IGremlinQuerySource() => _g
+            .V()
+            .AsAdmin()
+            .ChangeQueryType<IGremlinQuerySource>()
+            .Should()
+            .NotBeNull();
 
         [Fact]
-        public void AsAdmin_AddStep()
-        {
-            _g
-                .V()
-                .AsAdmin()
-                .AddStep<IGremlinQuerySource>(
-                    new InjectStep(ImmutableArray<object>.Empty.Add(0)),
-                    _ => _.Fold())
-                .Should()
-                .NotBeNull();
-        }
+        public void AsAdmin_AddStep() => _g
+            .V()
+            .AsAdmin()
+            .AddStep<IGremlinQuerySource>(
+                new InjectStep(ImmutableArray<object>.Empty.Add(0)),
+                _ => _.Fold())
+            .Should()
+            .NotBeNull();
 
         [Fact]
-        public void AsAdmin_AddSteps()
-        {
-            _g
-                .V()
-                .AsAdmin()
-                .AddSteps<IGremlinQuery<object>>([new InjectStep(ImmutableArray<object>.Empty.Add(0)), FoldStep.Instance])
-                .Should()
-                .NotBeNull();
-        }
+        public void AsAdmin_AddSteps() => _g
+            .V()
+            .AsAdmin()
+            .AddSteps<IGremlinQuery<object>>([new InjectStep(ImmutableArray<object>.Empty.Add(0)), FoldStep.Instance])
+            .Should()
+            .NotBeNull();
 
         [Fact]
-        public Task AsAdmin_ConfigureMetadata()
-        {
-            return Verify(_g
-                .V()
+        public Task AsAdmin_ConfigureMetadata() => Verify(_g
+            .V()
+            .AsAdmin()
+            .ConfigureMetadata<IGremlinQuerySource>(dict => dict.SetItem("key", "value"))
+            .AsAdmin()
+            .Metadata);
+
+        [Fact]
+        public Task AsAdmin_ConfigureMetadata_On_GremlinQuerySource() => Verify(_g
                 .AsAdmin()
                 .ConfigureMetadata<IGremlinQuerySource>(dict => dict.SetItem("key", "value"))
                 .AsAdmin()
                 .Metadata);
-        }
-
-        [Fact]
-        public Task AsAdmin_ConfigureMetadata_On_GremlinQuerySource()
-        {
-            return Verify(_g
-                .AsAdmin()
-                .ConfigureMetadata<IGremlinQuerySource>(dict => dict.SetItem("key", "value"))
-                .AsAdmin()
-                .Metadata);
-        }
 
         [Fact]
         public void ChangeQueryType_optimizes()
@@ -114,15 +99,12 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task ForceVertex_has_correct_semantics()
-        {
-            await Verify(_g
-                .V<Person>()
-                .Count()
-                .ForceVertex()
-                .ToTraversal()
-                .Projection);
-        }
+        public async Task ForceVertex_has_correct_semantics() => await Verify(_g
+            .V<Person>()
+            .Count()
+            .ForceVertex()
+            .ToTraversal()
+            .Projection);
 
         [Fact]
         public void Lower_chain_from_value() => _g

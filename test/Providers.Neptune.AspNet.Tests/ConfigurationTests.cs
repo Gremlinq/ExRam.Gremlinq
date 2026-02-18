@@ -13,23 +13,20 @@ namespace ExRam.Gremlinq.Providers.Neptune.AspNet.Tests
     public class ConfigurationTests
     {
         [Fact]
-        public void Source_can_be_created()
-        {
-            new ServiceCollection()
-                .AddSingleton<IConfiguration>(new ConfigurationBuilder()
-                    .AddInMemoryCollection(new Dictionary<string, string?>
-                    {
-                        { "Gremlinq:Neptune:Uri", "ws://localhost:8182/" },
-                    })
-                    .Build())
-                .AddGremlinq(setup => setup
-                    .UseNeptune<Vertex, Edge>()
-                    .UseNewtonsoftJson())
-                .BuildServiceProvider()
-                .GetRequiredService<IGremlinQuerySource>()
-                .Should()
-                .NotBeNull();
-        }
+        public void Source_can_be_created() => new ServiceCollection()
+            .AddSingleton<IConfiguration>(new ConfigurationBuilder()
+                .AddInMemoryCollection(new Dictionary<string, string?>
+                {
+                    { "Gremlinq:Neptune:Uri", "ws://localhost:8182/" },
+                })
+                .Build())
+            .AddGremlinq(setup => setup
+                .UseNeptune<Vertex, Edge>()
+                .UseNewtonsoftJson())
+            .BuildServiceProvider()
+            .GetRequiredService<IGremlinQuerySource>()
+            .Should()
+            .NotBeNull();
 
         [Fact]
         public Task Inject() => Verify(new ServiceCollection()

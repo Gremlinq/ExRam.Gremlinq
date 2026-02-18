@@ -68,10 +68,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
             return false;
         }
 
-        public static bool LooksLikeProperty(this JObject jObject)
-        {
-            return jObject.TryGetValue("value", StringComparison.OrdinalIgnoreCase, out _) && jObject.TryGetValue("key", StringComparison.OrdinalIgnoreCase, out var keyToken) && keyToken.Type == JTokenType.String;
-        }
+        public static bool LooksLikeProperty(this JObject jObject) => jObject.TryGetValue("value", StringComparison.OrdinalIgnoreCase, out _) && jObject.TryGetValue("key", StringComparison.OrdinalIgnoreCase, out var keyToken) && keyToken.Type == JTokenType.String;
 
         public static bool LooksLikeVertexProperty(this JObject jObject)
         {

@@ -23,12 +23,9 @@ internal static class VerifyTestsModuleInitializer
     }
 
     [ModuleInitializer]
-    internal static void Init()
-    {
-        VerifierSettings
-            .AddExtraSettings(settings =>
-            {
-                settings.Converters.Add(new TreeConverter());
-            });
-    }
+    internal static void Init() => VerifierSettings
+        .AddExtraSettings(settings =>
+        {
+            settings.Converters.Add(new TreeConverter());
+        });
 }

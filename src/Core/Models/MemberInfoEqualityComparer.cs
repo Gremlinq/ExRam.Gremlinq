@@ -8,15 +8,9 @@ namespace ExRam.Gremlinq.Core.Models
         {
             public static readonly InnerMemberInfoEqualityComparer Instance = new();
 
-            public bool Equals(MemberInfo? x, MemberInfo? y)
-            {
-                return (x?.DeclaringType, x?.MetadataToken).Equals((y?.DeclaringType, y?.MetadataToken));
-            }
+            public bool Equals(MemberInfo? x, MemberInfo? y) => (x?.DeclaringType, x?.MetadataToken).Equals((y?.DeclaringType, y?.MetadataToken));
 
-            public int GetHashCode(MemberInfo obj)
-            {
-                return (obj.DeclaringType, obj.MetadataToken).GetHashCode();
-            }
+            public int GetHashCode(MemberInfo obj) => (obj.DeclaringType, obj.MetadataToken).GetHashCode();
         }
 
         public static readonly MemberInfoEqualityComparer Instance = new();

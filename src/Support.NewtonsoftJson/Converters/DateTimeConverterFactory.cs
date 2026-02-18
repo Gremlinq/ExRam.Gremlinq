@@ -6,14 +6,11 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
 {
     internal sealed class DateTimeConverterFactory : FixedTypeConverterFactory<DateTime>
     {
-        protected override DateTime? Convert(JValue jValue, IGremlinQueryEnvironment environment, ITransformer recurse)
+        protected override DateTime? Convert(JValue jValue, IGremlinQueryEnvironment environment, ITransformer recurse) => jValue switch
         {
-            return jValue switch
-            {
-                { Value: DateTime dateTime } => dateTime,
-                _ when recurse.TryTransform<JToken, DateTimeOffset>(jValue, environment, out var dateTimeOffset) => dateTimeOffset.UtcDateTime,
-                _ => null
-            };
-        }
+            { Value: DateTime dateTime } => dateTime,
+            _ when recurse.TryTransform<JToken, DateTimeOffset>(jValue, environment, out var dateTimeOffset) => dateTimeOffset.UtcDateTime,
+            _ => null
+        };
     }
 }

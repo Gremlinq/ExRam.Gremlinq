@@ -68,10 +68,7 @@
         {
         }
 
-        public override StepLabel<IGremlinQuery<TNewValue>, TNewValue> Cast<TNewValue>()
-        {
-            return new(Identity);
-        }
+        public override StepLabel<IGremlinQuery<TNewValue>, TNewValue> Cast<TNewValue>() => new(Identity);
 
         public static implicit operator StepLabel<TQuery, TElement>(string str) => new(str);
     }

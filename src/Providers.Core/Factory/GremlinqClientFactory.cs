@@ -84,10 +84,7 @@ namespace ExRam.Gremlinq.Providers.Core
                         }
                     }
 
-                    public void Dispose()
-                    {
-                        Interlocked.Exchange(ref _currentClient, GremlinqClient.Disposed)?.Dispose();
-                    }
+                    public void Dispose() => Interlocked.Exchange(ref _currentClient, GremlinqClient.Disposed)?.Dispose();
                 }
 
                 private readonly IGremlinqClient[] _slots;

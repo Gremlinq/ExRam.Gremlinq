@@ -24,7 +24,7 @@ namespace ExRam.Gremlinq.Core
         {
             var ret = EnsureCapacity(Count + items.Length);
 
-            for(var i = 0; i < items.Length; i++)
+            for (var i = 0; i < items.Length; i++)
             {
                 ret = ret.Push(items[i]);
             }
@@ -53,7 +53,7 @@ namespace ExRam.Gremlinq.Core
         }
 
         public FastImmutableList<T> Slice(int start, int length) => length <= Count - start
-            ? new (Items[start..], length)
+            ? new(Items[start..], length)
             : throw new ArgumentOutOfRangeException(nameof(length));
 
         public int Count { get; }

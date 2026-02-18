@@ -13,12 +13,9 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                 _baseExecutor = baseExecutor;
             }
 
-            public IAsyncEnumerable<T> Execute<T>(GremlinQueryExecutionContext context)
-            {
-                return _baseExecutor
-                    .Execute<T>(context)
-                    .IgnoreElements();
-            }
+            public IAsyncEnumerable<T> Execute<T>(GremlinQueryExecutionContext context) => _baseExecutor
+                .Execute<T>(context)
+                .IgnoreElements();
         }
 
         public static IGremlinQueryExecutor IgnoreResults(this IGremlinQueryExecutor executor) => new IgnoringExecutor(executor);

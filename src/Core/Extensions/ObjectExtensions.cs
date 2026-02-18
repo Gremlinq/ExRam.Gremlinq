@@ -66,10 +66,7 @@ namespace ExRam.Gremlinq.Core
             return propertyInfo?.GetValue(element) ?? throw new InvalidOperationException($"Unable to determine Id for {element}");
         }
 
-        private static Func<object, IGremlinQueryEnvironment, SerializationBehaviour, IEnumerable<(Key key, object? value)>> CreateSerializeDictionaryFunc<TKey, TValue>()
-        {
-            return static (dict, _, _) => SerializeDictionary((IDictionary<TKey, TValue>)dict);
-        }
+        private static Func<object, IGremlinQueryEnvironment, SerializationBehaviour, IEnumerable<(Key key, object? value)>> CreateSerializeDictionaryFunc<TKey, TValue>() => static (dict, _, _) => SerializeDictionary((IDictionary<TKey, TValue>)dict);
 
         private static IEnumerable<(Key key, object? value)> SerializeDictionary<TKey, TValue>(IDictionary<TKey, TValue> dict)
         {

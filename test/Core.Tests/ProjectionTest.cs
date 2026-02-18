@@ -16,69 +16,51 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public virtual Task Coalesce_with_2_subQueries_has_right_semantics()
-        {
-            return Verify(_g
-                .V()
-                .Coalesce(
-                    _ => _.Out(),
-                    _ => _.In())
-                .ToTraversal()
-                .Projection);
-        }
+        public virtual Task Coalesce_with_2_subQueries_has_right_semantics() => Verify(_g
+            .V()
+            .Coalesce(
+                _ => _.Out(),
+                _ => _.In())
+            .ToTraversal()
+            .Projection);
 
         [Fact]
-        public virtual Task Coalesce_with_2_not_matching_subQueries_has_right_semantics()
-        {
-            return Verify(_g
-                .V()
-                .Coalesce(
-                    _ => _.OutE(),
-                    _ => _.In())
-                .ToTraversal()
-                .Projection);
-        }
+        public virtual Task Coalesce_with_2_not_matching_subQueries_has_right_semantics() => Verify(_g
+            .V()
+            .Coalesce(
+                _ => _.OutE(),
+                _ => _.In())
+            .ToTraversal()
+            .Projection);
 
         [Fact]
-        public virtual Task ForceEdge_will_not_preserve_Vertex()
-        {
-            return Verify(_g
-                .V()
-                .ForceEdge()
-                .ToTraversal()
-                .Projection);
-        }
+        public virtual Task ForceEdge_will_not_preserve_Vertex() => Verify(_g
+           .V()
+           .ForceEdge()
+           .ToTraversal()
+           .Projection);
 
         [Fact]
-        public virtual Task ForceElement_will_preserve_Vertex()
-        {
-            return Verify(_g
-                .V()
-                .ForceElement()
-                .ToTraversal()
-                .Projection);
-        }
+        public virtual Task ForceElement_will_preserve_Vertex() => Verify(_g
+            .V()
+            .ForceElement()
+            .ToTraversal()
+            .Projection);
 
         [Fact]
-        public virtual Task ForceValue_will_not_preserve_Vertex()
-        {
-            return Verify(_g
-                .V()
-                .ForceValue()
-                .ToTraversal()
-                .Projection);
-        }
+        public virtual Task ForceValue_will_not_preserve_Vertex() => Verify(_g
+            .V()
+            .ForceValue()
+            .ToTraversal()
+            .Projection);
 
         [Fact]
-        public virtual Task Unfold_will_get_Vertex_back()
-        {
-            return Verify(_g
-                .V()
-                .Fold()
-                .Unfold()
-                .ToTraversal()
-                .Projection);
-        }
+        public virtual Task Unfold_will_get_Vertex_back() => Verify(_g
+            .V()
+            .Fold()
+            .Unfold()
+            .ToTraversal()
+            .Projection);
 
         [Fact]
         public virtual Task Where_variable_bool_property_true()

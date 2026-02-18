@@ -25,12 +25,9 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                 _deserializer = deserializer;
             }
 
-            public object? From<TSource>(TSource source, IGremlinQueryEnvironment environment)
-            {
-                return TryGetDelegate(typeof(TSource), _type) is Func<ITransformer, TSource, IGremlinQueryEnvironment, object?> fromDelegate
-                    ? fromDelegate(_deserializer, source, environment)
-                    : null;
-            }
+            public object? From<TSource>(TSource source, IGremlinQueryEnvironment environment) => TryGetDelegate(typeof(TSource), _type) is Func<ITransformer, TSource, IGremlinQueryEnvironment, object?> fromDelegate
+                ? fromDelegate(_deserializer, source, environment)
+                : null;
 
             private static Delegate? TryGetDelegate(Type sourceType, Type targetType)
             {

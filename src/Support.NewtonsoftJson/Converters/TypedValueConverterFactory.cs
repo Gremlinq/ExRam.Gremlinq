@@ -70,11 +70,8 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
             }
         }
 
-        public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment)
-        {
-            return typeof(TSource) == typeof(JObject)
-                ? Unsafe.As<IConverter<TSource, TTarget>>(new TypedValueConverter<TTarget>(environment))
-                : null;
-        }
+        public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment) => typeof(TSource) == typeof(JObject)
+            ? Unsafe.As<IConverter<TSource, TTarget>>(new TypedValueConverter<TTarget>(environment))
+            : null;
     }
 }

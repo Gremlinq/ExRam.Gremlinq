@@ -33,10 +33,7 @@ namespace ExRam.Gremlinq.Core.Generators
             "IDateGremlinQuery<T1>"
         };
 
-        public void Initialize(IncrementalGeneratorInitializationContext context)
-        {
-            context.RegisterPostInitializationOutput(Execute);
-        }
+        public void Initialize(IncrementalGeneratorInitializationContext context) => context.RegisterPostInitializationOutput(Execute);
 
         private static void Execute(IncrementalGeneratorPostInitializationContext context)
         {
@@ -262,33 +259,21 @@ namespace ExRam.Gremlinq.Core.Generators
             return writer;
         }
 
-        private static string[] Untyped(IEnumerable<string> interfaces)
-        {
-            return interfaces
-                .Where(iface => GetTypeParameters(iface).Length == 0)
-                .ToArray();
-        }
+        private static string[] Untyped(IEnumerable<string> interfaces) => interfaces
+            .Where(iface => GetTypeParameters(iface).Length == 0)
+            .ToArray();
 
-        private static string[] Typed(IEnumerable<string> interfaces)
-        {
-            return interfaces
-                .Where(iface => GetTypeParameters(iface).Length > 0)
-                .ToArray();
-        }
+        private static string[] Typed(IEnumerable<string> interfaces) => interfaces
+            .Where(iface => GetTypeParameters(iface).Length > 0)
+            .ToArray();
 
-        private static string[] Element(IEnumerable<string> interfaces)
-        {
-            return interfaces
-                .Where(iface => iface.Contains("IElement") || iface.Contains("IVertex") || iface.Contains("Edge"))
-                .ToArray();
-        }
+        private static string[] Element(IEnumerable<string> interfaces) => interfaces
+            .Where(iface => iface.Contains("IElement") || iface.Contains("IVertex") || iface.Contains("Edge"))
+            .ToArray();
 
-        private static string[] EdgeOrVertex(IEnumerable<string> interfaces)
-        {
-            return interfaces
-                .Where(iface => iface.Contains("IVertex") || iface.Contains("EdgeGremlinQuery"))
-                .ToArray();
-        }
+        private static string[] EdgeOrVertex(IEnumerable<string> interfaces) => interfaces
+            .Where(iface => iface.Contains("IVertex") || iface.Contains("EdgeGremlinQuery"))
+            .ToArray();
 
         private static string ChangeType(string iface, string newType)
         {

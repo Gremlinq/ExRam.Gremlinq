@@ -22,20 +22,17 @@ namespace ExRam.Gremlinq.Core
                     .Concat(environment.Model.EdgesModel.ElementTypes));
             }
 
-            public (PropertyInfo propertyInfo, MemberMetadata metadata)[] GetSerializationData(Type type)
-            {
-                return _typeProperties
-                    .GetOrAdd(
-                        type,
-                        static (closureType, closureEnvironment) => closureType
-                            .GetSerializableProperties()
-                            .Select(p => (
-                                property: p,
-                                metadata: closureEnvironment.GetCache().GetMetadata(p)))
-                            .OrderBy(static x => x.metadata.Key)
-                            .ToArray(),
-                        _environment);
-            }
+            public (PropertyInfo propertyInfo, MemberMetadata metadata)[] GetSerializationData(Type type) => _typeProperties
+                .GetOrAdd(
+                    type,
+                    static (closureType, closureEnvironment) => closureType
+                        .GetSerializableProperties()
+                        .Select(p => (
+                            property: p,
+                            metadata: closureEnvironment.GetCache().GetMetadata(p)))
+                        .OrderBy(static x => x.metadata.Key)
+                        .ToArray(),
+                    _environment);
 
             public MemberMetadata GetMetadata(MemberInfo member) => _members.GetOrAdd(
                 member,
@@ -47,11 +44,8 @@ namespace ExRam.Gremlinq.Core
 
         private static readonly ConditionalWeakTable<IGremlinQueryEnvironment, IGremlinQueryEnvironmentCache> Caches = new();
 
-        public static IGremlinQueryEnvironmentCache GetCache(this IGremlinQueryEnvironment environment)
-        {
-            return Caches.GetValue(
-                environment,
-                static closure => new GremlinQueryEnvironmentCacheImpl(closure));
-        }
+        public static IGremlinQueryEnvironmentCache GetCache(this IGremlinQueryEnvironment environment) => Caches.GetValue(
+            environment,
+            static closure => new GremlinQueryEnvironmentCacheImpl(closure));
     }
 }

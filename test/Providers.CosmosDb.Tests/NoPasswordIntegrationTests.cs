@@ -35,16 +35,13 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
         }
 
         [Fact(Skip = "Flaky")]
-        public async Task No_password_bubbles_up()
-        {
-            await _g
-                .Inject(42)
-                .ToArrayAsync(TestContext.Current.CancellationToken)
-                .Awaiting(_ => _)
-                .Should()
-                .ThrowAsync<GremlinQueryExecutionException>()
-                .WithInnerException<GremlinQueryExecutionException, ResponseException>()
-                .Where(ex => ex.Message.Contains("Invalid credentials provided"));
-        }
+        public async Task No_password_bubbles_up() => await _g
+            .Inject(42)
+            .ToArrayAsync(TestContext.Current.CancellationToken)
+            .Awaiting(_ => _)
+            .Should()
+            .ThrowAsync<GremlinQueryExecutionException>()
+            .WithInnerException<GremlinQueryExecutionException, ResponseException>()
+            .Where(ex => ex.Message.Contains("Invalid credentials provided"));
     }
 }

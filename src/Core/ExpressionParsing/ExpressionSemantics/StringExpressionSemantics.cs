@@ -12,15 +12,12 @@
 
         public override ExpressionSemantics Flip() => Get(Comparison);
 
-        public static StringEqualsExpressionSemantics Get(StringComparison comparison)
+        public static StringEqualsExpressionSemantics Get(StringComparison comparison) => comparison switch
         {
-            return comparison switch
-            {
-                StringComparison.Ordinal => CaseSensitive,
-                StringComparison.OrdinalIgnoreCase => CaseInsensitive,
-                _ => throw new ExpressionNotSupportedException()
-            };
-        }
+            StringComparison.Ordinal => CaseSensitive,
+            StringComparison.OrdinalIgnoreCase => CaseInsensitive,
+            _ => throw new ExpressionNotSupportedException()
+        };
     }
 
     public sealed class HasInfixExpressionSemantics : StringExpressionSemantics
@@ -35,15 +32,12 @@
 
         public override ExpressionSemantics Flip() => IsInfixOfExpressionSemantics.Get(Comparison);
 
-        public static HasInfixExpressionSemantics Get(StringComparison comparison)
+        public static HasInfixExpressionSemantics Get(StringComparison comparison) => comparison switch
         {
-            return comparison switch
-            {
-                StringComparison.Ordinal => CaseSensitive,
-                StringComparison.OrdinalIgnoreCase => CaseInsensitive,
-                _ => throw new ExpressionNotSupportedException()
-            };
-        }
+            StringComparison.Ordinal => CaseSensitive,
+            StringComparison.OrdinalIgnoreCase => CaseInsensitive,
+            _ => throw new ExpressionNotSupportedException()
+        };
     }
 
     public sealed class StartsWithExpressionSemantics : StringExpressionSemantics
@@ -58,15 +52,12 @@
 
         public override ExpressionSemantics Flip() => IsPrefixOfExpressionSemantics.Get(Comparison);
 
-        public static StartsWithExpressionSemantics Get(StringComparison comparison)
+        public static StartsWithExpressionSemantics Get(StringComparison comparison) => comparison switch
         {
-            return comparison switch
-            {
-                StringComparison.Ordinal => CaseSensitive,
-                StringComparison.OrdinalIgnoreCase => CaseInsensitive,
-                _ => throw new ExpressionNotSupportedException()
-            };
-        }
+            StringComparison.Ordinal => CaseSensitive,
+            StringComparison.OrdinalIgnoreCase => CaseInsensitive,
+            _ => throw new ExpressionNotSupportedException()
+        };
     }
 
     public sealed class EndsWithExpressionSemantics : StringExpressionSemantics
@@ -81,15 +72,12 @@
 
         public override ExpressionSemantics Flip() => IsSuffixOfExpressionSemantics.Get(Comparison);
 
-        public static EndsWithExpressionSemantics Get(StringComparison comparison)
+        public static EndsWithExpressionSemantics Get(StringComparison comparison) => comparison switch
         {
-            return comparison switch
-            {
-                StringComparison.Ordinal => CaseSensitive,
-                StringComparison.OrdinalIgnoreCase => CaseInsensitive,
-                _ => throw new ExpressionNotSupportedException()
-            };
-        }
+            StringComparison.Ordinal => CaseSensitive,
+            StringComparison.OrdinalIgnoreCase => CaseInsensitive,
+            _ => throw new ExpressionNotSupportedException()
+        };
     }
 
     public sealed class IsInfixOfExpressionSemantics : StringExpressionSemantics
@@ -104,15 +92,12 @@
 
         public override ExpressionSemantics Flip() => HasInfixExpressionSemantics.Get(Comparison);
 
-        public static IsInfixOfExpressionSemantics Get(StringComparison comparison)
+        public static IsInfixOfExpressionSemantics Get(StringComparison comparison) => comparison switch
         {
-            return comparison switch
-            {
-                StringComparison.Ordinal => CaseSensitive,
-                StringComparison.OrdinalIgnoreCase => CaseInsensitive,
-                _ => throw new ExpressionNotSupportedException()
-            };
-        }
+            StringComparison.Ordinal => CaseSensitive,
+            StringComparison.OrdinalIgnoreCase => CaseInsensitive,
+            _ => throw new ExpressionNotSupportedException()
+        };
     }
 
     public sealed class IsPrefixOfExpressionSemantics : StringExpressionSemantics
@@ -127,15 +112,12 @@
 
         public override ExpressionSemantics Flip() => StartsWithExpressionSemantics.Get(Comparison);
 
-        public static IsPrefixOfExpressionSemantics Get(StringComparison comparison)
+        public static IsPrefixOfExpressionSemantics Get(StringComparison comparison) => comparison switch
         {
-            return comparison switch
-            {
-                StringComparison.Ordinal => CaseSensitive,
-                StringComparison.OrdinalIgnoreCase => CaseInsensitive,
-                _ => throw new ExpressionNotSupportedException()
-            };
-        }
+            StringComparison.Ordinal => CaseSensitive,
+            StringComparison.OrdinalIgnoreCase => CaseInsensitive,
+            _ => throw new ExpressionNotSupportedException()
+        };
     }
 
     public sealed class IsSuffixOfExpressionSemantics : StringExpressionSemantics
@@ -150,15 +132,12 @@
 
         public override ExpressionSemantics Flip() => EndsWithExpressionSemantics.Get(Comparison);
 
-        public static IsSuffixOfExpressionSemantics Get(StringComparison comparison)
+        public static IsSuffixOfExpressionSemantics Get(StringComparison comparison) => comparison switch
         {
-            return comparison switch
-            {
-                StringComparison.Ordinal => CaseSensitive,
-                StringComparison.OrdinalIgnoreCase => CaseInsensitive,
-                _ => throw new ExpressionNotSupportedException()
-            };
-        }
+            StringComparison.Ordinal => CaseSensitive,
+            StringComparison.OrdinalIgnoreCase => CaseInsensitive,
+            _ => throw new ExpressionNotSupportedException()
+        };
     }
 
     public abstract class StringExpressionSemantics : ExpressionSemantics

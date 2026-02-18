@@ -36,12 +36,9 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
             }
         }
 
-        public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment)
-        {
-            return typeof(TTarget) == typeof(TStaticTarget) && typeof(TSource) == typeof(JValue)
-                ? Unsafe.As<IConverter<TSource, TTarget>>(new FixedTypeConverter(this, environment))
-                : null;
-        }
+        public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment) => typeof(TTarget) == typeof(TStaticTarget) && typeof(TSource) == typeof(JValue)
+            ? Unsafe.As<IConverter<TSource, TTarget>>(new FixedTypeConverter(this, environment))
+            : null;
 
         protected abstract TStaticTarget? Convert(JValue jValue, IGremlinQueryEnvironment environment, ITransformer recurse);
     }

@@ -20,16 +20,13 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
         }
 
         [Fact]
-        public async Task Wrong_password_bubbles_up()
-        {
-            await _g
-                .Inject(42)
-                .ToArrayAsync(TestContext.Current.CancellationToken)
-                .Awaiting(_ => _)
-                .Should()
-                .ThrowAsync<GremlinQueryExecutionException>()
-                .WithInnerException<GremlinQueryExecutionException, ResponseException>()
-                .WithMessage("Unauthorized: Username and/or password are incorrect");
-        }
+        public async Task Wrong_password_bubbles_up() => await _g
+            .Inject(42)
+            .ToArrayAsync(TestContext.Current.CancellationToken)
+            .Awaiting(_ => _)
+            .Should()
+            .ThrowAsync<GremlinQueryExecutionException>()
+            .WithInnerException<GremlinQueryExecutionException, ResponseException>()
+            .WithMessage("Unauthorized: Username and/or password are incorrect");
     }
 }

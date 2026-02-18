@@ -19,15 +19,12 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public void Invalid()
-        {
-            GremlinQueryExecutor.Invalid
-                .Execute<object>(GremlinQueryExecutionContext.Create(_query))
-                .Awaiting(ex => ex
-                    .ToArrayAsync(TestContext.Current.CancellationToken))
-                .Should()
-                .ThrowAsync<InvalidOperationException>();
-        }
+        public void Invalid() => GremlinQueryExecutor.Invalid
+            .Execute<object>(GremlinQueryExecutionContext.Create(_query))
+            .Awaiting(ex => ex
+                .ToArrayAsync(TestContext.Current.CancellationToken))
+            .Should()
+            .ThrowAsync<InvalidOperationException>();
 
         [Fact]
         public async Task Empty()

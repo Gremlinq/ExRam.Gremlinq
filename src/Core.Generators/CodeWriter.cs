@@ -55,13 +55,10 @@
             return new(continuedWriter._stringWriter, _level, continuedWriter._lineLength);
         }
 
-        public CodeWriter Block<TState>(Func<CodeWriter, TState, CodeWriter> continuation, TState state)
-        {
-            return this
-                .WriteLine("{")
-                .Indent(continuation, state)
-                .WriteLine("}");
-        }
+        public CodeWriter Block<TState>(Func<CodeWriter, TState, CodeWriter> continuation, TState state) => this
+            .WriteLine("{")
+            .Indent(continuation, state)
+            .WriteLine("}");
 
         public CodeWriter Block() => Block(_ => _);
 

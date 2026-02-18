@@ -15,13 +15,10 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
-        public static IEnumerable<PropertyInfo> GetSerializableProperties(this Type type)
-        {
-            return type
-                .GetTypeHierarchy()
-                .SelectMany(static type => type.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly))
-                .Where(static p => p.GetMethod is { } getMethod && getMethod.GetBaseDefinition() == getMethod);
-        }
+        public static IEnumerable<PropertyInfo> GetSerializableProperties(this Type type) => type
+            .GetTypeHierarchy()
+            .SelectMany(static type => type.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly))
+            .Where(static p => p.GetMethod is { } getMethod && getMethod.GetBaseDefinition() == getMethod);
 
         public static bool IsSpanType(this Type type) => type.IsGenericType && type.GetGenericTypeDefinition() is { } genericTypeDefinition && (genericTypeDefinition == typeof(ReadOnlySpan<>) || genericTypeDefinition == typeof(Span<>));
     }

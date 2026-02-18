@@ -2,10 +2,7 @@
 {
     public abstract class Property
     {
-        public override string ToString()
-        {
-            return $"p[{Key}->{GetValue()}]";
-        }
+        public override string ToString() => $"p[{Key}->{GetValue()}]";
 
         protected internal abstract object? GetValue();
 

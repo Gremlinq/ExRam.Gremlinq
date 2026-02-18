@@ -26,43 +26,37 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                     labelSetter(element, labelToken, recurse);
             }
 
-            private static Action<TElement, JToken, ITransformer>? TryGetSetter(ConcurrentDictionary<IGremlinQueryEnvironment, Action<TElement, JToken, ITransformer>?> dict, T relevantT, IGremlinQueryEnvironment environment)
-            {
-                return dict
-                    .GetOrAdd(
-                        environment,
-                        static (environment, relevantT) =>
+            private static Action<TElement, JToken, ITransformer>? TryGetSetter(ConcurrentDictionary<IGremlinQueryEnvironment, Action<TElement, JToken, ITransformer>?> dict, T relevantT, IGremlinQueryEnvironment environment) => dict
+                .GetOrAdd(
+                    environment,
+                    static (environment, relevantT) =>
+                    {
+                        var serializationData = environment
+                            .GetCache()
+                            .GetSerializationData(typeof(TElement));
+
+                        for (var i = 0; i < serializationData.Length; i++)
                         {
-                            var serializationData = environment
-                                .GetCache()
-                                .GetSerializationData(typeof(TElement));
+                            var info = serializationData[i];
 
-                            for (var i = 0; i < serializationData.Length; i++)
+                            if (info.metadata.Key.RawKey is T t && relevantT.Equals(t) && info.propertyInfo is { CanWrite: true } propertyInfo)
                             {
-                                var info = serializationData[i];
-
-                                if (info.metadata.Key.RawKey is T t && relevantT.Equals(t) && info.propertyInfo is { CanWrite: true } propertyInfo)
-                                {
-                                    return (Action<TElement, JToken, ITransformer>)typeof(Info<TElement>)
-                                        .GetMethod(nameof(CreateSetter), BindingFlags.NonPublic | BindingFlags.Static)!
-                                        .MakeGenericMethod(propertyInfo.PropertyType)
-                                        .Invoke(null, [propertyInfo, environment])!;
-                                }
+                                return (Action<TElement, JToken, ITransformer>)typeof(Info<TElement>)
+                                    .GetMethod(nameof(CreateSetter), BindingFlags.NonPublic | BindingFlags.Static)!
+                                    .MakeGenericMethod(propertyInfo.PropertyType)
+                                    .Invoke(null, [propertyInfo, environment])!;
                             }
+                        }
 
-                            return null;
-                        },
-                        relevantT);
-            }
+                        return null;
+                    },
+                    relevantT);
 
-            private static Action<TElement, JToken, ITransformer> CreateSetter<TProperty>(PropertyInfo propertyInfo, IGremlinQueryEnvironment environment)
+            private static Action<TElement, JToken, ITransformer> CreateSetter<TProperty>(PropertyInfo propertyInfo, IGremlinQueryEnvironment environment) => (element, token, recurse) =>
             {
-                return (element, token, recurse) =>
-                {
-                    if (recurse.TryTransform<JToken, TProperty>(token, environment, out var value))
-                        propertyInfo.SetValue(element, value);
-                };
-            }
+                if (recurse.TryTransform<JToken, TProperty>(token, environment, out var value))
+                    propertyInfo.SetValue(element, value);
+            };
         }
 
 

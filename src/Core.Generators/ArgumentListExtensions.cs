@@ -4,10 +4,7 @@ namespace ExRam.Gremlinq.Core.Generators
 {
     internal static class ArgumentListExtensions
     {
-        public static string GetArgumentList(string template, int argumentCount, bool hasPreceedingArguments = false, bool hasFollowingArguments = false)
-        {
-            return GetArgumentList(template, ", ", argumentCount, hasPreceedingArguments, hasFollowingArguments);
-        }
+        public static string GetArgumentList(string template, int argumentCount, bool hasPreceedingArguments = false, bool hasFollowingArguments = false) => GetArgumentList(template, ", ", argumentCount, hasPreceedingArguments, hasFollowingArguments);
 
         public static string GetArgumentList(string template, string separator, int argumentCount, bool hasPreceedingArguments = false, bool hasFollowingArguments = false)
         {

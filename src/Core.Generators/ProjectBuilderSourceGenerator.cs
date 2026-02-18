@@ -6,10 +6,7 @@ namespace ExRam.Gremlinq.Core.Generators
     [Generator]
     public class ProjectBuilderSourceGenerator : IIncrementalGenerator
     {
-        public void Initialize(IncrementalGeneratorInitializationContext context)
-        {
-            context.RegisterPostInitializationOutput(Execute);
-        }
+        public void Initialize(IncrementalGeneratorInitializationContext context) => context.RegisterPostInitializationOutput(Execute);
 
         private static void Execute(IncrementalGeneratorPostInitializationContext context)
         {
@@ -75,38 +72,35 @@ namespace ExRam.Gremlinq.Core.Generators
             return writer;
         }
 
-        private static CodeWriter GenerateProjectBuilderClass(CodeWriter writer)
-        {
-            return writer
-                .WriteLine()
-                .WriteLine("partial class GremlinQuery<T1, T2, T3, T4>")
-                .Block(w =>
+        private static CodeWriter GenerateProjectBuilderClass(CodeWriter writer) => writer
+            .WriteLine()
+            .WriteLine("partial class GremlinQuery<T1, T2, T3, T4>")
+            .Block(w =>
+            {
+                w = w
+                    .Write("private sealed partial class ProjectBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15, TItem16> :");
+
+                for (var i = 2; i <= 16; i++)
                 {
-                    w = w
-                        .Write("private sealed partial class ProjectBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15, TItem16> :");
-
-                    for (var i = 2; i <= 16; i++)
-                    {
-                        var args = GetArgumentList("TItem{0}", i);
-                        w = w
-                            .WriteLine()
-                            .Indent(w2 => w2
-                                .Write($"IProjectTupleBuilder<GremlinQuery<T1, T2, T3, T4>, T1, {args}>,"));
-                    }
-
+                    var args = GetArgumentList("TItem{0}", i);
                     w = w
                         .WriteLine()
                         .Indent(w2 => w2
-                            .WriteLine("IProjectTupleBuilder<GremlinQuery<T1, T2, T3, T4>, T1>,")
-                            .Write("IProjectTupleBuilder<GremlinQuery<T1, T2, T3, T4>, T1, TItem1>"));
+                            .Write($"IProjectTupleBuilder<GremlinQuery<T1, T2, T3, T4>, T1, {args}>,"));
+                }
 
-                    return w
-                        .WriteLine()
-                        .Block(w2 => w2
-                            .Do(GenerateByOverloads)
-                            .Do(GenerateBuildOverloads));
-                });
-        }
+                w = w
+                    .WriteLine()
+                    .Indent(w2 => w2
+                        .WriteLine("IProjectTupleBuilder<GremlinQuery<T1, T2, T3, T4>, T1>,")
+                        .Write("IProjectTupleBuilder<GremlinQuery<T1, T2, T3, T4>, T1, TItem1>"));
+
+                return w
+                    .WriteLine()
+                    .Block(w2 => w2
+                        .Do(GenerateByOverloads)
+                        .Do(GenerateBuildOverloads));
+            });
 
         private static CodeWriter GenerateByOverloads(CodeWriter writer)
         {

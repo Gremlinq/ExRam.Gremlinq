@@ -11,23 +11,17 @@ namespace ExRam.Gremlinq.Core
         private static readonly ConditionalWeakTable<object, object> FastDictionaries = new();
 
         internal static IReadOnlyDictionary<TKey, TValue> Fast<TKey, TValue>(this IImmutableDictionary<TKey, TValue> dict)
-            where TKey : notnull
-        {
-            return (IReadOnlyDictionary<TKey, TValue>)FastDictionaries
+            where TKey : notnull => (IReadOnlyDictionary<TKey, TValue>)FastDictionaries
                 .GetValue(
                     dict,
                     static closureDict => ((IImmutableDictionary<TKey, TValue>)closureDict).ToFrozenDictionary(static x => x.Key, static x => x.Value));
-        }
 
         internal static IImmutableDictionary<TKey, TValue> Set<TKey, TValue, TState>(this IImmutableDictionary<TKey, TValue> dict, TKey key, TState state, Func<TValue, TState, TValue> change)
-            where TValue : IEquatable<TValue>, new()
-        {
-            return dict.Set(
+            where TValue : IEquatable<TValue>, new() => dict.Set(
                 key,
                 (change, state),
                 static state => state.change(new TValue(), state.state),
                 static (value, state) => state.change(value, state.state));
-        }
 
         internal static IImmutableDictionary<TKey, TValue> Set<TKey, TValue, TState>(this IImmutableDictionary<TKey, TValue> dict, TKey key, TState state, Func<TState, TValue> create, Func<TValue, TState, TValue> change)
             where TValue : IEquatable<TValue>
@@ -45,23 +39,17 @@ namespace ExRam.Gremlinq.Core
             return dict;
         }
 
-        internal static IImmutableDictionary<StepLabel, LabelProjections> MergeSideEffectLabelProjections(this IImmutableDictionary<StepLabel, LabelProjections> projections, IImmutableDictionary<StepLabel, LabelProjections> newProjections)
-        {
-            return projections
-                .MergeLabelProjections(
-                    newProjections,
-                    static projections => projections.SideEffectLabelProjection,
-                    static (projections, projection) => projections.WithSideEffectLabelProjection(projection));
-        }
+        internal static IImmutableDictionary<StepLabel, LabelProjections> MergeSideEffectLabelProjections(this IImmutableDictionary<StepLabel, LabelProjections> projections, IImmutableDictionary<StepLabel, LabelProjections> newProjections) => projections
+            .MergeLabelProjections(
+                newProjections,
+                static projections => projections.SideEffectLabelProjection,
+                static (projections, projection) => projections.WithSideEffectLabelProjection(projection));
 
-        internal static IImmutableDictionary<StepLabel, LabelProjections> MergeStepLabelProjections(this IImmutableDictionary<StepLabel, LabelProjections> projections, IImmutableDictionary<StepLabel, LabelProjections> newProjections)
-        {
-            return projections
-                .MergeLabelProjections(
-                    newProjections,
-                    static projections => projections.StepLabelProjection,
-                    static (projections, projection) => projections.WithStepLabelProjection(projection));
-        }
+        internal static IImmutableDictionary<StepLabel, LabelProjections> MergeStepLabelProjections(this IImmutableDictionary<StepLabel, LabelProjections> projections, IImmutableDictionary<StepLabel, LabelProjections> newProjections) => projections
+            .MergeLabelProjections(
+                newProjections,
+                static projections => projections.StepLabelProjection,
+                static (projections, projection) => projections.WithStepLabelProjection(projection));
 
         internal static IImmutableDictionary<StepLabel, LabelProjections> MergeLabelProjections(this IImmutableDictionary<StepLabel, LabelProjections> projections, IImmutableDictionary<StepLabel, LabelProjections> newProjections, Func<LabelProjections, Projection?> projectionMap, Func<LabelProjections, Projection, LabelProjections> projectionMapper)
         {

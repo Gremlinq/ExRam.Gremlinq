@@ -8,24 +8,21 @@ namespace ExRam.Gremlinq.Core
 {
     internal static class PExtensions
     {
-        public static bool EqualsConstant(this P p, bool value)
+        public static bool EqualsConstant(this P p, bool value) => p.OperatorName switch
         {
-            return p.OperatorName switch
-            {
-                //"containing" when p.Value is string str && str.Length == 0 => value,
-                "within" => !value && p.Value is ICollection { Count: 0 },
-                "without" => value && p.Value is ICollection { Count: > 0 },
-                "and" when p is { Value: P pValue, Other: { } otherP } => value
-                    ? pValue.EqualsConstant(true) && otherP.EqualsConstant(true)
-                    : pValue.EqualsConstant(false) || otherP.EqualsConstant(false),
-                "or" when p is { Value: P pValue, Other: { } otherP } => value
-                    ? pValue.EqualsConstant(true) || otherP.EqualsConstant(true)
-                    : pValue.EqualsConstant(false) && otherP.EqualsConstant(false),
-                "true" => value,
-                "false" => !value,
-                _ => false
-            };
-        }
+            //"containing" when p.Value is string str && str.Length == 0 => value,
+            "within" => !value && p.Value is ICollection { Count: 0 },
+            "without" => value && p.Value is ICollection { Count: > 0 },
+            "and" when p is { Value: P pValue, Other: { } otherP } => value
+                ? pValue.EqualsConstant(true) && otherP.EqualsConstant(true)
+                : pValue.EqualsConstant(false) || otherP.EqualsConstant(false),
+            "or" when p is { Value: P pValue, Other: { } otherP } => value
+                ? pValue.EqualsConstant(true) || otherP.EqualsConstant(true)
+                : pValue.EqualsConstant(false) && otherP.EqualsConstant(false),
+            "true" => value,
+            "false" => !value,
+            _ => false
+        };
 
         public static P WorkaroundLimitations(this P p, IGremlinQueryEnvironment environment)
         {
