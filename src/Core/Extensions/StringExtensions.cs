@@ -2,12 +2,18 @@
 {
     internal static class StringExtensions
     {
-        public static string ToCamelCase(this string source)
-        {
-            if (source.Length < 2)
-                return source;
+        public static string ToCamelCase(this string source) => source.Length < 2
+            ? source
+            : string
+                .Create(
+                    source.Length, 
+                    source, 
+                    static (span, source) =>
+                    {
+                        span[0] = char.ToLower(source[0]);
 
-            return source.Substring(0, 1).ToLower() + source.Substring(1);
-        }
+                        source[1..]
+                            .CopyTo(span[1..]);
+                    });
     }
 }
