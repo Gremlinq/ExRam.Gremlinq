@@ -91,14 +91,11 @@ namespace ExRam.Gremlinq.Core
 
         public Step this[int index] => Steps[index];
 
-        public SideEffectSemantics SideEffectSemantics
-        {
-            get => _writeStepsCount > 0
-                ? SideEffectSemantics.Write
-                : SideEffectSemantics.Read;
-        }
+        public SideEffectSemantics SideEffectSemantics => _writeStepsCount > 0
+            ? SideEffectSemantics.Write
+            : SideEffectSemantics.Read;
 
-        public ReadOnlySpan<Step> Steps { get => _steps.AsSpan(); }
+        public ReadOnlySpan<Step> Steps => _steps.AsSpan();
 
         private static uint SideEffectSemanticsHelper(ReadOnlySpan<Step> steps)
         {

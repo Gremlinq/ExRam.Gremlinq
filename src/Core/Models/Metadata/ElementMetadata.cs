@@ -11,7 +11,7 @@ namespace ExRam.Gremlinq.Core.Models
             _label = label;
         }
 
-        public string Label { get => _label ?? throw UninitializedStruct(); }
+        public string Label => _label ?? throw UninitializedStruct();
 
         public override bool Equals(object? obj) => obj is ElementMetadata metadata && Equals(metadata);
 

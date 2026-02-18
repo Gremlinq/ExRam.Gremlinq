@@ -58,12 +58,9 @@ namespace ExRam.Gremlinq.Core
 
         public int Count { get; }
 
-        public T this[int index]
-        {
-            get => index < 0 || index >= Count
-                ? throw new ArgumentOutOfRangeException(nameof(index))
-                : Items.Span[index]!;
-        }
+        public T this[int index] => index < 0 || index >= Count
+            ? throw new ArgumentOutOfRangeException(nameof(index))
+            : Items.Span[index]!;
 
         public static FastImmutableList<T> Create<TState>(int length, TState state, SpanAction<T, TState> action)
         {

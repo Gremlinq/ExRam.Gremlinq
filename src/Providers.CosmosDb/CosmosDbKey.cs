@@ -18,13 +18,7 @@
             PartitionKey = partitionKey;
         }
 
-        public string Id
-        {
-            get
-            {
-                return _id ?? throw new InvalidOperationException($"Cannot access {nameof(Id)} property of an uninitialized {nameof(CosmosDbKey)}.");
-            }
-        }
+        public string Id => _id ?? throw new InvalidOperationException($"Cannot access {nameof(Id)} property of an uninitialized {nameof(CosmosDbKey)}.");
 
         public string? PartitionKey { get; }
 

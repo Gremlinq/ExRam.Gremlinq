@@ -48,6 +48,6 @@ namespace ExRam.Gremlinq.Providers.Neptune
 
         public static bool operator !=(NeptuneErrorCode left, NeptuneErrorCode right) => !(left == right);
 
-        public string Code { get => _code ?? throw UninitializedStruct(); }
+        public string Code => _code ?? throw UninitializedStruct();
     }
 }

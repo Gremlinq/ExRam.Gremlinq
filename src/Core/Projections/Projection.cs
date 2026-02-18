@@ -91,6 +91,6 @@ namespace ExRam.Gremlinq.Core.Projections
 
         public abstract Projection Lower();
 
-        public string Name { get => ToString()!; }
+        public string Name => ToString()!;
     }
 }
