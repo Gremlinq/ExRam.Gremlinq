@@ -35,16 +35,6 @@ Benchmarks are automatically run on:
 Results are stored in the `gh-pages` branch and viewable at:
 https://gremlinq.github.io/ExRam.Gremlinq/benchmarks/
 
-## Benchmark Scenarios
-
-The following query building scenarios are benchmarked:
-
-1. **SimpleVertexQuery** - Basic vertex query with type parameter
-2. **FilteredVertexQuery** - Vertex query with a simple filter predicate
-3. **ComplexTraversalQuery** - Multi-step traversal with filters and type coercion
-4. **ProjectionQuery** - Query with value projection
-5. **CountQuery** - Aggregation query using Count
-
 ## Performance Alerts
 
 The CI workflow will:

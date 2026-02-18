@@ -18,30 +18,11 @@ namespace ExRam.Gremlinq.Benchmarks
             .UseModel(GraphModel.FromBaseTypes<Vertex, Edge>()));
 
         [Benchmark]
-        public object SimpleVertexQuery() => _g
-            .V<Person>();
-
-        [Benchmark]
-        public object FilteredVertexQuery() => _g
-            .V<Person>()
-            .Where(p => p.Age > 25);
-
-        [Benchmark]
         public object ComplexTraversalQuery() => _g
             .V<Person>()
             .Where(p => p.Age > 25)
             .Out<WorksFor>()
             .OfType<Company>()
             .Where(c => c.Name!.Value.StartsWith("Tech"));
-
-        [Benchmark]
-        public object ProjectionQuery() => _g
-            .V<Person>()
-            .Values(p => p.Name!);
-
-        [Benchmark]
-        public object CountQuery() => _g
-            .V<Person>()
-            .Count();
     }
 }
