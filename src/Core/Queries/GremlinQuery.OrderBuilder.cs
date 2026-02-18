@@ -5,7 +5,7 @@ using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Core
 {
-    partial class GremlinQuery<T1, T2, T3, T4>
+    internal partial class GremlinQuery<T1, T2, T3, T4>
     {
         private sealed class OrderBuilder : IOrderBuilderWithBy<T1, GremlinQuery<T1, T2, T3, T4>>
         {

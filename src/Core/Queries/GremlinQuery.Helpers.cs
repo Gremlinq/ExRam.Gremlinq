@@ -11,7 +11,7 @@ using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Core
 {
-    partial class GremlinQuery<T1, T2, T3, T4>
+    internal partial class GremlinQuery<T1, T2, T3, T4>
     {
         private Cardinality? GetCardinality(object value, bool allowExplicitCardinality) => allowExplicitCardinality
             ? (value is not Traversal && value is IEnumerable && !Environment.SupportsType(value.GetType()))

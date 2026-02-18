@@ -5,7 +5,7 @@ using ExRam.Gremlinq.Core.Steps;
 
 namespace ExRam.Gremlinq.Core
 {
-    partial class GremlinQuery<T1, T2, T3, T4>
+    internal partial class GremlinQuery<T1, T2, T3, T4>
     {
         private sealed class ProjectBuilder : IProjectBuilder<GremlinQuery<T1, T2, T3, T4>, T1>
         {
@@ -32,7 +32,7 @@ namespace ExRam.Gremlinq.Core
 
             IProjectMapBuilder<GremlinQuery<T1, T2, T3, T4>, T1, TTargetType> IProjectBuilder<GremlinQuery<T1, T2, T3, T4>, T1>.To<TTargetType>() => Continue<TTargetType>();
 
-            ProjectBuilder<TItem1, object, object, object, object, object, object, object, object, object, object, object, object, object, object, object> Continue<TItem1>()
+            private ProjectBuilder<TItem1, object, object, object, object, object, object, object, object, object, object, object, object, object, object, object> Continue<TItem1>()
                 => new(
                     _sourceQuery,
                     FastImmutableList<string>.Empty,

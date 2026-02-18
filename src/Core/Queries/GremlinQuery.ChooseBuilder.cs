@@ -4,7 +4,7 @@ using ExRam.Gremlinq.Core.Steps;
 
 namespace ExRam.Gremlinq.Core
 {
-    partial class GremlinQuery<T1, T2, T3, T4>
+    internal partial class GremlinQuery<T1, T2, T3, T4>
     {
         private sealed class ChooseBuilder<TTargetQuery, TPickElement> :
             IChooseBuilder<GremlinQuery<T1, T2, T3, T4>>,
