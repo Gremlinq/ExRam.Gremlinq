@@ -179,7 +179,7 @@ dotnet_diagnostic.CA2007.severity = warning
 csharp_preferred_modifier_order = public,private,protected,internal,static,extern,new,virtual,abstract,sealed,override,readonly,unsafe,volatile,async:suggestion
 
 # Code block
-csharp_prefer_braces = false:none
+csharp_prefer_braces = false:suggestion
 
 # Indentation preferences
 csharp_indent_block_contents = true
@@ -199,16 +199,16 @@ csharp_preserve_single_line_blocks = true
 csharp_preserve_single_line_statements = true
 
 # Expression-bodied methods are used extensively throughout the codebase
-# NOTE: Changed from false:none to true:none to match actual codebase usage (~1000+ expression-bodied methods).
+# NOTE: Changed from false:suggestion to true:suggestion to match actual codebase usage (~1000+ expression-bodied methods).
 csharp_style_expression_bodied_methods = true:suggestion
-csharp_style_expression_bodied_constructors = false:none
-csharp_style_expression_bodied_operators = false:none
+csharp_style_expression_bodied_constructors = false:suggestion
+csharp_style_expression_bodied_operators = false:suggestion
 csharp_style_expression_bodied_lambdas = true:suggestion
 
 # Prefer property-like constructs to have an expression-body
-csharp_style_expression_bodied_properties = true:none
-csharp_style_expression_bodied_indexers = true:none
-csharp_style_expression_bodied_accessors = true:none
+csharp_style_expression_bodied_properties = true:suggestion
+csharp_style_expression_bodied_indexers = true:suggestion
+csharp_style_expression_bodied_accessors = true:suggestion
 
 # Expression 
 csharp_prefer_simple_default_expression = true:suggestion
@@ -267,7 +267,7 @@ csharp_using_directive_placement = outside_namespace:suggestion
 csharp_style_implicit_object_creation_when_type_is_apparent = true:suggestion
 
 # Prefer simple using statement (disabled - codebase uses block-style using)
-csharp_prefer_simple_using_statement = false:none
+csharp_prefer_simple_using_statement = false:suggestion
 
 # Static local functions and lambdas (heavily used in the codebase)
 csharp_prefer_static_local_function = true:suggestion
