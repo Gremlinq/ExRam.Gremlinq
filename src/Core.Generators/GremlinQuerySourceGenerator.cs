@@ -22,6 +22,7 @@ namespace ExRam.Gremlinq.Core.Generators
             "IEdgeOrVertexGremlinQuery<T1>",
             "IVertexGremlinQuery<TVertex>",
             "IEdgeGremlinQuery<TEdge>",
+            "IEdgeGremlinQuery<TEdge, TAdjacentVertex>",
             "IInOrOutEdgeGremlinQuery<TEdge, TAdjacentVertex>",
             "IEdgeGremlinQuery<TEdge, T2, T3>",
             "IInEdgeGremlinQuery<TEdge, T3>",

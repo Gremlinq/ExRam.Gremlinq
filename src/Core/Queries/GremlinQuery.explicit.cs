@@ -27,6 +27,7 @@ namespace ExRam.Gremlinq.Core
 
         IEdgeOrVertexGremlinQuery<T1>,
         IEdgeGremlinQuery<T1>,
+        IEdgeGremlinQuery<T1, T2>,
         IEdgeGremlinQuery<T1, T2, T3>,
 
         IInOrOutEdgeGremlinQuery<T1, T2>,
@@ -800,6 +801,14 @@ namespace ExRam.Gremlinq.Core
         IInEdgeGremlinQuery<T1, T3> IEdgeGremlinQuery<T1, T2, T3>.AsInEdge() => this;
 
         IOutEdgeGremlinQuery<T1, T2> IEdgeGremlinQuery<T1, T2, T3>.AsOutEdge() => this;
+
+        IEdgeGremlinQuery<T1> IEdgeGremlinQueryBase<T1, T2>.Lower() => this;
+
+        IEdgeGremlinQuery<T1> IEdgeGremlinQuery<T1, T2>.Lower() => this;
+
+        IInEdgeGremlinQuery<T1, T2> IEdgeGremlinQuery<T1, T2>.AsInEdge() => CloneAs<IInEdgeGremlinQuery<T1, T2>>();
+
+        IOutEdgeGremlinQuery<T1, T2> IEdgeGremlinQuery<T1, T2>.AsOutEdge() => this;
 
         IArrayGremlinQuery<T1, T2, T4> IArrayGremlinQueryBaseRec<IArrayGremlinQuery<T1, T2, T4>>.LimitLocal(long count) => LimitLocal(count);
 
