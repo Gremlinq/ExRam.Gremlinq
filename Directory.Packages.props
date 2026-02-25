@@ -9,7 +9,7 @@
     <PackageVersion Include="Fody" Version="6.9.3" />
     <PackageVersion Include="Gremlin.Net" Version="3.7.5" />
 
-    <PackageVersion Include="Microsoft.Azure.Cosmos" Version="3.57.0" />
+    <PackageVersion Include="Microsoft.Azure.Cosmos" Version="3.57.1" />
     <PackageVersion Include="Microsoft.SourceLink.GitHub" Version="8.0.0" />
     <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="10.0.3" />
     <PackageVersion Include="Microsoft.Testing.Extensions.CodeCoverage" Version="18.4.1" />
