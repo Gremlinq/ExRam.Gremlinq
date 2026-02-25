@@ -65,7 +65,8 @@ namespace ExRam.Gremlinq.Core.Generators
                         .Do(w2 => GenerateCastOverloads(w2, substitutedBaseInterfaces))
                         .Do(w2 => GenerateTypedInterfaceImplementations(w2, substitutedBaseInterfaces))
                         .Do(w2 => GenerateOfTypeOverloads(w2, substitutedBaseInterfaces))
-                        .Do(w2 => GenerateElementOverloads(w2, substitutedBaseInterfaces))))
+                        .Do(w2 => GenerateElementOverloads(w2, substitutedBaseInterfaces))
+                        .Do(w2 => GenerateVertexTraversalOverloads(w2))))
                 .Code();
 
             context.AddSource("GremlinQuery.generated.cs", code);
@@ -255,6 +256,87 @@ namespace ExRam.Gremlinq.Core.Generators
                     .WriteLine($"{iface} IElementGremlinQueryBaseRec<T1, {iface}>.Property<TProjectedValue>(Expression<Func<T1, TProjectedValue>> projection, Func<{iface}, IGremlinQueryBase<TProjectedValue>> valueTraversal) => Property(projection, valueTraversal);")
                     .WriteLine()
                     .WriteLine($"{iface} IElementGremlinQueryBaseRec<T1, {iface}>.Where<TProjection>(Expression<Func<T1, TProjection>> projection, Func<IGremlinQuery<TProjection>, IGremlinQueryBase> propertyTraversal) => Where(projection, propertyTraversal);");
+            }
+
+            return writer;
+        }
+
+        private static CodeWriter GenerateVertexTraversalOverloads(CodeWriter writer)
+        {
+            foreach (var method in new[] { "Both", "In", "Out" })
+            {
+                writer = writer
+                    .WriteLine($"IVertexGremlinQuery<object> IVertexGremlinQueryBase.{method}() => {method}(null);")
+                    .WriteLine()
+                    .WriteLine($"IVertexGremlinQuery<object> IVertexGremlinQueryBase.{method}<TEdge>() => {method}(TypeArrayCache<TEdge>.Types);")
+                    .WriteLine();
+
+                for (var i = 2; i <= 16; i++)
+                {
+                    var typeArgs = GetArgumentList("TEdge{0}", i);
+                    writer = writer
+                        .WriteLine($"IVertexGremlinQuery<object> IVertexGremlinQueryBase.{method}<{typeArgs}>() => {method}(TypeArrayCache<{typeArgs}>.Types);")
+                        .WriteLine();
+                }
+            }
+
+            foreach (var method in new[] { "BothE", "InE", "OutE" })
+            {
+                writer = writer
+                    .WriteLine($"IEdgeGremlinQuery<object> IVertexGremlinQueryBase.{method}() => {method}<object>(null);")
+                    .WriteLine()
+                    .WriteLine($"IEdgeGremlinQuery<TEdge> IVertexGremlinQueryBase.{method}<TEdge>() => {method}<TEdge>(TypeArrayCache<TEdge>.Types);")
+                    .WriteLine();
+
+                for (var i = 2; i <= 16; i++)
+                {
+                    var typeArgs = GetArgumentList("TEdge{0}", i);
+                    writer = writer
+                        .WriteLine($"IEdgeGremlinQuery<object> IVertexGremlinQueryBase.{method}<{typeArgs}>() => {method}<object>(TypeArrayCache<{typeArgs}>.Types);")
+                        .WriteLine();
+                }
+            }
+
+            writer = writer
+                .WriteLine("IEdgeGremlinQuery<object, T1> IVertexGremlinQueryBase<T1>.BothE() => BothE<object>(null);")
+                .WriteLine()
+                .WriteLine("IEdgeGremlinQuery<TEdge, T1> IVertexGremlinQueryBase<T1>.BothE<TEdge>() => BothE<TEdge>(TypeArrayCache<TEdge>.Types);")
+                .WriteLine();
+
+            for (var i = 2; i <= 16; i++)
+            {
+                var typeArgs = GetArgumentList("TEdge{0}", i);
+                writer = writer
+                    .WriteLine($"IEdgeGremlinQuery<object, T1> IVertexGremlinQueryBase<T1>.BothE<{typeArgs}>() => BothE<object>(TypeArrayCache<{typeArgs}>.Types);")
+                    .WriteLine();
+            }
+
+            writer = writer
+                .WriteLine("IInEdgeGremlinQuery<object, T1> IVertexGremlinQueryBase<T1>.InE() => InE<object>(null);")
+                .WriteLine()
+                .WriteLine("IInEdgeGremlinQuery<TEdge, T1> IVertexGremlinQueryBase<T1>.InE<TEdge>() => InE<TEdge>(TypeArrayCache<TEdge>.Types);")
+                .WriteLine();
+
+            for (var i = 2; i <= 16; i++)
+            {
+                var typeArgs = GetArgumentList("TEdge{0}", i);
+                writer = writer
+                    .WriteLine($"IInEdgeGremlinQuery<object, T1> IVertexGremlinQueryBase<T1>.InE<{typeArgs}>() => InE<object>(TypeArrayCache<{typeArgs}>.Types);")
+                    .WriteLine();
+            }
+
+            writer = writer
+                .WriteLine("IOutEdgeGremlinQuery<object, T1> IVertexGremlinQueryBase<T1>.OutE() => OutE<object>(null);")
+                .WriteLine()
+                .WriteLine("IOutEdgeGremlinQuery<TEdge, T1> IVertexGremlinQueryBase<T1>.OutE<TEdge>() => OutE<TEdge>(TypeArrayCache<TEdge>.Types);")
+                .WriteLine();
+
+            for (var i = 2; i <= 16; i++)
+            {
+                var typeArgs = GetArgumentList("TEdge{0}", i);
+                writer = writer
+                    .WriteLine($"IOutEdgeGremlinQuery<object, T1> IVertexGremlinQueryBase<T1>.OutE<{typeArgs}>() => OutE<object>(TypeArrayCache<{typeArgs}>.Types);")
+                    .WriteLine();
             }
 
             return writer;
