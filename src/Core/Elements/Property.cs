@@ -15,6 +15,9 @@
 
         public Property(TValue value)
         {
+            if (value is null)
+                throw new ArgumentNullException(nameof(value));
+
             _value = value;
         }
 
