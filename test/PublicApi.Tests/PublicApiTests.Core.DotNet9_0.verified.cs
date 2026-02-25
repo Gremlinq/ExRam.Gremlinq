@@ -1670,6 +1670,23 @@
         ExRam.Gremlinq.Core.IInOrOutEdgeGremlinQuery<TEdge, TVertex> AddE<TEdge>()
             where TEdge : new();
         ExRam.Gremlinq.Core.IInOrOutEdgeGremlinQuery<TEdge, TVertex> AddE<TEdge>(TEdge edge);
+        ExRam.Gremlinq.Core.IEdgeGremlinQuery<object, TVertex> BothE();
+        ExRam.Gremlinq.Core.IEdgeGremlinQuery<TEdge, TVertex> BothE<TEdge>();
+        ExRam.Gremlinq.Core.IEdgeGremlinQuery<object, TVertex> BothE<TEdge1, TEdge2>();
+        ExRam.Gremlinq.Core.IEdgeGremlinQuery<object, TVertex> BothE<TEdge1, TEdge2, TEdge3>();
+        ExRam.Gremlinq.Core.IEdgeGremlinQuery<object, TVertex> BothE<TEdge1, TEdge2, TEdge3, TEdge4>();
+        ExRam.Gremlinq.Core.IEdgeGremlinQuery<object, TVertex> BothE<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5>();
+        ExRam.Gremlinq.Core.IEdgeGremlinQuery<object, TVertex> BothE<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6>();
+        ExRam.Gremlinq.Core.IEdgeGremlinQuery<object, TVertex> BothE<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7>();
+        ExRam.Gremlinq.Core.IEdgeGremlinQuery<object, TVertex> BothE<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7, TEdge8>();
+        ExRam.Gremlinq.Core.IEdgeGremlinQuery<object, TVertex> BothE<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7, TEdge8, TEdge9>();
+        ExRam.Gremlinq.Core.IEdgeGremlinQuery<object, TVertex> BothE<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7, TEdge8, TEdge9, TEdge10>();
+        ExRam.Gremlinq.Core.IEdgeGremlinQuery<object, TVertex> BothE<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7, TEdge8, TEdge9, TEdge10, TEdge11>();
+        ExRam.Gremlinq.Core.IEdgeGremlinQuery<object, TVertex> BothE<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7, TEdge8, TEdge9, TEdge10, TEdge11, TEdge12>();
+        ExRam.Gremlinq.Core.IEdgeGremlinQuery<object, TVertex> BothE<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7, TEdge8, TEdge9, TEdge10, TEdge11, TEdge12, TEdge13>();
+        ExRam.Gremlinq.Core.IEdgeGremlinQuery<object, TVertex> BothE<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7, TEdge8, TEdge9, TEdge10, TEdge11, TEdge12, TEdge13, TEdge14>();
+        ExRam.Gremlinq.Core.IEdgeGremlinQuery<object, TVertex> BothE<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7, TEdge8, TEdge9, TEdge10, TEdge11, TEdge12, TEdge13, TEdge14, TEdge15>();
+        ExRam.Gremlinq.Core.IEdgeGremlinQuery<object, TVertex> BothE<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7, TEdge8, TEdge9, TEdge10, TEdge11, TEdge12, TEdge13, TEdge14, TEdge15, TEdge16>();
         ExRam.Gremlinq.Core.IInEdgeGremlinQuery<object, TVertex> InE();
         ExRam.Gremlinq.Core.IInEdgeGremlinQuery<TEdge, TVertex> InE<TEdge>();
         ExRam.Gremlinq.Core.IInEdgeGremlinQuery<object, TVertex> InE<TEdge1, TEdge2>();
