@@ -10,7 +10,7 @@
     <NoWarn>IDE0303;IDE0301$(NoWarn)</NoWarn>
     <WeaverConfiguration>
       <Weavers>
-        <NullGuard IncludeDebugAssert="false" />
+        <RuntimeNullables CheckNonPublic="true" CheckOutputs="true" />
       </Weavers>
     </WeaverConfiguration>
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
@@ -43,6 +43,6 @@
 
   <ItemGroup>
     <PackageReference Include="Fody" PrivateAssets="All" />
-    <PackageReference Include="NullGuard.Fody" PrivateAssets="All" />
+    <PackageReference Include="RuntimeNullables.Fody" PrivateAssets="All" />
   </ItemGroup>
 </Project>

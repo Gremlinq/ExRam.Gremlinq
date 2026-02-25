@@ -13,7 +13,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .ConfigureEnvironment(null!))
             .Should()
             .ThrowExactly<ArgumentNullException>()
-            .WithMessage("[NullGuard] transformation is null. (Parameter 'transformation')");
+            .WithMessage("Value cannot be null. (Parameter 'transformation')");
 
         [Fact]
         public void MemberMetadata_name_cannot_be_null()
