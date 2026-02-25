@@ -319,13 +319,13 @@ namespace ExRam.Gremlinq.Core
                     ? new BothStep(Environment.Model.EdgesModel.GetFilterLabels(edgeTypes, Environment.Options.GetValue(GremlinqOption.FilterLabelsVerbosity)))
                     : BothStep.NoLabels);
 
-        private GremlinQuery<TEdge, object, object, IGremlinQueryBase> BothE<TEdge>(Type[]? maybeEdgeTypes) => this
+        private GremlinQuery<TEdge, T1, object, IGremlinQueryBase> BothE<TEdge>(Type[]? maybeEdgeTypes) => this
             .Continue()
             .Build(
                 static (builder, step) => builder
                     .AddStep(step)
                     .WithNewProjection(Projection.Edge)
-                    .BuildAuto<TEdge>(),
+                    .BuildAuto<TEdge, T1>(),
                 maybeEdgeTypes is { } edgeTypes
                     ? new BothEStep(Environment.Model.EdgesModel.GetFilterLabels(edgeTypes, Environment.Options.GetValue(GremlinqOption.FilterLabelsVerbosity)))
                     : BothEStep.NoLabels);
