@@ -10,7 +10,7 @@
     <NoWarn>IDE0303;IDE0301$(NoWarn)</NoWarn>
     <WeaverConfiguration>
       <Weavers>
-        <RuntimeNullables CheckNonPublic="true" CheckOutputs="true" />
+        <RuntimeNullables CheckNonPublic="false" CheckOutputs="false" />
       </Weavers>
     </WeaverConfiguration>
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
