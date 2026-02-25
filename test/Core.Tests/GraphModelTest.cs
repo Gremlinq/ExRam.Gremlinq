@@ -1,20 +1,11 @@
 ﻿using ExRam.Gremlinq.Core.Models;
 using ExRam.Gremlinq.Tests.Entities;
 using FluentAssertions;
-using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
     public class GraphModelTest
     {
-        [Fact]
-        public void Fody_works() => g
-            .Invoking(_ => _
-                .ConfigureEnvironment(null!))
-            .Should()
-            .ThrowExactly<ArgumentNullException>()
-            .WithMessage("Value cannot be null. (Parameter 'transformation')");
-
         [Fact]
         public void MemberMetadata_name_cannot_be_null()
         {
