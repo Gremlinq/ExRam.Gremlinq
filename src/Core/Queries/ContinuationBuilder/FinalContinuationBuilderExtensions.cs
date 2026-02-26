@@ -32,12 +32,12 @@ namespace ExRam.Gremlinq.Core
                     ? NoneStep.Instance
                     : traversal.Push(NoneStep.Instance));
 
-            public FinalContinuationBuilder OfType<TElement, TNewElement>(IGraphElementModel model, bool force)
+            public FinalContinuationBuilder OfType<TElement>(Type[] edgeTypes, IGraphElementModel model, bool force)
             {
-                if (typeof(TNewElement) != typeof(object) && (force || !typeof(TNewElement).IsAssignableFrom(typeof(TElement))))
+                if (edgeTypes.All(static edgeType => edgeType != typeof(object)) && (force || edgeTypes.All(static edgeType => !edgeType.IsAssignableFrom(typeof(TElement)))))
                 {
                     var labels = model
-                        .GetFilterLabels(TypeArrayCache<TNewElement>.Types, builder.OuterQuery.Environment.Options.GetValue(GremlinqOption.FilterLabelsVerbosity));
+                        .GetFilterLabels(edgeTypes, builder.OuterQuery.Environment.Options.GetValue(GremlinqOption.FilterLabelsVerbosity));
 
                     if (labels.Length > 0)
                         builder = builder.AddStep(new HasLabelStep(labels));
