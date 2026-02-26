@@ -1,0 +1,138 @@
+﻿{
+  StepInstructions: [
+    {
+      OperatorName: V
+    },
+    {
+      OperatorName: hasLabel,
+      Arguments: [
+        Vertex1,
+        Vertex10,
+        Vertex11,
+        Vertex12,
+        Vertex13,
+        Vertex14,
+        Vertex15,
+        Vertex16,
+        Vertex2,
+        Vertex3,
+        Vertex4,
+        Vertex5,
+        Vertex6,
+        Vertex7,
+        Vertex8,
+        Vertex9
+      ]
+    },
+    {
+      OperatorName: project,
+      Arguments: [
+        id,
+        label,
+        properties
+      ]
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        {
+          EnumName: T,
+          EnumValue: id
+        }
+      ]
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        {
+          EnumName: T,
+          EnumValue: label
+        }
+      ]
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        {
+          StepInstructions: [
+            {
+              OperatorName: properties
+            },
+            {
+              OperatorName: group
+            },
+            {
+              OperatorName: by,
+              Arguments: [
+                {
+                  EnumName: T,
+                  EnumValue: label
+                }
+              ]
+            },
+            {
+              OperatorName: by,
+              Arguments: [
+                {
+                  StepInstructions: [
+                    {
+                      OperatorName: project,
+                      Arguments: [
+                        id,
+                        label,
+                        value,
+                        properties
+                      ]
+                    },
+                    {
+                      OperatorName: by,
+                      Arguments: [
+                        {
+                          EnumName: T,
+                          EnumValue: id
+                        }
+                      ]
+                    },
+                    {
+                      OperatorName: by,
+                      Arguments: [
+                        {
+                          EnumName: T,
+                          EnumValue: label
+                        }
+                      ]
+                    },
+                    {
+                      OperatorName: by,
+                      Arguments: [
+                        {
+                          EnumName: T,
+                          EnumValue: value
+                        }
+                      ]
+                    },
+                    {
+                      OperatorName: by,
+                      Arguments: [
+                        {
+                          StepInstructions: [
+                            {
+                              OperatorName: valueMap
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      OperatorName: fold
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
