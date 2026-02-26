@@ -29,6 +29,7 @@
     <Project Path="test/Tests.Fixtures/ExRam.Gremlinq.Tests.Fixtures.csproj" />
     <Project Path="test/Tests.Infrastructure/ExRam.Gremlinq.Tests.Infrastructure.csproj" />
   </Folder>
+  <Project Path="src/Analyzers/ExRam.Gremlinq.Analyzers.csproj" />
   <Project Path="src/Core.AspNet/ExRam.Gremlinq.Core.AspNet.csproj" />
   <Project Path="src/Core/ExRam.Gremlinq.Core.csproj" />
   <Project Path="src/Providers.Core/ExRam.Gremlinq.Providers.Core.csproj" />
