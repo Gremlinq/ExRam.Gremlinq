@@ -927,11 +927,14 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Verify();
 
         [Fact]
-        public virtual Task Contradicting_OfType() => _g
+        public virtual async Task Contradicting_OfType() => _g
             .V()
             .OfType<Person>()
-            .OfType<Country>()
-            .Verify();
+            .Invoking(_ => _
+                .OfType<Country>())
+            .Should()
+            .Throw<TypeInitializationException>()
+            .WithInnerException<InvalidOperationException>();
 
         [Fact]
         public virtual Task Count() => _g

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Immutable;
+using System.Diagnostics;
 using System.Reflection;
 
 namespace ExRam.Gremlinq.Core.Models
@@ -187,6 +188,9 @@ namespace ExRam.Gremlinq.Core.Models
 
         internal static ImmutableArray<string> GetFilterLabels(this IGraphElementModel model, Type[] types, FilterLabelsVerbosity verbosity)
         {
+            Debug
+                .Assert(types.Length > 0);
+
             var labels = model
                 .GetCache()
                 .GetDerivedLabels(types);
