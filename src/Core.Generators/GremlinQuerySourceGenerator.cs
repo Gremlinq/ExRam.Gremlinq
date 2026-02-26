@@ -276,7 +276,7 @@ namespace ExRam.Gremlinq.Core.Generators
             foreach (var method in new[] { "Both", "In", "Out" })
             {
                 writer = writer
-                    .WriteLine($"IVertexGremlinQuery<object> IVertexGremlinQueryBase.{method}() => {method}(null);")
+                    .WriteLine($"IVertexGremlinQuery<object> IVertexGremlinQueryBase.{method}() => {method}(FilterTypes.None);")
                     .WriteLine()
                     .WriteLine($"IVertexGremlinQuery<object> IVertexGremlinQueryBase.{method}<TEdge>() => {method}(TypeArrayCache<TEdge>.Types);")
                     .WriteLine();
@@ -293,7 +293,7 @@ namespace ExRam.Gremlinq.Core.Generators
             foreach (var method in new[] { "BothE", "InE", "OutE" })
             {
                 writer = writer
-                    .WriteLine($"IEdgeGremlinQuery<object> IVertexGremlinQueryBase.{method}() => {method}<object>(null);")
+                    .WriteLine($"IEdgeGremlinQuery<object> IVertexGremlinQueryBase.{method}() => {method}<object>(FilterTypes.None);")
                     .WriteLine()
                     .WriteLine($"IEdgeGremlinQuery<TEdge> IVertexGremlinQueryBase.{method}<TEdge>() => {method}<TEdge>(TypeArrayCache<TEdge>.Types);")
                     .WriteLine();
@@ -308,7 +308,7 @@ namespace ExRam.Gremlinq.Core.Generators
             }
 
             writer = writer
-                .WriteLine("IEdgeGremlinQuery<object, T1> IVertexGremlinQueryBase<T1>.BothE() => BothE<object>(null);")
+                .WriteLine("IEdgeGremlinQuery<object, T1> IVertexGremlinQueryBase<T1>.BothE() => BothE<object>(FilterTypes.None);")
                 .WriteLine()
                 .WriteLine("IEdgeGremlinQuery<TEdge, T1> IVertexGremlinQueryBase<T1>.BothE<TEdge>() => BothE<TEdge>(TypeArrayCache<TEdge>.Types);")
                 .WriteLine();
@@ -322,7 +322,7 @@ namespace ExRam.Gremlinq.Core.Generators
             }
 
             writer = writer
-                .WriteLine("IInEdgeGremlinQuery<object, T1> IVertexGremlinQueryBase<T1>.InE() => InE<object>(null);")
+                .WriteLine("IInEdgeGremlinQuery<object, T1> IVertexGremlinQueryBase<T1>.InE() => InE<object>(FilterTypes.None);")
                 .WriteLine()
                 .WriteLine("IInEdgeGremlinQuery<TEdge, T1> IVertexGremlinQueryBase<T1>.InE<TEdge>() => InE<TEdge>(TypeArrayCache<TEdge>.Types);")
                 .WriteLine();
@@ -336,7 +336,7 @@ namespace ExRam.Gremlinq.Core.Generators
             }
 
             writer = writer
-                .WriteLine("IOutEdgeGremlinQuery<object, T1> IVertexGremlinQueryBase<T1>.OutE() => OutE<object>(null);")
+                .WriteLine("IOutEdgeGremlinQuery<object, T1> IVertexGremlinQueryBase<T1>.OutE() => OutE<object>(FilterTypes.None);")
                 .WriteLine()
                 .WriteLine("IOutEdgeGremlinQuery<TEdge, T1> IVertexGremlinQueryBase<T1>.OutE<TEdge>() => OutE<TEdge>(TypeArrayCache<TEdge>.Types);")
                 .WriteLine();

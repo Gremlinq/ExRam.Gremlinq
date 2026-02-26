@@ -32,9 +32,9 @@ namespace ExRam.Gremlinq.Core
                     ? NoneStep.Instance
                     : traversal.Push(NoneStep.Instance));
 
-            public FinalContinuationBuilder OfType(Type[]? maybeTypes, IGraphElementModel model)
+            public FinalContinuationBuilder OfType(FilterTypes filterTypes, IGraphElementModel model)
             {
-                if (maybeTypes is { } types)
+                if (filterTypes.Types is { } types)
                 {
                     var labels = model
                         .GetFilterLabels(types, builder.OuterQuery.Environment.Options.GetValue(GremlinqOption.FilterLabelsVerbosity));

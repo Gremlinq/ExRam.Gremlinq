@@ -933,8 +933,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Invoking(_ => _
                 .OfType<Country>())
             .Should()
-            .Throw<TypeInitializationException>()
-            .WithInnerException<InvalidOperationException>();
+            .Throw<InvalidOperationException>();
 
         [Fact]
         public virtual Task Count() => _g
