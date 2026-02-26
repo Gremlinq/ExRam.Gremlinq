@@ -927,7 +927,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Verify();
 
         [Fact]
-        public void Contradicting_OfType() => _g
+        public virtual Task Contradicting_OfType() => _g
             .V()
             .OfType<Person>()
             .OfType<Country>()
