@@ -607,7 +607,7 @@ namespace ExRam.Gremlinq.Core
             .Build(
                 static (builder, ids) => builder
                     .AddStep(new EStep(ids.ToImmutableArray()))
-                    .OfType<object>(TypeArrayCache<TNewElement>.Types, builder.OuterQuery.Environment.Model.EdgesModel, true)
+                    .OfType<object>(TypeArrayCache<TNewElement>.Types, builder.OuterQuery.Environment.Model.EdgesModel, false)
                     .WithNewProjection(Projection.Edge)
                     .BuildAuto<TNewElement>(),
                 ids);
@@ -1265,7 +1265,7 @@ namespace ExRam.Gremlinq.Core
             .Build(
                 static (builder, ids) => builder
                     .AddStep(new VStep(ids.ToImmutableArray()))
-                    .OfType<object>(TypeArrayCache<TNewElement>.Types, builder.OuterQuery.Environment.Model.VerticesModel, true)
+                    .OfType<object>(TypeArrayCache<TNewElement>.Types, builder.OuterQuery.Environment.Model.VerticesModel, false)
                     .WithNewProjection(Projection.Vertex)
                     .BuildAuto<TNewElement>(),
                 ids);
