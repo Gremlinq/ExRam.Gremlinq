@@ -34,14 +34,14 @@ namespace ExRam.Gremlinq.Core
 
             public FinalContinuationBuilder OfType(FilterTypes filterTypes, IGraphElementModel model)
             {
-                if (filterTypes.Types is { } types)
-                {
-                    var labels = model
-                        .GetFilterLabels(types, builder.OuterQuery.Environment.Options.GetValue(GremlinqOption.FilterLabelsVerbosity));
+                if (filterTypes.IsNone)
+                    return builder;
 
-                    if (labels.Length > 0)
-                        builder = builder.AddStep(new HasLabelStep(labels));
-                }
+                var labels = model
+                    .GetFilterLabels(filterTypes.Types, builder.OuterQuery.Environment.Options.GetValue(GremlinqOption.FilterLabelsVerbosity));
+
+                if (labels.Length > 0)
+                    builder = builder.AddStep(new HasLabelStep(labels));
 
                 return builder;
             }

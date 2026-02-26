@@ -7,7 +7,7 @@ namespace ExRam.Gremlinq.Core
         private readonly Type[]? _types;
         private readonly InvalidOperationException? _exception;
 
-        public static readonly FilterTypes None = From(default(Type[]?));
+        public static readonly FilterTypes None = new(default(Type[]?));
 
         private FilterTypes(Type[]? types)
         {
@@ -19,8 +19,7 @@ namespace ExRam.Gremlinq.Core
             _exception = exception;
         }
 
-
-        public static FilterTypes From(Type[]? types) => new(types);
+        public static FilterTypes From(Type[] types) => new(types);
 
         public static FilterTypes From(InvalidOperationException exception) => new(exception);
 
@@ -43,8 +42,10 @@ namespace ExRam.Gremlinq.Core
             return this;
         }
 
-        public Type[]? Types => _exception is { } exception
+        public bool IsNone => _exception is null && _types is null;
+
+        public Type[] Types => _exception is { } exception
             ? throw exception
-            : _types;
+            : _types ?? throw new InvalidOperationException("FilterTypes represents no filter.");
     }
 }
