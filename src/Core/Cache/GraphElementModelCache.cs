@@ -28,9 +28,9 @@ namespace ExRam.Gremlinq.Core
                         .FirstOrDefault() ?? closureType.Name,
                     _model);
 
-            public ImmutableArray<string> GetDerivedLabels(Type[] types) => _derivedLabels
+            public ImmutableArray<string> GetDerivedLabels(FilterTypes filterTypes) => _derivedLabels
                 .GetOrAdd(
-                    types,
+                    filterTypes.Types,
                     static (closureTypes, closureModel) => closureModel.ElementTypes
                         .Where(elementType => !elementType.IsAbstract && closureTypes.Any(closureType => closureType.IsAssignableFrom(elementType)))
                         .Select(elementType => closureModel.GetMetadata(elementType).Label)

@@ -38,7 +38,7 @@ namespace ExRam.Gremlinq.Core
                     return builder;
 
                 var labels = model
-                    .GetFilterLabels(filterTypes.Types, builder.OuterQuery.Environment.Options.GetValue(GremlinqOption.FilterLabelsVerbosity));
+                    .GetFilterLabels(filterTypes, builder.OuterQuery.Environment.Options.GetValue(GremlinqOption.FilterLabelsVerbosity));
 
                 if (labels.Length > 0)
                     builder = builder.AddStep(new HasLabelStep(labels));

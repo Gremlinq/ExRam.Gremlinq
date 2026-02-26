@@ -317,7 +317,7 @@ namespace ExRam.Gremlinq.Core
                     .BuildAuto(),
                 filterTypes.IsNone
                     ? BothStep.NoLabels
-                    : new BothStep(Environment.Model.EdgesModel.GetFilterLabels(filterTypes.Types, Environment.Options.GetValue(GremlinqOption.FilterLabelsVerbosity))));
+                    : new BothStep(Environment.Model.EdgesModel.GetFilterLabels(filterTypes, Environment.Options.GetValue(GremlinqOption.FilterLabelsVerbosity))));
 
         private GremlinQuery<TEdge, T1, object, IGremlinQueryBase> BothE<TEdge>(FilterTypes filterTypes) => this
             .Continue()
@@ -328,7 +328,7 @@ namespace ExRam.Gremlinq.Core
                     .BuildAuto<TEdge, T1>(),
                 filterTypes.IsNone
                     ? BothEStep.NoLabels
-                    : new BothEStep(Environment.Model.EdgesModel.GetFilterLabels(filterTypes.Types, Environment.Options.GetValue(GremlinqOption.FilterLabelsVerbosity))));
+                    : new BothEStep(Environment.Model.EdgesModel.GetFilterLabels(filterTypes, Environment.Options.GetValue(GremlinqOption.FilterLabelsVerbosity))));
 
         private GremlinQuery<TNewElement, object, object, IGremlinQueryBase> BothV<TNewElement>() => this
             .Continue()
@@ -757,7 +757,7 @@ namespace ExRam.Gremlinq.Core
                     .BuildAuto(),
                 filterTypes.IsNone
                     ? InStep.NoLabels
-                    : new InStep(Environment.Model.EdgesModel.GetFilterLabels(filterTypes.Types, Environment.Options.GetValue(GremlinqOption.FilterLabelsVerbosity))));
+                    : new InStep(Environment.Model.EdgesModel.GetFilterLabels(filterTypes, Environment.Options.GetValue(GremlinqOption.FilterLabelsVerbosity))));
 
         private GremlinQuery<TEdge, object, T1, IGremlinQueryBase> InE<TEdge>(FilterTypes filterTypes) => this
             .Continue()
@@ -768,7 +768,7 @@ namespace ExRam.Gremlinq.Core
                     .BuildAuto<TEdge, object, T1>(),
                 filterTypes.IsNone
                     ? InEStep.NoLabels 
-                    : new InEStep(Environment.Model.EdgesModel.GetFilterLabels(filterTypes.Types, Environment.Options.GetValue(GremlinqOption.FilterLabelsVerbosity))));
+                    : new InEStep(Environment.Model.EdgesModel.GetFilterLabels(filterTypes, Environment.Options.GetValue(GremlinqOption.FilterLabelsVerbosity))));
 
         private GremlinQuery<TNewElement, T2, T3, T4> Inject<TNewElement>(ReadOnlySpan<TNewElement> elements) => this
             .Continue()
@@ -992,7 +992,7 @@ namespace ExRam.Gremlinq.Core
                     .BuildAuto(),
                 filterTypes.IsNone
                     ? OutStep.NoLabels
-                    : new OutStep(Environment.Model.EdgesModel.GetFilterLabels(filterTypes.Types, Environment.Options.GetValue(GremlinqOption.FilterLabelsVerbosity))));
+                    : new OutStep(Environment.Model.EdgesModel.GetFilterLabels(filterTypes, Environment.Options.GetValue(GremlinqOption.FilterLabelsVerbosity))));
 
         private GremlinQuery<TEdge, T1, object, IGremlinQueryBase> OutE<TEdge>(FilterTypes filterTypes) => this
             .Continue()
@@ -1003,7 +1003,7 @@ namespace ExRam.Gremlinq.Core
                     .BuildAuto<TEdge, T1>(),
                 filterTypes.IsNone
                     ? OutEStep.NoLabels
-                    : new OutEStep(Environment.Model.EdgesModel.GetFilterLabels(filterTypes.Types, Environment.Options.GetValue(GremlinqOption.FilterLabelsVerbosity))));
+                    : new OutEStep(Environment.Model.EdgesModel.GetFilterLabels(filterTypes, Environment.Options.GetValue(GremlinqOption.FilterLabelsVerbosity))));
 
         private GremlinQuery<Path, object, object, IGremlinQueryBase> Path() => this
             .Continue()

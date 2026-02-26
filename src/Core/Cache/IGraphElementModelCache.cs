@@ -6,6 +6,6 @@ namespace ExRam.Gremlinq.Core
     {
         string GetLabel(Type type);
 
-        ImmutableArray<string> GetDerivedLabels(Type[] types);
+        ImmutableArray<string> GetDerivedLabels(FilterTypes filterTypes);
     }
 }
