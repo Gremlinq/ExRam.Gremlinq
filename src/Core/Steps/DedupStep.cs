@@ -9,6 +9,8 @@ namespace ExRam.Gremlinq.Core.Steps
 
         public DedupStep(Scope scope)
         {
+            ArgumentNullException.ThrowIfNull(scope);
+
             Scope = scope;
         }
 

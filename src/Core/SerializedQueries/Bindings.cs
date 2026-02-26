@@ -24,7 +24,12 @@ namespace ExRam.Gremlinq.Core
 
             bool ICollection<KeyValuePair<object, Label>>.Contains(KeyValuePair<object, Label> item) => false;
 
-            void ICollection<KeyValuePair<object, Label>>.CopyTo(KeyValuePair<object, Label>[] array, int arrayIndex) => throw new NotSupportedException();
+            void ICollection<KeyValuePair<object, Label>>.CopyTo(KeyValuePair<object, Label>[] array, int arrayIndex)
+            {
+                ArgumentNullException.ThrowIfNull(array);
+
+                throw new NotSupportedException();
+            }
 
             IEnumerator<KeyValuePair<object, Label>> IEnumerable<KeyValuePair<object, Label>>.GetEnumerator() => throw new NotSupportedException();
 

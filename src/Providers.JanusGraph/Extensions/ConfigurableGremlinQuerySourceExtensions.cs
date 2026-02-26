@@ -35,9 +35,14 @@ namespace ExRam.Gremlinq.Providers.JanusGraph
                             .ToExecutor())));
         }
 
-        public static IGremlinQuerySource UseJanusGraph<TVertexBase, TEdgeBase>(this IGremlinQuerySource source, Func<IJanusGraphConfigurator, IGremlinQuerySourceTransformation> configuratorTransformation) => configuratorTransformation
-            .Invoke(JanusGraphConfigurator.Default)
-            .Transform(source
+        public static IGremlinQuerySource UseJanusGraph<TVertexBase, TEdgeBase>(this IGremlinQuerySource source, Func<IJanusGraphConfigurator, IGremlinQuerySourceTransformation> configuratorTransformation)
+        {
+            ArgumentNullException.ThrowIfNull(source);
+            ArgumentNullException.ThrowIfNull(configuratorTransformation);
+
+            return configuratorTransformation
+                .Invoke(JanusGraphConfigurator.Default)
+                .Transform(source
                 .ConfigureEnvironment(environment => environment
                     .UseModel(GraphModel
                         .FromBaseTypes<TVertexBase, TEdgeBase>())
@@ -53,5 +58,6 @@ namespace ExRam.Gremlinq.Providers.JanusGraph
                     .AddGraphSonBinarySupport()
                     .ConfigureDeserializer(deserializer => deserializer
                         .AsIncomplete())));
+        }
     }
 }

@@ -4,6 +4,9 @@
     {
         public static bool SupportsType(this IGremlinQueryEnvironment environment, Type type)
         {
+            ArgumentNullException.ThrowIfNull(environment);
+            ArgumentNullException.ThrowIfNull(type);
+
             if (environment.SupportsTypeNatively(type))
                 return true;
 
@@ -16,6 +19,12 @@
             return false;
         }
 
-        public static bool SupportsTypeNatively(this IGremlinQueryEnvironment environment, Type type) => environment.NativeTypes.Contains(type);
+        public static bool SupportsTypeNatively(this IGremlinQueryEnvironment environment, Type type)
+        {
+            ArgumentNullException.ThrowIfNull(environment);
+            ArgumentNullException.ThrowIfNull(type);
+
+            return environment.NativeTypes.Contains(type);
+        }
     }
 }

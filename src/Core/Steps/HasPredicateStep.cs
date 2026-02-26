@@ -6,6 +6,8 @@ namespace ExRam.Gremlinq.Core.Steps
     {
         public HasPredicateStep(Key key, P predicate)
         {
+            ArgumentNullException.ThrowIfNull(predicate);
+
             Key = key;
             Predicate = predicate;
         }

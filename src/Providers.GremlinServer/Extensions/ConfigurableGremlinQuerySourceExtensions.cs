@@ -35,9 +35,14 @@ namespace ExRam.Gremlinq.Providers.GremlinServer
                             .ToExecutor())));
         }
 
-        public static IGremlinQuerySource UseGremlinServer<TVertexBase, TEdgeBase>(this IGremlinQuerySource source, Func<IGremlinServerConfigurator, IGremlinQuerySourceTransformation> configuratorTransformation) => configuratorTransformation
-            .Invoke(GremlinServerConfigurator.Default)
-            .Transform(source
+        public static IGremlinQuerySource UseGremlinServer<TVertexBase, TEdgeBase>(this IGremlinQuerySource source, Func<IGremlinServerConfigurator, IGremlinQuerySourceTransformation> configuratorTransformation)
+        {
+            ArgumentNullException.ThrowIfNull(source);
+            ArgumentNullException.ThrowIfNull(configuratorTransformation);
+
+            return configuratorTransformation
+                .Invoke(GremlinServerConfigurator.Default)
+                .Transform(source
                 .ConfigureEnvironment(environment => environment
                     .UseModel(GraphModel
                         .FromBaseTypes<TVertexBase, TEdgeBase>())
@@ -50,6 +55,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer
                         .ConfigureEdgeFeatures(edgeProperties => edgeProperties & ~(EdgeFeatures.Upsert | EdgeFeatures.CustomIds)))
                     .AddGraphSonBinarySupport()
                     .ConfigureDeserializer(deserializer => deserializer
-                        .AsIncomplete())));
+                        .AsIncomplete())));    
+        }
     }
 }

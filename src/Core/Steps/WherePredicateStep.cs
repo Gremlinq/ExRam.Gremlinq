@@ -16,6 +16,8 @@ namespace ExRam.Gremlinq.Core.Steps
 
         public WherePredicateStep(P predicate)
         {
+            ArgumentNullException.ThrowIfNull(predicate);
+
             Predicate = predicate;
         }
 

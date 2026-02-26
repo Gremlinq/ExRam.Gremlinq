@@ -9,6 +9,8 @@ namespace ExRam.Gremlinq.Core.Steps
 
         public CountStep(Scope scope)
         {
+            ArgumentNullException.ThrowIfNull(scope);
+
             Scope = scope;
         }
 

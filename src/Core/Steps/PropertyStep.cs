@@ -9,10 +9,14 @@ namespace ExRam.Gremlinq.Core.Steps
         {
             public ByKeyStep(Key key, object value, Cardinality? cardinality = null) : this(key, value, ImmutableArray<KeyValuePair<string, object>>.Empty, cardinality)
             {
+                ArgumentNullException.ThrowIfNull(value);
+
             }
 
             public ByKeyStep(Key key, object value, ImmutableArray<KeyValuePair<string, object>> metaProperties, Cardinality? cardinality = null) : base(value, metaProperties, cardinality)
             {
+                ArgumentNullException.ThrowIfNull(value);
+
                 Key = key;
             }
 
@@ -23,10 +27,14 @@ namespace ExRam.Gremlinq.Core.Steps
         {
             public ByTraversalStep(Traversal traversal, object value, Cardinality? cardinality = null) : this(traversal, value, ImmutableArray<KeyValuePair<string, object>>.Empty, cardinality)
             {
+                ArgumentNullException.ThrowIfNull(value);
+
             }
 
             public ByTraversalStep(Traversal traversal, object value, ImmutableArray<KeyValuePair<string, object>> metaProperties, Cardinality? cardinality = null) : base(value, metaProperties, cardinality)
             {
+                ArgumentNullException.ThrowIfNull(value);
+
                 Traversal = traversal;
             }
 

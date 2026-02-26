@@ -4,6 +4,8 @@
     {
         public CapStep(StepLabel stepLabel)
         {
+            ArgumentNullException.ThrowIfNull(stepLabel);
+
             StepLabel = stepLabel;
         }
 

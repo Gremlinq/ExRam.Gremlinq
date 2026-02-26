@@ -45,10 +45,17 @@ namespace ExRam.Gremlinq.Core
 
         public Traversal Slice(int start, int length) => new (_steps.Slice(start, length), Projection);
 
-        public Traversal WithProjection(Projection projection) => new(_steps, _writeStepsCount, projection);
+        public Traversal WithProjection(Projection projection)
+        {
+            ArgumentNullException.ThrowIfNull(projection);
+
+            return new(_steps, _writeStepsCount, projection);
+        }
 
         public Traversal IncludeProjection(IGremlinQueryEnvironment environment)
         {
+            ArgumentNullException.ThrowIfNull(environment);
+
             if (Projection != Projection.Empty)
             {
                 var projectionTraversal = Projection.ToTraversal(environment);
@@ -81,9 +88,14 @@ namespace ExRam.Gremlinq.Core
 
         public static implicit operator Traversal(Step step) => Create(1, step, static (span, step) => span[0] = step);
 
-        public static Traversal Create<TState>(int length, TState state, SpanAction<Step, TState> action) => new(
-            FastImmutableList<Step>.Create(length, state, action),
-            Projection.Empty);
+        public static Traversal Create<TState>(int length, TState state, SpanAction<Step, TState> action)
+        {
+            ArgumentNullException.ThrowIfNull(action);
+
+            return new(
+                FastImmutableList<Step>.Create(length, state, action),
+                Projection.Empty);
+        }
 
         public int Count => _steps.Count;
 

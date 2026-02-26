@@ -6,6 +6,8 @@ namespace ExRam.Gremlinq.Core.Steps
     {
         public RangeStep(long lower, long upper, Scope scope)
         {
+            ArgumentNullException.ThrowIfNull(scope);
+
             if (lower < 0)
                 throw new ArgumentOutOfRangeException(nameof(lower));
 

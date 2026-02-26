@@ -15,12 +15,22 @@ namespace ExRam.Gremlinq.Core.Execution
 
         public GremlinQueryExecutionContext WithNewExecutionId() => new(Query, Guid.NewGuid());
 
-        public GremlinQueryExecutionContext TransformQuery(Func<IGremlinQueryBase, IGremlinQueryBase> transformation) => new(transformation(Query), ExecutionId);
+        public GremlinQueryExecutionContext TransformQuery(Func<IGremlinQueryBase, IGremlinQueryBase> transformation)
+        {
+            ArgumentNullException.ThrowIfNull(transformation);
+
+            return new(transformation(Query), ExecutionId);
+        }
 
         public Guid ExecutionId => _executionId ?? throw UninitializedStruct();
 
         public IGremlinQueryBase Query => _query ?? throw UninitializedStruct();
 
-        public static GremlinQueryExecutionContext Create(IGremlinQueryBase query) => new(query, Guid.NewGuid());
+        public static GremlinQueryExecutionContext Create(IGremlinQueryBase query)
+        {
+            ArgumentNullException.ThrowIfNull(query);
+
+            return new(query, Guid.NewGuid());
+        }
     }
 }

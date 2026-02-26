@@ -46,7 +46,12 @@ namespace ExRam.Gremlinq.Providers.Neptune
 
                 int IReadOnlyCollection<KeyValuePair<string, string>>.Count => 4;
 
-                bool IReadOnlyDictionary<string, string>.ContainsKey(string key) => ((IReadOnlyDictionary<string, string>)this).TryGetValue(key, out _);
+                bool IReadOnlyDictionary<string, string>.ContainsKey(string key)
+                {
+                    ArgumentNullException.ThrowIfNull(key);
+
+                    return ((IReadOnlyDictionary<string, string>)this).TryGetValue(key, out _);
+                }
 
                 IEnumerator<KeyValuePair<string, string>> IEnumerable<KeyValuePair<string, string>>.GetEnumerator() => ((IEnumerable<KeyValuePair<string, string>>)_kvps).GetEnumerator();
 
@@ -54,6 +59,8 @@ namespace ExRam.Gremlinq.Providers.Neptune
 
                 bool IReadOnlyDictionary<string, string>.TryGetValue(string key, out string value)
                 {
+                    ArgumentNullException.ThrowIfNull(key);
+
                     for (var i = 0; i < _kvps.Length; i++)
                     {
                         if (_kvps[i].Key == key)
@@ -253,6 +260,9 @@ namespace ExRam.Gremlinq.Providers.Neptune
 
         public static HttpRequestMessage Sign(this IAWSSigner signer, HttpRequestMessage request, DateTimeOffset? time = null)
         {
+            ArgumentNullException.ThrowIfNull(signer);
+            ArgumentNullException.ThrowIfNull(request);
+
             if (request.Method != HttpMethod.Get)
                 throw new NotSupportedException($"The {request.Method}-method is not supported.");
 
@@ -263,17 +273,37 @@ namespace ExRam.Gremlinq.Providers.Neptune
             return request;
         }
 
-        public static ISigV4AWSSigner WithUri(this ISigV4AWSSigner signer, Uri uri) => signer
-            .ConfigureUri(_ => uri);
+        public static ISigV4AWSSigner WithUri(this ISigV4AWSSigner signer, Uri uri)
+        {
+            ArgumentNullException.ThrowIfNull(signer);
+            ArgumentNullException.ThrowIfNull(uri);
 
-        public static ISigV4AWSSigner WithRegion(this ISigV4AWSSigner signer, string region) => signer
-            .ConfigureRegion(_ => region);
+            return signer
+                .ConfigureUri(_ => uri);
+        }
 
-        public static ISigV4AWSSigner WithCacheTime(this ISigV4AWSSigner signer, TimeSpan cacheTime) => signer
-            .ConfigureCacheTime(_ => cacheTime);
+        public static ISigV4AWSSigner WithRegion(this ISigV4AWSSigner signer, string region)
+        {
+            ArgumentNullException.ThrowIfNull(signer);
+            ArgumentNullException.ThrowIfNull(region);
+
+            return signer
+                .ConfigureRegion(_ => region);
+        }
+
+        public static ISigV4AWSSigner WithCacheTime(this ISigV4AWSSigner signer, TimeSpan cacheTime)
+        {
+            ArgumentNullException.ThrowIfNull(signer);
+
+            return signer
+                .ConfigureCacheTime(_ => cacheTime);
+        }
 
         public static HttpHeaders Sign(this IAWSSigner signer, HttpHeaders headers, DateTimeOffset? time = null)
         {
+            ArgumentNullException.ThrowIfNull(signer);
+            ArgumentNullException.ThrowIfNull(headers);
+
             foreach (var kvp in signer.GetIAMHeaders(time))
             {
                 headers.TryAddWithoutValidation(kvp.Key, kvp.Value);

@@ -98,16 +98,52 @@ namespace ExRam.Gremlinq.Core
             DefaultNativeTypes,
             NullLogger.Instance);
 
-        public static IGremlinQueryEnvironment UseModel(this IGremlinQueryEnvironment source, IGraphModel model) => source.ConfigureModel(_ => model);
+        public static IGremlinQueryEnvironment UseModel(this IGremlinQueryEnvironment source, IGraphModel model)
+        {
+            ArgumentNullException.ThrowIfNull(source);
+            ArgumentNullException.ThrowIfNull(model);
 
-        public static IGremlinQueryEnvironment UseLogger(this IGremlinQueryEnvironment source, ILogger logger) => source.ConfigureLogger(_ => logger);
+            return source.ConfigureModel(_ => model);
+        }
 
-        public static IGremlinQueryEnvironment UseSerializer(this IGremlinQueryEnvironment environment, ITransformer serializer) => environment.ConfigureSerializer(_ => serializer);
+        public static IGremlinQueryEnvironment UseLogger(this IGremlinQueryEnvironment source, ILogger logger)
+        {
+            ArgumentNullException.ThrowIfNull(source);
+            ArgumentNullException.ThrowIfNull(logger);
 
-        public static IGremlinQueryEnvironment UseDeserializer(this IGremlinQueryEnvironment environment, ITransformer deserializer) => environment.ConfigureDeserializer(_ => deserializer);
+            return source.ConfigureLogger(_ => logger);
+        }
 
-        public static IGremlinQueryEnvironment UseExecutor(this IGremlinQueryEnvironment environment, IGremlinQueryExecutor executor) => environment.ConfigureExecutor(_ => executor);
+        public static IGremlinQueryEnvironment UseSerializer(this IGremlinQueryEnvironment environment, ITransformer serializer)
+        {
+            ArgumentNullException.ThrowIfNull(environment);
+            ArgumentNullException.ThrowIfNull(serializer);
 
-        public static IGremlinQueryEnvironment UseDebugger(this IGremlinQueryEnvironment environment, IGremlinQueryDebugger debugger) => environment.ConfigureDebugger(_ => debugger);
+            return environment.ConfigureSerializer(_ => serializer);
+        }
+
+        public static IGremlinQueryEnvironment UseDeserializer(this IGremlinQueryEnvironment environment, ITransformer deserializer)
+        {
+            ArgumentNullException.ThrowIfNull(environment);
+            ArgumentNullException.ThrowIfNull(deserializer);
+
+            return environment.ConfigureDeserializer(_ => deserializer);
+        }
+
+        public static IGremlinQueryEnvironment UseExecutor(this IGremlinQueryEnvironment environment, IGremlinQueryExecutor executor)
+        {
+            ArgumentNullException.ThrowIfNull(environment);
+            ArgumentNullException.ThrowIfNull(executor);
+
+            return environment.ConfigureExecutor(_ => executor);
+        }
+
+        public static IGremlinQueryEnvironment UseDebugger(this IGremlinQueryEnvironment environment, IGremlinQueryDebugger debugger)
+        {
+            ArgumentNullException.ThrowIfNull(environment);
+            ArgumentNullException.ThrowIfNull(debugger);
+
+            return environment.ConfigureDebugger(_ => debugger);
+        }
     }
 }

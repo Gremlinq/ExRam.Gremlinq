@@ -158,10 +158,20 @@ namespace ExRam.Gremlinq.Core.Transformation
         }
 
         public static IConverterFactory Create<TStaticSource, TStaticTarget>(Func<TStaticSource, IGremlinQueryEnvironment, ITransformer, ITransformer, TStaticTarget?> func)
-            where TStaticTarget : struct => new StructFuncConverterFactory<TStaticSource, TStaticTarget>(func);
+            where TStaticTarget : struct
+        {
+            ArgumentNullException.ThrowIfNull(func);
+
+            return new StructFuncConverterFactory<TStaticSource, TStaticTarget>(func);
+        }
 
         public static IConverterFactory Create<TStaticSource, TStaticTarget>(Func<TStaticSource, IGremlinQueryEnvironment, ITransformer, ITransformer, TStaticTarget?> func)
-            where TStaticTarget : class => new ClassFuncConverterFactory<TStaticSource, TStaticTarget>(func);
+            where TStaticTarget : class
+        {
+            ArgumentNullException.ThrowIfNull(func);
+
+            return new ClassFuncConverterFactory<TStaticSource, TStaticTarget>(func);
+        }
 
         internal static IConverterFactory Chain<TStaticSource, TIntermediateSource, TStaticTarget>() => new ChainConverterFactory<TStaticSource, TIntermediateSource, TStaticTarget>();
     }

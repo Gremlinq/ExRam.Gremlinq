@@ -4,6 +4,8 @@
     {
         public AsStep(StepLabel stepLabel)
         {
+            ArgumentNullException.ThrowIfNull(stepLabel);
+
             StepLabel = stepLabel;
         }
 

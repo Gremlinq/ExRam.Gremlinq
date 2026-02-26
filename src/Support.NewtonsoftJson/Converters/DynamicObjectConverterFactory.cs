@@ -48,21 +48,51 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
 
                 object? IDictionary<string, object?>.this[string key] { get => _dictionary[key]; set => _dictionary[key] = value; }
 
-                bool IReadOnlyDictionary<string, object?>.ContainsKey(string key) => _dictionary.ContainsKey(key);
+                bool IReadOnlyDictionary<string, object?>.ContainsKey(string key)
+                {
+                    ArgumentNullException.ThrowIfNull(key);
+
+                    return _dictionary.ContainsKey(key);
+                }
 
                 IEnumerator<KeyValuePair<string, object?>> IEnumerable<KeyValuePair<string, object?>>.GetEnumerator() => _dictionary.GetEnumerator();
 
-                bool IReadOnlyDictionary<string, object?>.TryGetValue(string key, out object? value) => _dictionary.TryGetValue(key, out value);
+                bool IReadOnlyDictionary<string, object?>.TryGetValue(string key, out object? value)
+                {
+                    ArgumentNullException.ThrowIfNull(key);
+
+                    return _dictionary.TryGetValue(key, out value);
+                }
 
                 IEnumerator IEnumerable.GetEnumerator() => ((IEnumerable)_dictionary).GetEnumerator();
 
-                void IDictionary<string, object?>.Add(string key, object? value) => _dictionary.Add(key, value);
+                void IDictionary<string, object?>.Add(string key, object? value)
+                {
+                    ArgumentNullException.ThrowIfNull(key);
 
-                bool IDictionary<string, object?>.ContainsKey(string key) => _dictionary.ContainsKey(key);
+                    _dictionary.Add(key, value);
+                }
 
-                bool IDictionary<string, object?>.Remove(string key) => _dictionary.Remove(key);
+                bool IDictionary<string, object?>.ContainsKey(string key)
+                {
+                    ArgumentNullException.ThrowIfNull(key);
 
-                bool IDictionary<string, object?>.TryGetValue(string key, out object? value) => _dictionary.TryGetValue(key, out value);
+                    return _dictionary.ContainsKey(key);
+                }
+
+                bool IDictionary<string, object?>.Remove(string key)
+                {
+                    ArgumentNullException.ThrowIfNull(key);
+
+                    return _dictionary.Remove(key);
+                }
+
+                bool IDictionary<string, object?>.TryGetValue(string key, out object? value)
+                {
+                    ArgumentNullException.ThrowIfNull(key);
+
+                    return _dictionary.TryGetValue(key, out value);
+                }
 
                 void ICollection<KeyValuePair<string, object?>>.Add(KeyValuePair<string, object?> item) => _dictionary.Add(item);
 
@@ -70,7 +100,12 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
 
                 bool ICollection<KeyValuePair<string, object?>>.Contains(KeyValuePair<string, object?> item) => _dictionary.Contains(item);
 
-                void ICollection<KeyValuePair<string, object?>>.CopyTo(KeyValuePair<string, object?>[] array, int arrayIndex) => _dictionary.CopyTo(array, arrayIndex);
+                void ICollection<KeyValuePair<string, object?>>.CopyTo(KeyValuePair<string, object?>[] array, int arrayIndex)
+                {
+                    ArgumentNullException.ThrowIfNull(array);
+
+                    _dictionary.CopyTo(array, arrayIndex);
+                }
 
                 bool ICollection<KeyValuePair<string, object?>>.Remove(KeyValuePair<string, object?> item) => _dictionary.Remove(item);
             }

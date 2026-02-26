@@ -8,11 +8,15 @@ namespace ExRam.Gremlinq.Core
 
         public Key(T t)
         {
+            ArgumentNullException.ThrowIfNull(t);
+
             _key = t;
         }
 
         public Key(string name)
         {
+            ArgumentNullException.ThrowIfNull(name);
+
             _key = name;
         }
 

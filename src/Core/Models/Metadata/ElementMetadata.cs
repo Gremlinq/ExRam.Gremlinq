@@ -8,6 +8,8 @@ namespace ExRam.Gremlinq.Core.Models
 
         public ElementMetadata(string label)
         {
+            ArgumentNullException.ThrowIfNull(label);
+
             _label = label;
         }
 

@@ -85,7 +85,11 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                 : null;
         }
 
-        public static IGremlinQueryEnvironment UseNewtonsoftJson(this IGremlinQueryEnvironment environment) => environment
+        public static IGremlinQueryEnvironment UseNewtonsoftJson(this IGremlinQueryEnvironment environment)
+        {
+            ArgumentNullException.ThrowIfNull(environment);
+
+            return environment
             .ConfigureDeserializer(deserializer => deserializer
                 .Add(new DeferToNewtonsoftConverterFactory())
                 .Add(new NewtonsoftJsonSerializerConverterFactory())
@@ -112,13 +116,21 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                 .Add(new TimeSpanConverterFactory())
                 .Add(new DateTimeOffsetConverterFactory())
                 .Add(new DateTimeConverterFactory()));
+        }
 
-        public static IGremlinQueryEnvironment RegisterNativeType<TNative, TSerialized>(this IGremlinQueryEnvironment environment, Func<TNative, IGremlinQueryEnvironment, ITransformer, ITransformer, TSerialized> serializer, Func<JValue, IGremlinQueryEnvironment, ITransformer, ITransformer, TNative> deserializer) => environment
-            .ConfigureNativeTypes(_ => _
-                .Add(typeof(TNative)))
-            .ConfigureSerializer(_ => _
-                .Add(new NativeTypeSerializerConverterFactory<TNative, TSerialized>(serializer)))
-            .ConfigureDeserializer(_ => _
-                .Add(new NativeTypeDeserializerConverterFactory<TNative>(deserializer)));
+        public static IGremlinQueryEnvironment RegisterNativeType<TNative, TSerialized>(this IGremlinQueryEnvironment environment, Func<TNative, IGremlinQueryEnvironment, ITransformer, ITransformer, TSerialized> serializer, Func<JValue, IGremlinQueryEnvironment, ITransformer, ITransformer, TNative> deserializer)
+        {
+            ArgumentNullException.ThrowIfNull(environment);
+            ArgumentNullException.ThrowIfNull(serializer);
+            ArgumentNullException.ThrowIfNull(deserializer);
+
+            return environment
+                .ConfigureNativeTypes(_ => _
+                    .Add(typeof(TNative)))
+                .ConfigureSerializer(_ => _
+                    .Add(new NativeTypeSerializerConverterFactory<TNative, TSerialized>(serializer)))
+                .ConfigureDeserializer(_ => _
+                    .Add(new NativeTypeDeserializerConverterFactory<TNative>(deserializer)));
+        }
     }
 }

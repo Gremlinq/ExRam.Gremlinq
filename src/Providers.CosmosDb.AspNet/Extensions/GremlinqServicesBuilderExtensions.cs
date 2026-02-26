@@ -7,12 +7,16 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.AspNet
 {
     public static class GremlinqServicesBuilderExtensions
     {
-        public static IGremlinqServicesBuilder<ICosmosDbConfigurator<TVertexBase>> UseCosmosDb<TVertexBase, TEdgeBase>(this IGremlinqServicesBuilder setup) => setup
-            .ConfigureBase()
-            .UseProvider<ICosmosDbConfigurator<TVertexBase>>(source => source
-                .UseCosmosDb<TVertexBase, TEdgeBase>)
-            .Configure((configurator, gremlinqSection) =>
-            {
+        public static IGremlinqServicesBuilder<ICosmosDbConfigurator<TVertexBase>> UseCosmosDb<TVertexBase, TEdgeBase>(this IGremlinqServicesBuilder setup)
+        {
+            ArgumentNullException.ThrowIfNull(setup);
+
+            return setup
+                .ConfigureBase()
+                .UseProvider<ICosmosDbConfigurator<TVertexBase>>(source => source
+                    .UseCosmosDb<TVertexBase, TEdgeBase>)
+                .Configure((configurator, gremlinqSection) =>
+                {
                 var providerSection = gremlinqSection
                     .GetSection("CosmosDb");
 
@@ -58,6 +62,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.AspNet
                 }
 
                 return configurator;
-            });
+                });
+        }
     }
 }

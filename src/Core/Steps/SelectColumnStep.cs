@@ -6,6 +6,8 @@ namespace ExRam.Gremlinq.Core.Steps
     {
         public SelectColumnStep(Column column)
         {
+            ArgumentNullException.ThrowIfNull(column);
+
             Column = column;
         }
 

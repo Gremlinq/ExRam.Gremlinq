@@ -15,7 +15,12 @@ namespace ExRam.Gremlinq.Core.Serialization
             _bindings = bindings ?? ImmutableDictionary<string, object?>.Empty;
         }
 
-        public GroovyGremlinScript Bind(string variable, object? value) => new(Script, Bindings.SetItem(variable, value));
+        public GroovyGremlinScript Bind(string variable, object? value)
+        {
+            ArgumentNullException.ThrowIfNull(variable);
+
+            return new(Script, Bindings.SetItem(variable, value));
+        }
 
         public override string ToString() => Script;
 
@@ -23,6 +28,11 @@ namespace ExRam.Gremlinq.Core.Serialization
 
         public ImmutableDictionary<string, object?> Bindings => _bindings ?? throw UninitializedStruct();
 
-        public static GroovyGremlinScript From(string script, ImmutableDictionary<string, object?>? bindings = null) => new (script, bindings);
+        public static GroovyGremlinScript From(string script, ImmutableDictionary<string, object?>? bindings = null)
+        {
+            ArgumentNullException.ThrowIfNull(script);
+
+            return new (script, bindings);
+        }
     }
 }

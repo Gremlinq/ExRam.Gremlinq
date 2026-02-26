@@ -15,6 +15,8 @@ namespace ExRam.Gremlinq.Core.Steps
         {
             public ByMemberStep(Key key, Order order)
             {
+                ArgumentNullException.ThrowIfNull(order);
+
                 Order = order;
                 Key = key;
             }
@@ -27,6 +29,8 @@ namespace ExRam.Gremlinq.Core.Steps
         {
             public ByTraversalStep(Traversal traversal, Order order) : base(traversal.GetSideEffectSemanticsChange())
             {
+                ArgumentNullException.ThrowIfNull(order);
+
                 Traversal = traversal;
                 Order = order;
             }
@@ -40,6 +44,8 @@ namespace ExRam.Gremlinq.Core.Steps
 
         public OrderStep(Scope scope)
         {
+            ArgumentNullException.ThrowIfNull(scope);
+
             Scope = scope;
         }
 

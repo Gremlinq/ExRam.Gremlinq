@@ -6,6 +6,8 @@ namespace ExRam.Gremlinq.Core.Steps
     {
         public SubstringStep(Range range, Scope scope)
         {
+            ArgumentNullException.ThrowIfNull(scope);
+
             Range = range;
             Scope = scope;
         }

@@ -39,6 +39,8 @@ namespace ExRam.Gremlinq.Testing.AirRoutes.Generator
                                     /// </summary>
                                     public static async Task RemoveAirRoutes(this IGremlinQuerySource source, CancellationToken ct = default)
                                     {
+                                        ArgumentNullException.ThrowIfNull(source);
+
                                         await source
                                             .ConfigureEnvironment(env => env
                                                 .UseModel(GraphModel.FromBaseTypes<Airport, Route>()))
@@ -132,6 +134,9 @@ namespace ExRam.Gremlinq.Testing.AirRoutes.Generator
                                 .WriteLine($"public static async Task {methodName}(this IGremlinQuerySource source, CancellationToken ct = default)")
                                 .Block(writer =>
                                 {
+                                    writer = writer
+                                        .WriteLine("ArgumentNullException.ThrowIfNull(source);");
+
                                     if (graphml.Graph?.Node is { } nodes && graphml.Graph?.Edge is { } edges)
                                     {
                                         writer = writer

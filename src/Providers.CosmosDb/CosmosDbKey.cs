@@ -6,10 +6,15 @@
 
         public CosmosDbKey(string id) : this(null, id, false)
         {
+            ArgumentNullException.ThrowIfNull(id);
+
         }
 
         public CosmosDbKey(string partitionKey, string id) : this(partitionKey, id, false)
         {
+            ArgumentNullException.ThrowIfNull(partitionKey);
+            ArgumentNullException.ThrowIfNull(id);
+
         }
 
         private CosmosDbKey(string? partitionKey, string id, bool _)

@@ -9,6 +9,8 @@ namespace ExRam.Gremlinq.Core.Steps
 
         public MinStep(Scope scope)
         {
+            ArgumentNullException.ThrowIfNull(scope);
+
             Scope = scope;
         }
 

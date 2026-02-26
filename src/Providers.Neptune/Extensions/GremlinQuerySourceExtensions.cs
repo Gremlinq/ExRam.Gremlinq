@@ -6,7 +6,12 @@ namespace ExRam.Gremlinq.Providers.Neptune
     {
         private static readonly StepLabel<bool> UseDFEStepLabel = "Neptune#useDFE";
 
-        public static IGremlinQuerySource UseDFE(this IGremlinQuerySource source, bool enabled = true) => source
-            .WithSideEffect(UseDFEStepLabel, enabled);
+        public static IGremlinQuerySource UseDFE(this IGremlinQuerySource source, bool enabled = true)
+        {
+            ArgumentNullException.ThrowIfNull(source);
+
+            return source
+                .WithSideEffect(UseDFEStepLabel, enabled);
+        }
     }
 }

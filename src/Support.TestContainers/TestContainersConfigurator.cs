@@ -13,8 +13,13 @@ namespace ExRam.Gremlinq.Support.TestContainers
             _clientFactory = clientFactory;
         }
 
-        public TestContainersWithContainerConfigurator ConfigureContainer(Func<ContainerBuilder, ContainerBuilder> containerBuilderTransformation) => _clientFactory is { } clientFactory
-            ? new TestContainersWithContainerConfigurator(clientFactory, containerBuilderTransformation)
-            : throw new InvalidOperationException();
+        public TestContainersWithContainerConfigurator ConfigureContainer(Func<ContainerBuilder, ContainerBuilder> containerBuilderTransformation)
+        {
+            ArgumentNullException.ThrowIfNull(containerBuilderTransformation);
+
+            return _clientFactory is { } clientFactory
+                ? new TestContainersWithContainerConfigurator(clientFactory, containerBuilderTransformation)
+                : throw new InvalidOperationException();
+        }
     }
 }

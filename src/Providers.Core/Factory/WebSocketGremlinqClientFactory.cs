@@ -225,7 +225,12 @@ namespace ExRam.Gremlinq.Providers.Core
 
                     ValueTaskSourceStatus IValueTaskSource<SingleOrQueue<T>>.GetStatus(short token) => _valueTaskSource.GetStatus(token);
 
-                    void IValueTaskSource<SingleOrQueue<T>>.OnCompleted(Action<object?> continuation, object? state, short token, ValueTaskSourceOnCompletedFlags flags) => _valueTaskSource.OnCompleted(continuation, state, token, flags);
+                    void IValueTaskSource<SingleOrQueue<T>>.OnCompleted(Action<object?> continuation, object? state, short token, ValueTaskSourceOnCompletedFlags flags)
+                    {
+                        ArgumentNullException.ThrowIfNull(continuation);
+
+                        _valueTaskSource.OnCompleted(continuation, state, token, flags);
+                    }
                 }
 
                 private record struct ResponseMessagePayload<T>(ResponseResult<T>? Result);
@@ -480,12 +485,19 @@ namespace ExRam.Gremlinq.Providers.Core
 
         public static readonly IWebSocketGremlinqClientFactory LocalHost = WebSocketGremlinqClientFactoryImpl<GraphSon3BinaryMessage>.LocalHost;
 
-        public static IWebSocketGremlinqClientFactory WithPlainCredentials(this IWebSocketGremlinqClientFactory factory, string username, string password) => factory
-            .ConfigureAuthentication(_ => _ => RequestMessage
-                .Build(Tokens.OpsAuthentication)
-                .Processor(Tokens.ProcessorTraversal)
-                .AddArgument(Tokens.ArgsSasl, Convert.ToBase64String(Encoding.UTF8.GetBytes($"\0{username}\0{password}")))
-                .Create());
+        public static IWebSocketGremlinqClientFactory WithPlainCredentials(this IWebSocketGremlinqClientFactory factory, string username, string password)
+        {
+            ArgumentNullException.ThrowIfNull(factory);
+            ArgumentNullException.ThrowIfNull(username);
+            ArgumentNullException.ThrowIfNull(password);
+
+            return factory
+                .ConfigureAuthentication(_ => _ => RequestMessage
+                    .Build(Tokens.OpsAuthentication)
+                    .Processor(Tokens.ProcessorTraversal)
+                    .AddArgument(Tokens.ArgsSasl, Convert.ToBase64String(Encoding.UTF8.GetBytes($"\0{username}\0{password}")))
+                    .Create());
+        }
 
         private static readonly string UserAgent = $"{typeof(IGremlinQueryBase).Assembly.GetCustomAttribute<AssemblyProductAttribute>()?.Product}/{typeof(WebSocketGremlinqClientFactory).Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion} {Environment.OSVersion.VersionString};";
     }

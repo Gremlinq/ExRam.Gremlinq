@@ -6,6 +6,9 @@ namespace ExRam.Gremlinq.Core.Steps
     {
         public AggregateStep(Scope scope, StepLabel stepLabel) : base(SideEffectSemanticsChange.Write)
         {
+            ArgumentNullException.ThrowIfNull(scope);
+            ArgumentNullException.ThrowIfNull(stepLabel);
+
             Scope = scope;
             StepLabel = stepLabel;
         }

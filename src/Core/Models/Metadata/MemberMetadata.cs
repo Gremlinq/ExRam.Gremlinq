@@ -16,11 +16,16 @@ namespace ExRam.Gremlinq.Core.Models
 
         public SerializationBehaviour SerializationBehaviour { get; }
 
-        public static MemberMetadata Default(string key) => new ("id".Equals(key, StringComparison.OrdinalIgnoreCase)
-            ? T.Id
-            : "label".Equals(key, StringComparison.OrdinalIgnoreCase)
-                ? T.Label
-                : key);
+        public static MemberMetadata Default(string key)
+        {
+            ArgumentNullException.ThrowIfNull(key);
+
+            return new ("id".Equals(key, StringComparison.OrdinalIgnoreCase)
+                ? T.Id
+                : "label".Equals(key, StringComparison.OrdinalIgnoreCase)
+                    ? T.Label
+                    : key);
+        }
 
         public bool Equals(MemberMetadata other) => _key == other._key && SerializationBehaviour == other.SerializationBehaviour;
 

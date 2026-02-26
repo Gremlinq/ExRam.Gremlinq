@@ -6,6 +6,8 @@ namespace ExRam.Gremlinq.Core.Steps
     {
         public DateAddStep(DT dateToken, int value)
         {
+            ArgumentNullException.ThrowIfNull(dateToken);
+
             Value = value;
             DateToken = dateToken;
         }

@@ -36,23 +36,63 @@ namespace ExRam.Gremlinq.Core
 
             IUntilRepeatEmitLoopBuilder<TQuery> IUntilRepeatLoopBuilder<TQuery>.Emit() => Emit();
 
-            IEmitRepeatLoopBuilder<TQuery> IEmitLoopBuilder<TQuery>.Repeat(Func<TQuery, TQuery> loop) => Repeat(loop);
+            IEmitRepeatLoopBuilder<TQuery> IEmitLoopBuilder<TQuery>.Repeat(Func<TQuery, TQuery> loop)
+            {
+                ArgumentNullException.ThrowIfNull(loop);
 
-            IUntilRepeatLoopBuilder<TQuery> IUntilLoopBuilder<TQuery>.Repeat(Func<TQuery, TQuery> loop) => Repeat(loop);
+                return Repeat(loop);
+            }
 
-            IUntilEmitRepeatLoopBuilder<TQuery> IUntilEmitLoopBuilder<TQuery>.Repeat(Func<TQuery, TQuery> loop) => Repeat(loop);
+            IUntilRepeatLoopBuilder<TQuery> IUntilLoopBuilder<TQuery>.Repeat(Func<TQuery, TQuery> loop)
+            {
+                ArgumentNullException.ThrowIfNull(loop);
 
-            IEmitRepeatUntilLoopBuilder<TQuery> IEmitRepeatLoopBuilder<TQuery>.Until(Func<TQuery, IGremlinQueryBase> condition) => Until(condition);
+                return Repeat(loop);
+            }
 
-            IRepeatUntilLoopBuilder<TQuery> IRepeatLoopBuilder<TQuery>.Until(Func<TQuery, IGremlinQueryBase> condition) => Until(condition);
+            IUntilEmitRepeatLoopBuilder<TQuery> IUntilEmitLoopBuilder<TQuery>.Repeat(Func<TQuery, TQuery> loop)
+            {
+                ArgumentNullException.ThrowIfNull(loop);
 
-            IRepeatEmitUntilLoopBuilder<TQuery> IRepeatEmitLoopBuilder<TQuery>.Until(Func<TQuery, IGremlinQueryBase> condition) => Until(condition);
+                return Repeat(loop);
+            }
 
-            IRepeatLoopBuilder<TQuery> IStartLoopBuilder<TQuery>.Repeat(Func<TQuery, TQuery> loop) => Repeat(loop);
+            IEmitRepeatUntilLoopBuilder<TQuery> IEmitRepeatLoopBuilder<TQuery>.Until(Func<TQuery, IGremlinQueryBase> condition)
+            {
+                ArgumentNullException.ThrowIfNull(condition);
+
+                return Until(condition);
+            }
+
+            IRepeatUntilLoopBuilder<TQuery> IRepeatLoopBuilder<TQuery>.Until(Func<TQuery, IGremlinQueryBase> condition)
+            {
+                ArgumentNullException.ThrowIfNull(condition);
+
+                return Until(condition);
+            }
+
+            IRepeatEmitUntilLoopBuilder<TQuery> IRepeatEmitLoopBuilder<TQuery>.Until(Func<TQuery, IGremlinQueryBase> condition)
+            {
+                ArgumentNullException.ThrowIfNull(condition);
+
+                return Until(condition);
+            }
+
+            IRepeatLoopBuilder<TQuery> IStartLoopBuilder<TQuery>.Repeat(Func<TQuery, TQuery> loop)
+            {
+                ArgumentNullException.ThrowIfNull(loop);
+
+                return Repeat(loop);
+            }
 
             IEmitLoopBuilder<TQuery> IStartLoopBuilder<TQuery>.Emit() => Emit();
 
-            IUntilLoopBuilder<TQuery> IStartLoopBuilder<TQuery>.Until(Func<TQuery, IGremlinQueryBase> condition) => Until(condition);
+            IUntilLoopBuilder<TQuery> IStartLoopBuilder<TQuery>.Until(Func<TQuery, IGremlinQueryBase> condition)
+            {
+                ArgumentNullException.ThrowIfNull(condition);
+
+                return Until(condition);
+            }
 
             IEmitRepeatUntilLoopBuilder<TQuery> IEmitRepeatLoopBuilder<TQuery>.Times(int loopCount) => Times(loopCount);
 

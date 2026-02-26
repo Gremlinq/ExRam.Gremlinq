@@ -280,7 +280,12 @@ namespace ExRam.Gremlinq.Providers.Core
         }
 
         public static TClientFactory ConfigureClient<TClientFactory>(this TClientFactory clientFactory, Func<IGremlinqClient, IGremlinqClient> clientTransformation)
-            where TClientFactory : IGremlinqClientFactory<TClientFactory> => clientFactory.ConfigureClient((client, _) => clientTransformation(client));
+            where TClientFactory : IGremlinqClientFactory<TClientFactory>
+        {
+            ArgumentNullException.ThrowIfNull(clientTransformation);
+
+            return clientFactory.ConfigureClient((client, _) => clientTransformation(client));
+        }
 
         public static IPoolGremlinqClientFactory<TBaseFactory> Pool<TBaseFactory>(this TBaseFactory baseFactory)
             where TBaseFactory : IGremlinqClientFactory => new PoolGremlinqClientFactory<TBaseFactory>(baseFactory, 8, 16, static (client, _) => client);
@@ -288,6 +293,11 @@ namespace ExRam.Gremlinq.Providers.Core
         public static TClientFactory Log<TClientFactory>(this TClientFactory clientFactory)
             where TClientFactory : IGremlinqClientFactory<TClientFactory> => clientFactory.ConfigureClient((client, environment) => client.Log(environment));
 
-        public static IGremlinQueryExecutor ToExecutor(this IGremlinqClientFactory clientFactory) => new GremlinQueryExecutorImpl(clientFactory);
+        public static IGremlinQueryExecutor ToExecutor(this IGremlinqClientFactory clientFactory)
+        {
+            ArgumentNullException.ThrowIfNull(clientFactory);
+
+            return new GremlinQueryExecutorImpl(clientFactory);
+        }
     }
 }

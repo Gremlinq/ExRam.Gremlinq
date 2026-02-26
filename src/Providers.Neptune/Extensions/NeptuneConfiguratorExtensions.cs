@@ -100,11 +100,20 @@ namespace ExRam.Gremlinq.Providers.Neptune
         }
 
         public static TConfigurator UseIAMAuthentication<TConfigurator>(this TConfigurator configurator, Func<IDisabledAWSSigner, IAWSSigner> builderTransformation)
-            where TConfigurator : IProviderConfigurator<TConfigurator, IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>> => configurator
+            where TConfigurator : IProviderConfigurator<TConfigurator, IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>>
+        {
+            ArgumentNullException.ThrowIfNull(builderTransformation);
+
+            return configurator
                 .UseIAMAuthentication(builderTransformation(AWSSigner.Disabled));
+        }
 
         public static TConfigurator UseIAMAuthentication<TConfigurator>(this TConfigurator configurator, IAWSSigner signer)
-            where TConfigurator : IProviderConfigurator<TConfigurator, IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>> => configurator
+            where TConfigurator : IProviderConfigurator<TConfigurator, IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>>
+        {
+            ArgumentNullException.ThrowIfNull(signer);
+
+            return configurator
                 .ConfigureClientFactory(factory => factory
                     .ConfigureBaseFactory(factory => factory
                         .ConfigureClientWebSocketFactory(factory => () =>
@@ -118,10 +127,17 @@ namespace ExRam.Gremlinq.Providers.Neptune
 
                             return client;
                         })));
+        }
 
-        public static INeptuneConfigurator UseElasticSearch(this INeptuneConfigurator configurator, Uri elasticSearchEndPoint, NeptuneElasticSearchIndexConfiguration indexConfiguration = NeptuneElasticSearchIndexConfiguration.Standard) => new ElasticSearchAwareNeptuneConfigurator(
-            configurator,
-            elasticSearchEndPoint,
-            indexConfiguration);
+        public static INeptuneConfigurator UseElasticSearch(this INeptuneConfigurator configurator, Uri elasticSearchEndPoint, NeptuneElasticSearchIndexConfiguration indexConfiguration = NeptuneElasticSearchIndexConfiguration.Standard)
+        {
+            ArgumentNullException.ThrowIfNull(configurator);
+            ArgumentNullException.ThrowIfNull(elasticSearchEndPoint);
+
+            return new ElasticSearchAwareNeptuneConfigurator(
+                configurator,
+                elasticSearchEndPoint,
+                indexConfiguration);
+        }
     }
 }

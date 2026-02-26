@@ -8,21 +8,26 @@ namespace ExRam.Gremlinq.Core
 
         public ExpressionNotSupportedException(Expression expression) : base($"The expression '{expression}' is not supported.")
         {
+            ArgumentNullException.ThrowIfNull(expression);
 
         }
 
         public ExpressionNotSupportedException(Expression expression, Exception innerException) : base($"The expression '{expression}' is not supported.", Unwrap(innerException))
         {
+            ArgumentNullException.ThrowIfNull(expression);
+            ArgumentNullException.ThrowIfNull(innerException);
 
         }
 
         public ExpressionNotSupportedException(Exception innerException) : base(StandardMessage, Unwrap(innerException))
         {
+            ArgumentNullException.ThrowIfNull(innerException);
 
         }
 
         public ExpressionNotSupportedException(string message) : base(message)
         {
+            ArgumentNullException.ThrowIfNull(message);
 
         }
 

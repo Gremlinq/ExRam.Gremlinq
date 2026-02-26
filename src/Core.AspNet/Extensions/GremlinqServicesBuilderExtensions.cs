@@ -85,25 +85,33 @@ namespace ExRam.Gremlinq.Core.AspNet
                 });
         }
 
-        public static IGremlinqServicesBuilder ConfigureBase(this IGremlinqServicesBuilder builder) => builder
-            .ConfigureQuerySource((source, section) =>
-            {
-                if (section["Alias"] is { Length: > 0 } alias)
-                {
-                    return source
-                        .ConfigureEnvironment(env => env
-                            .ConfigureOptions(options => options
-                                .SetValue(GremlinqOption.Alias, alias)));
-                }
+        public static IGremlinqServicesBuilder ConfigureBase(this IGremlinqServicesBuilder builder)
+        {
+            ArgumentNullException.ThrowIfNull(builder);
 
-                return source;
-            });
+            return builder
+                .ConfigureQuerySource((source, section) =>
+                {
+                    if (section["Alias"] is { Length: > 0 } alias)
+                    {
+                        return source
+                            .ConfigureEnvironment(env => env
+                                .ConfigureOptions(options => options
+                                    .SetValue(GremlinqOption.Alias, alias)));
+                    }
+
+                    return source;
+                });
+        }
 
         public static IGremlinqServicesBuilder<TConfigurator> UseProvider<TConfigurator>(
             this IGremlinqServicesBuilder setup,
             Func<IGremlinQuerySource, Func<Func<TConfigurator, IGremlinQuerySourceTransformation>, IGremlinQuerySource>> providerChoice)
                 where TConfigurator : IGremlinqConfigurator<TConfigurator>
         {
+            ArgumentNullException.ThrowIfNull(setup);
+            ArgumentNullException.ThrowIfNull(providerChoice);
+
             setup.Services
                 .AddTransient<IGremlinQuerySourceTransformation>(s => new UseProviderGremlinQuerySourceTransformation<TConfigurator>(
                     providerChoice,

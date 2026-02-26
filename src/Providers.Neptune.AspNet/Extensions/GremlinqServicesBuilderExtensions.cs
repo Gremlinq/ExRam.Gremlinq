@@ -23,12 +23,16 @@ namespace ExRam.Gremlinq.Providers.Neptune.AspNet
                 : configurator.UseIAMAuthentication(_signer);
         }
 
-        public static IGremlinqServicesBuilder<INeptuneConfigurator> UseNeptune<TVertexBase, TEdgeBase>(this IGremlinqServicesBuilder setup) => setup
-            .ConfigureBase()
-            .UseProvider<INeptuneConfigurator>(source => source
-                .UseNeptune<TVertexBase, TEdgeBase>)
-            .Configure((configurator, gremlinqSection) =>
-            {
+        public static IGremlinqServicesBuilder<INeptuneConfigurator> UseNeptune<TVertexBase, TEdgeBase>(this IGremlinqServicesBuilder setup)
+        {
+            ArgumentNullException.ThrowIfNull(setup);
+
+            return setup
+                .ConfigureBase()
+                .UseProvider<INeptuneConfigurator>(source => source
+                    .UseNeptune<TVertexBase, TEdgeBase>)
+                .Configure((configurator, gremlinqSection) =>
+                {
                 var providerSection = gremlinqSection
                     .GetSection("Neptune");
 
@@ -59,11 +63,14 @@ namespace ExRam.Gremlinq.Providers.Neptune.AspNet
                 }
 
                 return configurator;
-            });
+                });
+        }
 
         public static IGremlinqServicesBuilder<TConfigurator> UseIAMAuthentication<TConfigurator>(this IGremlinqServicesBuilder<TConfigurator> builder)
             where TConfigurator : IProviderConfigurator<TConfigurator, IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>>
         {
+            ArgumentNullException.ThrowIfNull(builder);
+
             builder.Services
                 .AddSingleton<IAWSSigner>(ctx =>
                 {

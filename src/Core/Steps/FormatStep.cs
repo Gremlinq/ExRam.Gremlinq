@@ -16,6 +16,8 @@ namespace ExRam.Gremlinq.Core.Steps
 
         public FormatStep(string format, ImmutableArray<object?> arguments)
         {
+            ArgumentNullException.ThrowIfNull(format);
+
             Format = format;
             Arguments = arguments;
         }

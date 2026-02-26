@@ -20,7 +20,12 @@ namespace ExRam.Gremlinq.Core.Serialization
             _instructions = instructions;
         }
 
-        public static GroovyExpression From(string identifier, ImmutableArray<Instruction> instructions) => new(identifier, instructions);
+        public static GroovyExpression From(string identifier, ImmutableArray<Instruction> instructions)
+        {
+            ArgumentNullException.ThrowIfNull(identifier);
+
+            return new(identifier, instructions);
+        }
 
         public string Identifier => _identifier ?? throw UninitializedStruct();
         public ImmutableArray<Instruction> Instructions => _instructions ?? throw UninitializedStruct();

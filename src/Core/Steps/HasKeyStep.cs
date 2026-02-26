@@ -4,6 +4,8 @@
     {
         public HasKeyStep(object argument)
         {
+            ArgumentNullException.ThrowIfNull(argument);
+
             Argument = argument;
         }
 

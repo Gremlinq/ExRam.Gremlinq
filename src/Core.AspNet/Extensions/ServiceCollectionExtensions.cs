@@ -58,6 +58,9 @@ namespace ExRam.Gremlinq.Core.AspNet
 
         public static IServiceCollection AddGremlinq(this IServiceCollection serviceCollection, Action<IGremlinqServicesBuilder> configuration)
         {
+            ArgumentNullException.ThrowIfNull(serviceCollection);
+            ArgumentNullException.ThrowIfNull(configuration);
+
             serviceCollection
                 .TryAddSingleton<IGremlinqConfigurationSection>(s => new GremlinqConfigurationSection(s.GetRequiredService<IConfiguration>()));
 

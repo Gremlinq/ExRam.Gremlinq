@@ -10,6 +10,8 @@ namespace ExRam.Gremlinq.Providers.Core
 
         public GraphSon2BinaryMessage(IMemoryOwner<byte> owner)
         {
+            ArgumentNullException.ThrowIfNull(owner);
+
             _owner = owner;
         }
 

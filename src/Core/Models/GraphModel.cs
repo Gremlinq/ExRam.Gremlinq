@@ -42,8 +42,14 @@ namespace ExRam.Gremlinq.Core.Models
                 GraphElementModel.FromBaseType<TEdgeBaseType>());
         }
 
-        public static IGraphModel ConfigureElements(this IGraphModel model, Func<IGraphElementModel, IGraphElementModel> transformation) => model
-            .ConfigureVertices(transformation)
-            .ConfigureEdges(transformation);
+        public static IGraphModel ConfigureElements(this IGraphModel model, Func<IGraphElementModel, IGraphElementModel> transformation)
+        {
+            ArgumentNullException.ThrowIfNull(model);
+            ArgumentNullException.ThrowIfNull(transformation);
+
+            return model
+                .ConfigureVertices(transformation)
+                .ConfigureEdges(transformation);
+        }
     }
 }

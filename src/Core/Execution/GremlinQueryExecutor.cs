@@ -124,10 +124,27 @@ namespace ExRam.Gremlinq.Core.Execution
 
         public static readonly IGremlinQueryExecutor Invalid = new InvalidGremlinQueryExecutor();
 
-        public static IGremlinQueryExecutor TransformQuery(this IGremlinQueryExecutor baseExecutor, Func<IGremlinQueryBase, IGremlinQueryBase> transformation) => new TransformQueryGremlinQueryExecutor(baseExecutor, transformation);
+        public static IGremlinQueryExecutor TransformQuery(this IGremlinQueryExecutor baseExecutor, Func<IGremlinQueryBase, IGremlinQueryBase> transformation)
+        {
+            ArgumentNullException.ThrowIfNull(baseExecutor);
+            ArgumentNullException.ThrowIfNull(transformation);
 
-        public static IGremlinQueryExecutor TransformExecutionException(this IGremlinQueryExecutor executor, Func<GremlinQueryExecutionException, GremlinQueryExecutionException> exceptionTransformation) => new TransformExecutionExceptionGremlinQueryExecutor(executor, exceptionTransformation);
+            return new TransformQueryGremlinQueryExecutor(baseExecutor, transformation);
+        }
 
-        public static IGremlinQueryExecutor Serialize(this IGremlinQueryExecutor executor) => new SerializingGremlinQueryExecutor(executor);
+        public static IGremlinQueryExecutor TransformExecutionException(this IGremlinQueryExecutor executor, Func<GremlinQueryExecutionException, GremlinQueryExecutionException> exceptionTransformation)
+        {
+            ArgumentNullException.ThrowIfNull(executor);
+            ArgumentNullException.ThrowIfNull(exceptionTransformation);
+
+            return new TransformExecutionExceptionGremlinQueryExecutor(executor, exceptionTransformation);
+        }
+
+        public static IGremlinQueryExecutor Serialize(this IGremlinQueryExecutor executor)
+        {
+            ArgumentNullException.ThrowIfNull(executor);
+
+            return new SerializingGremlinQueryExecutor(executor);
+        }
     }
 }

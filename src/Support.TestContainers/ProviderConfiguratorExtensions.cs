@@ -7,12 +7,24 @@ namespace ExRam.Gremlinq.Support.TestContainers
     public static class ProviderConfiguratorExtensions
     {
         public static TConfigurator UseTestContainers<TConfigurator>(this IProviderConfigurator<TConfigurator, IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>> configurator, Func<TestContainersConfigurator, IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>> continuation)
-            where TConfigurator : IProviderConfigurator<TConfigurator, IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>> => configurator
+            where TConfigurator : IProviderConfigurator<TConfigurator, IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>>
+        {
+            ArgumentNullException.ThrowIfNull(configurator);
+            ArgumentNullException.ThrowIfNull(continuation);
+
+            return configurator
                 .ConfigureClientFactory(factory => continuation(new TestContainersConfigurator(factory)));
+        }
 
         public static TConfigurator UseGremlinServerContainer<TConfigurator>(this IProviderConfigurator<TConfigurator, IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>> configurator, string tag = "latest")
-            where TConfigurator : IProviderConfigurator<TConfigurator, IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>> => configurator
+            where TConfigurator : IProviderConfigurator<TConfigurator, IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>>
+        {
+            ArgumentNullException.ThrowIfNull(configurator);
+            ArgumentNullException.ThrowIfNull(tag);
+
+            return configurator
                 .UseTestContainersWithDefaultSetup("tinkerpop/gremlin-server", tag);
+        }
 
         /// <summary>
         ///  Runs a container from the 'ghcr.io/gremlinq/gremlin-server-mod' image upon GremlinClient creation.
@@ -23,12 +35,24 @@ namespace ExRam.Gremlinq.Support.TestContainers
         /// <param name="tag"></param>
         /// <returns></returns>
         public static TConfigurator UseGremlinServerModContainer<TConfigurator>(this IProviderConfigurator<TConfigurator, IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>> configurator, string tag = "3")
-            where TConfigurator : IProviderConfigurator<TConfigurator, IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>> => configurator
+            where TConfigurator : IProviderConfigurator<TConfigurator, IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>>
+        {
+            ArgumentNullException.ThrowIfNull(configurator);
+            ArgumentNullException.ThrowIfNull(tag);
+
+            return configurator
                 .UseTestContainersWithDefaultSetup("ghcr.io/gremlinq/gremlin-server-mod", tag);
+        }
 
         public static TConfigurator UseJanusGraphContainer<TConfigurator>(this IProviderConfigurator<TConfigurator, IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>> configurator, string tag = "latest")
-            where TConfigurator : IProviderConfigurator<TConfigurator, IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>> => configurator
+            where TConfigurator : IProviderConfigurator<TConfigurator, IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>>
+        {
+            ArgumentNullException.ThrowIfNull(configurator);
+            ArgumentNullException.ThrowIfNull(tag);
+
+            return configurator
                 .UseTestContainersWithDefaultSetup("janusgraph/janusgraph", tag);
+        }
 
         private static TConfigurator UseTestContainersWithDefaultSetup<TConfigurator>(this IProviderConfigurator<TConfigurator, IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>> configurator, string image, string tag)
             where TConfigurator : IProviderConfigurator<TConfigurator, IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>> => configurator

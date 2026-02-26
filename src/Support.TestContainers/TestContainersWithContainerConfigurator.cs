@@ -144,8 +144,13 @@ namespace ExRam.Gremlinq.Support.TestContainers
             _containerBuilderTransformation = containerBuilderTransformation;
         }
 
-        public IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory> ConfigureClientFactory(Func<IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>, IContainer, IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>> factoryTransformation) => _clientFactory is { } clientFactory && _containerBuilderTransformation is { } containerBuilderTransformation
-            ? new ContainerGremlinqClientFactory(clientFactory, containerBuilderTransformation, factoryTransformation)
-            : throw new InvalidOperationException();
+        public IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory> ConfigureClientFactory(Func<IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>, IContainer, IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>> factoryTransformation)
+        {
+            ArgumentNullException.ThrowIfNull(factoryTransformation);
+
+            return _clientFactory is { } clientFactory && _containerBuilderTransformation is { } containerBuilderTransformation
+                ? new ContainerGremlinqClientFactory(clientFactory, containerBuilderTransformation, factoryTransformation)
+                : throw new InvalidOperationException();
+        }
     }
 }

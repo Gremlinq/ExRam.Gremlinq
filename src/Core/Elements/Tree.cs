@@ -14,6 +14,8 @@ namespace ExRam.Gremlinq.Core
 
         public Tree(IReadOnlyDictionary<TRoot, TSubTree> inner)
         {
+            ArgumentNullException.ThrowIfNull(inner);
+
             _inner = inner;
         }
 
@@ -25,12 +27,22 @@ namespace ExRam.Gremlinq.Core
 
         public int Count => _inner.Count;
 
-        public bool ContainsKey(TRoot key) => _inner.ContainsKey(key);
+        public bool ContainsKey(TRoot key)
+        {
+            ArgumentNullException.ThrowIfNull(key);
+
+            return _inner.ContainsKey(key);
+        }
 
         public IEnumerator<KeyValuePair<TRoot, TSubTree>> GetEnumerator() => _inner.GetEnumerator();
 
 #pragma warning disable CS8767 // Nullability of reference types in type of parameter doesn't match implicitly implemented member (possibly because of nullability attributes).
-        public bool TryGetValue(TRoot key, [MaybeNullWhen(false)] out TSubTree value) => _inner.TryGetValue(key, out value);
+        public bool TryGetValue(TRoot key, [MaybeNullWhen(false)] out TSubTree value)
+        {
+            ArgumentNullException.ThrowIfNull(key);
+
+            return _inner.TryGetValue(key, out value);
+        }
 #pragma warning restore CS8767
 
         IEnumerator IEnumerable.GetEnumerator() => ((IEnumerable)_inner).GetEnumerator();
@@ -43,6 +55,8 @@ namespace ExRam.Gremlinq.Core
 
         public Tree(IReadOnlyDictionary<TNode, Tree<TNode>> inner) : base(inner)
         {
+            ArgumentNullException.ThrowIfNull(inner);
+
         }
     }
 }

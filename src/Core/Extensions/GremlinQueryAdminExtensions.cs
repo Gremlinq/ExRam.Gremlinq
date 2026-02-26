@@ -7,6 +7,9 @@ namespace ExRam.Gremlinq.Core
         public static TTargetQuery AddSteps<TTargetQuery>(this IGremlinQueryAdmin admin, IEnumerable<Step> steps)
             where TTargetQuery : IGremlinQueryBase
         {
+            ArgumentNullException.ThrowIfNull(admin);
+            ArgumentNullException.ThrowIfNull(steps);
+
             var ret = default(IGremlinQueryBase?);
 
             foreach (var step in steps)

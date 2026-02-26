@@ -4,6 +4,8 @@
     {
         public HasValueStep(object argument)
         {
+            ArgumentNullException.ThrowIfNull(argument);
+
             Argument = argument;
         }
 

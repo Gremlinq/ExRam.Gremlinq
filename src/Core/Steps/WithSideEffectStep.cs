@@ -4,6 +4,9 @@
     {
         public WithSideEffectStep(StepLabel label, object value)
         {
+            ArgumentNullException.ThrowIfNull(label);
+            ArgumentNullException.ThrowIfNull(value);
+
             Label = label;
             Value = value;
         }

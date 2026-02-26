@@ -39,9 +39,14 @@ namespace ExRam.Gremlinq.Providers.Neptune
                             .ToExecutor())));
         }
 
-        public static IGremlinQuerySource UseNeptune<TVertexBase, TEdgeBase>(this IGremlinQuerySource source, Func<INeptuneConfigurator, IGremlinQuerySourceTransformation> configuratorTransformation) => configuratorTransformation
-            .Invoke(NeptuneConfigurator.Default)
-            .Transform(source
+        public static IGremlinQuerySource UseNeptune<TVertexBase, TEdgeBase>(this IGremlinQuerySource source, Func<INeptuneConfigurator, IGremlinQuerySourceTransformation> configuratorTransformation)
+        {
+            ArgumentNullException.ThrowIfNull(source);
+            ArgumentNullException.ThrowIfNull(configuratorTransformation);
+
+            return configuratorTransformation
+                .Invoke(NeptuneConfigurator.Default)
+                .Transform(source
                 .ConfigureEnvironment(environment => environment
                     .UseModel(GraphModel
                         .FromBaseTypes<TVertexBase, TEdgeBase>())
@@ -68,5 +73,6 @@ namespace ExRam.Gremlinq.Providers.Neptune
             .ConfigureEnvironment(environment => environment
                 .ConfigureExecutor(executor => executor
                     .TransformExecutionException(ex => ex.TryGetNeptuneGremlinQueryExecutionException() ?? ex)));
+        }
     }
 }

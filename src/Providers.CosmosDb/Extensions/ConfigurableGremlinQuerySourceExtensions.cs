@@ -150,9 +150,14 @@ namespace ExRam.Gremlinq.Providers.CosmosDb
 
         private static readonly NotStep NoneWorkaround = new(IdentityStep.Instance);
 
-        public static IGremlinQuerySource UseCosmosDb<TVertexBase, TEdgeBase>(this IGremlinQuerySource source, Func<ICosmosDbConfigurator<TVertexBase>, IGremlinQuerySourceTransformation> configuratorTransformation) => configuratorTransformation
-            .Invoke(CosmosDbConfigurator<TVertexBase>.Default)
-            .Transform(source
+        public static IGremlinQuerySource UseCosmosDb<TVertexBase, TEdgeBase>(this IGremlinQuerySource source, Func<ICosmosDbConfigurator<TVertexBase>, IGremlinQuerySourceTransformation> configuratorTransformation)
+        {
+            ArgumentNullException.ThrowIfNull(source);
+            ArgumentNullException.ThrowIfNull(configuratorTransformation);
+
+            return configuratorTransformation
+                .Invoke(CosmosDbConfigurator<TVertexBase>.Default)
+                .Transform(source
                 .ConfigureEnvironment(environment => environment
                     .UseModel(GraphModel
                         .FromBaseTypes<TVertexBase, TEdgeBase>())
@@ -221,6 +226,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb
                                     ? WorkaroundOrder.Decr
                                     : null)))
                     .ConfigureDeserializer(deserializer => deserializer
-                        .AsIncomplete())));
+                        .AsIncomplete())));    
+        }
     }
 }

@@ -26,21 +26,31 @@ namespace ExRam.Gremlinq.Core
                 _valueTraversal = valueTraversal;
             }
 
-            IGroupBuilderWithKey<GremlinQuery<T1, T2, T3, T4>, TNewKey> IGroupBuilder<GremlinQuery<T1, T2, T3, T4>>.ByKey<TNewKey>(Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase<TNewKey>> keySelector) => new GroupBuilder<TNewKey, object>(
-                _outerQuery,
-                _outerQuery
-                    .Continue()
-                    .With(keySelector)
-                    .Build(static (_, traversal) => traversal),
-                _valueTraversal);
+            IGroupBuilderWithKey<GremlinQuery<T1, T2, T3, T4>, TNewKey> IGroupBuilder<GremlinQuery<T1, T2, T3, T4>>.ByKey<TNewKey>(Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase<TNewKey>> keySelector)
+            {
+                ArgumentNullException.ThrowIfNull(keySelector);
 
-            IGroupBuilderWithKeyAndValue<TKey, TNewValue> IGroupBuilderWithKey<GremlinQuery<T1, T2, T3, T4>, TKey>.ByValue<TNewValue>(Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase<TNewValue>> valueSelector) => new GroupBuilder<TKey, TNewValue>(
-                _outerQuery,
-                _keyTraversal,
-                _outerQuery
-                    .Continue()
-                    .With(valueSelector)
-                    .Build(static (_, traversal) => traversal));
+                return new GroupBuilder<TNewKey, object>(
+                    _outerQuery,
+                    _outerQuery
+                        .Continue()
+                        .With(keySelector)
+                        .Build(static (_, traversal) => traversal),
+                    _valueTraversal);
+            }
+
+            IGroupBuilderWithKeyAndValue<TKey, TNewValue> IGroupBuilderWithKey<GremlinQuery<T1, T2, T3, T4>, TKey>.ByValue<TNewValue>(Func<GremlinQuery<T1, T2, T3, T4>, IGremlinQueryBase<TNewValue>> valueSelector)
+            {
+                ArgumentNullException.ThrowIfNull(valueSelector);
+
+                return new GroupBuilder<TKey, TNewValue>(
+                    _outerQuery,
+                    _keyTraversal,
+                    _outerQuery
+                        .Continue()
+                        .With(valueSelector)
+                        .Build(static (_, traversal) => traversal));
+            }
 
             IMapGremlinQuery<IDictionary<TKey, TValue>> IGroupBuilderWithKeyAndValue<TKey, TValue>.Build() => _outerQuery
                 .Continue()

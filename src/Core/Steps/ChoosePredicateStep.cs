@@ -7,6 +7,8 @@ namespace ExRam.Gremlinq.Core.Steps
         // ReSharper disable once BitwiseOperatorOnEnumWithoutFlags
         public ChoosePredicateStep(P predicate, Traversal thenTraversal, Traversal? elseTraversal = null) : base(thenTraversal, elseTraversal, thenTraversal.GetSideEffectSemanticsChange() | elseTraversal.GetSideEffectSemanticsChange())
         {
+            ArgumentNullException.ThrowIfNull(predicate);
+
             Predicate = predicate;
         }
 

@@ -6,6 +6,8 @@ namespace ExRam.Gremlinq.Core.Steps
     {
         public SelectStepLabelStep(StepLabel stepLabel) : this(ImmutableArray.Create(stepLabel))
         {
+            ArgumentNullException.ThrowIfNull(stepLabel);
+
         }
 
         public SelectStepLabelStep(ImmutableArray<StepLabel> stepLabels)

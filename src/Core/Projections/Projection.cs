@@ -14,11 +14,22 @@ namespace ExRam.Gremlinq.Core.Projections
 
         internal static readonly EmptyProjection Property = Empty;
 
-        public virtual Traversal ToTraversal(IGremlinQueryEnvironment environment) => Traversal.Empty;
+        public virtual Traversal ToTraversal(IGremlinQueryEnvironment environment)
+        {
+            ArgumentNullException.ThrowIfNull(environment);
+
+            return Traversal.Empty;
+        }
 
         public ArrayProjection Fold() => new(this);
 
-        public TupleProjection Project(ProjectStep projectStep, ProjectStep.ByStep[] bySteps) => Project(projectStep, bySteps.AsSpan());
+        public TupleProjection Project(ProjectStep projectStep, ProjectStep.ByStep[] bySteps)
+        {
+            ArgumentNullException.ThrowIfNull(projectStep);
+            ArgumentNullException.ThrowIfNull(bySteps);
+
+            return Project(projectStep, bySteps.AsSpan());
+        }
 
         internal TupleProjection Project(ProjectStep projectStep, ReadOnlySpan<ProjectStep.ByStep> bySteps)
         {
@@ -39,7 +50,13 @@ namespace ExRam.Gremlinq.Core.Projections
             return new TupleProjection(tuples);
         }
 
-        public GroupProjection Group(Projection keyProjection, Projection valueProjection) => new(keyProjection, valueProjection);
+        public GroupProjection Group(Projection keyProjection, Projection valueProjection)
+        {
+            ArgumentNullException.ThrowIfNull(keyProjection);
+            ArgumentNullException.ThrowIfNull(valueProjection);
+
+            return new(keyProjection, valueProjection);
+        }
 
         internal Projection If<TProjection>(Func<TProjection, Projection> transformation)
             where TProjection : Projection

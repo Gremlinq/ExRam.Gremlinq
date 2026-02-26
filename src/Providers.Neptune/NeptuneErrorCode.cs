@@ -36,7 +36,12 @@ namespace ExRam.Gremlinq.Providers.Neptune
             _code = code;
         }
 
-        public static NeptuneErrorCode From(string code) => new (code);
+        public static NeptuneErrorCode From(string code)
+        {
+            ArgumentNullException.ThrowIfNull(code);
+
+            return new (code);
+        }
 
         public override bool Equals(object? obj) => obj is NeptuneErrorCode code && Equals(code);
 

@@ -6,6 +6,9 @@ namespace ExRam.Gremlinq.Core.Steps
     {
         public WhereStepLabelAndPredicateStep(StepLabel stepLabel, P predicate)
         {
+            ArgumentNullException.ThrowIfNull(stepLabel);
+            ArgumentNullException.ThrowIfNull(predicate);
+
             StepLabel = stepLabel;
             Predicate = predicate;
         }

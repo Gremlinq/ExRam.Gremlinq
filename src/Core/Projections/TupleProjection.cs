@@ -28,6 +28,8 @@ namespace ExRam.Gremlinq.Core.Projections
 
         public override Traversal ToTraversal(IGremlinQueryEnvironment environment)
         {
+            ArgumentNullException.ThrowIfNull(environment);
+
             var emptyProjectionProtection = environment.Options.GetValue(GremlinqOption.EnableEmptyProjectionValueProtection)
                 ? environment.Options.GetValue(GremlinqOption.EmptyProjectionProtectionDecoratorSteps)
                 : default(Traversal?);

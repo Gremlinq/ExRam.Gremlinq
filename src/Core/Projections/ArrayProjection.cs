@@ -13,6 +13,8 @@ namespace ExRam.Gremlinq.Core.Projections
 
         public override Traversal ToTraversal(IGremlinQueryEnvironment environment)
         {
+            ArgumentNullException.ThrowIfNull(environment);
+
             var inner = _inner.ToTraversal(environment);
 
             if (inner.Count > 0)

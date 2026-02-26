@@ -21,7 +21,12 @@ namespace ExRam.Gremlinq.Core.AspNet
 
         IChangeToken IConfiguration.GetReloadToken() => _baseSection.GetReloadToken();
 
-        IConfigurationSection IConfiguration.GetSection(string key) => _baseSection.GetSection(key);
+        IConfigurationSection IConfiguration.GetSection(string key)
+        {
+            ArgumentNullException.ThrowIfNull(key);
+
+            return _baseSection.GetSection(key);
+        }
 
         string? IConfiguration.this[string key]
         {

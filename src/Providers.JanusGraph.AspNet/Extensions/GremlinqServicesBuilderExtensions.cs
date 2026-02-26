@@ -4,18 +4,23 @@ namespace ExRam.Gremlinq.Providers.JanusGraph.AspNet
 {
     public static class GremlinqServicesBuilderExtensions
     {
-        public static IGremlinqServicesBuilder<IJanusGraphConfigurator> UseJanusGraph<TVertexBase, TEdgeBase>(this IGremlinqServicesBuilder setup) => setup
-            .ConfigureBase()
-            .UseProvider<IJanusGraphConfigurator>(source => source
-                .UseJanusGraph<TVertexBase, TEdgeBase>)
-            .Configure((configurator, section) =>
-            {
-                var providerSection = section
-                    .GetSection("JanusGraph");
+        public static IGremlinqServicesBuilder<IJanusGraphConfigurator> UseJanusGraph<TVertexBase, TEdgeBase>(this IGremlinqServicesBuilder setup)
+        {
+            ArgumentNullException.ThrowIfNull(setup);
 
-                return configurator
-                    .ConfigureWebSocket(providerSection)
-                    .ConfigureBasicAuthentication(providerSection);
-            });
+            return setup
+                .ConfigureBase()
+                .UseProvider<IJanusGraphConfigurator>(source => source
+                    .UseJanusGraph<TVertexBase, TEdgeBase>)
+                .Configure((configurator, section) =>
+                {
+                    var providerSection = section
+                        .GetSection("JanusGraph");
+
+                    return configurator
+                        .ConfigureWebSocket(providerSection)
+                        .ConfigureBasicAuthentication(providerSection);
+                });
+        }
     }
 }

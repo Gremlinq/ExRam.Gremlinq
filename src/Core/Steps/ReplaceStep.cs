@@ -4,6 +4,9 @@
     {
         public ReplaceStep(string oldValue, string newValue)
         {
+            ArgumentNullException.ThrowIfNull(oldValue);
+            ArgumentNullException.ThrowIfNull(newValue);
+
             OldValue = oldValue;
             NewValue = newValue;
         }

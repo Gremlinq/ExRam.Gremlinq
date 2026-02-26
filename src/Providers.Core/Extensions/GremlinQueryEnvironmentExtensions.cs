@@ -25,9 +25,14 @@ namespace ExRam.Gremlinq.Providers.Core
             MaxDepth = 128
         };
 
-        public static IGremlinQueryEnvironment AddGraphSonBinarySupport(this IGremlinQueryEnvironment environment) => environment
-            .AddGraphSonBinarySupport(new GraphSON2Writer(), GraphSon2Header, owner => new GraphSon2BinaryMessage(owner))
-            .AddGraphSonBinarySupport(new GraphSON3Writer(), GraphSon3Header, owner => new GraphSon3BinaryMessage(owner));
+        public static IGremlinQueryEnvironment AddGraphSonBinarySupport(this IGremlinQueryEnvironment environment)
+        {
+            ArgumentNullException.ThrowIfNull(environment);
+
+            return environment
+                .AddGraphSonBinarySupport(new GraphSON2Writer(), GraphSon2Header, owner => new GraphSon2BinaryMessage(owner))
+                .AddGraphSonBinarySupport(new GraphSON3Writer(), GraphSon3Header, owner => new GraphSon3BinaryMessage(owner));
+        }
 
         private static byte[] GetHeader(string mimeType) => mimeType.Length <= 255
             ? Encoding.UTF8.GetBytes($"{(char)mimeType.Length}{mimeType}")

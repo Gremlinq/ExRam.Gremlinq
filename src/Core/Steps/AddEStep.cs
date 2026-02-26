@@ -6,6 +6,8 @@
         {
             public FromLabelStep(StepLabel stepLabel)
             {
+                ArgumentNullException.ThrowIfNull(stepLabel);
+
                 StepLabel = stepLabel;
             }
 
@@ -26,6 +28,8 @@
         {
             public ToLabelStep(StepLabel stepLabel)
             {
+                ArgumentNullException.ThrowIfNull(stepLabel);
+
                 StepLabel = stepLabel;
             }
 
@@ -44,6 +48,8 @@
 
         public AddEStep(string label) : base(SideEffectSemanticsChange.Write)
         {
+            ArgumentNullException.ThrowIfNull(label);
+
             Label = label;
         }
 

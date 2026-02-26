@@ -6,6 +6,8 @@ namespace ExRam.Gremlinq.Core.Steps
     {
         public IsStep(P predicate)
         {
+            ArgumentNullException.ThrowIfNull(predicate);
+
             Predicate = predicate;
         }
 

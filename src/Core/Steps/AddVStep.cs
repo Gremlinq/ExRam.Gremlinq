@@ -4,6 +4,8 @@
     {
         public AddVStep(string label) : base(SideEffectSemanticsChange.Write)
         {
+            ArgumentNullException.ThrowIfNull(label);
+
             Label = label;
         }
 

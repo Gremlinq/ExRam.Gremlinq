@@ -168,23 +168,61 @@ namespace ExRam.Gremlinq.Core.Models
 
         internal static readonly IGraphElementModel Invalid = new InvalidGraphElementModel();
 
-        public static IGraphElementModel UseCamelCaseLabels(this IGraphElementModel model) => model.ConfigureLabels(static (_, proposedLabel) => proposedLabel.ToCamelCase());
+        public static IGraphElementModel UseCamelCaseLabels(this IGraphElementModel model)
+        {
+            ArgumentNullException.ThrowIfNull(model);
 
-        public static IGraphElementModel UseLowerCaseLabels(this IGraphElementModel model) => model.ConfigureLabels(static (_, proposedLabel) => proposedLabel.ToLower());
+            return model.ConfigureLabels(static (_, proposedLabel) => proposedLabel.ToCamelCase());
+        }
 
-        public static IGraphElementModel ConfigureLabels(this IGraphElementModel model, Func<Type, string, string> overrideTransformation) => model.ConfigureMetadata((type, metadata) => new ElementMetadata(overrideTransformation(type, metadata.Label)));
+        public static IGraphElementModel UseLowerCaseLabels(this IGraphElementModel model)
+        {
+            ArgumentNullException.ThrowIfNull(model);
 
-        public static IGraphElementModel ConfigureElement<TElement>(this IGraphElementModel model, Func<IMemberMetadataConfigurator<TElement>, IMemberMetadataConfigurator<TElement>> transformation) => transformation(MemberMetadataConfigurator<TElement>.Identity).Transform(model);
+            return model.ConfigureLabels(static (_, proposedLabel) => proposedLabel.ToLower());
+        }
 
-        public static IGraphElementModel UseCamelCaseMemberNames(this IGraphElementModel model) => model.ConfigureMemberNames(static (_, name) => name.ToCamelCase());
+        public static IGraphElementModel ConfigureLabels(this IGraphElementModel model, Func<Type, string, string> overrideTransformation)
+        {
+            ArgumentNullException.ThrowIfNull(model);
+            ArgumentNullException.ThrowIfNull(overrideTransformation);
 
-        public static IGraphElementModel UseLowerCaseMemberNames(this IGraphElementModel model) => model.ConfigureMemberNames(static (_, name) => name.ToLower());
+            return model.ConfigureMetadata((type, metadata) => new ElementMetadata(overrideTransformation(type, metadata.Label)));
+        }
 
-        public static IGraphElementModel ConfigureMemberNames(this IGraphElementModel model, Func<MemberInfo, string, string> transformation) => model.ConfigureMetadata((member, metadata) => metadata.Key.RawKey is string name
-            ? new MemberMetadata(
-                transformation(member, name),
-                metadata.SerializationBehaviour)
-            : metadata);
+        public static IGraphElementModel ConfigureElement<TElement>(this IGraphElementModel model, Func<IMemberMetadataConfigurator<TElement>, IMemberMetadataConfigurator<TElement>> transformation)
+        {
+            ArgumentNullException.ThrowIfNull(model);
+            ArgumentNullException.ThrowIfNull(transformation);
+
+            return transformation(MemberMetadataConfigurator<TElement>.Identity).Transform(model);
+        }
+
+        public static IGraphElementModel UseCamelCaseMemberNames(this IGraphElementModel model)
+        {
+            ArgumentNullException.ThrowIfNull(model);
+
+            return model.ConfigureMemberNames(static (_, name) => name.ToCamelCase());
+        }
+
+        public static IGraphElementModel UseLowerCaseMemberNames(this IGraphElementModel model)
+        {
+            ArgumentNullException.ThrowIfNull(model);
+
+            return model.ConfigureMemberNames(static (_, name) => name.ToLower());
+        }
+
+        public static IGraphElementModel ConfigureMemberNames(this IGraphElementModel model, Func<MemberInfo, string, string> transformation)
+        {
+            ArgumentNullException.ThrowIfNull(model);
+            ArgumentNullException.ThrowIfNull(transformation);
+
+            return model.ConfigureMetadata((member, metadata) => metadata.Key.RawKey is string name
+                ? new MemberMetadata(
+                    transformation(member, name),
+                    metadata.SerializationBehaviour)
+                : metadata);
+        }
 
         internal static ImmutableArray<string> GetFilterLabels(this IGraphElementModel model, FilterTypes types, FilterLabelsVerbosity verbosity)
         {

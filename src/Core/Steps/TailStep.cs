@@ -14,6 +14,8 @@ namespace ExRam.Gremlinq.Core.Steps
 
         public TailStep(long count, Scope scope)
         {
+            ArgumentNullException.ThrowIfNull(scope);
+
             if (count < 0)
                 throw new ArgumentOutOfRangeException(nameof(count));
 

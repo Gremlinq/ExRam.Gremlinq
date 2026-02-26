@@ -16,6 +16,8 @@ namespace ExRam.Gremlinq.Core.Projections
 
         public override Traversal ToTraversal(IGremlinQueryEnvironment environment)
         {
+            ArgumentNullException.ThrowIfNull(environment);
+
             var keyProjectionTraversal = _keyProjection.ToTraversal(environment);
             var valueProjectionTraversal = _valueProjection.ToTraversal(environment);
 

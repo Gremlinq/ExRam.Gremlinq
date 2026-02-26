@@ -11,15 +11,27 @@ namespace ExRam.Gremlinq.Core
 
             public TryTransformToBuilder(ITransformer transformer)
             {
+                ArgumentNullException.ThrowIfNull(transformer);
+
                 _transformer = transformer;
             }
 
-            public TTarget? From<TSource>(TSource source, IGremlinQueryEnvironment environment) => _transformer.TryTransform<TSource, TTarget>(source, environment, out var value)
-                ? value
-                : null;
+            public TTarget? From<TSource>(TSource source, IGremlinQueryEnvironment environment)
+            {
+                ArgumentNullException.ThrowIfNull(environment);
+
+                return _transformer.TryTransform<TSource, TTarget>(source, environment, out var value)
+                    ? value
+                    : null;
+            }
         }
 
         public static TryTransformToBuilder<TTarget> TryTransformTo<TTarget>(this ITransformer transformer)
-            where TTarget : struct => new(transformer);
+            where TTarget : struct
+        {
+            ArgumentNullException.ThrowIfNull(transformer);
+
+            return new(transformer);
+        }
     }
 }

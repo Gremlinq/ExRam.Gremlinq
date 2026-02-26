@@ -231,11 +231,28 @@ namespace ExRam.Gremlinq.Providers.Core
             public void Dispose() => _innerClient.Dispose();
         }
 
-        public static IGremlinqClient TransformRequest(this IGremlinqClient client, Func<RequestMessage, CancellationToken, Task<RequestMessage>> transformation) => new RequestInterceptingGremlinqClient(client, transformation);
+        public static IGremlinqClient TransformRequest(this IGremlinqClient client, Func<RequestMessage, CancellationToken, Task<RequestMessage>> transformation)
+        {
+            ArgumentNullException.ThrowIfNull(client);
+            ArgumentNullException.ThrowIfNull(transformation);
 
-        public static IGremlinqClient ObserveResultStatusAttributes(this IGremlinqClient client, Action<RequestMessage, IReadOnlyDictionary<string, object>> observer) => new ObserveResultStatusAttributesGremlinqClient(client, observer);
+            return new RequestInterceptingGremlinqClient(client, transformation);
+        }
 
-        public static IGremlinqClient Throttle(this IGremlinqClient client, int maxConcurrency) => new ThrottledGremlinqClient(client, maxConcurrency);
+        public static IGremlinqClient ObserveResultStatusAttributes(this IGremlinqClient client, Action<RequestMessage, IReadOnlyDictionary<string, object>> observer)
+        {
+            ArgumentNullException.ThrowIfNull(client);
+            ArgumentNullException.ThrowIfNull(observer);
+
+            return new ObserveResultStatusAttributesGremlinqClient(client, observer);
+        }
+
+        public static IGremlinqClient Throttle(this IGremlinqClient client, int maxConcurrency)
+        {
+            ArgumentNullException.ThrowIfNull(client);
+
+            return new ThrottledGremlinqClient(client, maxConcurrency);
+        }
 
         internal static IGremlinqClient Log(this IGremlinqClient client, IGremlinQueryEnvironment environment) => new LoggingGremlinqClient(client, environment);
 
