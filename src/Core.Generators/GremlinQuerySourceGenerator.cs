@@ -236,7 +236,7 @@ namespace ExRam.Gremlinq.Core.Generators
                     ? "Environment.Model.VerticesModel"
                     : "Environment.Model.EdgesModel";
                 writer = writer
-                    .WriteLine($"{changed} {iface}.OfType<TTarget>() => OfType<TTarget, {changed}>({model});");
+                    .WriteLine($"{changed} {iface}.OfType<TTarget>() => OfType<{changed}>(SanitizedTypeArrayCache<T1, TTarget>.Types, {model});");
             }
 
             return writer

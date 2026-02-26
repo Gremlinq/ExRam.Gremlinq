@@ -923,13 +923,13 @@ namespace ExRam.Gremlinq.Core
                         .AddStep(new NotStep(innerTraversal)))
             .BuildAuto<T1, T2, T3, T4>();
 
-        private TTargetQuery OfType<TNewElement, TTargetQuery>(IGraphElementModel model) where TTargetQuery : IStartGremlinQuery => this
+        private TTargetQuery OfType<TTargetQuery>(Type[] types, IGraphElementModel model) where TTargetQuery : IStartGremlinQuery => this
             .Continue()
             .Build(
-                static (builder, model) => builder
-                    .OfType(SanitizedTypeArrayCache<T1, TNewElement>.Types, model)
+                static (builder, tuple) => builder
+                    .OfType(tuple.types, tuple.model)
                     .BuildAs<TTargetQuery>(),
-                model);
+                (types, model));
 
         private TTargetQuery Optional<TTargetQuery>(Func<GremlinQuery<T1, T2, T3, T4>, TTargetQuery> optionalTraversal) where TTargetQuery : IGremlinQueryBase => this
             .Continue()
