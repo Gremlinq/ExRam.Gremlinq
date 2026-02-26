@@ -237,6 +237,19 @@ namespace ExRam.Gremlinq.Core.Generators
                     : "Environment.Model.EdgesModel";
                 writer = writer
                     .WriteLine($"{changed} {iface}.OfType<TTarget>() => OfType<{changed}>(SanitizedTypeArrayCache<T1, TTarget>.Types, {model});");
+
+                if (iface.Contains("VertexGremlinQuery"))
+                {
+                    var multiChanged = ChangeType(iface, "object").Replace("Base", "");
+
+                    for (var i = 2; i <= 16; i++)
+                    {
+                        var typeArgs = GetArgumentList("TTarget{0}", i);
+                        writer = writer
+                            .WriteLine($"{multiChanged} {iface}.OfType<{typeArgs}>() => OfType<{multiChanged}>(SanitizedTypeArrayCache<T1, {typeArgs}>.Types, {model});")
+                            .WriteLine();
+                    }
+                }
             }
 
             return writer

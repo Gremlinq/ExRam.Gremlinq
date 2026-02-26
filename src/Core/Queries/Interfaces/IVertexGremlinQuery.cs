@@ -83,6 +83,21 @@ namespace ExRam.Gremlinq.Core
         new IEdgeOrVertexGremlinQuery<object> Lower();
 
         IVertexGremlinQuery<TTarget> OfType<TTarget>();
+        IVertexGremlinQuery<object> OfType<TTarget1, TTarget2>();
+        IVertexGremlinQuery<object> OfType<TTarget1, TTarget2, TTarget3>();
+        IVertexGremlinQuery<object> OfType<TTarget1, TTarget2, TTarget3, TTarget4>();
+        IVertexGremlinQuery<object> OfType<TTarget1, TTarget2, TTarget3, TTarget4, TTarget5>();
+        IVertexGremlinQuery<object> OfType<TTarget1, TTarget2, TTarget3, TTarget4, TTarget5, TTarget6>();
+        IVertexGremlinQuery<object> OfType<TTarget1, TTarget2, TTarget3, TTarget4, TTarget5, TTarget6, TTarget7>();
+        IVertexGremlinQuery<object> OfType<TTarget1, TTarget2, TTarget3, TTarget4, TTarget5, TTarget6, TTarget7, TTarget8>();
+        IVertexGremlinQuery<object> OfType<TTarget1, TTarget2, TTarget3, TTarget4, TTarget5, TTarget6, TTarget7, TTarget8, TTarget9>();
+        IVertexGremlinQuery<object> OfType<TTarget1, TTarget2, TTarget3, TTarget4, TTarget5, TTarget6, TTarget7, TTarget8, TTarget9, TTarget10>();
+        IVertexGremlinQuery<object> OfType<TTarget1, TTarget2, TTarget3, TTarget4, TTarget5, TTarget6, TTarget7, TTarget8, TTarget9, TTarget10, TTarget11>();
+        IVertexGremlinQuery<object> OfType<TTarget1, TTarget2, TTarget3, TTarget4, TTarget5, TTarget6, TTarget7, TTarget8, TTarget9, TTarget10, TTarget11, TTarget12>();
+        IVertexGremlinQuery<object> OfType<TTarget1, TTarget2, TTarget3, TTarget4, TTarget5, TTarget6, TTarget7, TTarget8, TTarget9, TTarget10, TTarget11, TTarget12, TTarget13>();
+        IVertexGremlinQuery<object> OfType<TTarget1, TTarget2, TTarget3, TTarget4, TTarget5, TTarget6, TTarget7, TTarget8, TTarget9, TTarget10, TTarget11, TTarget12, TTarget13, TTarget14>();
+        IVertexGremlinQuery<object> OfType<TTarget1, TTarget2, TTarget3, TTarget4, TTarget5, TTarget6, TTarget7, TTarget8, TTarget9, TTarget10, TTarget11, TTarget12, TTarget13, TTarget14, TTarget15>();
+        IVertexGremlinQuery<object> OfType<TTarget1, TTarget2, TTarget3, TTarget4, TTarget5, TTarget6, TTarget7, TTarget8, TTarget9, TTarget10, TTarget11, TTarget12, TTarget13, TTarget14, TTarget15, TTarget16>();
 
         IVertexGremlinQuery<object> Out();
         IVertexGremlinQuery<object> Out<TEdge>();
