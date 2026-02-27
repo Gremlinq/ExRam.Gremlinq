@@ -12,12 +12,7 @@
           OperatorName: V
         },
         {
-          OperatorName: out,
-          Arguments: [
-            LivesIn,
-            Speaks,
-            WorksFor
-          ]
+          OperatorName: out
         },
         {
           OperatorName: project,

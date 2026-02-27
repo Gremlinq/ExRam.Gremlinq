@@ -1,12 +1,9 @@
 ﻿{
-  Script: g.V().in(_a,_b,_c).project(_d,_e,_f).by(id).by(label).by(__.properties().group().by(label).by(__.project(_d,_e,_g,_f).by(id).by(label).by(value).by(__.valueMap()).fold())),
+  Script: g.V().in().project(_a,_b,_c).by(id).by(label).by(__.properties().group().by(label).by(__.project(_a,_b,_d,_c).by(id).by(label).by(value).by(__.valueMap()).fold())),
   Bindings: {
-    _a: LivesIn,
-    _b: Speaks,
-    _c: WorksFor,
-    _d: id,
-    _e: label,
-    _f: properties,
-    _g: value
+    _a: id,
+    _b: label,
+    _c: properties,
+    _d: value
   }
 }

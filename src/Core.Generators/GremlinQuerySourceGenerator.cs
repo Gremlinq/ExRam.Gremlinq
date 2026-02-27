@@ -278,14 +278,14 @@ namespace ExRam.Gremlinq.Core.Generators
                 writer = writer
                     .WriteLine($"IVertexGremlinQuery<object> IVertexGremlinQueryBase.{method}() => {method}(FilterTypes.None);")
                     .WriteLine()
-                    .WriteLine($"IVertexGremlinQuery<object> IVertexGremlinQueryBase.{method}<TEdge>() => {method}(FilterTypesCache<TEdge>.Types);")
+                    .WriteLine($"IVertexGremlinQuery<object> IVertexGremlinQueryBase.{method}<TEdge>() => {method}(SanitizedFilterTypesCache<object, TEdge>.Types);")
                     .WriteLine();
 
                 for (var i = 2; i <= 16; i++)
                 {
                     var typeArgs = GetArgumentList("TEdge{0}", i);
                     writer = writer
-                        .WriteLine($"IVertexGremlinQuery<object> IVertexGremlinQueryBase.{method}<{typeArgs}>() => {method}(FilterTypesCache<{typeArgs}>.Types);")
+                        .WriteLine($"IVertexGremlinQuery<object> IVertexGremlinQueryBase.{method}<{typeArgs}>() => {method}(SanitizedFilterTypesCache<object, {typeArgs}>.Types);")
                         .WriteLine();
                 }
             }

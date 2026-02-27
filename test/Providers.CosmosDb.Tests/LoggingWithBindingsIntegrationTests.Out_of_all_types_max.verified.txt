@@ -9,7 +9,7 @@
           requestId: 12345678-9012-3456-7890-123456789012
         },
         {
-          script: g.V().out(_a,_b,_c)
+          script: g.V().out()
         },
         {
           bindings: {}

@@ -1,1 +1,1 @@
-﻿g.V().out('LivesIn','Speaks','WorksFor')
+﻿g.V().out()

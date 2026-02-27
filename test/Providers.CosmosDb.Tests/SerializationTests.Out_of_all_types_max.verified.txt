@@ -1,8 +1,3 @@
 ﻿{
-  Script: g.V().out(_a,_b,_c),
-  Bindings: {
-    _a: LivesIn,
-    _b: Speaks,
-    _c: WorksFor
-  }
+  Script: g.V().out()
 }
