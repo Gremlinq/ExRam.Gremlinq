@@ -3,13 +3,13 @@
     log: {
       Level: Debug,
       Category: LoggingFixture,
-      Message: Executing Gremlin query 12345678-9012-3456-7890-123456789012 with groovy script g.V().inE(_a,_b,_c).,
+      Message: Executing Gremlin query 12345678-9012-3456-7890-123456789012 with groovy script g.V().inE().,
       State: [
         {
           requestId: 12345678-9012-3456-7890-123456789012
         },
         {
-          script: g.V().inE(_a,_b,_c)
+          script: g.V().inE()
         },
         {
           {OriginalFormat}: Executing Gremlin query {requestId} with groovy script {script}.

@@ -10,26 +10,7 @@
       ]
     },
     {
-      OperatorName: bothE,
-      Arguments: [
-        Edge1,
-        Edge10,
-        Edge11,
-        Edge12,
-        Edge13,
-        Edge14,
-        Edge15,
-        Edge16,
-        Edge2,
-        Edge3,
-        Edge4,
-        Edge5,
-        Edge6,
-        Edge7,
-        Edge8,
-        Edge9,
-        NestedEdge
-      ]
+      OperatorName: bothE
     },
     {
       OperatorName: project,

@@ -1,1 +1,1 @@
-﻿g.V().inE('LivesIn','Speaks','WorksFor')
+﻿g.V().inE()

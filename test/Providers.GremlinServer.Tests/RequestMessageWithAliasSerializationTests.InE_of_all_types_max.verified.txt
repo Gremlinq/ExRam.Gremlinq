@@ -12,12 +12,7 @@
           OperatorName: V
         },
         {
-          OperatorName: inE,
-          Arguments: [
-            LivesIn,
-            Speaks,
-            WorksFor
-          ]
+          OperatorName: inE
         },
         {
           OperatorName: project,

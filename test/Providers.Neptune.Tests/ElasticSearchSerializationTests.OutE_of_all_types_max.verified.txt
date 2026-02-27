@@ -20,12 +20,7 @@
       OperatorName: V
     },
     {
-      OperatorName: outE,
-      Arguments: [
-        LivesIn,
-        Speaks,
-        WorksFor
-      ]
+      OperatorName: outE
     },
     {
       OperatorName: project,
