@@ -39,6 +39,12 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public virtual Task InE_with_one__object_type() => _g
+            .V<Person>()
+            .InE<object>()
+            .Verify();
+
+        [Fact]
         public virtual Task InE_with_one_type() => _g
             .V<Person>()
             .InE<Edge1>()
@@ -135,9 +141,15 @@ namespace ExRam.Gremlinq.Core.Tests
             .Verify();
 
         [Fact]
+        public virtual Task OutE_with_one_object_type() => _g
+            .V<Person>()
+            .OutE<Edge1>()
+            .Verify();
+
+        [Fact]
         public virtual Task OutE_with_one_type() => _g
             .V<Person>()
-            .OutE<Edge1, Edge2>()
+            .OutE<Edge1>()
             .Verify();
 
         [Fact]
@@ -228,6 +240,12 @@ namespace ExRam.Gremlinq.Core.Tests
         public virtual Task OutE_with_sixteen_types() => _g
             .V<Person>()
             .OutE<Edge1, Edge2, Edge3, Edge4, Edge5, Edge6, Edge7, Edge8, Edge9, Edge10, Edge11, Edge12, Edge13, Edge14, Edge15, Edge16>()
+            .Verify();
+
+        [Fact]
+        public virtual Task BothE_with_one_object_type() => _g
+            .V<Person>()
+            .BothE<Edge1>()
             .Verify();
 
         [Fact]

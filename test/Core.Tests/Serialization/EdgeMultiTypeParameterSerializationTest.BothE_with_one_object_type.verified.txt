@@ -10,7 +10,7 @@
       ]
     },
     {
-      OperatorName: outE,
+      OperatorName: bothE,
       Arguments: [
         Edge1
       ]
