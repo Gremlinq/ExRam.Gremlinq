@@ -39,6 +39,16 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public virtual Task E_without_type() => _g
+            .E()
+            .Verify();
+
+        [Fact]
+        public virtual Task E_with_object_type() => _g
+            .E<object>()
+            .Verify();
+
+        [Fact]
         public virtual Task OfType_with_object_type() => _g
             .E<NestedEdge>()
             .OfType<object>()
