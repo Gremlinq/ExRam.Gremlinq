@@ -39,6 +39,12 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public virtual Task InE_without_type() => _g
+            .V<Person>()
+            .InE()
+            .Verify();
+
+        [Fact]
         public virtual Task InE_with_one__object_type() => _g
             .V<Person>()
             .InE<object>()
@@ -141,9 +147,15 @@ namespace ExRam.Gremlinq.Core.Tests
             .Verify();
 
         [Fact]
+        public virtual Task OutE_without_type() => _g
+            .V<Person>()
+            .OutE()
+            .Verify();
+
+        [Fact]
         public virtual Task OutE_with_one_object_type() => _g
             .V<Person>()
-            .OutE<Edge1>()
+            .OutE<object>()
             .Verify();
 
         [Fact]
@@ -243,9 +255,15 @@ namespace ExRam.Gremlinq.Core.Tests
             .Verify();
 
         [Fact]
+        public virtual Task BothE_without_type() => _g
+            .V<Person>()
+            .BothE()
+            .Verify();
+
+        [Fact]
         public virtual Task BothE_with_one_object_type() => _g
             .V<Person>()
-            .BothE<Edge1>()
+            .BothE<object>()
             .Verify();
 
         [Fact]
