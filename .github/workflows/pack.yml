@@ -44,6 +44,11 @@ jobs:
       uses: dotnet/nbgv@f088059084cb5d872e9d1a994433ca6440c2bf72 # 0.4.2
       id: nbgv
 
+    - name: Strip HTML from README
+      uses: d-edge/strip-markdown-html@881e84f29d410e74e2b865f3f26ef58366f778ac
+      with:
+        input-path: README.md
+
     - name: Replace NuGet version default value in templates
       run: find -name template.json -exec sed -i "s/TEMPLATE_GREMLINQ_VERSION_DEFAULT_VALUE/${{ steps.nbgv.outputs.NuGetPackageVersion }}/g" {} \;
 
