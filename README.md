@@ -1,11 +1,7 @@
-<p align="center">
-  <img src="https://raw.githubusercontent.com/Gremlinq/ExRam.Gremlinq/13.x/assets/logo.png" alt="Gremlinq logo" title="Gremlinq logo" width=50% />
-</p>
+[![#](assets/logo.png)]()
 
-<p align="center">
-  <img src="https://img.shields.io/github/license/Gremlinq/ExRam.Gremlinq?style=flat-square" alt="License" title="License" />
-  <img src="https://img.shields.io/nuget/v/ExRam.Gremlinq.Core?style=flat-square&logo=nuget)](https://www.nuget.org/packages?q=ExRam.Gremlinq" alt="NuGet" title="NuGet" />
-</p>
+[![#](https://img.shields.io/github/license/Gremlinq/ExRam.Gremlinq?style=flat-square)]()
+[![#](https://img.shields.io/nuget/v/ExRam.Gremlinq.Core?style=flat-square&logo=nuget)](https://www.nuget.org/packages?q=ExRam.Gremlinq)
 
 # Synopsis
 
@@ -19,8 +15,6 @@ Head over to the official docs for an introduction on how to get started with Gr
 
 [![#](https://img.shields.io/badge/Read_the_docs!-EA6F1B?style=for-the-badge)](https://docs.gremlinq.net)
 
-<br/>
-
 # Support
 
 Schedule a video session with [@danielcweber](https://github.com/danielcweber) to get assistance with Gremlinq setup and
@@ -31,8 +25,6 @@ into the Gremlinq domain-specific language. Schedule a call to discuss matters, 
 discount if a workshop materializes.
 
 [![#](https://img.shields.io/badge/Schedule_a_call!-EA6F1B?style=for-the-badge)](https://danielcweber.net/r/gremlinqsupport)
-
-<br/>
 
 # Extensions
 
