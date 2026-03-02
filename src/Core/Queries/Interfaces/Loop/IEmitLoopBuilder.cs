@@ -5,6 +5,12 @@ namespace ExRam.Gremlinq.Core
 {
     public interface IEmitLoopBuilder<TQuery> where TQuery : IGremlinQueryBase
     {
+        /// <summary>
+        /// Defines the traversal to loop over.
+        /// Corresponds to the Gremlin <c>repeat()</c> step used after <c>emit()</c>.
+        /// </summary>
+        /// <param name="loop">The traversal to repeat.</param>
+        /// <seealso href="https://tinkerpop.apache.org/docs/current/reference/#repeat-step">Reference Documentation - Repeat Step</seealso>
         IEmitRepeatLoopBuilder<TQuery> Repeat(Func<TQuery, TQuery> loop);
     }
 }

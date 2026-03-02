@@ -9,8 +9,20 @@
         /// <returns>A query with the updated date/time value.</returns>
         IDateGremlinQuery<TDate> Add(TimeSpan duration);
 
+        /// <summary>
+        /// Returns the difference between the traverser's date/time value and <paramref name="other"/> in epoch seconds.
+        /// Corresponds to the Gremlin <c>dateDiff()</c> step.
+        /// </summary>
+        /// <param name="other">The date/time value to subtract.</param>
+        /// <seealso href="https://tinkerpop.apache.org/docs/current/reference/#datediff-step">Reference Documentation - DateDiff Step</seealso>
         IGremlinQuery<long> Diff(DateTimeOffset other);
 
+        /// <summary>
+        /// Returns the difference between the traverser's date/time value and the result of <paramref name="other"/> in epoch seconds.
+        /// Corresponds to the Gremlin <c>dateDiff()</c> step.
+        /// </summary>
+        /// <param name="other">A traversal that produces the date/time value to subtract.</param>
+        /// <seealso href="https://tinkerpop.apache.org/docs/current/reference/#datediff-step">Reference Documentation - DateDiff Step</seealso>
         IGremlinQuery<long> Diff(Func<IDateGremlinQuery<TDate>, IGremlinQueryBase<DateTimeOffset>> other);
     }
 }

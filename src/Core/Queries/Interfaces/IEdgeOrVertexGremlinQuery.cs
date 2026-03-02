@@ -3,8 +3,12 @@
     public interface IEdgeOrVertexGremlinQueryBase :
         IElementGremlinQueryBase
     {
+        /// <inheritdoc cref="IGremlinQueryBase.Cast{TResult}" />
         new IEdgeOrVertexGremlinQuery<TResult> Cast<TResult>();
 
+        /// <summary>
+        /// Returns the query typed as a lower (less specific) query type.
+        /// </summary>
         new IElementGremlinQuery<object> Lower();
     }
 
@@ -17,6 +21,7 @@
         IEdgeOrVertexGremlinQueryBase,
         IElementGremlinQueryBase<TElement>
     {
+        /// <inheritdoc cref="IEdgeOrVertexGremlinQueryBase.Lower" />
         new IElementGremlinQuery<TElement> Lower();
     }
 
