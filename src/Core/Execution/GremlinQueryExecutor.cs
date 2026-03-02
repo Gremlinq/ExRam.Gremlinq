@@ -120,10 +120,21 @@ namespace ExRam.Gremlinq.Core.Execution
             }
         }
 
+        /// <summary>
+        /// An executor that returns empty results for any query.
+        /// </summary>
         public static readonly IGremlinQueryExecutor Empty = new EmptyGremlinQueryExecutor();
 
+        /// <summary>
+        /// An executor that throws when any query is executed. This is the default executor that signals no provider has been configured.
+        /// </summary>
         public static readonly IGremlinQueryExecutor Invalid = new InvalidGremlinQueryExecutor();
 
+        /// <summary>
+        /// Wraps the executor so that queries are transformed before execution.
+        /// </summary>
+        /// <param name="baseExecutor">The base executor.</param>
+        /// <param name="transformation">A function that transforms the query before execution.</param>
         public static IGremlinQueryExecutor TransformQuery(this IGremlinQueryExecutor baseExecutor, Func<IGremlinQueryBase, IGremlinQueryBase> transformation)
         {
             ArgumentNullException.ThrowIfNull(baseExecutor);
@@ -132,6 +143,11 @@ namespace ExRam.Gremlinq.Core.Execution
             return new TransformQueryGremlinQueryExecutor(baseExecutor, transformation);
         }
 
+        /// <summary>
+        /// Wraps the executor so that execution exceptions are transformed before being thrown.
+        /// </summary>
+        /// <param name="executor">The base executor.</param>
+        /// <param name="exceptionTransformation">A function that transforms execution exceptions.</param>
         public static IGremlinQueryExecutor TransformExecutionException(this IGremlinQueryExecutor executor, Func<GremlinQueryExecutionException, GremlinQueryExecutionException> exceptionTransformation)
         {
             ArgumentNullException.ThrowIfNull(executor);
@@ -140,6 +156,10 @@ namespace ExRam.Gremlinq.Core.Execution
             return new TransformExecutionExceptionGremlinQueryExecutor(executor, exceptionTransformation);
         }
 
+        /// <summary>
+        /// Wraps the executor so that queries are executed serially (one at a time).
+        /// </summary>
+        /// <param name="executor">The base executor.</param>
         public static IGremlinQueryExecutor Serialize(this IGremlinQueryExecutor executor)
         {
             ArgumentNullException.ThrowIfNull(executor);

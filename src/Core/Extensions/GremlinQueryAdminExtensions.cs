@@ -4,6 +4,12 @@ namespace ExRam.Gremlinq.Core
 {
     public static class GremlinQueryAdminExtensions
     {
+        /// <summary>
+        /// Adds multiple steps to the query's traversal.
+        /// </summary>
+        /// <typeparam name="TTargetQuery">The target query type to return.</typeparam>
+        /// <param name="admin">The query admin interface.</param>
+        /// <param name="steps">The steps to add. Must contain at least one step.</param>
         public static TTargetQuery AddSteps<TTargetQuery>(this IGremlinQueryAdmin admin, IEnumerable<Step> steps)
             where TTargetQuery : IGremlinQueryBase
         {

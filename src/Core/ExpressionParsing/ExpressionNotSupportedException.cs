@@ -2,6 +2,9 @@
 
 namespace ExRam.Gremlinq.Core
 {
+    /// <summary>
+    /// The exception that is thrown when a LINQ expression is not supported by the Gremlinq expression parser.
+    /// </summary>
     public sealed class ExpressionNotSupportedException : NotSupportedException
     {
         private const string StandardMessage = "An expression is not supported.";

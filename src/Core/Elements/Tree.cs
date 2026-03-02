@@ -4,6 +4,11 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace ExRam.Gremlinq.Core
 {
+    /// <summary>
+    /// Represents a graph tree structure where each root node maps to a subtree.
+    /// </summary>
+    /// <typeparam name="TRoot">The type of the root-level nodes.</typeparam>
+    /// <typeparam name="TSubTree">The type of the subtree, which itself must be a tree.</typeparam>
     public class Tree<TRoot, TSubTree> : ITree, IReadOnlyDictionary<TRoot, TSubTree>
         where TSubTree : ITree
         where TRoot : notnull
@@ -48,6 +53,10 @@ namespace ExRam.Gremlinq.Core
         IEnumerator IEnumerable.GetEnumerator() => ((IEnumerable)_inner).GetEnumerator();
     }
 
+    /// <summary>
+    /// Represents a recursive graph tree where each node maps to another tree of the same node type.
+    /// </summary>
+    /// <typeparam name="TNode">The type of the tree nodes.</typeparam>
     public class Tree<TNode> : Tree<TNode, Tree<TNode>>
         where TNode : notnull
     {
