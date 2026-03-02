@@ -291,9 +291,9 @@ namespace ExRam.Gremlinq.Core
         /// <inheritdoc cref="IElementGremlinQueryBase{TElement}.Update" />
         new IVertexGremlinQuery<TVertex> Update(TVertex element);
 
-        /// <inheritdoc cref="IEdgeOrVertexGremlinQueryBase.AddE{TEdge}(TEdge)" />
+        /// <inheritdoc cref="IStartGremlinQuery.AddE{TEdge}(TEdge)" />
         new IInOrOutEdgeGremlinQuery<TEdge, TVertex> AddE<TEdge>(TEdge edge);
-        /// <inheritdoc cref="IEdgeOrVertexGremlinQueryBase.AddE{TEdge}()" />
+        /// <inheritdoc cref="IStartGremlinQuery.AddE{TEdge}()" />
         new IInOrOutEdgeGremlinQuery<TEdge, TVertex> AddE<TEdge>() where TEdge : new();
 
         /// <inheritdoc cref="IVertexGremlinQueryBase.BothE()" />
