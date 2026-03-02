@@ -6,6 +6,9 @@ using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Providers.Neptune
 {
+    /// <summary>
+    /// Provides extension methods for <see cref="INeptuneConfigurator"/> and provider configurators.
+    /// </summary>
     public static class NeptuneConfiguratorExtensions
     {
         private sealed class ElasticSearchAwareNeptuneConfigurator : INeptuneConfigurator
@@ -99,6 +102,12 @@ namespace ExRam.Gremlinq.Providers.Neptune
                 _indexConfiguration);
         }
 
+        /// <summary>
+        /// Configures the provider to use AWS IAM authentication by building a signer from a disabled state.
+        /// </summary>
+        /// <typeparam name="TConfigurator">The concrete configurator type.</typeparam>
+        /// <param name="configurator">The configurator to configure.</param>
+        /// <param name="builderTransformation">A function that configures the AWS signer.</param>
         public static TConfigurator UseIAMAuthentication<TConfigurator>(this TConfigurator configurator, Func<IDisabledAWSSigner, IAWSSigner> builderTransformation)
             where TConfigurator : IProviderConfigurator<TConfigurator, IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>>
         {
@@ -108,6 +117,12 @@ namespace ExRam.Gremlinq.Providers.Neptune
                 .UseIAMAuthentication(builderTransformation(AWSSigner.Disabled));
         }
 
+        /// <summary>
+        /// Configures the provider to use AWS IAM authentication with the specified signer.
+        /// </summary>
+        /// <typeparam name="TConfigurator">The concrete configurator type.</typeparam>
+        /// <param name="configurator">The configurator to configure.</param>
+        /// <param name="signer">The AWS signer to use for authentication.</param>
         public static TConfigurator UseIAMAuthentication<TConfigurator>(this TConfigurator configurator, IAWSSigner signer)
             where TConfigurator : IProviderConfigurator<TConfigurator, IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>>
         {
@@ -129,6 +144,12 @@ namespace ExRam.Gremlinq.Providers.Neptune
                         })));
         }
 
+        /// <summary>
+        /// Configures the Neptune provider to use ElasticSearch for full-text search queries.
+        /// </summary>
+        /// <param name="configurator">The configurator to configure.</param>
+        /// <param name="elasticSearchEndPoint">The URI of the ElasticSearch endpoint.</param>
+        /// <param name="indexConfiguration">The ElasticSearch index configuration to use.</param>
         public static INeptuneConfigurator UseElasticSearch(this INeptuneConfigurator configurator, Uri elasticSearchEndPoint, NeptuneElasticSearchIndexConfiguration indexConfiguration = NeptuneElasticSearchIndexConfiguration.Standard)
         {
             ArgumentNullException.ThrowIfNull(configurator);

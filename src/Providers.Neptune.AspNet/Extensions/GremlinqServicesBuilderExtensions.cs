@@ -6,6 +6,9 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace ExRam.Gremlinq.Providers.Neptune.AspNet
 {
+    /// <summary>
+    /// Provides extension methods for <see cref="IGremlinqServicesBuilder"/> to register the AWS Neptune provider with ASP.NET Core dependency injection.
+    /// </summary>
     public static class GremlinqServicesBuilderExtensions
     {
         private sealed class UseIAMAuthenticationGremlinqConfiguratorTransformation<TConfigurator> : IGremlinqConfiguratorTransformation<TConfigurator>
@@ -23,6 +26,12 @@ namespace ExRam.Gremlinq.Providers.Neptune.AspNet
                 : configurator.UseIAMAuthentication(_signer);
         }
 
+        /// <summary>
+        /// Registers the AWS Neptune Gremlin provider and configures it from the application's configuration section.
+        /// </summary>
+        /// <typeparam name="TVertexBase">The base type for all vertex entities.</typeparam>
+        /// <typeparam name="TEdgeBase">The base type for all edge entities.</typeparam>
+        /// <param name="setup">The services builder to configure.</param>
         public static IGremlinqServicesBuilder<INeptuneConfigurator> UseNeptune<TVertexBase, TEdgeBase>(this IGremlinqServicesBuilder setup)
         {
             ArgumentNullException.ThrowIfNull(setup);
@@ -66,6 +75,11 @@ namespace ExRam.Gremlinq.Providers.Neptune.AspNet
                 });
         }
 
+        /// <summary>
+        /// Configures the provider to use AWS IAM authentication, reading credentials from the application's configuration section.
+        /// </summary>
+        /// <typeparam name="TConfigurator">The concrete configurator type.</typeparam>
+        /// <param name="builder">The services builder to configure.</param>
         public static IGremlinqServicesBuilder<TConfigurator> UseIAMAuthentication<TConfigurator>(this IGremlinqServicesBuilder<TConfigurator> builder)
             where TConfigurator : IProviderConfigurator<TConfigurator, IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>>
         {

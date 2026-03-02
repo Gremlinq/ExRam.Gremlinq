@@ -7,6 +7,9 @@ using System.Web;
 
 namespace ExRam.Gremlinq.Providers.Neptune
 {
+    /// <summary>
+    /// Provides factory methods and extension methods for AWS IAM signing.
+    /// </summary>
     public static class AWSSigner
     {
         private sealed class SigV4AWSSigner : ISigV4AWSSigner
@@ -255,9 +258,22 @@ namespace ExRam.Gremlinq.Providers.Neptune
             public ISigV4AWSSigner UseSigV4() => SigV4AWSSigner.Empty;
         }
 
+        /// <summary>
+        /// An empty SigV4 signer with default settings that requires further configuration.
+        /// </summary>
         public static readonly ISigV4AWSSigner EmptySigV4 = SigV4AWSSigner.Empty;
+
+        /// <summary>
+        /// A disabled signer that produces no authentication headers. Can be upgraded via <see cref="IDisabledAWSSigner.UseSigV4"/>.
+        /// </summary>
         public static readonly IDisabledAWSSigner Disabled = DisabledAWSSigner.Instance;
 
+        /// <summary>
+        /// Signs the specified HTTP GET request message with IAM authentication headers.
+        /// </summary>
+        /// <param name="signer">The signer to use.</param>
+        /// <param name="request">The HTTP request message to sign. Must use the GET method.</param>
+        /// <param name="time">The timestamp to use for signing. Defaults to <see cref="DateTimeOffset.UtcNow"/>.</param>
         public static HttpRequestMessage Sign(this IAWSSigner signer, HttpRequestMessage request, DateTimeOffset? time = null)
         {
             ArgumentNullException.ThrowIfNull(signer);
@@ -273,6 +289,11 @@ namespace ExRam.Gremlinq.Providers.Neptune
             return request;
         }
 
+        /// <summary>
+        /// Sets the URI used for signing.
+        /// </summary>
+        /// <param name="signer">The signer to configure.</param>
+        /// <param name="uri">The URI to use.</param>
         public static ISigV4AWSSigner WithUri(this ISigV4AWSSigner signer, Uri uri)
         {
             ArgumentNullException.ThrowIfNull(signer);
@@ -282,6 +303,11 @@ namespace ExRam.Gremlinq.Providers.Neptune
                 .ConfigureUri(_ => uri);
         }
 
+        /// <summary>
+        /// Sets the AWS region used for signing.
+        /// </summary>
+        /// <param name="signer">The signer to configure.</param>
+        /// <param name="region">The AWS region.</param>
         public static ISigV4AWSSigner WithRegion(this ISigV4AWSSigner signer, string region)
         {
             ArgumentNullException.ThrowIfNull(signer);
@@ -291,6 +317,11 @@ namespace ExRam.Gremlinq.Providers.Neptune
                 .ConfigureRegion(_ => region);
         }
 
+        /// <summary>
+        /// Sets the header cache time for signed requests.
+        /// </summary>
+        /// <param name="signer">The signer to configure.</param>
+        /// <param name="cacheTime">The cache duration for signed headers.</param>
         public static ISigV4AWSSigner WithCacheTime(this ISigV4AWSSigner signer, TimeSpan cacheTime)
         {
             ArgumentNullException.ThrowIfNull(signer);
@@ -299,6 +330,12 @@ namespace ExRam.Gremlinq.Providers.Neptune
                 .ConfigureCacheTime(_ => cacheTime);
         }
 
+        /// <summary>
+        /// Adds IAM authentication headers to the specified HTTP headers collection.
+        /// </summary>
+        /// <param name="signer">The signer to use.</param>
+        /// <param name="headers">The HTTP headers collection to add authentication headers to.</param>
+        /// <param name="time">The timestamp to use for signing. Defaults to <see cref="DateTimeOffset.UtcNow"/>.</param>
         public static HttpHeaders Sign(this IAWSSigner signer, HttpHeaders headers, DateTimeOffset? time = null)
         {
             ArgumentNullException.ThrowIfNull(signer);

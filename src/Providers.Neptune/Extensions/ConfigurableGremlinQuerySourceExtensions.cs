@@ -8,6 +8,9 @@ using ExRam.Gremlinq.Core;
 
 namespace ExRam.Gremlinq.Providers.Neptune
 {
+    /// <summary>
+    /// Provides extension methods for <see cref="IGremlinQuerySource"/> to configure the AWS Neptune provider.
+    /// </summary>
     public static class ConfigurableGremlinQuerySourceExtensions    //TODO: Rename on breaking.
     {
         private sealed class NeptuneConfigurator : INeptuneConfigurator
@@ -39,6 +42,13 @@ namespace ExRam.Gremlinq.Providers.Neptune
                             .ToExecutor())));
         }
 
+        /// <summary>
+        /// Configures the query source to use the AWS Neptune provider.
+        /// </summary>
+        /// <typeparam name="TVertexBase">The base type for all vertex entities.</typeparam>
+        /// <typeparam name="TEdgeBase">The base type for all edge entities.</typeparam>
+        /// <param name="source">The query source to configure.</param>
+        /// <param name="configuratorTransformation">A function that configures the Neptune provider.</param>
         public static IGremlinQuerySource UseNeptune<TVertexBase, TEdgeBase>(this IGremlinQuerySource source, Func<INeptuneConfigurator, IGremlinQuerySourceTransformation> configuratorTransformation)
         {
             ArgumentNullException.ThrowIfNull(source);
