@@ -32,8 +32,11 @@
   <ItemGroup Condition="'$(Configuration)' == 'Release'" >
     <None Include="$(PackageLicenseDirectory)$(PackageLicenseFile)" Pack="true" PackagePath="/" />
     <None Include="$(MSBuildThisFileDirectory)../README.md" Pack="true" PackagePath="/" />
-   
    <PackageReference Condition="'$(TargetFramework)' == 'net6.0' or '$(TargetFramework)' == 'net7.0'" Include="Microsoft.SourceLink.GitHub" PrivateAssets="All" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(IsRoslynComponent)' != 'true'">
+    <ProjectReference Include="$(MSBuildThisFileDirectory)Analyzers\ExRam.Gremlinq.Analyzers.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
   </ItemGroup>
 
 </Project>
