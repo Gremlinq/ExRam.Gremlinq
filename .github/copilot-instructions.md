@@ -21,8 +21,9 @@ dotnet build ExRam.Gremlinq.slnx
 - **Debug** builds target only `net10.0`.
 - **Release** builds multi-target: src projects target `net6.0;net7.0;net8.0;net9.0;net10.0`; test projects target `net8.0;net9.0;net10.0`.
 - `TreatWarningsAsErrors` is enabled globally. All warnings must be resolved before a PR will pass CI.
-- Source generators in `src/Core.Generators` target `netstandard2.0` and are wired as analyzers (Roslyn source generators).
-- NullGuard.Fody is applied to all src projects automatically via `src/Directory.Build.props`.
+- Source Generators in `src/Core.Generators` target `netstandard2.0` and are wired as analyzers (Roslyn source generators).
+- Source Analyzers in `src/Analyers` target `netstandard2.0` and are wired as analyzers.
+
 
 ## Testing
 
@@ -72,7 +73,8 @@ The PR check workflow (`.github/workflows/checkPullRequest.yml`) runs on both `u
 ├── src/
 │   ├── Core/                        # Core OGM library (query building, serialization, models)
 │   ├── Core.AspNet/                 # ASP.NET Core DI integration for Core
-│   ├── Core.Generators/             # Roslyn source generators (netstandard2.0)
+│   ├── Core.Generators/             # Roslyn source generators for the Core project specifically (netstandard2.0)
+│   ├── Analyzers/                   # Roslyn source analyzers (e.g. NullCheck analyzer) (netstandard2.0)
 │   ├── Providers.Core/              # Base provider infrastructure (Gremlin client)
 │   ├── Providers.CosmosDb/          # Azure CosmosDb provider
 │   ├── Providers.CosmosDb.AspNet/   # CosmosDb + ASP.NET Core DI
@@ -97,7 +99,7 @@ The PR check workflow (`.github/workflows/checkPullRequest.yml`) runs on both `u
 │   └── Benchmarks/                  # BenchmarkDotNet benchmarks
 ├── templates/                       # dotnet new templates
 ├── Directory.Build.props            # Root build props (TreatWarningsAsErrors, etc.)
-├── src/Directory.Build.props        # Src TFMs, Fody/NullGuard, InternalsVisibleTo
+├── src/Directory.Build.props        # Src TFMs, InternalsVisibleTo
 ├── test/Directory.Build.props       # Test TFMs, xunit, Verify, FluentAssertions
 ├── Directory.Packages.props         # Central package versions
 ├── global.json                      # SDK version pin
