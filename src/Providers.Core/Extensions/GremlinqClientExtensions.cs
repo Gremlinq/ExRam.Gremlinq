@@ -6,6 +6,9 @@ using Gremlin.Net.Driver.Messages;
 
 namespace ExRam.Gremlinq.Providers.Core
 {
+    /// <summary>
+    /// Provides extension methods for <see cref="IGremlinqClient"/>.
+    /// </summary>
     public static class GremlinqClientExtensions
     {
         private sealed class RequestInterceptingGremlinqClient : IGremlinqClient
@@ -231,6 +234,11 @@ namespace ExRam.Gremlinq.Providers.Core
             public void Dispose() => _innerClient.Dispose();
         }
 
+        /// <summary>
+        /// Wraps the client to intercept and transform request messages before they are submitted.
+        /// </summary>
+        /// <param name="client">The client to wrap.</param>
+        /// <param name="transformation">A function that transforms request messages.</param>
         public static IGremlinqClient TransformRequest(this IGremlinqClient client, Func<RequestMessage, CancellationToken, Task<RequestMessage>> transformation)
         {
             ArgumentNullException.ThrowIfNull(client);
@@ -239,6 +247,11 @@ namespace ExRam.Gremlinq.Providers.Core
             return new RequestInterceptingGremlinqClient(client, transformation);
         }
 
+        /// <summary>
+        /// Wraps the client to observe response status attributes for each response message.
+        /// </summary>
+        /// <param name="client">The client to wrap.</param>
+        /// <param name="observer">An action that is called with the request message and the response status attributes.</param>
         public static IGremlinqClient ObserveResultStatusAttributes(this IGremlinqClient client, Action<RequestMessage, IReadOnlyDictionary<string, object>> observer)
         {
             ArgumentNullException.ThrowIfNull(client);
@@ -247,6 +260,11 @@ namespace ExRam.Gremlinq.Providers.Core
             return new ObserveResultStatusAttributesGremlinqClient(client, observer);
         }
 
+        /// <summary>
+        /// Wraps the client to limit the maximum number of concurrent requests.
+        /// </summary>
+        /// <param name="client">The client to wrap.</param>
+        /// <param name="maxConcurrency">The maximum number of concurrent requests.</param>
         public static IGremlinqClient Throttle(this IGremlinqClient client, int maxConcurrency)
         {
             ArgumentNullException.ThrowIfNull(client);

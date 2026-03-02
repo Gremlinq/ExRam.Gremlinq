@@ -13,6 +13,9 @@ using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Providers.CosmosDb
 {
+    /// <summary>
+    /// Provides extension methods for <see cref="IGremlinQuerySource"/> to configure the Azure CosmosDb provider.
+    /// </summary>
     public static class ConfigurableGremlinQuerySourceExtensions
     {
         private sealed class CosmosDbConfigurator<TVertexBase> : ICosmosDbConfigurator<TVertexBase>
@@ -150,6 +153,13 @@ namespace ExRam.Gremlinq.Providers.CosmosDb
 
         private static readonly NotStep NoneWorkaround = new(IdentityStep.Instance);
 
+        /// <summary>
+        /// Configures the query source to use the Azure CosmosDb Gremlin provider.
+        /// </summary>
+        /// <typeparam name="TVertexBase">The base type for all vertex entities.</typeparam>
+        /// <typeparam name="TEdgeBase">The base type for all edge entities.</typeparam>
+        /// <param name="source">The query source to configure.</param>
+        /// <param name="configuratorTransformation">A function that configures the CosmosDb provider.</param>
         public static IGremlinQuerySource UseCosmosDb<TVertexBase, TEdgeBase>(this IGremlinQuerySource source, Func<ICosmosDbConfigurator<TVertexBase>, IGremlinQuerySourceTransformation> configuratorTransformation)
         {
             ArgumentNullException.ThrowIfNull(source);

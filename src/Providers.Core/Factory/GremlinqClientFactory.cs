@@ -14,6 +14,9 @@ using static Gremlin.Net.Driver.Messages.ResponseStatusCode;
 
 namespace ExRam.Gremlinq.Providers.Core
 {
+    /// <summary>
+    /// Provides factory methods and extension methods for <see cref="IGremlinqClientFactory"/>.
+    /// </summary>
     public static class GremlinqClientFactory
     {
         private sealed class PoolGremlinqClientFactory<TBaseFactory> : IPoolGremlinqClientFactory<TBaseFactory>
@@ -279,6 +282,12 @@ namespace ExRam.Gremlinq.Providers.Core
             private static Func<GremlinQueryExecutorImpl, GremlinQueryExecutionContext, object> CreateExecuteMetaResponseDelegate<T>() => (executor, context) => executor.Execute<T, MetaResponse<T>>(context, static (_, request, response) => [new MetaResponse<T>(request.RequestId, response.Result.Data?.ToArray(), response.Status)]);
         }
 
+        /// <summary>
+        /// Configures created clients by applying a transformation that does not depend on the environment.
+        /// </summary>
+        /// <typeparam name="TClientFactory">The concrete client factory type.</typeparam>
+        /// <param name="clientFactory">The client factory to configure.</param>
+        /// <param name="clientTransformation">A function that transforms the created client.</param>
         public static TClientFactory ConfigureClient<TClientFactory>(this TClientFactory clientFactory, Func<IGremlinqClient, IGremlinqClient> clientTransformation)
             where TClientFactory : IGremlinqClientFactory<TClientFactory>
         {
@@ -287,12 +296,26 @@ namespace ExRam.Gremlinq.Providers.Core
             return clientFactory.ConfigureClient((client, _) => clientTransformation(client));
         }
 
+        /// <summary>
+        /// Wraps the client factory in a connection pool with default pool size and concurrency settings.
+        /// </summary>
+        /// <typeparam name="TBaseFactory">The type of the underlying client factory.</typeparam>
+        /// <param name="baseFactory">The client factory to pool.</param>
         public static IPoolGremlinqClientFactory<TBaseFactory> Pool<TBaseFactory>(this TBaseFactory baseFactory)
             where TBaseFactory : IGremlinqClientFactory => new PoolGremlinqClientFactory<TBaseFactory>(baseFactory, 8, 16, static (client, _) => client);
 
+        /// <summary>
+        /// Configures the client factory to log Gremlin queries using the environment's logger.
+        /// </summary>
+        /// <typeparam name="TClientFactory">The concrete client factory type.</typeparam>
+        /// <param name="clientFactory">The client factory to configure.</param>
         public static TClientFactory Log<TClientFactory>(this TClientFactory clientFactory)
             where TClientFactory : IGremlinqClientFactory<TClientFactory> => clientFactory.ConfigureClient((client, environment) => client.Log(environment));
 
+        /// <summary>
+        /// Creates a <see cref="IGremlinQueryExecutor"/> from this client factory.
+        /// </summary>
+        /// <param name="clientFactory">The client factory to create an executor from.</param>
         public static IGremlinQueryExecutor ToExecutor(this IGremlinqClientFactory clientFactory)
         {
             ArgumentNullException.ThrowIfNull(clientFactory);

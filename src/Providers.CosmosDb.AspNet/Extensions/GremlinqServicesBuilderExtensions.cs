@@ -5,8 +5,17 @@ using ExRam.Gremlinq.Core.AspNet;
 
 namespace ExRam.Gremlinq.Providers.CosmosDb.AspNet
 {
+    /// <summary>
+    /// Provides extension methods for <see cref="IGremlinqServicesBuilder"/> to register the Azure CosmosDb provider with ASP.NET Core dependency injection.
+    /// </summary>
     public static class GremlinqServicesBuilderExtensions
     {
+        /// <summary>
+        /// Registers the Azure CosmosDb Gremlin provider and configures it from the application's configuration section.
+        /// </summary>
+        /// <typeparam name="TVertexBase">The base type for all vertex entities.</typeparam>
+        /// <typeparam name="TEdgeBase">The base type for all edge entities.</typeparam>
+        /// <param name="setup">The services builder to configure.</param>
         public static IGremlinqServicesBuilder<ICosmosDbConfigurator<TVertexBase>> UseCosmosDb<TVertexBase, TEdgeBase>(this IGremlinqServicesBuilder setup)
         {
             ArgumentNullException.ThrowIfNull(setup);

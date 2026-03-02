@@ -14,6 +14,9 @@ using static ExRam.Gremlinq.Core.Transformation.ConverterFactory;
 
 namespace ExRam.Gremlinq.Providers.Core
 {
+    /// <summary>
+    /// Provides extension methods for <see cref="IGremlinQueryEnvironment"/> related to provider support.
+    /// </summary>
     public static class GremlinQueryEnvironmentExtensions
     {
         private static readonly byte[] GraphSon2Header = GetHeader("application/vnd.gremlin-v2.0+json");
@@ -25,6 +28,10 @@ namespace ExRam.Gremlinq.Providers.Core
             MaxDepth = 128
         };
 
+        /// <summary>
+        /// Adds GraphSON v2 and v3 binary serialization/deserialization support to the environment.
+        /// </summary>
+        /// <param name="environment">The query environment to configure.</param>
         public static IGremlinQueryEnvironment AddGraphSonBinarySupport(this IGremlinQueryEnvironment environment)
         {
             ArgumentNullException.ThrowIfNull(environment);

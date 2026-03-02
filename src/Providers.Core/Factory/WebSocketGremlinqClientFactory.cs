@@ -19,6 +19,9 @@ using static Gremlin.Net.Driver.Messages.ResponseStatusCode;
 
 namespace ExRam.Gremlinq.Providers.Core
 {
+    /// <summary>
+    /// Provides factory methods and extension methods for <see cref="IWebSocketGremlinqClientFactory"/>.
+    /// </summary>
     public static class WebSocketGremlinqClientFactory
     {
         private sealed class WebSocketGremlinqClientFactoryImpl<TBinaryMessage> : IWebSocketGremlinqClientFactory
@@ -483,8 +486,17 @@ namespace ExRam.Gremlinq.Providers.Core
             public IWebSocketGremlinqClientFactory ConfigureClient(Func<IGremlinqClient, IGremlinQueryEnvironment, IGremlinqClient> clientTransformation) => new WebSocketGremlinqClientFactoryImpl<TBinaryMessage>(_uri, _clientWebSocketFactory, _authMessageFactory, (client, env) => clientTransformation(_clientTransformation(client, env), env));
         }
 
+        /// <summary>
+        /// A default <see cref="IWebSocketGremlinqClientFactory"/> configured to connect to <c>ws://localhost:8182</c> using GraphSON v3.
+        /// </summary>
         public static readonly IWebSocketGremlinqClientFactory LocalHost = WebSocketGremlinqClientFactoryImpl<GraphSon3BinaryMessage>.LocalHost;
 
+        /// <summary>
+        /// Configures the WebSocket client factory to use plain text (SASL) authentication.
+        /// </summary>
+        /// <param name="factory">The client factory to configure.</param>
+        /// <param name="username">The authentication username.</param>
+        /// <param name="password">The authentication password.</param>
         public static IWebSocketGremlinqClientFactory WithPlainCredentials(this IWebSocketGremlinqClientFactory factory, string username, string password)
         {
             ArgumentNullException.ThrowIfNull(factory);
