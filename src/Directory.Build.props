@@ -7,7 +7,7 @@
 
     <Product>ExRam.Gremlinq</Product>
     <Deterministic>true</Deterministic>
-    <NoWarn>IDE0303;IDE0301$(NoWarn)</NoWarn>
+    <NoWarn>IDE0303;IDE0301;CS1591;$(NoWarn)</NoWarn>
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
   </PropertyGroup>
   
@@ -18,6 +18,7 @@
   </ItemGroup>
   
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" >
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageLicenseFile Condition="$(PackageLicenseFile) == ''">LICENSE.md</PackageLicenseFile>
     <PackageLicenseDirectory Condition="$(PackageLicenseDirectory) == ''">$(SolutionDir)</PackageLicenseDirectory>
