@@ -5,6 +5,9 @@ using System.Reflection;
 
 namespace ExRam.Gremlinq.Core.Transformation
 {
+    /// <summary>
+    /// Provides factory members for creating <see cref="ITransformer"/> instances.
+    /// </summary>
     public static class Transformer
     {
         private sealed class TransformerImpl : ITransformer
@@ -147,6 +150,9 @@ namespace ExRam.Gremlinq.Core.Transformation
             }
         }
 
+        /// <summary>
+        /// An empty transformer with no converter factories registered.
+        /// </summary>
         public static readonly ITransformer Empty = new TransformerImpl(FastImmutableList<IConverterFactory>.Empty);
 
         internal static readonly ITransformer SerializerEmpty = new TransformerImpl(FastImmutableList<IConverterFactory>.Empty.EnsureCapacity(160));

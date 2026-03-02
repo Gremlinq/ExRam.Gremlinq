@@ -2,6 +2,9 @@
 
 namespace ExRam.Gremlinq.Core
 {
+    /// <summary>
+    /// Provides the default <see cref="IGremlinqOptions"/> instance.
+    /// </summary>
     public static class GremlinqOptions
     {
         private sealed class GremlinqOptionsImpl : IGremlinqOptions
@@ -35,6 +38,9 @@ namespace ExRam.Gremlinq.Core
             public IGremlinqOptions Remove<TValue>(GremlinqOption<TValue> option) => new GremlinqOptionsImpl(_dictionary.Remove(option));
         }
 
+        /// <summary>
+        /// An empty options instance with no configured values. All options will return their defaults.
+        /// </summary>
         public static readonly IGremlinqOptions Empty = new GremlinqOptionsImpl(ImmutableDictionary<object, object>.Empty);
     }
 }

@@ -1,5 +1,8 @@
 ﻿namespace ExRam.Gremlinq.Core
 {
+    /// <summary>
+    /// Provides pre-built <see cref="IFeatureSet"/> instances.
+    /// </summary>
     public static class FeatureSet
     {
         private sealed class FeatureSetImpl : IFeatureSet
@@ -40,6 +43,9 @@
             public VertexPropertyFeatures VertexPropertyFeatures { get; }
         }
 
+        /// <summary>
+        /// A feature set with all features enabled.
+        /// </summary>
         public static IFeatureSet Full = new FeatureSetImpl(
             GraphFeatures.All,
             VariableFeatures.All,
@@ -48,6 +54,9 @@
             EdgeFeatures.All,
             EdgePropertyFeatures.All);
 
+        /// <summary>
+        /// A feature set with no features enabled.
+        /// </summary>
         public static IFeatureSet None = new FeatureSetImpl(
             GraphFeatures.None,
             VariableFeatures.None,

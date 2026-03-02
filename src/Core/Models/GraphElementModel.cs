@@ -4,6 +4,9 @@ using System.Reflection;
 
 namespace ExRam.Gremlinq.Core.Models
 {
+    /// <summary>
+    /// Provides factory methods for <see cref="IGraphElementModel"/>.
+    /// </summary>
     public static class GraphElementModel
     {
         private sealed class GraphElementModelImpl<TBaseType> : IGraphElementModel
@@ -168,6 +171,10 @@ namespace ExRam.Gremlinq.Core.Models
 
         internal static readonly IGraphElementModel Invalid = new InvalidGraphElementModel();
 
+        /// <summary>
+        /// Configures all element labels to use camelCase formatting.
+        /// </summary>
+        /// <param name="model">The element model to configure.</param>
         public static IGraphElementModel UseCamelCaseLabels(this IGraphElementModel model)
         {
             ArgumentNullException.ThrowIfNull(model);
@@ -175,6 +182,10 @@ namespace ExRam.Gremlinq.Core.Models
             return model.ConfigureLabels(static (_, proposedLabel) => proposedLabel.ToCamelCase());
         }
 
+        /// <summary>
+        /// Configures all element labels to use lowercase formatting.
+        /// </summary>
+        /// <param name="model">The element model to configure.</param>
         public static IGraphElementModel UseLowerCaseLabels(this IGraphElementModel model)
         {
             ArgumentNullException.ThrowIfNull(model);
@@ -182,6 +193,11 @@ namespace ExRam.Gremlinq.Core.Models
             return model.ConfigureLabels(static (_, proposedLabel) => proposedLabel.ToLower());
         }
 
+        /// <summary>
+        /// Configures element labels by applying a transformation function.
+        /// </summary>
+        /// <param name="model">The element model to configure.</param>
+        /// <param name="overrideTransformation">A function that receives the element type and its current label, and returns the new label.</param>
         public static IGraphElementModel ConfigureLabels(this IGraphElementModel model, Func<Type, string, string> overrideTransformation)
         {
             ArgumentNullException.ThrowIfNull(model);
@@ -190,6 +206,12 @@ namespace ExRam.Gremlinq.Core.Models
             return model.ConfigureMetadata((type, metadata) => new ElementMetadata(overrideTransformation(type, metadata.Label)));
         }
 
+        /// <summary>
+        /// Configures member metadata for the specified element type using a fluent configurator.
+        /// </summary>
+        /// <typeparam name="TElement">The element type whose members to configure.</typeparam>
+        /// <param name="model">The element model to configure.</param>
+        /// <param name="transformation">A function that configures the member metadata.</param>
         public static IGraphElementModel ConfigureElement<TElement>(this IGraphElementModel model, Func<IMemberMetadataConfigurator<TElement>, IMemberMetadataConfigurator<TElement>> transformation)
         {
             ArgumentNullException.ThrowIfNull(model);
@@ -198,6 +220,10 @@ namespace ExRam.Gremlinq.Core.Models
             return transformation(MemberMetadataConfigurator<TElement>.Identity).Transform(model);
         }
 
+        /// <summary>
+        /// Configures all member names to use camelCase formatting.
+        /// </summary>
+        /// <param name="model">The element model to configure.</param>
         public static IGraphElementModel UseCamelCaseMemberNames(this IGraphElementModel model)
         {
             ArgumentNullException.ThrowIfNull(model);
@@ -205,6 +231,10 @@ namespace ExRam.Gremlinq.Core.Models
             return model.ConfigureMemberNames(static (_, name) => name.ToCamelCase());
         }
 
+        /// <summary>
+        /// Configures all member names to use lowercase formatting.
+        /// </summary>
+        /// <param name="model">The element model to configure.</param>
         public static IGraphElementModel UseLowerCaseMemberNames(this IGraphElementModel model)
         {
             ArgumentNullException.ThrowIfNull(model);
@@ -212,6 +242,11 @@ namespace ExRam.Gremlinq.Core.Models
             return model.ConfigureMemberNames(static (_, name) => name.ToLower());
         }
 
+        /// <summary>
+        /// Configures member names by applying a transformation function.
+        /// </summary>
+        /// <param name="model">The element model to configure.</param>
+        /// <param name="transformation">A function that receives the member and its current name, and returns the new name.</param>
         public static IGraphElementModel ConfigureMemberNames(this IGraphElementModel model, Func<MemberInfo, string, string> transformation)
         {
             ArgumentNullException.ThrowIfNull(model);

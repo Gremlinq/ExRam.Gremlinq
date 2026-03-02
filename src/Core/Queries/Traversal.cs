@@ -4,8 +4,14 @@ using ExRam.Gremlinq.Core.Steps;
 
 namespace ExRam.Gremlinq.Core
 {
+    /// <summary>
+    /// An immutable sequence of Gremlin <see cref="Steps.Step"/> objects that represents a traversal, along with its projection.
+    /// </summary>
     public readonly struct Traversal
     {
+        /// <summary>
+        /// An empty traversal with no steps.
+        /// </summary>
         public static readonly Traversal Empty = new(FastImmutableList<Step>.Empty, 0, Projection.Empty);
 
         private readonly uint _writeStepsCount;

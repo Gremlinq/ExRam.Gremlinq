@@ -1,14 +1,24 @@
 ﻿namespace ExRam.Gremlinq.Core.GraphElements
 {
+    /// <summary>
+    /// Base class for graph element properties.
+    /// </summary>
     public abstract class Property
     {
         public override string ToString() => $"p[{Key}->{GetValue()}]";
 
         protected internal abstract object? GetValue();
 
+        /// <summary>
+        /// Gets the key (name) of the property.
+        /// </summary>
         public string? Key { get; private set; }
     }
 
+    /// <summary>
+    /// A typed graph element property with a value of type <typeparamref name="TValue"/>.
+    /// </summary>
+    /// <typeparam name="TValue">The type of the property value.</typeparam>
     public class Property<TValue> : Property
     {
         private TValue _value;

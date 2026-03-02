@@ -12,6 +12,9 @@ using System.Runtime.CompilerServices;
 
 namespace ExRam.Gremlinq.Core.Serialization
 {
+    /// <summary>
+    /// Provides the default <see cref="ITransformer"/> instance for serializing queries to Gremlin bytecode.
+    /// </summary>
     public static class Serializer
     {
         private sealed class ByteArrayToStringFallbackConverterFactory : IConverterFactory
@@ -86,6 +89,9 @@ namespace ExRam.Gremlinq.Core.Serialization
             }
         }
 
+        /// <summary>
+        /// The default serializer transformer that converts query steps to Gremlin bytecode instructions.
+        /// </summary>
         public static readonly ITransformer Default = Transformer.SerializerEmpty
             .AddBaseConverters()
             .AddDefaultStepConverters();

@@ -3,6 +3,9 @@ using System.Runtime.CompilerServices;
 
 namespace ExRam.Gremlinq.Core.Transformation
 {
+    /// <summary>
+    /// Provides factory methods for creating <see cref="IConverterFactory"/> instances from delegate functions.
+    /// </summary>
     public static class ConverterFactory
     {
         private sealed class ClassFuncConverterFactory<TStaticSource, TStaticTarget> : IConverterFactory
@@ -157,6 +160,12 @@ namespace ExRam.Gremlinq.Core.Transformation
                     : null;
         }
 
+        /// <summary>
+        /// Creates a converter factory from a function that converts from <typeparamref name="TStaticSource"/> to a struct type <typeparamref name="TStaticTarget"/>.
+        /// </summary>
+        /// <typeparam name="TStaticSource">The source type.</typeparam>
+        /// <typeparam name="TStaticTarget">The target value type.</typeparam>
+        /// <param name="func">The conversion function. Receives the source value, environment, defer transformer, and recurse transformer.</param>
         public static IConverterFactory Create<TStaticSource, TStaticTarget>(Func<TStaticSource, IGremlinQueryEnvironment, ITransformer, ITransformer, TStaticTarget?> func)
             where TStaticTarget : struct
         {
@@ -165,6 +174,12 @@ namespace ExRam.Gremlinq.Core.Transformation
             return new StructFuncConverterFactory<TStaticSource, TStaticTarget>(func);
         }
 
+        /// <summary>
+        /// Creates a converter factory from a function that converts from <typeparamref name="TStaticSource"/> to a reference type <typeparamref name="TStaticTarget"/>.
+        /// </summary>
+        /// <typeparam name="TStaticSource">The source type.</typeparam>
+        /// <typeparam name="TStaticTarget">The target reference type.</typeparam>
+        /// <param name="func">The conversion function. Receives the source value, environment, defer transformer, and recurse transformer.</param>
         public static IConverterFactory Create<TStaticSource, TStaticTarget>(Func<TStaticSource, IGremlinQueryEnvironment, ITransformer, ITransformer, TStaticTarget?> func)
             where TStaticTarget : class
         {

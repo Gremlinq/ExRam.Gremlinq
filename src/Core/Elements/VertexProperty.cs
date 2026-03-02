@@ -2,6 +2,11 @@
 
 namespace ExRam.Gremlinq.Core.GraphElements
 {
+    /// <summary>
+    /// A vertex property with a value and meta-properties.
+    /// </summary>
+    /// <typeparam name="TValue">The type of the property value.</typeparam>
+    /// <typeparam name="TMeta">The type of the meta-properties.</typeparam>
     public class VertexProperty<TValue, TMeta> : Property<TValue>, IVertexProperty
     {
         public VertexProperty(TValue value) : base(value)
@@ -35,6 +40,10 @@ namespace ExRam.Gremlinq.Core.GraphElements
         public TMeta? Properties { get; set; }
     }
 
+    /// <summary>
+    /// A vertex property with a value and a dictionary of string-keyed meta-properties.
+    /// </summary>
+    /// <typeparam name="TValue">The type of the property value.</typeparam>
     public class VertexProperty<TValue> : VertexProperty<TValue, IDictionary<string, object>>
     {
         public VertexProperty(TValue value) : base(value)

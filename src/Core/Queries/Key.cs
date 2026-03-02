@@ -2,6 +2,9 @@
 
 namespace ExRam.Gremlinq.Core
 {
+    /// <summary>
+    /// Represents either a string property name or a TinkerPop <see cref="T"/> enum value used as a graph element key.
+    /// </summary>
     public readonly struct Key : IComparable<Key>
     {
         private readonly object? _key;

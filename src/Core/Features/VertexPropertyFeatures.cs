@@ -1,5 +1,8 @@
 ﻿namespace ExRam.Gremlinq.Core
 {
+    /// <summary>
+    /// Feature flags describing vertex property capabilities of a graph database.
+    /// </summary>
     [Flags]
     public enum VertexPropertyFeatures
     {

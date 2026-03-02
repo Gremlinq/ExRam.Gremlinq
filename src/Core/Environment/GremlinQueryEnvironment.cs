@@ -10,6 +10,9 @@ using Microsoft.Extensions.Logging.Abstractions;
 
 namespace ExRam.Gremlinq.Core
 {
+    /// <summary>
+    /// Provides the default <see cref="IGremlinQueryEnvironment"/> instance and extension methods for configuring environments.
+    /// </summary>
     public static class GremlinQueryEnvironment
     {
         private static readonly IImmutableSet<Type> DefaultNativeTypes = new[]
@@ -87,6 +90,9 @@ namespace ExRam.Gremlinq.Core
             public IImmutableSet<Type> NativeTypes { get; }
         }
 
+        /// <summary>
+        /// The default environment that has no provider configured. Executing queries on this environment will throw.
+        /// </summary>
         public static readonly IGremlinQueryEnvironment Invalid = new GremlinQueryEnvironmentImpl(
             GraphModel.Invalid,
             Serializer.Default,
@@ -98,6 +104,11 @@ namespace ExRam.Gremlinq.Core
             DefaultNativeTypes,
             NullLogger.Instance);
 
+        /// <summary>
+        /// Replaces the graph model on the environment.
+        /// </summary>
+        /// <param name="source">The environment to configure.</param>
+        /// <param name="model">The graph model to use.</param>
         public static IGremlinQueryEnvironment UseModel(this IGremlinQueryEnvironment source, IGraphModel model)
         {
             ArgumentNullException.ThrowIfNull(source);
@@ -106,6 +117,11 @@ namespace ExRam.Gremlinq.Core
             return source.ConfigureModel(_ => model);
         }
 
+        /// <summary>
+        /// Replaces the logger on the environment.
+        /// </summary>
+        /// <param name="source">The environment to configure.</param>
+        /// <param name="logger">The logger to use.</param>
         public static IGremlinQueryEnvironment UseLogger(this IGremlinQueryEnvironment source, ILogger logger)
         {
             ArgumentNullException.ThrowIfNull(source);
@@ -114,6 +130,11 @@ namespace ExRam.Gremlinq.Core
             return source.ConfigureLogger(_ => logger);
         }
 
+        /// <summary>
+        /// Replaces the serializer on the environment.
+        /// </summary>
+        /// <param name="environment">The environment to configure.</param>
+        /// <param name="serializer">The serializer to use.</param>
         public static IGremlinQueryEnvironment UseSerializer(this IGremlinQueryEnvironment environment, ITransformer serializer)
         {
             ArgumentNullException.ThrowIfNull(environment);
@@ -122,6 +143,11 @@ namespace ExRam.Gremlinq.Core
             return environment.ConfigureSerializer(_ => serializer);
         }
 
+        /// <summary>
+        /// Replaces the deserializer on the environment.
+        /// </summary>
+        /// <param name="environment">The environment to configure.</param>
+        /// <param name="deserializer">The deserializer to use.</param>
         public static IGremlinQueryEnvironment UseDeserializer(this IGremlinQueryEnvironment environment, ITransformer deserializer)
         {
             ArgumentNullException.ThrowIfNull(environment);
@@ -130,6 +156,11 @@ namespace ExRam.Gremlinq.Core
             return environment.ConfigureDeserializer(_ => deserializer);
         }
 
+        /// <summary>
+        /// Replaces the query executor on the environment.
+        /// </summary>
+        /// <param name="environment">The environment to configure.</param>
+        /// <param name="executor">The executor to use.</param>
         public static IGremlinQueryEnvironment UseExecutor(this IGremlinQueryEnvironment environment, IGremlinQueryExecutor executor)
         {
             ArgumentNullException.ThrowIfNull(environment);
@@ -138,6 +169,11 @@ namespace ExRam.Gremlinq.Core
             return environment.ConfigureExecutor(_ => executor);
         }
 
+        /// <summary>
+        /// Replaces the debugger on the environment.
+        /// </summary>
+        /// <param name="environment">The environment to configure.</param>
+        /// <param name="debugger">The debugger to use.</param>
         public static IGremlinQueryEnvironment UseDebugger(this IGremlinQueryEnvironment environment, IGremlinQueryDebugger debugger)
         {
             ArgumentNullException.ThrowIfNull(environment);

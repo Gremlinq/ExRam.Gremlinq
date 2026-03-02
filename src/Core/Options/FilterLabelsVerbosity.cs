@@ -1,17 +1,22 @@
 ﻿namespace ExRam.Gremlinq.Core
 {
+    /// <summary>
+    /// Controls whether Gremlinq includes all label filters or omits them when they match all known types.
+    /// </summary>
     public enum FilterLabelsVerbosity
     {
-        // Includes all appropriate labels in a map-step, e.g. ".out('l1', ...)", even if the set
-        // of labels equals all possible labels, enabling the much shorter syntax ".out()".
-        // This is the default and pessimistic option since in an actual database, there might
-        // exist elements with labels unknown to Gremlinq that would otherwise be incorrectly included
-        // in the query results.
+        /// <summary>
+        /// Always includes all appropriate labels in filter steps (e.g. <c>.out('l1', ...)</c>),
+        /// even when the label set matches all known types. This is the default and most conservative
+        /// option since the database may contain elements with labels unknown to Gremlinq.
+        /// </summary>
         Maximum = 0,
 
-        // Assume there are no elements with labels unknown to Gremlinq in the queried database,
-        // enabling Gremlinq to use e.g. "out()" when the more verbose syntax ".out('l1'...)" would
-        // include all labels known to Gremlinq.
+        /// <summary>
+        /// Omits label filters when they would include all types known to Gremlinq,
+        /// enabling shorter syntax (e.g. <c>.out()</c> instead of <c>.out('l1', ...)</c>).
+        /// Assumes no elements with unknown labels exist in the database.
+        /// </summary>
         Minimum = 1
     }
 }

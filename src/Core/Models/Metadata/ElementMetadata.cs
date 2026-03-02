@@ -2,10 +2,17 @@
 
 namespace ExRam.Gremlinq.Core.Models
 {
+    /// <summary>
+    /// Metadata associated with a graph element type, such as its label.
+    /// </summary>
     public readonly struct ElementMetadata : IEquatable<ElementMetadata>
     {
         private readonly string _label;
 
+        /// <summary>
+        /// Initializes a new instance of <see cref="ElementMetadata"/> with the specified label.
+        /// </summary>
+        /// <param name="label">The label for the graph element.</param>
         public ElementMetadata(string label)
         {
             ArgumentNullException.ThrowIfNull(label);
@@ -13,6 +20,9 @@ namespace ExRam.Gremlinq.Core.Models
             _label = label;
         }
 
+        /// <summary>
+        /// Gets the label of the graph element.
+        /// </summary>
         public string Label => _label ?? throw UninitializedStruct();
 
         public override bool Equals(object? obj) => obj is ElementMetadata metadata && Equals(metadata);
