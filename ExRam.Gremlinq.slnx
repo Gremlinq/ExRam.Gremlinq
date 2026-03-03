@@ -28,7 +28,7 @@
     <Project Path="src/Support.TestContainers/ExRam.Gremlinq.Support.TestContainers.csproj" />
   </Folder>
   <Folder Name="/Testing/">
-    <Project Path="src/Testing.AirRoutes.Generator/ExRam.Gremlinq.Testing.AirRoutes.Generators.csproj" />
+    <Project Path="src/Testing.AirRoutes.Generators/ExRam.Gremlinq.Testing.AirRoutes.Generators.csproj" />
     <Project Path="src/Testing.AirRoutes/ExRam.Gremlinq.Testing.AirRoutes.csproj" />
   </Folder>
   <Folder Name="/Tests/">
