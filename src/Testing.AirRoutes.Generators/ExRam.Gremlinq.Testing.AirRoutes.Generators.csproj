@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="..\Core.Generators\CodeWriter.cs" Link="CodeWriter.cs" />
+    <Compile Include="../Core.Generators/CodeWriter.cs" Link="CodeWriter.cs" />
   </ItemGroup>
 
   <ItemGroup>
