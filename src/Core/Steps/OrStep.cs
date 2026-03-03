@@ -6,6 +6,8 @@ namespace ExRam.Gremlinq.Core.Steps
     /// <seealso href="https://tinkerpop.apache.org/docs/current/reference/#or-step">Reference Documentation - Or Step</seealso>
     public sealed class OrStep : LogicalStep<OrStep>, IFilterStep
     {
+        /// <summary>Initializes a new instance of <see cref="OrStep"/> with the given sub-traversals.</summary>
+        /// <param name="traversals">The sub-traversals of which at least one must yield results.</param>
         public OrStep(ImmutableArray<Traversal> traversals) : base(traversals)
         {
         }

@@ -6,6 +6,8 @@ namespace ExRam.Gremlinq.Core.Steps
     /// <seealso href="https://tinkerpop.apache.org/docs/current/reference/#and-step">Reference Documentation - And Step</seealso>
     public sealed class AndStep : LogicalStep<AndStep>, IFilterStep
     {
+        /// <summary>Initializes a new instance of <see cref="AndStep"/> with the given sub-traversals.</summary>
+        /// <param name="traversals">The sub-traversals that must all yield results.</param>
         public AndStep(ImmutableArray<Traversal> traversals) : base(traversals)
         {
         }

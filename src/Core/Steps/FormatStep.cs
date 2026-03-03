@@ -9,14 +9,20 @@ namespace ExRam.Gremlinq.Core.Steps
         /// <summary>Represents a <c>by()</c> modulator with a traversal argument applied to a <c>format()</c> step.</summary>
         public sealed class By : Step
         {
+            /// <summary>Initializes a new instance of <see cref="By"/>.</summary>
+            /// <param name="traversal">The by-modulator traversal.</param>
             public By(Traversal traversal)
             {
                 Traversal = traversal;
             }
 
+            /// <summary>Gets the by-modulator traversal.</summary>
             public Traversal Traversal { get; }
         }
 
+        /// <summary>Initializes a new instance of <see cref="FormatStep"/>.</summary>
+        /// <param name="format">The format string.</param>
+        /// <param name="arguments">The format arguments.</param>
         public FormatStep(string format, ImmutableArray<object?> arguments)
         {
             ArgumentNullException.ThrowIfNull(format);
@@ -25,7 +31,9 @@ namespace ExRam.Gremlinq.Core.Steps
             Arguments = arguments;
         }
 
+        /// <summary>Gets the format string.</summary>
         public string Format { get; }
+        /// <summary>Gets the format arguments.</summary>
         public ImmutableArray<object?> Arguments { get; }
     }
 }

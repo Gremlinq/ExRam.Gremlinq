@@ -9,14 +9,19 @@ namespace ExRam.Gremlinq.Core.Steps
         /// <summary>Represents a <c>by()</c> modulator specifying the member to compare in a <c>where()</c> step.</summary>
         public sealed class ByMemberStep : Step
         {
+            /// <summary>Initializes a new instance of <see cref="ByMemberStep"/>.</summary>
+            /// <param name="key">The optional member key to compare.</param>
             public ByMemberStep(Key? key = null)
             {
                 Key = key;
             }
 
+            /// <summary>Gets the optional member key.</summary>
             public Key? Key { get; }
         }
 
+        /// <summary>Initializes a new instance of <see cref="WherePredicateStep"/> with the specified predicate.</summary>
+        /// <param name="predicate">The predicate to filter by.</param>
         public WherePredicateStep(P predicate)
         {
             ArgumentNullException.ThrowIfNull(predicate);
@@ -24,6 +29,7 @@ namespace ExRam.Gremlinq.Core.Steps
             Predicate = predicate;
         }
 
+        /// <summary>Gets the filter predicate.</summary>
         public P Predicate { get; }
     }
 }

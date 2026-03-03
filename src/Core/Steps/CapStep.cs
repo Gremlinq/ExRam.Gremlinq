@@ -4,6 +4,8 @@ namespace ExRam.Gremlinq.Core.Steps
     /// <seealso href="https://tinkerpop.apache.org/docs/current/reference/#cap-step">Reference Documentation - Cap Step</seealso>
     public sealed class CapStep : Step
     {
+        /// <summary>Initializes a new instance of <see cref="CapStep"/> with the specified step label.</summary>
+        /// <param name="stepLabel">The step label of the side-effect to retrieve.</param>
         public CapStep(StepLabel stepLabel)
         {
             ArgumentNullException.ThrowIfNull(stepLabel);
@@ -11,6 +13,7 @@ namespace ExRam.Gremlinq.Core.Steps
             StepLabel = stepLabel;
         }
 
+        /// <summary>Gets the step label of the side-effect to retrieve.</summary>
         public StepLabel StepLabel { get; }
     }
 }

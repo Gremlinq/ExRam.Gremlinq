@@ -6,6 +6,7 @@ namespace ExRam.Gremlinq.Core.Steps
     /// <seealso href="https://tinkerpop.apache.org/docs/current/reference/#toupper-step">Reference Documentation - ToUpper Step</seealso>
     public sealed class ToUpperStep : Step
     {
+        /// <summary>Gets the global-scoped instance.</summary>
         public static readonly ToUpperStep Global = new(Scope.Global);
 
         private ToUpperStep(Scope scope)
@@ -13,6 +14,7 @@ namespace ExRam.Gremlinq.Core.Steps
             Scope = scope;
         }
 
+        /// <summary>Gets the scope.</summary>
         public Scope Scope { get; }
     }
 }

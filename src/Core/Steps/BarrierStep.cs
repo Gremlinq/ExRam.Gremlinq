@@ -4,6 +4,7 @@ namespace ExRam.Gremlinq.Core.Steps
     /// <seealso href="https://tinkerpop.apache.org/docs/current/reference/#barrier-step">Reference Documentation - Barrier Step</seealso>
     public sealed class BarrierStep : Step
     {
+        /// <summary>Gets the singleton instance of <see cref="BarrierStep"/>.</summary>
         public static readonly BarrierStep Instance = new();
     }
 }

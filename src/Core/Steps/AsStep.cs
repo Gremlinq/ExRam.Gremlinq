@@ -4,6 +4,8 @@ namespace ExRam.Gremlinq.Core.Steps
     /// <seealso href="https://tinkerpop.apache.org/docs/current/reference/#as-step">Reference Documentation - As Step</seealso>
     public sealed class AsStep : Step
     {
+        /// <summary>Initializes a new instance of <see cref="AsStep"/> with the specified step label.</summary>
+        /// <param name="stepLabel">The label to assign to the current step.</param>
         public AsStep(StepLabel stepLabel)
         {
             ArgumentNullException.ThrowIfNull(stepLabel);
@@ -11,6 +13,7 @@ namespace ExRam.Gremlinq.Core.Steps
             StepLabel = stepLabel;
         }
 
+        /// <summary>Gets the step label assigned to the current step.</summary>
         public StepLabel StepLabel { get; }
     }
 }

@@ -4,11 +4,14 @@ namespace ExRam.Gremlinq.Core.Steps
     /// <seealso href="https://tinkerpop.apache.org/docs/current/reference/#optional-step">Reference Documentation - Optional Step</seealso>
     public sealed class OptionalStep : Step
     {
+        /// <summary>Initializes a new instance of <see cref="OptionalStep"/> with the specified traversal.</summary>
+        /// <param name="traversal">The optional traversal.</param>
         public OptionalStep(Traversal traversal) : base(traversal.GetSideEffectSemanticsChange())
         {
             Traversal = traversal;
         }
 
+        /// <summary>Gets the optional traversal.</summary>
         public Traversal Traversal { get; }
     }
 }

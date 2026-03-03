@@ -6,6 +6,8 @@ namespace ExRam.Gremlinq.Core.Steps
     public abstract class LogicalStep<TStep> : Step
         where TStep : LogicalStep<TStep>
     {
+        /// <summary>Initializes a new instance of <see cref="LogicalStep{TStep}"/> with the specified sub-traversals.</summary>
+        /// <param name="traversals">The sub-traversals to combine.</param>
         protected LogicalStep(ImmutableArray<Traversal> traversals) : base(traversals.GetSideEffectSemanticsChange())
         {
             Traversals = traversals;
@@ -35,6 +37,7 @@ namespace ExRam.Gremlinq.Core.Steps
             }
         }
 
+        /// <summary>Gets the sub-traversals.</summary>
         public ImmutableArray<Traversal> Traversals { get; }
     }
 }

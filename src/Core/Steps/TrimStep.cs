@@ -6,6 +6,7 @@ namespace ExRam.Gremlinq.Core.Steps
     /// <seealso href="https://tinkerpop.apache.org/docs/current/reference/#trim-step">Reference Documentation - Trim Step</seealso>
     public sealed class TrimStep : Step
     {
+        /// <summary>Gets the global-scoped instance.</summary>
         public static readonly TrimStep Global = new(Scope.Global);
 
         private TrimStep(Scope scope)
@@ -13,6 +14,7 @@ namespace ExRam.Gremlinq.Core.Steps
             Scope = scope;
         }
 
+        /// <summary>Gets the scope.</summary>
         public Scope Scope { get; }
     }
 }

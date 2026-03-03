@@ -4,6 +4,7 @@ namespace ExRam.Gremlinq.Core.Steps
     /// <seealso href="https://tinkerpop.apache.org/docs/current/reference/#unfold-step">Reference Documentation - Unfold Step</seealso>
     public sealed class UnfoldStep : Step
     {
+        /// <summary>Gets the singleton instance of <see cref="UnfoldStep"/>.</summary>
         public static readonly UnfoldStep Instance = new();
     }
 }

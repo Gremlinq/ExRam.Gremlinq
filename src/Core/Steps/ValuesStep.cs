@@ -8,11 +8,14 @@ namespace ExRam.Gremlinq.Core.Steps
     {
         internal static readonly ValuesStep All = new (ImmutableArray<string>.Empty);
 
+        /// <summary>Initializes a new instance of <see cref="ValuesStep"/> with the specified property keys.</summary>
+        /// <param name="keys">The property keys to retrieve values for.</param>
         public ValuesStep(ImmutableArray<string> keys)
         {
             Keys = keys;
         }
 
+        /// <summary>Gets the property keys.</summary>
         public ImmutableArray<string> Keys { get; }
     }
 }

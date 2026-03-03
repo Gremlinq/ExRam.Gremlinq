@@ -4,6 +4,7 @@ namespace ExRam.Gremlinq.Core.Steps
     /// <seealso href="https://tinkerpop.apache.org/docs/current/reference/#value-step">Reference Documentation - Value Step</seealso>
     public sealed class ValueStep : Step
     {
+        /// <summary>Gets the singleton instance of <see cref="ValueStep"/>.</summary>
         public static readonly ValueStep Instance = new();
     }
 }

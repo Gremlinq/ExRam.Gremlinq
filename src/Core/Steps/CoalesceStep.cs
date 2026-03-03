@@ -6,6 +6,8 @@ namespace ExRam.Gremlinq.Core.Steps
     /// <seealso href="https://tinkerpop.apache.org/docs/current/reference/#coalesce-step">Reference Documentation - Coalesce Step</seealso>
     public sealed class CoalesceStep : MultiTraversalArgumentStep
     {
+        /// <summary>Initializes a new instance of <see cref="CoalesceStep"/> with the specified traversals.</summary>
+        /// <param name="traversals">The traversals evaluated in order until one yields results.</param>
         public CoalesceStep(ImmutableArray<Traversal> traversals) : base(traversals)
         {
         }

@@ -4,6 +4,7 @@ namespace ExRam.Gremlinq.Core.Steps
     /// <seealso href="https://tinkerpop.apache.org/docs/current/reference/#path-step">Reference Documentation - Path Step</seealso>
     public sealed class PathStep : Step
     {
+        /// <summary>Gets the singleton instance of <see cref="PathStep"/>.</summary>
         public static readonly PathStep Instance = new();
     }
 }

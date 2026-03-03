@@ -4,6 +4,7 @@ namespace ExRam.Gremlinq.Core.Steps
     /// <seealso href="https://tinkerpop.apache.org/docs/current/reference/#fold-step">Reference Documentation - Fold Step</seealso>
     public sealed class FoldStep : Step
     {
+        /// <summary>Gets the singleton instance of <see cref="FoldStep"/>.</summary>
         public static readonly FoldStep Instance = new();
     }
 }

@@ -6,6 +6,8 @@ namespace ExRam.Gremlinq.Core.Steps
     /// <seealso href="https://tinkerpop.apache.org/docs/current/reference/#select-step">Reference Documentation - Select Step</seealso>
     public sealed class SelectColumnStep : Step
     {
+        /// <summary>Initializes a new instance of <see cref="SelectColumnStep"/> with the specified column.</summary>
+        /// <param name="column">The column to select (keys or values).</param>
         public SelectColumnStep(Column column)
         {
             ArgumentNullException.ThrowIfNull(column);
@@ -13,6 +15,7 @@ namespace ExRam.Gremlinq.Core.Steps
             Column = column;
         }
 
+        /// <summary>Gets the column to select.</summary>
         public Column Column { get; }
     }
 }

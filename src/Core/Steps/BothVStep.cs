@@ -4,6 +4,7 @@ namespace ExRam.Gremlinq.Core.Steps
     /// <seealso href="https://tinkerpop.apache.org/docs/current/reference/#vertex-steps">Reference Documentation - Vertex Step</seealso>
     public sealed class BothVStep : Step
     {
+        /// <summary>Gets the singleton instance of <see cref="BothVStep"/>.</summary>
         public static readonly BothVStep Instance = new();
     }
 }
