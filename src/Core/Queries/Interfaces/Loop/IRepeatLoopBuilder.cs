@@ -1,8 +1,9 @@
-﻿#pragma warning disable IDE0003
+#pragma warning disable IDE0003
 // ReSharper disable ArrangeThisQualifier
 
 namespace ExRam.Gremlinq.Core
 {
+    /// <summary>A loop builder with a repeat traversal set.</summary>
     public interface IRepeatLoopBuilder<out TQuery> : IFinalLoopBuilder<TQuery>
         where TQuery : IGremlinQueryBase
     {

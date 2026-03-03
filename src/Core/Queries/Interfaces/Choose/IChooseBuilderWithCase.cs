@@ -1,5 +1,9 @@
 ﻿namespace ExRam.Gremlinq.Core
 {
+    /// <summary>A choose builder that has at least one case and allows adding more cases or a default.</summary>
+    /// <typeparam name="TSourceQuery">The source query type.</typeparam>
+    /// <typeparam name="TElement">The type of the element used for case matching.</typeparam>
+    /// <typeparam name="TTargetQuery">The result query type.</typeparam>
     public interface IChooseBuilderWithCase<out TSourceQuery, in TElement, TTargetQuery> : IChooseBuilderWithCaseOrDefault<TTargetQuery>
         where TSourceQuery : IGremlinQueryBase where TTargetQuery : IGremlinQueryBase
     {

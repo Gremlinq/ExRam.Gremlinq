@@ -1,5 +1,6 @@
-﻿namespace ExRam.Gremlinq.Core
+namespace ExRam.Gremlinq.Core
 {
+    /// <summary>Provides base operations for queries over edges where the incoming (head) vertex is known.</summary>
     public interface IInEdgeGremlinQueryBase :
         IEdgeGremlinQueryBase
     {
@@ -7,6 +8,9 @@
         new IEdgeGremlinQuery<object> Lower();
     }
 
+    /// <summary>Provides typed base operations for in-edge queries with edge type <typeparamref name="TEdge"/> and incoming vertex type <typeparamref name="TInVertex"/>.</summary>
+    /// <typeparam name="TEdge">The edge type.</typeparam>
+    /// <typeparam name="TInVertex">The incoming (head) vertex type.</typeparam>
     public interface IInEdgeGremlinQueryBase<TEdge, TInVertex> :
         IInEdgeGremlinQueryBase,
         IEdgeGremlinQueryBase<TEdge>
@@ -31,17 +35,26 @@
         new IEdgeGremlinQuery<TEdge> Lower();
     }
 
+    /// <summary>Provides recursive (CRTP) base operations for in-edge queries.</summary>
+    /// <typeparam name="TSelf">The concrete query type for fluent chaining.</typeparam>
     public interface IInEdgeGremlinQueryBaseRec<TSelf> :
         IInEdgeGremlinQueryBase,
         IEdgeGremlinQueryBaseRec<TSelf>
             where TSelf : IInEdgeGremlinQueryBaseRec<TSelf>;
 
+    /// <summary>Provides recursive (CRTP) typed base operations for in-edge queries.</summary>
+    /// <typeparam name="TEdge">The edge type.</typeparam>
+    /// <typeparam name="TInVertex">The incoming (head) vertex type.</typeparam>
+    /// <typeparam name="TSelf">The concrete query type for fluent chaining.</typeparam>
     public interface IInEdgeGremlinQueryBaseRec<TEdge, TInVertex, TSelf> :
         IInEdgeGremlinQueryBaseRec<TSelf>,
         IInEdgeGremlinQueryBase<TEdge, TInVertex>,
         IEdgeGremlinQueryBaseRec<TEdge, TSelf>
             where TSelf : IInEdgeGremlinQueryBaseRec<TEdge, TInVertex, TSelf>;
 
+    /// <summary>A query over edges of type <typeparamref name="TEdge"/> where the incoming vertex is of type <typeparamref name="TInVertex"/>.</summary>
+    /// <typeparam name="TEdge">The edge type.</typeparam>
+    /// <typeparam name="TInVertex">The incoming (head) vertex type.</typeparam>
     public interface IInEdgeGremlinQuery<TEdge, TInVertex> :
         IInEdgeGremlinQueryBaseRec<TEdge, TInVertex, IInEdgeGremlinQuery<TEdge, TInVertex>>;
 }

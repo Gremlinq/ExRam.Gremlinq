@@ -1,8 +1,10 @@
-﻿using System.Linq.Expressions;
+using System.Linq.Expressions;
 using ExRam.Gremlinq.Core.GraphElements;
 
 namespace ExRam.Gremlinq.Core
 {
+    /// <summary>Provides base operations for queries over vertex properties.</summary>
+    /// <seealso href="https://tinkerpop.apache.org/javadocs/current/full/org/apache/tinkerpop/gremlin/structure/VertexProperty.html">VertexProperty Javadoc</seealso>
     public interface IVertexPropertyGremlinQueryBase : IElementGremlinQueryBase
     {
         /// <inheritdoc cref="IEdgeOrVertexGremlinQueryBase.Lower" />
@@ -57,6 +59,9 @@ namespace ExRam.Gremlinq.Core
         IMapGremlinQuery<IDictionary<string, object>> ValueMap(params ReadOnlySpan<string> keys);
     }
 
+    /// <summary>Provides typed base operations for vertex property queries with property type <typeparamref name="TProperty"/> and value type <typeparamref name="TValue"/>.</summary>
+    /// <typeparam name="TProperty">The vertex property type.</typeparam>
+    /// <typeparam name="TValue">The property value type.</typeparam>
     public interface IVertexPropertyGremlinQueryBase<TProperty, TValue> :
         IVertexPropertyGremlinQueryBase,
         IElementGremlinQueryBase<TProperty>
@@ -83,10 +88,17 @@ namespace ExRam.Gremlinq.Core
         IGremlinQuery<TValue> Value();
     }
 
+    /// <summary>A query over vertex properties of type <typeparamref name="TProperty"/> with value type <typeparamref name="TValue"/>.</summary>
+    /// <typeparam name="TProperty">The vertex property type.</typeparam>
+    /// <typeparam name="TValue">The property value type.</typeparam>
     public interface IVertexPropertyGremlinQuery<TProperty, TValue> :
         IVertexPropertyGremlinQueryBase<TProperty, TValue>,
         IElementGremlinQueryBaseRec<TProperty, IVertexPropertyGremlinQuery<TProperty, TValue>>;
 
+    /// <summary>Provides typed base operations for vertex property queries with meta-properties of type <typeparamref name="TMeta"/>.</summary>
+    /// <typeparam name="TProperty">The vertex property type.</typeparam>
+    /// <typeparam name="TValue">The property value type.</typeparam>
+    /// <typeparam name="TMeta">The meta-property type.</typeparam>
     public interface IVertexPropertyGremlinQueryBase<TProperty, TValue, TMeta> :
         IVertexPropertyGremlinQueryBase,
         IElementGremlinQueryBase<TProperty>
@@ -149,6 +161,10 @@ namespace ExRam.Gremlinq.Core
         IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Where(Expression<Func<VertexProperty<TValue, TMeta>, bool>> predicate);
     }
 
+    /// <summary>A query over vertex properties of type <typeparamref name="TProperty"/> with value type <typeparamref name="TValue"/> and meta-properties of type <typeparamref name="TMeta"/>.</summary>
+    /// <typeparam name="TProperty">The vertex property type.</typeparam>
+    /// <typeparam name="TValue">The property value type.</typeparam>
+    /// <typeparam name="TMeta">The meta-property type.</typeparam>
     public interface IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> :
         IVertexPropertyGremlinQueryBase<TProperty, TValue, TMeta>,
         IElementGremlinQueryBaseRec<TProperty, IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>>;

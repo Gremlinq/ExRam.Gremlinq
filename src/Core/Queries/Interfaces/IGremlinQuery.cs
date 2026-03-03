@@ -1,10 +1,11 @@
-﻿using System.Linq.Expressions;
+using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 
 using Path = ExRam.Gremlinq.Core.GraphElements.Path;
 
 namespace ExRam.Gremlinq.Core
 {
+    /// <summary>Provides the base operations available on all Gremlin queries, regardless of element type.</summary>
     public interface IGremlinQueryBase : IStartGremlinQuery
     {
         /// <summary>
@@ -186,6 +187,8 @@ namespace ExRam.Gremlinq.Core
         IArrayGremlinQuery<TElement, TArrayItem, TOriginalQuery> Cap<TElement, TArrayItem, TOriginalQuery>(StepLabel<IArrayGremlinQuery<TElement, TArrayItem, TOriginalQuery>, TElement> label) where TOriginalQuery : IGremlinQueryBase;
     }
 
+    /// <summary>Provides typed base operations for Gremlin queries whose traversers carry elements of type <typeparamref name="TElement"/>.</summary>
+    /// <typeparam name="TElement">The type of elements in the traversal.</typeparam>
     public interface IGremlinQueryBase<TElement> : IGremlinQueryBase
     {
         /// <summary>
@@ -282,6 +285,8 @@ namespace ExRam.Gremlinq.Core
         IAsyncEnumerable<TElement> ToAsyncEnumerable();
     }
 
+    /// <summary>Provides recursive (CRTP) base operations that return <typeparamref name="TSelf"/> for fluent chaining.</summary>
+    /// <typeparam name="TSelf">The concrete query type for fluent chaining.</typeparam>
     public interface IGremlinQueryBaseRec<TSelf> : IGremlinQueryBase
         where TSelf : IGremlinQueryBaseRec<TSelf>
     {
@@ -570,6 +575,9 @@ namespace ExRam.Gremlinq.Core
         TSelf Where(Func<TSelf, IGremlinQueryBase> filterTraversal);
     }
 
+    /// <summary>Provides recursive (CRTP) typed base operations for fluent chaining with element type <typeparamref name="TElement"/>.</summary>
+    /// <typeparam name="TElement">The type of elements in the traversal.</typeparam>
+    /// <typeparam name="TSelf">The concrete query type for fluent chaining.</typeparam>
     public interface IGremlinQueryBaseRec<TElement, TSelf> :
         IGremlinQueryBaseRec<TSelf>,
         IGremlinQueryBase<TElement>
@@ -723,6 +731,10 @@ namespace ExRam.Gremlinq.Core
         /// <seealso href="https://tinkerpop.apache.org/docs/current/reference/#where-step">Reference Documentation - Where Step</seealso>
         TSelf Where(Expression<Func<TElement, bool>> predicate);
     }
+
+    /// <summary>A Gremlin query whose traversers carry elements of type <typeparamref name="TElement"/>.</summary>
+
+    /// <typeparam name="TElement">The type of elements in the traversal.</typeparam>
 
     public interface IGremlinQuery<TElement> : IGremlinQueryBaseRec<TElement, IGremlinQuery<TElement>>;
 }

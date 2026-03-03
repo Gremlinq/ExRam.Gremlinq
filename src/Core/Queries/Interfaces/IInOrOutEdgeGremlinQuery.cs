@@ -1,6 +1,7 @@
-﻿namespace ExRam.Gremlinq.Core
+namespace ExRam.Gremlinq.Core
 {
     //TODO: Rename.
+    /// <summary>Provides base operations for edge queries where either the incoming or outgoing vertex is known.</summary>
     public interface IInOrOutEdgeGremlinQueryBase :
         IEdgeGremlinQueryBase
     {
@@ -8,6 +9,9 @@
         new IEdgeGremlinQuery<object> Lower();
     }
 
+    /// <summary>Provides typed base operations for edge queries with a known adjacent vertex type.</summary>
+    /// <typeparam name="TEdge">The edge type.</typeparam>
+    /// <typeparam name="TAdjacentVertex">The adjacent vertex type.</typeparam>
     public interface IInOrOutEdgeGremlinQueryBase<TEdge, TAdjacentVertex> :
         IInOrOutEdgeGremlinQueryBase,
         IEdgeGremlinQueryBase<TEdge>
@@ -52,17 +56,26 @@
         new IEdgeGremlinQuery<TEdge, TAdjacentVertex, TTargetVertex> To<TTargetVertex>(StepLabel<TTargetVertex> stepLabel);
     }
 
+    /// <summary>Provides recursive (CRTP) base operations for in-or-out edge queries.</summary>
+    /// <typeparam name="TSelf">The concrete query type for fluent chaining.</typeparam>
     public interface IInOrOutEdgeGremlinQueryBaseRec<TSelf> :
         IInOrOutEdgeGremlinQueryBase,
         IEdgeGremlinQueryBaseRec<TSelf>
             where TSelf : IInOrOutEdgeGremlinQueryBaseRec<TSelf>;
 
+    /// <summary>Provides recursive (CRTP) typed base operations for in-or-out edge queries.</summary>
+    /// <typeparam name="TEdge">The edge type.</typeparam>
+    /// <typeparam name="TAdjacentVertex">The adjacent vertex type.</typeparam>
+    /// <typeparam name="TSelf">The concrete query type for fluent chaining.</typeparam>
     public interface IInOrOutEdgeGremlinQueryBaseRec<TEdge, TAdjacentVertex, TSelf> :
         IInOrOutEdgeGremlinQueryBaseRec<TSelf>,
         IInOrOutEdgeGremlinQueryBase<TEdge, TAdjacentVertex>,
         IEdgeGremlinQueryBaseRec<TEdge, TSelf>
             where TSelf : IInOrOutEdgeGremlinQueryBaseRec<TEdge, TAdjacentVertex, TSelf>;
 
+    /// <summary>A query over edges of type <typeparamref name="TEdge"/> with a known adjacent vertex of type <typeparamref name="TAdjacentVertex"/>.</summary>
+    /// <typeparam name="TEdge">The edge type.</typeparam>
+    /// <typeparam name="TAdjacentVertex">The adjacent vertex type.</typeparam>
     public interface IInOrOutEdgeGremlinQuery<TEdge, TAdjacentVertex> :
         IInOrOutEdgeGremlinQueryBaseRec<TEdge, TAdjacentVertex, IInOrOutEdgeGremlinQuery<TEdge, TAdjacentVertex>>;
 }

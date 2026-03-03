@@ -2,6 +2,8 @@
 
 namespace ExRam.Gremlinq.Core
 {
+    /// <summary>Builder interface for constructing an <c>order()</c> step with ordering criteria.</summary>
+    /// <typeparam name="TSourceQuery">The source query type.</typeparam>
     public interface IOrderBuilder<out TSourceQuery>
         where TSourceQuery : IGremlinQueryBase
     {
@@ -22,6 +24,9 @@ namespace ExRam.Gremlinq.Core
         IOrderBuilderWithBy<TSourceQuery> ByDescending(Func<TSourceQuery, IGremlinQueryBase> traversal);
     }
 
+    /// <summary>Extends <see cref="IOrderBuilder{TSourceQuery}"/> with typed property projection-based ordering.</summary>
+    /// <typeparam name="TElement">The element type.</typeparam>
+    /// <typeparam name="TSourceQuery">The source query type.</typeparam>
     public interface IOrderBuilder<TElement, out TSourceQuery> :
         IOrderBuilder<TSourceQuery>
         where TSourceQuery : IGremlinQueryBase<TElement>
@@ -49,6 +54,8 @@ namespace ExRam.Gremlinq.Core
         new IOrderBuilderWithBy<TElement, TSourceQuery> ByDescending(Func<TSourceQuery, IGremlinQueryBase> traversal);
     }
 
+    /// <summary>An order builder with at least one <c>by()</c> modulator applied, allowing additional ordering criteria.</summary>
+    /// <typeparam name="TSourceQuery">The source query type.</typeparam>
     public interface IOrderBuilderWithBy<out TSourceQuery> : IOrderBuilder<TSourceQuery>
         where TSourceQuery : IGremlinQueryBase
     {
@@ -58,6 +65,9 @@ namespace ExRam.Gremlinq.Core
         TSourceQuery Build();
     }
 
+    /// <summary>Extends <see cref="IOrderBuilderWithBy{TSourceQuery}"/> with typed property projection-based ordering.</summary>
+    /// <typeparam name="TElement">The element type.</typeparam>
+    /// <typeparam name="TSourceQuery">The source query type.</typeparam>
     public interface IOrderBuilderWithBy<TElement, out TSourceQuery> :
         IOrderBuilderWithBy<TSourceQuery>,
         IOrderBuilder<TElement, TSourceQuery>

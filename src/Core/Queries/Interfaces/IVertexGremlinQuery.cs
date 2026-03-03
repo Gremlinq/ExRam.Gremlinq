@@ -1,8 +1,10 @@
-﻿using System.Linq.Expressions;
+using System.Linq.Expressions;
 using ExRam.Gremlinq.Core.GraphElements;
 
 namespace ExRam.Gremlinq.Core
 {
+    /// <summary>Provides base operations for queries over vertices, including traversal to adjacent vertices and edges.</summary>
+    /// <seealso href="https://tinkerpop.apache.org/docs/current/reference/#vertex-steps">Reference Documentation - Vertex Steps</seealso>
     public interface IVertexGremlinQueryBase :
         IEdgeOrVertexGremlinQueryBase
     {
@@ -284,6 +286,8 @@ namespace ExRam.Gremlinq.Core
         IEdgeGremlinQuery<object> OutE<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7, TEdge8, TEdge9, TEdge10, TEdge11, TEdge12, TEdge13, TEdge14, TEdge15, TEdge16>();
     }
 
+    /// <summary>Provides typed base operations for vertex queries carrying vertices of type <typeparamref name="TVertex"/>.</summary>
+    /// <typeparam name="TVertex">The vertex type.</typeparam>
     public interface IVertexGremlinQueryBase<TVertex> :
         IVertexGremlinQueryBase,
         IEdgeOrVertexGremlinQueryBase<TVertex>
@@ -414,6 +418,10 @@ namespace ExRam.Gremlinq.Core
         IGremlinQuery<TValue> Values<TValue, TMeta>(params Expression<Func<TVertex, VertexProperty<TValue, TMeta>[]>>[] projections);
         IGremlinQuery<TValue> Values<TValue, TMeta>(params ReadOnlySpan<Expression<Func<TVertex, VertexProperty<TValue, TMeta>[]>>> projections);
     }
+
+    /// <summary>A query over vertices of type <typeparamref name="TVertex"/>.</summary>
+
+    /// <typeparam name="TVertex">The vertex type.</typeparam>
 
     public interface IVertexGremlinQuery<TVertex> :
         IVertexGremlinQueryBase<TVertex>,

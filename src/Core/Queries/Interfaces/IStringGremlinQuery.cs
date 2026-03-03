@@ -1,5 +1,8 @@
-﻿namespace ExRam.Gremlinq.Core
+namespace ExRam.Gremlinq.Core
 {
+    /// <summary>A query over string values, providing string manipulation steps.</summary>
+    /// <typeparam name="TString">The string type.</typeparam>
+    /// <seealso href="https://tinkerpop.apache.org/docs/current/reference/#string-steps">Reference Documentation - String Steps</seealso>
     public interface IStringGremlinQuery<TString> : IGremlinQueryBaseRec<TString, IStringGremlinQuery<TString>>
     {
         /// <summary>

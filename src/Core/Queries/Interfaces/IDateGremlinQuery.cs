@@ -1,5 +1,8 @@
-﻿namespace ExRam.Gremlinq.Core
+namespace ExRam.Gremlinq.Core
 {
+    /// <summary>A query over date/time values, providing date arithmetic steps.</summary>
+    /// <typeparam name="TDate">The date/time type.</typeparam>
+    /// <seealso href="https://tinkerpop.apache.org/docs/current/reference/#datetime-steps">Reference Documentation - DateTime Steps</seealso>
     public interface IDateGremlinQuery<TDate> : IGremlinQueryBaseRec<TDate, IDateGremlinQuery<TDate>>
     {
         /// <summary>

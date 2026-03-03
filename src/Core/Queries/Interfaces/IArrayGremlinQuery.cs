@@ -1,5 +1,6 @@
 ﻿namespace ExRam.Gremlinq.Core
 {
+    /// <summary>Provides base operations for queries over array/list results, including local aggregation and unfolding.</summary>
     public interface IArrayGremlinQueryBase : IGremlinQueryBase
     {
         /// <summary>
@@ -41,6 +42,8 @@
         new IGremlinQuery<object[]> Lower();
     }
 
+    /// <summary>Provides recursive (CRTP) base operations for array queries that return <typeparamref name="TSelf"/>.</summary>
+    /// <typeparam name="TSelf">The concrete query type for fluent chaining.</typeparam>
     public interface IArrayGremlinQueryBaseRec<TSelf> : IArrayGremlinQueryBase, IGremlinQueryBaseRec<TSelf>
         where TSelf : IArrayGremlinQueryBaseRec<TSelf>
     {
@@ -78,6 +81,8 @@
         TSelf TailLocal(long count);
     }
 
+    /// <summary>Provides typed base operations for array queries with item type <typeparamref name="TArrayItem"/>.</summary>
+    /// <typeparam name="TArrayItem">The type of the array items.</typeparam>
     public interface IArrayGremlinQueryBase<TArrayItem> : IArrayGremlinQueryBase
     {
         /// <inheritdoc cref="IArrayGremlinQueryBase.Unfold" />
@@ -99,10 +104,16 @@
         new IGremlinQuery<TArrayItem[]> Lower();
     }
 
+    /// <summary>Provides recursive (CRTP) typed base operations for array queries with item type <typeparamref name="TArrayItem"/>.</summary>
+    /// <typeparam name="TArrayItem">The type of the array items.</typeparam>
+    /// <typeparam name="TSelf">The concrete query type for fluent chaining.</typeparam>
     public interface IArrayGremlinQueryBaseRec<TArrayItem, TSelf> :
         IArrayGremlinQueryBase<TArrayItem>,
         IArrayGremlinQueryBaseRec<TSelf> where TSelf : IArrayGremlinQueryBaseRec<TArrayItem, TSelf>;
 
+    /// <summary>Provides typed base operations for array queries with array type <typeparamref name="TArray"/> and item type <typeparamref name="TArrayItem"/>.</summary>
+    /// <typeparam name="TArray">The array type.</typeparam>
+    /// <typeparam name="TArrayItem">The type of the array items.</typeparam>
     public interface IArrayGremlinQueryBase<TArray, TArrayItem> :
         IArrayGremlinQueryBase<TArrayItem>,
         IGremlinQueryBase<TArray>
@@ -111,11 +122,19 @@
         new IGremlinQuery<TArray> Lower();
     }
 
+    /// <summary>Provides recursive (CRTP) typed base operations for array queries.</summary>
+    /// <typeparam name="TArray">The array type.</typeparam>
+    /// <typeparam name="TArrayItem">The type of the array items.</typeparam>
+    /// <typeparam name="TSelf">The concrete query type for fluent chaining.</typeparam>
     public interface IArrayGremlinQueryBaseRec<TArray, TArrayItem, TSelf> :
         IArrayGremlinQueryBase<TArray, TArrayItem>,
         IArrayGremlinQueryBaseRec<TArrayItem, TSelf>,
         IGremlinQueryBaseRec<TArray, TSelf> where TSelf : IArrayGremlinQueryBaseRec<TArray, TArrayItem, TSelf>;
 
+    /// <summary>Provides typed base operations for array queries that track the original query type for unfold/aggregation operations.</summary>
+    /// <typeparam name="TArray">The array type.</typeparam>
+    /// <typeparam name="TArrayItem">The type of the array items.</typeparam>
+    /// <typeparam name="TOriginalQuery">The original query type before folding.</typeparam>
     public interface IArrayGremlinQueryBase<TArray, TArrayItem, out TOriginalQuery> :
         IArrayGremlinQueryBase<TArray, TArrayItem>
     {
@@ -135,12 +154,21 @@
         new TOriginalQuery Unfold();
     }
 
+    /// <summary>Provides recursive (CRTP) typed base operations for array queries with original query tracking.</summary>
+    /// <typeparam name="TArray">The array type.</typeparam>
+    /// <typeparam name="TArrayItem">The type of the array items.</typeparam>
+    /// <typeparam name="TOriginalQuery">The original query type before folding.</typeparam>
+    /// <typeparam name="TSelf">The concrete query type for fluent chaining.</typeparam>
     public interface IArrayGremlinQueryBaseRec<TArray, TArrayItem, out TOriginalQuery, TSelf> :
         IArrayGremlinQueryBase<TArray, TArrayItem, TOriginalQuery>,
         IArrayGremlinQueryBaseRec<TArray, TArrayItem, TSelf>
             where TOriginalQuery : IGremlinQueryBase
             where TSelf : IArrayGremlinQueryBaseRec<TArray, TArrayItem,  TOriginalQuery, TSelf>;
 
+    /// <summary>A query over array results of type <typeparamref name="TArray"/> with items of type <typeparamref name="TArrayItem"/>.</summary>
+    /// <typeparam name="TArray">The array type.</typeparam>
+    /// <typeparam name="TArrayItem">The type of the array items.</typeparam>
+    /// <typeparam name="TOriginalQuery">The original query type before folding.</typeparam>
     public interface IArrayGremlinQuery<TArray, TArrayItem, TOriginalQuery> :
         IArrayGremlinQueryBaseRec<TArray, TArrayItem, TOriginalQuery, IArrayGremlinQuery<TArray, TArrayItem, TOriginalQuery>>
             where TOriginalQuery : IGremlinQueryBase;

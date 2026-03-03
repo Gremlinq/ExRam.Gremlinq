@@ -1,5 +1,6 @@
-﻿namespace ExRam.Gremlinq.Core
+namespace ExRam.Gremlinq.Core
 {
+    /// <summary>The entry point for building Gremlin queries. Provides environment configuration and side-effect registration.</summary>
     public interface IGremlinQuerySource : IStartGremlinQuery
     {
         /// <summary>

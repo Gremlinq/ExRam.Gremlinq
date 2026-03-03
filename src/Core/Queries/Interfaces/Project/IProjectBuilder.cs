@@ -1,8 +1,9 @@
-﻿using System.Linq.Expressions;
+using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 
 namespace ExRam.Gremlinq.Core
 {
+    /// <summary>Represents the terminal state of a dynamic project builder that can be built into a query.</summary>
     public interface IProjectDynamicResult
     {
         /// <summary>
@@ -12,6 +13,7 @@ namespace ExRam.Gremlinq.Core
     }
 
     // ReSharper disable once UnusedTypeParameter
+    /// <summary>Represents the terminal state of a tuple project builder that can be built into a query.</summary>
     public interface IProjectTupleResult<TTuple>
         where TTuple : ITuple
     {
@@ -22,6 +24,7 @@ namespace ExRam.Gremlinq.Core
     }
 
     // ReSharper disable once UnusedTypeParameter
+    /// <summary>Represents the terminal state of a mapped project builder that can be built into a query.</summary>
     public interface IProjectMapResult<TTargetType>
     {
         /// <summary>
@@ -30,6 +33,7 @@ namespace ExRam.Gremlinq.Core
         IMapGremlinQuery<TTargetType> Build();
     }
 
+    /// <summary>Builder interface for constructing a <c>project()</c> step with typed projections.</summary>
     public interface IProjectBuilder<out TSourceQuery, TElement>
         where TSourceQuery : IGremlinQueryBase
     {
@@ -61,6 +65,7 @@ namespace ExRam.Gremlinq.Core
         IProjectBuilder<TSourceQuery, TElement> WithEmptyProjectionProtection();
     }
 
+    /// <summary>A project builder that maps projections to a strongly-typed target type.</summary>
     public interface IProjectMapBuilder<out TSourceQuery, TElement, TTargetType> : IProjectMapResult<TTargetType>
        where TSourceQuery : IGremlinQueryBase
     {
@@ -87,6 +92,7 @@ namespace ExRam.Gremlinq.Core
             where TSourceProperty : TTargetProperty;
     }
 
+    /// <summary>A project builder that produces a dynamic result object.</summary>
     public interface IProjectDynamicBuilder<out TSourceQuery, TElement> : IProjectDynamicResult
         where TSourceQuery : IGremlinQueryBase
     {

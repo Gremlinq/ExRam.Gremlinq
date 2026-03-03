@@ -1,10 +1,11 @@
-﻿using System.Collections.Immutable;
+using System.Collections.Immutable;
 
 using ExRam.Gremlinq.Core.Projections;
 using ExRam.Gremlinq.Core.Steps;
 
 namespace ExRam.Gremlinq.Core
 {
+    /// <summary>Provides low-level administrative access to a query's traversal steps, environment, and metadata.</summary>
     public interface IGremlinQueryAdmin
     {
         /// <summary>

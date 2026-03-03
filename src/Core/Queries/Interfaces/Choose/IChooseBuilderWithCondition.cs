@@ -1,5 +1,8 @@
 ﻿namespace ExRam.Gremlinq.Core
 {
+    /// <summary>A choose builder with a condition traversal set, ready for case branches.</summary>
+    /// <typeparam name="TSourceQuery">The source query type.</typeparam>
+    /// <typeparam name="TElement">The type of the element used for case matching.</typeparam>
     public interface IChooseBuilderWithCondition<out TSourceQuery, in TElement>
         where TSourceQuery : IGremlinQueryBase
     {

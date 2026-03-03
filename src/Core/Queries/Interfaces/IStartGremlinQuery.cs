@@ -1,5 +1,6 @@
-﻿namespace ExRam.Gremlinq.Core
+namespace ExRam.Gremlinq.Core
 {
+    /// <summary>Provides graph traversal source operations for adding vertices and edges, and reading elements by id.</summary>
     public interface IStartGremlinQuery
     {
         /// <summary>

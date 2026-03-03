@@ -1,10 +1,13 @@
-﻿using System.Linq.Expressions;
+using System.Linq.Expressions;
 
 namespace ExRam.Gremlinq.Core
 {
+    /// <summary>Provides base operations for queries over map/dictionary or tuple results.</summary>
     public interface IMapGremlinQueryBase :
         IGremlinQueryBase;
 
+    /// <summary>Provides typed base operations for map queries carrying map/tuple elements of type <typeparamref name="TElement"/>.</summary>
+    /// <typeparam name="TElement">The map/tuple element type.</typeparam>
     public interface IMapGremlinQueryBase<TElement> :
         IMapGremlinQueryBase,
         IGremlinQueryBase<TElement>
@@ -55,6 +58,8 @@ namespace ExRam.Gremlinq.Core
         IMapGremlinQuery<(TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15, TItem16)> Select<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15, TItem16>(Expression<Func<TElement, TItem1>> projection1, Expression<Func<TElement, TItem2>> projection2, Expression<Func<TElement, TItem3>> projection3, Expression<Func<TElement, TItem4>> projection4, Expression<Func<TElement, TItem5>> projection5, Expression<Func<TElement, TItem6>> projection6, Expression<Func<TElement, TItem7>> projection7, Expression<Func<TElement, TItem8>> projection8, Expression<Func<TElement, TItem9>> projection9, Expression<Func<TElement, TItem10>> projection10, Expression<Func<TElement, TItem11>> projection11, Expression<Func<TElement, TItem12>> projection12, Expression<Func<TElement, TItem13>> projection13, Expression<Func<TElement, TItem14>> projection14, Expression<Func<TElement, TItem15>> projection15, Expression<Func<TElement, TItem16>> projection16);
     }
 
+    /// <summary>A query over map/tuple results of type <typeparamref name="TElement"/>.</summary>
+    /// <typeparam name="TElement">The map/tuple element type.</typeparam>
     public interface IMapGremlinQuery<TElement> :
         IMapGremlinQueryBase<TElement>,
         IGremlinQueryBaseRec<TElement, IMapGremlinQuery<TElement>>;

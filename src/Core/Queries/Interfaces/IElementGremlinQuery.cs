@@ -1,7 +1,8 @@
-﻿using System.Linq.Expressions;
+using System.Linq.Expressions;
 
 namespace ExRam.Gremlinq.Core
 {
+    /// <summary>Provides base operations for queries over graph elements (vertices, edges, or vertex properties) that have an id and label.</summary>
     public interface IElementGremlinQueryBase :
         IGremlinQueryBase
     {
@@ -43,6 +44,8 @@ namespace ExRam.Gremlinq.Core
         IMapGremlinQuery<IDictionary<string, TValue>> ValueMap<TValue>();
     }
 
+    /// <summary>Provides recursive (CRTP) base operations for element queries that return <typeparamref name="TSelf"/>.</summary>
+    /// <typeparam name="TSelf">The concrete query type for fluent chaining.</typeparam>
     public interface IElementGremlinQueryBaseRec<TSelf> :
         IElementGremlinQueryBase,
         IGremlinQueryBaseRec<TSelf>
@@ -67,6 +70,8 @@ namespace ExRam.Gremlinq.Core
         TSelf Property(string key, Func<TSelf, IGremlinQueryBase> valueTransformation);
     }
 
+    /// <summary>Provides typed base operations for element queries carrying elements of type <typeparamref name="TElement"/>.</summary>
+    /// <typeparam name="TElement">The element type.</typeparam>
     public interface IElementGremlinQueryBase<TElement> :
         IElementGremlinQueryBase,
         IGremlinQueryBase<TElement>
@@ -96,6 +101,9 @@ namespace ExRam.Gremlinq.Core
         IGremlinQuery<TValue> Values<TValue>(params ReadOnlySpan<Expression<Func<TElement, TValue[]>>> projections);
     }
 
+    /// <summary>Provides recursive (CRTP) typed base operations for element queries with element type <typeparamref name="TElement"/>.</summary>
+    /// <typeparam name="TElement">The element type.</typeparam>
+    /// <typeparam name="TSelf">The concrete query type for fluent chaining.</typeparam>
     public interface IElementGremlinQueryBaseRec<TElement, TSelf> :
         IElementGremlinQueryBaseRec<TSelf>,
         IElementGremlinQueryBase<TElement>,
@@ -143,6 +151,8 @@ namespace ExRam.Gremlinq.Core
         TSelf Property<TProjectedValue>(Expression<Func<TElement, TProjectedValue>> projection, Func<TSelf, IGremlinQueryBase<TProjectedValue>> valueTraversal);
     }
 
+    /// <summary>A query over graph elements of type <typeparamref name="TElement"/>.</summary>
+    /// <typeparam name="TElement">The element type.</typeparam>
     public interface IElementGremlinQuery<TElement> :
         IElementGremlinQueryBaseRec<TElement, IElementGremlinQuery<TElement>>;
 }

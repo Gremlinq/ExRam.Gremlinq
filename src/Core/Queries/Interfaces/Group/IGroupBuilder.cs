@@ -1,5 +1,6 @@
-﻿namespace ExRam.Gremlinq.Core
+namespace ExRam.Gremlinq.Core
 {
+    /// <summary>Builder interface for constructing a <c>group()</c> step with key and value selectors.</summary>
     public interface IGroupBuilder<out TSourceQuery>
         where TSourceQuery : IGremlinQueryBase
     {
@@ -13,6 +14,7 @@
         IGroupBuilderWithKey<TSourceQuery, TKey> ByKey<TKey>(Func<TSourceQuery, IGremlinQueryBase<TKey>> keySelector);
     }
 
+    /// <summary>A group builder with a key selector set, ready for a value selector.</summary>
     public interface IGroupBuilderWithKey<out TSourceQuery, TKey>
         where TSourceQuery : IGremlinQueryBase
     {
@@ -26,6 +28,7 @@
         IGroupBuilderWithKeyAndValue<TKey, TValue> ByValue<TValue>(Func<TSourceQuery, IGremlinQueryBase<TValue>> valueSelector);
     }
 
+    /// <summary>A terminal group builder with both key and value selectors set.</summary>
     public interface IGroupBuilderWithKeyAndValue<TKey, TValue>
     {
         /// <summary>
