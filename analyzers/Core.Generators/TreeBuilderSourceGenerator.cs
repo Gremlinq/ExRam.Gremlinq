@@ -34,6 +34,7 @@ namespace ExRam.Gremlinq.Core.Generators
                 var genericArgList = GetGenericArgumentList("TNode{0}", i);
 
                 writer = writer
+                    .WriteLine($"/// <summary>Provides methods to build a tree query.</summary>")
                     .Write($"public interface ITreeBuilder{genericArgList}");
 
                 if (i >= 1)
@@ -61,6 +62,8 @@ namespace ExRam.Gremlinq.Core.Generators
                         {
                             var ofArgs = GetArgumentList("TNode{0}", i, hasFollowingArguments: true) + "TNewNode";
                             w = w
+                                .WriteLine("/// <summary>Adds a new node type to the tree projection.</summary>")
+                                .WriteLine("/// <typeparam name=\"TNewNode\">The type of the new node.</typeparam>")
                                 .WriteLine($"ITreeBuilder<{ofArgs}> Of<TNewNode>() where TNewNode : notnull;");
                         }
 
@@ -69,6 +72,9 @@ namespace ExRam.Gremlinq.Core.Generators
                             var byArgs = GetArgumentList("TNode{0}", i - 1, hasFollowingArguments: true) + "TNewNode";
                             w = w
                                 .WriteLine()
+                                .WriteLine("/// <summary>Replaces the current node projection with a member projection.</summary>")
+                                .WriteLine("/// <typeparam name=\"TNewNode\">The type of the projected value.</typeparam>")
+                                .WriteLine("/// <param name=\"expression\">The projection expression.</param>")
                                 .WriteLine($"ITreeBuilder<{byArgs}> By<TNewNode>(Expression<Func<TNode{i}, TNewNode>> expression) where TNewNode : notnull;");
                         }
 

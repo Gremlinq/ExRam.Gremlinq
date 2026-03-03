@@ -32,6 +32,7 @@ namespace ExRam.Gremlinq.Core.Generators
                 var typeArgs = GetArgumentList("TItem{0}", i, hasPreceedingArguments: true);
 
                 writer = writer
+                    .WriteLine("/// <summary>Provides methods to add projections to a tuple-based project step.</summary>")
                     .Write($"public interface IProjectTupleBuilder<out TSourceQuery, TElement{typeArgs}>");
 
                 if (i >= 2)
@@ -55,7 +56,13 @@ namespace ExRam.Gremlinq.Core.Generators
                     writer = writer
                         .WriteLine()
                         .Block(w => w
+                            .WriteLine($"/// <summary>Adds a traversal-based projection to the tuple.</summary>")
+                            .WriteLine($"/// <typeparam name=\"TItem{i + 1}\">The type of the projected value.</typeparam>")
+                            .WriteLine($"/// <param name=\"projection\">The projection function.</param>")
                             .WriteLine($"IProjectTupleBuilder<TSourceQuery, TElement, {nextTypeArgs}> By<TItem{i + 1}>(Func<TSourceQuery, IGremlinQueryBase<TItem{i + 1}>> projection);")
+                            .WriteLine($"/// <summary>Adds a member-based projection to the tuple.</summary>")
+                            .WriteLine($"/// <typeparam name=\"TItem{i + 1}\">The type of the projected value.</typeparam>")
+                            .WriteLine($"/// <param name=\"projection\">The projection expression.</param>")
                             .WriteLine($"IProjectTupleBuilder<TSourceQuery, TElement, {nextTypeArgs}> By<TItem{i + 1}>(Expression<Func<TElement, TItem{i + 1}>> projection);"));
                 }
                 else
