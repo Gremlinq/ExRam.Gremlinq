@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="../Core/ExRam.Gremlinq.Core.csproj" />
-    <ProjectReference Include="../Testing.AirRoutes.Generator/ExRam.Gremlinq.Testing.AirRoutes.Generator.csproj" OutputItemType="Analyzer" PrivateAssets="all" />
+    <ProjectReference Include="..\Testing.AirRoutes.Generator\ExRam.Gremlinq.Testing.AirRoutes.Generators.csproj" OutputItemType="Analyzer" PrivateAssets="all" />
   </ItemGroup>
   
 </Project>

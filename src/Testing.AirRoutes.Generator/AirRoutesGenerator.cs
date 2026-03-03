@@ -7,7 +7,7 @@ using ExRam.Gremlinq.Core.Generators;
 
 using Microsoft.CodeAnalysis;
 
-namespace ExRam.Gremlinq.Testing.AirRoutes.Generator
+namespace ExRam.Gremlinq.Testing.AirRoutes.Generators
 {
     [Generator]
     public class AirRoutesGenerator : ISourceGenerator

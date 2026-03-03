@@ -1,6 +1,6 @@
 ﻿using System.Xml.Serialization;
 
-namespace ExRam.Gremlinq.Testing.AirRoutes.Generator
+namespace ExRam.Gremlinq.Testing.AirRoutes.Generators
 {
     [XmlRoot(ElementName = "data")]
     public class Data
