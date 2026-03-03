@@ -37,7 +37,7 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(IsRoslynComponent)' != 'true'">
-    <ProjectReference Include="$(MSBuildThisFileDirectory)Analyzers\ExRam.Gremlinq.Analyzers.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+    <ProjectReference Include="$(MSBuildThisFileDirectory)..\analyzers\Analyzers\ExRam.Gremlinq.Analyzers.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
   </ItemGroup>
 
 </Project>
