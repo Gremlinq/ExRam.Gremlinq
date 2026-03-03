@@ -1,8 +1,10 @@
-﻿using System.Collections.Immutable;
+using System.Collections.Immutable;
 using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Core.Steps
 {
+    /// <summary>Represents the Gremlin <c>project()</c> step that projects elements into a keyed map.</summary>
+    /// <seealso href="https://tinkerpop.apache.org/docs/current/reference/#project-step">Reference Documentation - Project Step</seealso>
     public sealed class ProjectStep : Step
     {
         public abstract class ByStep : Step

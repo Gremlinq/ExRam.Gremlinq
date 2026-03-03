@@ -1,5 +1,7 @@
-﻿namespace ExRam.Gremlinq.Core.Steps
+namespace ExRam.Gremlinq.Core.Steps
 {
+    /// <summary>Represents the Gremlin <c>group()</c> step that organizes elements into a dictionary.</summary>
+    /// <seealso href="https://tinkerpop.apache.org/docs/current/reference/#group-step">Reference Documentation - Group Step</seealso>
     public sealed class GroupStep : Step
     {
         public abstract class ByStep : Step

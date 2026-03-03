@@ -1,7 +1,9 @@
-﻿using Gremlin.Net.Process.Traversal;
+using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Core.Steps
 {
+    /// <summary>Represents the Gremlin <c>order()</c> step that orders traversers.</summary>
+    /// <seealso href="https://tinkerpop.apache.org/docs/current/reference/#order-step">Reference Documentation - Order Step</seealso>
     public sealed class OrderStep : Step
     {
         public abstract class ByStep : Step

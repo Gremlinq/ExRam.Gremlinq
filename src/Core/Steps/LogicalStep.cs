@@ -1,7 +1,8 @@
-﻿using System.Collections.Immutable;
+using System.Collections.Immutable;
 
 namespace ExRam.Gremlinq.Core.Steps
 {
+    /// <summary>Base class for logical steps (<c>and()</c>, <c>or()</c>) that combine multiple sub-traversals.</summary>
     public abstract class LogicalStep<TStep> : Step
         where TStep : LogicalStep<TStep>
     {

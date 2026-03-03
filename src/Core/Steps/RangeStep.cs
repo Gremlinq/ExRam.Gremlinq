@@ -1,7 +1,9 @@
-﻿using Gremlin.Net.Process.Traversal;
+using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Core.Steps
 {
+    /// <summary>Represents the Gremlin <c>range()</c> step that limits the stream to a given range.</summary>
+    /// <seealso href="https://tinkerpop.apache.org/docs/current/reference/#range-step">Reference Documentation - Range Step</seealso>
     public sealed class RangeStep : Step
     {
         public RangeStep(long lower, long upper, Scope scope)

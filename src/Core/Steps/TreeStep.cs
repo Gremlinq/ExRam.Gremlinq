@@ -1,5 +1,7 @@
-﻿namespace ExRam.Gremlinq.Core.Steps
+namespace ExRam.Gremlinq.Core.Steps
 {
+    /// <summary>Represents the Gremlin <c>tree()</c> step that collects traversal paths as tree structures.</summary>
+    /// <seealso href="https://tinkerpop.apache.org/docs/current/reference/#tree-step">Reference Documentation - Tree Step</seealso>
     public sealed class TreeStep : Step
     {
         public abstract class ByStep : Step

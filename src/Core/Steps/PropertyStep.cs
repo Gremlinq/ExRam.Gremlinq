@@ -1,8 +1,10 @@
-﻿using System.Collections.Immutable;
+using System.Collections.Immutable;
 using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Core.Steps
 {
+    /// <summary>Base class for Gremlin <c>property()</c> steps that set properties on elements.</summary>
+    /// <seealso href="https://tinkerpop.apache.org/docs/current/reference/#addproperty-step">Reference Documentation - AddProperty Step</seealso>
     public abstract class PropertyStep : Step
     {
         public sealed class ByKeyStep : PropertyStep

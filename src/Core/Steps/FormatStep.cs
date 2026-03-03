@@ -1,7 +1,9 @@
-﻿using System.Collections.Immutable;
+using System.Collections.Immutable;
 
 namespace ExRam.Gremlinq.Core.Steps
 {
+    /// <summary>Represents the Gremlin <c>format()</c> step that formats element properties into a string.</summary>
+    /// <seealso href="https://tinkerpop.apache.org/docs/current/reference/#format-step">Reference Documentation - Format Step</seealso>
     public sealed class FormatStep : Step
     {
         public sealed class By : Step

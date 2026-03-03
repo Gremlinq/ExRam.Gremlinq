@@ -1,5 +1,7 @@
-﻿namespace ExRam.Gremlinq.Core.Steps
+namespace ExRam.Gremlinq.Core.Steps
 {
+    /// <summary>Represents the Gremlin <c>addE()</c> step that adds an edge to the graph.</summary>
+    /// <seealso href="https://tinkerpop.apache.org/docs/current/reference/#addedge-step">Reference Documentation - AddEdge Step</seealso>
     public sealed class AddEStep : Step
     {
         public sealed class FromLabelStep : Step

@@ -1,7 +1,9 @@
-﻿using Gremlin.Net.Process.Traversal;
+using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Core.Steps
 {
+    /// <summary>Represents the Gremlin <c>limit()</c> step that limits the number of traversers.</summary>
+    /// <seealso href="https://tinkerpop.apache.org/docs/current/reference/#limit-step">Reference Documentation - Limit Step</seealso>
     public sealed class LimitStep : Step
     {
         public static readonly LimitStep LimitLocal1 = new(1, Scope.Local);

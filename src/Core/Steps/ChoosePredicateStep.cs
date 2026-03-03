@@ -1,7 +1,8 @@
-﻿using Gremlin.Net.Process.Traversal;
+using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Core.Steps
 {
+    /// <summary>Represents a Gremlin <c>choose()</c> step with a predicate-based condition.</summary>
     public sealed class ChoosePredicateStep : ChooseStep
     {
         // ReSharper disable once BitwiseOperatorOnEnumWithoutFlags

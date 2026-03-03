@@ -1,7 +1,9 @@
-﻿using Gremlin.Net.Process.Traversal;
+using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Core.Steps
 {
+    /// <summary>Represents the Gremlin <c>tail()</c> step that keeps the last traversers from the stream.</summary>
+    /// <seealso href="https://tinkerpop.apache.org/docs/current/reference/#tail-step">Reference Documentation - Tail Step</seealso>
     public sealed class TailStep : Step
     {
         public static readonly TailStep TailLocal1 = new(1, Scope.Local);

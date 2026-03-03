@@ -1,5 +1,7 @@
-﻿namespace ExRam.Gremlinq.Core.Steps
+namespace ExRam.Gremlinq.Core.Steps
 {
+    /// <summary>Represents the Gremlin <c>simplePath()</c> step that filters on non-cyclic paths.</summary>
+    /// <seealso href="https://tinkerpop.apache.org/docs/current/reference/#simplepath-step">Reference Documentation - SimplePath Step</seealso>
     public sealed class SimplePathStep : Step
     {
         public static readonly SimplePathStep Instance = new ();

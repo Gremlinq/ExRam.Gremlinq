@@ -1,7 +1,9 @@
-﻿using Gremlin.Net.Process.Traversal;
+using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Core.Steps
 {
+    /// <summary>Represents the Gremlin <c>sum()</c> step that computes the sum of values.</summary>
+    /// <seealso href="https://tinkerpop.apache.org/docs/current/reference/#sum-step">Reference Documentation - Sum Step</seealso>
     public sealed class SumStep : Step
     {
         public static readonly SumStep Local = new(Scope.Local);

@@ -1,5 +1,7 @@
-﻿namespace ExRam.Gremlinq.Core.Steps
+namespace ExRam.Gremlinq.Core.Steps
 {
+    /// <summary>Base class for the Gremlin <c>dateDiff()</c> step that computes the difference between dates.</summary>
+    /// <seealso href="https://tinkerpop.apache.org/docs/current/reference/#datediff-step">Reference Documentation - DateDiff Step</seealso>
     public abstract class DateDiffStep : Step
     {
         public sealed class Constant : DateDiffStep
