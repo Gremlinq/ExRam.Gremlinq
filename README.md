@@ -1,6 +1,6 @@
 [![#](assets/logo.png)]()
 
-[![#](https://img.shields.io/github/license/Gremlinq/ExRam.Gremlinq?style=flat-square)]()
+[![#](https://img.shields.io/github/license/Gremlinq/ExRam.Gremlinq?style=flat-square)](https://github.com/Gremlinq/ExRam.Gremlinq/blob/13.x/LICENSE.md)
 [![#](https://img.shields.io/nuget/v/ExRam.Gremlinq.Core?style=flat-square&logo=nuget)](https://www.nuget.org/packages?q=ExRam.Gremlinq)
 
 # Synopsis
