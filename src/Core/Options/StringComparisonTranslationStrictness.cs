@@ -1,16 +1,13 @@
 namespace ExRam.Gremlinq.Core
 {
+    /// <summary>Controls strictness of string comparison translation.</summary>
     [Obsolete("Starting from version 14, Gremlinq will always behave as if StringComparisonTranslationStrictness.Strict was configured. Queries using a string comparison which is not supported on a specific database provider (e.g. case insensitive queries on Azure CosmosDb) must be modified accordingly.")]
     public enum StringComparisonTranslationStrictness
     {
-        // When an Expression contains a StringComparison value that is not supported by the database provider,
-        // (such as StringComparison.OrdinalIgnoreCase when the database provider does not support case-insensitive
-        // lookups), an exception will be thrown.
+        /// <summary>Throws an exception when an unsupported <see cref="StringComparison"/> mode is used.</summary>
         Strict = 0,
 
-        // When an Expression contains a StringComparison value that is not supported by the database provider,
-        // (such as StringComparison.OrdinalIgnoreCase when the database provider does not support case-insensitive
-        // lookups), it will be silently ignored.
+        /// <summary>Silently ignores unsupported <see cref="StringComparison"/> modes.</summary>
         Lenient = 1
     }
 }

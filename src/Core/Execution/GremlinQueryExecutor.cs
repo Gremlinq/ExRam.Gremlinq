@@ -2,6 +2,7 @@ using System.Runtime.CompilerServices;
 
 namespace ExRam.Gremlinq.Core.Execution
 {
+    /// <summary>Provides factory methods and extensions for <see cref="IGremlinQueryExecutor"/>.</summary>
     public static class GremlinQueryExecutor
     {
         private sealed class InvalidGremlinQueryExecutor : IGremlinQueryExecutor

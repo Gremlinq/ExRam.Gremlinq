@@ -1,5 +1,6 @@
 namespace ExRam.Gremlinq.Core
 {
+    /// <summary>Extension methods for string-typed Gremlin queries.</summary>
     public static class StringGremlinQueryExtensions
     {
         /// <inheritdoc cref="IStringGremlinQuery{TString}.Concat(string[])" />

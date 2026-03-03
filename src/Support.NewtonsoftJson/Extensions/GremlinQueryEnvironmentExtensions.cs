@@ -7,6 +7,7 @@ using Newtonsoft.Json.Linq;
 
 namespace ExRam.Gremlinq.Support.NewtonsoftJson
 {
+    /// <summary>Extension methods for configuring Newtonsoft.Json serialization on <see cref="IGremlinQueryEnvironment"/>.</summary>
     public static class GremlinQueryEnvironmentExtensions
     {
         private sealed class NativeTypeSerializerConverterFactory<TNative, TSerialized> : IConverterFactory
@@ -85,6 +86,8 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                 : null;
         }
 
+        /// <summary>Configures the environment to use Newtonsoft.Json for serialization and deserialization.</summary>
+        /// <param name="environment">The query environment.</param>
         public static IGremlinQueryEnvironment UseNewtonsoftJson(this IGremlinQueryEnvironment environment)
         {
             ArgumentNullException.ThrowIfNull(environment);
@@ -118,6 +121,12 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                 .Add(new DateTimeConverterFactory()));
         }
 
+        /// <summary>Registers a native type with custom serialization and deserialization logic.</summary>
+        /// <typeparam name="TNative">The native type to register.</typeparam>
+        /// <typeparam name="TSerialized">The serialized representation type.</typeparam>
+        /// <param name="environment">The query environment.</param>
+        /// <param name="serializer">The serialization function.</param>
+        /// <param name="deserializer">The deserialization function.</param>
         public static IGremlinQueryEnvironment RegisterNativeType<TNative, TSerialized>(this IGremlinQueryEnvironment environment, Func<TNative, IGremlinQueryEnvironment, ITransformer, ITransformer, TSerialized> serializer, Func<JValue, IGremlinQueryEnvironment, ITransformer, ITransformer, TNative> deserializer)
         {
             ArgumentNullException.ThrowIfNull(environment);

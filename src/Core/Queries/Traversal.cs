@@ -28,13 +28,18 @@ namespace ExRam.Gremlinq.Core
             _writeStepsCount = writeStepsCount;
         }
 
+        /// <summary>Returns a new traversal with the given steps appended.</summary>
+        /// <param name="steps">The steps to append.</param>
         public Traversal Push(params ReadOnlySpan<Step> steps) => new(
             _steps.Push(steps),
             _writeStepsCount + SideEffectSemanticsHelper(steps),
             Projection);
 
+        /// <summary>Returns a new traversal with the last step removed.</summary>
         public Traversal Pop() => Pop(out _);
 
+        /// <summary>Returns a new traversal with the last step removed and outputs that step.</summary>
+        /// <param name="poppedStep">The removed step.</param>
         public Traversal Pop(out Step poppedStep)
         {
             var newSteps = _steps.Pop(out poppedStep);
@@ -47,10 +52,17 @@ namespace ExRam.Gremlinq.Core
                 Projection);
         }
 
+        /// <summary>Returns a sub-traversal starting at the given index.</summary>
+        /// <param name="start">The zero-based start index.</param>
         public Traversal Slice(int start) => this[start..];
 
+        /// <summary>Returns a sub-traversal starting at the given index with the given length.</summary>
+        /// <param name="start">The zero-based start index.</param>
+        /// <param name="length">The number of steps to include.</param>
         public Traversal Slice(int start, int length) => new (_steps.Slice(start, length), Projection);
 
+        /// <summary>Returns a new traversal with the given projection.</summary>
+        /// <param name="projection">The new projection.</param>
         public Traversal WithProjection(Projection projection)
         {
             ArgumentNullException.ThrowIfNull(projection);
@@ -58,6 +70,8 @@ namespace ExRam.Gremlinq.Core
             return new(_steps, _writeStepsCount, projection);
         }
 
+        /// <summary>Appends the projection's steps to the traversal and clears the projection.</summary>
+        /// <param name="environment">The query environment.</param>
         public Traversal IncludeProjection(IGremlinQueryEnvironment environment)
         {
             ArgumentNullException.ThrowIfNull(environment);
@@ -92,8 +106,15 @@ namespace ExRam.Gremlinq.Core
             return this;
         }
 
+        /// <summary>Implicitly wraps a single step into a traversal.</summary>
+        /// <param name="step">The step to wrap.</param>
         public static implicit operator Traversal(Step step) => Create(1, step, static (span, step) => span[0] = step);
 
+        /// <summary>Creates a traversal by populating a span of steps with a delegate.</summary>
+        /// <typeparam name="TState">The type of the state passed to the delegate.</typeparam>
+        /// <param name="length">The number of steps.</param>
+        /// <param name="state">State passed to the creation delegate.</param>
+        /// <param name="action">The delegate that populates the step span.</param>
         public static Traversal Create<TState>(int length, TState state, SpanAction<Step, TState> action)
         {
             ArgumentNullException.ThrowIfNull(action);
@@ -103,16 +124,22 @@ namespace ExRam.Gremlinq.Core
                 Projection.Empty);
         }
 
+        /// <summary>Gets the number of steps in this traversal.</summary>
         public int Count => _steps.Count;
 
+        /// <summary>Gets the projection describing the expected result shape.</summary>
         public Projection Projection { get; }
 
+        /// <summary>Gets the step at the specified index.</summary>
+        /// <param name="index">The zero-based index.</param>
         public Step this[int index] => Steps[index];
 
+        /// <summary>Gets the side-effect semantics of this traversal (read or write).</summary>
         public SideEffectSemantics SideEffectSemantics => _writeStepsCount > 0
             ? SideEffectSemantics.Write
             : SideEffectSemantics.Read;
 
+        /// <summary>Gets the steps as a read-only span.</summary>
         public ReadOnlySpan<Step> Steps => _steps.AsSpan();
 
         private static uint SideEffectSemanticsHelper(ReadOnlySpan<Step> steps)

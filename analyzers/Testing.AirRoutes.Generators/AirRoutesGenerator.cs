@@ -32,6 +32,7 @@ namespace ExRam.Gremlinq.Testing.AirRoutes.Generators
 
                             namespace ExRam.Gremlinq.Testing.AirRoutes
                             {
+                                /// <summary>Extension methods for loading and removing AirRoutes data.</summary>
                                 public static partial class GremlinQuerySourceExtensions
                                 {
                                     /// <summary>

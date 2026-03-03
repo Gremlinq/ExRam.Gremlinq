@@ -4,6 +4,7 @@ using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Core
 {
+    /// <summary>Extension methods for consuming Gremlin query results.</summary>
     public static class GremlinQueryExtensions
     {
         private static readonly LimitStep LimitGlobal2 = new(2, Scope.Global);

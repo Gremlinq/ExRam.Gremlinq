@@ -7,6 +7,7 @@ using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Core.AspNet
 {
+    /// <summary>Extension methods for registering Gremlinq services in <see cref="IServiceCollection"/>.</summary>
     public static class ServiceCollectionExtensions
     {
         private sealed class GremlinqServicesBuilder : IGremlinqServicesBuilder
@@ -56,6 +57,9 @@ namespace ExRam.Gremlinq.Core.AspNet
             public IServiceCollection Services { get; }
         }
 
+        /// <summary>Adds Gremlinq services to the service collection.</summary>
+        /// <param name="serviceCollection">The service collection.</param>
+        /// <param name="configuration">The builder configuration action.</param>
         public static IServiceCollection AddGremlinq(this IServiceCollection serviceCollection, Action<IGremlinqServicesBuilder> configuration)
         {
             ArgumentNullException.ThrowIfNull(serviceCollection);

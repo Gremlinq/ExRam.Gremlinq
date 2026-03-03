@@ -1,5 +1,6 @@
 namespace ExRam.Gremlinq.Core
 {
+    /// <summary>Extension methods for <see cref="IGremlinQueryEnvironment"/>.</summary>
     public static class GremlinQueryEnvironmentExtensions
     {
         /// <summary>

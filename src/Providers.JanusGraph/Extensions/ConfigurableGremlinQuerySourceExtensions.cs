@@ -4,6 +4,7 @@ using ExRam.Gremlinq.Providers.Core;
 
 namespace ExRam.Gremlinq.Providers.JanusGraph
 {
+    /// <summary>Extension methods for configuring JanusGraph on <see cref="IGremlinQuerySource"/>.</summary>
     public static class ConfigurableGremlinQuerySourceExtensions
     {
         private sealed class JanusGraphConfigurator : IJanusGraphConfigurator
@@ -35,6 +36,11 @@ namespace ExRam.Gremlinq.Providers.JanusGraph
                             .ToExecutor())));
         }
 
+        /// <summary>Configures the query source to use JanusGraph with the given vertex and edge base types.</summary>
+        /// <typeparam name="TVertexBase">The base type for vertices.</typeparam>
+        /// <typeparam name="TEdgeBase">The base type for edges.</typeparam>
+        /// <param name="source">The query source.</param>
+        /// <param name="configuratorTransformation">The configurator transformation.</param>
         public static IGremlinQuerySource UseJanusGraph<TVertexBase, TEdgeBase>(this IGremlinQuerySource source, Func<IJanusGraphConfigurator, IGremlinQuerySourceTransformation> configuratorTransformation)
         {
             ArgumentNullException.ThrowIfNull(source);

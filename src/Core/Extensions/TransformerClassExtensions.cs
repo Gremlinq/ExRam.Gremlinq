@@ -2,6 +2,7 @@ using ExRam.Gremlinq.Core.Transformation;
 
 namespace ExRam.Gremlinq.Core
 {
+    /// <summary>Extension methods for <see cref="ITransformer"/>.</summary>
     public static class TransformerClassExtensions
     {
         /// <summary>

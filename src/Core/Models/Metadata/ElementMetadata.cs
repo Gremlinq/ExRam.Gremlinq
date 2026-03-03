@@ -25,14 +25,19 @@ namespace ExRam.Gremlinq.Core.Models
         /// </summary>
         public string Label => _label ?? throw UninitializedStruct();
 
+        /// <inheritdoc />
         public override bool Equals(object? obj) => obj is ElementMetadata metadata && Equals(metadata);
 
+        /// <inheritdoc />
         public bool Equals(ElementMetadata other) => _label == other._label;
 
+        /// <inheritdoc />
         public override int GetHashCode() => HashCode.Combine(Label);
 
+        /// <summary>Tests two <see cref="ElementMetadata"/> instances for equality.</summary>
         public static bool operator ==(ElementMetadata left, ElementMetadata right) => left.Equals(right);
 
+        /// <summary>Tests two <see cref="ElementMetadata"/> instances for inequality.</summary>
         public static bool operator !=(ElementMetadata left, ElementMetadata right) => !(left == right);
     }
 }

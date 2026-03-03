@@ -3,6 +3,7 @@ using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Core.Projections
 {
+    /// <summary>Represents a projection for grouped key-value results.</summary>
     public sealed class GroupProjection : Projection
     {
         private readonly Projection _keyProjection;
@@ -14,6 +15,7 @@ namespace ExRam.Gremlinq.Core.Projections
             _valueProjection = valueProjection;
         }
 
+        /// <inheritdoc />
         public override Traversal ToTraversal(IGremlinQueryEnvironment environment)
         {
             ArgumentNullException.ThrowIfNull(environment);
@@ -60,6 +62,7 @@ namespace ExRam.Gremlinq.Core.Projections
                         }));
         }
 
+        /// <inheritdoc />
         public override Projection Lower() => Empty;
     }
 }

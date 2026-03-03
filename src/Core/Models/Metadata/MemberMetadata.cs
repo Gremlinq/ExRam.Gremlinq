@@ -46,14 +46,19 @@ namespace ExRam.Gremlinq.Core.Models
                     : key);
         }
 
+        /// <inheritdoc />
         public bool Equals(MemberMetadata other) => _key == other._key && SerializationBehaviour == other.SerializationBehaviour;
 
+        /// <inheritdoc />
         public override bool Equals(object? obj) => obj is MemberMetadata metadata && Equals(metadata);
 
+        /// <inheritdoc />
         public override int GetHashCode() => HashCode.Combine(_key, SerializationBehaviour);
 
+        /// <summary>Tests two <see cref="MemberMetadata"/> instances for equality.</summary>
         public static bool operator ==(MemberMetadata left, MemberMetadata right) => left.Equals(right);
 
+        /// <summary>Tests two <see cref="MemberMetadata"/> instances for inequality.</summary>
         public static bool operator !=(MemberMetadata left, MemberMetadata right) => !(left == right);
     }
 }

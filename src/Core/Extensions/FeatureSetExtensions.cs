@@ -1,5 +1,6 @@
 namespace ExRam.Gremlinq.Core
 {
+    /// <summary>Extension methods for <see cref="IFeatureSet"/>.</summary>
     public static class FeatureSetExtensions
     {
         /// <summary>

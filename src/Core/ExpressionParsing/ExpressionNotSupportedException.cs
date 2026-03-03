@@ -9,12 +9,17 @@ namespace ExRam.Gremlinq.Core
     {
         private const string StandardMessage = "An expression is not supported.";
 
+        /// <summary>Initializes a new instance with the specified expression.</summary>
+        /// <param name="expression">The unsupported expression.</param>
         public ExpressionNotSupportedException(Expression expression) : base($"The expression '{expression}' is not supported.")
         {
             ArgumentNullException.ThrowIfNull(expression);
 
         }
 
+        /// <summary>Initializes a new instance with the specified expression and inner exception.</summary>
+        /// <param name="expression">The unsupported expression.</param>
+        /// <param name="innerException">The inner exception.</param>
         public ExpressionNotSupportedException(Expression expression, Exception innerException) : base($"The expression '{expression}' is not supported.", Unwrap(innerException))
         {
             ArgumentNullException.ThrowIfNull(expression);
@@ -22,18 +27,23 @@ namespace ExRam.Gremlinq.Core
 
         }
 
+        /// <summary>Initializes a new instance with the specified inner exception.</summary>
+        /// <param name="innerException">The inner exception.</param>
         public ExpressionNotSupportedException(Exception innerException) : base(StandardMessage, Unwrap(innerException))
         {
             ArgumentNullException.ThrowIfNull(innerException);
 
         }
 
+        /// <summary>Initializes a new instance with the specified message.</summary>
+        /// <param name="message">The error message.</param>
         public ExpressionNotSupportedException(string message) : base(message)
         {
             ArgumentNullException.ThrowIfNull(message);
 
         }
 
+        /// <summary>Initializes a new instance with a default message.</summary>
         public ExpressionNotSupportedException() : base(StandardMessage)
         {
 

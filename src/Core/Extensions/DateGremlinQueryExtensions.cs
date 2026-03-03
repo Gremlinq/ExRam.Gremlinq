@@ -1,5 +1,6 @@
 namespace ExRam.Gremlinq.Core
 {
+    /// <summary>Extension methods for date-typed Gremlin queries.</summary>
     public static class DateGremlinQueryExtensions
     {
         /// <inheritdoc cref="IDateGremlinQuery{TDate}.Add" />

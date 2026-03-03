@@ -2,6 +2,7 @@ using ExRam.Gremlinq.Core.Steps;
 
 namespace ExRam.Gremlinq.Core
 {
+    /// <summary>Extension methods for <see cref="IGremlinQueryAdmin"/>.</summary>
     public static class GremlinQueryAdminExtensions
     {
         /// <summary>

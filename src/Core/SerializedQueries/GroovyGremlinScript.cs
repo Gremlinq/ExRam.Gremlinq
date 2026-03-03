@@ -30,6 +30,7 @@ namespace ExRam.Gremlinq.Core.Serialization
             return new(Script, Bindings.SetItem(variable, value));
         }
 
+        /// <inheritdoc />
         public override string ToString() => Script;
 
         /// <summary>

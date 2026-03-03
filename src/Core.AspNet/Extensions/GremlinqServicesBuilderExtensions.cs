@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace ExRam.Gremlinq.Core.AspNet
 {
+    /// <summary>Extension methods for <see cref="IGremlinqServicesBuilder"/>.</summary>
     public static class GremlinqServicesBuilderExtensions
     {
         private sealed class GremlinqProviderServicesBuilder<TConfigurator> : IGremlinqServicesBuilder<TConfigurator>
@@ -85,6 +86,8 @@ namespace ExRam.Gremlinq.Core.AspNet
                 });
         }
 
+        /// <summary>Applies base configuration from the configuration section to the builder.</summary>
+        /// <param name="builder">The services builder.</param>
         public static IGremlinqServicesBuilder ConfigureBase(this IGremlinqServicesBuilder builder)
         {
             ArgumentNullException.ThrowIfNull(builder);
@@ -104,6 +107,10 @@ namespace ExRam.Gremlinq.Core.AspNet
                 });
         }
 
+        /// <summary>Configures the builder to use a specific provider.</summary>
+        /// <typeparam name="TConfigurator">The provider configurator type.</typeparam>
+        /// <param name="setup">The services builder.</param>
+        /// <param name="providerChoice">The provider choice function.</param>
         public static IGremlinqServicesBuilder<TConfigurator> UseProvider<TConfigurator>(
             this IGremlinqServicesBuilder setup,
             Func<IGremlinQuerySource, Func<Func<TConfigurator, IGremlinQuerySourceTransformation>, IGremlinQuerySource>> providerChoice)

@@ -1,7 +1,9 @@
 namespace ExRam.Gremlinq.Core.ExpressionParsing
 {
+    /// <summary>Represents equality comparison semantics, translating to the Gremlin <c>eq</c> predicate.</summary>
     public sealed class EqualsExpressionSemantics : ObjectExpressionSemantics
     {
+        /// <summary>Gets the singleton instance.</summary>
         public static readonly EqualsExpressionSemantics Instance = new ();
 
         private EqualsExpressionSemantics()
@@ -9,11 +11,14 @@ namespace ExRam.Gremlinq.Core.ExpressionParsing
 
         }
 
+        /// <inheritdoc />
         public override ExpressionSemantics Flip() => this;
     }
 
+    /// <summary>Represents inequality comparison semantics, translating to the Gremlin <c>neq</c> predicate.</summary>
     public sealed class NotEqualsExpressionSemantics : ObjectExpressionSemantics
     {
+        /// <summary>Gets the singleton instance.</summary>
         public static readonly NotEqualsExpressionSemantics Instance = new();
 
         private NotEqualsExpressionSemantics()
@@ -21,11 +26,15 @@ namespace ExRam.Gremlinq.Core.ExpressionParsing
 
         }
 
+        /// <inheritdoc />
         public override ExpressionSemantics Flip() => this;
     }
 
+    /// <summary>Base class for expression semantics operating on object comparisons.</summary>
     public abstract class ObjectExpressionSemantics : ExpressionSemantics
     {
+        /// <summary>Transforms this semantics for a <c>CompareTo</c> result comparison.</summary>
+        /// <param name="comparison">The constant integer value compared against the <c>CompareTo</c> result.</param>
         public ExpressionSemantics TransformCompareTo(int comparison) => this switch
         {
             LowerThanExpressionSemantics => comparison switch

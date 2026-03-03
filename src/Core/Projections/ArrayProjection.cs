@@ -2,6 +2,7 @@ using ExRam.Gremlinq.Core.Steps;
 
 namespace ExRam.Gremlinq.Core.Projections
 {
+    /// <summary>Represents a projection for array/folded results.</summary>
     public sealed class ArrayProjection : Projection
     {
         private readonly Projection _inner;
@@ -11,6 +12,7 @@ namespace ExRam.Gremlinq.Core.Projections
             _inner = inner;
         }
 
+        /// <inheritdoc />
         public override Traversal ToTraversal(IGremlinQueryEnvironment environment)
         {
             ArgumentNullException.ThrowIfNull(environment);
@@ -36,8 +38,10 @@ namespace ExRam.Gremlinq.Core.Projections
             return Traversal.Empty;
         }
 
+        /// <summary>Returns the inner projection by removing the array wrapping.</summary>
         public Projection Unfold() => _inner;
 
+        /// <inheritdoc />
         public override Projection Lower() => Empty;
     }
 }

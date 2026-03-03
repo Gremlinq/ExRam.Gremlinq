@@ -4,6 +4,7 @@ using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Core.ExpressionParsing
 {
+    /// <summary>Provides a default <see cref="IPFactory"/> implementation and composition utilities.</summary>
     public static class PFactory
     {
         private sealed class DefaultPFactory : IPFactory
@@ -155,8 +156,12 @@ namespace ExRam.Gremlinq.Core.ExpressionParsing
             public P? TryGetP(ExpressionSemantics semantics, object? value, IGremlinQueryEnvironment environment) => _overrideFactory.TryGetP(semantics, value, environment) ?? _originalFactory.TryGetP(semantics, value, environment);
         }
 
+        /// <summary>Gets the default P factory implementation.</summary>
         public static readonly IPFactory Default = new DefaultPFactory();
 
+        /// <summary>Creates a composite factory that tries the override factory first, falling back to the original.</summary>
+        /// <param name="originalFactory">The original factory.</param>
+        /// <param name="overrideFactory">The override factory that is tried first.</param>
         public static IPFactory Override(this IPFactory originalFactory, IPFactory overrideFactory)
         {
             ArgumentNullException.ThrowIfNull(originalFactory);
@@ -165,6 +170,7 @@ namespace ExRam.Gremlinq.Core.ExpressionParsing
             return new OverridePFactory(originalFactory, overrideFactory);
         }
 
+        /// <summary>The option key for configuring the <see cref="IPFactory"/> on a <see cref="IGremlinQueryEnvironment"/>.</summary>
         public static readonly GremlinqOption<IPFactory> PFactoryOption = GremlinqOption.Create(Default);
     }
 }

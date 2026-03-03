@@ -11,13 +11,21 @@ namespace ExRam.Gremlinq.Core
         /// All text predicates are enabled.
         /// </summary>
         None = 0,
+        /// <summary>Disables the <c>TextP.containing()</c> predicate.</summary>
         Containing = 1,
+        /// <summary>Disables the <c>TextP.endingWith()</c> predicate.</summary>
         EndingWith = 2,
+        /// <summary>Disables the <c>TextP.notContaining()</c> predicate.</summary>
         NotContaining = 4,
+        /// <summary>Disables the <c>TextP.notEndingWith()</c> predicate.</summary>
         NotEndingWith = 8,
+        /// <summary>Disables the <c>TextP.notStartingWith()</c> predicate.</summary>
         NotStartingWith = 16,
+        /// <summary>Disables the <c>TextP.startingWith()</c> predicate.</summary>
         StartingWith = 32,
+        /// <summary>Disables the <c>TextP.regex()</c> predicate.</summary>
         Regex = 64,
+        /// <summary>Disables the <c>TextP.notRegex()</c> predicate.</summary>
         NotRegex = 128
     }
 }

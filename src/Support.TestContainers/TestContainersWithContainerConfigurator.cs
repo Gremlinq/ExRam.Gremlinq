@@ -10,6 +10,7 @@ using Gremlin.Net.Driver.Messages;
 
 namespace ExRam.Gremlinq.Support.TestContainers
 {
+    /// <summary>Configurator for creating a client factory that is backed by a Testcontainers container.</summary>
     public readonly struct TestContainersWithContainerConfigurator
     {
         private sealed class ContainerGremlinqClientFactory : IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>
@@ -144,6 +145,8 @@ namespace ExRam.Gremlinq.Support.TestContainers
             _containerBuilderTransformation = containerBuilderTransformation;
         }
 
+        /// <summary>Configures the client factory using the running container.</summary>
+        /// <param name="factoryTransformation">The factory transformation that receives the container.</param>
         public IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory> ConfigureClientFactory(Func<IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>, IContainer, IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>> factoryTransformation)
         {
             ArgumentNullException.ThrowIfNull(factoryTransformation);

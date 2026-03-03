@@ -3,6 +3,7 @@ using ExRam.Gremlinq.Core.Steps;
 
 namespace ExRam.Gremlinq.Core.Projections
 {
+    /// <summary>Represents a projection for tuple (multi-column) results.</summary>
     public sealed class TupleProjection : Projection
     {
         private readonly (string Key, Projection Projection)[] _projections;
@@ -12,6 +13,8 @@ namespace ExRam.Gremlinq.Core.Projections
             _projections = projections;
         }
               
+        /// <summary>Selects a subset of projections by key.</summary>
+        /// <param name="keys">The keys to select.</param>
         public Projection Select(ImmutableArray<Key> keys)
         {
             var projections = _projections
@@ -26,6 +29,7 @@ namespace ExRam.Gremlinq.Core.Projections
             };
         }
 
+        /// <inheritdoc />
         public override Traversal ToTraversal(IGremlinQueryEnvironment environment)
         {
             ArgumentNullException.ThrowIfNull(environment);
@@ -93,6 +97,7 @@ namespace ExRam.Gremlinq.Core.Projections
                 });
         }
 
+        /// <inheritdoc />
         public override Projection Lower() => Empty;
     }
 }

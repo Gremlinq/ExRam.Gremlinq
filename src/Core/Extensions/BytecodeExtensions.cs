@@ -4,6 +4,7 @@ using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Core
 {
+    /// <summary>Extension methods for <see cref="Bytecode"/>.</summary>
     public static class BytecodeExtensions
     {
         /// <summary>
