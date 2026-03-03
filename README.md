@@ -24,7 +24,7 @@ For those desiring deeper understanding, workshops on the Gremlin language are o
 into the Gremlinq domain-specific language. Schedule a call to discuss matters, your requirements, pricing conditions and get a
 discount if a workshop materializes.
 
-[![#](https://img.shields.io/badge/Schedule_a_call!-EA6F1B?style=for-the-badge)](https://danielcweber.net/r/gremlinqsupport)
+[![#](https://img.shields.io/badge/Schedule_a_call!-EA6F1B?style=for-the-badge)](https://docs.gremlinq.net/support/)
 
 # Extensions
 
