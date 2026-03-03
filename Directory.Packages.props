@@ -4,7 +4,6 @@
     <PackageVersion Include="BenchmarkDotNet.Diagnostics.Windows" Version="0.14.0" />
     <PackageVersion Include="Boxed.DotnetNewTest" Version="6.0.0" />
     <PackageVersion Include="CommunityToolkit.HighPerformance" Version="8.4.0" />
-    <PackageVersion Include="coverlet.collector" Version="6.0.4" />
     <PackageVersion Include="FluentAssertions" Version="[7.2.1]" />
     <PackageVersion Include="Gremlin.Net" Version="3.7.5" />
 
@@ -41,6 +40,6 @@
     <PackageVersion Include="Microsoft.Extensions.Configuration" Version="9.0.10" />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)'=='net10.0'">
-    <PackageVersion Include="Microsoft.Extensions.Configuration" Version="10.0.2" />
+    <PackageVersion Include="Microsoft.Extensions.Configuration" Version="10.0.3" />
   </ItemGroup>
 </Project>
