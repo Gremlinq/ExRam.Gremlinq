@@ -1,7 +1,7 @@
 [![#](assets/logo.png)]()
 
-[![#](https://img.shields.io/github/license/Gremlinq/ExRam.Gremlinq?style=flat-square)](https://github.com/Gremlinq/ExRam.Gremlinq/blob/13.x/LICENSE.md)
-[![#](https://img.shields.io/nuget/v/ExRam.Gremlinq.Core?style=flat-square&logo=nuget)](https://www.nuget.org/packages?q=ExRam.Gremlinq)
+[![#](https://img.shields.io/github/license/Gremlinq/ExRam.Gremlinq?style=plastic)](https://github.com/Gremlinq/ExRam.Gremlinq/blob/13.x/LICENSE.md)
+[![#](https://img.shields.io/nuget/v/ExRam.Gremlinq.Core?style=plastic&logo=nuget)](https://www.nuget.org/packages?q=ExRam.Gremlinq)
 
 # Synopsis
 
@@ -13,7 +13,7 @@ ExRam.Gremlinq is best suited for .NET applications working with highly intercon
 
 Head over to the official docs for an introduction on how to get started with Gremlinq and lots of example queries.
 
-[![#](https://img.shields.io/badge/Read_the_docs!-EA6F1B?style=for-the-badge)](https://docs.gremlinq.net)
+[![#](https://img.shields.io/badge/🔗Read_the_docs!-EA6F1B?style=plastic&logo=link)](https://docs.gremlinq.net)
 
 # Support
 
@@ -24,7 +24,7 @@ For those desiring deeper understanding, workshops on the Gremlin language are o
 into the Gremlinq domain-specific language. Schedule a call to discuss matters, your requirements, pricing conditions and get a
 discount if a workshop materializes.
 
-[![#](https://img.shields.io/badge/Schedule_a_call!-EA6F1B?style=for-the-badge)](https://docs.gremlinq.net/support/)
+[![#](https://img.shields.io/badge/🔗Schedule_a_call!-EA6F1B?style=plastic)](https://docs.gremlinq.net/support/)
 
 # Extensions
 
@@ -37,4 +37,4 @@ Add some of the most-wanted features missing from the Core library to your app, 
 * Groovy script execution
 * Transactions (in development)
 
-[![#](https://img.shields.io/badge/Check_out_Gremlinq.Extensions!-EA6F1B?style=for-the-badge)](https://docs.gremlinq.net/extensions/)
+[![#](https://img.shields.io/badge/🔗Check_out_Gremlinq.Extensions!-EA6F1B?style=plastic)](https://docs.gremlinq.net/extensions/)
