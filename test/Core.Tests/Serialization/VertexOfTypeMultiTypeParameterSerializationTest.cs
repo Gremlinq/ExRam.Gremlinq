@@ -1,4 +1,4 @@
-﻿using ExRam.Gremlinq.Core.Models;
+using ExRam.Gremlinq.Core.Models;
 using ExRam.Gremlinq.Tests.Entities;
 using ExRam.Gremlinq.Tests.Infrastructure;
 

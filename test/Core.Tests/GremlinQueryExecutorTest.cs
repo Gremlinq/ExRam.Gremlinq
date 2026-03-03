@@ -1,4 +1,4 @@
-﻿using System.Reactive.Linq;
+using System.Reactive.Linq;
 using System.Reactive.Threading.Tasks;
 
 using ExRam.Gremlinq.Core.Execution;

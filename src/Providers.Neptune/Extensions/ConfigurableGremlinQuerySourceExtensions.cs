@@ -1,4 +1,4 @@
-﻿using ExRam.Gremlinq.Core.Steps;
+using ExRam.Gremlinq.Core.Steps;
 using Gremlin.Net.Process.Traversal;
 using ExRam.Gremlinq.Core.Transformation;
 using ExRam.Gremlinq.Providers.Core;

@@ -1,1 +1,1 @@
-﻿g.V().hasLabel('Person').hasNot('Gender')
+g.V().hasLabel('Person').hasNot('Gender')

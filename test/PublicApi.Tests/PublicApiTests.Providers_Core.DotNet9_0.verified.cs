@@ -1,4 +1,4 @@
-﻿namespace ExRam.Gremlinq.Providers.Core
+namespace ExRam.Gremlinq.Providers.Core
 {
     public readonly struct GraphSon2BinaryMessage : System.Buffers.IMemoryOwner<byte>, System.IDisposable
     {

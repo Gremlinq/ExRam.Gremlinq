@@ -1,4 +1,4 @@
-﻿namespace ExRam.Gremlinq.Core.Models
+namespace ExRam.Gremlinq.Core.Models
 {
     /// <summary>
     /// Controls when a graph element property is included during serialization.

@@ -1,4 +1,4 @@
-﻿namespace ExRam.Gremlinq.Core.Projections
+namespace ExRam.Gremlinq.Core.Projections
 {
     public sealed class ValueProjection : Projection
     {

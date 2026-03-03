@@ -1,4 +1,4 @@
-﻿{
+{
   Script: g.V().hasLabel(_a,_b,_c,_d,_e,_f).has(label,_e),
   Bindings: {
     _a: Company,

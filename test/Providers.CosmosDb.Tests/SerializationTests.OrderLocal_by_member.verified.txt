@@ -1,4 +1,4 @@
-﻿{
+{
   Script: g.V().hasLabel(_a).has(_b).order(local).by(_b,incr),
   Bindings: {
     _a: Person,

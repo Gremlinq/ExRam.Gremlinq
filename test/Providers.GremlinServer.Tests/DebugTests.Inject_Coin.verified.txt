@@ -1,1 +1,1 @@
-﻿g.inject(42).coin(1)
+g.inject(42).coin(1)

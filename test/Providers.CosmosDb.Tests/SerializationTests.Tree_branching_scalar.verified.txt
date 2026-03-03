@@ -1,4 +1,4 @@
-﻿{
+{
   Script: g.inject(_a).union(__.constant(_b),__.constant(_c)).tree(),
   Bindings: {
     _a: 42,

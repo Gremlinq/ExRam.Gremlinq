@@ -1,4 +1,4 @@
-﻿namespace ExRam.Gremlinq.Providers.Core
+namespace ExRam.Gremlinq.Providers.Core
 {
     internal abstract class DisposableBase : IDisposable
     {

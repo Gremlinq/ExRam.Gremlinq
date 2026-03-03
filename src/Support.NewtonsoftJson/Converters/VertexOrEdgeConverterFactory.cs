@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Linq;
 using ExRam.Gremlinq.Core.GraphElements;
 using System.Diagnostics.CodeAnalysis;
 using ExRam.Gremlinq.Core.Transformation;

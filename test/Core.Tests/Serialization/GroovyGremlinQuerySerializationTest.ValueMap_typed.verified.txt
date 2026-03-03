@@ -1,4 +1,4 @@
-﻿{
+{
   Script: g.V().hasLabel(_a).valueMap(_b),
   Bindings: {
     _a: Person,

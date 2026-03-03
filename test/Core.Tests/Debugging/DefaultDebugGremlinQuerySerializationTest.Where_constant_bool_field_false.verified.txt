@@ -1,1 +1,1 @@
-﻿g.inject(42).none()
+g.inject(42).none()

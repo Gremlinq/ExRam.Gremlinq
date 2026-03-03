@@ -1,4 +1,4 @@
-﻿namespace ExRam.Gremlinq.Tests.Infrastructure.GraphSon.Entities
+namespace ExRam.Gremlinq.Tests.Infrastructure.GraphSon.Entities
 {
     public class ClassWithInitProperty
     {

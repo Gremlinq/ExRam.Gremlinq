@@ -1,4 +1,4 @@
-﻿using ExRam.Gremlinq.Core;
+using ExRam.Gremlinq.Core;
 
 using Microsoft.Extensions.Logging;
 

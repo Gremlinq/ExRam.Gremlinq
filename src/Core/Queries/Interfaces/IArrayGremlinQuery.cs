@@ -1,4 +1,4 @@
-﻿namespace ExRam.Gremlinq.Core
+namespace ExRam.Gremlinq.Core
 {
     /// <summary>Provides base operations for queries over array/list results, including local aggregation and unfolding.</summary>
     public interface IArrayGremlinQueryBase : IGremlinQueryBase

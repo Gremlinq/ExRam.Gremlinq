@@ -1,1 +1,1 @@
-﻿g.V().hasLabel('Company').limit(1).property(list,'PhoneNumbers','+4912345')
+g.V().hasLabel('Company').limit(1).property(list,'PhoneNumbers','+4912345')

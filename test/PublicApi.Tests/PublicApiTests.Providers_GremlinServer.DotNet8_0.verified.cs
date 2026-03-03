@@ -1,4 +1,4 @@
-﻿namespace ExRam.Gremlinq.Providers.GremlinServer
+namespace ExRam.Gremlinq.Providers.GremlinServer
 {
     public static class ConfigurableGremlinQuerySourceExtensions
     {

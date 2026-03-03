@@ -1,1 +1,1 @@
-﻿g.V().hasLabel('Person').or(__.out('LivesIn'),__.outE('LivesIn').inV())
+g.V().hasLabel('Person').or(__.out('LivesIn'),__.outE('LivesIn').inV())

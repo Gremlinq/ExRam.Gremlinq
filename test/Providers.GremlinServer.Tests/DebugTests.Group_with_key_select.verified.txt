@@ -1,1 +1,1 @@
-﻿g.V().group().by(__.label()).select('Person').count(local)
+g.V().group().by(__.label()).select('Person').count(local)

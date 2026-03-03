@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Linq;
 using ExRam.Gremlinq.Core.Transformation;
 using ExRam.Gremlinq.Core;
 

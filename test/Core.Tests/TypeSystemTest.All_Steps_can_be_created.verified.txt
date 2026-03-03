@@ -1,4 +1,4 @@
-﻿[
+[
   {
     Item1: AddEStep,
     Item2: {

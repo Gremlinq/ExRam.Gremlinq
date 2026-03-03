@@ -1,1 +1,1 @@
-﻿g.V().hasLabel('Company').has('PhoneNumbers')
+g.V().hasLabel('Company').has('PhoneNumbers')

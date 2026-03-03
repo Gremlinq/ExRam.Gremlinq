@@ -1,4 +1,4 @@
-﻿namespace ExRam.Gremlinq.Support.NewtonsoftJson.AspNet
+namespace ExRam.Gremlinq.Support.NewtonsoftJson.AspNet
 {
     public static class GremlinqServicesBuilderExtensions
     {

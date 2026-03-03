@@ -1,4 +1,4 @@
-﻿using System.Buffers;
+using System.Buffers;
 using ExRam.Gremlinq.Core.Projections;
 using ExRam.Gremlinq.Core.Steps;
 

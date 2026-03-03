@@ -1,4 +1,4 @@
-﻿{
+{
   Script: g.V().constant([_a]),
   Bindings: {
     _a: true

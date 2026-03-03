@@ -1,1 +1,1 @@
-﻿g.withSideEffect('_a',36).V().select('_a')
+g.withSideEffect('_a',36).V().select('_a')

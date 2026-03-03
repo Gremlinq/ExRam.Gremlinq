@@ -1,4 +1,4 @@
-﻿{
+{
   Script: g.inject(_a).dateDiff(__.constant(_b).asDate()),
   Bindings: {
     _a: DateTimeOffset_1,

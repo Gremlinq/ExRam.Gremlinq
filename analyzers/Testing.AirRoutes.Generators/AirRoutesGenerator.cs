@@ -1,4 +1,4 @@
-﻿#pragma warning disable RS1035 // Do not use APIs banned for analyzers
+#pragma warning disable RS1035 // Do not use APIs banned for analyzers
 #pragma warning disable RS1042 // Implementations of this interface are not allowed
 
 using System.Xml.Serialization;

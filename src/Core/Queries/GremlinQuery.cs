@@ -1,4 +1,4 @@
-﻿#pragma warning disable IDE0003
+#pragma warning disable IDE0003
 // ReSharper disable ArrangeThisQualifier
 using System.Buffers;
 using System.Collections;

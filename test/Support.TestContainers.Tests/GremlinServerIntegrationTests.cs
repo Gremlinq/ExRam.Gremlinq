@@ -1,4 +1,4 @@
-﻿using DotNet.Testcontainers.Builders;
+using DotNet.Testcontainers.Builders;
 
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Support.NewtonsoftJson;

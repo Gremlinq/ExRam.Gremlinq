@@ -1,1 +1,1 @@
-﻿g.V().hasLabel('Company').not(__.identity())
+g.V().hasLabel('Company').not(__.identity())

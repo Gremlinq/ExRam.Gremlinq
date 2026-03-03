@@ -1,4 +1,4 @@
-﻿{
+{
   Script: g.instruction(_a,_b),
   Bindings: {
     _a: a,

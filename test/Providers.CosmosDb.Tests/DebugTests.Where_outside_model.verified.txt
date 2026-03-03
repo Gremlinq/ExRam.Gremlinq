@@ -1,1 +1,1 @@
-﻿g.V().hasLabel('VertexWithStringId').has(id,0)
+g.V().hasLabel('VertexWithStringId').has(id,0)

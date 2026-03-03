@@ -1,4 +1,4 @@
-﻿{
+{
   Script: g.V().hasLabel(_a).aggregate(_b).fold().select(_b),
   Bindings: {
     _a: Person,

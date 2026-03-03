@@ -1,4 +1,4 @@
-﻿namespace ExRam.Gremlinq.Support.TestContainers
+namespace ExRam.Gremlinq.Support.TestContainers
 {
     public static class ProviderConfiguratorExtensions
     {

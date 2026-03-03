@@ -1,4 +1,4 @@
-﻿namespace ExRam.Gremlinq.Providers.CosmosDb.AspNet
+namespace ExRam.Gremlinq.Providers.CosmosDb.AspNet
 {
     public static class GremlinqServicesBuilderExtensions
     {

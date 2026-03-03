@@ -1,4 +1,4 @@
-﻿{
+{
   Script: g.V().hasLabel(_a).where(__.map(__.as(_b))),
   Bindings: {
     _a: Company,

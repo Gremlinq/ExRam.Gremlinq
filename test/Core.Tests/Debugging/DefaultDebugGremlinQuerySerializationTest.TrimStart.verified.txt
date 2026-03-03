@@ -1,1 +1,1 @@
-﻿g.inject('  aBcDeFg  ').asString().lTrim()
+g.inject('  aBcDeFg  ').asString().lTrim()

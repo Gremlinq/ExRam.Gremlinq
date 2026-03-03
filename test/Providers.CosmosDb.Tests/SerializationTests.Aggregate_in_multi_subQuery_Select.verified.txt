@@ -1,4 +1,4 @@
-﻿{
+{
   Script: g.V().hasLabel(_a).coalesce(__.aggregate(_b),__.aggregate(_c)).fold().project(_d,_e).by(__.select(_b)).by(__.select(_c)),
   Bindings: {
     _a: Person,

@@ -1,1 +1,1 @@
-﻿g.V().hasLabel('Company').has('PhoneNumbers',within('+4912345','+4923456'))
+g.V().hasLabel('Company').has('PhoneNumbers',within('+4912345','+4923456'))

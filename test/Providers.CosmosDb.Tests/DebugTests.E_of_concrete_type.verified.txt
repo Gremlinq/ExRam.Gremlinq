@@ -1,1 +1,1 @@
-﻿g.E().hasLabel('WorksFor')
+g.E().hasLabel('WorksFor')

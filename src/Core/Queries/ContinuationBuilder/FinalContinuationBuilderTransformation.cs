@@ -1,4 +1,4 @@
-﻿namespace ExRam.Gremlinq.Core
+namespace ExRam.Gremlinq.Core
 {
     internal delegate TResult FinalContinuationBuilderTransformation<TResult>(FinalContinuationBuilder builder, Memory<Traversal> traversals);
 

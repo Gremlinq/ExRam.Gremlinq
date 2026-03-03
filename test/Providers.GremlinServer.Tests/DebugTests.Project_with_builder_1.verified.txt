@@ -1,1 +1,1 @@
-﻿g.inject(42).project('item1!').by(__.constant('item1'))
+g.inject(42).project('item1!').by(__.constant('item1'))

@@ -1,4 +1,4 @@
-﻿using ExRam.Gremlinq.Core;
+using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Tests.Entities;
 using Gremlin.Net.Process.Traversal;
 using ExRam.Gremlinq.Tests.Infrastructure;

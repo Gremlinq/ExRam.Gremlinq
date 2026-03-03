@@ -1,4 +1,4 @@
-﻿using ExRam.Gremlinq.Providers.Core;
+using ExRam.Gremlinq.Providers.Core;
 using ExRam.Gremlinq.Tests.Infrastructure;
 
 namespace ExRam.Gremlinq.Core.Tests

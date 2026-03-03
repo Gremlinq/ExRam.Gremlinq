@@ -1,4 +1,4 @@
-﻿namespace ExRam.Gremlinq.Templates.Console
+namespace ExRam.Gremlinq.Templates.Console
 {
     public class Edge
     {

@@ -1,1 +1,1 @@
-﻿g.V().group().by(__.label())
+g.V().group().by(__.label())

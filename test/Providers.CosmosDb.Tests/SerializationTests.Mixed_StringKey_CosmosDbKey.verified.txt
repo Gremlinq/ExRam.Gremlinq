@@ -1,4 +1,4 @@
-﻿{
+{
   Script: g.V([_a,_b],_c).hasLabel(_d),
   Bindings: {
     _a: pk,

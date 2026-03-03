@@ -1,4 +1,4 @@
-﻿[
+[
   {
     Value: metaValue1,
     Key: metaKey1

@@ -1,1 +1,1 @@
-﻿g.V().hasLabel('Person').emit().repeat(__.inE().outV())
+g.V().hasLabel('Person').emit().repeat(__.inE().outV())

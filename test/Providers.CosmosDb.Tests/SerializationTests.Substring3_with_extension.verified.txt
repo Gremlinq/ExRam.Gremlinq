@@ -1,4 +1,4 @@
-﻿{
+{
   Script: g.inject(_a).substring(global,_b,_c),
   Bindings: {
     _a: 1234567890,

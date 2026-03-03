@@ -1,4 +1,4 @@
-﻿using Boxed.DotnetNewTest;
+using Boxed.DotnetNewTest;
 
 using TempDirectory = Boxed.DotnetNewTest.TempDirectory;
 

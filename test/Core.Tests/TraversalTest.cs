@@ -1,4 +1,4 @@
-﻿using ExRam.Gremlinq.Core.Steps;
+using ExRam.Gremlinq.Core.Steps;
 using FluentAssertions;
 
 namespace ExRam.Gremlinq.Core.Tests

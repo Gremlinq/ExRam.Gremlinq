@@ -1,4 +1,4 @@
-﻿namespace ExRam.Gremlinq.Core.Execution
+namespace ExRam.Gremlinq.Core.Execution
 {
     /// <summary>
     /// Executes Gremlin queries against a graph database and returns an asynchronous stream of results.

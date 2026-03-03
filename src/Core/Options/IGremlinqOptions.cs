@@ -1,4 +1,4 @@
-﻿namespace ExRam.Gremlinq.Core
+namespace ExRam.Gremlinq.Core
 {
     /// <summary>
     /// An immutable dictionary of <see cref="GremlinqOption{TValue}"/> values that control query behavior.

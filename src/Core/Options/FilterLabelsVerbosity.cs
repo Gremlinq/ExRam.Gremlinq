@@ -1,4 +1,4 @@
-﻿namespace ExRam.Gremlinq.Core
+namespace ExRam.Gremlinq.Core
 {
     /// <summary>
     /// Controls whether Gremlinq includes all label filters or omits them when they match all known types.

@@ -1,4 +1,4 @@
-﻿{
+{
   Age: 42,
   Id: 123,
   Label: Person,

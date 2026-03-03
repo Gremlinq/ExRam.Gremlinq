@@ -1,4 +1,4 @@
-﻿namespace ExRam.Gremlinq.Core
+namespace ExRam.Gremlinq.Core
 {
     /// <summary>Builder interface for constructing a <c>choose()</c> step with multiple case branches.</summary>
     /// <typeparam name="TSourceQuery">The source query type.</typeparam>

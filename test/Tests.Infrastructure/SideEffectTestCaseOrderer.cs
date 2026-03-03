@@ -1,4 +1,4 @@
-﻿using Xunit.Sdk;
+using Xunit.Sdk;
 using Xunit.v3;
 
 namespace ExRam.Gremlinq.Tests.Infrastructure

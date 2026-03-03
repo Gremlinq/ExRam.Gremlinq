@@ -1,1 +1,1 @@
-﻿g.V().limit(2).fold().map(__.unfold().tail(1).fold())
+g.V().limit(2).fold().map(__.unfold().tail(1).fold())

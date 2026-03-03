@@ -1,1 +1,1 @@
-﻿g.V().hasLabel('Person').outE('LivesIn','WorksFor')
+g.V().hasLabel('Person').outE('LivesIn','WorksFor')

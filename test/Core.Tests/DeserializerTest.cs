@@ -1,4 +1,4 @@
-﻿using ExRam.Gremlinq.Core.Deserialization;
+using ExRam.Gremlinq.Core.Deserialization;
 
 using FluentAssertions;
 

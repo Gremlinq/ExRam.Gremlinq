@@ -1,4 +1,4 @@
-﻿using System.Dynamic;
+using System.Dynamic;
 
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Models;

@@ -1,1 +1,1 @@
-﻿g.V().hasLabel('TimeFrame').not(__.has('Enabled',true))
+g.V().hasLabel('TimeFrame').not(__.has('Enabled',true))

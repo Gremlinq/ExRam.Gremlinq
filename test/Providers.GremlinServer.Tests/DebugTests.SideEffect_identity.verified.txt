@@ -1,1 +1,1 @@
-﻿g.inject(42)
+g.inject(42)

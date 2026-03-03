@@ -1,4 +1,4 @@
-﻿namespace ExRam.Gremlinq.Core
+namespace ExRam.Gremlinq.Core
 {
     /// <summary>Provides base operations for queries over properties.</summary>
     public interface IPropertyGremlinQueryBase : IGremlinQueryBase

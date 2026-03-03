@@ -1,4 +1,4 @@
-﻿{
+{
   Script: g.inject(_a).project(_b,_c).by(__.constant(_d)).by(__.fold()).filter(__.select(_c).count(local).is(_e)),
   Bindings: {
     _a: 42,

@@ -1,4 +1,4 @@
-﻿namespace ExRam.Gremlinq.Providers.Neptune
+namespace ExRam.Gremlinq.Providers.Neptune
 {
     public static class AWSSigner
     {

@@ -1,4 +1,4 @@
-﻿using ExRam.Gremlinq.Core;
+using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Providers.Core;
 using ExRam.Gremlinq.Providers.GremlinServer;
 using ExRam.Gremlinq.Support.NewtonsoftJson;

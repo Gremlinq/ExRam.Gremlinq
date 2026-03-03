@@ -1,1 +1,1 @@
-﻿g.V().hasLabel('Person').group()
+g.V().hasLabel('Person').group()

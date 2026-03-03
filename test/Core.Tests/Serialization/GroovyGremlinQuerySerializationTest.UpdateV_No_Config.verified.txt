@@ -1,4 +1,4 @@
-﻿{
+{
   Script: g.V().hasLabel(_a).sideEffect(__.properties(_b,_c,_d).drop()).property(single,_e,_f).property(single,_g,_h).property(single,_i,_j).property(list,_c,_k).property(single,_l,_m).project(_n,_o,_p).by(id).by(label).by(__.properties().group().by(label).by(__.project(_n,_o,_q,_p).by(id).by(label).by(value).by(__.valueMap()).fold())),
   Bindings: {
     _a: Person,

@@ -1,4 +1,4 @@
-﻿using ExRam.Gremlinq.Core.GraphElements;
+using ExRam.Gremlinq.Core.GraphElements;
 using Path = ExRam.Gremlinq.Core.GraphElements.Path;
 using System.Collections.Immutable;
 using System.Collections.Concurrent;

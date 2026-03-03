@@ -1,1 +1,1 @@
-﻿g.V().hasLabel('Person').order().by('Name',incr).as('_a').format('_%{_}_').by(__.identity())
+g.V().hasLabel('Person').order().by('Name',incr).as('_a').format('_%{_}_').by(__.identity())

@@ -1,4 +1,4 @@
-﻿{
+{
   Script: g.inject(_a).dateAdd(day,_b).dateAdd(hour,_c).dateAdd(minute,_d).dateAdd(second,_e),
   Bindings: {
     _a: DateTimeOffset_1,

@@ -1,4 +1,4 @@
-﻿using ExRam.Gremlinq.Core.Serialization;
+using ExRam.Gremlinq.Core.Serialization;
 
 using Gremlin.Net.Process.Traversal;
 

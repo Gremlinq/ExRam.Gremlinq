@@ -1,4 +1,4 @@
-﻿namespace ExRam.Gremlinq.Testing.AirRoutes
+namespace ExRam.Gremlinq.Testing.AirRoutes
 {
     public static class GremlinQuerySourceExtensions
     {

@@ -1,4 +1,4 @@
-﻿{
+{
   Item1: value1,
   Item2: value2
 }

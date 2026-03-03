@@ -1,1 +1,1 @@
-﻿g.inject(42).not(__.identity())
+g.inject(42).not(__.identity())

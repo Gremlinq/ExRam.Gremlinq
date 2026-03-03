@@ -1,4 +1,4 @@
-﻿namespace ExRam.Gremlinq.Providers.Neptune.Tests
+namespace ExRam.Gremlinq.Providers.Neptune.Tests
 {
     public class AWSSignerTest : VerifyBase
     {

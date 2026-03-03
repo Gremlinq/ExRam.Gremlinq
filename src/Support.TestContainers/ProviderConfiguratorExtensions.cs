@@ -1,4 +1,4 @@
-﻿using DotNet.Testcontainers.Builders;
+using DotNet.Testcontainers.Builders;
 
 using ExRam.Gremlinq.Providers.Core;
 

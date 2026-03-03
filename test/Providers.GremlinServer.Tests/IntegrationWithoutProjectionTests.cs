@@ -1,4 +1,4 @@
-﻿using ExRam.Gremlinq.Tests.Fixtures;
+using ExRam.Gremlinq.Tests.Fixtures;
 using ExRam.Gremlinq.Tests.Infrastructure;
 
 namespace ExRam.Gremlinq.Providers.GremlinServer.Tests

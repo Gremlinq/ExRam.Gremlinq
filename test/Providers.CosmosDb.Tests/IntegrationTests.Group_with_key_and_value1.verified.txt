@@ -1,4 +1,4 @@
-﻿[
+[
   {
     Person: {
       CountryCallingCode: +49,

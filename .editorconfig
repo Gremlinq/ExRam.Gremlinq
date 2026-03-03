@@ -15,7 +15,7 @@ trim_trailing_whitespace = true
 indent_size = 4
 insert_final_newline = true
 
-charset = utf-8-bom
+charset = utf-8
 # Xml project files
 [*.{csproj,vbproj,vcxproj,vcxproj.filters,proj,projitems,shproj}]
 indent_size = 2

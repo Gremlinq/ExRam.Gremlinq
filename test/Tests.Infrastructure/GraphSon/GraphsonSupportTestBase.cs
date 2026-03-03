@@ -1,4 +1,4 @@
-﻿using System.Runtime.CompilerServices;
+using System.Runtime.CompilerServices;
 
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.GraphElements;

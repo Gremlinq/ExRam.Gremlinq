@@ -1,4 +1,4 @@
-﻿using Gremlin.Net.Driver.Messages;
+using Gremlin.Net.Driver.Messages;
 
 using static ExRam.Gremlinq.Core.ExceptionHelper;
 

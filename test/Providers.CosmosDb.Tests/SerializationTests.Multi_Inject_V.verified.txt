@@ -1,4 +1,4 @@
-﻿{
+{
   Script: g.inject(_a,_b,_c).V().hasLabel(_d),
   Bindings: {
     _a: 36,

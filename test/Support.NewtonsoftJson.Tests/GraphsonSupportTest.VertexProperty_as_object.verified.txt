@@ -1,4 +1,4 @@
-﻿{
+{
   Id: 1,
   Label: Property1,
   Properties: {

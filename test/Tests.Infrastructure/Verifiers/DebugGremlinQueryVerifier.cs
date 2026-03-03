@@ -1,4 +1,4 @@
-﻿using System.Runtime.CompilerServices;
+using System.Runtime.CompilerServices;
 using ExRam.Gremlinq.Core;
 
 namespace ExRam.Gremlinq.Tests.Infrastructure

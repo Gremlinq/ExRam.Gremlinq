@@ -1,4 +1,4 @@
-﻿{
+{
   StringArg: stringValue,
   IntArg: 42
 }

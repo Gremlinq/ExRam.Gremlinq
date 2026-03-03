@@ -1,4 +1,4 @@
-﻿using static ExRam.Gremlinq.Core.ExceptionHelper;
+using static ExRam.Gremlinq.Core.ExceptionHelper;
 
 namespace ExRam.Gremlinq.Core.Serialization
 {

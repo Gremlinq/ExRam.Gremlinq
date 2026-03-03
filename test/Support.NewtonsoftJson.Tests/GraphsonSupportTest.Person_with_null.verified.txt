@@ -1,4 +1,4 @@
-﻿{
+{
   Age: 36,
   Gender: Female,
   PhoneNumbers: [

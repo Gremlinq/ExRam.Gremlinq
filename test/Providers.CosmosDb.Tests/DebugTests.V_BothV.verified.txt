@@ -1,1 +1,1 @@
-﻿g.E().bothV()
+g.E().bothV()

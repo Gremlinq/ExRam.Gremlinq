@@ -1,4 +1,4 @@
-﻿[
+[
   {
     ExRam.Gremlinq.Tests.Entities.Person: [
       {

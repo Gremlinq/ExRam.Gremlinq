@@ -1,1 +1,1 @@
-﻿g.V().not(__.out('WorksFor'))
+g.V().not(__.out('WorksFor'))

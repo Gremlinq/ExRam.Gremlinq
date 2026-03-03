@@ -1,1 +1,1 @@
-﻿g.inject('abcdef').asString().reverse()
+g.inject('abcdef').asString().reverse()

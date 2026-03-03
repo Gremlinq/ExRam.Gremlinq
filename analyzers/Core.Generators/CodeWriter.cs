@@ -1,4 +1,4 @@
-﻿namespace ExRam.Gremlinq.Core.Generators
+namespace ExRam.Gremlinq.Core.Generators
 {
     internal readonly struct CodeWriter
     {

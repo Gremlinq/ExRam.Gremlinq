@@ -1,1 +1,1 @@
-﻿g.V().hasLabel('Person').as('_a').count().select('_a')
+g.V().hasLabel('Person').as('_a').count().select('_a')

@@ -1,4 +1,4 @@
-﻿[
+[
   {
     Count: count_value,
     In: in_value,

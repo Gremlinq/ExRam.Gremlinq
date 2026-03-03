@@ -1,4 +1,4 @@
-﻿namespace ExRam.Gremlinq.Core.GraphElements
+namespace ExRam.Gremlinq.Core.GraphElements
 {
     /// <summary>
     /// Represents a traversal path, consisting of labels and the objects encountered at each step.

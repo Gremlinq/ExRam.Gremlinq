@@ -1,1 +1,1 @@
-﻿g.V().hasLabel('Company').not(__.has('PhoneNumbers'))
+g.V().hasLabel('Company').not(__.has('PhoneNumbers'))

@@ -1,4 +1,4 @@
-﻿using ExRam.Gremlinq.Core.Execution;
+using ExRam.Gremlinq.Core.Execution;
 
 using Gremlin.Net.Driver.Exceptions;
 

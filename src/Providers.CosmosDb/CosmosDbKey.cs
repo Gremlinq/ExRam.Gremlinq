@@ -1,4 +1,4 @@
-﻿namespace ExRam.Gremlinq.Providers.CosmosDb
+namespace ExRam.Gremlinq.Providers.CosmosDb
 {
     /// <summary>
     /// Represents a key used to identify elements in CosmosDb, optionally including a partition key.

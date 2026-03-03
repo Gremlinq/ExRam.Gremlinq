@@ -1,1 +1,1 @@
-﻿g.inject('abcdef').replace('bd','xy')
+g.inject('abcdef').replace('bd','xy')

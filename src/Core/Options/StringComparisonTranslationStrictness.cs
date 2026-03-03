@@ -1,4 +1,4 @@
-﻿namespace ExRam.Gremlinq.Core
+namespace ExRam.Gremlinq.Core
 {
     [Obsolete("Starting from version 14, Gremlinq will always behave as if StringComparisonTranslationStrictness.Strict was configured. Queries using a string comparison which is not supported on a specific database provider (e.g. case insensitive queries on Azure CosmosDb) must be modified accordingly.")]
     public enum StringComparisonTranslationStrictness

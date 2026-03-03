@@ -1,4 +1,4 @@
-﻿using ExRam.Gremlinq.Core;
+using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.ExpressionParsing;
 using ExRam.Gremlinq.Providers.Core;
 

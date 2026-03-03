@@ -1,4 +1,4 @@
-﻿{
+{
   Type: NeptuneGremlinQueryExecutionException,
   Code: {
     Code: InternalFailureException

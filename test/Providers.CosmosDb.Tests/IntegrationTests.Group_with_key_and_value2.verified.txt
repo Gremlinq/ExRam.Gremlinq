@@ -1,4 +1,4 @@
-﻿[
+[
   {
     Company: +4923456,
     Country: PartitionKey,

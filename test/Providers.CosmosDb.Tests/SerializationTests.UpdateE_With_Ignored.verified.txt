@@ -1,4 +1,4 @@
-﻿{
+{
   Script: g.E().hasLabel(_a).property(_b,_c),
   Bindings: {
     _a: WorksFor,

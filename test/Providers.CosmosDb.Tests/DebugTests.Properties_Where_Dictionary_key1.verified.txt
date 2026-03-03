@@ -1,1 +1,1 @@
-﻿g.V().hasLabel('Person').properties().has('MetaKey','MetaValue')
+g.V().hasLabel('Person').properties().has('MetaKey','MetaValue')

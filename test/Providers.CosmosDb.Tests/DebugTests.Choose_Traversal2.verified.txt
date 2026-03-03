@@ -1,1 +1,1 @@
-﻿g.V().choose(__.values(),__.out())
+g.V().choose(__.values(),__.out())

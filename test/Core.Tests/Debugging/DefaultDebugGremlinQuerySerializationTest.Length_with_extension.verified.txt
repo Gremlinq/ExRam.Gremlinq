@@ -1,1 +1,1 @@
-﻿g.inject('aBcDeFg').length()
+g.inject('aBcDeFg').length()

@@ -1,1 +1,1 @@
-﻿g.V().hasLabel('Person').where(__.outE())
+g.V().hasLabel('Person').where(__.outE())

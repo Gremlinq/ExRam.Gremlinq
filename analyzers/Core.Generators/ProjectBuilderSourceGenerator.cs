@@ -1,4 +1,4 @@
-﻿using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis;
 using static ExRam.Gremlinq.Core.Generators.ArgumentListExtensions;
 
 namespace ExRam.Gremlinq.Core.Generators

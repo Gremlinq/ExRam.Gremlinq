@@ -1,4 +1,4 @@
-﻿[
+[
   {
     Id: 67,
     Label: Language,

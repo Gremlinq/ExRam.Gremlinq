@@ -1,1 +1,1 @@
-﻿g.V().hasLabel('Country').properties('Languages').where(__.key().is(neq('label')))
+g.V().hasLabel('Country').properties('Languages').where(__.key().is(neq('label')))

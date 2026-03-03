@@ -1,1 +1,1 @@
-﻿g.inject('abcdef').asString().replace('bc','xy')
+g.inject('abcdef').asString().replace('bc','xy')

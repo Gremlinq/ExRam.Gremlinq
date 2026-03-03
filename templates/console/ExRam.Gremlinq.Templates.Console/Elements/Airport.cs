@@ -1,4 +1,4 @@
-﻿namespace ExRam.Gremlinq.Templates.Console
+namespace ExRam.Gremlinq.Templates.Console
 {
 #if (true) // --8<-- [start:airport]
     public sealed class Airport : Vertex

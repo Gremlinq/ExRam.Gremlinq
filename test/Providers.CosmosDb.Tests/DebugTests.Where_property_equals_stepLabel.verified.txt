@@ -1,1 +1,1 @@
-﻿g.inject('en').as('_a').V().hasLabel('Language').has('IetfLanguageTag',__.where(eq('_a'))).order().by(id,incr)
+g.inject('en').as('_a').V().hasLabel('Language').has('IetfLanguageTag',__.where(eq('_a'))).order().by(id,incr)

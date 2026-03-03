@@ -1,4 +1,4 @@
-﻿{
+{
   Int_from_double: 4,
   IImmutableDictionary_string_keys_typed_int_values: {
     key1: 1,

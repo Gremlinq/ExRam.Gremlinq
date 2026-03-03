@@ -1,4 +1,4 @@
-﻿{
+{
   FoundingDate: 2018-12-17 08:00 Utc,
   Name: {
     Id: Guid_1,

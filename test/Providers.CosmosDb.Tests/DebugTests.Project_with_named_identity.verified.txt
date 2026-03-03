@@ -1,1 +1,1 @@
-﻿g.inject(42).project('name','Item2').by(__.identity()).by(__.constant('item2'))
+g.inject(42).project('name','Item2').by(__.identity()).by(__.constant('item2'))

@@ -1,1 +1,1 @@
-﻿g.V().hasLabel('Person').outE('WorksFor').inV().hasLabel('Company').values('FoundingDate').tree()
+g.V().hasLabel('Person').outE('WorksFor').inV().hasLabel('Company').values('FoundingDate').tree()

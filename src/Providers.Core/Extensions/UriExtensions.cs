@@ -1,4 +1,4 @@
-﻿namespace ExRam.Gremlinq.Providers.Core
+namespace ExRam.Gremlinq.Providers.Core
 {
     internal static class UriExtensions
     {

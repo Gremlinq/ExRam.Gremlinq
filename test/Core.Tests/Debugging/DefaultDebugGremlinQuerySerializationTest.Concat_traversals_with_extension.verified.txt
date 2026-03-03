@@ -1,1 +1,1 @@
-﻿g.inject('42').concat(__.constant('_a_'),__.constant('_b_')).concat(__.constant('_c_'))
+g.inject('42').concat(__.constant('_a_'),__.constant('_b_')).concat(__.constant('_c_'))

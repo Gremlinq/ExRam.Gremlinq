@@ -1,4 +1,4 @@
-﻿{
+{
   Script: g.inject(_a).coin(_b),
   Bindings: {
     _a: 42,

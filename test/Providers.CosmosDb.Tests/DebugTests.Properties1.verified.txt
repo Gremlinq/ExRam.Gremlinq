@@ -1,1 +1,1 @@
-﻿g.V().properties()
+g.V().properties()

@@ -1,1 +1,1 @@
-﻿g.V().hasLabel('Person').inE('LivesIn','Speaks','WorksFor').project('id','label','properties').by(id).by(label).by(__.valueMap())
+g.V().hasLabel('Person').inE('LivesIn','Speaks','WorksFor').project('id','label','properties').by(id).by(label).by(__.valueMap())

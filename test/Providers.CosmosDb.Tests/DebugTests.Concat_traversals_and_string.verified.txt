@@ -1,1 +1,1 @@
-﻿g.inject(42).asString().concat(__.constant('_a_'),__.constant('_b_')).concat('_3_')
+g.inject(42).asString().concat(__.constant('_a_'),__.constant('_b_')).concat('_3_')

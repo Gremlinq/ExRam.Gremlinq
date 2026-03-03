@@ -1,1 +1,1 @@
-﻿g.V().hasLabel('Person').has('Name').where(__.values('Gender')).order().by(__.values('Name'),incr).by('Gender',decr)
+g.V().hasLabel('Person').has('Name').where(__.values('Gender')).order().by(__.values('Name'),incr).by('Gender',decr)

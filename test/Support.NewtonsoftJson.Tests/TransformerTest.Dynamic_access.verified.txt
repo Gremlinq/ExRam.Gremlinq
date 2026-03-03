@@ -1,4 +1,4 @@
-﻿{
+{
   Item1: A name,
   Item2: DateTimeOffset_1
 }

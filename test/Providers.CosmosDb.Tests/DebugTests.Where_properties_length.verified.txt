@@ -1,1 +1,1 @@
-﻿g.V().hasLabel('Person').where(__.properties('PhoneNumbers').count().is(3))
+g.V().hasLabel('Person').where(__.properties('PhoneNumbers').count().is(3))

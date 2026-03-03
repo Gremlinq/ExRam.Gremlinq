@@ -1,4 +1,4 @@
-﻿namespace ExRam.Gremlinq.Providers.Neptune
+namespace ExRam.Gremlinq.Providers.Neptune
 {
     /// <summary>
     /// An AWS SigV4 signer that can be configured with credentials and region.

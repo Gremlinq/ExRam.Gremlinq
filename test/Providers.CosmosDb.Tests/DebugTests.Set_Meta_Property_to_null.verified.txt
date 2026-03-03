@@ -1,1 +1,1 @@
-﻿g.V().hasLabel('Country').properties('Name').sideEffect(__.properties('metaKey').drop())
+g.V().hasLabel('Country').properties('Name').sideEffect(__.properties('metaKey').drop())

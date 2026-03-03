@@ -1,4 +1,4 @@
-﻿{
+{
   Script: g.inject(_a).project(_b,_c,_d).by(__.constant(_e)).by(__.constant(_f)).by(__.constant(_g)).project(_b,_c).by(__.select(_b)).by(__.select(_c)),
   Bindings: {
     _a: 42,

@@ -1,4 +1,4 @@
-﻿using Gremlin.Net.Driver;
+using Gremlin.Net.Driver;
 using Gremlin.Net.Driver.Messages;
 
 namespace ExRam.Gremlinq.Core

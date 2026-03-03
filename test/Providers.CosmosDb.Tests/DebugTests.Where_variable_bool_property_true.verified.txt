@@ -1,1 +1,1 @@
-﻿g.inject(42).constant(true)
+g.inject(42).constant(true)

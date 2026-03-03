@@ -1,4 +1,4 @@
-﻿using ExRam.Gremlinq.Core.Models;
+using ExRam.Gremlinq.Core.Models;
 
 namespace ExRam.Gremlinq.Core.GraphElements
 {

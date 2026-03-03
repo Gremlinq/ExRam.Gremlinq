@@ -1,1 +1,1 @@
-﻿g.V().hasLabel('Country').properties('Languages').hasKey('label')
+g.V().hasLabel('Country').properties('Languages').hasKey('label')

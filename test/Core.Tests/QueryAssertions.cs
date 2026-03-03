@@ -1,4 +1,4 @@
-﻿using ExRam.Gremlinq.Core.GraphElements;
+using ExRam.Gremlinq.Core.GraphElements;
 using ExRam.Gremlinq.Core.Models;
 using ExRam.Gremlinq.Tests.Entities;
 using FluentAssertions;

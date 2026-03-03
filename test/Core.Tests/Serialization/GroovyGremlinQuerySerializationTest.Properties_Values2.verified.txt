@@ -1,4 +1,4 @@
-﻿{
+{
   Script: g.V().properties().values(_a),
   Bindings: {
     _a: MetaProperty

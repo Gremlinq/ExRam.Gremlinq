@@ -1,4 +1,4 @@
-﻿{
+{
   Script: g.inject(_a).concat(__.constant(_b),__.constant(_c)).concat(__.constant(_d)),
   Bindings: {
     _a: 42,

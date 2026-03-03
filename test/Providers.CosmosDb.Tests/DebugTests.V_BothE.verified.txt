@@ -1,1 +1,1 @@
-﻿g.V().bothE('LivesIn','Speaks','WorksFor')
+g.V().bothE('LivesIn','Speaks','WorksFor')

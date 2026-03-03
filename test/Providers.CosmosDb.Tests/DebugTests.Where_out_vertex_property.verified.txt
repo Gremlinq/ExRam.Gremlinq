@@ -1,1 +1,1 @@
-﻿g.V().hasLabel('Person').where(__.out('WorksFor').hasLabel('Company').has('Name','MyCompany'))
+g.V().hasLabel('Person').where(__.out('WorksFor').hasLabel('Company').has('Name','MyCompany'))

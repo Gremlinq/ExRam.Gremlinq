@@ -1,4 +1,4 @@
-﻿namespace ExRam.Gremlinq.Core.Transformation
+namespace ExRam.Gremlinq.Core.Transformation
 {
     /// <summary>
     /// A factory that creates <see cref="IConverter{TSource, TTarget}"/> instances for specific source and target type pairs.

@@ -1,4 +1,4 @@
-﻿{
+{
   Script: g.inject(_a).trim(),
   Bindings: {
     _a:   aBcDeFg  

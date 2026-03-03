@@ -1,4 +1,4 @@
-﻿namespace ExRam.Gremlinq.Providers.GremlinServer.AspNet
+namespace ExRam.Gremlinq.Providers.GremlinServer.AspNet
 {
     public static class GremlinqServicesBuilderExtensions
     {

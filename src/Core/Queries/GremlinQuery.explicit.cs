@@ -1,4 +1,4 @@
-﻿// ReSharper disable ArrangeThisQualifier
+// ReSharper disable ArrangeThisQualifier
 // ReSharper disable CoVariantArrayConversion
 using System.Collections.Immutable;
 using System.Linq.Expressions;

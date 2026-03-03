@@ -1,1 +1,1 @@
-﻿g.inject('1234567890').asString().substring(global,-6,-2)
+g.inject('1234567890').asString().substring(global,-6,-2)

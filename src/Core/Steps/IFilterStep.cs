@@ -1,4 +1,4 @@
-﻿namespace ExRam.Gremlinq.Core.Steps
+namespace ExRam.Gremlinq.Core.Steps
 {
     internal interface IFilterStep;
 }

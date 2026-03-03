@@ -1,1 +1,1 @@
-﻿g.V().hasLabel('Person').property(single,'Age',36)
+g.V().hasLabel('Person').property(single,'Age',36)

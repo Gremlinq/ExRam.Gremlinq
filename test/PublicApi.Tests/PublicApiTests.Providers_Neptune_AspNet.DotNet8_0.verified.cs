@@ -1,4 +1,4 @@
-﻿namespace ExRam.Gremlinq.Providers.Neptune.AspNet
+namespace ExRam.Gremlinq.Providers.Neptune.AspNet
 {
     public static class GremlinqServicesBuilderExtensions
     {

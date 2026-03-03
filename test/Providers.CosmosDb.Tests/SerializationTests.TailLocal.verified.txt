@@ -1,4 +1,4 @@
-﻿{
+{
   Script: g.inject(_a,_b).fold().map(__.unfold().tail(_c).fold()),
   Bindings: {
     _a: 42,

@@ -1,4 +1,4 @@
-﻿using ExRam.Gremlinq.Tests.Entities;
+using ExRam.Gremlinq.Tests.Entities;
 using ExRam.Gremlinq.Tests.Infrastructure;
 
 using Gremlin.Net.Driver.Messages;

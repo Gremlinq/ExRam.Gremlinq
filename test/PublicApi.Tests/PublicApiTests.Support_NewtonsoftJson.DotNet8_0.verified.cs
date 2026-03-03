@@ -1,4 +1,4 @@
-﻿namespace ExRam.Gremlinq.Support.NewtonsoftJson
+namespace ExRam.Gremlinq.Support.NewtonsoftJson
 {
     public static class ConfiguratorExtensions
     {

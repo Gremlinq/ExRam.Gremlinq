@@ -1,1 +1,1 @@
-﻿g.inject(42).tree()
+g.inject(42).tree()

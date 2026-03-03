@@ -1,4 +1,4 @@
-﻿[
+[
   {
     Traversal: {
       Count: 4,

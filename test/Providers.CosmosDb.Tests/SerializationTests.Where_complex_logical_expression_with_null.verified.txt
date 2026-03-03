@@ -1,4 +1,4 @@
-﻿{
+{
   Script: g.V().hasLabel(_a).hasNot(_b).has(_c,eq(_d).or(eq(_e))),
   Bindings: {
     _a: Person,

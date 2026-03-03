@@ -1,4 +1,4 @@
-﻿// ReSharper disable ArrangeThisQualifier
+// ReSharper disable ArrangeThisQualifier
 // ReSharper disable CoVariantArrayConversion
 namespace ExRam.Gremlinq.Core
 {

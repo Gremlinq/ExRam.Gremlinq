@@ -1,4 +1,4 @@
-﻿{
+{
   Script: g.inject(_a).asString().replace(_b,_c),
   Bindings: {
     _a: abcdef,

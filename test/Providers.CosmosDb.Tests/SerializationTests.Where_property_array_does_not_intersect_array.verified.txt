@@ -1,4 +1,4 @@
-﻿{
+{
   Script: g.V().hasLabel(_a).not(__.has(_b,within(_c,_d))),
   Bindings: {
     _a: Company,

@@ -1,4 +1,4 @@
-﻿namespace ExRam.Gremlinq.Providers.Neptune
+namespace ExRam.Gremlinq.Providers.Neptune
 {
     /// <summary>
     /// Specifies the ElasticSearch index configuration used by Neptune.

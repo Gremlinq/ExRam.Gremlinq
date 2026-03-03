@@ -1,4 +1,4 @@
-﻿using ExRam.Gremlinq.Core.Transformation;
+using ExRam.Gremlinq.Core.Transformation;
 using FluentAssertions;
 using static ExRam.Gremlinq.Core.Transformation.ConverterFactory;
 

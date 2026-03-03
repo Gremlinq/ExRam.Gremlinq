@@ -1,4 +1,4 @@
-﻿{
+{
   Script: g.inject(_a).project(_b,_c,_d).by(__.constant(_e).limit(_f).fold()).by(__.constant(_g).limit(_f).fold()).by(__.identity().not(__.identity()).limit(_f).fold()).map(__.unfold().group().by(__.select(keys)).by(__.select(values).unfold())),
   Bindings: {
     _a: 42,

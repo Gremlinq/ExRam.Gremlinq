@@ -1,4 +1,4 @@
-﻿namespace ExRam.Gremlinq.Core.GraphElements
+namespace ExRam.Gremlinq.Core.GraphElements
 {
     internal interface IVertexProperty
     {

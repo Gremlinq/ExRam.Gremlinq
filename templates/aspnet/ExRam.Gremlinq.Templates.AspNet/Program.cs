@@ -1,4 +1,4 @@
-﻿using ExRam.Gremlinq.Core;
+using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.AspNet;
 using ExRam.Gremlinq.Core.Models;
 using ExRam.Gremlinq.Templates.AspNet;

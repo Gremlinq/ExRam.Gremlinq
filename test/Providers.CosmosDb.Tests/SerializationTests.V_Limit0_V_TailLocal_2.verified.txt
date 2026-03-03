@@ -1,4 +1,4 @@
-﻿{
+{
   Script: g.V().limit(_a).fold().tail(local,_b),
   Bindings: {
     _a: 0,

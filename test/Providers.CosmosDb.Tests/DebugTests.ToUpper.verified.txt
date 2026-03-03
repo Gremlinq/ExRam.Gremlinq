@@ -1,1 +1,1 @@
-﻿g.inject('aBcDeFg').asString().toUpper()
+g.inject('aBcDeFg').asString().toUpper()

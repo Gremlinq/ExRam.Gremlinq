@@ -1,4 +1,4 @@
-﻿using System.Xml.Serialization;
+using System.Xml.Serialization;
 
 namespace ExRam.Gremlinq.Testing.AirRoutes.Generators
 {

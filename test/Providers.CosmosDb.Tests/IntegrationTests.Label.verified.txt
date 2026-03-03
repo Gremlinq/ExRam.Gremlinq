@@ -1,4 +1,4 @@
-﻿[
+[
   Country,
   Language,
   Person,

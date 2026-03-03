@@ -1,4 +1,4 @@
-﻿using System.Collections.Immutable;
+using System.Collections.Immutable;
 
 using static ExRam.Gremlinq.Core.ExceptionHelper;
 

@@ -1,4 +1,4 @@
-﻿using ExRam.Gremlinq.Core.AspNet;
+using ExRam.Gremlinq.Core.AspNet;
 using ExRam.Gremlinq.Tests.Entities;
 
 using FluentAssertions;

@@ -1,1 +1,1 @@
-﻿g.V().hasLabel('Country').has('CountryCallingCode',within(''))
+g.V().hasLabel('Country').has('CountryCallingCode',within(''))

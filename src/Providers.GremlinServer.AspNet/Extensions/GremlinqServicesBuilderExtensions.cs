@@ -1,4 +1,4 @@
-﻿using ExRam.Gremlinq.Core.AspNet;
+using ExRam.Gremlinq.Core.AspNet;
 
 namespace ExRam.Gremlinq.Providers.GremlinServer.AspNet
 {

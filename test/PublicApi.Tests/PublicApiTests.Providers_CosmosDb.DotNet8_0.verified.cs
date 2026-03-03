@@ -1,4 +1,4 @@
-﻿namespace ExRam.Gremlinq.Providers.CosmosDb
+namespace ExRam.Gremlinq.Providers.CosmosDb
 {
     public static class ConfigurableGremlinQuerySourceExtensions
     {

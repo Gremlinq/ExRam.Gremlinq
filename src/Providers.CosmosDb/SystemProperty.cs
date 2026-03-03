@@ -1,4 +1,4 @@
-﻿namespace ExRam.Gremlinq.Providers.CosmosDb
+namespace ExRam.Gremlinq.Providers.CosmosDb
 {
     /// <summary>
     /// Represents a CosmosDb system property that is automatically managed by the database.

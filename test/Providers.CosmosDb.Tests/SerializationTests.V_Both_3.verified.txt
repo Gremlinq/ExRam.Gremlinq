@@ -1,4 +1,4 @@
-﻿{
+{
   Script: g.V().both(_a,_b,_c),
   Bindings: {
     _a: LivesIn,

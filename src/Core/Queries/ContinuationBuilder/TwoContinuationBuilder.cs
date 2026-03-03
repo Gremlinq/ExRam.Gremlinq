@@ -1,4 +1,4 @@
-﻿namespace ExRam.Gremlinq.Core
+namespace ExRam.Gremlinq.Core
 {
     internal readonly ref struct TwoContinuationBuilder<TAnonymousQuery>
         where TAnonymousQuery : GremlinQueryBase, IGremlinQueryBase

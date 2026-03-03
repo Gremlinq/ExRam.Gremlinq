@@ -1,4 +1,4 @@
-﻿{
+{
   Value: 1540202009475,
   Key: Property1
 }

@@ -1,4 +1,4 @@
-﻿using System.Collections.Immutable;
+using System.Collections.Immutable;
 using System.Runtime.CompilerServices;
 
 using ExRam.Gremlinq.Core.Projections;

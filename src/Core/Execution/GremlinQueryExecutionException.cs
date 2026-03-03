@@ -1,4 +1,4 @@
-﻿namespace ExRam.Gremlinq.Core.Execution
+namespace ExRam.Gremlinq.Core.Execution
 {
     /// <summary>
     /// The exception that is thrown when executing a Gremlin query fails.

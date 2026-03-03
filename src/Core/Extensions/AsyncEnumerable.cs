@@ -1,4 +1,4 @@
-﻿#if !NET10_0_OR_GREATER
+#if !NET10_0_OR_GREATER
 using System.Runtime.CompilerServices;
 
 namespace ExRam.Gremlinq.Core

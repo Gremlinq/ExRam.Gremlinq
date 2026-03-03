@@ -1,4 +1,4 @@
-﻿using CommunityToolkit.HighPerformance.Buffers;
+using CommunityToolkit.HighPerformance.Buffers;
 
 namespace ExRam.Gremlinq.Providers.Core
 {

@@ -1,4 +1,4 @@
-﻿namespace ExRam.Gremlinq.Core
+namespace ExRam.Gremlinq.Core
 {
     /// <summary>A choose builder that has at least one case and allows adding more cases or a default.</summary>
     /// <typeparam name="TSourceQuery">The source query type.</typeparam>

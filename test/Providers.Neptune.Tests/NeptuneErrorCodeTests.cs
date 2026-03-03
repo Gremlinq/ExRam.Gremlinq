@@ -1,4 +1,4 @@
-﻿using FluentAssertions;
+using FluentAssertions;
 
 namespace ExRam.Gremlinq.Providers.Neptune.Tests
 {

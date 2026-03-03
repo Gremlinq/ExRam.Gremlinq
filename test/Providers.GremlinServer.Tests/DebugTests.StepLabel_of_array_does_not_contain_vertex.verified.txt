@@ -1,1 +1,1 @@
-﻿g.V().fold().as('_a').V().hasLabel('Person').not(__.where(within('_a'))).count()
+g.V().fold().as('_a').V().hasLabel('Person').not(__.where(within('_a'))).count()

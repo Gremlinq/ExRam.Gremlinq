@@ -1,4 +1,4 @@
-﻿{
+{
   Script: g.V(_a).hasLabel(_b).sideEffect(__.properties(_c,_d,_e).drop()).property(single,_f,_g).property(single,_h,_i).property(single,_j,_k).project(_l,_m,_n).by(id).by(label).by(__.properties().group().by(label).by(__.project(_l,_m,_o,_n).by(id).by(label).by(value).by(__.valueMap()).fold())),
   Bindings: {
     _a: 0,

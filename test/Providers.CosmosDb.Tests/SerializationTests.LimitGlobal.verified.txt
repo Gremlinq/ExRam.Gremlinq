@@ -1,4 +1,4 @@
-﻿{
+{
   Script: g.V().limit(_a),
   Bindings: {
     _a: 1

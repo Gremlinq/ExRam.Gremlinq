@@ -1,4 +1,4 @@
-﻿// ReSharper disable ArrangeThisQualifier
+// ReSharper disable ArrangeThisQualifier
 using ExRam.Gremlinq.Core.Projections;
 using ExRam.Gremlinq.Core.Steps;
 

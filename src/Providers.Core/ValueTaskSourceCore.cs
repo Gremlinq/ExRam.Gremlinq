@@ -1,4 +1,4 @@
-﻿using System.Runtime.InteropServices;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks.Sources;
 
 namespace ExRam.Gremlinq.Providers.Core

@@ -1,4 +1,4 @@
-﻿namespace ExRam.Gremlinq.Providers.Neptune
+namespace ExRam.Gremlinq.Providers.Neptune
 {
     /// <summary>
     /// Provides AWS IAM authentication headers for signing requests.

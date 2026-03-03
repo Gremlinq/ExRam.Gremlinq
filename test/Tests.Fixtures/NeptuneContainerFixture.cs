@@ -1,4 +1,4 @@
-﻿using ExRam.Gremlinq.Core;
+using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Providers.Neptune;
 using ExRam.Gremlinq.Support.NewtonsoftJson;
 using ExRam.Gremlinq.Support.TestContainers;

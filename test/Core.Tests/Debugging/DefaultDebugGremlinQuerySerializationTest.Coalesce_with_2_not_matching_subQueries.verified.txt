@@ -1,1 +1,1 @@
-﻿g.V().coalesce(__.outE(),__.in())
+g.V().coalesce(__.outE(),__.in())

@@ -1,1 +1,1 @@
-﻿g.V().hasLabel('Person').has('Name').order().by('Name',incr)
+g.V().hasLabel('Person').has('Name').order().by('Name',incr)

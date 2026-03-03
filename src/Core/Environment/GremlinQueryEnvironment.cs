@@ -1,4 +1,4 @@
-﻿using System.Collections.Immutable;
+using System.Collections.Immutable;
 
 using ExRam.Gremlinq.Core.Deserialization;
 using ExRam.Gremlinq.Core.Execution;

@@ -1,1 +1,1 @@
-﻿g.V().optional(__.out('WorksFor'))
+g.V().optional(__.out('WorksFor'))

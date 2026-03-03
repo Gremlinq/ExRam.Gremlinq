@@ -1,4 +1,4 @@
-﻿{
+{
   Script: g.V().hasLabel(_a).order().by(id,asc).limit(_b).project(_c,_d,_e,_f).by(__.constant(_g).limit(_b).fold()).by(__.constant(_h).limit(_b).fold()).by(__.id().limit(_b).fold()).by(__.constant(_i).limit(_b).fold()).map(__.unfold().group().by(__.select(keys)).by(__.select(values).unfold())),
   Bindings: {
     _a: Person,

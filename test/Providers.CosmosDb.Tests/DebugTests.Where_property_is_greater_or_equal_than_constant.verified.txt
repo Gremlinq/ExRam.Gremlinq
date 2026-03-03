@@ -1,1 +1,1 @@
-﻿g.V().hasLabel('Person').has('Age',gte(36))
+g.V().hasLabel('Person').has('Age',gte(36))

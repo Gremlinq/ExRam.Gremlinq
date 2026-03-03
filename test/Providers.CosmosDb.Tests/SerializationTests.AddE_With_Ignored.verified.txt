@@ -1,4 +1,4 @@
-﻿{
+{
   Script: g.addE(_a).property(_b,_c).from(__.addV(_d).property(single,_e,_f).property(single,_g,_g)).to(__.addV(_h).property(single,_i,_j).property(single,_g,_g)),
   Bindings: {
     _a: WorksFor,

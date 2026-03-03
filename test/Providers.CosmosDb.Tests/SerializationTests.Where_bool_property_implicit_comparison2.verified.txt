@@ -1,4 +1,4 @@
-﻿{
+{
   Script: g.V().hasLabel(_a).not(__.has(_b,_c)),
   Bindings: {
     _a: TimeFrame,

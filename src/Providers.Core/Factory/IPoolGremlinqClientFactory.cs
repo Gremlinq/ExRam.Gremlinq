@@ -1,4 +1,4 @@
-﻿namespace ExRam.Gremlinq.Providers.Core
+namespace ExRam.Gremlinq.Providers.Core
 {
     /// <summary>
     /// A client factory that pools connections to the server.

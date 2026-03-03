@@ -1,1 +1,1 @@
-﻿g.V().limit(1)
+g.V().limit(1)

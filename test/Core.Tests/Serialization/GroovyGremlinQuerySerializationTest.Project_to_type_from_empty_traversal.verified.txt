@@ -1,4 +1,4 @@
-﻿{
+{
   Script: g.inject(_a).limit(_b).project(_c,_d,_e,_f).by(__.identity()).by(__.identity()).by(__.identity()).by(__.identity()),
   Bindings: {
     _a: 42,

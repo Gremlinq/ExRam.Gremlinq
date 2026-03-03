@@ -1,4 +1,4 @@
-﻿{
+{
   Name: {
     Id: 0,
     Label: name,

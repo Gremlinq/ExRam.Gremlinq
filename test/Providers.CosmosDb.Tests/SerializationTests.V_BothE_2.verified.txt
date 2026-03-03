@@ -1,4 +1,4 @@
-﻿{
+{
   Script: g.V().bothE(_a,_b),
   Bindings: {
     _a: Speaks,

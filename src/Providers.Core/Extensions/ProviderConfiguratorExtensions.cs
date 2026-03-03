@@ -1,4 +1,4 @@
-﻿namespace ExRam.Gremlinq.Providers.Core
+namespace ExRam.Gremlinq.Providers.Core
 {
     /// <summary>
     /// Provides extension methods for <see cref="IProviderConfigurator{TSelf, TClientFactory}"/> with WebSocket-based pool client factories.

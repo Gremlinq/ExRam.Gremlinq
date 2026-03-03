@@ -1,4 +1,4 @@
-﻿namespace ExRam.Gremlinq.Providers.JanusGraph
+namespace ExRam.Gremlinq.Providers.JanusGraph
 {
     public static class ConfigurableGremlinQuerySourceExtensions
     {

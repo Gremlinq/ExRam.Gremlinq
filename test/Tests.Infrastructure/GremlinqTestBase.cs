@@ -1,4 +1,4 @@
-﻿namespace ExRam.Gremlinq.Tests.Infrastructure
+namespace ExRam.Gremlinq.Tests.Infrastructure
 {
     [TestCaseOrderer(typeof(SideEffectTestCaseOrderer))]
     public abstract class GremlinqTestBase

@@ -1,1 +1,1 @@
-﻿g.inject(42,null,43).asString().concat('a')
+g.inject(42,null,43).asString().concat('a')

@@ -1,4 +1,4 @@
-﻿using ExRam.Gremlinq.Core.Models;
+using ExRam.Gremlinq.Core.Models;
 using ExRam.Gremlinq.Tests.Infrastructure;
 using Gremlin.Net.Structure;
 using static ExRam.Gremlinq.Core.GremlinQuerySource;

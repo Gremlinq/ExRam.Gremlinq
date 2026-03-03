@@ -1,4 +1,4 @@
-﻿using System.Text.RegularExpressions;
+using System.Text.RegularExpressions;
 using static ExRam.Gremlinq.Tests.Infrastructure.SourceFileName;
 
 namespace ExRam.Gremlinq.Tests.Infrastructure

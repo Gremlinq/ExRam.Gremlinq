@@ -1,4 +1,4 @@
-﻿{
+{
   Script: g.V().hasLabel(_a).limit(_b).property(list,_c,_d),
   Bindings: {
     _a: Company,

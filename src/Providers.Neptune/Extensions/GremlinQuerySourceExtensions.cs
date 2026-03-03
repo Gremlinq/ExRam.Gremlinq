@@ -1,4 +1,4 @@
-﻿using ExRam.Gremlinq.Core;
+using ExRam.Gremlinq.Core;
 
 namespace ExRam.Gremlinq.Providers.Neptune
 {

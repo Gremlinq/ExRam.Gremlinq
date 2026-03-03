@@ -1,4 +1,4 @@
-﻿namespace ExRam.Gremlinq.Providers.Neptune
+namespace ExRam.Gremlinq.Providers.Neptune
 {
     /// <summary>
     /// Represents a disabled AWS signer that can be upgraded to a SigV4 signer.

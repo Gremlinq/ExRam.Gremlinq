@@ -1,1 +1,1 @@
-﻿g.V().constant(['Hello'])
+g.V().constant(['Hello'])
