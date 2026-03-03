@@ -4,6 +4,7 @@ namespace ExRam.Gremlinq.Core.Steps
     /// <seealso href="https://tinkerpop.apache.org/docs/current/reference/#group-step">Reference Documentation - Group Step</seealso>
     public sealed class GroupStep : Step
     {
+        /// <summary>Base class for <c>by()</c> modulators applied to the <c>group()</c> step.</summary>
         public abstract class ByStep : Step
         {
             protected ByStep(SideEffectSemanticsChange sideEffectSemanticsChange = SideEffectSemanticsChange.None) : base(sideEffectSemanticsChange)
@@ -11,6 +12,7 @@ namespace ExRam.Gremlinq.Core.Steps
             }
         }
 
+        /// <summary>Represents a <c>by()</c> modulator with a traversal argument applied to a <c>group()</c> step.</summary>
         public sealed class ByTraversalStep : ByStep
         {
             public ByTraversalStep(Traversal traversal) : base(traversal.GetSideEffectSemanticsChange())
@@ -21,6 +23,7 @@ namespace ExRam.Gremlinq.Core.Steps
             public Traversal Traversal { get; }
         }
 
+        /// <summary>Represents a <c>by()</c> modulator with a key argument applied to a <c>group()</c> step.</summary>
         public sealed class ByKeyStep : ByStep
         {
             public ByKeyStep(Key key)

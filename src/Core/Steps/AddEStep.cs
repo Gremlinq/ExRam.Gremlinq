@@ -4,6 +4,7 @@ namespace ExRam.Gremlinq.Core.Steps
     /// <seealso href="https://tinkerpop.apache.org/docs/current/reference/#addedge-step">Reference Documentation - AddEdge Step</seealso>
     public sealed class AddEStep : Step
     {
+        /// <summary>Represents the <c>from()</c> modulator referencing a step label as the outgoing vertex of an edge.</summary>
         public sealed class FromLabelStep : Step
         {
             public FromLabelStep(StepLabel stepLabel)
@@ -16,6 +17,7 @@ namespace ExRam.Gremlinq.Core.Steps
             public StepLabel StepLabel { get; }
         }
 
+        /// <summary>Represents the <c>from()</c> modulator referencing a traversal as the outgoing vertex of an edge.</summary>
         public sealed class FromTraversalStep : Step
         {
             public FromTraversalStep(Traversal traversal)
@@ -26,6 +28,7 @@ namespace ExRam.Gremlinq.Core.Steps
             public Traversal Traversal { get; }
         }
 
+        /// <summary>Represents the <c>to()</c> modulator referencing a step label as the incoming vertex of an edge.</summary>
         public sealed class ToLabelStep : Step
         {
             public ToLabelStep(StepLabel stepLabel)
@@ -38,6 +41,7 @@ namespace ExRam.Gremlinq.Core.Steps
             public StepLabel StepLabel { get; }
         }
 
+        /// <summary>Represents the <c>to()</c> modulator referencing a traversal as the incoming vertex of an edge.</summary>
         public sealed class ToTraversalStep : Step
         {
             public ToTraversalStep(Traversal traversal)

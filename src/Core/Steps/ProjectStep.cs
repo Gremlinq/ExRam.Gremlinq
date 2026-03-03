@@ -7,6 +7,7 @@ namespace ExRam.Gremlinq.Core.Steps
     /// <seealso href="https://tinkerpop.apache.org/docs/current/reference/#project-step">Reference Documentation - Project Step</seealso>
     public sealed class ProjectStep : Step
     {
+        /// <summary>Base class for <c>by()</c> modulators applied to the <c>project()</c> step.</summary>
         public abstract class ByStep : Step
         {
             protected ByStep(SideEffectSemanticsChange sideEffectSemanticsChange = SideEffectSemanticsChange.None) : base(sideEffectSemanticsChange)
@@ -16,6 +17,7 @@ namespace ExRam.Gremlinq.Core.Steps
             public abstract ByTraversalStep ToByTraversalStep();
         }
 
+        /// <summary>Represents a <c>by()</c> modulator with a traversal argument applied to a <c>project()</c> step.</summary>
         public sealed class ByTraversalStep : ByStep
         {
             public ByTraversalStep(Traversal traversal) : base(traversal.GetSideEffectSemanticsChange())
@@ -28,6 +30,7 @@ namespace ExRam.Gremlinq.Core.Steps
             public Traversal Traversal { get; }
         }
 
+        /// <summary>Represents a <c>by()</c> modulator with a key argument applied to a <c>project()</c> step.</summary>
         public sealed class ByKeyStep : ByStep
         {
             public ByKeyStep(Key key)

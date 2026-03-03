@@ -304,40 +304,70 @@ namespace ExRam.Gremlinq.Core
         new IEdgeGremlinQuery<object, TVertex> BothE();
         /// <inheritdoc cref="IVertexGremlinQueryBase.BothE()" />
         new IEdgeGremlinQuery<TEdge, TVertex> BothE<TEdge>();
+        /// <inheritdoc cref="IVertexGremlinQueryBase.BothE()" />
         new IEdgeGremlinQuery<object, TVertex> BothE<TEdge1, TEdge2>();
+        /// <inheritdoc cref="IVertexGremlinQueryBase.BothE()" />
         new IEdgeGremlinQuery<object, TVertex> BothE<TEdge1, TEdge2, TEdge3>();
+        /// <inheritdoc cref="IVertexGremlinQueryBase.BothE()" />
         new IEdgeGremlinQuery<object, TVertex> BothE<TEdge1, TEdge2, TEdge3, TEdge4>();
+        /// <inheritdoc cref="IVertexGremlinQueryBase.BothE()" />
         new IEdgeGremlinQuery<object, TVertex> BothE<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5>();
+        /// <inheritdoc cref="IVertexGremlinQueryBase.BothE()" />
         new IEdgeGremlinQuery<object, TVertex> BothE<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6>();
+        /// <inheritdoc cref="IVertexGremlinQueryBase.BothE()" />
         new IEdgeGremlinQuery<object, TVertex> BothE<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7>();
+        /// <inheritdoc cref="IVertexGremlinQueryBase.BothE()" />
         new IEdgeGremlinQuery<object, TVertex> BothE<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7, TEdge8>();
+        /// <inheritdoc cref="IVertexGremlinQueryBase.BothE()" />
         new IEdgeGremlinQuery<object, TVertex> BothE<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7, TEdge8, TEdge9>();
+        /// <inheritdoc cref="IVertexGremlinQueryBase.BothE()" />
         new IEdgeGremlinQuery<object, TVertex> BothE<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7, TEdge8, TEdge9, TEdge10>();
+        /// <inheritdoc cref="IVertexGremlinQueryBase.BothE()" />
         new IEdgeGremlinQuery<object, TVertex> BothE<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7, TEdge8, TEdge9, TEdge10, TEdge11>();
+        /// <inheritdoc cref="IVertexGremlinQueryBase.BothE()" />
         new IEdgeGremlinQuery<object, TVertex> BothE<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7, TEdge8, TEdge9, TEdge10, TEdge11, TEdge12>();
+        /// <inheritdoc cref="IVertexGremlinQueryBase.BothE()" />
         new IEdgeGremlinQuery<object, TVertex> BothE<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7, TEdge8, TEdge9, TEdge10, TEdge11, TEdge12, TEdge13>();
+        /// <inheritdoc cref="IVertexGremlinQueryBase.BothE()" />
         new IEdgeGremlinQuery<object, TVertex> BothE<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7, TEdge8, TEdge9, TEdge10, TEdge11, TEdge12, TEdge13, TEdge14>();
+        /// <inheritdoc cref="IVertexGremlinQueryBase.BothE()" />
         new IEdgeGremlinQuery<object, TVertex> BothE<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7, TEdge8, TEdge9, TEdge10, TEdge11, TEdge12, TEdge13, TEdge14, TEdge15>();
+        /// <inheritdoc cref="IVertexGremlinQueryBase.BothE()" />
         new IEdgeGremlinQuery<object, TVertex> BothE<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7, TEdge8, TEdge9, TEdge10, TEdge11, TEdge12, TEdge13, TEdge14, TEdge15, TEdge16>();
 
         /// <inheritdoc cref="IVertexGremlinQueryBase.InE()" />
         new IInEdgeGremlinQuery<object, TVertex> InE();
         /// <inheritdoc cref="IVertexGremlinQueryBase.InE()" />
         new IInEdgeGremlinQuery<TEdge, TVertex> InE<TEdge>();
+        /// <inheritdoc cref="IVertexGremlinQueryBase.InE()" />
         new IInEdgeGremlinQuery<object, TVertex> InE<TEdge1, TEdge2>();
+        /// <inheritdoc cref="IVertexGremlinQueryBase.InE()" />
         new IInEdgeGremlinQuery<object, TVertex> InE<TEdge1, TEdge2, TEdge3>();
+        /// <inheritdoc cref="IVertexGremlinQueryBase.InE()" />
         new IInEdgeGremlinQuery<object, TVertex> InE<TEdge1, TEdge2, TEdge3, TEdge4>();
+        /// <inheritdoc cref="IVertexGremlinQueryBase.InE()" />
         new IInEdgeGremlinQuery<object, TVertex> InE<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5>();
+        /// <inheritdoc cref="IVertexGremlinQueryBase.InE()" />
         new IInEdgeGremlinQuery<object, TVertex> InE<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6>();
+        /// <inheritdoc cref="IVertexGremlinQueryBase.InE()" />
         new IInEdgeGremlinQuery<object, TVertex> InE<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7>();
+        /// <inheritdoc cref="IVertexGremlinQueryBase.InE()" />
         new IInEdgeGremlinQuery<object, TVertex> InE<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7, TEdge8>();
+        /// <inheritdoc cref="IVertexGremlinQueryBase.InE()" />
         new IInEdgeGremlinQuery<object, TVertex> InE<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7, TEdge8, TEdge9>();
+        /// <inheritdoc cref="IVertexGremlinQueryBase.InE()" />
         new IInEdgeGremlinQuery<object, TVertex> InE<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7, TEdge8, TEdge9, TEdge10>();
+        /// <inheritdoc cref="IVertexGremlinQueryBase.InE()" />
         new IInEdgeGremlinQuery<object, TVertex> InE<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7, TEdge8, TEdge9, TEdge10, TEdge11>();
+        /// <inheritdoc cref="IVertexGremlinQueryBase.InE()" />
         new IInEdgeGremlinQuery<object, TVertex> InE<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7, TEdge8, TEdge9, TEdge10, TEdge11, TEdge12>();
+        /// <inheritdoc cref="IVertexGremlinQueryBase.InE()" />
         new IInEdgeGremlinQuery<object, TVertex> InE<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7, TEdge8, TEdge9, TEdge10, TEdge11, TEdge12, TEdge13>();
+        /// <inheritdoc cref="IVertexGremlinQueryBase.InE()" />
         new IInEdgeGremlinQuery<object, TVertex> InE<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7, TEdge8, TEdge9, TEdge10, TEdge11, TEdge12, TEdge13, TEdge14>();
+        /// <inheritdoc cref="IVertexGremlinQueryBase.InE()" />
         new IInEdgeGremlinQuery<object, TVertex> InE<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7, TEdge8, TEdge9, TEdge10, TEdge11, TEdge12, TEdge13, TEdge14, TEdge15>();
+        /// <inheritdoc cref="IVertexGremlinQueryBase.InE()" />
         new IInEdgeGremlinQuery<object, TVertex> InE<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7, TEdge8, TEdge9, TEdge10, TEdge11, TEdge12, TEdge13, TEdge14, TEdge15, TEdge16>();
 
         /// <inheritdoc cref="IEdgeOrVertexGremlinQueryBase.Lower" />
@@ -347,20 +377,35 @@ namespace ExRam.Gremlinq.Core
         new IOutEdgeGremlinQuery<object, TVertex> OutE();
         /// <inheritdoc cref="IVertexGremlinQueryBase.OutE()" />
         new IOutEdgeGremlinQuery<TEdge, TVertex> OutE<TEdge>();
+        /// <inheritdoc cref="IVertexGremlinQueryBase.OutE()" />
         new IOutEdgeGremlinQuery<object, TVertex> OutE<TEdge1, TEdge2>();
+        /// <inheritdoc cref="IVertexGremlinQueryBase.OutE()" />
         new IOutEdgeGremlinQuery<object, TVertex> OutE<TEdge1, TEdge2, TEdge3>();
+        /// <inheritdoc cref="IVertexGremlinQueryBase.OutE()" />
         new IOutEdgeGremlinQuery<object, TVertex> OutE<TEdge1, TEdge2, TEdge3, TEdge4>();
+        /// <inheritdoc cref="IVertexGremlinQueryBase.OutE()" />
         new IOutEdgeGremlinQuery<object, TVertex> OutE<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5>();
+        /// <inheritdoc cref="IVertexGremlinQueryBase.OutE()" />
         new IOutEdgeGremlinQuery<object, TVertex> OutE<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6>();
+        /// <inheritdoc cref="IVertexGremlinQueryBase.OutE()" />
         new IOutEdgeGremlinQuery<object, TVertex> OutE<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7>();
+        /// <inheritdoc cref="IVertexGremlinQueryBase.OutE()" />
         new IOutEdgeGremlinQuery<object, TVertex> OutE<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7, TEdge8>();
+        /// <inheritdoc cref="IVertexGremlinQueryBase.OutE()" />
         new IOutEdgeGremlinQuery<object, TVertex> OutE<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7, TEdge8, TEdge9>();
+        /// <inheritdoc cref="IVertexGremlinQueryBase.OutE()" />
         new IOutEdgeGremlinQuery<object, TVertex> OutE<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7, TEdge8, TEdge9, TEdge10>();
+        /// <inheritdoc cref="IVertexGremlinQueryBase.OutE()" />
         new IOutEdgeGremlinQuery<object, TVertex> OutE<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7, TEdge8, TEdge9, TEdge10, TEdge11>();
+        /// <inheritdoc cref="IVertexGremlinQueryBase.OutE()" />
         new IOutEdgeGremlinQuery<object, TVertex> OutE<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7, TEdge8, TEdge9, TEdge10, TEdge11, TEdge12>();
+        /// <inheritdoc cref="IVertexGremlinQueryBase.OutE()" />
         new IOutEdgeGremlinQuery<object, TVertex> OutE<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7, TEdge8, TEdge9, TEdge10, TEdge11, TEdge12, TEdge13>();
+        /// <inheritdoc cref="IVertexGremlinQueryBase.OutE()" />
         new IOutEdgeGremlinQuery<object, TVertex> OutE<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7, TEdge8, TEdge9, TEdge10, TEdge11, TEdge12, TEdge13, TEdge14>();
+        /// <inheritdoc cref="IVertexGremlinQueryBase.OutE()" />
         new IOutEdgeGremlinQuery<object, TVertex> OutE<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7, TEdge8, TEdge9, TEdge10, TEdge11, TEdge12, TEdge13, TEdge14, TEdge15>();
+        /// <inheritdoc cref="IVertexGremlinQueryBase.OutE()" />
         new IOutEdgeGremlinQuery<object, TVertex> OutE<TEdge1, TEdge2, TEdge3, TEdge4, TEdge5, TEdge6, TEdge7, TEdge8, TEdge9, TEdge10, TEdge11, TEdge12, TEdge13, TEdge14, TEdge15, TEdge16>();
 
         /// <summary>
@@ -372,25 +417,39 @@ namespace ExRam.Gremlinq.Core
         /// <inheritdoc cref="Properties()" />
         IVertexPropertyGremlinQuery<VertexProperty<TValue>, TValue> Properties<TValue>();
 
+        /// <inheritdoc cref="Properties()" />
         IVertexPropertyGremlinQuery<VertexProperty<TValue>, TValue> Properties<TValue>(params Expression<Func<TVertex, TValue>>[] projections);
+        /// <inheritdoc cref="Properties()" />
         IVertexPropertyGremlinQuery<VertexProperty<TValue>, TValue> Properties<TValue>(params ReadOnlySpan<Expression<Func<TVertex, TValue>>> projections);
 
+        /// <inheritdoc cref="Properties()" />
         IVertexPropertyGremlinQuery<VertexProperty<TValue>, TValue> Properties<TValue>(params Expression<Func<TVertex, VertexProperty<TValue>>>[] projections);
+        /// <inheritdoc cref="Properties()" />
         IVertexPropertyGremlinQuery<VertexProperty<TValue>, TValue> Properties<TValue>(params ReadOnlySpan<Expression<Func<TVertex, VertexProperty<TValue>>>> projections);
 
+        /// <inheritdoc cref="Properties()" />
         IVertexPropertyGremlinQuery<VertexProperty<object>, object> Properties(params Expression<Func<TVertex, VertexProperty<object>>>[] projections);
+        /// <inheritdoc cref="Properties()" />
         IVertexPropertyGremlinQuery<VertexProperty<object>, object> Properties(params ReadOnlySpan<Expression<Func<TVertex, VertexProperty<object>>>> projections);
 
+        /// <inheritdoc cref="Properties()" />
         IVertexPropertyGremlinQuery<VertexProperty<TValue>, TValue> Properties<TValue>(params Expression<Func<TVertex, TValue[]>>[] projections);
+        /// <inheritdoc cref="Properties()" />
         IVertexPropertyGremlinQuery<VertexProperty<TValue>, TValue> Properties<TValue>(params ReadOnlySpan<Expression<Func<TVertex, TValue[]>>> projections);
 
+        /// <inheritdoc cref="Properties()" />
         IVertexPropertyGremlinQuery<VertexProperty<TValue>, TValue> Properties<TValue>(params Expression<Func<TVertex, VertexProperty<TValue>[]>>[] projections);
+        /// <inheritdoc cref="Properties()" />
         IVertexPropertyGremlinQuery<VertexProperty<TValue>, TValue> Properties<TValue>(params ReadOnlySpan<Expression<Func<TVertex, VertexProperty<TValue>[]>>> projections);
 
+        /// <inheritdoc cref="Properties()" />
         IVertexPropertyGremlinQuery<VertexProperty<TValue, TMeta>, TValue, TMeta> Properties<TValue, TMeta>(params Expression<Func<TVertex, VertexProperty<TValue, TMeta>>>[] projections);
+        /// <inheritdoc cref="Properties()" />
         IVertexPropertyGremlinQuery<VertexProperty<TValue, TMeta>, TValue, TMeta> Properties<TValue, TMeta>(params ReadOnlySpan<Expression<Func<TVertex, VertexProperty<TValue, TMeta>>>> projections);
 
+        /// <inheritdoc cref="Properties()" />
         IVertexPropertyGremlinQuery<VertexProperty<TValue, TMeta>, TValue, TMeta> Properties<TValue, TMeta>(params Expression<Func<TVertex, VertexProperty<TValue, TMeta>[]>>[] projections);
+        /// <inheritdoc cref="Properties()" />
         IVertexPropertyGremlinQuery<VertexProperty<TValue, TMeta>, TValue, TMeta> Properties<TValue, TMeta>(params ReadOnlySpan<Expression<Func<TVertex, VertexProperty<TValue, TMeta>[]>>> projections);
 
         /// <inheritdoc cref="IElementGremlinQueryBase.Values()" />
@@ -403,19 +462,29 @@ namespace ExRam.Gremlinq.Core
         /// <inheritdoc cref="IElementGremlinQueryBase.Values()" />
         new IGremlinQuery<TValue> Values<TValue>(params ReadOnlySpan<Expression<Func<TVertex, TValue[]>>> projections);
 
+        /// <inheritdoc cref="IElementGremlinQueryBase.Values()" />
         IGremlinQuery<TValue> Values<TValue>(params Expression<Func<TVertex, VertexProperty<TValue>>>[] projections);
+        /// <inheritdoc cref="IElementGremlinQueryBase.Values()" />
         IGremlinQuery<TValue> Values<TValue>(params ReadOnlySpan<Expression<Func<TVertex, VertexProperty<TValue>>>> projections);
 
+        /// <inheritdoc cref="IElementGremlinQueryBase.Values()" />
         IGremlinQuery<object> Values(params Expression<Func<TVertex, VertexProperty<object>>>[] projections);
+        /// <inheritdoc cref="IElementGremlinQueryBase.Values()" />
         IGremlinQuery<object> Values(params ReadOnlySpan<Expression<Func<TVertex, VertexProperty<object>>>> projections);
 
+        /// <inheritdoc cref="IElementGremlinQueryBase.Values()" />
         IGremlinQuery<TValue> Values<TValue>(params Expression<Func<TVertex, VertexProperty<TValue>[]>>[] projections);
+        /// <inheritdoc cref="IElementGremlinQueryBase.Values()" />
         IGremlinQuery<TValue> Values<TValue>(params ReadOnlySpan<Expression<Func<TVertex, VertexProperty<TValue>[]>>> projections);
 
+        /// <inheritdoc cref="IElementGremlinQueryBase.Values()" />
         IGremlinQuery<TValue> Values<TValue, TMeta>(params Expression<Func<TVertex, VertexProperty<TValue, TMeta>>>[] projections);
+        /// <inheritdoc cref="IElementGremlinQueryBase.Values()" />
         IGremlinQuery<TValue> Values<TValue, TMeta>(params ReadOnlySpan<Expression<Func<TVertex, VertexProperty<TValue, TMeta>>>> projections);
 
+        /// <inheritdoc cref="IElementGremlinQueryBase.Values()" />
         IGremlinQuery<TValue> Values<TValue, TMeta>(params Expression<Func<TVertex, VertexProperty<TValue, TMeta>[]>>[] projections);
+        /// <inheritdoc cref="IElementGremlinQueryBase.Values()" />
         IGremlinQuery<TValue> Values<TValue, TMeta>(params ReadOnlySpan<Expression<Func<TVertex, VertexProperty<TValue, TMeta>[]>>> projections);
     }
 
@@ -427,6 +496,14 @@ namespace ExRam.Gremlinq.Core
         IVertexGremlinQueryBase<TVertex>,
         IEdgeOrVertexGremlinQueryBaseRec<TVertex, IVertexGremlinQuery<TVertex>>
     {
+        /// <summary>
+        /// Set a single value on a multi-valued (array) vertex property.
+        /// Corresponds to the Gremlin <c>property()</c> step.
+        /// </summary>
+        /// <typeparam name="TProjectedValue">The type of the property value.</typeparam>
+        /// <param name="projection">An expression selecting the multi-valued property.</param>
+        /// <param name="value">The value to set.</param>
+        /// <seealso href="https://tinkerpop.apache.org/docs/current/reference/#addproperty-step">Reference Documentation - AddProperty Step</seealso>
         IVertexGremlinQuery<TVertex> Property<TProjectedValue>(Expression<Func<TVertex, TProjectedValue[]>> projection, TProjectedValue value);
     }
 }

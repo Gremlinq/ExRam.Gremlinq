@@ -6,6 +6,7 @@ namespace ExRam.Gremlinq.Core.Steps
     /// <seealso href="https://tinkerpop.apache.org/docs/current/reference/#format-step">Reference Documentation - Format Step</seealso>
     public sealed class FormatStep : Step
     {
+        /// <summary>Represents a <c>by()</c> modulator with a traversal argument applied to a <c>format()</c> step.</summary>
         public sealed class By : Step
         {
             public By(Traversal traversal)

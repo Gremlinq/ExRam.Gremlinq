@@ -7,6 +7,7 @@ namespace ExRam.Gremlinq.Core.Steps
     /// <seealso href="https://tinkerpop.apache.org/docs/current/reference/#addproperty-step">Reference Documentation - AddProperty Step</seealso>
     public abstract class PropertyStep : Step
     {
+        /// <summary>Represents a <c>property()</c> step that sets a property identified by a key.</summary>
         public sealed class ByKeyStep : PropertyStep
         {
             public ByKeyStep(Key key, object value, Cardinality? cardinality = null) : this(key, value, ImmutableArray<KeyValuePair<string, object>>.Empty, cardinality)
@@ -25,6 +26,7 @@ namespace ExRam.Gremlinq.Core.Steps
             public Key Key { get; }
         }
 
+        /// <summary>Represents a <c>property()</c> step that sets a property identified by a traversal.</summary>
         public sealed class ByTraversalStep : PropertyStep
         {
             public ByTraversalStep(Traversal traversal, object value, Cardinality? cardinality = null) : this(traversal, value, ImmutableArray<KeyValuePair<string, object>>.Empty, cardinality)

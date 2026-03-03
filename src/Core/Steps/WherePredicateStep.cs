@@ -6,6 +6,7 @@ namespace ExRam.Gremlinq.Core.Steps
     /// <seealso href="https://tinkerpop.apache.org/docs/current/reference/#where-step">Reference Documentation - Where Step</seealso>
     public sealed class WherePredicateStep : Step, IFilterStep
     {
+        /// <summary>Represents a <c>by()</c> modulator specifying the member to compare in a <c>where()</c> step.</summary>
         public sealed class ByMemberStep : Step
         {
             public ByMemberStep(Key? key = null)
