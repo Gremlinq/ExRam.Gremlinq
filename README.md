@@ -1,4 +1,4 @@
-[![#](assets/logo.png)]()
+[![#](https://raw.githubusercontent.com/Gremlinq/ExRam.Gremlinq/13.x/assets/logo.png)](https://github.com/Gremlinq/ExRam.Gremlinq)
 
 [![#](https://img.shields.io/github/license/Gremlinq/ExRam.Gremlinq?style=plastic)](https://github.com/Gremlinq/ExRam.Gremlinq/blob/13.x/LICENSE.md)
 [![#](https://img.shields.io/nuget/v/ExRam.Gremlinq.Core?style=plastic&logo=nuget)](https://www.nuget.org/packages?q=ExRam.Gremlinq)
