@@ -1,6 +1,8 @@
 using ExRam.Gremlinq.Core.AspNet;
 using ExRam.Gremlinq.Tests.Entities;
 
+using Amazon.Runtime.Credentials;
+
 using FluentAssertions;
 
 using Microsoft.Extensions.Configuration;
@@ -128,5 +130,95 @@ namespace ExRam.Gremlinq.Providers.Neptune.AspNet.Tests
            .BuildServiceProvider()
            .GetRequiredService<IAWSSigner>()
            .GetIAMHeaders(DateTimeOffset.Parse("01.01.2021 09:00")));
+
+        [Fact]
+        public Task UseIAMAuthentication_with_IdentityResolver_from_environment_variables()
+        {
+            Environment.SetEnvironmentVariable("AWS_ACCESS_KEY_ID", "envAccessKey");
+            Environment.SetEnvironmentVariable("AWS_SECRET_ACCESS_KEY", "envSecretAccessKey");
+
+            try
+            {
+                return Verify(new ServiceCollection()
+                    .AddSingleton<IConfiguration>(new ConfigurationBuilder()
+                        .AddInMemoryCollection(new Dictionary<string, string?>
+                        {
+                            { "Gremlinq:Neptune:Uri", "ws://localhost:8182" },
+                        })
+                        .Build())
+                    .AddGremlinq(setup => setup
+                        .UseNeptune<Vertex, Edge>()
+                        .UseIAMAuthentication(new DefaultAWSCredentialsIdentityResolver()))
+                    .BuildServiceProvider()
+                    .GetRequiredService<IAWSSigner>()
+                    .GetIAMHeaders(DateTimeOffset.Parse("01.01.2021 09:00")));
+            }
+            finally
+            {
+                Environment.SetEnvironmentVariable("AWS_ACCESS_KEY_ID", null);
+                Environment.SetEnvironmentVariable("AWS_SECRET_ACCESS_KEY", null);
+            }
+        }
+
+        [Fact]
+        public Task UseIAMAuthentication_with_IdentityResolver_from_environment_variables_with_region()
+        {
+            Environment.SetEnvironmentVariable("AWS_ACCESS_KEY_ID", "envAccessKey");
+            Environment.SetEnvironmentVariable("AWS_SECRET_ACCESS_KEY", "envSecretAccessKey");
+
+            try
+            {
+                return Verify(new ServiceCollection()
+                    .AddSingleton<IConfiguration>(new ConfigurationBuilder()
+                        .AddInMemoryCollection(new Dictionary<string, string?>
+                        {
+                            { "Gremlinq:Neptune:Uri", "ws://localhost:8182" },
+                            { "Gremlinq:Neptune:IAM:Region", "eu-west-1" },
+                        })
+                        .Build())
+                    .AddGremlinq(setup => setup
+                        .UseNeptune<Vertex, Edge>()
+                        .UseIAMAuthentication(new DefaultAWSCredentialsIdentityResolver()))
+                    .BuildServiceProvider()
+                    .GetRequiredService<IAWSSigner>()
+                    .GetIAMHeaders(DateTimeOffset.Parse("01.01.2021 09:00")));
+            }
+            finally
+            {
+                Environment.SetEnvironmentVariable("AWS_ACCESS_KEY_ID", null);
+                Environment.SetEnvironmentVariable("AWS_SECRET_ACCESS_KEY", null);
+            }
+        }
+
+        [Fact]
+        public void UseIAMAuthentication_with_IdentityResolver_Disabled()
+        {
+            Environment.SetEnvironmentVariable("AWS_ACCESS_KEY_ID", "envAccessKey");
+            Environment.SetEnvironmentVariable("AWS_SECRET_ACCESS_KEY", "envSecretAccessKey");
+
+            try
+            {
+                new ServiceCollection()
+                    .AddSingleton<IConfiguration>(new ConfigurationBuilder()
+                        .AddInMemoryCollection(new Dictionary<string, string?>
+                        {
+                            { "Gremlinq:Neptune:IAM:Disabled", "true" },
+                        })
+                        .Build())
+                    .AddGremlinq(setup => setup
+                        .UseNeptune<Vertex, Edge>()
+                        .UseIAMAuthentication(new DefaultAWSCredentialsIdentityResolver()))
+                    .BuildServiceProvider()
+                    .GetRequiredService<IAWSSigner>()
+                    .GetIAMHeaders(DateTimeOffset.Parse("01.01.2021 09:00"))
+                    .Should()
+                    .BeEmpty();
+            }
+            finally
+            {
+                Environment.SetEnvironmentVariable("AWS_ACCESS_KEY_ID", null);
+                Environment.SetEnvironmentVariable("AWS_SECRET_ACCESS_KEY", null);
+            }
+        }
     }
 }

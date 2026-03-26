@@ -1,7 +1,9 @@
+using Amazon.Runtime;
+using Amazon.Runtime.Credentials;
+using Amazon.Runtime.Identity;
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.AspNet;
 using ExRam.Gremlinq.Providers.Core;
-
 using Microsoft.Extensions.DependencyInjection;
 
 namespace ExRam.Gremlinq.Providers.Neptune.AspNet
@@ -42,36 +44,36 @@ namespace ExRam.Gremlinq.Providers.Neptune.AspNet
                     .UseNeptune<TVertexBase, TEdgeBase>)
                 .Configure((configurator, gremlinqSection) =>
                 {
-                var providerSection = gremlinqSection
-                    .GetSection("Neptune");
+                    var providerSection = gremlinqSection
+                        .GetSection("Neptune");
 
-                configurator = configurator
-                    .ConfigureWebSocket(providerSection);
+                    configurator = configurator
+                        .ConfigureWebSocket(providerSection);
 
-                if (providerSection.GetSection("ElasticSearch") is { } elasticSearchSection)
-                {
-                    if (bool.TryParse(elasticSearchSection["Enabled"], out var isEnabled) && isEnabled)
+                    if (providerSection.GetSection("ElasticSearch") is { } elasticSearchSection)
                     {
-                        if (elasticSearchSection["EndPoint"] is { } endPoint && Uri.TryCreate(endPoint, UriKind.Absolute, out var uri))
+                        if (bool.TryParse(elasticSearchSection["Enabled"], out var isEnabled) && isEnabled)
                         {
-                            var indexConfiguration = Enum.TryParse<NeptuneElasticSearchIndexConfiguration>(elasticSearchSection["IndexConfiguration"], true, out var outVar)
-                                ? outVar
-                                : NeptuneElasticSearchIndexConfiguration.Standard;
+                            if (elasticSearchSection["EndPoint"] is { } endPoint && Uri.TryCreate(endPoint, UriKind.Absolute, out var uri))
+                            {
+                                var indexConfiguration = Enum.TryParse<NeptuneElasticSearchIndexConfiguration>(elasticSearchSection["IndexConfiguration"], true, out var outVar)
+                                    ? outVar
+                                    : NeptuneElasticSearchIndexConfiguration.Standard;
 
-                            configurator = configurator
-                                .UseElasticSearch(uri, indexConfiguration);
+                                configurator = configurator
+                                    .UseElasticSearch(uri, indexConfiguration);
+                            }
                         }
                     }
-                }
 
-                if (providerSection["UseDFE"] is { } useDFEString && bool.TryParse(useDFEString, out var useDFE))
-                {
-                    configurator = configurator
-                        .ConfigureQuerySource(source => source
-                            .UseDFE(useDFE));
-                }
+                    if (providerSection["UseDFE"] is { } useDFEString && bool.TryParse(useDFEString, out var useDFE))
+                    {
+                        configurator = configurator
+                            .ConfigureQuerySource(source => source
+                                .UseDFE(useDFE));
+                    }
 
-                return configurator;
+                    return configurator;
                 });
         }
 
@@ -81,6 +83,52 @@ namespace ExRam.Gremlinq.Providers.Neptune.AspNet
         /// <typeparam name="TConfigurator">The concrete configurator type.</typeparam>
         /// <param name="builder">The services builder to configure.</param>
         public static IGremlinqServicesBuilder<TConfigurator> UseIAMAuthentication<TConfigurator>(this IGremlinqServicesBuilder<TConfigurator> builder)
+            where TConfigurator : IProviderConfigurator<TConfigurator, IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>>
+        {
+            ArgumentNullException.ThrowIfNull(builder);
+
+            return builder
+                .UseIAMAuthentication(_ => _);
+        }
+
+        /// <summary>
+        /// Configures the provider to use AWS IAM authentication, reading URI and region
+        /// from the application's configuration section and resolving credentials from the
+        /// specified <see cref="IIdentityResolver{T}"/> for <see cref="AWSCredentials"/>.
+        /// </summary>
+        /// <typeparam name="TConfigurator">The concrete configurator type.</typeparam>
+        /// <param name="builder">The services builder to configure.</param>
+        /// <param name="identityResolver">The identity resolver to use for obtaining AWS credentials.</param>
+        /// <param name="clientConfig">Optional AWS client configuration.</param>
+        public static IGremlinqServicesBuilder<TConfigurator> UseIAMAuthentication<TConfigurator>(this IGremlinqServicesBuilder<TConfigurator> builder, IIdentityResolver<AWSCredentials> identityResolver, IClientConfig? clientConfig = null)
+            where TConfigurator : IProviderConfigurator<TConfigurator, IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>>
+        {
+            ArgumentNullException.ThrowIfNull(builder);
+            ArgumentNullException.ThrowIfNull(identityResolver);
+
+            return builder
+                .UseIAMAuthentication(_ => _
+                    .WithCredentials(identityResolver, clientConfig));
+        }
+
+        /// <summary>
+        /// Configures the provider to use AWS IAM authentication, reading URI and region
+        /// from the application's configuration section and resolving credentials from a
+        /// <see cref="DefaultAWSCredentialsIdentityResolver"/> for <see cref="AWSCredentials"/>.
+        /// </summary>
+        /// <typeparam name="TConfigurator">The concrete configurator type.</typeparam>
+        /// <param name="builder">The services builder to configure.</param>
+        /// <param name="clientConfig">Optional AWS client configuration.</param>
+        public static IGremlinqServicesBuilder<TConfigurator> UseIAMAuthenticationWithDefaultAWSCredentials<TConfigurator>(this IGremlinqServicesBuilder<TConfigurator> builder, IClientConfig? clientConfig = null)
+            where TConfigurator : IProviderConfigurator<TConfigurator, IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>>
+        {
+            ArgumentNullException.ThrowIfNull(builder);
+
+            return builder
+                .UseIAMAuthentication(new DefaultAWSCredentialsIdentityResolver(), clientConfig);
+        }
+
+        private static IGremlinqServicesBuilder<TConfigurator> UseIAMAuthentication<TConfigurator>(this IGremlinqServicesBuilder<TConfigurator> builder, Func<ISigV4AWSSigner, ISigV4AWSSigner> signerTransformation)
             where TConfigurator : IProviderConfigurator<TConfigurator, IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>>
         {
             ArgumentNullException.ThrowIfNull(builder);
@@ -114,7 +162,7 @@ namespace ExRam.Gremlinq.Providers.Neptune.AspNet
                     if (iamSection["SecretAccessKey"] is { Length: > 0 } accessKey)
                         signer = signer.WithSecretAccessKey(accessKey);
 
-                    return signer;
+                    return signerTransformation(signer);
                 });
 
             return builder

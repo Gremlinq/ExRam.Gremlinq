@@ -85,4 +85,10 @@ namespace ExRam.Gremlinq.Providers.Neptune
         public NeptuneGremlinQueryExecutionException(ExRam.Gremlinq.Providers.Neptune.NeptuneErrorCode code, ExRam.Gremlinq.Core.Execution.GremlinQueryExecutionContext executionContext, string message, System.Exception innerException) { }
         public ExRam.Gremlinq.Providers.Neptune.NeptuneErrorCode Code { get; }
     }
+    public static class SigV4AWSSignerExtensions
+    {
+        public static ExRam.Gremlinq.Providers.Neptune.ISigV4AWSSigner WithCredentials(this ExRam.Gremlinq.Providers.Neptune.ISigV4AWSSigner signer, Amazon.Runtime.AWSCredentials credentials) { }
+        public static ExRam.Gremlinq.Providers.Neptune.ISigV4AWSSigner WithCredentials(this ExRam.Gremlinq.Providers.Neptune.ISigV4AWSSigner signer, Amazon.Runtime.Identity.IIdentityResolver<Amazon.Runtime.AWSCredentials> identityResolver, Amazon.Runtime.IClientConfig? clientConfig = null) { }
+        public static ExRam.Gremlinq.Providers.Neptune.ISigV4AWSSigner WithDefaultAWSCredentials(this ExRam.Gremlinq.Providers.Neptune.ISigV4AWSSigner signer, Amazon.Runtime.IClientConfig? clientConfig = null) { }
+    }
 }

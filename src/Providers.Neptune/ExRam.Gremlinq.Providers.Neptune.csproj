@@ -13,4 +13,8 @@
     <ProjectReference Include="../Providers.Core/ExRam.Gremlinq.Providers.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="AWSSDK.Core" />
+  </ItemGroup>
+
 </Project>
