@@ -34,7 +34,7 @@ namespace ExRam.Gremlinq.Providers.Neptune
         /// <param name="signer">The signer to configure.</param>
         /// <param name="identityResolver">The identity resolver to use for obtaining credentials.</param>
         /// <param name="clientConfig">Optional AWS client configuration. The AWSSDK.Core library does not annotate this parameter as nullable, but it is effectively optional.</param>
-        public static ISigV4AWSSigner WithCredentials(this ISigV4AWSSigner signer, IIdentityResolver<AWSCredentials> identityResolver, IClientConfig? clientConfig = null)
+        public static ISigV4AWSSigner WithCredentialsFrom(this ISigV4AWSSigner signer, IIdentityResolver<AWSCredentials> identityResolver, IClientConfig? clientConfig = null)
         {
             ArgumentNullException.ThrowIfNull(signer);
             ArgumentNullException.ThrowIfNull(identityResolver);
@@ -50,12 +50,12 @@ namespace ExRam.Gremlinq.Providers.Neptune
         /// </summary>
         /// <param name="signer">The signer to configure.</param>
         /// <param name="clientConfig">Optional AWS client configuration.</param>
-        public static ISigV4AWSSigner WithDefaultAWSCredentials(this ISigV4AWSSigner signer, IClientConfig? clientConfig = null)
+        public static ISigV4AWSSigner WithCredentialsFromDefaultAWSCredentialsIdentityResolver(this ISigV4AWSSigner signer, IClientConfig? clientConfig = null)
         {
             ArgumentNullException.ThrowIfNull(signer);
 
             return signer
-                .WithCredentials(new DefaultAWSCredentialsIdentityResolver(), clientConfig);
+                .WithCredentialsFrom(new DefaultAWSCredentialsIdentityResolver(), clientConfig);
         }
     }
 }

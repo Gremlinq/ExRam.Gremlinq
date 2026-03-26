@@ -173,7 +173,7 @@ namespace ExRam.Gremlinq.Providers.Neptune.AspNet
                     if (ctx.GetService<IIdentityResolver<AWSCredentials>>() is { } identityResolver)
                     {
                         signer = signer
-                            .WithCredentials(identityResolver, clientConfig);
+                            .WithCredentialsFrom(identityResolver, clientConfig);
                     }
                     else
                     {
