@@ -7,6 +7,9 @@ namespace ExRam.Gremlinq.Providers.Neptune
         public static System.Net.Http.Headers.HttpHeaders Sign(this ExRam.Gremlinq.Providers.Neptune.IAWSSigner signer, System.Net.Http.Headers.HttpHeaders headers, System.DateTimeOffset? time = default) { }
         public static System.Net.Http.HttpRequestMessage Sign(this ExRam.Gremlinq.Providers.Neptune.IAWSSigner signer, System.Net.Http.HttpRequestMessage request, System.DateTimeOffset? time = default) { }
         public static ExRam.Gremlinq.Providers.Neptune.ISigV4AWSSigner WithCacheTime(this ExRam.Gremlinq.Providers.Neptune.ISigV4AWSSigner signer, System.TimeSpan cacheTime) { }
+        public static ExRam.Gremlinq.Providers.Neptune.ISigV4AWSSigner WithCredentials(this ExRam.Gremlinq.Providers.Neptune.ISigV4AWSSigner signer, Amazon.Runtime.AWSCredentials credentials) { }
+        public static ExRam.Gremlinq.Providers.Neptune.ISigV4AWSSigner WithCredentialsFrom(this ExRam.Gremlinq.Providers.Neptune.ISigV4AWSSigner signer, Amazon.Runtime.Identity.IIdentityResolver<Amazon.Runtime.AWSCredentials> identityResolver, Amazon.Runtime.IClientConfig? clientConfig = null) { }
+        public static ExRam.Gremlinq.Providers.Neptune.ISigV4AWSSigner WithCredentialsFromDefaultAWSCredentialsIdentityResolver(this ExRam.Gremlinq.Providers.Neptune.ISigV4AWSSigner signer, Amazon.Runtime.IClientConfig? clientConfig = null) { }
         public static ExRam.Gremlinq.Providers.Neptune.ISigV4AWSSigner WithRegion(this ExRam.Gremlinq.Providers.Neptune.ISigV4AWSSigner signer, string region) { }
         public static ExRam.Gremlinq.Providers.Neptune.ISigV4AWSSigner WithUri(this ExRam.Gremlinq.Providers.Neptune.ISigV4AWSSigner signer, System.Uri uri) { }
     }
@@ -84,11 +87,5 @@ namespace ExRam.Gremlinq.Providers.Neptune
         public NeptuneGremlinQueryExecutionException(ExRam.Gremlinq.Providers.Neptune.NeptuneErrorCode code, ExRam.Gremlinq.Core.Execution.GremlinQueryExecutionContext executionContext, System.Exception innerException) { }
         public NeptuneGremlinQueryExecutionException(ExRam.Gremlinq.Providers.Neptune.NeptuneErrorCode code, ExRam.Gremlinq.Core.Execution.GremlinQueryExecutionContext executionContext, string message, System.Exception innerException) { }
         public ExRam.Gremlinq.Providers.Neptune.NeptuneErrorCode Code { get; }
-    }
-    public static class SigV4AWSSignerExtensions
-    {
-        public static ExRam.Gremlinq.Providers.Neptune.ISigV4AWSSigner WithCredentials(this ExRam.Gremlinq.Providers.Neptune.ISigV4AWSSigner signer, Amazon.Runtime.AWSCredentials credentials) { }
-        public static ExRam.Gremlinq.Providers.Neptune.ISigV4AWSSigner WithCredentialsFrom(this ExRam.Gremlinq.Providers.Neptune.ISigV4AWSSigner signer, Amazon.Runtime.Identity.IIdentityResolver<Amazon.Runtime.AWSCredentials> identityResolver, Amazon.Runtime.IClientConfig? clientConfig = null) { }
-        public static ExRam.Gremlinq.Providers.Neptune.ISigV4AWSSigner WithCredentialsFromDefaultAWSCredentialsIdentityResolver(this ExRam.Gremlinq.Providers.Neptune.ISigV4AWSSigner signer, Amazon.Runtime.IClientConfig? clientConfig = null) { }
     }
 }
