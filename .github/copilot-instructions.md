@@ -55,7 +55,7 @@ There are ~24,000 `.verified.txt` and `.verified.cs` snapshot files. When changi
 
 ### Public API tests
 
-`test/PublicApi.Tests` generates and verifies the public API surface of every src assembly. If you add/remove/change public types or members, the corresponding `.verified.cs` files must be updated. These files are named like `PublicApiTests.Core.DotNet10_0.verified.cs`.
+`test/PublicApi.Tests` generates and verifies the public API surface of every src assembly. If you add/remove/change public types or members, the corresponding `.verified.cs` files must be updated. These files are named like `PublicApiTests.Core.DotNet10_0.verified.cs`. The tests in PublicApi.Tests must be run in Release mode to get modified snapshots for all target frameworks.
 
 ## CI / Pull Request Checks
 
