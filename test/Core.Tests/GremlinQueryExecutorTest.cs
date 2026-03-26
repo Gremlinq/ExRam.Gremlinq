@@ -101,5 +101,82 @@ namespace ExRam.Gremlinq.Core.Tests
                     .Be(1);
             }
         }
+
+        [Fact]
+        public async Task TransformQuery()
+        {
+            var transformCalled = false;
+            var baseExecutor = Substitute.For<IGremlinQueryExecutor>();
+
+            baseExecutor
+                .Execute<int>(Arg.Any<GremlinQueryExecutionContext>())
+                .Returns(new[] { 1, 2, 3 }.ToAsyncEnumerable());
+
+            var results = await baseExecutor
+                .TransformQuery(query =>
+                {
+                    transformCalled = true;
+                    return query;
+                })
+                .Execute<int>(GremlinQueryExecutionContext.Create(_query))
+                .ToArrayAsync(TestContext.Current.CancellationToken);
+
+            transformCalled
+                .Should()
+                .BeTrue();
+
+            results
+                .Should()
+                .Equal(1, 2, 3);
+        }
+
+        [Fact]
+        public void TransformQuery_throws_on_null_executor()
+        {
+            var act = () => GremlinQueryExecutor.TransformQuery(null!, _ => _);
+
+            act.Should()
+                .Throw<ArgumentNullException>();
+        }
+
+        [Fact]
+        public void TransformQuery_throws_on_null_transformation()
+        {
+            var executor = Substitute.For<IGremlinQueryExecutor>();
+
+            var act = () => executor.TransformQuery(null!);
+
+            act.Should()
+                .Throw<ArgumentNullException>();
+        }
+
+        [Fact]
+        public void Serialize_throws_on_null()
+        {
+            var act = () => GremlinQueryExecutor.Serialize(null!);
+
+            act.Should()
+                .Throw<ArgumentNullException>();
+        }
+
+        [Fact]
+        public void TransformExecutionException_throws_on_null_executor()
+        {
+            var act = () => GremlinQueryExecutor.TransformExecutionException(null!, ex => ex);
+
+            act.Should()
+                .Throw<ArgumentNullException>();
+        }
+
+        [Fact]
+        public void TransformExecutionException_throws_on_null_transformation()
+        {
+            var executor = Substitute.For<IGremlinQueryExecutor>();
+
+            var act = () => executor.TransformExecutionException(null!);
+
+            act.Should()
+                .Throw<ArgumentNullException>();
+        }
     }
 }
