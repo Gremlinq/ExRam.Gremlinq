@@ -77,6 +77,39 @@ namespace ExRam.Gremlinq.Providers.Neptune.AspNet
                 });
         }
 
+
+        /// <summary>
+        /// Configures the provider to use a specific instance of <see cref="IIdentityResolver{AWSCredentials}"/> for credentials resolution.
+        /// </summary>
+        /// <typeparam name="TConfigurator">The concrete configurator type.</typeparam>
+        /// <param name="builder">The services builder to configure.</param>
+        /// <param name="resolver">The resolver instance.</param>
+        public static IGremlinqServicesBuilder<TConfigurator> UseAWSCredentialsIdentityResolver<TConfigurator>(this IGremlinqServicesBuilder<TConfigurator> builder, IIdentityResolver<AWSCredentials> resolver)
+            where TConfigurator : IProviderConfigurator<TConfigurator, IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>>
+        {
+            ArgumentNullException.ThrowIfNull(builder);
+            ArgumentNullException.ThrowIfNull(resolver);
+
+            builder.Services
+                .AddSingleton(resolver);
+
+            return builder;
+        }
+
+        /// <summary>
+        /// Configures the provider to use a <see cref="DefaultAWSCredentialsIdentityResolver"/> for credentials resolution.
+        /// </summary>
+        /// <typeparam name="TConfigurator">The concrete configurator type.</typeparam>
+        /// <param name="builder">The services builder to configure.</param>
+        public static IGremlinqServicesBuilder<TConfigurator> UseDefaultAWSCredentialsIdentityResolver<TConfigurator>(this IGremlinqServicesBuilder<TConfigurator> builder)
+            where TConfigurator : IProviderConfigurator<TConfigurator, IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>>
+        {
+            ArgumentNullException.ThrowIfNull(builder);
+
+            return builder
+                .UseAWSCredentialsIdentityResolver(new DefaultAWSCredentialsIdentityResolver());
+        }
+
         /// <summary>
         /// Configures the provider to use AWS IAM authentication, reading credentials from the application's configuration section.
         /// </summary>
@@ -88,7 +121,7 @@ namespace ExRam.Gremlinq.Providers.Neptune.AspNet
             ArgumentNullException.ThrowIfNull(builder);
 
             return builder
-                .UseIAMAuthentication(_ => _);
+                .UseIAMAuthenticationImpl(null);
         }
 
         /// <summary>
@@ -98,37 +131,18 @@ namespace ExRam.Gremlinq.Providers.Neptune.AspNet
         /// </summary>
         /// <typeparam name="TConfigurator">The concrete configurator type.</typeparam>
         /// <param name="builder">The services builder to configure.</param>
-        /// <param name="identityResolver">The identity resolver to use for obtaining AWS credentials.</param>
         /// <param name="clientConfig">Optional AWS client configuration.</param>
-        public static IGremlinqServicesBuilder<TConfigurator> UseIAMAuthentication<TConfigurator>(this IGremlinqServicesBuilder<TConfigurator> builder, IIdentityResolver<AWSCredentials> identityResolver, IClientConfig? clientConfig = null)
+        public static IGremlinqServicesBuilder<TConfigurator> UseIAMAuthentication<TConfigurator>(this IGremlinqServicesBuilder<TConfigurator> builder, IClientConfig clientConfig)
             where TConfigurator : IProviderConfigurator<TConfigurator, IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>>
         {
             ArgumentNullException.ThrowIfNull(builder);
-            ArgumentNullException.ThrowIfNull(identityResolver);
+            ArgumentNullException.ThrowIfNull(clientConfig);
 
             return builder
-                .UseIAMAuthentication(_ => _
-                    .WithCredentials(identityResolver, clientConfig));
+                .UseIAMAuthenticationImpl(clientConfig);
         }
 
-        /// <summary>
-        /// Configures the provider to use AWS IAM authentication, reading URI and region
-        /// from the application's configuration section and resolving credentials from a
-        /// <see cref="DefaultAWSCredentialsIdentityResolver"/> for <see cref="AWSCredentials"/>.
-        /// </summary>
-        /// <typeparam name="TConfigurator">The concrete configurator type.</typeparam>
-        /// <param name="builder">The services builder to configure.</param>
-        /// <param name="clientConfig">Optional AWS client configuration.</param>
-        public static IGremlinqServicesBuilder<TConfigurator> UseIAMAuthenticationWithDefaultAWSCredentials<TConfigurator>(this IGremlinqServicesBuilder<TConfigurator> builder, IClientConfig? clientConfig = null)
-            where TConfigurator : IProviderConfigurator<TConfigurator, IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>>
-        {
-            ArgumentNullException.ThrowIfNull(builder);
-
-            return builder
-                .UseIAMAuthentication(new DefaultAWSCredentialsIdentityResolver(), clientConfig);
-        }
-
-        private static IGremlinqServicesBuilder<TConfigurator> UseIAMAuthentication<TConfigurator>(this IGremlinqServicesBuilder<TConfigurator> builder, Func<ISigV4AWSSigner, ISigV4AWSSigner> signerTransformation)
+        private static IGremlinqServicesBuilder<TConfigurator> UseIAMAuthenticationImpl<TConfigurator>(this IGremlinqServicesBuilder<TConfigurator> builder, IClientConfig? clientConfig)
             where TConfigurator : IProviderConfigurator<TConfigurator, IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>>
         {
             ArgumentNullException.ThrowIfNull(builder);
@@ -156,13 +170,21 @@ namespace ExRam.Gremlinq.Providers.Neptune.AspNet
                     if (iamSection["Region"] is { Length: > 0 } region)
                         signer = signer.WithRegion(region);
 
-                    if (iamSection["AccessKeyId"] is { Length: > 0 } accessKeyId)
-                        signer = signer.WithAccessKeyId(accessKeyId);
+                    if (ctx.GetService<IIdentityResolver<AWSCredentials>>() is { } identityResolver)
+                    {
+                        signer = signer
+                            .WithCredentials(identityResolver, clientConfig);
+                    }
+                    else
+                    {
+                        if (iamSection["AccessKeyId"] is { Length: > 0 } accessKeyId)
+                            signer = signer.WithAccessKeyId(accessKeyId);
 
-                    if (iamSection["SecretAccessKey"] is { Length: > 0 } accessKey)
-                        signer = signer.WithSecretAccessKey(accessKey);
+                        if (iamSection["SecretAccessKey"] is { Length: > 0 } accessKey)
+                            signer = signer.WithSecretAccessKey(accessKey);
+                    }
 
-                    return signerTransformation(signer);
+                    return signer;
                 });
 
             return builder

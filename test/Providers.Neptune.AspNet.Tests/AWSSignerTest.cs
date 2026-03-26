@@ -148,7 +148,8 @@ namespace ExRam.Gremlinq.Providers.Neptune.AspNet.Tests
                         .Build())
                     .AddGremlinq(setup => setup
                         .UseNeptune<Vertex, Edge>()
-                        .UseIAMAuthentication(new DefaultAWSCredentialsIdentityResolver()))
+                        .UseDefaultAWSCredentialsIdentityResolver()
+                        .UseIAMAuthentication())
                     .BuildServiceProvider()
                     .GetRequiredService<IAWSSigner>()
                     .GetIAMHeaders(DateTimeOffset.Parse("01.01.2021 09:00")));
@@ -178,7 +179,8 @@ namespace ExRam.Gremlinq.Providers.Neptune.AspNet.Tests
                         .Build())
                     .AddGremlinq(setup => setup
                         .UseNeptune<Vertex, Edge>()
-                        .UseIAMAuthentication(new DefaultAWSCredentialsIdentityResolver()))
+                        .UseDefaultAWSCredentialsIdentityResolver()
+                        .UseIAMAuthentication())
                     .BuildServiceProvider()
                     .GetRequiredService<IAWSSigner>()
                     .GetIAMHeaders(DateTimeOffset.Parse("01.01.2021 09:00")));
@@ -207,7 +209,7 @@ namespace ExRam.Gremlinq.Providers.Neptune.AspNet.Tests
                         .Build())
                     .AddGremlinq(setup => setup
                         .UseNeptune<Vertex, Edge>()
-                        .UseIAMAuthentication(new DefaultAWSCredentialsIdentityResolver()))
+                        .UseIAMAuthentication())
                     .BuildServiceProvider()
                     .GetRequiredService<IAWSSigner>()
                     .GetIAMHeaders(DateTimeOffset.Parse("01.01.2021 09:00"))
