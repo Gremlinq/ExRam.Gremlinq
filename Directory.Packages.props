@@ -7,7 +7,7 @@
     <PackageVersion Include="CommunityToolkit.HighPerformance" Version="8.4.0" />
     <PackageVersion Include="FluentAssertions" Version="[7.2.2]" />
     <PackageVersion Include="Gremlin.Net" Version="3.7.5" />
-    <PackageVersion Include="Microsoft.Azure.Cosmos" Version="3.57.1" />
+    <PackageVersion Include="Microsoft.Azure.Cosmos" Version="3.58.0" />
     <PackageVersion Include="Microsoft.SourceLink.GitHub" Version="8.0.0" />
     <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="10.0.4" />
     <PackageVersion Include="coverlet.MTP" Version="8.0.1" />
