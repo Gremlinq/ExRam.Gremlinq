@@ -9,6 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AWSSDK.Core" />
     <ProjectReference Include="../Core.AspNet/ExRam.Gremlinq.Core.AspNet.csproj" />
     <ProjectReference Include="../Providers.Neptune/ExRam.Gremlinq.Providers.Neptune.csproj" />
   </ItemGroup>
