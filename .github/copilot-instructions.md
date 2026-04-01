@@ -64,8 +64,64 @@ The PR check workflow (`.github/workflows/checkPullRequest.yml`) runs on both `u
 1. Checkout with submodules and full fetch depth.
 2. Setup .NET SDK from `global.json` (also installs .NET 8 and 9 for multi-targeting in Release).
 3. On Windows only: start CosmosDb Emulator with Gremlin support.
-4. `dotnet test -c Release --solution ./ExRam.Gremlinq.slnx --ignore-exit-code 8`
+4. `dotnet test -c Release --solution ./ExRam.Gremlinq.slnx --coverlet --coverlet-output-format opencover --ignore-exit-code 8`
 5. `dotnet test -c Debug --solution ./ExRam.Gremlinq.slnx --ignore-exit-code 8`
+6. Upload coverage reports to Codecov via the `codecov/codecov-action` GitHub Action (uses `CODECOV_TOKEN`).
+
+### Code Coverage
+
+The repository uses **Coverlet** (`coverlet.MTP`) for code coverage collection with the Microsoft.Testing.Platform runner. Coverage data is generated in OpenCover XML format and uploaded to [Codecov](https://codecov.io) for tracking and PR feedback.
+
+#### Generating a local coverage report
+
+To generate a code coverage report locally:
+
+```
+dotnet test -c Release --solution ExRam.Gremlinq.slnx --coverlet --coverlet-output-format opencover
+```
+
+This command:
+- Runs tests in Release mode (ensures multi-framework coverage for src projects targeting net6.0;net7.0;net8.0;net9.0;net10.0)
+- Generates `coverage.opencover.xml` files in each test project's `bin/Release/` directory
+- Produces OpenCover XML format (widely compatible with analysis tools)
+
+To exclude specific assemblies or files from coverage, modify the Coverlet exclusion rules in `Directory.Packages.props` or per-project `.csproj` via MSBuild properties:
+
+```xml
+<PropertyGroup>
+  <ExcludeByFile>**/Excluded.cs</ExcludeByFile>
+  <ExcludeByAttribute>ExcludeFromCodeCoverage</ExcludeByAttribute>
+</PropertyGroup>
+```
+
+#### Understanding coverage results
+
+Coverage metrics track:
+- **Line Coverage:** Percentage of code lines executed by tests (e.g., 78% of 1,000 lines executed).
+- **Branch Coverage:** Percentage of code branches (if/else, loops, etc.) exercised by tests.
+- **Method Coverage:** Percentage of methods with at least one line covered.
+
+Test projects and infrastructure are excluded from coverage (see `codecov.yml`)
+
+#### Interpreting coverage data for improvement
+
+Coverage increases through:
+1. **Path Testing:** Add tests covering conditional branches (if/else, switch cases, null checks).
+2. **Error Handling:** Test exception paths, edge cases, and error conditions.
+3. **Integration Coverage:** For provider-specific tests (CosmosDb, GremlinServer, Neptune, JanusGraph), ensure test execution with actual backend services (use Testcontainers where applicable).
+4. **Snapshot/Verification Testing:** The ~24,000 `.verified.txt` and `.verified.cs` files in the test suite verify query serialization across all code paths.
+
+When expanding test coverage:
+- Focus on untested branches shown in coverage reports (red branches in Codecov UI).
+- For query serialization changes, ensure both positive and edge-case snapshot tests pass.
+- Remember that snapshot tests inherit from `QueryExecutionTest` in `Tests.Infrastructure`, which provides ~200 shared test methods—leverage these to reduce duplication.
+- Coverage data can be compared against PRs to highlight improvement or regression; Codecov provides commit-level and file-level diffs.
+
+#### Viewing coverage reports
+
+- **Local:** Open `coverage.opencover.xml` with tools like [ReportGenerator](https://github.com/danielpalme/ReportGenerator) or [OpenCover UI](https://github.com/OpenCover/OpenCover).
+- **CI/PR:** Visit [app.codecov.io](https://app.codecov.io) or check PR comments automatically posted by the Codecov GitHub app with coverage summaries and file-level diffs.
+- **Trend tracking:** Monitor coverage trends over time and per branch via Codecov dashboards.
 
 ## Project Layout
 
