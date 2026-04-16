@@ -15,12 +15,10 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
     {
         public class LoggingFixture : CosmosDbEmulatorFixture
         {
-            private readonly RecordingProvider _recordingProvider = new();
-
             public override IGremlinQuerySource GetQuerySource() => base
                 .GetQuerySource()
                 .ConfigureEnvironment(env => env
-                    .ConfigureLogger(_ => _recordingProvider.CreateLogger<LoggingFixture>()));
+                    .ConfigureLogger(_ => RecordingProvider.CreateLogger<LoggingFixture>()));
         }
 
         public class LoggingVerifier : CosmosDbEmulatorExecutingVerifier
