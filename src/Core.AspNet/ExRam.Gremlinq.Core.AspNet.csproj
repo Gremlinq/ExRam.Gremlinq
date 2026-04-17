@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.HighPerformance" />
+    <PackageReference Include="Gremlin.Net" />
     <PackageReference Include="Microsoft.Extensions.Configuration" />
     <ProjectReference Include="../Core/ExRam.Gremlinq.Core.csproj" />
   </ItemGroup>
