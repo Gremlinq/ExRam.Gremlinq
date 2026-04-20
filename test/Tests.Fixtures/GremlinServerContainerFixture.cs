@@ -12,7 +12,7 @@ namespace ExRam.Gremlinq.Tests.Fixtures
     {
         protected override IGremlinQuerySource TransformQuerySource(IGremlinQuerySource g) => g
             .UseGremlinServer<Vertex, Edge>(_ => _
-                .UseGremlinServerContainer("3.7.5")
+                .UseGremlinServerContainer("3.7.6")
                 .ConfigureClientFactory(factory => factory
                     .ConfigureClient(client => client
                         .TransformRequest(async (requestMessage, _) => requestMessage  //Just for demo/coverage purposes.

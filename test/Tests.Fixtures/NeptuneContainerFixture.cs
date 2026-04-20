@@ -16,7 +16,7 @@ namespace ExRam.Gremlinq.Tests.Fixtures
                     .WithUri(new Uri("http://localhost:8182"))
                     .WithAccessKeyId("accessKeyId")
                     .WithSecretAccessKey("secretAccessKey"))
-                .UseGremlinServerContainer("3.7.5")
+                .UseGremlinServerContainer("3.7.6")
                 .UseNewtonsoftJson())
             .IgnoreCosmosDbSpecificProperties();
     }
