@@ -16,7 +16,7 @@
       ],
       stackTrace:
 java.lang.IllegalArgumentException: Expected an id that is convertible to class java.lang.String but received class java.lang.Long - [1]
-	at org.apache.tinkerpop.gremlin.tinkergraph.structure.AbstractTinkerGraph$DefaultIdManager$5.convert(AbstractTinkerGraph.java:587)
+	at org.apache.tinkerpop.gremlin.tinkergraph.structure.AbstractTinkerGraph$DefaultIdManager$5.convert(AbstractTinkerGraph.java:596)
 	at org.apache.tinkerpop.gremlin.tinkergraph.structure.TinkerTransactionGraph.lambda$createElementIterator$7(TinkerTransactionGraph.java:362)
 	at org.apache.tinkerpop.gremlin.util.iterator.IteratorUtils$3.next(IteratorUtils.java:284)
 	at org.apache.tinkerpop.gremlin.util.iterator.IteratorUtils$5.advance(IteratorUtils.java:380)
