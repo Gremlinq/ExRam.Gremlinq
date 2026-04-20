@@ -3,7 +3,7 @@ using ExRam.Gremlinq.Tests.Infrastructure;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
-    public class Graphson3BinaryMessageSerializationTest : QueryExecutionTest, IClassFixture<GremlinqFixture>
+    public class Graphson3BinaryMessageSerializationTest : QueryExecutionTest, IClassFixture<GremlinqFixture>, ISourceFileNameProvider<Graphson3BinaryMessageSerializationTest>
     {
         public Graphson3BinaryMessageSerializationTest(GremlinqFixture fixture) : base(
             fixture,
@@ -11,6 +11,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
         }
 
+        public static string GetSourceFileName() => SourceFileName.OfThis();
 
         [Fact]
         public Task MaxDepth() => _g
