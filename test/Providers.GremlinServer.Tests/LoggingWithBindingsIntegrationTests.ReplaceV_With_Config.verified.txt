@@ -1,15 +1,15 @@
-[
+﻿[
   {
     log: {
       Level: Debug,
       Category: LoggingFixture,
-      Message: Executing Gremlin query 12345678-9012-3456-7890-123456789012 with groovy script g.V(_a).hasLabel(_b).sideEffect(__.properties(_c,_d,_e).drop()).property(single,_f,_g).property(single,_h,_i).property(single,_j,_k).project(_l,_m,_n).by(id).by(label).by(__.properties().group().by(label).by(__.project(_o,_p,_q,_r).by(id).by(label).by(value).by(__.valueMap()).fold())) and parameter bindings [_a, 0], [_b, Person], [_c, Image], [_d, PhoneNumbers], [_e, SomeObscureProperty], [_f, Age], [_g, 21], [_h, Gender], [_i, Male], [_j, Name], [_k, Marko], [_l, id], [_m, label], [_n, properties], [_o, id], [_p, label], [_q, value], [_r, properties].,
+      Message: Executing Gremlin query 12345678-9012-3456-7890-123456789012 with groovy script g.V(_a).hasLabel(_b).sideEffect(__.properties(_c,_d,_e,_f,_g).drop()).property(single,_h,_i).property(single,_j,_k).property(single,_l,_m).project(_n,_o,_p).by(id).by(label).by(__.properties().group().by(label).by(__.project(_q,_r,_s,_t).by(id).by(label).by(value).by(__.valueMap()).fold())) and parameter bindings [_a, 0], [_b, Person], [_c, Image], [_d, PhoneNumbers], [_e, SomeObscureProperty], [_f, _Etag], [_g, _Self], [_h, Age], [_i, 21], [_j, Gender], [_k, Male], [_l, Name], [_m, Marko], [_n, id], [_o, label], [_p, properties], [_q, id], [_r, label], [_s, value], [_t, properties].,
       State: [
         {
           requestId: 12345678-9012-3456-7890-123456789012
         },
         {
-          script: g.V(_a).hasLabel(_b).sideEffect(__.properties(_c,_d,_e).drop()).property(single,_f,_g).property(single,_h,_i).property(single,_j,_k).project(_l,_m,_n).by(id).by(label).by(__.properties().group().by(label).by(__.project(_o,_p,_q,_r).by(id).by(label).by(value).by(__.valueMap()).fold()))
+          script: g.V(_a).hasLabel(_b).sideEffect(__.properties(_c,_d,_e,_f,_g).drop()).property(single,_h,_i).property(single,_j,_k).property(single,_l,_m).project(_n,_o,_p).by(id).by(label).by(__.properties().group().by(label).by(__.project(_q,_r,_s,_t).by(id).by(label).by(value).by(__.valueMap()).fold()))
         },
         {
           bindings: {}

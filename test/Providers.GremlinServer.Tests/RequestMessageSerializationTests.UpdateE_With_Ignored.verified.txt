@@ -1,4 +1,4 @@
-{
+﻿{
   RequestId: 12345678-9012-3456-7890-123456789012,
   Operation: bytecode,
   Processor: traversal,
@@ -15,6 +15,25 @@
           OperatorName: hasLabel,
           Arguments: [
             WorksFor
+          ]
+        },
+        {
+          OperatorName: sideEffect,
+          Arguments: [
+            {
+              StepInstructions: [
+                {
+                  OperatorName: properties,
+                  Arguments: [
+                    _Etag,
+                    _Self
+                  ]
+                },
+                {
+                  OperatorName: drop
+                }
+              ]
+            }
           ]
         },
         {

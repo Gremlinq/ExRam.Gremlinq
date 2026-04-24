@@ -1,4 +1,4 @@
-{
+﻿{
   RequestId: 12345678-9012-3456-7890-123456789012,
   Operation: bytecode,
   Processor: traversal,
@@ -27,7 +27,9 @@
                   Arguments: [
                     Image,
                     PhoneNumbers,
-                    SomeObscureProperty
+                    SomeObscureProperty,
+                    _Etag,
+                    _Self
                   ]
                 },
                 {
@@ -84,7 +86,9 @@
                 {
                   OperatorName: properties,
                   Arguments: [
-                    PartitionKey
+                    PartitionKey,
+                    _Etag,
+                    _Self
                   ]
                 },
                 {

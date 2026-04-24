@@ -1,11 +1,13 @@
-{
-  Script: g.E().hasLabel(_a).property(_b,_c).project(_d,_e,_f).by(id).by(label).by(__.valueMap()),
+﻿{
+  Script: g.E().hasLabel(_a).sideEffect(__.properties(_b,_c).drop()).property(_d,_e).project(_f,_g,_h).by(id).by(label).by(__.valueMap()),
   Bindings: {
     _a: WorksFor,
-    _b: To,
-    _c: DateTimeOffset_1,
-    _d: id,
-    _e: label,
-    _f: properties
+    _b: _Etag,
+    _c: _Self,
+    _d: To,
+    _e: DateTimeOffset_1,
+    _f: id,
+    _g: label,
+    _h: properties
   }
 }

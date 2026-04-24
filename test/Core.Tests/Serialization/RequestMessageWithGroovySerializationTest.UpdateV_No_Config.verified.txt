@@ -1,4 +1,4 @@
-{
+﻿{
   RequestId: 12345678-9012-3456-7890-123456789012,
   Operation: eval,
   Processor: ,
@@ -11,20 +11,22 @@
       _b: Image,
       _c: PhoneNumbers,
       _d: SomeObscureProperty,
-      _e: Age,
-      _f: 21,
-      _g: Gender,
-      _h: Male,
-      _i: Name,
-      _j: Marko,
-      _k: 012345,
-      _l: RegistrationDate,
-      _m: DateTimeOffset_1,
-      _n: id,
-      _o: label,
-      _p: properties,
-      _q: value
+      _e: _Etag,
+      _f: _Self,
+      _g: Age,
+      _h: 21,
+      _i: Gender,
+      _j: Male,
+      _k: Name,
+      _l: Marko,
+      _m: 012345,
+      _n: RegistrationDate,
+      _o: DateTimeOffset_1,
+      _p: id,
+      _q: label,
+      _r: properties,
+      _s: value
     },
-    gremlin: g.V().hasLabel(_a).sideEffect(__.properties(_b,_c,_d).drop()).property(single,_e,_f).property(single,_g,_h).property(single,_i,_j).property(list,_c,_k).property(single,_l,_m).project(_n,_o,_p).by(id).by(label).by(__.properties().group().by(label).by(__.project(_n,_o,_q,_p).by(id).by(label).by(value).by(__.valueMap()).fold()))
+    gremlin: g.V().hasLabel(_a).sideEffect(__.properties(_b,_c,_d,_e,_f).drop()).property(single,_g,_h).property(single,_i,_j).property(single,_k,_l).property(list,_c,_m).property(single,_n,_o).project(_p,_q,_r).by(id).by(label).by(__.properties().group().by(label).by(__.project(_p,_q,_s,_r).by(id).by(label).by(value).by(__.valueMap()).fold()))
   }
 }

@@ -8,10 +8,8 @@ namespace ExRam.Gremlinq.Tests.Entities
 
         public string? PartitionKey { get; set; }
 
-#if Gremlinq_Extensions
         public string? _Etag { get; set; }
 
         public string? _Self { get; set; }
-#endif
     }
 }

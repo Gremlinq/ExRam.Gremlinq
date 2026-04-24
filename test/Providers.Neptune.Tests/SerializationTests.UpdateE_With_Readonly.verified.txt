@@ -1,4 +1,4 @@
-{
+﻿{
   StepInstructions: [
     {
       OperatorName: E
@@ -7,6 +7,25 @@
       OperatorName: hasLabel,
       Arguments: [
         WorksFor
+      ]
+    },
+    {
+      OperatorName: sideEffect,
+      Arguments: [
+        {
+          StepInstructions: [
+            {
+              OperatorName: properties,
+              Arguments: [
+                _Etag,
+                _Self
+              ]
+            },
+            {
+              OperatorName: drop
+            }
+          ]
+        }
       ]
     },
     {

@@ -1,18 +1,20 @@
-{
-  Script: g.V().hasLabel(_a).sideEffect(__.properties(_b,_c,_d).drop()).property(single,_e,_f).property(single,_g,_h).outE(_i).property(_j,_h).project(_k,_l,_m).by(id).by(label).by(__.valueMap()),
+﻿{
+  Script: g.V().hasLabel(_a).sideEffect(__.properties(_b,_c,_d,_e,_f).drop()).property(single,_g,_h).property(single,_i,_j).outE(_k).sideEffect(__.properties(_e,_f).drop()).property(_l,_j).project(_m,_n,_o).by(id).by(label).by(__.valueMap()),
   Bindings: {
     _a: Person,
     _b: Image,
     _c: PhoneNumbers,
     _d: SomeObscureProperty,
-    _e: Gender,
-    _f: Male,
-    _g: RegistrationDate,
-    _h: DateTimeOffset_1,
-    _i: WorksFor,
-    _j: To,
-    _k: id,
-    _l: label,
-    _m: properties
+    _e: _Etag,
+    _f: _Self,
+    _g: Gender,
+    _h: Male,
+    _i: RegistrationDate,
+    _j: DateTimeOffset_1,
+    _k: WorksFor,
+    _l: To,
+    _m: id,
+    _n: label,
+    _o: properties
   }
 }

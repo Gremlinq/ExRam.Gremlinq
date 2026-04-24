@@ -1,4 +1,4 @@
-{
+﻿{
   StepInstructions: [
     {
       OperatorName: E
@@ -17,7 +17,9 @@
             {
               OperatorName: properties,
               Arguments: [
-                PartitionKey
+                PartitionKey,
+                _Etag,
+                _Self
               ]
             },
             {

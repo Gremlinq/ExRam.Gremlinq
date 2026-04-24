@@ -1,15 +1,15 @@
-[
+﻿[
   {
     log: {
       Level: Debug,
       Category: LoggingFixture,
-      Message: Executing Gremlin query 12345678-9012-3456-7890-123456789012 with groovy script g.V().hasLabel(_a).sideEffect(__.properties(_b,_c,_d).drop()).property(single,_e,_f).property(single,_g,_h).project(_i,_j,_k).by(id).by(label).by(__.properties().group().by(label).by(__.project(_l,_m,_n,_o).by(id).by(label).by(value).by(__.valueMap()).fold())) and parameter bindings [_a, Person], [_b, Image], [_c, PhoneNumbers], [_d, SomeObscureProperty], [_e, Name], [_f, Marko], [_g, RegistrationDate], [_h, 04/07/2020 14:43:36 +00:00], [_i, id], [_j, label], [_k, properties], [_l, id], [_m, label], [_n, value], [_o, properties].,
+      Message: Executing Gremlin query 12345678-9012-3456-7890-123456789012 with groovy script g.V().hasLabel(_a).sideEffect(__.properties(_b,_c,_d,_e,_f).drop()).property(single,_g,_h).property(single,_i,_j).project(_k,_l,_m).by(id).by(label).by(__.properties().group().by(label).by(__.project(_n,_o,_p,_q).by(id).by(label).by(value).by(__.valueMap()).fold())) and parameter bindings [_a, Person], [_b, Image], [_c, PhoneNumbers], [_d, SomeObscureProperty], [_e, _Etag], [_f, _Self], [_g, Name], [_h, Marko], [_i, RegistrationDate], [_j, 04/07/2020 14:43:36 +00:00], [_k, id], [_l, label], [_m, properties], [_n, id], [_o, label], [_p, value], [_q, properties].,
       State: [
         {
           requestId: 12345678-9012-3456-7890-123456789012
         },
         {
-          script: g.V().hasLabel(_a).sideEffect(__.properties(_b,_c,_d).drop()).property(single,_e,_f).property(single,_g,_h).project(_i,_j,_k).by(id).by(label).by(__.properties().group().by(label).by(__.project(_l,_m,_n,_o).by(id).by(label).by(value).by(__.valueMap()).fold()))
+          script: g.V().hasLabel(_a).sideEffect(__.properties(_b,_c,_d,_e,_f).drop()).property(single,_g,_h).property(single,_i,_j).project(_k,_l,_m).by(id).by(label).by(__.properties().group().by(label).by(__.project(_n,_o,_p,_q).by(id).by(label).by(value).by(__.valueMap()).fold()))
         },
         {
           bindings: {}

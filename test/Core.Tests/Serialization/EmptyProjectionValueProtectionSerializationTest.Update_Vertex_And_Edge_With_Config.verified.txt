@@ -1,4 +1,4 @@
-{
+﻿{
   StepInstructions: [
     {
       OperatorName: V
@@ -19,7 +19,9 @@
               Arguments: [
                 Image,
                 PhoneNumbers,
-                SomeObscureProperty
+                SomeObscureProperty,
+                _Etag,
+                _Self
               ]
             },
             {
@@ -76,7 +78,9 @@
             {
               OperatorName: properties,
               Arguments: [
-                PartitionKey
+                PartitionKey,
+                _Etag,
+                _Self
               ]
             },
             {

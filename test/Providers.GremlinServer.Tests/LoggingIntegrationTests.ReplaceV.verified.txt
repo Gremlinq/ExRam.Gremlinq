@@ -1,15 +1,15 @@
-[
+﻿[
   {
     log: {
       Level: Debug,
       Category: LoggingFixture,
-      Message: Executing Gremlin query 12345678-9012-3456-7890-123456789012 with groovy script g.V(_a).hasLabel(_b).sideEffect(__.properties(_c,_d,_e).drop()).property(single,_f,_g).property(single,_h,_i).property(single,_j,_k).property(single,_l,_m).project(_n,_o,_p).by(id).by(label).by(__.properties().group().by(label).by(__.project(_q,_r,_s,_t).by(id).by(label).by(value).by(__.valueMap()).fold())).,
+      Message: Executing Gremlin query 12345678-9012-3456-7890-123456789012 with groovy script g.V(_a).hasLabel(_b).sideEffect(__.properties(_c,_d,_e,_f,_g).drop()).property(single,_h,_i).property(single,_j,_k).property(single,_l,_m).property(single,_n,_o).project(_p,_q,_r).by(id).by(label).by(__.properties().group().by(label).by(__.project(_s,_t,_u,_v).by(id).by(label).by(value).by(__.valueMap()).fold())).,
       State: [
         {
           requestId: 12345678-9012-3456-7890-123456789012
         },
         {
-          script: g.V(_a).hasLabel(_b).sideEffect(__.properties(_c,_d,_e).drop()).property(single,_f,_g).property(single,_h,_i).property(single,_j,_k).property(single,_l,_m).project(_n,_o,_p).by(id).by(label).by(__.properties().group().by(label).by(__.project(_q,_r,_s,_t).by(id).by(label).by(value).by(__.valueMap()).fold()))
+          script: g.V(_a).hasLabel(_b).sideEffect(__.properties(_c,_d,_e,_f,_g).drop()).property(single,_h,_i).property(single,_j,_k).property(single,_l,_m).property(single,_n,_o).project(_p,_q,_r).by(id).by(label).by(__.properties().group().by(label).by(__.project(_s,_t,_u,_v).by(id).by(label).by(value).by(__.valueMap()).fold()))
         },
         {
           {OriginalFormat}: Executing Gremlin query {requestId} with groovy script {script}.
