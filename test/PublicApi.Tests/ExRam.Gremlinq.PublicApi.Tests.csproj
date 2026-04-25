@@ -5,7 +5,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../../src/Providers.CosmosDb.AspNet/ExRam.Gremlinq.Providers.CosmosDb.AspNet.csproj" />
     <ProjectReference Include="../../src/Providers.GremlinServer.AspNet/ExRam.Gremlinq.Providers.GremlinServer.AspNet.csproj" />
     <ProjectReference Include="../../src/Providers.Neptune.AspNet/ExRam.Gremlinq.Providers.Neptune.AspNet.csproj" />
     <ProjectReference Include="../../src/Providers.JanusGraph.AspNet/ExRam.Gremlinq.Providers.JanusGraph.AspNet.csproj" />
