@@ -6,8 +6,6 @@
     <Project Path="src/Providers.Core/ExRam.Gremlinq.Providers.Core.csproj" />
   </Folder>
   <Folder Name="/Providers/">
-    <Project Path="src/Providers.CosmosDb.AspNet/ExRam.Gremlinq.Providers.CosmosDb.AspNet.csproj" />
-    <Project Path="src/Providers.CosmosDb/ExRam.Gremlinq.Providers.CosmosDb.csproj" />
     <Project Path="src/Providers.GremlinServer.AspNet/ExRam.Gremlinq.Providers.GremlinServer.AspNet.csproj" />
     <Project Path="src/Providers.GremlinServer/ExRam.Gremlinq.Providers.GremlinServer.csproj" />
     <Project Path="src/Providers.JanusGraph.AspNet/ExRam.Gremlinq.Providers.JanusGraph.AspNet.csproj" />
@@ -36,8 +34,6 @@
     <Project Path="test/Core.AspNet.Tests/ExRam.Gremlinq.Core.AspNet.Tests.csproj" />
     <Project Path="test/Core.Tests/ExRam.Gremlinq.Core.Tests.csproj" />
     <Project Path="test/Providers.Core.Tests/ExRam.Gremlinq.Providers.Core.Tests.csproj" />
-    <Project Path="test/Providers.CosmosDb.AspNet.Tests/ExRam.Gremlinq.Providers.CosmosDb.AspNet.Tests.csproj" />
-    <Project Path="test/Providers.CosmosDb.Tests/ExRam.Gremlinq.Providers.CosmosDb.Tests.csproj" />
     <Project Path="test/Providers.GremlinServer.AspNet.Tests/ExRam.Gremlinq.Providers.GremlinServer.AspNet.Tests.csproj" />
     <Project Path="test/Providers.GremlinServer.Tests/ExRam.Gremlinq.Providers.GremlinServer.Tests.csproj" />
     <Project Path="test/Providers.JanusGraph.AspNet.Tests/ExRam.Gremlinq.Providers.JanusGraph.AspNet.Tests.csproj" />

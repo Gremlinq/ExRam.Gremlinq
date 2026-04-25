@@ -17,12 +17,6 @@ namespace ExRam.Gremlinq.PublicApi.Tests
         public Task Providers_Core() => Verify();
 
         [Fact]
-        public Task Providers_CosmosDb() => Verify();
-
-        [Fact]
-        public Task Providers_CosmosDb_AspNet() => Verify();
-
-        [Fact]
         public Task Providers_GremlinServer() => Verify();
 
         [Fact]
