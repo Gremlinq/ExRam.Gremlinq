@@ -16,6 +16,18 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.AspNet
         /// <typeparam name="TVertexBase">The base type for all vertex entities.</typeparam>
         /// <typeparam name="TEdgeBase">The base type for all edge entities.</typeparam>
         /// <param name="setup">The services builder to configure.</param>
+        [Obsolete(
+            """
+            This method and the CosmosDb provider packages will be removed in ExRam.Gremlinq v14.
+
+            To keep using the CosmosDb provider packages beyond ExRam.Gremlinq v13, subscribe to the Gremlinq.Extensions CosmosDb-bundle, which seamlessly extends ExRam.Gremlinq with features that move beyond the core project.
+
+            Existing customers of any Gremlinq.Extensions product already have access to all ExRam.Gremlinq.Providers.CosmosDb.* packages on the Gremlinq.Extensions NuGet feed.
+            Simply update to the latest 13.x version, and this message will disappear.
+
+            For details on the v14 transition and available options, see https://docs.gremlinq.net/cosmosdb-provider-packages/
+            """,
+            error: false)]
         public static IGremlinqServicesBuilder<ICosmosDbConfigurator<TVertexBase>> UseCosmosDb<TVertexBase, TEdgeBase>(this IGremlinqServicesBuilder setup)
         {
             ArgumentNullException.ThrowIfNull(setup);
