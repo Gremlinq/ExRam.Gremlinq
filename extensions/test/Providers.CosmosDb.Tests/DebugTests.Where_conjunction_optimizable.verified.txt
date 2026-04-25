@@ -1,1 +1,0 @@
-g.V().hasLabel('Person').has('Age',36).has('Name','Hallo').has('Age',42)

@@ -1,1 +1,0 @@
-g.V().hasLabel('Person').outE('WorksFor').has('Role').tree().by().by('Role').by()

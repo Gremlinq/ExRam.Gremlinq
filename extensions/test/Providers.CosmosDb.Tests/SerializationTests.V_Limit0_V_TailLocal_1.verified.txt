@@ -1,7 +1,0 @@
-{
-  Script: g.V().limit(_a).fold().map(__.unfold().tail(_b).fold()),
-  Bindings: {
-    _a: 0,
-    _b: 1
-  }
-}

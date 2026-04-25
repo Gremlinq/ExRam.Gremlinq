@@ -1,1 +1,0 @@
-g.inject(42).project('in','out','count','properties').by(__.constant('in_value')).by(__.constant('out_value')).by(__.constant('count_value')).by(__.constant('properties_value'))

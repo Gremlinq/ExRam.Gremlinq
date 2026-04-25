@@ -1,1 +1,0 @@
-g.V().hasLabel('Person').tree().by('Age').by('Age').by('Age').by('Age').by('Age').by('Age').by('Age').by('Age').by('Age').by('Age').by('Age').by('Age').by('Age').by('Age').by('Age').by('Age').by('Age').by('Age').by('Age').by('Age').by('Age').by('Age').by('Age').by('Age').by('Age').by('Age').by('Age').by()

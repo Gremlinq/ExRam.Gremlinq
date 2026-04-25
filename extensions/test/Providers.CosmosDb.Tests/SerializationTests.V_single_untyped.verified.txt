@@ -1,6 +1,0 @@
-{
-  Script: g.V(_a),
-  Bindings: {
-    _a: 0
-  }
-}

@@ -1,7 +1,0 @@
-{
-  Script: g.inject(_a).asDate().dateAdd(day,_b),
-  Bindings: {
-    _a: 1690934400000,
-    _b: 1
-  }
-}

@@ -1,8 +1,0 @@
-{
-  Script: g.inject(_a,_b).fold().map(__.unfold().limit(_c).fold()),
-  Bindings: {
-    _a: 42,
-    _b: 43,
-    _c: 1
-  }
-}

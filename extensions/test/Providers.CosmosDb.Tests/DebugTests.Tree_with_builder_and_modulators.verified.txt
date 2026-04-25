@@ -1,1 +1,0 @@
-g.V().hasLabel('Person').outE('WorksFor').has('Role').inV().hasLabel('Company').values('FoundingDate').tree().by().by('Role').by().by()

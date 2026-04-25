@@ -1,1 +1,0 @@
-g.V().hasLabel('Person').repeat(__.out('WorksFor').hasLabel('Person'))

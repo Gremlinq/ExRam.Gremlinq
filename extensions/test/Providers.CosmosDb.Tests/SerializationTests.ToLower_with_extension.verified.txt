@@ -1,6 +1,0 @@
-{
-  Script: g.inject(_a).toLower(),
-  Bindings: {
-    _a: aBcDeFg
-  }
-}

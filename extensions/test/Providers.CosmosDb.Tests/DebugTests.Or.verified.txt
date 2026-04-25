@@ -1,1 +1,0 @@
-g.V().hasLabel('Person').or(__.inE('WorksFor'),__.outE('LivesIn'))

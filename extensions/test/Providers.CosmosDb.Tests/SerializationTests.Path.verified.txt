@@ -1,3 +1,0 @@
-{
-  Script: g.V().out().out().path()
-}
