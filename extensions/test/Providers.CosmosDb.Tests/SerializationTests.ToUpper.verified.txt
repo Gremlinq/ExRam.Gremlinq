@@ -1,6 +1,0 @@
-{
-  Script: g.inject(_a).asString().toUpper(),
-  Bindings: {
-    _a: aBcDeFg
-  }
-}

@@ -1,1 +1,0 @@
-g.V().hasLabel('Country').has('CountryCallingCode').project('Item1','Item2','Item3').by('CountryCallingCode').by('CountryCallingCode').by('CountryCallingCode')

@@ -1,1 +1,0 @@
-g.addV('Language').property(single,'lang','en').property(single,'PartitionKey','PartitionKey')

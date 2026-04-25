@@ -1,9 +1,0 @@
-{
-  Script: g.inject(_a).as(_b).V().hasLabel(_c).has(_d,__.where(lte(_b))).values(_d),
-  Bindings: {
-    _a: 36,
-    _b: _a,
-    _c: Person,
-    _d: Age
-  }
-}

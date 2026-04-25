@@ -1,8 +1,0 @@
-{
-  Script: g.inject(_a).project(_b).by(__.constant(_c)),
-  Bindings: {
-    _a: 42,
-    _b: item1!,
-    _c: item1
-  }
-}

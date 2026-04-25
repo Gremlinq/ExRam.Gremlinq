@@ -1,6 +1,0 @@
-{
-  Script: g.V().optional(__.out(_a)),
-  Bindings: {
-    _a: WorksFor
-  }
-}

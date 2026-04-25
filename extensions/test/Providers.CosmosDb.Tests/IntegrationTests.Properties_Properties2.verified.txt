@@ -1,6 +1,0 @@
-[
-  {
-    Value: 1546304400000,
-    Key: ValidFrom
-  }
-]

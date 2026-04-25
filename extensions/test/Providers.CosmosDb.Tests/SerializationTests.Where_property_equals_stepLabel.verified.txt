@@ -1,9 +1,0 @@
-{
-  Script: g.inject(_a).as(_b).V().hasLabel(_c).has(_d,__.where(eq(_b))).order().by(id,incr),
-  Bindings: {
-    _a: en,
-    _b: _a,
-    _c: Language,
-    _d: IetfLanguageTag
-  }
-}

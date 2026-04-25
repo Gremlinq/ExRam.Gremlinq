@@ -1,6 +1,0 @@
-{
-  Script: g.inject(_a).asDate(),
-  Bindings: {
-    _a: DateTimeOffset_1
-  }
-}

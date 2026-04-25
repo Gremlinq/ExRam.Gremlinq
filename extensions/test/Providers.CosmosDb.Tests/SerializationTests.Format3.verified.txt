@@ -1,9 +1,0 @@
-{
-  Script: g.V().hasLabel(_a).order().by(_b,incr).as(_c).format(_d).by(__.identity()).by(__.values(_b)),
-  Bindings: {
-    _a: Person,
-    _b: Name,
-    _c: _a,
-    _d: _%{_}_%{_}_%{_a}_
-  }
-}
