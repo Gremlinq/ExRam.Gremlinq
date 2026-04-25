@@ -1,6 +1,0 @@
-{
-  Script: g.inject(_a).reverse(),
-  Bindings: {
-    _a: abcdef
-  }
-}

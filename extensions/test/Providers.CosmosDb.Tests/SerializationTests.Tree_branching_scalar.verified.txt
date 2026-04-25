@@ -1,8 +1,0 @@
-{
-  Script: g.inject(_a).union(__.constant(_b),__.constant(_c)).tree(),
-  Bindings: {
-    _a: 42,
-    _b: 43,
-    _c: 44
-  }
-}

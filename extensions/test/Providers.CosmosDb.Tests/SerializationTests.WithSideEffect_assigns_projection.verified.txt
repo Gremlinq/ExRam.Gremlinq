@@ -1,7 +1,0 @@
-{
-  Script: g.withSideEffect(_a,[]).V().hasLabel(_b).aggregate(_a).fold().select(_a),
-  Bindings: {
-    _a: _a,
-    _b: Person
-  }
-}

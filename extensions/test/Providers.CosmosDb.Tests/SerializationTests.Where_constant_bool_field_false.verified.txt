@@ -1,6 +1,0 @@
-{
-  Script: g.inject(_a).not(__.identity()),
-  Bindings: {
-    _a: 42
-  }
-}

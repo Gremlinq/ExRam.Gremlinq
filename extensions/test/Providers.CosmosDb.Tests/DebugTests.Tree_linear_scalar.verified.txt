@@ -1,1 +1,0 @@
-g.inject(42).constant('43').tree()

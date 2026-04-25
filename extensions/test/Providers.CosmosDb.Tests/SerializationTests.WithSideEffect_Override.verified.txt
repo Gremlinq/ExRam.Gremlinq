@@ -1,8 +1,0 @@
-{
-  Script: g.withSideEffect(_a,_b).inject(_c),
-  Bindings: {
-    _a: stepLabel,
-    _b: sideEffect2,
-    _c: 0
-  }
-}

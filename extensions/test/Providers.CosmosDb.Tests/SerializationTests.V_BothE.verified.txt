@@ -1,8 +1,0 @@
-{
-  Script: g.V().bothE(_a,_b,_c),
-  Bindings: {
-    _a: LivesIn,
-    _b: Speaks,
-    _c: WorksFor
-  }
-}

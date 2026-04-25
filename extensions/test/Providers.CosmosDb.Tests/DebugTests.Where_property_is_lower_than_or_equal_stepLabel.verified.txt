@@ -1,1 +1,0 @@
-g.inject(36).as('_a').V().hasLabel('Person').has('Age',__.where(lte('_a'))).values('Age')

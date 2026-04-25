@@ -1,9 +1,0 @@
-{
-  Script: g.inject(_a).asString().concat(__.constant(_b),__.constant(_c)).concat(__.constant(_d)),
-  Bindings: {
-    _a: 42,
-    _b: _a_,
-    _c: _b_,
-    _d: _c_
-  }
-}
