@@ -1,3 +1,4 @@
+#pragma warning disable CS0618 // Type or member is obsolete
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Providers.Core;
 using ExRam.Gremlinq.Providers.CosmosDb;
