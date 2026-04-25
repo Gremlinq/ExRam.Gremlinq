@@ -16,7 +16,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb
     /// <summary>
     /// Provides extension methods for <see cref="IGremlinQuerySource"/> to configure the Azure CosmosDb provider.
     /// </summary>
-    public static class ConfigurableGremlinQuerySourceExtensions
+    public static class ConfigurableGremlinQuerySourceExtensions    //TODO: Rename on breaking
     {
         private sealed class CosmosDbConfigurator<TVertexBase> : ICosmosDbConfigurator<TVertexBase>
         {

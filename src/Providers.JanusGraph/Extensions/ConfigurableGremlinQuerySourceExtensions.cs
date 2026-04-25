@@ -5,7 +5,7 @@ using ExRam.Gremlinq.Providers.Core;
 namespace ExRam.Gremlinq.Providers.JanusGraph
 {
     /// <summary>Extension methods for configuring JanusGraph on <see cref="IGremlinQuerySource"/>.</summary>
-    public static class ConfigurableGremlinQuerySourceExtensions
+    public static class ConfigurableGremlinQuerySourceExtensions    //TODO: Rename on breaking
     {
         private sealed class JanusGraphConfigurator : IJanusGraphConfigurator
         {
