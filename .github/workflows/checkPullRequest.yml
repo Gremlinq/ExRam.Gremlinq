@@ -20,6 +20,7 @@ jobs:
       with:
         fetch-depth: 0
         submodules: 'true'
+        token: ${{ secrets.CHECKOUT_TOKEN }}
 
     - name: Setup .NET
       uses: actions/setup-dotnet@87b7050bc53ea08284295505d98d2aa94301e852 # 4.2.0
