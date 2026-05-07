@@ -24,7 +24,7 @@
     <IsPackable>false</IsPackable>
   </PropertyGroup>  
 
-  <ItemGroup Condition="'$(IsPackable)' == 'true'">
+  <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)assets/$(PackageIcon)">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
