@@ -1,6 +1,6 @@
 <Project>
   <ItemGroup>
-    <PackageVersion Include="AWSSDK.Core" Version="4.0.3.32" />
+    <PackageVersion Include="AWSSDK.Core" Version="4.0.6.1" />
     <PackageVersion Include="BenchmarkDotNet" Version="0.15.8" />
     <PackageVersion Include="BenchmarkDotNet.Diagnostics.Windows" Version="0.14.0" />
     <PackageVersion Include="Boxed.DotnetNewTest" Version="6.0.0" />
