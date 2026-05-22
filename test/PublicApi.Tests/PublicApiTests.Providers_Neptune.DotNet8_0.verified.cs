@@ -13,13 +13,10 @@ namespace ExRam.Gremlinq.Providers.Neptune
         public static ExRam.Gremlinq.Providers.Neptune.ISigV4AWSSigner WithRegion(this ExRam.Gremlinq.Providers.Neptune.ISigV4AWSSigner signer, string region) { }
         public static ExRam.Gremlinq.Providers.Neptune.ISigV4AWSSigner WithUri(this ExRam.Gremlinq.Providers.Neptune.ISigV4AWSSigner signer, System.Uri uri) { }
     }
-    public static class ConfigurableGremlinQuerySourceExtensions
-    {
-        public static ExRam.Gremlinq.Core.IGremlinQuerySource UseNeptune<TVertexBase, TEdgeBase>(this ExRam.Gremlinq.Core.IGremlinQuerySource source, System.Func<ExRam.Gremlinq.Providers.Neptune.INeptuneConfigurator, ExRam.Gremlinq.Core.IGremlinQuerySourceTransformation> configuratorTransformation) { }
-    }
     public static class GremlinQuerySourceExtensions
     {
         public static ExRam.Gremlinq.Core.IGremlinQuerySource UseDFE(this ExRam.Gremlinq.Core.IGremlinQuerySource source, bool enabled = true) { }
+        public static ExRam.Gremlinq.Core.IGremlinQuerySource UseNeptune<TVertexBase, TEdgeBase>(this ExRam.Gremlinq.Core.IGremlinQuerySource source, System.Func<ExRam.Gremlinq.Providers.Neptune.INeptuneConfigurator, ExRam.Gremlinq.Core.IGremlinQuerySourceTransformation> configuratorTransformation) { }
     }
     public interface IAWSSigner
     {
