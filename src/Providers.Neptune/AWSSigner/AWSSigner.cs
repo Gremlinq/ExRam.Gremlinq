@@ -205,14 +205,22 @@ namespace ExRam.Gremlinq.Providers.Neptune
                 throw Throw("SecretAccessKey.");
             }
 
-            private static void ToHexStringLower(ReadOnlySpan<byte> source, Span<byte> utf8Destination) =>
+            private static void ToHexStringLower(ReadOnlySpan<byte> source, Span<byte> utf8Destination)
 #if NET10_0_OR_GREATER
-                Convert.TryToHexStringLower(source, utf8Destination, out _);
+                => Convert.TryToHexStringLower(source, utf8Destination, out _);
 #else
-                //TODO: Optimize for less allocations
-                Encoding.UTF8.GetBytes(Convert.ToHexString(source).ToLowerInvariant()).CopyTo(utf8Destination);
-#endif
+             {
+                for (var i = 0; i<source.Length; i++)
+                {
+                    var value = source[i];
+                    var highNibble = value >> 4;
+                    var lowNibble = value & 0x0F;
 
+                    utf8Destination[i * 2] = (byte) (highNibble< 10 ? '0' + highNibble : 'a' + highNibble - 10);
+                    utf8Destination[(i * 2) + 1] = (byte) (lowNibble< 10 ? '0' + lowNibble : 'a' + lowNibble - 10);
+                }
+            }
+#endif
 
             private static string GetCanonicalQueryParams(string queryString)
             {
