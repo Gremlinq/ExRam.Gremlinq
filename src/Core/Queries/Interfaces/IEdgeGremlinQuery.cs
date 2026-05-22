@@ -240,7 +240,7 @@ namespace ExRam.Gremlinq.Core
     /// <typeparam name="TOutVertex">The outgoing (tail) vertex type.</typeparam>
     /// <typeparam name="TInVertex">The incoming (head) vertex type.</typeparam>
     public interface IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex> :
-        IInOrOutEdgeGremlinQueryBaseRec<IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>>,
+        IAddEdgeGremlinQueryBaseRec<IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>>,
         IOutEdgeGremlinQueryBaseRec<IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>>,
         IInEdgeGremlinQueryBaseRec<IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>>,
         IEdgeGremlinQueryBase<TEdge, TOutVertex, TInVertex>,

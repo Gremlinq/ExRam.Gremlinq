@@ -30,7 +30,7 @@ namespace ExRam.Gremlinq.Core
         IEdgeGremlinQuery<T1, T2>,
         IEdgeGremlinQuery<T1, T2, T3>,
 
-        IInOrOutEdgeGremlinQuery<T1, T2>,
+        IAddEdgeGremlinQuery<T1, T2>,
         IInEdgeGremlinQuery<T1, T3>,
         IOutEdgeGremlinQuery<T1, T2>,
 
@@ -525,37 +525,37 @@ namespace ExRam.Gremlinq.Core
             return WithSideEffect(value, continuation);
         }
 
-        IEdgeGremlinQuery<T1> IInOrOutEdgeGremlinQueryBase<T1, T2>.Lower() => this;
+        IEdgeGremlinQuery<T1> IAddEdgeGremlinQueryBase<T1, T2>.Lower() => this;
 
-        IEdgeGremlinQuery<T1, TTargetVertex, T2> IInOrOutEdgeGremlinQueryBase<T1, T2>.From<TTargetVertex>(StepLabel<TTargetVertex> stepLabel)
+        IEdgeGremlinQuery<T1, TTargetVertex, T2> IAddEdgeGremlinQueryBase<T1, T2>.From<TTargetVertex>(StepLabel<TTargetVertex> stepLabel)
         {
             ArgumentNullException.ThrowIfNull(stepLabel);
 
             return From<T1, TTargetVertex, T2>(stepLabel);
         }
 
-        IEdgeGremlinQuery<T1, TNewOutVertex, T2> IInOrOutEdgeGremlinQueryBase<T1, T2>.From<TNewOutVertex>(Func<IVertexGremlinQuery<T2>, IVertexGremlinQueryBase<TNewOutVertex>> fromVertexTraversal)
+        IEdgeGremlinQuery<T1, TNewOutVertex, T2> IAddEdgeGremlinQueryBase<T1, T2>.From<TNewOutVertex>(Func<IVertexGremlinQuery<T2>, IVertexGremlinQueryBase<TNewOutVertex>> fromVertexTraversal)
         {
             ArgumentNullException.ThrowIfNull(fromVertexTraversal);
 
             return From(fromVertexTraversal);
         }
 
-        IEdgeGremlinQuery<T1, T2, TTargetVertex> IInOrOutEdgeGremlinQueryBase<T1, T2>.To<TTargetVertex>(StepLabel<TTargetVertex> stepLabel)
+        IEdgeGremlinQuery<T1, T2, TTargetVertex> IAddEdgeGremlinQueryBase<T1, T2>.To<TTargetVertex>(StepLabel<TTargetVertex> stepLabel)
         {
             ArgumentNullException.ThrowIfNull(stepLabel);
 
             return To<T1, T2, TTargetVertex>(stepLabel);
         }
 
-        IEdgeGremlinQuery<T1, T2, TTargetVertex> IInOrOutEdgeGremlinQueryBase<T1, T2>.To<TTargetVertex>(Func<IVertexGremlinQuery<T2>, IVertexGremlinQueryBase<TTargetVertex>> toVertexTraversal)
+        IEdgeGremlinQuery<T1, T2, TTargetVertex> IAddEdgeGremlinQueryBase<T1, T2>.To<TTargetVertex>(Func<IVertexGremlinQuery<T2>, IVertexGremlinQueryBase<TTargetVertex>> toVertexTraversal)
         {
             ArgumentNullException.ThrowIfNull(toVertexTraversal);
 
             return To(toVertexTraversal);
         }
 
-        IEdgeGremlinQuery<object> IInOrOutEdgeGremlinQueryBase.Lower() => CloneAs<IEdgeGremlinQuery<object>>();
+        IEdgeGremlinQuery<object> IAddEdgeGremlinQueryBase.Lower() => CloneAs<IEdgeGremlinQuery<object>>();
 
         IGremlinQuery<string> IPropertyGremlinQueryBase<T1>.Key() => Key();
 
@@ -598,9 +598,9 @@ namespace ExRam.Gremlinq.Core
 
         IEdgeOrVertexGremlinQuery<object> IVertexGremlinQueryBase.Lower() => CloneAs<IEdgeOrVertexGremlinQuery<object>>();
 
-        IInOrOutEdgeGremlinQuery<TEdge, T1> IVertexGremlinQueryBase<T1>.AddE<TEdge>(TEdge edge) => AddE(edge);
+        IAddEdgeGremlinQuery<TEdge, T1> IVertexGremlinQueryBase<T1>.AddE<TEdge>(TEdge edge) => AddE(edge);
 
-        IInOrOutEdgeGremlinQuery<TEdge, T1> IVertexGremlinQueryBase<T1>.AddE<TEdge>() => AddE(new TEdge());
+        IAddEdgeGremlinQuery<TEdge, T1> IVertexGremlinQueryBase<T1>.AddE<TEdge>() => AddE(new TEdge());
 
         IVertexPropertyGremlinQuery<VertexProperty<object>, object> IVertexGremlinQueryBase<T1>.Properties() => VertexProperties<object>([]);
 

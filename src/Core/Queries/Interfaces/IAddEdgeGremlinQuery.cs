@@ -1,8 +1,7 @@
 namespace ExRam.Gremlinq.Core
 {
-    //TODO: Rename.
     /// <summary>Provides base operations for edge queries where either the incoming or outgoing vertex is known.</summary>
-    public interface IInOrOutEdgeGremlinQueryBase :
+    public interface IAddEdgeGremlinQueryBase :
         IEdgeGremlinQueryBase
     {
         /// <inheritdoc cref="IEdgeOrVertexGremlinQueryBase.Lower" />
@@ -12,8 +11,8 @@ namespace ExRam.Gremlinq.Core
     /// <summary>Provides typed base operations for edge queries with a known adjacent vertex type.</summary>
     /// <typeparam name="TEdge">The edge type.</typeparam>
     /// <typeparam name="TAdjacentVertex">The adjacent vertex type.</typeparam>
-    public interface IInOrOutEdgeGremlinQueryBase<TEdge, TAdjacentVertex> :
-        IInOrOutEdgeGremlinQueryBase,
+    public interface IAddEdgeGremlinQueryBase<TEdge, TAdjacentVertex> :
+        IAddEdgeGremlinQueryBase,
         IEdgeGremlinQueryBase<TEdge>
     {
         /// <inheritdoc cref="IEdgeOrVertexGremlinQueryBase.Lower" />
@@ -58,24 +57,24 @@ namespace ExRam.Gremlinq.Core
 
     /// <summary>Provides recursive (CRTP) base operations for in-or-out edge queries.</summary>
     /// <typeparam name="TSelf">The concrete query type for fluent chaining.</typeparam>
-    public interface IInOrOutEdgeGremlinQueryBaseRec<TSelf> :
-        IInOrOutEdgeGremlinQueryBase,
+    public interface IAddEdgeGremlinQueryBaseRec<TSelf> :
+        IAddEdgeGremlinQueryBase,
         IEdgeGremlinQueryBaseRec<TSelf>
-            where TSelf : IInOrOutEdgeGremlinQueryBaseRec<TSelf>;
+            where TSelf : IAddEdgeGremlinQueryBaseRec<TSelf>;
 
     /// <summary>Provides recursive (CRTP) typed base operations for in-or-out edge queries.</summary>
     /// <typeparam name="TEdge">The edge type.</typeparam>
     /// <typeparam name="TAdjacentVertex">The adjacent vertex type.</typeparam>
     /// <typeparam name="TSelf">The concrete query type for fluent chaining.</typeparam>
-    public interface IInOrOutEdgeGremlinQueryBaseRec<TEdge, TAdjacentVertex, TSelf> :
-        IInOrOutEdgeGremlinQueryBaseRec<TSelf>,
-        IInOrOutEdgeGremlinQueryBase<TEdge, TAdjacentVertex>,
+    public interface IAddEdgeGremlinQueryBaseRec<TEdge, TAdjacentVertex, TSelf> :
+        IAddEdgeGremlinQueryBaseRec<TSelf>,
+        IAddEdgeGremlinQueryBase<TEdge, TAdjacentVertex>,
         IEdgeGremlinQueryBaseRec<TEdge, TSelf>
-            where TSelf : IInOrOutEdgeGremlinQueryBaseRec<TEdge, TAdjacentVertex, TSelf>;
+            where TSelf : IAddEdgeGremlinQueryBaseRec<TEdge, TAdjacentVertex, TSelf>;
 
     /// <summary>A query over edges of type <typeparamref name="TEdge"/> with a known adjacent vertex of type <typeparamref name="TAdjacentVertex"/>.</summary>
     /// <typeparam name="TEdge">The edge type.</typeparam>
     /// <typeparam name="TAdjacentVertex">The adjacent vertex type.</typeparam>
-    public interface IInOrOutEdgeGremlinQuery<TEdge, TAdjacentVertex> :
-        IInOrOutEdgeGremlinQueryBaseRec<TEdge, TAdjacentVertex, IInOrOutEdgeGremlinQuery<TEdge, TAdjacentVertex>>;
+    public interface IAddEdgeGremlinQuery<TEdge, TAdjacentVertex> :
+        IAddEdgeGremlinQueryBaseRec<TEdge, TAdjacentVertex, IAddEdgeGremlinQuery<TEdge, TAdjacentVertex>>;
 }
