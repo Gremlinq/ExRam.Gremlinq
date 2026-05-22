@@ -31,7 +31,4 @@
     </None>
   </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Nerdbank.GitVersioning" PrivateAssets="All" />
-  </ItemGroup>
 </Project>
