@@ -4,11 +4,11 @@
     <Description>.NET object-graph-mapper for Apache TinkerPop™ Gremlin enabled databases.</Description>
   </PropertyGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)'=='net6.0' or '$(TargetFramework)'=='net7.0'">
+  <ItemGroup Condition="'$(TargetFramework)'=='net7.0'">
     <PackageReference Include="System.Collections.Immutable" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)'=='net6.0' or '$(TargetFramework)'=='net7.0' or '$(TargetFramework)'=='net8.0'">
+  <ItemGroup Condition="'$(TargetFramework)'=='net7.0' or '$(TargetFramework)'=='net8.0'">
     <PackageReference Include="System.Text.Json" />
   </ItemGroup>
   
