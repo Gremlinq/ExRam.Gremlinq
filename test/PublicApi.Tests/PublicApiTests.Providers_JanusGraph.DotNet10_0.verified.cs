@@ -1,6 +1,6 @@
 namespace ExRam.Gremlinq.Providers.JanusGraph
 {
-    public static class ConfigurableGremlinQuerySourceExtensions
+    public static class GremlinQuerySourceExtensions
     {
         public static ExRam.Gremlinq.Core.IGremlinQuerySource UseJanusGraph<TVertexBase, TEdgeBase>(this ExRam.Gremlinq.Core.IGremlinQuerySource source, System.Func<ExRam.Gremlinq.Providers.JanusGraph.IJanusGraphConfigurator, ExRam.Gremlinq.Core.IGremlinQuerySourceTransformation> configuratorTransformation) { }
     }

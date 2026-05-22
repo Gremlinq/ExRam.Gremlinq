@@ -1,6 +1,6 @@
 namespace ExRam.Gremlinq.Providers.GremlinServer
 {
-    public static class ConfigurableGremlinQuerySourceExtensions
+    public static class GremlinQuerySourceExtensions
     {
         public static ExRam.Gremlinq.Core.IGremlinQuerySource UseGremlinServer<TVertexBase, TEdgeBase>(this ExRam.Gremlinq.Core.IGremlinQuerySource source, System.Func<ExRam.Gremlinq.Providers.GremlinServer.IGremlinServerConfigurator, ExRam.Gremlinq.Core.IGremlinQuerySourceTransformation> configuratorTransformation) { }
     }

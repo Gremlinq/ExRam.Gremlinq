@@ -7,7 +7,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer
     /// <summary>
     /// Provides extension methods for <see cref="IGremlinQuerySource"/> to configure the Gremlin Server provider.
     /// </summary>
-    public static class ConfigurableGremlinQuerySourceExtensions    //TODO: Rename on breaking
+    public static class GremlinQuerySourceExtensions
     {
         private sealed class GremlinServerConfigurator : IGremlinServerConfigurator
         {
