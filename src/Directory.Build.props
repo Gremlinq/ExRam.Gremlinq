@@ -3,7 +3,7 @@
   
   <PropertyGroup>
     <TargetFrameworks>net10.0</TargetFrameworks>
-    <TargetFrameworks Condition="'$(Configuration)'=='Release'">net7.0;net8.0;net9.0;$(TargetFrameworks)</TargetFrameworks>
+    <TargetFrameworks Condition="'$(Configuration)'=='Release'">net8.0;net9.0;$(TargetFrameworks)</TargetFrameworks>
 
     <Product>ExRam.Gremlinq</Product>
     <Deterministic>true</Deterministic>
@@ -37,7 +37,6 @@
   <ItemGroup Condition="'$(Configuration)' == 'Release'" >
     <None Include="$(PackageLicenseDirectory)$(PackageLicenseFile)" Pack="true" PackagePath="/" />
     <None Include="$(MSBuildThisFileDirectory)../README.md" Pack="true" PackagePath="/" />
-    <PackageReference Condition="'$(TargetFramework)' == 'net7.0'" Include="Microsoft.SourceLink.GitHub" PrivateAssets="All" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(IsRoslynComponent)' != 'true'">
