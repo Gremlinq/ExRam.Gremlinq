@@ -47,13 +47,11 @@ namespace ExRam.Gremlinq.Core
 
     internal sealed partial class GremlinQuery<T1, T2, T3, T4> : GremlinQueryBase
     {
-#if NET8_0_OR_GREATER
         [InlineArray(8)]
         private struct Buffer8
         {
             public object _element0;
         }
-#endif
 
         public GremlinQuery(
             IGremlinQueryEnvironment environment,
@@ -1313,15 +1311,11 @@ namespace ExRam.Gremlinq.Core
                         var tStepCount = 0;
                         var stringKeyCount = 0;
 
-#if NET8_0_OR_GREATER
                         var buffer = default(Buffer8);
 
                         var objects = projections.Length <= 8
                             ? buffer[..]
                             : new object[projections.Length];
-#else
-                        var objects = new object[projections.Length].AsSpan();
-#endif
 
                         foreach (var projection in projections)
                         {

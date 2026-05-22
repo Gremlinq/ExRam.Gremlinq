@@ -133,12 +133,8 @@ namespace ExRam.Gremlinq.Providers.Neptune
                         Span<byte> canonicalRequestBytes = stackalloc byte[canonicalRequestPrefix.Length + canonicalRequestPostfix.Length + 16];
                         Span<byte> authorizationBytes = stackalloc byte[authorizationTemplatePrefix.Length + authorizationTemplatePostfix.Length + 8];
 
-#if NET8_0_OR_GREATER
                         Span<byte> timeSpan = stackalloc byte[16];
                         actualTime.TryFormat(timeSpan, out _, "yyyyMMddTHHmmssZ");
-#else
-                        Span<byte> timeSpan = Encoding.UTF8.GetBytes(actualTime.ToString("yyyyMMddTHHmmssZ"));
-#endif
 
                         stringToSignTemplate.CopyTo(stringToSignBytes);
 
