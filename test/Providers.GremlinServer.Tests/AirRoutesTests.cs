@@ -1,13 +1,8 @@
-using DotNet.Testcontainers.Containers;
-
 using ExRam.Gremlinq.Core;
-using ExRam.Gremlinq.Providers.Core;
 using ExRam.Gremlinq.Testing.AirRoutes;
-using ExRam.Gremlinq.Tests.Fixtures;
 using ExRam.Gremlinq.Tests.Infrastructure;
 using ExRam.Gremlinq.Support.NewtonsoftJson;
 using FluentAssertions;
-using ExRam.Gremlinq.Core.Models;
 using ExRam.Gremlinq.Support.TestContainers;
 
 namespace ExRam.Gremlinq.Providers.GremlinServer.Tests

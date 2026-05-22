@@ -1,7 +1,5 @@
 using FluentAssertions;
 
-using Gremlin.Net.Driver.Messages;
-
 using NSubstitute;
 
 namespace ExRam.Gremlinq.Providers.Core.Tests

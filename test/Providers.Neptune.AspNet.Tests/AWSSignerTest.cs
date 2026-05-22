@@ -1,5 +1,4 @@
 using Amazon.Runtime;
-using Amazon.Runtime.Credentials;
 
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.AspNet;

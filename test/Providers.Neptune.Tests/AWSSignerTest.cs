@@ -1,8 +1,5 @@
-using System.Net.Http.Headers;
-
 using Amazon.Runtime;
 using Amazon.Runtime.Credentials;
-using Amazon.Runtime.Identity;
 
 using FluentAssertions;
 
