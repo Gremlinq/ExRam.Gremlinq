@@ -9,7 +9,7 @@
     <ProjectReference Include="../Tests.Entities/ExRam.Gremlinq.Tests.Entities.csproj" />
     <ProjectReference Include="../Tests.Infrastructure/ExRam.Gremlinq.Tests.Infrastructure.csproj" />
 
-    <PackageReference Include="Microsoft.Azure.Cosmos" />
+    <PackageReference Include="System.Memory.Data" />
     <PackageReference Include="Testcontainers" />
   </ItemGroup>
 
