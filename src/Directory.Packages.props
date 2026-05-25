@@ -1,6 +1,6 @@
 <Project>
   <ItemGroup>
-    <PackageVersion Include="AWSSDK.Core" Version="4.0.7.2" />
+    <PackageVersion Include="AWSSDK.Core" Version="4.0.7.3" />
     <PackageVersion Include="CommunityToolkit.HighPerformance" Version="8.4.2" />
     <PackageVersion Include="Gremlin.Net" Version="3.7.6" />
     <PackageVersion Include="Newtonsoft.Json" Version="13.0.4" />
