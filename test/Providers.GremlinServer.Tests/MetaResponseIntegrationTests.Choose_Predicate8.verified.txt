@@ -1,4 +1,4 @@
-[
+﻿[
   {
     RequestId: 12345678-9012-3456-7890-123456789012,
     Data: [
@@ -34,7 +34,7 @@
       false,
       false,
       false,
-      true
+      false
     ],
     ResponseStatus: {
       Code: Success,

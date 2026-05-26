@@ -1,9 +1,9 @@
-[
+﻿[
   {
     Enabled: false,
     StartTime: 08:00:00,
     Duration: 02:00:00,
-    Id: 50,
+    Id: 51,
     Label: TimeFrame,
     PartitionKey: PartitionKey
   }

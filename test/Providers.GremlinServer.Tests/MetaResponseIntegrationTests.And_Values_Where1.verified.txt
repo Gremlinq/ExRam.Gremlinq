@@ -1,8 +1,16 @@
-[
+﻿[
   {
     RequestId: 12345678-9012-3456-7890-123456789012,
+    Data: [
+      {
+        Age: 43,
+        Id: 7,
+        Label: Person,
+        PartitionKey: PartitionKey
+      }
+    ],
     ResponseStatus: {
-      Code: NoContent,
+      Code: Success,
       Attributes: {
         host: (host)
       },

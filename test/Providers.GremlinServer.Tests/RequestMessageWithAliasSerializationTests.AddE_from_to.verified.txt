@@ -1,4 +1,4 @@
-{
+﻿{
   RequestId: 12345678-9012-3456-7890-123456789012,
   Operation: bytecode,
   Processor: traversal,
@@ -55,6 +55,17 @@
                     },
                     Age,
                     0
+                  ]
+                },
+                {
+                  OperatorName: property,
+                  Arguments: [
+                    {
+                      EnumName: Cardinality,
+                      EnumValue: single
+                    },
+                    Age,
+                    43
                   ]
                 }
               ]

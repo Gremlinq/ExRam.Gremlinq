@@ -1,28 +1,28 @@
-[
-  {
-    Locations: [
-      {
-        Id: 70,
-        Label: Locations,
-        Value: Aachen
-      }
-    ],
-    Id: 68,
-    Label: Company,
-    PartitionKey: PartitionKey
-  },
+﻿[
   {
     Id: 5,
     Label: Company,
     PartitionKey: PartitionKey
   },
   {
-    Id: 27,
+    Locations: [
+      {
+        Id: 71,
+        Label: Locations,
+        Value: Aachen
+      }
+    ],
+    Id: 69,
     Label: Company,
     PartitionKey: PartitionKey
   },
   {
-    Id: 42,
+    Id: 28,
+    Label: Company,
+    PartitionKey: PartitionKey
+  },
+  {
+    Id: 43,
     Label: Company,
     PartitionKey: PartitionKey
   }

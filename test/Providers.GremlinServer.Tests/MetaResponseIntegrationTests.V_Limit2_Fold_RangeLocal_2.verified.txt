@@ -1,4 +1,4 @@
-[
+﻿[
   {
     RequestId: 12345678-9012-3456-7890-123456789012,
     Data: [
@@ -6,7 +6,7 @@
         {
           CountryCallingCode: +49,
           LocalizableDescription: {
-            Id: 127,
+            Id: 128,
             Label: LocalizableDescription,
             Properties: {
               someKey: value
@@ -19,7 +19,7 @@
         },
         {
           IetfLanguageTag: en,
-          Id: 65,
+          Id: 2,
           Label: Language,
           PartitionKey: PartitionKey
         }

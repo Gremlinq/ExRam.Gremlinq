@@ -1,16 +1,16 @@
-[
+﻿[
   {
     RequestId: 12345678-9012-3456-7890-123456789012,
     Data: [
       {
         RegistrationDate: 2020-04-07 14:43:36 +0,
         Name: {
-          Id: 12,
+          Id: 13,
           Label: Name,
           Properties: {},
           Value: Bob
         },
-        Id: 10,
+        Id: 11,
         Label: Person,
         PartitionKey: PartitionKey
       },
@@ -21,7 +21,7 @@
         PartitionKey: PartitionKey
       },
       {
-        Id: 67,
+        Id: 68,
         Label: Language,
         PartitionKey: PartitionKey
       },
@@ -31,48 +31,48 @@
         PartitionKey: PartitionKey
       },
       {
-        Id: 17,
+        Id: 18,
         Label: Country,
         PartitionKey: PartitionKey
       },
       {
-        Id: 17,
+        Id: 18,
         Label: Country,
         PartitionKey: PartitionKey
       },
       {
-        Id: 79,
+        Id: 80,
         Label: Language,
         PartitionKey: PartitionKey
       },
       {
-        Id: 21,
+        Id: 22,
         Label: Country,
         PartitionKey: PartitionKey
       },
       {
-        Id: 21,
+        Id: 22,
         Label: Country,
         PartitionKey: PartitionKey
       },
       {
-        Id: 25,
+        Id: 26,
         Label: Country,
         PartitionKey: PartitionKey
       },
       {
-        Id: 25,
+        Id: 26,
         Label: Country,
         PartitionKey: PartitionKey
       },
       {
-        Id: 27,
+        Id: 28,
         Label: Company,
         PartitionKey: PartitionKey
       },
       {
         IetfLanguageTag: en,
-        Id: 32,
+        Id: 33,
         Label: Language,
         PartitionKey: PartitionKey
       },
@@ -83,12 +83,12 @@
         PartitionKey: PartitionKey
       },
       {
-        Id: 42,
+        Id: 43,
         Label: Company,
         PartitionKey: PartitionKey
       },
       {
-        Id: 49,
+        Id: 50,
         Label: Language,
         PartitionKey: PartitionKey
       }

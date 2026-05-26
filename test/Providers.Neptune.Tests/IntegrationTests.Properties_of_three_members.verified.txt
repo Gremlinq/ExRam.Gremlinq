@@ -1,4 +1,4 @@
-[
+﻿[
   {
     Id: 1,
     Label: CountryCallingCode,
@@ -6,19 +6,19 @@
     Value: +49
   },
   {
-    Id: 72,
+    Id: 73,
     Label: Name,
     Properties: {},
     Value: GER
   },
   {
-    Id: 74,
+    Id: 75,
     Label: Name,
     Properties: {},
     Value: GER
   },
   {
-    Id: 35,
+    Id: 36,
     Label: CountryCallingCode,
     Properties: {},
     Value: +49

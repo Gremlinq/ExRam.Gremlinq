@@ -1,26 +1,26 @@
-[
+﻿[
   {
     Id: 5,
     Label: Company,
     PartitionKey: PartitionKey
   },
   {
-    Id: 17,
+    Id: 18,
     Label: Country,
     PartitionKey: PartitionKey
   },
   {
-    Id: 21,
+    Id: 22,
     Label: Country,
     PartitionKey: PartitionKey
   },
   {
-    Id: 25,
+    Id: 26,
     Label: Country,
     PartitionKey: PartitionKey
   },
   {
-    Id: 27,
+    Id: 28,
     Label: Company,
     PartitionKey: PartitionKey
   },
@@ -31,7 +31,7 @@
     PartitionKey: PartitionKey
   },
   {
-    Id: 42,
+    Id: 43,
     Label: Company,
     PartitionKey: PartitionKey
   }

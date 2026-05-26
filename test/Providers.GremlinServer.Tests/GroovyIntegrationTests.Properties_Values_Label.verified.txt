@@ -1,10 +1,10 @@
-[
+﻿[
   CountryCallingCode,
   IetfLanguageTag,
   IetfLanguageTag,
   FoundingDate,
-  Locations,
   FoundingDate,
+  Locations,
   Age,
   Name,
   Name,

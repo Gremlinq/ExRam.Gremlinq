@@ -78,8 +78,11 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
             await _g
                 .AddE(new WorksFor { From = now, To = now, Role = "Admin" })
-                .From(__ => __.AddV<Person>())
-                .To(__ => __.AddV<Company>())
+                .From(__ => __
+                    .AddV<Person>()
+                    .Property(x => x.Age, 43))
+                .To(__ => __
+                    .AddV<Company>())
                 .Verify();
         }
 
@@ -5170,8 +5173,6 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Where(t => t.Age > 36)
             .Verify();
 
-        //TODO: Add Persons with different ages.
-
         [Fact]
         public virtual Task Where_property_is_greater_than_or_equal_stepLabel() => _g
             .Inject(20)
@@ -5180,8 +5181,6 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                 .Where(l2 => l2.Age >= a.Value)
                 .Values(x => x.Age))
             .Verify();
-
-        //TODO: Add Persons with different ages.
 
         [Fact]
         public virtual Task Where_property_is_greater_than_or_equal_stepLabel_value() => _g
@@ -5218,8 +5217,6 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .V<Person>()
             .Where(t => t.Age < 36)
             .Verify();
-
-        //TODO: Add Persons with different ages.
 
         [Fact]
         public virtual Task Where_property_is_lower_than_or_equal_stepLabel() => _g

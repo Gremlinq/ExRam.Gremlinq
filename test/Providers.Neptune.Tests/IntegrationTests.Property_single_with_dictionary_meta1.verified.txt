@@ -1,8 +1,8 @@
-[
+﻿[
   {
     CountryCallingCode: +49,
     LocalizableDescription: {
-      Id: 127,
+      Id: 128,
       Label: LocalizableDescription,
       Value: 
     },
@@ -12,23 +12,7 @@
   },
   {
     Name: {
-      Id: 72,
-      Label: Name,
-      Properties: {},
-      Value: GER
-    },
-    LocalizableDescription: {
-      Id: 128,
-      Label: LocalizableDescription,
-      Value: 
-    },
-    Id: 71,
-    Label: Country,
-    PartitionKey: PartitionKey
-  },
-  {
-    Name: {
-      Id: 74,
+      Id: 73,
       Label: Name,
       Properties: {},
       Value: GER
@@ -38,17 +22,23 @@
       Label: LocalizableDescription,
       Value: 
     },
-    Id: 73,
+    Id: 72,
     Label: Country,
     PartitionKey: PartitionKey
   },
   {
+    Name: {
+      Id: 75,
+      Label: Name,
+      Properties: {},
+      Value: GER
+    },
     LocalizableDescription: {
       Id: 130,
       Label: LocalizableDescription,
       Value: 
     },
-    Id: 17,
+    Id: 74,
     Label: Country,
     PartitionKey: PartitionKey
   },
@@ -58,7 +48,7 @@
       Label: LocalizableDescription,
       Value: 
     },
-    Id: 21,
+    Id: 18,
     Label: Country,
     PartitionKey: PartitionKey
   },
@@ -68,18 +58,28 @@
       Label: LocalizableDescription,
       Value: 
     },
-    Id: 25,
+    Id: 22,
+    Label: Country,
+    PartitionKey: PartitionKey
+  },
+  {
+    LocalizableDescription: {
+      Id: 133,
+      Label: LocalizableDescription,
+      Value: 
+    },
+    Id: 26,
     Label: Country,
     PartitionKey: PartitionKey
   },
   {
     CountryCallingCode: +49,
     LocalizableDescription: {
-      Id: 133,
+      Id: 134,
       Label: LocalizableDescription,
       Value: 
     },
-    Id: 34,
+    Id: 35,
     Label: Country,
     PartitionKey: PartitionKey
   }

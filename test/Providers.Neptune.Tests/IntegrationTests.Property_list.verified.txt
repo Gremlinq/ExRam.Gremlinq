@@ -1,16 +1,9 @@
-[
+﻿[
   {
     PhoneNumbers: [
       +4912345
     ],
-    Locations: [
-      {
-        Id: 70,
-        Label: Locations,
-        Value: Aachen
-      }
-    ],
-    Id: 68,
+    Id: 5,
     Label: Company,
     PartitionKey: PartitionKey
   }

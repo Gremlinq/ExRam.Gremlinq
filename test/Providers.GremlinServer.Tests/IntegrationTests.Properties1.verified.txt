@@ -1,15 +1,9 @@
-[
+﻿[
   {
     Id: 1,
     Label: CountryCallingCode,
     Properties: {},
     Value: +49
-  },
-  {
-    Id: 66,
-    Label: IetfLanguageTag,
-    Properties: {},
-    Value: en
   },
   {
     Id: 3,
@@ -18,18 +12,10 @@
     Value: en
   },
   {
-    Id: 69,
-    Label: FoundingDate,
+    Id: 67,
+    Label: IetfLanguageTag,
     Properties: {},
-    Value: 0001-01-01 +0
-  },
-  {
-    Id: 70,
-    Label: Locations,
-    Properties: {
-      ValidFrom: 2019-01-01 01:00 +0
-    },
-    Value: Aachen
+    Value: en
   },
   {
     Id: 6,
@@ -38,19 +24,33 @@
     Value: 0001-01-01 +0
   },
   {
-    Id: 8,
-    Label: Age,
+    Id: 70,
+    Label: FoundingDate,
     Properties: {},
-    Value: 0
+    Value: 0001-01-01 +0
   },
   {
-    Id: 72,
+    Id: 71,
+    Label: Locations,
+    Properties: {
+      ValidFrom: 2019-01-01 01:00 +0
+    },
+    Value: Aachen
+  },
+  {
+    Id: 9,
+    Label: Age,
+    Properties: {},
+    Value: 43
+  },
+  {
+    Id: 73,
     Label: Name,
     Properties: {},
     Value: GER
   },
   {
-    Id: 74,
+    Id: 75,
     Label: Name,
     Properties: {
       de: Deutschland,
@@ -59,181 +59,181 @@
     Value: GER
   },
   {
-    Id: 13,
+    Id: 14,
     Label: RegistrationDate,
     Properties: {},
     Value: 2020-04-07 14:43:36 +0
   },
   {
-    Id: 11,
+    Id: 12,
     Label: Age,
     Properties: {},
     Value: 0
   },
   {
-    Id: 12,
+    Id: 13,
     Label: Name,
     Properties: {},
     Value: Bob
-  },
-  {
-    Id: 77,
-    Label: PhoneNumbers,
-    Properties: {},
-    Value: +4912345
   },
   {
     Id: 78,
     Label: PhoneNumbers,
     Properties: {},
+    Value: +4912345
+  },
+  {
+    Id: 79,
+    Label: PhoneNumbers,
+    Properties: {},
     Value: +4923456
   },
   {
-    Id: 76,
+    Id: 77,
     Label: FoundingDate,
     Properties: {},
     Value: 0001-01-01 +0
   },
   {
-    Id: 16,
+    Id: 17,
     Label: Age,
     Properties: {},
     Value: 0
   },
   {
-    Id: 81,
+    Id: 82,
     Label: lang,
     Properties: {},
     Value: en
   },
   {
-    Id: 20,
+    Id: 21,
     Label: Age,
     Properties: {},
     Value: 0
   },
   {
-    Id: 24,
+    Id: 25,
     Label: Age,
     Properties: {},
     Value: 0
   },
   {
-    Id: 28,
+    Id: 29,
     Label: FoundingDate,
     Properties: {},
     Value: 0001-01-01 +0
   },
   {
-    Id: 30,
+    Id: 31,
     Label: Age,
     Properties: {},
     Value: 0
   },
   {
-    Id: 33,
+    Id: 34,
     Label: IetfLanguageTag,
     Properties: {},
     Value: en
   },
   {
-    Id: 35,
+    Id: 36,
     Label: CountryCallingCode,
     Properties: {},
     Value: +49
   },
   {
-    Id: 40,
+    Id: 41,
     Label: RegistrationDate,
     Properties: {},
     Value: 2020-04-07 14:43:36 +0
   },
   {
-    Id: 38,
+    Id: 39,
     Label: Age,
     Properties: {},
     Value: 0
   },
   {
-    Id: 39,
+    Id: 40,
     Label: Name,
     Properties: {},
     Value: Bob
   },
   {
-    Id: 43,
+    Id: 44,
     Label: FoundingDate,
     Properties: {},
     Value: 0001-01-01 +0
   },
   {
-    Id: 45,
+    Id: 46,
     Label: Age,
     Properties: {},
     Value: 0
   },
   {
-    Id: 48,
+    Id: 49,
     Label: IetfLanguageTag,
     Properties: {},
     Value: en
   },
   {
-    Id: 53,
+    Id: 54,
     Label: StartTime,
     Properties: {},
     Value: 08:00:00
   },
   {
-    Id: 52,
+    Id: 53,
     Label: Enabled,
     Properties: {},
     Value: false
   },
   {
-    Id: 51,
+    Id: 52,
     Label: Duration,
     Properties: {},
     Value: 02:00:00
   },
   {
-    Id: 55,
+    Id: 56,
     Label: IetfLanguageTag,
     Properties: {},
     Value: en
   },
   {
-    Id: 58,
+    Id: 59,
     Label: Image,
     Properties: {},
     Value: AQIDBAUGBwg=
   },
   {
-    Id: 57,
+    Id: 58,
     Label: Age,
     Properties: {},
     Value: 0
   },
   {
-    Id: 61,
+    Id: 62,
     Label: Gender,
     Properties: {},
     Value: 1
   },
   {
-    Id: 60,
+    Id: 61,
     Label: Age,
     Properties: {},
     Value: 0
   },
   {
-    Id: 64,
+    Id: 65,
     Label: RegistrationDate,
     Properties: {},
     Value: 2020-04-07 14:43:36 +0
   },
   {
-    Id: 63,
+    Id: 64,
     Label: Name,
     Properties: {},
     Value: Marko

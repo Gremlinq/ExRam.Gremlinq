@@ -1,23 +1,10 @@
-[
+﻿[
   {
     RequestId: 12345678-9012-3456-7890-123456789012,
     Data: [
       {
         Id: 5,
         Label: Company,
-        PartitionKey: PartitionKey
-      },
-      {
-        LocalizableDescription: {
-          Id: 130,
-          Label: LocalizableDescription,
-          Properties: {
-            someKey: value
-          },
-          Value: 
-        },
-        Id: 17,
-        Label: Country,
         PartitionKey: PartitionKey
       },
       {
@@ -29,7 +16,7 @@
           },
           Value: 
         },
-        Id: 21,
+        Id: 18,
         Label: Country,
         PartitionKey: PartitionKey
       },
@@ -42,19 +29,32 @@
           },
           Value: 
         },
-        Id: 25,
+        Id: 22,
         Label: Country,
         PartitionKey: PartitionKey
       },
       {
-        Id: 27,
+        LocalizableDescription: {
+          Id: 133,
+          Label: LocalizableDescription,
+          Properties: {
+            someKey: value
+          },
+          Value: 
+        },
+        Id: 26,
+        Label: Country,
+        PartitionKey: PartitionKey
+      },
+      {
+        Id: 28,
         Label: Company,
         PartitionKey: PartitionKey
       },
       {
         CountryCallingCode: +49,
         LocalizableDescription: {
-          Id: 127,
+          Id: 128,
           Label: LocalizableDescription,
           Properties: {
             someKey: value
@@ -66,7 +66,7 @@
         PartitionKey: PartitionKey
       },
       {
-        Id: 42,
+        Id: 43,
         Label: Company,
         PartitionKey: PartitionKey
       }

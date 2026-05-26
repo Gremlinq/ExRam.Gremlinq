@@ -1,10 +1,15 @@
-[
+﻿[
   {
     Company: [
       {
+        Id: 5,
+        Label: Company,
+        PartitionKey: PartitionKey
+      },
+      {
         Locations: [
           {
-            Id: 70,
+            Id: 71,
             Label: Locations,
             Properties: {
               ValidFrom: 2019-01-01 01:00 +0
@@ -12,12 +17,7 @@
             Value: Aachen
           }
         ],
-        Id: 68,
-        Label: Company,
-        PartitionKey: PartitionKey
-      },
-      {
-        Id: 5,
+        Id: 69,
         Label: Company,
         PartitionKey: PartitionKey
       },
@@ -26,17 +26,17 @@
           +4912345,
           +4923456
         ],
-        Id: 75,
+        Id: 76,
         Label: Company,
         PartitionKey: PartitionKey
       },
       {
-        Id: 27,
+        Id: 28,
         Label: Company,
         PartitionKey: PartitionKey
       },
       {
-        Id: 42,
+        Id: 43,
         Label: Company,
         PartitionKey: PartitionKey
       }
@@ -50,18 +50,18 @@
       },
       {
         Name: {
-          Id: 72,
+          Id: 73,
           Label: Name,
           Properties: {},
           Value: GER
         },
-        Id: 71,
+        Id: 72,
         Label: Country,
         PartitionKey: PartitionKey
       },
       {
         Name: {
-          Id: 74,
+          Id: 75,
           Label: Name,
           Properties: {
             de: Deutschland,
@@ -69,28 +69,28 @@
           },
           Value: GER
         },
-        Id: 73,
+        Id: 74,
         Label: Country,
         PartitionKey: PartitionKey
       },
       {
-        Id: 17,
+        Id: 18,
         Label: Country,
         PartitionKey: PartitionKey
       },
       {
-        Id: 21,
+        Id: 22,
         Label: Country,
         PartitionKey: PartitionKey
       },
       {
-        Id: 25,
+        Id: 26,
         Label: Country,
         PartitionKey: PartitionKey
       },
       {
         CountryCallingCode: +49,
-        Id: 34,
+        Id: 35,
         Label: Country,
         PartitionKey: PartitionKey
       }
@@ -98,23 +98,18 @@
     Language: [
       {
         IetfLanguageTag: en,
-        Id: 65,
-        Label: Language,
-        PartitionKey: PartitionKey
-      },
-      {
-        IetfLanguageTag: en,
         Id: 2,
         Label: Language,
         PartitionKey: PartitionKey
       },
       {
-        Id: 67,
+        IetfLanguageTag: en,
+        Id: 66,
         Label: Language,
         PartitionKey: PartitionKey
       },
       {
-        Id: 79,
+        Id: 68,
         Label: Language,
         PartitionKey: PartitionKey
       },
@@ -124,31 +119,37 @@
         PartitionKey: PartitionKey
       },
       {
-        IetfLanguageTag: en,
-        Id: 32,
+        Id: 81,
         Label: Language,
         PartitionKey: PartitionKey
       },
       {
         IetfLanguageTag: en,
-        Id: 47,
-        Label: Language,
-        PartitionKey: PartitionKey
-      },
-      {
-        Id: 49,
+        Id: 33,
         Label: Language,
         PartitionKey: PartitionKey
       },
       {
         IetfLanguageTag: en,
-        Id: 54,
+        Id: 48,
+        Label: Language,
+        PartitionKey: PartitionKey
+      },
+      {
+        Id: 50,
+        Label: Language,
+        PartitionKey: PartitionKey
+      },
+      {
+        IetfLanguageTag: en,
+        Id: 55,
         Label: Language,
         PartitionKey: PartitionKey
       }
     ],
     Person: [
       {
+        Age: 43,
         Id: 7,
         Label: Person,
         PartitionKey: PartitionKey
@@ -156,70 +157,70 @@
       {
         RegistrationDate: 2020-04-07 14:43:36 +0,
         Name: {
-          Id: 12,
+          Id: 13,
           Label: Name,
           Value: Bob
         },
-        Id: 10,
+        Id: 11,
         Label: Person,
         PartitionKey: PartitionKey
       },
       {
-        Id: 15,
+        Id: 16,
         Label: Person,
         PartitionKey: PartitionKey
       },
       {
-        Id: 19,
+        Id: 20,
         Label: Person,
         PartitionKey: PartitionKey
       },
       {
-        Id: 23,
+        Id: 24,
         Label: Person,
         PartitionKey: PartitionKey
       },
       {
-        Id: 29,
+        Id: 30,
         Label: Person,
         PartitionKey: PartitionKey
       },
       {
         RegistrationDate: 2020-04-07 14:43:36 +0,
         Name: {
-          Id: 39,
+          Id: 40,
           Label: Name,
           Value: Bob
         },
-        Id: 37,
+        Id: 38,
         Label: Person,
         PartitionKey: PartitionKey
       },
       {
-        Id: 44,
+        Id: 45,
         Label: Person,
         PartitionKey: PartitionKey
       },
       {
         Image: AQIDBAUGBwg=,
-        Id: 56,
+        Id: 57,
         Label: Person,
         PartitionKey: PartitionKey
       },
       {
         Gender: Female,
-        Id: 59,
+        Id: 60,
         Label: Person,
         PartitionKey: PartitionKey
       },
       {
         RegistrationDate: 2020-04-07 14:43:36 +0,
         Name: {
-          Id: 63,
+          Id: 64,
           Label: Name,
           Value: Marko
         },
-        Id: 62,
+        Id: 63,
         Label: Person,
         PartitionKey: PartitionKey
       }
@@ -229,7 +230,7 @@
         Enabled: false,
         StartTime: 08:00:00,
         Duration: 02:00:00,
-        Id: 50,
+        Id: 51,
         Label: TimeFrame,
         PartitionKey: PartitionKey
       }

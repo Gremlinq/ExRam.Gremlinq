@@ -1,4 +1,4 @@
-[
+﻿[
   {
     RequestId: 12345678-9012-3456-7890-123456789012,
     Data: [
@@ -6,17 +6,7 @@
         PhoneNumbers: [
           +4912345
         ],
-        Locations: [
-          {
-            Id: 70,
-            Label: Locations,
-            Properties: {
-              ValidFrom: 2019-01-01 01:00 +0
-            },
-            Value: Aachen
-          }
-        ],
-        Id: 68,
+        Id: 5,
         Label: Company,
         PartitionKey: PartitionKey
       }

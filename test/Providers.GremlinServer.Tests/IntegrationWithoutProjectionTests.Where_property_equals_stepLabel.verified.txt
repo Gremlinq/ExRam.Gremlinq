@@ -1,4 +1,4 @@
-[
+﻿[
   {
     IetfLanguageTag: en,
     Id: 2,
@@ -7,25 +7,25 @@
   },
   {
     IetfLanguageTag: en,
-    Id: 32,
+    Id: 33,
     Label: Language,
     PartitionKey: PartitionKey
   },
   {
     IetfLanguageTag: en,
-    Id: 47,
+    Id: 48,
     Label: Language,
     PartitionKey: PartitionKey
   },
   {
     IetfLanguageTag: en,
-    Id: 54,
+    Id: 55,
     Label: Language,
     PartitionKey: PartitionKey
   },
   {
     IetfLanguageTag: en,
-    Id: 65,
+    Id: 66,
     Label: Language,
     PartitionKey: PartitionKey
   }
