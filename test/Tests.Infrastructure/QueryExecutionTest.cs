@@ -2226,8 +2226,8 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                 .By(__ => __.Constant("item2")))
             .Verify();
 
-        [Fact]  //TODO: Should this be named unguarded??
-        public Task Project2_unguarded() => _g
+        [Fact]
+        public Task Project2_guarded() => _g
             .ConfigureEnvironment(_ => _
                 .ConfigureOptions(o => o.SetValue(GremlinqOption.EnableEmptyProjectionValueProtection, true)))
             .Inject(42)
