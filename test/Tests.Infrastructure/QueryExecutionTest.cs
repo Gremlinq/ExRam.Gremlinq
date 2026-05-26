@@ -22,6 +22,47 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         }
 
         [Fact]
+        public virtual async Task AddDate_1_day() => await _g
+            .Inject(1690934400000)
+            .AsDate()
+            .Add(TimeSpan.FromDays(1))
+            .Verify();
+
+        [Fact]
+        public virtual async Task AddDate_1_day_2_hours_3_minutes_4_seconds() => await _g
+            .Inject(1690934400000)
+            .AsDate()
+            .Add(new TimeSpan(1, 2, 3, 4))
+            .Verify();
+
+        [Fact]
+        public virtual async Task AddDate_1_day_2_hours_3_minutes_4_seconds_through_extension() => await _g
+            .Inject(DateTimeOffset.Parse("2023-08-02T00:00:00Z"))
+            .Add(new TimeSpan(1, 2, 3, 4))
+            .Verify();
+
+        [Fact]
+        public virtual async Task AddDate_1_hour() => await _g
+            .Inject(1690934400000)
+            .AsDate()
+            .Add(TimeSpan.FromHours(1))
+            .Verify();
+
+        [Fact]
+        public virtual async Task AddDate_1_minute() => await _g
+            .Inject(1690934400000)
+            .AsDate()
+            .Add(TimeSpan.FromMinutes(1))
+            .Verify();
+
+        [Fact]
+        public virtual async Task AddDate_1_second() => await _g
+            .Inject(1690934400000)
+            .AsDate()
+            .Add(TimeSpan.FromSeconds(1))
+            .Verify();
+
+        [Fact]
         public virtual Task AddE_from_StepLabel() => _g
             .AddV(new Country { CountryCallingCode = "+49" })
             .As((_, c) => _
@@ -541,9 +582,22 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         }
 
         [Fact]
-        public virtual async Task AsString() => await _g
-            .Inject(42)
-            .AsString()
+        public virtual async Task As_with_type_change()
+        {
+            IGremlinQueryBaseRec<Person, IVertexGremlinQuery<Person>> g = _g
+                .V<Person>();
+
+            await g
+                .As((_, stepLabel1) => _
+                    .Count()
+                    .Select(stepLabel1))
+                .Verify();
+        }
+
+        [Fact]
+        public virtual async Task AsDate_from_DateTimeOffset() => await _g
+            .Inject(DateTimeOffset.Parse("2023-08-02T00:00:00Z"))
+            .AsDate()
             .Verify();
 
         [Fact]
@@ -559,94 +613,10 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Verify();
 
         [Fact]
-        public virtual async Task AsDate_from_DateTimeOffset() => await _g
-            .Inject(DateTimeOffset.Parse("2023-08-02T00:00:00Z"))
-            .AsDate()
+        public virtual async Task AsString() => await _g
+            .Inject(42)
+            .AsString()
             .Verify();
-
-        [Fact]
-        public virtual async Task AddDate_1_day() => await _g
-            .Inject(1690934400000)
-            .AsDate()
-            .Add(TimeSpan.FromDays(1))
-            .Verify();
-
-        [Fact]
-        public virtual async Task AddDate_1_hour() => await _g
-            .Inject(1690934400000)
-            .AsDate()
-            .Add(TimeSpan.FromHours(1))
-            .Verify();
-
-        [Fact]
-        public virtual async Task AddDate_1_minute() => await _g
-            .Inject(1690934400000)
-            .AsDate()
-            .Add(TimeSpan.FromMinutes(1))
-            .Verify();
-
-        [Fact]
-        public virtual async Task AddDate_1_second() => await _g
-            .Inject(1690934400000)
-            .AsDate()
-            .Add(TimeSpan.FromSeconds(1))
-            .Verify();
-
-        [Fact]
-        public virtual async Task AddDate_1_day_2_hours_3_minutes_4_seconds() => await _g
-            .Inject(1690934400000)
-            .AsDate()
-            .Add(new TimeSpan(1, 2, 3, 4))
-            .Verify();
-
-        [Fact]
-        public virtual async Task AddDate_1_day_2_hours_3_minutes_4_seconds_through_extension() => await _g
-            .Inject(DateTimeOffset.Parse("2023-08-02T00:00:00Z"))
-            .Add(new TimeSpan(1, 2, 3, 4))
-            .Verify();
-
-        [Fact]
-        public virtual async Task DateDiff_constant() => await _g
-            .Inject("2023-08-02T00:00:00Z")
-            .AsDate()
-            .Diff(DateTimeOffset.Parse("2023-08-03T00:00:00Z"))
-            .Verify();
-
-        [Fact]
-        public virtual async Task DateDiff_constant_through_extension() => await _g
-            .Inject(DateTimeOffset.Parse("2023-08-02T00:00:00Z"))
-            .Diff(DateTimeOffset.Parse("2023-08-03T00:00:00Z"))
-            .Verify();
-
-        [Fact]
-        public virtual async Task DateDiff_traversal() => await _g
-            .Inject("2023-08-02T00:00:00Z")
-            .AsDate()
-            .Diff(__ => __
-                .Constant("2023-08-03T00:00:00Z")
-                .AsDate())
-            .Verify();
-
-        [Fact]
-        public virtual async Task DateDiff_traversal_through_extension() => await _g
-            .Inject(DateTimeOffset.Parse("2023-08-02T00:00:00Z"))
-            .Diff(__ => __
-                .Constant("2023-08-03T00:00:00Z")
-                .AsDate())
-            .Verify();
-
-        [Fact]
-        public virtual async Task As_with_type_change()
-        {
-            IGremlinQueryBaseRec<Person, IVertexGremlinQuery<Person>> g = _g
-                .V<Person>();
-
-            await g
-                .As((_, stepLabel1) => _
-                    .Count()
-                    .Select(stepLabel1))
-                .Verify();
-        }
 
         [Fact]
         public virtual Task Choose_one_case() => _g
@@ -820,18 +790,18 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Verify();
 
         [Fact]
-        public virtual Task Concat_strings_to_null() => _g
-            .Inject<object>(42, null!, 43)
-            .AsString()
-            .Concat("a")
-            .Verify();
-
-        [Fact]
         public virtual Task Concat_strings() => _g
             .Inject(42)
             .AsString()
             .Concat("_1_", "_2_")
             .Concat("_3_")
+            .Verify();
+
+        [Fact]
+        public virtual Task Concat_strings_to_null() => _g
+            .Inject<object>(42, null!, 43)
+            .AsString()
+            .Concat("a")
             .Verify();
 
         [Fact]
@@ -855,18 +825,6 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Verify();
 
         [Fact]
-        public virtual Task Concat_traversals_with_extension() => _g
-           .Inject("42")
-           .Concat(
-               __ => __
-                   .Constant("_a_"),
-               __ => __
-                   .Constant("_b_"))
-           .Concat(__ => __
-               .Constant("_c_"))
-           .Verify();
-
-        [Fact]
         public virtual Task Concat_traversals_and_string() => _g
             .Inject(42)
             .AsString()
@@ -879,21 +837,21 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Verify();
 
         [Fact]
+        public virtual Task Concat_traversals_with_extension() => _g
+           .Inject("42")
+           .Concat(
+               __ => __
+                   .Constant("_a_"),
+               __ => __
+                   .Constant("_b_"))
+           .Concat(__ => __
+               .Constant("_c_"))
+           .Verify();
+
+        [Fact]
         public virtual Task Constant() => _g
             .V()
             .Constant(42)
-            .Verify();
-
-        [Fact]
-        public virtual Task Constant_null() => _g
-            .V()
-            .Constant<object?>(null)
-            .Verify();
-
-        [Fact]
-        public virtual Task Constant_string() => _g
-            .V()
-            .Constant("Hallo")
             .Verify();
 
         [Fact]
@@ -903,15 +861,27 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Verify();
 
         [Fact]
+        public virtual Task Constant_empty_bool_array() => _g
+            .V()
+            .Constant(Array.Empty<bool>())
+            .Verify();
+
+        [Fact]
         public virtual Task Constant_empty_string_array() => _g
             .V()
             .Constant(Array.Empty<string>())
             .Verify();
 
         [Fact]
-        public virtual Task Constant_empty_bool_array() => _g
+        public virtual Task Constant_null() => _g
             .V()
-            .Constant(Array.Empty<bool>())
+            .Constant<object?>(null)
+            .Verify();
+
+        [Fact]
+        public virtual Task Constant_single_bool_array() => _g
+            .V()
+            .Constant(new []{ true })
             .Verify();
 
         [Fact]
@@ -921,9 +891,9 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Verify();
 
         [Fact]
-        public virtual Task Constant_single_bool_array() => _g
+        public virtual Task Constant_string() => _g
             .V()
-            .Constant(new []{ true })
+            .Constant("Hallo")
             .Verify();
 
         [Fact]
@@ -962,6 +932,36 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Verify();
 
         [Fact]
+        public virtual async Task DateDiff_constant() => await _g
+            .Inject("2023-08-02T00:00:00Z")
+            .AsDate()
+            .Diff(DateTimeOffset.Parse("2023-08-03T00:00:00Z"))
+            .Verify();
+
+        [Fact]
+        public virtual async Task DateDiff_constant_through_extension() => await _g
+            .Inject(DateTimeOffset.Parse("2023-08-02T00:00:00Z"))
+            .Diff(DateTimeOffset.Parse("2023-08-03T00:00:00Z"))
+            .Verify();
+
+        [Fact]
+        public virtual async Task DateDiff_traversal() => await _g
+            .Inject("2023-08-02T00:00:00Z")
+            .AsDate()
+            .Diff(__ => __
+                .Constant("2023-08-03T00:00:00Z")
+                .AsDate())
+            .Verify();
+
+        [Fact]
+        public virtual async Task DateDiff_traversal_through_extension() => await _g
+            .Inject(DateTimeOffset.Parse("2023-08-02T00:00:00Z"))
+            .Diff(__ => __
+                .Constant("2023-08-03T00:00:00Z")
+                .AsDate())
+            .Verify();
+
+        [Fact]
         public virtual Task Dedup_Global() => _g
             .V()
             .Dedup()
@@ -972,6 +972,14 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .V()
             .Fold()
             .DedupLocal()
+            .Verify();
+
+        [Fact]
+        public virtual Task E_baseType_Properties() => _g
+            .E()
+            .AsAdmin()
+            .ChangeQueryType<IEdgeGremlinQueryBase>()
+            .Properties()
             .Verify();
 
         [Fact]
@@ -992,14 +1000,6 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task E_Properties() => _g
             .E()
-            .Properties()
-            .Verify();
-
-        [Fact]
-        public virtual Task E_baseType_Properties() => _g
-            .E()
-            .AsAdmin()
-            .ChangeQueryType<IEdgeGremlinQueryBase>()
             .Properties()
             .Verify();
 
@@ -1194,19 +1194,19 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Verify();
 
         [Fact]
+        public virtual Task Group_with_key_identity() => _g
+            .V()
+            .Group(_ => _
+                .ByKey(_ => _))
+            .Verify();
+
+        [Fact]
         public virtual Task Group_with_key_select() => _g
             .V()
             .Group(_ => _
                 .ByKey(__ => __.Label()))
             .Select(x => x["Person"])
             .CountLocal()
-            .Verify();
-
-        [Fact]
-        public virtual Task Group_with_key_identity() => _g
-            .V()
-            .Group(_ => _
-                .ByKey(_ => _))
             .Verify();
 
         [Fact]
@@ -1241,6 +1241,21 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Verify();
 
         [Fact]
+        public virtual Task In_of_all_types_max() => _g
+            .V()
+            .In<object>()
+            .Verify();
+
+        [Fact]
+        public virtual Task In_of_all_types_min() => _g
+            .ConfigureEnvironment(env => env
+                .ConfigureOptions(o => o
+                    .SetValue(GremlinqOption.FilterLabelsVerbosity, FilterLabelsVerbosity.Minimum)))
+            .V()
+            .In<object>()
+            .Verify();
+
+        [Fact]
         public virtual Task InE() => _g
             .V<Person>()
             .InE<WorksFor>()
@@ -1256,21 +1271,6 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual Task InE_3() => _g
             .V<Person>()
             .InE<WorksFor, LivesIn, Speaks>()
-            .Verify();
-
-        [Fact]
-        public virtual Task In_of_all_types_max() => _g
-            .V()
-            .In<object>()
-            .Verify();
-
-        [Fact]
-        public virtual Task In_of_all_types_min() => _g
-            .ConfigureEnvironment(env => env
-                .ConfigureOptions(o => o
-                    .SetValue(GremlinqOption.FilterLabelsVerbosity, FilterLabelsVerbosity.Minimum)))
-            .V()
-            .In<object>()
             .Verify();
 
         [Fact]
@@ -1303,6 +1303,19 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual Task Label() => _g
             .V()
             .Label()
+            .Verify();
+
+        [Fact]
+        public Task Length() => _g
+            .Inject("aBcDeFg")
+            .AsString()
+            .Length()
+            .Verify();
+
+        [Fact]
+        public Task Length_with_extension() => _g
+            .Inject("aBcDeFg")
+            .Length()
             .Verify();
 
         [Fact]
@@ -1761,24 +1774,6 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Verify();
 
         [Fact]
-        public virtual Task OutE() => _g
-            .V<Person>()
-            .OutE<WorksFor>()
-            .Verify();
-
-        [Fact]
-        public virtual Task OutE_2() => _g
-            .V<Person>()
-            .OutE<WorksFor, LivesIn>()
-            .Verify();
-
-        [Fact]
-        public virtual Task OutE_3() => _g
-            .V<Person>()
-            .OutE<WorksFor, LivesIn, Speaks>()
-            .Verify();
-
-        [Fact]
         public virtual Task Out_does_not_include_abstract_edge() => _g
             .V<Person>()
             .Out<Edge>()
@@ -1797,6 +1792,24 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                     .SetValue(GremlinqOption.FilterLabelsVerbosity, FilterLabelsVerbosity.Minimum)))
             .V()
             .Out<object>()
+            .Verify();
+
+        [Fact]
+        public virtual Task OutE() => _g
+            .V<Person>()
+            .OutE<WorksFor>()
+            .Verify();
+
+        [Fact]
+        public virtual Task OutE_2() => _g
+            .V<Person>()
+            .OutE<WorksFor, LivesIn>()
+            .Verify();
+
+        [Fact]
+        public virtual Task OutE_3() => _g
+            .V<Person>()
+            .OutE<WorksFor, LivesIn, Speaks>()
             .Verify();
 
         [Fact]
@@ -1821,234 +1834,6 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Out()
             .Path()
             .Verify();
-
-        [Fact]
-        public virtual Task Project_to_property_with_builder() => _g
-            .V<Person>()
-            .Order(b => b
-                .By(x => x.Id))
-            .Limit(1)
-            .Project(_ => _
-                .ToDynamic()
-                .By("item1!", __ => __.Constant("item1"))
-                .By(x => x.Id!))
-            .Verify();
-
-        [Fact]
-        public virtual Task Project_to_type() => _g
-            .Inject(42)
-            .Project(_ => _
-                .To<ProjectRecord>()
-                .By(x => x.In, __ => __.Constant("in_value"))
-                .By(x => x.Out, __ => __.Constant("out_value"))
-                .By(x => x.Count, __ => __.Constant("count_value"))
-                .By(x => x.Properties, __ => __.Constant("properties_value")))
-            .Verify();
-
-        [Fact]
-        public virtual Task Project_to_type_from_empty_traversal() => _g
-            .Inject(42)
-            .Limit(0)
-            .Project(_ => _
-                .To<ProjectRecordStruct>()
-                .By(x => x.In, __ => __.Identity())
-                .By(x => x.Out, __ => __.Identity())
-                .By(x => x.Count, __ => __.Identity())
-                .By(x => x.Properties, __ => __.Identity()))
-            .Verify();
-
-        [Fact]
-        public virtual Task Project_to_type_with_identity() => _g
-            .Inject(42)
-            .Project(_ => _
-                .To<ProjectRecordStruct>()
-                .By(x => x.In, __ => __.Identity())
-                .By(x => x.Out, __ => __.Identity())
-                .By(x => x.Count, __ => __.Identity())
-                .By(x => x.Properties, __ => __.Identity()))
-            .Verify();
-
-        [Fact]
-        public virtual Task Project_to_type_with_select() => _g
-            .Inject(42)
-            .Project(_ => _
-                .To<ProjectRecord>()
-                .By(x => x.In, __ => __.Constant("in_value"))
-                .By(x => x.Out, __ => __.Constant("out_value"))
-                .By(x => x.Count, __ => __.Constant("count_value"))
-                .By(x => x.Properties, __ => __.Constant("properties_value")))
-            .Select(x => x.In, x => x.Out)
-            .Verify();
-
-        [Fact]
-        public virtual Task Project_to_type_with_struct() => _g
-            .Inject(42)
-            .Project(_ => _
-                .To<ProjectRecordStruct>()
-                .By(x => x.In, __ => __.Constant("in_value"))
-                .By(x => x.Out, __ => __.Constant("out_value"))
-                .By(x => x.Count, __ => __.Constant("count_value"))
-                .By(x => x.Properties, __ => __.Constant("properties_value")))
-            .Verify();
-
-        [Fact]
-        public virtual Task Project_to_type_without_explicit_identity() => _g
-            .Inject(42)
-            .Project(_ => _
-                .To<ProjectRecordStruct>()
-                .By(x => x.In, __ => __)
-                .By(x => x.Out, __ => __)
-                .By(x => x.Count, __ => __)
-                .By(x => x.Properties, __ => __))
-            .Verify();
-
-        [Fact]
-        public virtual Task Project_with_builder_1() => _g
-            .Inject(42)
-            .Project(_ => _
-                .ToDynamic()
-                .By("item1!", __ => __.Constant("item1")))
-            .Verify();
-
-        [Fact]
-        public virtual Task Project_with_builder_4() => _g
-            .Inject(42)
-            .Project(_ => _
-                .ToDynamic()
-                .By("item1!", __ => __.Constant("item1"))
-                .By("item2!", __ => __.Constant("item2"))
-                .By("item3!", __ => __.Constant("item3"))
-                .By("item4!", __ => __.Constant("item4")))
-            .Verify();
-
-        [Fact]
-        public virtual Task Project_with_cast() => _g
-            .Inject(42)
-            .Project(_ => _
-                .ToDynamic()
-                .By("in", __ => __.Constant("in_value"))
-                .By("out", __ => __.Constant("out_value"))
-                .By("count", __ => __.Constant("count_value"))
-                .By("properties", __ => __.Constant("properties_value")))
-            .Cast<ProjectRecord>()
-            .Verify();
-
-        [Fact]
-        public virtual Task Project_with_identity() => _g
-            .Inject(42)
-            .Project(__ => __
-                .ToTuple()
-                .By(__ => __)
-                .By(__ => __.Constant("item2")))
-            .Verify();
-
-        [Fact]
-        public virtual Task Project_for_coverage2() => _g
-           .V<Country>()
-           .Where(x => x.CountryCallingCode != null)
-           .Project(__ => __
-               .ToTuple()
-               .By(x => x.CountryCallingCode)
-               .By(x => x.CountryCallingCode))
-           .Verify();
-
-        [Fact]
-        public virtual Task Project_for_coverage3() => _g
-           .V<Country>()
-           .Where(x => x.CountryCallingCode != null)
-           .Project(__ => __
-               .ToTuple()
-               .By(x => x.CountryCallingCode)
-               .By(x => x.CountryCallingCode)
-               .By(x => x.CountryCallingCode))
-           .Verify();
-
-        [Fact]
-        public virtual Task Project_for_coverage4() => _g
-           .V<Country>()
-           .Where(x => x.CountryCallingCode != null)
-           .Project(__ => __
-               .ToTuple()
-               .By(x => x.CountryCallingCode)
-               .By(x => x.CountryCallingCode)
-               .By(x => x.CountryCallingCode)
-               .By(x => x.CountryCallingCode))
-           .Verify();
-
-        [Fact]
-        public virtual Task Project_for_coverage5() => _g
-           .V<Country>()
-           .Where(x => x.CountryCallingCode != null)
-           .Project(__ => __
-               .ToTuple()
-               .By(x => x.CountryCallingCode)
-               .By(x => x.CountryCallingCode)
-               .By(x => x.CountryCallingCode)
-               .By(x => x.CountryCallingCode)
-               .By(x => x.CountryCallingCode))
-           .Verify();
-
-        [Fact]
-        public virtual Task Project_for_coverage6() => _g
-           .V<Country>()
-           .Where(x => x.CountryCallingCode != null)
-           .Project(__ => __
-               .ToTuple()
-               .By(x => x.CountryCallingCode)
-               .By(x => x.CountryCallingCode)
-               .By(x => x.CountryCallingCode)
-               .By(x => x.CountryCallingCode)
-               .By(x => x.CountryCallingCode)
-               .By(x => x.CountryCallingCode))
-           .Verify();
-
-        [Fact]
-        public virtual Task Project_for_coverage7() => _g
-           .V<Country>()
-           .Where(x => x.CountryCallingCode != null)
-           .Project(__ => __
-               .ToTuple()
-               .By(x => x.CountryCallingCode)
-               .By(x => x.CountryCallingCode)
-               .By(x => x.CountryCallingCode)
-               .By(x => x.CountryCallingCode)
-               .By(x => x.CountryCallingCode)
-               .By(x => x.CountryCallingCode)
-               .By(x => x.CountryCallingCode))
-           .Verify();
-
-        [Fact]
-        public virtual Task Project_for_coverage8() => _g
-           .V<Country>()
-           .Where(x => x.CountryCallingCode != null)
-           .Project(__ => __
-               .ToTuple()
-               .By(x => x.CountryCallingCode)
-               .By(x => x.CountryCallingCode)
-               .By(x => x.CountryCallingCode)
-               .By(x => x.CountryCallingCode)
-               .By(x => x.CountryCallingCode)
-               .By(x => x.CountryCallingCode)
-               .By(x => x.CountryCallingCode)
-               .By(x => x.CountryCallingCode))
-           .Verify();
-
-        [Fact]
-        public virtual Task Project_for_coverage9() => _g
-           .V<Country>()
-           .Where(x => x.CountryCallingCode != null)
-           .Project(__ => __
-               .ToTuple()
-               .By(x => x.CountryCallingCode)
-               .By(x => x.CountryCallingCode)
-               .By(x => x.CountryCallingCode)
-               .By(x => x.CountryCallingCode)
-               .By(x => x.CountryCallingCode)
-               .By(x => x.CountryCallingCode)
-               .By(x => x.CountryCallingCode)
-               .By(x => x.CountryCallingCode)
-               .By(x => x.CountryCallingCode))
-           .Verify();
 
         [Fact]
         public virtual Task Project_for_coverage10() => _g
@@ -2174,6 +1959,126 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
            .Verify();
 
         [Fact]
+        public virtual Task Project_for_coverage2() => _g
+           .V<Country>()
+           .Where(x => x.CountryCallingCode != null)
+           .Project(__ => __
+               .ToTuple()
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode))
+           .Verify();
+
+        [Fact]
+        public virtual Task Project_for_coverage3() => _g
+           .V<Country>()
+           .Where(x => x.CountryCallingCode != null)
+           .Project(__ => __
+               .ToTuple()
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode))
+           .Verify();
+
+        [Fact]
+        public virtual Task Project_for_coverage4() => _g
+           .V<Country>()
+           .Where(x => x.CountryCallingCode != null)
+           .Project(__ => __
+               .ToTuple()
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode))
+           .Verify();
+
+        [Fact]
+        public virtual Task Project_for_coverage5() => _g
+           .V<Country>()
+           .Where(x => x.CountryCallingCode != null)
+           .Project(__ => __
+               .ToTuple()
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode))
+           .Verify();
+
+        [Fact]
+        public virtual Task Project_for_coverage6() => _g
+           .V<Country>()
+           .Where(x => x.CountryCallingCode != null)
+           .Project(__ => __
+               .ToTuple()
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode))
+           .Verify();
+
+        [Fact]
+        public virtual Task Project_for_coverage7() => _g
+           .V<Country>()
+           .Where(x => x.CountryCallingCode != null)
+           .Project(__ => __
+               .ToTuple()
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode))
+           .Verify();
+
+        [Fact]
+        public virtual Task Project_for_coverage8() => _g
+           .V<Country>()
+           .Where(x => x.CountryCallingCode != null)
+           .Project(__ => __
+               .ToTuple()
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode))
+           .Verify();
+
+        [Fact]
+        public virtual Task Project_for_coverage9() => _g
+           .V<Country>()
+           .Where(x => x.CountryCallingCode != null)
+           .Project(__ => __
+               .ToTuple()
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode)
+               .By(x => x.CountryCallingCode))
+           .Verify();
+
+        [Fact]
+        public virtual Task Project_to_property_with_builder() => _g
+            .V<Person>()
+            .Order(b => b
+                .By(x => x.Id))
+            .Limit(1)
+            .Project(_ => _
+                .ToDynamic()
+                .By("item1!", __ => __.Constant("item1"))
+                .By(x => x.Id!))
+            .Verify();
+
+        [Fact]
         public virtual Task Project_to_tuple_maximum_expressions() => _g
             .V<Country>()
             .Where(x => x.CountryCallingCode != null)
@@ -2195,6 +2100,114 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                 .By(x => x.CountryCallingCode)
                 .By(x => x.CountryCallingCode)
                 .By(x => x.CountryCallingCode))
+            .Verify();
+
+        [Fact]
+        public virtual Task Project_to_type() => _g
+            .Inject(42)
+            .Project(_ => _
+                .To<ProjectRecord>()
+                .By(x => x.In, __ => __.Constant("in_value"))
+                .By(x => x.Out, __ => __.Constant("out_value"))
+                .By(x => x.Count, __ => __.Constant("count_value"))
+                .By(x => x.Properties, __ => __.Constant("properties_value")))
+            .Verify();
+
+        [Fact]
+        public virtual Task Project_to_type_from_empty_traversal() => _g
+            .Inject(42)
+            .Limit(0)
+            .Project(_ => _
+                .To<ProjectRecordStruct>()
+                .By(x => x.In, __ => __.Identity())
+                .By(x => x.Out, __ => __.Identity())
+                .By(x => x.Count, __ => __.Identity())
+                .By(x => x.Properties, __ => __.Identity()))
+            .Verify();
+
+        [Fact]
+        public virtual Task Project_to_type_with_identity() => _g
+            .Inject(42)
+            .Project(_ => _
+                .To<ProjectRecordStruct>()
+                .By(x => x.In, __ => __.Identity())
+                .By(x => x.Out, __ => __.Identity())
+                .By(x => x.Count, __ => __.Identity())
+                .By(x => x.Properties, __ => __.Identity()))
+            .Verify();
+
+        [Fact]
+        public virtual Task Project_to_type_with_select() => _g
+            .Inject(42)
+            .Project(_ => _
+                .To<ProjectRecord>()
+                .By(x => x.In, __ => __.Constant("in_value"))
+                .By(x => x.Out, __ => __.Constant("out_value"))
+                .By(x => x.Count, __ => __.Constant("count_value"))
+                .By(x => x.Properties, __ => __.Constant("properties_value")))
+            .Select(x => x.In, x => x.Out)
+            .Verify();
+
+        [Fact]
+        public virtual Task Project_to_type_with_struct() => _g
+            .Inject(42)
+            .Project(_ => _
+                .To<ProjectRecordStruct>()
+                .By(x => x.In, __ => __.Constant("in_value"))
+                .By(x => x.Out, __ => __.Constant("out_value"))
+                .By(x => x.Count, __ => __.Constant("count_value"))
+                .By(x => x.Properties, __ => __.Constant("properties_value")))
+            .Verify();
+
+        [Fact]
+        public virtual Task Project_to_type_without_explicit_identity() => _g
+            .Inject(42)
+            .Project(_ => _
+                .To<ProjectRecordStruct>()
+                .By(x => x.In, __ => __)
+                .By(x => x.Out, __ => __)
+                .By(x => x.Count, __ => __)
+                .By(x => x.Properties, __ => __))
+            .Verify();
+
+        [Fact]
+        public virtual Task Project_with_builder_1() => _g
+            .Inject(42)
+            .Project(_ => _
+                .ToDynamic()
+                .By("item1!", __ => __.Constant("item1")))
+            .Verify();
+
+        [Fact]
+        public virtual Task Project_with_builder_4() => _g
+            .Inject(42)
+            .Project(_ => _
+                .ToDynamic()
+                .By("item1!", __ => __.Constant("item1"))
+                .By("item2!", __ => __.Constant("item2"))
+                .By("item3!", __ => __.Constant("item3"))
+                .By("item4!", __ => __.Constant("item4")))
+            .Verify();
+
+        [Fact]
+        public virtual Task Project_with_cast() => _g
+            .Inject(42)
+            .Project(_ => _
+                .ToDynamic()
+                .By("in", __ => __.Constant("in_value"))
+                .By("out", __ => __.Constant("out_value"))
+                .By("count", __ => __.Constant("count_value"))
+                .By("properties", __ => __.Constant("properties_value")))
+            .Cast<ProjectRecord>()
+            .Verify();
+
+        [Fact]
+        public virtual Task Project_with_identity() => _g
+            .Inject(42)
+            .Project(__ => __
+                .ToTuple()
+                .By(__ => __)
+                .By(__ => __.Constant("item2")))
             .Verify();
 
         [Fact]
@@ -2966,17 +2979,10 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                 .Until(__ => __))
             .Verify();
 
-
         [Fact]
         public virtual Task Replace() => _g
             .Inject("abcdef")
             .AsString()
-            .Replace("bc", "xy")
-            .Verify();
-
-        [Fact]
-        public virtual Task Replace_with_extension() => _g
-            .Inject("abcdef")
             .Replace("bc", "xy")
             .Verify();
 
@@ -2994,16 +3000,9 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Verify();
 
         [Fact]
-        public virtual Task Reverse() => _g
+        public virtual Task Replace_with_extension() => _g
             .Inject("abcdef")
-            .AsString()
-            .Reverse()
-            .Verify();
-
-        [Fact]
-        public virtual Task Reverse_with_extension() => _g
-            .Inject("abcdef")
-            .Reverse()
+            .Replace("bc", "xy")
             .Verify();
 
         [Fact]
@@ -3062,6 +3061,19 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         }
 
         [Fact]
+        public virtual Task Reverse() => _g
+            .Inject("abcdef")
+            .AsString()
+            .Reverse()
+            .Verify();
+
+        [Fact]
+        public virtual Task Reverse_with_extension() => _g
+            .Inject("abcdef")
+            .Reverse()
+            .Verify();
+
+        [Fact]
         public virtual Task Set_Meta_Property_to_null() => _g
             .V<Country>()
             .Properties(x => x.Name!)
@@ -3088,13 +3100,20 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         }
 
         [Fact]
+        public virtual Task SideEffect_explicit_identity() => _g
+            .Inject(42)
+            .SideEffect(__ => __
+                .Identity())
+            .Verify();
+
+        [Fact]
         public virtual Task SideEffect_identity() => _g
             .Inject(42)
             .SideEffect(__ => __)
             .Verify();
 
         [Fact]
-        public virtual Task SideEffect_explicit_identity() => _g
+        public virtual Task SideEffect_Identity_identity() => _g
             .Inject(42)
             .SideEffect(__ => __
                 .Identity())
@@ -3109,13 +3128,6 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Verify();
 
         [Fact]
-        public virtual Task SideEffect_Identity_identity() => _g
-            .Inject(42)
-            .SideEffect(__ => __
-                .Identity())
-            .Verify();
-
-        [Fact]
         public virtual Task SimplePath() => _g
             .V()
             .Out()
@@ -3127,20 +3139,6 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual Task Single_Inject_V() => _g
             .Inject(42)
             .V()
-            .Verify();
-
-        [Fact]
-        public virtual Task WithSideEffect_Single_Inject_V() => _g
-            .WithSideEffect("stepLabel", "sideEffect")
-            .Inject(42)
-            .V()
-            .Verify();
-
-        [Fact]
-        public virtual Task WithSideEffect_Override() => _g
-            .WithSideEffect("stepLabel", "sideEffect1")
-            .WithSideEffect("stepLabel", "sideEffect2")
-            .Inject(0)
             .Verify();
 
         [Fact]
@@ -3217,9 +3215,42 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Verify();
 
         [Fact]
+        public Task Substring1_with_extension() => _g
+            .Inject("1234567890")
+            .Substring(2)
+            .Verify();
+
+        [Fact]
+        public Task Substring10() => _g
+            .Inject("1234567890")
+            .AsString()
+            .Substring(^6..^2)
+            .Verify();
+
+        [Fact]
+        public Task Substring11() => _g
+            .Inject("1234567890")
+            .AsString()
+            .Substring(^0..^6)
+            .Verify();
+
+        [Fact]
+        public Task Substring12() => _g
+            .Inject("1234567890")
+            .AsString()
+            .Substring(6..^2)
+            .Verify();
+
+        [Fact]
         public Task Substring2() => _g
             .Inject("1234567890")
             .AsString()
+            .Substring(2, 3)
+            .Verify();
+
+        [Fact]
+        public Task Substring2_with_extension() => _g
+            .Inject("1234567890")
             .Substring(2, 3)
             .Verify();
 
@@ -3228,18 +3259,6 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Inject("1234567890")
             .AsString()
             .Substring(2..6)
-            .Verify();
-
-        [Fact]
-        public Task Substring1_with_extension() => _g
-            .Inject("1234567890")
-            .Substring(2)
-            .Verify();
-
-        [Fact]
-        public Task Substring2_with_extension() => _g
-            .Inject("1234567890")
-            .Substring(2, 3)
             .Verify();
 
         [Fact]
@@ -3291,105 +3310,6 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Verify();
 
         [Fact]
-        public Task Substring10() => _g
-            .Inject("1234567890")
-            .AsString()
-            .Substring(^6..^2)
-            .Verify();
-
-        [Fact]
-        public Task Substring11() => _g
-            .Inject("1234567890")
-            .AsString()
-            .Substring(^0..^6)
-            .Verify();
-
-        [Fact]
-        public Task Substring12() => _g
-            .Inject("1234567890")
-            .AsString()
-            .Substring(6..^2)
-            .Verify();
-
-        [Fact]
-        public Task Length() => _g
-            .Inject("aBcDeFg")
-            .AsString()
-            .Length()
-            .Verify();
-
-        [Fact]
-        public Task Length_with_extension() => _g
-            .Inject("aBcDeFg")
-            .Length()
-            .Verify();
-
-        [Fact]
-        public Task ToUpper() => _g
-            .Inject("aBcDeFg")
-            .AsString()
-            .ToUpper()
-            .Verify();
-
-        [Fact]
-        public Task ToUpper_with_extension() => _g
-            .Inject("aBcDeFg")
-            .ToUpper()
-            .Verify();
-
-        [Fact]
-        public Task ToLower() => _g
-            .Inject("aBcDeFg")
-            .AsString()
-            .ToLower()
-            .Verify();
-
-        [Fact]
-        public Task ToLower_with_extension() => _g
-            .Inject("aBcDeFg")
-            .ToLower()
-            .Verify();
-
-        [Fact]
-        public Task Trim() => _g
-            .Inject("  aBcDeFg  ")
-            .AsString()
-            .Trim()
-            .Verify();
-
-        [Fact]
-        public Task Trim_with_extension() => _g
-            .Inject("  aBcDeFg  ")
-            .Trim()
-            .Verify();
-
-        [Fact]
-        public Task TrimEnd() => _g
-            .Inject("  aBcDeFg  ")
-            .AsString()
-            .TrimEnd()
-            .Verify();
-
-        [Fact]
-        public Task TrimEnd_with_extension() => _g
-            .Inject("  aBcDeFg  ")
-            .TrimEnd()
-            .Verify();
-
-        [Fact]
-        public Task TrimStart() => _g
-            .Inject("  aBcDeFg  ")
-            .AsString()
-            .TrimStart()
-            .Verify();
-
-        [Fact]
-        public Task TrimStart_with_extension() => _g
-            .Inject("  aBcDeFg  ")
-            .TrimStart()
-            .Verify();
-
-        [Fact]
         public virtual Task SumGlobal() => _g
             .V<Person>()
             .Values(x => x.Age)
@@ -3436,16 +3356,29 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Verify();
 
         [Fact]
-        public virtual Task Tree_scalar_root() => _g
-            .Inject(42)
-            .Tree()
+        public Task ToLower() => _g
+            .Inject("aBcDeFg")
+            .AsString()
+            .ToLower()
             .Verify();
 
         [Fact]
-        public virtual Task Tree_linear_scalar() => _g
-            .Inject(42)
-            .Constant("43")
-            .Tree()
+        public Task ToLower_with_extension() => _g
+            .Inject("aBcDeFg")
+            .ToLower()
+            .Verify();
+
+        [Fact]
+        public Task ToUpper() => _g
+            .Inject("aBcDeFg")
+            .AsString()
+            .ToUpper()
+            .Verify();
+
+        [Fact]
+        public Task ToUpper_with_extension() => _g
+            .Inject("aBcDeFg")
+            .ToUpper()
             .Verify();
 
         [Fact]
@@ -3455,65 +3388,6 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                 __ => __.Constant("43"),
                 __ => __.Constant("44"))
             .Tree()
-            .Verify();
-
-        [Fact]
-        public virtual Task Tree_with_generic_overload() => _g
-            .V<Person>()
-            .Tree<Person>()
-            .Verify();
-
-        [Fact]
-        public virtual Task Tree_with_explicit_cast() => _g
-            .V<Person>()
-            .Tree()
-            .Cast<Tree<Person>>()
-            .Verify();
-
-        [Fact]
-        public virtual Task Tree_mixed_entity_and_scalar() => _g
-            .V<Person>()
-            .OutE<WorksFor>()
-            .InV<Company>()
-            .Values(x => x.FoundingDate!)
-            .Tree()
-            .Verify();
-
-        [Fact]
-        public virtual Task Tree_with_builder() => _g
-            .V<Person>()
-            .OutE<WorksFor>()
-            .InV<Company>()
-            .Values(x => x.FoundingDate!)
-            .Tree(_ => _
-                .Of<Person>()
-                .Of<WorksFor>()
-                .Of<Company>()
-                .Of<DateTime>())
-            .Verify();
-
-        [Fact]
-        public virtual Task Tree_with_builder_and_modulators() => _g
-            .V<Person>()
-            .OutE<WorksFor>()
-            .Where(x => x.Role != null)
-            .InV<Company>()
-            .Values(x => x.FoundingDate!)
-            .Tree(_ => _
-                .Of<Person>()
-                .Of<WorksFor>().By(x => x.Role!)
-                .Of<Company>()
-                .Of<DateTime>())
-            .Verify();
-
-        [Fact]
-        public virtual Task Tree_with_builder_and_modulator_on_last_Of() => _g
-            .V<Person>()
-            .OutE<WorksFor>()
-            .Where(x => x.Role != null)
-            .Tree(_ => _
-                .Of<Person>()
-                .Of<WorksFor>().By(x => x.Role!))
             .Verify();
 
         [Fact]
@@ -3547,6 +3421,117 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                 .Of<Person>().By(x => x.Age)
                 .Of<Person>().By(x => x.Age)
                 .Of<Person>().By(x => x.Age))
+            .Verify();
+
+        [Fact]
+        public virtual Task Tree_linear_scalar() => _g
+            .Inject(42)
+            .Constant("43")
+            .Tree()
+            .Verify();
+
+        [Fact]
+        public virtual Task Tree_mixed_entity_and_scalar() => _g
+            .V<Person>()
+            .OutE<WorksFor>()
+            .InV<Company>()
+            .Values(x => x.FoundingDate!)
+            .Tree()
+            .Verify();
+
+        [Fact]
+        public virtual Task Tree_scalar_root() => _g
+            .Inject(42)
+            .Tree()
+            .Verify();
+
+        [Fact]
+        public virtual Task Tree_with_builder() => _g
+            .V<Person>()
+            .OutE<WorksFor>()
+            .InV<Company>()
+            .Values(x => x.FoundingDate!)
+            .Tree(_ => _
+                .Of<Person>()
+                .Of<WorksFor>()
+                .Of<Company>()
+                .Of<DateTime>())
+            .Verify();
+
+        [Fact]
+        public virtual Task Tree_with_builder_and_modulator_on_last_Of() => _g
+            .V<Person>()
+            .OutE<WorksFor>()
+            .Where(x => x.Role != null)
+            .Tree(_ => _
+                .Of<Person>()
+                .Of<WorksFor>().By(x => x.Role!))
+            .Verify();
+
+        [Fact]
+        public virtual Task Tree_with_builder_and_modulators() => _g
+            .V<Person>()
+            .OutE<WorksFor>()
+            .Where(x => x.Role != null)
+            .InV<Company>()
+            .Values(x => x.FoundingDate!)
+            .Tree(_ => _
+                .Of<Person>()
+                .Of<WorksFor>().By(x => x.Role!)
+                .Of<Company>()
+                .Of<DateTime>())
+            .Verify();
+
+        [Fact]
+        public virtual Task Tree_with_explicit_cast() => _g
+            .V<Person>()
+            .Tree()
+            .Cast<Tree<Person>>()
+            .Verify();
+
+        [Fact]
+        public virtual Task Tree_with_generic_overload() => _g
+            .V<Person>()
+            .Tree<Person>()
+            .Verify();
+
+        [Fact]
+        public Task Trim() => _g
+            .Inject("  aBcDeFg  ")
+            .AsString()
+            .Trim()
+            .Verify();
+
+        [Fact]
+        public Task Trim_with_extension() => _g
+            .Inject("  aBcDeFg  ")
+            .Trim()
+            .Verify();
+
+        [Fact]
+        public Task TrimEnd() => _g
+            .Inject("  aBcDeFg  ")
+            .AsString()
+            .TrimEnd()
+            .Verify();
+
+        [Fact]
+        public Task TrimEnd_with_extension() => _g
+            .Inject("  aBcDeFg  ")
+            .TrimEnd()
+            .Verify();
+
+        [Fact]
+        public Task TrimStart() => _g
+            .Inject("  aBcDeFg  ")
+            .AsString()
+            .TrimStart()
+            .Verify();
+
+        [Fact]
+        public Task TrimStart_with_extension() => _g
+            .Inject("  aBcDeFg  ")
+            .TrimStart()
             .Verify();
 
         [Fact]
@@ -3813,11 +3798,6 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         }
 
         [Fact]
-        public virtual Task V_single_untyped() => _g
-            .V(0)
-            .Verify();
-
-        [Fact]
         public virtual Task V_Both() => _g
             .V()
             .Both<Edge>()
@@ -3834,6 +3814,12 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
            .V()
            .Both<WorksFor, Speaks, LivesIn>()
            .Verify();
+
+        [Fact]
+        public virtual Task V_Both_typed() => _g
+            .E()
+            .BothV<Person>()
+            .Verify();
 
         [Fact]
         public virtual Task V_BothE() => _g
@@ -3860,9 +3846,14 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Verify();
 
         [Fact]
-        public virtual Task V_Both_typed() => _g
-            .E()
-            .BothV<Person>()
+        public virtual Task V_IAuthority() => _g
+            .ConfigureEnvironment(env => env
+                .ConfigureModel(model => model
+                    .ConfigureVertices(_ => _
+                        .ConfigureElement<Authority>(__ => __
+                            .ConfigureName(x => x.Name, "n")))))
+            .V<IAuthority>()
+            .Where(x => x.Name!.Value == "some name")
             .Verify();
 
         [Fact]
@@ -3892,17 +3883,6 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
            .InE()
            .OtherV<Person>()
            .Verify();
-
-        [Fact]
-        public virtual Task V_IAuthority() => _g
-            .ConfigureEnvironment(env => env
-                .ConfigureModel(model => model
-                    .ConfigureVertices(_ => _
-                        .ConfigureElement<Authority>(__ => __
-                            .ConfigureName(x => x.Name, "n")))))
-            .V<IAuthority>()
-            .Where(x => x.Name!.Value == "some name")
-            .Verify();
 
         [Fact]
         public virtual Task V_Limit0_Fold_LimitLocal_0() => _g
@@ -4359,6 +4339,11 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Verify();
 
         [Fact]
+        public virtual Task V_single_untyped() => _g
+            .V(0)
+            .Verify();
+
+        [Fact]
         public virtual Task V_untyped() => _g
             .V()
             .Count()
@@ -4457,74 +4442,6 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Verify();
 
         [Fact]
-        public virtual Task Where_constant_bool() => _g
-            .Inject(42)
-            // ReSharper disable once RedundantBoolCompare
-            .Where(t => true)
-            .Verify();
-
-        [Fact]
-        public virtual Task Where_constant_bool_false() => _g
-            .Inject(42)
-            // ReSharper disable once RedundantBoolCompare
-            .Where(t => false)
-            .Verify();
-
-        [Fact]
-        public virtual Task Where_constant_bool_field()
-        {
-            var t = true;
-
-            return _g
-                .Inject(42)
-                // ReSharper disable once RedundantBoolCompare
-                .Where(x => t)
-                .Verify();
-        }
-
-        [Fact]
-        public virtual Task Where_constant_bool_field_false()
-        {
-            var f = false;
-
-            return _g
-                .Inject(42)
-                // ReSharper disable once RedundantBoolCompare
-                .Where(x => f)
-                .Verify();
-        }
-
-        [Fact]
-        public virtual Task Where_variable_bool_property_true()
-        {
-            var anon = new
-            {
-                Prop = true
-            };
-
-            return _g
-                .Inject(42)
-                .Where(x => anon.Prop)
-                .Constant(true)
-                .Verify();
-        }
-
-        [Fact]
-        public virtual Task Where_variable_bool_property_false()
-        {
-            var anon = new
-            {
-                Prop = false
-            };
-
-            return _g
-                .Inject(42)
-                .Where(x => anon.Prop)
-                .Constant(false)
-                .Verify();
-        }
-
-        [Fact]
         public virtual Task Where_bool_property_explicit_comparison1() => _g
             .V<TimeFrame>()
             // ReSharper disable once RedundantBoolCompare
@@ -4584,6 +4501,44 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .V<Person>()
             .Where(t => t.Name!.Value == "Some name" && t.Age == 42)
             .Verify();
+
+        [Fact]
+        public virtual Task Where_constant_bool() => _g
+            .Inject(42)
+            // ReSharper disable once RedundantBoolCompare
+            .Where(t => true)
+            .Verify();
+
+        [Fact]
+        public virtual Task Where_constant_bool_false() => _g
+            .Inject(42)
+            // ReSharper disable once RedundantBoolCompare
+            .Where(t => false)
+            .Verify();
+
+        [Fact]
+        public virtual Task Where_constant_bool_field()
+        {
+            var t = true;
+
+            return _g
+                .Inject(42)
+                // ReSharper disable once RedundantBoolCompare
+                .Where(x => t)
+                .Verify();
+        }
+
+        [Fact]
+        public virtual Task Where_constant_bool_field_false()
+        {
+            var f = false;
+
+            return _g
+                .Inject(42)
+                // ReSharper disable once RedundantBoolCompare
+                .Where(x => f)
+                .Verify();
+        }
 
         [Fact]
         public virtual Task Where_converted_Id_equals_constant() => _g
@@ -5216,6 +5171,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Verify();
 
         //TODO: Add Persons with different ages.
+
         [Fact]
         public virtual Task Where_property_is_greater_than_or_equal_stepLabel() => _g
             .Inject(20)
@@ -5226,6 +5182,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Verify();
 
         //TODO: Add Persons with different ages.
+
         [Fact]
         public virtual Task Where_property_is_greater_than_or_equal_stepLabel_value() => _g
             .V<Person>()
@@ -5263,6 +5220,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Verify();
 
         //TODO: Add Persons with different ages.
+
         [Fact]
         public virtual Task Where_property_is_lower_than_or_equal_stepLabel() => _g
             .Inject(36)
@@ -5321,14 +5279,6 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .V<Country>()
             .Where(c => "+49123".StartsWith(c.CountryCallingCode!))
             .Verify();
-
-        [Fact]
-        public virtual async Task Where_property_is_superstring_of_constant() => _g
-            .V<Country>()
-            .Invoking(_ => _
-                .Where(c => "+49123".Contains(c.CountryCallingCode!)))
-            .Should()
-            .Throw<ExpressionNotSupportedException>();
 
         [Fact]
         public virtual Task Where_property_is_prefix_of_constant_case_insensitive() => _g
@@ -5410,6 +5360,14 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Verify();
 
         [Fact]
+        public virtual async Task Where_property_is_superstring_of_constant() => _g
+            .V<Country>()
+            .Invoking(_ => _
+                .Where(c => "+49123".Contains(c.CountryCallingCode!)))
+            .Should()
+            .Throw<ExpressionNotSupportedException>();
+
+        [Fact]
         public virtual Task Where_property_lower_than_or_equal_string() => _g
             .V<Person>()
             .Where(t => t.Name!.Value.CompareTo("Some name") <= 0)
@@ -5464,15 +5422,15 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Verify();
 
         [Fact]
-        public virtual Task Where_property_starts_with_constant_with_TextP_support() => _g
-            .V<Country>()
-            .Where(c => c.CountryCallingCode!.StartsWith("+49123"))
-            .Verify();
-
-        [Fact]
         public virtual Task Where_property_starts_with_char_with_TextP_support() => _g
             .V<Country>()
             .Where(c => c.CountryCallingCode!.StartsWith('+'))
+            .Verify();
+
+        [Fact]
+        public virtual Task Where_property_starts_with_constant_with_TextP_support() => _g
+            .V<Country>()
+            .Where(c => c.CountryCallingCode!.StartsWith("+49123"))
             .Verify();
 
         [Fact]
@@ -5543,6 +5501,16 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Verify();
 
         [Fact]
+        public virtual Task Where_stepLabel_equals_stepLabel_property() => _g
+            .V<Person>()
+            .As((__, person) => __
+                .V<Person>()
+                .Values(x => x.Age)
+                    .As((__, age) => __
+                        .Where(p => age.Value < person.Value.Age)))
+            .Verify();
+
+        [Fact]
         public virtual Task Where_stepLabel_is_lower_than_stepLabel() => _g
             .V<Person>()
             .Where(__ => __
@@ -5563,16 +5531,6 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                 .Values(x => x.Age)
                     .As((__, age) => __
                         .Where(p => person.Value.Age < age.Value)))
-            .Verify();
-
-        [Fact]
-        public virtual Task Where_stepLabel_equals_stepLabel_property() => _g
-            .V<Person>()
-            .As((__, person) => __
-                .V<Person>()
-                .Values(x => x.Age)
-                    .As((__, age) => __
-                        .Where(p => age.Value < person.Value.Age)))
             .Verify();
 
         [Fact]
@@ -5701,11 +5659,11 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Where_value_of_property_is_null_or_string_reversed() => _g
-                .V<Person>()
-                .Where(__ => __
-                    .Values(x => x.Name!.Value)
-                    .Where(x => x == "hello" || x == null!))
-                .Verify();
+            .V<Person>()
+            .Where(__ => __
+                .Values(x => x.Name!.Value)
+                .Where(x => x == "hello" || x == null!))
+            .Verify();
 
         [Fact]
         public virtual Task Where_Values_Id_Where() => _g
@@ -5751,6 +5709,42 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Verify();
 
         [Fact]
+        public virtual Task Where_variable_bool_property_false()
+        {
+            var anon = new
+            {
+                Prop = false
+            };
+
+            return _g
+                .Inject(42)
+                .Where(x => anon.Prop)
+                .Constant(false)
+                .Verify();
+        }
+
+        [Fact]
+        public virtual Task Where_variable_bool_property_true()
+        {
+            var anon = new
+            {
+                Prop = true
+            };
+
+            return _g
+                .Inject(42)
+                .Where(x => anon.Prop)
+                .Constant(true)
+                .Verify();
+        }
+
+        [Fact]
+        public virtual Task Where_VertexProperty_Id() => _g
+            .V<Person>()
+            .Where(x => (int)x.Name!.Id! == 36)
+            .Verify();
+
+        [Fact]
         public virtual async Task Where_VertexProperty_starts_with_constant_with_TextP_support_indirection()
         {
             var tuple = ("456", 36);
@@ -5771,12 +5765,6 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual Task Where_VertexProperty_Value2() => _g
             .V<Person>()
             .Where(x => ((string)(object)x.Name!.Value) == "SomeName")
-            .Verify();
-
-        [Fact]
-        public virtual Task Where_VertexProperty_Id() => _g
-            .V<Person>()
-            .Where(x => (int)x.Name!.Id! == 36)
             .Verify();
 
         [Fact]
@@ -5827,6 +5815,20 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                 (__, label) => __
                     .V()
                     .Select(label))
+            .Verify();
+
+        [Fact]
+        public virtual Task WithSideEffect_Override() => _g
+            .WithSideEffect("stepLabel", "sideEffect1")
+            .WithSideEffect("stepLabel", "sideEffect2")
+            .Inject(0)
+            .Verify();
+
+        [Fact]
+        public virtual Task WithSideEffect_Single_Inject_V() => _g
+            .WithSideEffect("stepLabel", "sideEffect")
+            .Inject(42)
+            .V()
             .Verify();
 
         [Fact]
