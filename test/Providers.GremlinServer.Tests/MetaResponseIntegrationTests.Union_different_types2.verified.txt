@@ -8,11 +8,11 @@
         PartitionKey: PartitionKey
       },
       {
-        Id: 19,
+        Id: 18,
         Label: LivesIn
       },
       {
-        Id: 23,
+        Id: 22,
         Label: LivesIn
       },
       {
@@ -20,20 +20,20 @@
           Value: 2020-04-07 14:43:36 +0,
           Key: Since
         },
-        Id: 27,
+        Id: 26,
         Label: LivesIn
       },
       {
-        Id: 28,
+        Id: 27,
         Label: Company,
         PartitionKey: PartitionKey
       },
       {
-        Id: 42,
+        Id: 41,
         Label: LivesIn
       },
       {
-        Id: 43,
+        Id: 42,
         Label: Company,
         PartitionKey: PartitionKey
       }

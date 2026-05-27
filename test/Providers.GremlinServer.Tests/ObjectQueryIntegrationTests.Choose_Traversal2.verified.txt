@@ -2,12 +2,12 @@
   {
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: 13,
+      Id: 12,
       Label: Name,
       Properties: {},
       Value: Bob
     },
-    Id: 11,
+    Id: 10,
     Label: Person,
     PartitionKey: PartitionKey
   },
@@ -18,7 +18,7 @@
     PartitionKey: PartitionKey
   },
   {
-    Id: 68,
+    Id: 67,
     Label: Language,
     PartitionKey: PartitionKey
   },
@@ -28,48 +28,48 @@
     PartitionKey: PartitionKey
   },
   {
-    Id: 18,
+    Id: 17,
     Label: Country,
     PartitionKey: PartitionKey
   },
   {
-    Id: 18,
+    Id: 17,
     Label: Country,
     PartitionKey: PartitionKey
   },
   {
-    Id: 80,
+    Id: 79,
     Label: Language,
     PartitionKey: PartitionKey
   },
   {
-    Id: 22,
+    Id: 21,
     Label: Country,
     PartitionKey: PartitionKey
   },
   {
-    Id: 22,
+    Id: 21,
     Label: Country,
     PartitionKey: PartitionKey
   },
   {
-    Id: 26,
+    Id: 25,
     Label: Country,
     PartitionKey: PartitionKey
   },
   {
-    Id: 26,
+    Id: 25,
     Label: Country,
     PartitionKey: PartitionKey
   },
   {
-    Id: 28,
+    Id: 27,
     Label: Company,
     PartitionKey: PartitionKey
   },
   {
     IetfLanguageTag: en,
-    Id: 33,
+    Id: 32,
     Label: Language,
     PartitionKey: PartitionKey
   },
@@ -80,12 +80,12 @@
     PartitionKey: PartitionKey
   },
   {
-    Id: 43,
+    Id: 42,
     Label: Company,
     PartitionKey: PartitionKey
   },
   {
-    Id: 50,
+    Id: 49,
     Label: Language,
     PartitionKey: PartitionKey
   }

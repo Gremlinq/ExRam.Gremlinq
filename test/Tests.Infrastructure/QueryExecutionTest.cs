@@ -79,8 +79,10 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             await _g
                 .AddE(new WorksFor { From = now, To = now, Role = "Admin" })
                 .From(__ => __
-                    .AddV<Person>()
-                    .Property(x => x.Age, 43))
+                    .AddV(new Person
+                    {
+                        Age = 43
+                    }))
                 .To(__ => __
                     .AddV<Company>())
                 .Verify();

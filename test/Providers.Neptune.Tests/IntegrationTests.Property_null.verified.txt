@@ -1,6 +1,13 @@
 ﻿[
   {
-    Id: 5,
+    Locations: [
+      {
+        Id: 70,
+        Label: Locations,
+        Value: Aachen
+      }
+    ],
+    Id: 68,
     Label: Company,
     PartitionKey: PartitionKey
   }

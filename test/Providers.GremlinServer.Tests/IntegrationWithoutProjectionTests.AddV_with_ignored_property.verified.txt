@@ -1,6 +1,6 @@
 ﻿[
   {
-    Id: 68,
+    Id: 67,
     Label: Language,
     PartitionKey: PartitionKey
   }

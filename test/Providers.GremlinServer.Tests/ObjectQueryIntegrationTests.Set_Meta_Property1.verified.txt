@@ -1,6 +1,6 @@
 ﻿[
   {
-    Id: 73,
+    Id: 72,
     Label: Name,
     Properties: {
       metaKey: 1
@@ -8,7 +8,7 @@
     Value: GER
   },
   {
-    Id: 75,
+    Id: 74,
     Label: Name,
     Properties: {
       de: Deutschland,

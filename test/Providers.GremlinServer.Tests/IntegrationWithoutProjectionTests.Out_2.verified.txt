@@ -5,22 +5,22 @@
     PartitionKey: PartitionKey
   },
   {
-    Id: 18,
+    Id: 17,
     Label: Country,
     PartitionKey: PartitionKey
   },
   {
-    Id: 22,
+    Id: 21,
     Label: Country,
     PartitionKey: PartitionKey
   },
   {
-    Id: 26,
+    Id: 25,
     Label: Country,
     PartitionKey: PartitionKey
   },
   {
-    Id: 28,
+    Id: 27,
     Label: Company,
     PartitionKey: PartitionKey
   },
@@ -31,7 +31,7 @@
     PartitionKey: PartitionKey
   },
   {
-    Id: 43,
+    Id: 42,
     Label: Company,
     PartitionKey: PartitionKey
   }

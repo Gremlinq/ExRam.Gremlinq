@@ -3,14 +3,14 @@
     Age: 36,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: 13,
+      Id: 12,
       Label: Name,
       Properties: {
         ValidFrom: 2020-04-07 14:43:36 +0
       },
       Value: Bob
     },
-    Id: 11,
+    Id: 10,
     Label: Person,
     PartitionKey: PartitionKey
   },

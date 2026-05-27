@@ -62,17 +62,6 @@
                   EnumValue: single
                 },
                 Age,
-                0
-              ]
-            },
-            {
-              OperatorName: property,
-              Arguments: [
-                {
-                  EnumName: Cardinality,
-                  EnumValue: single
-                },
-                Age,
                 43
               ]
             }

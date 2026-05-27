@@ -3,7 +3,7 @@
     RequestId: 12345678-9012-3456-7890-123456789012,
     Data: [
       {
-        Id: 13,
+        Id: 12,
         Label: Name,
         Properties: {
           ValidFrom: 2020-04-07 14:43:36 +0
@@ -11,7 +11,7 @@
         Value: Bob
       },
       {
-        Id: 40,
+        Id: 39,
         Label: Name,
         Properties: {
           ValidFrom: 2020-04-07 14:43:36 +0
@@ -19,7 +19,7 @@
         Value: Bob
       },
       {
-        Id: 64,
+        Id: 63,
         Label: Name,
         Properties: {
           ValidFrom: 2020-04-07 14:43:36 +0

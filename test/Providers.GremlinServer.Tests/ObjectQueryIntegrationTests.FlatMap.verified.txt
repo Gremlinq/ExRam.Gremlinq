@@ -5,12 +5,12 @@
     PartitionKey: PartitionKey
   },
   {
-    Id: 28,
+    Id: 27,
     Label: Company,
     PartitionKey: PartitionKey
   },
   {
-    Id: 43,
+    Id: 42,
     Label: Company,
     PartitionKey: PartitionKey
   }
