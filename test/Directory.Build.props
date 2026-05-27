@@ -13,6 +13,8 @@
     <OutputType>Exe</OutputType>
     <UseMicrosoftTestingPlatformRunner>true</UseMicrosoftTestingPlatformRunner>
     <EnableMicrosoftTestingPlatform>true</EnableMicrosoftTestingPlatform>
+    <MaxParallelTestModules>1</MaxParallelTestModules>
+    <TestTfmsInParallel>false</TestTfmsInParallel>
   </PropertyGroup>
 
   <ItemGroup Condition="$(MSBuildProjectName.EndsWith('Tests'))">
