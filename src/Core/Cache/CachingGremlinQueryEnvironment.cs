@@ -19,9 +19,9 @@ namespace ExRam.Gremlinq.Core
         {
             InnerEnvironment = environment;
 
-            _modelTypes = new Lazy<HashSet<Type>>(() => new HashSet<Type>(environment.Model
-                .VerticesModel.ElementTypes
-                .Concat(environment.Model.EdgesModel.ElementTypes)));
+            _modelTypes = new Lazy<HashSet<Type>>(
+                () => [.. environment.Model.VerticesModel.ElementTypes.Concat(environment.Model.EdgesModel.ElementTypes)],
+                LazyThreadSafetyMode.PublicationOnly);
         }
 
         public IGremlinQueryEnvironment InnerEnvironment { get; }
