@@ -6,12 +6,8 @@ namespace ExRam.Gremlinq.Core
     {
         private static readonly ConditionalWeakTable<IGremlinQueryEnvironment, ICachingGremlinQueryEnvironment> Caches = new();
 
-        public static ICachingGremlinQueryEnvironment GetCache(this IGremlinQueryEnvironment environment)
-        {
-            if (environment is ICachingGremlinQueryEnvironment caching)
-                return caching;
-
-            return Caches.GetValue(environment, static closure => new CachingGremlinQueryEnvironmentImpl(closure));
-        }
+        public static ICachingGremlinQueryEnvironment GetCache(this IGremlinQueryEnvironment environment) => environment is ICachingGremlinQueryEnvironment caching
+            ? caching
+            : Caches.GetValue(environment, static closure => new CachingGremlinQueryEnvironmentImpl(closure));
     }
 }
