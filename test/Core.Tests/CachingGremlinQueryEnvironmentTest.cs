@@ -233,6 +233,44 @@ namespace ExRam.Gremlinq.Core.Tests
                 .BeSameAs(executor);
         }
 
+        // ── Cache-sharing: non-model Configure* return ICachingGremlinQueryEnvironment ──
+
+        [Fact]
+        public void ConfigureLogger_returns_ICachingGremlinQueryEnvironment()
+            => Wrap(GremlinQueryEnvironment.Invalid).ConfigureLogger(_ => NullLogger.Instance).Should().BeAssignableTo<ICachingGremlinQueryEnvironment>();
+
+        [Fact]
+        public void ConfigureFeatureSet_returns_ICachingGremlinQueryEnvironment()
+            => Wrap(GremlinQueryEnvironment.Invalid).ConfigureFeatureSet(x => x).Should().BeAssignableTo<ICachingGremlinQueryEnvironment>();
+
+        [Fact]
+        public void ConfigureSerializer_returns_ICachingGremlinQueryEnvironment()
+            => Wrap(GremlinQueryEnvironment.Invalid).ConfigureSerializer(x => x).Should().BeAssignableTo<ICachingGremlinQueryEnvironment>();
+
+        [Fact]
+        public void ConfigureOptions_returns_ICachingGremlinQueryEnvironment()
+            => Wrap(GremlinQueryEnvironment.Invalid).ConfigureOptions(x => x).Should().BeAssignableTo<ICachingGremlinQueryEnvironment>();
+
+        [Fact]
+        public void ConfigureDeserializer_returns_ICachingGremlinQueryEnvironment()
+            => Wrap(GremlinQueryEnvironment.Invalid).ConfigureDeserializer(x => x).Should().BeAssignableTo<ICachingGremlinQueryEnvironment>();
+
+        [Fact]
+        public void ConfigureNativeTypes_returns_ICachingGremlinQueryEnvironment()
+            => Wrap(GremlinQueryEnvironment.Invalid).ConfigureNativeTypes(x => x).Should().BeAssignableTo<ICachingGremlinQueryEnvironment>();
+
+        [Fact]
+        public void ConfigureDebugger_returns_ICachingGremlinQueryEnvironment()
+            => Wrap(GremlinQueryEnvironment.Invalid).ConfigureDebugger(x => x).Should().BeAssignableTo<ICachingGremlinQueryEnvironment>();
+
+        [Fact]
+        public void ConfigureExecutor_returns_ICachingGremlinQueryEnvironment()
+            => Wrap(GremlinQueryEnvironment.Invalid).ConfigureExecutor(x => x).Should().BeAssignableTo<ICachingGremlinQueryEnvironment>();
+
+        [Fact]
+        public void ConfigureModel_does_not_return_ICachingGremlinQueryEnvironment()
+            => Wrap(GremlinQueryEnvironment.Invalid).ConfigureModel(x => x).Should().NotBeAssignableTo<ICachingGremlinQueryEnvironment>();
+
         private static ICachingGremlinQueryEnvironment Wrap(IGremlinQueryEnvironment env) => new CachingGremlinQueryEnvironmentImpl(env);
     }
 }
