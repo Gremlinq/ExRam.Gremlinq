@@ -413,7 +413,7 @@ namespace ExRam.Gremlinq.Core
 
         Traversal IGremlinQueryAdmin.Steps => Steps;
 
-        IGremlinQueryEnvironment IGremlinQueryAdmin.Environment => Environment;
+        IGremlinQueryEnvironment IGremlinQueryAdmin.Environment => Environment.InnerEnvironment;
 
         IImmutableDictionary<object, object?> IGremlinQueryAdmin.Metadata => Metadata;
 
@@ -508,7 +508,7 @@ namespace ExRam.Gremlinq.Core
         {
             ArgumentNullException.ThrowIfNull(transformation);
 
-            return new GremlinQuery<T1, T2, T3, T4>(transformation(Environment), Steps, LabelProjections, Metadata);
+            return new GremlinQuery<T1, T2, T3, T4>(transformation(Environment.InnerEnvironment), Steps, LabelProjections, Metadata);
         }
 
         IGremlinQuerySource IGremlinQuerySource.WithSideEffect<TSideEffect>(StepLabel<TSideEffect> label, TSideEffect value)

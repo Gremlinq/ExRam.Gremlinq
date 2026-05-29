@@ -33,14 +33,14 @@ namespace ExRam.Gremlinq.Core
         {
             Steps = steps;
             Metadata = metadata;
-            Environment = environment;
             LabelProjections = labelProjections;
+            Environment = environment as ICachingGremlinQueryEnvironment ?? new CachingGremlinQueryEnvironmentImpl(environment);
         }
 
         public override string ToString() => $"GremlinQuery(Steps.Count: {Steps.Count})";
 
         protected internal Traversal Steps { get; }
-        protected internal IGremlinQueryEnvironment Environment { get; }
+        protected internal ICachingGremlinQueryEnvironment Environment { get; }
         protected internal IImmutableDictionary<object, object?> Metadata { get; }
         protected internal IImmutableDictionary<StepLabel, LabelProjections> LabelProjections { get; }
     }
@@ -1594,7 +1594,7 @@ namespace ExRam.Gremlinq.Core
                                 {
                                     var operandExpressionKey = GetKey(operandExpression);
 
-                                    if (Environment.GetCache().ModelTypes.Contains(parameterExpression.Type))
+                                    if (Environment.ModelTypes.Contains(parameterExpression.Type))
                                     {
                                         if (operandExpressionKey.RawKey is string stringKey)
                                         {

@@ -33,7 +33,6 @@ namespace ExRam.Gremlinq.Core
             return memberExpression.IsPropertyValue(out var sourceExpression) && sourceExpression is MemberExpression
                 ? GetKey(sourceExpression)
                 : Environment
-                    .GetCache()
                     .GetMetadata(memberExpression.Member)
                     .Key;
         }
