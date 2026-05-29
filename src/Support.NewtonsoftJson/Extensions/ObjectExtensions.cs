@@ -1,5 +1,6 @@
 using System.Collections.Concurrent;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Transformation;
 using Gremlin.Net.Process.Traversal;
@@ -31,9 +32,11 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                     environment,
                     static (environment, relevantT) =>
                     {
-                        var serializationData = environment
-                            .GetCache()
-                            .GetSerializationData(typeof(TElement));
+                        var cache = environment is ICachingGremlinQueryEnvironment caching
+                            ? caching
+                            : Caches.GetValue(environment, static environment => new CachingGremlinQueryEnvironmentImpl(environment));
+
+                        var serializationData = cache.GetSerializationData(typeof(TElement));
 
                         for (var i = 0; i < serializationData.Length; i++)
                         {
@@ -59,6 +62,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
             };
         }
 
+        private static readonly ConditionalWeakTable<IGremlinQueryEnvironment, ICachingGremlinQueryEnvironment> Caches = new();
 
         public static TElement SetIdAndLabel<TElement>(this TElement element, JToken idToken, JToken labelToken, IGremlinQueryEnvironment environment, ITransformer recurse)
         {
