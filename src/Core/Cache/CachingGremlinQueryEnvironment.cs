@@ -13,7 +13,7 @@ namespace ExRam.Gremlinq.Core
         private readonly ConcurrentDictionary<MemberInfo, MemberMetadata> _members;
         private readonly ConcurrentDictionary<Type, (PropertyInfo propertyInfo, MemberMetadata metadata)[]> _typeProperties;
 
-        private readonly Lazy<HashSet<Type>> _modelTypes;
+        private readonly HashSet<Type> _modelTypes;
 
         public CachingGremlinQueryEnvironmentImpl(IGremlinQueryEnvironment environment)
         {
@@ -21,16 +21,16 @@ namespace ExRam.Gremlinq.Core
             _members = new();
             _typeProperties = new();
 
-            _modelTypes = new Lazy<HashSet<Type>>(
-                () => [.. environment.Model.VerticesModel.ElementTypes.Concat(environment.Model.EdgesModel.ElementTypes)],
-                LazyThreadSafetyMode.PublicationOnly);
+            _modelTypes = environment == GremlinQueryEnvironment.Invalid
+                ? []
+                : [.. environment.Model.VerticesModel.ElementTypes.Concat(environment.Model.EdgesModel.ElementTypes)];
         }
 
         private CachingGremlinQueryEnvironmentImpl(
             IGremlinQueryEnvironment environment,
             ConcurrentDictionary<MemberInfo, MemberMetadata> members,
             ConcurrentDictionary<Type, (PropertyInfo propertyInfo, MemberMetadata metadata)[]> typeProperties,
-            Lazy<HashSet<Type>> modelTypes)
+            HashSet<Type> modelTypes)
         {
             InnerEnvironment = environment;
             _members = members;
@@ -77,6 +77,6 @@ namespace ExRam.Gremlinq.Core
             static (closureMember, model) => model.VerticesModel.TryGetMetadata(closureMember) ?? model.EdgesModel.TryGetMetadata(closureMember) ?? MemberMetadata.Default(closureMember.Name),
             InnerEnvironment.Model);
 
-        public HashSet<Type> ModelTypes => _modelTypes.Value;
+        public HashSet<Type> ModelTypes => _modelTypes;
     }
 }

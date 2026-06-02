@@ -28,7 +28,8 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             var logger = NullLogger.Instance;
 
-            Wrap(GremlinQueryEnvironment.Invalid.UseLogger(logger))
+            Wrap(GremlinQueryEnvironment.Invalid)
+                .UseLogger(logger)
                 .Logger
                 .Should()
                 .BeSameAs(logger);
@@ -48,10 +49,8 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public void FeatureSet_delegates_to_inner()
         {
-            var env = GremlinQueryEnvironment.Invalid
-                .ConfigureFeatureSet(fs => fs.ConfigureGraphFeatures(static _ => GraphFeatures.None));
-
-            Wrap(env)
+            Wrap(GremlinQueryEnvironment.Invalid)
+                .ConfigureFeatureSet(fs => fs.ConfigureGraphFeatures(static _ => GraphFeatures.None))
                 .FeatureSet
                 .GraphFeatures
                 .Should()
@@ -63,7 +62,8 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             var serializer = Substitute.For<ITransformer>();
 
-            Wrap(GremlinQueryEnvironment.Invalid.UseSerializer(serializer))
+            Wrap(GremlinQueryEnvironment.Invalid)
+                .UseSerializer(serializer)
                 .Serializer
                 .Should()
                 .BeSameAs(serializer);
@@ -72,10 +72,8 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public void Options_delegates_to_inner()
         {
-            var env = GremlinQueryEnvironment.Invalid
-                .ConfigureOptions(o => o.SetValue(GremlinqOption.Alias, "h"));
-
-            Wrap(env)
+            Wrap(GremlinQueryEnvironment.Invalid)
+                .ConfigureOptions(o => o.SetValue(GremlinqOption.Alias, "h"))
                 .Options
                 .GetValue(GremlinqOption.Alias)
                 .Should()
@@ -87,7 +85,8 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             var deserializer = Substitute.For<ITransformer>();
 
-            Wrap(GremlinQueryEnvironment.Invalid.UseDeserializer(deserializer))
+            Wrap(GremlinQueryEnvironment.Invalid)
+                .UseDeserializer(deserializer)
                 .Deserializer
                 .Should()
                 .BeSameAs(deserializer);
@@ -98,7 +97,8 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             var debugger = Substitute.For<IGremlinQueryDebugger>();
 
-            Wrap(GremlinQueryEnvironment.Invalid.UseDebugger(debugger))
+            Wrap(GremlinQueryEnvironment.Invalid)
+                .UseDebugger(debugger)
                 .Debugger
                 .Should()
                 .BeSameAs(debugger);
@@ -109,7 +109,8 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             var executor = Substitute.For<IGremlinQueryExecutor>();
 
-            Wrap(GremlinQueryEnvironment.Invalid.UseExecutor(executor))
+            Wrap(GremlinQueryEnvironment.Invalid)
+                .UseExecutor(executor)
                 .Executor
                 .Should()
                 .BeSameAs(executor);
@@ -118,10 +119,8 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public void NativeTypes_delegates_to_inner()
         {
-            var env = GremlinQueryEnvironment.Invalid
-                .ConfigureNativeTypes(types => types.Add(typeof(decimal)));
-
-            Wrap(env)
+            Wrap(GremlinQueryEnvironment.Invalid)
+                .ConfigureNativeTypes(types => types.Add(typeof(decimal)))
                 .NativeTypes
                 .Should()
                 .Contain(typeof(decimal));
