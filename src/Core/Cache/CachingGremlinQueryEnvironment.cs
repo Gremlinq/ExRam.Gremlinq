@@ -10,17 +10,13 @@ namespace ExRam.Gremlinq.Core
 {
     internal sealed class CachingGremlinQueryEnvironment : ICachingGremlinQueryEnvironment
     {
+        public static readonly ICachingGremlinQueryEnvironment Invalid = new CachingGremlinQueryEnvironment(GremlinQueryEnvironment.Invalid, new(), new(), []);
+
         private readonly IGremlinQueryEnvironment _environment;
         private readonly ConcurrentDictionary<MemberInfo, MemberMetadata> _members;
         private readonly ConcurrentDictionary<Type, (PropertyInfo propertyInfo, MemberMetadata metadata)[]> _typeProperties;
 
-        public CachingGremlinQueryEnvironment(IGremlinQueryEnvironment environment) : this(
-            environment,
-            new(),
-            new(),
-            environment != GremlinQueryEnvironment.Invalid
-                ? [.. environment.Model.VerticesModel.ElementTypes.Concat(environment.Model.EdgesModel.ElementTypes)]
-                : [])
+        public CachingGremlinQueryEnvironment(IGremlinQueryEnvironment environment) : this(environment, new(), new(), [.. environment.Model.VerticesModel.ElementTypes.Concat(environment.Model.EdgesModel.ElementTypes)])
         {
         }
 

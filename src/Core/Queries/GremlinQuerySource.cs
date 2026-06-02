@@ -13,7 +13,7 @@ namespace ExRam.Gremlinq.Core
         /// </summary>
         // ReSharper disable once InconsistentNaming
         public static readonly IGremlinQuerySource g = new GremlinQuery<object, object, object, IGremlinQueryBase>(
-            GremlinQueryEnvironment.Invalid,
+            CachingGremlinQueryEnvironment.Invalid,
             Traversal.Empty,
             ImmutableDictionary<StepLabel, LabelProjections>.Empty,
             ImmutableDictionary<object, object?>.Empty);
