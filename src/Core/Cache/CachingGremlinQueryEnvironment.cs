@@ -1,4 +1,5 @@
 using System.Collections.Concurrent;
+using System.Collections.Frozen;
 using System.Collections.Immutable;
 using System.Reflection;
 using ExRam.Gremlinq.Core.Execution;
@@ -20,7 +21,7 @@ namespace ExRam.Gremlinq.Core
         {
         }
 
-        private CachingGremlinQueryEnvironment(IGremlinQueryEnvironment environment, ConcurrentDictionary<MemberInfo, MemberMetadata> members, ConcurrentDictionary<Type, (PropertyInfo propertyInfo, MemberMetadata metadata)[]> typeProperties, HashSet<Type> modelTypes)
+        private CachingGremlinQueryEnvironment(IGremlinQueryEnvironment environment, ConcurrentDictionary<MemberInfo, MemberMetadata> members, ConcurrentDictionary<Type, (PropertyInfo propertyInfo, MemberMetadata metadata)[]> typeProperties, FrozenSet<Type> modelTypes)
         {
             _environment = environment;
             _members = members;
@@ -65,6 +66,6 @@ namespace ExRam.Gremlinq.Core
             static (closureMember, model) => model.VerticesModel.TryGetMetadata(closureMember) ?? model.EdgesModel.TryGetMetadata(closureMember) ?? MemberMetadata.Default(closureMember.Name),
             _environment.Model);
 
-        public HashSet<Type> ModelTypes { get; }
+        public FrozenSet<Type> ModelTypes { get; }
     }
 }
