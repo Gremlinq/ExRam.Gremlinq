@@ -34,7 +34,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                     {
                         var cache = environment is ICachingGremlinQueryEnvironment caching
                             ? caching
-                            : Caches.GetValue(environment, static environment => new CachingGremlinQueryEnvironmentImpl(environment));
+                            : Caches.GetValue(environment, static environment => new CachingGremlinQueryEnvironment(environment));
 
                         var serializationData = cache.GetSerializationData(typeof(TElement));
 

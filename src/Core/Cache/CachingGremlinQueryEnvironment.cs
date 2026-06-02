@@ -8,47 +8,40 @@ using Microsoft.Extensions.Logging;
 
 namespace ExRam.Gremlinq.Core
 {
-    internal sealed class CachingGremlinQueryEnvironmentImpl : ICachingGremlinQueryEnvironment
+    internal sealed class CachingGremlinQueryEnvironment : ICachingGremlinQueryEnvironment
     {
         private readonly ConcurrentDictionary<MemberInfo, MemberMetadata> _members;
         private readonly ConcurrentDictionary<Type, (PropertyInfo propertyInfo, MemberMetadata metadata)[]> _typeProperties;
 
-        private readonly HashSet<Type> _modelTypes;
-
-        public CachingGremlinQueryEnvironmentImpl(IGremlinQueryEnvironment environment)
+        public CachingGremlinQueryEnvironment(IGremlinQueryEnvironment environment) : this(
+            environment,
+            new(),
+            new(),
+            environment != GremlinQueryEnvironment.Invalid
+                ? [.. environment.Model.VerticesModel.ElementTypes.Concat(environment.Model.EdgesModel.ElementTypes)]
+                : [])
         {
-            InnerEnvironment = environment;
-            _members = new();
-            _typeProperties = new();
-
-            _modelTypes = environment == GremlinQueryEnvironment.Invalid
-                ? []
-                : [.. environment.Model.VerticesModel.ElementTypes.Concat(environment.Model.EdgesModel.ElementTypes)];
         }
 
-        private CachingGremlinQueryEnvironmentImpl(
-            IGremlinQueryEnvironment environment,
-            ConcurrentDictionary<MemberInfo, MemberMetadata> members,
-            ConcurrentDictionary<Type, (PropertyInfo propertyInfo, MemberMetadata metadata)[]> typeProperties,
-            HashSet<Type> modelTypes)
+        private CachingGremlinQueryEnvironment(IGremlinQueryEnvironment environment, ConcurrentDictionary<MemberInfo, MemberMetadata> members, ConcurrentDictionary<Type, (PropertyInfo propertyInfo, MemberMetadata metadata)[]> typeProperties, HashSet<Type> modelTypes)
         {
-            InnerEnvironment = environment;
             _members = members;
+            ModelTypes = modelTypes;
+            InnerEnvironment = environment;
             _typeProperties = typeProperties;
-            _modelTypes = modelTypes;
         }
 
         public IGremlinQueryEnvironment InnerEnvironment { get; }
 
-        public IGremlinQueryEnvironment ConfigureLogger(Func<ILogger, ILogger> loggerTransformation) => new CachingGremlinQueryEnvironmentImpl(InnerEnvironment.ConfigureLogger(loggerTransformation), _members, _typeProperties, _modelTypes);
+        public IGremlinQueryEnvironment ConfigureLogger(Func<ILogger, ILogger> loggerTransformation) => new CachingGremlinQueryEnvironment(InnerEnvironment.ConfigureLogger(loggerTransformation), _members, _typeProperties, ModelTypes);
         public IGremlinQueryEnvironment ConfigureModel(Func<IGraphModel, IGraphModel> modelTransformation) => InnerEnvironment.ConfigureModel(modelTransformation);
-        public IGremlinQueryEnvironment ConfigureFeatureSet(Func<IFeatureSet, IFeatureSet> featureSetTransformation) => new CachingGremlinQueryEnvironmentImpl(InnerEnvironment.ConfigureFeatureSet(featureSetTransformation), _members, _typeProperties, _modelTypes);
-        public IGremlinQueryEnvironment ConfigureSerializer(Func<ITransformer, ITransformer> serializerTransformation) => new CachingGremlinQueryEnvironmentImpl(InnerEnvironment.ConfigureSerializer(serializerTransformation), _members, _typeProperties, _modelTypes);
-        public IGremlinQueryEnvironment ConfigureOptions(Func<IGremlinqOptions, IGremlinqOptions> optionsTransformation) => new CachingGremlinQueryEnvironmentImpl(InnerEnvironment.ConfigureOptions(optionsTransformation), _members, _typeProperties, _modelTypes);
-        public IGremlinQueryEnvironment ConfigureDeserializer(Func<ITransformer, ITransformer> deserializerTransformation) => new CachingGremlinQueryEnvironmentImpl(InnerEnvironment.ConfigureDeserializer(deserializerTransformation), _members, _typeProperties, _modelTypes);
-        public IGremlinQueryEnvironment ConfigureNativeTypes(Func<IImmutableSet<Type>, IImmutableSet<Type>> transformation) => new CachingGremlinQueryEnvironmentImpl(InnerEnvironment.ConfigureNativeTypes(transformation), _members, _typeProperties, _modelTypes);
-        public IGremlinQueryEnvironment ConfigureDebugger(Func<IGremlinQueryDebugger, IGremlinQueryDebugger> debuggerTransformation) => new CachingGremlinQueryEnvironmentImpl(InnerEnvironment.ConfigureDebugger(debuggerTransformation), _members, _typeProperties, _modelTypes);
-        public IGremlinQueryEnvironment ConfigureExecutor(Func<IGremlinQueryExecutor, IGremlinQueryExecutor> executorTransformation) => new CachingGremlinQueryEnvironmentImpl(InnerEnvironment.ConfigureExecutor(executorTransformation), _members, _typeProperties, _modelTypes);
+        public IGremlinQueryEnvironment ConfigureFeatureSet(Func<IFeatureSet, IFeatureSet> featureSetTransformation) => new CachingGremlinQueryEnvironment(InnerEnvironment.ConfigureFeatureSet(featureSetTransformation), _members, _typeProperties, ModelTypes);
+        public IGremlinQueryEnvironment ConfigureSerializer(Func<ITransformer, ITransformer> serializerTransformation) => new CachingGremlinQueryEnvironment(InnerEnvironment.ConfigureSerializer(serializerTransformation), _members, _typeProperties, ModelTypes);
+        public IGremlinQueryEnvironment ConfigureOptions(Func<IGremlinqOptions, IGremlinqOptions> optionsTransformation) => new CachingGremlinQueryEnvironment(InnerEnvironment.ConfigureOptions(optionsTransformation), _members, _typeProperties, ModelTypes);
+        public IGremlinQueryEnvironment ConfigureDeserializer(Func<ITransformer, ITransformer> deserializerTransformation) => new CachingGremlinQueryEnvironment(InnerEnvironment.ConfigureDeserializer(deserializerTransformation), _members, _typeProperties, ModelTypes);
+        public IGremlinQueryEnvironment ConfigureNativeTypes(Func<IImmutableSet<Type>, IImmutableSet<Type>> transformation) => new CachingGremlinQueryEnvironment(InnerEnvironment.ConfigureNativeTypes(transformation), _members, _typeProperties, ModelTypes);
+        public IGremlinQueryEnvironment ConfigureDebugger(Func<IGremlinQueryDebugger, IGremlinQueryDebugger> debuggerTransformation) => new CachingGremlinQueryEnvironment(InnerEnvironment.ConfigureDebugger(debuggerTransformation), _members, _typeProperties, ModelTypes);
+        public IGremlinQueryEnvironment ConfigureExecutor(Func<IGremlinQueryExecutor, IGremlinQueryExecutor> executorTransformation) => new CachingGremlinQueryEnvironment(InnerEnvironment.ConfigureExecutor(executorTransformation), _members, _typeProperties, ModelTypes);
 
         public ILogger Logger => InnerEnvironment.Logger;
         public IGraphModel Model => InnerEnvironment.Model;
@@ -77,6 +70,6 @@ namespace ExRam.Gremlinq.Core
             static (closureMember, model) => model.VerticesModel.TryGetMetadata(closureMember) ?? model.EdgesModel.TryGetMetadata(closureMember) ?? MemberMetadata.Default(closureMember.Name),
             InnerEnvironment.Model);
 
-        public HashSet<Type> ModelTypes => _modelTypes;
+        public HashSet<Type> ModelTypes { get; }
     }
 }

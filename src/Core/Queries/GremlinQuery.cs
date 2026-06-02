@@ -34,7 +34,7 @@ namespace ExRam.Gremlinq.Core
             Steps = steps;
             Metadata = metadata;
             LabelProjections = labelProjections;
-            Environment = environment as ICachingGremlinQueryEnvironment ?? new CachingGremlinQueryEnvironmentImpl(environment);
+            Environment = environment as ICachingGremlinQueryEnvironment ?? new CachingGremlinQueryEnvironment(environment);
         }
 
         public override string ToString() => $"GremlinQuery(Steps.Count: {Steps.Count})";

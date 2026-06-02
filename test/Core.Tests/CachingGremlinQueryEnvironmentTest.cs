@@ -270,6 +270,6 @@ namespace ExRam.Gremlinq.Core.Tests
         public void ConfigureModel_does_not_return_ICachingGremlinQueryEnvironment()
             => Wrap(GremlinQueryEnvironment.Invalid).ConfigureModel(x => x).Should().NotBeAssignableTo<ICachingGremlinQueryEnvironment>();
 
-        private static ICachingGremlinQueryEnvironment Wrap(IGremlinQueryEnvironment env) => new CachingGremlinQueryEnvironmentImpl(env);
+        private static ICachingGremlinQueryEnvironment Wrap(IGremlinQueryEnvironment env) => new CachingGremlinQueryEnvironment(env);
     }
 }
