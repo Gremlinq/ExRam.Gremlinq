@@ -3,7 +3,6 @@ using ExRam.Gremlinq.Core.Models;
 using ExRam.Gremlinq.Core.Transformation;
 
 using FluentAssertions;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 
 using NSubstitute;
@@ -12,17 +11,6 @@ namespace ExRam.Gremlinq.Core.Tests
 {
     public class CachingGremlinQueryEnvironmentTest
     {
-        [Fact]
-        public void InnerEnvironment_is_exposed()
-        {
-            var inner = GremlinQueryEnvironment.Invalid;
-
-            Wrap(inner)
-                .InnerEnvironment
-                .Should()
-                .BeSameAs(inner);
-        }
-
         [Fact]
         public void Logger_delegates_to_inner()
         {
