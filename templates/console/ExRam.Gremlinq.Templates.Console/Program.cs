@@ -34,6 +34,15 @@ namespace ExRam.Gremlinq.Templates.Console
 #elif (provider == "GremlinServer" && useTestContainers)
                     .UseGremlinServerModContainer()
 #else
+                    /* Important: You need to make sure that the server running on localhost supports string-typed custom Ids.
+                       Out of the box, the TinkerPop GremlinServer does NOT support string-typed custom Ids but expects them to
+                       be of type long. You have two options:
+                         1. Change below line to '.UseGremlinServerModContainer()'. This will, on each run of this project,
+                            start a throwaway local Docker container running a modded version of GremlinServer (specifically,
+                            ghcr.io/gremlinq/gremlin-server-mod. See https://github.com/Gremlinq/Gremlinq.Dockerfiles.GremlinServerMod
+                            for more info.
+                         2. Configure your instance of GremlinServer to support string-typed Ids. See https://github.com/aws/graph-notebook/tree/main/additional-databases/gremlin-server
+                            for some guidance. */
                     .AtLocalhost()
 #endif
                     .UseNewtonsoftJson());
