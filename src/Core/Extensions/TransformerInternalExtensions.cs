@@ -31,7 +31,7 @@ namespace ExRam.Gremlinq.Core
                
                     IGremlinQuerySource g = ...
                
-                    g = g.UseCosmosDb(c => c
+                    g = g.UseNeptune(c => c
                             .UseNewtonsoftJson());
                
                 ASP.NET Core
@@ -39,7 +39,7 @@ namespace ExRam.Gremlinq.Core
                     IServiceCollection services = ...
                
                     services.AddGremlinq(setup => setup
-                        .UseCosmosDb(providerSetup => providerSetup
+                        .UseNeptune(providerSetup => providerSetup
                             .UseNewtonsoftJson()));
                
                 Manual configuration
