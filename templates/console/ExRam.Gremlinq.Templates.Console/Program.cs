@@ -31,12 +31,6 @@ namespace ExRam.Gremlinq.Templates.Console
                         .WithRegion("us-east-1")
                         .WithAccessKeyId("accessKeyId")
                         .WithSecretAccessKey("secretAccessKey"))
-#elif (provider == "CosmosDb")
-                    .At(new Uri("wss://your.cosmosdb.endpoint/"))
-                    .OnDatabase("your database name")
-                    .OnGraph("your graph name")
-                    .WithPartitionKey(x => x.PartitionKey!)
-                    .AuthenticateBy("your auth key")
 #elif (provider == "GremlinServer" && useTestContainers)
                     .UseGremlinServerModContainer()
 #else

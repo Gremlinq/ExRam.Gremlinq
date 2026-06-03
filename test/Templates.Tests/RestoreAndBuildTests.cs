@@ -10,7 +10,6 @@ namespace ExRam.Gremlinq.Templates.Tests
 
         [Theory]
         [InlineData("Neptune", false)]
-        [InlineData("CosmosDb", false)]
         [InlineData("JanusGraph", false)]
         [InlineData("GremlinServer", true)]
         [InlineData("GremlinServer", false)]
@@ -18,7 +17,6 @@ namespace ExRam.Gremlinq.Templates.Tests
 
         [Theory]
         [InlineData("Neptune", false)]
-        [InlineData("CosmosDb", false)]
         [InlineData("JanusGraph", false)]
         [InlineData("GremlinServer", true)]
         [InlineData("GremlinServer", false)]
