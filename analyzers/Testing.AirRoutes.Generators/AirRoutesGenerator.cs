@@ -187,7 +187,7 @@ namespace ExRam.Gremlinq.Testing.AirRoutes.Generators
                                                                                         "desc" => writer.WriteLine($"Description = \"{data.Text}\","),
                                                                                         "region" => writer.WriteLine($"Region = \"{data.Text}\","),
                                                                                         "runways" => writer.WriteLine($"Runways = {data.Text},"),
-                                                                                        "longestRunway" => writer.WriteLine($"LongestRunway = {data.Text},"),
+                                                                                        "longest" => writer.WriteLine($"LongestRunway = {data.Text},"),
                                                                                         "elev" => writer.WriteLine($"Elevation = {data.Text},"),
                                                                                         "country" => writer.WriteLine($"Country = \"{data.Text}\","),
                                                                                         "lat" => writer.WriteLine($"Latitude = {data.Text},"),
