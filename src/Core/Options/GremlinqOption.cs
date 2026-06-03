@@ -135,10 +135,6 @@ namespace ExRam.Gremlinq.Core
         /// </summary>
         public static readonly GremlinqOption<DisabledTextPredicates> DisabledTextPredicates = Create(Core.DisabledTextPredicates.None);
 
-        /// <summary>Controls the strictness of string comparison translation.</summary>
-        [Obsolete("Starting from version 14, Gremlinq will always behave as if StringComparisonTranslationStrictness.Strict was configured. Queries using a string comparison which is not supported on a specific database provider (e.g. case insensitive queries on Azure CosmosDb) must be modified accordingly.")]
-        public static readonly GremlinqOption<StringComparisonTranslationStrictness> StringComparisonTranslationStrictness = Create(Core.StringComparisonTranslationStrictness.Strict);
-
         /// <summary>
         /// The log level used when logging queries.
         /// </summary>
