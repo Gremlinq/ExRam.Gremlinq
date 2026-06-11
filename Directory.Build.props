@@ -2,6 +2,7 @@
   <PropertyGroup>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
     <ImplicitUsings>enable</ImplicitUsings>
     <EnablePackageValidation>true</EnablePackageValidation>
     <LangVersion>14.0</LangVersion>
