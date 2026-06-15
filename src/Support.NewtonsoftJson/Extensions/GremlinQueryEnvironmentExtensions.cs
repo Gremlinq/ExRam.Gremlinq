@@ -116,6 +116,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                 .Add(new NativeTypeConverterFactory())
                 .Add(new NullableConverterFactory())
 
+                .Add(new KeyConverterFactory())
                 .Add(new TimeSpanConverterFactory())
                 .Add(new DateTimeOffsetConverterFactory())
                 .Add(new DateTimeConverterFactory()));

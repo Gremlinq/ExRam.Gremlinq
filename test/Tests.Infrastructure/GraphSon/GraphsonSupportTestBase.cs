@@ -83,6 +83,22 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public Task String_from_int() => Verify<string>("42");
 
         [Fact]
+        public Task Id_Key() => Verify<Key>("""
+            {
+                "@type": "g:T",
+                "@value": "id"
+            }
+            """);
+
+        [Fact]
+        public Task Label_Key() => Verify<Key>("""
+            {
+                "@type": "g:T",
+                "@value": "label"
+            }
+            """);
+
+        [Fact]
         public Task Everything() => Verify<EverythingAllAtOnce>(EverythingAllAtOnceData);
 
         [Fact]

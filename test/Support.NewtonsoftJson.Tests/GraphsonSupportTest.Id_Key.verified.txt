@@ -1,0 +1,6 @@
+﻿{
+  RawKey: {
+    EnumName: T,
+    EnumValue: id
+  }
+}
