@@ -1,7 +1,11 @@
 ﻿[
   {
-    Age: 0,
-    Name: Bob,
-    RegistrationDate: 2020-04-07 14:43:36 +0
+    RegistrationDate: 2020-04-07 14:43:36 +0,
+    Name: {
+      Value: Bob
+    },
+    Id: 10,
+    Label: Person,
+    PartitionKey: PartitionKey
   }
 ]

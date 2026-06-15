@@ -3,6 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 using ExRam.Gremlinq.Core.Transformation;
 using ExRam.Gremlinq.Core;
 using System.Runtime.CompilerServices;
+using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Support.NewtonsoftJson
 {
@@ -24,11 +25,35 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                     if (serialized.TryGetValue("@value", out var valueToken) && valueToken is JArray mapArray)
                     {
                         var retObject = new JObject();
+                        var maybeIdToken = default(JToken?);
+                        var maybeLabelToken = default(JToken?);
 
                         for (var i = 0; i < mapArray.Count / 2; i++)
                         {
-                            if (mapArray[i * 2].TryParseKey(out var key) && key.RawKey is string stringKey)
-                                retObject.Add(stringKey, mapArray[i * 2 + 1]);
+                            if (mapArray[i * 2].TryParseKey(out var key))
+                            {
+                                var mapValue = mapArray[i * 2 + 1];
+
+                                if (key.RawKey is string stringKey)
+                                    retObject.Add(stringKey, mapValue);
+                                else if (key.RawKey is T t)
+                                {
+                                    if (T.Id.Equals(t))
+                                        maybeIdToken = mapValue;
+                                    else if (T.Label.Equals(t))
+                                        maybeLabelToken = mapValue;
+                                }
+                            }
+                        }
+
+                        if (maybeIdToken is { } idToken && maybeLabelToken is { } labelToken)
+                        {
+                            retObject = new JObject()
+                            {
+                                { "id", idToken },
+                                { "label", labelToken },
+                                { "properties", retObject }
+                            };
                         }
 
                         return recurse.TryTransform(retObject, _environment, out value);
