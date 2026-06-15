@@ -340,6 +340,12 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public Task Person_lowercase_strongly_typed() => Verify<Person>(Single_Person_lowercase_properties);
 
         [Fact]
+        public Task Person_From_ElementMap() => Verify<Person>(Single_Person_ElementMap);
+
+        [Fact]
+        public Task Person_From_ElementMap_untyped() => Verify<object>(Single_Person_ElementMap);
+
+        [Fact]
         public Task Person_StringId() => Verify<Person>(Single_Person_String_Id);
 
         [Fact]

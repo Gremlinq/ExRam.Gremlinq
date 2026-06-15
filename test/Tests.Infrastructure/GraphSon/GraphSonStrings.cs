@@ -580,6 +580,39 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             }
             """;
 
+        public static readonly string Single_Person_ElementMap = """
+            {
+              "@type": "g:Map",
+              "@value": [
+                {
+                  "@type": "g:T",
+                  "@value": "id"
+                },
+                {
+                  "@type": "g:Int64",
+                  "@value": 10
+                },
+                {
+                  "@type": "g:T",
+                  "@value": "label"
+                },
+                "Person",
+                "RegistrationDate",
+                {
+                  "@type": "g:Date",
+                  "@value": 1586270616000
+                },
+                "Age",
+                {
+                  "@type": "g:Int32",
+                  "@value": 0
+                },
+                "Name",
+                "Bob"
+              ]
+            }
+            """;
+
         public static readonly string Single_Person = """
             {
               "id": 13,
