@@ -99,6 +99,16 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             """);
 
         [Fact]
+        public Task Id_Key_from_string() => Verify<Key>("""
+            "someId"
+            """);
+
+        [Fact]
+        public Task Label_Key_from_string() => Verify<Key>("""
+            "someLabel"
+            """);
+
+        [Fact]
         public Task Everything() => Verify<EverythingAllAtOnce>(EverythingAllAtOnceData);
 
         [Fact]
