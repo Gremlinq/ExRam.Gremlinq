@@ -1,7 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Transformation;
-
+using Gremlin.Net.Process.Traversal;
 using Newtonsoft.Json.Linq;
 
 namespace ExRam.Gremlinq.Support.NewtonsoftJson
@@ -41,6 +41,28 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
             }
 
             return null;
+        }
+
+        public static bool TryParseKey(this JToken token, out Key key)
+        {
+            if (token is JObject jObject)
+            {
+                if (jObject.TryGetValue("@type", out var @type) && "g:T".Equals(@type.Value<string>(), StringComparison.OrdinalIgnoreCase) && jObject.TryGetValue("@value", out var valueToken) && valueToken.Type == JTokenType.String && valueToken.Value<string>() is { } stringValue)
+                {
+                    key = new Key(T.GetByValue(stringValue));
+
+                    return true;
+                }
+            }
+            else if (token is JValue { Type: JTokenType.String } stringValue)
+            {
+                key = new Key(stringValue.ToString());
+
+                return true;
+            }
+
+            key = default;
+            return false;
         }
 
         public static bool LooksLikeElement(this JObject jObject, [NotNullWhen(true)] out JToken? idToken, [NotNullWhen(true)] out JValue? labelValue, out JObject? propertiesObject)
