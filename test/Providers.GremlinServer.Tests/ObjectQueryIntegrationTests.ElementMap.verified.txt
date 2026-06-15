@@ -1,0 +1,7 @@
+﻿[
+  {
+    Age: 0,
+    Name: Bob,
+    RegistrationDate: 2020-04-07 14:43:36 +0
+  }
+]

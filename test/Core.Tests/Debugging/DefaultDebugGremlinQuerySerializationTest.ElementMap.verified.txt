@@ -1,0 +1,1 @@
+﻿g.V(10).hasLabel('Person').elementMap()

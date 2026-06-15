@@ -1015,6 +1015,12 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Verify();
 
         [Fact]
+        public virtual Task ElementMap() => _g
+            .V<Person>(10L)
+            .ElementMap()
+            .Verify();
+
+        [Fact]
         public virtual Task Emit_Repeat() => _g
             .V<Person>()
             .Cast<object>()

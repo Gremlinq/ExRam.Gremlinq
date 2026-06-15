@@ -1,0 +1,7 @@
+﻿{
+  Script: g.V(_a).hasLabel(_b).elementMap(),
+  Bindings: {
+    _a: 10,
+    _b: Person
+  }
+}
