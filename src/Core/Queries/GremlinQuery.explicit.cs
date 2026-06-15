@@ -204,6 +204,8 @@ namespace ExRam.Gremlinq.Core
 
         IGremlinQuery<string> IElementGremlinQueryBase.Label() => Label();
 
+        IMapGremlinQuery<IDictionary<Key, object>> IElementGremlinQueryBase.ElementMap() => ElementMap();
+
         IMapGremlinQuery<IDictionary<string, TTarget>> IElementGremlinQueryBase.ValueMap<TTarget>() => ValueMap<IDictionary<string, TTarget>>([]);
 
         IMapGremlinQuery<IDictionary<string, object>> IElementGremlinQueryBase.ValueMap() => ValueMap<IDictionary<string, object>>([]);

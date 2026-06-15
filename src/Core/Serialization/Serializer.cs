@@ -393,6 +393,7 @@ namespace ExRam.Gremlinq.Core.Serialization
                 ? CreateInstruction("dedup", recurse, env, step.Scope)
                 : dedup)
             .Add<DropStep>((_, _, _, _) => drop)
+            .Add<ElementMapStep>((step, env, _, recurse) => elementMap)
             .Add<EmitStep>((_, _, _, _) => emit)
             .Add<EStep>((step, env, _, recurse) => CreateInstruction("E", recurse, env, step.Ids))
             .Add<ExplainStep>((_, _, _, _) => explain)

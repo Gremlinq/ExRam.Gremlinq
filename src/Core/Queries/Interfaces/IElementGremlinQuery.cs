@@ -34,6 +34,13 @@ namespace ExRam.Gremlinq.Core
         IGremlinQuery<TValue> Values<TValue>();
 
         /// <summary>
+        /// Map elements to a dictionary of their property keys and values, including tokens like id and label.
+        /// Corresponds to the Gremlin <c>elementMap()</c> step.
+        /// </summary>
+        /// <seealso href="https://tinkerpop.apache.org/docs/current/reference/#valuemap-step">Reference Documentation - ValueMap Step</seealso>
+        IMapGremlinQuery<IDictionary<Key, object>> ElementMap();
+
+        /// <summary>
         /// Map elements to a dictionary of their property keys and values.
         /// Corresponds to the Gremlin <c>valueMap()</c> step.
         /// </summary>
@@ -41,7 +48,7 @@ namespace ExRam.Gremlinq.Core
         IMapGremlinQuery<IDictionary<string, object>> ValueMap();
 
         /// <inheritdoc cref="ValueMap()" />
-        IMapGremlinQuery<IDictionary<string, TValue>> ValueMap<TValue>();
+        IMapGremlinQuery<IDictionary<string, TValue>> ValueMap<TValue>();   //TODO: Deprecate and remove this. 
     }
 
     /// <summary>Provides recursive (CRTP) base operations for element queries that return <typeparamref name="TSelf"/>.</summary>

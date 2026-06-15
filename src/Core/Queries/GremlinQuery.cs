@@ -1275,6 +1275,13 @@ namespace ExRam.Gremlinq.Core
                 .WithNewProjection(Projection.Value)
                 .BuildAuto<TNewPropertyValue>());
 
+        private GremlinQuery<IDictionary<Key, object>, object, object, IGremlinQueryBase> ElementMap() => this
+            .Continue()
+            .Build(static builder => builder
+                .AddStep(ElementMapStep.Instance)
+                .WithNewProjection(Projection.Value)
+                .BuildAuto<IDictionary<Key, object>>());
+
         private GremlinQuery<TNewElement, object, object, IGremlinQueryBase> ValueMap<TNewElement>(ReadOnlySpan<string> keys) => ValueMapImpl<TNewElement>(keys.ToImmutableArray());
 
         private GremlinQuery<TNewElement, object, object, IGremlinQueryBase> ValueMapForExpressions<TNewElement>(ReadOnlySpan<LambdaExpression> projections) => ValueMapImpl<TNewElement>(GetStringKeyArray(projections));

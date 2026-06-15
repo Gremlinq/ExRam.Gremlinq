@@ -15,6 +15,7 @@ namespace ExRam.Gremlinq.Core.Serialization
         public static readonly Instruction emit = new(nameof(emit));
         public static readonly Instruction explain = new(nameof(explain));
         public static readonly Instruction dedup = new(nameof(dedup));
+        public static readonly Instruction elementMap = new(nameof(elementMap));
         public static readonly Instruction fail = new(nameof(fail));
         public static readonly Instruction fold = new(nameof(fold));
         public static readonly Instruction group = new(nameof(group));

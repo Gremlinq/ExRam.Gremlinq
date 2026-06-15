@@ -359,6 +359,7 @@ namespace ExRam.Gremlinq.Core
     public interface IElementGremlinQueryBase : ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IStartGremlinQuery
     {
         ExRam.Gremlinq.Core.IElementGremlinQuery<TResult> Cast<TResult>();
+        ExRam.Gremlinq.Core.IMapGremlinQuery<System.Collections.Generic.IDictionary<ExRam.Gremlinq.Core.Key, object>> ElementMap();
         ExRam.Gremlinq.Core.IGremlinQuery<object> Id();
         ExRam.Gremlinq.Core.IGremlinQuery<string> Label();
         ExRam.Gremlinq.Core.IMapGremlinQuery<System.Collections.Generic.IDictionary<string, object>> ValueMap();
@@ -2612,6 +2613,7 @@ namespace ExRam.Gremlinq.Core.Steps
         public EStep(System.Collections.Immutable.ImmutableArray<object> ids) { }
         public System.Collections.Immutable.ImmutableArray<object> Ids { get; }
     }
+    public sealed class ElementMapStep : ExRam.Gremlinq.Core.Steps.Step { }
     public sealed class EmitStep : ExRam.Gremlinq.Core.Steps.Step
     {
         public static readonly ExRam.Gremlinq.Core.Steps.EmitStep Instance;
