@@ -1,0 +1,19 @@
+﻿{
+  StepInstructions: [
+    {
+      OperatorName: V,
+      Arguments: [
+        10
+      ]
+    },
+    {
+      OperatorName: hasLabel,
+      Arguments: [
+        Person
+      ]
+    },
+    {
+      OperatorName: elementMap
+    }
+  ]
+}
