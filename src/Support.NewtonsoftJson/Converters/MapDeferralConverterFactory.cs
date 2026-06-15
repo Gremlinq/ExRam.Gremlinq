@@ -27,8 +27,8 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
 
                         for (var i = 0; i < mapArray.Count / 2; i++)
                         {
-                            if (mapArray[i * 2] is JValue { Type: JTokenType.String } key)
-                                retObject.Add(key.Value<string>()!, mapArray[i * 2 + 1]);
+                            if (mapArray[i * 2].TryParseKey(out var key) && key.RawKey is string stringKey)
+                                retObject.Add(stringKey, mapArray[i * 2 + 1]);
                         }
 
                         return recurse.TryTransform(retObject, _environment, out value);
