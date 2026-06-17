@@ -90,8 +90,10 @@ namespace ExRam.Gremlinq.Providers.Neptune
                     .AddGraphSonBinarySupport()
                     .ConfigureSerializer(serializer => serializer
                         .Add(ConverterFactory
-                            .Create<PropertyStep.ByKeyStep, PropertyStep.ByKeyStep>((step, _, _, _) => Cardinality.List.Equals(step.Cardinality)
-                                ? new PropertyStep.ByKeyStep(step.Key, step.Value, step.MetaProperties, Cardinality.Set)
+                            .Create<PropertyStep.ByKeyStep, Instruction>((step, env, _, recurse) => Cardinality.List.Equals(step.Cardinality)
+                                ? recurse
+                                    .TransformTo<Instruction>()
+                                    .From(new PropertyStep.ByKeyStep(step.Key, step.Value, step.MetaProperties, Cardinality.Set), env)
                                 : null)))
                     .ConfigureDeserializer(deserializer => deserializer
                         .AsIncomplete())))
