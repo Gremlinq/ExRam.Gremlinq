@@ -144,14 +144,7 @@ namespace ExRam.Gremlinq.Core.Serialization
 
                     static void AddStep(Step step, Bytecode byteCode, bool isSourceStep, IGremlinQueryEnvironment env, ITransformer recurse)
                     {
-                        if (recurse.TryTransform(step, env, out Step[]? expandedSteps))
-                        {
-                            foreach (var innerExpandedStep in expandedSteps)
-                            {
-                                AddStep(innerExpandedStep, byteCode, isSourceStep, env, recurse);
-                            }
-                        }
-                        else if (recurse.TryTransform(step, env, out Step? expandedStep) && !ReferenceEquals(step, expandedStep))
+                        if (recurse.TryTransform(step, env, out Step? expandedStep) && !ReferenceEquals(step, expandedStep))
                             AddStep(expandedStep, byteCode, isSourceStep, env, recurse);
                         else if (recurse.TryTransform(step, env, out Traversal traversal))
                             AddTraversal(traversal, byteCode, env, recurse);

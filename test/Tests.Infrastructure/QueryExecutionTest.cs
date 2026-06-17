@@ -4,6 +4,7 @@ using ExRam.Gremlinq.Core.GraphElements;
 using ExRam.Gremlinq.Core.Models;
 using ExRam.Gremlinq.Core.Steps;
 using ExRam.Gremlinq.Tests.Entities;
+using Gremlin.Net.Process.Traversal;
 using static ExRam.Gremlinq.Core.Transformation.ConverterFactory;
 using ExRam.Gremlinq.Core;
 using FluentAssertions;
@@ -1431,15 +1432,15 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public Task Multi_step_serialization() => _g
             .ConfigureEnvironment(env => env
                 .ConfigureSerializer(ser => ser
-                    .Add(Create<EStep, Step[]>((_, env, _, recurse) => recurse
-                        .TransformTo<Step[]>()
-                        .From(
-                            new Step[]
-                            {
-                                new VStep(ImmutableArray<object>.Empty),
-                                new OutEStep(ImmutableArray<string>.Empty)
-                            },
-                            env)))))
+                    .Add(Create<EStep, Instruction[]>((_, env, _, recurse) =>
+                    [
+                        recurse
+                            .TransformTo<Instruction>()
+                            .From(new VStep(ImmutableArray<object>.Empty), env),
+                        recurse
+                            .TransformTo<Instruction>()
+                            .From(new OutEStep(ImmutableArray<string>.Empty), env)
+                    ]))))
             .E()
             .Verify();
 
@@ -1447,10 +1448,14 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public Task Multi_step_serialization_with_forgotten_serialize() => _g
             .ConfigureEnvironment(env => env
                 .ConfigureSerializer(ser => ser
-                    .Add(Create<EStep, Step[]>((_, _, _, _) =>
+                    .Add(Create<EStep, Instruction[]>((_, _, _, recurse) =>
                     [
-                        new VStep(ImmutableArray<object>.Empty),
-                        new OutEStep(ImmutableArray<string>.Empty)
+                        recurse
+                            .TransformTo<Instruction>()
+                            .From(new VStep(ImmutableArray<object>.Empty), env),
+                        recurse
+                            .TransformTo<Instruction>()
+                            .From(new OutEStep(ImmutableArray<string>.Empty), env)
                     ]))))
             .E()
             .Verify();
