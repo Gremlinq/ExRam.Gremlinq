@@ -144,26 +144,32 @@ namespace ExRam.Gremlinq.Core.Serialization
 
                     static void AddStep(Step step, Bytecode byteCode, bool isSourceStep, IGremlinQueryEnvironment env, ITransformer recurse)
                     {
-                        if (recurse.TryTransform(step, env, out Step[]? expandedSteps))
+                        if (recurse.TryTransform(step, env, out object? expansion)) 
                         {
-                            foreach (var innerExpandedStep in expandedSteps)
+                            if (expansion is Instruction instruction)
+                                AddInstruction(instruction, byteCode, isSourceStep, env, recurse);
+                            else if (expansion is Instruction[] instructions)
                             {
-                                AddStep(innerExpandedStep, byteCode, isSourceStep, env, recurse);
+                                foreach (var expandedInstruction in instructions)
+                                {
+                                    AddInstruction(expandedInstruction, byteCode, isSourceStep, env, recurse);
+                                }
                             }
-                        }
-                        else if (recurse.TryTransform(step, env, out Step? expandedStep) && !ReferenceEquals(step, expandedStep))
-                            AddStep(expandedStep, byteCode, isSourceStep, env, recurse);
-                        else if (recurse.TryTransform(step, env, out Traversal traversal))
-                            AddTraversal(traversal, byteCode, env, recurse);
-                        else if (recurse.TryTransform(step, env, out Instruction[]? expandedInstructions))
-                        {
-                            foreach (var expandedInstruction in expandedInstructions)
+                            else if (expansion is Step expandedStep)
                             {
-                                AddInstruction(expandedInstruction, byteCode, isSourceStep, env, recurse);
+                                if (!ReferenceEquals(step, expandedStep))
+                                    AddStep(expandedStep, byteCode, isSourceStep, env, recurse);
                             }
+                            else if (expansion is Step[] expandedSteps)
+                            {
+                                foreach (var innerExpandedStep in expandedSteps)
+                                {
+                                    AddStep(innerExpandedStep, byteCode, isSourceStep, env, recurse);
+                                }
+                            }
+                            else if (expansion is Traversal traversal)
+                                AddTraversal(traversal, byteCode, env, recurse);
                         }
-                        else if (recurse.TryTransform(step, env, out Instruction? expandedInstruction))
-                            AddInstruction(expandedInstruction, byteCode, isSourceStep, env, recurse);
                     }
 
                     static void AddSteps(ReadOnlySpan<Step> steps, Bytecode byteCode, bool isSourceStep, IGremlinQueryEnvironment env, ITransformer recurse)
