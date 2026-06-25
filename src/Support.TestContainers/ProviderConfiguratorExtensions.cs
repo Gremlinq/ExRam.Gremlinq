@@ -77,7 +77,7 @@ namespace ExRam.Gremlinq.Support.TestContainers
                             .ForUnixContainer()
                             .UntilInternalTcpPortIsAvailable(8182)))
                     .ConfigureClientFactory((poolFactory, container) => poolFactory
-                            .ConfigureBaseFactory(webSocketFactory => webSocketFactory
-                                .ConfigureUri(_ => new Uri($"ws://localhost:{container.GetMappedPublicPort(8182)}")))));
+                        .ConfigureBaseFactory(webSocketFactory => webSocketFactory
+                            .ConfigureUri(_ => new Uri($"ws://localhost:{container.GetMappedPublicPort(8182)}")))));
     }
 }
