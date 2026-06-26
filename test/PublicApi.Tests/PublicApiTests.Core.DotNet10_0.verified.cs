@@ -2613,7 +2613,10 @@ namespace ExRam.Gremlinq.Core.Steps
         public EStep(System.Collections.Immutable.ImmutableArray<object> ids) { }
         public System.Collections.Immutable.ImmutableArray<object> Ids { get; }
     }
-    public sealed class ElementMapStep : ExRam.Gremlinq.Core.Steps.Step { }
+    public sealed class ElementMapStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public static readonly ExRam.Gremlinq.Core.Steps.ElementMapStep Instance;
+    }
     public sealed class EmitStep : ExRam.Gremlinq.Core.Steps.Step
     {
         public static readonly ExRam.Gremlinq.Core.Steps.EmitStep Instance;

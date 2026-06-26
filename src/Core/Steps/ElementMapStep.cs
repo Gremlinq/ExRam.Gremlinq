@@ -4,11 +4,11 @@ namespace ExRam.Gremlinq.Core.Steps
     /// <seealso href="https://tinkerpop.apache.org/docs/current/reference/#valuemap-step">Reference Documentation - ValueMap Step</seealso>
     public sealed class ElementMapStep : Step
     {
-        internal static readonly ElementMapStep Instance = new();
-
         /// <summary>
-        /// 
+        ///  Singleton instance of the <see cref="ElementMapStep" /> step.
         /// </summary>
+        public static readonly ElementMapStep Instance = new();
+
         private ElementMapStep() { }
     }
 }
