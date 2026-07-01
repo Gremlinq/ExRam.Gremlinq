@@ -8,6 +8,12 @@
         "resolved": "7.0.120",
         "contentHash": "nwDa8oHQ902bHgHrBzrcHHOhC1U7mLlOhPMsLJOYes3hSzDdkc0cmjxq/GrF+zcJPCbDP0fyC352BSf2Uke8qg=="
       },
+      "Nerdbank.GitVersioning": {
+        "type": "Direct",
+        "requested": "[3.9.50, )",
+        "resolved": "3.9.50",
+        "contentHash": "HtOgGF6jZ+WYbXnCUCYPT8Y2d6mIJo9ozjK/FINTRsXdm4Zgv9GehUMa7EFoGQkqrMcDJNOIDwCmENnvXg4UbA=="
+      },
       "NETStandard.Library": {
         "type": "Direct",
         "requested": "[2.0.3, )",
