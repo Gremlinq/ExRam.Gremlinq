@@ -7,11 +7,11 @@ This file provides guidance for AI agents working with the ExRam.Gremlinq reposi
 ExRam.Gremlinq is a .NET object-graph-mapper (OGM) for Apache TinkerPop™ Gremlin-enabled graph databases. It translates strongly-typed C# LINQ-style queries into Gremlin bytecode/scripts and handles serialization/deserialization.
 
 **Key Details:**
-- **SDK:** .NET 10.0.103 (pinned in `global.json` with `rollForward: disable`)
+- **SDK:** .NET 10.0.300 (pinned in `global.json` with `rollForward: disable`)
 - **Language:** C# 14.0 with nullable enabled, implicit usings, and `TreatWarningsAsErrors`
 - **Solution file:** `ExRam.Gremlinq.slnx` (XML-based slnx format)
 - **Versioning:** Nerdbank.GitVersioning (`version.json`)
-- **Package management:** Central Package Management via `Directory.Packages.props`
+- **Package management:** Central Package Management via `Directory.Packages.props` files in src/, test/, and analyzers/ directories
 - **Projects:** ~37 projects (17 src, 16 test, 1 templates, 3 test infrastructure)
 
 ## Build Instructions
@@ -101,11 +101,13 @@ dotnet test -c Debug --solution ./ExRam.Gremlinq.slnx --ignore-exit-code 8
 ## Project Structure
 
 ```
+├── analyzers/
+│   ├── Analyzers/                   # Roslyn source analyzers (netstandard2.0)
+│   ├── Core.Generators/             # Roslyn source generators (netstandard2.0)
+│   └── Testing.AirRoutes.Generators/
 ├── src/
 │   ├── Core/                        # Core OGM library (query building, serialization, models)
 │   ├── Core.AspNet/                 # ASP.NET Core DI integration for Core
-│   ├── Core.Generators/             # Roslyn source generators (netstandard2.0)
-│   ├── Analyzers/                   # Roslyn source analyzers (netstandard2.0)
 │   ├── Providers.Core/              # Base provider infrastructure
 │   ├── Providers.CosmosDb/          # Azure CosmosDb provider
 │   ├── Providers.CosmosDb.AspNet/   # CosmosDb + ASP.NET Core DI
@@ -130,6 +132,12 @@ dotnet test -c Debug --solution ./ExRam.Gremlinq.slnx --ignore-exit-code 8
 │   └── Benchmarks/                  # BenchmarkDotNet benchmarks
 ├── templates/                       # dotnet new templates
 ├── Directory.Build.props            # Root build props
+├── src/
+│   └── Directory.Packages.props     # Central package versions for src projects
+├── test/
+│   └── Directory.Packages.props     # Central package versions for test projects
+├── analyzers/
+│   └── Directory.Packages.props     # Central package versions for analyzers
 ├── global.json                      # SDK version pin
 └── .editorconfig                    # Code style
 ```
