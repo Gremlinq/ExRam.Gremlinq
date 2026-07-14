@@ -25,7 +25,7 @@ namespace ExRam.Gremlinq.Core
             if (newItems.Length > 0)
             {
                 var newListLength = Count + newItems.Length;
-                var newListMemory = EnsureCapacity(Math.Max(newListLength, 16)).Items;
+                var newListMemory = EnsureCapacity(newListLength).Items;
                 var targetSpan = newListMemory.Span[Count..];
 
                 if (newListMemory.Equals(Items))
@@ -53,7 +53,7 @@ namespace ExRam.Gremlinq.Core
                 ? Interlocked.CompareExchange(ref steps.Span[Count], item, null) != null
                     ? Clone().Push(item)
                     : new FastImmutableList<T>(steps, Count + 1)
-                : EnsureCapacity(Math.Max(steps.Length * 2, 16)).Push(item);
+                : EnsureCapacity(steps.Length * 2).Push(item);
         }
 
         public FastImmutableList<T> Pop(out T poppedItem)
@@ -92,6 +92,8 @@ namespace ExRam.Gremlinq.Core
 
         public FastImmutableList<T> EnsureCapacity(int count)
         {
+            count = Math.Max(count, 16);
+
             if (Items.Length < count)
             {
                 var newItems = new T[count];
