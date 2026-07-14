@@ -81,26 +81,7 @@ namespace ExRam.Gremlinq.Core
                 var projectionTraversal = Projection.ToTraversal(environment);
 
                 if (projectionTraversal.Count > 0)
-                {
-                    var newSteps = FastImmutableList<Step>
-                        .Create(
-                            Count + projectionTraversal.Count,
-                            (_steps, projectionTraversal),
-                            static (newSteps, state) =>
-                            {
-                                var (steps, projectionTraversal) = state;
-
-                                steps
-                                    .AsSpan()
-                                    .CopyTo(newSteps);
-
-                                projectionTraversal
-                                    .Steps
-                                    .CopyTo(newSteps[steps.Count..]);
-                            });
-
-                    return new Traversal(newSteps, _writeStepsCount, Projection.Empty);
-                }
+                    return new Traversal(_steps.Push(projectionTraversal.Steps), _writeStepsCount, Projection.Empty);
             }
 
             return this;
