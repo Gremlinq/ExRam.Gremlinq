@@ -2610,7 +2610,7 @@ namespace ExRam.Gremlinq.Core.Steps
     }
     public sealed class EStep : ExRam.Gremlinq.Core.Steps.Step
     {
-        public static readonly ExRam.Gremlinq.Core.Steps.EStep Empty;
+        public static readonly ExRam.Gremlinq.Core.Steps.EStep NoIds;
         public EStep(System.Collections.Immutable.ImmutableArray<object> ids) { }
         public System.Collections.Immutable.ImmutableArray<object> Ids { get; }
     }
@@ -3104,7 +3104,7 @@ namespace ExRam.Gremlinq.Core.Steps
     }
     public sealed class VStep : ExRam.Gremlinq.Core.Steps.Step
     {
-        public static readonly ExRam.Gremlinq.Core.Steps.VStep Empty;
+        public static readonly ExRam.Gremlinq.Core.Steps.VStep NoIds;
         public VStep(System.Collections.Immutable.ImmutableArray<object> ids) { }
         public System.Collections.Immutable.ImmutableArray<object> Ids { get; }
     }

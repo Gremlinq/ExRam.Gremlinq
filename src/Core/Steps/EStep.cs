@@ -9,7 +9,7 @@ namespace ExRam.Gremlinq.Core.Steps
         /// <summary>
         ///  Static instance of <see cref="EStep"/> representing a call to the E() operator without any ids passed. 
         /// </summary>
-        public static readonly EStep Empty = new (ImmutableArray<object>.Empty);
+        public static readonly EStep NoIds = new (ImmutableArray<object>.Empty);
 
         /// <summary>Initializes a new instance of <see cref="EStep"/> with the specified edge identifiers.</summary>
         /// <param name="ids">The edge identifiers to read.</param>
