@@ -39,22 +39,22 @@ namespace ExRam.Gremlinq.Benchmarks
             .Push(Steps32);
 
         [Benchmark]
-        public object Push_4_multiple() => _steps
-            .Push(Steps4)
-            .Push(Steps4)
-            .Push(Steps4)
-            .Push(Steps4)
-            .Push(Steps4)
-            .Push(Steps4)
-            .Push(Steps4)
-            .Push(Steps4)
-            .Push(Steps4)
-            .Push(Steps4)
-            .Push(Steps4)
-            .Push(Steps4)
-            .Push(Steps4)
-            .Push(Steps4)
-            .Push(Steps4)
-            .Push(Steps4);
+        public object Push_4_multiple() => _steps   //8, 16
+            .Push(Steps4)                           //12, 16
+            .Push(Steps4)                           //16, 16
+            .Push(Steps4)                           //20, 32
+            .Push(Steps4)                           //24, 32
+            .Push(Steps4)                           //28, 32
+            .Push(Steps4)                           //32, 32
+            .Push(Steps4)                           //36, 64
+            .Push(Steps4)                           //40, 64
+            .Push(Steps4)                           //44, 64
+            .Push(Steps4)                           //48, 64
+            .Push(Steps4)                           //52, 64
+            .Push(Steps4)                           //56, 64
+            .Push(Steps4)                           //60, 64
+            .Push(Steps4)                           //64, 64
+            .Push(Steps4)                           //68, 128
+            .Push(Steps4);                          //72, 128 => 16 + 32 + 64 + 128 = 240
     }
 }

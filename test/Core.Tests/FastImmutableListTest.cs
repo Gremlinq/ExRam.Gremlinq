@@ -1,3 +1,4 @@
+using ExRam.Gremlinq.Core.Steps;
 using FluentAssertions;
 
 namespace ExRam.Gremlinq.Core.Tests
@@ -57,5 +58,24 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Should()
                 .Equal("1");
         }
+
+        [Fact]
+        public void Push_multiple() => _ = FastImmutableList<Step>.Empty
+            .Push(CountStep.Local, CountStep.Local, CountStep.Local, CountStep.Local)
+            .Push(CountStep.Local, CountStep.Local, CountStep.Local, CountStep.Local)
+            .Push(CountStep.Local, CountStep.Local, CountStep.Local, CountStep.Local)
+            .Push(CountStep.Local, CountStep.Local, CountStep.Local, CountStep.Local)
+            .Push(CountStep.Local, CountStep.Local, CountStep.Local, CountStep.Local)
+            .Push(CountStep.Local, CountStep.Local, CountStep.Local, CountStep.Local)
+            .Push(CountStep.Local, CountStep.Local, CountStep.Local, CountStep.Local)
+            .Push(CountStep.Local, CountStep.Local, CountStep.Local, CountStep.Local)
+            .Push(CountStep.Local, CountStep.Local, CountStep.Local, CountStep.Local)
+            .Push(CountStep.Local, CountStep.Local, CountStep.Local, CountStep.Local)
+            .Push(CountStep.Local, CountStep.Local, CountStep.Local, CountStep.Local)
+            .Push(CountStep.Local, CountStep.Local, CountStep.Local, CountStep.Local)
+            .Push(CountStep.Local, CountStep.Local, CountStep.Local, CountStep.Local)
+            .Push(CountStep.Local, CountStep.Local, CountStep.Local, CountStep.Local)
+            .Push(CountStep.Local, CountStep.Local, CountStep.Local, CountStep.Local)
+            .Push(CountStep.Local, CountStep.Local, CountStep.Local, CountStep.Local);
     }
 }
