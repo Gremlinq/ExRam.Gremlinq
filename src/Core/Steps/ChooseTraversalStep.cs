@@ -8,7 +8,7 @@ namespace ExRam.Gremlinq.Core.Steps
         /// <param name="ifTraversal">The condition traversal.</param>
         /// <param name="thenTraversal">The traversal to execute when the condition is true.</param>
         /// <param name="elseTraversal">The optional traversal to execute when the condition is false.</param>
-        public ChooseTraversalStep(Traversal ifTraversal, Traversal thenTraversal, Traversal? elseTraversal = null) : base(thenTraversal, elseTraversal, ifTraversal.GetSideEffectSemanticsChange() | thenTraversal.GetSideEffectSemanticsChange() | elseTraversal.GetSideEffectSemanticsChange())
+        public ChooseTraversalStep(Traversal ifTraversal, Traversal thenTraversal, Traversal? elseTraversal = null) : base(thenTraversal, elseTraversal, ifTraversal.GetSideEffectSemanticsChange() | thenTraversal.GetSideEffectSemanticsChange() | (elseTraversal?.GetSideEffectSemanticsChange() ?? SideEffectSemanticsChange.None))
         {
             IfTraversal = ifTraversal;
         }

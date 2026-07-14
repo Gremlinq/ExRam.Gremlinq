@@ -20,10 +20,6 @@ namespace ExRam.Gremlinq.Core
 
         public static SideEffectSemanticsChange GetSideEffectSemanticsChange(this Traversal traversal) => (SideEffectSemanticsChange)traversal.SideEffectSemantics;
 
-        public static SideEffectSemanticsChange GetSideEffectSemanticsChange(this Traversal? maybeTraversal) => maybeTraversal is { } traversal
-            ? traversal.GetSideEffectSemanticsChange()
-            : SideEffectSemanticsChange.None;
-
         public static Traversal Rewrite(this Traversal traversal, ContinuationFlags flags)
         {
             if (traversal is [NoneStep, ..])

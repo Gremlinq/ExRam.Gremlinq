@@ -10,7 +10,7 @@ namespace ExRam.Gremlinq.Core.Steps
         /// <param name="predicate">The predicate condition.</param>
         /// <param name="thenTraversal">The traversal to execute when the predicate is true.</param>
         /// <param name="elseTraversal">The optional traversal to execute when the predicate is false.</param>
-        public ChoosePredicateStep(P predicate, Traversal thenTraversal, Traversal? elseTraversal = null) : base(thenTraversal, elseTraversal, thenTraversal.GetSideEffectSemanticsChange() | elseTraversal.GetSideEffectSemanticsChange())
+        public ChoosePredicateStep(P predicate, Traversal thenTraversal, Traversal? elseTraversal = null) : base(thenTraversal, elseTraversal, thenTraversal.GetSideEffectSemanticsChange() | (elseTraversal?.GetSideEffectSemanticsChange() ?? SideEffectSemanticsChange.None))
         {
             ArgumentNullException.ThrowIfNull(predicate);
 
