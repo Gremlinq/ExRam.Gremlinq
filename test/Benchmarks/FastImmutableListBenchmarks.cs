@@ -19,6 +19,10 @@ namespace ExRam.Gremlinq.Benchmarks
             .Push(CountStep.Local, CountStep.Local, CountStep.Local, CountStep.Local, CountStep.Local, CountStep.Local, CountStep.Local, CountStep.Local);
 
         [Benchmark]
+        public object Push_1() => _steps
+            .Push(CountStep.Local);
+
+        [Benchmark]
         public object Push_4() => _steps
             .Push(Steps4);
 
