@@ -96,7 +96,7 @@ namespace ExRam.Gremlinq.Core
 
             if (Items.Length < count)
             {
-                var newItems = new T[count];
+                var newItems = new T[Math.Max(Items.Length * 2, count)];
 
                 this
                     .AsSpan()
