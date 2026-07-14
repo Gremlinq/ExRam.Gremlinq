@@ -2610,6 +2610,7 @@ namespace ExRam.Gremlinq.Core.Steps
     }
     public sealed class EStep : ExRam.Gremlinq.Core.Steps.Step
     {
+        public static readonly ExRam.Gremlinq.Core.Steps.EStep Empty;
         public EStep(System.Collections.Immutable.ImmutableArray<object> ids) { }
         public System.Collections.Immutable.ImmutableArray<object> Ids { get; }
     }

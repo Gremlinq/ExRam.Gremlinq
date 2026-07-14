@@ -6,6 +6,11 @@ namespace ExRam.Gremlinq.Core.Steps
     /// <seealso href="https://tinkerpop.apache.org/docs/current/reference/#graph-step">Reference Documentation - Graph Step</seealso>
     public sealed class EStep : Step
     {
+        /// <summary>
+        ///  Static instance of <see cref="EStep"/> representing a call to the E() operator without any ids passed. 
+        /// </summary>
+        public static readonly EStep Empty = new (ImmutableArray<object>.Empty);
+
         /// <summary>Initializes a new instance of <see cref="EStep"/> with the specified edge identifiers.</summary>
         /// <param name="ids">The edge identifiers to read.</param>
         public EStep(ImmutableArray<object> ids)
