@@ -25,10 +25,10 @@ namespace ExRam.Gremlinq.Core
             if (newItems.Length > 0)
             {
                 var newListLength = Count + newItems.Length;
-                var newListSpan = EnsureCapacity(Math.Max(newListLength, 16))._items!.Value;
-                var targetSpan = newListSpan.Span[Count..];
+                var newListMemory = EnsureCapacity(Math.Max(newListLength, 16)).Items;
+                var targetSpan = newListMemory.Span[Count..];
 
-                if (newListSpan.Equals(_items!.Value))
+                if (newListMemory.Equals(Items))
                 {
                     //This instance is big enough, we need to guard the first element by Interlocked.
                     if (Interlocked.CompareExchange(ref targetSpan[0], newItems[0], null) != null)
@@ -39,7 +39,7 @@ namespace ExRam.Gremlinq.Core
                 }
 
                 ((ReadOnlySpan<T?>)newItems).CopyTo(targetSpan);
-                return new FastImmutableList<T>(newListSpan, newListLength);
+                return new FastImmutableList<T>(newListMemory, newListLength);
             }
 
             return this;
