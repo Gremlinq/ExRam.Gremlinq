@@ -1,6 +1,4 @@
 using System.Buffers;
-using System.Runtime.InteropServices;
-using System.Runtime.InteropServices.Marshalling;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -26,23 +24,22 @@ namespace ExRam.Gremlinq.Core
         {
             if (newItems.Length > 0)
             {
-                var retItems = EnsureCapacity(Math.Max(Count + newItems.Length, 16))._items!.Value;
+                var newListLength = Count + newItems.Length;
+                var newListSpan = EnsureCapacity(Math.Max(newListLength, 16))._items!.Value;
+                var targetSpan = newListSpan.Span[Count..];
 
-                if (retItems.Equals(_items!.Value))
+                if (newListSpan.Equals(_items!.Value))
                 {
                     //This instance is big enough, we need to guard the first element by Interlocked.
-                    if (Interlocked.CompareExchange(ref retItems.Span[Count], newItems[0], null) != null)
+                    if (Interlocked.CompareExchange(ref targetSpan[0], newItems[0], null) != null)
                         return Clone().Push(newItems);
 
-                    ((ReadOnlySpan<T?>)newItems[1..]).CopyTo(retItems.Span[(Count + 1)..]);
-                }
-                else
-                {
-                    //A new instance was created, we own it exclusively.
-                    ((ReadOnlySpan<T?>)newItems).CopyTo(retItems.Span[Count..]);
+                    newItems = newItems[1..];
+                    targetSpan = targetSpan[1..];
                 }
 
-                return new FastImmutableList<T>(retItems, Count + newItems.Length);
+                ((ReadOnlySpan<T?>)newItems).CopyTo(targetSpan);
+                return new FastImmutableList<T>(newListSpan, newListLength);
             }
 
             return this;
