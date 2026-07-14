@@ -1,4 +1,6 @@
 using System.Buffers;
+using System.Runtime.InteropServices;
+using System.Runtime.InteropServices.Marshalling;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -20,16 +22,30 @@ namespace ExRam.Gremlinq.Core
             _items = steps;
         }
 
-        public FastImmutableList<T> Push(params ReadOnlySpan<T> items)
+        public FastImmutableList<T> Push(params ReadOnlySpan<T> newItems)
         {
-            var ret = EnsureCapacity(Count + items.Length);
-
-            for (var i = 0; i < items.Length; i++)
+            if (newItems.Length > 0)
             {
-                ret = ret.Push(items[i]);
+                var retItems = EnsureCapacity(Math.Max(Count + newItems.Length, 16))._items!.Value;
+
+                if (retItems.Equals(_items!.Value))
+                {
+                    //This instance is big enough, we need to guard the first element by Interlocked.
+                    if (Interlocked.CompareExchange(ref retItems.Span[Count], newItems[0], null) != null)
+                        return Clone().Push(newItems);
+
+                    ((ReadOnlySpan<T?>)newItems[1..]).CopyTo(retItems.Span[(Count + 1)..]);
+                }
+                else
+                {
+                    //A new instance was created, we own it exclusively.
+                    ((ReadOnlySpan<T?>)newItems).CopyTo(retItems.Span[Count..]);
+                }
+
+                return new FastImmutableList<T>(retItems, Count + newItems.Length);
             }
 
-            return ret;
+            return this;
         }
 
         public FastImmutableList<T> Push(T item)
