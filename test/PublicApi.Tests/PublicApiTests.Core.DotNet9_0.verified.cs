@@ -3103,6 +3103,7 @@ namespace ExRam.Gremlinq.Core.Steps
     }
     public sealed class VStep : ExRam.Gremlinq.Core.Steps.Step
     {
+        public static readonly ExRam.Gremlinq.Core.Steps.VStep Empty;
         public VStep(System.Collections.Immutable.ImmutableArray<object> ids) { }
         public System.Collections.Immutable.ImmutableArray<object> Ids { get; }
     }

@@ -6,6 +6,11 @@ namespace ExRam.Gremlinq.Core.Steps
     /// <seealso href="https://tinkerpop.apache.org/docs/current/reference/#graph-step">Reference Documentation - Graph Step</seealso>
     public sealed class VStep : Step
     {
+        /// <summary>
+        ///  Static instance of <see cref="VStep"/> representing a call to the V() operator without any ids passed. 
+        /// </summary>
+        public static readonly VStep Empty = new (ImmutableArray<object>.Empty);
+
         /// <summary>Initializes a new instance of <see cref="VStep"/> with the specified vertex identifiers.</summary>
         /// <param name="ids">The vertex identifiers to read.</param>
         public VStep(ImmutableArray<object> ids)
