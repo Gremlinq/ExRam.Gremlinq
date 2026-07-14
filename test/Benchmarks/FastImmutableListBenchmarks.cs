@@ -37,5 +37,24 @@ namespace ExRam.Gremlinq.Benchmarks
         [Benchmark]
         public object Push_32() => _steps
             .Push(Steps32);
+
+        [Benchmark]
+        public object Push_4_multiple() => _steps
+            .Push(Steps4)
+            .Push(Steps4)
+            .Push(Steps4)
+            .Push(Steps4)
+            .Push(Steps4)
+            .Push(Steps4)
+            .Push(Steps4)
+            .Push(Steps4)
+            .Push(Steps4)
+            .Push(Steps4)
+            .Push(Steps4)
+            .Push(Steps4)
+            .Push(Steps4)
+            .Push(Steps4)
+            .Push(Steps4)
+            .Push(Steps4);
     }
 }
