@@ -7,10 +7,11 @@ description: Generates release notes by looking up pull requests since the last 
 
 This skill automates the generation of release notes for ExRam.Gremlinq by:
 1. Retrieving all pull requests between the current commit and the previous tag
-2. For ALL PRs, generating an LLM-based summary by analyzing commit messages
-3. Posting the summary as a body on PRs without a body
-4. Creating release note files in a structured format
-5. Committing the release notes to the current branch
+2. Filtering to only PRs that do not have a body
+3. For each PR without a body, generating an LLM-based summary by analyzing commit messages
+4. Posting the summary as a body on the PR
+5. Creating release note files in a structured format
+6. Committing the release notes to the current branch
 
 ## Usage
 
@@ -32,7 +33,7 @@ or adapted to any perceived "different circumstances". If a script is considered
   - Release notes are committed to the current branch in `./releases/notes/`
   - The skill does NOT modify version or create tags - use `prepare-release` skill for that
 - The current commit must already be on the remote repository for the GraphQL comparison to work
-- The skill generates LLM-based summaries from commit messages, not just regex-based categorization
+- The skill generates LLM-based summaries from commit messages for PRs without a body, not just regex-based categorization
 
 ## Workflow
 
@@ -136,7 +137,7 @@ After prerequisite validation, the skill:
 4. Retrieves all commits between the tags
 5. For each commit, gets the associated pull requests
 6. Deduplicates the list of pull requests (since a PR may have multiple commits)
-7. For each PR, retrieves all commit messages (headline and body) for LLM-based summary generation
+7. Filters to only PRs that do not have a body (using the body field from the first GraphQL query)
 
 **Bash Implementation for Step 1:**
 ```bash
@@ -176,27 +177,27 @@ gh api graphql -f query="{
       }
     }
   }
-}" | jq -c '.data.repository.ref.compare.commits.nodes[].associatedPullRequests.nodes[] | select(.number != null)' > /tmp/prs.json
+}" | jq -c '.data.repository.ref.compare.commits.nodes[].associatedPullRequests.nodes[] | select(.number != null and (.body == null or .body == ""))' > /tmp/prs.json
 
 # Extract unique PR numbers
 cat /tmp/prs.json | jq -r '.number' | sort -u > /tmp/unique_pr_numbers.txt
 
 # Count the number of unique PRs
 pr_count=$(wc -l < /tmp/unique_pr_numbers.txt)
-echo "Found $pr_count unique pull request(s)"
+echo "Found $pr_count unique pull request(s) without a body"
 ```
 
 ### Step 2: Generate LLM-Based Summaries and Release Notes
 
-For each unique pull request:
+For each unique pull request (which already have no body):
 
-1. Retrieve the PR details, all its commits, and the body using GitHub API
-2. ALWAYS generate an LLM-based summary by analyzing the commit messages
-3. If the PR **does not have a body**, post the generated summary as a body on the PR
+1. Retrieve the PR details and all its commits using GitHub API
+2. Generate an LLM-based summary by analyzing the commit messages
+3. Post the generated summary as a body on the PR
 4. Create a text document named `{PR_NUMBER}.txt` in `./releases/notes/`
 
 **Summary Generation Guidelines:**
-- ALWAYS generate an LLM-based summary by analyzing the commit messages
+- Generate an LLM-based summary by analyzing the commit messages
 - Categorize commits by their purpose (features, bug fixes, refactoring, tests, maintenance, documentation)
 - Use clear, descriptive language
 - Mention key changes and their impact
