@@ -47,17 +47,16 @@ For each JSON file in `/tmp/pr_*.json`:
 **SUMMARY REQUIREMENTS:**
 - MUST be a proper narrative paragraph, NOT bullet points
 - Start with a clear statement of purpose
-- Mention specific files changed and types of changes
+- Mention specific files changed and types of changes ONLY if relevant.
 - Include technical details from the code
 - Categorize changes (feature, bug fix, refactoring, tests, etc.)
 - Be concise but informative
 
 **TITLE REQUIREMENTS:**
-- Use the first commit message as a starting point
+- Take ALL commit messages into account
 - Make it concise and descriptive
 - Capitalize properly
 - Remove trailing punctuation
-- If the first commit message is generic, derive a better title from the code changes
 
 4. Update the PR on GitHub:
 ```bash
