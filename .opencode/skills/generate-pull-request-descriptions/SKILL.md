@@ -15,34 +15,34 @@ generate pull request descriptions
 
 ## Workflow
 
-### Step 1: Run Prerequisite Checks
+1. Run `sripts/prerequisites.sh` to check for the availablity of needed tools.
 
-```bash
-scripts/prerequisites.sh
-```
+2. Run `scripts/generate-descriptions.sh` to collect PR data including commit messages and code changes into `/tmp/pr_<number>.json` files.
 
-### Step 2: Collect PR Data
+3. Process each PR with Agent: For each JSON file in `/tmp/pr_*.json`:
+ - Read the file: `pr_data=$(cat /tmp/pr_<number>.json)`
+ - Extract fields:
+  - `pr_number=$(echo "$pr_data" | jq -r '.pr_number')`
+  - `node_id=$(echo "$pr_data" | jq -r '.node_id')`
+  - `commit_messages=$(echo "$pr_data" | jq -r '.commit_messages')`
+  - `code_changes=$(echo "$pr_data" | jq -r '.code_changes')`
+  - `existing_title=$(echo "$pr_data" | jq -r '.title')`
 
-```bash
-scripts/generate-descriptions.sh
-```
-
-This collects PR data including commit messages and code changes into `/tmp/pr_<number>.json` files.
-
-### Step 3: Process Each PR with LLM
-
-For each JSON file in `/tmp/pr_*.json`:
-
-1. Read the file: `pr_data=$(cat /tmp/pr_<number>.json)`
-2. Extract fields:
-   - `pr_number=$(echo "$pr_data" | jq -r '.pr_number')`
-   - `node_id=$(echo "$pr_data" | jq -r '.node_id')`
-   - `commit_messages=$(echo "$pr_data" | jq -r '.commit_messages')`
-   - `code_changes=$(echo "$pr_data" | jq -r '.code_changes')`
-   - `existing_title=$(echo "$pr_data" | jq -r '.title')`
-3. **YOU (the Agent) MUST analyze BOTH `commit_messages` AND `code_changes` to generate:**
+4. **YOU (the Agent) MUST analyze BOTH `commit_messages` AND `code_changes` to generate:**
    - A **PROPER NARRATIVE SUMMARY** (NOT bullet points)
    - An appropriate title
+
+5. Update the PR on GitHub:
+  ```bash
+  gh api graphql -f query="mutation { updatePullRequest(input: { pullRequestId: \"$node_id\", title: \"$generated_title\", body: \"\"\"$generated_summary\"\"\" }) { pullRequest { id title body } } }"
+  ```
+
+6. Create local description file:
+  ```bash
+  echo -e "PR #$pr_number: $generated_title\n\n$generated_summary" > releases/notes/$pr_number.txt
+  ```
+
+7. Run `scripts/commit-descriptions.sh` to commit the local description files.
 
 **SUMMARY REQUIREMENTS:**
 - MUST be a proper narrative paragraph, NOT bullet points
@@ -58,21 +58,6 @@ For each JSON file in `/tmp/pr_*.json`:
 - Capitalize properly
 - Remove trailing punctuation
 
-4. Update the PR on GitHub:
-```bash
-gh api graphql -f query="mutation { updatePullRequest(input: { pullRequestId: \"$node_id\", title: \"$generated_title\", body: \"\"\"$generated_summary\"\"\" }) { pullRequest { id title body } } }"
-```
-
-5. Create local description file:
-```bash
-echo -e "PR #$pr_number: $generated_title\n\n$generated_summary" > releases/notes/$pr_number.txt
-```
-
-### Step 4: Commit Descriptions
-
-```bash
-scripts/commit-descriptions.sh
-```
 
 ## Important Notes
 
