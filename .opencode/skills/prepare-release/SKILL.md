@@ -1,6 +1,6 @@
 ---
 name: prepare-release
-description: Prepares a new release by stripping the preview suffix from version.json and tagging the stable version. The development branch is automatically updated to the next preview version by the rebase step. This skill ONLY handles version bumping and tagging - it does NOT generate pull request descriptions or PR summaries.
+description: Use this skill when preparing a new release. Handles version bumping by removing preview suffixes and creating release tags. Invokes when asked to "prepare release" or similar. ONLY manages version/tag operations - does NOT generate PR descriptions or push to remotes.
 ---
 
 # Prepare Release

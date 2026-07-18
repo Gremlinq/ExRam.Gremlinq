@@ -1,6 +1,6 @@
 ---
 name: generate-pull-request-descriptions
-description: Generates pull request descriptions by looking up pull requests since the last tag from the current commit and commenting nice summaries on PRs that lack a body. This skill does NOT modify version or create tags.
+description: Use this skill when you need to automate pull request documentation by generating summaries for PRs that lack descriptions. Invokes when asked to "generate pull request descriptions" or similar. This skill ONLY generates PR descriptions - it does NOT modify version files or create tags.
 ---
 
 # Generate Pull Request Descriptions
