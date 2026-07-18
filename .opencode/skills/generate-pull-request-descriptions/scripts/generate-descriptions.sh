@@ -89,15 +89,10 @@ while read -r pr_number; do
     
     # Get code changes for each commit using local git
     code_changes=""
-    first_commit_sha=""
     all_commit_messages=""
     
     while IFS= read -r commit_sha; do
         [ -z "$commit_sha" ] && continue
-        
-        if [ -z "$first_commit_sha" ]; then
-            first_commit_sha="$commit_sha"
-        fi
         
         # Get commit message
         commit_message=$(echo "$pr_data" | jq -r --arg sha "$commit_sha" '.data.repository.pullRequest.commits.nodes[] | select(.commit.oid == $sha) | .commit.messageHeadline + (if .commit.messageBody and .commit.messageBody != "" then ": " + .commit.messageBody else "" end)')
@@ -133,7 +128,6 @@ while read -r pr_number; do
     done <<< "$commit_shas"
     
     # Store PR data for LLM summary generation including code changes
-    # This JSON will be used by the LLM to generate proper narrative summaries
     jq -n --arg prn "$pr_number" \
            --arg title "$pr_title" \
            --arg body "$pr_body" \
@@ -152,7 +146,5 @@ while read -r pr_number; do
     echo "  PR data stored for LLM summary generation: /tmp/pr_$pr_number.json"
 done < /tmp/unique_pr_numbers.txt
 
-echo "Data collection completed. The following files contain PR data for LLM processing:"
-ls -la /tmp/pr_*.json 2>/dev/null || echo "No PR data files found."
-
 echo "Pull request data collection completed."
+echo "LLM should now process /tmp/pr_*.json files to generate proper narrative summaries and titles."
