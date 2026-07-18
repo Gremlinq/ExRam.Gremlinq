@@ -31,7 +31,7 @@
 ## GitHub API Update Command
 
 ```bash
-gh api graphql -f query="mutation { updatePullRequest(input: { pullRequestId: \"$node_id\", title: \"$generated_title\", body: \"\"\"$generated_summary\"\"\" }) { pullRequest { id title body } } }"
+gh api -X PATCH repos/Gremlinq/ExRam.Gremlinq/pulls/$pr_number -f title="$generated_title" -f body="$generated_summary"
 ```
 
 ## Local File Creation
