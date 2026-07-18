@@ -137,37 +137,34 @@ while read -r pr_number; do
     if [ -z "$pr_body" ] || [ "$pr_body" = "null" ]; then
         echo "  PR #$pr_number has no body, updating with generated summary and title..."
         
-        # Generate a title from the first commit message if PR title is empty or generic
-        if [ -z "$pr_title" ] || [ "$pr_title" = "null" ] || [ "$pr_title" = "Update" ] || [ "$pr_title" = "Fix" ] || [ "$pr_title" = "Changes" ] || [ "$pr_title" = "WIP" ] || [ "$pr_title" = "Work in progress" ]; then
-            generated_title="$first_commit"
-        else
-            generated_title="$pr_title"
-        fi
-        
-        # Clean up the title
-        generated_title=$(echo "$generated_title" | sed 's/^ *//' | sed 's/ *$//')
-        
-        gh api graphql -f query="
-        mutation {
-          updatePullRequest(
-            input: {
-              pullRequestId: \"$pr_node_id\",
-              title: \"$generated_title\",
-              body: \"\"\"$final_summary\"\"\"
-            }
-          ) {
-            pullRequest {
-              id
-              title
-              body
-            }
-          }
-        }"
+         # Generate title from the first bullet point of the summary (which is based on ALL commit messages)
+         generated_title=$(echo "$final_summary" | grep -m1 '^- ' | sed 's/^- //' | sed 's/^[ \t]*//' | sed 's/[ \t]*$//' | sed 's/\.$//')
+         
+         # Escape special characters for GraphQL
+         escaped_title=$(echo "$generated_title" | sed 's/\\/\\\\/g; s/"/\\"/g; s/\t/ /g')
+         escaped_summary=$(echo "$final_summary" | sed 's/\\/\\\\/g; s/"/\\"/g')
+         
+         gh api graphql -f query="
+         mutation {
+           updatePullRequest(
+             input: {
+               pullRequestId: \"$pr_node_id\",
+               title: \"$escaped_title\",
+               body: \"\"\"$escaped_summary\"\"\"
+             }
+           ) {
+             pullRequest {
+               id
+               title
+               body
+             }
+           }
+         }"
         echo "  Updated PR #$pr_number with generated title and body"
     fi
     
-    # Use the generated summary as the content
-    content="PR #$pr_number: $pr_title\n\n$final_summary"
+     # Use the generated summary as the content
+     content="PR #$pr_number: $generated_title\n\n$final_summary"
     
     echo -e "$content" > "releases/notes/$pr_number.txt"
     echo "  Created pull request description: releases/notes/$pr_number.txt"
