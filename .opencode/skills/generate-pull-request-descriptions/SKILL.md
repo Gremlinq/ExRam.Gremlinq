@@ -68,6 +68,8 @@ This script:
    - Posts the generated summary as a body and the generated title on the PR
    - Creates a text document named `{PR_NUMBER}.txt` in `./releases/notes/`
 
+**IMPORTANT**: If the script determines there are 0 unique pull requests, don't regard it as an error, but instead exit this skill successfully.
+
 **Summary and Title Generation Guidelines:**
 - Generate an LLM-based summary and title by analyzing the commit messages
 - Categorize commits by their purpose (features, bug fixes, refactoring, tests, maintenance, documentation)
