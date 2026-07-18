@@ -128,22 +128,25 @@ while read -r pr_number; do
         final_summary+="- Various improvements and fixes"
     fi
     
-    # Generate a title from the first commit message if PR title is empty or generic
-    if [ -z "$pr_title" ] || [ "$pr_title" = "null" ] || [ "$pr_title" = "Update" ] || [ "$pr_title" = "Fix" ] || [ "$pr_title" = "Changes" ] || [ "$pr_title" = "WIP" ] || [ "$pr_title" = "Work in progress" ]; then
-        generated_title="$first_commit"
-    else
-        generated_title="$pr_title"
-    fi
-    
-    # Clean up the summary and title
+    # Clean up the summary
     final_summary=$(echo -e "$final_summary" | sed '/^$/d' | sed 's/^ *//')
-    generated_title=$(echo "$generated_title" | sed 's/^ *//' | sed 's/ *$//')
     
-    echo "  Generated summary and title for PR #$pr_number"
+    echo "  Generated summary for PR #$pr_number"
     
     # If the PR does not have a body, update it with the generated summary and title
     if [ -z "$pr_body" ] || [ "$pr_body" = "null" ]; then
         echo "  PR #$pr_number has no body, updating with generated summary and title..."
+        
+        # Generate a title from the first commit message if PR title is empty or generic
+        if [ -z "$pr_title" ] || [ "$pr_title" = "null" ] || [ "$pr_title" = "Update" ] || [ "$pr_title" = "Fix" ] || [ "$pr_title" = "Changes" ] || [ "$pr_title" = "WIP" ] || [ "$pr_title" = "Work in progress" ]; then
+            generated_title="$first_commit"
+        else
+            generated_title="$pr_title"
+        fi
+        
+        # Clean up the title
+        generated_title=$(echo "$generated_title" | sed 's/^ *//' | sed 's/ *$//')
+        
         gh api graphql -f query="
         mutation {
           updatePullRequest(
