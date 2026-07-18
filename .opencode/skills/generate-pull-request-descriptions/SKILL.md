@@ -40,7 +40,7 @@ For each JSON file in `/tmp/pr_*.json`:
    - `commit_messages=$(echo "$pr_data" | jq -r '.commit_messages')`
    - `code_changes=$(echo "$pr_data" | jq -r '.code_changes')`
    - `existing_title=$(echo "$pr_data" | jq -r '.title')`
-3. **YOU (the LLM) MUST analyze BOTH `commit_messages` AND `code_changes` to generate:**
+3. **YOU (the Agent) MUST analyze BOTH `commit_messages` AND `code_changes` to generate:**
    - A **PROPER NARRATIVE SUMMARY** (NOT bullet points)
    - An appropriate title
 
@@ -98,7 +98,7 @@ If `/tmp/pr_123.json` contains:
 }
 ```
 
-**YOU (the LLM) should generate:**
+**YOU (the Agent) should generate:**
 - Title: "Add async query execution support for GremlinServer provider"
 - Summary: "This pull request adds comprehensive async query execution support for the GremlinServer provider. A new `GremlinServerQueryExecutorAsync` class has been introduced with 150 lines of code, implementing async versions of all query methods. Corresponding tests have been added in `AsyncTests.cs` with 200 lines of test coverage. The implementation maintains parity with the existing sync executor while following proper async/await patterns throughout."
 
