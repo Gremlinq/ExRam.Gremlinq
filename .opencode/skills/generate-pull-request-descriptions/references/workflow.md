@@ -9,7 +9,11 @@
    - Generate narrative summary and title
    - Update PR via GitHub API
    - Create local description file
-4. **Commit**: Run `scripts/commit-descriptions.sh`
+4. **Commit**: Add all description files and commit:
+   ```bash
+   git add releases/
+   git commit -m "Generate pull request descriptions"
+   ```
 
 ## File Format: /tmp/pr_<number>.json
 

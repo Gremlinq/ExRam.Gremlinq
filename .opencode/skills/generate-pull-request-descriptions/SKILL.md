@@ -22,7 +22,7 @@ generate pull request descriptions
    - Generate narrative summary and title (see [requirements](references/requirements.md))
    - Update PR via GitHub API
    - Create `releases/notes/<number>.txt`
-4. Run `scripts/commit-descriptions.sh`
+4. Commit the descriptions (see [workflow](references/workflow.md))
 
 ## Key Requirements
 
