@@ -24,33 +24,17 @@ prepare release
 
 ## Workflow
 
-### Step 1: Run Prerequisite Checks
+1. Run the prerequisite checks in the `scripts/prerequisites.sh` script to validate the environment. All prerequisite checks must pass before proceeding with the release workflow. If any check fails, the skill must exit immediately with a non-zero exit code and display the specific error message with installation/remediation instructions.
 
-Run the prerequisite checks script to validate the environment:
+2. Prepare Release by running the main preparation script in `scripts/prepare.sh`. This script executes the release preparation steps:
 
-```bash
-scripts/prerequisites.sh
-```
-
-All prerequisite checks must pass before proceeding with the release workflow. If any check fails, the skill must exit immediately with a non-zero exit code and display the specific error message with installation/remediation instructions.
-
-### Step 2: Prepare Release
-
-Run the main preparation script:
-
-```bash
-scripts/prepare.sh
-```
-
-This script executes the release preparation steps:
-
-1. Runs `nbgv prepare-release`
-2. Extracts the new branch name and current branch name from the JSON output
-3. Checks out the new branch
-4. Amends the commit with `--no-edit -S` (signs the commit)
-5. Rebases the current branch onto the new branch with `-Xtheirs` strategy
-6. Tags the new branch with its name
-7. Deletes the new branch
+- Runs `nbgv prepare-release`
+- Extracts the new branch name and current branch name from the JSON output
+- Checks out the new branch
+- Amends the commit with `--no-edit -S` (signs the commit)
+- Rebases the current branch onto the new branch with `-Xtheirs` strategy
+- Tags the new branch with its name
+- Deletes the new branch
 
 This creates a new tag in the repository.
 
