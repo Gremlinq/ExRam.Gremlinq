@@ -5,13 +5,7 @@ description: Generates pull request descriptions by looking up pull requests sin
 
 # Generate Pull Request Descriptions Skill
 
-This skill automates the generation of pull request descriptions for ExRam.Gremlinq by:
-1. Retrieving all pull requests between the current commit and the previous tag
-2. Filtering to only PRs that do not have a body
-3. For each PR without a body, generating an LLM-based summary and title by analyzing commit messages
-4. Posting the summary as a body and the generated title on the PR
-5. Creating pull request description files in a structured format
-6. Committing the pull request descriptions to the current branch
+This skill automates the generation of pull request descriptions for ExRam.Gremlinq.
 
 ## Usage
 
@@ -19,75 +13,95 @@ This skill automates the generation of pull request descriptions for ExRam.Greml
 generate pull request descriptions
 ```
 
-## General Notes
-
-**IMPORTANT:** The skill MUST dynamically determine the Git remote that points to github.com. It MUST NOT hardcode any remote name like "origin" or "github". Always use `git remote -v | grep github.com | head -1 | awk '{print $1}'` to get the remote name.
-
-**IMPORTANT:** The scripts in this skill must be executed as-is. They must not be altered or adapted to any perceived "different circumstances". If a script is considered unsuitable for the task, fail early and inform the user.
-
-- The skill assumes the repository is `Gremlinq/ExRam.Gremlinq` (hardcoded in GraphQL queries)
-- The skill uses the GitHub CLI for authentication to the GraphQL API
-- All operations are performed in the current working directory
-- The skill creates physical files in the repository for the pull request descriptions
-  - Pull request descriptions are committed to the current branch in `./releases/notes/`
-  - The skill does NOT modify version or create tags - use `prepare-release` skill for that
-- The current commit must already be on the remote repository for the GraphQL comparison to work
-- The skill generates LLM-based summaries and titles from commit messages for PRs without a body
-
 ## Workflow
 
 ### Step 1: Run Prerequisite Checks
-
-Run the prerequisite checks script to validate the environment:
 
 ```bash
 scripts/prerequisites.sh
 ```
 
-All prerequisite checks must pass before proceeding with the workflow. If any check fails, the skill must exit immediately with a non-zero exit code and display the specific error message with installation/remediation instructions.
-
-### Step 2: Generate Pull Request Descriptions
-
-Run the main generation script to retrieve PRs and generate descriptions:
+### Step 2: Collect PR Data
 
 ```bash
 scripts/generate-descriptions.sh
 ```
 
-This script:
-1. Captures the current commit SHA
-2. Gets the previous tag (most recent tag before the current commit)
-3. Uses GitHub GraphQL API to compare the previous tag with the current commit SHA
-4. Retrieves all commits between the tags
-5. For each commit, gets the associated pull requests
-6. Deduplicates the list of pull requests (since a PR may have multiple commits)
-7. Filters to only PRs that do not have a body
-8. For each PR without a body:
-   - Retrieves the PR details and all its commits using GitHub API
-   - Generates an LLM-based summary and title by analyzing the commit messages
-   - Posts the generated summary as a body and the generated title on the PR
-   - Creates a text document named `{PR_NUMBER}.txt` in `./releases/notes/`
+This collects PR data including commit messages and code changes into `/tmp/pr_<number>.json` files.
 
-**IMPORTANT**: If the script determines there are 0 unique pull requests, don't regard it as an error, but instead exit this skill successfully.
+### Step 3: Process Each PR with LLM
 
-**Summary and Title Generation Guidelines:**
-- Generate an LLM-based summary and title by analyzing the commit messages
-- Categorize commits by their purpose (features, bug fixes, refactoring, tests, maintenance, documentation)
-- Use clear, descriptive language
-- Mention key changes and their impact
-- Keep it concise but informative
-- Use bullet points for readability
-- Include specific technical details from the commits
-- Generate a title from the first commit message if PR title is empty or generic
+For each JSON file in `/tmp/pr_*.json`:
 
-### Step 3: Commit Pull Request Descriptions
+1. Read the file: `pr_data=$(cat /tmp/pr_<number>.json)`
+2. Extract fields:
+   - `pr_number=$(echo "$pr_data" | jq -r '.pr_number')`
+   - `node_id=$(echo "$pr_data" | jq -r '.node_id')`
+   - `commit_messages=$(echo "$pr_data" | jq -r '.commit_messages')`
+   - `code_changes=$(echo "$pr_data" | jq -r '.code_changes')`
+   - `existing_title=$(echo "$pr_data" | jq -r '.title')`
+3. **YOU (the LLM) MUST analyze BOTH `commit_messages` AND `code_changes` to generate:**
+   - A **PROPER NARRATIVE SUMMARY** (NOT bullet points)
+   - An appropriate title
 
-Run the commit script to add and commit the generated files:
+**SUMMARY REQUIREMENTS:**
+- MUST be a proper narrative paragraph, NOT bullet points
+- Start with a clear statement of purpose
+- Mention specific files changed and types of changes
+- Include technical details from the code
+- Categorize changes (feature, bug fix, refactoring, tests, etc.)
+- Be concise but informative
+
+**TITLE REQUIREMENTS:**
+- Use the first commit message as a starting point
+- Make it concise and descriptive
+- Capitalize properly
+- Remove trailing punctuation
+- If the first commit message is generic, derive a better title from the code changes
+
+4. Update the PR on GitHub:
+```bash
+gh api graphql -f query="mutation { updatePullRequest(input: { pullRequestId: \"$node_id\", title: \"$generated_title\", body: \"\"\"$generated_summary\"\"\" }) { pullRequest { id title body } } }"
+```
+
+5. Create local description file:
+```bash
+echo -e "PR #$pr_number: $generated_title\n\n$generated_summary" > releases/notes/$pr_number.txt
+```
+
+### Step 4: Commit Descriptions
 
 ```bash
 scripts/commit-descriptions.sh
 ```
 
-This script:
-1. Adds all files from the `releases/` directory to the staging area
-2. Commits the pull request descriptions to the current branch
+## Important Notes
+
+- The skill MUST dynamically determine the Git remote that points to github.com: `git remote -v | grep github.com | head -1 | awk '{print $1}'`
+- The scripts must be executed as-is
+- The repository is hardcoded as `Gremlinq/ExRam.Gremlinq` in GraphQL queries
+- Uses GitHub CLI for authentication
+- Creates files in `./releases/notes/`
+- Does NOT modify version or create tags
+- The current commit must be on the remote for GraphQL comparison
+
+## Example
+
+If `/tmp/pr_123.json` contains:
+```json
+{
+  "pr_number": "123",
+  "title": "",
+  "node_id": "PR_kwDO...",
+  "commit_messages": "Add async support for GremlinServer\nFix null reference in VertexSerializer",
+  "code_changes": "Commit: abc123\n src/Providers.GremlinServer/GremlinServerQueryExecutorAsync.cs | 150 ++++++\n test/Providers.GremlinServer.Tests/AsyncTests.cs | 200 +++++++\n 2 files changed, 350 insertions(+)"
+}
+```
+
+**YOU (the LLM) should generate:**
+- Title: "Add async query execution support for GremlinServer provider"
+- Summary: "This pull request adds comprehensive async query execution support for the GremlinServer provider. A new `GremlinServerQueryExecutorAsync` class has been introduced with 150 lines of code, implementing async versions of all query methods. Corresponding tests have been added in `AsyncTests.cs` with 200 lines of test coverage. The implementation maintains parity with the existing sync executor while following proper async/await patterns throughout."
+
+**NOT:**
+- Title: "false"
+- Summary: "- Add async support\n- Fix null reference"

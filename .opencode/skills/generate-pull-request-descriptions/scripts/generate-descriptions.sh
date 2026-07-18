@@ -50,7 +50,7 @@ echo "Found $pr_count unique pull request(s) without a body"
 # Create the releases directory structure
 mkdir -p "releases/notes"
 
-# For each unique PR number, get PR details and commits
+# For each unique PR number, get PR details and commits AND local code changes
 while read -r pr_number; do
     echo "Processing PR #$pr_number..."
     
@@ -82,95 +82,77 @@ while read -r pr_number; do
     pr_node_id=$(echo "$pr_data" | jq -r '.data.repository.pullRequest.id')
     total_commits=$(echo "$pr_data" | jq -r '.data.repository.pullRequest.commits.nodes | length')
     
-    echo "  Found $total_commits commit(s), generating LLM-based summary..."
+    echo "  Found $total_commits commit(s), collecting code changes..."
     
-    # Store PR data for LLM summary generation
-    echo "$pr_data" | jq -r --arg prn "$pr_number" --arg title "$pr_title" '{
-      pr_number: $prn,
-      title: $title,
-      body: .data.repository.pullRequest.body,
-      node_id: .data.repository.pullRequest.id,
-      commits: [.data.repository.pullRequest.commits.nodes[] | .commit | {headline: .messageHeadline, body: (.messageBody // "")}],
-    }' > /tmp/pr_$pr_number.json
+    # Extract commit SHAs for local git analysis
+    commit_shas=$(echo "$pr_data" | jq -r '.data.repository.pullRequest.commits.nodes[] | .commit.oid')
+    
+    # Get code changes for each commit using local git
+    code_changes=""
+    first_commit_sha=""
+    all_commit_messages=""
+    
+    while IFS= read -r commit_sha; do
+        [ -z "$commit_sha" ] && continue
+        
+        if [ -z "$first_commit_sha" ]; then
+            first_commit_sha="$commit_sha"
+        fi
+        
+        # Get commit message
+        commit_message=$(echo "$pr_data" | jq -r --arg sha "$commit_sha" '.data.repository.pullRequest.commits.nodes[] | select(.commit.oid == $sha) | .commit.messageHeadline + (if .commit.messageBody and .commit.messageBody != "" then ": " + .commit.messageBody else "" end)')
+        if [ -n "$all_commit_messages" ]; then
+            all_commit_messages+="\n"
+        fi
+        all_commit_messages+="$commit_message"
+        
+        # Get the parent commit SHA for diff
+        parent_sha=$(git rev-parse "$commit_sha^" 2>/dev/null || echo "")
+        
+        if [ -n "$parent_sha" ]; then
+            # Get the diff for this commit
+            commit_diff=$(git diff "$parent_sha" "$commit_sha" --stat 2>/dev/null || echo "")
+            if [ -n "$commit_diff" ]; then
+                if [ -n "$code_changes" ]; then
+                    code_changes+="\n\n---\n"
+                fi
+                code_changes+="Commit: $commit_sha\n"
+                code_changes+="$commit_diff"
+            fi
+        else
+            # For root commits, get the full commit content
+            commit_content=$(git show "$commit_sha" --stat 2>/dev/null || echo "")
+            if [ -n "$commit_content" ]; then
+                if [ -n "$code_changes" ]; then
+                    code_changes+="\n\n---\n"
+                fi
+                code_changes+="Commit: $commit_sha\n"
+                code_changes+="$commit_content"
+            fi
+        fi
+    done <<< "$commit_shas"
+    
+    # Store PR data for LLM summary generation including code changes
+    # This JSON will be used by the LLM to generate proper narrative summaries
+    jq -n --arg prn "$pr_number" \
+           --arg title "$pr_title" \
+           --arg body "$pr_body" \
+           --arg node_id "$pr_node_id" \
+           --arg commits "$all_commit_messages" \
+           --arg code_changes "$code_changes" \
+           '{
+             pr_number: $prn,
+             title: $title,
+             body: $body,
+             node_id: $node_id,
+             commit_messages: $commits,
+             code_changes: $code_changes
+           }' > /tmp/pr_$pr_number.json
     
     echo "  PR data stored for LLM summary generation: /tmp/pr_$pr_number.json"
 done < /tmp/unique_pr_numbers.txt
 
-# Now process each PR with LLM-generated summaries
-while read -r pr_number; do
-    pr_file="/tmp/pr_$pr_number.json"
-    if [ ! -f "$pr_file" ]; then
-        continue
-    fi
-    
-    pr_data=$(cat "$pr_file")
-    pr_title=$(echo "$pr_data" | jq -r '.title')
-    pr_body=$(echo "$pr_data" | jq -r '.body')
-    pr_node_id=$(echo "$pr_data" | jq -r '.node_id')
-    
-    echo "Processing PR #$pr_number with LLM..."
-    
-    # Extract all commit messages for summary and title generation
-    all_commits=$(echo "$pr_data" | jq -r '.commits[] | .headline + (if .body and .body != "" then ": " + .body else "" end)')
-    first_commit=$(echo "$pr_data" | jq -r '.commits[0] | .headline + (if .body and .body != "" then ": " + .body else "" end)')
-    
-    # For actual LLM processing, the skill execution will handle this
-    # The bash script stores the data, and the LLM generates the summary and title
-    # Generate a placeholder summary and title for now (will be replaced by LLM)
-    final_summary="## Changes\n\n"
-    
-    if [ -n "$all_commits" ]; then
-        while IFS= read -r commit_line; do
-            [ -z "$commit_line" ] && continue
-            final_summary+="  - $commit_line\n"
-        done <<< "$all_commits"
-    else
-        final_summary+="- Various improvements and fixes"
-    fi
-    
-    # Clean up the summary
-    final_summary=$(echo -e "$final_summary" | sed '/^$/d' | sed 's/^ *//')
-    
-    echo "  Generated summary for PR #$pr_number"
-    
-    # If the PR does not have a body, update it with the generated summary and title
-    if [ -z "$pr_body" ] || [ "$pr_body" = "null" ]; then
-        echo "  PR #$pr_number has no body, updating with generated summary and title..."
-        
-         # Generate title from the first bullet point of the summary (which is based on ALL commit messages)
-         generated_title=$(echo "$final_summary" | grep -m1 '^- ' | sed 's/^- //' | sed 's/^[ \t]*//' | sed 's/[ \t]*$//' | sed 's/\.$//')
-         
-         # Escape special characters for GraphQL
-         escaped_title=$(echo "$generated_title" | sed 's/\\/\\\\/g; s/"/\\"/g; s/\t/ /g')
-         escaped_summary=$(echo "$final_summary" | sed 's/\\/\\\\/g; s/"/\\"/g')
-         
-         gh api graphql -f query="
-         mutation {
-           updatePullRequest(
-             input: {
-               pullRequestId: \"$pr_node_id\",
-               title: \"$escaped_title\",
-               body: \"\"\"$escaped_summary\"\"\"
-             }
-           ) {
-             pullRequest {
-               id
-               title
-               body
-             }
-           }
-         }"
-        echo "  Updated PR #$pr_number with generated title and body"
-    fi
-    
-     # Use the generated summary as the content
-     content="PR #$pr_number: $generated_title\n\n$final_summary"
-    
-    echo -e "$content" > "releases/notes/$pr_number.txt"
-    echo "  Created pull request description: releases/notes/$pr_number.txt"
-    
-    # Clean up
-    rm -f "/tmp/pr_$pr_number.json"
-done < /tmp/unique_pr_numbers.txt
+echo "Data collection completed. The following files contain PR data for LLM processing:"
+ls -la /tmp/pr_*.json 2>/dev/null || echo "No PR data files found."
 
-echo "Pull request descriptions generation completed."
+echo "Pull request data collection completed."
