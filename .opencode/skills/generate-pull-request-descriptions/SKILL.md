@@ -1,22 +1,22 @@
 ---
-name: generate-release-notes
-description: Generates release notes by looking up pull requests since the last tag from the current commit and commenting nice summaries on PRs that lack a body. This skill does NOT modify version or create tags.
+name: generate-pull-request-descriptions
+description: Generates pull request descriptions by looking up pull requests since the last tag from the current commit and commenting nice summaries on PRs that lack a body. This skill does NOT modify version or create tags.
 ---
 
-# Generate Release Notes Skill
+# Generate Pull Request Descriptions Skill
 
-This skill automates the generation of release notes for ExRam.Gremlinq by:
+This skill automates the generation of pull request descriptions for ExRam.Gremlinq by:
 1. Retrieving all pull requests between the current commit and the previous tag
 2. Filtering to only PRs that do not have a body
 3. For each PR without a body, generating an LLM-based summary by analyzing commit messages
 4. Posting the summary as a body on the PR
-5. Creating release note files in a structured format
-6. Committing the release notes to the current branch
+5. Creating pull request description files in a structured format
+6. Committing the pull request descriptions to the current branch
 
 ## Usage
 
 ```
-generate release notes
+generate pull request descriptions
 ```
 
 ## General Notes
@@ -29,8 +29,8 @@ or adapted to any perceived "different circumstances". If a script is considered
 - The skill assumes the repository is `Gremlinq/ExRam.Gremlinq` (hardcoded in GraphQL queries)
 - The skill uses the GitHub CLI for authentication to the GraphQL API
 - All operations are performed in the current working directory
-- The skill creates physical files in the repository for the release notes
-  - Release notes are committed to the current branch in `./releases/notes/`
+- The skill creates physical files in the repository for the pull request descriptions
+  - Pull request descriptions are committed to the current branch in `./releases/notes/`
   - The skill does NOT modify version or create tags - use `prepare-release` skill for that
 - The current commit must already be on the remote repository for the GraphQL comparison to work
 - The skill generates LLM-based summaries from commit messages for PRs without a body, not just regex-based categorization
@@ -95,7 +95,7 @@ if ! git diff --quiet || ! git diff --cached --quiet; then
     echo "Status:"
     git status --short
     echo ""
-    echo "Please commit or stash all changes before generating release notes."
+    echo "Please commit or stash all changes before generating pull request descriptions."
     exit 1
 fi
 ```
@@ -152,7 +152,7 @@ if [ -z "$previous_tag" ]; then
     exit 1
 fi
 
-echo "Generating release notes for commits between $previous_tag and $current_sha"
+echo "Generating pull request descriptions for commits between $previous_tag and $current_sha"
 
 # Query GitHub GraphQL API to get PRs between previous tag and current commit
 gh api graphql -f query="{
@@ -187,7 +187,7 @@ pr_count=$(wc -l < /tmp/unique_pr_numbers.txt)
 echo "Found $pr_count unique pull request(s) without a body"
 ```
 
-### Step 2: Generate LLM-Based Summaries and Release Notes
+### Step 2: Generate LLM-Based Summaries and Pull Request Descriptions
 
 For each unique pull request (which already have no body):
 
@@ -323,20 +323,20 @@ while read -r pr_number; do
 done < /tmp/unique_pr_numbers.txt
 ```
 
-### Step 3: Commit Release Notes to Current Branch
+### Step 3: Commit Pull Request Descriptions to Current Branch
 
-After all release notes are generated and PR descriptions are updated (if needed):
+After all pull request descriptions are generated and PR descriptions are updated (if needed):
 
 1. Add all files from the `releases/` directory to the staging area
-2. Commit the release notes to the current branch
+2. Commit the pull request descriptions to the current branch
 
 **Bash Commands:**
 ```bash
-# Add all release notes files
+# Add all pull request descriptions files
 git add releases/
 
-# Commit the release notes to the current branch
-git commit -m "Generate release notes"
+# Commit the pull request descriptions to the current branch
+git commit -m "Generate pull request descriptions"
 
-echo "Release notes committed to current branch"
+echo "Pull request descriptions committed to current branch"
 ```

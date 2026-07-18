@@ -215,7 +215,7 @@ Release preparation completed successfully!
 ## Notes
 
 - The skill ONLY handles version bumping and tagging
-- It does NOT generate release notes or PR summaries
-- Use the `generate-release-notes` skill for generating release notes and PR summaries
+- It does NOT generate pull request descriptions or PR summaries
+- Use the `generate-pull-request-descriptions` skill for generating pull request descriptions and PR summaries
 - The skill MUST NOT push any tags to any remote
 - All operations are performed in the current working directory
