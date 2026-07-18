@@ -8,8 +8,8 @@ description: Generates pull request descriptions by looking up pull requests sin
 This skill automates the generation of pull request descriptions for ExRam.Gremlinq by:
 1. Retrieving all pull requests between the current commit and the previous tag
 2. Filtering to only PRs that do not have a body
-3. For each PR without a body, generating an LLM-based summary by analyzing commit messages
-4. Posting the summary as a body on the PR
+3. For each PR without a body, generating an LLM-based summary and title by analyzing commit messages
+4. Posting the summary as a body and the generated title on the PR
 5. Creating pull request description files in a structured format
 6. Committing the pull request descriptions to the current branch
 
@@ -192,8 +192,8 @@ echo "Found $pr_count unique pull request(s) without a body"
 For each unique pull request (which already have no body):
 
 1. Retrieve the PR details and all its commits using GitHub API
-2. Generate an LLM-based summary by analyzing the commit messages
-3. Post the generated summary as a body on the PR
+2. Generate an LLM-based summary and title by analyzing the commit messages
+3. Post the generated summary as a body and the generated title on the PR
 4. Create a text document named `{PR_NUMBER}.txt` in `./releases/notes/`
 
 **Summary Generation Guidelines:**
@@ -269,13 +269,14 @@ while read -r pr_number; do
     pr_node_id=$(echo "$pr_data" | jq -r '.node_id')
     
     echo "Processing PR #$pr_number with LLM..."
-    
-    # Extract all commit messages for summary generation
+
+    # Extract all commit messages for summary and title generation
     all_commits=$(echo "$pr_data" | jq -r '.commits[] | .headline + (if .body and .body != "" then ": " + .body else "" end)')
-    
+    first_commit=$(echo "$pr_data" | jq -r '.commits[0] | .headline + (if .body and .body != "" then ": " + .body else "" end)')
+
     # For actual LLM processing, the skill execution will handle this
-    # The bash script stores the data, and the LLM generates the summary
-    # Generate a placeholder summary for now (will be replaced by LLM)
+    # The bash script stores the data, and the LLM generates the summary and title
+    # Generate a placeholder summary and title for now (will be replaced by LLM)
     final_summary="## Changes\n\n"
     
     if [ -n "$all_commits" ]; then
@@ -286,31 +287,41 @@ while read -r pr_number; do
     else
         final_summary+="- Various improvements and fixes"
     fi
-    
-    # Clean up the summary
-    final_summary=$(echo -e "$final_summary" | sed '/^$/d' | sed 's/^ *//')
-    
-    echo "  Generated summary for PR #$pr_number"
 
-     # If the PR does not have a body, update it with the generated summary
-     if [ -z "$pr_body" ] || [ "$pr_body" = "null" ]; then
-         echo "  PR #$pr_number has no body, updating with generated summary..."
-         gh api graphql -f query="
-         mutation {
-           updatePullRequest(
-             input: {
-               pullRequestId: \"$pr_node_id\",
-               body: \"\"\"$final_summary\"\"\"
-             }
-           ) {
-             pullRequest {
-               id
-               body
-             }
-           }
-         }"
-         echo "  Updated PR #$pr_number body with generated summary"
-     fi
+    # Generate a title from the first commit message if PR title is empty or generic
+    if [ -z "$pr_title" ] || [ "$pr_title" = "null" ] || [ "$pr_title" = "Update" ] || [ "$pr_title" = "Fix" ] || [ "$pr_title" = "Changes" ] || [ "$pr_title" = "WIP" ] || [ "$pr_title" = "Work in progress" ]; then
+        generated_title="$first_commit"
+    else
+        generated_title="$pr_title"
+    fi
+
+    # Clean up the summary and title
+    final_summary=$(echo -e "$final_summary" | sed '/^$/d' | sed 's/^ *//')
+    generated_title=$(echo "$generated_title" | sed 's/^ *//' | sed 's/ *$//')
+
+    echo "  Generated summary and title for PR #$pr_number"
+    
+    # If the PR does not have a body, update it with the generated summary and title
+    if [ -z "$pr_body" ] || [ "$pr_body" = "null" ]; then
+        echo "  PR #$pr_number has no body, updating with generated summary and title..."
+        gh api graphql -f query="
+        mutation {
+          updatePullRequest(
+            input: {
+              pullRequestId: \"$pr_node_id\",
+              title: \"$generated_title\",
+              body: \"\"\"$final_summary\"\"\"
+            }
+          ) {
+            pullRequest {
+              id
+              title
+              body
+            }
+          }
+        }"
+        echo "  Updated PR #$pr_number with generated title and body"
+    fi
 
      # Use the generated summary as the content
      content="PR #$pr_number: $pr_title\n\n$final_summary"
