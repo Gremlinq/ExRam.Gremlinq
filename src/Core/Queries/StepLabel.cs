@@ -6,8 +6,9 @@ namespace ExRam.Gremlinq.Core
     public abstract class StepLabel : IEquatable<StepLabel>
     {
         /// <summary>Initializes a new <see cref="StepLabel"/> with a unique identity.</summary>
-        protected StepLabel() : this(new object())
-        { 
+        protected StepLabel()
+        {
+            Identity = this;
         }
 
         internal StepLabel(object identity)
