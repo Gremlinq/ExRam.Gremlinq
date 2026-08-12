@@ -98,6 +98,25 @@ dotnet test -c Release --solution ./ExRam.Gremlinq.slnx --coverlet --coverlet-ou
 dotnet test -c Debug --solution ./ExRam.Gremlinq.slnx --ignore-exit-code 8
 ```
 
+## Release / Publishing Workflow
+
+Releases are built by `.github/workflows/pack.yml` (triggered on pushes to `\d+\.x` branches and version tags) and published by two follow-up workflows:
+
+- **`.github/workflows/pushPreview.yml`** — pushes preview packages to GitHub Packages using a PAT secret (`PUSH_TO_PACKAGES_PAT`).
+- **`.github/workflows/pushStable.yml`** — pushes stable packages to NuGet.org, triggered when a GitHub release is published.
+
+`pushStable.yml` publishes to NuGet.org using **NuGet Trusted Publishing (OIDC)** instead of a long-lived API key:
+
+1. The job requests a GitHub OIDC token (`permissions: id-token: write`).
+2. The `NuGet/login` action exchanges that token for a short-lived (1-hour) NuGet.org API key.
+3. `dotnet nuget push` uses that temporary key to publish the packages.
+
+This requires a one-time setup on nuget.org (a Trusted Publishing policy scoped to this repository and the `pushStable.yml` workflow file) and a `NUGET_USER` repository secret containing the nuget.org account name used for that policy. There is no long-lived NuGet API key secret to rotate or leak.
+
+When modifying `pushStable.yml`, keep in mind:
+- The workflow file name itself (`pushStable.yml`) is part of the nuget.org Trusted Publishing policy — renaming the file requires updating the policy on nuget.org.
+- `id-token: write` permission must remain on the job/workflow for the OIDC exchange to work.
+
 ## Project Structure
 
 ```
