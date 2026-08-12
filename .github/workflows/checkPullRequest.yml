@@ -16,14 +16,14 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 #4.1.14
+      uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # 7.0.1
       with:
         fetch-depth: 0
         submodules: 'true'
         token: ${{ secrets.CHECKOUT_TOKEN }}
 
     - name: Setup .NET
-      uses: actions/setup-dotnet@87b7050bc53ea08284295505d98d2aa94301e852 # 4.2.0
+      uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # 6.0.0
       with:
         global-json-file: global.json
         dotnet-version: |
