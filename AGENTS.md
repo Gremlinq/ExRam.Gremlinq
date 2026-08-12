@@ -56,7 +56,7 @@ All test projects reference these MTP reporting extensions (wired up in `test/Di
 - `Microsoft.Testing.Extensions.TrxReport` — enable with `--report-trx`. TRX results stream to disk as the run progresses, so a hard crash still leaves a usable partial report.
 - `Microsoft.Testing.Extensions.GitHubActionsReport` — enable with `--report-gh`. **Preview package (alpha-only version).** Only activates when `GITHUB_ACTIONS=true`, so it's a no-op for local `dotnet test` runs. Emits inline failure/skip annotations, per-assembly log groups, and a job summary on GitHub Actions.
 
-`test/Directory.Packages.props` pins `Microsoft.Testing.Platform` to `2.3.3` explicitly (above the version `xunit.v3.mtp-v2` brings transitively), since `--report-gh` and other 2.3.x options require it.
+`Microsoft.Testing.Extensions.TrxReport` and `GitHubActionsReport` themselves require `Microsoft.Testing.Platform` 2.3.3+, which NuGet resolves transitively without needing an explicit override in `test/Directory.Packages.props` (the version xunit.v3.mtp-v2 brings in is only a floor of 2.0.2). No stable xunit.v3.mtp-v2 release currently bumps that floor to 2.3.x on its own (only 4.0.0 prereleases do).
 
 Report file names default to the deterministic `{asm}_{tfm}_{arch}` form (MTP 2.3.0+), so multi-targeted test projects (net8.0/net9.0/net10.0) don't overwrite each other's reports.
 
