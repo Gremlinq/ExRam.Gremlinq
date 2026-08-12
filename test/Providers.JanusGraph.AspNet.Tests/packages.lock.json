@@ -42,30 +42,11 @@
           "Microsoft.Extensions.DependencyInjection.Abstractions": "10.0.9"
         }
       },
-      "Microsoft.Testing.Extensions.CrashDump": {
-        "type": "Direct",
-        "requested": "[2.3.3, )",
-        "resolved": "2.3.3",
-        "contentHash": "Z8x78m8cxoTkorHo771/HgbrLv7AhzBFqAkv+tUuUEQTpOPZ18MGoRkrPI3cFR/9/kQzWwCU8W8a/Q0bTBBxMA==",
-        "dependencies": {
-          "Microsoft.Testing.Extensions.TrxReport.Abstractions": "2.3.3",
-          "Microsoft.Testing.Platform": "2.3.3"
-        }
-      },
       "Microsoft.Testing.Extensions.GitHubActionsReport": {
         "type": "Direct",
         "requested": "[1.0.0-alpha.26377.5, )",
         "resolved": "1.0.0-alpha.26377.5",
         "contentHash": "epQRol9bGUbK0YYxQ8Jzb/ZKpn/UzfRD4yFWC16S/OOHe8YObNkBXbfanOR45gT/vqNReCre4QA+Wqi8hUza5A==",
-        "dependencies": {
-          "Microsoft.Testing.Platform": "2.3.3"
-        }
-      },
-      "Microsoft.Testing.Extensions.HtmlReport": {
-        "type": "Direct",
-        "requested": "[2.3.3, )",
-        "resolved": "2.3.3",
-        "contentHash": "nlz1n3LdNkQLfMlMzTCk2aKcxG9SK2fuTPEd6sLH/qDMDMU92nMmXa6fk6qrB6ViE2Tb/aspwx8Y9yXJfTXM6A==",
         "dependencies": {
           "Microsoft.Testing.Platform": "2.3.3"
         }
@@ -662,30 +643,11 @@
           "Microsoft.Extensions.DependencyInjection.Abstractions": "10.0.9"
         }
       },
-      "Microsoft.Testing.Extensions.CrashDump": {
-        "type": "Direct",
-        "requested": "[2.3.3, )",
-        "resolved": "2.3.3",
-        "contentHash": "Z8x78m8cxoTkorHo771/HgbrLv7AhzBFqAkv+tUuUEQTpOPZ18MGoRkrPI3cFR/9/kQzWwCU8W8a/Q0bTBBxMA==",
-        "dependencies": {
-          "Microsoft.Testing.Extensions.TrxReport.Abstractions": "2.3.3",
-          "Microsoft.Testing.Platform": "2.3.3"
-        }
-      },
       "Microsoft.Testing.Extensions.GitHubActionsReport": {
         "type": "Direct",
         "requested": "[1.0.0-alpha.26377.5, )",
         "resolved": "1.0.0-alpha.26377.5",
         "contentHash": "epQRol9bGUbK0YYxQ8Jzb/ZKpn/UzfRD4yFWC16S/OOHe8YObNkBXbfanOR45gT/vqNReCre4QA+Wqi8hUza5A==",
-        "dependencies": {
-          "Microsoft.Testing.Platform": "2.3.3"
-        }
-      },
-      "Microsoft.Testing.Extensions.HtmlReport": {
-        "type": "Direct",
-        "requested": "[2.3.3, )",
-        "resolved": "2.3.3",
-        "contentHash": "nlz1n3LdNkQLfMlMzTCk2aKcxG9SK2fuTPEd6sLH/qDMDMU92nMmXa6fk6qrB6ViE2Tb/aspwx8Y9yXJfTXM6A==",
         "dependencies": {
           "Microsoft.Testing.Platform": "2.3.3"
         }
@@ -1315,30 +1277,11 @@
           "Microsoft.Extensions.DependencyInjection.Abstractions": "10.0.9"
         }
       },
-      "Microsoft.Testing.Extensions.CrashDump": {
-        "type": "Direct",
-        "requested": "[2.3.3, )",
-        "resolved": "2.3.3",
-        "contentHash": "Z8x78m8cxoTkorHo771/HgbrLv7AhzBFqAkv+tUuUEQTpOPZ18MGoRkrPI3cFR/9/kQzWwCU8W8a/Q0bTBBxMA==",
-        "dependencies": {
-          "Microsoft.Testing.Extensions.TrxReport.Abstractions": "2.3.3",
-          "Microsoft.Testing.Platform": "2.3.3"
-        }
-      },
       "Microsoft.Testing.Extensions.GitHubActionsReport": {
         "type": "Direct",
         "requested": "[1.0.0-alpha.26377.5, )",
         "resolved": "1.0.0-alpha.26377.5",
         "contentHash": "epQRol9bGUbK0YYxQ8Jzb/ZKpn/UzfRD4yFWC16S/OOHe8YObNkBXbfanOR45gT/vqNReCre4QA+Wqi8hUza5A==",
-        "dependencies": {
-          "Microsoft.Testing.Platform": "2.3.3"
-        }
-      },
-      "Microsoft.Testing.Extensions.HtmlReport": {
-        "type": "Direct",
-        "requested": "[2.3.3, )",
-        "resolved": "2.3.3",
-        "contentHash": "nlz1n3LdNkQLfMlMzTCk2aKcxG9SK2fuTPEd6sLH/qDMDMU92nMmXa6fk6qrB6ViE2Tb/aspwx8Y9yXJfTXM6A==",
         "dependencies": {
           "Microsoft.Testing.Platform": "2.3.3"
         }

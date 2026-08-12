@@ -54,15 +54,13 @@ dotnet test --solution ExRam.Gremlinq.slnx --ignore-exit-code 8
 All test projects reference these MTP reporting extensions (wired up in `test/Directory.Build.props`; no code changes needed, they auto-register via `Microsoft.Testing.Platform.MSBuild`):
 
 - `Microsoft.Testing.Extensions.TrxReport` — enable with `--report-trx`. TRX results stream to disk as the run progresses, so a hard crash still leaves a usable partial report.
-- `Microsoft.Testing.Extensions.HtmlReport` — enable with `--report-html`. Self-contained interactive HTML report.
-- `Microsoft.Testing.Extensions.CrashDump` — enable with `--crashdump` (pair with `--crash-report-if-supported` for a JSON crash report on Linux/macOS; falls back gracefully on Windows).
 - `Microsoft.Testing.Extensions.GitHubActionsReport` — enable with `--report-gh`. **Preview package (alpha-only version).** Only activates when `GITHUB_ACTIONS=true`, so it's a no-op for local `dotnet test` runs. Emits inline failure/skip annotations, per-assembly log groups, and a job summary on GitHub Actions.
 
 `test/Directory.Packages.props` pins `Microsoft.Testing.Platform` to `2.3.3` explicitly (above the version `xunit.v3.mtp-v2` brings transitively), since `--report-gh` and other 2.3.x options require it.
 
 Report file names default to the deterministic `{asm}_{tfm}_{arch}` form (MTP 2.3.0+), so multi-targeted test projects (net8.0/net9.0/net10.0) don't overwrite each other's reports.
 
-`.github/workflows/checkPullRequest.yml` passes `--report-trx --report-html --report-gh --crashdump --crash-report-if-supported` and uploads the `TestResults` folders as a build artifact (`always()`), so reports survive even a failing/crashing run.
+`.github/workflows/checkPullRequest.yml` passes `--report-trx --report-gh` on the test step.
 
 ### Snapshot Testing
 
@@ -103,13 +101,12 @@ The PR workflow (`.github/workflows/checkPullRequest.yml`) runs on `ubuntu-24.04
 1. Checkout with submodules and full fetch depth
 2. Setup .NET SDK from `global.json`
 3. On Windows only: start CosmosDb Emulator with Gremlin support
-4. Run tests in Release mode with coverage and MTP reporting (TRX, HTML, GitHub Actions annotations, crash dump)
+4. Run tests in Release mode with coverage and MTP reporting (TRX, GitHub Actions annotations)
 5. Upload coverage reports to Codecov
-6. Upload the MTP `TestResults` artifacts (always, even on failure)
 
 **Required Commands:**
 ```bash
-dotnet test -c Release --solution ./ExRam.Gremlinq.slnx --coverlet --coverlet-output-format opencover --ignore-exit-code 8 --report-trx --report-html --report-gh --crashdump --crash-report-if-supported
+dotnet test -c Release --solution ./ExRam.Gremlinq.slnx --coverlet --coverlet-output-format opencover --ignore-exit-code 8 --report-trx --report-gh
 ```
 
 ## Release / Publishing Workflow
