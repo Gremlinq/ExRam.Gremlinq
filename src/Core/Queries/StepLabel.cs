@@ -21,7 +21,9 @@ namespace ExRam.Gremlinq.Core
         public virtual StepLabel<TNewValue> Cast<TNewValue>() => new(Identity);
 
         /// <inheritdoc />
-        public bool Equals(StepLabel? other) => Identity.Equals(other?.Identity);
+        public bool Equals(StepLabel? other) => ReferenceEquals(Identity, this)
+            ? base.Equals(other?.Identity)
+            : Identity.Equals(other?.Identity);
 
         /// <inheritdoc />
         public override bool Equals(object? obj)
@@ -39,7 +41,9 @@ namespace ExRam.Gremlinq.Core
         }
 
         /// <inheritdoc />
-        public override int GetHashCode() => Identity.GetHashCode();
+        public override int GetHashCode() => ReferenceEquals(Identity, this)
+            ? base.GetHashCode()
+            : Identity.GetHashCode();
 
         /// <summary>Tests two step labels for equality.</summary>
         public static bool operator ==(StepLabel? left, StepLabel? right) => Equals(left, right);
