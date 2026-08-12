@@ -7,6 +7,14 @@
     <PackageVersion Include="Microsoft.CodeAnalysis.CSharp" Version="5.3.0" />
     <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="10.0.9" />
     <PackageVersion Include="Microsoft.Extensions.Configuration" Version="10.0.8" />
+    <!-- Pinned explicitly (above the version xunit.v3.mtp-v2 brings transitively) so the
+         MTP reporting extensions and CLI options below are available. -->
+    <PackageVersion Include="Microsoft.Testing.Platform" Version="2.3.3" />
+    <PackageVersion Include="Microsoft.Testing.Extensions.TrxReport" Version="2.3.3" />
+    <PackageVersion Include="Microsoft.Testing.Extensions.HtmlReport" Version="2.3.3" />
+    <PackageVersion Include="Microsoft.Testing.Extensions.CrashDump" Version="2.3.3" />
+    <!-- Preview package (only alpha versions are published as of this writing). -->
+    <PackageVersion Include="Microsoft.Testing.Extensions.GitHubActionsReport" Version="1.0.0-alpha.26377.5" />
     <PackageVersion Include="Nerdbank.GitVersioning" Version="3.9.50" />
     <PackageVersion Include="NSubstitute" Version="5.3.0" />
     <PackageVersion Include="PublicApiGenerator" Version="11.5.4" />

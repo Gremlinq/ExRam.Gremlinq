@@ -18,6 +18,17 @@
     <Compile Include="$(MSBuildThisFileDirectory)AssemblyInfo.cs" Link="AssemblyInfo.cs" />
     <PackageReference Include="xunit.v3.mtp-v2" />
     <PackageReference Include="coverlet.MTP" />
+
+    <!-- Microsoft.Testing.Platform (MTP) reporting extensions. Auto-registered by
+         Microsoft.Testing.Platform.MSBuild, no code changes required. See
+         https://devblogs.microsoft.com/dotnet/microsoft-testing-platform-reporting/ -->
+    <PackageReference Include="Microsoft.Testing.Extensions.TrxReport" />
+    <PackageReference Include="Microsoft.Testing.Extensions.HtmlReport" />
+    <PackageReference Include="Microsoft.Testing.Extensions.CrashDump" />
+    <!-- Preview package; only activates when running on GitHub Actions (GITHUB_ACTIONS
+         environment variable) and the report-gh option is passed, so it's a no-op
+         elsewhere (e.g. local dotnet test runs). -->
+    <PackageReference Include="Microsoft.Testing.Extensions.GitHubActionsReport" />
   </ItemGroup>
 
   <ItemGroup>
