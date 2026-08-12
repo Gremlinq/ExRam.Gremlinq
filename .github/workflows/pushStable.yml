@@ -4,6 +4,10 @@ on:
   release:
     types: [published]
 
+permissions:
+  contents: read
+  id-token: write # required for NuGet Trusted Publishing (OIDC)
+
 jobs:
   push:
     runs-on: ubuntu-slim
@@ -19,9 +23,15 @@ jobs:
         releaseId: ${{ github.event.release.id }}
         fileName: "${{ github.event.repository.name }}.*.nupkg"
 
+    - name: NuGet login (OIDC -> temp API key)
+      uses: NuGet/login@8d196754b4036150537f80ac539e15c2f1028841 # v1.2.0
+      id: login
+      with:
+        user: ${{ secrets.NUGET_USER }}
+
     - name: Push NuGet packages to NuGet.org
       run: dotnet nuget push **/${{ github.event.repository.name }}.*.nupkg
         --source https://api.nuget.org/v3/index.json
-        --api-key ${{ secrets.NUGET_DEPLOY_KEY }}
+        --api-key ${{ steps.login.outputs.NUGET_API_KEY }}
         --no-symbols
         --skip-duplicate
