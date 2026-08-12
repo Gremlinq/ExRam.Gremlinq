@@ -64,5 +64,11 @@ namespace ExRam.Gremlinq.Core.Tests
 
             stepLabel1.Should().Be(stepLabel2);
         }
+
+        [Fact]
+        public void GetHashCode_terminates() => new StepLabel<object>()
+            .GetHashCode()
+            .Should()
+            .NotBe(0);
     }
 }
