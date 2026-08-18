@@ -7,7 +7,7 @@ This file provides guidance for AI agents working with the ExRam.Gremlinq reposi
 ExRam.Gremlinq is a .NET object-graph-mapper (OGM) for Apache TinkerPop™ Gremlin-enabled graph databases. It translates strongly-typed C# LINQ-style queries into Gremlin bytecode/scripts and handles serialization/deserialization.
 
 **Key Details:**
-- **SDK:** .NET 10.0.300 (pinned in `global.json` with `rollForward: disable`)
+- **SDK:** .NET 10.0.400 (pinned in `global.json` with `rollForward: disable`)
 - **Language:** C# 14.0 with nullable enabled, implicit usings, and `TreatWarningsAsErrors`
 - **Solution file:** `ExRam.Gremlinq.slnx` (XML-based slnx format)
 - **Versioning:** Nerdbank.GitVersioning (`version.json`)
