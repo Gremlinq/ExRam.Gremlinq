@@ -186,7 +186,7 @@ namespace ExRam.Gremlinq.Providers.Core
             public IPoolGremlinqClientFactory<TBaseFactory> ConfigureClient(Func<IGremlinqClient, IGremlinQueryEnvironment, IGremlinqClient> clientTransformation) => new PoolGremlinqClientFactory<TBaseFactory>(_baseFactory, _poolSize, _maxInProcessPerConnection, (client, env) => clientTransformation(_clientTransformation(client, env), env));
         }
 
-        private sealed class GremlinQueryExecutorImpl : IGremlinQueryExecutor
+        private sealed class GremlinQueryExecutorImpl : IGremlinQueryExecutor, IAsyncDisposable
         {
             private static readonly ConcurrentDictionary<Type, Func<GremlinQueryExecutorImpl, GremlinQueryExecutionContext, object>> MetaResponseDelegates = new();
 
@@ -197,6 +197,10 @@ namespace ExRam.Gremlinq.Providers.Core
             {
                 _clientFactory = clientFactory;
             }
+
+            public ValueTask DisposeAsync() => _clientFactory is IAsyncDisposable asyncDisposable
+                ? asyncDisposable.DisposeAsync()
+                : ValueTask.CompletedTask;
 
             public IAsyncEnumerable<T> Execute<T>(GremlinQueryExecutionContext context)
             {
