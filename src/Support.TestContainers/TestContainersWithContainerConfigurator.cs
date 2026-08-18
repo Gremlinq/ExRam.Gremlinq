@@ -13,7 +13,7 @@ namespace ExRam.Gremlinq.Support.TestContainers
     /// <summary>Configurator for creating a client factory that is backed by a Testcontainers container.</summary>
     public readonly struct TestContainersWithContainerConfigurator
     {
-        private sealed class ContainerGremlinqClientFactory : IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>
+        private sealed class ContainerGremlinqClientFactory : IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>, IAsyncDisposable
         {
             private sealed class ContainerGremlinClient : IGremlinqClient
             {
@@ -93,6 +93,10 @@ namespace ExRam.Gremlinq.Support.TestContainers
             }
 
             public IGremlinqClient Create(IGremlinQueryEnvironment environment) => new ContainerGremlinClient(this, environment);
+
+            public ValueTask DisposeAsync() => Interlocked.Exchange(ref _container, DisposedObject) is IContainer container
+                ? container.DisposeAsync()
+                : ValueTask.CompletedTask;
 
             public IPoolGremlinqClientFactory<TNewBaseFactory> ConfigureBaseFactory<TNewBaseFactory>(Func<IWebSocketGremlinqClientFactory, TNewBaseFactory> transformation) where TNewBaseFactory : IGremlinqClientFactory => throw new NotSupportedException();
 
