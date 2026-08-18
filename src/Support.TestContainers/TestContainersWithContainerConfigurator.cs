@@ -97,7 +97,14 @@ namespace ExRam.Gremlinq.Support.TestContainers
             public async ValueTask DisposeAsync()
             {
                 if (Interlocked.Exchange(ref _container, DisposedObject) is IContainer container)
-                    await container.DisposeAsync().ConfigureAwait(false);
+                {
+                    await using (container.ConfigureAwait(false))
+                    {
+                        await container
+                            .StopAsync()
+                            .ConfigureAwait(false);
+                    }
+                }
 
                 if (_baseFactory is IAsyncDisposable asyncDisposable)
                     await asyncDisposable.DisposeAsync().ConfigureAwait(false);
