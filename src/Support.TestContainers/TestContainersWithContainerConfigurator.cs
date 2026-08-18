@@ -94,9 +94,14 @@ namespace ExRam.Gremlinq.Support.TestContainers
 
             public IGremlinqClient Create(IGremlinQueryEnvironment environment) => new ContainerGremlinClient(this, environment);
 
-            public ValueTask DisposeAsync() => Interlocked.Exchange(ref _container, DisposedObject) is IContainer container
-                ? container.DisposeAsync()
-                : ValueTask.CompletedTask;
+            public async ValueTask DisposeAsync()
+            {
+                if (Interlocked.Exchange(ref _container, DisposedObject) is IContainer container)
+                    await container.DisposeAsync().ConfigureAwait(false);
+
+                if (_baseFactory is IAsyncDisposable asyncDisposable)
+                    await asyncDisposable.DisposeAsync().ConfigureAwait(false);
+            }
 
             public IPoolGremlinqClientFactory<TNewBaseFactory> ConfigureBaseFactory<TNewBaseFactory>(Func<IWebSocketGremlinqClientFactory, TNewBaseFactory> transformation) where TNewBaseFactory : IGremlinqClientFactory => throw new NotSupportedException();
 

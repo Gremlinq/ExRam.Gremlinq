@@ -19,7 +19,7 @@ namespace ExRam.Gremlinq.Providers.Core
     /// </summary>
     public static class GremlinqClientFactory
     {
-        private sealed class PoolGremlinqClientFactory<TBaseFactory> : IPoolGremlinqClientFactory<TBaseFactory>
+        private sealed class PoolGremlinqClientFactory<TBaseFactory> : IPoolGremlinqClientFactory<TBaseFactory>, IAsyncDisposable
             where TBaseFactory : IGremlinqClientFactory
         {
             private sealed class PoolGremlinqClient : IGremlinqClient
@@ -184,6 +184,10 @@ namespace ExRam.Gremlinq.Providers.Core
             public IGremlinqClient Create(IGremlinQueryEnvironment environment) => _clientTransformation(new PoolGremlinqClient(_baseFactory, _poolSize, _maxInProcessPerConnection, environment), environment);
 
             public IPoolGremlinqClientFactory<TBaseFactory> ConfigureClient(Func<IGremlinqClient, IGremlinQueryEnvironment, IGremlinqClient> clientTransformation) => new PoolGremlinqClientFactory<TBaseFactory>(_baseFactory, _poolSize, _maxInProcessPerConnection, (client, env) => clientTransformation(_clientTransformation(client, env), env));
+
+            public ValueTask DisposeAsync() => _baseFactory is IAsyncDisposable asyncDisposable
+                ? asyncDisposable.DisposeAsync()
+                : ValueTask.CompletedTask;
         }
 
         private sealed class GremlinQueryExecutorImpl : IGremlinQueryExecutor, IAsyncDisposable
