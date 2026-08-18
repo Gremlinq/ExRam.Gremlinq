@@ -21,7 +21,7 @@ namespace ExRam.Gremlinq.Core.Execution
             public IAsyncEnumerable<T> Execute<T>(GremlinQueryExecutionContext context) => AsyncEnumerable.Empty<T>();
         }
 
-        private sealed class TransformQueryGremlinQueryExecutor : IGremlinQueryExecutor
+        private sealed class TransformQueryGremlinQueryExecutor : IGremlinQueryExecutor, IAsyncDisposable
         {
             private readonly IGremlinQueryExecutor _baseExecutor;
             private readonly Func<IGremlinQueryBase, IGremlinQueryBase> _transformation;
@@ -31,6 +31,10 @@ namespace ExRam.Gremlinq.Core.Execution
                 _transformation = transformation;
                 _baseExecutor = baseExecutor;
             }
+
+            public ValueTask DisposeAsync() => _baseExecutor is IAsyncDisposable asyncDisposable
+                ? asyncDisposable.DisposeAsync()
+                : ValueTask.CompletedTask;
 
             public IAsyncEnumerable<T> Execute<T>(GremlinQueryExecutionContext context)
             {
@@ -46,7 +50,7 @@ namespace ExRam.Gremlinq.Core.Execution
             }
         }
 
-        private sealed class TransformExecutionExceptionGremlinQueryExecutor : IGremlinQueryExecutor
+        private sealed class TransformExecutionExceptionGremlinQueryExecutor : IGremlinQueryExecutor, IAsyncDisposable
         {
             private readonly IGremlinQueryExecutor _baseExecutor;
             private readonly Func<GremlinQueryExecutionException, GremlinQueryExecutionException> _exceptionTransformation;
@@ -56,6 +60,10 @@ namespace ExRam.Gremlinq.Core.Execution
                 _baseExecutor = baseExecutor;
                 _exceptionTransformation = exceptionTransformation;
             }
+
+            public ValueTask DisposeAsync() => _baseExecutor is IAsyncDisposable asyncDisposable
+                ? asyncDisposable.DisposeAsync()
+                : ValueTask.CompletedTask;
 
             public IAsyncEnumerable<T> Execute<T>(GremlinQueryExecutionContext context)
             {
@@ -86,7 +94,7 @@ namespace ExRam.Gremlinq.Core.Execution
             }
         }
 
-        private sealed class SerializingGremlinQueryExecutor : IGremlinQueryExecutor
+        private sealed class SerializingGremlinQueryExecutor : IGremlinQueryExecutor, IAsyncDisposable
         {
             private readonly SemaphoreSlim _semaphore = new(1);
             private readonly IGremlinQueryExecutor _baseExecutor;
@@ -95,6 +103,10 @@ namespace ExRam.Gremlinq.Core.Execution
             {
                 _baseExecutor = baseExecutor;
             }
+
+            public ValueTask DisposeAsync() => _baseExecutor is IAsyncDisposable asyncDisposable
+                ? asyncDisposable.DisposeAsync()
+                : ValueTask.CompletedTask;
 
             public IAsyncEnumerable<T> Execute<T>(GremlinQueryExecutionContext context)
             {

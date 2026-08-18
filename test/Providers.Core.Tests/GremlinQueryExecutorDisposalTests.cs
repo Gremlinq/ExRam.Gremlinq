@@ -1,4 +1,5 @@
 using ExRam.Gremlinq.Core;
+using ExRam.Gremlinq.Core.Execution;
 
 using FluentAssertions;
 
@@ -64,6 +65,24 @@ namespace ExRam.Gremlinq.Providers.Core.Tests
                 .ToExecutor();
 
             await ((IAsyncDisposable)executor).DisposeAsync();
+        }
+
+        [Fact]
+        public async Task Executor_from_environment_disposes_wrapped_factory_executor()
+        {
+            var factory = Substitute.For<IGremlinqClientFactory, IAsyncDisposable>();
+
+            var environment = GremlinQueryEnvironment.Invalid
+                .UseExecutor(factory
+                    .ToExecutor()
+                    .TransformExecutionException(ex => ex));
+
+            if (environment.Executor is IAsyncDisposable asyncDisposable)
+                await asyncDisposable.DisposeAsync();
+
+            await ((IAsyncDisposable)factory)
+                .Received(1)
+                .DisposeAsync();
         }
     }
 }

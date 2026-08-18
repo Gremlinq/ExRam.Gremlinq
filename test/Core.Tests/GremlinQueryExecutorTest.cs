@@ -131,6 +131,113 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public async Task TransformQuery_disposes_base_executor_if_IAsyncDisposable()
+        {
+            var baseExecutor = Substitute.For<IGremlinQueryExecutor, IAsyncDisposable>();
+
+            var executor = baseExecutor
+                .TransformQuery(_ => _);
+
+            executor
+                .Should()
+                .BeAssignableTo<IAsyncDisposable>();
+
+            await ((IAsyncDisposable)executor).DisposeAsync();
+
+            await ((IAsyncDisposable)baseExecutor)
+                .Received(1)
+                .DisposeAsync();
+        }
+
+        [Fact]
+        public async Task TransformQuery_dispose_without_IAsyncDisposable_base_does_not_throw()
+        {
+            var baseExecutor = Substitute.For<IGremlinQueryExecutor>();
+
+            var executor = baseExecutor
+                .TransformQuery(_ => _);
+
+            await ((IAsyncDisposable)executor).DisposeAsync();
+        }
+
+        [Fact]
+        public async Task TransformExecutionException_disposes_base_executor_if_IAsyncDisposable()
+        {
+            var baseExecutor = Substitute.For<IGremlinQueryExecutor, IAsyncDisposable>();
+
+            var executor = baseExecutor
+                .TransformExecutionException(ex => ex);
+
+            executor
+                .Should()
+                .BeAssignableTo<IAsyncDisposable>();
+
+            await ((IAsyncDisposable)executor).DisposeAsync();
+
+            await ((IAsyncDisposable)baseExecutor)
+                .Received(1)
+                .DisposeAsync();
+        }
+
+        [Fact]
+        public async Task TransformExecutionException_dispose_without_IAsyncDisposable_base_does_not_throw()
+        {
+            var baseExecutor = Substitute.For<IGremlinQueryExecutor>();
+
+            var executor = baseExecutor
+                .TransformExecutionException(ex => ex);
+
+            await ((IAsyncDisposable)executor).DisposeAsync();
+        }
+
+        [Fact]
+        public async Task Serialize_disposes_base_executor_if_IAsyncDisposable()
+        {
+            var baseExecutor = Substitute.For<IGremlinQueryExecutor, IAsyncDisposable>();
+
+            var executor = baseExecutor
+                .Serialize();
+
+            executor
+                .Should()
+                .BeAssignableTo<IAsyncDisposable>();
+
+            await ((IAsyncDisposable)executor).DisposeAsync();
+
+            await ((IAsyncDisposable)baseExecutor)
+                .Received(1)
+                .DisposeAsync();
+        }
+
+        [Fact]
+        public async Task Serialize_dispose_without_IAsyncDisposable_base_does_not_throw()
+        {
+            var baseExecutor = Substitute.For<IGremlinQueryExecutor>();
+
+            var executor = baseExecutor
+                .Serialize();
+
+            await ((IAsyncDisposable)executor).DisposeAsync();
+        }
+
+        [Fact]
+        public async Task Executor_from_environment_disposes_wrapped_base_executor()
+        {
+            var baseExecutor = Substitute.For<IGremlinQueryExecutor, IAsyncDisposable>();
+
+            var environment = GremlinQueryEnvironment.Invalid
+                .UseExecutor(baseExecutor
+                    .TransformExecutionException(ex => ex));
+
+            if (environment.Executor is IAsyncDisposable asyncDisposable)
+                await asyncDisposable.DisposeAsync();
+
+            await ((IAsyncDisposable)baseExecutor)
+                .Received(1)
+                .DisposeAsync();
+        }
+
+        [Fact]
         public void TransformQuery_throws_on_null_executor()
         {
             var act = () => GremlinQueryExecutor.TransformQuery(null!, _ => _);
