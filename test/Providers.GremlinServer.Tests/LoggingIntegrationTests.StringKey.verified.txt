@@ -70,7 +70,7 @@ java.lang.IllegalArgumentException: Expected an id that is convertible to class 
           Message: ServerError: Expected an id that is convertible to class java.lang.Long but received class java.lang.String - [id]
         },
         StackTrace:
-at ExRam.Gremlinq.Providers.Core.GremlinqClientFactory.GremlinQueryExecutorImpl.<>c__4`1.<Execute>b__4_0(GremlinQueryExecutionContext context, RequestMessage _, ResponseMessage`1 response)
+at ExRam.Gremlinq.Providers.Core.GremlinqClientFactory.GremlinQueryExecutorImpl.<>c__5`1.<Execute>b__5_0(GremlinQueryExecutionContext context, RequestMessage _, ResponseMessage`1 response)
 at ExRam.Gremlinq.Providers.Core.GremlinqClientFactory.GremlinQueryExecutorImpl.Execute[TResult,TTransformedResult](GremlinQueryExecutionContext context, Func`4 resultTransformation, CancellationToken ct)
 at ExRam.Gremlinq.Providers.Core.GremlinqClientFactory.GremlinQueryExecutorImpl.Execute[TResult,TTransformedResult](GremlinQueryExecutionContext context, Func`4 resultTransformation, CancellationToken ct)
 at ExRam.Gremlinq.Providers.Core.GremlinqClientFactory.GremlinQueryExecutorImpl.Execute[TResult,TTransformedResult](GremlinQueryExecutionContext context, Func`4 resultTransformation, CancellationToken ct)

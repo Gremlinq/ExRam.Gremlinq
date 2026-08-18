@@ -1,4 +1,4 @@
-{
+﻿{
   Type: GremlinQueryExecutionException,
   ExecutionContext: {
     ExecutionId: 12345678-9012-3456-7890-123456789012,
@@ -45,7 +45,7 @@ org.apache.tinkerpop.gremlin.process.traversal.step.sideEffect.FailStep$FailExce
     Data: {}
   },
   StackTrace:
-at ExRam.Gremlinq.Providers.Core.GremlinqClientFactory.GremlinQueryExecutorImpl.<>c__4`1.<Execute>b__4_0(GremlinQueryExecutionContext context, RequestMessage _, ResponseMessage`1 response)
+at ExRam.Gremlinq.Providers.Core.GremlinqClientFactory.GremlinQueryExecutorImpl.<>c__5`1.<Execute>b__5_0(GremlinQueryExecutionContext context, RequestMessage _, ResponseMessage`1 response)
 at ExRam.Gremlinq.Providers.Core.GremlinqClientFactory.GremlinQueryExecutorImpl.Execute[TResult,TTransformedResult](GremlinQueryExecutionContext context, Func`4 resultTransformation, CancellationToken ct)
 at ExRam.Gremlinq.Providers.Core.GremlinqClientFactory.GremlinQueryExecutorImpl.Execute[TResult,TTransformedResult](GremlinQueryExecutionContext context, Func`4 resultTransformation, CancellationToken ct)
 at ExRam.Gremlinq.Providers.Core.GremlinqClientFactory.GremlinQueryExecutorImpl.Execute[TResult,TTransformedResult](GremlinQueryExecutionContext context, Func`4 resultTransformation, CancellationToken ct)
