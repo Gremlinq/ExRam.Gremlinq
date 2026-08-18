@@ -131,6 +131,10 @@ namespace ExRam.Gremlinq.Support.TestContainers
 
                             return newContainer;
                         }
+
+                        await newContainer
+                            .DisposeAsync()
+                            .ConfigureAwait(false);
                     }
                 }
             }
