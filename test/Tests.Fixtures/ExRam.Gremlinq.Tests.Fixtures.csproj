@@ -10,7 +10,6 @@
     <ProjectReference Include="../Tests.Infrastructure/ExRam.Gremlinq.Tests.Infrastructure.csproj" />
 
     <PackageReference Include="System.Memory.Data" />
-    <PackageReference Include="Testcontainers" />
   </ItemGroup>
 
 </Project>
