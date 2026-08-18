@@ -46,8 +46,6 @@ namespace ExRam.Gremlinq.Core.Execution
             }
         }
 
-        
-
         private sealed class TransformExecutionExceptionGremlinQueryExecutor : IGremlinQueryExecutor
         {
             private readonly IGremlinQueryExecutor _baseExecutor;
