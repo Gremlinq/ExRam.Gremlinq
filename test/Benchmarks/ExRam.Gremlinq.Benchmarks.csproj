@@ -11,7 +11,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" />
     <ProjectReference Include="../../src/Core/ExRam.Gremlinq.Core.csproj" />
     <ProjectReference Include="../../src/Providers.Core/ExRam.Gremlinq.Providers.Core.csproj" />
