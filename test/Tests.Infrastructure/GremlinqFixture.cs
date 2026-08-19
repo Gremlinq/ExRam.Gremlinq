@@ -18,7 +18,13 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                 .UseModel(GraphModel.FromBaseTypes<Vertex, Edge>())
                 .AddGraphSonBinarySupport()));
 
-        public virtual async ValueTask DisposeAsync() => GC.SuppressFinalize(this);
+        public virtual async ValueTask DisposeAsync()
+        {
+            if (_g?.AsAdmin().Environment.Executor is IAsyncDisposable disposableExecutor)
+                await disposableExecutor.DisposeAsync().ConfigureAwait(false);
+
+            GC.SuppressFinalize(this);
+        }
 
         public virtual IGremlinQuerySource GetQuerySource() => _g ?? throw new InvalidOperationException();
     }
