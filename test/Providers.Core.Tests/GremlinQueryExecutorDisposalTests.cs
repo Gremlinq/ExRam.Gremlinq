@@ -84,5 +84,38 @@ namespace ExRam.Gremlinq.Providers.Core.Tests
                 .Received(1)
                 .DisposeAsync();
         }
+
+        [Fact(Skip = "Fails until GremlinQueryExecutorImpl disposes cached clients on disposal.")]
+        public async Task Executor_dispose_disposes_cached_clients()
+        {
+            var factory = Substitute.For<IGremlinqClientFactory, IAsyncDisposable>();
+            var client = Substitute.For<IGremlinqClient>();
+
+            factory
+                .Create(Arg.Any<IGremlinQueryEnvironment>())
+                .Returns(client);
+
+            var executor = factory.ToExecutor();
+
+            try
+            {
+                await foreach (var _ in executor.Execute<object>(GremlinQueryExecutionContext.Create(GremlinQuerySource.g.V())))
+                {
+                }
+            }
+            catch
+            {
+            }
+
+            factory
+                .Received(1)
+                .Create(Arg.Any<IGremlinQueryEnvironment>());
+
+            await ((IAsyncDisposable)executor).DisposeAsync();
+
+            client
+                .Received(1)
+                .Dispose();
+        }
     }
 }
