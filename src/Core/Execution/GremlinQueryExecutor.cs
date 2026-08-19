@@ -104,9 +104,15 @@ namespace ExRam.Gremlinq.Core.Execution
                 _baseExecutor = baseExecutor;
             }
 
-            public ValueTask DisposeAsync() => _baseExecutor is IAsyncDisposable asyncDisposable
-                ? asyncDisposable.DisposeAsync()
-                : ValueTask.CompletedTask;
+            public ValueTask DisposeAsync()
+            {
+                using (_semaphore)
+                {
+                    return _baseExecutor is IAsyncDisposable asyncDisposable
+                        ? asyncDisposable.DisposeAsync()
+                        : ValueTask.CompletedTask;
+                }
+            }
 
             public IAsyncEnumerable<T> Execute<T>(GremlinQueryExecutionContext context)
             {

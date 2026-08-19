@@ -221,6 +221,36 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public async Task Serialize_dispose_twice_does_not_throw()
+        {
+            var baseExecutor = Substitute.For<IGremlinQueryExecutor>();
+
+            var executor = baseExecutor
+                .Serialize();
+
+            await ((IAsyncDisposable)executor).DisposeAsync();
+            await ((IAsyncDisposable)executor).DisposeAsync();
+        }
+
+        [Fact]
+        public async Task Serialize_disposed_executor_rejects_new_executions()
+        {
+            var baseExecutor = Substitute.For<IGremlinQueryExecutor>();
+
+            var executor = baseExecutor
+                .Serialize();
+
+            await ((IAsyncDisposable)executor).DisposeAsync();
+
+            await executor
+                .Execute<int>(GremlinQueryExecutionContext.Create(_query))
+                .Awaiting(x => x
+                    .ToArrayAsync(TestContext.Current.CancellationToken))
+                .Should()
+                .ThrowAsync<ObjectDisposedException>();
+        }
+
+        [Fact]
         public async Task Executor_from_environment_disposes_wrapped_base_executor()
         {
             var baseExecutor = Substitute.For<IGremlinQueryExecutor, IAsyncDisposable>();
