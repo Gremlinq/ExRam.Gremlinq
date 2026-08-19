@@ -41,6 +41,6 @@ jobs:
         --report-trx --report-gh
 
     - name: Collect coverage
-      uses: codecov/codecov-action@671740ac38dd9b0130fbe1cec585b89eea48d3de # 5.5.2
+      uses: codecov/codecov-action@fb8b3582c8e4def4969c97caa2f19720cb33a72f # 7.0.0
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
