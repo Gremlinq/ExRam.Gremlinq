@@ -36,8 +36,12 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                             StringComparer.OrdinalIgnoreCase));
             }
 
-            public bool TryConvert(JObject serialized, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
+            bool IConverter<JObject, TTarget>.TryConvert(JObject serialized, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
             {
+                ArgumentNullException.ThrowIfNull(serialized);
+                ArgumentNullException.ThrowIfNull(defer);
+                ArgumentNullException.ThrowIfNull(recurse);
+
                 if (serialized.LooksLikeElement(out _, out var labelValue, out _))
                 {
                     if (labelValue.Value<string>() is { } label && _modelTypesForLabels.TryGetValue(label, out var types) && types.FirstOrDefault(typeof(TTarget).IsAssignableFrom) is { } modelType)
@@ -57,8 +61,13 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
 
         private static readonly ConditionalWeakTable<IGremlinQueryEnvironment, IReadOnlyDictionary<string, Type[]>> ModelTypesForLabels = new();
 
-        public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment) => typeof(TSource) == typeof(JObject) && !typeof(TTarget).IsSealed
-            ? Unsafe.As<IConverter<TSource, TTarget>>(new LabelLookupConverter<TTarget>(environment))
-            : null;
+        IConverter<TSource, TTarget>? IConverterFactory.TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment)
+        {
+            ArgumentNullException.ThrowIfNull(environment);
+
+            return typeof(TSource) == typeof(JObject) && !typeof(TTarget).IsSealed
+                ? Unsafe.As<IConverter<TSource, TTarget>>(new LabelLookupConverter<TTarget>(environment))
+                : null;
+        }
     }
 }

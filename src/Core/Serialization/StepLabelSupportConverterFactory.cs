@@ -17,8 +17,11 @@ namespace ExRam.Gremlinq.Core.Serialization
                 _environment = environment;
             }
 
-            public bool TryConvert(TQuery source, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
+            bool IConverter<TQuery, TTarget>.TryConvert(TQuery source, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
             {
+                ArgumentNullException.ThrowIfNull(defer);
+                ArgumentNullException.ThrowIfNull(recurse);
+
                 _stepLabelNames = null;
 
                 try
@@ -36,8 +39,11 @@ namespace ExRam.Gremlinq.Core.Serialization
             where TStepLabel : StepLabel
             where TTarget : class
         {
-            public bool TryConvert(TStepLabel stepLabel, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
+            bool IConverter<TStepLabel, TTarget>.TryConvert(TStepLabel stepLabel, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
             {
+                ArgumentNullException.ThrowIfNull(defer);
+                ArgumentNullException.ThrowIfNull(recurse);
+
                 var stepLabelNames = _stepLabelNames ??= new Dictionary<StepLabel, Label>();
 
                 if (!stepLabelNames.TryGetValue(stepLabel, out var stepLabelMapping))
@@ -57,8 +63,10 @@ namespace ExRam.Gremlinq.Core.Serialization
         [ThreadStatic]
         private static Dictionary<StepLabel, Label>? _stepLabelNames;
 
-        public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment)
+        IConverter<TSource, TTarget>? IConverterFactory.TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment)
         {
+            ArgumentNullException.ThrowIfNull(environment);
+
             if (typeof(IGremlinQueryBase).IsAssignableFrom(typeof(TSource)) && typeof(TTarget) == typeof(Traversal))
                 return Unsafe.As<IConverter<TSource, TTarget>?>(Activator.CreateInstance(typeof(DeferConverter<,>).MakeGenericType(typeof(TSource), typeof(TTarget)), environment));
 

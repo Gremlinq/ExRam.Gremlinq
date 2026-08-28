@@ -43,8 +43,12 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                 _environment = environment;
             }
 
-            public bool TryConvert(JObject serialized, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
+            bool IConverter<JObject, TTarget>.TryConvert(JObject serialized, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
             {
+                ArgumentNullException.ThrowIfNull(serialized);
+                ArgumentNullException.ThrowIfNull(defer);
+                ArgumentNullException.ThrowIfNull(recurse);
+
                 if (serialized.TryGetValue("@type", out var typeName) && typeName.Type == JTokenType.String && typeName.Value<string>() is { } typeNameString && serialized.TryGetValue("@value", out var valueToken))
                 {
                     if (!"g:Map".Equals(typeNameString, StringComparison.OrdinalIgnoreCase))
@@ -70,8 +74,13 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
             }
         }
 
-        public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment) => typeof(TSource) == typeof(JObject)
-            ? Unsafe.As<IConverter<TSource, TTarget>>(new TypedValueConverter<TTarget>(environment))
-            : null;
+        IConverter<TSource, TTarget>? IConverterFactory.TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment)
+        {
+            ArgumentNullException.ThrowIfNull(environment);
+
+            return typeof(TSource) == typeof(JObject)
+                ? Unsafe.As<IConverter<TSource, TTarget>>(new TypedValueConverter<TTarget>(environment))
+                : null;
+        }
     }
 }

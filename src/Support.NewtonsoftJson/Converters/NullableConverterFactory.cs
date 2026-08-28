@@ -18,8 +18,11 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                 _environment = environment;
             }
 
-            public bool TryConvert(TToken serialized, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
+            bool IConverter<TToken, TTarget?>.TryConvert(TToken serialized, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
             {
+                ArgumentNullException.ThrowIfNull(defer);
+                ArgumentNullException.ThrowIfNull(recurse);
+
                 if (serialized.Type == JTokenType.Null)
                 {
                     value = null!;
@@ -37,8 +40,13 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
             }
         }
 
-        public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment) => typeof(JToken).IsAssignableFrom(typeof(TSource)) && typeof(TTarget).IsGenericType && typeof(TTarget).GetGenericTypeDefinition() == typeof(Nullable<>)
-            ? (IConverter<TSource, TTarget>?)Activator.CreateInstance(typeof(NullableConverter<,>).MakeGenericType(typeof(TSource), typeof(TTarget).GetGenericArguments()[0]), environment)
-            : null;
+        IConverter<TSource, TTarget>? IConverterFactory.TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment)
+        {
+            ArgumentNullException.ThrowIfNull(environment);
+
+            return typeof(JToken).IsAssignableFrom(typeof(TSource)) && typeof(TTarget).IsGenericType && typeof(TTarget).GetGenericTypeDefinition() == typeof(Nullable<>)
+                ? (IConverter<TSource, TTarget>?)Activator.CreateInstance(typeof(NullableConverter<,>).MakeGenericType(typeof(TSource), typeof(TTarget).GetGenericArguments()[0]), environment)
+                : null;
+        }
     }
 }

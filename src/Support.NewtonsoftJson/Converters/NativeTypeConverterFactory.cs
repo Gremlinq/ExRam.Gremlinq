@@ -17,11 +17,23 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                 _environment = environment;
             }
 
-            public bool TryConvert(JValue serialized, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTarget? value) => recurse.TryTransform(serialized.Value, _environment, out value);
+            bool IConverter<JValue, TTarget>.TryConvert(JValue serialized, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
+            {
+                ArgumentNullException.ThrowIfNull(serialized);
+                ArgumentNullException.ThrowIfNull(defer);
+                ArgumentNullException.ThrowIfNull(recurse);
+
+                return recurse.TryTransform(serialized.Value, _environment, out value);
+            }
         }
 
-        public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment) => typeof(JValue).IsAssignableFrom(typeof(TSource))
-            ? Unsafe.As<IConverter<TSource, TTarget>>(new NativeTypeConverter<TTarget>(environment))
-            : null;
+        IConverter<TSource, TTarget>? IConverterFactory.TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment)
+        {
+            ArgumentNullException.ThrowIfNull(environment);
+
+            return typeof(JValue).IsAssignableFrom(typeof(TSource))
+                ? Unsafe.As<IConverter<TSource, TTarget>>(new NativeTypeConverter<TTarget>(environment))
+                : null;
+        }
     }
 }

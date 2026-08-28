@@ -24,8 +24,11 @@ namespace ExRam.Gremlinq.Core.Transformation
                     _converters = converters;
                 }
 
-                public bool TryConvert(TStaticSource source, ITransformer _, ITransformer __, [NotNullWhen(true)] out TTarget? value)
+                bool IConverter<TStaticSource, TTarget>.TryConvert(TStaticSource source, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
                 {
+                    ArgumentNullException.ThrowIfNull(defer);
+                    ArgumentNullException.ThrowIfNull(recurse);
+
                     if (source is TActualSource actualSource)
                     {
                         foreach (var converter in _converters)

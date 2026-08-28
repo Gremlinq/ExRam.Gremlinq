@@ -21,8 +21,12 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                 _environment = environment;
             }
 
-            public bool TryConvert(JValue serialized, ITransformer defer, ITransformer recurse, out TStaticTarget value)
+            bool IConverter<JValue, TStaticTarget>.TryConvert(JValue serialized, ITransformer defer, ITransformer recurse, out TStaticTarget value)
             {
+                ArgumentNullException.ThrowIfNull(serialized);
+                ArgumentNullException.ThrowIfNull(defer);
+                ArgumentNullException.ThrowIfNull(recurse);
+
                 if (_factory.Convert(serialized, _environment, recurse) is { } requested)
                 {
                     value = requested;
@@ -36,9 +40,14 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
             }
         }
 
-        public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment) => typeof(TTarget) == typeof(TStaticTarget) && typeof(TSource) == typeof(JValue)
-            ? Unsafe.As<IConverter<TSource, TTarget>>(new FixedTypeConverter(this, environment))
-            : null;
+        IConverter<TSource, TTarget>? IConverterFactory.TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment)
+        {
+            ArgumentNullException.ThrowIfNull(environment);
+
+            return typeof(TTarget) == typeof(TStaticTarget) && typeof(TSource) == typeof(JValue)
+                ? Unsafe.As<IConverter<TSource, TTarget>>(new FixedTypeConverter(this, environment))
+                : null;
+        }
 
         protected abstract TStaticTarget? Convert(JValue jValue, IGremlinQueryEnvironment environment, ITransformer recurse);
     }

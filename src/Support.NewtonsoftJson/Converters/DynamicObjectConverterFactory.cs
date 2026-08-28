@@ -118,8 +118,12 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                 _environment = environment;
             }
 
-            public bool TryConvert(JObject serialized, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out object? value)
+            bool IConverter<JObject, object>.TryConvert(JObject serialized, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out object? value)
             {
+                ArgumentNullException.ThrowIfNull(serialized);
+                ArgumentNullException.ThrowIfNull(defer);
+                ArgumentNullException.ThrowIfNull(recurse);
+
                 if (recurse.TryTransform(serialized, _environment, out IDictionary<string, object?>? dictionary))
                 {
                     value = new DynamicDictionary(dictionary);
@@ -131,8 +135,13 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
             }
         }
 
-        public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment) => typeof(TSource) == typeof(JObject) && typeof(TTarget) == typeof(object)
-            ? Unsafe.As<IConverter<TSource, TTarget>>(new DynamicObjectConverter(environment))
-            : null;
+        IConverter<TSource, TTarget>? IConverterFactory.TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment)
+        {
+            ArgumentNullException.ThrowIfNull(environment);
+
+            return typeof(TSource) == typeof(JObject) && typeof(TTarget) == typeof(object)
+                ? Unsafe.As<IConverter<TSource, TTarget>>(new DynamicObjectConverter(environment))
+                : null;
+        }
     }
 }

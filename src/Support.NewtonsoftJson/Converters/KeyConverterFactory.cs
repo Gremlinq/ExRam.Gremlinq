@@ -10,11 +10,22 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
         private sealed class KeyConverter<TSource> : IConverter<TSource, Key>
             where TSource : JToken
         {
-            public bool TryConvert(TSource serialized, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out Key value) => serialized.TryParseKey(out value);
+            bool IConverter<TSource, Key>.TryConvert(TSource serialized, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out Key value)
+            {
+                ArgumentNullException.ThrowIfNull(defer);
+                ArgumentNullException.ThrowIfNull(recurse);
+
+                return serialized.TryParseKey(out value);
+            }
         }
 
-        public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment) => typeof(JToken).IsAssignableFrom(typeof(TSource)) && typeof(TTarget) == typeof(Key)
-            ? (IConverter<TSource, TTarget>?)Activator.CreateInstance(typeof(KeyConverter<>).MakeGenericType(typeof(TSource)))
-            : null;
+        IConverter<TSource, TTarget>? IConverterFactory.TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment)
+        {
+            ArgumentNullException.ThrowIfNull(environment);
+
+            return typeof(JToken).IsAssignableFrom(typeof(TSource)) && typeof(TTarget) == typeof(Key)
+                ? (IConverter<TSource, TTarget>?)Activator.CreateInstance(typeof(KeyConverter<>).MakeGenericType(typeof(TSource)))
+                : null;
+        }
     }
 }

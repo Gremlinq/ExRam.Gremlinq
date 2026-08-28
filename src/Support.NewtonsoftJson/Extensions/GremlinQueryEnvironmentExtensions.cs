@@ -23,8 +23,11 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                     _serializer = serializer;
                 }
 
-                public bool TryConvert(TNative source, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
+                bool IConverter<TNative, TTarget>.TryConvert(TNative source, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
                 {
+                    ArgumentNullException.ThrowIfNull(defer);
+                    ArgumentNullException.ThrowIfNull(recurse);
+
                     if (_serializer(source, _environment, defer, recurse) is TTarget serialized)
                     {
                         value = serialized;
@@ -43,9 +46,14 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                 _serializer = serializer;
             }
 
-            public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment) => typeof(TSource) == typeof(TNative) && typeof(TTarget).IsAssignableFrom(typeof(TSerialized))
-                ? (IConverter<TSource, TTarget>?)Activator.CreateInstance(typeof(NativeTypeSerializerConverter<>).MakeGenericType(typeof(TNative), typeof(TSerialized), typeof(TTarget)), _serializer, environment)
-                : null;
+            IConverter<TSource, TTarget>? IConverterFactory.TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment)
+            {
+                ArgumentNullException.ThrowIfNull(environment);
+
+                return typeof(TSource) == typeof(TNative) && typeof(TTarget).IsAssignableFrom(typeof(TSerialized))
+                    ? (IConverter<TSource, TTarget>?)Activator.CreateInstance(typeof(NativeTypeSerializerConverter<>).MakeGenericType(typeof(TNative), typeof(TSerialized), typeof(TTarget)), _serializer, environment)
+                    : null;
+            }
         }
 
         private sealed class NativeTypeDeserializerConverterFactory<TNative> : IConverterFactory
@@ -61,8 +69,12 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                     _deserializer = deserializer;
                 }
 
-                public bool TryConvert(JValue source, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
+                bool IConverter<JValue, TTarget>.TryConvert(JValue source, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
                 {
+                    ArgumentNullException.ThrowIfNull(source);
+                    ArgumentNullException.ThrowIfNull(defer);
+                    ArgumentNullException.ThrowIfNull(recurse);
+
                     if (_deserializer(source, _environment, defer, recurse) is TTarget deserialized)
                     {
                         value = deserialized;
@@ -81,9 +93,14 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                 _deserializer = deserializer;
             }
 
-            public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment) => typeof(TSource) == typeof(JValue) && typeof(TTarget) == typeof(TNative)
-                ? (IConverter<TSource, TTarget>?)Activator.CreateInstance(typeof(NativeTypeDeserializerConverter<>).MakeGenericType(typeof(TNative), typeof(TTarget)), _deserializer, environment)
-                : null;
+            IConverter<TSource, TTarget>? IConverterFactory.TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment)
+            {
+                ArgumentNullException.ThrowIfNull(environment);
+
+                return typeof(TSource) == typeof(JValue) && typeof(TTarget) == typeof(TNative)
+                    ? (IConverter<TSource, TTarget>?)Activator.CreateInstance(typeof(NativeTypeDeserializerConverter<>).MakeGenericType(typeof(TNative), typeof(TTarget)), _deserializer, environment)
+                    : null;
+            }
         }
 
         /// <summary>Configures the environment to use Newtonsoft.Json for serialization and deserialization.</summary>

@@ -28,8 +28,12 @@ namespace ExRam.Gremlinq.Core.Serialization
                     _environment = environment;
                 }
 
-                public bool TryConvert(byte[] bytes, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
+                bool IConverter<byte[], TTarget>.TryConvert(byte[] bytes, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
                 {
+                    ArgumentNullException.ThrowIfNull(bytes);
+                    ArgumentNullException.ThrowIfNull(defer);
+                    ArgumentNullException.ThrowIfNull(recurse);
+
                     if (recurse.TryTransform(Convert.ToBase64String(bytes), _environment, out string? requestedString) && requestedString is TTarget targetString)
                     {
                         value = targetString;
@@ -41,8 +45,10 @@ namespace ExRam.Gremlinq.Core.Serialization
                 }
             }
 
-            public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment)
+            IConverter<TSource, TTarget>? IConverterFactory.TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment)
             {
+                ArgumentNullException.ThrowIfNull(environment);
+
                 if (!environment.SupportsTypeNatively(typeof(byte[])))
                 {
                     if (typeof(TSource) == typeof(byte[]) && typeof(TTarget).IsAssignableFrom(typeof(string)))
@@ -64,8 +70,11 @@ namespace ExRam.Gremlinq.Core.Serialization
                     _environment = environment;
                 }
 
-                public bool TryConvert(TimeSpan timeSpan, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
+                bool IConverter<TimeSpan, TTarget>.TryConvert(TimeSpan timeSpan, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
                 {
+                    ArgumentNullException.ThrowIfNull(defer);
+                    ArgumentNullException.ThrowIfNull(recurse);
+
                     if (recurse.TryTransform(timeSpan.TotalMilliseconds, _environment, out double? requestedDouble) && requestedDouble is TTarget targetDouble)
                     {
                         value = targetDouble;
@@ -77,8 +86,10 @@ namespace ExRam.Gremlinq.Core.Serialization
                 }
             }
 
-            public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment)
+            IConverter<TSource, TTarget>? IConverterFactory.TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment)
             {
+                ArgumentNullException.ThrowIfNull(environment);
+
                 if (!environment.SupportsTypeNatively(typeof(TimeSpan)))
                 {
                     if (typeof(TSource) == typeof(TimeSpan) && typeof(TTarget).IsAssignableFrom(typeof(double)))

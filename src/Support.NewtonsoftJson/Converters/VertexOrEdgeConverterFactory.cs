@@ -18,8 +18,12 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                 _environment = environment;
             }
 
-            public bool TryConvert(JObject jObject, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
+            bool IConverter<JObject, TTarget>.TryConvert(JObject jObject, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
             {
+                ArgumentNullException.ThrowIfNull(jObject);
+                ArgumentNullException.ThrowIfNull(defer);
+                ArgumentNullException.ThrowIfNull(recurse);
+
                 if (jObject.LooksLikeElement(out var idToken, out var label, out var maybePropertiesObject))
                 {
                     if (recurse.TryTransform(maybePropertiesObject ?? EmptyJObject, _environment, out value))
@@ -36,8 +40,13 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
 
         private static readonly JObject EmptyJObject = new();
 
-        public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment) => (typeof(TSource) == typeof(JObject) && !typeof(TTarget).IsAssignableFrom(typeof(TSource)) && !typeof(TTarget).IsArray && typeof(TTarget) != typeof(object) && !typeof(TTarget).IsInterface && !typeof(Property).IsAssignableFrom(typeof(TTarget)))
-            ? Unsafe.As<IConverter<TSource, TTarget>>(new VertexOrEdgeConverter<TTarget>(environment))
-            : null;
+        IConverter<TSource, TTarget>? IConverterFactory.TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment)
+        {
+            ArgumentNullException.ThrowIfNull(environment);
+
+            return (typeof(TSource) == typeof(JObject) && !typeof(TTarget).IsAssignableFrom(typeof(TSource)) && !typeof(TTarget).IsArray && typeof(TTarget) != typeof(object) && !typeof(TTarget).IsInterface && !typeof(Property).IsAssignableFrom(typeof(TTarget)))
+                ? Unsafe.As<IConverter<TSource, TTarget>>(new VertexOrEdgeConverter<TTarget>(environment))
+                : null;
+        }
     }
 }

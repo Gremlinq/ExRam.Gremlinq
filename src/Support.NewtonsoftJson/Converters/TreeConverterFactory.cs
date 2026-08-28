@@ -21,8 +21,12 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                 _environment = environment;
             }
 
-            public bool TryConvert(JToken source, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTree? value)
+            bool IConverter<JToken, TTree>.TryConvert(JToken source, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTree? value)
             {
+                ArgumentNullException.ThrowIfNull(source);
+                ArgumentNullException.ThrowIfNull(defer);
+                ArgumentNullException.ThrowIfNull(recurse);
+
                 if (source is JArray { Count: 0 } || source is JObject { Count: 0 })
                     value = Create(ImmutableDictionary<TKey, TValue>.Empty);
                 else
@@ -76,8 +80,10 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                 : new (dictionary);
         }
 
-        public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment)
+        IConverter<TSource, TTarget>? IConverterFactory.TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment)
         {
+            ArgumentNullException.ThrowIfNull(environment);
+
             if (typeof(JToken).IsAssignableFrom(typeof(TSource)) && typeof(ITree).IsAssignableFrom(typeof(TTarget)))
             {
                 if (typeof(TTarget).IsGenericType)

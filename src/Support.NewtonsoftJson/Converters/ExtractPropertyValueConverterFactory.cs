@@ -18,8 +18,12 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                 _environment = environment;
             }
 
-            public bool TryConvert(JToken serialized, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
+            bool IConverter<JToken, TTarget>.TryConvert(JToken serialized, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
             {
+                ArgumentNullException.ThrowIfNull(serialized);
+                ArgumentNullException.ThrowIfNull(defer);
+                ArgumentNullException.ThrowIfNull(recurse);
+
                 if (serialized is JObject jObject)
                 {
                     if (!typeof(Property).IsAssignableFrom(typeof(TTarget)) && (jObject.LooksLikeProperty() || jObject.LooksLikeVertexProperty()) && jObject.TryGetValue("value", out var valueToken))
@@ -33,8 +37,13 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
             }
         }
 
-        public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment) => typeof(JToken).IsAssignableFrom(typeof(TSource)) && !(typeof(TTarget).IsGenericType && typeof(TTarget).GetGenericTypeDefinition() == typeof(KeyValuePair<,>))
-            ? Unsafe.As<IConverter<TSource, TTarget>>(new ExtractPropertyValueConverter<TTarget>(environment))
-            : null;
+        IConverter<TSource, TTarget>? IConverterFactory.TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment)
+        {
+            ArgumentNullException.ThrowIfNull(environment);
+
+            return typeof(JToken).IsAssignableFrom(typeof(TSource)) && !(typeof(TTarget).IsGenericType && typeof(TTarget).GetGenericTypeDefinition() == typeof(KeyValuePair<,>))
+                ? Unsafe.As<IConverter<TSource, TTarget>>(new ExtractPropertyValueConverter<TTarget>(environment))
+                : null;
+        }
     }
 }

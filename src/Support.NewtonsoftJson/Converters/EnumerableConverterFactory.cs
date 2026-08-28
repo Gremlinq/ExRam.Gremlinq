@@ -42,8 +42,12 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
             {
             }
 
-            public bool TryConvert(JArray serialized, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTargetArray? value)
+            bool IConverter<JArray, TTargetArray>.TryConvert(JArray serialized, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTargetArray? value)
             {
+                ArgumentNullException.ThrowIfNull(serialized);
+                ArgumentNullException.ThrowIfNull(defer);
+                ArgumentNullException.ThrowIfNull(recurse);
+
                 if (!Environment.SupportsType(typeof(TTargetArray)))
                 {
                     value = Unsafe.As<TTargetArray>(GetEnumerable(serialized, recurse).ToArray());
@@ -62,15 +66,21 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
             {
             }
 
-            public bool TryConvert(JArray serialized, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
+            bool IConverter<JArray, TTarget>.TryConvert(JArray serialized, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
             {
+                ArgumentNullException.ThrowIfNull(serialized);
+                ArgumentNullException.ThrowIfNull(defer);
+                ArgumentNullException.ThrowIfNull(recurse);
+
                 value = Unsafe.As<TTarget>(GetEnumerable(serialized, recurse).ToList());
                 return true;
             }
         }
 
-        public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment)
+        IConverter<TSource, TTarget>? IConverterFactory.TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment)
         {
+            ArgumentNullException.ThrowIfNull(environment);
+
             if (typeof(TSource) == typeof(JArray))
             {
                 if (typeof(TTarget).IsAssignableFrom(typeof(object[])))

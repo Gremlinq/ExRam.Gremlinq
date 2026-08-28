@@ -30,8 +30,11 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                     _environment = environment;
                 }
 
-                public bool TryConvert(TBinaryMessage source, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
+                bool IConverter<TBinaryMessage, TTarget>.TryConvert(TBinaryMessage source, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
                 {
+                    ArgumentNullException.ThrowIfNull(defer);
+                    ArgumentNullException.ThrowIfNull(recurse);
+
                     value = default;
 
                     return TryGetJToken(source) is { } token && recurse.TryTransform(token, _environment, out value);
@@ -69,10 +72,15 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
             }
         }
 
-        public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment) => typeof(TSource) == typeof(GraphSon2BinaryMessage)
-            ? Unsafe.As<IConverter<TSource, TTarget>>(new DeferToNewtonsoftConverter<GraphSon2BinaryMessage>.DeferToNewtonsoftConverterImpl<TTarget>(environment))
-            : typeof(TSource) == typeof(GraphSon3BinaryMessage)
-                ? Unsafe.As<IConverter<TSource, TTarget>>(new DeferToNewtonsoftConverter<GraphSon3BinaryMessage>.DeferToNewtonsoftConverterImpl<TTarget>(environment))
-                : null;
+        IConverter<TSource, TTarget>? IConverterFactory.TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment)
+        {
+            ArgumentNullException.ThrowIfNull(environment);
+
+            return typeof(TSource) == typeof(GraphSon2BinaryMessage)
+                ? Unsafe.As<IConverter<TSource, TTarget>>(new DeferToNewtonsoftConverter<GraphSon2BinaryMessage>.DeferToNewtonsoftConverterImpl<TTarget>(environment))
+                : typeof(TSource) == typeof(GraphSon3BinaryMessage)
+                    ? Unsafe.As<IConverter<TSource, TTarget>>(new DeferToNewtonsoftConverter<GraphSon3BinaryMessage>.DeferToNewtonsoftConverterImpl<TTarget>(environment))
+                    : null;
+        }
     }
 }
