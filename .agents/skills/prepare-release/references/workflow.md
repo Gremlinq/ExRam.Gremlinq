@@ -13,12 +13,13 @@ Prints `remote=`, `branch=` and `version=` on success.
 
 ## `scripts/prepare.sh`
 
-    prepare.sh [build|minor|major]     # 'build' by default
+    prepare.sh          # no arguments
 
-1. `nbgv prepare-release --format json --versionIncrement <increment>`, which creates a
-   branch named after the release version holding the `Set version to 'X'` commit, and
-   leaves the current branch with the follow-up `Set version to 'X+1-preview.{height}'`
-   commit.
+1. `nbgv prepare-release --format json`, which creates a branch named after the release
+   version holding the `Set version to 'X'` commit, and leaves the current branch with the
+   follow-up `Set version to 'X+1-preview.{height}'` commit. The increment comes from
+   `version.json`'s `release.versionIncrement`, which is `build` and stays `build`: a minor
+   or major bump belongs in the pull request that changes the public API, not here.
 2. Checks out that branch and amends its commit with `-S`. Signed commits are required on
    the release branches, and the commit nbgv creates is not signed.
 3. `git rebase <new branch> <current branch> -Xtheirs`, which also returns to the branch

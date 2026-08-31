@@ -147,6 +147,12 @@ release preparation included.
 Use the `prepare-release` skill. It writes the texts first, then bumps the version and
 creates the tag, and it pushes nothing.
 
+**A release never chooses its own version number.** It drops the `-preview` suffix from
+whatever `version.json` says, tags that, and moves the branch on by one build number.
+Minor and major bumps are made in the pull request that changes the public API — see
+[For Public API Changes](#for-public-api-changes). There is no argument, flag or prompt at
+release time that can produce one.
+
 **The tag is what drives a release.** `prepare-release` produces two version commits and a
 tag; only the tag is pushed. The version commits reach the release branch later, carried
 by whatever pull request is opened next. Everything the pipeline reads out of the
@@ -277,6 +283,11 @@ Test classes inherit from `QueryExecutionTest` in `Tests.Infrastructure` which p
 2. Run `test/PublicApi.Tests` in Release mode
 3. Update corresponding `.verified.cs` files in `test/PublicApi.Tests`
 4. Verify all target frameworks are covered (net6.0 through net10.0)
+5. **Raise `version.json` in this same pull request** — to the next minor for an additive
+   change, to the next major for a breaking one, keeping the `-preview.{height}` suffix
+   (e.g. `14.1.2-preview.{height}` → `14.2.0-preview.{height}`). This is the only place
+   the decision is ever made. Preparing a release just drops the preview suffix and moves
+   on by one build number, so it can neither make nor recover a minor or major bump.
 
 ### For Provider-Specific Changes
 1. Modify the provider project (`Providers.X`)

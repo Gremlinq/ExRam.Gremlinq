@@ -86,9 +86,11 @@ jq -n \
         | split("\n## ")[0]
         | sub("^\\s+"; "") | sub("\\s+$"; "");
 
-    # The only place the kind of release can be determined. nbgv --versionIncrement does
-    # not decide it: that argument sets the *next* version on the branch, so the version
-    # being released is always the current preview version with its suffix dropped.
+    # The only place the kind of release can be determined. Preparing a release always
+    # just drops the preview suffix and moves the branch on by one build number, so the
+    # version being released was already fixed in version.json -- raised there by whichever
+    # pull request changed the public API. Comparing it with the previous tag is what makes
+    # that decision visible again.
     def release_kind($previous; $next):
         ($previous | split(".") | map(tonumber)) as $p
         | ($next | split(".") | map(tonumber)) as $n
