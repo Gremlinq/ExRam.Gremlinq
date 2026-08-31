@@ -91,14 +91,61 @@ jobs:
     needs: [ pack, attest ]
     runs-on: ubuntu-24.04
 
+    env:
+      VERSION: ${{ needs.pack.outputs.packageVersion }}
+      # The workflow grants only 'contents: read', so GITHUB_TOKEN cannot create a release.
+      GH_TOKEN: ${{ secrets.CREATE_RELEASE_PAT }}
+      GH_REPO: ${{ github.repository }}
+
     steps:
+
+    # The release notes written by the 'write-release-announcements' skill live in the
+    # repository, so this job needs a checkout it previously did not have. It goes into a
+    # subdirectory because actions/checkout runs 'git clean -ffdx' in its working
+    # directory, which would delete the packages downloaded below.
+    - name: Checkout release notes
+      uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # 7.0.1
+      with:
+        ref: ${{ github.ref }}
+        path: repo
+        sparse-checkout: releases
+        persist-credentials: false
 
     - uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16 # 4.1.8
       with:
         name: NuGetPackages
-        
-    - name: Create release
-      id: create_release
+        path: packages
+
+    - name: Look for written release notes
+      id: notes
+      run: |
+        set -euo pipefail
+        file="repo/releases/$VERSION/release-notes.md"
+        if [ -s "$file" ]; then
+          echo "Using releases/$VERSION/release-notes.md as the release body."
+          echo "path=$file" >> "$GITHUB_OUTPUT"
+        else
+          echo "::notice title=No written release notes::releases/$VERSION/release-notes.md is missing, falling back to release-drafter. Run the 'write-release-announcements' skill before tagging to get proper notes."
+        fi
+
+    - name: Create draft release from written notes
+      if: ${{ steps.notes.outputs.path != '' }}
+      env:
+        NOTES: ${{ steps.notes.outputs.path }}
+      run: |
+        set -euo pipefail
+        title="${{ github.event.repository.name }} $VERSION"
+        if gh release view "$VERSION" >/dev/null 2>&1; then
+          # No '--draft' on this path: passing it to 'gh release edit' would turn an
+          # already published release back into a draft.
+          gh release edit "$VERSION" --title "$title" --notes-file "$NOTES"
+        else
+          # No '--target': this workflow is triggered by the tag push, so the tag exists.
+          gh release create "$VERSION" --draft --title "$title" --notes-file "$NOTES"
+        fi
+
+    - name: Create draft release with release-drafter
+      if: ${{ steps.notes.outputs.path == '' }}
       uses: release-drafter/release-drafter@b1476f6e6eb133afa41ed8589daba6dc69b4d3f5 # 6.1.0
       with:
         name: ${{ github.event.repository.name }} ${{ needs.pack.outputs.packageVersion }}
@@ -108,11 +155,19 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.CREATE_RELEASE_PAT }}
 
+    # 'gh release upload' resolves the release by tag, so it works for both paths above and
+    # neither of them has to expose an upload URL.
     - name: Upload assets
-      uses: shogo82148/actions-upload-release-asset@aac270e08f6b4547ada0b3800f88e1eb3ce9d400 # 1.7.7
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path:  './**/*Gremlinq*.nupkg'
-        github_token: ${{ secrets.CREATE_RELEASE_PAT }}
+      run: |
+        set -euo pipefail
+        # The default shell is 'bash -e {0}', which has globstar off.
+        shopt -s globstar nullglob
+        files=( packages/**/*Gremlinq*.nupkg )
+        if [ "${#files[@]}" -eq 0 ]; then
+          echo "::error title=No packages to upload::Found no *Gremlinq*.nupkg below packages/."
+          exit 1
+        fi
+        printf 'Uploading %d asset(s).\n' "${#files[@]}"
+        gh release upload "$VERSION" "${files[@]}" --clobber
         
 
