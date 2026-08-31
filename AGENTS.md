@@ -112,8 +112,8 @@ dotnet test -c Release --solution ./ExRam.Gremlinq.slnx --coverlet --coverlet-ou
 `.github/workflows/checkPullRequestDescription.yml` runs a second, cheap check named
 `check-description`. It rejects pull requests whose body is missing, or barely longer than
 the title, after HTML comments, code blocks, markdown syntax, bare links and issue
-references have been stripped. Release preparation pull requests, bot authors and anything
-labelled `skip-changelog` are exempt.
+references have been stripped. Bot authors and anything labelled `skip-changelog` are
+exempt; nothing else is.
 
 ## Pull Request Workflow
 
