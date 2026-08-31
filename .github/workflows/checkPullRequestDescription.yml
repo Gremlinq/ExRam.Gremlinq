@@ -27,11 +27,9 @@ jobs:
     steps:
     - name: Check that the pull request has a usable description
       env:
-        # The body and the title are attacker controlled. They are passed through the
-        # environment and never interpolated into the script, so their content cannot be
-        # executed as shell code.
+        # The body is attacker controlled. It is passed through the environment and never
+        # interpolated into the script, so its content cannot be executed as shell code.
         PR_BODY: ${{ github.event.pull_request.body }}
-        PR_TITLE: ${{ github.event.pull_request.title }}
         # Safe to interpolate: a login matches [A-Za-z0-9-]+(\[bot\])? and contains()
         # evaluates to a bare boolean.
         PR_AUTHOR: ${{ github.event.pull_request.user.login }}
@@ -52,12 +50,8 @@ jobs:
           exit 0
         }
 
-        # These are 'if' blocks rather than '[ ... ] && exempt ...' on purpose: under
+        # This is an 'if' block rather than '[ ... ] && exempt ...' on purpose: under
         # 'set -e' a failing test as the last command of an && list terminates the script.
-        if [ "$PR_TITLE" = 'Prepare release' ]; then
-          exempt 'Release preparation pull request.'
-        fi
-
         if [ "$HAS_SKIP_LABEL" = 'true' ]; then
           exempt "The 'skip-changelog' label is set."
         fi

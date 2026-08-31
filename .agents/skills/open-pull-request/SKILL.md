@@ -92,8 +92,6 @@ than padded prose:
   by `scripts/prerequisites.sh`. Do not assume `main`.
 - Write the body to a file and pass `--body-file`. Inline `--body` mangles multi-line
   markdown and leaves the text at the mercy of shell quoting.
-- `Prepare release` is a reserved pull request title. It skips the test matrix and the
-  description check. Never use it for anything but an actual release preparation.
 - This skill does not bump versions, create tags or push tags. That is `prepare-release`.
 
 ## References

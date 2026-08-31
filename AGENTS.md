@@ -133,14 +133,13 @@ the case where it is looking at a cold branch (reconstruct it from the code, and
 rather than guess). `.agents/skills/open-pull-request/references/description-style.md`
 holds the structure and worked examples from this repository.
 
-Two reserved conventions:
+One reserved convention: **`skip-changelog`** as a label exempts a pull request from the
+description check and keeps it out of the release notes. It is the right answer for CI
+tweaks, dependency bumps and refactorings with no user visible effect -- better than
+padding a chore up to the character threshold.
 
-- **`Prepare release`** as a pull request title skips the test matrix *and* the description
-  check. Never use it for anything but an actual release preparation.
-- **`skip-changelog`** as a label exempts a pull request from the description check and
-  keeps it out of the release notes. It is the right answer for CI tweaks, dependency
-  bumps and refactorings with no user visible effect -- better than padding a chore up to
-  the character threshold.
+No pull request title has any effect on CI. Every pull request runs the full test matrix,
+release preparation included.
 
 ## Release / Publishing Workflow
 

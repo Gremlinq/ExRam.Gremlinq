@@ -54,9 +54,6 @@ release, and it carries everything the workflows read.
   release gets release notes only.
 - Do not write the release notes yourself. That is `write-release-announcements`, and it
   is the skill that knows the channel formats.
-- `Prepare release` is a reserved pull request title in this repository -- it skips the
-  test matrix and the description check. The current flow does not open such a pull
-  request, but the title stays reserved.
 
 ## References
 
