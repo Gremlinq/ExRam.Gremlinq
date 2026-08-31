@@ -35,6 +35,19 @@ jobs:
       run: |
         set -uo pipefail
 
+        # A patch release ships release notes and nothing else, by design -- see
+        # references/channel-style.md in the write-release-announcements skill. Opening an
+        # issue then would be an action item to do the thing the process says not to do,
+        # on every patch release forever. Absence of all three texts is the signal; there
+        # is no need to parse the version to recognise it.
+        if [ ! -s "releases/$TAG/linkedin.md" ] \
+            && [ ! -s "releases/$TAG/discord-tinkerpop.md" ] \
+            && [ ! -s "releases/$TAG/discord-dotnet.md" ]; then
+          echo "::notice title=No announcement texts::releases/$TAG/ holds no channel texts, so this looks like a patch release. No announcement issue opened."
+          echo "No announcement texts in \`releases/$TAG/\` -- nothing to announce beyond the release notes." >> "$GITHUB_STEP_SUMMARY"
+          exit 0
+        fi
+
         body="$RUNNER_TEMP/issue-body.md"
         : > "$body"
 
@@ -81,7 +94,9 @@ jobs:
         cat "$body" >> "$GITHUB_STEP_SUMMARY"
         echo "body=$body" >> "$GITHUB_OUTPUT"
 
+    # Empty when the step above bailed out because there was nothing to announce.
     - name: Create the announcement issue
+      if: ${{ steps.checklist.outputs.body != '' }}
       env:
         GH_TOKEN: ${{ github.token }}
         GH_REPO: ${{ github.repository }}

@@ -44,11 +44,14 @@ That is why this skill commits its own output rather than leaving it staged.
 3. Propose a grouping of the remaining pull requests into Features / Fixes / Performance /
    Maintenance, together with anything you think should be dropped, and get agreement
    before writing.
-4. Write the four texts into `releases/<version>/` following
-   [the channel style guide](references/channel-style.md). Skip the three announcement
-   texts for a patch release unless the user asks for them.
-5. Run `scripts/check-lengths.sh releases/<version>` and fix what it reports. A Discord
-   text over 2000 characters is rejected by Discord outright.
+4. Write the texts into `releases/<version>/` following
+   [the channel style guide](references/channel-style.md). `release_kind` in the JSON says
+   whether this is a `patch`, `minor` or `major` release: a patch gets `release-notes.md`
+   only, unless the user asks for the rest.
+5. Run `scripts/check-lengths.sh releases/<version>` and fix what it reports. Missing
+   release notes fail it; the three channel texts are optional, so a patch release passes
+   with only the notes. A Discord text over 2000 characters is rejected by Discord
+   outright.
 6. Commit: `git add releases/<version> && git commit -m "Add release notes and announcements for <version>"`.
 
 ## Curation is not automatic
@@ -65,11 +68,17 @@ truncate, and do not pad the notes with everything in range either.
 
 ## Writing the entries
 
-The text **above the first `##` heading** in a pull request body is that change's
-changelog entry. Use it. If it runs longer than about two sentences, summarise it -- the
-notes are scanned, not read.
+Each pull request in the JSON carries a **`lead`** field: the text above its first `##`
+heading, with the pull request template's HTML comment already stripped. That is the
+change's changelog entry. Use `lead`, not `body` -- authors routinely leave the template
+comment in, and it sits above that heading, so reading `body` by hand would carry
+"Replace this comment with one to three sentences..." into the published notes and from
+there, verbatim, into the blog post.
 
-If a pull request body is empty or useless, the entry cannot be reconstructed honestly
+If a `lead` runs longer than about two sentences, summarise it -- the notes are scanned,
+not read.
+
+If a `lead` is empty or useless, the entry cannot be reconstructed honestly
 from the title alone. Say so, and either read the diff for that one change or ask. Do not
 paraphrase the title back as if it were a description; that is the failure mode the
 `open-pull-request` skill exists to prevent, and it should not be reintroduced here.

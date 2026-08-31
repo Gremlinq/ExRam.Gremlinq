@@ -73,13 +73,37 @@ jq -n \
         elif (.title | test("^Preview-bump$")) then "release preparation"
         else null end;
 
+    # The changelog entry for a pull request is the prose above its first level-2 heading.
+    # Authors routinely leave the pull request template comment in the body, and it sits
+    # above that heading -- without stripping it the template text would travel into the
+    # release notes and, verbatim, into the blog post.
+    # Note the "m" flag: in jq'"'"'s Oniguruma flavour that is dotall -- the one that makes "."
+    # match newlines. jq'"'"'s "s" means single line mode and would leave every multi-line
+    # comment in place.
+    def lead:
+        ("\n" + ((.body // "") | gsub("\r"; "")))
+        | gsub("<!--.*?-->"; ""; "m")
+        | split("\n## ")[0]
+        | sub("^\\s+"; "") | sub("\\s+$"; "");
+
+    # The only place the kind of release can be determined. nbgv --versionIncrement does
+    # not decide it: that argument sets the *next* version on the branch, so the version
+    # being released is always the current preview version with its suffix dropped.
+    def release_kind($previous; $next):
+        ($previous | split(".") | map(tonumber)) as $p
+        | ($next | split(".") | map(tonumber)) as $n
+        | if $n[0] != $p[0] then "major"
+          elif $n[1] != $p[1] then "minor"
+          else "patch" end;
+
     {
         previous_tag: $previous_tag,
         previous_tag_date: $previous_tag_date,
         version: $version,
+        release_kind: release_kind($previous_tag; $version),
         base: $base,
         compare_url: $compare_url,
-        pull_requests: [ $all[] | select(excluded_reason == null) ]
+        pull_requests: [ $all[] | select(excluded_reason == null) | . + { lead: lead } ]
             | sort_by(.number),
         excluded: [ $all[] | select(excluded_reason != null)
             | { number, title, reason: excluded_reason } ]

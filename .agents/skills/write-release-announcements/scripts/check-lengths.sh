@@ -16,10 +16,18 @@ count() { LC_ALL=C.UTF-8 wc -m < "$1" | tr -d ' '; }
 words() { wc -w < "$1" | tr -d ' '; }
 
 check() {
-    local file="$dir/$1" label="$2" min_words="$3" max_words="$4" max_chars="${5:-}"
+    local file="$dir/$1" label="$2" required="$3" min_words="$4" max_words="$5" max_chars="${6:-}"
 
     if [ ! -s "$file" ]; then
-        echo "MISSING  $label ($file)"
+        if [ "$required" = 'required' ]; then
+            # Every release needs notes: pack.yml uses them as the release body and
+            # publishBlogPost.yml republishes that body as the blog post.
+            echo "MISSING  $label ($file)  <-- REQUIRED FOR EVERY RELEASE"
+            status=1
+        else
+            # A patch release legitimately ships without the three channel texts.
+            echo "missing  $label ($file)"
+        fi
         return
     fi
 
@@ -38,10 +46,10 @@ check() {
     printf '%-22s %5s chars %5s words%s\n' "$label" "$c" "$w" "$note"
 }
 
-check 'release-notes.md'      'release notes'     0   100000
-check 'linkedin.md'           'LinkedIn'          90  200
-check 'discord-tinkerpop.md'  'Discord TinkerPop' 50  120 2000
-check 'discord-dotnet.md'     'Discord .NET'      70  160 2000
+check 'release-notes.md'      'release notes'     required 0   100000
+check 'linkedin.md'           'LinkedIn'          optional 90  200
+check 'discord-tinkerpop.md'  'Discord TinkerPop' optional 50  120 2000
+check 'discord-dotnet.md'     'Discord .NET'      optional 70  160 2000
 
 # LinkedIn renders no markdown, so markup would appear literally in the post. A leading
 # "- " is fine and is the recommended marker -- it simply shows up as a dash. Emphasis,

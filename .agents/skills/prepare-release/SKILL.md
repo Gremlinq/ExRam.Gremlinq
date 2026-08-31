@@ -51,9 +51,16 @@ release, and it carries everything the workflows read.
 - **MUST NOT push anything** -- no branches, no tags. The user pushes the tag.
 - The git remote is resolved dynamically, never hardcoded: this repository also has a
   non-GitHub backup remote.
-- `scripts/prepare.sh` takes the version increment as an argument: `build` (the default),
-  `minor` or `major`. A minor or major release also needs the announcement texts; a patch
-  release gets release notes only.
+- `scripts/prepare.sh` takes a version increment as an argument: `build` (the default),
+  `minor` or `major`. **It does not choose the version being released.** That one is always
+  the current preview version with its suffix dropped -- `14.1.2-preview.{height}` releases
+  as `14.1.2` whatever you pass. The argument sets what the branch moves to *afterwards*,
+  and therefore what the *next* release will be: `build` leaves `14.1.3-preview`, `minor`
+  leaves `14.2.0-preview`, `major` leaves `15.0.0-preview`. So the decision "the next one
+  is a minor" is made one release early.
+- Whether *this* release is a patch, minor or major is reported as `release_kind` by
+  `write-release-announcements`, which derives it by comparing the previous tag with the
+  version being released. That is what decides whether the announcement texts are needed.
 - Do not write the release notes yourself. That is `write-release-announcements`, and it
   is the skill that knows the channel formats.
 
