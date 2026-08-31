@@ -144,10 +144,47 @@ Two reserved conventions:
 
 ## Release / Publishing Workflow
 
-Releases are built by `.github/workflows/pack.yml` (triggered on pushes to `\d+\.x` branches and version tags) and published by two follow-up workflows:
+Use the `prepare-release` skill. It writes the texts first, then bumps the version and
+creates the tag, and it pushes nothing.
 
-- **`.github/workflows/pushPreview.yml`** — pushes preview packages to GitHub Packages using a PAT secret (`PUSH_TO_PACKAGES_PAT`).
-- **`.github/workflows/pushStable.yml`** — pushes stable packages to NuGet.org, triggered when a GitHub release is published.
+**The tag is what drives a release.** `prepare-release` produces two version commits and a
+tag; only the tag is pushed. The version commits reach the release branch later, carried
+by whatever pull request is opened next. Everything the pipeline reads out of the
+repository is read from the tagged commit, which is why `releases/<version>/` has to be
+committed *before* `nbgv prepare-release` runs -- that command creates the branch the tag
+is placed on, and the current branch is rebased onto it, so the tag points at the earlier
+state.
+
+`releases/<version>/` holds the four texts a release needs, written by the
+`write-release-announcements` skill from the bodies of the pull requests merged since the
+previous tag:
+
+| File | Becomes |
+|---|---|
+| `release-notes.md` | the GitHub release body, and from there the blog post |
+| `linkedin.md` | a manual LinkedIn post |
+| `discord-tinkerpop.md` | a manual post in the TinkerPop Discord |
+| `discord-dotnet.md` | a post in the .NET Discord, optionally sent by webhook |
+
+Pushing the tag triggers `.github/workflows/pack.yml`, which builds, packs, attests and
+creates a **draft** release using `releases/<version>/release-notes.md` as its body
+(falling back to release-drafter, and a flat list of pull request titles, if that file is
+missing). Nothing is public until that draft is published by hand.
+
+Publishing it fires three workflows:
+
+- **`.github/workflows/pushStable.yml`** — pushes stable packages to NuGet.org.
+- **`.github/workflows/announce.yml`** — checks out `Gremlinq/docs.gremlinq.net` with a
+  PAT (`DOCS_TOKEN`) and writes the release body **verbatim** into `docs/blog/posts/`.
+  This is why the release notes have to read as published prose, not as internal notes.
+- **`.github/workflows/announcementKit.yml`** — checks out the tag, reads the announcement
+  texts and opens an issue with one checkbox per channel. It posts to the .NET Discord if
+  a `DISCORD_WEBHOOK_DOTNET` secret is configured; TinkerPop and LinkedIn are always
+  manual, because those servers are not ours to automate and LinkedIn member tokens expire
+  every 60 days.
+
+Separately, **`.github/workflows/pushPreview.yml`** pushes preview packages to GitHub
+Packages using a PAT secret (`PUSH_TO_PACKAGES_PAT`) whenever `Pack` succeeds.
 
 `pushStable.yml` publishes to NuGet.org using **NuGet Trusted Publishing (OIDC)** instead of a long-lived API key:
 

@@ -1,31 +1,56 @@
 # Workflow Details
 
-## Preparation Steps
+## `scripts/prerequisites.sh`
 
-The `scripts/prepare.sh` script performs these operations:
+Verifies `nbgv`, `git`, `jq` and an authenticated `gh` -- the last two because
+`write-release-announcements` runs before the version bump and needs them. Then checks
+that the working tree is clean, that a GitHub remote exists, and that the tag for the
+version about to be released does not already exist. That last check matters: creating an
+existing tag fails halfway through `prepare.sh`, after the version commits have been made,
+leaving the branch in a state that has to be unwound by hand.
 
-1. Runs `nbgv prepare-release --format json --versionIncrement build`
-2. Extracts branch names from JSON output:
-   - `new_branch`: The release branch name (becomes the tag)
-   - `current_branch`: The branch being released from
-3. Checks out the new branch
-4. Amends the commit with `--no-edit -S` (signs the commit)
-5. Rebases the current branch onto the new branch with `-Xtheirs` strategy
-6. Tags the new branch with its name
-7. Deletes the new branch
-8. Returns to the original branch
+Prints `remote=`, `branch=` and `version=` on success.
 
-## Prerequisites
+## `scripts/prepare.sh`
 
-The `scripts/prerequisites.sh` script validates:
+    prepare.sh [build|minor|major]     # 'build' by default
 
-1. **Nerdbank.GitVersioning (nbgv)**: Must be installed globally
-2. **Git**: Must be installed
-3. **Working Directory**: Must be in ExRam.Gremlinq repository root
-4. **Clean Working Tree**: No uncommitted changes allowed
+1. `nbgv prepare-release --format json --versionIncrement <increment>`, which creates a
+   branch named after the release version holding the `Set version to 'X'` commit, and
+   leaves the current branch with the follow-up `Set version to 'X+1-preview.{height}'`
+   commit.
+2. Checks out that branch and amends its commit with `-S`. Signed commits are required on
+   the release branches, and the commit nbgv creates is not signed.
+3. `git rebase <new branch> <current branch> -Xtheirs`, which also returns to the branch
+   we started on.
+4. Tags the release commit with the version and deletes the temporary branch.
 
-## Important Constraints
+**The tag points at the earlier of the two version commits.** Everything the release
+pipeline reads out of the repository -- `releases/<version>/release-notes.md` and the
+announcement texts -- must therefore be committed *before* this script runs.
 
-- The skill MUST NOT push any tags to any remote
-- All operations are performed in the current working directory
-- The skill ONLY handles version bumping and tagging
+## After the tag is pushed
+
+    git push <remote> <version>
+
+| Trigger | Workflow | Effect |
+|---|---|---|
+| tag push | `pack.yml` | builds, packs, attests, creates a **draft** release with `releases/<version>/release-notes.md` as its body and the packages as assets |
+| tag push | `pushPreview.yml` | pushes packages to GitHub Packages once `Pack` succeeds |
+| release published (manual) | `pushStable.yml` | pushes to NuGet.org via Trusted Publishing (OIDC) |
+| release published (manual) | `announce.yml` | copies the release body verbatim into `docs/blog/posts/` in `Gremlinq/docs.gremlinq.net` |
+| release published (manual) | `announcementKit.yml` | opens an issue with the LinkedIn and Discord texts, and optionally posts the .NET one by webhook |
+
+Nothing is public until the draft is published by hand. Up to that point the tag can be
+deleted and the release re-prepared.
+
+If `releases/<version>/release-notes.md` is missing, `pack.yml` falls back to
+release-drafter, which produces a flat list of pull request titles. That is a safety net,
+not the intended outcome.
+
+## Constraints
+
+- The skill MUST NOT push anything to any remote.
+- All operations happen in the current working directory.
+- The version commits are not pushed at release time; they reach the release branch with
+  the next pull request. The tag is what the pipeline runs on.

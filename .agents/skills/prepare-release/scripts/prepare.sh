@@ -1,31 +1,44 @@
-#!/bin/bash
+#!/usr/bin/env bash
+#
+# Bumps the version and creates the release tag, using Nerdbank.GitVersioning.
+#
+# 'nbgv prepare-release' creates a branch named after the release version carrying the
+# "Set version to 'X'" commit, and leaves the current branch with the follow-up preview
+# bump. This script turns that branch into a tag and rebases the current branch onto it,
+# which is why the tag ends up pointing at the *earlier* of the two commits -- anything
+# that has to be reachable from the tag must already be committed when this runs.
+#
+# MUST NOT push anything to any remote.
+#
+# Usage: prepare.sh [<version increment>]     # 'build' (default), 'minor' or 'major'
 
-# Prepare Release with Nerdbank.GitVersioning
+set -euo pipefail
 
-# The skill MUST NOT push any tags to any remote.
+version_increment="${1:-build}"
 
-# Get the current commit SHA
-current_sha=$(git rev-parse HEAD)
+nbgv_output="$(nbgv prepare-release --format json --versionIncrement "$version_increment")"
 
-nbgv_output=$(nbgv prepare-release --format json --versionIncrement build)
+new_branch="$(jq -r '.NewBranch.Name' <<<"$nbgv_output")"
+current_branch="$(jq -r '.CurrentBranch.Name' <<<"$nbgv_output")"
 
-new_branch=$(echo "$nbgv_output" | jq -r '.NewBranch.Name')
-current_branch=$(echo "$nbgv_output" | jq -r '.CurrentBranch.Name')
+[ -n "$new_branch" ] && [ "$new_branch" != 'null' ] || {
+    echo "ERROR: nbgv did not report a new branch." >&2
+    exit 1
+}
 
-echo "Preparing release"
-echo "New branch: $new_branch"
-echo "Current branch: $current_branch"
+echo "Preparing release $new_branch from $current_branch"
 
-# Store the current branch for later return
 git checkout "$new_branch"
+
+# Re-sign the commit nbgv created. Signed commits are required on the release branches.
 git commit --amend --no-edit -S
+
+# 'git rebase <upstream> <branch>' checks out <branch> first, so this also returns us to
+# the branch we started on.
 git rebase "$new_branch" "$current_branch" -Xtheirs
+
 git tag "$new_branch" "$new_branch"
 git branch -d "$new_branch"
 
-# Return to the original branch
-git checkout "$current_branch"
-
 echo "Tag created: $new_branch"
-
-echo "Release preparation completed successfully!"
+echo "Nothing has been pushed."
