@@ -168,8 +168,8 @@ previous tag:
 
 Pushing the tag triggers `.github/workflows/pack.yml`, which builds, packs, attests and
 creates a **draft** release using `releases/<version>/release-notes.md` as its body
-(falling back to release-drafter, and a flat list of pull request titles, if that file is
-missing). Nothing is public until that draft is published by hand.
+(falling back to GitHub's generated notes if that file is missing). Nothing is public
+until that draft is published by hand.
 
 Publishing it fires four workflows, one responsibility each:
 

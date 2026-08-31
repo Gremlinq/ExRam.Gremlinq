@@ -116,47 +116,41 @@ jobs:
         name: NuGetPackages
         path: packages
 
-    - name: Look for written release notes
-      id: notes
+    - name: Create the draft release
       run: |
         set -euo pipefail
+
+        title="${{ github.event.repository.name }} $VERSION"
         file="repo/releases/$VERSION/release-notes.md"
+
         if [ -s "$file" ]; then
           echo "Using releases/$VERSION/release-notes.md as the release body."
-          echo "path=$file" >> "$GITHUB_OUTPUT"
+          notes=( --notes-file "$file" )
         else
-          echo "::notice title=No written release notes::releases/$VERSION/release-notes.md is missing, falling back to release-drafter. Run the 'write-release-announcements' skill before tagging to get proper notes."
+          # A safety net, not the intended path: the notes belong to the tagged commit, so
+          # this cannot be fixed after the fact without deleting and re-pushing the tag.
+          # GitHub's own generator at least produces an editable draft.
+          echo "::warning title=No written release notes::releases/$VERSION/release-notes.md is missing. Falling back to GitHub's generated notes -- edit the draft before publishing, and run the 'write-release-announcements' skill before tagging next time."
+          notes=( --generate-notes )
         fi
 
-    - name: Create draft release from written notes
-      if: ${{ steps.notes.outputs.path != '' }}
-      env:
-        NOTES: ${{ steps.notes.outputs.path }}
-      run: |
-        set -euo pipefail
-        title="${{ github.event.repository.name }} $VERSION"
         if gh release view "$VERSION" >/dev/null 2>&1; then
           # No '--draft' on this path: passing it to 'gh release edit' would turn an
-          # already published release back into a draft.
-          gh release edit "$VERSION" --title "$title" --notes-file "$NOTES"
+          # already published release back into a draft. 'gh release edit' has no
+          # '--generate-notes', so an existing release keeps the notes it has when the
+          # file is absent.
+          if [ -s "$file" ]; then
+            gh release edit "$VERSION" --title "$title" --notes-file "$file"
+          else
+            gh release edit "$VERSION" --title "$title"
+          fi
         else
           # No '--target': this workflow is triggered by the tag push, so the tag exists.
-          gh release create "$VERSION" --draft --title "$title" --notes-file "$NOTES"
+          gh release create "$VERSION" --draft --title "$title" "${notes[@]}"
         fi
 
-    - name: Create draft release with release-drafter
-      if: ${{ steps.notes.outputs.path == '' }}
-      uses: release-drafter/release-drafter@b1476f6e6eb133afa41ed8589daba6dc69b4d3f5 # 6.1.0
-      with:
-        name: ${{ github.event.repository.name }} ${{ needs.pack.outputs.packageVersion }}
-        tag: ${{ needs.pack.outputs.packageVersion }}
-        commitish: ${{ github.ref }}
-        publish: false
-      env:
-        GITHUB_TOKEN: ${{ secrets.CREATE_RELEASE_PAT }}
-
-    # 'gh release upload' resolves the release by tag, so it works for both paths above and
-    # neither of them has to expose an upload URL.
+    # 'gh release upload' resolves the release by tag, so no upload URL has to be passed
+    # along from the step above.
     - name: Upload assets
       run: |
         set -euo pipefail

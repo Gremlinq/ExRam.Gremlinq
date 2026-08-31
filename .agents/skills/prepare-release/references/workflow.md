@@ -45,9 +45,10 @@ announcement texts -- must therefore be committed *before* this script runs.
 Nothing is public until the draft is published by hand. Up to that point the tag can be
 deleted and the release re-prepared.
 
-If `releases/<version>/release-notes.md` is missing, `pack.yml` falls back to
-release-drafter, which produces a flat list of pull request titles. That is a safety net,
-not the intended outcome.
+If `releases/<version>/release-notes.md` is missing, `pack.yml` falls back to GitHub's own
+generated notes and warns. That is a safety net, not the intended outcome -- and it cannot
+be corrected after the fact without deleting and re-pushing the tag, because the notes are
+read from the tagged commit. Write them before tagging.
 
 ## Constraints
 
