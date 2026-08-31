@@ -109,6 +109,39 @@ The PR workflow (`.github/workflows/checkPullRequest.yml`) runs on `ubuntu-24.04
 dotnet test -c Release --solution ./ExRam.Gremlinq.slnx --coverlet --coverlet-output-format opencover --ignore-exit-code 8 --report-trx --report-gh
 ```
 
+`.github/workflows/checkPullRequestDescription.yml` runs a second, cheap check named
+`check-description`. It rejects pull requests whose body is missing, or barely longer than
+the title, after HTML comments, code blocks, markdown syntax, bare links and issue
+references have been stripped. Release preparation pull requests, bot authors and anything
+labelled `skip-changelog` are exempt.
+
+## Pull Request Workflow
+
+The default branch is a release branch (`14.x`), not `main`, and it is protected: every
+change arrives through a pull request, merges are rebase-only, commits must be signed, and
+`enforce_admins` is on.
+
+**Pull request descriptions are the source of the release notes.** The text above the
+first `##` heading in a pull request body becomes that change's entry in
+`releases/<version>/release-notes.md`, which becomes the GitHub release body, which
+`.github/workflows/announce.yml` copies verbatim into the blog on docs.gremlinq.net. A
+missing description is a missing changelog entry, and no later step can recover it.
+
+Use the `open-pull-request` skill to open or repair a pull request. It covers the case
+where the agent made the changes itself (write the description from the known intent) and
+the case where it is looking at a cold branch (reconstruct it from the code, and ask
+rather than guess). `.agents/skills/open-pull-request/references/description-style.md`
+holds the structure and worked examples from this repository.
+
+Two reserved conventions:
+
+- **`Prepare release`** as a pull request title skips the test matrix *and* the description
+  check. Never use it for anything but an actual release preparation.
+- **`skip-changelog`** as a label exempts a pull request from the description check and
+  keeps it out of the release notes. It is the right answer for CI tweaks, dependency
+  bumps and refactorings with no user visible effect -- better than padding a chore up to
+  the character threshold.
+
 ## Release / Publishing Workflow
 
 Releases are built by `.github/workflows/pack.yml` (triggered on pushes to `\d+\.x` branches and version tags) and published by two follow-up workflows:
