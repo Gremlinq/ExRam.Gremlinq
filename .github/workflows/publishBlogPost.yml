@@ -1,5 +1,8 @@
-name: Announce
+name: Publish blog post
 
+# Also runs on 'edited', deliberately: the file name is derived from the release's
+# created_at, so re-running overwrites the same post. That is how a typo in a published
+# release body gets corrected in the blog after the fact.
 on:
   release:
     types: [published, edited]
@@ -9,15 +12,22 @@ on:
         required: true
 
 jobs:
-  announce:
+  publish:
     runs-on: ubuntu-slim
-    if: ${{ github.event.release.draft != 'true' }}
+    # 'draft' is a boolean in the payload. Comparing it to the string 'true' made GitHub
+    # coerce both to numbers -- true becomes 1, 'true' becomes NaN -- so the condition was
+    # always satisfied and guarded nothing.
+    if: ${{ !github.event.release.draft }}
 
     steps:
-    - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8
+    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # 7.0.1
       with:
         repository: 'Gremlinq/docs.gremlinq.net'
         token: ${{ secrets.DOCS_TOKEN }}
+        # Set explicitly because this is the one workflow that pushes after checking out.
+        # Leaving it to the action's default would make the push depend on a default that
+        # can change between major versions, and it would fail silently if it ever did.
+        persist-credentials: true
     
     - run: |
         git config user.name "github-actions[bot]"

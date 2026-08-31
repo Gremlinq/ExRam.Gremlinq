@@ -38,8 +38,9 @@ announcement texts -- must therefore be committed *before* this script runs.
 | tag push | `pack.yml` | builds, packs, attests, creates a **draft** release with `releases/<version>/release-notes.md` as its body and the packages as assets |
 | tag push | `pushPreview.yml` | pushes packages to GitHub Packages once `Pack` succeeds |
 | release published (manual) | `pushStable.yml` | pushes to NuGet.org via Trusted Publishing (OIDC) |
-| release published (manual) | `announce.yml` | copies the release body verbatim into `docs/blog/posts/` in `Gremlinq/docs.gremlinq.net` |
-| release published (manual) | `announcementKit.yml` | opens an issue with the LinkedIn and Discord texts, and optionally posts the .NET one by webhook |
+| release published (manual) | `publishBlogPost.yml` | copies the release body verbatim into `docs/blog/posts/` in `Gremlinq/docs.gremlinq.net`; also runs on `edited`, overwriting the same post |
+| release published (manual) | `openAnnouncementChecklist.yml` | opens an issue with the three channel texts, one checkbox each |
+| release published (manual) | `postDiscordAnnouncement.yml` | posts the .NET Discord text by webhook, if `DISCORD_WEBHOOK_DOTNET` is configured |
 
 Nothing is public until the draft is published by hand. Up to that point the tag can be
 deleted and the release re-prepared.

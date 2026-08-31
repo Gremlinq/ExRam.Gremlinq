@@ -1,0 +1,89 @@
+name: Open announcement checklist
+
+on:
+  release:
+    types: [ published ]
+
+permissions:
+  contents: read   # check out the tagged commit
+  issues: write    # gh issue create
+
+jobs:
+
+  open-checklist:
+    runs-on: ubuntu-slim
+
+    env:
+      TAG: ${{ github.event.release.tag_name }}
+      RELEASE_URL: ${{ github.event.release.html_url }}
+
+    steps:
+
+    # The tag, not the release branch. The announcement texts are committed just before
+    # 'nbgv prepare-release' runs, and the commits that follow it reach the release branch
+    # only once the release preparation is merged -- which is usually after publishing.
+    # The tagged commit is the one place the texts are reliably present.
+    - name: Checkout the released tag
+      uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # 7.0.1
+      with:
+        ref: ${{ github.event.release.tag_name }}
+        sparse-checkout: releases
+        persist-credentials: false
+
+    - name: Assemble the checklist
+      id: checklist
+      run: |
+        set -uo pipefail
+
+        body="$RUNNER_TEMP/issue-body.md"
+        : > "$body"
+
+        {
+          printf 'Announcement texts for [%s](%s), from `releases/%s/`.\n\n' \
+            "$TAG" "$RELEASE_URL" "$TAG"
+          printf 'Tick each channel off as you post it. The TinkerPop server is not one we\n'
+          printf 'administer, so that one is always posted by hand.\n\n'
+        } >> "$body"
+
+        emit() {
+          local label="$1" file="$2" note="${3:-}"
+
+          if [ ! -s "$file" ]; then
+            # A release may legitimately ship without every text -- a patch release gets
+            # notes only. Warn, never fail.
+            echo "::warning title=Missing announcement text::$file not found, $label has to be written by hand."
+            printf -- '- [ ] **%s** -- `%s` is missing, write it by hand.\n\n' "$label" "$file" >> "$body"
+            return
+          fi
+
+          printf -- '- [ ] **%s**\n\n' "$label" >> "$body"
+          if [ -n "$note" ]; then
+            printf '  %s\n\n' "$note" >> "$body"
+          fi
+
+          # Four backticks so that a three-backtick fence inside the text (the .NET post
+          # contains a C# snippet) does not terminate the block early.
+          {
+            printf '<details><summary>%s</summary>\n\n````markdown\n' "$label"
+            cat "$file"
+            printf '\n````\n\n</details>\n\n'
+          } >> "$body"
+        }
+
+        emit 'LinkedIn'            "releases/$TAG/linkedin.md"
+        emit 'Discord (TinkerPop)' "releases/$TAG/discord-tinkerpop.md"
+        # The box stays unticked even though 'Post Discord announcement' tries to post this
+        # one on its own: that run can decline to post -- a missing file, or a text over
+        # Discord's 2000 character limit -- and a pre-ticked box would then be a lie.
+        emit 'Discord (.NET)'      "releases/$TAG/discord-dotnet.md" \
+          'The *Post Discord announcement* workflow attempts this automatically. Check that run before posting by hand.'
+
+        cat "$body" >> "$GITHUB_STEP_SUMMARY"
+        echo "body=$body" >> "$GITHUB_OUTPUT"
+
+    - name: Create the announcement issue
+      env:
+        GH_TOKEN: ${{ github.token }}
+        GH_REPO: ${{ github.repository }}
+        BODY: ${{ steps.checklist.outputs.body }}
+      run: gh issue create --title "Announce $TAG" --body-file "$BODY"

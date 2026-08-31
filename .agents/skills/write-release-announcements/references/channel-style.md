@@ -22,7 +22,7 @@ turns an announcement into spam -- not the content. Ask before deviating.
 
 ## Release notes -- `release-notes.md`
 
-The record. Becomes the GitHub release body, and `.github/workflows/announce.yml` copies
+The record. Becomes the GitHub release body, and `.github/workflows/publishBlogPost.yml` copies
 that body verbatim into the blog on docs.gremlinq.net, so it is also the published
 changelog.
 

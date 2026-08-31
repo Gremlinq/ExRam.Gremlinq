@@ -1,0 +1,64 @@
+name: Post Discord announcement
+
+on:
+  release:
+    types: [ published ]
+
+permissions:
+  contents: read   # check out the tagged commit
+
+jobs:
+
+  post:
+    runs-on: ubuntu-slim
+
+    env:
+      TAG: ${{ github.event.release.tag_name }}
+      # Set at job level rather than on the step: the 'secrets' context is not available in
+      # an 'if:' at all, and a step's own 'env:' is not in scope for its own 'if:'. Without
+      # the secret configured, every step below is skipped and the run succeeds.
+      DISCORD_WEBHOOK_DOTNET: ${{ secrets.DISCORD_WEBHOOK_DOTNET }}
+
+    steps:
+
+    # The tag, not the release branch. The announcement texts are committed just before
+    # 'nbgv prepare-release' runs, and the commits that follow it reach the release branch
+    # only once the release preparation is merged -- which is usually after publishing.
+    # The tagged commit is the one place the texts are reliably present.
+    - name: Checkout the released tag
+      if: ${{ env.DISCORD_WEBHOOK_DOTNET != '' }}
+      uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # 7.0.1
+      with:
+        ref: ${{ github.event.release.tag_name }}
+        sparse-checkout: releases
+        persist-credentials: false
+
+    - name: Post to the .NET Discord
+      if: ${{ env.DISCORD_WEBHOOK_DOTNET != '' }}
+      run: |
+        set -euo pipefail
+
+        file="releases/$TAG/discord-dotnet.md"
+        if [ ! -s "$file" ]; then
+          echo "::warning title=Nothing to post::$file is missing."
+          exit 0
+        fi
+
+        # Discord rejects a message body over 2000 characters. Splitting one naively tears
+        # the C# snippet's fence in half and renders as garbage, so warn and leave it to
+        # the checkbox in the announcement checklist issue.
+        chars="$(LC_ALL=C.UTF-8 wc -m < "$file" | tr -d ' ')"
+        if [ "$chars" -gt 2000 ]; then
+          echo "::warning title=Discord message too long::$file is $chars characters, the limit is 2000. Not posting -- shorten it and post by hand."
+          exit 0
+        fi
+
+        # jq does the JSON escaping, so nothing in the text can break out of the payload.
+        jq -Rs '{content: .}' < "$file" > "$RUNNER_TEMP/discord.json"
+        curl --silent --show-error --fail \
+          --request POST \
+          --header 'Content-Type: application/json' \
+          --data-binary "@$RUNNER_TEMP/discord.json" \
+          "$DISCORD_WEBHOOK_DOTNET"
+
+        echo "Posted \`releases/$TAG/discord-dotnet.md\` to the .NET Discord." >> "$GITHUB_STEP_SUMMARY"

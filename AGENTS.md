@@ -124,8 +124,9 @@ change arrives through a pull request, merges are rebase-only, commits must be s
 **Pull request descriptions are the source of the release notes.** The text above the
 first `##` heading in a pull request body becomes that change's entry in
 `releases/<version>/release-notes.md`, which becomes the GitHub release body, which
-`.github/workflows/announce.yml` copies verbatim into the blog on docs.gremlinq.net. A
-missing description is a missing changelog entry, and no later step can recover it.
+`.github/workflows/publishBlogPost.yml` copies verbatim into the blog on
+docs.gremlinq.net. A missing description is a missing changelog entry, and no later step
+can recover it.
 
 Use the `open-pull-request` skill to open or repair a pull request. It covers the case
 where the agent made the changes itself (write the description from the known intent) and
@@ -170,17 +171,21 @@ creates a **draft** release using `releases/<version>/release-notes.md` as its b
 (falling back to release-drafter, and a flat list of pull request titles, if that file is
 missing). Nothing is public until that draft is published by hand.
 
-Publishing it fires three workflows:
+Publishing it fires four workflows, one responsibility each:
 
 - **`.github/workflows/pushStable.yml`** — pushes stable packages to NuGet.org.
-- **`.github/workflows/announce.yml`** — checks out `Gremlinq/docs.gremlinq.net` with a
-  PAT (`DOCS_TOKEN`) and writes the release body **verbatim** into `docs/blog/posts/`.
-  This is why the release notes have to read as published prose, not as internal notes.
-- **`.github/workflows/announcementKit.yml`** — checks out the tag, reads the announcement
-  texts and opens an issue with one checkbox per channel. It posts to the .NET Discord if
-  a `DISCORD_WEBHOOK_DOTNET` secret is configured; TinkerPop and LinkedIn are always
-  manual, because those servers are not ours to automate and LinkedIn member tokens expire
-  every 60 days.
+- **`.github/workflows/publishBlogPost.yml`** — checks out `Gremlinq/docs.gremlinq.net`
+  with a PAT (`DOCS_TOKEN`) and writes the release body **verbatim** into
+  `docs/blog/posts/`. This is why the release notes have to read as published prose, not
+  as internal notes. It also runs on `edited`, overwriting the same post, which is how a
+  correction to a published release body reaches the blog.
+- **`.github/workflows/openAnnouncementChecklist.yml`** — checks out the tag, reads the
+  announcement texts and opens an issue with one checkbox and one collapsed text per
+  channel.
+- **`.github/workflows/postDiscordAnnouncement.yml`** — posts the .NET Discord text
+  through a webhook, if a `DISCORD_WEBHOOK_DOTNET` secret is configured. TinkerPop and
+  LinkedIn are always manual: those servers are not ours to automate, and LinkedIn member
+  tokens expire every 60 days.
 
 Separately, **`.github/workflows/pushPreview.yml`** pushes preview packages to GitHub
 Packages using a PAT secret (`PUSH_TO_PACKAGES_PAT`) whenever `Pack` succeeds.
