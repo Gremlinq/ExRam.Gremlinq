@@ -1,0 +1,104 @@
+name: Check pull request description
+
+on:
+  pull_request:
+    # 'labeled' and 'unlabeled' are required in addition to 'edited': label changes have
+    # their own activity types and do not raise 'edited'. Without them, applying the
+    # 'skip-changelog' label to a pull request that already failed this check would never
+    # re-run it, leaving the pull request red with no way to fix it other than a new commit.
+    types: [ opened, edited, reopened, synchronize, labeled, unlabeled ]
+
+# Deliberately no 'workflow_call:' here, unlike the other workflows in this repository.
+# Being called from another workflow would rename the check context to
+# '<calling job> / check-description', which would silently stop matching the required
+# status check configured on the release branches.
+
+# Everything this workflow needs is in the event payload. No checkout, no API calls.
+permissions: {}
+
+jobs:
+
+  check-description:
+    # Pinned on purpose: this exact string is configured as a required status check on the
+    # release branches. Renaming the job breaks branch protection without any error message.
+    name: check-description
+    runs-on: ubuntu-slim
+
+    steps:
+    - name: Check that the pull request has a usable description
+      env:
+        # The body and the title are attacker controlled. They are passed through the
+        # environment and never interpolated into the script, so their content cannot be
+        # executed as shell code.
+        PR_BODY: ${{ github.event.pull_request.body }}
+        PR_TITLE: ${{ github.event.pull_request.title }}
+        # Safe to interpolate: a login matches [A-Za-z0-9-]+(\[bot\])? and contains()
+        # evaluates to a bare boolean.
+        PR_AUTHOR: ${{ github.event.pull_request.user.login }}
+        HAS_SKIP_LABEL: ${{ contains(github.event.pull_request.labels.*.name, 'skip-changelog') }}
+        # A floor against empty and one-line bodies, not a quality metric -- quality is the
+        # job of the 'open-pull-request' skill. Calibrated against the last 40 merged pull
+        # requests, whose normalised lengths leave a clean gap between 98 characters (a body
+        # that only restates the title) and 186 characters (a short but genuinely
+        # informative paragraph). Anything in that gap is a judgement call, so the threshold
+        # sits in the middle of it and errs towards letting concise descriptions through.
+        MIN_CHARS: '150'
+      run: |
+        set -euo pipefail
+
+        exempt() {
+          echo "::notice title=Description check exempted::$1"
+          echo "Description check exempted: $1" >> "$GITHUB_STEP_SUMMARY"
+          exit 0
+        }
+
+        # These are 'if' blocks rather than '[ ... ] && exempt ...' on purpose: under
+        # 'set -e' a failing test as the last command of an && list terminates the script.
+        if [ "$PR_TITLE" = 'Prepare release' ]; then
+          exempt 'Release preparation pull request.'
+        fi
+
+        if [ "$HAS_SKIP_LABEL" = 'true' ]; then
+          exempt "The 'skip-changelog' label is set."
+        fi
+
+        case "$PR_AUTHOR" in
+          'dependabot[bot]'|'github-actions[bot]')
+            exempt "Authored by $PR_AUTHOR." ;;
+        esac
+
+        # Reduce the body to plain prose before measuring it. Everything that carries no
+        # information about *what changed and why* is stripped, which collapses the
+        # degenerate cases into the single length rule below: a body consisting only of a
+        # link normalises to zero characters, 'See #123' normalises to 'See'.
+        prose="$(
+          printf '%s' "${PR_BODY:-}" | perl -0777 -pe '
+            s/<!--.*?-->//gs;              # HTML comments, including template hints
+            s/^```.*?^```//gms;            # fenced code blocks and stack traces
+            s/^\s{0,3}#{1,6}\s+//gm;       # heading markers, the heading text is kept
+            s/^\s*[-*+]\s+//gm;            # list bullets
+            s{https?://\S+}{}g;            # bare links
+            s/#\d+//g;                     # issue and pull request references
+            s/[`*_>|\[\]()~]//g;           # remaining markdown punctuation
+            s/\s+/ /g; s/^ //; s/ $//;     # collapse and trim whitespace
+          '
+        )"
+
+        # 'wc -m' counts characters. '${#prose}' would count bytes and unfairly penalise
+        # descriptions containing umlauts or other multi-byte characters.
+        chars="$(printf '%s' "$prose" | LC_ALL=C.UTF-8 wc -m | tr -d ' ')"
+
+        # Only the length goes into the summary. The normalised text itself is untrusted
+        # input and the step summary renders markdown.
+        {
+          echo '### Pull request description check'
+          echo
+          echo "Prose after normalisation: **$chars** characters (minimum **$MIN_CHARS**)."
+        } >> "$GITHUB_STEP_SUMMARY"
+
+        if [ "$chars" -lt "$MIN_CHARS" ]; then
+          echo "::error title=Pull request description too short::Only $chars characters of prose remain after stripping HTML comments, code blocks, markdown syntax, bare links and issue references (minimum $MIN_CHARS). Describe what changed and why -- this text becomes the release notes. Apply the 'skip-changelog' label if the change does not belong in them."
+          exit 1
+        fi
+
+        echo "$chars characters of prose."
