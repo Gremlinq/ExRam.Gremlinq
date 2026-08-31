@@ -26,6 +26,13 @@ current_branch="$(jq -r '.CurrentBranch.Name' <<<"$nbgv_output")"
     exit 1
 }
 
+# Checked as well: without it the rebase below would run as 'git rebase <branch> null',
+# and by that point nbgv has already committed.
+[ -n "$current_branch" ] && [ "$current_branch" != 'null' ] || {
+    echo "ERROR: nbgv did not report the current branch." >&2
+    exit 1
+}
+
 echo "Preparing release $new_branch from $current_branch"
 
 git checkout "$new_branch"

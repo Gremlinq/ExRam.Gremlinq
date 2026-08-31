@@ -32,8 +32,10 @@ bar, not the goal.
    - **You made the changes on this branch in this session** -> mode A.
    - **Otherwise** -> mode B.
 3. Write the description according to [the style guide](references/description-style.md).
-4. Self-check it: run `scripts/check-description.sh <file>`. This is the same
-   normalisation and the same threshold the CI check applies, so a failure here is a
+4. Self-check it: run `scripts/check-description.sh <file>`. It applies the same
+   normalisation and the same threshold as the CI check, so passing here means passing
+   there. It does not know about the exemptions the CI applies on top -- the
+   `skip-changelog` label and bot authors -- so a failure here is not necessarily a
    failure there.
 5. Create or update the pull request. Always pass the body through a file
    (`--body-file`), never inline via `--body`.

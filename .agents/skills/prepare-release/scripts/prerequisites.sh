@@ -28,12 +28,30 @@ remote="$(git remote -v | grep -m1 'github\.com' | awk '{print $1}')"
 [ -n "$remote" ] || fail "No git remote pointing at github.com."
 
 branch="$(git rev-parse --abbrev-ref HEAD)"
+[ "$branch" != 'HEAD' ] \
+    || fail "Detached HEAD. A previous run probably died mid-rebase; sort that out first."
+
+# prepare.sh makes two commits, a branch and a tag in one go, and can die between them --
+# an unavailable signing key, or a rebase conflict that -Xtheirs cannot resolve, such as
+# add/add or modify/delete. The three checks below are what a half-finished run leaves
+# behind. Without them a re-run reports success here and then dies inside nbgv, having
+# added yet more commits.
+for state in rebase-merge rebase-apply; do
+    if [ -e "$(git rev-parse --git-path "$state")" ]; then
+        fail "A rebase is in progress. Finish or abort it ('git rebase --abort') first."
+    fi
+done
+
 version="$(nbgv get-version --format json | jq -r '.SimpleVersion')"
 
-# A tag that already exists means this release was prepared before. Creating it again
-# fails halfway through prepare.sh, after the version commits have been made.
 if git rev-parse --verify --quiet "refs/tags/$version" >/dev/null; then
     fail "Tag '$version' already exists locally. This release has already been prepared."
+fi
+
+# 'nbgv prepare-release' names its temporary branch after the version, and prepare.sh
+# deletes it again. One left over means the previous run did not get that far.
+if git rev-parse --verify --quiet "refs/heads/$version" >/dev/null; then
+    fail "Branch '$version' already exists -- left behind by a release preparation that did not finish. Inspect it, then delete it with 'git branch -D $version' before retrying."
 fi
 
 echo "All prerequisite checks passed."

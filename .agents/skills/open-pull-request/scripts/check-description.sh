@@ -33,7 +33,9 @@ chars="$(printf '%s' "$prose" | LC_ALL=C.UTF-8 wc -m | tr -d ' ')"
 
 if [ "$chars" -lt "$MIN_CHARS" ]; then
     echo "FAIL: $chars characters of prose, minimum $MIN_CHARS." >&2
-    echo "The CI check would reject this. Say what changed and why, or use the 'skip-changelog' label." >&2
+    echo "Say what changed and why. Note that this script measures the text only: the CI" >&2
+    echo "check additionally exempts bot authors and anything labelled 'skip-changelog'," >&2
+    echo "so a chore can pass there with the label without padding the prose here." >&2
     exit 1
 fi
 

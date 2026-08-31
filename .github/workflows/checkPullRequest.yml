@@ -1,8 +1,11 @@
 name: Check pull request
 
+# No 'workflow_call:'. Nothing in this repository calls another workflow, and being called
+# would rename this job's contexts to '<calling job> / test (ubuntu-24.04)' and
+# '<calling job> / test (windows-2025)'. Both of those are required status checks on the
+# release branches, so they would silently stop matching.
 on:
   pull_request:
-  workflow_call:
 
 permissions:
   contents: read
