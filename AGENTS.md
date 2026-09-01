@@ -14,6 +14,30 @@ ExRam.Gremlinq is a .NET object-graph-mapper (OGM) for Apache TinkerPop™ Greml
 - **Package management:** Central Package Management via `Directory.Packages.props` files in src/, test/, and analyzers/ directories
 - **Projects:** ~37 projects (17 src, 16 test, 1 templates, 3 test infrastructure)
 
+## Agent Skills
+
+The skills live in **`.agents/skills/`** so that they are not tied to one agent tool.
+Claude Code only ever scans `.claude/skills/`, so `.claude/skills` is committed as a
+**symlink** pointing at `../.agents/skills`.
+
+**A clone therefore needs `core.symlinks=true`.** Git only materialises a symlink when
+that option is on; with `core.symlinks=false` — the default on Windows unless developer
+mode or an elevated shell is used — it writes a plain text file containing the target path
+instead. Claude Code then finds no skills at all, and says nothing about it. The same
+happens to a working symlink whenever a `git checkout` touches the path.
+
+If `ls .claude/skills/` fails with *Not a directory*, that is what happened:
+
+```bash
+git config core.symlinks true
+rm .claude/skills && git checkout -- .claude/skills
+```
+
+`CLAUDE.md` deliberately is **not** a symlink for the same reason. It is a regular file
+containing the single line `@AGENTS.md`, which is Claude Code's documented way to import
+another instruction file and works regardless of `core.symlinks` and of the operating
+system.
+
 ## Build Instructions
 
 Always build from the repo root using the slnx format:
