@@ -4,6 +4,11 @@ on:
   registry_package:
     types: [published, updated]
   workflow_call:
+    inputs:
+      keep-days:
+        type: number
+        default: 30
+        required: false
 
 permissions:
   packages: write   # gh api ... DELETE package versions
@@ -16,7 +21,7 @@ jobs:
       GH_TOKEN: ${{ github.token }}
       OWNER: ${{ github.repository_owner }}
       PACKAGE_NAME: ${{ github.event.registry_package.name }}
-      KEEP_DAYS: 30
+      KEEP_DAYS: ${{ inputs.keep-days || 30 }}
 
     steps:
     # actions/delete-package-versions only supports keeping a fixed count of
