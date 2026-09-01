@@ -18,7 +18,10 @@ gh auth status >/dev/null 2>&1 || fail "GitHub CLI is not authenticated. Run 'gh
 git rev-parse --git-dir >/dev/null 2>&1 || fail "Not inside a git repository."
 
 repo_root="$(git rev-parse --show-toplevel)"
-[ -f "$repo_root/ExRam.Gremlinq.slnx" ] || fail "Not in the ExRam.Gremlinq repository root."
+shopt -s nullglob
+slnx_files=("$repo_root"/*.slnx)
+shopt -u nullglob
+[ "${#slnx_files[@]}" -gt 0 ] || fail "Not at a repository root (no *.slnx solution file found)."
 
 # The remote is resolved rather than hardcoded: this repository also carries a
 # non-GitHub backup remote, and the GitHub one is not always named 'origin'.

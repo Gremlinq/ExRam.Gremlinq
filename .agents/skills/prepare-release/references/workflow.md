@@ -34,6 +34,11 @@ announcement texts -- must therefore be committed *before* this script runs.
 
     git push <remote> <version>
 
+The table below is ExRam.Gremlinq's own pipeline. A repository that shares this skill
+without owning these workflow files (e.g. one that only calls a subset of them via
+`workflow_call`) will not see every row -- check that repository's `.github/workflows/`
+rather than assuming this list applies verbatim.
+
 | Trigger | Workflow | Effect |
 |---|---|---|
 | tag push | `pack.yml` | builds, packs, attests, creates a **draft** release with `releases/<version>/release-notes.md` as its body and the packages as assets |

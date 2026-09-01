@@ -10,14 +10,16 @@ release note, or repairs the description of an existing one.
 
 ## Why this exists
 
-The release notes for this repository are assembled from pull request bodies, and the
-GitHub release body is copied verbatim into the blog on docs.gremlinq.net. A pull request
-description is therefore not review scaffolding that can be skipped -- it is the only
-draft of the published changelog entry that will ever be written.
+The release notes for this repository are assembled from pull request bodies. In
+ExRam.Gremlinq the GitHub release body is additionally copied verbatim into the blog on
+docs.gremlinq.net. A pull request description is therefore not review scaffolding that can
+be skipped -- it is the only draft of the published changelog entry that will ever be
+written, whether or not this particular repository also publishes it further.
 
-The `check-description` status check enforces a floor on this
-(`.github/workflows/checkPullRequestDescription.yml`). Clearing that floor is the minimum
-bar, not the goal.
+Where a `check-description` status check is configured
+(`.github/workflows/checkPullRequestDescription.yml` in ExRam.Gremlinq), it enforces a
+floor on this. Clearing that floor is the minimum bar, not the goal -- and a repository
+without the check is not license to skip the description.
 
 ## Usage
 
@@ -95,8 +97,11 @@ than padded prose:
 
 ## Key requirements
 
-- The repository is `Gremlinq/ExRam.Gremlinq`. The git remote pointing at it is resolved
-  by `scripts/prerequisites.sh`; do not hardcode a remote name.
+- The repository and the git remote pointing at it are resolved dynamically by
+  `scripts/prerequisites.sh` (via `gh repo view` and by matching a `github.com` remote);
+  do not hardcode either. This skill is shared with other repositories in the same family
+  (e.g. Gremlinq.Extensions, via a symlink into `.claude/skills`) and must not assume it is
+  running in ExRam.Gremlinq specifically.
 - The base branch is the current release branch (`14.x` at the time of writing), resolved
   by `scripts/prerequisites.sh`. Do not assume `main`.
 - Write the body to a file and pass `--body-file`. Inline `--body` mangles multi-line

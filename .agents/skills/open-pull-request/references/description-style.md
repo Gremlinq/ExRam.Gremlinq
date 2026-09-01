@@ -15,9 +15,11 @@
 ```
 
 **Everything above the first `##` heading is the release note.** `write-release-announcements`
-reads exactly that paragraph when it assembles `releases/<version>/release-notes.md`, and
-the GitHub release body is copied verbatim into the blog on docs.gremlinq.net. Write that
-paragraph for someone scanning a changelog, not for someone reading the diff.
+reads exactly that paragraph when it assembles `releases/<version>/release-notes.md`. In
+ExRam.Gremlinq the GitHub release body is additionally copied verbatim into the blog on
+docs.gremlinq.net -- other repositories that share this skill may not publish it any
+further, but the paragraph is still the release note either way. Write it for someone
+scanning a changelog, not for someone reading the diff.
 
 The `## Changes` and `## Notes` sections are optional and exist for reviewers. A small,
 self-contained change is perfectly well served by the opening paragraph alone.

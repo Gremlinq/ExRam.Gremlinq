@@ -6,6 +6,11 @@ expectations. Writing one and reformatting it three times produces three bad pos
 
 All four are written in **English**, matching the repository and the pull requests.
 
+This guide, including the audiences, channels and worked examples below, describes
+ExRam.Gremlinq's own announcements. A repository that shares this skill and does have its
+own LinkedIn/Discord presence should adapt the audience framing and examples to its own
+product and communities rather than reusing these verbatim.
+
 ## When each one is written
 
 | Version bump | Release notes | LinkedIn | Discord |
@@ -22,9 +27,9 @@ turns an announcement into spam -- not the content. Ask before deviating.
 
 ## Release notes -- `release-notes.md`
 
-The record. Becomes the GitHub release body, and `.github/workflows/publishBlogPost.yml` copies
-that body verbatim into the blog on docs.gremlinq.net, so it is also the published
-changelog.
+The record. Becomes the GitHub release body. In ExRam.Gremlinq,
+`.github/workflows/publishBlogPost.yml` additionally copies that body verbatim into the
+blog on docs.gremlinq.net, so there it is also the published changelog.
 
 ```markdown
 ## Features

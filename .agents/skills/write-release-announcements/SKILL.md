@@ -20,16 +20,24 @@ Everything lands in `releases/<version>/` -- for example `releases/14.2.0/`:
 
 | File | Becomes |
 |---|---|
-| `release-notes.md` | the GitHub release body (`pack.yml` passes it to `gh release create --notes-file`), which `publishBlogPost.yml` then copies verbatim into the blog on docs.gremlinq.net |
+| `release-notes.md` | the GitHub release body (`pack.yml` passes it to `gh release create --notes-file`); in ExRam.Gremlinq, `publishBlogPost.yml` then also copies it verbatim into the blog on docs.gremlinq.net |
 | `linkedin.md` | a manual LinkedIn post |
 | `discord-tinkerpop.md` | a manual post in the TinkerPop Discord |
-| `discord-dotnet.md` | a post in the .NET Discord, optionally sent by webhook |
+| `discord-dotnet.md` | a post in the .NET Discord, optionally sent by webhook in ExRam.Gremlinq |
+
+The LinkedIn and Discord channels described here, and the worked examples in
+[the channel style guide](references/channel-style.md), are ExRam.Gremlinq's own --
+written for that library's audience and communities. A repository that shares this skill
+but does not run its own LinkedIn/Discord announcements should confirm with the user which
+of the four texts, if any, are wanted before writing all of them.
 
 **These files must be committed before `nbgv prepare-release` runs.** That command creates
 the branch the release tag is put on, and the current branch is then rebased *onto* it --
-so the tag points at the earlier state. `pack.yml`, `openAnnouncementChecklist.yml` and
-`postDiscordAnnouncement.yml` all read these files out of the tag. Commit them late and
-they will not be there.
+so the tag points at the earlier state. In ExRam.Gremlinq, `pack.yml`,
+`openAnnouncementChecklist.yml` and `postDiscordAnnouncement.yml` all read these files out
+of the tag; a repository without those workflows still benefits from the same ordering,
+since a tag whose release-notes.md is missing falls back to a worse, auto-generated body.
+Commit them late and they will not be there.
 
 That is why this skill commits its own output rather than leaving it staged.
 
@@ -91,7 +99,7 @@ paraphrase the title back as if it were a description; that is the failure mode 
 - **No author names.** Nearly every pull request here is the maintainer's own.
 - Do not create tags, do not bump `version.json`, do not push. That is `prepare-release`.
 - Do not post anything anywhere. Delivery is manual, plus the optional webhook in
-  `postDiscordAnnouncement.yml`.
+  `postDiscordAnnouncement.yml` where that workflow exists.
 
 ## References
 

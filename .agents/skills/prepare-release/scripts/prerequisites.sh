@@ -15,7 +15,12 @@ command -v gh   >/dev/null 2>&1 || fail "GitHub CLI (gh) is not installed."
 gh auth status >/dev/null 2>&1 || fail "GitHub CLI is not authenticated. Run 'gh auth login'."
 
 git rev-parse --git-dir >/dev/null 2>&1 || fail "Not inside a git repository."
-[ -f "ExRam.Gremlinq.slnx" ] || fail "Not in the root of the ExRam.Gremlinq repository."
+
+repo_root="$(git rev-parse --show-toplevel)"
+shopt -s nullglob
+slnx_files=("$repo_root"/*.slnx)
+shopt -u nullglob
+[ "${#slnx_files[@]}" -gt 0 ] || fail "Not at a repository root (no *.slnx solution file found)."
 
 if ! git diff --quiet || ! git diff --cached --quiet; then
     echo "ERROR: The working tree has uncommitted changes." >&2

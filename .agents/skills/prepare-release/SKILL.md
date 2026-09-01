@@ -25,8 +25,10 @@ Prepares a release of ExRam.Gremlinq: the texts first, then the version bump and
 prepare-release` creates a branch carrying the "Set version to 'X'" commit, and
 `prepare.sh` tags that branch and rebases the current branch *onto* it. The tag therefore
 points at the earlier of the two version commits, and anything committed afterwards is not
-reachable from it. `pack.yml`, `openAnnouncementChecklist.yml` and
-`postDiscordAnnouncement.yml` all read `releases/<version>/` out of the tagged commit.
+reachable from it. In ExRam.Gremlinq, `pack.yml`, `openAnnouncementChecklist.yml` and
+`postDiscordAnnouncement.yml` all read `releases/<version>/` out of the tagged commit; a
+repository that shares this skill but not those workflows still benefits from the same
+ordering, since `pack.yml`'s release-body fallback is worse than having written the notes.
 Prepare the texts late and they will simply not be there.
 
 ## What happens after this skill
@@ -37,10 +39,15 @@ The skill pushes nothing. Report these steps and let the user run them:
    start: `pack.yml` triggers on the tag, builds, packs, attests, and creates a **draft**
    release whose body is `releases/<version>/release-notes.md`.
 2. **Review and publish the draft** on GitHub. Nothing is public until then.
-3. Publishing fires `pushStable.yml` (NuGet.org via Trusted Publishing),
-   `publishBlogPost.yml` (copies the release body into the blog on docs.gremlinq.net),
-   `openAnnouncementChecklist.yml` (opens an issue with the three channel texts, ready to
-   post) and `postDiscordAnnouncement.yml` (posts the .NET one by webhook, if configured).
+3. What publishing fires next is repository-specific -- check that repository's
+   `.github/workflows/` rather than assuming. In ExRam.Gremlinq it is `pushStable.yml`
+   (NuGet.org via Trusted Publishing), `publishBlogPost.yml` (copies the release body into
+   the blog on docs.gremlinq.net), `openAnnouncementChecklist.yml` (opens an issue with the
+   three channel texts, ready to post) and `postDiscordAnnouncement.yml` (posts the .NET
+   one by webhook, if configured). A repository that only reuses ExRam.Gremlinq's `pack.yml`
+   and `announce.yml` via `workflow_call` may fire a different subset of these effects, or
+   none of them beyond the NuGet push -- report what you can confirm, not this list by
+   default.
 
 The two version commits stay on the local branch and reach the release branch later, with
 whatever pull request is opened next. That is deliberate: the tag is what drives the
