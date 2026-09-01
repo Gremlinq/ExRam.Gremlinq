@@ -5,15 +5,34 @@ on:
     types: [published, updated]
   workflow_call:
 
+permissions:
+  packages: write   # gh api ... DELETE package versions
+
 jobs:
   cleanup:
     runs-on: ubuntu-slim
 
-    steps:
-    - uses: actions/delete-package-versions@e5bc658cc4c965c472efe991f8beea3981499c55 # 5
-      with:
-        package-name: ${{ github.event.registry_package.name }}
-        package-type: nuget
-        min-versions-to-keep: 10
-        delete-only-pre-release-versions: true
+    env:
+      GH_TOKEN: ${{ github.token }}
+      OWNER: ${{ github.repository_owner }}
+      PACKAGE_NAME: ${{ github.event.registry_package.name }}
+      KEEP_DAYS: 30
 
+    steps:
+    # actions/delete-package-versions only supports keeping a fixed count of
+    # versions, not an age cutoff, and is stuck on a Node 20 runtime with no newer
+    # release available -- hence the inline script instead of the action.
+    - name: Delete preview package versions older than ${{ env.KEEP_DAYS }} days
+      run: |
+        set -euo pipefail
+        cutoff=$(date -u -d "-${KEEP_DAYS} days" +%s)
+        gh api --paginate "/orgs/${OWNER}/packages/nuget/${PACKAGE_NAME}/versions" \
+          --jq '.[] | [.id, .name, .created_at] | @tsv' |
+        while IFS=$'\t' read -r id name created; do
+          [[ "$name" == *-preview* ]] || continue
+          created_ts=$(date -u -d "$created" +%s)
+          if [ "$created_ts" -lt "$cutoff" ]; then
+            echo "Deleting $name ($id), created $created"
+            gh api -X DELETE "/orgs/${OWNER}/packages/nuget/${PACKAGE_NAME}/versions/${id}"
+          fi
+        done
