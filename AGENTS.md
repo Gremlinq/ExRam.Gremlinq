@@ -213,7 +213,7 @@ Publishing it fires four workflows, one responsibility each:
   announcement texts and opens an issue with one checkbox and one collapsed text per
   channel.
 - **`.github/workflows/postDiscordAnnouncement.yml`** — posts the .NET Discord text
-  through a webhook, if a `DISCORD_WEBHOOK_DOTNET` secret is configured. TinkerPop and
+  through a webhook, if a `DISCORD_WEBHOOK_URL` secret is configured. TinkerPop and
   LinkedIn are always manual: those servers are not ours to automate, and LinkedIn member
   tokens expire every 60 days.
 

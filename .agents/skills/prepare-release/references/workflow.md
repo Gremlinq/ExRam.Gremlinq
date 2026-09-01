@@ -46,7 +46,7 @@ rather than assuming this list applies verbatim.
 | release published (manual) | `pushStable.yml` | pushes to NuGet.org via Trusted Publishing (OIDC) |
 | release published (manual) | `publishBlogPost.yml` | copies the release body verbatim into `docs/blog/posts/` in `Gremlinq/docs.gremlinq.net`; also runs on `edited`, overwriting the same post |
 | release published (manual) | `openAnnouncementChecklist.yml` | opens an issue with the three channel texts, one checkbox each |
-| release published (manual) | `postDiscordAnnouncement.yml` | posts the .NET Discord text by webhook, if `DISCORD_WEBHOOK_DOTNET` is configured |
+| release published (manual) | `postDiscordAnnouncement.yml` | posts the .NET Discord text by webhook, if `DISCORD_WEBHOOK_URL` is configured |
 
 Nothing is public until the draft is published by hand. Up to that point the tag can be
 deleted and the release re-prepared.
