@@ -1,11 +1,16 @@
 name: Check pull request
 
-# No 'workflow_call:'. Nothing in this repository calls another workflow, and being called
-# would rename this job's contexts to '<calling job> / test (ubuntu-24.04)' and
-# '<calling job> / test (windows-2025)'. Both of those are required status checks on the
-# release branches, so they would silently stop matching.
+# Gremlinq.Extensions calls this via 'workflow_call' to run the same checks against its
+# own pull requests. Being called renames this job's contexts to '<calling job> / test
+# (ubuntu-24.04)' and '<calling job> / test (windows-2025)' in the CALLING repository --
+# both of those are required status checks on this repository's own release branches, but
+# this repository never calls its own workflow via 'uses:', so that risk does not apply
+# here. It would apply to a caller that configures its own required status checks on
+# these context names; Gremlinq.Extensions cannot do that today (private repository,
+# no GitHub Pro), so re-evaluate if that ever changes.
 on:
   pull_request:
+  workflow_call:
 
 permissions:
   contents: read
