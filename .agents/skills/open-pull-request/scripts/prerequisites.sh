@@ -35,6 +35,20 @@ base="$(gh repo view --json defaultBranchRef --jq '.defaultBranchRef.name')"
 [ -n "$base" ] || fail "Could not determine the default branch."
 [ "$branch" != "$base" ] || fail "Currently on the base branch '$base'. Check out a feature branch first."
 
+# 'git checkout -b <new> <remote>/<base>' makes the new branch track <base> rather than
+# itself, because branch.autoSetupMerge defaults to true and the start point is a
+# remote-tracking branch. The branch then looks fine until 'git pull' quietly merges the
+# base branch into it, or until the merged branch is deleted upstream and the local one
+# appears to have become the base branch. Pushing with '-u' repairs it.
+upstream="$(git rev-parse --abbrev-ref --symbolic-full-name '@{upstream}' 2>/dev/null || true)"
+
+if [ -n "$upstream" ] && [ "$upstream" != "$remote/$branch" ]; then
+    echo "WARNING: '$branch' tracks '$upstream' instead of '$remote/$branch'." >&2
+    echo "         A plain 'git pull' would pull from '$upstream' into this branch." >&2
+    echo "         Push with 'git push -u $remote HEAD', or fix it directly with" >&2
+    echo "         'git branch --set-upstream-to=$remote/$branch'." >&2
+fi
+
 # An empty result means no pull request exists yet, which is not an error.
 pr="$(gh pr list --head "$branch" --state open --json number,title,url,labels --jq '.[0] // empty')"
 
@@ -44,6 +58,7 @@ echo "base=$base"
 echo "branch=$branch"
 echo "commits_ahead=$(git rev-list --count "$remote/$base..HEAD" 2>/dev/null || echo 'unknown')"
 echo "pushed=$(git rev-parse --verify --quiet "$remote/$branch" >/dev/null && echo 'true' || echo 'false')"
+echo "upstream=$upstream"
 
 if [ -n "$pr" ]; then
     echo "existing_pr=$(jq -r '.number' <<<"$pr")"

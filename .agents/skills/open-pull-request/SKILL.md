@@ -37,7 +37,14 @@ bar, not the goal.
    there. It does not know about the exemptions the CI applies on top -- the
    `skip-changelog` label and bot authors -- so a failure here is not necessarily a
    failure there.
-5. Create or update the pull request. Always pass the body through a file
+5. Push the branch, if `prerequisites.sh` reported `pushed=false`:
+
+       git push -u <remote> HEAD
+
+   **Always with `-u`.** It sets the upstream to `<remote>/<branch>`, which also repairs
+   the tracking a branch gets when it was created from the base branch -- see the note
+   under *Key requirements*.
+6. Create or update the pull request. Always pass the body through a file
    (`--body-file`), never inline via `--body`.
 
 ## The three modes
@@ -94,6 +101,16 @@ than padded prose:
   by `scripts/prerequisites.sh`. Do not assume `main`.
 - Write the body to a file and pass `--body-file`. Inline `--body` mangles multi-line
   markdown and leaves the text at the mercy of shell quoting.
+- **Branch off the base with `--no-track`:**
+
+      git checkout -b <name> --no-track <remote>/<base>
+
+  Without it, `branch.autoSetupMerge` (which defaults to true) makes the new branch track
+  the *base* branch rather than itself -- `branch.<name>.merge` ends up as
+  `refs/heads/<base>`. Nothing complains, but `git pull` then merges the base branch into
+  the feature branch, and once the merged branch is deleted upstream the local one looks
+  as though it had turned into the base branch. `git push -u` repairs it after the fact;
+  `--no-track` stops it happening.
 - This skill does not bump versions, create tags or push tags. That is `prepare-release`.
 
 ## References
