@@ -151,7 +151,10 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                         return true;
                     }
                 }
-                catch (JsonSerializationException)
+                // JsonException rather than JsonSerializationException: a token the requested type
+                // cannot read - "not a date" for a DateTime - surfaces as a JsonReaderException,
+                // and that has to make this converter decline instead of failing the whole result set.
+                catch (JsonException)
                 {
 
                 }

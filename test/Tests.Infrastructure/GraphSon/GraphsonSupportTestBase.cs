@@ -260,9 +260,9 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public Task TimeSpan_from_invalid_string() => VerifyAttempt<TimeSpan>("\"not a duration\"");
 
-        // A single unconvertible item is not dropped - it takes the whole array down with it.
+        // Items that cannot be converted are silently dropped, the rest of the array surviving.
         [Fact]
-        public Task Array_with_unconvertible_item() => VerifyAttempt<DateTime[]>("[ \"2018-12-17T08:00:00Z\", \"not a date\" ]");
+        public Task Array_with_unconvertible_item() => Verify<DateTime[]>("[ \"2018-12-17T08:00:00Z\", \"not a date\" ]");
 
         [Fact]
         public Task DynamicData() => Verify<dynamic>("{ \"values\": [ ], \"count\": { \"@type\": \"g:Int32\", \"@value\": 36 } }");
