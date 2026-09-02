@@ -18,6 +18,37 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             }
             """;
 
+        // GraphSON 3.0 edge. Unlike vertex properties, edge properties are not arrays.
+        public static readonly string Graphson3_Edge = """
+            {
+              "@type": "g:Edge",
+              "@value": {
+                "id": { "@type": "g:Int32", "@value": 9 },
+                "label": "WorksFor",
+                "inVLabel": "Company",
+                "outVLabel": "Person",
+                "inV": { "@type": "g:Int32", "@value": 10 },
+                "outV": { "@type": "g:Int32", "@value": 1 },
+                "properties": {
+                  "Role": {
+                    "@type": "g:Property",
+                    "@value": {
+                      "key": "Role",
+                      "value": "Admin"
+                    }
+                  },
+                  "From": {
+                    "@type": "g:Property",
+                    "@value": {
+                      "key": "From",
+                      "value": { "@type": "g:Date", "@value": 1521805004907 }
+                    }
+                  }
+                }
+              }
+            }
+            """;
+
         public static readonly string Array_With_Traverser_With_Ints = """
             [
               {
@@ -965,6 +996,17 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
               { "@type": "g:Int32", "@value": 3 },
               { "@type": "g:Int32", "@value": 5 }
             ]
+            """;
+
+        public static readonly string Typed_Set_of_Ints = """
+            {
+              "@type": "g:Set",
+              "@value": [
+                { "@type": "g:Int32", "@value": 1 },
+                { "@type": "g:Int32", "@value": 3 },
+                { "@type": "g:Int32", "@value": 5 }
+              ]
+            }
             """;
 
         public static readonly string Empty_typed_tree = """

@@ -9,7 +9,9 @@ using static ExRam.Gremlinq.Tests.Infrastructure.GraphSonStrings;
 using System.Collections.Immutable;
 using System.Collections.Concurrent;
 using System.Collections;
+using System.Numerics;
 using ExRam.Gremlinq.Tests.Infrastructure.GraphSon.Entities;
+using Direction = Gremlin.Net.Process.Traversal.Direction;
 
 namespace ExRam.Gremlinq.Tests.Infrastructure
 {
@@ -47,6 +49,39 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         }
 
         protected Task Verify<T>(string token) => Verify<T>(token, _ => _);
+
+        // Unlike Verify, this snapshots the outcome of a transformation rather than its result,
+        // so that tokens no converter accepts can be asserted on. Verify cannot express those:
+        // TransformTo<T>().From(...) throws an InvalidCastException when nothing converts.
+        // An escaping exception is an outcome too - a converter that throws instead of declining
+        // takes the whole deserialization down with it, so that difference belongs in the snapshot.
+        // Only the exception type is recorded, as messages are culture dependent.
+        protected virtual Task VerifyAttempt<T>(string token, Func<IGremlinQueryEnvironment, IGremlinQueryEnvironment> environmentTransformation)
+        {
+            var environment = environmentTransformation
+                .Invoke(_environment);
+
+            object outcome;
+
+            try
+            {
+                outcome = environment
+                    .Deserializer
+                    .TryTransform<TNativeToken, T>(CreateNativeToken(token), environment, out var value)
+                        ? new { Success = true, Value = (object?)value }
+                        : new { Success = false, Value = (object?)null };
+            }
+            catch (Exception ex)
+            {
+                outcome = new { Success = false, Threw = ex.GetType().Name };
+            }
+
+            return Verifier
+                .Verify(outcome, sourceFile: _sourceFile)
+                .DontScrubDateTimes();
+        }
+
+        protected Task VerifyAttempt<T>(string token) => VerifyAttempt<T>(token, _ => _);
 
         protected abstract TNativeToken CreateNativeToken(string str);
 
@@ -139,6 +174,9 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public Task ISet_Typed_Ints() => Verify<ISet<int>>(Typed_Ints);
 
         [Fact]
+        public Task ISet_from_typed_Set() => Verify<ISet<int>>(Typed_Set_of_Ints);
+
+        [Fact]
         public Task IList_Typed_Ints() => Verify<IImmutableList<int>>(Typed_Ints);
 
         [Fact]
@@ -214,10 +252,38 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public Task DateTimeOffset_from_string() => Verify<DateTimeOffset>("\"2018-12-17T08:00:00Z\"");
 
         [Fact]
+        public Task DateTime_from_invalid_string() => VerifyAttempt<DateTime>("\"not a date\"");
+
+        [Fact]
+        public Task DateTimeOffset_from_invalid_string() => VerifyAttempt<DateTimeOffset>("\"not a date\"");
+
+        [Fact]
+        public Task TimeSpan_from_invalid_string() => VerifyAttempt<TimeSpan>("\"not a duration\"");
+
+        // A single unconvertible item is not dropped - it takes the whole array down with it.
+        [Fact]
+        public Task Array_with_unconvertible_item() => VerifyAttempt<DateTime[]>("[ \"2018-12-17T08:00:00Z\", \"not a date\" ]");
+
+        [Fact]
         public Task DynamicData() => Verify<dynamic>("{ \"values\": [ ], \"count\": { \"@type\": \"g:Int32\", \"@value\": 36 } }");
 
         [Fact]
         public Task Edge() => Verify<WorksFor>(UntypedEdge);
+
+        // Should agree with Edge above: the typed and untyped wire forms must converge.
+        [Fact]
+        public Task Edge_from_typed_Edge() => Verify<WorksFor>(Graphson3_Edge);
+
+        [Fact]
+        public Task Property_from_typed_Property() => Verify<Property<int>>("""
+            {
+              "@type": "g:Property",
+              "@value": {
+                "key": "since",
+                "value": { "@type": "g:Int32", "@value": 2009 }
+              }
+            }
+            """);
 
         [Fact]
         public Task Empty_to_ints() => Verify<(int[] ints, string[] strings)>("{ \"Item1\": [], \"Item2\": [] }");
@@ -242,6 +308,83 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public Task Guid() => Verify<Guid>("\"FCE0765A-454F-4D00-83DA-D76790156E29\"");
+
+        [Fact]
+        public Task Guid_from_typed_UUID() => Verify<Guid>("""{ "@type": "g:UUID", "@value": "41d2e28a-20a4-4ab0-b379-d810dede3786" }""");
+
+        // The only test taking the "more specific type" route of TypedValueConverterFactory
+        // for a value type, i.e. TransformerExtensions.FluentForType.FromStruct.
+        [Fact]
+        public Task Object_from_typed_UUID() => Verify<object>("""{ "@type": "g:UUID", "@value": "41d2e28a-20a4-4ab0-b379-d810dede3786" }""");
+
+        [Fact]
+        public Task Float_from_typed_value() => Verify<float>("""{ "@type": "g:Float", "@value": 1.5 }""");
+
+        // 16777217 is 2^24 + 1, the smallest positive integer a float cannot represent. A
+        // snapshot of 16777216 proves the g:Float row really did route through float.
+        [Fact]
+        public Task Object_from_typed_float() => Verify<object>("""{ "@type": "g:Float", "@value": 16777217 }""");
+
+        [Fact]
+        public Task Object_from_typed_double() => Verify<object>("""{ "@type": "g:Double", "@value": 16777217 }""");
+
+        [Fact]
+        public Task DateTimeOffset_from_typed_Date() => Verify<DateTimeOffset>("""{ "@type": "g:Date", "@value": 1657527969000 }""");
+
+        // DateTime is not assignable from DateTimeOffset, so this is the only test taking
+        // TypedValueConverterFactory's fall-through, where @value is re-dispatched untyped.
+        [Fact]
+        public Task DateTime_from_typed_Timestamp() => Verify<DateTime>("""{ "@type": "g:Timestamp", "@value": 1657527969000 }""");
+
+        [Fact]
+        public Task Object_from_typed_Direction() => Verify<object>("""{ "@type": "g:Direction", "@value": "OUT" }""");
+
+        [Fact]
+        public Task Direction_from_typed_Direction() => VerifyAttempt<Direction>("""{ "@type": "g:Direction", "@value": "OUT" }""");
+
+        [Fact]
+        public Task Object_from_typed_Merge() => Verify<object>("""{ "@type": "g:Merge", "@value": "onCreate" }""");
+
+        [Fact]
+        public Task Decimal_from_typed_BigDecimal() => Verify<decimal>("""{ "@type": "gx:BigDecimal", "@value": 123.456 }""");
+
+        [Fact]
+        public Task Decimal_from_typed_BigDecimal_with_high_precision() => Verify<decimal>("""{ "@type": "gx:BigDecimal", "@value": 0.1234567890123456789012345 }""");
+
+        [Fact]
+        public Task BigInteger_from_typed_BigInteger() => Verify<BigInteger>("""{ "@type": "gx:BigInteger", "@value": 123456789987654321123456789987654321 }""");
+
+        [Fact]
+        public Task Byte_from_typed_Byte() => Verify<byte>("""{ "@type": "gx:Byte", "@value": 255 }""");
+
+        [Fact]
+        public Task Short_from_typed_Int16() => Verify<short>("""{ "@type": "gx:Int16", "@value": 32767 }""");
+
+        [Fact]
+        public Task Char_from_typed_Char() => Verify<char>("""{ "@type": "gx:Char", "@value": "x" }""");
+
+        // Nested rather than top level, as Verify snapshots a bare byte[] as a binary file.
+        // The nested form is the better coverage anyway - it drives gx:ByteBuffer through the
+        // Newtonsoft serializer and back into the pipeline, Person.Image being a byte[].
+        [Fact]
+        public Task Person_with_typed_ByteBuffer_image() => Verify<Person>("""
+            {
+              "id": 13,
+              "label": "Person",
+              "type": "vertex",
+              "properties": {
+                "Image": [
+                  {
+                    "id": 1,
+                    "value": { "@type": "gx:ByteBuffer", "@value": "c29tZSBieXRlcw==" }
+                  }
+                ]
+              }
+            }
+            """);
+
+        [Fact]
+        public Task TimeSpan_from_typed_Duration() => Verify<TimeSpan>("""{ "@type": "gx:Duration", "@value": "P1DT2H3M4S" }""");
 
         [Fact]
         public Task IDictionary_string_keys_typed_int_values() => Verify<IDictionary<string, int>>(String_Keys_Typed_Int_Values);
@@ -291,6 +434,10 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public Task IList_Of_Ints_from_Traverser() => Verify<IList<int>>(Array_With_Traverser_With_Ints);
 
+        // Traversers are only expanded by EnumerableConverterFactory, i.e. inside an array.
+        [Fact]
+        public Task Traverser_at_top_level() => Verify<Company>(Traverser);
+
         [Fact]
         public Task Language_by_vertex_inheritance() => Verify<object>(Single_Language);
 
@@ -299,6 +446,28 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public Task Language_to_generic_vertex() => Verify<Vertex>(Single_Language);
+
+        // FromBaseTypes<Company, Edge>() is a valid model whose vertex set excludes Language,
+        // so the label lookup misses. Id and Label should still be set, as MemberMetadata
+        // maps them to T.Id and T.Label independently of the model.
+        [Fact]
+        public Task Language_strongly_typed_without_matching_model() => Verify<Language>(
+            Single_Language,
+            env => env
+                .UseModel(GraphModel
+                    .FromBaseTypes<Company, Edge>()));
+
+        [Fact]
+        public Task Vertex_with_unknown_label_as_object() => Verify<object>("""
+            {
+              "id": 1,
+              "label": "SomeUnknownLabel",
+              "type": "vertex",
+              "properties": {
+                "SomeProperty": [ { "id": 2, "value": "SomeValue" } ]
+              }
+            }
+            """);
 
         [Fact]
         public Task Language_unknown_type() => Verify<object>(Single_Language);
@@ -377,6 +546,11 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public Task TimeFrame_strongly_typed() => Verify<TimeFrame>(Single_TimeFrame);
+
+        // Single_TimeFrame carries ISO 8601 durations, this one milliseconds, so together
+        // they cover both string and integer arms of TimeSpanConverterFactory.
+        [Fact]
+        public Task TimeFrame_from_numbers() => Verify<TimeFrame>(Single_TimeFrame_with_numbers);
 
         [Fact]
         public Task TimeSpan_from_double() => Verify<TimeSpan>("123456789.2");

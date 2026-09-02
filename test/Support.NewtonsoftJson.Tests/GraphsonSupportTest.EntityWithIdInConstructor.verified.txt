@@ -1,5 +1,0 @@
-{
-  Id: Guid_1,
-  Label: Company,
-  Name: Company!
-}
