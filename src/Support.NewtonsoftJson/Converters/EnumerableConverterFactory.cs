@@ -3,6 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 using ExRam.Gremlinq.Core.Transformation;
 using ExRam.Gremlinq.Core;
 using System.Collections;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 
 namespace ExRam.Gremlinq.Support.NewtonsoftJson
@@ -77,6 +78,28 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
             }
         }
 
+        private sealed class CollectionConverter<TTarget> : EnumerableConverter<object>, IConverter<JArray, TTarget>
+            where TTarget : class
+        {
+            private readonly ConstructorInfo _constructor;
+
+            public CollectionConverter(ConstructorInfo constructor, IGremlinQueryEnvironment environment) : base(environment)
+            {
+                _constructor = constructor;
+            }
+
+            bool IConverter<JArray, TTarget>.TryConvert(JArray serialized, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
+            {
+                ArgumentNullException.ThrowIfNull(serialized);
+                ArgumentNullException.ThrowIfNull(defer);
+                ArgumentNullException.ThrowIfNull(recurse);
+
+                value = (TTarget)_constructor.Invoke([GetEnumerable(serialized, recurse).ToList()]);
+
+                return true;
+            }
+        }
+
         IConverter<TSource, TTarget>? IConverterFactory.TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment)
         {
             ArgumentNullException.ThrowIfNull(environment);
@@ -99,6 +122,12 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                             return (IConverter<TSource, TTarget>?)Activator.CreateInstance(typeof(ListConverter<,>).MakeGenericType(typeof(TTarget), typeof(TTarget).GenericTypeArguments[0]), environment);
                     }
                 }
+
+                // The non-generic collections - ArrayList, Queue, Stack - are assignable from
+                // nothing we build, but they all take an ICollection. Without this they end up at
+                // Newtonsoft, which fills them with raw JTokens instead of converted values.
+                if (!typeof(TTarget).IsGenericType && typeof(IEnumerable).IsAssignableFrom(typeof(TTarget)) && typeof(TTarget).GetConstructor([typeof(ICollection)]) is { } constructor)
+                    return (IConverter<TSource, TTarget>?)Activator.CreateInstance(typeof(CollectionConverter<>).MakeGenericType(typeof(TTarget)), constructor, environment);
             }
 
             return null;
