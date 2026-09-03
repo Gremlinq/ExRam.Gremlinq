@@ -301,10 +301,10 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
         // A converter that does throw still has to reach the caller through the client's exception
         // channel instead of stalling the query forever.
         //
-        // The guard is what keeps this converter out of the receive loop, and it is not optional:
-        // a converter to a struct type is also created for a requested 'object', and the response
-        // status attributes are a Dictionary<string, object>. Throwing unconditionally would throw
-        // while the loop deserializes those, far away from the exception channel this covers.
+        // The guard is what keeps this converter out of the receive loop: a converter to a struct
+        // type is also created for a requested 'object', and the response status attributes are a
+        // Dictionary<string, object>, so an unguarded one throws while the loop deserializes those
+        // instead - which is the case the test below covers.
         [Fact]
         public async Task Exception_during_deserialization_faults_the_query() => await _g
             .ConfigureEnvironment(env => env
@@ -312,6 +312,22 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
                     .Add(Create<JValue, int>((jValue, _, _, _) => jValue.Value is 4711L
                         ? throw new BoomException()
                         : null))))
+            .Inject(4711)
+            .Awaiting(_ => _
+                .FirstAsync(TestContext.Current.CancellationToken))
+            .Should()
+            .ThrowAsync<GremlinQueryExecutionException>()
+            .WithInnerException<GremlinQueryExecutionException, BoomException>();
+
+        // The unguarded sibling, which throws while the receive loop deserializes the response
+        // envelope - before the loop has any channel to hand the failure to. It has to take the
+        // connection down there, which faults this query. Anything else leaves the query waiting
+        // for a message the server has no reason to send, and this test never terminates.
+        [Fact]
+        public async Task Exception_while_deserializing_the_envelope_faults_the_query() => await _g
+            .ConfigureEnvironment(env => env
+                .ConfigureDeserializer(deserializer => deserializer
+                    .Add(Create<JValue, int>((_, _, _, _) => throw new BoomException()))))
             .Inject(4711)
             .Awaiting(_ => _
                 .FirstAsync(TestContext.Current.CancellationToken))

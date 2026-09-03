@@ -435,8 +435,25 @@ namespace ExRam.Gremlinq.Providers.Core
                             }
                             catch
                             {
+                                // Nothing can complete the receive that is already in flight while this
+                                // connection lives: the request this loop was about to signal never will be,
+                                // so no caller is left to cancel anything, and the server owes us no further
+                                // message. Take the connection down first - that faults every pending request
+                                // - and only then reclaim the buffer of that receive, which the disposal has
+                                // just made completable.
+                                Dispose();
+
                                 if (maybeReceiveTask is { } receiveTask)
-                                    (await receiveTask.ConfigureAwait(false)).Dispose();
+                                {
+                                    try
+                                    {
+                                        (await receiveTask.ConfigureAwait(false)).Dispose();
+                                    }
+                                    catch
+                                    {
+                                        // Faulted by the disposal above, and ReceiveAsync disposes its own buffer then.
+                                    }
+                                }
 
                                 throw;
                             }
