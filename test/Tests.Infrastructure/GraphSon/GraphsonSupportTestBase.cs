@@ -12,6 +12,8 @@ using System.Collections;
 using System.Numerics;
 using ExRam.Gremlinq.Tests.Infrastructure.GraphSon.Entities;
 using Direction = Gremlin.Net.Process.Traversal.Direction;
+using Merge = Gremlin.Net.Process.Traversal.Merge;
+using T = Gremlin.Net.Process.Traversal.T;
 
 namespace ExRam.Gremlinq.Tests.Infrastructure
 {
@@ -340,10 +342,25 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public Task Object_from_typed_Direction() => Verify<object>("""{ "@type": "g:Direction", "@value": "OUT" }""");
 
         [Fact]
-        public Task Direction_from_typed_Direction() => VerifyAttempt<Direction>("""{ "@type": "g:Direction", "@value": "OUT" }""");
+        public Task Direction_from_typed_Direction() => Verify<Direction>("""{ "@type": "g:Direction", "@value": "OUT" }""");
+
+        [Fact]
+        public Task Direction_from_unknown_typed_Direction() => VerifyAttempt<Direction>("""{ "@type": "g:Direction", "@value": "SIDEWAYS" }""");
 
         [Fact]
         public Task Object_from_typed_Merge() => Verify<object>("""{ "@type": "g:Merge", "@value": "onCreate" }""");
+
+        [Fact]
+        public Task Merge_from_typed_Merge() => Verify<Merge>("""{ "@type": "g:Merge", "@value": "onCreate" }""");
+
+        [Fact]
+        public Task Object_from_typed_T() => Verify<object>("""{ "@type": "g:T", "@value": "id" }""");
+
+        [Fact]
+        public Task T_from_typed_T() => Verify<T>("""{ "@type": "g:T", "@value": "id" }""");
+
+        [Fact]
+        public Task T_from_unknown_typed_T() => VerifyAttempt<T>("""{ "@type": "g:T", "@value": "unknown" }""");
 
         [Fact]
         public Task Decimal_from_typed_BigDecimal() => Verify<decimal>("""{ "@type": "gx:BigDecimal", "@value": 123.456 }""");
