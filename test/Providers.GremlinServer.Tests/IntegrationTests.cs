@@ -1,5 +1,4 @@
 using ExRam.Gremlinq.Core;
-using ExRam.Gremlinq.Core.Execution;
 using ExRam.Gremlinq.Tests.Entities;
 using ExRam.Gremlinq.Tests.Fixtures;
 using ExRam.Gremlinq.Tests.Infrastructure;
@@ -257,11 +256,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
         public Task TimeSpan_from_malformed_string() => _g
             .Inject("abc")
             .Cast<TimeSpan>()
-            .Awaiting(_ => _
-                .FirstOrDefaultAsync(TestContext.Current.CancellationToken))
-            .Should()
-            .ThrowAsync<GremlinQueryExecutionException>()
-            .WithInnerException<GremlinQueryExecutionException, FormatException>();
+            .Verify();
 
         [Fact]
         public async Task Deserialization_of_typed_results_is_only_called_once()
