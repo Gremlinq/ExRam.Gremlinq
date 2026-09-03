@@ -1,4 +1,5 @@
 using ExRam.Gremlinq.Core;
+using ExRam.Gremlinq.Core.Execution;
 using ExRam.Gremlinq.Tests.Entities;
 using ExRam.Gremlinq.Tests.Fixtures;
 using ExRam.Gremlinq.Tests.Infrastructure;
@@ -16,6 +17,10 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
     [IntegrationTest("Windows")]
     public class IntegrationTests : QueryExecutionTest, IClassFixture<GremlinServerContainerFixture>, ISourceFileNameProvider<IntegrationTests>
     {
+        private sealed class BoomException : Exception
+        {
+        }
+
         public IntegrationTests(GremlinServerContainerFixture fixture) : base(
             fixture,
             new ExecutingVerifier())
@@ -291,6 +296,28 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
                 .Should()
                 .Be(1);
         }
+
+        // Converters decline rather than throw, so a malformed value no longer takes a response down.
+        // A converter that does throw still has to reach the caller through the client's exception
+        // channel instead of stalling the query forever.
+        //
+        // The guard is what keeps this converter out of the receive loop, and it is not optional:
+        // a converter to a struct type is also created for a requested 'object', and the response
+        // status attributes are a Dictionary<string, object>. Throwing unconditionally would throw
+        // while the loop deserializes those, far away from the exception channel this covers.
+        [Fact]
+        public async Task Exception_during_deserialization_faults_the_query() => await _g
+            .ConfigureEnvironment(env => env
+                .ConfigureDeserializer(deserializer => deserializer
+                    .Add(Create<JValue, int>((jValue, _, _, _) => jValue.Value is 4711L
+                        ? throw new BoomException()
+                        : null))))
+            .Inject(4711)
+            .Awaiting(_ => _
+                .FirstAsync(TestContext.Current.CancellationToken))
+            .Should()
+            .ThrowAsync<GremlinQueryExecutionException>()
+            .WithInnerException<GremlinQueryExecutionException, BoomException>();
 
         [Fact]
         public Task Project_to_null_entity() => _g
