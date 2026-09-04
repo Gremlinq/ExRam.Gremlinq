@@ -1,1 +1,4 @@
-OUT
+{
+  EnumName: Direction,
+  EnumValue: OUT
+}

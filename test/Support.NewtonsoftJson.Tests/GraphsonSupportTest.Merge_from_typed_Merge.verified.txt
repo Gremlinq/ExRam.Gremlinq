@@ -1,4 +1,4 @@
-{
+﻿{
   EnumName: Merge,
   EnumValue: onCreate
 }
