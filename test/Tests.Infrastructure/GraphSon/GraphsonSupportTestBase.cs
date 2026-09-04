@@ -35,7 +35,11 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                 .Environment;
         }
 
-        protected virtual Task Verify<T>(string token, Func<IGremlinQueryEnvironment, IGremlinQueryEnvironment> environmentTransformation)
+        // SettingsTask rather than Task: a derived class that adds a test of its own has nowhere to
+        // put that test's snapshot, the directory being fixed at construction for the whole class.
+        // Handing back the SettingsTask lets it redirect just that one, e.g. through
+        // UseSnapshotDirectoryAndNameOf<T>(). Test methods can still declare Task; it converts.
+        protected virtual SettingsTask Verify<T>(string token, Func<IGremlinQueryEnvironment, IGremlinQueryEnvironment> environmentTransformation)
         {
             var environment = environmentTransformation
                 .Invoke(_environment);
@@ -50,7 +54,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                 .DontScrubDateTimes();
         }
 
-        protected Task Verify<T>(string token) => Verify<T>(token, _ => _);
+        protected SettingsTask Verify<T>(string token) => Verify<T>(token, _ => _);
 
         // Unlike Verify, this snapshots the outcome of a transformation rather than its result,
         // so that tokens no converter accepts can be asserted on. Verify cannot express those:
@@ -58,7 +62,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         // An escaping exception is an outcome too - a converter that throws instead of declining
         // takes the whole deserialization down with it, so that difference belongs in the snapshot.
         // Only the exception type is recorded, as messages are culture dependent.
-        protected virtual Task VerifyAttempt<T>(string token, Func<IGremlinQueryEnvironment, IGremlinQueryEnvironment> environmentTransformation)
+        protected virtual SettingsTask VerifyAttempt<T>(string token, Func<IGremlinQueryEnvironment, IGremlinQueryEnvironment> environmentTransformation)
         {
             var environment = environmentTransformation
                 .Invoke(_environment);
@@ -83,7 +87,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                 .DontScrubDateTimes();
         }
 
-        protected Task VerifyAttempt<T>(string token) => VerifyAttempt<T>(token, _ => _);
+        protected SettingsTask VerifyAttempt<T>(string token) => VerifyAttempt<T>(token, _ => _);
 
         protected abstract TNativeToken CreateNativeToken(string str);
 
