@@ -39,6 +39,13 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                 .Environment;
         }
 
+        // Where a derived class fulfils one of the shared tests differently, this is where it
+        // hooks in - and it has to be here rather than in an override of the test itself: by the
+        // time a test method returns, its SettingsTask has converted to a Task and there is nothing
+        // left to configure. Declaring SettingsTask on the test methods is no way around that,
+        // either: xUnit awaits Task and ValueTask and silently discards anything else.
+        protected virtual SettingsTask ModifySettingsTask(SettingsTask task) => task;
+
         // SettingsTask rather than Task: a derived class that adds a test of its own has nowhere to
         // put that test's snapshot, the directory being fixed at construction for the whole class.
         // Handing back the SettingsTask lets it redirect just that one, e.g. through
@@ -53,9 +60,9 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                 .TransformTo<T>()
                 .From(CreateNativeToken(token), environment);
 
-            return Verifier
+            return ModifySettingsTask(Verifier
                 .Verify(subject, sourceFile: _sourceFile)
-                .DontScrubDateTimes();
+                .DontScrubDateTimes());
         }
 
         protected SettingsTask Verify<T>(string token) => Verify<T>(token, _ => _);
@@ -86,9 +93,9 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                 outcome = new { Success = false, Threw = ex.GetType().Name };
             }
 
-            return Verifier
+            return ModifySettingsTask(Verifier
                 .Verify(outcome, sourceFile: _sourceFile)
-                .DontScrubDateTimes();
+                .DontScrubDateTimes());
         }
 
         protected SettingsTask VerifyAttempt<T>(string token) => VerifyAttempt<T>(token, _ => _);
