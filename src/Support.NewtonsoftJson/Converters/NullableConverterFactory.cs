@@ -23,6 +23,10 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                 ArgumentNullException.ThrowIfNull(defer);
                 ArgumentNullException.ThrowIfNull(recurse);
 
+                // Answered as a success, but it cannot be observed as one: a transformation guards
+                // its result against null, so this is indistinguishable from declining. A null can
+                // never be a transformation's result, only be contained in one - which is why the
+                // arrays yield it themselves rather than asking for it here.
                 if (serialized.Type == JTokenType.Null)
                 {
                     value = null!;

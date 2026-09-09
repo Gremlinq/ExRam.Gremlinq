@@ -589,11 +589,30 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task Nullable_null() => Verify<int?[]>("[ 42, null ]");
 
+        // The other side of the rule that lets a null survive inside an array: at the top level
+        // there is no enclosing structure to hold it, so the null would have to be the
+        // transformation's own result, and TryTransform cannot report one. NullableConverter
+        // answers with a successful null and it is discarded, being indistinguishable from a
+        // decline. Which is the whole reason an array has to decide for itself.
+        [Fact]
+        public virtual Task Nullable_null_at_top_level() => VerifyAttempt<int?>("null");
+
+        // The other way a nullable can come to nothing, and a different one: here the token is
+        // there to be read and the requested type simply cannot read it.
+        [Fact]
+        public virtual Task Nullable_from_invalid_string() => VerifyAttempt<int?>("\"not a number\"");
+
         // What default! means when the item type cannot hold a null. The alternative is to drop the
         // element, which is worse: an array's length is an answer of its own, and shortening it
         // silently reports fewer results than came back.
         [Fact]
         public virtual Task Ints_from_Array_with_null() => Verify<int[]>("[ 1, null, 3 ]");
+
+        // Requested as object, a null element used to come back as the JValue token itself, that
+        // being assignable to object and so accepted by the Newtonsoft converter before anything
+        // else could look at it. It is a null now, like it is for every other item type.
+        [Fact]
+        public virtual Task Objects_from_Array_with_null() => Verify<object[]>("[ 1, null, 3 ]");
 
         [Fact]
         public virtual Task Object_from_double() => Verify<object>("1.2");
