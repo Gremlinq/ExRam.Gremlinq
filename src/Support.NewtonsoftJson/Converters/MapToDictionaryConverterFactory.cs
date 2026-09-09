@@ -19,21 +19,30 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                 _environment = environment;
             }
 
-            protected Dictionary<TKey, TValue>? TryBuild(JObject serialized, ITransformer recurse)
+            // Which dictionary gets filled is the caller's business - deciding that here is what
+            // made the immutable converter pay for a Dictionary<,> it then threw away. The g:Map
+            // check stays eager: a converter that only discovered it isn't looking at a map
+            // partway through would have claimed the conversion already, and every other JObject
+            // would come back an empty dictionary instead of reaching the converters behind this one.
+            protected TDictionary? TryBuild<TDictionary>(JObject serialized, ITransformer recurse, Func<int, TDictionary> create)
+                where TDictionary : class, IDictionary<TKey, TValue>
             {
                 if (serialized.TryGetValue("@type", out var nestedType) && "g:Map".Equals(nestedType.Value<string>(), StringComparison.OrdinalIgnoreCase))
                 {
                     if (serialized.TryGetValue("@value", out var valueToken) && valueToken is JArray mapArray)
                     {
-                        var retObject = new Dictionary<TKey, TValue>();
+                        // An upper bound - an entry whose key or value doesn't convert is skipped -
+                        // which is all a dictionary needs to size itself, and the same trade
+                        // BulkSetConverterFactory already makes.
+                        var dictionary = create(mapArray.Count / 2);
 
                         for (var i = 0; i < mapArray.Count / 2; i++)
                         {
                             if (recurse.TryTransform(mapArray[i * 2], _environment, out TKey? key) && recurse.TryTransform(mapArray[i * 2 + 1], _environment, out TValue? entry))
-                                retObject.Add(key, entry);
+                                dictionary.Add(key, entry);
                         }
 
-                        return retObject;
+                        return dictionary;
                     }
                 }
 
@@ -55,7 +64,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                 ArgumentNullException.ThrowIfNull(defer);
                 ArgumentNullException.ThrowIfNull(recurse);
 
-                if (TryBuild(serialized, recurse) is { } dictionary)
+                if (TryBuild(serialized, recurse, static capacity => new Dictionary<TKey, TValue>(capacity)) is { } dictionary)
                 {
                     value = Unsafe.As<TTarget>(dictionary);
 
@@ -82,9 +91,12 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                 ArgumentNullException.ThrowIfNull(defer);
                 ArgumentNullException.ThrowIfNull(recurse);
 
-                if (TryBuild(serialized, recurse) is { } dictionary)
+                // A builder rather than a Dictionary<,> handed to ToImmutableDictionary: the bulk
+                // add behind that overload is the same one the builder performs, so the dictionary
+                // in between was pure waste.
+                if (TryBuild(serialized, recurse, static _ => ImmutableDictionary.CreateBuilder<TKey, TValue>()) is { } builder)
                 {
-                    value = Unsafe.As<TTarget>(dictionary.ToImmutableDictionary());
+                    value = Unsafe.As<TTarget>(builder.ToImmutable());
 
                     return true;
                 }
