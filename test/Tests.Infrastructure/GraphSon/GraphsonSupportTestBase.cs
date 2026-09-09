@@ -474,6 +474,60 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task IList_Of_Ints_from_Traverser() => Verify<IList<int>>(Array_With_Traverser_With_Ints);
 
+        // The three above are assignable from List<int> and are the only shapes expansion used to
+        // reach. Everything below fell through to Newtonsoft, which builds the collection but
+        // expands no bulk - and, the traverser converting to nothing an int collection will take,
+        // threw rather than returning a short answer. One test per way of building a collection.
+        [Fact]
+        public virtual Task ImmutableList_Of_Ints_from_Traverser() => Verify<ImmutableList<int>>(Array_With_Traverser_With_Ints);
+
+        [Fact]
+        public virtual Task IImmutableList_Of_Ints_from_Traverser() => Verify<IImmutableList<int>>(Array_With_Traverser_With_Ints);
+
+        [Fact]
+        public virtual Task ImmutableArray_Of_Ints_from_Traverser() => Verify<ImmutableArray<int>>(Array_With_Traverser_With_Ints);
+
+        [Fact]
+        public virtual Task IImmutableSet_Of_Ints_from_Traverser() => Verify<IImmutableSet<int>>(Array_With_Traverser_With_Ints);
+
+        [Fact]
+        public virtual Task ImmutableSortedSet_Of_Ints_from_Traverser() => Verify<ImmutableSortedSet<int>>(Array_With_Traverser_With_Ints);
+
+        [Fact]
+        public virtual Task ImmutableQueue_Of_Ints_from_Traverser() => Verify<ImmutableQueue<int>>(Array_With_Traverser_With_Ints);
+
+        [Fact]
+        public virtual Task ImmutableStack_Of_Ints_from_Traverser() => Verify<ImmutableStack<int>>(Array_With_Traverser_With_Ints);
+
+        // A set collapses the seven 42s into one, so these two pin down that the value survives at
+        // all, not that the bulk does.
+        [Fact]
+        public virtual Task ISet_Of_Ints_from_Traverser() => Verify<ISet<int>>(Array_With_Traverser_With_Ints);
+
+        [Fact]
+        public virtual Task Queue_Of_Ints_from_Traverser() => Verify<Queue<int>>(Array_With_Traverser_With_Ints);
+
+        [Fact]
+        public virtual Task Stack_Of_Ints_from_Traverser() => Verify<Stack<int>>(Array_With_Traverser_With_Ints);
+
+        [Fact]
+        public virtual Task ConcurrentQueue_Of_Ints_from_Traverser() => Verify<ConcurrentQueue<int>>(Array_With_Traverser_With_Ints);
+
+        // Traversers standing among plain values, twice over, so that what comes before the first
+        // one survives and the second one is expanded too.
+        [Fact]
+        public virtual Task ImmutableList_from_Array_with_Traversers_and_plain_values() => Verify<ImmutableList<int>>(Array_With_Traversers_Among_Plain_Ints);
+
+        // A traverser wrapping null is null as often as its bulk says - the one place a null
+        // survives into a deserialized array.
+        [Fact]
+        public virtual Task ImmutableList_Of_Nullable_Ints_from_Traverser_with_null() => Verify<ImmutableList<int?>>(Array_With_Traverser_With_Null);
+
+        // An expanded traverser runs the ordinary pipeline, vertex heuristics included - a bulk of
+        // 3 around a vertex is three companies.
+        [Fact]
+        public virtual Task ImmutableList_Of_Companies_from_Traverser() => Verify<ImmutableList<Company>>(Array_With_Traverser_With_Company);
+
         [Fact]
         public virtual Task Language_by_vertex_inheritance() => Verify<object>(Single_Language);
 

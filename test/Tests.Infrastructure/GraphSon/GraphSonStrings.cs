@@ -64,6 +64,48 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             ]
             """;
 
+        public static readonly string Array_With_Traversers_Among_Plain_Ints = """
+            [
+              1,
+              {
+                "@type" : "g:Traverser",
+                "@value" : {
+                  "bulk" : {
+                    "@type" : "g:Int64",
+                    "@value" : 2
+                  },
+                  "value" : 42
+                }
+              },
+              3,
+              {
+                "@type" : "g:Traverser",
+                "@value" : {
+                  "bulk" : {
+                    "@type" : "g:Int64",
+                    "@value" : 2
+                  },
+                  "value" : 7
+                }
+              }
+            ]
+            """;
+
+        public static readonly string Array_With_Traverser_With_Null = """
+            [
+              {
+                "@type" : "g:Traverser",
+                "@value" : {
+                  "bulk" : {
+                    "@type" : "g:Int64",
+                    "@value" : 2
+                  },
+                  "value" : null
+                }
+              }
+            ]
+            """;
+
         public static readonly string ArrayOfLanguages = """
             [
               {
@@ -593,6 +635,23 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                 ]
               }
             }
+            """;
+
+        // Composed rather than copied, and declared after Single_Company because a static field
+        // initializer can only read what has run before it.
+        public static readonly string Array_With_Traverser_With_Company = $$"""
+            [
+              {
+                "@type" : "g:Traverser",
+                "@value" : {
+                  "bulk" : {
+                    "@type" : "g:Int64",
+                    "@value" : 3
+                  },
+                  "value" : {{Single_Company}}
+                }
+              }
+            ]
             """;
 
         public static readonly string Single_Language = """
