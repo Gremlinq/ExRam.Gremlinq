@@ -226,6 +226,15 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual Task Stack_from_typed_Ints() => Verify<Stack<int>>(Typed_Ints);
 
         [Fact]
+        public virtual Task ArrayList_from_typed_Ints() => Verify<ArrayList>(Typed_Ints);
+
+        [Fact]
+        public virtual Task Untyped_Queue_from_typed_Ints() => Verify<Queue>(Typed_Ints);
+
+        [Fact]
+        public virtual Task Untyped_Stack_from_typed_Ints() => Verify<Stack>(Typed_Ints);
+
+        [Fact]
         public virtual Task Array() => Verify<Language[]>(ArrayOfLanguages);
 
         [Fact]
