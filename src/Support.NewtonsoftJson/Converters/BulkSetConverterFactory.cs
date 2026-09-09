@@ -32,7 +32,15 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
 
                         for (var i = 0; i < setArray.Count; i += 2)
                         {
-                            if (recurse.TryTransform<JToken, TTargetArrayItem>(setArray[i], _environment, out var element))
+                            var element = default(TTargetArrayItem)!;
+
+                            // A null element is a null item, not an absent one - the same rule an
+                            // array follows and for the same reason: TryTransform reports a
+                            // conversion to null as a failure, which is indistinguishable from a
+                            // converter declining. Recognising the token here leaves element at
+                            // default!, which is the answer, and is what a traverser wrapping null
+                            // has always yielded for its bulk.
+                            if (setArray[i].Type == JTokenType.Null || recurse.TryTransform(setArray[i], _environment, out element))
                             {
                                 if (recurse.TryTransform<JToken, int>(setArray[i + 1], _environment, out var bulk) && bulk != 1)
                                 {
