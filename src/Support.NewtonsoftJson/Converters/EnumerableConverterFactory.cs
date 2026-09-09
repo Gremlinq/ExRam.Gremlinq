@@ -27,6 +27,14 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                         foreach (var item1 in enumerable)
                             yield return item1;
                     }
+                    // A null element is a null item, not an absent one, and this is the only place
+                    // that can say so: TryTransform reports a conversion to null as a failure, which
+                    // is indistinguishable from a converter declining. It is what a traverser
+                    // wrapping null has always yielded - a plain null just never got there.
+                    else if (source[i].Type == JTokenType.Null)
+                    {
+                        yield return default!;
+                    }
                     else if (recurse.TryTransform<JToken, TTargetItem>(source[i], Environment, out var item2))
                     {
                         yield return item2;
