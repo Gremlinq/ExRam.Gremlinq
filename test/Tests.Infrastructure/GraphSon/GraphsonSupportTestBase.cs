@@ -589,6 +589,12 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task Nullable_null() => Verify<int?[]>("[ 42, null ]");
 
+        // What default! means when the item type cannot hold a null. The alternative is to drop the
+        // element, which is worse: an array's length is an answer of its own, and shortening it
+        // silently reports fewer results than came back.
+        [Fact]
+        public virtual Task Ints_from_Array_with_null() => Verify<int[]>("[ 1, null, 3 ]");
+
         [Fact]
         public virtual Task Object_from_double() => Verify<object>("1.2");
 

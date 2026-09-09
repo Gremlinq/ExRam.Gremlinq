@@ -405,7 +405,8 @@
   ],
   Nullable: 42,
   Nullable_null: [
-    42
+    42,
+    null
   ],
   Object_from_double: 1.2,
   Object_from_true: true,
