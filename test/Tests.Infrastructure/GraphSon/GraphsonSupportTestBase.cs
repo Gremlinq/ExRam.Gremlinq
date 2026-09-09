@@ -246,6 +246,22 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task Bulk_set_as_object() => Verify<object>(BulkSet);
 
+        // A null in a bulk set is a null item repeated by its bulk, the same rule an array follows
+        // and for the same reason - TryTransform reporting a conversion to null as a failure, which
+        // is indistinguishable from a converter declining. Three, because the item type decides what
+        // the null becomes: null where one fits, and the cost of it where none does.
+        [Fact]
+        public virtual Task Nullable_Ints_from_Bulk_set_with_null() => Verify<int?[]>(Typed_BulkSet_With_Null);
+
+        [Fact]
+        public virtual Task Ints_from_Bulk_set_with_null() => Verify<int[]>(Typed_BulkSet_With_Null);
+
+        // Requested as object, the null used to come back as the JValue token itself, that being
+        // assignable to object and so taken by the transformer's own fallback before any converter
+        // could look at it. It is a null now, like it is for every other item type.
+        [Fact]
+        public virtual Task Objects_from_Bulk_set_with_null() => Verify<object[]>(Typed_BulkSet_With_Null);
+
         [Fact]
         public virtual Task Configured_property_name() => Verify<Person>(
             "{ \"id\": 13, \"label\": \"Person\", \"type\": \"vertex\", \"properties\": { \"replacement\": [ { \"id\": 1, \"value\": \"nameValue\" } ] } }",

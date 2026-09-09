@@ -161,6 +161,21 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
           }
           """;
 
+        public static readonly string Typed_BulkSet_With_Null = """
+            {
+              "@type" : "g:BulkSet",
+              "@value" :
+              [
+                { "@type" : "g:Int32", "@value" : 1 },
+                { "@type" : "g:Int64", "@value" : 1 },
+                null,
+                { "@type" : "g:Int64", "@value" : 2 },
+                { "@type" : "g:Int32", "@value" : 3 },
+                { "@type" : "g:Int64", "@value" : 3 }
+              ]
+            }
+            """;
+
         public static readonly string Country_with_meta_properties = """
             {
               "id": 3,
