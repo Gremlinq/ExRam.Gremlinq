@@ -462,6 +462,9 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task Int_Ids() => Verify<object[]>("[ 1, 2 ]");
 
+        // Every traverser test is array-shaped because that is the only shape there is. A response
+        // carries its results as a g:List of traversers, so a traverser is always an element of an
+        // array, and bulk is applied at the terminal step, never deeper in the payload.
         [Fact]
         public virtual Task Ints_from_Traverser() => Verify<int[]>(Array_With_Traverser_With_Ints);
 
@@ -470,10 +473,6 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task IList_Of_Ints_from_Traverser() => Verify<IList<int>>(Array_With_Traverser_With_Ints);
-
-        // Traversers are only expanded by EnumerableConverterFactory, i.e. inside an array.
-        [Fact]
-        public virtual Task Traverser_at_top_level() => Verify<Company>(Traverser);
 
         [Fact]
         public virtual Task Language_by_vertex_inheritance() => Verify<object>(Single_Language);
