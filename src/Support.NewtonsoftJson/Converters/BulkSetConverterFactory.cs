@@ -30,7 +30,12 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                     {
                         var array = new List<TTargetArrayItem>(setArray.Count);
 
-                        for (var i = 0; i < setArray.Count; i += 2)
+                        // i + 1, not i: a bulk set is read in pairs, and an odd number of entries
+                        // leaves a last element with no bulk to go with it. Reaching past the end
+                        // for that missing bulk threw, which is the one outcome a converter must
+                        // not have - it takes the whole result set down rather than costing the one
+                        // item it cannot read. The well formed prefix is the answer.
+                        for (var i = 0; i < setArray.Count - 1; i += 2)
                         {
                             var element = default(TTargetArrayItem)!;
 
