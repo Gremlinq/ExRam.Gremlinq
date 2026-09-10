@@ -40,17 +40,17 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                             // converter declining. Recognising the token here leaves element at
                             // default!, which is the answer, and is what a traverser wrapping null
                             // has always yielded for its bulk.
-                            if (setArray[i].Type == JTokenType.Null || recurse.TryTransform(setArray[i], _environment, out element))
+                            // The bulk is read in the same condition as the element because the two
+                            // arrive as a pair and neither half means anything without the other. A
+                            // bulk nothing can read is not a bulk of one, it is an unknown count,
+                            // and an item repeated an unknown number of times cannot be repeated at
+                            // all - so the pair goes, element included.
+                            if ((setArray[i].Type == JTokenType.Null || recurse.TryTransform(setArray[i], _environment, out element)) && recurse.TryTransform<JToken, int>(setArray[i + 1], _environment, out var bulk))
                             {
-                                if (recurse.TryTransform<JToken, int>(setArray[i + 1], _environment, out var bulk) && bulk != 1)
+                                for (var j = 0; j < bulk; j++)
                                 {
-                                    for (var j = 0; j < bulk; j++)
-                                    {
-                                        array.Add(element);
-                                    }
-                                }
-                                else
                                     array.Add(element);
+                                }
                             }
                         }
 
