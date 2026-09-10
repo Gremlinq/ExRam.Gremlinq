@@ -818,6 +818,15 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task Property_as_object() => Verify<object>("{ \"value\": 1540202009475, \"key\": \"Property1\" }");
 
+        // A property's members are names, and names are matched ignoring case - which is how both
+        // implementations recognise a property or a vertex property in the first place. What is
+        // recognised by a "Value" is read from it as well.
+        [Fact]
+        public virtual Task Int_from_Property_with_capitalized_value() => Verify<int>("""{ "key": "Property1", "Value": 42 }""");
+
+        [Fact]
+        public virtual Task Int_from_VertexProperty_with_capitalized_value() => Verify<int>("""{ "id": 1, "label": "Property1", "Value": 42 }""");
+
         [Fact]
         public virtual Task Property_from_Scalar() => Verify<Property<int>>("36");
 
