@@ -64,6 +64,24 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             ]
             """;
 
+        // The traverser above with its envelope spelled the way no server spells it. Unlike a type
+        // name, "@type" and "@value" are not names of anything - they are the envelope, and GraphSON
+        // writes them in lowercase.
+        public static readonly string Array_With_Traverser_With_Uppercase_Envelope = """
+            [
+              {
+                "@TYPE" : "g:Traverser",
+                "@VALUE" : {
+                  "bulk" : {
+                    "@type" : "g:Int64",
+                    "@value" : 7
+                  },
+                  "value" : 42
+                }
+              }
+            ]
+            """;
+
         public static readonly string Array_With_Traversers_Among_Plain_Ints = """
             [
               1,
