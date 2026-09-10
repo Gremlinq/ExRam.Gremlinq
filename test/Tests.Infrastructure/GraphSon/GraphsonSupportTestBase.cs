@@ -264,10 +264,9 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task Bulk_set_with_uppercase_type_as_object() => Verify<object>(BulkSet_With_Uppercase_Type);
 
-        // An array is not the only thing a bulk set can be read into, but it is the only one either
-        // implementation gets right. One test per way of building a collection, as the traversers
-        // have below - and the answer is the expanded sequence every time, 10 once, 20 twice, 30
-        // three times, exactly as Ints_from_Bulk_set gets it.
+        // An array is not the only thing a bulk set can be read into. One test per way of building a
+        // collection, as the traversers have below - and the answer is the expanded sequence every
+        // time, 10 once, 20 twice, 30 three times, exactly as Ints_from_Bulk_set gets it.
         [Fact]
         public virtual Task Ints_from_Bulk_set() => Verify<int[]>(Typed_BulkSet);
 
@@ -285,6 +284,28 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Queue_Of_Ints_from_Bulk_set() => Verify<Queue<int>>(Typed_BulkSet);
+
+        // The other half of the same sweep: the collections that are not generic. They are built
+        // differently - from an ICollection, or as an object[] standing in for an interface - and so
+        // are reached by a different road, but the answer is the same expanded sequence, reversed
+        // only where a stack reverses it. Each mirrors the plain array test of the same shape.
+        [Fact]
+        public virtual Task ArrayList_from_Bulk_set() => Verify<ArrayList>(Typed_BulkSet);
+
+        [Fact]
+        public virtual Task Untyped_Queue_from_Bulk_set() => Verify<Queue>(Typed_BulkSet);
+
+        [Fact]
+        public virtual Task Untyped_Stack_from_Bulk_set() => Verify<Stack>(Typed_BulkSet);
+
+        [Fact]
+        public virtual Task Untyped_IEnumerable_from_Bulk_set() => Verify<IEnumerable>(Typed_BulkSet);
+
+        [Fact]
+        public virtual Task IUntypedList_from_Bulk_set() => Verify<IList>(Typed_BulkSet);
+
+        [Fact]
+        public virtual Task IUntypedCollection_from_Bulk_set() => Verify<ICollection>(Typed_BulkSet);
 
         // And a bulk set is not a scalar. Asked for one, the typed value unwrapper leaves it alone
         // rather than handing on the pair array, so nothing converts and the attempt declines -
