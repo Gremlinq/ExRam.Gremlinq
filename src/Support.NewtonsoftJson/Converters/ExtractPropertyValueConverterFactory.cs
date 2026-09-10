@@ -26,7 +26,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
 
                 if (serialized is JObject jObject)
                 {
-                    if (!typeof(Property).IsAssignableFrom(typeof(TTarget)) && (jObject.LooksLikeProperty() || jObject.LooksLikeVertexProperty()) && jObject.TryGetValue("value", out var valueToken))
+                    if (!typeof(Property).IsAssignableFrom(typeof(TTarget)) && (jObject.LooksLikeProperty() || jObject.LooksLikeVertexProperty()) && jObject.TryGetValue("value", StringComparison.OrdinalIgnoreCase, out var valueToken))
                         return recurse.TryTransform(valueToken, _environment, out value);
                 }
                 else if (serialized is JArray { Count: 1 } jArray)
