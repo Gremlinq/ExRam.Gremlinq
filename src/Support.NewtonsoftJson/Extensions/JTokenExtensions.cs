@@ -10,7 +10,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
     {
         public static IEnumerable<TItem>? TryExpandTraverser<TItem>(this JObject jObject, IGremlinQueryEnvironment env, ITransformer recurse)
         {
-            if (jObject.TryGetValue("@type", StringComparison.OrdinalIgnoreCase, out var nestedType) && "g:Traverser".Equals(nestedType.Value<string>(), StringComparison.OrdinalIgnoreCase) && jObject.TryGetValue("@value", StringComparison.OrdinalIgnoreCase, out var valueToken) && valueToken is JObject nestedTraverserObject)
+            if (jObject.TryGetValue("@type", out var nestedType) && "g:Traverser".Equals(nestedType.Value<string>(), StringComparison.OrdinalIgnoreCase) && jObject.TryGetValue("@value", out var valueToken) && valueToken is JObject nestedTraverserObject)
             {
                 var bulk = 1;
 
