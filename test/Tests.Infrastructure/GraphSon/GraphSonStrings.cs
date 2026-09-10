@@ -209,6 +209,19 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             }
             """;
 
+        // 1 twice, and then a 3 with nothing after it to say how often.
+        public static readonly string Typed_BulkSet_With_Odd_Length = """
+            {
+              "@type" : "g:BulkSet",
+              "@value" :
+              [
+                { "@type" : "g:Int32", "@value" : 1 },
+                { "@type" : "g:Int64", "@value" : 2 },
+                { "@type" : "g:Int32", "@value" : 3 }
+              ]
+            }
+            """;
+
         public static readonly string Typed_BulkSet_With_Unreadable_Element = """
             {
               "@type" : "g:BulkSet",

@@ -288,6 +288,15 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task Ints_from_Bulk_set_with_unreadable_bulk() => Verify<int[]>(Typed_BulkSet_With_Unreadable_Bulk);
 
+        // A bulk set is read in pairs, so an odd number of entries leaves a last element with
+        // nothing to say how often it occurs. Both implementations used to reach past the end of
+        // the array for that missing bulk and throw, which is the one outcome a converter must not
+        // have: it takes the whole result set down rather than costing the one item it cannot read.
+        // The well formed prefix is the answer, and the dangling element goes the way of any other
+        // half a converter cannot make sense of.
+        [Fact]
+        public virtual Task Ints_from_Bulk_set_with_odd_length() => Verify<int[]>(Typed_BulkSet_With_Odd_Length);
+
         [Fact]
         public virtual Task Configured_property_name() => Verify<Person>(
             "{ \"id\": 13, \"label\": \"Person\", \"type\": \"vertex\", \"properties\": { \"replacement\": [ { \"id\": 1, \"value\": \"nameValue\" } ] } }",
