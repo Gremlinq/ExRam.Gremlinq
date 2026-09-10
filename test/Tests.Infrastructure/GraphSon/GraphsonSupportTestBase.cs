@@ -279,6 +279,15 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task Ints_from_Bulk_set_with_unreadable_element() => Verify<int[]>(Typed_BulkSet_With_Unreadable_Element);
 
+        // The bulk half of the same question, and the same answer: a bulk nothing can read is not a
+        // bulk of one, it is an unknown count, and an item repeated an unknown number of times
+        // cannot be repeated at all. The pair goes, element included. Note this is deliberately
+        // unlike a traverser, whose bulk defaults to 1 when absent or unreadable - there the value
+        // stands on its own and the bulk only multiplies it, where here the two arrive as a pair and
+        // neither half means anything without the other.
+        [Fact]
+        public virtual Task Ints_from_Bulk_set_with_unreadable_bulk() => Verify<int[]>(Typed_BulkSet_With_Unreadable_Bulk);
+
         [Fact]
         public virtual Task Configured_property_name() => Verify<Person>(
             "{ \"id\": 13, \"label\": \"Person\", \"type\": \"vertex\", \"properties\": { \"replacement\": [ { \"id\": 1, \"value\": \"nameValue\" } ] } }",

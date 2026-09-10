@@ -193,6 +193,22 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             }
             """;
 
+        // 1 once, then 2 with a bulk nothing can read, then 3 twice.
+        public static readonly string Typed_BulkSet_With_Unreadable_Bulk = """
+            {
+              "@type" : "g:BulkSet",
+              "@value" :
+              [
+                { "@type" : "g:Int32", "@value" : 1 },
+                { "@type" : "g:Int64", "@value" : 1 },
+                { "@type" : "g:Int32", "@value" : 2 },
+                "not a number",
+                { "@type" : "g:Int32", "@value" : 3 },
+                { "@type" : "g:Int64", "@value" : 2 }
+              ]
+            }
+            """;
+
         public static readonly string Typed_BulkSet_With_Unreadable_Element = """
             {
               "@type" : "g:BulkSet",
