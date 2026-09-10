@@ -177,6 +177,39 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task IImmutableDictionary_typed_int_keys_string_values() => Verify<IImmutableDictionary<int, string>>(Map_of_Typed_Int_Keys_Typed_String_Values);
 
+        // The same map with nothing said about its type. Its keys are not names, so it cannot become
+        // a dynamic object the way a string-keyed map does - but it is still a map, and it keeps its
+        // entries, keys as they were typed. The snapshot of a dictionary writes an int key and a
+        // string key alike, so the types are recorded alongside it: a map that only kept its entries
+        // by turning 1 into "1" would not have kept them.
+        [Fact]
+        public virtual Task Map_of_typed_int_keys_as_object()
+        {
+            var subject = _environment
+                .Deserializer
+                .TransformTo<object>()
+                .From(CreateNativeToken(Map_of_Typed_Int_Keys_Typed_String_Values), _environment);
+
+            return Verifier
+                .Verify(
+                    new
+                    {
+                        Type = subject.GetType(),
+                        KeyTypes = subject is IDictionary dictionary
+                            ? dictionary.Keys.Cast<object>().Select(static key => key.GetType()).ToArray()
+                            : null,
+                        Value = subject
+                    },
+                    sourceFile: _sourceFile)
+                .DontScrubDateTimes();
+        }
+
+        // Asked for as anything but an object, such a map is read the way a map keyed by names is:
+        // the members are looked up by name, and an entry whose key cannot be one is left out. It
+        // costs nothing but itself.
+        [Fact]
+        public virtual Task Constructor_arguments_from_map_with_int_key() => Verify<ClassWithFieldsAndConstructor>(Map_Of_Constructor_Arguments_With_Int_Key);
+
         // The same tolerance the bulk set gets, for the same reason: every other GraphSON type name
         // is matched case insensitively, so a map that shouts is still a map. There are two roads
         // into a map and each is pinned: into a dictionary, where the keys may be anything, and into
