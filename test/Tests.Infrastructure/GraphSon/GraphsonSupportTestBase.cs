@@ -262,6 +262,13 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task Objects_from_Bulk_set_with_null() => Verify<object[]>(Typed_BulkSet_With_Null);
 
+        // The other way out of that condition, and the one a null no longer takes: an element the
+        // requested type cannot read is still skipped, its bulk with it. Keeping a null and dropping
+        // this are the same decision seen from either side - a converter that declines has said
+        // there is no item here, where a null token says there is one and it is null.
+        [Fact]
+        public virtual Task Ints_from_Bulk_set_with_unreadable_element() => Verify<int[]>(Typed_BulkSet_With_Unreadable_Element);
+
         [Fact]
         public virtual Task Configured_property_name() => Verify<Person>(
             "{ \"id\": 13, \"label\": \"Person\", \"type\": \"vertex\", \"properties\": { \"replacement\": [ { \"id\": 1, \"value\": \"nameValue\" } ] } }",
