@@ -278,6 +278,12 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task Queue_Of_Ints_from_Bulk_set() => Verify<Queue<int>>(Typed_BulkSet);
 
+        // And a bulk set is not a scalar. Asked for one, the typed value unwrapper leaves it alone
+        // rather than handing on the pair array, so nothing converts and the attempt declines -
+        // which is the honest answer for a collection of six asked to be a single int.
+        [Fact]
+        public virtual Task Int_from_Bulk_set() => VerifyAttempt<int>(Typed_BulkSet);
+
         // A null in a bulk set is a null item repeated by its bulk, the same rule an array follows
         // and for the same reason - TryTransform reporting a conversion to null as a failure, which
         // is indistinguishable from a converter declining. Three, because the item type decides what
