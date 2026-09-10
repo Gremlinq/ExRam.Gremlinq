@@ -127,7 +127,6 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                 .Add(new TypedValueConverterFactory())
                 .Add(new MapDeferralConverterFactory())
                 .Add(new MapToDictionaryConverterFactory())
-                .Add(new BulkSetConverterFactory())
                 .Add(new EnumerableConverterFactory())
 
                 .Add(new NativeTypeConverterFactory())

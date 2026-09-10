@@ -32,8 +32,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                     if (serialized.TryGetValue("@value", out var valueToken) && valueToken is JArray mapArray)
                     {
                         // An upper bound - an entry whose key or value doesn't convert is skipped -
-                        // which is all a dictionary needs to size itself, and the same trade
-                        // BulkSetConverterFactory already makes.
+                        // which is all a dictionary needs to size itself.
                         var dictionary = create(mapArray.Count / 2);
 
                         for (var i = 0; i < mapArray.Count / 2; i++)

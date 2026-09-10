@@ -18,26 +18,71 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                 Environment = environment;
             }
 
-            protected IEnumerable<TTargetItem> GetEnumerable(JArray source, ITransformer recurse)
+            // Null when the token is neither of the two things a collection can be built from, so
+            // that every converter below declines rather than answering an empty collection - a
+            // JObject that is not a bulk set has to reach the converters behind these.
+            protected IEnumerable<TTargetItem>? TryGetEnumerable(JToken source, ITransformer recurse)
             {
-                for (var i = 0; i < source.Count; i++)
+                if (source is JArray array)
+                    return FromArray(array, Environment, recurse);
+
+                // A bulk set is the third way a value arrives, after a plain element and a traverser,
+                // and it is read here - where every collection shape is built - rather than in a
+                // converter of its own that could only ever build an array.
+                if (source is JObject bulkSet
+                    && bulkSet.TryGetValue("@type", out var typeToken)
+                    && "g:BulkSet".Equals(typeToken.Value<string>(), StringComparison.OrdinalIgnoreCase)
+                    && bulkSet.TryGetValue("@value", out var valueToken)
+                    && valueToken is JArray setArray)
                 {
-                    if (source[i] is JObject traverserObject && traverserObject.TryExpandTraverser<TTargetItem>(Environment, recurse) is { } enumerable)
+                    return FromBulkSet(setArray, Environment, recurse);
+                }
+
+                return null;
+
+                static IEnumerable<TTargetItem> FromArray(JArray source, IGremlinQueryEnvironment environment, ITransformer recurse)
+                {
+                    for (var i = 0; i < source.Count; i++)
                     {
-                        foreach (var item1 in enumerable)
-                            yield return item1;
+                        if (source[i] is JObject traverserObject && traverserObject.TryExpandTraverser<TTargetItem>(environment, recurse) is { } enumerable)
+                        {
+                            foreach (var item1 in enumerable)
+                                yield return item1;
+                        }
+                        // A null element is a null item, not an absent one, and this is the only place
+                        // that can say so: TryTransform reports a conversion to null as a failure, which
+                        // is indistinguishable from a converter declining. It is what a traverser
+                        // wrapping null has always yielded - a plain null just never got there.
+                        else if (source[i].Type == JTokenType.Null)
+                        {
+                            yield return default!;
+                        }
+                        else if (recurse.TryTransform<JToken, TTargetItem>(source[i], environment, out var item2))
+                        {
+                            yield return item2;
+                        }
                     }
-                    // A null element is a null item, not an absent one, and this is the only place
-                    // that can say so: TryTransform reports a conversion to null as a failure, which
-                    // is indistinguishable from a converter declining. It is what a traverser
-                    // wrapping null has always yielded - a plain null just never got there.
-                    else if (source[i].Type == JTokenType.Null)
+                }
+
+                // A bulk set is read in pairs, so an odd number of entries leaves a last element
+                // with no bulk to go with it. The loop stops short of it: reading that missing bulk
+                // would run off the end of the array and throw - the one outcome a converter must
+                // not have - where the well formed prefix is an answer.
+                static IEnumerable<TTargetItem> FromBulkSet(JArray setArray, IGremlinQueryEnvironment environment, ITransformer recurse)
+                {
+                    for (var i = 0; i < setArray.Count - 1; i += 2)
                     {
-                        yield return default!;
-                    }
-                    else if (recurse.TryTransform<JToken, TTargetItem>(source[i], Environment, out var item2))
-                    {
-                        yield return item2;
+                        var element = default(TTargetItem)!;
+
+                        // The bulk is read in the same condition as the element because the two
+                        // arrive as a pair and neither half means anything without the other. A
+                        // bulk nothing can read is not a bulk of one, it is an unknown count, and
+                        // an item repeated an unknown number of times cannot be repeated at all.
+                        if ((setArray[i].Type == JTokenType.Null || recurse.TryTransform(setArray[i], environment, out element)) && recurse.TryTransform<JToken, int>(setArray[i + 1], environment, out var bulk))
+                        {
+                            for (var j = 0; j < bulk; j++)
+                                yield return element;
+                        }
                     }
                 }
             }
@@ -45,22 +90,22 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
             protected IGremlinQueryEnvironment Environment { get; }
         }
 
-        private sealed class ArrayConverter<TTargetArray, TTargetItem> : EnumerableConverter<TTargetItem>, IConverter<JArray, TTargetArray>
+        private sealed class ArrayConverter<TTargetArray, TTargetItem> : EnumerableConverter<TTargetItem>, IConverter<JToken, TTargetArray>
             where TTargetArray : class
         {
             public ArrayConverter(IGremlinQueryEnvironment environment) : base(environment)
             {
             }
 
-            bool IConverter<JArray, TTargetArray>.TryConvert(JArray serialized, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTargetArray? value)
+            bool IConverter<JToken, TTargetArray>.TryConvert(JToken serialized, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTargetArray? value)
             {
                 ArgumentNullException.ThrowIfNull(serialized);
                 ArgumentNullException.ThrowIfNull(defer);
                 ArgumentNullException.ThrowIfNull(recurse);
 
-                if (!Environment.SupportsType(typeof(TTargetArray)))
+                if (!Environment.SupportsType(typeof(TTargetArray)) && TryGetEnumerable(serialized, recurse) is { } enumerable)
                 {
-                    value = Unsafe.As<TTargetArray>(GetEnumerable(serialized, recurse).ToArray());
+                    value = Unsafe.As<TTargetArray>(enumerable.ToArray());
                     return true;
                 }
 
@@ -69,25 +114,31 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
             }
         }
 
-        private sealed class ListConverter<TTarget, TTargetItem> : EnumerableConverter<TTargetItem>, IConverter<JArray, TTarget>
+        private sealed class ListConverter<TTarget, TTargetItem> : EnumerableConverter<TTargetItem>, IConverter<JToken, TTarget>
             where TTarget : class
         {
             public ListConverter(IGremlinQueryEnvironment environment) : base(environment)
             {
             }
 
-            bool IConverter<JArray, TTarget>.TryConvert(JArray serialized, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
+            bool IConverter<JToken, TTarget>.TryConvert(JToken serialized, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
             {
                 ArgumentNullException.ThrowIfNull(serialized);
                 ArgumentNullException.ThrowIfNull(defer);
                 ArgumentNullException.ThrowIfNull(recurse);
 
-                value = Unsafe.As<TTarget>(GetEnumerable(serialized, recurse).ToList());
-                return true;
+                if (TryGetEnumerable(serialized, recurse) is { } enumerable)
+                {
+                    value = Unsafe.As<TTarget>(enumerable.ToList());
+                    return true;
+                }
+
+                value = null;
+                return false;
             }
         }
 
-        private sealed class CollectionConverter<TTarget> : EnumerableConverter<object>, IConverter<JArray, TTarget>
+        private sealed class CollectionConverter<TTarget> : EnumerableConverter<object>, IConverter<JToken, TTarget>
             where TTarget : class
         {
             private readonly ConstructorInfo _constructor;
@@ -97,22 +148,29 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                 _constructor = constructor;
             }
 
-            bool IConverter<JArray, TTarget>.TryConvert(JArray serialized, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
+            bool IConverter<JToken, TTarget>.TryConvert(JToken serialized, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
             {
                 ArgumentNullException.ThrowIfNull(serialized);
                 ArgumentNullException.ThrowIfNull(defer);
                 ArgumentNullException.ThrowIfNull(recurse);
 
-                value = (TTarget)_constructor.Invoke([GetEnumerable(serialized, recurse).ToList()]);
+                if (TryGetEnumerable(serialized, recurse) is { } enumerable)
+                {
+                    value = (TTarget)_constructor.Invoke([enumerable.ToList()]);
 
-                return true;
+                    return true;
+                }
+
+                value = default;
+
+                return false;
             }
         }
 
         // The collections List<> cannot stand in for. They are built from the very same item
         // stream, lazily, so a traverser is still converted once and its value yielded as often as
         // its bulk says - no expanded array in between.
-        private sealed class SequenceConverter<TTarget, TTargetItem> : EnumerableConverter<TTargetItem>, IConverter<JArray, TTarget>
+        private sealed class SequenceConverter<TTarget, TTargetItem> : EnumerableConverter<TTargetItem>, IConverter<JToken, TTarget>
         {
             private readonly Func<IEnumerable<TTargetItem>, TTarget> _create;
 
@@ -124,13 +182,15 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                     : ((MethodInfo)factory).CreateDelegate<Func<IEnumerable<TTargetItem>, TTarget>>();
             }
 
-            bool IConverter<JArray, TTarget>.TryConvert(JArray serialized, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
+            bool IConverter<JToken, TTarget>.TryConvert(JToken serialized, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
             {
                 ArgumentNullException.ThrowIfNull(serialized);
                 ArgumentNullException.ThrowIfNull(defer);
                 ArgumentNullException.ThrowIfNull(recurse);
 
-                value = _create(GetEnumerable(serialized, recurse));
+                value = TryGetEnumerable(serialized, recurse) is { } enumerable
+                    ? _create(enumerable)
+                    : default;
 
                 return value is not null;
             }
@@ -182,7 +242,9 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
         {
             ArgumentNullException.ThrowIfNull(environment);
 
-            if (typeof(TSource) == typeof(JArray))
+            // JToken, not JArray: a bulk set arrives as a JObject, and the collections have to be
+            // buildable from it too. Every converter below declines a JObject that is not one.
+            if (typeof(JToken).IsAssignableFrom(typeof(TSource)))
             {
                 if (typeof(TTarget).IsAssignableFrom(typeof(object[])))
                     return (IConverter<TSource, TTarget>?)Activator.CreateInstance(typeof(ArrayConverter<,>).MakeGenericType(typeof(TTarget), typeof(object)), environment);

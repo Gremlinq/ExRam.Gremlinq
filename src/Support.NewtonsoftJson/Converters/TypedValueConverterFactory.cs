@@ -51,7 +51,10 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
 
                 if (serialized.TryGetValue("@type", out var typeName) && typeName.Type == JTokenType.String && typeName.Value<string>() is { } typeNameString && serialized.TryGetValue("@value", out var valueToken))
                 {
-                    if (!"g:Map".Equals(typeNameString, StringComparison.OrdinalIgnoreCase))
+                    // g:BulkSet joins g:Map in being left alone: unwrapping it would hand the
+                    // flat value/bulk array to the collection converters, which would read the
+                    // bulks as items. EnumerableConverterFactory reads it in pairs instead.
+                    if (!"g:Map".Equals(typeNameString, StringComparison.OrdinalIgnoreCase) && !"g:BulkSet".Equals(typeNameString, StringComparison.OrdinalIgnoreCase))
                     {
                         if (GraphSONTypes.TryGetValue(typeNameString, out var moreSpecificType))
                         {
