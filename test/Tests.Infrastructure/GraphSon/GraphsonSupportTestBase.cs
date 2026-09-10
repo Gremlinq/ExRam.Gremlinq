@@ -246,6 +246,16 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task Bulk_set_as_object() => Verify<object>(BulkSet);
 
+        // Every other GraphSON type name in either implementation is matched case insensitively, so
+        // the bulk set is expected to be too - and it has to be for the same reason the array does:
+        // the converter that unwraps a typed value refuses g:BulkSet insensitively, so a spelling
+        // only one of the two recognises falls between them and is answered by neither.
+        [Fact]
+        public virtual Task Bulk_set_with_uppercase_type() => Verify<string[]>(BulkSet_With_Uppercase_Type);
+
+        [Fact]
+        public virtual Task Bulk_set_with_uppercase_type_as_object() => Verify<object>(BulkSet_With_Uppercase_Type);
+
         // A null in a bulk set is a null item repeated by its bulk, the same rule an array follows
         // and for the same reason - TryTransform reporting a conversion to null as a failure, which
         // is indistinguishable from a converter declining. Three, because the item type decides what

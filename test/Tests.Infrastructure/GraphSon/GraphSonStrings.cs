@@ -161,6 +161,23 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
           }
           """;
 
+        // Spelled the way no server spells it. GraphSON type names are matched case insensitively
+        // everywhere else, so a bulk set that shouts is still a bulk set.
+        public static readonly string BulkSet_With_Uppercase_Type = """
+            {
+              "@type" : "G:BULKSET",
+              "@value" :
+              [
+                "one",
+                { "@type" : "g:Int64", "@value" : 1 },
+                "two",
+                { "@type" : "g:Int64", "@value" : 2 },
+                "three",
+                { "@type" : "g:Int64", "@value" : 3 }
+              ]
+            }
+            """;
+
         public static readonly string Typed_BulkSet_With_Null = """
             {
               "@type" : "g:BulkSet",
