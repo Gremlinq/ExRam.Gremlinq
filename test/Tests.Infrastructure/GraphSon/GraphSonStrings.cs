@@ -178,6 +178,24 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             }
             """;
 
+        // 10 once, 20 twice, 30 three times. The values are kept apart from the bulks on
+        // purpose: were they the same numbers, a set read from the pair array unexpanded would
+        // come out equal to the right answer, and could not tell the two apart.
+        public static readonly string Typed_BulkSet = """
+            {
+              "@type" : "g:BulkSet",
+              "@value" :
+              [
+                { "@type" : "g:Int32", "@value" : 10 },
+                { "@type" : "g:Int64", "@value" : 1 },
+                { "@type" : "g:Int32", "@value" : 20 },
+                { "@type" : "g:Int64", "@value" : 2 },
+                { "@type" : "g:Int32", "@value" : 30 },
+                { "@type" : "g:Int64", "@value" : 3 }
+              ]
+            }
+            """;
+
         public static readonly string Typed_BulkSet_With_Null = """
             {
               "@type" : "g:BulkSet",

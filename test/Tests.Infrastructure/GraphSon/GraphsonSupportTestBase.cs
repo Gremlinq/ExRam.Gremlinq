@@ -256,6 +256,28 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task Bulk_set_with_uppercase_type_as_object() => Verify<object>(BulkSet_With_Uppercase_Type);
 
+        // An array is not the only thing a bulk set can be read into, but it is the only one either
+        // implementation gets right. One test per way of building a collection, as the traversers
+        // have below - and the answer is the expanded sequence every time, 10 once, 20 twice, 30
+        // three times, exactly as Ints_from_Bulk_set gets it.
+        [Fact]
+        public virtual Task Ints_from_Bulk_set() => Verify<int[]>(Typed_BulkSet);
+
+        [Fact]
+        public virtual Task List_Of_Ints_from_Bulk_set() => Verify<List<int>>(Typed_BulkSet);
+
+        [Fact]
+        public virtual Task IEnumerable_Of_Ints_from_Bulk_set() => Verify<IEnumerable<int>>(Typed_BulkSet);
+
+        [Fact]
+        public virtual Task ISet_Of_Ints_from_Bulk_set() => Verify<ISet<int>>(Typed_BulkSet);
+
+        [Fact]
+        public virtual Task ImmutableList_Of_Ints_from_Bulk_set() => Verify<ImmutableList<int>>(Typed_BulkSet);
+
+        [Fact]
+        public virtual Task Queue_Of_Ints_from_Bulk_set() => Verify<Queue<int>>(Typed_BulkSet);
+
         // A null in a bulk set is a null item repeated by its bulk, the same rule an array follows
         // and for the same reason - TryTransform reporting a conversion to null as a failure, which
         // is indistinguishable from a converter declining. Three, because the item type decides what
