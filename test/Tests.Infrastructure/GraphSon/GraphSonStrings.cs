@@ -1122,6 +1122,22 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             }
             """;
 
+        // Constructor_assertion_2's arguments as a GraphSON 3 map - the shape project() and
+        // elementMap() results arrive in. String keys, so they can be read as members by name.
+        public static readonly string Map_Of_Constructor_Arguments = """
+            {
+              "@type": "g:Map",
+              "@value": [ "stringArg", "stringValue", "intArg", 42 ]
+            }
+            """;
+
+        public static readonly string Map_Of_Constructor_Arguments_With_Uppercase_Type = """
+            {
+              "@type": "G:MAP",
+              "@value": [ "stringArg", "stringValue", "intArg", 42 ]
+            }
+            """;
+
         public static readonly string Ints = "[ 1, 3, 5 ]";
 
         public static readonly string Typed_Ints = """

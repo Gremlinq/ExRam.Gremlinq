@@ -178,12 +178,19 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual Task IImmutableDictionary_typed_int_keys_string_values() => Verify<IImmutableDictionary<int, string>>(Map_of_Typed_Int_Keys_Typed_String_Values);
 
         // The same tolerance the bulk set gets, for the same reason: every other GraphSON type name
-        // is matched case insensitively, so a map that shouts is still a map. A dictionary target,
-        // because that is the route on which the two implementations differ - asked for an object
-        // instead, both answer a g:Map with an empty one however it is spelled, which says nothing
-        // about case.
+        // is matched case insensitively, so a map that shouts is still a map. There are two roads
+        // into a map and each is pinned: into a dictionary, where the keys may be anything, and into
+        // an object whose members are looked up by name, where they have to be strings - hence the
+        // second pair, which reads Constructor_assertion_2's arguments out of a map instead of out
+        // of a plain object, once as g:Map and once as G:MAP.
         [Fact]
         public virtual Task Map_with_uppercase_type() => Verify<Dictionary<int, string>>(Map_With_Uppercase_Type);
+
+        [Fact]
+        public virtual Task Constructor_arguments_from_map() => Verify<ClassWithFieldsAndConstructor>(Map_Of_Constructor_Arguments);
+
+        [Fact]
+        public virtual Task Constructor_arguments_from_map_with_uppercase_type() => Verify<ClassWithFieldsAndConstructor>(Map_Of_Constructor_Arguments_With_Uppercase_Type);
 
         [Fact]
         public virtual Task IEnumerable_from_Typed_Ints() => Verify<IEnumerable<int>>(Typed_Ints);
