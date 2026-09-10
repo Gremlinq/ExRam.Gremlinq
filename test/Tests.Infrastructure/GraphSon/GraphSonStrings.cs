@@ -1109,6 +1109,19 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             }
             """;
 
+        // Spelled the way no server spells it, as BulkSet_With_Uppercase_Type is. A map that
+        // shouts is still a map.
+        public static readonly string Map_With_Uppercase_Type = """
+            {
+              "@type": "G:MAP",
+              "@value":
+              [
+                { "@type": "g:Int32", "@value": 1 }, "value1",
+                { "@type": "g:Int32", "@value": 2 }, "value2"
+              ]
+            }
+            """;
+
         public static readonly string Ints = "[ 1, 3, 5 ]";
 
         public static readonly string Typed_Ints = """
