@@ -114,5 +114,71 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Should()
                 .Contain(typeof(decimal));
         }
+
+        [Fact]
+        public void SupportsType_native_type()
+        {
+            GremlinQueryEnvironment.Invalid
+                .SupportsType(typeof(int))
+                .Should()
+                .BeTrue();
+        }
+
+        [Fact]
+        public void SupportsType_unsupported_type()
+        {
+            GremlinQueryEnvironment.Invalid
+                .SupportsType(typeof(Uri))
+                .Should()
+                .BeFalse();
+        }
+
+        // A type the environment cannot store natively still counts as supported when there is a
+        // stand-in it can store: a TimeSpan as its double, a byte[] as its string. Neptune removes
+        // both from its native types and JanusGraph removes byte[], so for them these conversions
+        // are the answer rather than a corner - and each holds only while its stand-in is native.
+        [Fact]
+        public void SupportsType_TimeSpan_as_double()
+        {
+            GremlinQueryEnvironment.Invalid
+                .ConfigureNativeTypes(types => types.Remove(typeof(TimeSpan)))
+                .SupportsType(typeof(TimeSpan))
+                .Should()
+                .BeTrue();
+        }
+
+        [Fact]
+        public void SupportsType_TimeSpan_without_double()
+        {
+            GremlinQueryEnvironment.Invalid
+                .ConfigureNativeTypes(types => types
+                    .Remove(typeof(TimeSpan))
+                    .Remove(typeof(double)))
+                .SupportsType(typeof(TimeSpan))
+                .Should()
+                .BeFalse();
+        }
+
+        [Fact]
+        public void SupportsType_byte_array_as_string()
+        {
+            GremlinQueryEnvironment.Invalid
+                .ConfigureNativeTypes(types => types.Remove(typeof(byte[])))
+                .SupportsType(typeof(byte[]))
+                .Should()
+                .BeTrue();
+        }
+
+        [Fact]
+        public void SupportsType_byte_array_without_string()
+        {
+            GremlinQueryEnvironment.Invalid
+                .ConfigureNativeTypes(types => types
+                    .Remove(typeof(byte[]))
+                    .Remove(typeof(string)))
+                .SupportsType(typeof(byte[]))
+                .Should()
+                .BeFalse();
+        }
     }
 }
