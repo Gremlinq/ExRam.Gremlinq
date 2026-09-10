@@ -674,6 +674,25 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             }
             """);
 
+        // The same vertex as an elementMap() returns it: a g:Map whose id and label arrive under g:T
+        // keys rather than as named properties. Its label is unknown to the model, so nothing builds
+        // an entity from it, and asked for as an object it is still an element - id and label kept,
+        // everything else under properties, the shape the plain vertex above keeps as well.
+        [Fact]
+        public virtual Task Element_map_with_unknown_label_as_object() => Verify<object>("""
+            {
+              "@type": "g:Map",
+              "@value": [
+                { "@type": "g:T", "@value": "id" },
+                { "@type": "g:Int64", "@value": 1 },
+                { "@type": "g:T", "@value": "label" },
+                "SomeUnknownLabel",
+                "SomeProperty",
+                "SomeValue"
+              ]
+            }
+            """);
+
         [Fact]
         public virtual Task Language_unknown_type() => Verify<object>(Single_Language);
 
