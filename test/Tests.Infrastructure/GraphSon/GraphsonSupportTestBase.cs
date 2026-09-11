@@ -666,6 +666,13 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task ImmutableList_from_Array_with_Traversers_and_plain_values() => Verify<ImmutableList<int>>(Array_With_Traversers_Among_Plain_Ints);
 
+        // An envelope is matched exactly, as every other "@type" and "@value" is on both
+        // implementations: an object that spells them otherwise is no traverser, and an int array
+        // has no place for it. The type name inside is a different matter - "G:TRAVERSER" would
+        // still be one, as "G:BULKSET" is a bulk set.
+        [Fact]
+        public virtual Task Ints_from_Traverser_with_uppercase_envelope() => Verify<int[]>(Array_With_Traverser_With_Uppercase_Envelope);
+
         // A traverser wrapping null is null as often as its bulk says - the one place a null
         // survives into a deserialized array.
         [Fact]
