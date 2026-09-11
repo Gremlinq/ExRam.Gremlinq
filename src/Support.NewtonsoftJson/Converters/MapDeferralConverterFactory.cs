@@ -28,6 +28,27 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                 {
                     if (serialized.TryGetValue("@value", out var valueToken) && valueToken is JArray mapArray)
                     {
+                        // A JObject can only hold keys that are names, so a map with any other key
+                        // would lose those entries on its way through one. Asked for as an object,
+                        // such a map is built as the dictionary it is, keys as they were typed.
+                        if (typeof(TTarget) == typeof(object))
+                        {
+                            for (var i = 0; i < mapArray.Count / 2; i++)
+                            {
+                                if (!mapArray[i * 2].TryParseKey(out _))
+                                {
+                                    // Whatever MapToDictionaryConverter answers is the answer. It looks for
+                                    // the same g:Map this converter has just found, so it has no reason to
+                                    // decline - and the JObject road would only lose what this keeps.
+                                    var isDictionary = recurse.TryTransform(serialized, _environment, out Dictionary<object, object>? dictionary);
+
+                                    value = (TTarget?)(object?)dictionary;
+
+                                    return isDictionary;
+                                }
+                            }
+                        }
+
                         var retObject = new JObject();
                         var maybeIdToken = default(JToken?);
                         var maybeLabelToken = default(JToken?);

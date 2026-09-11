@@ -1138,6 +1138,15 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             }
             """;
 
+        // The same arguments with an entry keyed by an int among them - something no member can be
+        // named after - and placed between the two, so that what follows it is read as well.
+        public static readonly string Map_Of_Constructor_Arguments_With_Int_Key = """
+            {
+              "@type": "g:Map",
+              "@value": [ "stringArg", "stringValue", { "@type": "g:Int32", "@value": 1 }, "value1", "intArg", 42 ]
+            }
+            """;
+
         public static readonly string Ints = "[ 1, 3, 5 ]";
 
         public static readonly string Typed_Ints = """
