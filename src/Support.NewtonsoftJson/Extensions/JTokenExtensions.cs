@@ -47,9 +47,9 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
         {
             if (token is JObject jObject)
             {
-                if (jObject.TryGetValue("@type", out var @type) && "g:T".Equals(@type.Value<string>(), StringComparison.OrdinalIgnoreCase) && jObject.TryGetValue("@value", out var valueToken) && valueToken.Type == JTokenType.String && valueToken.Value<string>() is { } stringValue)
+                if (jObject.TryGetValue("@type", out var @type) && "g:T".Equals(@type.Value<string>(), StringComparison.OrdinalIgnoreCase) && jObject.TryGetValue("@value", out var valueToken) && valueToken.Type == JTokenType.String && valueToken.Value<string>() is { } stringValue && TryGetT(stringValue, out var t))
                 {
-                    key = new Key(T.GetByValue(stringValue));
+                    key = new Key(t);
 
                     return true;
                 }
@@ -63,6 +63,25 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
 
             key = default;
             return false;
+        }
+
+        // A g:T's value is one of Gremlin's T values, spelled exactly as GraphSON spells them.
+        // T.GetByValue matches exactly too, and throws for any other value - which makes the g:T
+        // no T rather than the whole deserialization fail.
+        private static bool TryGetT(string value, [NotNullWhen(true)] out T? t)
+        {
+            try
+            {
+                t = T.GetByValue(value);
+
+                return true;
+            }
+            catch (ArgumentException)
+            {
+                t = null;
+
+                return false;
+            }
         }
 
         public static bool LooksLikeElement(this JObject jObject, [NotNullWhen(true)] out JToken? idToken, [NotNullWhen(true)] out JValue? labelValue, out JObject? propertiesObject)
