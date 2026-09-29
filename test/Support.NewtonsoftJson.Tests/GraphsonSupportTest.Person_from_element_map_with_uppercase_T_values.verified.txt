@@ -1,0 +1,7 @@
+﻿{
+  Success: true,
+  Value: {
+    Age: 36,
+    PartitionKey: PartitionKey
+  }
+}

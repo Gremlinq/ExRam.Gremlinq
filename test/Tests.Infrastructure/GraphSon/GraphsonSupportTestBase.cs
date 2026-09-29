@@ -738,10 +738,6 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             }
             """);
 
-        // The same vertex as an elementMap() returns it: a g:Map whose id and label arrive under g:T
-        // keys rather than as named properties. Its label is unknown to the model, so nothing builds
-        // an entity from it, and asked for as an object it is still an element - id and label kept,
-        // everything else under properties, the shape the plain vertex above keeps as well.
         // "id", "label" and "properties" are GraphSON's names for an element's parts, and an object
         // is only taken for an element when it spells them that way. This one is a map of the
         // caller's own that happens to have members of those names, and stays one - it is not
@@ -755,6 +751,10 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             }
             """);
 
+        // The same vertex as an elementMap() returns it: a g:Map whose id and label arrive under g:T
+        // keys rather than as named properties. Its label is unknown to the model, so nothing builds
+        // an entity from it, and asked for as an object it is still an element - id and label kept,
+        // everything else under properties, the shape the plain vertex above keeps as well.
         [Fact]
         public virtual Task Element_map_with_unknown_label_as_object() => Verify<object>("""
             {
@@ -769,6 +769,63 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
               ]
             }
             """);
+
+        // A g:T's value is one of Gremlin's T values - "id", "key", "label", "value" - spelled the way
+        // GraphSON spells them. "ID" and "LABEL" are none of them, so this map has no id and no label
+        // and is no element. Asked for as a Person, it has an Age and nothing to say about the rest.
+        // A value no T has is no reason to throw, either: the g:T is just not one.
+        [Fact]
+        public virtual Task Person_from_element_map_with_uppercase_T_values() => VerifyAttempt<Person>("""
+            {
+              "@type": "g:Map",
+              "@value": [
+                { "@type": "g:T", "@value": "ID" },
+                { "@type": "g:Int64", "@value": 1 },
+                { "@type": "g:T", "@value": "LABEL" },
+                "Person",
+                "Age",
+                36
+              ]
+            }
+            """);
+
+        // The same map asked for as an object. Without an id and a label it is no element, and a g:T
+        // that is not one is not a name either, so it is built as the dictionary it is, as a map with
+        // any key that is no name is. The snapshot of a dictionary writes its keys alike whatever
+        // their type, so the types are recorded alongside it.
+        [Fact]
+        public virtual Task Element_map_with_uppercase_T_values_as_object()
+        {
+            var subject = _environment
+                .Deserializer
+                .TransformTo<object>()
+                .From(CreateNativeToken("""
+                    {
+                      "@type": "g:Map",
+                      "@value": [
+                        { "@type": "g:T", "@value": "ID" },
+                        { "@type": "g:Int64", "@value": 1 },
+                        { "@type": "g:T", "@value": "LABEL" },
+                        "SomeUnknownLabel",
+                        "SomeProperty",
+                        "SomeValue"
+                      ]
+                    }
+                    """), _environment);
+
+            return Verifier
+                .Verify(
+                    new
+                    {
+                        Type = subject.GetType(),
+                        KeyTypes = subject is IDictionary dictionary
+                            ? dictionary.Keys.Cast<object>().Select(static key => key.GetType()).ToArray()
+                            : null,
+                        Value = subject
+                    },
+                    sourceFile: _sourceFile)
+                .DontScrubDateTimes();
+        }
 
         [Fact]
         public virtual Task Language_unknown_type() => Verify<object>(Single_Language);

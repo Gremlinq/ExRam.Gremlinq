@@ -1,0 +1,13 @@
+﻿{
+  Type: Dictionary<object, object>,
+  KeyTypes: [
+    string,
+    string,
+    string
+  ],
+  Value: {
+    ID: 1,
+    LABEL: SomeUnknownLabel,
+    SomeProperty: SomeValue
+  }
+}
