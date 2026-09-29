@@ -1,0 +1,7 @@
+﻿{
+  Id: 1,
+  Label: Person,
+  Properties: {
+    Age: 36
+  }
+}

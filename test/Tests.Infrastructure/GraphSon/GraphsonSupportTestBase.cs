@@ -673,6 +673,18 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task Ints_from_Traverser_with_uppercase_envelope() => Verify<int[]>(Array_With_Traverser_With_Uppercase_Envelope);
 
+        // The members inside the envelope are GraphSON's own as well, and matched exactly like it:
+        // spelled "Bulk" and "Value", this is no traverser either.
+        [Fact]
+        public virtual Task Ints_from_Traverser_with_capitalized_members() => Verify<int[]>("""
+            [
+              {
+                "@type": "g:Traverser",
+                "@value": { "Bulk": 7, "Value": 42 }
+              }
+            ]
+            """);
+
         // A traverser wrapping null is null as often as its bulk says - the one place a null
         // survives into a deserialized array.
         [Fact]
@@ -718,6 +730,19 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         // keys rather than as named properties. Its label is unknown to the model, so nothing builds
         // an entity from it, and asked for as an object it is still an element - id and label kept,
         // everything else under properties, the shape the plain vertex above keeps as well.
+        // "id", "label" and "properties" are GraphSON's names for an element's parts, and an object
+        // is only taken for an element when it spells them that way. This one is a map of the
+        // caller's own that happens to have members of those names, and stays one - it is not
+        // looked up as a Person.
+        [Fact]
+        public virtual Task Object_with_capitalized_id_label_and_properties_as_object() => Verify<object>("""
+            {
+              "Id": 1,
+              "Label": "Person",
+              "Properties": { "Age": 36 }
+            }
+            """);
+
         [Fact]
         public virtual Task Element_map_with_unknown_label_as_object() => Verify<object>("""
             {
@@ -818,6 +843,33 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task Property_as_object() => Verify<object>("{ \"value\": 1540202009475, \"key\": \"Property1\" }");
 
+        // A property is recognised by GraphSON's "key" and "value", spelled exactly. Spelled "Value",
+        // this is an object like any other, and nothing reads an int from it.
+        [Fact]
+        public virtual Task Int_from_object_with_key_and_capitalized_value() => VerifyAttempt<int>("""{ "key": "Property1", "Value": 42 }""");
+
+        // A Property<object> and a map with the same two members snapshot alike, so whether the
+        // result is a property is recorded alongside it. A map of the caller's own whose members
+        // happen to be named Key and Value is no property.
+        [Fact]
+        public virtual Task Object_with_capitalized_key_and_value_as_object()
+        {
+            var subject = _environment
+                .Deserializer
+                .TransformTo<object>()
+                .From(CreateNativeToken("""{ "Key": "Property1", "Value": 42 }"""), _environment);
+
+            return Verifier
+                .Verify(
+                    new
+                    {
+                        IsProperty = subject is Property,
+                        Value = subject
+                    },
+                    sourceFile: _sourceFile)
+                .DontScrubDateTimes();
+        }
+
         [Fact]
         public virtual Task Property_from_Scalar() => Verify<Property<int>>("36");
 
@@ -861,6 +913,10 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task VertexProperty_as_object() => Verify<object>("{ \"value\": 1540202009475, \"id\": 1, \"label\": \"Property1\", \"properties\": { \"metaKey\": \"MetaValue\" } }");
+
+        // The same for a vertex property: without a "value" spelled that way, there is none to read.
+        [Fact]
+        public virtual Task Int_from_object_with_id_label_and_capitalized_value() => VerifyAttempt<int>("""{ "id": 1, "label": "Property1", "Value": 42 }""");
 
         [Fact]
         public virtual Task VertexPropertyWithDateTimeOffset() => Verify<VertexProperty<string, PropertyValidity>>("{ \"id\": 166, \"value\": \"bob\", \"label\": \"Name\", \"properties\": { \"ValidFrom\": 1548112365431 } }");
@@ -924,5 +980,20 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Mixed_entity_and_scalar_as_object_tree_CosmosDb() => Verify<Tree<object>>(GraphSonStrings.Mixed_entity_and_scalar_tree_CosmosDb);
+
+        // A tree's entries are GraphSON's "key" and "value" pairs, spelled exactly. Spelled "Key"
+        // and "Value", an entry is not one.
+        [Fact]
+        public virtual Task Tree_with_capitalized_key_and_value() => VerifyAttempt<Tree<string>>("""
+            {
+              "@type": "g:Tree",
+              "@value": [
+                {
+                  "Key": "3",
+                  "Value": { "@type": "g:Tree", "@value": [] }
+                }
+              ]
+            }
+            """);
     }
 }

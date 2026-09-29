@@ -98,6 +98,15 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
         }
 
         [Fact]
+        public void LooksLikeElement_with_capitalized_names_returns_false()
+        {
+            var jObject = JObject.Parse("""{ "Id": 1, "Label": "person", "Properties": { "name": "test" } }""");
+
+            jObject.LooksLikeElement(out _, out _, out _)
+                .Should().BeFalse();
+        }
+
+        [Fact]
         public void LooksLikeProperty_with_value_and_key()
         {
             var jObject = JObject.Parse("""{ "value": "test", "key": "name" }""");
@@ -128,6 +137,15 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
         public void LooksLikeProperty_with_non_string_key_returns_false()
         {
             var jObject = JObject.Parse("""{ "value": "test", "key": 123 }""");
+
+            jObject.LooksLikeProperty()
+                .Should().BeFalse();
+        }
+
+        [Fact]
+        public void LooksLikeProperty_with_capitalized_names_returns_false()
+        {
+            var jObject = JObject.Parse("""{ "Value": "test", "Key": "name" }""");
 
             jObject.LooksLikeProperty()
                 .Should().BeFalse();
@@ -191,6 +209,15 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
         public void LooksLikeVertexProperty_with_non_object_properties_returns_false()
         {
             var jObject = JObject.Parse("""{ "value": "test", "id": 1, "properties": "not-object" }""");
+
+            jObject.LooksLikeVertexProperty()
+                .Should().BeFalse();
+        }
+
+        [Fact]
+        public void LooksLikeVertexProperty_with_capitalized_names_returns_false()
+        {
+            var jObject = JObject.Parse("""{ "Value": "test", "Id": 1 }""");
 
             jObject.LooksLikeVertexProperty()
                 .Should().BeFalse();

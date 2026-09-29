@@ -1,0 +1,7 @@
+﻿{
+  IsProperty: false,
+  Value: {
+    Key: Property1,
+    Value: 42
+  }
+}
