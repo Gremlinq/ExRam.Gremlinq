@@ -14,10 +14,10 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
             {
                 var bulk = 1;
 
-                if (nestedTraverserObject.TryGetValue("bulk", StringComparison.OrdinalIgnoreCase, out var bulkToken) && recurse.TryTransform<JToken, int>(bulkToken, env, out var bulkObject))
+                if (nestedTraverserObject.TryGetValue("bulk", out var bulkToken) && recurse.TryTransform<JToken, int>(bulkToken, env, out var bulkObject))
                     bulk = bulkObject;
 
-                if (nestedTraverserObject.TryGetValue("value", StringComparison.OrdinalIgnoreCase, out var traverserValue))
+                if (nestedTraverserObject.TryGetValue("value", out var traverserValue))
                 {
                     return Core();
 
@@ -71,11 +71,11 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
             labelValue = null;
             propertiesObject = null;
 
-            if (!jObject.TryGetValue("value", StringComparison.OrdinalIgnoreCase, out _) && jObject.TryGetValue("id", StringComparison.OrdinalIgnoreCase, out idToken) && idToken.Type != JTokenType.Array && jObject.TryGetValue("label", StringComparison.OrdinalIgnoreCase, out var labelToken) && labelToken.Type == JTokenType.String)
+            if (!jObject.TryGetValue("value", out _) && jObject.TryGetValue("id", out idToken) && idToken.Type != JTokenType.Array && jObject.TryGetValue("label", out var labelToken) && labelToken.Type == JTokenType.String)
             {
                 if ((labelValue = labelToken as JValue) is not null)
                 {
-                    if (jObject.TryGetValue("properties", StringComparison.OrdinalIgnoreCase, out var propertiesToken))
+                    if (jObject.TryGetValue("properties", out var propertiesToken))
                     {
                         propertiesObject = propertiesToken as JObject;
 
@@ -90,15 +90,15 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
             return false;
         }
 
-        public static bool LooksLikeProperty(this JObject jObject) => jObject.TryGetValue("value", StringComparison.OrdinalIgnoreCase, out _) && jObject.TryGetValue("key", StringComparison.OrdinalIgnoreCase, out var keyToken) && keyToken.Type == JTokenType.String;
+        public static bool LooksLikeProperty(this JObject jObject) => jObject.TryGetValue("value", out _) && jObject.TryGetValue("key", out var keyToken) && keyToken.Type == JTokenType.String;
 
         public static bool LooksLikeVertexProperty(this JObject jObject)
         {
-            if (jObject.TryGetValue("value", StringComparison.OrdinalIgnoreCase, out _) && jObject.TryGetValue("id", StringComparison.OrdinalIgnoreCase, out var idToken) && idToken.Type != JTokenType.Array)
+            if (jObject.TryGetValue("value", out _) && jObject.TryGetValue("id", out var idToken) && idToken.Type != JTokenType.Array)
             {
-                if (!jObject.TryGetValue("label", StringComparison.OrdinalIgnoreCase, out var labelToken) || labelToken.Type == JTokenType.String)
+                if (!jObject.TryGetValue("label", out var labelToken) || labelToken.Type == JTokenType.String)
                 {
-                    if (!jObject.TryGetValue("properties", StringComparison.OrdinalIgnoreCase, out var propertiesToken) || propertiesToken.Type == JTokenType.Object)
+                    if (!jObject.TryGetValue("properties", out var propertiesToken) || propertiesToken.Type == JTokenType.Object)
                         return true;
                 }
             }

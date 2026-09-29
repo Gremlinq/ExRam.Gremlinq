@@ -37,7 +37,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                     {
                         var maybeItemObject = (item as JObject) ?? (item as JProperty)?.Value as JObject;
 
-                        if (maybeItemObject is { } itemObject && itemObject.TryGetValue("key", StringComparison.OrdinalIgnoreCase, out var keyToken) && itemObject.TryGetValue("value", StringComparison.OrdinalIgnoreCase, out var valueToken))
+                        if (maybeItemObject is { } itemObject && itemObject.TryGetValue("key", out var keyToken) && itemObject.TryGetValue("value", out var valueToken))
                         {
 #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
                             if (recurse.TryTransform(keyToken, _environment, out TKey subKey) && recurse.TryTransform(valueToken, _environment, out TValue subValue))
