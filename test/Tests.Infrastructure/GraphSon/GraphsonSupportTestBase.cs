@@ -685,6 +685,18 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             ]
             """);
 
+        // A bulk that is no number says nothing about how often the value is there, so it is there
+        // once, as it is when a traverser has no bulk at all.
+        [Fact]
+        public virtual Task Ints_from_Traverser_with_bulk_that_is_no_number() => Verify<int[]>("""
+            [
+              {
+                "@type": "g:Traverser",
+                "@value": { "bulk": "seven", "value": 42 }
+              }
+            ]
+            """);
+
         // A traverser wrapping null is null as often as its bulk says - the one place a null
         // survives into a deserialized array.
         [Fact]
