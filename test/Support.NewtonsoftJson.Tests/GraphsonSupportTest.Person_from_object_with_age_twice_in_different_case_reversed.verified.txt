@@ -1,0 +1,4 @@
+﻿{
+  Age: 1,
+  PartitionKey: PartitionKey
+}

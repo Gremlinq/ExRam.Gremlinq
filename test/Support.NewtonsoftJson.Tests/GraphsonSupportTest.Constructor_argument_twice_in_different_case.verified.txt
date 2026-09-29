@@ -1,0 +1,4 @@
+﻿{
+  StringArg: b,
+  IntArg: 1
+}

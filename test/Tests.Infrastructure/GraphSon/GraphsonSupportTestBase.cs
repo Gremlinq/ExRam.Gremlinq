@@ -891,6 +891,47 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task Person_lowercase_strongly_typed() => Verify<Person>(Single_Person_lowercase_properties);
 
+        // A member of a type the caller asks for is found however its name is spelled, so a name
+        // spelled two ways is found twice. The last one in the document is the one that counts - not
+        // the one spelled like the member: the second test is the first one reversed, and answers
+        // the other value.
+        [Fact]
+        public virtual Task Person_from_object_with_age_twice_in_different_case() => Verify<Person>("""{ "age": 1, "Age": 2 }""");
+
+        [Fact]
+        public virtual Task Person_from_object_with_age_twice_in_different_case_reversed() => Verify<Person>("""{ "Age": 2, "age": 1 }""");
+
+        // Gremlin's property keys are case sensitive, so a vertex can have an "age" and an "Age" -
+        // the one place where a server sends a name spelled two ways. The last one counts here too.
+        [Fact]
+        public virtual Task Person_from_vertex_with_age_property_twice_in_different_case() => Verify<Person>("""
+            {
+              "id": 1,
+              "label": "Person",
+              "properties": {
+                "age": [ { "id": 2, "value": 1 } ],
+                "Age": [ { "id": 3, "value": 2 } ]
+              }
+            }
+            """);
+
+        // The same vertex as valueMap() returns it: a g:Map with both keys.
+        [Fact]
+        public virtual Task Person_from_map_with_age_twice_in_different_case() => Verify<Person>("""
+            {
+              "@type": "g:Map",
+              "@value": [ "age", 1, "Age", 2 ]
+            }
+            """);
+
+        // Constructor arguments are found the same way as members are.
+        [Fact]
+        public virtual Task Constructor_argument_twice_in_different_case() => Verify<ClassWithFieldsAndConstructor>("""{ "stringArg": "a", "StringArg": "b", "intArg": 1 }""");
+
+        // And so are the members of Gremlinq's own Property<T>, when the caller asks for one.
+        [Fact]
+        public virtual Task Property_with_value_twice_in_different_case() => Verify<Property<int>>("""{ "key": "p", "value": 1, "Value": 2 }""");
+
         [Fact]
         public virtual Task Person_From_ElementMap() => Verify<Person>(Single_Person_ElementMap);
 
