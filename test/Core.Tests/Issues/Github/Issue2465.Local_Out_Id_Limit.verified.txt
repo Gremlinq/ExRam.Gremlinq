@@ -1,0 +1,1 @@
+﻿g.V().hasLabel('Person').local(__.out('WorksFor').id().limit(1))
