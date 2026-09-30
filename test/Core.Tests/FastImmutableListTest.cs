@@ -123,6 +123,14 @@ namespace ExRam.Gremlinq.Core.Tests
         [InlineData(-1, 0)]
         [InlineData(-1, 1)]
         [InlineData(-1, 5)]
+        [InlineData(int.MinValue, 0)]
+        //Beyond the items of the list, but within the capacity of the memory underneath it.
+        [InlineData(5, 0)]
+        [InlineData(5, -1)]
+        [InlineData(16, 0)]
+        //Beyond the capacity of the memory underneath the list.
+        [InlineData(17, 0)]
+        [InlineData(int.MaxValue, 0)]
         public void Slice_start_out_of_range(int start, int length)
         {
             var list = FastImmutableList<string>.Empty
@@ -136,17 +144,15 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Theory]
+        [InlineData(0, -1)]
+        [InlineData(1, -1)]
+        [InlineData(4, -1)]
+        [InlineData(0, int.MinValue)]
         [InlineData(0, 5)]
         [InlineData(1, 4)]
         [InlineData(3, 2)]
         [InlineData(4, 1)]
         [InlineData(1, int.MaxValue)]
-        //A start beyond the items of the list is reported as a length that is out of range.
-        [InlineData(int.MinValue, 0)]
-        [InlineData(5, 0)]
-        [InlineData(16, 0)]
-        [InlineData(17, 0)]
-        [InlineData(int.MaxValue, 0)]
         public void Slice_length_out_of_range(int start, int length)
         {
             var list = FastImmutableList<string>.Empty
@@ -159,25 +165,6 @@ namespace ExRam.Gremlinq.Core.Tests
                 .WithParameterName("length");
         }
 
-        //A negative length is not rejected. It becomes the count of the slice.
-        [Theory]
-        [InlineData(0, -1)]
-        [InlineData(1, -1)]
-        [InlineData(4, -1)]
-        [InlineData(0, int.MinValue)]
-        [InlineData(5, -1)]
-        public void Slice_of_negative_length(int start, int length)
-        {
-            var list = FastImmutableList<string>.Empty
-                .Push("1", "2", "3", "4");
-
-            list
-                .Slice(start, length)
-                .Count
-                .Should()
-                .Be(length);
-        }
-
         [Fact]
         public void Slice_of_empty_out_of_range()
         {
@@ -186,11 +173,10 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Should()
                 .Throw<ArgumentOutOfRangeException>();
 
-            FastImmutableList<string>.Empty
-                .Slice(0, -1)
-                .Count
+            FluentActions
+                .Invoking(() => FastImmutableList<string>.Empty.Slice(0, -1))
                 .Should()
-                .Be(-1);
+                .Throw<ArgumentOutOfRangeException>();
 
             FluentActions
                 .Invoking(() => FastImmutableList<string>.Empty.Slice(1, 0))

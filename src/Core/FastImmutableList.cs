@@ -65,9 +65,16 @@ namespace ExRam.Gremlinq.Core
             return new FastImmutableList<T>(Items, Count - 1);
         }
 
-        public FastImmutableList<T> Slice(int start, int length) => length <= Count - start
-            ? new(Items[start..], length)
-            : throw new ArgumentOutOfRangeException(nameof(length));
+        public FastImmutableList<T> Slice(int start, int length)
+        {
+            if (start < 0 || start > Count)
+                throw new ArgumentOutOfRangeException(nameof(start));
+
+            if (length < 0 || length > Count - start)
+                throw new ArgumentOutOfRangeException(nameof(length));
+
+            return new(Items[start..], length);
+        }
 
         public int Count { get; }
 
