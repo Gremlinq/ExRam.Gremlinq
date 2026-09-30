@@ -132,8 +132,10 @@ namespace ExRam.Gremlinq.Core
                         .Continue()
                         .With(projection)
                         // by() is given one element at a time, so a local() that is all of its traversal changes nothing about it.
-                        .Build(static (_, traversal) => traversal is [LocalStep localStep]
-                            ? localStep.Traversal
+                        // A lone values('key') keeps its local(): TinkerPop turns by(__.values('key')) into by('key'),
+                        // which fails on more than one value.
+                        .Build(static (_, traversal) => traversal is [LocalStep { Traversal: var localTraversal }] && localTraversal is not [ValuesStep { Keys.Length: 1 }]
+                            ? localTraversal
                             : traversal))),
                 _emptyProjectionProtectionDecoratorSteps);
 

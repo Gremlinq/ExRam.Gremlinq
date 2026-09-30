@@ -1,1 +1,1 @@
-﻿g.V().hasLabel('Person').project('Item1','Item2').by(__.values('Name')).by(__.id())
+﻿g.V().hasLabel('Person').project('Item1','Item2').by(__.local(__.values('Name'))).by(__.id())
