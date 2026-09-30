@@ -35,10 +35,15 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                         // which is all a dictionary needs to size itself.
                         var dictionary = create(mapArray.Count / 2);
 
+                        // Set rather than added: a key that is there twice is taken from its last
+                        // occurrence instead of failing the whole map. The entry keeps the place of
+                        // the first and gets the value of the last. The keys are compared as what
+                        // they are read as, so a g:Int32 1 and a g:Int64 1 are the same key when
+                        // longs are asked for.
                         for (var i = 0; i < mapArray.Count / 2; i++)
                         {
                             if (recurse.TryTransform(mapArray[i * 2], _environment, out TKey? key) && recurse.TryTransform(mapArray[i * 2 + 1], _environment, out TValue? entry))
-                                dictionary.Add(key, entry);
+                                dictionary[key] = entry;
                         }
 
                         return dictionary;
