@@ -530,6 +530,43 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task T_from_unknown_typed_T() => VerifyAttempt<T>("""{ "@type": "g:T", "@value": "unknown" }""");
 
+        // Asked for as an object, a typed value is what its type says it is. A value its type cannot
+        // hold does not make it the bare @value instead: "unknown" is no T, so this is no T, and no
+        // string either - it is an error. Declining is no way out: for an object, the envelope
+        // itself would be returned.
+        [Fact]
+        public virtual Task Object_from_unknown_typed_T() => VerifyAttempt<object>("""{ "@type": "g:T", "@value": "unknown" }""");
+
+        [Fact]
+        public virtual Task Object_from_unknown_typed_Direction() => VerifyAttempt<object>("""{ "@type": "g:Direction", "@value": "SIDEWAYS" }""");
+
+        [Fact]
+        public virtual Task Object_from_typed_Int32_with_string_value() => VerifyAttempt<object>("""{ "@type": "g:Int32", "@value": "abc" }""");
+
+        // GraphSON writes a double that is no number as a string - "NaN", "Infinity", "-Infinity". That
+        // is a double all the same, and read as one, asked for as an object or as a double.
+        [Fact]
+        public virtual Task Object_from_typed_Double_NaN() => VerifyAttempt<object>("""{ "@type": "g:Double", "@value": "NaN" }""");
+
+        [Fact]
+        public virtual Task Object_from_typed_Double_Infinity() => VerifyAttempt<object>("""{ "@type": "g:Double", "@value": "Infinity" }""");
+
+        [Fact]
+        public virtual Task Object_from_typed_Double_negative_Infinity() => VerifyAttempt<object>("""{ "@type": "g:Double", "@value": "-Infinity" }""");
+
+        [Fact]
+        public virtual Task Double_from_typed_Double_NaN() => VerifyAttempt<double>("""{ "@type": "g:Double", "@value": "NaN" }""");
+
+        // Where the caller asks for a type of its own, the @value is read as that type, whatever the
+        // GraphSON type says - the way a g:Int64 is read into an int. That stays as it is.
+        [Fact]
+        public virtual Task String_from_typed_Int32_with_string_value() => VerifyAttempt<string>("""{ "@type": "g:Int32", "@value": "abc" }""");
+
+        // A type name neither implementation knows says nothing they could hold the value to, so its
+        // @value is read as it is. Providers send types of their own; that stays as it is, too.
+        [Fact]
+        public virtual Task Object_from_value_of_unknown_type() => VerifyAttempt<object>("""{ "@type": "x:Unknown", "@value": 42 }""");
+
         [Fact]
         public virtual Task Decimal_from_typed_BigDecimal() => Verify<decimal>("""{ "@type": "gx:BigDecimal", "@value": 123.456 }""");
 
@@ -791,41 +828,22 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         // The same map asked for as an object. Without an id and a label it is no element, and a g:T
         // that is not one is not a name either, so it is built as the dictionary it is, as a map with
-        // any key that is no name is. The snapshot of a dictionary writes its keys alike whatever
-        // their type, so the types are recorded alongside it.
+        // any key that is no name is. Its keys are read as objects - and a g:T whose value is no T
+        // cannot be read as one, so the map cannot be read either.
         [Fact]
-        public virtual Task Element_map_with_uppercase_T_values_as_object()
-        {
-            var subject = _environment
-                .Deserializer
-                .TransformTo<object>()
-                .From(CreateNativeToken("""
-                    {
-                      "@type": "g:Map",
-                      "@value": [
-                        { "@type": "g:T", "@value": "ID" },
-                        { "@type": "g:Int64", "@value": 1 },
-                        { "@type": "g:T", "@value": "LABEL" },
-                        "SomeUnknownLabel",
-                        "SomeProperty",
-                        "SomeValue"
-                      ]
-                    }
-                    """), _environment);
-
-            return Verifier
-                .Verify(
-                    new
-                    {
-                        Type = subject.GetType(),
-                        KeyTypes = subject is IDictionary dictionary
-                            ? dictionary.Keys.Cast<object>().Select(static key => key.GetType()).ToArray()
-                            : null,
-                        Value = subject
-                    },
-                    sourceFile: _sourceFile)
-                .DontScrubDateTimes();
-        }
+        public virtual Task Element_map_with_uppercase_T_values_as_object() => VerifyAttempt<object>("""
+            {
+              "@type": "g:Map",
+              "@value": [
+                { "@type": "g:T", "@value": "ID" },
+                { "@type": "g:Int64", "@value": 1 },
+                { "@type": "g:T", "@value": "LABEL" },
+                "SomeUnknownLabel",
+                "SomeProperty",
+                "SomeValue"
+              ]
+            }
+            """);
 
         [Fact]
         public virtual Task Language_unknown_type() => Verify<object>(Single_Language);
