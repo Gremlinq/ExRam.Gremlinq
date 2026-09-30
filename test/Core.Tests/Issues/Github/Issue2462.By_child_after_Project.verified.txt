@@ -1,0 +1,1 @@
+﻿g.V().project('x').coalesce(__.by(__.identity()))

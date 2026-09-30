@@ -9,6 +9,7 @@ using System.Diagnostics.CodeAnalysis;
 using Gremlin.Net.Driver.Messages;
 using Gremlin.Net.Driver;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 
 namespace ExRam.Gremlinq.Core.Serialization
 {
@@ -122,7 +123,45 @@ namespace ExRam.Gremlinq.Core.Serialization
                 {
                     static void AddTraversal(Traversal traversal, Bytecode byteCode, IGremlinQueryEnvironment env, ITransformer recurse)
                     {
-                        AddSteps(traversal.Steps, byteCode, true, env, recurse);
+                        AddSteps(InlineCoalesceSteps(traversal.Steps), byteCode, true, env, recurse);
+                    }
+
+                    // With a single traversal, coalesce has nothing to fall back to. If that traversal behaves the same
+                    // inlined, its steps take the place of the coalesce step and get merged with their new neighbours.
+                    static Traversal? TryGetInlinableTraversal(Step step) => step is CoalesceStep { Traversals: [var traversal] } && traversal.IsTraverserLocal()
+                        ? traversal
+                        : default(Traversal?);
+
+                    static ReadOnlySpan<Step> InlineCoalesceSteps(ReadOnlySpan<Step> steps)
+                    {
+                        static void AddInlinedSteps(ReadOnlySpan<Step> steps, List<Step> inlinedSteps)
+                        {
+                            for (var i = 0; i < steps.Length; i++)
+                            {
+                                if (TryGetInlinableTraversal(steps[i]) is not { } traversal)
+                                    inlinedSteps.Add(steps[i]);
+                                else if (!traversal.IsIdentity())
+                                    AddInlinedSteps(traversal.Steps, inlinedSteps);
+                            }
+                        }
+
+                        for (var i = 0; i < steps.Length; i++)
+                        {
+                            if (TryGetInlinableTraversal(steps[i]) is not null)
+                            {
+                                var inlinedSteps = new List<Step>(steps.Length);
+
+                                AddInlinedSteps(steps, inlinedSteps);
+
+                                // An anonymous traversal without steps would be written as a bare "__".
+                                if (inlinedSteps.Count == 0)
+                                    inlinedSteps.Add(IdentityStep.Instance);
+
+                                return CollectionsMarshal.AsSpan(inlinedSteps);
+                            }
+                        }
+
+                        return steps;
                     }
 
                     static void AddInstruction(Instruction instruction, Bytecode byteCode, bool isSourceInstruction, IGremlinQueryEnvironment env, ITransformer recurse)
