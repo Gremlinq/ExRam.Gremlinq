@@ -1609,6 +1609,16 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             }
             """);
 
+        // A key that cannot be read as what the dictionary is keyed by is no occurrence of any key:
+        // its entry is left out, and the entries around it are kept.
+        [Fact]
+        public virtual Task Dictionary_from_map_with_unreadable_key() => VerifyWithKeys<Dictionary<int, string>>("""
+            {
+              "@type": "g:Map",
+              "@value": [ 1, "a", "not a number", "b", 2, "c" ]
+            }
+            """);
+
         // A tree's entries are keyed as well, and a key that is there twice is its last subtree.
         [Fact]
         public virtual Task Tree_with_key_twice() => Verify<Tree<string>>("""
