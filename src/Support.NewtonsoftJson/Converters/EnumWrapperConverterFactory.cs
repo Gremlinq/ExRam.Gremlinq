@@ -19,6 +19,13 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
             // A static field on a generic type caches this per requested type.
             private static readonly MethodInfo? GetByValue = typeof(TTarget).GetMethod(nameof(GetByValue), BindingFlags.Public | BindingFlags.Static, [typeof(string)]);
 
+            // A value GetByValue does not know - "ID" for a T, or one a newer server sends - is still a
+            // value of that enumeration, just not one Gremlin.Net has a name for. Every Gremlin.Net
+            // enumeration has a private constructor taking the value, and it builds one with that
+            // value, equal to none of the known ones. GraphsonSupportTestBase says when an upgrade
+            // takes that constructor away; until then, a missing one makes this converter decline.
+            private static readonly ConstructorInfo? ValueConstructor = typeof(TTarget).GetConstructor(BindingFlags.NonPublic | BindingFlags.Instance, [typeof(string)]);
+
             bool IConverter<JValue, TTarget>.TryConvert(JValue serialized, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
             {
                 ArgumentNullException.ThrowIfNull(serialized);
@@ -38,7 +45,12 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                     }
                     catch (TargetInvocationException ex) when (ex.InnerException is ArgumentException)
                     {
-                        // A value the enumeration doesn't know makes this converter decline.
+                        if (ValueConstructor?.Invoke([enumValue]) is TTarget unknown)
+                        {
+                            value = unknown;
+
+                            return true;
+                        }
                     }
                 }
 
