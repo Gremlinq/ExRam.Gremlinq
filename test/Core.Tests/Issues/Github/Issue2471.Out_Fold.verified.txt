@@ -1,1 +1,1 @@
-﻿g.V().hasLabel('Person').out('WorksFor').fold()
+﻿g.V().hasLabel('Person').flatMap(__.out('WorksFor').fold())

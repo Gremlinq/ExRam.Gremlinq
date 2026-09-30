@@ -1,1 +1,1 @@
-﻿g.V().hasLabel('Person').out('WorksFor').limit(1).in('WorksFor')
+﻿g.V().hasLabel('Person').flatMap(__.out('WorksFor').limit(1)).in('WorksFor')

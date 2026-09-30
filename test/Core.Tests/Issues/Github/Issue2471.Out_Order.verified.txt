@@ -1,1 +1,1 @@
-﻿g.V().hasLabel('Person').out('WorksFor').hasLabel('Company').order().by('FoundingDate',asc)
+﻿g.V().hasLabel('Person').flatMap(__.out('WorksFor').hasLabel('Company').order().by('FoundingDate',asc))

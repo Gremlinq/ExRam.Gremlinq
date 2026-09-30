@@ -445,8 +445,13 @@ namespace ExRam.Gremlinq.Core
                     {
                         if (traversals is [var singleTraversal])
                         {
-                            builder = builder
-                                .AddSteps(singleTraversal.Steps)
+                            // With nothing to fall back to, a coalesce of a single sub-query is a flatMap: the sub-query
+                            // is evaluated once per element. Its steps only go without it if they behave the same that way.
+                            builder = (singleTraversal.IsLocal()
+                                ? builder
+                                    .AddSteps(singleTraversal.Steps)
+                                : builder
+                                    .AddStep(new FlatMapStep(singleTraversal)))
                                 .WithNewProjection(singleTraversal.Projection);
                         }
                         else
