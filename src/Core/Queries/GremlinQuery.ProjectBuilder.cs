@@ -131,12 +131,29 @@ namespace ExRam.Gremlinq.Core
                     .Push(new ProjectStep.ByTraversalStep(_outer
                         .Continue()
                         .With(projection)
-                        // by() is given one element at a time, so a local() that is all of its traversal changes nothing about it.
-                        // A lone values('key') keeps its local(): TinkerPop turns by(__.values('key')) into by('key'),
-                        // which fails on more than one value.
-                        .Build(static (_, traversal) => traversal is [LocalStep { Traversal: var localTraversal }] && localTraversal is not [ValuesStep { Keys.Length: 1 }]
-                            ? localTraversal
-                            : traversal))),
+                        .Build(static (_, traversal) =>
+                        {
+                            // by() takes the first result of its traversal for the one element it is given, so a map() or
+                            // a local() that is all of that traversal changes nothing about it. A lone values('key') keeps
+                            // what is around it: TinkerPop turns by(__.values('key')) into by('key'), which fails on more
+                            // than one value.
+                            while (true)
+                            {
+                                Traversal innerTraversal;
+
+                                if (traversal is [MapStep mapStep])
+                                    innerTraversal = mapStep.Traversal;
+                                else if (traversal is [LocalStep localStep])
+                                    innerTraversal = localStep.Traversal;
+                                else
+                                    return traversal;
+
+                                if (innerTraversal is [] or [ValuesStep { Keys.Length: 1 }])
+                                    return traversal;
+
+                                traversal = innerTraversal;
+                            }
+                        }))),
                 _emptyProjectionProtectionDecoratorSteps);
 
             private ProjectBuilder<TNewItem1, TNewItem2, TNewItem3, TNewItem4, TNewItem5, TNewItem6, TNewItem7, TNewItem8, TNewItem9, TNewItem10, TNewItem11, TNewItem12, TNewItem13, TNewItem14, TNewItem15, TNewItem16> ByExpression<TNewItem1, TNewItem2, TNewItem3, TNewItem4, TNewItem5, TNewItem6, TNewItem7, TNewItem8, TNewItem9, TNewItem10, TNewItem11, TNewItem12, TNewItem13, TNewItem14, TNewItem15, TNewItem16>(Expression projection, string? name = null) => projection is LambdaExpression lambdaExpression && lambdaExpression.IsIdentityExpression()

@@ -1,1 +1,1 @@
-﻿g.V().hasLabel('Person').project('count','id').by(__.map(__.out('WorksFor').count())).by(__.id())
+﻿g.V().hasLabel('Person').project('count','id').by(__.out('WorksFor').count()).by(__.id())
