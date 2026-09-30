@@ -512,8 +512,15 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task Direction_from_typed_Direction() => Verify<Direction>("""{ "@type": "g:Direction", "@value": "OUT" }""");
 
+        // A value Gremlin.Net has no static instance for is still a value of that enumeration - a
+        // newer server may send one this Gremlin.Net does not know yet. It is read as a Direction
+        // with that value, rather than as no Direction at all, or as the bare string when asked for
+        // as an object. It equals no Direction Gremlin.Net knows.
         [Fact]
         public virtual Task Direction_from_unknown_typed_Direction() => VerifyAttempt<Direction>("""{ "@type": "g:Direction", "@value": "SIDEWAYS" }""");
+
+        [Fact]
+        public virtual Task Object_from_unknown_typed_Direction() => VerifyAttempt<object>("""{ "@type": "g:Direction", "@value": "SIDEWAYS" }""");
 
         [Fact]
         public virtual Task Object_from_typed_Merge() => Verify<object>("""{ "@type": "g:Merge", "@value": "onCreate" }""");
@@ -527,8 +534,26 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task T_from_typed_T() => Verify<T>("""{ "@type": "g:T", "@value": "id" }""");
 
+        // The same for a T.
         [Fact]
         public virtual Task T_from_unknown_typed_T() => VerifyAttempt<T>("""{ "@type": "g:T", "@value": "unknown" }""");
+
+        [Fact]
+        public virtual Task Object_from_unknown_typed_T() => VerifyAttempt<object>("""{ "@type": "g:T", "@value": "unknown" }""");
+
+        // Both implementations build such a value through the private constructor every Gremlin.Net
+        // enumeration has, taking the value. That is not Gremlin.Net's public surface, so this says
+        // when an upgrade takes it away: it lists the enumerations that have none.
+        [Fact]
+        public virtual Task Every_Gremlin_enumeration_can_hold_a_value_it_has_no_name_for() => Verifier
+            .Verify(
+                typeof(Gremlin.Net.Process.Traversal.EnumWrapper).Assembly
+                    .GetTypes()
+                    .Where(static type => typeof(Gremlin.Net.Process.Traversal.EnumWrapper).IsAssignableFrom(type) && !type.IsAbstract && type != typeof(Gremlin.Net.Process.Traversal.EnumWrapper))
+                    .Where(static type => type.GetConstructor(System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance, [typeof(string)]) is null)
+                    .Select(static type => type.FullName)
+                    .ToArray(),
+                sourceFile: _sourceFile);
 
         [Fact]
         public virtual Task Decimal_from_typed_BigDecimal() => Verify<decimal>("""{ "@type": "gx:BigDecimal", "@value": 123.456 }""");
@@ -770,10 +795,10 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             }
             """);
 
-        // A g:T's value is one of Gremlin's T values - "id", "key", "label", "value" - spelled the way
-        // GraphSON spells them. "ID" and "LABEL" are none of them, so this map has no id and no label
-        // and is no element. Asked for as a Person, it has an Age and nothing to say about the rest.
-        // A value no T has is no reason to throw, either: the g:T is just not one.
+        // An element map's id and label are the g:T values "id" and "label", spelled the way GraphSON
+        // spells them. "ID" and "LABEL" are T values of their own, neither of those, so this map has
+        // no id and no label and is no element. Asked for as a Person, it has an Age and nothing to
+        // say about the rest - and a T value Gremlin has no name for is no reason to throw.
         [Fact]
         public virtual Task Person_from_element_map_with_uppercase_T_values() => VerifyAttempt<Person>("""
             {
@@ -789,10 +814,11 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             }
             """);
 
-        // The same map asked for as an object. Without an id and a label it is no element, and a g:T
-        // that is not one is not a name either, so it is built as the dictionary it is, as a map with
-        // any key that is no name is. The snapshot of a dictionary writes its keys alike whatever
-        // their type, so the types are recorded alongside it.
+        // The same map asked for as an object. Without an id and a label it is no element, and its keys
+        // are not all names - a name is a string, or an element map's id or label - so it is built as
+        // the dictionary it is, as a map with any other key is. Its g:T keys stay what they are: the T
+        // values T.ID and T.LABEL, not the strings "ID" and "LABEL". The snapshot of a dictionary
+        // writes its keys alike whatever their type, so the types are recorded alongside it.
         [Fact]
         public virtual Task Element_map_with_uppercase_T_values_as_object()
         {

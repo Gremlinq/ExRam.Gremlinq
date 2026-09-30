@@ -1,13 +1,13 @@
 ﻿{
   Type: Dictionary<object, object>,
   KeyTypes: [
-    string,
-    string,
+    T,
+    T,
     string
   ],
   Value: {
-    ID: 1,
-    LABEL: SomeUnknownLabel,
+    T.ID: 1,
+    T.LABEL: SomeUnknownLabel,
     SomeProperty: SomeValue
   }
 }
