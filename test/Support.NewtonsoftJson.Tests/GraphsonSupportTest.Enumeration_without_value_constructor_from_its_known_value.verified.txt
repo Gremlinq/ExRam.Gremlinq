@@ -1,0 +1,7 @@
+﻿{
+  Success: true,
+  Value: {
+    EnumName: EnumerationWithoutValueConstructor,
+    EnumValue: known
+  }
+}

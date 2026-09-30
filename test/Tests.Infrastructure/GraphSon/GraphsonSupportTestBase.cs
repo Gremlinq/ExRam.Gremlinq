@@ -522,6 +522,22 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task Object_from_unknown_typed_Direction() => VerifyAttempt<object>("""{ "@type": "g:Direction", "@value": "SIDEWAYS" }""");
 
+        // An enumeration's value is a string. A number is none, so there is no Direction to read.
+        [Fact]
+        public virtual Task Direction_from_typed_Direction_with_number_value() => VerifyAttempt<Direction>("""{ "@type": "g:Direction", "@value": 1 }""");
+
+        // An enumeration without the constructor taking the value - which the test below says no
+        // Gremlin.Net one lacks today - cannot hold a value it has no name for. Asked for one, it
+        // declines, as every enumeration did before. So it does where its GetByValue answers null.
+        [Fact]
+        public virtual Task Enumeration_without_value_constructor_from_its_known_value() => VerifyAttempt<EnumerationWithoutValueConstructor>("\"known\"");
+
+        [Fact]
+        public virtual Task Enumeration_without_value_constructor_from_unknown_value() => VerifyAttempt<EnumerationWithoutValueConstructor>("\"unknown\"");
+
+        [Fact]
+        public virtual Task Enumeration_without_value_constructor_from_value_answered_with_null() => VerifyAttempt<EnumerationWithoutValueConstructor>("\"none\"");
+
         [Fact]
         public virtual Task Object_from_typed_Merge() => Verify<object>("""{ "@type": "g:Merge", "@value": "onCreate" }""");
 
