@@ -863,13 +863,20 @@ namespace ExRam.Gremlinq.Core
         private TTargetQuery Map<TTargetQuery>(Func<GremlinQuery<T1, T2, T3, T4>, TTargetQuery> continuation) where TTargetQuery : IGremlinQueryBase => this
             .Continue()
             .With(continuation)
-            .Build(static (builder, innerTraversal) => innerTraversal.IsIdentity()
-                ? builder
-                    .BuildAs<TTargetQuery>()
-                : builder
-                    .AddStep(new MapStep(innerTraversal))
-                    .WithNewProjection(innerTraversal.Projection)
-                    .BuildAs<TTargetQuery>());
+            .Build(static (builder, innerTraversal) =>
+            {
+                // map() takes the first result of its traversal, so a limit(1) at the end of that traversal changes nothing about it.
+                while (innerTraversal is [_, .., LimitStep { Count: 1 } limitStep] && Scope.Global.Equals(limitStep.Scope))
+                    innerTraversal = innerTraversal.Pop();
+
+                return innerTraversal.IsIdentity()
+                    ? builder
+                        .BuildAs<TTargetQuery>()
+                    : builder
+                        .AddStep(new MapStep(innerTraversal))
+                        .WithNewProjection(innerTraversal.Projection)
+                        .BuildAs<TTargetQuery>();
+            });
 
         private GremlinQuery<T1, T2, T3, T4> MaxGlobal() => this
             .Continue()
