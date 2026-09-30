@@ -907,6 +907,81 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task Nullable_null_at_top_level() => VerifyAttempt<int?>("null");
 
+        // A string can hold a null where an int cannot, and that changes nothing here: at the top
+        // level a null is no string, as it is no int?, no Uri and no Person. It is not the empty
+        // string either - that would be a value where there was none.
+        [Fact]
+        public virtual Task String_from_null() => VerifyAttempt<string>("null");
+
+        [Fact]
+        public virtual Task Uri_from_null() => VerifyAttempt<Uri>("null");
+
+        [Fact]
+        public virtual Task Person_from_null() => VerifyAttempt<Person>("null");
+
+        // Unwrapping does not change it. A single item array, a typed value, a property - each
+        // hands on what it wraps, and what it wraps is still a null with nothing around it to
+        // hold it.
+        [Fact]
+        public virtual Task String_from_single_item_array_with_null() => VerifyAttempt<string>("[ null ]");
+
+        [Fact]
+        public virtual Task String_from_typed_value_with_null() => VerifyAttempt<string>("""{ "@type": "g:UUID", "@value": null }""");
+
+        [Fact]
+        public virtual Task String_from_Property_with_null_value() => VerifyAttempt<string>("""{ "key": "name", "value": null }""");
+
+        [Fact]
+        public virtual Task String_from_VertexProperty_with_null_value() => VerifyAttempt<string>("""{ "id": 1, "label": "name", "value": null }""");
+
+        // Nor does wrapping: a scalar asked for as a property is that property's value, and a null
+        // is none.
+        [Fact]
+        public virtual Task Property_of_string_from_null() => VerifyAttempt<Property<string>>("null");
+
+        [Fact]
+        public virtual Task VertexProperty_of_string_from_null() => VerifyAttempt<VertexProperty<string>>("null");
+
+        // Inside an array the null has somewhere to be, and is there - as a null, the way
+        // Nullable_null has it for an int?.
+        [Fact]
+        public virtual Task Strings_from_Array_with_null() => Verify<string[]>("[ \"a\", null ]");
+
+        // An object is somewhere to be as well. A constructor argument that is null is passed as
+        // one, and a member that is null is left as it was - neither is handed the empty string. A
+        // snapshot leaves out a member that is null and writes one that is empty, so these tell
+        // the two apart.
+        [Fact]
+        public virtual Task Constructor_arguments_from_null() => Verify<ClassWithFieldsAndConstructor>("""
+            {
+                "stringArg": null,
+                "nullableStringArg": null,
+                "intArg": 42
+            }
+            """);
+
+        [Fact]
+        public virtual Task Member_from_null() => Verify<ClassWithFieldsAndConstructor>("""
+            {
+                "stringArg": "stringValue",
+                "intArg": 42,
+                "settableString": null
+            }
+            """);
+
+        // The same for the member of a vertex, whose null arrives inside a vertex property.
+        [Fact]
+        public virtual Task Language_with_null_property_value() => Verify<Language>("""
+            {
+              "id": 1,
+              "label": "Language",
+              "type": "vertex",
+              "properties": {
+                "IetfLanguageTag": [ { "id": 2, "value": null } ]
+              }
+            }
+            """);
+
         // The other way a nullable can come to nothing, and a different one: here the token is
         // there to be read and the requested type simply cannot read it.
         [Fact]
