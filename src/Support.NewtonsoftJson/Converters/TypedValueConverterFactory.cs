@@ -65,6 +65,13 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                                     value = target;
                                     return true;
                                 }
+
+                                // The caller's type could have held what the GraphSON type says this
+                                // is, and the value is no such thing. Reading the bare @value instead
+                                // would turn a g:T "unknown" into the string "unknown". Declining would
+                                // not help: for an object, the envelope itself is always left to be
+                                // returned. So this is an error.
+                                throw new InvalidCastException($"The GraphSON value {serialized.ToString(Newtonsoft.Json.Formatting.None)} cannot be read as its type {typeNameString} says: it is no {moreSpecificType.Name}.");
                             }
                         }
 
