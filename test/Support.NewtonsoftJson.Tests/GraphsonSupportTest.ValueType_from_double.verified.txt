@@ -1,0 +1,5 @@
+﻿{
+  Success: true,
+  Type: double,
+  Value: 5.5
+}

@@ -1,0 +1,5 @@
+﻿{
+  Success: true,
+  Type: TimeSpan,
+  Value: 01:00:00
+}

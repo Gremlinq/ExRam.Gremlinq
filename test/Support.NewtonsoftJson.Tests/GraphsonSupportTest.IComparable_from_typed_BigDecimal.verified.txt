@@ -1,0 +1,5 @@
+﻿{
+  Success: true,
+  Type: decimal,
+  Value: 1.5
+}

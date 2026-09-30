@@ -1,0 +1,12 @@
+﻿{
+  Success: true,
+  Type: object[],
+  Value: [
+    10,
+    20,
+    20,
+    30,
+    30,
+    30
+  ]
+}

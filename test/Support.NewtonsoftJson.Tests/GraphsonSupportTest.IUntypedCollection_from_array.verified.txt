@@ -1,0 +1,8 @@
+﻿{
+  Success: true,
+  Type: object[],
+  Value: [
+    1,
+    abc
+  ]
+}

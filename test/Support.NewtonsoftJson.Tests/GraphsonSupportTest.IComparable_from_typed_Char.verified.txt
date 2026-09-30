@@ -1,0 +1,5 @@
+﻿{
+  Success: true,
+  Type: char,
+  Value: x
+}

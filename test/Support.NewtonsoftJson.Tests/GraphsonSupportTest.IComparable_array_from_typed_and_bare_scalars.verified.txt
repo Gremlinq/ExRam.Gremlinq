@@ -1,0 +1,20 @@
+﻿{
+  ItemTypes: [
+    int,
+    long,
+    Guid,
+    string,
+    double,
+    bool,
+    string
+  ],
+  Value: [
+    1,
+    2,
+    Guid_1,
+    id,
+    2.5,
+    true,
+    abc
+  ]
+}

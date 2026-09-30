@@ -1,0 +1,5 @@
+﻿{
+  Success: true,
+  Type: long,
+  Value: 5
+}

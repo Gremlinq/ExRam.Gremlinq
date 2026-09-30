@@ -829,6 +829,239 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task DateTime_from_typed_Timestamp() => Verify<DateTime>("""{ "@type": "g:Timestamp", "@value": 1657527969000 }""");
 
+        // The tests below ask for a base type or an interface, which more than one type could
+        // stand in for - an IComparable is given an int, a long or a string alike, and a snapshot
+        // of 5 does not say which. There the type is the answer, so it is recorded alongside the
+        // value, the way Map_of_typed_int_keys_as_object does it.
+        protected SettingsTask VerifyAttemptWithRuntimeType<T>(string token)
+        {
+            object outcome;
+
+            try
+            {
+                outcome = _environment
+                    .Deserializer
+                    .TryTransform<TNativeToken, T>(CreateNativeToken(token), _environment, out var value)
+                        ? new { Success = true, Type = (Type?)value.GetType(), Value = (object?)value }
+                        : new { Success = false, Type = (Type?)null, Value = (object?)null };
+            }
+            catch (Exception ex)
+            {
+                outcome = new { Success = false, Threw = ex.GetType().Name };
+            }
+
+            return Verifier
+                .Verify(outcome, sourceFile: _sourceFile)
+                .DontScrubDateTimes();
+        }
+
+        // A typed value is the type its name stands for to everything that could hold that type,
+        // not only to an object: a g:Int32 is an int to an IComparable and to a ValueType, a
+        // g:Float a float, a g:UUID a Guid. Its bare @value, read without the name, would be a
+        // long, a double and a string.
+        [Fact]
+        public virtual Task IComparable_from_typed_Int32() => VerifyAttemptWithRuntimeType<IComparable>("""{ "@type": "g:Int32", "@value": 5 }""");
+
+        [Fact]
+        public virtual Task ValueType_from_typed_Int32() => VerifyAttemptWithRuntimeType<ValueType>("""{ "@type": "g:Int32", "@value": 5 }""");
+
+        [Fact]
+        public virtual Task IEquatable_of_int_from_typed_Int32() => VerifyAttemptWithRuntimeType<IEquatable<int>>("""{ "@type": "g:Int32", "@value": 5 }""");
+
+        [Fact]
+        public virtual Task IFormattable_from_typed_Float() => VerifyAttemptWithRuntimeType<IFormattable>("""{ "@type": "g:Float", "@value": 1.5 }""");
+
+        [Fact]
+        public virtual Task IEquatable_of_float_from_typed_Float() => VerifyAttemptWithRuntimeType<IEquatable<float>>("""{ "@type": "g:Float", "@value": 1.5 }""");
+
+        [Fact]
+        public virtual Task IConvertible_from_typed_Double() => VerifyAttemptWithRuntimeType<IConvertible>("""{ "@type": "g:Double", "@value": 5 }""");
+
+        [Fact]
+        public virtual Task IComparable_from_typed_UUID() => VerifyAttemptWithRuntimeType<IComparable>("""{ "@type": "g:UUID", "@value": "41d2e28a-20a4-4ab0-b379-d810dede3786" }""");
+
+        [Fact]
+        public virtual Task ValueType_from_typed_UUID() => VerifyAttemptWithRuntimeType<ValueType>("""{ "@type": "g:UUID", "@value": "41d2e28a-20a4-4ab0-b379-d810dede3786" }""");
+
+        [Fact]
+        public virtual Task ValueType_from_typed_Date() => VerifyAttemptWithRuntimeType<ValueType>("""{ "@type": "g:Date", "@value": 1657527969000 }""");
+
+        [Fact]
+        public virtual Task IFormattable_from_typed_Timestamp() => VerifyAttemptWithRuntimeType<IFormattable>("""{ "@type": "g:Timestamp", "@value": 1657527969000 }""");
+
+        [Fact]
+        public virtual Task IComparable_from_typed_BigDecimal() => VerifyAttemptWithRuntimeType<IComparable>("""{ "@type": "gx:BigDecimal", "@value": 1.5 }""");
+
+        [Fact]
+        public virtual Task ValueType_from_typed_Duration() => VerifyAttemptWithRuntimeType<ValueType>("""{ "@type": "gx:Duration", "@value": "PT1H" }""");
+
+        [Fact]
+        public virtual Task IFormattable_from_typed_BigInteger() => VerifyAttemptWithRuntimeType<IFormattable>("""{ "@type": "gx:BigInteger", "@value": 5 }""");
+
+        [Fact]
+        public virtual Task IComparable_from_typed_Byte() => VerifyAttemptWithRuntimeType<IComparable>("""{ "@type": "gx:Byte", "@value": 5 }""");
+
+        [Fact]
+        public virtual Task IConvertible_from_typed_Int16() => VerifyAttemptWithRuntimeType<IConvertible>("""{ "@type": "gx:Int16", "@value": 5 }""");
+
+        [Fact]
+        public virtual Task IComparable_from_typed_Char() => VerifyAttemptWithRuntimeType<IComparable>("""{ "@type": "gx:Char", "@value": "x" }""");
+
+        // The same for Gremlin's enumerations, whose base type is Gremlin.Net's EnumWrapper: a g:T
+        // is a T to it, a value Gremlin.Net has no name for included.
+        [Fact]
+        public virtual Task EnumWrapper_from_typed_T() => VerifyAttemptWithRuntimeType<Gremlin.Net.Process.Traversal.EnumWrapper>("""{ "@type": "g:T", "@value": "id" }""");
+
+        [Fact]
+        public virtual Task EnumWrapper_from_unknown_typed_T() => VerifyAttemptWithRuntimeType<Gremlin.Net.Process.Traversal.EnumWrapper>("""{ "@type": "g:T", "@value": "unknown" }""");
+
+        [Fact]
+        public virtual Task EnumWrapper_from_typed_Direction() => VerifyAttemptWithRuntimeType<Gremlin.Net.Process.Traversal.EnumWrapper>("""{ "@type": "g:Direction", "@value": "OUT" }""");
+
+        [Fact]
+        public virtual Task EnumWrapper_from_typed_Merge() => VerifyAttemptWithRuntimeType<Gremlin.Net.Process.Traversal.EnumWrapper>("""{ "@type": "g:Merge", "@value": "onCreate" }""");
+
+        [Fact]
+        public virtual Task IEquatable_of_EnumWrapper_from_typed_T() => VerifyAttemptWithRuntimeType<IEquatable<Gremlin.Net.Process.Traversal.EnumWrapper>>("""{ "@type": "g:T", "@value": "id" }""");
+
+        // And for a g:Tree, which the non-generic IEnumerable can hold as the tree it is, rather
+        // than as the array its @value is.
+        [Fact]
+        public virtual Task Untyped_IEnumerable_from_typed_Tree() => VerifyAttemptWithRuntimeType<IEnumerable>(GraphSonStrings.RootOnly_string_tree);
+
+        // Where the requested type cannot hold the type the name stands for - a Guid is no
+        // IConvertible, a DateTimeOffset neither, and a T is no IComparable - the bare @value is
+        // all there is to go by, and it is read as it would be without the name around it.
+        [Fact]
+        public virtual Task IConvertible_from_typed_UUID() => VerifyAttemptWithRuntimeType<IConvertible>("""{ "@type": "g:UUID", "@value": "41d2e28a-20a4-4ab0-b379-d810dede3786" }""");
+
+        [Fact]
+        public virtual Task IConvertible_from_typed_Date() => VerifyAttemptWithRuntimeType<IConvertible>("""{ "@type": "g:Date", "@value": 1657527969000 }""");
+
+        [Fact]
+        public virtual Task IComparable_from_typed_T() => VerifyAttemptWithRuntimeType<IComparable>("""{ "@type": "g:T", "@value": "id" }""");
+
+        // So it is where the @value does not fit the type the name stands for. That is no error:
+        // "abc" is no int, but it is a string, and an IComparable can hold one.
+        [Fact]
+        public virtual Task IComparable_from_typed_Int32_with_string_value() => VerifyAttemptWithRuntimeType<IComparable>("""{ "@type": "g:Int32", "@value": "abc" }""");
+
+        // And where neither can be held, there is nothing to answer with: a g:Int64 is a long,
+        // its bare @value is one too, and a long is no IEquatable<int>.
+        [Fact]
+        public virtual Task IEquatable_of_int_from_typed_Int64() => VerifyAttemptWithRuntimeType<IEquatable<int>>("""{ "@type": "g:Int64", "@value": 5 }""");
+
+        // A bare scalar is to everything that could hold it what it is to an object: a string a
+        // string, a number a long or a double, true and false a bool.
+        [Fact]
+        public virtual Task IComparable_from_string() => VerifyAttemptWithRuntimeType<IComparable>("\"abc\"");
+
+        [Fact]
+        public virtual Task IConvertible_from_string() => VerifyAttemptWithRuntimeType<IConvertible>("\"abc\"");
+
+        [Fact]
+        public virtual Task IEquatable_of_string_from_string() => VerifyAttemptWithRuntimeType<IEquatable<string>>("\"abc\"");
+
+        [Fact]
+        public virtual Task IComparable_from_int() => VerifyAttemptWithRuntimeType<IComparable>("5");
+
+        [Fact]
+        public virtual Task IFormattable_from_int() => VerifyAttemptWithRuntimeType<IFormattable>("5");
+
+        [Fact]
+        public virtual Task ValueType_from_int() => VerifyAttemptWithRuntimeType<ValueType>("5");
+
+        [Fact]
+        public virtual Task IEquatable_of_long_from_int() => VerifyAttemptWithRuntimeType<IEquatable<long>>("5");
+
+        [Fact]
+        public virtual Task IConvertible_from_double() => VerifyAttemptWithRuntimeType<IConvertible>("5.5");
+
+        [Fact]
+        public virtual Task ValueType_from_double() => VerifyAttemptWithRuntimeType<ValueType>("5.5");
+
+        [Fact]
+        public virtual Task IComparable_from_bool() => VerifyAttemptWithRuntimeType<IComparable>("true");
+
+        [Fact]
+        public virtual Task ValueType_from_bool() => VerifyAttemptWithRuntimeType<ValueType>("false");
+
+        // What the requested type cannot hold is no answer. A bare 5 is a long, as it is to an
+        // object, and no IEquatable<int> for being small enough to be an int.
+        [Fact]
+        public virtual Task IEquatable_of_int_from_int() => VerifyAttemptWithRuntimeType<IEquatable<int>>("5");
+
+        // All of the above holds for the items of an array as it does for a value on its own.
+        [Fact]
+        public virtual Task IComparable_array_from_typed_and_bare_scalars()
+        {
+            var subject = _environment
+                .Deserializer
+                .TransformTo<IComparable[]>()
+                .From(
+                    CreateNativeToken("""
+                        [
+                          { "@type": "g:Int32", "@value": 1 },
+                          { "@type": "g:Int64", "@value": 2 },
+                          { "@type": "g:UUID", "@value": "41d2e28a-20a4-4ab0-b379-d810dede3786" },
+                          { "@type": "g:T", "@value": "id" },
+                          2.5,
+                          true,
+                          "abc"
+                        ]
+                        """),
+                    _environment);
+
+            return Verifier
+                .Verify(
+                    new
+                    {
+                        ItemTypes = subject.Select(static item => item.GetType()).ToArray(),
+                        Value = subject
+                    },
+                    sourceFile: _sourceFile)
+                .DontScrubDateTimes();
+        }
+
+        // An array is an object[] to each of the non-generic collection interfaces, all of which
+        // an object[] implements - to IEnumerable no less than to ICollection and IList. So is
+        // a g:List, and a bulk set.
+        [Fact]
+        public virtual Task Untyped_IEnumerable_from_array() => VerifyAttemptWithRuntimeType<IEnumerable>("""[ { "@type": "g:Int32", "@value": 1 }, "abc" ]""");
+
+        [Fact]
+        public virtual Task IUntypedCollection_from_array() => VerifyAttemptWithRuntimeType<ICollection>("""[ { "@type": "g:Int32", "@value": 1 }, "abc" ]""");
+
+        [Fact]
+        public virtual Task IUntypedList_from_array() => VerifyAttemptWithRuntimeType<IList>("""[ { "@type": "g:Int32", "@value": 1 }, "abc" ]""");
+
+        [Fact]
+        public virtual Task Untyped_IEnumerable_from_typed_List() => VerifyAttemptWithRuntimeType<IEnumerable>("""{ "@type": "g:List", "@value": [ { "@type": "g:Int32", "@value": 1 }, "abc" ] }""");
+
+        [Fact]
+        public virtual Task Untyped_IEnumerable_from_Bulk_set_is_an_array() => VerifyAttemptWithRuntimeType<IEnumerable>(Typed_BulkSet);
+
+        // An object is a Dictionary<string, object> to the non-generic IDictionary, and to an
+        // ICollection or an IEnumerable, which a dictionary is as well. So is a map whose keys are
+        // all strings, which is read the way an object is.
+        [Fact]
+        public virtual Task IUntypedDictionary_from_object() => VerifyAttemptWithRuntimeType<IDictionary>(String_Keys_Typed_Int_Values);
+
+        [Fact]
+        public virtual Task IUntypedCollection_from_object() => VerifyAttemptWithRuntimeType<ICollection>(String_Keys_Typed_Int_Values);
+
+        [Fact]
+        public virtual Task Untyped_IEnumerable_from_object() => VerifyAttemptWithRuntimeType<IEnumerable>(String_Keys_Typed_Int_Values);
+
+        [Fact]
+        public virtual Task IUntypedDictionary_from_Map_of_string_keys() => VerifyAttemptWithRuntimeType<IDictionary>(Map_of_String_Keys_Typed_Int_Values);
+
+        [Fact]
+        public virtual Task IUntypedCollection_from_Map_of_string_keys() => VerifyAttemptWithRuntimeType<ICollection>(Map_of_String_Keys_Typed_Int_Values);
+
+        [Fact]
+        public virtual Task Untyped_IEnumerable_from_Map_of_string_keys() => VerifyAttemptWithRuntimeType<IEnumerable>(Map_of_String_Keys_Typed_Int_Values);
+
         [Fact]
         public virtual Task Object_from_typed_Direction() => Verify<object>("""{ "@type": "g:Direction", "@value": "OUT" }""");
 

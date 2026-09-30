@@ -1,0 +1,5 @@
+﻿{
+  Success: true,
+  Type: Guid,
+  Value: Guid_1
+}

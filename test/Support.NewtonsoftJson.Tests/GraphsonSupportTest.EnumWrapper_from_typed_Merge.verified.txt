@@ -1,0 +1,8 @@
+﻿{
+  Success: true,
+  Type: Merge,
+  Value: {
+    EnumName: Merge,
+    EnumValue: onCreate
+  }
+}

@@ -1,0 +1,8 @@
+﻿{
+  Success: true,
+  Type: Direction,
+  Value: {
+    EnumName: Direction,
+    EnumValue: OUT
+  }
+}

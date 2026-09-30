@@ -1,0 +1,5 @@
+﻿{
+  Success: true,
+  Type: byte,
+  Value: 5
+}

@@ -1,0 +1,8 @@
+﻿{
+  Success: true,
+  Type: T,
+  Value: {
+    EnumName: T,
+    EnumValue: unknown
+  }
+}
