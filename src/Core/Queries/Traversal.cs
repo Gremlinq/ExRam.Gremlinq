@@ -59,7 +59,27 @@ namespace ExRam.Gremlinq.Core
         /// <summary>Returns a sub-traversal starting at the given index with the given length.</summary>
         /// <param name="start">The zero-based start index.</param>
         /// <param name="length">The number of steps to include.</param>
-        public Traversal Slice(int start, int length) => new (_steps.Slice(start, length), Projection);
+        public Traversal Slice(int start, int length)
+        {
+            //This validates start and length, so it comes before anything that relies on them.
+            var slicedSteps = _steps.Slice(start, length);
+            var writeStepsCount = 0U;
+
+            if (_writeStepsCount > 0 && length > 0)
+            {
+                //Count the write steps of whatever is shorter: the slice, or what is cut off before and after it.
+                if (length <= Count - length)
+                    writeStepsCount = SideEffectSemanticsHelper(slicedSteps.AsSpan());
+                else
+                {
+                    var steps = _steps.AsSpan();
+
+                    writeStepsCount = _writeStepsCount - SideEffectSemanticsHelper(steps[..start]) - SideEffectSemanticsHelper(steps[(start + length)..]);
+                }
+            }
+
+            return new(slicedSteps, writeStepsCount, Projection);
+        }
 
         /// <summary>Returns a new traversal with the given projection.</summary>
         /// <param name="projection">The new projection.</param>
