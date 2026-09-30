@@ -1,0 +1,1 @@
+﻿g.V().hasLabel('Person').coalesce(__.out('WorksFor').dedup())

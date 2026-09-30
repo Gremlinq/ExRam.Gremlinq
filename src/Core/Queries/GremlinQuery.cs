@@ -445,8 +445,14 @@ namespace ExRam.Gremlinq.Core
                     {
                         if (traversals is [var singleTraversal])
                         {
-                            builder = builder
-                                .AddSteps(singleTraversal.Steps)
+                            // Coalesce evaluates its sub-query once per traverser. The steps of a single sub-query
+                            // only take the place of the coalesce step if they behave the same as part of this query.
+                            builder = (singleTraversal.IsTraverserLocal()
+                                ? builder
+                                    .AddSteps(singleTraversal.Steps)
+                                : builder
+                                    .AddStep(new CoalesceStep(traversalsMemory
+                                        .UnsafeToImmutableArray())))
                                 .WithNewProjection(singleTraversal.Projection);
                         }
                         else

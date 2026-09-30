@@ -34,6 +34,16 @@ namespace ExRam.Gremlinq.Core.Tests
             .Projection);
 
         [Fact]
+        public virtual Task Coalesce_with_single_subQuery_that_is_not_inlined_has_right_semantics() => Verify(_g
+            .V()
+            .Coalesce(
+                _ => _
+                    .OutE()
+                    .Limit(1))
+            .ToTraversal()
+            .Projection);
+
+        [Fact]
         public virtual Task ForceEdge_will_not_preserve_Vertex() => Verify(_g
            .V()
            .ForceEdge()
