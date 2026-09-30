@@ -1599,6 +1599,16 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             }
             """);
 
+        // The last occurrence counts even when its value cannot be read. The map says "a" is
+        // something that is no int, so there is no "a" - the 1 it said before is not what it says.
+        [Fact]
+        public virtual Task Dictionary_from_map_with_key_twice_and_unreadable_last_value() => VerifyWithKeys<Dictionary<string, int>>("""
+            {
+              "@type": "g:Map",
+              "@value": [ "a", 1, "b", 2, "a", "not a number" ]
+            }
+            """);
+
         // A tree's entries are keyed as well, and a key that is there twice is its last subtree.
         [Fact]
         public virtual Task Tree_with_key_twice() => Verify<Tree<string>>("""
