@@ -1,0 +1,7 @@
+﻿{
+  id: 2,
+  label: SomeUnknownLabel,
+  properties: {
+    SomeProperty: SomeValue
+  }
+}

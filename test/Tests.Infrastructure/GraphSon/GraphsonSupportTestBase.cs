@@ -1372,6 +1372,257 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task Property_with_value_twice_in_different_case() => Verify<Property<int>>("""{ "key": "p", "value": 1, "Value": 2 }""");
 
+        // A name spelled the same way twice is taken like one spelled two ways: from its last
+        // occurrence, and nothing throws. That goes for a member of a plain object, for a property
+        // of a vertex, and for a key of the g:Map that valueMap() returns.
+        [Fact]
+        public virtual Task Person_from_object_with_age_twice() => Verify<Person>("""{ "Age": 1, "Age": 2 }""");
+
+        [Fact]
+        public virtual Task Person_from_vertex_with_age_property_twice() => Verify<Person>("""
+            {
+              "id": 1,
+              "label": "Person",
+              "properties": {
+                "Age": [ { "id": 2, "value": 1 } ],
+                "Age": [ { "id": 3, "value": 2 } ]
+              }
+            }
+            """);
+
+        [Fact]
+        public virtual Task Person_from_map_with_age_twice() => Verify<Person>("""
+            {
+              "@type": "g:Map",
+              "@value": [ "Age", 1, "Age", 2 ]
+            }
+            """);
+
+        // GraphSON's own names are no different, be it a property's "value" or an envelope's
+        // "@value".
+        [Fact]
+        public virtual Task Property_with_value_twice() => Verify<Property<int>>("""{ "key": "p", "value": 1, "value": 2 }""");
+
+        [Fact]
+        public virtual Task Int_from_typed_value_with_value_twice() => Verify<int>("""{ "@type": "g:Int32", "@value": 1, "@value": 2 }""");
+
+        // Nor are the g:T keys of an element map. An id that is there twice is the last one, asked
+        // for as a Person or as an object - and of two labels it is the last one that says what the
+        // element is: a Person here, not a Language.
+        [Fact]
+        public virtual Task Person_from_element_map_with_id_twice() => Verify<Person>("""
+            {
+              "@type": "g:Map",
+              "@value": [
+                { "@type": "g:T", "@value": "id" },
+                { "@type": "g:Int64", "@value": 1 },
+                { "@type": "g:T", "@value": "id" },
+                { "@type": "g:Int64", "@value": 2 },
+                { "@type": "g:T", "@value": "label" },
+                "Person",
+                "Age",
+                36
+              ]
+            }
+            """);
+
+        [Fact]
+        public virtual Task Element_map_with_id_twice_as_object() => Verify<object>("""
+            {
+              "@type": "g:Map",
+              "@value": [
+                { "@type": "g:T", "@value": "id" },
+                { "@type": "g:Int64", "@value": 1 },
+                { "@type": "g:T", "@value": "id" },
+                { "@type": "g:Int64", "@value": 2 },
+                { "@type": "g:T", "@value": "label" },
+                "SomeUnknownLabel",
+                "SomeProperty",
+                "SomeValue"
+              ]
+            }
+            """);
+
+        [Fact]
+        public virtual Task Vertex_from_element_map_with_label_twice() => Verify<Vertex>("""
+            {
+              "@type": "g:Map",
+              "@value": [
+                { "@type": "g:T", "@value": "id" },
+                { "@type": "g:Int64", "@value": 1 },
+                { "@type": "g:T", "@value": "label" },
+                "Language",
+                { "@type": "g:T", "@value": "label" },
+                "Person",
+                "Age",
+                36
+              ]
+            }
+            """);
+
+        // Read as a dictionary, or as an object, a map keeps its entries rather than having members
+        // looked up in it - and a key that is there twice must not cost the whole map there either.
+        // Its entry gets the value of the last occurrence and keeps the place of the first, which
+        // is where a parser that takes the last of two members leaves it. The snapshot of a
+        // dictionary says neither in which order its keys come nor of which type they are, so both
+        // are recorded alongside it.
+        private SettingsTask VerifyWithKeys<T>(string token)
+        {
+            var subject = _environment
+                .Deserializer
+                .TransformTo<T>()
+                .From(CreateNativeToken(token), _environment);
+
+            var keys = subject switch
+            {
+                IDictionary dictionary => dictionary.Keys.Cast<object>().ToArray(),
+                IDictionary<string, object?> dictionary => [.. dictionary.Keys],
+                _ => null
+            };
+
+            return Verifier
+                .Verify(
+                    new
+                    {
+                        Keys = keys,
+                        KeyTypes = keys?.Select(static key => key.GetType()).ToArray(),
+                        Value = subject
+                    },
+                    sourceFile: _sourceFile)
+                .DontScrubDateTimes();
+        }
+
+        [Fact]
+        public virtual Task Map_with_key_twice_as_object() => VerifyWithKeys<object>("""
+            {
+              "@type": "g:Map",
+              "@value": [ "a", 1, "b", 2, "a", 3 ]
+            }
+            """);
+
+        [Fact]
+        public virtual Task Dictionary_from_map_with_key_twice() => VerifyWithKeys<Dictionary<string, int>>("""
+            {
+              "@type": "g:Map",
+              "@value": [ "a", 1, "b", 2, "a", 3 ]
+            }
+            """);
+
+        // An immutable dictionary has no order to speak of, so there is none to record.
+        [Fact]
+        public virtual Task ImmutableDictionary_from_map_with_key_twice() => Verify<ImmutableDictionary<string, int>>("""
+            {
+              "@type": "g:Map",
+              "@value": [ "a", 1, "b", 2, "a", 3 ]
+            }
+            """);
+
+        // The same for a plain object, whose members are the entries.
+        [Fact]
+        public virtual Task Object_with_member_twice_as_object() => VerifyWithKeys<object>("""{ "a": 1, "b": 2, "a": 3 }""");
+
+        [Fact]
+        public virtual Task Dictionary_from_object_with_member_twice() => VerifyWithKeys<Dictionary<string, int>>("""{ "a": 1, "b": 2, "a": 3 }""");
+
+        [Fact]
+        public virtual Task ImmutableDictionary_from_object_with_member_twice() => Verify<ImmutableDictionary<string, int>>("""{ "a": 1, "b": 2, "a": 3 }""");
+
+        // Two places where a server's answer ends up in a dictionary without the caller asking for
+        // one: the properties of a vertex whose label the model does not know, and the meta
+        // properties of a vertex property.
+        [Fact]
+        public virtual Task Vertex_with_unknown_label_and_property_twice_as_object() => Verify<object>("""
+            {
+              "id": 1,
+              "label": "SomeUnknownLabel",
+              "type": "vertex",
+              "properties": {
+                "SomeProperty": [ { "id": 2, "value": "SomeValue" } ],
+                "SomeProperty": [ { "id": 3, "value": "SomeOtherValue" } ]
+              }
+            }
+            """);
+
+        [Fact]
+        public virtual Task VertexProperty_with_meta_property_twice() => Verify<VertexProperty<object>>("""{ "id": 166, "value": "bob", "label": "Name", "properties": { "metaKey": "MetaValue", "metaKey": "OtherMetaValue" } }""");
+
+        // A key that is no name is found twice just the same, typed as it was.
+        [Fact]
+        public virtual Task Map_with_typed_int_key_twice_as_object() => VerifyWithKeys<object>("""
+            {
+              "@type": "g:Map",
+              "@value": [
+                { "@type": "g:Int32", "@value": 1 },
+                "value1",
+                { "@type": "g:Int32", "@value": 2 },
+                "value2",
+                { "@type": "g:Int32", "@value": 1 },
+                "value3"
+              ]
+            }
+            """);
+
+        // Whether two keys are the same is decided by what they are read as. A g:Int32 1 and a
+        // g:Int64 1 are two keys of a map read as an object, where each stays what it is, and one
+        // key when longs are asked for. The same goes for a "1" and a 1 when strings are asked for.
+        [Fact]
+        public virtual Task Map_with_int_and_long_key_as_object() => VerifyWithKeys<object>("""
+            {
+              "@type": "g:Map",
+              "@value": [
+                { "@type": "g:Int32", "@value": 1 },
+                "value1",
+                { "@type": "g:Int64", "@value": 1 },
+                "value2"
+              ]
+            }
+            """);
+
+        [Fact]
+        public virtual Task Dictionary_of_long_keys_from_map_with_int_and_long_key() => VerifyWithKeys<Dictionary<long, string>>("""
+            {
+              "@type": "g:Map",
+              "@value": [
+                { "@type": "g:Int32", "@value": 1 },
+                "value1",
+                { "@type": "g:Int64", "@value": 1 },
+                "value2"
+              ]
+            }
+            """);
+
+        [Fact]
+        public virtual Task Dictionary_of_string_keys_from_map_with_string_and_number_key() => VerifyWithKeys<Dictionary<string, string>>("""
+            {
+              "@type": "g:Map",
+              "@value": [ "1", "value1", 1, "value2" ]
+            }
+            """);
+
+        // A tree's entries are keyed as well, and a key that is there twice is its last subtree.
+        [Fact]
+        public virtual Task Tree_with_key_twice() => Verify<Tree<string>>("""
+            {
+              "@type": "g:Tree",
+              "@value": [
+                {
+                  "key": "a",
+                  "value": {
+                    "@type": "g:Tree",
+                    "@value": [ { "key": "b", "value": { "@type": "g:Tree", "@value": [] } } ]
+                  }
+                },
+                {
+                  "key": "a",
+                  "value": {
+                    "@type": "g:Tree",
+                    "@value": [ { "key": "c", "value": { "@type": "g:Tree", "@value": [] } } ]
+                  }
+                }
+              ]
+            }
+            """);
+
         [Fact]
         public virtual Task Person_From_ElementMap() => Verify<Person>(Single_Person_ElementMap);
 

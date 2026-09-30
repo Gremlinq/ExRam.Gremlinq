@@ -1,0 +1,13 @@
+﻿{
+  id: 1,
+  label: SomeUnknownLabel,
+  properties: {
+    SomeProperty: [
+      {
+        Id: 3,
+        Value: SomeOtherValue
+      }
+    ]
+  },
+  type: vertex
+}

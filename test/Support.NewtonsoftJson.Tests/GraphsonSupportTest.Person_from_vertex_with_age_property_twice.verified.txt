@@ -1,0 +1,6 @@
+﻿{
+  Age: 2,
+  Id: 1,
+  Label: Person,
+  PartitionKey: PartitionKey
+}
