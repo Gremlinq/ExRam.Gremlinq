@@ -131,7 +131,10 @@ namespace ExRam.Gremlinq.Core
                     .Push(new ProjectStep.ByTraversalStep(_outer
                         .Continue()
                         .With(projection)
-                        .Build(static (_, traversal) => traversal))),
+                        // by() is given one element at a time, so a local() that is all of its traversal changes nothing about it.
+                        .Build(static (_, traversal) => traversal is [LocalStep localStep]
+                            ? localStep.Traversal
+                            : traversal))),
                 _emptyProjectionProtectionDecoratorSteps);
 
             private ProjectBuilder<TNewItem1, TNewItem2, TNewItem3, TNewItem4, TNewItem5, TNewItem6, TNewItem7, TNewItem8, TNewItem9, TNewItem10, TNewItem11, TNewItem12, TNewItem13, TNewItem14, TNewItem15, TNewItem16> ByExpression<TNewItem1, TNewItem2, TNewItem3, TNewItem4, TNewItem5, TNewItem6, TNewItem7, TNewItem8, TNewItem9, TNewItem10, TNewItem11, TNewItem12, TNewItem13, TNewItem14, TNewItem15, TNewItem16>(Expression projection, string? name = null) => projection is LambdaExpression lambdaExpression && lambdaExpression.IsIdentityExpression()

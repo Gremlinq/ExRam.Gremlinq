@@ -40,18 +40,9 @@
         {
           StepInstructions: [
             {
-              OperatorName: local,
+              OperatorName: constant,
               Arguments: [
-                {
-                  StepInstructions: [
-                    {
-                      OperatorName: constant,
-                      Arguments: [
-                        item2
-                      ]
-                    }
-                  ]
-                }
+                item2
               ]
             },
             {

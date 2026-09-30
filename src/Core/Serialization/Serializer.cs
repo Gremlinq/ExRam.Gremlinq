@@ -544,15 +544,7 @@ namespace ExRam.Gremlinq.Core.Serialization
                 return CreateInstruction("property", recurse, env, parameters);
             })
             .Add<ProjectStep>((step, env, _, recurse) => CreateInstruction("project", recurse, env, step.Projections))
-            .Add<ProjectStep.ByTraversalStep>((step, env, _, recurse) =>
-            {
-                var traversal = step.Traversal;
-
-                if (traversal is [LocalStep localStep])
-                    traversal = localStep.Traversal;
-
-                return CreateInstruction("by", recurse, env, traversal);
-            })
+            .Add<ProjectStep.ByTraversalStep>((step, env, _, recurse) => CreateInstruction("by", recurse, env, step.Traversal))
             .Add<ProjectStep.ByKeyStep>((step, env, _, recurse) => CreateInstruction("by", recurse, env, step.Key))
             .Add<RangeStep>((step, env, _, recurse) => step.Scope.Equals(Scope.Local)
                 ? CreateInstruction("range", recurse, env, step.Scope, step.Lower, step.Upper)
