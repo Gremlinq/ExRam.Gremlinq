@@ -2,6 +2,7 @@
 using System.Collections.Immutable;
 using System.Linq.Expressions;
 using ExRam.Gremlinq.Core.Steps;
+using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -134,24 +135,26 @@ namespace ExRam.Gremlinq.Core
                         .Build(static (_, traversal) =>
                         {
                             // by() takes the first result of its traversal for the one element it is given, so a map() or
-                            // a local() that is all of that traversal changes nothing about it. A lone values('key') keeps
-                            // what is around it: TinkerPop turns by(__.values('key')) into by('key'), which fails on more
-                            // than one value.
+                            // a local() that is all of that traversal, or a limit(1) at its end, changes nothing about it.
+                            // A lone values('key') keeps what is around it: TinkerPop turns by(__.values('key')) into
+                            // by('key'), which fails on more than one value.
                             while (true)
                             {
-                                Traversal innerTraversal;
+                                Traversal shorterTraversal;
 
                                 if (traversal is [MapStep mapStep])
-                                    innerTraversal = mapStep.Traversal;
+                                    shorterTraversal = mapStep.Traversal;
                                 else if (traversal is [LocalStep localStep])
-                                    innerTraversal = localStep.Traversal;
+                                    shorterTraversal = localStep.Traversal;
+                                else if (traversal is [.., LimitStep { Count: 1 } limitStep] && Scope.Global.Equals(limitStep.Scope))
+                                    shorterTraversal = traversal.Pop();
                                 else
                                     return traversal;
 
-                                if (innerTraversal is [] or [ValuesStep { Keys.Length: 1 }])
+                                if (shorterTraversal is [] or [ValuesStep { Keys.Length: 1 }])
                                     return traversal;
 
-                                traversal = innerTraversal;
+                                traversal = shorterTraversal;
                             }
                         }))),
                 _emptyProjectionProtectionDecoratorSteps);
