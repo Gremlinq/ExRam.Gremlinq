@@ -59,8 +59,11 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                             {
                                 var mapValue = mapArray[i * 2 + 1];
 
+                                // Set rather than added: a key that is there twice is taken from its
+                                // last occurrence and stays where it first stood, as a member that is
+                                // there twice in a plain object does when Newtonsoft parses it.
                                 if (key.RawKey is string stringKey)
-                                    retObject.Add(stringKey, mapValue);
+                                    retObject[stringKey] = mapValue;
                                 else if (key.RawKey is T t)
                                 {
                                     if (T.Id.Equals(t))
