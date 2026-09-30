@@ -1,0 +1,7 @@
+﻿{
+  Bool: true,
+  Long: 4,
+  Double: 1.5,
+  BigInteger: 100,
+  Bytes: AQID
+}

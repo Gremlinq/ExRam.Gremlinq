@@ -1,0 +1,6 @@
+﻿[
+  "NaN",
+  "NaN",
+  "Infinity",
+  "-Infinity"
+]

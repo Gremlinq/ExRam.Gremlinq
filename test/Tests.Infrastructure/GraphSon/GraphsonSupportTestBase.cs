@@ -1449,6 +1449,226 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task TimeSpan_from_integer() => Verify<TimeSpan>("123456789");
 
+        // A bool is read from a string the way .NET parses one - in any case, with white space
+        // around it - which is what a bool kept in a string property looks like: .NET writes "True".
+        // No other string is a bool, neither one that means yes nor a number in a string.
+        [Fact]
+        public virtual Task Bools_from_strings() => Verify<bool[]>("""[ "true", "True", "TRUE", " true ", "false", "False", "FALSE" ]""");
+
+        [Fact]
+        public virtual Task Bool_from_string_that_is_no_bool() => VerifyAttempt<bool>("\"yes\"");
+
+        [Fact]
+        public virtual Task Bool_from_numeric_string() => VerifyAttempt<bool>("\"1\"");
+
+        // And from a number: zero is false and every other number is true, whatever its sign and
+        // whether it has a fraction. A typed value is the number it holds.
+        [Fact]
+        public virtual Task Bools_from_numbers() => Verify<bool[]>("[ 0, 1, 2, -1, 1.5, 0.0 ]");
+
+        [Fact]
+        public virtual Task Bool_from_typed_Int32() => Verify<bool>("""{ "@type": "g:Int32", "@value": 1 }""");
+
+        // An integer is read from any number, not only from one written as an integer: GraphSON may
+        // well carry a whole number as 3.0 or 1e2. A fraction is rounded to the nearest integer and
+        // a half to the even one, so 3.5 is 4 where 2.5 is 2 - Int_from_double above has always
+        // said so for an int. One test per integer type, as each is read on its own. The two
+        // smallest are read into a List: a byte[] is not a collection of bytes to either
+        // implementation - see below - and an sbyte[] is snapshotted as a binary file.
+        [Fact]
+        public virtual Task SBytes_from_numbers_with_fraction_or_exponent() => Verify<List<sbyte>>("[ 3.0, 1e2, 3.5, 2.5, -2.5 ]");
+
+        [Fact]
+        public virtual Task Bytes_from_numbers_with_fraction_or_exponent() => Verify<List<byte>>("[ 3.0, 1e2, 3.5, 2.5, -0.4 ]");
+
+        [Fact]
+        public virtual Task Shorts_from_numbers_with_fraction_or_exponent() => Verify<short[]>("[ 3.0, 1e2, 3.5, 2.5, -2.5 ]");
+
+        [Fact]
+        public virtual Task UShorts_from_numbers_with_fraction_or_exponent() => Verify<ushort[]>("[ 3.0, 1e2, 3.5, 2.5, -0.4 ]");
+
+        [Fact]
+        public virtual Task Ints_from_numbers_with_fraction_or_exponent() => Verify<int[]>("[ 3.0, 1e2, 3.5, 2.5, -2.5 ]");
+
+        [Fact]
+        public virtual Task UInts_from_numbers_with_fraction_or_exponent() => Verify<uint[]>("[ 3.0, 1e2, 3.5, 2.5, -0.4 ]");
+
+        [Fact]
+        public virtual Task Longs_from_numbers_with_fraction_or_exponent() => Verify<long[]>("[ 3.0, 1e2, 3.5, 2.5, -2.5 ]");
+
+        [Fact]
+        public virtual Task ULongs_from_numbers_with_fraction_or_exponent() => Verify<ulong[]>("[ 3.0, 1e2, 3.5, 2.5, -0.4 ]");
+
+        // A number out of the requested type's range is no such integer, and the attempt declines
+        // rather than throws - so each of these arrays is empty. The last number of each is within
+        // the range until it is rounded, or, for the two widest types, until it is read as a double.
+        // A long has one more: written as an integer it is out of range, however close the nearest
+        // double comes. An int is not among these: asked for one from a number out of its range, the
+        // two implementations do not agree yet.
+        [Fact]
+        public virtual Task SBytes_from_numbers_out_of_range() => Verify<List<sbyte>>("[ 128.0, -129.0, 127.5 ]");
+
+        [Fact]
+        public virtual Task Bytes_from_numbers_out_of_range() => Verify<List<byte>>("[ 256.0, -1.0, 255.5 ]");
+
+        [Fact]
+        public virtual Task Shorts_from_numbers_out_of_range() => Verify<short[]>("[ 32768.0, -32769.0, 32767.5 ]");
+
+        [Fact]
+        public virtual Task UShorts_from_numbers_out_of_range() => Verify<ushort[]>("[ 65536.0, -1.0, 65535.5 ]");
+
+        [Fact]
+        public virtual Task UInts_from_numbers_out_of_range() => Verify<uint[]>("[ 4294967296.0, -1.0, 4294967295.5 ]");
+
+        [Fact]
+        public virtual Task Longs_from_numbers_out_of_range() => Verify<long[]>("[ 1e19, -1e19, 9223372036854775807.0, -9223372036854775809 ]");
+
+        [Fact]
+        public virtual Task ULongs_from_numbers_out_of_range() => Verify<ulong[]>("[ 1e20, -1.0, 18446744073709551615.0 ]");
+
+        // The same through a typed value, which is the number it holds whatever type it names, and
+        // into a nullable. Asked for as an object, a typed value is what its type says, so a g:Int64
+        // holding 3.5 is the long 4 - where the bare number is the double 3.5, as Object_from_double
+        // above says.
+        [Fact]
+        public virtual Task Long_from_typed_Double() => Verify<long>("""{ "@type": "g:Double", "@value": 3.0 }""");
+
+        [Fact]
+        public virtual Task Nullable_long_from_number_with_fraction() => Verify<long?>("3.5");
+
+        [Fact]
+        public virtual Task Object_from_typed_Int64_with_fraction() => Verify<object>("""{ "@type": "g:Int64", "@value": 3.5 }""");
+
+        // A number in a string is read the way .NET parses one, whatever the culture of the machine:
+        // white space around it is fine, and so is a sign - a plus before an unsigned integer too.
+        [Fact]
+        public virtual Task SBytes_from_strings() => Verify<List<sbyte>>("""[ "42", " 42 ", "+42", "-42" ]""");
+
+        [Fact]
+        public virtual Task Bytes_from_strings() => Verify<List<byte>>("""[ "42", " 42 ", "+42" ]""");
+
+        [Fact]
+        public virtual Task Shorts_from_strings() => Verify<short[]>("""[ "42", " 42 ", "+42", "-42" ]""");
+
+        [Fact]
+        public virtual Task UShorts_from_strings() => Verify<ushort[]>("""[ "42", " 42 ", "+42" ]""");
+
+        [Fact]
+        public virtual Task Ints_from_strings() => Verify<int[]>("""[ "42", " 42 ", "+42", "-42" ]""");
+
+        [Fact]
+        public virtual Task UInts_from_strings() => Verify<uint[]>("""[ "42", " 42 ", "+42" ]""");
+
+        [Fact]
+        public virtual Task Longs_from_strings() => Verify<long[]>("""[ "42", " 42 ", "+42", "-42" ]""");
+
+        [Fact]
+        public virtual Task ULongs_from_strings() => Verify<ulong[]>("""[ "42", " 42 ", "+42" ]""");
+
+        // An integer in a string is written as one, though. A number is rounded, a string is not:
+        // none of these is a long.
+        [Fact]
+        public virtual Task Longs_from_strings_that_are_no_integers() => Verify<long[]>("""[ "3.0", "1e2", "1,000", "0x10", "" ]""");
+
+        [Fact]
+        public virtual Task Floats_from_strings() => Verify<float[]>("""[ "1.5", " 1.5 ", "+1.5", "-1.5", "1e2" ]""");
+
+        [Fact]
+        public virtual Task Doubles_from_strings() => Verify<double[]>("""[ "1.5", " 1.5 ", "+1.5", "-1.5", "1e2" ]""");
+
+        [Fact]
+        public virtual Task Decimals_from_strings() => Verify<decimal[]>("""[ "1.5", " 1.5 ", "+1.5", "-1.5", "1e2" ]""");
+
+        // What is not a number is spelled as .NET spells it, in any case.
+        [Fact]
+        public virtual Task Doubles_from_strings_naming_what_is_no_number() => Verify<double[]>("""[ "NaN", "nan", "Infinity", "-INFINITY" ]""");
+
+        [Fact]
+        public virtual Task Doubles_from_strings_that_are_no_numbers() => Verify<double[]>("""[ "abc", "1.5f", "0x10", "" ]""");
+
+        // A BigInteger is read from any number as well. It has a fraction cut off where the integer
+        // types above round it - 3.5 is 3, and -2.5 is -2 either way - each being what .NET makes of
+        // a double when it converts one to that type.
+        [Fact]
+        public virtual Task BigIntegers_from_numbers_with_fraction_or_exponent() => Verify<BigInteger[]>("[ 3.0, 1e2, 3.5, 2.5, -2.5 ]");
+
+        // It is a number, though, or a string of digits, and nothing else: a JSON object is no
+        // BigInteger - not zero - and neither is a typed value that holds none.
+        [Fact]
+        public virtual Task BigInteger_from_object() => VerifyAttempt<BigInteger>("{ }");
+
+        [Fact]
+        public virtual Task Nullable_BigInteger_from_object() => VerifyAttempt<BigInteger?>("{ }");
+
+        [Fact]
+        public virtual Task BigInteger_from_typed_BigInteger_that_is_no_integer() => VerifyAttempt<BigInteger>("""{ "@type": "gx:BigInteger", "@value": "3.0" }""");
+
+        // A byte[] is a native type, not a collection of bytes: it arrives as a Base64 string, as
+        // Person_with_typed_ByteBuffer_image above has it. It is read from an array of numbers too,
+        // which is how one looks that was not written as a gx:ByteBuffer - when every item is a
+        // number written as an integer. Unlike any other array, it does not drop the items it
+        // cannot read: a byte[] short of some of its bytes is another value, so it is none at all.
+        [Fact]
+        public virtual Task Byte_array_from_numbers() => VerifyAttempt<byte[]>("[ 1, 2, 3 ]");
+
+        [Fact]
+        public virtual Task Byte_array_from_empty_array() => VerifyAttempt<byte[]>("[ ]");
+
+        [Fact]
+        public virtual Task Byte_array_from_single_number() => VerifyAttempt<byte[]>("[ 1 ]");
+
+        [Fact]
+        public virtual Task Byte_array_from_numbers_with_fraction() => VerifyAttempt<byte[]>("[ 1.0, 2 ]");
+
+        [Fact]
+        public virtual Task Byte_array_from_numbers_and_strings() => VerifyAttempt<byte[]>("""[ 1, "2" ]""");
+
+        [Fact]
+        public virtual Task Byte_array_from_numbers_and_null() => VerifyAttempt<byte[]>("[ 1, null ]");
+
+        [Fact]
+        public virtual Task Byte_array_from_typed_List() => VerifyAttempt<byte[]>("""{ "@type": "g:List", "@value": [ 1, 2, 3 ] }""");
+
+        // The items are bare numbers. A typed one is not read, although it holds one.
+        [Fact]
+        public virtual Task Byte_array_from_typed_List_of_typed_Int32() => VerifyAttempt<byte[]>("""
+            {
+              "@type": "g:List",
+              "@value": [
+                { "@type": "g:Int32", "@value": 1 },
+                { "@type": "g:Int32", "@value": 2 }
+              ]
+            }
+            """);
+
+        // All of the above as the members of a type the caller asks for, which is where they matter:
+        // once from a plain object, once from the properties of a vertex.
+        [Fact]
+        public virtual Task Scalar_members_from_tokens_of_another_kind() => Verify<ClassWithScalarMembers>("""
+            {
+              "Bool": "True",
+              "Long": 3.5,
+              "Double": " 1.5 ",
+              "BigInteger": 1e2,
+              "Bytes": [ 1, 2, 3 ]
+            }
+            """);
+
+        [Fact]
+        public virtual Task Scalar_members_from_vertex_properties_of_another_kind() => Verify<ClassWithScalarMembers>("""
+            {
+              "id": 1,
+              "label": "ClassWithScalarMembers",
+              "properties": {
+                "Bool": [ { "id": 2, "value": 1 } ],
+                "Long": [ { "id": 3, "value": { "@type": "g:Double", "@value": 3.0 } } ],
+                "Double": [ { "id": 4, "value": " 1.5 " } ],
+                "BigInteger": [ { "id": 5, "value": 3.0 } ],
+                "Bytes": [ { "id": 6, "value": [ 1, 2, 3 ] } ]
+              }
+            }
+            """);
+
         [Fact]
         public virtual Task Tuple() => Verify<(Person, Language)>(Tuple_of_Person_Language);
 
