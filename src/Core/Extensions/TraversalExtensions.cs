@@ -180,6 +180,66 @@ namespace ExRam.Gremlinq.Core
 
         public static bool IsNone(this Traversal traversal) => traversal.PeekOrDefault() is NoneStep;
 
+        // True if every step of the traversal behaves the same whether the traversal is evaluated
+        // once per traverser, as a local child of e.g. coalesce(), or inlined into the parent's stream.
+        public static bool IsTraverserLocal(this Traversal traversal)
+        {
+            if (traversal.SideEffectSemantics == SideEffectSemantics.Write)
+                return false;
+
+            var steps = traversal.Steps;
+
+            for (var i = 0; i < steps.Length; i++)
+            {
+                if (!steps[i].IsTraverserLocal(i == 0))
+                    return false;
+            }
+
+            return true;
+        }
+
+        // A conservative allow-list: a step that is not listed here is not traverser-local.
+        private static bool IsTraverserLocal(this Step step, bool isFirst) => step switch
+        {
+            // Filters decide on one traverser at a time.
+            IdentityStep or IFilterStep or FilterStep.ByTraversalStep => true,
+
+            // Navigation and flat maps start from one traverser at a time.
+            OutStep or InStep or BothStep or OutEStep or InEStep or BothEStep => true,
+            OutVStep or InVStep or BothVStep or OtherVStep => true,
+            PropertiesStep or ValuesStep or UnfoldStep => true,
+
+            // Maps turn one traverser into one other.
+            IdStep or LabelStep or KeyStep or ValueStep or ValueMapStep or ElementMapStep or ConstantStep => true,
+            SelectColumnStep or SelectKeysStep => true,
+
+            // String and date functions work on one traverser, whatever their scope.
+            AsStringStep or AsDateStep or DateAddStep or DateDiffStep => true,
+            ConcatStringsStep or ConcatTraversalsStep or FormatStep or LengthStep or ReplaceStep or ReverseStep or SubstringStep => true,
+            ToLowerStep or ToUpperStep or TrimStep or TrimStartStep or TrimEndStep => true,
+
+            // The traversals of these steps are local children, whatever is inside them.
+            MapStep or FlatMapStep or LocalStep or CoalesceStep or ProjectStep => true,
+
+            // Locally scoped, these steps work on the collection within one traverser. Globally scoped, they work on the stream.
+            LimitStep { Scope: var scope } => Scope.Local.Equals(scope),
+            RangeStep { Scope: var scope } => Scope.Local.Equals(scope),
+            TailStep { Scope: var scope } => Scope.Local.Equals(scope),
+            SkipStep { Scope: var scope } => Scope.Local.Equals(scope),
+            DedupStep { Scope: var scope } => Scope.Local.Equals(scope),
+            CountStep { Scope: var scope } => Scope.Local.Equals(scope),
+            OrderStep { Scope: var scope } => Scope.Local.Equals(scope),
+            MinStep { Scope: var scope } => Scope.Local.Equals(scope),
+            MaxStep { Scope: var scope } => Scope.Local.Equals(scope),
+            MeanStep { Scope: var scope } => Scope.Local.Equals(scope),
+            SumStep { Scope: var scope } => Scope.Local.Equals(scope),
+
+            // A modulator belongs to a step before it, which must be part of the same traversal.
+            ProjectStep.ByStep or FormatStep.By or WherePredicateStep.ByMemberStep or OrderStep.ByStep => !isFirst,
+
+            _ => false
+        };
+
         public static Step Peek(this Traversal traversal) => traversal.PeekOrDefault() ?? throw new InvalidOperationException($"{nameof(Traversal)} is Empty.");
 
         public static Step? PeekOrDefault(this Traversal traversal) => traversal is [.., { } lastStep] ? lastStep : null;
