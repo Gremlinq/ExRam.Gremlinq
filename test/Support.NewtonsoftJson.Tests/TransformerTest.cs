@@ -202,5 +202,73 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
                 .TransformTo<object>()
                 .From(token, _environment));
         }
+
+        // A response is read with DateParseHandling.None, so no token of one holds a date. A
+        // token that a caller read or built on its own may, and then the date it holds is the
+        // date that is read, as it is held: the four tests below are what keeps these arms of
+        // DateTimeConverterFactory and DateTimeOffsetConverterFactory under test.
+        [Fact]
+        public void DateTime_from_token_holding_DateTime()
+        {
+            var dateTime = new DateTime(2020, 1, 2, 3, 4, 5, DateTimeKind.Unspecified);
+
+            var actual = _environment
+                .Deserializer
+                .TryTransformTo<DateTime>().From(new JValue(dateTime), _environment);
+
+            actual
+                .Should()
+                .Be(dateTime);
+
+            actual!.Value.Kind
+                .Should()
+                .Be(DateTimeKind.Unspecified);
+        }
+
+        [Fact]
+        public void DateTime_from_token_holding_DateTimeOffset()
+        {
+            var dateTimeOffset = new DateTimeOffset(2020, 1, 2, 3, 4, 5, TimeSpan.FromHours(2));
+
+            var dateTime = _environment
+                .Deserializer
+                .TryTransformTo<DateTime>().From(new JValue(dateTimeOffset), _environment);
+
+            dateTime
+                .Should()
+                .Be(new DateTime(2020, 1, 2, 1, 4, 5, DateTimeKind.Utc));
+
+            dateTime!.Value.Kind
+                .Should()
+                .Be(DateTimeKind.Utc);
+        }
+
+        [Fact]
+        public void DateTimeOffset_from_token_holding_DateTime()
+        {
+            _environment
+                .Deserializer
+                .TryTransformTo<DateTimeOffset>().From(new JValue(new DateTime(2020, 1, 2, 3, 4, 5, DateTimeKind.Utc)), _environment)
+                .Should()
+                .Be(new DateTimeOffset(2020, 1, 2, 3, 4, 5, TimeSpan.Zero));
+        }
+
+        [Fact]
+        public void DateTimeOffset_from_token_holding_DateTimeOffset()
+        {
+            var dateTimeOffset = new DateTimeOffset(2020, 1, 2, 3, 4, 5, TimeSpan.FromHours(2));
+
+            var actual = _environment
+                .Deserializer
+                .TryTransformTo<DateTimeOffset>().From(new JValue(dateTimeOffset), _environment);
+
+            actual
+                .Should()
+                .Be(dateTimeOffset);
+
+            actual!.Value.Offset
+                .Should()
+                .Be(TimeSpan.FromHours(2));
+        }
     }
 }
