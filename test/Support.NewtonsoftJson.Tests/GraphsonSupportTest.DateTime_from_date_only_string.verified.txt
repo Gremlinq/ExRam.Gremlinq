@@ -1,0 +1,4 @@
+﻿{
+  Kind: Utc,
+  IsLocalMidnight: true
+}

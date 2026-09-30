@@ -427,6 +427,130 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task DateTimeOffset_from_invalid_string() => VerifyAttempt<DateTimeOffset>("\"not a date\"");
 
+        // The strings above name UTC. One that names an offset is read as the instant it names and
+        // handed back in UTC, as a DateTimeOffset too: the offset is what it takes to find the
+        // instant, and is not kept. A fraction of a second is, down to the tick.
+        [Fact]
+        public virtual Task DateTimeOffset_from_string_with_offset() => Verify<DateTimeOffset>("\"2020-01-02T03:04:05+02:00\"");
+
+        [Fact]
+        public virtual Task DateTime_from_string_with_offset() => Verify<DateTime>("\"2020-01-02T03:04:05+02:00\"");
+
+        [Fact]
+        public virtual Task DateTimeOffset_from_string_with_fraction_of_a_second() => Verify<DateTimeOffset>("\"2020-01-02T03:04:05.1234567+02:00\"");
+
+        // What DateTime_from_double says of a DateTime: a number is milliseconds since 1970, and
+        // what is less than one of them is cut off.
+        [Fact]
+        public virtual Task DateTimeOffset_from_double() => Verify<DateTimeOffset>("123456789.2");
+
+        // A string that names no offset names no instant either. It is taken as the local time of
+        // the machine reading it, so the instant it is read as is another one wherever that machine
+        // is, and no snapshot can hold it. What these hold instead is that it is that local time:
+        // the day's midnight, here. A DateTimeOffset is compared by its instant alone - the offset
+        // it comes back with is UTC on one implementation and the machine's own on the other.
+        [Fact]
+        public virtual Task DateTime_from_date_only_string()
+        {
+            var subject = _environment
+                .Deserializer
+                .TransformTo<DateTime>()
+                .From(CreateNativeToken("\"2020-01-02\""), _environment);
+
+            return Verifier
+                .Verify(
+                    new
+                    {
+                        subject.Kind,
+                        IsLocalMidnight = subject == new DateTime(2020, 1, 2, 0, 0, 0, DateTimeKind.Local).ToUniversalTime()
+                    },
+                    sourceFile: _sourceFile);
+        }
+
+        [Fact]
+        public virtual Task DateTimeOffset_from_date_only_string()
+        {
+            var subject = _environment
+                .Deserializer
+                .TransformTo<DateTimeOffset>()
+                .From(CreateNativeToken("\"2020-01-02\""), _environment);
+
+            return Verifier
+                .Verify(
+                    new
+                    {
+                        IsLocalMidnight = subject == new DateTimeOffset(new DateTime(2020, 1, 2, 0, 0, 0, DateTimeKind.Local))
+                    },
+                    sourceFile: _sourceFile);
+        }
+
+        // Nothing is a date unless a date is asked for. Asked for as a string or as an object, a
+        // string that looks like a date is the string it came as - on its own, in an array and as a
+        // value of a map. A snapshot writes a string the way it is spelled, its T and its offset
+        // included, and that is how these tell it from a date.
+        [Fact]
+        public virtual Task String_from_date_like_string() => Verify<string>("\"2020-01-02T03:04:05+02:00\"");
+
+        [Fact]
+        public virtual Task Object_from_date_like_string() => Verify<object>("\"2020-01-02T03:04:05Z\"");
+
+        [Fact]
+        public virtual Task Object_from_date_like_string_with_offset() => Verify<object>("\"2020-01-02T03:04:05+02:00\"");
+
+        [Fact]
+        public virtual Task Object_from_date_only_string() => Verify<object>("\"2020-01-02\"");
+
+        [Fact]
+        public virtual Task Objects_from_Array_with_date_like_strings() => Verify<object[]>("""[ "2020-01-02T03:04:05+02:00", "2020-01-02T03:04:05Z" ]""");
+
+        [Fact]
+        public virtual Task Object_from_map_with_date_like_string() => Verify<object>("""
+            {
+              "@type": "g:Map",
+              "@value": [ "name", "Bob", "registered", "2020-01-02T03:04:05+02:00" ]
+            }
+            """);
+
+        // An entity says what each of its properties is. Person.RegistrationDate is a date, and the
+        // string is read as one, as it is on its own. Person.Name is a string, and the same string
+        // stays what it came as. And a RegistrationDate that is no date costs the property, not
+        // the person.
+        [Fact]
+        public virtual Task Person_with_RegistrationDate_from_string_with_offset() => Verify<Person>("""
+            {
+              "id": 13,
+              "label": "Person",
+              "type": "vertex",
+              "properties": {
+                "RegistrationDate": [ { "id": 1, "value": "2020-01-02T03:04:05+02:00" } ]
+              }
+            }
+            """);
+
+        [Fact]
+        public virtual Task Person_with_date_like_Name() => Verify<Person>("""
+            {
+              "id": 13,
+              "label": "Person",
+              "type": "vertex",
+              "properties": {
+                "Name": [ { "id": 1, "value": "2020-01-02T03:04:05+02:00" } ]
+              }
+            }
+            """);
+
+        [Fact]
+        public virtual Task Person_with_RegistrationDate_from_invalid_string() => Verify<Person>("""
+            {
+              "id": 13,
+              "label": "Person",
+              "type": "vertex",
+              "properties": {
+                "RegistrationDate": [ { "id": 1, "value": "not a date" } ]
+              }
+            }
+            """);
+
         [Fact]
         public virtual Task TimeSpan_from_invalid_string() => VerifyAttempt<TimeSpan>("\"not a duration\"");
 
