@@ -1,0 +1,1 @@
+﻿g.V().hasLabel('Person').project('Item1','Item2').by(__.map(__.out('WorksFor').count()).limit(1).fold()).by(__.id().limit(1).fold()).map(__.unfold().group().by(__.select(keys)).by(__.select(values).unfold()))
