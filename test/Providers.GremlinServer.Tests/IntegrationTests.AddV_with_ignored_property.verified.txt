@@ -1,7 +1,7 @@
 ﻿[
   {
     Id: 67,
-    Label: Language,
+    Label: SimpleVertex,
     PartitionKey: PartitionKey
   }
 ]

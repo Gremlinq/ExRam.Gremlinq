@@ -3,7 +3,7 @@
   Bindings: {
     _a: en,
     _b: _a,
-    _c: Language,
+    _c: SimpleVertex,
     _d: IetfLanguageTag,
     _e: id,
     _f: label,

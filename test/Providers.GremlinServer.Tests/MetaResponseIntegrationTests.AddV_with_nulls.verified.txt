@@ -4,7 +4,7 @@
     Data: [
       {
         Id: 79,
-        Label: Language,
+        Label: SimpleVertex,
         PartitionKey: PartitionKey
       }
     ],

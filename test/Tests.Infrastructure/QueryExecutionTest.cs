@@ -77,7 +77,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual Task AddE_from_StepLabel() => _g
             .AddV(new Country { CountryCallingCode = "+49" })
             .As((_, c) => _
-                .AddV(new Language { IetfLanguageTag = "en" })
+                .AddV(new SimpleVertex { IetfLanguageTag = "en" })
                 .AddE<Speaks>()
                 .From(c))
             .Verify();
@@ -160,7 +160,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task AddE_to_StepLabel() => _g
-            .AddV(new Language { IetfLanguageTag = "en" })
+            .AddV(new SimpleVertex { IetfLanguageTag = "en" })
             .As((_, l) => _
                 .AddV(new Country { CountryCallingCode = "+49" })
                 .AddE<Speaks>()
@@ -205,12 +205,12 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task AddV() => _g
-            .AddV(new Language { IetfLanguageTag = "en" })
+            .AddV(new SimpleVertex { IetfLanguageTag = "en" })
             .Verify();
 
         [Fact]
         public virtual Task AddV_ignores_label() => _g
-            .AddV(new Language { Label = "Language" })
+            .AddV(new SimpleVertex { Label = "SimpleVertex" })
             .Verify();
 
         [Fact]
@@ -257,9 +257,9 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .ConfigureEnvironment(env => env
                 .ConfigureModel(model => model
                     .ConfigureVertices(_ => _
-                        .ConfigureElement<Language>(conf => conf
+                        .ConfigureElement<SimpleVertex>(conf => conf
                             .IgnoreOnAdd(p => p.Id)))))
-            .AddV(new Language { Id = 300, IetfLanguageTag = "en" })
+            .AddV(new SimpleVertex { Id = 300, IetfLanguageTag = "en" })
             .Verify();
 
         [Fact]
@@ -267,9 +267,9 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .ConfigureEnvironment(env => env
                 .ConfigureModel(model => model
                     .ConfigureVertices(_ => _
-                        .ConfigureElement<Language>(conf => conf
+                        .ConfigureElement<SimpleVertex>(conf => conf
                             .IgnoreOnAdd(p => p.IetfLanguageTag)))))
-            .AddV(new Language { IetfLanguageTag = "en" })
+            .AddV(new SimpleVertex { IetfLanguageTag = "en" })
             .Verify();
 
         [Fact]
@@ -316,7 +316,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task AddV_with_nulls() => _g
-            .AddV(new Language())
+            .AddV(new SimpleVertex())
             .Verify();
 
         [Fact]
@@ -324,14 +324,14 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .ConfigureEnvironment(env => env
                 .ConfigureModel(model => model
                     .ConfigureVertices(propModel => propModel
-                        .ConfigureElement<Language>(conf => conf
+                        .ConfigureElement<SimpleVertex>(conf => conf
                             .ConfigureName(x => x.IetfLanguageTag, "lang")))))
-            .AddV(new Language { IetfLanguageTag = "en" })
+            .AddV(new SimpleVertex { IetfLanguageTag = "en" })
             .Verify();
 
         [Fact]
         public virtual Task AddV_without_id() => _g
-            .AddV(new Language { IetfLanguageTag = "en" })
+            .AddV(new SimpleVertex { IetfLanguageTag = "en" })
             .Verify();
 
         [Fact]
@@ -1508,7 +1508,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task Not2() => _g
             .V()
-            .Not(__ => __.OfType<Language>())
+            .Not(__ => __.OfType<SimpleVertex>())
             .Verify();
 
         [Fact]
@@ -4571,39 +4571,39 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Where_converted_Id_equals_constant() => _g
-            .V<Language>()
+            .V<SimpleVertex>()
             .Where(t => (int)t.Id! == 1)
             .Verify();
 
         [Fact]
         public virtual Task Where_current_element_equals_stepLabel1() => _g
-            .V<Language>()
+            .V<SimpleVertex>()
             .As((__, l) => __
-                .V<Language>()
+                .V<SimpleVertex>()
                 .Where(l2 => l2 == l.Value))
             .Verify();
 
         [Fact]
         public virtual Task Where_current_element_equals_stepLabel2() => _g
-            .V<Language>()
+            .V<SimpleVertex>()
             .As((__, l) => __
-                .V<Language>()
+                .V<SimpleVertex>()
                 .Where(l2 => l.Value == l2))
             .Verify();
 
         [Fact]
         public virtual Task Where_current_element_not_equals_stepLabel1() => _g
-            .V<Language>()
+            .V<SimpleVertex>()
             .As((__, l) => __
-                .V<Language>()
+                .V<SimpleVertex>()
                 .Where(l2 => l2 != l.Value))
             .Verify();
 
         [Fact]
         public virtual Task Where_current_element_not_equals_stepLabel2() => _g
-            .V<Language>()
+            .V<SimpleVertex>()
             .As((__, l) => __
-                .V<Language>()
+                .V<SimpleVertex>()
                 .Where(l2 => l.Value != l2))
             .Verify();
 
@@ -4661,13 +4661,13 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Where_Id_equals_constant() => _g
-            .V<Language>()
+            .V<SimpleVertex>()
             .Where(t => t.Id == (object)1)
             .Verify();
 
         [Fact]
         public virtual Task Where_Id_equals_toStringed_Guid() => _g
-            .V<Language>()
+            .V<SimpleVertex>()
             .Where(t => (string?)t.Id == Guid.Parse("{105A7662-6400-4723-A08A-6837B8FEA6E6}").ToString())
             .Verify();
 
@@ -5083,7 +5083,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             const int local = 1;
 
             await _g
-                .V<Language>()
+                .V<SimpleVertex>()
                 .Where(t => t.Id == (object)local)
                 .Verify();
         }
@@ -5092,7 +5092,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual Task Where_property_equals_stepLabel() => _g
             .Inject("en")
             .As((__, l) => __
-                .V<Language>()
+                .V<SimpleVertex>()
                 .Where(l2 => l2.IetfLanguageTag == l.Value)
                 .Order(b => b
                     .By(x => x.Id)))
@@ -5110,7 +5110,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             var local = new { Value = 1 };
 
             await _g
-                .V<Language>()
+                .V<SimpleVertex>()
                 .Where(t => t.Id == (object)local.Value)
                 .Verify();
         }

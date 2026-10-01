@@ -12,7 +12,7 @@
   Item2: {
     IetfLanguageTag: de,
     Id: 17,
-    Label: Language,
+    Label: SimpleVertex,
     PartitionKey: PartitionKey
   }
 }

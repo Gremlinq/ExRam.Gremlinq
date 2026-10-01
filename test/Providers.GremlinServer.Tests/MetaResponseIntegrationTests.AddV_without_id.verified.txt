@@ -5,7 +5,7 @@
       {
         IetfLanguageTag: en,
         Id: 54,
-        Label: Language,
+        Label: SimpleVertex,
         PartitionKey: PartitionKey
       }
     ],

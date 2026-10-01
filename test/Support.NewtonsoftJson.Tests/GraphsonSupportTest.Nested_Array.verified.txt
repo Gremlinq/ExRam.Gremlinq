@@ -3,7 +3,7 @@
     {
       IetfLanguageTag: en,
       Id: 6,
-      Label: Language,
+      Label: SimpleVertex,
       PartitionKey: PartitionKey
     }
   ],
@@ -11,13 +11,13 @@
     {
       IetfLanguageTag: de,
       Id: 7,
-      Label: Language,
+      Label: SimpleVertex,
       PartitionKey: PartitionKey
     },
     {
       IetfLanguageTag: en,
       Id: 8,
-      Label: Language,
+      Label: SimpleVertex,
       PartitionKey: PartitionKey
     }
   ]

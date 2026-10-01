@@ -27,7 +27,7 @@
             {
               OperatorName: hasLabel,
               Arguments: [
-                Language
+                SimpleVertex
               ]
             }
           ]

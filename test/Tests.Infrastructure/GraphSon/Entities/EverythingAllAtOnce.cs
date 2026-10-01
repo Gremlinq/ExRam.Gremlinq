@@ -29,7 +29,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure.GraphSon.Entities
         public IReadOnlyList<int>? IReadOnlyList_from_Typed_Ints { get; set; }
         public Queue<int>? Queue_from_typed_Ints { get; set; }
         public Stack<int>? Stack_from_typed_Ints { get; set; }
-        public Language[]? Array { get; set; }
+        public SimpleVertex[]? Array { get; set; }
         public string[]? Bulk_set { get; set; }
         public DateTime DateTime_from_double { get; set; }
         public DateTime DateTime_from_number { get; set; }
@@ -43,7 +43,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure.GraphSon.Entities
         public object[]? Empty1 { get; set; }
         public Person[]? Empty2 { get; set; }
         public Path? Graphson2Path { get; set; }
-        public (Person, Language)[]? GraphSon3_Tuple { get; set; }
+        public (Person, SimpleVertex)[]? GraphSon3_Tuple { get; set; }
         public Path? Graphson3Path { get; set; }
         public object? GraphSon3ReferenceVertex { get; set; }
         public Guid Guid { get; set; }
@@ -64,7 +64,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure.GraphSon.Entities
         public List<int>? List_Of_Ints_from_Traverser { get; set; }
         public IList<int>? IList_Of_Ints_from_Traverser { get; set; }
         public object? Language_by_vertex_inheritance { get; set; }
-        public Language? Language_strongly_typed { get; set; }
+        public SimpleVertex? Language_strongly_typed { get; set; }
         public Vertex? Language_to_generic_vertex { get; set; }
         public object? Language_unknown_type { get; set; }
         public object? Languages_to_object { get; set; }
@@ -73,7 +73,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure.GraphSon.Entities
         public Property<object>[]? MetaProperties { get; set; }
         public object[]? Mixed_Ids { get; set; }
         public PersonLanguageTuple? NamedTuple { get; set; }
-        public Language[][]? Nested_Array { get; set; }
+        public SimpleVertex[][]? Nested_Array { get; set; }
         public int? Nullable { get; set; }
         public int?[]? Nullable_null { get; set; }
         public object? Object_from_double { get; set; }
@@ -92,7 +92,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure.GraphSon.Entities
         public ScalarVertex? TimeFrame_strongly_typed { get; set; }
         public TimeSpan TimeSpan_from_double { get; set; }
         public TimeSpan TimeSpan_from_integer { get; set; }
-        public (Person, Language) Tuple { get; set; }
+        public (Person, SimpleVertex) Tuple { get; set; }
         public (Vertex, Vertex) Tuple_vertex_vertex { get; set; }
         public VertexProperty<object>[]? VertexProperties { get; set; }
         public VertexProperty<object, MetaPoco>[]? VertexProperties_with_model { get; set; }

@@ -2,7 +2,7 @@
   {
     IetfLanguageTag: en,
     Id: 80,
-    Label: Language,
+    Label: SimpleVertex,
     PartitionKey: PartitionKey
   }
 ]

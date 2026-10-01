@@ -70,7 +70,7 @@
   {
     IetfLanguageTag: en,
     Id: 2,
-    Label: Language,
+    Label: SimpleVertex,
     PartitionKey: PartitionKey
   },
   {
@@ -90,7 +90,7 @@
   {
     IetfLanguageTag: en,
     Id: 32,
-    Label: Language,
+    Label: SimpleVertex,
     PartitionKey: PartitionKey
   },
   {

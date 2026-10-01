@@ -9,9 +9,9 @@
     bindings: {
       _a: Company,
       _b: Country,
-      _c: Language,
-      _d: Person,
-      _e: ScalarVertex,
+      _c: Person,
+      _d: ScalarVertex,
+      _e: SimpleVertex,
       _f: 42,
       _g: true,
       _h: false

@@ -19,18 +19,18 @@
       {
         IetfLanguageTag: en,
         Id: 65,
-        Label: Language,
+        Label: SimpleVertex,
         PartitionKey: PartitionKey
       },
       {
         IetfLanguageTag: en,
         Id: 2,
-        Label: Language,
+        Label: SimpleVertex,
         PartitionKey: PartitionKey
       },
       {
         Id: 67,
-        Label: Language,
+        Label: SimpleVertex,
         PartitionKey: PartitionKey
       },
       {
@@ -132,12 +132,12 @@
       },
       {
         Id: 79,
-        Label: Language,
+        Label: SimpleVertex,
         PartitionKey: PartitionKey
       },
       {
         Id: 80,
-        Label: Language,
+        Label: SimpleVertex,
         PartitionKey: PartitionKey
       },
       {
@@ -205,7 +205,7 @@
       {
         IetfLanguageTag: en,
         Id: 32,
-        Label: Language,
+        Label: SimpleVertex,
         PartitionKey: PartitionKey
       },
       {
@@ -251,12 +251,12 @@
       {
         IetfLanguageTag: en,
         Id: 47,
-        Label: Language,
+        Label: SimpleVertex,
         PartitionKey: PartitionKey
       },
       {
         Id: 49,
-        Label: Language,
+        Label: SimpleVertex,
         PartitionKey: PartitionKey
       },
       {
@@ -270,7 +270,7 @@
       {
         IetfLanguageTag: en,
         Id: 54,
-        Label: Language,
+        Label: SimpleVertex,
         PartitionKey: PartitionKey
       },
       {

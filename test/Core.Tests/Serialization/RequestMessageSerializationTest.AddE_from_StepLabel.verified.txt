@@ -45,7 +45,7 @@
         {
           OperatorName: addV,
           Arguments: [
-            Language
+            SimpleVertex
           ]
         },
         {

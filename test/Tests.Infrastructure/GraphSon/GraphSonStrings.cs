@@ -128,7 +128,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             [
               {
                 "id": 1,
-                "label": "Language",
+                "label": "SimpleVertex",
                 "type":  "vertex",
                 "properties": {
                   "IetfLanguageTag": [
@@ -141,7 +141,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
               },
               {
                 "id": 2,
-                "label": "Language",
+                "label": "SimpleVertex",
                 "type": "vertex",
                 "properties": {
                   "IetfLanguageTag": [
@@ -301,7 +301,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
               "objects": [
                 {
                   "id": 1,
-                  "label": "Language",
+                  "label": "SimpleVertex",
                   "type":  "vertex",
                   "properties": {
                     "IetfLanguageTag": [
@@ -314,7 +314,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                 },
                 {
                   "id": 2,
-                  "label": "Language",
+                  "label": "SimpleVertex",
                   "type": "vertex",
                   "properties": {
                     "IetfLanguageTag": [
@@ -496,7 +496,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                       "@type": "g:Vertex",
                       "@value": {
                         "id": 5,
-                        "label": "Language",
+                        "label": "SimpleVertex",
                         "properties": {
                           "IetfLanguageTag": [
                             {
@@ -652,7 +652,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
               },
               "value": {
                 "id": 17,
-                "label": "Language",
+                "label": "SimpleVertex",
                 "type": "vertex",
                 "properties": {
                   "IetfLanguageTag": [
@@ -671,7 +671,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
               [
                 {
                   "id": 6,
-                  "label": "Language",
+                  "label": "SimpleVertex",
                   "type": "vertex",
                   "properties": {
                     "IetfLanguageTag": [
@@ -686,7 +686,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
               [
                 {
                   "id": 7,
-                  "label": "Language",
+                  "label": "SimpleVertex",
                   "type": "vertex",
                   "properties": {
                     "IetfLanguageTag": [
@@ -699,7 +699,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                 },
                 {
                   "id": 8,
-                  "label": "Language",
+                  "label": "SimpleVertex",
                   "type": "vertex",
                   "properties": {
                     "IetfLanguageTag": [
@@ -769,7 +769,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public static readonly string Single_Language = """
             {
               "id": 10,
-              "label": "Language",
+              "label": "SimpleVertex",
               "type": "vertex",
               "properties": {
                 "IetfLanguageTag": [
@@ -1057,7 +1057,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
               },
               "Item2": {
                 "id": 17,
-                "label": "Language",
+                "label": "SimpleVertex",
                 "type": "vertex",
                 "properties": {
                   "IetfLanguageTag": [

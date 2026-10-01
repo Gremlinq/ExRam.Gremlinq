@@ -485,7 +485,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual Task Untyped_Stack_from_typed_Ints() => Verify<Stack>(Typed_Ints);
 
         [Fact]
-        public virtual Task Array() => Verify<Language[]>(ArrayOfLanguages);
+        public virtual Task Array() => Verify<SimpleVertex[]>(ArrayOfLanguages);
 
         [Fact]
         public virtual Task Bulk_set() => Verify<string[]>(BulkSet);
@@ -791,7 +791,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual Task Graphson2Path() => Verify<Path>(Graphson2_Paths);
 
         [Fact]
-        public virtual Task GraphSon3_Tuple() => Verify<(Person, Language)[]>(Graphson3_Tuple_of_Person_Language);
+        public virtual Task GraphSon3_Tuple() => Verify<(Person, SimpleVertex)[]>(Graphson3_Tuple_of_Person_Language);
 
         [Fact]
         public virtual Task Graphson3Path() => Verify<Path>(Graphson3_Paths);
@@ -1308,16 +1308,16 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual Task Language_by_vertex_inheritance() => Verify<object>(Single_Language);
 
         [Fact]
-        public virtual Task Language_strongly_typed() => Verify<Language>(Single_Language);
+        public virtual Task Language_strongly_typed() => Verify<SimpleVertex>(Single_Language);
 
         [Fact]
         public virtual Task Language_to_generic_vertex() => Verify<Vertex>(Single_Language);
 
-        // FromBaseTypes<Company, Edge>() is a valid model whose vertex set excludes Language,
+        // FromBaseTypes<Company, Edge>() is a valid model whose vertex set excludes SimpleVertex,
         // so the label lookup misses. Id and Label should still be set, as MemberMetadata
         // maps them to T.Id and T.Label independently of the model.
         [Fact]
-        public virtual Task Language_strongly_typed_without_matching_model() => Verify<Language>(
+        public virtual Task Language_strongly_typed_without_matching_model() => Verify<SimpleVertex>(
             Single_Language,
             env => env
                 .UseModel(GraphModel
@@ -1447,7 +1447,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual Task NamedTuple() => Verify<PersonLanguageTuple>(Named_tuple_of_Person_Language);
 
         [Fact]
-        public virtual Task Nested_Array() => Verify<Language[][]>(Nested_array_of_Languages);
+        public virtual Task Nested_Array() => Verify<SimpleVertex[][]>(Nested_array_of_Languages);
 
         [Fact]
         public virtual Task Nullable() => Verify<int?>("42");
@@ -1527,10 +1527,10 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         // The same for the member of a vertex, whose null arrives inside a vertex property.
         [Fact]
-        public virtual Task Language_with_null_property_value() => Verify<Language>("""
+        public virtual Task Language_with_null_property_value() => Verify<SimpleVertex>("""
             {
               "id": 1,
-              "label": "Language",
+              "label": "SimpleVertex",
               "type": "vertex",
               "properties": {
                 "IetfLanguageTag": [ { "id": 2, "value": null } ]
@@ -1641,7 +1641,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         // Nor are the g:T keys of an element map. An id that is there twice is the last one, asked
         // for as a Person or as an object - and of two labels it is the last one that says what the
-        // element is: a Person here, not a Language.
+        // element is: a Person here, not a SimpleVertex.
         [Fact]
         public virtual Task Person_from_element_map_with_id_twice() => Verify<Person>("""
             {
@@ -1684,7 +1684,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                 { "@type": "g:T", "@value": "id" },
                 { "@type": "g:Int64", "@value": 1 },
                 { "@type": "g:T", "@value": "label" },
-                "Language",
+                "SimpleVertex",
                 { "@type": "g:T", "@value": "label" },
                 "Person",
                 "Age",
@@ -2175,7 +2175,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             """);
 
         [Fact]
-        public virtual Task Tuple() => Verify<(Person, Language)>(Tuple_of_Person_Language);
+        public virtual Task Tuple() => Verify<(Person, SimpleVertex)>(Tuple_of_Person_Language);
 
         [Fact]
         public virtual Task Tuple_vertex_vertex() => Verify<(Vertex, Vertex)>(Tuple_of_Person_Language);

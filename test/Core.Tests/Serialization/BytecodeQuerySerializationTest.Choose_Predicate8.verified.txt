@@ -8,9 +8,9 @@
       Arguments: [
         Company,
         Country,
-        Language,
         Person,
-        ScalarVertex
+        ScalarVertex,
+        SimpleVertex
       ]
     },
     {

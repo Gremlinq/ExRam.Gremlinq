@@ -7,7 +7,7 @@
       g: g
     },
     bindings: {
-      _a: Language,
+      _a: SimpleVertex,
       _b: id,
       _c: label,
       _d: properties,

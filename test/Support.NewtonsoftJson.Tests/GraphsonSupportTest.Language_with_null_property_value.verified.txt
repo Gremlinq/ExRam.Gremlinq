@@ -1,5 +1,5 @@
 ﻿{
   Id: 1,
-  Label: Language,
+  Label: SimpleVertex,
   PartitionKey: PartitionKey
 }

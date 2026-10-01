@@ -11,7 +11,7 @@
       _b: CountryCallingCode,
       _c: +49,
       _d: _a,
-      _e: Language,
+      _e: SimpleVertex,
       _f: IetfLanguageTag,
       _g: en,
       _h: Speaks,

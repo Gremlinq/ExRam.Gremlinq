@@ -96,13 +96,13 @@
     {
       IetfLanguageTag: de,
       Id: 1,
-      Label: Language,
+      Label: SimpleVertex,
       PartitionKey: PartitionKey
     },
     {
       IetfLanguageTag: en,
       Id: 2,
-      Label: Language,
+      Label: SimpleVertex,
       PartitionKey: PartitionKey
     }
   ],
@@ -148,13 +148,13 @@
       {
         IetfLanguageTag: de,
         Id: 1,
-        Label: Language,
+        Label: SimpleVertex,
         PartitionKey: PartitionKey
       },
       {
         IetfLanguageTag: en,
         Id: 2,
-        Label: Language,
+        Label: SimpleVertex,
         PartitionKey: PartitionKey
       }
     ]
@@ -174,7 +174,7 @@
       Item2: {
         IetfLanguageTag: de,
         Id: 5,
-        Label: Language,
+        Label: SimpleVertex,
         PartitionKey: PartitionKey
       }
     }
@@ -294,38 +294,38 @@
   Language_by_vertex_inheritance: {
     IetfLanguageTag: de,
     Id: 10,
-    Label: Language,
+    Label: SimpleVertex,
     PartitionKey: PartitionKey
   },
   Language_strongly_typed: {
     IetfLanguageTag: de,
     Id: 10,
-    Label: Language,
+    Label: SimpleVertex,
     PartitionKey: PartitionKey
   },
   Language_to_generic_vertex: {
     IetfLanguageTag: de,
     Id: 10,
-    Label: Language,
+    Label: SimpleVertex,
     PartitionKey: PartitionKey
   },
   Language_unknown_type: {
     IetfLanguageTag: de,
     Id: 10,
-    Label: Language,
+    Label: SimpleVertex,
     PartitionKey: PartitionKey
   },
   Languages_to_object: [
     {
       IetfLanguageTag: de,
       Id: 1,
-      Label: Language,
+      Label: SimpleVertex,
       PartitionKey: PartitionKey
     },
     {
       IetfLanguageTag: en,
       Id: 2,
-      Label: Language,
+      Label: SimpleVertex,
       PartitionKey: PartitionKey
     }
   ],
@@ -375,7 +375,7 @@
     Value: {
       IetfLanguageTag: de,
       Id: 17,
-      Label: Language,
+      Label: SimpleVertex,
       PartitionKey: PartitionKey
     }
   },
@@ -384,7 +384,7 @@
       {
         IetfLanguageTag: en,
         Id: 6,
-        Label: Language,
+        Label: SimpleVertex,
         PartitionKey: PartitionKey
       }
     ],
@@ -392,13 +392,13 @@
       {
         IetfLanguageTag: de,
         Id: 7,
-        Label: Language,
+        Label: SimpleVertex,
         PartitionKey: PartitionKey
       },
       {
         IetfLanguageTag: en,
         Id: 8,
-        Label: Language,
+        Label: SimpleVertex,
         PartitionKey: PartitionKey
       }
     ]
@@ -528,7 +528,7 @@
     Item2: {
       IetfLanguageTag: de,
       Id: 17,
-      Label: Language,
+      Label: SimpleVertex,
       PartitionKey: PartitionKey
     }
   },
@@ -546,7 +546,7 @@
     Item2: {
       IetfLanguageTag: de,
       Id: 17,
-      Label: Language,
+      Label: SimpleVertex,
       PartitionKey: PartitionKey
     }
   },

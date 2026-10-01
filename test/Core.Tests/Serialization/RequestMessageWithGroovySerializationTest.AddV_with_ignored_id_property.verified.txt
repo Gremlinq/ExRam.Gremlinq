@@ -7,7 +7,7 @@
       g: g
     },
     bindings: {
-      _a: Language,
+      _a: SimpleVertex,
       _b: IetfLanguageTag,
       _c: en,
       _d: id,
