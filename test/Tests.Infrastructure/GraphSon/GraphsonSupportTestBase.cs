@@ -1941,12 +1941,12 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual Task String_Ids2() => Verify<object[]>("[ \"1\", \"2\" ]");
 
         [Fact]
-        public virtual Task TimeFrame_strongly_typed() => Verify<TimeFrame>(Single_TimeFrame);
+        public virtual Task TimeFrame_strongly_typed() => Verify<ScalarVertex>(Single_TimeFrame);
 
         // Single_TimeFrame carries ISO 8601 durations, this one milliseconds, so together
         // they cover both string and integer arms of TimeSpanConverterFactory.
         [Fact]
-        public virtual Task TimeFrame_from_numbers() => Verify<TimeFrame>(Single_TimeFrame_with_numbers);
+        public virtual Task TimeFrame_from_numbers() => Verify<ScalarVertex>(Single_TimeFrame_with_numbers);
 
         [Fact]
         public virtual Task TimeSpan_from_double() => Verify<TimeSpan>("123456789.2");

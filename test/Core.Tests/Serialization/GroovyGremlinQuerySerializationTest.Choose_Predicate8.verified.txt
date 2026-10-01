@@ -5,7 +5,7 @@
     _b: Country,
     _c: Language,
     _d: Person,
-    _e: TimeFrame,
+    _e: ScalarVertex,
     _f: 42,
     _g: true,
     _h: false

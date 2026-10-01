@@ -509,7 +509,7 @@
     StartTime: 06:00:00,
     Duration: 16:00:00,
     Id: 11,
-    Label: TimeFrame,
+    Label: ScalarVertex,
     PartitionKey: PartitionKey
   },
   TimeSpan_from_double: 1.10:17:36.7892000,

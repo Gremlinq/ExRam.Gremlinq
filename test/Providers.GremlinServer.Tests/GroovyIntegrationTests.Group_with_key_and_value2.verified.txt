@@ -4,6 +4,6 @@
     Country: +49,
     Language: en,
     Person: 2020-04-07 14:43:36 +0,
-    TimeFrame: 08:00:00
+    ScalarVertex: 08:00:00
   }
 ]

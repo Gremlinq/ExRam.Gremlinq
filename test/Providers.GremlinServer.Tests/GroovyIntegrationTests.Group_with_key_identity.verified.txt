@@ -132,16 +132,6 @@
         PartitionKey: PartitionKey
       }
     ],
-    ExRam.Gremlinq.Tests.Entities.TimeFrame: [
-      {
-        Enabled: false,
-        StartTime: 08:00:00,
-        Duration: 02:00:00,
-        Id: 50,
-        Label: TimeFrame,
-        PartitionKey: PartitionKey
-      }
-    ],
     ExRam.Gremlinq.Tests.Entities.Person: [
       {
         Image: AQIDBAUGBwg=,
@@ -291,6 +281,16 @@
         CountryCallingCode: +49,
         Id: 0,
         Label: Country,
+        PartitionKey: PartitionKey
+      }
+    ],
+    ExRam.Gremlinq.Tests.Entities.ScalarVertex: [
+      {
+        Enabled: false,
+        StartTime: 08:00:00,
+        Duration: 02:00:00,
+        Id: 50,
+        Label: ScalarVertex,
         PartitionKey: PartitionKey
       }
     ]

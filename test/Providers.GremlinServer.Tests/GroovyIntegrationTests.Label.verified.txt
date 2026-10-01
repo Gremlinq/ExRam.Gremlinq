@@ -27,7 +27,7 @@
   Person,
   Language,
   Language,
-  TimeFrame,
+  ScalarVertex,
   Language,
   Person,
   Person,

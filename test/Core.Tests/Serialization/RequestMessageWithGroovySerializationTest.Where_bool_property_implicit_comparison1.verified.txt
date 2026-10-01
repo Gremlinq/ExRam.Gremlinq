@@ -7,7 +7,7 @@
       g: g
     },
     bindings: {
-      _a: TimeFrame,
+      _a: ScalarVertex,
       _b: Enabled,
       _c: true,
       _d: id,

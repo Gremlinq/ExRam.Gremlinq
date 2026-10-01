@@ -215,7 +215,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task AddV_TimeFrame() => _g
-            .AddV(new TimeFrame
+            .AddV(new ScalarVertex
             {
                 StartTime = TimeSpan.FromHours(8),
                 Duration = TimeSpan.FromHours(2)
@@ -4472,26 +4472,26 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Where_bool_property_explicit_comparison1() => _g
-            .V<TimeFrame>()
+            .V<ScalarVertex>()
             // ReSharper disable once RedundantBoolCompare
             .Where(t => t.Enabled == true)
             .Verify();
 
         [Fact]
         public virtual Task Where_bool_property_explicit_comparison2() => _g
-            .V<TimeFrame>()
+            .V<ScalarVertex>()
             .Where(t => t.Enabled == false)
             .Verify();
 
         [Fact]
         public virtual Task Where_bool_property_implicit_comparison1() => _g
-            .V<TimeFrame>()
+            .V<ScalarVertex>()
             .Where(t => t.Enabled)
             .Verify();
 
         [Fact]
         public virtual Task Where_bool_property_implicit_comparison2() => _g
-            .V<TimeFrame>()
+            .V<ScalarVertex>()
             .Where(t => !t.Enabled)
             .Verify();
 

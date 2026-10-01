@@ -1,6 +1,6 @@
 namespace ExRam.Gremlinq.Tests.Entities
 {
-    public class TimeFrame : Vertex
+    public class ScalarVertex : Vertex
     {
         public bool Enabled { get; set; }
 

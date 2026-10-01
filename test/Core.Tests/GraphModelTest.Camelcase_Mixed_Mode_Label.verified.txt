@@ -1,6 +1,6 @@
 {
   Item1: {
-    Label: TimeFrame
+    Label: ScalarVertex
   },
   Item2: {
     Key: {

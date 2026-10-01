@@ -83,7 +83,7 @@ namespace ExRam.Gremlinq.Core.Tests
             .ConfigureElements(em => em
                 .UseCamelCaseLabels())
             .VerticesModel
-            .GetMetadata(typeof(TimeFrame)));
+            .GetMetadata(typeof(ScalarVertex)));
 
         [Fact]
         public async Task Camelcase_Edges() => await Verify(GraphModel
@@ -120,7 +120,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await Verify((
                 model
                     .VerticesModel
-                    .GetMetadata(typeof(TimeFrame)),
+                    .GetMetadata(typeof(ScalarVertex)),
                 model
                     .VerticesModel
                     .GetMetadata(typeof(Person).GetProperty(nameof(Person.RegistrationDate))!)));
@@ -137,7 +137,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await Verify((
                 model
                     .VerticesModel
-                    .GetMetadata(typeof(TimeFrame)),
+                    .GetMetadata(typeof(ScalarVertex)),
                 model
                     .VerticesModel
                     .GetMetadata(typeof(Person).GetProperty(nameof(Person.RegistrationDate))!)));
@@ -155,7 +155,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await Verify((
                 model
                     .VerticesModel
-                    .GetMetadata(typeof(TimeFrame)),
+                    .GetMetadata(typeof(ScalarVertex)),
                 model
                     .VerticesModel
                     .GetMetadata(typeof(Person).GetProperty(nameof(Person.RegistrationDate))!)));
@@ -173,7 +173,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await Verify((
                 model
                     .VerticesModel
-                    .GetMetadata(typeof(TimeFrame)),
+                    .GetMetadata(typeof(ScalarVertex)),
                 model
                     .VerticesModel
                     .GetMetadata(typeof(Person).GetProperty(nameof(Person.RegistrationDate))!)));
@@ -245,7 +245,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await Verify((
                 model
                     .VerticesModel
-                    .GetMetadata(typeof(TimeFrame)),
+                    .GetMetadata(typeof(ScalarVertex)),
                 model
                     .VerticesModel
                     .GetMetadata(typeof(Person).GetProperty(nameof(Person.RegistrationDate))!),
@@ -268,7 +268,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await Verify((
                 model
                     .VerticesModel
-                    .GetMetadata(typeof(TimeFrame)),
+                    .GetMetadata(typeof(ScalarVertex)),
                 model
                     .VerticesModel
                     .GetMetadata(typeof(Person).GetProperty(nameof(Person.RegistrationDate))!),

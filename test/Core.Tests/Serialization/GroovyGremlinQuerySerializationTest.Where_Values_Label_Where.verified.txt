@@ -5,7 +5,7 @@
     _b: Country,
     _c: Language,
     _d: Person,
-    _e: TimeFrame,
+    _e: ScalarVertex,
     _f: id,
     _g: label,
     _h: properties,

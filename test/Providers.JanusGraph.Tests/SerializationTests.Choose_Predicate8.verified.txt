@@ -10,7 +10,7 @@
         Country,
         Language,
         Person,
-        TimeFrame
+        ScalarVertex
       ]
     },
     {

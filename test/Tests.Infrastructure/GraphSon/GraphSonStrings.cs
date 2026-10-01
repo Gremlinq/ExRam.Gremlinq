@@ -981,7 +981,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public static readonly string Single_TimeFrame = """
             {
               "id": 11,
-              "label": "TimeFrame",
+              "label": "ScalarVertex",
               "type": "vertex",
               "properties": {
                 "WeekDay": [
@@ -1009,7 +1009,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public static readonly string Single_TimeFrame_with_numbers = """
             {
               "id": 12,
-              "label": "TimeFrame",
+              "label": "ScalarVertex",
               "type": "vertex",
               "properties": {
                 "WeekDay": [

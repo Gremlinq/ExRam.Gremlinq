@@ -34,7 +34,7 @@
       Person,
       Person,
       Person,
-      TimeFrame
+      ScalarVertex
     ],
     ResponseStatus: {
       Code: Success,

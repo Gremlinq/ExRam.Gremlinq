@@ -89,7 +89,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure.GraphSon.Entities
         public object? Scalar_as_object { get; set; }
         public object[]? String_Ids { get; set; }
         public object[]? String_Ids2 { get; set; }
-        public TimeFrame? TimeFrame_strongly_typed { get; set; }
+        public ScalarVertex? TimeFrame_strongly_typed { get; set; }
         public TimeSpan TimeSpan_from_double { get; set; }
         public TimeSpan TimeSpan_from_integer { get; set; }
         public (Person, Language) Tuple { get; set; }
