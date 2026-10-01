@@ -1,4 +1,4 @@
-namespace ExRam.Gremlinq.Tests.Entities
+namespace ExRam.Gremlinq.Tests.Infrastructure.Projections
 {
     public sealed class ProjectRecord
     {
