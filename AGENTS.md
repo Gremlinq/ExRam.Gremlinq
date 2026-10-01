@@ -43,10 +43,10 @@ system.
 Always build from the repo root using the slnx format:
 
 ```bash
-# Debug build (net10.0 only)
+# Debug build (net8.0;net9.0;net10.0)
 dotnet build ExRam.Gremlinq.slnx
 
-# Release build (multi-target: net6.0;net7.0;net8.0;net9.0;net10.0)
+# Release build (the same frameworks)
 dotnet build ExRam.Gremlinq.slnx -c Release
 ```
 
@@ -306,7 +306,7 @@ Test classes inherit from `QueryExecutionTest` in `Tests.Infrastructure` which p
 1. Modify the API in the appropriate src project
 2. Run `test/PublicApi.Tests` in Release mode
 3. Update corresponding `.verified.cs` files in `test/PublicApi.Tests`
-4. Verify all target frameworks are covered (net6.0 through net10.0)
+4. Verify all target frameworks are covered (net8.0 through net10.0)
 5. **Raise `version.json` in this same pull request** — to the next minor for an additive
    change, to the next major for a breaking one, keeping the `-preview.{height}` suffix
    (e.g. `14.1.2-preview.{height}` → `14.2.0-preview.{height}`). This is the only place
@@ -317,7 +317,7 @@ Test classes inherit from `QueryExecutionTest` in `Tests.Infrastructure` which p
 1. Modify the provider project (`Providers.X`)
 2. Update provider-specific tests (`Providers.X.Tests`)
 3. Test with actual backend services where applicable (use Testcontainers)
-4. Ensure cross-framework compatibility (net6.0+)
+4. Ensure cross-framework compatibility (net8.0+)
 
 ### For Source Generator/Analyzer Changes
 1. Modify generator/analyzer in respective project
