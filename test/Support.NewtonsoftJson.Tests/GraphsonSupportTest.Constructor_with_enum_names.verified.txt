@@ -1,4 +1,4 @@
 ﻿{
-  Gender: One,
-  NullableGender: Two
+  Enum: One,
+  NullableEnum: Two
 }

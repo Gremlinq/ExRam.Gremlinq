@@ -2,14 +2,6 @@
   {
     ExRam.Gremlinq.Tests.Entities.RichVertex: [
       {
-        Gender: One,
-        Id: 59,
-        Label: RichVertex,
-        PartitionKey: PartitionKey
-      }
-    ],
-    ExRam.Gremlinq.Tests.Entities.RichVertex: [
-      {
         Id: 29,
         Label: RichVertex,
         PartitionKey: PartitionKey
@@ -97,6 +89,14 @@
       {
         Age: 43,
         Id: 7,
+        Label: RichVertex,
+        PartitionKey: PartitionKey
+      }
+    ],
+    ExRam.Gremlinq.Tests.Entities.RichVertex: [
+      {
+        Enum: One,
+        Id: 59,
         Label: RichVertex,
         PartitionKey: PartitionKey
       }

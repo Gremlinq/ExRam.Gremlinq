@@ -6,7 +6,7 @@
     _c: PhoneNumbers,
     _d: _Etag,
     _e: _Self,
-    _f: Gender,
+    _f: Enum,
     _g: Zero,
     _h: RegistrationDate,
     _i: DateTimeOffset_1,

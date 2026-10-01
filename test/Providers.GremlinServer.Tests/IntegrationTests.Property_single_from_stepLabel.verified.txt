@@ -70,7 +70,7 @@
   },
   {
     Age: 36,
-    Gender: One,
+    Enum: One,
     Id: 59,
     Label: RichVertex,
     PartitionKey: PartitionKey

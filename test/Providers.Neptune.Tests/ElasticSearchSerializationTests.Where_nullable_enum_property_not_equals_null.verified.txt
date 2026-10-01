@@ -28,7 +28,7 @@
     {
       OperatorName: has,
       Arguments: [
-        Gender
+        Enum
       ]
     },
     {

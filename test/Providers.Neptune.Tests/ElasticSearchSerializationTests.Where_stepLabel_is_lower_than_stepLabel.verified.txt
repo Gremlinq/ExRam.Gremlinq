@@ -39,7 +39,7 @@
             {
               OperatorName: values,
               Arguments: [
-                Gender
+                Enum
               ]
             },
             {
@@ -60,7 +60,7 @@
             {
               OperatorName: values,
               Arguments: [
-                Gender
+                Enum
               ]
             },
             {

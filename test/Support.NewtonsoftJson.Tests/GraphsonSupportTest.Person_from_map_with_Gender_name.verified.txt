@@ -1,4 +1,4 @@
 ﻿{
-  Gender: One,
+  Enum: One,
   PartitionKey: PartitionKey
 }

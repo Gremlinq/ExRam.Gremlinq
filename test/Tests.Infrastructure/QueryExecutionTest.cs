@@ -232,14 +232,14 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task AddV_with_enum_property() => _g
-            .AddV(new RichVertex { Gender = SomeEnum.One })
+            .AddV(new RichVertex { Enum = SomeEnum.One })
             .Verify();
 
         [Fact]
         public virtual async Task AddV_With_Ignored()
         {
             var now = new DateTimeOffset(2020, 4, 7, 14, 43, 36, TimeSpan.Zero);
-            var person = new RichVertex { Age = 21, Gender = SomeEnum.Zero, Name = "Marko", RegistrationDate = now };
+            var person = new RichVertex { Age = 21, Enum = SomeEnum.Zero, Name = "Marko", RegistrationDate = now };
 
             await _g
                 .ConfigureEnvironment(env => env
@@ -247,7 +247,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                         .ConfigureVertices(_ => _
                             .ConfigureElement<RichVertex>(conf => conf
                                 .IgnoreAlways(p => p.Age)
-                                .IgnoreAlways(p => p.Gender)))))
+                                .IgnoreAlways(p => p.Enum)))))
                 .AddV(person)
                 .Verify();
         }
@@ -1726,10 +1726,10 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual Task OrderBy_ThenByDescending_traversal() => _g
             .V<RichVertex>()
             .Where(x => x.Name != null)
-            .Where(x => x.Values(y => y.Gender!))
+            .Where(x => x.Values(y => y.Enum!))
             .Order(b => b
                 .By(__ => __.Values(x => x.Name!))
-                .ByDescending(__ => __.Gender))
+                .ByDescending(__ => __.Enum))
             .Verify();
 
         [Fact]
@@ -1744,20 +1744,20 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual Task OrderBy_traversal_ThenBy() => _g
             .V<RichVertex>()
             .Where(x => x.Name != null)
-            .Where(x => x.Values(y => y.Gender!))
+            .Where(x => x.Values(y => y.Enum!))
             .Order(b => b
                 .By(__ => __.Values(x => x.Name!))
-                .By(__ => __.Gender))
+                .By(__ => __.Enum))
             .Verify();
 
         [Fact]
         public virtual Task OrderBy_traversal_ThenBy_traversal() => _g
             .V<RichVertex>()
             .Where(x => x.Name != null)
-            .Where(x => x.Values(y => y.Gender!))
+            .Where(x => x.Values(y => y.Enum!))
             .Order(b => b
                 .By(__ => __.Values(x => x.Name!))
-                .By(__ => __.Values(x => x.Gender!)))
+                .By(__ => __.Values(x => x.Enum!)))
             .Verify();
 
         [Fact]
@@ -3066,7 +3066,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual async Task ReplaceV()
         {
             var now = new DateTimeOffset(2020, 4, 7, 14, 43, 36, TimeSpan.Zero);
-            var person = new RichVertex { Id = 0, Age = 21, Gender = SomeEnum.Zero, Name = "Marko", RegistrationDate = now };
+            var person = new RichVertex { Id = 0, Age = 21, Enum = SomeEnum.Zero, Name = "Marko", RegistrationDate = now };
 
             await _g
                 .ReplaceV(person)
@@ -3077,7 +3077,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual async Task ReplaceV_With_Config()
         {
             var now = new DateTimeOffset(2020, 4, 7, 14, 43, 36, TimeSpan.Zero);
-            var person = new RichVertex { Id = 0, Age = 21, Gender = SomeEnum.Zero, Name = "Marko", RegistrationDate = now };
+            var person = new RichVertex { Id = 0, Age = 21, Enum = SomeEnum.Zero, Name = "Marko", RegistrationDate = now };
 
             await _g
                 .ConfigureEnvironment(env => env
@@ -3672,7 +3672,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         {
             var now = new DateTimeOffset(2020, 4, 7, 14, 43, 36, TimeSpan.Zero);
             var edgeNow = new DateTime(2020, 4, 7, 14, 43, 36, DateTimeKind.Utc);
-            var person = new RichVertex { Age = 21, Gender = SomeEnum.Zero, Name = "Marko", RegistrationDate = now };
+            var person = new RichVertex { Age = 21, Enum = SomeEnum.Zero, Name = "Marko", RegistrationDate = now };
             var worksFor = new RichEdge { From = edgeNow, To = edgeNow, Role = "Admin" };
 
             await _g
@@ -3688,7 +3688,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         {
             var now = new DateTimeOffset(2020, 4, 7, 14, 43, 36, TimeSpan.Zero);
             var edgeNow = new DateTime(2020, 4, 7, 14, 43, 36, DateTimeKind.Utc);
-            var person = new RichVertex { Age = 21, Gender = SomeEnum.Zero, Name = "Marko", RegistrationDate = now };
+            var person = new RichVertex { Age = 21, Enum = SomeEnum.Zero, Name = "Marko", RegistrationDate = now };
             var worksFor = new RichEdge { From = edgeNow, To = edgeNow, Role = "Admin" };
 
             await _g
@@ -3767,7 +3767,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
             await _g
                 .V<RichVertex>()
-                .Update(new RichVertex { Age = 21, Gender = SomeEnum.Zero, Name = "Marko", RegistrationDate = now, PhoneNumbers = [new VertexProperty<string>("012345")]
+                .Update(new RichVertex { Age = 21, Enum = SomeEnum.Zero, Name = "Marko", RegistrationDate = now, PhoneNumbers = [new VertexProperty<string>("012345")]
                 })
                 .Verify();
         }
@@ -3776,7 +3776,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual async Task UpdateV_With_Ignored()
         {
             var now = new DateTimeOffset(2020, 4, 7, 14, 43, 36, TimeSpan.Zero);
-            var person = new RichVertex { Age = 21, Gender = SomeEnum.Zero, Name = "Marko", RegistrationDate = now };
+            var person = new RichVertex { Age = 21, Enum = SomeEnum.Zero, Name = "Marko", RegistrationDate = now };
 
             await _g
                 .ConfigureEnvironment(env => env
@@ -3784,7 +3784,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                         .ConfigureVertices(_ => _
                             .ConfigureElement<RichVertex>(conf => conf
                                 .IgnoreAlways(p => p.Age)
-                                .IgnoreAlways(p => p.Gender)))))
+                                .IgnoreAlways(p => p.Enum)))))
                 .V<RichVertex>()
                 .Update(person)
                 .Verify();
@@ -3794,7 +3794,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual async Task UpdateV_With_Mixed()
         {
             var now = new DateTimeOffset(2020, 4, 7, 14, 43, 36, TimeSpan.Zero);
-            var person = new RichVertex { Age = 21, Gender = SomeEnum.Zero, Name = "Marko", RegistrationDate = now };
+            var person = new RichVertex { Age = 21, Enum = SomeEnum.Zero, Name = "Marko", RegistrationDate = now };
 
             await _g
                 .ConfigureEnvironment(env => env
@@ -3802,7 +3802,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                         .ConfigureVertices(_ => _
                             .ConfigureElement<RichVertex>(conf => conf
                                 .IgnoreOnUpdate(p => p.Age)
-                                .IgnoreAlways(p => p.Gender)))))
+                                .IgnoreAlways(p => p.Enum)))))
                 .V<RichVertex>()
                 .Update(person)
                 .Verify();
@@ -3812,7 +3812,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual async Task UpdateV_With_Readonly()
         {
             var now = new DateTimeOffset(2020, 4, 7, 14, 43, 36, TimeSpan.Zero);
-            var person = new RichVertex { Age = 21, Gender = SomeEnum.Zero, Name = "Marko", RegistrationDate = now };
+            var person = new RichVertex { Age = 21, Enum = SomeEnum.Zero, Name = "Marko", RegistrationDate = now };
 
             await _g
                 .ConfigureEnvironment(env => env
@@ -3820,7 +3820,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                         .ConfigureVertices(_ => _
                             .ConfigureElement<RichVertex>(conf => conf
                                 .IgnoreOnUpdate(p => p.Age)
-                                .IgnoreOnUpdate(p => p.Gender)))))
+                                .IgnoreOnUpdate(p => p.Enum)))))
                 .V<RichVertex>()
                 .Update(person)
                 .Verify();
@@ -4406,7 +4406,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task Values_3_members() => _g
             .V<RichVertex>()
-            .Values(x => x.Name!, x => x.Gender!, x => x.Id!)
+            .Values(x => x.Name!, x => x.Enum!, x => x.Id!)
             .Verify();
 
         [Fact]
@@ -4700,13 +4700,13 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task Where_nullable_enum_property_equals_null() => _g
             .V<RichVertex>()
-            .Where(t => t.Gender == null)
+            .Where(t => t.Enum == null)
             .Verify();
 
         [Fact]
         public virtual Task Where_nullable_enum_property_not_equals_null() => _g
             .V<RichVertex>()
-            .Where(t => t.Gender != null)
+            .Where(t => t.Enum != null)
             .Verify();
 
         [Fact]
@@ -5538,10 +5538,10 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .V<RichVertex>()
             .Where(__ => __
                 .As((__, _) => __
-                    .Values(x => x.Gender!)
+                    .Values(x => x.Enum!)
                     .As((__, gender1) => __
                         .V<RichVertex>()
-                        .Values(x => x.Gender!)
+                        .Values(x => x.Enum!)
                             .As((__, gender2) => __
                                 .Where(p => gender1.Value < gender2.Value)))))
             .Verify();

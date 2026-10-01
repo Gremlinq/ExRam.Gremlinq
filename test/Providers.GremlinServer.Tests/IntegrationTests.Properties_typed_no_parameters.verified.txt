@@ -216,7 +216,7 @@
   },
   {
     Id: 61,
-    Label: Gender,
+    Label: Enum,
     Properties: {},
     Value: 1
   },

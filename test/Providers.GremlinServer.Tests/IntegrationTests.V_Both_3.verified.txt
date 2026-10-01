@@ -7,7 +7,7 @@
   },
   {
     Age: 21,
-    Gender: Zero,
+    Enum: Zero,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
       Id: 294,
@@ -21,7 +21,7 @@
   },
   {
     Age: 21,
-    Gender: Zero,
+    Enum: Zero,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
       Id: 314,
@@ -77,7 +77,7 @@
   },
   {
     Age: 21,
-    Gender: Zero,
+    Enum: Zero,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
       Id: 290,
@@ -109,7 +109,7 @@
   },
   {
     Age: 21,
-    Gender: Zero,
+    Enum: Zero,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
       Id: 298,
@@ -136,7 +136,7 @@
   },
   {
     Age: 21,
-    Gender: Zero,
+    Enum: Zero,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
       Id: 302,
@@ -163,7 +163,7 @@
   },
   {
     Age: 21,
-    Gender: Zero,
+    Enum: Zero,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
       Id: 306,
@@ -177,7 +177,7 @@
   },
   {
     Age: 21,
-    Gender: Zero,
+    Enum: Zero,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
       Id: 310,
@@ -216,7 +216,7 @@
   },
   {
     Age: 21,
-    Gender: Zero,
+    Enum: Zero,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
       Id: 318,

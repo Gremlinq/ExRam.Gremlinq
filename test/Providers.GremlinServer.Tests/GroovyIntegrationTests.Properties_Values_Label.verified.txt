@@ -34,7 +34,7 @@
   IetfLanguageTag,
   Image,
   Age,
-  Gender,
+  Enum,
   Age,
   RegistrationDate,
   Name

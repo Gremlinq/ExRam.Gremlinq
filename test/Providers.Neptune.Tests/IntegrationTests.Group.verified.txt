@@ -50,14 +50,6 @@
     ],
     ExRam.Gremlinq.Tests.Entities.RichVertex: [
       {
-        Gender: One,
-        Id: 59,
-        Label: RichVertex,
-        PartitionKey: PartitionKey
-      }
-    ],
-    ExRam.Gremlinq.Tests.Entities.RichVertex: [
-      {
         Image: AQIDBAUGBwg=,
         Id: 56,
         Label: RichVertex,
@@ -94,6 +86,14 @@
           Value: Marko
         },
         Id: 62,
+        Label: RichVertex,
+        PartitionKey: PartitionKey
+      }
+    ],
+    ExRam.Gremlinq.Tests.Entities.RichVertex: [
+      {
+        Enum: One,
+        Id: 59,
         Label: RichVertex,
         PartitionKey: PartitionKey
       }

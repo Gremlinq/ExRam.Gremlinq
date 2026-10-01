@@ -238,7 +238,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
               "id": 1,
               "label": "RichVertex",
               "properties": {
-                "Gender": [ { "id": 2, "value": "One" } ]
+                "Enum": [ { "id": 2, "value": "One" } ]
               }
             }
             """);
@@ -251,13 +251,13 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                 "id": { "@type": "g:Int64", "@value": 1 },
                 "label": "RichVertex",
                 "properties": {
-                  "Gender": [
+                  "Enum": [
                     {
                       "@type": "g:VertexProperty",
                       "@value": {
                         "id": { "@type": "g:Int64", "@value": 2 },
                         "value": "one",
-                        "label": "Gender"
+                        "label": "Enum"
                       }
                     }
                   ]
@@ -270,7 +270,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual Task Person_from_map_with_Gender_name() => Verify<RichVertex>("""
             {
               "@type": "g:Map",
-              "@value": [ "Gender", [ "One" ] ]
+              "@value": [ "Enum", [ "One" ] ]
             }
             """);
 
@@ -281,13 +281,13 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
               "label": "RichVertex",
               "properties": {
                 "Age": [ { "id": 2, "value": 36 } ],
-                "Gender": [ { "id": 3, "value": "Other" } ]
+                "Enum": [ { "id": 3, "value": "Other" } ]
               }
             }
             """);
 
         [Fact]
-        public virtual Task VertexProperty_with_enum_name() => Verify<VertexProperty<SomeEnum>>("""{ "id": 2, "value": "One", "label": "Gender" }""");
+        public virtual Task VertexProperty_with_enum_name() => Verify<VertexProperty<SomeEnum>>("""{ "id": 2, "value": "One", "label": "Enum" }""");
 
         // Bug_1884 with the enum under its name: ValueA, where the entity sets ValueB by itself.
         [Fact]
@@ -301,7 +301,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         // Constructor arguments are read the same way as members are.
         [Fact]
-        public virtual Task Constructor_with_enum_names() => Verify<ClassWithEnumConstructor>("""{ "gender": "One", "nullableGender": "two" }""");
+        public virtual Task Constructor_with_enum_names() => Verify<ClassWithEnumConstructor>("""{ "enum": "One", "nullableEnum": "two" }""");
 
         [Fact]
         public virtual Task Constructor_assertion_1() => Verify<ClassWithFieldsAndConstructor>("{ }");

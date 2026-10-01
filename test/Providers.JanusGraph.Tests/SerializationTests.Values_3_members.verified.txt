@@ -24,7 +24,7 @@
             {
               OperatorName: values,
               Arguments: [
-                Gender,
+                Enum,
                 Name
               ]
             }

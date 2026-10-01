@@ -40,7 +40,7 @@
       Enabled,
       Duration,
       Image,
-      Gender
+      Enum
     ],
     ResponseStatus: {
       Code: Success,

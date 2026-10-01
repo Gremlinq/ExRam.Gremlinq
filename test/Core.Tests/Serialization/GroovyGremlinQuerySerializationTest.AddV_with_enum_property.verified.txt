@@ -4,7 +4,7 @@
     _a: RichVertex,
     _b: Age,
     _c: 0,
-    _d: Gender,
+    _d: Enum,
     _e: One,
     _f: id,
     _g: label,

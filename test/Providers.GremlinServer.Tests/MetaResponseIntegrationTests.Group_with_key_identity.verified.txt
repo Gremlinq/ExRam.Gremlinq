@@ -41,18 +41,18 @@
             PartitionKey: PartitionKey
           }
         ],
+        ExRam.Gremlinq.Tests.Entities.RichVertex: [
+          {
+            Enum: One,
+            Id: 59,
+            Label: RichVertex,
+            PartitionKey: PartitionKey
+          }
+        ],
         ExRam.Gremlinq.Tests.Entities.MetaPropertyVertex: [
           {
             Id: 21,
             Label: MetaPropertyVertex,
-            PartitionKey: PartitionKey
-          }
-        ],
-        ExRam.Gremlinq.Tests.Entities.RichVertex: [
-          {
-            Gender: One,
-            Id: 59,
-            Label: RichVertex,
             PartitionKey: PartitionKey
           }
         ],

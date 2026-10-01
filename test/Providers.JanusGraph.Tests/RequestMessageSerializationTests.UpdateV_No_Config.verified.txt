@@ -56,7 +56,7 @@
               EnumName: Cardinality,
               EnumValue: single
             },
-            Gender,
+            Enum,
             Zero
           ]
         },

@@ -144,13 +144,13 @@
       },
       {
         Item1: {
-          Gender: One,
+          Enum: One,
           Id: 59,
           Label: RichVertex,
           PartitionKey: PartitionKey
         },
         Item2: {
-          Gender: One,
+          Enum: One,
           Id: 59,
           Label: RichVertex,
           PartitionKey: PartitionKey

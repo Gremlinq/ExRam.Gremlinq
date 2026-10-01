@@ -9,7 +9,7 @@
     bindings: {
       _a: RichVertex,
       _b: Name,
-      _c: Gender,
+      _c: Enum,
       _d: id,
       _e: label,
       _f: properties,

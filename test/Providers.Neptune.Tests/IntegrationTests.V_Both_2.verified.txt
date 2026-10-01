@@ -18,7 +18,7 @@
   },
   {
     Age: 21,
-    Gender: Zero,
+    Enum: Zero,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
       Id: 290,
@@ -36,7 +36,7 @@
   },
   {
     Age: 21,
-    Gender: Zero,
+    Enum: Zero,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
       Id: 310,
@@ -71,7 +71,7 @@
   },
   {
     Age: 21,
-    Gender: Zero,
+    Enum: Zero,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
       Id: 318,

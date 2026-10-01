@@ -4,7 +4,7 @@
     Data: [
       {
         Age: 21,
-        Gender: Zero,
+        Enum: Zero,
         RegistrationDate: 2020-04-07 14:43:36 +0,
         Name: {
           Id: 244,
@@ -18,7 +18,7 @@
       },
       {
         Age: 21,
-        Gender: Zero,
+        Enum: Zero,
         RegistrationDate: 2020-04-07 14:43:36 +0,
         Name: {
           Id: 246,
@@ -32,7 +32,7 @@
       },
       {
         Age: 21,
-        Gender: Zero,
+        Enum: Zero,
         RegistrationDate: 2020-04-07 14:43:36 +0,
         Name: {
           Id: 248,
@@ -46,7 +46,7 @@
       },
       {
         Age: 21,
-        Gender: Zero,
+        Enum: Zero,
         RegistrationDate: 2020-04-07 14:43:36 +0,
         Name: {
           Id: 250,
@@ -60,7 +60,7 @@
       },
       {
         Age: 21,
-        Gender: Zero,
+        Enum: Zero,
         RegistrationDate: 2020-04-07 14:43:36 +0,
         Name: {
           Id: 252,
@@ -74,7 +74,7 @@
       },
       {
         Age: 21,
-        Gender: Zero,
+        Enum: Zero,
         RegistrationDate: 2020-04-07 14:43:36 +0,
         Name: {
           Id: 254,
@@ -88,7 +88,7 @@
       },
       {
         Age: 21,
-        Gender: Zero,
+        Enum: Zero,
         RegistrationDate: 2020-04-07 14:43:36 +0,
         Name: {
           Id: 256,
@@ -102,7 +102,7 @@
       },
       {
         Age: 21,
-        Gender: Zero,
+        Enum: Zero,
         RegistrationDate: 2020-04-07 14:43:36 +0,
         Name: {
           Id: 258,
@@ -116,7 +116,7 @@
       },
       {
         Age: 21,
-        Gender: Zero,
+        Enum: Zero,
         RegistrationDate: 2020-04-07 14:43:36 +0,
         Name: {
           Id: 260,
@@ -130,7 +130,7 @@
       },
       {
         Age: 21,
-        Gender: Zero,
+        Enum: Zero,
         RegistrationDate: 2020-04-07 14:43:36 +0,
         Name: {
           Id: 262,
@@ -144,7 +144,7 @@
       },
       {
         Age: 21,
-        Gender: Zero,
+        Enum: Zero,
         RegistrationDate: 2020-04-07 14:43:36 +0,
         Name: {
           Id: 264,

@@ -1,6 +1,6 @@
 {
   Age: 36,
-  Gender: One,
+  Enum: One,
   PhoneNumbers: [
     {
       Id: 4,

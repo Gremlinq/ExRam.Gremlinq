@@ -69,7 +69,7 @@
   58,
   Age,
   57,
-  Gender,
+  Enum,
   61,
   Age,
   60,

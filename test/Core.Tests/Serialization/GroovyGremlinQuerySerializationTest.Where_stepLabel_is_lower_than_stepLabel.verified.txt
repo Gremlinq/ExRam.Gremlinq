@@ -3,7 +3,7 @@
   Bindings: {
     _a: RichVertex,
     _b: _a,
-    _c: Gender,
+    _c: Enum,
     _d: _b,
     _e: _c,
     _f: id,

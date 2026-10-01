@@ -31,7 +31,7 @@
                 {
                   OperatorName: values,
                   Arguments: [
-                    Gender
+                    Enum
                   ]
                 }
               ]
@@ -63,7 +63,7 @@
         {
           OperatorName: by,
           Arguments: [
-            Gender,
+            Enum,
             {
               EnumName: Order,
               EnumValue: desc

@@ -833,7 +833,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                     "value": 1481750076295
                   }
                 ],
-                "Gender": [
+                "Enum": [
                   {
                     "id": 3,
                     "value": 1
@@ -903,7 +903,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                     "value": 1481750076295
                   }
                 ],
-                "Gender": [
+                "Enum": [
                   {
                     "id": 3,
                     "value": 1
@@ -936,7 +936,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                   }
                 ],
                 "RegistrationDate": null,
-                "Gender": [
+                "Enum": [
                   {
                     "id": 3,
                     "value": 1

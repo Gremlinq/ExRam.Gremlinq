@@ -37,5 +37,5 @@
   Enabled,
   Duration,
   Image,
-  Gender
+  Enum
 ]

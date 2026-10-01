@@ -429,7 +429,7 @@
   },
   Person_StringId: {
     Age: 36,
-    Gender: One,
+    Enum: One,
     RegistrationDate: 2016-12-14 21:14:36.295 +0,
     PhoneNumbers: [
       {
@@ -447,7 +447,7 @@
   },
   Person_strongly_typed: {
     Age: 36,
-    Gender: One,
+    Enum: One,
     RegistrationDate: 2016-12-14 21:14:36.295 +0,
     PhoneNumbers: [
       {
@@ -465,7 +465,7 @@
   },
   Person_with_null: {
     Age: 36,
-    Gender: One,
+    Enum: One,
     PhoneNumbers: [
       {
         Id: 4,
