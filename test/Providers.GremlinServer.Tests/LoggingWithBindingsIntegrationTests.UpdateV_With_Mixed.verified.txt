@@ -3,13 +3,13 @@
     log: {
       Level: Debug,
       Category: LoggingFixture,
-      Message: Executing Gremlin query 12345678-9012-3456-7890-123456789012 with groovy script g.V().hasLabel(_a).sideEffect(__.properties(_b,_c,_d,_e,_f).drop()).property(single,_g,_h).property(single,_i,_j).project(_k,_l,_m).by(id).by(label).by(__.properties().group().by(label).by(__.project(_n,_o,_p,_q).by(id).by(label).by(value).by(__.valueMap()).fold())) and parameter bindings [_a, Person], [_b, Image], [_c, PhoneNumbers], [_d, SomeObscureProperty], [_e, _Etag], [_f, _Self], [_g, Name], [_h, Marko], [_i, RegistrationDate], [_j, 04/07/2020 14:43:36 +00:00], [_k, id], [_l, label], [_m, properties], [_n, id], [_o, label], [_p, value], [_q, properties].,
+      Message: Executing Gremlin query 12345678-9012-3456-7890-123456789012 with groovy script g.V().hasLabel(_a).sideEffect(__.properties(_b,_c,_d,_e).drop()).property(single,_f,_g).property(single,_h,_i).project(_j,_k,_l).by(id).by(label).by(__.properties().group().by(label).by(__.project(_m,_n,_o,_p).by(id).by(label).by(value).by(__.valueMap()).fold())) and parameter bindings [_a, Person], [_b, Image], [_c, PhoneNumbers], [_d, _Etag], [_e, _Self], [_f, Name], [_g, Marko], [_h, RegistrationDate], [_i, 04/07/2020 14:43:36 +00:00], [_j, id], [_k, label], [_l, properties], [_m, id], [_n, label], [_o, value], [_p, properties].,
       State: [
         {
           requestId: 12345678-9012-3456-7890-123456789012
         },
         {
-          script: g.V().hasLabel(_a).sideEffect(__.properties(_b,_c,_d,_e,_f).drop()).property(single,_g,_h).property(single,_i,_j).project(_k,_l,_m).by(id).by(label).by(__.properties().group().by(label).by(__.project(_n,_o,_p,_q).by(id).by(label).by(value).by(__.valueMap()).fold()))
+          script: g.V().hasLabel(_a).sideEffect(__.properties(_b,_c,_d,_e).drop()).property(single,_f,_g).property(single,_h,_i).project(_j,_k,_l).by(id).by(label).by(__.properties().group().by(label).by(__.project(_m,_n,_o,_p).by(id).by(label).by(value).by(__.valueMap()).fold()))
         },
         {
           bindings: {}

@@ -10,18 +10,17 @@
       _a: Person,
       _b: Image,
       _c: PhoneNumbers,
-      _d: SomeObscureProperty,
-      _e: _Etag,
-      _f: _Self,
-      _g: Name,
-      _h: Marko,
-      _i: RegistrationDate,
-      _j: DateTimeOffset_1,
-      _k: id,
-      _l: label,
-      _m: properties,
-      _n: value
+      _d: _Etag,
+      _e: _Self,
+      _f: Name,
+      _g: Marko,
+      _h: RegistrationDate,
+      _i: DateTimeOffset_1,
+      _j: id,
+      _k: label,
+      _l: properties,
+      _m: value
     },
-    gremlin: g.V().hasLabel(_a).sideEffect(__.properties(_b,_c,_d,_e,_f).drop()).property(single,_g,_h).property(single,_i,_j).project(_k,_l,_m).by(id).by(label).by(__.properties().group().by(label).by(__.project(_k,_l,_n,_m).by(id).by(label).by(value).by(__.valueMap()).fold()))
+    gremlin: g.V().hasLabel(_a).sideEffect(__.properties(_b,_c,_d,_e).drop()).property(single,_f,_g).property(single,_h,_i).project(_j,_k,_l).by(id).by(label).by(__.properties().group().by(label).by(__.project(_j,_k,_m,_l).by(id).by(label).by(value).by(__.valueMap()).fold()))
   }
 }

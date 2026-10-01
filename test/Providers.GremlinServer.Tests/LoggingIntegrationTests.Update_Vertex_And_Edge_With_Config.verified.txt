@@ -3,13 +3,13 @@
     log: {
       Level: Debug,
       Category: LoggingFixture,
-      Message: Executing Gremlin query 12345678-9012-3456-7890-123456789012 with groovy script g.V().hasLabel(_a).sideEffect(__.properties(_b,_c,_d,_e,_f).drop()).property(single,_g,_h).property(single,_i,_j).outE(_k).sideEffect(__.properties(_l,_m).drop()).property(_n,_o).project(_p,_q,_r).by(id).by(label).by(__.valueMap()).,
+      Message: Executing Gremlin query 12345678-9012-3456-7890-123456789012 with groovy script g.V().hasLabel(_a).sideEffect(__.properties(_b,_c,_d,_e).drop()).property(single,_f,_g).property(single,_h,_i).outE(_j).sideEffect(__.properties(_k,_l).drop()).property(_m,_n).project(_o,_p,_q).by(id).by(label).by(__.valueMap()).,
       State: [
         {
           requestId: 12345678-9012-3456-7890-123456789012
         },
         {
-          script: g.V().hasLabel(_a).sideEffect(__.properties(_b,_c,_d,_e,_f).drop()).property(single,_g,_h).property(single,_i,_j).outE(_k).sideEffect(__.properties(_l,_m).drop()).property(_n,_o).project(_p,_q,_r).by(id).by(label).by(__.valueMap())
+          script: g.V().hasLabel(_a).sideEffect(__.properties(_b,_c,_d,_e).drop()).property(single,_f,_g).property(single,_h,_i).outE(_j).sideEffect(__.properties(_k,_l).drop()).property(_m,_n).project(_o,_p,_q).by(id).by(label).by(__.valueMap())
         },
         {
           {OriginalFormat}: Executing Gremlin query {requestId} with groovy script {script}.
