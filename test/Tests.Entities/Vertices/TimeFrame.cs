@@ -4,8 +4,8 @@ namespace ExRam.Gremlinq.Tests.Entities
     {
         public bool Enabled { get; set; }
 
-        public virtual TimeSpan StartTime { get; set; }
+        public TimeSpan StartTime { get; set; }
 
-        public virtual TimeSpan Duration { get; set; }
+        public TimeSpan Duration { get; set; }
     }
 }
