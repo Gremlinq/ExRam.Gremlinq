@@ -1,1 +1,1 @@
-﻿g.V().hasLabel('RichVertex').map(__.out('WorksFor').id().limit(2))
+﻿g.V().hasLabel('RichVertex').map(__.out('RichEdge').id().limit(2))

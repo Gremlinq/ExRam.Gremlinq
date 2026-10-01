@@ -19,7 +19,7 @@
                 {
                   OperatorName: out,
                   Arguments: [
-                    WorksFor
+                    RichEdge
                   ]
                 }
               ]

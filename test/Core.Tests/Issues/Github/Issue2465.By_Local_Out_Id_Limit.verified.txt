@@ -1,1 +1,1 @@
-﻿g.V().hasLabel('RichVertex').project('Item1','Item2').by(__.out('WorksFor').id()).by(__.id())
+﻿g.V().hasLabel('RichVertex').project('Item1','Item2').by(__.out('RichEdge').id()).by(__.id())

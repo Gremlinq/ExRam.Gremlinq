@@ -88,7 +88,7 @@
     {
       OperatorName: outE,
       Arguments: [
-        WorksFor
+        RichEdge
       ]
     },
     {

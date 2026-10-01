@@ -3,7 +3,7 @@
     log: {
       Level: Debug,
       Category: LoggingFixture,
-      Message: Executing Gremlin query 12345678-9012-3456-7890-123456789012 with groovy script g.V().hasLabel(_a).outE(_b).inV().hasLabel(_c).values(_d).tree() and parameter bindings [_a, RichVertex], [_b, WorksFor], [_c, SiblingVertex], [_d, FoundingDate].,
+      Message: Executing Gremlin query 12345678-9012-3456-7890-123456789012 with groovy script g.V().hasLabel(_a).outE(_b).inV().hasLabel(_c).values(_d).tree() and parameter bindings [_a, RichVertex], [_b, RichEdge], [_c, SiblingVertex], [_d, FoundingDate].,
       State: [
         {
           requestId: 12345678-9012-3456-7890-123456789012

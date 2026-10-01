@@ -2,7 +2,7 @@
   Script: g.V().hasLabel(_a).union(__.out(_b),__.out(_c)).project(_d,_e,_f).by(id).by(label).by(__.properties().group().by(label).by(__.project(_d,_e,_g,_f).by(id).by(label).by(value).by(__.valueMap()).fold())),
   Bindings: {
     _a: RichVertex,
-    _b: WorksFor,
+    _b: RichEdge,
     _c: PropertyEdge,
     _d: id,
     _e: label,

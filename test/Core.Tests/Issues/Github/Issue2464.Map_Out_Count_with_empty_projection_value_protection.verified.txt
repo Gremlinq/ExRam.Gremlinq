@@ -1,1 +1,1 @@
-﻿g.V().hasLabel('RichVertex').project('Item1','Item2').by(__.out('WorksFor').count().limit(1).fold()).by(__.id().limit(1).fold()).map(__.unfold().group().by(__.select(keys)).by(__.select(values).unfold()))
+﻿g.V().hasLabel('RichVertex').project('Item1','Item2').by(__.out('RichEdge').count().limit(1).fold()).by(__.id().limit(1).fold()).map(__.unfold().group().by(__.select(keys)).by(__.select(values).unfold()))

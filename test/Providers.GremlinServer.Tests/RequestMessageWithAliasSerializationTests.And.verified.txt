@@ -25,7 +25,7 @@
                 {
                   OperatorName: inE,
                   Arguments: [
-                    WorksFor
+                    RichEdge
                   ]
                 }
               ]

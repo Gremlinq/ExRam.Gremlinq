@@ -1,1 +1,1 @@
-g.V().hasLabel('RichVertex').union(__.out('WorksFor'),__.outE('PropertyEdge'))
+g.V().hasLabel('RichVertex').union(__.out('RichEdge'),__.outE('PropertyEdge'))

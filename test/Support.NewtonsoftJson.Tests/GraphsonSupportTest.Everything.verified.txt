@@ -135,7 +135,7 @@
   Edge: {
     Role: Admin,
     Id: 9,
-    Label: WorksFor
+    Label: RichEdge
   },
   Empty_to_ints: {},
   Graphson2Path: {

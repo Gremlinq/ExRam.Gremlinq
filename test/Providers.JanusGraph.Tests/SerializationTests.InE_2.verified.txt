@@ -13,7 +13,7 @@
       OperatorName: inE,
       Arguments: [
         PropertyEdge,
-        WorksFor
+        RichEdge
       ]
     },
     {

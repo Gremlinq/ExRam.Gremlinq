@@ -7,7 +7,7 @@
       g: g
     },
     bindings: {
-      _a: WorksFor,
+      _a: RichEdge,
       _b: id,
       _c: label,
       _d: properties,

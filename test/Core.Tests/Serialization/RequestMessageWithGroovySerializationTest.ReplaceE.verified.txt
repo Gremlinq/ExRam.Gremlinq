@@ -8,7 +8,7 @@
     },
     bindings: {
       _a: 0,
-      _b: WorksFor,
+      _b: RichEdge,
       _c: _Etag,
       _d: _Self,
       _e: From,

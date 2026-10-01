@@ -14,7 +14,7 @@
     _k: Marko,
     _l: RegistrationDate,
     _m: DateTimeOffset_1,
-    _n: WorksFor,
+    _n: RichEdge,
     _o: From,
     _p: Role,
     _q: Admin,

@@ -1,1 +1,1 @@
-﻿g.V().hasLabel('RichVertex').flatMap(__.out('WorksFor').count())
+﻿g.V().hasLabel('RichVertex').flatMap(__.out('RichEdge').count())

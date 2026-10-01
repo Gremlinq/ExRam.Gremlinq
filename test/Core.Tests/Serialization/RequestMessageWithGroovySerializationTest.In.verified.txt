@@ -8,7 +8,7 @@
     },
     bindings: {
       _a: RichVertex,
-      _b: WorksFor,
+      _b: RichEdge,
       _c: id,
       _d: label,
       _e: properties,

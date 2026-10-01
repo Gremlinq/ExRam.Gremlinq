@@ -8,7 +8,7 @@
     },
     bindings: {
       _a: RichVertex,
-      _b: WorksFor,
+      _b: RichEdge,
       _c: PropertyEdge
     },
     gremlin: g.V().hasLabel(_a).union(__.out(_b),__.outE(_c))

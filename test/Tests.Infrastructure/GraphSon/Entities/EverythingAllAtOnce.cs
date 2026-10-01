@@ -38,7 +38,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure.GraphSon.Entities
         public DateTimeOffset DateTimeOffset_from_number { get; set; }
         public DateTimeOffset DateTimeOffset_from_string { get; set; }
         public dynamic? DynamicData { get; set; }
-        public WorksFor? Edge { get; set; }
+        public RichEdge? Edge { get; set; }
         public (int[] ints, string[] strings) Empty_to_ints { get; set; }
         public object[]? Empty1 { get; set; }
         public RichVertex[]? Empty2 { get; set; }

@@ -4,7 +4,7 @@
     _a: RichVertex,
     _b: EmptyEdge,
     _c: PropertyEdge,
-    _d: WorksFor,
+    _d: RichEdge,
     _e: id,
     _f: label,
     _g: properties,

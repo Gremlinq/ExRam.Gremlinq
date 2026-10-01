@@ -21,7 +21,7 @@ namespace ExRam.Gremlinq.Benchmarks
         public object ComplexTraversalQuery() => _g
             .V<RichVertex>()
             .Where(p => p.Age > 25)
-            .Out<WorksFor>()
+            .Out<RichEdge>()
             .OfType<SiblingVertex>()
             .Where(c => c.Name!.Value.StartsWith("Tech"));
     }

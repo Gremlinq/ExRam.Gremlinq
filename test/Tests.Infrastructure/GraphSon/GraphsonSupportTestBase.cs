@@ -761,11 +761,11 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual Task DynamicData() => Verify<dynamic>("{ \"values\": [ ], \"count\": { \"@type\": \"g:Int32\", \"@value\": 36 } }");
 
         [Fact]
-        public virtual Task Edge() => Verify<WorksFor>(UntypedEdge);
+        public virtual Task Edge() => Verify<RichEdge>(UntypedEdge);
 
         // Should agree with Edge above: the typed and untyped wire forms must converge.
         [Fact]
-        public virtual Task Edge_from_typed_Edge() => Verify<WorksFor>(Graphson3_Edge);
+        public virtual Task Edge_from_typed_Edge() => Verify<RichEdge>(Graphson3_Edge);
 
         [Fact]
         public virtual Task Property_from_typed_Property() => Verify<Property<int>>("""

@@ -30,7 +30,7 @@
       Arguments: [
         EmptyEdge,
         PropertyEdge,
-        WorksFor
+        RichEdge
       ]
     },
     {

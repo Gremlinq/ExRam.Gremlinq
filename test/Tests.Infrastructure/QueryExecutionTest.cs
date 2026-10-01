@@ -88,7 +88,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             var now = new DateTime(2020, 4, 7, 14, 43, 36, DateTimeKind.Utc);
 
             await _g
-                .AddE(new WorksFor { From = now, To = now, Role = "Admin" })
+                .AddE(new RichEdge { From = now, To = now, Role = "Admin" })
                 .From(__ => __
                     .AddV(new RichVertex
                     {
@@ -152,7 +152,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             var now = new DateTime(2020, 4, 7, 14, 43, 36, DateTimeKind.Utc);
 
             await _g
-                .AddE(new WorksFor { From = now, To = now, Role = "Admin" })
+                .AddE(new RichEdge { From = now, To = now, Role = "Admin" })
                 .To(__ => __.AddV<SiblingVertex>())
                 .From(__ => __.AddV<RichVertex>())
                 .Verify();
@@ -194,10 +194,10 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                 .ConfigureEnvironment(env => env
                     .ConfigureModel(model => model
                         .ConfigureEdges(edges => edges
-                            .ConfigureElement<WorksFor>(conf => conf
+                            .ConfigureElement<RichEdge>(conf => conf
                                 .IgnoreAlways(p => p.From)
                                 .IgnoreAlways(p => p.Role)))))
-                .AddE(new WorksFor { From = now, To = now, Role = "Admin" })
+                .AddE(new RichEdge { From = now, To = now, Role = "Admin" })
                 .From(__ => __.AddV<RichVertex>())
                 .To(__ => __.AddV<SiblingVertex>())
                 .Verify();
@@ -440,7 +440,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .V<RichVertex>()
             .And(
                 __ => __
-                    .InE<WorksFor>(),
+                    .InE<RichEdge>(),
                 __ => __
                     .OutE<PropertyEdge>())
             .Verify();
@@ -461,9 +461,9 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                 __ => __
                     .And(
                         __ => __
-                            .InE<WorksFor>(),
+                            .InE<RichEdge>(),
                         __ => __
-                            .OutE<WorksFor>()))
+                            .OutE<RichEdge>()))
             .Verify();
 
         [Fact]
@@ -1010,7 +1010,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task E_of_concrete_type() => _g
-            .E<WorksFor>()
+            .E<RichEdge>()
             .Verify();
 
         [Fact]
@@ -1112,7 +1112,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task FlatMap() => _g
             .V<RichVertex>()
-            .FlatMap(__ => __.Out<WorksFor>())
+            .FlatMap(__ => __.Out<RichEdge>())
             .Verify();
 
         [Fact]
@@ -1254,19 +1254,19 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task In() => _g
             .V<RichVertex>()
-            .In<WorksFor>()
+            .In<RichEdge>()
             .Verify();
 
         [Fact]
         public virtual Task In_2() => _g
             .V<RichVertex>()
-            .In<WorksFor, PropertyEdge>()
+            .In<RichEdge, PropertyEdge>()
             .Verify();
 
         [Fact]
         public virtual Task In_3() => _g
             .V<RichVertex>()
-            .In<WorksFor, PropertyEdge, EmptyEdge>()
+            .In<RichEdge, PropertyEdge, EmptyEdge>()
             .Verify();
 
         [Fact]
@@ -1287,19 +1287,19 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task InE() => _g
             .V<RichVertex>()
-            .InE<WorksFor>()
+            .InE<RichEdge>()
             .Verify();
 
         [Fact]
         public virtual Task InE_2() => _g
             .V<RichVertex>()
-            .InE<WorksFor, PropertyEdge>()
+            .InE<RichEdge, PropertyEdge>()
             .Verify();
 
         [Fact]
         public virtual Task InE_3() => _g
             .V<RichVertex>()
-            .InE<WorksFor, PropertyEdge, EmptyEdge>()
+            .InE<RichEdge, PropertyEdge, EmptyEdge>()
             .Verify();
 
         [Fact]
@@ -1369,7 +1369,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task Map() => _g
             .V<RichVertex>()
-            .Map(__ => __.Out<WorksFor>())
+            .Map(__ => __.Out<RichEdge>())
             .Verify();
 
         [Fact]
@@ -1502,7 +1502,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task Not1() => _g
             .V()
-            .Not(__ => __.Out<WorksFor>())
+            .Not(__ => __.Out<RichEdge>())
             .Verify();
 
         [Fact]
@@ -1556,7 +1556,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual Task Optional() => _g
             .V()
             .Optional(
-                __ => __.Out<WorksFor>())
+                __ => __.Out<RichEdge>())
             .Verify();
 
         [Fact]
@@ -1564,7 +1564,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .V<RichVertex>()
             .Or(
                 __ => __
-                    .InE<WorksFor>(),
+                    .InE<RichEdge>(),
                 __ => __
                     .OutE<PropertyEdge>())
             .Verify();
@@ -1587,9 +1587,9 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                 __ => __
                     .Or(
                         __ => __
-                            .InE<WorksFor>(),
+                            .InE<RichEdge>(),
                         __ => __
-                            .OutE<WorksFor>()))
+                            .OutE<RichEdge>()))
             .Verify();
 
         [Fact]
@@ -1787,19 +1787,19 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task Out() => _g
             .V<RichVertex>()
-            .Out<WorksFor>()
+            .Out<RichEdge>()
             .Verify();
 
         [Fact]
         public virtual Task Out_2() => _g
             .V<RichVertex>()
-            .Out<WorksFor, PropertyEdge>()
+            .Out<RichEdge, PropertyEdge>()
             .Verify();
 
         [Fact]
         public virtual Task Out_3() => _g
             .V<RichVertex>()
-            .Out<WorksFor, PropertyEdge, EmptyEdge>()
+            .Out<RichEdge, PropertyEdge, EmptyEdge>()
             .Verify();
 
         [Fact]
@@ -1826,19 +1826,19 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task OutE() => _g
             .V<RichVertex>()
-            .OutE<WorksFor>()
+            .OutE<RichEdge>()
             .Verify();
 
         [Fact]
         public virtual Task OutE_2() => _g
             .V<RichVertex>()
-            .OutE<WorksFor, PropertyEdge>()
+            .OutE<RichEdge, PropertyEdge>()
             .Verify();
 
         [Fact]
         public virtual Task OutE_3() => _g
             .V<RichVertex>()
-            .OutE<WorksFor, PropertyEdge, EmptyEdge>()
+            .OutE<RichEdge, PropertyEdge, EmptyEdge>()
             .Verify();
 
         [Fact]
@@ -2950,7 +2950,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .V<RichVertex>()
             .Loop(_ => _
                 .Repeat(__ => __
-                    .Out<WorksFor>()
+                    .Out<RichEdge>()
                     .OfType<RichVertex>()))
             .Verify();
 
@@ -3039,7 +3039,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         {
             var now = new DateTime(2020, 4, 7, 14, 43, 36, DateTimeKind.Utc);
 
-            var worksFor = new WorksFor { Id = 0, From = now, To = now, Role = "Admin" };
+            var worksFor = new RichEdge { Id = 0, From = now, To = now, Role = "Admin" };
 
             await _g
                 .ReplaceE(worksFor)
@@ -3050,13 +3050,13 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual async Task ReplaceE_With_Config()
         {
             var now = new DateTime(2020, 4, 7, 14, 43, 36, DateTimeKind.Utc);
-            var worksFor = new WorksFor { Id = 0, From = now, To = now, Role = "Admin" };
+            var worksFor = new RichEdge { Id = 0, From = now, To = now, Role = "Admin" };
 
             await _g
                 .ConfigureEnvironment(env => env
                     .ConfigureModel(model => model
                         .ConfigureEdges(_ => _
-                            .ConfigureElement<WorksFor>(conf => conf
+                            .ConfigureElement<RichEdge>(conf => conf
                                 .IgnoreOnUpdate(p => p.Id)))))
                 .ReplaceE(worksFor)
                 .Verify();
@@ -3462,7 +3462,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task Tree_mixed_entity_and_scalar() => _g
             .V<RichVertex>()
-            .OutE<WorksFor>()
+            .OutE<RichEdge>()
             .InV<SiblingVertex>()
             .Values(x => x.FoundingDate!)
             .Tree()
@@ -3477,12 +3477,12 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task Tree_with_builder() => _g
             .V<RichVertex>()
-            .OutE<WorksFor>()
+            .OutE<RichEdge>()
             .InV<SiblingVertex>()
             .Values(x => x.FoundingDate!)
             .Tree(_ => _
                 .Of<RichVertex>()
-                .Of<WorksFor>()
+                .Of<RichEdge>()
                 .Of<SiblingVertex>()
                 .Of<DateTime>())
             .Verify();
@@ -3490,23 +3490,23 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task Tree_with_builder_and_modulator_on_last_Of() => _g
             .V<RichVertex>()
-            .OutE<WorksFor>()
+            .OutE<RichEdge>()
             .Where(x => x.Role != null)
             .Tree(_ => _
                 .Of<RichVertex>()
-                .Of<WorksFor>().By(x => x.Role!))
+                .Of<RichEdge>().By(x => x.Role!))
             .Verify();
 
         [Fact]
         public virtual Task Tree_with_builder_and_modulators() => _g
             .V<RichVertex>()
-            .OutE<WorksFor>()
+            .OutE<RichEdge>()
             .Where(x => x.Role != null)
             .InV<SiblingVertex>()
             .Values(x => x.FoundingDate!)
             .Tree(_ => _
                 .Of<RichVertex>()
-                .Of<WorksFor>().By(x => x.Role!)
+                .Of<RichEdge>().By(x => x.Role!)
                 .Of<SiblingVertex>()
                 .Of<DateTime>())
             .Verify();
@@ -3567,7 +3567,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual Task Union() => _g
             .V<RichVertex>()
             .Union(
-                __ => __.Out<WorksFor>(),
+                __ => __.Out<RichEdge>(),
                 __ => __.Out<PropertyEdge>())
             .Verify();
 
@@ -3575,7 +3575,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual Task Union_different_types() => _g
             .V<RichVertex>()
             .Union(
-                __ => __.Out<WorksFor>(),
+                __ => __.Out<RichEdge>(),
                 __ => __.OutE<PropertyEdge>())
             .Verify();
 
@@ -3584,7 +3584,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .V<RichVertex>()
             .Union(
                 __ => __
-                    .Out<WorksFor>()
+                    .Out<RichEdge>()
                     .Lower(),
                 __ => __
                     .OutE<PropertyEdge>()
@@ -3673,12 +3673,12 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             var now = new DateTimeOffset(2020, 4, 7, 14, 43, 36, TimeSpan.Zero);
             var edgeNow = new DateTime(2020, 4, 7, 14, 43, 36, DateTimeKind.Utc);
             var person = new RichVertex { Age = 21, Gender = Gender.Male, Name = "Marko", RegistrationDate = now };
-            var worksFor = new WorksFor { From = edgeNow, To = edgeNow, Role = "Admin" };
+            var worksFor = new RichEdge { From = edgeNow, To = edgeNow, Role = "Admin" };
 
             await _g
                 .V<RichVertex>()
                 .Update(person)
-                .OutE<WorksFor>()
+                .OutE<RichEdge>()
                 .Update(worksFor)
                 .Verify();
         }
@@ -3689,7 +3689,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             var now = new DateTimeOffset(2020, 4, 7, 14, 43, 36, TimeSpan.Zero);
             var edgeNow = new DateTime(2020, 4, 7, 14, 43, 36, DateTimeKind.Utc);
             var person = new RichVertex { Age = 21, Gender = Gender.Male, Name = "Marko", RegistrationDate = now };
-            var worksFor = new WorksFor { From = edgeNow, To = edgeNow, Role = "Admin" };
+            var worksFor = new RichEdge { From = edgeNow, To = edgeNow, Role = "Admin" };
 
             await _g
                 .ConfigureEnvironment(env => env
@@ -3699,12 +3699,12 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                                 .IgnoreOnUpdate(p => p.Age)
                                 .IgnoreAlways(p => p.Name)))
                         .ConfigureEdges(_ => _
-                            .ConfigureElement<WorksFor>(conf => conf
+                            .ConfigureElement<RichEdge>(conf => conf
                                 .IgnoreAlways(p => p.From)
                                 .IgnoreOnUpdate(p => p.Role)))))
                 .V<RichVertex>()
                 .Update(person)
-                .OutE<WorksFor>()
+                .OutE<RichEdge>()
                 .Update(worksFor)
                 .Verify();
         }
@@ -3718,11 +3718,11 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                 .ConfigureEnvironment(env => env
                     .ConfigureModel(model => model
                         .ConfigureEdges(_ => _
-                            .ConfigureElement<WorksFor>(conf => conf
+                            .ConfigureElement<RichEdge>(conf => conf
                                 .IgnoreAlways(p => p.From)
                                 .IgnoreAlways(p => p.Role)))))
-                .E<WorksFor>()
-                .Update(new WorksFor { From = now, To = now, Role = "Admin" })
+                .E<RichEdge>()
+                .Update(new RichEdge { From = now, To = now, Role = "Admin" })
                 .Verify();
         }
 
@@ -3735,11 +3735,11 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                 .ConfigureEnvironment(env => env
                     .ConfigureModel(model => model
                         .ConfigureEdges(_ => _
-                            .ConfigureElement<WorksFor>(conf => conf
+                            .ConfigureElement<RichEdge>(conf => conf
                                 .IgnoreAlways(p => p.From)
                                 .IgnoreOnUpdate(p => p.Role)))))
-                .E<WorksFor>()
-                .Update(new WorksFor { From = now, To = now, Role = "Admin" })
+                .E<RichEdge>()
+                .Update(new RichEdge { From = now, To = now, Role = "Admin" })
                 .Verify();
         }
 
@@ -3752,11 +3752,11 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                 .ConfigureEnvironment(env => env
                     .ConfigureModel(model => model
                         .ConfigureEdges(_ => _
-                            .ConfigureElement<WorksFor>(conf => conf
+                            .ConfigureElement<RichEdge>(conf => conf
                                 .IgnoreOnUpdate(p => p.From)
                                 .IgnoreOnUpdate(p => p.Role)))))
-                .E<WorksFor>()
-                .Update(new WorksFor { From = now, To = now, Role = "Admin" })
+                .E<RichEdge>()
+                .Update(new RichEdge { From = now, To = now, Role = "Admin" })
                 .Verify();
         }
 
@@ -3835,13 +3835,13 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task V_Both_2() => _g
            .V()
-           .Both<WorksFor, EmptyEdge>()
+           .Both<RichEdge, EmptyEdge>()
            .Verify();
 
         [Fact]
         public virtual Task V_Both_3() => _g
            .V()
-           .Both<WorksFor, EmptyEdge, PropertyEdge>()
+           .Both<RichEdge, EmptyEdge, PropertyEdge>()
            .Verify();
 
         [Fact]
@@ -3859,13 +3859,13 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task V_BothE_2() => _g
             .V()
-            .BothE<WorksFor, EmptyEdge>()
+            .BothE<RichEdge, EmptyEdge>()
             .Verify();
 
         [Fact]
         public virtual Task V_BothE_3() => _g
             .V()
-            .BothE<WorksFor, EmptyEdge, PropertyEdge>()
+            .BothE<RichEdge, EmptyEdge, PropertyEdge>()
             .Verify();
 
         [Fact]
@@ -4786,7 +4786,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual Task Where_out_vertex_property() => _g
             .V<RichVertex>()
             .Where(__ => __
-                .Out<WorksFor>()
+                .Out<RichEdge>()
                 .OfType<SiblingVertex>()
                 .Values(x => x.Name!.Value)
                 .Where(x => x == "MyCompany"))
@@ -5519,7 +5519,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Where_source_expression_on_both_sides2() => _g
-            .E<WorksFor>()
+            .E<RichEdge>()
             .Where(x => x.From < x.To)
             .Verify();
 

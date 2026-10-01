@@ -134,7 +134,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
         [Fact]
         public void Lower_chain_from_typed_edge() => _g
-            .E<WorksFor>()
+            .E<RichEdge>()
             .Lower()
             .Lower()
             .Lower();

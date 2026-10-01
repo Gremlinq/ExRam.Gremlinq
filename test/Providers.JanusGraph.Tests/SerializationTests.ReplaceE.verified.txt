@@ -9,7 +9,7 @@
     {
       OperatorName: hasLabel,
       Arguments: [
-        WorksFor
+        RichEdge
       ]
     },
     {

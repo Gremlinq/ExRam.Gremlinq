@@ -1,7 +1,7 @@
 {
   Script: g.E().hasLabel(_a).as(_b).where(lt(_b)).by(_c).by(_d).project(_e,_f,_g).by(id).by(label).by(__.valueMap()),
   Bindings: {
-    _a: WorksFor,
+    _a: RichEdge,
     _b: _a,
     _c: From,
     _d: To,

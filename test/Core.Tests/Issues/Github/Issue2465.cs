@@ -29,7 +29,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public Task Map_Out_Id_Limit_Limit() => _g
             .V<RichVertex>()
             .Map(__ => __
-                .Out<WorksFor>()
+                .Out<RichEdge>()
                 .Id()
                 .Limit(1)
                 .Limit(1))
@@ -39,7 +39,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public Task Map_Out_Id_Limit_Fold() => _g
             .V<RichVertex>()
             .Map(__ => __
-                .Out<WorksFor>()
+                .Out<RichEdge>()
                 .Id()
                 .Limit(1)
                 .Fold())
@@ -49,7 +49,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public Task Map_Out_Id_Limit_of_two() => _g
             .V<RichVertex>()
             .Map(__ => __
-                .Out<WorksFor>()
+                .Out<RichEdge>()
                 .Id()
                 .Limit(2))
             .Verify();
@@ -66,7 +66,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public Task Local_Out_Id_Limit() => _g
             .V<RichVertex>()
             .Local(__ => __
-                .Out<WorksFor>()
+                .Out<RichEdge>()
                 .Id()
                 .Limit(1))
             .Verify();
@@ -75,7 +75,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public Task FlatMap_Out_Id_Limit() => _g
             .V<RichVertex>()
             .FlatMap(__ => __
-                .Out<WorksFor>()
+                .Out<RichEdge>()
                 .Id()
                 .Limit(1))
             .Verify();
@@ -86,7 +86,7 @@ namespace ExRam.Gremlinq.Core.Tests
             .Project(__ => __
                 .ToTuple()
                 .By(__ => __
-                    .Out<WorksFor>()
+                    .Out<RichEdge>()
                     .Id()
                     .Limit(1))
                 .By(__ => __
@@ -99,7 +99,7 @@ namespace ExRam.Gremlinq.Core.Tests
             .Project(__ => __
                 .ToTuple()
                 .By(__ => __
-                    .Out<WorksFor>()
+                    .Out<RichEdge>()
                     .Id()
                     .Limit(1)
                     .Limit(1))
@@ -139,7 +139,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .ToTuple()
                 .By(__ => __
                     .Local(__ => __
-                        .Out<WorksFor>()
+                        .Out<RichEdge>()
                         .Id()
                         .Limit(1)))
                 .By(__ => __
@@ -153,7 +153,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .ToTuple()
                 .By(__ => __
                     .Map(__ => __
-                        .Out<WorksFor>()
+                        .Out<RichEdge>()
                         .Id())
                     .Limit(1))
                 .By(__ => __
@@ -166,7 +166,7 @@ namespace ExRam.Gremlinq.Core.Tests
             .Project(__ => __
                 .ToTuple()
                 .By(__ => __
-                    .Out<WorksFor>()
+                    .Out<RichEdge>()
                     .Id()
                     .Limit(1)
                     .Fold())
@@ -180,7 +180,7 @@ namespace ExRam.Gremlinq.Core.Tests
             .Project(__ => __
                 .ToTuple()
                 .By(__ => __
-                    .Out<WorksFor>()
+                    .Out<RichEdge>()
                     .Id()
                     .Limit(2))
                 .By(__ => __
@@ -208,7 +208,7 @@ namespace ExRam.Gremlinq.Core.Tests
             .Project(__ => __
                 .ToTuple()
                 .By(__ => __
-                    .Out<WorksFor>()
+                    .Out<RichEdge>()
                     .Id()
                     .Limit(1))
                 .By(__ => __

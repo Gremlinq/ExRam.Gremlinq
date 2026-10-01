@@ -21,7 +21,7 @@
           OperatorName: in,
           Arguments: [
             PropertyEdge,
-            WorksFor
+            RichEdge
           ]
         },
         {

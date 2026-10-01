@@ -1,1 +1,1 @@
-﻿g.V().hasLabel('RichVertex').flatMap(__.out('WorksFor').hasLabel('SiblingVertex').order().by('FoundingDate',asc))
+﻿g.V().hasLabel('RichVertex').flatMap(__.out('RichEdge').hasLabel('SiblingVertex').order().by('FoundingDate',asc))

@@ -3,7 +3,7 @@
   Bindings: {
     _a: EmptyEdge,
     _b: PropertyEdge,
-    _c: WorksFor,
+    _c: RichEdge,
     _d: id,
     _e: label,
     _f: properties,

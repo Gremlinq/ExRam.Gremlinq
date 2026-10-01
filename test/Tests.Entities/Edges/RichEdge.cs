@@ -1,6 +1,6 @@
 namespace ExRam.Gremlinq.Tests.Entities
 {
-    public class WorksFor : Edge
+    public class RichEdge : Edge
     {
         public string? Role { get; set; }
 

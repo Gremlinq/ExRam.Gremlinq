@@ -21,7 +21,7 @@
           OperatorName: outE,
           Arguments: [
             PropertyEdge,
-            WorksFor
+            RichEdge
           ]
         },
         {

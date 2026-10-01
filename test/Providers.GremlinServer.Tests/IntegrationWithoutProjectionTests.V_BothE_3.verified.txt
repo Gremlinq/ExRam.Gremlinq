@@ -28,14 +28,14 @@
     From: 2020-04-07 14:43:36 Utc,
     To: 2020-04-07 14:43:36 Utc,
     Id: 9,
-    Label: WorksFor
+    Label: RichEdge
   },
   {
     Role: Admin,
     From: 2020-04-07 14:43:36 Utc,
     To: 2020-04-07 14:43:36 Utc,
     Id: 9,
-    Label: WorksFor
+    Label: RichEdge
   },
   {
     Id: 18,
@@ -74,14 +74,14 @@
     From: 2020-04-07 14:43:36 Utc,
     To: 2020-04-07 14:43:36 Utc,
     Id: 31,
-    Label: WorksFor
+    Label: RichEdge
   },
   {
     Role: Admin,
     From: 2020-04-07 14:43:36 Utc,
     To: 2020-04-07 14:43:36 Utc,
     Id: 31,
-    Label: WorksFor
+    Label: RichEdge
   },
   {
     Id: 36,
@@ -96,13 +96,13 @@
     From: 2020-04-07 14:43:36 Utc,
     To: 2020-04-07 14:43:36 Utc,
     Id: 46,
-    Label: WorksFor
+    Label: RichEdge
   },
   {
     Role: Admin,
     From: 2020-04-07 14:43:36 Utc,
     To: 2020-04-07 14:43:36 Utc,
     Id: 46,
-    Label: WorksFor
+    Label: RichEdge
   }
 ]

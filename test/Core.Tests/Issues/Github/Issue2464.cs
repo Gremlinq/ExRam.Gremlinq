@@ -38,7 +38,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .ToTuple()
                 .By(__ => __
                     .Map(__ => __
-                        .Out<WorksFor>()
+                        .Out<RichEdge>()
                         .Count()))
                 .By(__ => __
                     .Id()))
@@ -52,7 +52,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .By(__ => __
                     .Map(__ => __
                         .Map(__ => __
-                            .Out<WorksFor>()
+                            .Out<RichEdge>()
                             .Count())))
                 .By(__ => __
                     .Id()))
@@ -77,7 +77,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .ToTuple()
                 .By(__ => __
                     .Map(__ => __
-                        .Out<WorksFor>()))
+                        .Out<RichEdge>()))
                 .By(__ => __
                     .Id()))
             .Verify();
@@ -89,7 +89,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .ToTuple()
                 .By(__ => __
                     .Local(__ => __
-                        .Out<WorksFor>()
+                        .Out<RichEdge>()
                         .Count()))
                 .By(__ => __
                     .Id()))
@@ -105,7 +105,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .ToTuple()
                 .By(__ => __
                     .Local(__ => __
-                        .Out<WorksFor>()
+                        .Out<RichEdge>()
                         .Count()))
                 .By(__ => __
                     .Id()))
@@ -144,7 +144,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .By(__ => __
                     .Local(__ => __
                         .Map(__ => __
-                            .Out<WorksFor>()
+                            .Out<RichEdge>()
                             .Count())))
                 .By(__ => __
                     .Id()))
@@ -157,7 +157,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .ToTuple()
                 .By(__ => __
                     .Map(__ => __
-                        .Out<WorksFor>()
+                        .Out<RichEdge>()
                         .Count())
                     .Fold())
                 .By(__ => __
@@ -174,7 +174,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .ToTuple()
                 .By(__ => __
                     .Map(__ => __
-                        .Out<WorksFor>()
+                        .Out<RichEdge>()
                         .Count()))
                 .By(__ => __
                     .Id()))
@@ -187,7 +187,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .ToDynamic()
                 .By("count", __ => __
                     .Map(__ => __
-                        .Out<WorksFor>()
+                        .Out<RichEdge>()
                         .Count()))
                 .By("id", __ => __
                     .Id()))

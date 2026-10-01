@@ -16,7 +16,7 @@
       _g: Male,
       _h: RegistrationDate,
       _i: DateTimeOffset_1,
-      _j: WorksFor,
+      _j: RichEdge,
       _k: To,
       _l: id,
       _m: label,

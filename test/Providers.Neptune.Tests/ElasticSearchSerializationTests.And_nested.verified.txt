@@ -43,7 +43,7 @@
             {
               OperatorName: inE,
               Arguments: [
-                WorksFor
+                RichEdge
               ]
             }
           ]
@@ -53,7 +53,7 @@
             {
               OperatorName: outE,
               Arguments: [
-                WorksFor
+                RichEdge
               ]
             }
           ]

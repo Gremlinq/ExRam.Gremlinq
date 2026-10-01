@@ -7,7 +7,7 @@
         From: 2020-04-07 14:43:36 Utc,
         To: 2020-04-07 14:43:36 Utc,
         Id: 9,
-        Label: WorksFor
+        Label: RichEdge
       },
       {
         Id: 18,
@@ -29,7 +29,7 @@
         From: 2020-04-07 14:43:36 Utc,
         To: 2020-04-07 14:43:36 Utc,
         Id: 31,
-        Label: WorksFor
+        Label: RichEdge
       },
       {
         Id: 41,
@@ -38,7 +38,7 @@
       {
         To: 2020-04-07 14:43:36 Utc,
         Id: 46,
-        Label: WorksFor
+        Label: RichEdge
       }
     ],
     ResponseStatus: {

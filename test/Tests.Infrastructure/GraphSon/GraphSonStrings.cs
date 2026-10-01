@@ -5,7 +5,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public static readonly string UntypedEdge = """
             {
               "id": 9,
-              "label": "WorksFor",
+              "label": "RichEdge",
               "type": "edge",
               "inVLabel": "SiblingVertex",
               "outVLabel": "RichVertex",
@@ -24,7 +24,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
               "@type": "g:Edge",
               "@value": {
                 "id": { "@type": "g:Int32", "@value": 9 },
-                "label": "WorksFor",
+                "label": "RichEdge",
                 "inVLabel": "SiblingVertex",
                 "outVLabel": "RichVertex",
                 "inV": { "@type": "g:Int32", "@value": 10 },

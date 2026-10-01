@@ -22,7 +22,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public Task Repro() => _g
             .V<RichVertex>()
             .Coalesce(__ => __
-                .Out<WorksFor>()
+                .Out<RichEdge>()
                 .Limit(1))
             .Verify();
 
@@ -30,42 +30,42 @@ namespace ExRam.Gremlinq.Core.Tests
         public Task Out_Limit() => VerifySteps(_g
             .V<RichVertex>()
             .Coalesce(__ => __
-                .Out<WorksFor>()
+                .Out<RichEdge>()
                 .Limit(1)));
 
         [Fact]
         public Task Out_Range() => VerifySteps(_g
             .V<RichVertex>()
             .Coalesce(__ => __
-                .Out<WorksFor>()
+                .Out<RichEdge>()
                 .Range(1, 3)));
 
         [Fact]
         public Task Out_Skip() => VerifySteps(_g
             .V<RichVertex>()
             .Coalesce(__ => __
-                .Out<WorksFor>()
+                .Out<RichEdge>()
                 .Skip(1)));
 
         [Fact]
         public Task Out_Tail() => VerifySteps(_g
             .V<RichVertex>()
             .Coalesce(__ => __
-                .Out<WorksFor>()
+                .Out<RichEdge>()
                 .Tail(1)));
 
         [Fact]
         public Task Out_Dedup() => VerifySteps(_g
             .V<RichVertex>()
             .Coalesce(__ => __
-                .Out<WorksFor>()
+                .Out<RichEdge>()
                 .Dedup()));
 
         [Fact]
         public Task Out_Order() => VerifySteps(_g
             .V<RichVertex>()
             .Coalesce(__ => __
-                .Out<WorksFor>()
+                .Out<RichEdge>()
                 .OfType<SiblingVertex>()
                 .Order(b => b
                     .By(x => x.FoundingDate))));
@@ -74,30 +74,30 @@ namespace ExRam.Gremlinq.Core.Tests
         public Task Out_Fold() => VerifySteps(_g
             .V<RichVertex>()
             .Coalesce(__ => __
-                .Out<WorksFor>()
+                .Out<RichEdge>()
                 .Fold()));
 
         [Fact]
         public Task Out_Count() => VerifySteps(_g
             .V<RichVertex>()
             .Coalesce(__ => __
-                .Out<WorksFor>()
+                .Out<RichEdge>()
                 .Count()));
 
         [Fact]
         public Task Out_Limit_followed_by_step() => VerifySteps(_g
             .V<RichVertex>()
             .Coalesce(__ => __
-                .Out<WorksFor>()
+                .Out<RichEdge>()
                 .Limit(1))
-            .In<WorksFor>());
+            .In<RichEdge>());
 
         [Fact]
         public Task Coalesce_Out_Limit() => VerifySteps(_g
             .V<RichVertex>()
             .Coalesce(__ => __
                 .Coalesce(__ => __
-                    .Out<WorksFor>()
+                    .Out<RichEdge>()
                     .Limit(1))));
 
         [Fact]
@@ -110,14 +110,14 @@ namespace ExRam.Gremlinq.Core.Tests
         public Task Out_with_projection() => _g
             .V<RichVertex>()
             .Coalesce(__ => __
-                .Out<WorksFor>())
+                .Out<RichEdge>())
             .Verify();
 
         [Fact]
         public Task Out() => VerifySteps(_g
             .V<RichVertex>()
             .Coalesce(__ => __
-                .Out<WorksFor>()));
+                .Out<RichEdge>()));
 
         [Fact]
         public Task OfType_after_OfType() => VerifySteps(_g
@@ -136,7 +136,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public Task Out_Values() => VerifySteps(_g
             .V<RichVertex>()
             .Coalesce(__ => __
-                .Out<WorksFor>()
+                .Out<RichEdge>()
                 .OfType<SiblingVertex>()
                 .Values(x => x.FoundingDate)));
 
@@ -145,7 +145,7 @@ namespace ExRam.Gremlinq.Core.Tests
             .V<RichVertex>()
             .Coalesce(__ => __
                 .Map(__ => __
-                    .Out<WorksFor>()
+                    .Out<RichEdge>()
                     .Limit(1))));
 
         [Fact]
@@ -166,10 +166,10 @@ namespace ExRam.Gremlinq.Core.Tests
             .V<RichVertex>()
             .Coalesce(
                 __ => __
-                    .Out<WorksFor>()
+                    .Out<RichEdge>()
                     .Limit(1),
                 __ => __
-                    .In<WorksFor>()));
+                    .In<RichEdge>()));
 
         private static Task VerifySteps(IGremlinQueryBase query) => query
             .AsAdmin()

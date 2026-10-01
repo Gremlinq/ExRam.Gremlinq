@@ -23,7 +23,7 @@
       OperatorName: bothE,
       Arguments: [
         EmptyEdge,
-        WorksFor
+        RichEdge
       ]
     },
     {

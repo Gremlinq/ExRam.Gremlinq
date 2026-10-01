@@ -1,1 +1,1 @@
-g.V().bothE('EmptyEdge','PropertyEdge','WorksFor').project('id','label','properties').by(id).by(label).by(__.valueMap())
+g.V().bothE('EmptyEdge','PropertyEdge','RichEdge').project('id','label','properties').by(id).by(label).by(__.valueMap())

@@ -7,7 +7,7 @@
       g: g
     },
     bindings: {
-      _a: WorksFor,
+      _a: RichEdge,
       _b: To,
       _c: DateTimeOffset_1,
       _d: RichVertex,

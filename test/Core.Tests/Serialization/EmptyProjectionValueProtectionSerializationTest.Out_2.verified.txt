@@ -13,7 +13,7 @@
       OperatorName: out,
       Arguments: [
         PropertyEdge,
-        WorksFor
+        RichEdge
       ]
     },
     {

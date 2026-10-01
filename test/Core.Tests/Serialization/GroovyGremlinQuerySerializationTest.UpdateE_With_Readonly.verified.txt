@@ -1,7 +1,7 @@
 ﻿{
   Script: g.E().hasLabel(_a).sideEffect(__.properties(_b,_c).drop()).property(_d,_e).project(_f,_g,_h).by(id).by(label).by(__.valueMap()),
   Bindings: {
-    _a: WorksFor,
+    _a: RichEdge,
     _b: _Etag,
     _c: _Self,
     _d: To,

@@ -11,7 +11,7 @@
         {
           OperatorName: addE,
           Arguments: [
-            WorksFor
+            RichEdge
           ]
         },
         {
