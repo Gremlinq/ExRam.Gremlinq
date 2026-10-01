@@ -1462,10 +1462,9 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         // Read as a dictionary, or as an object, a map keeps its entries rather than having members
         // looked up in it - and a key that is there twice must not cost the whole map there either.
-        // Its entry gets the value of the last occurrence and keeps the place of the first, which
-        // is where a parser that takes the last of two members leaves it. The snapshot of a
-        // dictionary says neither in which order its keys come nor of which type they are, so both
-        // are recorded alongside it.
+        // Its entry gets the value of the last occurrence. In which order a dictionary's keys come
+        // is not promised - the members of a JSON object have none - so they are recorded sorted,
+        // each with the type it was read as, which the snapshot of a dictionary does not say.
         private SettingsTask VerifyWithKeys<T>(string token)
         {
             var subject = _environment
@@ -1473,12 +1472,15 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                 .TransformTo<T>()
                 .From(CreateNativeToken(token), _environment);
 
-            var keys = subject switch
+            var keys = (subject switch
             {
-                IDictionary dictionary => dictionary.Keys.Cast<object>().ToArray(),
-                IDictionary<string, object?> dictionary => [.. dictionary.Keys],
+                IDictionary dictionary => dictionary.Keys.Cast<object>(),
+                IDictionary<string, object?> dictionary => dictionary.Keys,
                 _ => null
-            };
+            })?
+                .OrderBy(static key => key.ToString(), StringComparer.Ordinal)
+                .ThenBy(static key => key.GetType().FullName, StringComparer.Ordinal)
+                .ToArray();
 
             return Verifier
                 .Verify(
@@ -1508,7 +1510,6 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             }
             """);
 
-        // An immutable dictionary has no order to speak of, so there is none to record.
         [Fact]
         public virtual Task ImmutableDictionary_from_map_with_key_twice() => Verify<ImmutableDictionary<string, int>>("""
             {
