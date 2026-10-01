@@ -3,7 +3,7 @@
   Bindings: {
     _a: Person,
     _b: WorksFor,
-    _c: Company,
+    _c: SiblingVertex,
     _d: Name,
     _e: MyCompany,
     _f: id,

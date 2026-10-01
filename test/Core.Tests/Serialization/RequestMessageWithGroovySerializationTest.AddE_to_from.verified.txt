@@ -13,7 +13,7 @@
       _d: Role,
       _e: Admin,
       _f: To,
-      _g: Company,
+      _g: SiblingVertex,
       _h: FoundingDate,
       _i: Date_MinValue,
       _j: Person,

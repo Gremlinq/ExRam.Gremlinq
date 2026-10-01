@@ -28,12 +28,12 @@
       }
     ],
     Id: 68,
-    Label: Company,
+    Label: SiblingVertex,
     PartitionKey: PartitionKey
   },
   {
     Id: 5,
-    Label: Company,
+    Label: SiblingVertex,
     PartitionKey: PartitionKey
   },
   {
@@ -104,7 +104,7 @@
       +4923456
     ],
     Id: 75,
-    Label: Company,
+    Label: SiblingVertex,
     PartitionKey: PartitionKey
   },
   {
@@ -176,7 +176,7 @@
   },
   {
     Id: 27,
-    Label: Company,
+    Label: SiblingVertex,
     PartitionKey: PartitionKey
   },
   {
@@ -222,7 +222,7 @@
   },
   {
     Id: 42,
-    Label: Company,
+    Label: SiblingVertex,
     PartitionKey: PartitionKey
   },
   {

@@ -47,7 +47,7 @@
             {
               OperatorName: addV,
               Arguments: [
-                Company
+                SiblingVertex
               ]
             },
             {

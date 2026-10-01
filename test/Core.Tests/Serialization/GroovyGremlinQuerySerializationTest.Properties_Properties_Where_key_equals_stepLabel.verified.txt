@@ -3,7 +3,7 @@
   Bindings: {
     _a: hello,
     _b: _a,
-    _c: Company,
+    _c: SiblingVertex,
     _d: Locations
   }
 }

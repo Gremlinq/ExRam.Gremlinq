@@ -22,7 +22,7 @@ namespace ExRam.Gremlinq.Benchmarks
             .V<Person>()
             .Where(p => p.Age > 25)
             .Out<WorksFor>()
-            .OfType<Company>()
+            .OfType<SiblingVertex>()
             .Where(c => c.Name!.Value.StartsWith("Tech"));
     }
 }

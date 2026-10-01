@@ -16,7 +16,7 @@
       _g: Person,
       _h: Age,
       _i: 43,
-      _j: Company,
+      _j: SiblingVertex,
       _k: FoundingDate,
       _l: Date_MinValue,
       _m: id,

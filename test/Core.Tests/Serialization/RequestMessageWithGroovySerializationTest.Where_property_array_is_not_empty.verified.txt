@@ -7,7 +7,7 @@
       g: g
     },
     bindings: {
-      _a: Company,
+      _a: SiblingVertex,
       _b: PhoneNumbers,
       _c: id,
       _d: label,

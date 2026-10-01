@@ -1,1 +1,1 @@
-﻿g.V().hasLabel('Person').out('WorksFor').hasLabel('Company').values('FoundingDate')
+﻿g.V().hasLabel('Person').out('WorksFor').hasLabel('SiblingVertex').values('FoundingDate')

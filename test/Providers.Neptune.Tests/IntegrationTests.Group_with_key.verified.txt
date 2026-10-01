@@ -1,43 +1,5 @@
 ﻿[
   {
-    Company: [
-      {
-        Locations: [
-          {
-            Id: 70,
-            Label: Locations,
-            Value: Aachen
-          }
-        ],
-        Id: 68,
-        Label: Company,
-        PartitionKey: PartitionKey
-      },
-      {
-        Id: 5,
-        Label: Company,
-        PartitionKey: PartitionKey
-      },
-      {
-        PhoneNumbers: [
-          +4912345,
-          +4923456
-        ],
-        Id: 75,
-        Label: Company,
-        PartitionKey: PartitionKey
-      },
-      {
-        Id: 27,
-        Label: Company,
-        PartitionKey: PartitionKey
-      },
-      {
-        Id: 42,
-        Label: Company,
-        PartitionKey: PartitionKey
-      }
-    ],
     MetaPropertyVertex: [
       {
         CountryCallingCode: +49,
@@ -174,6 +136,44 @@
         Duration: 02:00:00,
         Id: 50,
         Label: ScalarVertex,
+        PartitionKey: PartitionKey
+      }
+    ],
+    SiblingVertex: [
+      {
+        Locations: [
+          {
+            Id: 70,
+            Label: Locations,
+            Value: Aachen
+          }
+        ],
+        Id: 68,
+        Label: SiblingVertex,
+        PartitionKey: PartitionKey
+      },
+      {
+        Id: 5,
+        Label: SiblingVertex,
+        PartitionKey: PartitionKey
+      },
+      {
+        PhoneNumbers: [
+          +4912345,
+          +4923456
+        ],
+        Id: 75,
+        Label: SiblingVertex,
+        PartitionKey: PartitionKey
+      },
+      {
+        Id: 27,
+        Label: SiblingVertex,
+        PartitionKey: PartitionKey
+      },
+      {
+        Id: 42,
+        Label: SiblingVertex,
         PartitionKey: PartitionKey
       }
     ],

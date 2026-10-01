@@ -8,7 +8,7 @@
       }
     ],
     Id: 68,
-    Label: Company,
+    Label: SiblingVertex,
     PartitionKey: PartitionKey
   }
 ]

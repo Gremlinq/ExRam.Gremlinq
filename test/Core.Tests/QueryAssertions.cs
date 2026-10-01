@@ -87,7 +87,7 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public virtual void NullGuard_works() => _g
             .Invoking(_ => _
-                .V<Company>(null!))
+                .V<SiblingVertex>(null!))
             .Should()
             .Throw<ArgumentNullException>();
 

@@ -66,7 +66,7 @@ namespace ExRam.Gremlinq.Core.Tests
             .V<Person>()
             .Coalesce(__ => __
                 .Out<WorksFor>()
-                .OfType<Company>()
+                .OfType<SiblingVertex>()
                 .Order(b => b
                     .By(x => x.FoundingDate))));
 
@@ -137,7 +137,7 @@ namespace ExRam.Gremlinq.Core.Tests
             .V<Person>()
             .Coalesce(__ => __
                 .Out<WorksFor>()
-                .OfType<Company>()
+                .OfType<SiblingVertex>()
                 .Values(x => x.FoundingDate)));
 
         [Fact]

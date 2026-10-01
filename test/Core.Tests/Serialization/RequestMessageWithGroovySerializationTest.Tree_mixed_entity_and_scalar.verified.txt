@@ -9,7 +9,7 @@
     bindings: {
       _a: Person,
       _b: WorksFor,
-      _c: Company,
+      _c: SiblingVertex,
       _d: FoundingDate
     },
     gremlin: g.V().hasLabel(_a).outE(_b).inV().hasLabel(_c).values(_d).tree()

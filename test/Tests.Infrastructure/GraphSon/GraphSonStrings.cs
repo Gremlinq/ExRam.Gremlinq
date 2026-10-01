@@ -7,7 +7,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
               "id": 9,
               "label": "WorksFor",
               "type": "edge",
-              "inVLabel": "Company",
+              "inVLabel": "SiblingVertex",
               "outVLabel": "Person",
               "inV": "companyId",
               "outV": "personId",
@@ -25,7 +25,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
               "@value": {
                 "id": { "@type": "g:Int32", "@value": 9 },
                 "label": "WorksFor",
-                "inVLabel": "Company",
+                "inVLabel": "SiblingVertex",
                 "outVLabel": "Person",
                 "inV": { "@type": "g:Int32", "@value": 10 },
                 "outV": { "@type": "g:Int32", "@value": 1 },
@@ -730,7 +730,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public static readonly string Single_Company = """
             {
               "id": "b9b89d7f-9313-4eed-b354-2760ba7a3fbe",
-              "label": "Company",
+              "label": "SiblingVertex",
               "type": "vertex",
               "properties": {
                 "FoundingDate": [
@@ -742,7 +742,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                 "Name": [
                   {
                     "id": "af8d9d94-3814-400a-91b8-1a6bef584a9a",
-                    "value": "Company!"
+                    "value": "SiblingVertex!"
                   }
                 ]
               }

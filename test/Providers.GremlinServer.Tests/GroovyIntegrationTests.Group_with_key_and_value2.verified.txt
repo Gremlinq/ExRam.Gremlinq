@@ -1,9 +1,9 @@
 [
   {
-    Company: 0001-01-01 +0,
     MetaPropertyVertex: +49,
     Person: 2020-04-07 14:43:36 +0,
     ScalarVertex: 08:00:00,
+    SiblingVertex: 0001-01-01 +0,
     SimpleVertex: en
   }
 ]

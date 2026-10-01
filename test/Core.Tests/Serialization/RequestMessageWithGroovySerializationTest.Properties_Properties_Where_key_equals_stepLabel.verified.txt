@@ -9,7 +9,7 @@
     bindings: {
       _a: hello,
       _b: _a,
-      _c: Company,
+      _c: SiblingVertex,
       _d: Locations
     },
     gremlin: g.inject(_a).as(_b).V().hasLabel(_c).properties(_d).properties().filter(__.key().where(eq(_b)))

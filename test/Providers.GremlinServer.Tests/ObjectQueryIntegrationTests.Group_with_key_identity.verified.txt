@@ -21,6 +21,23 @@
         PartitionKey: PartitionKey
       }
     ],
+    ExRam.Gremlinq.Tests.Entities.SiblingVertex: [
+      {
+        Locations: [
+          {
+            Id: 70,
+            Label: Locations,
+            Properties: {
+              ValidFrom: 2019-01-01 01:00 +0
+            },
+            Value: Aachen
+          }
+        ],
+        Id: 68,
+        Label: SiblingVertex,
+        PartitionKey: PartitionKey
+      }
+    ],
     ExRam.Gremlinq.Tests.Entities.Person: [
       {
         Id: 15,
@@ -32,13 +49,6 @@
       {
         Id: 23,
         Label: Person,
-        PartitionKey: PartitionKey
-      }
-    ],
-    ExRam.Gremlinq.Tests.Entities.Company: [
-      {
-        Id: 27,
-        Label: Company,
         PartitionKey: PartitionKey
       }
     ],
@@ -64,13 +74,6 @@
         PartitionKey: PartitionKey
       }
     ],
-    ExRam.Gremlinq.Tests.Entities.Company: [
-      {
-        Id: 42,
-        Label: Company,
-        PartitionKey: PartitionKey
-      }
-    ],
     ExRam.Gremlinq.Tests.Entities.MetaPropertyVertex: [
       {
         Id: 21,
@@ -82,13 +85,6 @@
       {
         Id: 79,
         Label: SimpleVertex,
-        PartitionKey: PartitionKey
-      }
-    ],
-    ExRam.Gremlinq.Tests.Entities.Company: [
-      {
-        Id: 5,
-        Label: Company,
         PartitionKey: PartitionKey
       }
     ],
@@ -165,6 +161,17 @@
         PartitionKey: PartitionKey
       }
     ],
+    ExRam.Gremlinq.Tests.Entities.SiblingVertex: [
+      {
+        PhoneNumbers: [
+          +4912345,
+          +4923456
+        ],
+        Id: 75,
+        Label: SiblingVertex,
+        PartitionKey: PartitionKey
+      }
+    ],
     ExRam.Gremlinq.Tests.Entities.Person: [
       {
         Gender: Female,
@@ -178,23 +185,6 @@
         IetfLanguageTag: en,
         Id: 47,
         Label: SimpleVertex,
-        PartitionKey: PartitionKey
-      }
-    ],
-    ExRam.Gremlinq.Tests.Entities.Company: [
-      {
-        Locations: [
-          {
-            Id: 70,
-            Label: Locations,
-            Properties: {
-              ValidFrom: 2019-01-01 01:00 +0
-            },
-            Value: Aachen
-          }
-        ],
-        Id: 68,
-        Label: Company,
         PartitionKey: PartitionKey
       }
     ],
@@ -219,6 +209,13 @@
         PartitionKey: PartitionKey
       }
     ],
+    ExRam.Gremlinq.Tests.Entities.SiblingVertex: [
+      {
+        Id: 27,
+        Label: SiblingVertex,
+        PartitionKey: PartitionKey
+      }
+    ],
     ExRam.Gremlinq.Tests.Entities.Person: [
       {
         Id: 44,
@@ -226,14 +223,10 @@
         PartitionKey: PartitionKey
       }
     ],
-    ExRam.Gremlinq.Tests.Entities.Company: [
+    ExRam.Gremlinq.Tests.Entities.SiblingVertex: [
       {
-        PhoneNumbers: [
-          +4912345,
-          +4923456
-        ],
-        Id: 75,
-        Label: Company,
+        Id: 42,
+        Label: SiblingVertex,
         PartitionKey: PartitionKey
       }
     ],
@@ -283,6 +276,13 @@
         Duration: 02:00:00,
         Id: 50,
         Label: ScalarVertex,
+        PartitionKey: PartitionKey
+      }
+    ],
+    ExRam.Gremlinq.Tests.Entities.SiblingVertex: [
+      {
+        Id: 5,
+        Label: SiblingVertex,
         PartitionKey: PartitionKey
       }
     ],

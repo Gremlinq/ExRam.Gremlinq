@@ -95,7 +95,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                         Age = 43
                     }))
                 .To(__ => __
-                    .AddV<Company>())
+                    .AddV<SiblingVertex>())
                 .Verify();
         }
 
@@ -153,7 +153,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
             await _g
                 .AddE(new WorksFor { From = now, To = now, Role = "Admin" })
-                .To(__ => __.AddV<Company>())
+                .To(__ => __.AddV<SiblingVertex>())
                 .From(__ => __.AddV<Person>())
                 .Verify();
         }
@@ -199,7 +199,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                                 .IgnoreAlways(p => p.Role)))))
                 .AddE(new WorksFor { From = now, To = now, Role = "Admin" })
                 .From(__ => __.AddV<Person>())
-                .To(__ => __.AddV<Company>())
+                .To(__ => __.AddV<SiblingVertex>())
                 .Verify();
         }
 
@@ -294,7 +294,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task AddV_with_MetaModel() => _g
-            .AddV(new Company
+            .AddV(new SiblingVertex
             {
                 Locations =
                 [
@@ -311,7 +311,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task AddV_with_multi_property() => _g
-            .AddV(new Company { PhoneNumbers = ["+4912345", "+4923456"] })
+            .AddV(new SiblingVertex { PhoneNumbers = ["+4912345", "+4923456"] })
             .Verify();
 
         [Fact]
@@ -1074,7 +1074,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                     .OutV()
                     .Cast<object>())
                 .Until(__ => __
-                    .V<Company>()
+                    .V<SiblingVertex>()
                     .Cast<object>()))
             .Verify();
 
@@ -1526,21 +1526,21 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task OfType_redundant1() => _g
             .V()
-            .OfType<Company>()
+            .OfType<SiblingVertex>()
             .OfType<Authority>()
             .Verify();
 
         [Fact]
         public virtual Task OfType_redundant2() => _g
             .V()
-            .OfType<Company>()
+            .OfType<SiblingVertex>()
             .OfType<object>()
             .Verify();
 
         [Fact]
         public virtual Task OfType_redundant3() => _g
             .V()
-            .OfType<Company>()
+            .OfType<SiblingVertex>()
             .Cast<object>()
             .OfType<Authority>()
             .Verify();
@@ -1549,7 +1549,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual Task OfType_redundant4() => _g
             .V()
             .OfType<Authority>()
-            .OfType<Company>()
+            .OfType<SiblingVertex>()
             .Verify();
 
         [Fact]
@@ -2590,7 +2590,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Properties_Properties_Value() => _g
-            .V<Company>()
+            .V<SiblingVertex>()
             .Properties(x => x.Locations!)
             .Properties()
             .Value()
@@ -2598,7 +2598,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Properties_Properties_Where_key() => _g
-            .V<Company>()
+            .V<SiblingVertex>()
             .Properties(x => x.Locations!)
             .Properties()
             .Where(x => x.Key == "someKey")
@@ -2608,7 +2608,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual Task Properties_Properties_Where_key_equals_stepLabel() => _g
             .Inject("hello")
             .As((__, stepLabel) => __
-                .V<Company>()
+                .V<SiblingVertex>()
                 .Properties(x => x.Locations!)
                 .Properties()
                 .Where(x => x.Key == stepLabel.Value))
@@ -2623,7 +2623,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Properties_Properties2() => _g
-            .V<Company>()
+            .V<SiblingVertex>()
             .Properties(x => x.Locations!)
             .Properties()
             .Verify();
@@ -2744,14 +2744,14 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Properties_Where_Meta_key() => _g
-            .V<Company>()
+            .V<SiblingVertex>()
             .Properties(x => x.Locations!)
             .Where(x => x.Properties!.ValidFrom == new DateTimeOffset(2019, 01, 01, 01, 00, 00, TimeSpan.Zero))
             .Verify();
 
         [Fact]
         public virtual Task Properties_Where_Meta_key_reversed() => _g
-            .V<Company>()
+            .V<SiblingVertex>()
             .Properties(x => x.Locations!)
             .Where(x => new DateTimeOffset(2019, 01, 01, 01, 00, 00, TimeSpan.Zero) == x.Properties!.ValidFrom)
             .Verify();
@@ -2819,14 +2819,14 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Property_list() => _g
-            .V<Company>()
+            .V<SiblingVertex>()
             .Limit(1)
             .Property(x => x.PhoneNumbers!, "+4912345")
             .Verify();
 
         [Fact]
         public virtual Task Property_null() => _g
-            .V<Company>()
+            .V<SiblingVertex>()
             .Limit(1)
             .Property(x => x.PhoneNumbers!, null!)
             .Verify();
@@ -2941,7 +2941,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                     .Cast<object>())
                 .Emit()
                 .Until(__ => __
-                    .V<Company>()
+                    .V<SiblingVertex>()
                     .Cast<object>()))
             .Verify();
 
@@ -2976,7 +2976,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                     .OutV()
                     .Cast<object>())
                 .Until(__ => __
-                    .V<Company>()
+                    .V<SiblingVertex>()
                     .Cast<object>()))
             .Verify();
 
@@ -3463,7 +3463,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual Task Tree_mixed_entity_and_scalar() => _g
             .V<Person>()
             .OutE<WorksFor>()
-            .InV<Company>()
+            .InV<SiblingVertex>()
             .Values(x => x.FoundingDate!)
             .Tree()
             .Verify();
@@ -3478,12 +3478,12 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual Task Tree_with_builder() => _g
             .V<Person>()
             .OutE<WorksFor>()
-            .InV<Company>()
+            .InV<SiblingVertex>()
             .Values(x => x.FoundingDate!)
             .Tree(_ => _
                 .Of<Person>()
                 .Of<WorksFor>()
-                .Of<Company>()
+                .Of<SiblingVertex>()
                 .Of<DateTime>())
             .Verify();
 
@@ -3502,12 +3502,12 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .V<Person>()
             .OutE<WorksFor>()
             .Where(x => x.Role != null)
-            .InV<Company>()
+            .InV<SiblingVertex>()
             .Values(x => x.FoundingDate!)
             .Tree(_ => _
                 .Of<Person>()
                 .Of<WorksFor>().By(x => x.Role!)
-                .Of<Company>()
+                .Of<SiblingVertex>()
                 .Of<DateTime>())
             .Verify();
 
@@ -3599,7 +3599,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Cast<object>()
             .Loop(_ => _
                 .Until(__ => __
-                    .V<Company>()
+                    .V<SiblingVertex>()
                     .Cast<object>())
                 .Emit()
                 .Repeat(__ => __
@@ -3612,7 +3612,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Cast<object>()
             .Loop(_ => _
                 .Until(__ => __
-                    .V<Company>()
+                    .V<SiblingVertex>()
                     .Cast<object>())
                 .Repeat(__ => __
                     .InE()
@@ -3627,7 +3627,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Cast<object>()
             .Loop(_ => _
                 .Until(__ => __
-                    .V<Company>()
+                    .V<SiblingVertex>()
                     .Cast<object>())
                 .Repeat(__ => __
                     .InE()
@@ -4447,7 +4447,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task VertexProperties_Where_label() => _g
-            .V<Company>()
+            .V<SiblingVertex>()
             .Properties(x => x.Locations!)
             .Where(x => x.Label == "someKey")
             .Verify();
@@ -4460,13 +4460,13 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Where_array_does_not_intersect_property_array() => _g
-            .V<Company>()
+            .V<SiblingVertex>()
             .Where(t => !new[] { "+4912345", "+4923456" }.Intersect(t.PhoneNumbers!).Any())
             .Verify();
 
         [Fact]
         public virtual Task Where_array_intersects_property_aray() => _g
-            .V<Company>()
+            .V<SiblingVertex>()
             .Where(t => new[] { "+4912345", "+4923456" }.Intersect(t.PhoneNumbers!).Any())
             .Verify();
 
@@ -4621,13 +4621,13 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Where_empty_array_does_not_intersect_property_array() => _g
-            .V<Company>()
+            .V<SiblingVertex>()
             .Where(t => !Array.Empty<string>().Intersect(t.PhoneNumbers!).Any())
             .Verify();
 
         [Fact]
         public virtual Task Where_empty_array_intersects_property_array() => _g
-            .V<Company>()
+            .V<SiblingVertex>()
             .Where(t => Array.Empty<string>().Intersect(t.PhoneNumbers!).Any())
             .Verify();
 
@@ -4787,7 +4787,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .V<Person>()
             .Where(__ => __
                 .Out<WorksFor>()
-                .OfType<Company>()
+                .OfType<SiblingVertex>()
                 .Values(x => x.Name!.Value)
                 .Where(x => x == "MyCompany"))
             .Verify();
@@ -4808,7 +4808,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Where_property_array_contains_element() => _g
-            .V<Company>()
+            .V<SiblingVertex>()
             .Where(t => t.PhoneNumbers!.Contains("+4912345"))
             .Verify();
 
@@ -4816,43 +4816,43 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual Task Where_property_array_contains_stepLabel() => _g
             .Inject("+4912345")
             .As((__, t) => __
-                .V<Company>()
+                .V<SiblingVertex>()
                 .Where(c => c.PhoneNumbers!.Contains(t.Value)))
             .Verify();
 
         [Fact]
         public virtual Task Where_property_array_does_not_contain_element() => _g
-            .V<Company>()
+            .V<SiblingVertex>()
             .Where(t => !t.PhoneNumbers!.Contains("+4912345"))
             .Verify();
 
         [Fact]
         public virtual Task Where_property_array_does_not_intersect_array() => _g
-            .V<Company>()
+            .V<SiblingVertex>()
             .Where(t => !t.PhoneNumbers!.Intersect(new[] { "+4912345", "+4923456" }).Any())
             .Verify();
 
         [Fact]
         public virtual Task Where_property_array_does_not_intersect_empty_array() => _g
-            .V<Company>()
+            .V<SiblingVertex>()
             .Where(t => !t.PhoneNumbers!.Intersect(Array.Empty<string>()).Any())
             .Verify();
 
         [Fact]
         public virtual Task Where_property_array_intersects_array1() => _g
-            .V<Company>()
+            .V<SiblingVertex>()
             .Where(t => t.PhoneNumbers!.Intersect(new[] { "+4912345", "+4923456" }).Any())
             .Verify();
 
         [Fact]
         public virtual Task Where_property_array_intersects_array2() => _g
-            .V<Company>()
+            .V<SiblingVertex>()
             .Where(t => new[] { "+4912345", "+4923456" }.Intersect(t.PhoneNumbers!).Any())
             .Verify();
 
         [Fact]
         public virtual Task Where_property_array_intersects_empty_array() => _g
-            .V<Company>()
+            .V<SiblingVertex>()
             .Where(t => t.PhoneNumbers!.Intersect(Array.Empty<string>()).Any())
             .Verify();
 
@@ -4861,7 +4861,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Inject("+4912345")
             .Fold()
             .As((__, t) => __
-                .V<Company>()
+                .V<SiblingVertex>()
                 .Where(c => c.PhoneNumbers!.Intersect(t.Value).Any()))
             .Verify();
 
@@ -4870,19 +4870,19 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Inject("+4912345")
             .Fold()
             .As((__, t) => __
-                .V<Company>()
+                .V<SiblingVertex>()
                 .Where(c => t.Value.Intersect(c.PhoneNumbers!).Any()))
             .Verify();
 
         [Fact]
         public virtual Task Where_property_array_is_empty() => _g
-            .V<Company>()
+            .V<SiblingVertex>()
             .Where(t => !t.PhoneNumbers!.Any())
             .Verify();
 
         [Fact]
         public virtual Task Where_property_array_is_not_empty() => _g
-            .V<Company>()
+            .V<SiblingVertex>()
             .Where(t => t.PhoneNumbers!.Any())
             .Verify();
 
@@ -5799,7 +5799,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Where_with_nested_as() => _g
-            .V<Company>()
+            .V<SiblingVertex>()
             .Where(__ => __
                 .As((__, _) => __))
             .Verify();

@@ -22,10 +22,10 @@
     {
       OperatorName: hasLabel,
       Arguments: [
-        Company,
         MetaPropertyVertex,
         Person,
         ScalarVertex,
+        SiblingVertex,
         SimpleVertex
       ]
     },

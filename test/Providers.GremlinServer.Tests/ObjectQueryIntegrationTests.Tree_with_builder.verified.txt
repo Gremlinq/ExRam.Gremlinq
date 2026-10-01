@@ -20,7 +20,7 @@
             {
               Key: {
                 Id: 5,
-                Label: Company,
+                Label: SiblingVertex,
                 PartitionKey: PartitionKey
               },
               Value: [
@@ -52,7 +52,7 @@
             {
               Key: {
                 Id: 42,
-                Label: Company,
+                Label: SiblingVertex,
                 PartitionKey: PartitionKey
               },
               Value: [
@@ -86,7 +86,7 @@
             {
               Key: {
                 Id: 27,
-                Label: Company,
+                Label: SiblingVertex,
                 PartitionKey: PartitionKey
               },
               Value: [

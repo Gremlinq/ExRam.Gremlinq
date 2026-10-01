@@ -34,7 +34,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure.GraphSon.Entities
         public DateTime DateTime_from_double { get; set; }
         public DateTime DateTime_from_number { get; set; }
         public DateTime DateTime_from_string { get; set; }
-        public Company? DateTime_is_UTC { get; set; }
+        public SiblingVertex? DateTime_is_UTC { get; set; }
         public DateTimeOffset DateTimeOffset_from_number { get; set; }
         public DateTimeOffset DateTimeOffset_from_string { get; set; }
         public dynamic? DynamicData { get; set; }

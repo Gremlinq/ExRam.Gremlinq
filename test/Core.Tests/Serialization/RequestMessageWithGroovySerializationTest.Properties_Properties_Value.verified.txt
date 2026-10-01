@@ -7,7 +7,7 @@
       g: g
     },
     bindings: {
-      _a: Company,
+      _a: SiblingVertex,
       _b: Locations
     },
     gremlin: g.V().hasLabel(_a).properties(_b).properties().value()

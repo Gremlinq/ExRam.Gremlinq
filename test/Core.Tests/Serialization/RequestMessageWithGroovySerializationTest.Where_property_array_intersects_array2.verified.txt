@@ -7,7 +7,7 @@
       g: g
     },
     bindings: {
-      _a: Company,
+      _a: SiblingVertex,
       _b: PhoneNumbers,
       _c: +4912345,
       _d: +4923456,

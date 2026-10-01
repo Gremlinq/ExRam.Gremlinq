@@ -5,7 +5,7 @@
       +4923456
     ],
     Id: 75,
-    Label: Company,
+    Label: SiblingVertex,
     PartitionKey: PartitionKey
   }
 ]

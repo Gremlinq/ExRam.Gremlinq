@@ -1,1 +1,1 @@
-g.V().hasLabel('Company','MetaPropertyVertex','Person','ScalarVertex','SimpleVertex').choose(__.has(id,42),__.constant(true),__.constant(false))
+g.V().hasLabel('MetaPropertyVertex','Person','ScalarVertex','SiblingVertex','SimpleVertex').choose(__.has(id,42),__.constant(true),__.constant(false))

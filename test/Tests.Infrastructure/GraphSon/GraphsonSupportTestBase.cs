@@ -612,7 +612,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual Task DateTime_from_string() => Verify<DateTime>("\"2018-12-17T08:00:00Z\"");
 
         [Fact]
-        public virtual Task DateTime_is_UTC() => Verify<Company>(Single_Company);
+        public virtual Task DateTime_is_UTC() => Verify<SiblingVertex>(Single_Company);
 
         [Fact]
         public virtual Task DateTimeOffset_from_number() => Verify<DateTimeOffset>("123456789");
@@ -1302,7 +1302,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         // An expanded traverser runs the ordinary pipeline, vertex heuristics included - a bulk of
         // 3 around a vertex is three companies.
         [Fact]
-        public virtual Task ImmutableList_Of_Companies_from_Traverser() => Verify<ImmutableList<Company>>(Array_With_Traverser_With_Company);
+        public virtual Task ImmutableList_Of_Companies_from_Traverser() => Verify<ImmutableList<SiblingVertex>>(Array_With_Traverser_With_Company);
 
         [Fact]
         public virtual Task Language_by_vertex_inheritance() => Verify<object>(Single_Language);
@@ -1313,7 +1313,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task Language_to_generic_vertex() => Verify<Vertex>(Single_Language);
 
-        // FromBaseTypes<Company, Edge>() is a valid model whose vertex set excludes SimpleVertex,
+        // FromBaseTypes<SiblingVertex, Edge>() is a valid model whose vertex set excludes SimpleVertex,
         // so the label lookup misses. Id and Label should still be set, as MemberMetadata
         // maps them to T.Id and T.Label independently of the model.
         [Fact]
@@ -1321,7 +1321,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             Single_Language,
             env => env
                 .UseModel(GraphModel
-                    .FromBaseTypes<Company, Edge>()));
+                    .FromBaseTypes<SiblingVertex, Edge>()));
 
         [Fact]
         public virtual Task Vertex_with_unknown_label_as_object() => Verify<object>("""

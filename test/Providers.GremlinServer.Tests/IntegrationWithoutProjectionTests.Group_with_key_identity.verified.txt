@@ -31,7 +31,7 @@
         PartitionKey: PartitionKey
       }
     ],
-    ExRam.Gremlinq.Tests.Entities.Company: [
+    ExRam.Gremlinq.Tests.Entities.SiblingVertex: [
       {
         Locations: [
           {
@@ -44,14 +44,14 @@
           }
         ],
         Id: 68,
-        Label: Company,
+        Label: SiblingVertex,
         PartitionKey: PartitionKey
       }
     ],
-    ExRam.Gremlinq.Tests.Entities.Company: [
+    ExRam.Gremlinq.Tests.Entities.SiblingVertex: [
       {
         Id: 5,
-        Label: Company,
+        Label: SiblingVertex,
         PartitionKey: PartitionKey
       }
     ],
@@ -105,14 +105,14 @@
         PartitionKey: PartitionKey
       }
     ],
-    ExRam.Gremlinq.Tests.Entities.Company: [
+    ExRam.Gremlinq.Tests.Entities.SiblingVertex: [
       {
         PhoneNumbers: [
           +4912345,
           +4923456
         ],
         Id: 75,
-        Label: Company,
+        Label: SiblingVertex,
         PartitionKey: PartitionKey
       }
     ],
@@ -172,10 +172,10 @@
         PartitionKey: PartitionKey
       }
     ],
-    ExRam.Gremlinq.Tests.Entities.Company: [
+    ExRam.Gremlinq.Tests.Entities.SiblingVertex: [
       {
         Id: 27,
-        Label: Company,
+        Label: SiblingVertex,
         PartitionKey: PartitionKey
       }
     ],
@@ -215,10 +215,10 @@
         PartitionKey: PartitionKey
       }
     ],
-    ExRam.Gremlinq.Tests.Entities.Company: [
+    ExRam.Gremlinq.Tests.Entities.SiblingVertex: [
       {
         Id: 42,
-        Label: Company,
+        Label: SiblingVertex,
         PartitionKey: PartitionKey
       }
     ],

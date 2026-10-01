@@ -7,7 +7,7 @@
       g: g
     },
     bindings: {
-      _a: Company,
+      _a: SiblingVertex,
       _b: FoundingDate,
       _c: Date_MinValue,
       _d: Locations,

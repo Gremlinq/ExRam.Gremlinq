@@ -7,10 +7,10 @@
       g: g
     },
     bindings: {
-      _a: Company,
-      _b: MetaPropertyVertex,
-      _c: Person,
-      _d: ScalarVertex,
+      _a: MetaPropertyVertex,
+      _b: Person,
+      _c: ScalarVertex,
+      _d: SiblingVertex,
       _e: SimpleVertex,
       _f: 42,
       _g: true,

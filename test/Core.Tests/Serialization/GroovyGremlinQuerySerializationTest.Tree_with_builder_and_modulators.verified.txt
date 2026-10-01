@@ -4,7 +4,7 @@
     _a: Person,
     _b: WorksFor,
     _c: Role,
-    _d: Company,
+    _d: SiblingVertex,
     _e: FoundingDate
   }
 }

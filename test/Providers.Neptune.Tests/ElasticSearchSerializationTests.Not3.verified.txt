@@ -27,8 +27,8 @@
             {
               OperatorName: hasLabel,
               Arguments: [
-                Company,
-                Person
+                Person,
+                SiblingVertex
               ]
             }
           ]
