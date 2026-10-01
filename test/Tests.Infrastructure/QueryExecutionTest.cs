@@ -12,6 +12,16 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 {
     public abstract class QueryExecutionTest : GremlinqTestBase
     {
+        protected sealed class VertexWithStringId
+        {
+            public string? Id { get; }
+        }
+
+        protected sealed class EdgeWithStringId
+        {
+            public string? Id { get; }
+        }
+
         private static readonly string Id = "id";
 
         protected readonly IGremlinQuerySource _g;
