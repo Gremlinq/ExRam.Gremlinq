@@ -298,9 +298,9 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             {
                 Locations =
                 [
-                    new VertexProperty<string, PropertyValidity>("Aachen")
+                    new VertexProperty<string, MetaModel>("Aachen")
                     {
-                        Properties = new PropertyValidity
+                        Properties = new MetaModel
                         {
                             ValidFrom = new DateTimeOffset(2019, 01, 01, 01, 00, 00, TimeSpan.Zero)
                         }
@@ -2505,14 +2505,14 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual Task Properties_Meta() => _g
             .V<MetaPropertyVertex>()
             .Properties(x => x.Name!)
-            .Meta<PropertyValidity>()
+            .Meta<MetaModel>()
             .Verify();
 
         [Fact]
         public virtual Task Properties_Meta_ValueMap() => _g
             .V()
             .Properties()
-            .Meta<PropertyValidity>()
+            .Meta<MetaModel>()
             .ValueMap()
             .Verify();
 
@@ -2520,7 +2520,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual Task Properties_Meta_Values() => _g
             .V()
             .Properties()
-            .Meta<PropertyValidity>()
+            .Meta<MetaModel>()
             .Values()
             .Verify();
 
@@ -2528,7 +2528,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual Task Properties_Meta_Values_Projected() => _g
             .V()
             .Properties()
-            .Meta<PropertyValidity>()
+            .Meta<MetaModel>()
             .Values(x => x.ValidFrom)
             .Verify();
 
@@ -2536,7 +2536,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual Task Properties_Meta_Where1() => _g
             .V<MetaPropertyVertex>()
             .Properties(x => x.Name!)
-            .Meta<PropertyValidity>()
+            .Meta<MetaModel>()
             .Where(x => x.Properties!.ValidFrom >= new DateTimeOffset(2019, 01, 01, 01, 00, 00, TimeSpan.Zero))
             .Verify();
 

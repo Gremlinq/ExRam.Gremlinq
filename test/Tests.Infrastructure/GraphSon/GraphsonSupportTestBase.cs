@@ -2194,7 +2194,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual Task Int_from_object_with_id_label_and_capitalized_value() => VerifyAttempt<int>("""{ "id": 1, "label": "Property1", "Value": 42 }""");
 
         [Fact]
-        public virtual Task VertexPropertyWithDateTimeOffset() => Verify<VertexProperty<string, PropertyValidity>>("{ \"id\": 166, \"value\": \"bob\", \"label\": \"Name\", \"properties\": { \"ValidFrom\": 1548112365431 } }");
+        public virtual Task VertexPropertyWithDateTimeOffset() => Verify<VertexProperty<string, MetaModel>>("{ \"id\": 166, \"value\": \"bob\", \"label\": \"Name\", \"properties\": { \"ValidFrom\": 1548112365431 } }");
 
         [Fact]
         public virtual Task VertexPropertyWithoutProperties() => Verify<VertexProperty<object, object>>("{ \"id\": 166, \"value\": \"bob\", \"label\": \"Name\" }");

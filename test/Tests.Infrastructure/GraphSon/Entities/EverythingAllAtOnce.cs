@@ -97,7 +97,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure.GraphSon.Entities
         public VertexProperty<object>[]? VertexProperties { get; set; }
         public VertexProperty<object, MetaPoco>[]? VertexProperties_with_model { get; set; }
         public object? VertexProperty_as_object { get; set; }
-        public VertexProperty<string, PropertyValidity>? VertexPropertyWithDateTimeOffset { get; set; }
+        public VertexProperty<string, MetaModel>? VertexPropertyWithDateTimeOffset { get; set; }
         public VertexProperty<object, object>? VertexPropertyWithoutProperties { get; set; }
     }
 }

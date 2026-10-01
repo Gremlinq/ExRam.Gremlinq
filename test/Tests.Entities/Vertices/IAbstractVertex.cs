@@ -4,6 +4,6 @@ namespace ExRam.Gremlinq.Tests.Entities
 {
     public interface IAbstractVertex
     {
-        VertexProperty<string, PropertyValidity>? Name { get; set; }
+        VertexProperty<string, MetaModel>? Name { get; set; }
     }
 }
