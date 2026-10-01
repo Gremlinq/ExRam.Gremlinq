@@ -7,7 +7,7 @@
       Value: GER
     },
     Id: 71,
-    Label: Country,
+    Label: MetaPropertyVertex,
     PartitionKey: PartitionKey
   }
 ]

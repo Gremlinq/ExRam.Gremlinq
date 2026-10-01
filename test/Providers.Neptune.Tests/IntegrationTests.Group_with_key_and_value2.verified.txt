@@ -1,7 +1,7 @@
 [
   {
     Company: 0001-01-01 +0,
-    Country: +49,
+    MetaPropertyVertex: +49,
     Person: 2020-04-07 14:43:36 +0,
     ScalarVertex: 28800000.0,
     SimpleVertex: en

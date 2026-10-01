@@ -23,7 +23,7 @@
       OperatorName: hasLabel,
       Arguments: [
         Company,
-        Country,
+        MetaPropertyVertex,
         Person,
         ScalarVertex,
         SimpleVertex

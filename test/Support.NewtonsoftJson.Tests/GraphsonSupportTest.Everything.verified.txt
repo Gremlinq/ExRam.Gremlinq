@@ -344,7 +344,7 @@
       Value: GER
     },
     Id: 3,
-    Label: Country,
+    Label: MetaPropertyVertex,
     PartitionKey: PartitionKey
   },
   MetaProperties: [

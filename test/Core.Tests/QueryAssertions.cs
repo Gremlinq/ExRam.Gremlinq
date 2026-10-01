@@ -103,7 +103,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
         [Fact]
         public virtual void Property_single_with_dictionary_meta2() => _g
-            .V<Country>()
+            .V<MetaPropertyVertex>()
             .Invoking(_ => _
                 .Property(x => x.LocalizableDescription, new VertexProperty<string, IDictionary<string, string>>("")
                 {
@@ -165,7 +165,7 @@ namespace ExRam.Gremlinq.Core.Tests
             .ConfigureEnvironment(env => env
                 .ConfigureOptions(c => c
                     .SetValue(GremlinqOption.DisabledTextPredicates, DisabledTextPredicates.Containing)))
-            .V<Country>()
+            .V<MetaPropertyVertex>()
             .Invoking(_ =>
                 _.Where(c => c.CountryCallingCode!.Contains("456")))
             .Should()
@@ -176,7 +176,7 @@ namespace ExRam.Gremlinq.Core.Tests
             .ConfigureEnvironment(env => env
                 .ConfigureOptions(c => c
                     .SetValue(GremlinqOption.DisabledTextPredicates, DisabledTextPredicates.EndingWith)))
-            .V<Country>()
+            .V<MetaPropertyVertex>()
             .Invoking(_ => _
                 .Where(c => c.CountryCallingCode!.EndsWith("7890")))
             .Should()

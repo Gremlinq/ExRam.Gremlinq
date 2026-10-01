@@ -7,7 +7,7 @@
       g: g
     },
     bindings: {
-      _a: Country,
+      _a: MetaPropertyVertex,
       _b: Name,
       _c: ValidFrom,
       _d: DateTimeOffset_1,

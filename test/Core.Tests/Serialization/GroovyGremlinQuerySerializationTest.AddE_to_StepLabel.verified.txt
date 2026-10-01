@@ -5,7 +5,7 @@
     _b: IetfLanguageTag,
     _c: en,
     _d: _a,
-    _e: Country,
+    _e: MetaPropertyVertex,
     _f: CountryCallingCode,
     _g: +49,
     _h: Speaks,

@@ -49,22 +49,6 @@
         PartitionKey: PartitionKey
       }
     ],
-    ExRam.Gremlinq.Tests.Entities.Country: [
-      {
-        Name: {
-          Id: 74,
-          Label: Name,
-          Properties: {
-            de: Deutschland,
-            en: Germany
-          },
-          Value: GER
-        },
-        Id: 73,
-        Label: Country,
-        PartitionKey: PartitionKey
-      }
-    ],
     ExRam.Gremlinq.Tests.Entities.Person: [
       {
         Id: 29,
@@ -87,6 +71,13 @@
         PartitionKey: PartitionKey
       }
     ],
+    ExRam.Gremlinq.Tests.Entities.MetaPropertyVertex: [
+      {
+        Id: 21,
+        Label: MetaPropertyVertex,
+        PartitionKey: PartitionKey
+      }
+    ],
     ExRam.Gremlinq.Tests.Entities.SimpleVertex: [
       {
         Id: 79,
@@ -98,6 +89,22 @@
       {
         Id: 5,
         Label: Company,
+        PartitionKey: PartitionKey
+      }
+    ],
+    ExRam.Gremlinq.Tests.Entities.MetaPropertyVertex: [
+      {
+        Name: {
+          Id: 74,
+          Label: Name,
+          Properties: {
+            de: Deutschland,
+            en: Germany
+          },
+          Value: GER
+        },
+        Id: 73,
+        Label: MetaPropertyVertex,
         PartitionKey: PartitionKey
       }
     ],
@@ -138,22 +145,7 @@
         PartitionKey: PartitionKey
       }
     ],
-    ExRam.Gremlinq.Tests.Entities.Country: [
-      {
-        Id: 21,
-        Label: Country,
-        PartitionKey: PartitionKey
-      }
-    ],
-    ExRam.Gremlinq.Tests.Entities.Person: [
-      {
-        Gender: Female,
-        Id: 59,
-        Label: Person,
-        PartitionKey: PartitionKey
-      }
-    ],
-    ExRam.Gremlinq.Tests.Entities.Country: [
+    ExRam.Gremlinq.Tests.Entities.MetaPropertyVertex: [
       {
         Name: {
           Id: 72,
@@ -162,7 +154,22 @@
           Value: GER
         },
         Id: 71,
-        Label: Country,
+        Label: MetaPropertyVertex,
+        PartitionKey: PartitionKey
+      }
+    ],
+    ExRam.Gremlinq.Tests.Entities.MetaPropertyVertex: [
+      {
+        Id: 17,
+        Label: MetaPropertyVertex,
+        PartitionKey: PartitionKey
+      }
+    ],
+    ExRam.Gremlinq.Tests.Entities.Person: [
+      {
+        Gender: Female,
+        Id: 59,
+        Label: Person,
         PartitionKey: PartitionKey
       }
     ],
@@ -191,13 +198,6 @@
         PartitionKey: PartitionKey
       }
     ],
-    ExRam.Gremlinq.Tests.Entities.Country: [
-      {
-        Id: 17,
-        Label: Country,
-        PartitionKey: PartitionKey
-      }
-    ],
     ExRam.Gremlinq.Tests.Entities.Person: [
       {
         RegistrationDate: 2020-04-07 14:43:36 +0,
@@ -212,18 +212,10 @@
         PartitionKey: PartitionKey
       }
     ],
-    ExRam.Gremlinq.Tests.Entities.Country: [
-      {
-        CountryCallingCode: +49,
-        Id: 34,
-        Label: Country,
-        PartitionKey: PartitionKey
-      }
-    ],
-    ExRam.Gremlinq.Tests.Entities.Country: [
+    ExRam.Gremlinq.Tests.Entities.MetaPropertyVertex: [
       {
         Id: 25,
-        Label: Country,
+        Label: MetaPropertyVertex,
         PartitionKey: PartitionKey
       }
     ],
@@ -242,6 +234,14 @@
         ],
         Id: 75,
         Label: Company,
+        PartitionKey: PartitionKey
+      }
+    ],
+    ExRam.Gremlinq.Tests.Entities.MetaPropertyVertex: [
+      {
+        CountryCallingCode: +49,
+        Id: 34,
+        Label: MetaPropertyVertex,
         PartitionKey: PartitionKey
       }
     ],
@@ -276,14 +276,6 @@
         PartitionKey: PartitionKey
       }
     ],
-    ExRam.Gremlinq.Tests.Entities.Country: [
-      {
-        CountryCallingCode: +49,
-        Id: 0,
-        Label: Country,
-        PartitionKey: PartitionKey
-      }
-    ],
     ExRam.Gremlinq.Tests.Entities.ScalarVertex: [
       {
         Enabled: false,
@@ -291,6 +283,14 @@
         Duration: 02:00:00,
         Id: 50,
         Label: ScalarVertex,
+        PartitionKey: PartitionKey
+      }
+    ],
+    ExRam.Gremlinq.Tests.Entities.MetaPropertyVertex: [
+      {
+        CountryCallingCode: +49,
+        Id: 0,
+        Label: MetaPropertyVertex,
         PartitionKey: PartitionKey
       }
     ]

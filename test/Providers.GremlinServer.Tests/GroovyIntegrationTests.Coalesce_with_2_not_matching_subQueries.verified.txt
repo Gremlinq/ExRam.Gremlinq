@@ -10,7 +10,7 @@
   {
     CountryCallingCode: +49,
     Id: 0,
-    Label: Country,
+    Label: MetaPropertyVertex,
     PartitionKey: PartitionKey
   },
   {
@@ -29,7 +29,7 @@
   {
     CountryCallingCode: +49,
     Id: 0,
-    Label: Country,
+    Label: MetaPropertyVertex,
     PartitionKey: PartitionKey
   },
   {
@@ -78,7 +78,7 @@
   {
     CountryCallingCode: +49,
     Id: 34,
-    Label: Country,
+    Label: MetaPropertyVertex,
     PartitionKey: PartitionKey
   },
   {

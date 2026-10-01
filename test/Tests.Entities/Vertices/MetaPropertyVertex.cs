@@ -2,7 +2,7 @@ using ExRam.Gremlinq.Core.GraphElements;
 
 namespace ExRam.Gremlinq.Tests.Entities
 {
-    public class Country : Vertex
+    public class MetaPropertyVertex : Vertex
     {
         public VertexProperty<string>? Name { get; set; }
 

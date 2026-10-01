@@ -7,7 +7,7 @@
     _d: LivesIn,
     _e: Since,
     _f: DateTimeOffset_1,
-    _g: Country,
+    _g: MetaPropertyVertex,
     _h: id,
     _i: label,
     _j: properties

@@ -9,7 +9,7 @@
     bindings: {
       _a: label,
       _b: _a,
-      _c: Country,
+      _c: MetaPropertyVertex,
       _d: Languages,
       _e: id,
       _f: value,

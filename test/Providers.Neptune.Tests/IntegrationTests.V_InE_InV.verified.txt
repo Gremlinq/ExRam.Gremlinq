@@ -7,7 +7,7 @@
       Value: 
     },
     Id: 0,
-    Label: Country,
+    Label: MetaPropertyVertex,
     PartitionKey: PartitionKey
   },
   {
@@ -41,7 +41,7 @@
       Value: 
     },
     Id: 17,
-    Label: Country,
+    Label: MetaPropertyVertex,
     PartitionKey: PartitionKey
   },
   {
@@ -51,7 +51,7 @@
       Value: 
     },
     Id: 21,
-    Label: Country,
+    Label: MetaPropertyVertex,
     PartitionKey: PartitionKey
   },
   {
@@ -61,7 +61,7 @@
       Value: 
     },
     Id: 25,
-    Label: Country,
+    Label: MetaPropertyVertex,
     PartitionKey: PartitionKey
   },
   {

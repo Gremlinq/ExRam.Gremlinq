@@ -277,7 +277,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             {
               "id": 3,
               "type": "vertex",
-              "label": "Country",
+              "label": "MetaPropertyVertex",
               "properties": {
                 "Name": [
                   {

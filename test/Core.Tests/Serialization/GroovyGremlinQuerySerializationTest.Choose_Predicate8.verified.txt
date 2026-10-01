@@ -2,7 +2,7 @@
   Script: g.V().hasLabel(_a,_b,_c,_d,_e).choose(__.has(id,_f),__.constant(_g),__.constant(_h)),
   Bindings: {
     _a: Company,
-    _b: Country,
+    _b: MetaPropertyVertex,
     _c: Person,
     _d: ScalarVertex,
     _e: SimpleVertex,

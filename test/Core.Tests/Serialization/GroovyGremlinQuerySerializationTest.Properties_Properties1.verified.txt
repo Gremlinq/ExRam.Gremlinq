@@ -1,7 +1,7 @@
 {
   Script: g.V().hasLabel(_a).properties(_b).properties(),
   Bindings: {
-    _a: Country,
+    _a: MetaPropertyVertex,
     _b: Name
   }
 }

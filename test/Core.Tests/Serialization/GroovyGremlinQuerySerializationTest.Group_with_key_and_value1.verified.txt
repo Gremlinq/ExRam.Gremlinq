@@ -3,7 +3,7 @@
   Bindings: {
     _a: Person,
     _b: LivesIn,
-    _c: Country,
+    _c: MetaPropertyVertex,
     _d: id,
     _e: label,
     _f: properties,

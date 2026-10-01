@@ -7,7 +7,7 @@
       g: g
     },
     bindings: {
-      _a: Country,
+      _a: MetaPropertyVertex,
       _b: CountryCallingCode,
       _c: some_string,
       _d: id,

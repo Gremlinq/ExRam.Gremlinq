@@ -1,7 +1,7 @@
 ﻿[
   {
     Id: 17,
-    Label: Country,
+    Label: MetaPropertyVertex,
     PartitionKey: PartitionKey
   }
 ]

@@ -69,7 +69,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure.GraphSon.Entities
         public object? Language_unknown_type { get; set; }
         public object? Languages_to_object { get; set; }
         public List<int>? List_ints { get; set; }
-        public Country? Meta_Properties { get; set; }
+        public MetaPropertyVertex? Meta_Properties { get; set; }
         public Property<object>[]? MetaProperties { get; set; }
         public object[]? Mixed_Ids { get; set; }
         public PersonLanguageTuple? NamedTuple { get; set; }

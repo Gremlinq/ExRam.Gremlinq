@@ -54,7 +54,7 @@
             {
               OperatorName: hasLabel,
               Arguments: [
-                Country
+                MetaPropertyVertex
               ]
             }
           ]

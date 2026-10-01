@@ -23,7 +23,7 @@
   },
   {
     Id: 17,
-    Label: Country,
+    Label: MetaPropertyVertex,
     PartitionKey: PartitionKey
   },
   {
@@ -33,7 +33,7 @@
   },
   {
     Id: 21,
-    Label: Country,
+    Label: MetaPropertyVertex,
     PartitionKey: PartitionKey
   },
   {
@@ -43,7 +43,7 @@
   },
   {
     Id: 25,
-    Label: Country,
+    Label: MetaPropertyVertex,
     PartitionKey: PartitionKey
   },
   {
@@ -65,7 +65,7 @@
   {
     CountryCallingCode: +49,
     Id: 0,
-    Label: Country,
+    Label: MetaPropertyVertex,
     PartitionKey: PartitionKey
   },
   {

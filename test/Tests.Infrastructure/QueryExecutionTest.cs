@@ -75,7 +75,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task AddE_from_StepLabel() => _g
-            .AddV(new Country { CountryCallingCode = "+49" })
+            .AddV(new MetaPropertyVertex { CountryCallingCode = "+49" })
             .As((_, c) => _
                 .AddV(new SimpleVertex { IetfLanguageTag = "en" })
                 .AddE<Speaks>()
@@ -112,7 +112,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                 })
                 .AddE(new LivesIn())
                 .From(__ => __
-                    .V<Country>()
+                    .V<MetaPropertyVertex>()
                     .Where(t => t.CountryCallingCode == "+49"))
                 .Verify();
         }
@@ -122,7 +122,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .AddV<Person>()
             .AddE<LivesIn>()
             .To(__ => __
-                .AddV<Country>())
+                .AddV<MetaPropertyVertex>())
             .InV()
             .Verify();
 
@@ -131,7 +131,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .AddV<Person>()
             .AddE<LivesIn>()
             .To(__ => __
-                .AddV<Country>())
+                .AddV<MetaPropertyVertex>())
             .OutV()
             .Verify();
 
@@ -143,7 +143,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                 Since = new DateTimeOffset(2020, 4, 7, 14, 43, 36, TimeSpan.Zero)
             })
             .To(__ => __
-                .AddV<Country>())
+                .AddV<MetaPropertyVertex>())
             .Verify();
 
         [Fact]
@@ -162,7 +162,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual Task AddE_to_StepLabel() => _g
             .AddV(new SimpleVertex { IetfLanguageTag = "en" })
             .As((_, l) => _
-                .AddV(new Country { CountryCallingCode = "+49" })
+                .AddV(new MetaPropertyVertex { CountryCallingCode = "+49" })
                 .AddE<Speaks>()
                 .To(l))
             .Verify();
@@ -180,7 +180,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                 })
                 .AddE(new LivesIn())
                 .To(__ => __
-                    .V<Country>()
+                    .V<MetaPropertyVertex>()
                     .Where(t => t.CountryCallingCode == "+49"))
                 .Verify();
         }
@@ -274,7 +274,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task AddV_with_Meta_with_properties() => _g
-            .AddV(new Country
+            .AddV(new MetaPropertyVertex
             {
                 Name = new VertexProperty<string>("GER")
                 {
@@ -289,7 +289,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task AddV_with_Meta_without_properties() => _g
-            .AddV(new Country { Name = "GER" })
+            .AddV(new MetaPropertyVertex { Name = "GER" })
             .Verify();
 
         [Fact]
@@ -917,7 +917,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .V()
             .OfType<Person>()
             .Invoking(_ => _
-                .OfType<Country>())
+                .OfType<MetaPropertyVertex>())
             .Should()
             .Throw<InvalidOperationException>();
 
@@ -1211,7 +1211,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                     .Label())
                 .ByValue(_ => _
                     .Out<LivesIn>()
-                    .OfType<Country>()))
+                    .OfType<MetaPropertyVertex>()))
             .Verify();
 
         [Fact]
@@ -1866,7 +1866,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Project_for_coverage10() => _g
-           .V<Country>()
+           .V<MetaPropertyVertex>()
            .Where(x => x.CountryCallingCode != null)
            .Project(__ => __
                .ToTuple()
@@ -1884,7 +1884,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Project_for_coverage11() => _g
-           .V<Country>()
+           .V<MetaPropertyVertex>()
            .Where(x => x.CountryCallingCode != null)
            .Project(__ => __
                .ToTuple()
@@ -1903,7 +1903,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Project_for_coverage12() => _g
-           .V<Country>()
+           .V<MetaPropertyVertex>()
            .Where(x => x.CountryCallingCode != null)
            .Project(__ => __
                .ToTuple()
@@ -1923,7 +1923,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Project_for_coverage13() => _g
-           .V<Country>()
+           .V<MetaPropertyVertex>()
            .Where(x => x.CountryCallingCode != null)
            .Project(__ => __
                .ToTuple()
@@ -1944,7 +1944,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Project_for_coverage14() => _g
-           .V<Country>()
+           .V<MetaPropertyVertex>()
            .Where(x => x.CountryCallingCode != null)
            .Project(__ => __
                .ToTuple()
@@ -1966,7 +1966,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Project_for_coverage15() => _g
-           .V<Country>()
+           .V<MetaPropertyVertex>()
            .Where(x => x.CountryCallingCode != null)
            .Project(__ => __
                .ToTuple()
@@ -1989,7 +1989,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Project_for_coverage2() => _g
-           .V<Country>()
+           .V<MetaPropertyVertex>()
            .Where(x => x.CountryCallingCode != null)
            .Project(__ => __
                .ToTuple()
@@ -1999,7 +1999,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Project_for_coverage3() => _g
-           .V<Country>()
+           .V<MetaPropertyVertex>()
            .Where(x => x.CountryCallingCode != null)
            .Project(__ => __
                .ToTuple()
@@ -2010,7 +2010,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Project_for_coverage4() => _g
-           .V<Country>()
+           .V<MetaPropertyVertex>()
            .Where(x => x.CountryCallingCode != null)
            .Project(__ => __
                .ToTuple()
@@ -2022,7 +2022,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Project_for_coverage5() => _g
-           .V<Country>()
+           .V<MetaPropertyVertex>()
            .Where(x => x.CountryCallingCode != null)
            .Project(__ => __
                .ToTuple()
@@ -2035,7 +2035,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Project_for_coverage6() => _g
-           .V<Country>()
+           .V<MetaPropertyVertex>()
            .Where(x => x.CountryCallingCode != null)
            .Project(__ => __
                .ToTuple()
@@ -2049,7 +2049,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Project_for_coverage7() => _g
-           .V<Country>()
+           .V<MetaPropertyVertex>()
            .Where(x => x.CountryCallingCode != null)
            .Project(__ => __
                .ToTuple()
@@ -2064,7 +2064,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Project_for_coverage8() => _g
-           .V<Country>()
+           .V<MetaPropertyVertex>()
            .Where(x => x.CountryCallingCode != null)
            .Project(__ => __
                .ToTuple()
@@ -2080,7 +2080,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Project_for_coverage9() => _g
-           .V<Country>()
+           .V<MetaPropertyVertex>()
            .Where(x => x.CountryCallingCode != null)
            .Project(__ => __
                .ToTuple()
@@ -2109,7 +2109,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Project_to_tuple_maximum_expressions() => _g
-            .V<Country>()
+            .V<MetaPropertyVertex>()
             .Where(x => x.CountryCallingCode != null)
             .Project(__ => __
                 .ToTuple()
@@ -2503,7 +2503,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Properties_Meta() => _g
-            .V<Country>()
+            .V<MetaPropertyVertex>()
             .Properties(x => x.Name!)
             .Meta<PropertyValidity>()
             .Verify();
@@ -2534,7 +2534,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Properties_Meta_Where1() => _g
-            .V<Country>()
+            .V<MetaPropertyVertex>()
             .Properties(x => x.Name!)
             .Meta<PropertyValidity>()
             .Where(x => x.Properties!.ValidFrom >= new DateTimeOffset(2019, 01, 01, 01, 00, 00, TimeSpan.Zero))
@@ -2542,13 +2542,13 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Properties_of_member() => _g
-            .V<Country>()
+            .V<MetaPropertyVertex>()
             .Properties(x => x.Name!)
             .Verify();
 
         [Fact]
         public virtual Task Properties_of_three_members() => _g
-            .V<Country>()
+            .V<MetaPropertyVertex>()
             .Properties(
                 x => x.Name!,
                 x => x.CountryCallingCode!,
@@ -2557,7 +2557,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Properties_of_two_members1() => _g
-            .V<Country>()
+            .V<MetaPropertyVertex>()
             .Properties(
                 x => x.Name!,
                 x => x.CountryCallingCode!)
@@ -2565,7 +2565,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Properties_of_two_members2() => _g
-            .V<Country>()
+            .V<MetaPropertyVertex>()
             .Properties(
                 x => x.Name!,
                 x => x.Languages!)
@@ -2573,7 +2573,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Properties_Properties_as_select() => _g
-            .V<Country>()
+            .V<MetaPropertyVertex>()
             .Properties(x => x.Name!)
             .Properties()
             .As((__, s) => __
@@ -2582,7 +2582,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Properties_Properties_key() => _g
-            .V<Country>()
+            .V<MetaPropertyVertex>()
             .Properties(x => x.Name!)
             .Properties()
             .Key()
@@ -2616,7 +2616,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Properties_Properties1() => _g
-            .V<Country>()
+            .V<MetaPropertyVertex>()
             .Properties(x => x.Name!)
             .Properties()
             .Verify();
@@ -2710,7 +2710,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Properties_Where_Id() => _g
-            .V<Country>()
+            .V<MetaPropertyVertex>()
             .Properties(x => x.Languages!)
 #pragma warning disable 252,253
             .Where(x => x.Id == "id")
@@ -2719,7 +2719,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Properties_Where_Id_equals_static_field() => _g
-            .V<Country>()
+            .V<MetaPropertyVertex>()
             .Properties(x => x.Languages!)
 #pragma warning disable 252,253
             .Where(x => x.Id == Id)
@@ -2728,7 +2728,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Properties_Where_Label_2() => _g
-            .V<Country>()
+            .V<MetaPropertyVertex>()
             .Properties(x => x.Languages!)
             .Where(x => x.Label == "label")
             .Verify();
@@ -2737,7 +2737,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual Task Properties_Where_Label_equals_StepLabel() => _g
             .Inject("label")
             .As((__, l) => __
-                .V<Country>()
+                .V<MetaPropertyVertex>()
                 .Properties(x => x.Languages!)
                 .Where(x => x.Label == l.Value))
             .Verify();
@@ -2758,14 +2758,14 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Properties_Where_neq_Label() => _g
-            .V<Country>()
+            .V<MetaPropertyVertex>()
             .Properties(x => x.Languages!)
             .Where(x => x.Label != "label")
             .Verify();
 
         [Fact]
         public virtual Task Properties_Where_neq_Label_workaround() => _g
-            .V<Country>()
+            .V<MetaPropertyVertex>()
             .Properties(x => x.Languages!)
             .Where(x => x
                 .Label()
@@ -2774,14 +2774,14 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Properties_Where_reversed() => _g
-            .V<Country>()
+            .V<MetaPropertyVertex>()
             .Properties(x => x.Languages!)
             .Where(x => "de" == x.Value)
             .Verify();
 
         [Fact]
         public virtual Task Properties_Where1() => _g
-            .V<Country>()
+            .V<MetaPropertyVertex>()
             .Properties(x => x.Languages!)
             .Where(x => x.Value == "de")
             .Verify();
@@ -2856,7 +2856,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Property_single_with_dictionary_meta1() => _g
-            .V<Country>()
+            .V<MetaPropertyVertex>()
             .Property(x => x.LocalizableDescription, new VertexProperty<object, IDictionary<string, string>>("")
             {
                 Properties = new Dictionary<string, string>
@@ -3104,14 +3104,14 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Set_Meta_Property_to_null() => _g
-            .V<Country>()
+            .V<MetaPropertyVertex>()
             .Properties(x => x.Name!)
             .Property("metaKey", default(object))
             .Verify();
 
         [Fact]
         public virtual Task Set_Meta_Property1() => _g
-            .V<Country>()
+            .V<MetaPropertyVertex>()
             .Properties(x => x.Name!)
             .Property("metaKey", 1)
             .Verify();
@@ -4497,7 +4497,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Where_cast_property_ToString() => _g
-            .V<Country>()
+            .V<MetaPropertyVertex>()
             .Where(x => ((Exception)(object)x.CountryCallingCode!).ToString() == "some_string")
             .Verify();
 
@@ -4984,25 +4984,25 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Where_property_contains_constant_with_TextP_support() => _g
-            .V<Country>()
+            .V<MetaPropertyVertex>()
             .Where(c => c.CountryCallingCode!.Contains("456"))
             .Verify();
 
         [Fact]
         public virtual Task Where_property_contains_constant_with_TextP_support_case_insensitive() => _g
-            .V<Country>()
+            .V<MetaPropertyVertex>()
             .Where(c => c.CountryCallingCode!.Contains("456", StringComparison.OrdinalIgnoreCase))
             .Verify();
 
         [Fact]
         public virtual Task Where_property_contains_empty_string_with_TextP_support() => _g
-            .V<Country>()
+            .V<MetaPropertyVertex>()
             .Where(c => c.CountryCallingCode!.Contains(""))
             .Verify();
 
         [Fact]
         public virtual Task Where_property_contains_empty_string_with_TextP_support_case_insensitive() => _g
-            .V<Country>()
+            .V<MetaPropertyVertex>()
             .Where(c => c.CountryCallingCode!.Contains("", StringComparison.OrdinalIgnoreCase))
             .Verify();
 
@@ -5011,31 +5011,31 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .ConfigureEnvironment(env => env
                 .ConfigureOptions(c => c
                     .SetValue(GremlinqOption.DisabledTextPredicates, DisabledTextPredicates.StartingWith)))
-            .V<Country>()
+            .V<MetaPropertyVertex>()
             .Where(c => c.CountryCallingCode!.Contains(""))
             .Verify();
 
         [Fact]
         public virtual Task Where_property_ends_with_constant_with_TextP_support() => _g
-            .V<Country>()
+            .V<MetaPropertyVertex>()
             .Where(c => c.CountryCallingCode!.EndsWith("7890"))
             .Verify();
 
         [Fact]
         public virtual Task Where_property_ends_with_constant_with_TextP_support_case_insensitive() => _g
-            .V<Country>()
+            .V<MetaPropertyVertex>()
             .Where(c => c.CountryCallingCode!.EndsWith("7890", StringComparison.OrdinalIgnoreCase))
             .Verify();
 
         [Fact]
         public virtual Task Where_property_ends_with_empty_string_with_TextP_support() => _g
-            .V<Country>()
+            .V<MetaPropertyVertex>()
             .Where(c => c.CountryCallingCode!.EndsWith(""))
             .Verify();
 
         [Fact]
         public virtual Task Where_property_ends_with_empty_string_with_TextP_support_case_insensitive() => _g
-            .V<Country>()
+            .V<MetaPropertyVertex>()
             .Where(c => c.CountryCallingCode!.EndsWith("", StringComparison.OrdinalIgnoreCase))
             .Verify();
 
@@ -5044,7 +5044,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .ConfigureEnvironment(env => env
                 .ConfigureOptions(c => c
                     .SetValue(GremlinqOption.DisabledTextPredicates, DisabledTextPredicates.EndingWith)))
-            .V<Country>()
+            .V<MetaPropertyVertex>()
             .Where(c => c.CountryCallingCode!.EndsWith(""))
             .Verify();
 
@@ -5299,25 +5299,25 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Where_property_is_prefix_of_constant() => _g
-            .V<Country>()
+            .V<MetaPropertyVertex>()
             .Where(c => "+49123".StartsWith(c.CountryCallingCode!))
             .Verify();
 
         [Fact]
         public virtual Task Where_property_is_prefix_of_constant_case_insensitive() => _g
-            .V<Country>()
+            .V<MetaPropertyVertex>()
             .Where(c => "+49123".StartsWith(c.CountryCallingCode!, StringComparison.OrdinalIgnoreCase))
             .Verify();
 
         [Fact]
         public virtual Task Where_property_is_prefix_of_empty_string() => _g
-            .V<Country>()
+            .V<MetaPropertyVertex>()
             .Where(c => "".StartsWith(c.CountryCallingCode!))
             .Verify();
 
         [Fact]
         public virtual Task Where_property_is_prefix_of_empty_string_case_insensitive() => _g
-            .V<Country>()
+            .V<MetaPropertyVertex>()
             .Where(c => "".StartsWith(c.CountryCallingCode!, StringComparison.OrdinalIgnoreCase))
             .Verify();
 
@@ -5327,7 +5327,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             const string str = "+49123xxx";
 
             await _g
-                .V<Country>()
+                .V<MetaPropertyVertex>()
                 .Where(c => str.Substring(0, 6).StartsWith(c.CountryCallingCode!))
                 .Verify();
         }
@@ -5338,7 +5338,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             const string str = "+49123xxx";
 
             await _g
-                .V<Country>()
+                .V<MetaPropertyVertex>()
                 .Where(c => str.Substring(0, 6).StartsWith(c.CountryCallingCode!, StringComparison.OrdinalIgnoreCase))
                 .Verify();
         }
@@ -5349,7 +5349,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             var uri = new Uri("tel:+49123");
 
             await _g
-                .V<Country>()
+                .V<MetaPropertyVertex>()
                 .Where(c => uri.ToString().StartsWith(c.CountryCallingCode!))
                 .Verify();
         }
@@ -5360,7 +5360,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             const string str = "+49123";
 
             await _g
-                .V<Country>()
+                .V<MetaPropertyVertex>()
                 .Where(c => str.StartsWith(c.CountryCallingCode!))
                 .Verify();
         }
@@ -5371,7 +5371,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             const string str = "+49123";
 
             await _g
-                .V<Country>()
+                .V<MetaPropertyVertex>()
                 .Where(c => str.StartsWith(c.CountryCallingCode!, StringComparison.OrdinalIgnoreCase))
                 .Verify();
         }
@@ -5384,7 +5384,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual async Task Where_property_is_superstring_of_constant() => _g
-            .V<Country>()
+            .V<MetaPropertyVertex>()
             .Invoking(_ => _
                 .Where(c => "+49123".Contains(c.CountryCallingCode!)))
             .Should()
@@ -5446,13 +5446,13 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Where_property_starts_with_char_with_TextP_support() => _g
-            .V<Country>()
+            .V<MetaPropertyVertex>()
             .Where(c => c.CountryCallingCode!.StartsWith('+'))
             .Verify();
 
         [Fact]
         public virtual Task Where_property_starts_with_constant_with_TextP_support() => _g
-            .V<Country>()
+            .V<MetaPropertyVertex>()
             .Where(c => c.CountryCallingCode!.StartsWith("+49123"))
             .Verify();
 
@@ -5461,13 +5461,13 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .ConfigureEnvironment(env => env
                 .ConfigureOptions(c => c
                     .SetValue(GremlinqOption.DisabledTextPredicates, DisabledTextPredicates.StartingWith)))
-            .V<Country>()
+            .V<MetaPropertyVertex>()
             .Where(c => c.CountryCallingCode!.StartsWith("+49123"))
             .Verify();
 
         [Fact]
         public virtual Task Where_property_starts_with_empty_string_with_TextP_support() => _g
-            .V<Country>()
+            .V<MetaPropertyVertex>()
             .Where(c => c.CountryCallingCode!.StartsWith(""))
             .Verify();
 
@@ -5476,13 +5476,13 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .ConfigureEnvironment(env => env
                 .ConfigureOptions(c => c
                     .SetValue(GremlinqOption.DisabledTextPredicates, DisabledTextPredicates.StartingWith)))
-            .V<Country>()
+            .V<MetaPropertyVertex>()
             .Where(c => c.CountryCallingCode!.StartsWith(""))
             .Verify();
 
         [Fact]
         public virtual Task Where_property_ToString() => _g
-            .V<Country>()
+            .V<MetaPropertyVertex>()
             .Where(x => x.CountryCallingCode!.ToString() == "some_string")
             .Verify();
 
@@ -5511,7 +5511,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Where_source_expression_on_both_sides1() => _g
-            .V<Country>()
+            .V<MetaPropertyVertex>()
             .Where(x => x.Name != null)
             .Where(x => x.CountryCallingCode != null)
             .Where(t => t.Name!.Value == t.CountryCallingCode)
@@ -5568,25 +5568,25 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Where_string_property_equals() => _g
-            .V<Country>()
+            .V<MetaPropertyVertex>()
             .Where(c => c.CountryCallingCode!.Equals("+49123"))
             .Verify();
 
         [Fact]
         public virtual Task Where_string_property_equals_case_insensitive() => _g
-            .V<Country>()
+            .V<MetaPropertyVertex>()
             .Where(c => c.CountryCallingCode!.Equals("+49123", StringComparison.OrdinalIgnoreCase))
             .Verify();
 
         [Fact]
         public virtual Task Where_string_property_startsWith() => _g
-            .V<Country>()
+            .V<MetaPropertyVertex>()
             .Where(c => c.CountryCallingCode!.StartsWith("+49123"))
             .Verify();
 
         [Fact]
         public virtual Task Where_string_property_startsWith_case_insensitive() => _g
-            .V<Country>()
+            .V<MetaPropertyVertex>()
             .Where(c => c.CountryCallingCode!.StartsWith("+49123", StringComparison.OrdinalIgnoreCase))
             .Verify();
 
@@ -5773,7 +5773,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             var tuple = ("456", 36);
 
             await _g
-                .V<Country>()
+                .V<MetaPropertyVertex>()
                 .Where(c => c.Name!.Value.StartsWith(tuple.Item1))
                 .Verify();
         }

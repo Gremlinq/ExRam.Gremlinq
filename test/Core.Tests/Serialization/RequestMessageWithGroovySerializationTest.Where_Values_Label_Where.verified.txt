@@ -8,7 +8,7 @@
     },
     bindings: {
       _a: Company,
-      _b: Country,
+      _b: MetaPropertyVertex,
       _c: Person,
       _d: ScalarVertex,
       _e: SimpleVertex,

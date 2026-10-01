@@ -1435,7 +1435,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual Task List_ints() => Verify<List<int>>("[ 1, 2, 3 ]");
 
         [Fact]
-        public virtual Task Meta_Properties() => Verify<Country>(Country_with_meta_properties);
+        public virtual Task Meta_Properties() => Verify<MetaPropertyVertex>(Country_with_meta_properties);
 
         [Fact]
         public virtual Task MetaProperties() => Verify<Property<object>[]>(Properties);

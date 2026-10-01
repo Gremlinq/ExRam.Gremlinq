@@ -38,7 +38,7 @@
             PartitionKey: PartitionKey
           }
         ],
-        ExRam.Gremlinq.Tests.Entities.Country: [
+        ExRam.Gremlinq.Tests.Entities.MetaPropertyVertex: [
           {
             Name: {
               Id: 74,
@@ -50,7 +50,7 @@
               Value: GER
             },
             Id: 73,
-            Label: Country,
+            Label: MetaPropertyVertex,
             PartitionKey: PartitionKey
           }
         ],
@@ -153,10 +153,10 @@
             PartitionKey: PartitionKey
           }
         ],
-        ExRam.Gremlinq.Tests.Entities.Country: [
+        ExRam.Gremlinq.Tests.Entities.MetaPropertyVertex: [
           {
             Id: 21,
-            Label: Country,
+            Label: MetaPropertyVertex,
             PartitionKey: PartitionKey
           }
         ],
@@ -168,7 +168,7 @@
             PartitionKey: PartitionKey
           }
         ],
-        ExRam.Gremlinq.Tests.Entities.Country: [
+        ExRam.Gremlinq.Tests.Entities.MetaPropertyVertex: [
           {
             Name: {
               Id: 72,
@@ -177,7 +177,7 @@
               Value: GER
             },
             Id: 71,
-            Label: Country,
+            Label: MetaPropertyVertex,
             PartitionKey: PartitionKey
           }
         ],
@@ -205,10 +205,10 @@
             PartitionKey: PartitionKey
           }
         ],
-        ExRam.Gremlinq.Tests.Entities.Country: [
+        ExRam.Gremlinq.Tests.Entities.MetaPropertyVertex: [
           {
             Id: 17,
-            Label: Country,
+            Label: MetaPropertyVertex,
             PartitionKey: PartitionKey
           }
         ],
@@ -226,11 +226,11 @@
             PartitionKey: PartitionKey
           }
         ],
-        ExRam.Gremlinq.Tests.Entities.Country: [
+        ExRam.Gremlinq.Tests.Entities.MetaPropertyVertex: [
           {
             CountryCallingCode: +49,
             Id: 34,
-            Label: Country,
+            Label: MetaPropertyVertex,
             PartitionKey: PartitionKey
           }
         ],
@@ -241,10 +241,10 @@
             PartitionKey: PartitionKey
           }
         ],
-        ExRam.Gremlinq.Tests.Entities.Country: [
+        ExRam.Gremlinq.Tests.Entities.MetaPropertyVertex: [
           {
             Id: 25,
-            Label: Country,
+            Label: MetaPropertyVertex,
             PartitionKey: PartitionKey
           }
         ],
@@ -289,11 +289,11 @@
             PartitionKey: PartitionKey
           }
         ],
-        ExRam.Gremlinq.Tests.Entities.Country: [
+        ExRam.Gremlinq.Tests.Entities.MetaPropertyVertex: [
           {
             CountryCallingCode: +49,
             Id: 0,
-            Label: Country,
+            Label: MetaPropertyVertex,
             PartitionKey: PartitionKey
           }
         ]

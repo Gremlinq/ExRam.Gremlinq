@@ -38,7 +38,7 @@
             {
               OperatorName: addV,
               Arguments: [
-                Country
+                MetaPropertyVertex
               ]
             }
           ]

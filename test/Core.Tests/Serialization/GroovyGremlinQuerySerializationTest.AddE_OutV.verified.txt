@@ -5,7 +5,7 @@
     _b: Age,
     _c: 0,
     _d: LivesIn,
-    _e: Country,
+    _e: MetaPropertyVertex,
     _f: id,
     _g: label,
     _h: properties,
