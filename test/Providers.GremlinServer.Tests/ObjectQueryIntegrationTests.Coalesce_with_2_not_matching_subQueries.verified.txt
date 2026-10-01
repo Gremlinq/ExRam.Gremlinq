@@ -1,11 +1,11 @@
 ﻿[
   {
-    Id: 14,
-    Label: LivesIn
+    Id: 4,
+    Label: EmptyEdge
   },
   {
-    Id: 4,
-    Label: Speaks
+    Id: 14,
+    Label: LivesIn
   },
   {
     CountryCallingCode: +49,
@@ -83,7 +83,7 @@
   },
   {
     Id: 36,
-    Label: Speaks
+    Label: EmptyEdge
   },
   {
     Id: 41,

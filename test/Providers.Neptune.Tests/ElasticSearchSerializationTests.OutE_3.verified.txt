@@ -28,8 +28,8 @@
     {
       OperatorName: outE,
       Arguments: [
+        EmptyEdge,
         LivesIn,
-        Speaks,
         WorksFor
       ]
     },

@@ -7,7 +7,7 @@
       g: g
     },
     bindings: {
-      _a: Speaks,
+      _a: EmptyEdge,
       _b: WorksFor,
       _c: id,
       _d: label,

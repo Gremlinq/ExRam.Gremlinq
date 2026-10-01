@@ -3,20 +3,20 @@
     RequestId: 12345678-9012-3456-7890-123456789012,
     Data: [
       {
+        Id: 4,
+        Label: EmptyEdge
+      },
+      {
+        Id: 4,
+        Label: EmptyEdge
+      },
+      {
         Id: 14,
         Label: LivesIn
       },
       {
         Id: 14,
         Label: LivesIn
-      },
-      {
-        Id: 4,
-        Label: Speaks
-      },
-      {
-        Id: 4,
-        Label: Speaks
       },
       {
         Id: 41,
@@ -86,11 +86,11 @@
       },
       {
         Id: 36,
-        Label: Speaks
+        Label: EmptyEdge
       },
       {
         Id: 36,
-        Label: Speaks
+        Label: EmptyEdge
       },
       {
         Role: Admin,

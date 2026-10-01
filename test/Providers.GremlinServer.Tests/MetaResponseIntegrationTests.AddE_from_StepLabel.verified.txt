@@ -4,7 +4,7 @@
     Data: [
       {
         Id: 4,
-        Label: Speaks
+        Label: EmptyEdge
       }
     ],
     ResponseStatus: {

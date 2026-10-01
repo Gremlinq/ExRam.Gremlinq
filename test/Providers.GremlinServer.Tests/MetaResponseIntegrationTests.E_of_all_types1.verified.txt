@@ -8,11 +8,11 @@
       },
       {
         Id: 4,
-        Label: Speaks
+        Label: EmptyEdge
       },
       {
         Id: 36,
-        Label: Speaks
+        Label: EmptyEdge
       },
       {
         Id: 22,

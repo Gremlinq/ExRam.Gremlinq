@@ -22,8 +22,8 @@
     {
       OperatorName: both,
       Arguments: [
+        EmptyEdge,
         LivesIn,
-        Speaks,
         WorksFor
       ]
     },

@@ -59,7 +59,7 @@
     {
       OperatorName: addE,
       Arguments: [
-        Speaks
+        EmptyEdge
       ]
     },
     {

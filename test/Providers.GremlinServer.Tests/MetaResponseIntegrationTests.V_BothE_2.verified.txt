@@ -4,11 +4,11 @@
     Data: [
       {
         Id: 4,
-        Label: Speaks
+        Label: EmptyEdge
       },
       {
         Id: 4,
-        Label: Speaks
+        Label: EmptyEdge
       },
       {
         Role: Admin,
@@ -40,11 +40,11 @@
       },
       {
         Id: 36,
-        Label: Speaks
+        Label: EmptyEdge
       },
       {
         Id: 36,
-        Label: Speaks
+        Label: EmptyEdge
       },
       {
         Role: Admin,

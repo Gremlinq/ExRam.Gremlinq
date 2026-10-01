@@ -14,7 +14,7 @@
         {
           OperatorName: bothE,
           Arguments: [
-            Speaks,
+            EmptyEdge,
             WorksFor
           ]
         },

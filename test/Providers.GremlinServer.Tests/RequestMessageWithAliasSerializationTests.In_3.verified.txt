@@ -20,8 +20,8 @@
         {
           OperatorName: in,
           Arguments: [
+            EmptyEdge,
             LivesIn,
-            Speaks,
             WorksFor
           ]
         },

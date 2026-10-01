@@ -1,1 +1,1 @@
-g.addV('MetaPropertyVertex').property(single,'CountryCallingCode','+49').as('_a').addV('SimpleVertex').property(single,'IetfLanguageTag','en').addE('Speaks').from('_a').project('id','label','properties').by(id).by(label).by(__.valueMap())
+g.addV('MetaPropertyVertex').property(single,'CountryCallingCode','+49').as('_a').addV('SimpleVertex').property(single,'IetfLanguageTag','en').addE('EmptyEdge').from('_a').project('id','label','properties').by(id).by(label).by(__.valueMap())

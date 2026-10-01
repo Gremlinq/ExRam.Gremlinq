@@ -6,8 +6,8 @@
     {
       OperatorName: bothE,
       Arguments: [
+        EmptyEdge,
         LivesIn,
-        Speaks,
         WorksFor
       ]
     },

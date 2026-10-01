@@ -8,8 +8,8 @@
     },
     bindings: {
       _a: RichVertex,
-      _b: LivesIn,
-      _c: Speaks,
+      _b: EmptyEdge,
+      _c: LivesIn,
       _d: WorksFor,
       _e: id,
       _f: label,

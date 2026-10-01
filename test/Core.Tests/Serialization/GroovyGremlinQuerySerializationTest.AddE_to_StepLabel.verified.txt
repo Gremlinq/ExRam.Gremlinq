@@ -8,7 +8,7 @@
     _e: MetaPropertyVertex,
     _f: CountryCallingCode,
     _g: +49,
-    _h: Speaks,
+    _h: EmptyEdge,
     _i: id,
     _j: label,
     _k: properties

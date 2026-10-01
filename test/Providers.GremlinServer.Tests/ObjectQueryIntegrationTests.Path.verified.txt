@@ -24,14 +24,9 @@
         PartitionKey: PartitionKey
       },
       {
-        RegistrationDate: 2020-04-07 14:43:36 +0,
-        Name: {
-          Id: 12,
-          Label: Name,
-          Value: Bob
-        },
-        Id: 10,
-        Label: RichVertex,
+        IetfLanguageTag: en,
+        Id: 2,
+        Label: SimpleVertex,
         PartitionKey: PartitionKey
       }
     ]
@@ -61,9 +56,14 @@
         PartitionKey: PartitionKey
       },
       {
-        IetfLanguageTag: en,
-        Id: 2,
-        Label: SimpleVertex,
+        RegistrationDate: 2020-04-07 14:43:36 +0,
+        Name: {
+          Id: 12,
+          Label: Name,
+          Value: Bob
+        },
+        Id: 10,
+        Label: RichVertex,
         PartitionKey: PartitionKey
       }
     ]

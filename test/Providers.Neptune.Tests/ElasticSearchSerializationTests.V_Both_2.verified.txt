@@ -22,7 +22,7 @@
     {
       OperatorName: both,
       Arguments: [
-        Speaks,
+        EmptyEdge,
         WorksFor
       ]
     },

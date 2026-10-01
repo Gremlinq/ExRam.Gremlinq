@@ -78,7 +78,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .AddV(new MetaPropertyVertex { CountryCallingCode = "+49" })
             .As((_, c) => _
                 .AddV(new SimpleVertex { IetfLanguageTag = "en" })
-                .AddE<Speaks>()
+                .AddE<EmptyEdge>()
                 .From(c))
             .Verify();
 
@@ -163,7 +163,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .AddV(new SimpleVertex { IetfLanguageTag = "en" })
             .As((_, l) => _
                 .AddV(new MetaPropertyVertex { CountryCallingCode = "+49" })
-                .AddE<Speaks>()
+                .AddE<EmptyEdge>()
                 .To(l))
             .Verify();
 
@@ -1266,7 +1266,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task In_3() => _g
             .V<RichVertex>()
-            .In<WorksFor, LivesIn, Speaks>()
+            .In<WorksFor, LivesIn, EmptyEdge>()
             .Verify();
 
         [Fact]
@@ -1299,7 +1299,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task InE_3() => _g
             .V<RichVertex>()
-            .InE<WorksFor, LivesIn, Speaks>()
+            .InE<WorksFor, LivesIn, EmptyEdge>()
             .Verify();
 
         [Fact]
@@ -1799,7 +1799,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task Out_3() => _g
             .V<RichVertex>()
-            .Out<WorksFor, LivesIn, Speaks>()
+            .Out<WorksFor, LivesIn, EmptyEdge>()
             .Verify();
 
         [Fact]
@@ -1838,7 +1838,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task OutE_3() => _g
             .V<RichVertex>()
-            .OutE<WorksFor, LivesIn, Speaks>()
+            .OutE<WorksFor, LivesIn, EmptyEdge>()
             .Verify();
 
         [Fact]
@@ -3835,13 +3835,13 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task V_Both_2() => _g
            .V()
-           .Both<WorksFor, Speaks>()
+           .Both<WorksFor, EmptyEdge>()
            .Verify();
 
         [Fact]
         public virtual Task V_Both_3() => _g
            .V()
-           .Both<WorksFor, Speaks, LivesIn>()
+           .Both<WorksFor, EmptyEdge, LivesIn>()
            .Verify();
 
         [Fact]
@@ -3859,13 +3859,13 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task V_BothE_2() => _g
             .V()
-            .BothE<WorksFor, Speaks>()
+            .BothE<WorksFor, EmptyEdge>()
             .Verify();
 
         [Fact]
         public virtual Task V_BothE_3() => _g
             .V()
-            .BothE<WorksFor, Speaks, LivesIn>()
+            .BothE<WorksFor, EmptyEdge, LivesIn>()
             .Verify();
 
         [Fact]

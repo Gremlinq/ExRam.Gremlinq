@@ -14,7 +14,7 @@
       _e: SimpleVertex,
       _f: IetfLanguageTag,
       _g: en,
-      _h: Speaks,
+      _h: EmptyEdge,
       _i: id,
       _j: label,
       _k: properties

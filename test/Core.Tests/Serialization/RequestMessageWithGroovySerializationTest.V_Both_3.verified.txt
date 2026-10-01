@@ -7,8 +7,8 @@
       g: g
     },
     bindings: {
-      _a: LivesIn,
-      _b: Speaks,
+      _a: EmptyEdge,
+      _b: LivesIn,
       _c: WorksFor,
       _d: id,
       _e: label,
