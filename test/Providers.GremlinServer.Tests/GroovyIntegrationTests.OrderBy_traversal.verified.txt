@@ -8,7 +8,7 @@
       Value: Bob
     },
     Id: 10,
-    Label: Person,
+    Label: RichVertex,
     PartitionKey: PartitionKey
   },
   {
@@ -20,7 +20,7 @@
       Value: Bob
     },
     Id: 37,
-    Label: Person,
+    Label: RichVertex,
     PartitionKey: PartitionKey
   },
   {
@@ -32,7 +32,7 @@
       Value: Marko
     },
     Id: 62,
-    Label: Person,
+    Label: RichVertex,
     PartitionKey: PartitionKey
   }
 ]

@@ -2,7 +2,7 @@
   {
     Key: {
       Id: Guid_1,
-      Label: Person,
+      Label: RichVertex,
       PartitionKey: PartitionKey
     },
     Value: [

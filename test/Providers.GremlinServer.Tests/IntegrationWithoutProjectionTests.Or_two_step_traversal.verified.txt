@@ -1,17 +1,17 @@
 ﻿[
   {
     Id: 15,
-    Label: Person,
+    Label: RichVertex,
     PartitionKey: PartitionKey
   },
   {
     Id: 19,
-    Label: Person,
+    Label: RichVertex,
     PartitionKey: PartitionKey
   },
   {
     Id: 23,
-    Label: Person,
+    Label: RichVertex,
     PartitionKey: PartitionKey
   },
   {
@@ -22,7 +22,7 @@
       Value: Bob
     },
     Id: 37,
-    Label: Person,
+    Label: RichVertex,
     PartitionKey: PartitionKey
   }
 ]

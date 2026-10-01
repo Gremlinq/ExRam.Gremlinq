@@ -13,7 +13,7 @@
       _d: Role,
       _e: Admin,
       _f: To,
-      _g: Person,
+      _g: RichVertex,
       _h: Age,
       _i: 43,
       _j: SiblingVertex,

@@ -337,7 +337,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 
         [Fact]
         public Task Project_to_null_entity() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Limit(1)
             .Project(b => b
                 .ToTuple()

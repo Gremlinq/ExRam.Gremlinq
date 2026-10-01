@@ -1,1 +1,1 @@
-﻿g.V().hasLabel('Person').fold().count(local)
+﻿g.V().hasLabel('RichVertex').fold().count(local)

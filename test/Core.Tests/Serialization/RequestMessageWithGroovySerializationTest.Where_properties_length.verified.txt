@@ -7,7 +7,7 @@
       g: g
     },
     bindings: {
-      _a: Person,
+      _a: RichVertex,
       _b: PhoneNumbers,
       _c: 3,
       _d: id,

@@ -16,7 +16,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
         [Fact]
         public virtual Task Drop() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Drop()
             .Verify();
 

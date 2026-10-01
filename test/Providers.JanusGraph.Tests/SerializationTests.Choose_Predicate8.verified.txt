@@ -7,7 +7,7 @@
       OperatorName: hasLabel,
       Arguments: [
         MetaPropertyVertex,
-        Person,
+        RichVertex,
         ScalarVertex,
         SiblingVertex,
         SimpleVertex

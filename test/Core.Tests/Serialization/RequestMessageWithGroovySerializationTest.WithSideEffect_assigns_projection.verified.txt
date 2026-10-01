@@ -8,7 +8,7 @@
     },
     bindings: {
       _a: _a,
-      _b: Person,
+      _b: RichVertex,
       _c: id,
       _d: label,
       _e: properties,

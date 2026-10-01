@@ -1,19 +1,5 @@
 ﻿[
   {
-    ExRam.Gremlinq.Tests.Entities.Person: [
-      {
-        RegistrationDate: 2020-04-07 14:43:36 +0,
-        Name: {
-          Id: 39,
-          Label: Name,
-          Properties: {},
-          Value: Bob
-        },
-        Id: 37,
-        Label: Person,
-        PartitionKey: PartitionKey
-      }
-    ],
     ExRam.Gremlinq.Tests.Entities.SimpleVertex: [
       {
         Id: 80,
@@ -38,20 +24,6 @@
         PartitionKey: PartitionKey
       }
     ],
-    ExRam.Gremlinq.Tests.Entities.Person: [
-      {
-        Id: 15,
-        Label: Person,
-        PartitionKey: PartitionKey
-      }
-    ],
-    ExRam.Gremlinq.Tests.Entities.Person: [
-      {
-        Id: 23,
-        Label: Person,
-        PartitionKey: PartitionKey
-      }
-    ],
     ExRam.Gremlinq.Tests.Entities.SimpleVertex: [
       {
         Id: 49,
@@ -59,18 +31,10 @@
         PartitionKey: PartitionKey
       }
     ],
-    ExRam.Gremlinq.Tests.Entities.Person: [
+    ExRam.Gremlinq.Tests.Entities.RichVertex: [
       {
-        Id: 29,
-        Label: Person,
-        PartitionKey: PartitionKey
-      }
-    ],
-    ExRam.Gremlinq.Tests.Entities.Person: [
-      {
-        Age: 43,
-        Id: 7,
-        Label: Person,
+        Id: 44,
+        Label: RichVertex,
         PartitionKey: PartitionKey
       }
     ],
@@ -78,6 +42,14 @@
       {
         Id: 21,
         Label: MetaPropertyVertex,
+        PartitionKey: PartitionKey
+      }
+    ],
+    ExRam.Gremlinq.Tests.Entities.RichVertex: [
+      {
+        Gender: Female,
+        Id: 59,
+        Label: RichVertex,
         PartitionKey: PartitionKey
       }
     ],
@@ -111,7 +83,15 @@
         PartitionKey: PartitionKey
       }
     ],
-    ExRam.Gremlinq.Tests.Entities.Person: [
+    ExRam.Gremlinq.Tests.Entities.RichVertex: [
+      {
+        Image: AQIDBAUGBwg=,
+        Id: 56,
+        Label: RichVertex,
+        PartitionKey: PartitionKey
+      }
+    ],
+    ExRam.Gremlinq.Tests.Entities.RichVertex: [
       {
         RegistrationDate: 2020-04-07 14:43:36 +0,
         Name: {
@@ -121,15 +101,7 @@
           Value: Bob
         },
         Id: 10,
-        Label: Person,
-        PartitionKey: PartitionKey
-      }
-    ],
-    ExRam.Gremlinq.Tests.Entities.Person: [
-      {
-        Image: AQIDBAUGBwg=,
-        Id: 56,
-        Label: Person,
+        Label: RichVertex,
         PartitionKey: PartitionKey
       }
     ],
@@ -154,6 +126,20 @@
         PartitionKey: PartitionKey
       }
     ],
+    ExRam.Gremlinq.Tests.Entities.RichVertex: [
+      {
+        RegistrationDate: 2020-04-07 14:43:36 +0,
+        Name: {
+          Id: 63,
+          Label: Name,
+          Properties: {},
+          Value: Marko
+        },
+        Id: 62,
+        Label: RichVertex,
+        PartitionKey: PartitionKey
+      }
+    ],
     ExRam.Gremlinq.Tests.Entities.MetaPropertyVertex: [
       {
         Id: 17,
@@ -172,14 +158,6 @@
         PartitionKey: PartitionKey
       }
     ],
-    ExRam.Gremlinq.Tests.Entities.Person: [
-      {
-        Gender: Female,
-        Id: 59,
-        Label: Person,
-        PartitionKey: PartitionKey
-      }
-    ],
     ExRam.Gremlinq.Tests.Entities.SimpleVertex: [
       {
         IetfLanguageTag: en,
@@ -188,17 +166,10 @@
         PartitionKey: PartitionKey
       }
     ],
-    ExRam.Gremlinq.Tests.Entities.Person: [
+    ExRam.Gremlinq.Tests.Entities.RichVertex: [
       {
-        RegistrationDate: 2020-04-07 14:43:36 +0,
-        Name: {
-          Id: 63,
-          Label: Name,
-          Properties: {},
-          Value: Marko
-        },
-        Id: 62,
-        Label: Person,
+        Id: 29,
+        Label: RichVertex,
         PartitionKey: PartitionKey
       }
     ],
@@ -209,6 +180,20 @@
         PartitionKey: PartitionKey
       }
     ],
+    ExRam.Gremlinq.Tests.Entities.RichVertex: [
+      {
+        Id: 15,
+        Label: RichVertex,
+        PartitionKey: PartitionKey
+      }
+    ],
+    ExRam.Gremlinq.Tests.Entities.RichVertex: [
+      {
+        Id: 23,
+        Label: RichVertex,
+        PartitionKey: PartitionKey
+      }
+    ],
     ExRam.Gremlinq.Tests.Entities.SiblingVertex: [
       {
         Id: 27,
@@ -216,10 +201,11 @@
         PartitionKey: PartitionKey
       }
     ],
-    ExRam.Gremlinq.Tests.Entities.Person: [
+    ExRam.Gremlinq.Tests.Entities.RichVertex: [
       {
-        Id: 44,
-        Label: Person,
+        Age: 43,
+        Id: 7,
+        Label: RichVertex,
         PartitionKey: PartitionKey
       }
     ],
@@ -235,13 +221,6 @@
         CountryCallingCode: +49,
         Id: 34,
         Label: MetaPropertyVertex,
-        PartitionKey: PartitionKey
-      }
-    ],
-    ExRam.Gremlinq.Tests.Entities.Person: [
-      {
-        Id: 19,
-        Label: Person,
         PartitionKey: PartitionKey
       }
     ],
@@ -261,6 +240,13 @@
         PartitionKey: PartitionKey
       }
     ],
+    ExRam.Gremlinq.Tests.Entities.RichVertex: [
+      {
+        Id: 19,
+        Label: RichVertex,
+        PartitionKey: PartitionKey
+      }
+    ],
     ExRam.Gremlinq.Tests.Entities.SimpleVertex: [
       {
         IetfLanguageTag: en,
@@ -276,6 +262,20 @@
         Duration: 02:00:00,
         Id: 50,
         Label: ScalarVertex,
+        PartitionKey: PartitionKey
+      }
+    ],
+    ExRam.Gremlinq.Tests.Entities.RichVertex: [
+      {
+        RegistrationDate: 2020-04-07 14:43:36 +0,
+        Name: {
+          Id: 39,
+          Label: Name,
+          Properties: {},
+          Value: Bob
+        },
+        Id: 37,
+        Label: RichVertex,
         PartitionKey: PartitionKey
       }
     ],

@@ -7,7 +7,7 @@
       g: g
     },
     bindings: {
-      _a: Person,
+      _a: RichVertex,
       _b: RegistrationDate,
       _c: Date_MinValue,
       _d: id,

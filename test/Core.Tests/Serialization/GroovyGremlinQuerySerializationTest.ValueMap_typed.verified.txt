@@ -1,7 +1,7 @@
 {
   Script: g.V().hasLabel(_a).valueMap(_b),
   Bindings: {
-    _a: Person,
+    _a: RichVertex,
     _b: Age
   }
 }

@@ -41,9 +41,9 @@ namespace ExRam.Gremlinq.Tests.Infrastructure.GraphSon.Entities
         public WorksFor? Edge { get; set; }
         public (int[] ints, string[] strings) Empty_to_ints { get; set; }
         public object[]? Empty1 { get; set; }
-        public Person[]? Empty2 { get; set; }
+        public RichVertex[]? Empty2 { get; set; }
         public Path? Graphson2Path { get; set; }
-        public (Person, SimpleVertex)[]? GraphSon3_Tuple { get; set; }
+        public (RichVertex, SimpleVertex)[]? GraphSon3_Tuple { get; set; }
         public Path? Graphson3Path { get; set; }
         public object? GraphSon3ReferenceVertex { get; set; }
         public Guid Guid { get; set; }
@@ -78,11 +78,11 @@ namespace ExRam.Gremlinq.Tests.Infrastructure.GraphSon.Entities
         public int?[]? Nullable_null { get; set; }
         public object? Object_from_double { get; set; }
         public object? Object_from_true { get; set; }
-        public Person? Person_lowercase_strongly_typed { get; set; }
-        public Person? Person_StringId { get; set; }
-        public Person? Person_strongly_typed { get; set; }
-        public Person? Person_with_null { get; set; }
-        public Person? Person_without_PhoneNumbers_strongly_typed { get; set; }
+        public RichVertex? Person_lowercase_strongly_typed { get; set; }
+        public RichVertex? Person_StringId { get; set; }
+        public RichVertex? Person_strongly_typed { get; set; }
+        public RichVertex? Person_with_null { get; set; }
+        public RichVertex? Person_without_PhoneNumbers_strongly_typed { get; set; }
         public object? Property_as_object { get; set; }
         public Property<int>? Property_from_Scalar { get; set; }
         public int Scalar { get; set; }
@@ -92,7 +92,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure.GraphSon.Entities
         public ScalarVertex? TimeFrame_strongly_typed { get; set; }
         public TimeSpan TimeSpan_from_double { get; set; }
         public TimeSpan TimeSpan_from_integer { get; set; }
-        public (Person, SimpleVertex) Tuple { get; set; }
+        public (RichVertex, SimpleVertex) Tuple { get; set; }
         public (Vertex, Vertex) Tuple_vertex_vertex { get; set; }
         public VertexProperty<object>[]? VertexProperties { get; set; }
         public VertexProperty<object, MetaPoco>[]? VertexProperties_with_model { get; set; }

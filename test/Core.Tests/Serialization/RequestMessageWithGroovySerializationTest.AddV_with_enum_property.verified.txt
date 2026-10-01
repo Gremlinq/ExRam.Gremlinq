@@ -7,7 +7,7 @@
       g: g
     },
     bindings: {
-      _a: Person,
+      _a: RichVertex,
       _b: Age,
       _c: 0,
       _d: Gender,

@@ -37,7 +37,7 @@
     {
       OperatorName: select,
       Arguments: [
-        Person
+        RichVertex
       ]
     },
     {

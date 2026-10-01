@@ -7,7 +7,7 @@
       g: g
     },
     bindings: {
-      _a: Person,
+      _a: RichVertex,
       _b: Image,
       _c: PhoneNumbers,
       _d: _Etag,

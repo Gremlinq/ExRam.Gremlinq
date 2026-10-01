@@ -1,7 +1,7 @@
 {
   Script: g.V().hasLabel(_a).order().by(id,asc).limit(_b).project(_c,_d).by(__.constant(_e)).by(id),
   Bindings: {
-    _a: Person,
+    _a: RichVertex,
     _b: 1,
     _c: item1!,
     _d: Id,

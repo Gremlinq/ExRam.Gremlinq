@@ -40,331 +40,331 @@ namespace ExRam.Gremlinq.Core.Tests
 
         [Fact]
         public virtual Task InE_without_type() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .InE()
             .Verify();
 
         [Fact]
         public virtual Task InE_with_one__object_type() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .InE<object>()
             .Verify();
 
         [Fact]
         public virtual Task InE_with_one_type() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .InE<Edge1>()
             .Verify();
 
         [Fact]
         public virtual Task InE_with_two_types() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .InE<Edge1, Edge2>()
             .Verify();
 
         [Fact]
         public virtual Task InE_with_three_types() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .InE<Edge1, Edge2, Edge3>()
             .Verify();
 
         [Fact]
         public virtual Task InE_with_four_types() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .InE<Edge1, Edge2, Edge3, Edge4>()
             .Verify();
 
         [Fact]
         public virtual Task InE_with_five_types() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .InE<Edge1, Edge2, Edge3, Edge4, Edge5>()
             .Verify();
 
         [Fact]
         public virtual Task InE_with_six_types() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .InE<Edge1, Edge2, Edge3, Edge4, Edge5, Edge6>()
             .Verify();
 
         [Fact]
         public virtual Task InE_with_seven_types() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .InE<Edge1, Edge2, Edge3, Edge4, Edge5, Edge6, Edge7>()
             .Verify();
 
         [Fact]
         public virtual Task InE_with_eight_types() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .InE<Edge1, Edge2, Edge3, Edge4, Edge5, Edge6, Edge7, Edge8>()
             .Verify();
 
         [Fact]
         public virtual Task InE_with_nine_types() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .InE<Edge1, Edge2, Edge3, Edge4, Edge5, Edge6, Edge7, Edge8, Edge9>()
             .Verify();
 
         [Fact]
         public virtual Task InE_with_ten_types() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .InE<Edge1, Edge2, Edge3, Edge4, Edge5, Edge6, Edge7, Edge8, Edge9, Edge10>()
             .Verify();
 
         [Fact]
         public virtual Task InE_with_eleven_types() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .InE<Edge1, Edge2, Edge3, Edge4, Edge5, Edge6, Edge7, Edge8, Edge9, Edge10, Edge11>()
             .Verify();
 
         [Fact]
         public virtual Task InE_with_twelve_types() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .InE<Edge1, Edge2, Edge3, Edge4, Edge5, Edge6, Edge7, Edge8, Edge9, Edge10, Edge11, Edge12>()
             .Verify();
 
         [Fact]
         public virtual Task InE_with_thirteen_types() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .InE<Edge1, Edge2, Edge3, Edge4, Edge5, Edge6, Edge7, Edge8, Edge9, Edge10, Edge11, Edge12, Edge13>()
             .Verify();
 
         [Fact]
         public virtual Task InE_with_fourteen_types() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .InE<Edge1, Edge2, Edge3, Edge4, Edge5, Edge6, Edge7, Edge8, Edge9, Edge10, Edge11, Edge12, Edge13, Edge14>()
             .Verify();
 
         [Fact]
         public virtual Task InE_with_fifteen_types() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .InE<Edge1, Edge2, Edge3, Edge4, Edge5, Edge6, Edge7, Edge8, Edge9, Edge10, Edge11, Edge12, Edge13, Edge14, Edge15>()
             .Verify();
 
         [Fact]
         public virtual Task InE_with_sixteen_types() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .InE<Edge1, Edge2, Edge3, Edge4, Edge5, Edge6, Edge7, Edge8, Edge9, Edge10, Edge11, Edge12, Edge13, Edge14, Edge15, Edge16>()
             .Verify();
 
         [Fact]
         public virtual Task OutE_without_type() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .OutE()
             .Verify();
 
         [Fact]
         public virtual Task OutE_with_one_object_type() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .OutE<object>()
             .Verify();
 
         [Fact]
         public virtual Task OutE_with_one_type() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .OutE<Edge1>()
             .Verify();
 
         [Fact]
         public virtual Task OutE_with_two_types() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .OutE<Edge1, Edge2>()
             .Verify();
 
         [Fact]
         public virtual Task OutE_with_three_types() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .OutE<Edge1, Edge2, Edge3>()
             .Verify();
 
         [Fact]
         public virtual Task OutE_with_four_types() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .OutE<Edge1, Edge2, Edge3, Edge4>()
             .Verify();
 
         [Fact]
         public virtual Task OutE_with_five_types() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .OutE<Edge1, Edge2, Edge3, Edge4, Edge5>()
             .Verify();
 
         [Fact]
         public virtual Task OutE_with_six_types() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .OutE<Edge1, Edge2, Edge3, Edge4, Edge5, Edge6>()
             .Verify();
 
         [Fact]
         public virtual Task OutE_with_seven_types() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .OutE<Edge1, Edge2, Edge3, Edge4, Edge5, Edge6, Edge7>()
             .Verify();
 
         [Fact]
         public virtual Task OutE_with_eight_types() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .OutE<Edge1, Edge2, Edge3, Edge4, Edge5, Edge6, Edge7, Edge8>()
             .Verify();
 
         [Fact]
         public virtual Task OutE_with_nine_types() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .OutE<Edge1, Edge2, Edge3, Edge4, Edge5, Edge6, Edge7, Edge8, Edge9>()
             .Verify();
 
         [Fact]
         public virtual Task OutE_with_ten_types() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .OutE<Edge1, Edge2, Edge3, Edge4, Edge5, Edge6, Edge7, Edge8, Edge9, Edge10>()
             .Verify();
 
         [Fact]
         public virtual Task OutE_with_eleven_types() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .OutE<Edge1, Edge2, Edge3, Edge4, Edge5, Edge6, Edge7, Edge8, Edge9, Edge10, Edge11>()
             .Verify();
 
         [Fact]
         public virtual Task OutE_with_twelve_types() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .OutE<Edge1, Edge2, Edge3, Edge4, Edge5, Edge6, Edge7, Edge8, Edge9, Edge10, Edge11, Edge12>()
             .Verify();
 
         [Fact]
         public virtual Task OutE_with_thirteen_types() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .OutE<Edge1, Edge2, Edge3, Edge4, Edge5, Edge6, Edge7, Edge8, Edge9, Edge10, Edge11, Edge12, Edge13>()
             .Verify();
 
         [Fact]
         public virtual Task OutE_with_fourteen_types() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .OutE<Edge1, Edge2, Edge3, Edge4, Edge5, Edge6, Edge7, Edge8, Edge9, Edge10, Edge11, Edge12, Edge13, Edge14>()
             .Verify();
 
         [Fact]
         public virtual Task OutE_with_fifteen_types() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .OutE<Edge1, Edge2, Edge3, Edge4, Edge5, Edge6, Edge7, Edge8, Edge9, Edge10, Edge11, Edge12, Edge13, Edge14, Edge15>()
             .Verify();
 
         [Fact]
         public virtual Task OutE_with_sixteen_types() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .OutE<Edge1, Edge2, Edge3, Edge4, Edge5, Edge6, Edge7, Edge8, Edge9, Edge10, Edge11, Edge12, Edge13, Edge14, Edge15, Edge16>()
             .Verify();
 
         [Fact]
         public virtual Task BothE_without_type() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .BothE()
             .Verify();
 
         [Fact]
         public virtual Task BothE_with_one_object_type() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .BothE<object>()
             .Verify();
 
         [Fact]
         public virtual Task BothE_with_one_type() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .BothE<Edge1>()
             .Verify();
 
         [Fact]
         public virtual Task BothE_with_two_types() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .BothE<Edge1, Edge2>()
             .Verify();
 
         [Fact]
         public virtual Task BothE_with_three_types() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .BothE<Edge1, Edge2, Edge3>()
             .Verify();
 
         [Fact]
         public virtual Task BothE_with_four_types() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .BothE<Edge1, Edge2, Edge3, Edge4>()
             .Verify();
 
         [Fact]
         public virtual Task BothE_with_five_types() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .BothE<Edge1, Edge2, Edge3, Edge4, Edge5>()
             .Verify();
 
         [Fact]
         public virtual Task BothE_with_six_types() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .BothE<Edge1, Edge2, Edge3, Edge4, Edge5, Edge6>()
             .Verify();
 
         [Fact]
         public virtual Task BothE_with_seven_types() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .BothE<Edge1, Edge2, Edge3, Edge4, Edge5, Edge6, Edge7>()
             .Verify();
 
         [Fact]
         public virtual Task BothE_with_eight_types() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .BothE<Edge1, Edge2, Edge3, Edge4, Edge5, Edge6, Edge7, Edge8>()
             .Verify();
 
         [Fact]
         public virtual Task BothE_with_nine_types() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .BothE<Edge1, Edge2, Edge3, Edge4, Edge5, Edge6, Edge7, Edge8, Edge9>()
             .Verify();
 
         [Fact]
         public virtual Task BothE_with_ten_types() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .BothE<Edge1, Edge2, Edge3, Edge4, Edge5, Edge6, Edge7, Edge8, Edge9, Edge10>()
             .Verify();
 
         [Fact]
         public virtual Task BothE_with_eleven_types() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .BothE<Edge1, Edge2, Edge3, Edge4, Edge5, Edge6, Edge7, Edge8, Edge9, Edge10, Edge11>()
             .Verify();
 
         [Fact]
         public virtual Task BothE_with_twelve_types() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .BothE<Edge1, Edge2, Edge3, Edge4, Edge5, Edge6, Edge7, Edge8, Edge9, Edge10, Edge11, Edge12>()
             .Verify();
 
         [Fact]
         public virtual Task BothE_with_thirteen_types() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .BothE<Edge1, Edge2, Edge3, Edge4, Edge5, Edge6, Edge7, Edge8, Edge9, Edge10, Edge11, Edge12, Edge13>()
             .Verify();
 
         [Fact]
         public virtual Task BothE_with_fourteen_types() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .BothE<Edge1, Edge2, Edge3, Edge4, Edge5, Edge6, Edge7, Edge8, Edge9, Edge10, Edge11, Edge12, Edge13, Edge14>()
             .Verify();
 
         [Fact]
         public virtual Task BothE_with_fifteen_types() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .BothE<Edge1, Edge2, Edge3, Edge4, Edge5, Edge6, Edge7, Edge8, Edge9, Edge10, Edge11, Edge12, Edge13, Edge14, Edge15>()
             .Verify();
 
         [Fact]
         public virtual Task BothE_with_sixteen_types() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .BothE<Edge1, Edge2, Edge3, Edge4, Edge5, Edge6, Edge7, Edge8, Edge9, Edge10, Edge11, Edge12, Edge13, Edge14, Edge15, Edge16>()
             .Verify();
 
         [Fact]
         public virtual Task Labels_are_distinct() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .OutE<Edge1, Edge2, Edge3, Edge1, Edge2, Edge3, Edge4, Edge5, Edge5, Edge6>()
             .Verify();
     }

@@ -1,7 +1,7 @@
 {
   Script: g.V().hasLabel(_a).outE(_b).has(_c).tree().by().by(_c).by(),
   Bindings: {
-    _a: Person,
+    _a: RichVertex,
     _b: WorksFor,
     _c: Role
   }

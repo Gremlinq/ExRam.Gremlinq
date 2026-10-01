@@ -50,7 +50,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public async Task Hierarchy_inside_model() => await Verify(GraphModel
             .FromBaseTypes<Vertex, Edge>()
             .VerticesModel
-            .GetMetadata(typeof(Person)));
+            .GetMetadata(typeof(RichVertex)));
 
         [Fact]
         public async Task Hierarchy_outside_model() => GraphModel
@@ -75,7 +75,7 @@ namespace ExRam.Gremlinq.Core.Tests
             .ConfigureElements(em => em
                 .UseLowerCaseLabels())
             .VerticesModel
-            .GetMetadata(typeof(Person)));
+            .GetMetadata(typeof(RichVertex)));
 
         [Fact]
         public async Task CamelcaseLabel_Vertices() => await Verify(GraphModel
@@ -99,7 +99,7 @@ namespace ExRam.Gremlinq.Core.Tests
             .ConfigureElements(pm => pm
                 .UseCamelCaseMemberNames())
             .VerticesModel
-            .GetMetadata(typeof(Person).GetProperty(nameof(Person.RegistrationDate))!));
+            .GetMetadata(typeof(RichVertex).GetProperty(nameof(RichVertex.RegistrationDate))!));
 
         [Fact]
         public async Task Lowercase_Identifier_By_ParameterExpression() => await Verify(GraphModel
@@ -107,7 +107,7 @@ namespace ExRam.Gremlinq.Core.Tests
             .ConfigureElements(pm => pm
                 .UseLowerCaseMemberNames())
             .VerticesModel
-            .GetMetadata(typeof(Person).GetProperty(nameof(Person.RegistrationDate))!));
+            .GetMetadata(typeof(RichVertex).GetProperty(nameof(RichVertex.RegistrationDate))!));
 
         [Fact]
         public async Task Camelcase_Mixed_Mode_Label()
@@ -123,7 +123,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .GetMetadata(typeof(ScalarVertex)),
                 model
                     .VerticesModel
-                    .GetMetadata(typeof(Person).GetProperty(nameof(Person.RegistrationDate))!)));
+                    .GetMetadata(typeof(RichVertex).GetProperty(nameof(RichVertex.RegistrationDate))!)));
         }
 
         [Fact]
@@ -140,7 +140,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .GetMetadata(typeof(ScalarVertex)),
                 model
                     .VerticesModel
-                    .GetMetadata(typeof(Person).GetProperty(nameof(Person.RegistrationDate))!)));
+                    .GetMetadata(typeof(RichVertex).GetProperty(nameof(RichVertex.RegistrationDate))!)));
         }
 
         [Fact]
@@ -158,7 +158,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .GetMetadata(typeof(ScalarVertex)),
                 model
                     .VerticesModel
-                    .GetMetadata(typeof(Person).GetProperty(nameof(Person.RegistrationDate))!)));
+                    .GetMetadata(typeof(RichVertex).GetProperty(nameof(RichVertex.RegistrationDate))!)));
         }
 
         [Fact]
@@ -176,23 +176,23 @@ namespace ExRam.Gremlinq.Core.Tests
                     .GetMetadata(typeof(ScalarVertex)),
                 model
                     .VerticesModel
-                    .GetMetadata(typeof(Person).GetProperty(nameof(Person.RegistrationDate))!)));
+                    .GetMetadata(typeof(RichVertex).GetProperty(nameof(RichVertex.RegistrationDate))!)));
         }
 
         [Fact]
         public async Task Configuration_IgnoreOnUpdate() => await Verify(GraphModel
             .FromBaseTypes<Vertex, Edge>()
             .ConfigureVertices(_ => _
-                .ConfigureElement<Person>(conf => conf
+                .ConfigureElement<RichVertex>(conf => conf
                     .IgnoreOnUpdate(p => p.Name)))
             .VerticesModel
-            .GetMetadata(typeof(Person).GetProperty(nameof(Person.Name))!));
+            .GetMetadata(typeof(RichVertex).GetProperty(nameof(RichVertex.Name))!));
 
         [Fact]
         public async Task Configuration_can_be_found_for_base_class() => await Verify(GraphModel
             .FromBaseTypes<Vertex, Edge>()
             .ConfigureVertices(pm => pm
-                .ConfigureElement<Person>(conf => conf
+                .ConfigureElement<RichVertex>(conf => conf
                     .IgnoreOnUpdate(p => p.Name)))
             .VerticesModel
             .GetMetadata(typeof(Authority).GetProperty(nameof(Authority.Name))!));
@@ -204,16 +204,16 @@ namespace ExRam.Gremlinq.Core.Tests
                 .ConfigureElement<Authority>(conf => conf
                     .IgnoreOnUpdate(p => p.Name)))
             .VerticesModel
-            .GetMetadata(typeof(Person).GetProperty(nameof(Person.Name))!));
+            .GetMetadata(typeof(RichVertex).GetProperty(nameof(RichVertex.Name))!));
 
         [Fact]
         public async Task Configuration_IgnoreAlways() => await Verify(GraphModel
             .FromBaseTypes<Vertex, Edge>()
             .ConfigureVertices(pm => pm
-                .ConfigureElement<Person>(conf => conf
+                .ConfigureElement<RichVertex>(conf => conf
                     .IgnoreAlways(p => p.Name)))
             .VerticesModel
-            .GetMetadata(typeof(Person).GetProperty(nameof(Person.Name))!));
+            .GetMetadata(typeof(RichVertex).GetProperty(nameof(RichVertex.Name))!));
 
         [Fact]
         public async Task Configuration_IgnoreAlways_Id() => await Verify(GraphModel
@@ -222,13 +222,13 @@ namespace ExRam.Gremlinq.Core.Tests
                 .ConfigureElement<Vertex>(conf => conf
                     .IgnoreAlways(p => p.Id)))
             .VerticesModel
-            .GetMetadata(typeof(Person).GetProperty(nameof(Person.Id))!));
+            .GetMetadata(typeof(RichVertex).GetProperty(nameof(RichVertex.Id))!));
 
         [Fact]
         public async Task Configuration_Unconfigured() => await Verify(GraphModel
             .FromBaseTypes<Vertex, Edge>()
             .VerticesModel
-            .GetMetadata(typeof(Person).GetProperty(nameof(Person.Name))!));
+            .GetMetadata(typeof(RichVertex).GetProperty(nameof(RichVertex.Name))!));
 
         [Fact]
         public async Task Configuration_Before_Model_Changes()
@@ -236,7 +236,7 @@ namespace ExRam.Gremlinq.Core.Tests
             var model = GraphModel
                 .FromBaseTypes<Vertex, Edge>()
                 .ConfigureVertices(pm => pm
-                    .ConfigureElement<Person>(conf => conf
+                    .ConfigureElement<RichVertex>(conf => conf
                         .IgnoreAlways(p => p.Name))
                     .UseCamelCaseMemberNames())
                 .ConfigureElements(em => em
@@ -248,10 +248,10 @@ namespace ExRam.Gremlinq.Core.Tests
                     .GetMetadata(typeof(ScalarVertex)),
                 model
                     .VerticesModel
-                    .GetMetadata(typeof(Person).GetProperty(nameof(Person.RegistrationDate))!),
+                    .GetMetadata(typeof(RichVertex).GetProperty(nameof(RichVertex.RegistrationDate))!),
                 model
                     .VerticesModel
-                    .GetMetadata(typeof(Person).GetProperty(nameof(Person.Name))!)));
+                    .GetMetadata(typeof(RichVertex).GetProperty(nameof(RichVertex.Name))!)));
         }
 
         [Fact]
@@ -262,7 +262,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .ConfigureVertices(pm => pm
                     .UseCamelCaseMemberNames()
                     .UseCamelCaseLabels()
-                    .ConfigureElement<Person>(conf => conf
+                    .ConfigureElement<RichVertex>(conf => conf
                         .IgnoreAlways(p => p.Name)));
 
             await Verify((
@@ -271,10 +271,10 @@ namespace ExRam.Gremlinq.Core.Tests
                     .GetMetadata(typeof(ScalarVertex)),
                 model
                     .VerticesModel
-                    .GetMetadata(typeof(Person).GetProperty(nameof(Person.RegistrationDate))!),
+                    .GetMetadata(typeof(RichVertex).GetProperty(nameof(RichVertex.RegistrationDate))!),
                 model
                     .VerticesModel
-                    .GetMetadata(typeof(Person).GetProperty(nameof(Person.Name))!)));
+                    .GetMetadata(typeof(RichVertex).GetProperty(nameof(RichVertex.Name))!)));
         }
 
         [Fact]

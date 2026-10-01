@@ -7,7 +7,7 @@
       Value: Marko
     },
     Id: 62,
-    Label: Person,
+    Label: RichVertex,
     PartitionKey: PartitionKey
   }
 ]

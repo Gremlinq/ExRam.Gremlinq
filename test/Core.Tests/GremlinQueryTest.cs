@@ -64,13 +64,13 @@ namespace ExRam.Gremlinq.Core.Tests
         public void ChangeQueryType_optimizes()
         {
             var query = _g
-                .V<Person>();
+                .V<RichVertex>();
 
-            query.AsAdmin().ChangeQueryType<IVertexGremlinQuery<Person>>()
+            query.AsAdmin().ChangeQueryType<IVertexGremlinQuery<RichVertex>>()
                 .Should()
                 .BeSameAs(query);
 
-            query.AsAdmin().ChangeQueryType<IGremlinQuery<Person>>()
+            query.AsAdmin().ChangeQueryType<IGremlinQuery<RichVertex>>()
                 .Should()
                 .BeSameAs(query);
 
@@ -91,16 +91,16 @@ namespace ExRam.Gremlinq.Core.Tests
         public void ChangeQueryType_takes_array_element_types_into_account()
         {
             var query = _g
-                .V<Person>();
+                .V<RichVertex>();
 
-            query.AsAdmin().ChangeQueryType<IGremlinQueryBase<Person[]>>()
+            query.AsAdmin().ChangeQueryType<IGremlinQueryBase<RichVertex[]>>()
                 .Should()
-                .BeAssignableTo<IArrayGremlinQueryBase<Person>>();
+                .BeAssignableTo<IArrayGremlinQueryBase<RichVertex>>();
         }
 
         [Fact]
         public async Task ForceVertex_has_correct_semantics() => await Verify(_g
-            .V<Person>()
+            .V<RichVertex>()
             .Count()
             .ForceVertex()
             .ToTraversal()
@@ -120,7 +120,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
         [Fact]
         public void Lower_chain_from_typed_vertex() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Lower()
             .Lower()
             .Lower();

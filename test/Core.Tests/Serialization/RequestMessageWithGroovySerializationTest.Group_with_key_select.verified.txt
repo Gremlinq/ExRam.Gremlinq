@@ -7,7 +7,7 @@
       g: g
     },
     bindings: {
-      _a: Person
+      _a: RichVertex
     },
     gremlin: g.V().group().by(__.label()).select(_a).count(local)
   }

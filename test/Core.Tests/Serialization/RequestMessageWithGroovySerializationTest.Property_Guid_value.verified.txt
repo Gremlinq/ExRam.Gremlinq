@@ -7,7 +7,7 @@
       g: g
     },
     bindings: {
-      _a: Person,
+      _a: RichVertex,
       _b: GuidKey,
       _c: 12345678-9012-3456-7890-123456789012,
       _d: id,

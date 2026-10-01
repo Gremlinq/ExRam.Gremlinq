@@ -41,15 +41,15 @@ namespace ExRam.Gremlinq.Core.Tests
 
         [Fact]
         public virtual async Task Aggregate_Cap_type() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Aggregate((__, aggregated) => __
                 .Cap(aggregated))
             .Should()
-            .BeAssignableTo<IGremlinQueryBase<Person[]>>();
+            .BeAssignableTo<IGremlinQueryBase<RichVertex[]>>();
 
         [Fact]
         public virtual void And_without_parameters() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Invoking(__ => __
                 .And()
                 .Out())
@@ -60,10 +60,10 @@ namespace ExRam.Gremlinq.Core.Tests
         public virtual void Cast_to_same_type_yields_same_query()
         {
             var original = _g
-                .V<Person>();
+                .V<RichVertex>();
 
             var cast = original
-                .Cast<Person>();
+                .Cast<RichVertex>();
 
             original
                 .Should()
@@ -93,7 +93,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
         [Fact]
         public virtual void Or_without_parameters() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Out()
             .Invoking(__ => __
                 .Or()
@@ -146,7 +146,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
         [Fact]
         public virtual void Vertex_comparison_with_null_throws() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Invoking(x => x
                 .Where(y => y != null)
                 .Debug())
@@ -155,7 +155,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
         [Fact]
         public virtual async Task Where_native_type_property_length() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Invoking(_ => _.Where(t => t.Image!.Length == 3))
             .Should()
             .Throw<ExpressionNotSupportedException>();

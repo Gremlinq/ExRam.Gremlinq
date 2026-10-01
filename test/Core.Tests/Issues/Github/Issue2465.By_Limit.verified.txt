@@ -1,1 +1,1 @@
-﻿g.V().hasLabel('Person').id().project('Item1','Item2').by(__.limit(1)).by(__.constant(1))
+﻿g.V().hasLabel('RichVertex').id().project('Item1','Item2').by(__.limit(1)).by(__.constant(1))

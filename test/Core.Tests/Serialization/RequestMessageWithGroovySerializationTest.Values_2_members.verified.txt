@@ -7,7 +7,7 @@
       g: g
     },
     bindings: {
-      _a: Person,
+      _a: RichVertex,
       _b: Name
     },
     gremlin: g.V().hasLabel(_a).union(__.id(),__.values(_b))

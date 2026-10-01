@@ -6,7 +6,7 @@
     {
       OperatorName: hasLabel,
       Arguments: [
-        Person
+        RichVertex
       ]
     },
     {
@@ -38,7 +38,7 @@
             {
               OperatorName: hasLabel,
               Arguments: [
-                Person
+                RichVertex
               ]
             },
             {

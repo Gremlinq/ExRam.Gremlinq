@@ -10,7 +10,7 @@
       _a: WorksFor,
       _b: To,
       _c: DateTimeOffset_1,
-      _d: Person,
+      _d: RichVertex,
       _e: Age,
       _f: 0,
       _g: SiblingVertex,

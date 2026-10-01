@@ -90,7 +90,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             await _g
                 .AddE(new WorksFor { From = now, To = now, Role = "Admin" })
                 .From(__ => __
-                    .AddV(new Person
+                    .AddV(new RichVertex
                     {
                         Age = 43
                     }))
@@ -105,7 +105,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             var now = new DateTimeOffset(2020, 4, 7, 14, 43, 36, TimeSpan.Zero);
 
             await _g
-                .AddV(new Person
+                .AddV(new RichVertex
                 {
                     Name = "Bob",
                     RegistrationDate = now
@@ -119,7 +119,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task AddE_InV() => _g
-            .AddV<Person>()
+            .AddV<RichVertex>()
             .AddE<LivesIn>()
             .To(__ => __
                 .AddV<MetaPropertyVertex>())
@@ -128,7 +128,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task AddE_OutV() => _g
-            .AddV<Person>()
+            .AddV<RichVertex>()
             .AddE<LivesIn>()
             .To(__ => __
                 .AddV<MetaPropertyVertex>())
@@ -137,7 +137,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task AddE_property() => _g
-            .AddV<Person>()
+            .AddV<RichVertex>()
             .AddE(new LivesIn
             {
                 Since = new DateTimeOffset(2020, 4, 7, 14, 43, 36, TimeSpan.Zero)
@@ -154,7 +154,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             await _g
                 .AddE(new WorksFor { From = now, To = now, Role = "Admin" })
                 .To(__ => __.AddV<SiblingVertex>())
-                .From(__ => __.AddV<Person>())
+                .From(__ => __.AddV<RichVertex>())
                 .Verify();
         }
 
@@ -173,7 +173,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             var now = new DateTimeOffset(2020, 4, 7, 14, 43, 36, TimeSpan.Zero);
 
             await _g
-                .AddV(new Person
+                .AddV(new RichVertex
                 {
                     Name = "Bob",
                     RegistrationDate = now
@@ -198,7 +198,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                                 .IgnoreAlways(p => p.From)
                                 .IgnoreAlways(p => p.Role)))))
                 .AddE(new WorksFor { From = now, To = now, Role = "Admin" })
-                .From(__ => __.AddV<Person>())
+                .From(__ => __.AddV<RichVertex>())
                 .To(__ => __.AddV<SiblingVertex>())
                 .Verify();
         }
@@ -224,7 +224,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task AddV_with_byte_array_property() => _g
-            .AddV(new Person
+            .AddV(new RichVertex
             {
                 Image = [1, 2, 3, 4, 5, 6, 7, 8]
             })
@@ -232,20 +232,20 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task AddV_with_enum_property() => _g
-            .AddV(new Person { Gender = Gender.Female })
+            .AddV(new RichVertex { Gender = Gender.Female })
             .Verify();
 
         [Fact]
         public virtual async Task AddV_With_Ignored()
         {
             var now = new DateTimeOffset(2020, 4, 7, 14, 43, 36, TimeSpan.Zero);
-            var person = new Person { Age = 21, Gender = Gender.Male, Name = "Marko", RegistrationDate = now };
+            var person = new RichVertex { Age = 21, Gender = Gender.Male, Name = "Marko", RegistrationDate = now };
 
             await _g
                 .ConfigureEnvironment(env => env
                     .ConfigureModel(model => model
                         .ConfigureVertices(_ => _
-                            .ConfigureElement<Person>(conf => conf
+                            .ConfigureElement<RichVertex>(conf => conf
                                 .IgnoreAlways(p => p.Age)
                                 .IgnoreAlways(p => p.Gender)))))
                 .AddV(person)
@@ -336,14 +336,14 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Aggregate_Cap() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Aggregate((__, aggregated) => __
                 .Cap(aggregated))
             .Verify();
 
         [Fact]
         public virtual Task Aggregate_Cap_Select() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Aggregate((__, aggregated) => __
                 .Cap(aggregated)
                 .Select(aggregated))
@@ -351,7 +351,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Aggregate_Cap_Select_with_ints() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .CountLocal()
             .Aggregate((__, aggregated) => __
                 .Cap(aggregated)
@@ -360,7 +360,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Aggregate_Cap_unfold() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Aggregate((__, aggregated) => __
                 .Cap(aggregated)
                 .Unfold())
@@ -368,24 +368,24 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Aggregate_Global() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Aggregate((__, _) => __)
             .Verify();
 
         [Fact]
         public virtual Task Aggregate_Global_with_existing_step() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Aggregate(new())
             .Verify();
 
         [Fact]
         public virtual async Task Aggregate_in_multi_subQuery_Select()
         {
-            var stepLabel1 = new StepLabel<IArrayGremlinQuery<Person[], Person, IVertexGremlinQuery<Person>>, Person[]>();
-            var stepLabel2 = new StepLabel<IArrayGremlinQuery<Person[], Person, IVertexGremlinQuery<Person>>, Person[]>();
+            var stepLabel1 = new StepLabel<IArrayGremlinQuery<RichVertex[], RichVertex, IVertexGremlinQuery<RichVertex>>, RichVertex[]>();
+            var stepLabel2 = new StepLabel<IArrayGremlinQuery<RichVertex[], RichVertex, IVertexGremlinQuery<RichVertex>>, RichVertex[]>();
 
             await _g
-                .V<Person>()
+                .V<RichVertex>()
                 .Coalesce(
                     __ => __
                         .Aggregate(stepLabel1),
@@ -399,10 +399,10 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual async Task Aggregate_in_subQuery_Select()
         {
-            var stepLabel = new StepLabel<IArrayGremlinQuery<Person[], Person, IVertexGremlinQuery<Person>>, Person[]>();
+            var stepLabel = new StepLabel<IArrayGremlinQuery<RichVertex[], RichVertex, IVertexGremlinQuery<RichVertex>>, RichVertex[]>();
 
             await _g
-                .V<Person>()
+                .V<RichVertex>()
                 .Map(__ => __
                     .Aggregate(stepLabel))
                 .Fold()
@@ -412,23 +412,23 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Aggregate_Local() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .AggregateLocal((__, _) => __)
             .Verify();
 
         [Fact]
         public virtual Task Aggregate_Local_with_existing_step() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .AggregateLocal(new())
             .Verify();
 
         [Fact]
         public virtual async Task Aggregate_Select()
         {
-            var stepLabel = new StepLabel<IArrayGremlinQuery<Person[], Person, IVertexGremlinQuery<Person>>, Person[]>();
+            var stepLabel = new StepLabel<IArrayGremlinQuery<RichVertex[], RichVertex, IVertexGremlinQuery<RichVertex>>, RichVertex[]>();
 
             await _g
-                .V<Person>()
+                .V<RichVertex>()
                 .Aggregate(stepLabel)
                 .Fold()
                 .Select(stepLabel)
@@ -437,7 +437,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task And() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .And(
                 __ => __
                     .InE<WorksFor>(),
@@ -447,14 +447,14 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task And_identity() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .And(
                 __ => __)
             .Verify();
 
         [Fact]
         public virtual Task And_nested() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .And(
                 __ => __
                     .OutE<LivesIn>(),
@@ -468,7 +468,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task And_nested_or_optimization() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .And(
                 __ => __.Or(
                     __ => __),
@@ -477,14 +477,14 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task And_none() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .And(
                 __ => __.None())
             .Verify();
 
         [Fact]
         public virtual Task And_none_with_sideEffect() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .And(
                 __ => __
                     .Aggregate((__, _) => __
@@ -495,7 +495,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task And_optimization() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .And(
                 __ => __,
                 __ => __.Out())
@@ -503,14 +503,14 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task And_single() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .And(
                 __ => __.Out())
             .Verify();
 
         [Fact]
         public virtual Task And_Values_Where1() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .And(__ => __
                 .Values(x => x.Age)
                 .Where(age => age > 36))
@@ -518,7 +518,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task And_Values_Where2() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .And(
                 __ => __
                     .Values(x => x.Age)
@@ -535,7 +535,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             var label2 = "label2";
 
             await _g
-                .V<Person>()
+                .V<RichVertex>()
                 .As(label1)
                 .As(label2)
                 .Verify();
@@ -543,7 +543,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task As_followed_by_casted_Select() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .As((_, stepLabel1) => _
                 .Out()
                 .Select(stepLabel1.Cast<object>()))
@@ -551,14 +551,14 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task As_followed_by_Select() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .As((_, stepLabel1) => _
                 .Select(stepLabel1))
             .Verify();
 
         [Fact]
         public virtual Task As_idempotency_is_detected() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .As((_, stepLabel1) => _
                 .As((__, stepLabel2) => __
                     .Select(stepLabel1, stepLabel2)))
@@ -566,20 +566,20 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task As_inlined_nested_Select() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .As((_, stepLabel1) => _
                 .Out()
-                .OfType<Person>()
+                .OfType<RichVertex>()
                 .As((__, stepLabel2) => __
                     .Select(stepLabel1, stepLabel2)))
             .Verify();
 
         [Fact]
         public virtual Task As_inlined_nested_Select2() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .As((_, stepLabel1) => _
                 .Out()
-                .OfType<Person>()
+                .OfType<RichVertex>()
                 .As((__, stepLabel2) => __
                     .Out()
                     .Select(stepLabel1, stepLabel2)))
@@ -591,7 +591,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             var label = "label";
 
             await _g
-                .V<Person>()
+                .V<RichVertex>()
                 .As(label)
                 .As(label)
                 .Verify();
@@ -600,8 +600,8 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual async Task As_with_type_change()
         {
-            IGremlinQueryBaseRec<Person, IVertexGremlinQuery<Person>> g = _g
-                .V<Person>();
+            IGremlinQueryBaseRec<RichVertex, IVertexGremlinQuery<RichVertex>> g = _g
+                .V<RichVertex>();
 
             await g
                 .As((_, stepLabel1) => _
@@ -915,7 +915,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual async Task Contradicting_OfType() => _g
             .V()
-            .OfType<Person>()
+            .OfType<RichVertex>()
             .Invoking(_ => _
                 .OfType<MetaPropertyVertex>())
             .Should()
@@ -1027,20 +1027,20 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task ElementMap() => _g
-            .V<Person>(10L)
+            .V<RichVertex>(10L)
             .ElementMap()
             .Verify();
 
         [Fact]
         public virtual Task ElementMap_Cast() => _g
-            .V<Person>(10L)
+            .V<RichVertex>(10L)
             .ElementMap()
-            .Cast<Person>()
+            .Cast<RichVertex>()
             .Verify();
 
         [Fact]
         public virtual Task Emit_Repeat() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Cast<object>()
             .Loop(_ => _
                 .Emit()
@@ -1052,7 +1052,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Emit_Repeat_Times() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Cast<object>()
             .Loop(_ => _
                 .Emit()
@@ -1065,7 +1065,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Emit_Repeat_Until() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Cast<object>()
             .Loop(_ => _
                 .Emit()
@@ -1081,10 +1081,10 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual async Task Explicit_As()
         {
-            var stepLabel = new StepLabel<Person>();
+            var stepLabel = new StepLabel<RichVertex>();
 
             await _g
-                .V<Person>()
+                .V<RichVertex>()
                 .As(stepLabel)
                 .Select(stepLabel)
                 .Verify();
@@ -1092,9 +1092,9 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Explicit_As_with_string() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .As("stepLabel")
-            .Select<Person>("stepLabel")
+            .Select<RichVertex>("stepLabel")
             .Verify();
 
         [Fact]
@@ -1111,7 +1111,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task FlatMap() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .FlatMap(__ => __.Out<WorksFor>())
             .Verify();
 
@@ -1147,7 +1147,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Format1() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Order(_ => _
                 .By(x => x.Name))
             .As((__, _) => __
@@ -1156,7 +1156,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Format2() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Order(_ => _
                 .By(x => x.Name))
             .As((__, _) => __
@@ -1165,7 +1165,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Format3() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Order(_ => _
                 .By(x => x.Name))
             .As((__, p) => __
@@ -1174,7 +1174,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Format4() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Order(_ => _
                 .By(x => x.Name))
             .As((__, p) => __
@@ -1183,7 +1183,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Format5() => _g
-           .V<Person>()
+           .V<RichVertex>()
            .Order(_ => _
                .By(x => x.Name))
            .As((__, p) => __
@@ -1192,7 +1192,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Group() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Group()
             .Verify();
 
@@ -1205,7 +1205,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Group_with_key_and_value1() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Group(_ => _
                 .ByKey(_ => _
                     .Label())
@@ -1234,38 +1234,38 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .V()
             .Group(_ => _
                 .ByKey(__ => __.Label()))
-            .Select(x => x["Person"])
+            .Select(x => x["RichVertex"])
             .CountLocal()
             .Verify();
 
         [Fact]
         public virtual Task Identity() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Identity()
             .Verify();
 
         [Fact]
         public virtual Task Identity_Identity() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Identity()
             .Identity()
             .Verify();
 
         [Fact]
         public virtual Task In() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .In<WorksFor>()
             .Verify();
 
         [Fact]
         public virtual Task In_2() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .In<WorksFor, LivesIn>()
             .Verify();
 
         [Fact]
         public virtual Task In_3() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .In<WorksFor, LivesIn, Speaks>()
             .Verify();
 
@@ -1286,19 +1286,19 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task InE() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .InE<WorksFor>()
             .Verify();
 
         [Fact]
         public virtual Task InE_2() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .InE<WorksFor, LivesIn>()
             .Verify();
 
         [Fact]
         public virtual Task InE_3() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .InE<WorksFor, LivesIn, Speaks>()
             .Verify();
 
@@ -1368,19 +1368,19 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Map() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Map(__ => __.Out<WorksFor>())
             .Verify();
 
         [Fact]
         public virtual Task Map_Identity() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Map(__ => __)
             .Verify();
 
         [Fact]
         public virtual Task Map_Select_operation() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .As((_, stepLabel1) => _
                 .As((__, stepLabel2) => __
                     .Map(__ => __
@@ -1389,14 +1389,14 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task MaxGlobal() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Values(x => x.Age)
             .Max()
             .Verify();
 
         [Fact]
         public virtual Task MaxLocal() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Values(x => x.Age)
             .Fold()
             .MaxLocal()
@@ -1404,14 +1404,14 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task MeanGlobal() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Values(x => x.Age)
             .Mean()
             .Verify();
 
         [Fact]
         public virtual Task MeanLocal() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Values(x => x.Age)
             .Fold()
             .MeanLocal()
@@ -1419,14 +1419,14 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task MinGlobal() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Values(x => x.Age)
             .Min()
             .Verify();
 
         [Fact]
         public virtual Task MinLocal() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Values(x => x.Age)
             .Fold()
             .MinLocal()
@@ -1435,7 +1435,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task Multi_Inject_V() => _g
             .Inject(36, 37, 38)
-            .V<Person>()
+            .V<RichVertex>()
             .Verify();
 
         [Fact]
@@ -1468,7 +1468,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Nested_contradicting_Select_operations_does_not_throw() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .As((__, stepLabel1) => __
                 .As((__, stepLabel2) => __
                     .Select(stepLabel1, stepLabel2)
@@ -1478,7 +1478,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Nested_Select_operations() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .As((__, stepLabel1) => __
                 .As((__, stepLabel2) => __
                     .Select(stepLabel1, stepLabel2)
@@ -1488,13 +1488,13 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task None() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .None()
             .Verify();
 
         [Fact]
         public virtual Task None_None() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .None()
             .None()
             .Verify();
@@ -1561,7 +1561,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Or() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Or(
                 __ => __
                     .InE<WorksFor>(),
@@ -1571,7 +1571,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Or_identity() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Or(
                 __ => __,
                 __ => __
@@ -1580,7 +1580,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Or_nested() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Or(
                 __ => __
                     .OutE<LivesIn>(),
@@ -1594,7 +1594,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Or_nested_and_optimization() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Or(
                 __ => __
                     .OutE<LivesIn>(),
@@ -1606,7 +1606,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Or_none() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Or(
                 __ => __
                     .OutE()
@@ -1617,7 +1617,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Or_none_with_predicate() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Or(
                 __ => __
                     .None(),
@@ -1627,7 +1627,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Or_none_with_sideEffect() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Or(
                 __ => __
                     .Aggregate((__, _) => __
@@ -1638,7 +1638,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Or_two_step_traversal() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Or(
                 __ => __
                     .Out<LivesIn>(),
@@ -1649,7 +1649,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Or_Values_Where1() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Or(__ => __
                 .Values(x => x.Age)
                 .Where(age => age > 36))
@@ -1657,7 +1657,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Or_Values_Where2() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Or(
                 __ => __
                     .Values(x => x.Age)
@@ -1669,7 +1669,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Order_Fold_Unfold() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(x => x.Name != null)
             .Order(b => b
                 .By(x => x.Name))
@@ -1679,7 +1679,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Order_scalars() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Local(__ => __.Count())
             .Order(b => b
                 .By(__ => __))
@@ -1687,7 +1687,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Order_scalars_local() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Local(__ => __.Count())
             .OrderLocal(b => b
                 .By(__ => __))
@@ -1695,7 +1695,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task OrderBy_member() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(x => x.Name != null)
             .Order(b => b
                 .By(x => x.Name))
@@ -1703,7 +1703,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task OrderBy_member_ThenBy_member() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(x => x.Name != null)
             .Where(x => x
                 .Values(y => y.Age))
@@ -1714,7 +1714,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task OrderBy_ThenByDescending_member() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(x => x.Name != null)
             .Where(x => x.Values(y => y.Age))
             .Order(b => b
@@ -1724,7 +1724,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task OrderBy_ThenByDescending_traversal() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(x => x.Name != null)
             .Where(x => x.Values(y => y.Gender!))
             .Order(b => b
@@ -1734,7 +1734,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task OrderBy_traversal() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(x => x.Name != null)
             .Order(b => b
                 .By(__ => __.Values(x => x.Name!)))
@@ -1742,7 +1742,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task OrderBy_traversal_ThenBy() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(x => x.Name != null)
             .Where(x => x.Values(y => y.Gender!))
             .Order(b => b
@@ -1752,7 +1752,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task OrderBy_traversal_ThenBy_traversal() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(x => x.Name != null)
             .Where(x => x.Values(y => y.Gender!))
             .Order(b => b
@@ -1762,7 +1762,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task OrderByDescending_member() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(x => x.Name != null)
             .Order(b => b
                 .ByDescending(x => x.Name))
@@ -1770,7 +1770,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task OrderByDescending_traversal() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(x => x.Name != null)
             .Order(b => b
                 .ByDescending(__ => __.Values(x => x.Name!)))
@@ -1778,7 +1778,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task OrderLocal_by_member() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(x => x.Name != null)
             .OrderLocal(b => b
                 .By(x => x.Name))
@@ -1786,25 +1786,25 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Out() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Out<WorksFor>()
             .Verify();
 
         [Fact]
         public virtual Task Out_2() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Out<WorksFor, LivesIn>()
             .Verify();
 
         [Fact]
         public virtual Task Out_3() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Out<WorksFor, LivesIn, Speaks>()
             .Verify();
 
         [Fact]
         public virtual Task Out_does_not_include_abstract_edge() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Out<Edge>()
             .Verify();
 
@@ -1825,19 +1825,19 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task OutE() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .OutE<WorksFor>()
             .Verify();
 
         [Fact]
         public virtual Task OutE_2() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .OutE<WorksFor, LivesIn>()
             .Verify();
 
         [Fact]
         public virtual Task OutE_3() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .OutE<WorksFor, LivesIn, Speaks>()
             .Verify();
 
@@ -2097,7 +2097,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Project_to_property_with_builder() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Order(b => b
                 .By(x => x.Id))
             .Limit(1)
@@ -2302,7 +2302,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Project2_with_Property() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Order(b => b
                 .By(x => x.Id))
             .Limit(1)
@@ -2316,7 +2316,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public Task Project2_with_Property_unguarded() => _g
             .ConfigureEnvironment(_ => _
                 .ConfigureOptions(o => o.SetValue(GremlinqOption.EnableEmptyProjectionValueProtection, true)))
-            .V<Person>()
+            .V<RichVertex>()
             .Order(b => b
                 .By(x => x.Id))
             .Limit(1)
@@ -2402,7 +2402,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Project3_with_Property() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Order(b => b
                 .By(x => x.Label))
             .Limit(1)
@@ -2415,7 +2415,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Project3_with_Property_Select2() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Order(b => b
                 .By(x => x.Id))
             .Limit(1)
@@ -2433,7 +2433,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public Task Project3_with_Property_Select2_unguarded() => _g
             .ConfigureEnvironment(_ => _
                 .ConfigureOptions(o => o.SetValue(GremlinqOption.EnableEmptyProjectionValueProtection, true)))
-            .V<Person>()
+            .V<RichVertex>()
             .Order(b => b
                 .By(x => x.Id))
             .Limit(1)
@@ -2473,7 +2473,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Project4_with_Property() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Order(b => b
                 .By(x => x.Id))
             .Limit(1)
@@ -2489,7 +2489,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public Task Project4_with_Property_unguarded() => _g
             .ConfigureEnvironment(_ => _
                 .ConfigureOptions(o => o.SetValue(GremlinqOption.EnableEmptyProjectionValueProtection, true)))
-            .V<Person>()
+            .V<RichVertex>()
             .Order(b => b
                 .By(x => x.Id))
             .Limit(1)
@@ -2694,7 +2694,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Properties_Where_Dictionary_key1() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Properties()
 #pragma warning disable 252,253
             .Where(x => x.Properties!["MetaKey"] == "MetaValue")
@@ -2703,7 +2703,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Properties_Where_Dictionary_key2() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Properties()
             .Where(x => (int)x.Properties!["MetaKey"] < 100)
             .Verify();
@@ -2788,7 +2788,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Properties_Where2() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Properties()
             .Where(x => x.Label == "Age")
             .Where(x => (int)x.Value < 10)
@@ -2812,7 +2812,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             var guid = Guid.Parse("{AEBACDFB-2C00-4808-A8B6-8D62217A8059}");
 
             await _g
-                .V<Person>()
+                .V<RichVertex>()
                 .Property("GuidKey", guid)
                 .Verify();
         }
@@ -2833,7 +2833,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Property_single() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Property(x => x.Age, 36)
             .Verify();
 
@@ -2841,13 +2841,13 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual Task Property_single_from_stepLabel() => _g
             .Inject(36)
             .As((__, age) => __
-                .V<Person>()
+                .V<RichVertex>()
                 .Property(x => x.Age, age))
             .Verify();
 
         [Fact]
         public virtual Task Property_single_traversal() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Property(
                 x => x.Age,
                 __ => __
@@ -2868,7 +2868,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Property_single_with_meta() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Property(x => x.Age, new VertexProperty<int>(36)
             {
                 Properties = new Dictionary<string, object>
@@ -2880,13 +2880,13 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Property_stringKey() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Property("StringKey1", 36)
             .Verify();
 
         [Fact]
         public virtual Task Property_stringKey_traversal() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Property(
                 "StringKey2",
                 __ => __.Constant(36))
@@ -2907,7 +2907,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Repeat_Emit() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Cast<object>()
             .Loop(_ => _
                 .Repeat(__ => __
@@ -2919,7 +2919,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Repeat_Emit_Times() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Cast<object>()
             .Loop(_ => _
                 .Repeat(__ => __
@@ -2932,7 +2932,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Repeat_Emit_Until() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Cast<object>()
             .Loop(_ => _
                 .Repeat(__ => __
@@ -2947,16 +2947,16 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Repeat_Out() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Loop(_ => _
                 .Repeat(__ => __
                     .Out<WorksFor>()
-                    .OfType<Person>()))
+                    .OfType<RichVertex>()))
             .Verify();
 
         [Fact]
         public virtual Task Repeat_Times() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Cast<object>()
             .Loop(_ => _
                 .Repeat(__ => __
@@ -2968,7 +2968,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task RepeatUntil() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Cast<object>()
             .Loop(_ => _
                 .Repeat(__ => __
@@ -2986,11 +2986,11 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             var empty = Array.Empty<int>();
 
             await _g
-                .V<Person>()
+                .V<RichVertex>()
                 .Loop(_ => _
                     .Repeat(__ => __
                         .InE()
-                        .OutV<Person>())
+                        .OutV<RichVertex>())
                     .Until(__ => __
                         .Where(x => empty.Contains(x.Age))))
                 .Verify();
@@ -2998,7 +2998,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task RepeatUntil_true() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Cast<object>()
             .Loop(_ => _
                 .Repeat(__ => __
@@ -3066,7 +3066,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual async Task ReplaceV()
         {
             var now = new DateTimeOffset(2020, 4, 7, 14, 43, 36, TimeSpan.Zero);
-            var person = new Person { Id = 0, Age = 21, Gender = Gender.Male, Name = "Marko", RegistrationDate = now };
+            var person = new RichVertex { Id = 0, Age = 21, Gender = Gender.Male, Name = "Marko", RegistrationDate = now };
 
             await _g
                 .ReplaceV(person)
@@ -3077,13 +3077,13 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual async Task ReplaceV_With_Config()
         {
             var now = new DateTimeOffset(2020, 4, 7, 14, 43, 36, TimeSpan.Zero);
-            var person = new Person { Id = 0, Age = 21, Gender = Gender.Male, Name = "Marko", RegistrationDate = now };
+            var person = new RichVertex { Id = 0, Age = 21, Gender = Gender.Male, Name = "Marko", RegistrationDate = now };
 
             await _g
                 .ConfigureEnvironment(env => env
                     .ConfigureModel(model => model
                         .ConfigureVertices(_ => _
-                            .ConfigureElement<Person>(conf => conf
+                            .ConfigureElement<RichVertex>(conf => conf
                                 .IgnoreOnUpdate(p => p.RegistrationDate)))))
                 .ReplaceV(person)
                 .Verify();
@@ -3122,7 +3122,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             var d = new DateTimeOffset(2020, 4, 7, 14, 43, 36, TimeSpan.Zero);
 
             await _g
-                .V<Person>()
+                .V<RichVertex>()
                 .Properties(x => x.Name!)
                 .Property(x => x.ValidFrom, d)
                 .Verify();
@@ -3188,7 +3188,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Inject(1, 2, 3)
             .Fold()
             .As((_, ints) => _
-                .V<Person>()
+                .V<RichVertex>()
                 .Where(person => ints.Value.Contains(person.Age)))
             .Verify();
 
@@ -3197,7 +3197,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Inject(1, 2, 3)
             .Fold()
             .As((_, ints) => _
-                .V<Person>()
+                .V<RichVertex>()
                 .Where(person => ints.Value.Contains(person.Age)))
             .Verify();
 
@@ -3206,7 +3206,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .V()
             .Fold()
             .As((_, v) => _
-                .V<Person>()
+                .V<RichVertex>()
                 .Where(person => v.Value.Contains(person)))
             .Count()
             .Verify();
@@ -3216,7 +3216,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .V()
             .Fold()
             .As((_, v) => _
-                .V<Person>()
+                .V<RichVertex>()
                 .Where(person => !v.Value.Contains(person)))
             .Count()
             .Verify();
@@ -3227,13 +3227,13 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Cast<object>()
             .Fold()
             .As((_, ints) => _
-                .V<Person>()
+                .V<RichVertex>()
                 .Where(person => ints.Value.Contains(person.Age)))
             .Verify();
 
         [Fact]
         public Task StringKey() => _g
-            .V<Person>("id")
+            .V<RichVertex>("id")
             .Verify();
 
         [Fact]
@@ -3340,14 +3340,14 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task SumGlobal() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Values(x => x.Age)
             .Sum()
             .Verify();
 
         [Fact]
         public virtual Task SumLocal() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Values(x => x.Age)
             .Fold()
             .SumLocal()
@@ -3355,7 +3355,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task SumLocal_Where1() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Values(x => x.Age)
             .Fold()
             .SumLocal()
@@ -3364,7 +3364,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task SumLocal_Where2() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Values(x => x.Age)
             .Fold()
             .SumLocal()
@@ -3421,35 +3421,35 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Tree_for_code_coverage() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Tree(_ => _
-                .Of<Person>().By(x => x.Age)
-                .Of<Person>().By(x => x.Age)
-                .Of<Person>().By(x => x.Age)
-                .Of<Person>().By(x => x.Age)
-                .Of<Person>().By(x => x.Age)
-                .Of<Person>().By(x => x.Age)
-                .Of<Person>().By(x => x.Age)
-                .Of<Person>().By(x => x.Age)
-                .Of<Person>().By(x => x.Age)
-                .Of<Person>().By(x => x.Age)
-                .Of<Person>().By(x => x.Age)
-                .Of<Person>().By(x => x.Age)
-                .Of<Person>().By(x => x.Age)
-                .Of<Person>().By(x => x.Age)
-                .Of<Person>().By(x => x.Age)
-                .Of<Person>().By(x => x.Age)
-                .Of<Person>().By(x => x.Age)
-                .Of<Person>().By(x => x.Age)
-                .Of<Person>().By(x => x.Age)
-                .Of<Person>().By(x => x.Age)
-                .Of<Person>().By(x => x.Age)
-                .Of<Person>().By(x => x.Age)
-                .Of<Person>().By(x => x.Age)
-                .Of<Person>().By(x => x.Age)
-                .Of<Person>().By(x => x.Age)
-                .Of<Person>().By(x => x.Age)
-                .Of<Person>().By(x => x.Age))
+                .Of<RichVertex>().By(x => x.Age)
+                .Of<RichVertex>().By(x => x.Age)
+                .Of<RichVertex>().By(x => x.Age)
+                .Of<RichVertex>().By(x => x.Age)
+                .Of<RichVertex>().By(x => x.Age)
+                .Of<RichVertex>().By(x => x.Age)
+                .Of<RichVertex>().By(x => x.Age)
+                .Of<RichVertex>().By(x => x.Age)
+                .Of<RichVertex>().By(x => x.Age)
+                .Of<RichVertex>().By(x => x.Age)
+                .Of<RichVertex>().By(x => x.Age)
+                .Of<RichVertex>().By(x => x.Age)
+                .Of<RichVertex>().By(x => x.Age)
+                .Of<RichVertex>().By(x => x.Age)
+                .Of<RichVertex>().By(x => x.Age)
+                .Of<RichVertex>().By(x => x.Age)
+                .Of<RichVertex>().By(x => x.Age)
+                .Of<RichVertex>().By(x => x.Age)
+                .Of<RichVertex>().By(x => x.Age)
+                .Of<RichVertex>().By(x => x.Age)
+                .Of<RichVertex>().By(x => x.Age)
+                .Of<RichVertex>().By(x => x.Age)
+                .Of<RichVertex>().By(x => x.Age)
+                .Of<RichVertex>().By(x => x.Age)
+                .Of<RichVertex>().By(x => x.Age)
+                .Of<RichVertex>().By(x => x.Age)
+                .Of<RichVertex>().By(x => x.Age))
             .Verify();
 
         [Fact]
@@ -3461,7 +3461,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Tree_mixed_entity_and_scalar() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .OutE<WorksFor>()
             .InV<SiblingVertex>()
             .Values(x => x.FoundingDate!)
@@ -3476,12 +3476,12 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Tree_with_builder() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .OutE<WorksFor>()
             .InV<SiblingVertex>()
             .Values(x => x.FoundingDate!)
             .Tree(_ => _
-                .Of<Person>()
+                .Of<RichVertex>()
                 .Of<WorksFor>()
                 .Of<SiblingVertex>()
                 .Of<DateTime>())
@@ -3489,23 +3489,23 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Tree_with_builder_and_modulator_on_last_Of() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .OutE<WorksFor>()
             .Where(x => x.Role != null)
             .Tree(_ => _
-                .Of<Person>()
+                .Of<RichVertex>()
                 .Of<WorksFor>().By(x => x.Role!))
             .Verify();
 
         [Fact]
         public virtual Task Tree_with_builder_and_modulators() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .OutE<WorksFor>()
             .Where(x => x.Role != null)
             .InV<SiblingVertex>()
             .Values(x => x.FoundingDate!)
             .Tree(_ => _
-                .Of<Person>()
+                .Of<RichVertex>()
                 .Of<WorksFor>().By(x => x.Role!)
                 .Of<SiblingVertex>()
                 .Of<DateTime>())
@@ -3513,15 +3513,15 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Tree_with_explicit_cast() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Tree()
-            .Cast<Tree<Person>>()
+            .Cast<Tree<RichVertex>>()
             .Verify();
 
         [Fact]
         public virtual Task Tree_with_generic_overload() => _g
-            .V<Person>()
-            .Tree<Person>()
+            .V<RichVertex>()
+            .Tree<RichVertex>()
             .Verify();
 
         [Fact]
@@ -3565,7 +3565,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Union() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Union(
                 __ => __.Out<WorksFor>(),
                 __ => __.Out<LivesIn>())
@@ -3573,7 +3573,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Union_different_types() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Union(
                 __ => __.Out<WorksFor>(),
                 __ => __.OutE<LivesIn>())
@@ -3581,7 +3581,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Union_different_types2() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Union(
                 __ => __
                     .Out<WorksFor>()
@@ -3595,7 +3595,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Until_Emit_Repeat() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Cast<object>()
             .Loop(_ => _
                 .Until(__ => __
@@ -3608,7 +3608,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Until_Repeat_Emit() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Cast<object>()
             .Loop(_ => _
                 .Until(__ => __
@@ -3623,7 +3623,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task UntilRepeat() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Cast<object>()
             .Loop(_ => _
                 .Until(__ => __
@@ -3641,13 +3641,13 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             var empty = Array.Empty<int>();
 
             await _g
-                .V<Person>()
+                .V<RichVertex>()
                 .Loop(_ => _
                     .Until(__ => __
                         .Where(x => empty.Contains(x.Age)))
                     .Repeat(__ => __
                         .InE()
-                        .OutV<Person>()))
+                        .OutV<RichVertex>()))
                 .Verify();
         }
 
@@ -3657,13 +3657,13 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             var empty = Array.Empty<object>();
 
             await _g
-                .V<Person>()
+                .V<RichVertex>()
                 .Loop(_ => _
                     .Until(__ => __
                         .Where(x => empty.Contains(x)))
                     .Repeat(__ => __
                         .InE()
-                        .OutV<Person>()))
+                        .OutV<RichVertex>()))
                 .Verify();
         }
 
@@ -3672,11 +3672,11 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         {
             var now = new DateTimeOffset(2020, 4, 7, 14, 43, 36, TimeSpan.Zero);
             var edgeNow = new DateTime(2020, 4, 7, 14, 43, 36, DateTimeKind.Utc);
-            var person = new Person { Age = 21, Gender = Gender.Male, Name = "Marko", RegistrationDate = now };
+            var person = new RichVertex { Age = 21, Gender = Gender.Male, Name = "Marko", RegistrationDate = now };
             var worksFor = new WorksFor { From = edgeNow, To = edgeNow, Role = "Admin" };
 
             await _g
-                .V<Person>()
+                .V<RichVertex>()
                 .Update(person)
                 .OutE<WorksFor>()
                 .Update(worksFor)
@@ -3688,21 +3688,21 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         {
             var now = new DateTimeOffset(2020, 4, 7, 14, 43, 36, TimeSpan.Zero);
             var edgeNow = new DateTime(2020, 4, 7, 14, 43, 36, DateTimeKind.Utc);
-            var person = new Person { Age = 21, Gender = Gender.Male, Name = "Marko", RegistrationDate = now };
+            var person = new RichVertex { Age = 21, Gender = Gender.Male, Name = "Marko", RegistrationDate = now };
             var worksFor = new WorksFor { From = edgeNow, To = edgeNow, Role = "Admin" };
 
             await _g
                 .ConfigureEnvironment(env => env
                     .ConfigureModel(model => model
                         .ConfigureVertices(_ => _
-                            .ConfigureElement<Person>(conf => conf
+                            .ConfigureElement<RichVertex>(conf => conf
                                 .IgnoreOnUpdate(p => p.Age)
                                 .IgnoreAlways(p => p.Name)))
                         .ConfigureEdges(_ => _
                             .ConfigureElement<WorksFor>(conf => conf
                                 .IgnoreAlways(p => p.From)
                                 .IgnoreOnUpdate(p => p.Role)))))
-                .V<Person>()
+                .V<RichVertex>()
                 .Update(person)
                 .OutE<WorksFor>()
                 .Update(worksFor)
@@ -3766,8 +3766,8 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             var now = new DateTimeOffset(2020, 4, 7, 14, 43, 36, TimeSpan.Zero);
 
             await _g
-                .V<Person>()
-                .Update(new Person { Age = 21, Gender = Gender.Male, Name = "Marko", RegistrationDate = now, PhoneNumbers = [new VertexProperty<string>("012345")]
+                .V<RichVertex>()
+                .Update(new RichVertex { Age = 21, Gender = Gender.Male, Name = "Marko", RegistrationDate = now, PhoneNumbers = [new VertexProperty<string>("012345")]
                 })
                 .Verify();
         }
@@ -3776,16 +3776,16 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual async Task UpdateV_With_Ignored()
         {
             var now = new DateTimeOffset(2020, 4, 7, 14, 43, 36, TimeSpan.Zero);
-            var person = new Person { Age = 21, Gender = Gender.Male, Name = "Marko", RegistrationDate = now };
+            var person = new RichVertex { Age = 21, Gender = Gender.Male, Name = "Marko", RegistrationDate = now };
 
             await _g
                 .ConfigureEnvironment(env => env
                     .ConfigureModel(model => model
                         .ConfigureVertices(_ => _
-                            .ConfigureElement<Person>(conf => conf
+                            .ConfigureElement<RichVertex>(conf => conf
                                 .IgnoreAlways(p => p.Age)
                                 .IgnoreAlways(p => p.Gender)))))
-                .V<Person>()
+                .V<RichVertex>()
                 .Update(person)
                 .Verify();
         }
@@ -3794,16 +3794,16 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual async Task UpdateV_With_Mixed()
         {
             var now = new DateTimeOffset(2020, 4, 7, 14, 43, 36, TimeSpan.Zero);
-            var person = new Person { Age = 21, Gender = Gender.Male, Name = "Marko", RegistrationDate = now };
+            var person = new RichVertex { Age = 21, Gender = Gender.Male, Name = "Marko", RegistrationDate = now };
 
             await _g
                 .ConfigureEnvironment(env => env
                     .ConfigureModel(model => model
                         .ConfigureVertices(_ => _
-                            .ConfigureElement<Person>(conf => conf
+                            .ConfigureElement<RichVertex>(conf => conf
                                 .IgnoreOnUpdate(p => p.Age)
                                 .IgnoreAlways(p => p.Gender)))))
-                .V<Person>()
+                .V<RichVertex>()
                 .Update(person)
                 .Verify();
         }
@@ -3812,16 +3812,16 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual async Task UpdateV_With_Readonly()
         {
             var now = new DateTimeOffset(2020, 4, 7, 14, 43, 36, TimeSpan.Zero);
-            var person = new Person { Age = 21, Gender = Gender.Male, Name = "Marko", RegistrationDate = now };
+            var person = new RichVertex { Age = 21, Gender = Gender.Male, Name = "Marko", RegistrationDate = now };
 
             await _g
                 .ConfigureEnvironment(env => env
                     .ConfigureModel(model => model
                         .ConfigureVertices(_ => _
-                            .ConfigureElement<Person>(conf => conf
+                            .ConfigureElement<RichVertex>(conf => conf
                                 .IgnoreOnUpdate(p => p.Age)
                                 .IgnoreOnUpdate(p => p.Gender)))))
-                .V<Person>()
+                .V<RichVertex>()
                 .Update(person)
                 .Verify();
         }
@@ -3847,7 +3847,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task V_Both_typed() => _g
             .E()
-            .BothV<Person>()
+            .BothV<RichVertex>()
             .Verify();
 
         [Fact]
@@ -3896,7 +3896,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual Task V_InE_InV_typed() => _g
             .V()
             .InE()
-            .InV<Person>()
+            .InV<RichVertex>()
             .Verify();
 
         [Fact]
@@ -3910,7 +3910,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual Task V_InE_OtherV_typed() => _g
            .V()
            .InE()
-           .OtherV<Person>()
+           .OtherV<RichVertex>()
            .Verify();
 
         [Fact]
@@ -4364,7 +4364,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task V_of_concrete_type() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Verify();
 
         [Fact]
@@ -4387,37 +4387,37 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task ValueMap_typed() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .ValueMap(x => x.Age)
             .Verify();
 
         [Fact]
         public virtual Task Values_1_member() => _g
-             .V<Person>()
+             .V<RichVertex>()
              .Values(x => x.Age)
              .Verify();
 
         [Fact]
         public virtual Task Values_2_members() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Values(x => x.Name!, x => x.Id!)
             .Verify();
 
         [Fact]
         public virtual Task Values_3_members() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Values(x => x.Name!, x => x.Gender!, x => x.Id!)
             .Verify();
 
         [Fact]
         public virtual Task Values_id_member() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Values(x => x.Id!)
             .Verify();
 
         [Fact]
         public virtual Task Values_no_member() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Values()
             .Verify();
 
@@ -4429,19 +4429,19 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Values_of_Vertex1() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Values(x => x.Name!)
             .Verify();
 
         [Fact]
         public virtual Task Values_of_Vertex2() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Values(x => x.Name!)
             .Verify();
 
         [Fact]
         public virtual Task Values_ToString() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Values(x => x.Name!.ToString())
             .Verify();
 
@@ -4454,7 +4454,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Where_anonymous() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(_ => _)
             .Verify();
 
@@ -4503,31 +4503,31 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Where_complex_logical_expression() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(t => t.Name!.Value == "Some name" && (t.Age == 42 || t.Age == 99))
             .Verify();
 
         [Fact]
         public virtual Task Where_complex_logical_expression_with_null() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(t => t.Name == null && (t.Age == 42 || t.Age == 99))
             .Verify();
 
         [Fact]
         public virtual Task Where_conjunction() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(t => t.Age == 36 && t.Age == 42)
             .Verify();
 
         [Fact]
         public virtual Task Where_conjunction_optimizable() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(t => (t.Age == 36 && t.Name!.Value == "Hallo") && t.Age == 42)
             .Verify();
 
         [Fact]
         public virtual Task Where_conjunction_with_different_fields() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(t => t.Name!.Value == "Some name" && t.Age == 42)
             .Verify();
 
@@ -4609,13 +4609,13 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Where_disjunction() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(t => t.Age == 36 || t.Age == 42)
             .Verify();
 
         [Fact]
         public virtual Task Where_disjunction_with_different_fields() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(t => t.Name!.Value == "Some name" || t.Age == 42)
             .Verify();
 
@@ -4633,26 +4633,26 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Where_Has() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(__ => __
                .Where(t => t.Age == 36))
             .Verify();
 
         [Fact]
         public virtual Task Where_has_conjunction_of_three() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(t => t.Age == 36 && t.Age == 42 && t.Age == 99)
             .Verify();
 
         [Fact]
         public virtual Task Where_has_disjunction_of_three() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(t => t.Age == 36 || t.Age == 42 || t.Age == 99)
             .Verify();
 
         [Fact]
         public virtual Task Where_has_disjunction_of_three_with_or() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Or(
                 __ => __.Where(t => t.Age == 36),
                 __ => __.Where(t => t.Age == 42),
@@ -4673,25 +4673,25 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Where_identity() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(_ => _.Identity())
             .Verify();
 
         [Fact]
         public virtual Task Where_identity_with_type_change() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(_ => _.OfType<Authority>())
             .Verify();
 
         [Fact]
         public virtual Task Where_none_traversal() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(_ => _.None())
             .Verify();
 
         [Fact]
         public virtual Task Where_not_none() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(_ => _
                 .Not(_ => _
                     .None()))
@@ -4699,13 +4699,13 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Where_nullable_enum_property_equals_null() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(t => t.Gender == null)
             .Verify();
 
         [Fact]
         public virtual Task Where_nullable_enum_property_not_equals_null() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(t => t.Gender != null)
             .Verify();
 
@@ -4715,7 +4715,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             DateTime? dateTime = DateTime.MinValue;
 
             await _g
-                .V<Person>()
+                .V<RichVertex>()
                 .Where(t => t.RegistrationDate!.Value == dateTime)
                 .Verify();
         }
@@ -4726,7 +4726,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             DateTime? dateTime = null;
 
             await _g
-                .V<Person>()
+                .V<RichVertex>()
                 .Where(t => t.RegistrationDate!.Value == dateTime)
                 .Verify();
         }
@@ -4737,7 +4737,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             DateTime? dateTime = null;
 
             await _g
-                .V<Person>()
+                .V<RichVertex>()
                 .Where(t => t.RegistrationDate!.Value == dateTime!.Value)
                 .Verify();
         }
@@ -4748,20 +4748,20 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             DateTime? dateTime = DateTime.MinValue;
 
             await _g
-                .V<Person>()
+                .V<RichVertex>()
                 .Where(t => t.RegistrationDate!.Value == dateTime.Value)
                 .Verify();
         }
 
         [Fact]
         public virtual Task Where_Nullable_Value() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(t => t.RegistrationDate!.Value == DateTime.MinValue)
             .Verify();
 
         [Fact]
         public virtual Task Where_or_dead_traversal() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(_ => _
                 .Or(_ => _
                     .Where(x => Array.Empty<object>().Contains(x.Id))))
@@ -4769,14 +4769,14 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Where_or_identity() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(_ => _
                 .Or(_ => _))
             .Verify();
 
         [Fact]
         public virtual Task Where_or_none_traversal() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(_ => _
                 .Or(_ => _
                     .None()))
@@ -4784,7 +4784,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Where_out_vertex_property() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(__ => __
                 .Out<WorksFor>()
                 .OfType<SiblingVertex>()
@@ -4802,7 +4802,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Where_properties_length() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(t => t.PhoneNumbers!.Length == 3)
             .Verify();
 
@@ -4888,61 +4888,61 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Where_property_compared_to_string_always_false() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(t => t.Name!.Value.CompareTo("Some name") < -1)
             .Verify();
 
         [Fact]
         public virtual Task Where_property_compared_to_string_always_true() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(t => t.Name!.Value.CompareTo("Some name") >= -1)
             .Verify();
 
         [Fact]
         public virtual Task Where_property_comparison_to_string_always_false() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(t => t.Name!.Value.CompareTo("Some name") > 1)
             .Verify();
 
         [Fact]
         public virtual Task Where_property_comparison_to_string_always_false_2() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(t => t.Name!.Value.CompareTo("Some name") == 2)
             .Verify();
 
         [Fact]
         public virtual Task Where_property_comparison_to_string_always_false_3() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(t => t.Name!.Value.CompareTo("Some name") > 2)
             .Verify();
 
         [Fact]
         public virtual Task Where_property_comparison_to_string_always_false_4() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(t => t.Name!.Value.CompareTo("Some name") >= 2)
             .Verify();
 
         [Fact]
         public virtual Task Where_property_comparison_to_string_always_true() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(t => t.Name!.Value.CompareTo("Some name") <= 1)
             .Verify();
 
         [Fact]
         public virtual Task Where_property_comparison_to_string_always_true_2() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(t => t.Name!.Value.CompareTo("Some name") < 2)
             .Verify();
 
         [Fact]
         public virtual Task Where_property_comparison_to_string_always_true_3() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(t => t.Name!.Value.CompareTo("Some name") <= 2)
             .Verify();
 
         [Fact]
         public virtual Task Where_property_comparison_to_string_not_always_false_2() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(t => t.Name!.Value.CompareTo("Some name") != 2)
             .Verify();
 
@@ -4955,7 +4955,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             };
 
             await _g
-                .V<Person>()
+                .V<RichVertex>()
                 .Where(t => t.Name!.Value.CompareTo("Some name") == (int)variable.Field)
                 .Verify();
         }
@@ -4966,7 +4966,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             var variable = ListSortDirection.Ascending;
 
             await _g
-                .V<Person>()
+                .V<RichVertex>()
                 .Where(t => t.Name!.Value.CompareTo("Some name") == (int)variable)
                 .Verify();
         }
@@ -4977,7 +4977,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             var variable = 0;
 
             await _g
-                .V<Person>()
+                .V<RichVertex>()
                 .Where(t => t.Name!.Value.CompareTo("Some name") == variable)
                 .Verify();
         }
@@ -5050,19 +5050,19 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Where_property_equals_constant() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(t => t.Age == 36)
             .Verify();
 
         [Fact]
         public virtual Task Where_property_equals_constant_with_Equals() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(t => t.Age.Equals(36))
             .Verify();
 
         [Fact]
         public virtual Task Where_property_equals_converted_expression() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(t => (object)t.Age == (object)36)
             .Verify();
 
@@ -5072,7 +5072,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             const int i = 18;
 
             await _g
-                .V<Person>()
+                .V<RichVertex>()
                 .Where(t => t.Age == i + i)
                 .Verify();
         }
@@ -5100,7 +5100,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Where_property_equals_string() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(t => t.Name!.Value.CompareTo("Some name") == 0)
             .Verify();
 
@@ -5117,44 +5117,44 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Where_property_greater_or_equal_string_2() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(t => t.Name!.Value.CompareTo("Some name") > -1)
             .Verify();
 
         [Fact]
         public virtual Task Where_property_greater_than_or_equal_string() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(t => t.Name!.Value.CompareTo("Some name") >= 0)
             .Verify();
 
         [Fact]
         public virtual Task Where_property_greater_than_or_equal_string_with_IComparable() => _g
-            .V<Person>()
+            .V<RichVertex>()
             // ReSharper disable once RedundantCast
             .Where(t => ((IComparable<string>)t.Name!.Value).CompareTo("Some name") >= 0)
             .Verify();
 
         [Fact]
         public virtual Task Where_property_greater_than_string() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(t => t.Name!.Value.CompareTo("Some name") > 0)
             .Verify();
 
         [Fact]
         public virtual Task Where_property_greater_than_string_2() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(t => t.Name!.Value.CompareTo("Some name") == 1)
             .Verify();
 
         [Fact]
         public virtual Task Where_property_greater_than_string_3() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(t => t.Name!.Value.CompareTo("Some name") >= 1)
             .Verify();
 
         [Fact]
         public virtual Task Where_property_is_contained_in_array() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(t => new[] { 36, 37, 38 }.Contains(t.Age))
             .Verify();
 
@@ -5164,7 +5164,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             var enumerable = Enumerable.Empty<int>();
 
             await _g
-                .V<Person>()
+                .V<RichVertex>()
                 .Where(t => enumerable.Contains(t.Age))
                 .Verify();
         }
@@ -5176,26 +5176,26 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                 .Select(int.Parse);
 
             await _g
-                .V<Person>()
+                .V<RichVertex>()
                 .Where(t => enumerable.Contains(t.Age))
                 .Verify();
         }
 
         [Fact]
         public virtual Task Where_property_is_contained_in_list() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(t => new List<int> { 36, 37, 38 }.Contains(t.Age))
             .Verify();
 
         [Fact]
         public virtual Task Where_property_is_greater_or_equal_than_constant() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(t => t.Age >= 36)
             .Verify();
 
         [Fact]
         public virtual Task Where_property_is_greater_than_constant() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(t => t.Age > 36)
             .Verify();
 
@@ -5203,19 +5203,19 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual Task Where_property_is_greater_than_or_equal_stepLabel() => _g
             .Inject(20)
             .As((__, a) => __
-                .V<Person>()
+                .V<RichVertex>()
                 .Where(l2 => l2.Age >= a.Value)
                 .Values(x => x.Age))
             .Verify();
 
         [Fact]
         public virtual Task Where_property_is_greater_than_or_equal_stepLabel_value() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Order(b => b
                 .By(x => x.Age))
             .As((__, person1) => __
                 .Map(__ => __
-                    .V<Person>()
+                    .V<RichVertex>()
                     .Where(person2 => person2.Age >= person1.Value.Age)
                     .Order(b => b
                         .By(x => x.Age))
@@ -5225,22 +5225,22 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Where_property_is_greater_than_stepLabel() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Values(x => x.Age)
             .As((__, a) => __
-                .V<Person>()
+                .V<RichVertex>()
                 .Where(l2 => l2.Age > a.Value))
             .Verify();
 
         [Fact]
         public virtual Task Where_property_is_lower_or_equal_than_constant() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(t => t.Age <= 36)
             .Verify();
 
         [Fact]
         public virtual Task Where_property_is_lower_than_constant() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(t => t.Age < 36)
             .Verify();
 
@@ -5248,23 +5248,23 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual Task Where_property_is_lower_than_or_equal_stepLabel() => _g
             .Inject(36)
             .As((__, a) => __
-                .V<Person>()
+                .V<RichVertex>()
                 .Where(l2 => l2.Age <= a.Value)
                 .Values(x => x.Age))
             .Verify();
 
         [Fact]
         public virtual Task Where_property_is_lower_than_stepLabel() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Values(x => x.Age)
             .As((__, a) => __
-                .V<Person>()
+                .V<RichVertex>()
                 .Where(l2 => l2.Age < a.Value))
             .Verify();
 
         [Fact]
         public virtual Task Where_property_is_not_contained_in_array() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(t => !new[] { 36, 37, 38 }.Contains(t.Age))
             .Verify();
 
@@ -5274,7 +5274,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             var enumerable = Enumerable.Empty<int>();
 
             await _g
-                .V<Person>()
+                .V<RichVertex>()
                 .Where(t => !enumerable.Contains(t.Age))
                 .Verify();
         }
@@ -5286,14 +5286,14 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                 .Select(int.Parse);
 
             await _g
-                .V<Person>()
+                .V<RichVertex>()
                 .Where(t => !enumerable.Contains(t.Age))
                 .Verify();
         }
 
         [Fact]
         public virtual Task Where_property_is_not_present() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(t => t.Name == null)
             .Verify();
 
@@ -5378,7 +5378,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Where_property_is_present() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(t => t.Name != null)
             .Verify();
 
@@ -5392,55 +5392,55 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Where_property_lower_than_or_equal_string() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(t => t.Name!.Value.CompareTo("Some name") <= 0)
             .Verify();
 
         [Fact]
         public virtual Task Where_property_lower_than_or_equal_string_2() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(t => t.Name!.Value.CompareTo("Some name") < 1)
             .Verify();
 
         [Fact]
         public virtual Task Where_property_lower_than_string() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(t => t.Name!.Value.CompareTo("Some name") < 0)
             .Verify();
 
         [Fact]
         public virtual Task Where_property_lower_than_string_2() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(t => t.Name!.Value.CompareTo("Some name") <= -1)
             .Verify();
 
         [Fact]
         public virtual Task Where_property_lower_than_string_3() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(t => t.Name!.Value.CompareTo("Some name") == -1)
             .Verify();
 
         [Fact]
         public virtual Task Where_property_not_equals_constant() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(t => t.Age != 36)
             .Verify();
 
         [Fact]
         public virtual Task Where_property_not_equals_string() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(t => t.Name!.Value.CompareTo("Some name") != 0)
             .Verify();
 
         [Fact]
         public virtual Task Where_property_not_greater_than_string_2() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(t => t.Name!.Value.CompareTo("Some name") != 1)
             .Verify();
 
         [Fact]
         public virtual Task Where_property_not_lower_than_string_3() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(t => t.Name!.Value.CompareTo("Some name") != -1)
             .Verify();
 
@@ -5488,7 +5488,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Where_property_traversal() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(
                 x => x.Age,
                 _ => _
@@ -5497,14 +5497,14 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Where_scalar_element_equals_constant() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Values(x => x.Age)
             .Where(_ => _ == 36)
             .Verify();
 
         [Fact]
         public virtual Task Where_sequential() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(t => t.Age == 36)
             .Where(t => t.Age == 42)
             .Verify();
@@ -5525,9 +5525,9 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Where_stepLabel_equals_stepLabel_property() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .As((__, person) => __
-                .V<Person>()
+                .V<RichVertex>()
                 .Values(x => x.Age)
                     .As((__, age) => __
                         .Where(p => age.Value < person.Value.Age)))
@@ -5535,12 +5535,12 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Where_stepLabel_is_lower_than_stepLabel() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(__ => __
                 .As((__, _) => __
                     .Values(x => x.Gender!)
                     .As((__, gender1) => __
-                        .V<Person>()
+                        .V<RichVertex>()
                         .Values(x => x.Gender!)
                             .As((__, gender2) => __
                                 .Where(p => gender1.Value < gender2.Value)))))
@@ -5548,9 +5548,9 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Where_stepLabel_property_equals_stepLabel() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .As((__, person) => __
-                .V<Person>()
+                .V<RichVertex>()
                 .Values(x => x.Age)
                     .As((__, age) => __
                         .Where(p => person.Value.Age < age.Value)))
@@ -5558,9 +5558,9 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Where_stepLabel_value_is_greater_than_or_equal_stepLabel_value() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .As((__, person1) => __
-                .V<Person>()
+                .V<RichVertex>()
                 .As((__, person2) => __
                     .Where(_ => person1.Value.Age >= person2.Value.Age)))
             .Count()
@@ -5592,19 +5592,19 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Where_traversal() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(_ => _.Out<LivesIn>())
             .Verify();
 
         [Fact]
         public virtual Task Where_true() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(_ => true)
             .Verify();
 
         [Fact]
         public virtual Task Where_value_of_property_is_greater_than_null() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(__ => __
                 .Values(x => x.Name!.Value)
                 .Where(x => (int)(object)x > (int)(object)null!))
@@ -5616,7 +5616,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             string? variable = null;
 
             await _g
-                .V<Person>()
+                .V<RichVertex>()
                 .Where(__ => __
                     .Values(x => x.Name!.Value)
                     .Where(x => (int)(object)x > (int)(object)variable!))
@@ -5625,7 +5625,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Where_value_of_property_is_not_null_and_string() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(__ => __
                 .Values(x => x.Name!.Value)
                 .Where(x => x != null! && x == "hello"))
@@ -5633,7 +5633,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Where_value_of_property_is_not_null_or_string() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(__ => __
                 .Values(x => x.Name!.Value)
                 .Where(x => x != null! || x == "hello"))
@@ -5641,7 +5641,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Where_value_of_property_is_null() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(__ => __
                 .Values(x => x.Name!.Value)
                 .Where(x => x == null!))
@@ -5649,7 +5649,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Where_value_of_property_is_null_and_string() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(__ => __
                 .Values(x => x.Name!.Value)
                 .Where(x => x == null! && x == "hello"))
@@ -5657,7 +5657,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Where_value_of_property_is_null_and_string_reversed() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(__ => __
                 .Values(x => x.Name!.Value)
                 .Where(x => x == "hello" && x == null!))
@@ -5665,7 +5665,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Where_value_of_property_is_null_in2() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(__ => __
                 .Values(x => x.Name!.Value)
                 .Where(__ => __
@@ -5674,7 +5674,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Where_value_of_property_is_null_or_string() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(__ => __
                 .Values(x => x.Name!.Value)
                 .Where(x => x == null! || x == "hello"))
@@ -5682,7 +5682,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Where_value_of_property_is_null_or_string_reversed() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(__ => __
                 .Values(x => x.Name!.Value)
                 .Where(x => x == "hello" || x == null!))
@@ -5690,7 +5690,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Where_Values_Id_Where() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(x => x
                 .Values(x => x.Id!)
                 .Where(id => (long)id! == 1L))
@@ -5701,12 +5701,12 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .V<Vertex>()
             .Where(x => x
                 .Values(x => x.Label!)
-                .Where(label => label == "Person"))
+                .Where(label => label == "RichVertex"))
             .Verify();
 
         [Fact]
         public virtual Task Where_Values_Or_WhereWhere() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(__ => __
                 .Values(x => x.Name!.Value)
                 .Or(
@@ -5716,7 +5716,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Where_Values_Where() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(__ => __
                 .Values(x => x.Age)
                 .Where(age => age > 36))
@@ -5724,7 +5724,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Where_Values_WhereWhere() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(__ => __
                 .Values(x => x.Name!.Value)
                 .Where(x => x == "hallo1")
@@ -5763,7 +5763,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Where_VertexProperty_Id() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(x => (int)x.Name!.Id! == 36)
             .Verify();
 
@@ -5780,19 +5780,19 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Where_VertexProperty_Value1() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(x => x.Name!.Value == "SomeName")
             .Verify();
 
         [Fact]
         public virtual Task Where_VertexProperty_Value2() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(x => ((string)(object)x.Name!.Value) == "SomeName")
             .Verify();
 
         [Fact]
         public virtual Task Where_Where() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(_ => _
                 .Where(_ => _.Out()))
             .Verify();
@@ -5807,11 +5807,11 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual async Task WithSideEffect_assigns_projection()
         {
-            var stepLabel = new StepLabel<IArrayGremlinQuery<Person[], Person, IVertexGremlinQuery<Person>>, Person[]>();
+            var stepLabel = new StepLabel<IArrayGremlinQuery<RichVertex[], RichVertex, IVertexGremlinQuery<RichVertex>>, RichVertex[]>();
 
             await _g
                 .WithSideEffect(stepLabel, [])
-                .V<Person>()
+                .V<RichVertex>()
                 .Aggregate(stepLabel)
                 .Fold()
                 .Select(stepLabel)

@@ -2,7 +2,7 @@
   {
     Key: {
       Id: 0,
-      Label: Person,
+      Label: RichVertex,
       PartitionKey: PartitionKey
     },
     Value: [
@@ -17,7 +17,7 @@
   {
     Key: {
       Id: 3,
-      Label: Person,
+      Label: RichVertex,
       PartitionKey: PartitionKey
     },
     Value: [

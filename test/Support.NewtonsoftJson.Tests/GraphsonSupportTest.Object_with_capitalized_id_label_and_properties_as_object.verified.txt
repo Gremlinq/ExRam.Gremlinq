@@ -1,6 +1,6 @@
 ﻿{
   Id: 1,
-  Label: Person,
+  Label: RichVertex,
   Properties: {
     Age: 36
   }

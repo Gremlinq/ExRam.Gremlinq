@@ -4,7 +4,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure.GraphSon.Entities
 {
     public sealed class PersonLanguageTuple
     {
-        public Person? Key { get; set; }
+        public RichVertex? Key { get; set; }
         public SimpleVertex? Value { get; set; }
     }
 }

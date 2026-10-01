@@ -1,1 +1,1 @@
-g.V().hasLabel('Person').as('_a').V().hasLabel('Person').values('Age').as('_b').where('_b',lt('_a')).by().by('Age')
+g.V().hasLabel('RichVertex').as('_a').V().hasLabel('RichVertex').values('Age').as('_b').where('_b',lt('_a')).by().by('Age')

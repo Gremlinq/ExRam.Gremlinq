@@ -189,7 +189,7 @@
           Value: marko
         },
         Id: 1,
-        Label: person,
+        Label: richvertex,
         PartitionKey: PartitionKey
       }
     ]
@@ -201,7 +201,7 @@
       Value: marko
     },
     Id: 1,
-    Label: person,
+    Label: richvertex,
     PartitionKey: PartitionKey
   },
   Guid: Guid_3,
@@ -369,7 +369,7 @@
         Value: Name of some base entity
       },
       Id: 16,
-      Label: Person,
+      Label: RichVertex,
       PartitionKey: PartitionKey
     },
     Value: {
@@ -424,7 +424,7 @@
       }
     ],
     Id: 14,
-    Label: Person,
+    Label: RichVertex,
     PartitionKey: PartitionKey
   },
   Person_StringId: {
@@ -442,7 +442,7 @@
       }
     ],
     Id: 13,
-    Label: Person,
+    Label: RichVertex,
     PartitionKey: PartitionKey
   },
   Person_strongly_typed: {
@@ -460,7 +460,7 @@
       }
     ],
     Id: 13,
-    Label: Person,
+    Label: RichVertex,
     PartitionKey: PartitionKey
   },
   Person_with_null: {
@@ -477,14 +477,14 @@
       }
     ],
     Id: 13,
-    Label: Person,
+    Label: RichVertex,
     PartitionKey: PartitionKey
   },
   Person_without_PhoneNumbers_strongly_typed: {
     Age: 36,
     RegistrationDate: 2016-12-14 21:14:36.295 +0,
     Id: 15,
-    Label: Person,
+    Label: RichVertex,
     PartitionKey: PartitionKey
   },
   Property_as_object: {
@@ -522,7 +522,7 @@
         Value: Name of some base entity
       },
       Id: 16,
-      Label: Person,
+      Label: RichVertex,
       PartitionKey: PartitionKey
     },
     Item2: {
@@ -540,7 +540,7 @@
         Value: Name of some base entity
       },
       Id: 16,
-      Label: Person,
+      Label: RichVertex,
       PartitionKey: PartitionKey
     },
     Item2: {

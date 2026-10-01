@@ -3,13 +3,13 @@
     Item1: {
       Age: 43,
       Id: 7,
-      Label: Person,
+      Label: RichVertex,
       PartitionKey: PartitionKey
     },
     Item2: {
       Age: 43,
       Id: 7,
-      Label: Person,
+      Label: RichVertex,
       PartitionKey: PartitionKey
     }
   },
@@ -23,7 +23,7 @@
         Value: Bob
       },
       Id: 10,
-      Label: Person,
+      Label: RichVertex,
       PartitionKey: PartitionKey
     },
     Item2: {
@@ -35,55 +35,55 @@
         Value: Bob
       },
       Id: 10,
-      Label: Person,
+      Label: RichVertex,
       PartitionKey: PartitionKey
     }
   },
   {
     Item1: {
       Id: 15,
-      Label: Person,
+      Label: RichVertex,
       PartitionKey: PartitionKey
     },
     Item2: {
       Id: 15,
-      Label: Person,
+      Label: RichVertex,
       PartitionKey: PartitionKey
     }
   },
   {
     Item1: {
       Id: 19,
-      Label: Person,
+      Label: RichVertex,
       PartitionKey: PartitionKey
     },
     Item2: {
       Id: 19,
-      Label: Person,
+      Label: RichVertex,
       PartitionKey: PartitionKey
     }
   },
   {
     Item1: {
       Id: 23,
-      Label: Person,
+      Label: RichVertex,
       PartitionKey: PartitionKey
     },
     Item2: {
       Id: 23,
-      Label: Person,
+      Label: RichVertex,
       PartitionKey: PartitionKey
     }
   },
   {
     Item1: {
       Id: 29,
-      Label: Person,
+      Label: RichVertex,
       PartitionKey: PartitionKey
     },
     Item2: {
       Id: 29,
-      Label: Person,
+      Label: RichVertex,
       PartitionKey: PartitionKey
     }
   },
@@ -97,7 +97,7 @@
         Value: Bob
       },
       Id: 37,
-      Label: Person,
+      Label: RichVertex,
       PartitionKey: PartitionKey
     },
     Item2: {
@@ -109,19 +109,19 @@
         Value: Bob
       },
       Id: 37,
-      Label: Person,
+      Label: RichVertex,
       PartitionKey: PartitionKey
     }
   },
   {
     Item1: {
       Id: 44,
-      Label: Person,
+      Label: RichVertex,
       PartitionKey: PartitionKey
     },
     Item2: {
       Id: 44,
-      Label: Person,
+      Label: RichVertex,
       PartitionKey: PartitionKey
     }
   },
@@ -129,13 +129,13 @@
     Item1: {
       Image: AQIDBAUGBwg=,
       Id: 56,
-      Label: Person,
+      Label: RichVertex,
       PartitionKey: PartitionKey
     },
     Item2: {
       Image: AQIDBAUGBwg=,
       Id: 56,
-      Label: Person,
+      Label: RichVertex,
       PartitionKey: PartitionKey
     }
   },
@@ -143,13 +143,13 @@
     Item1: {
       Gender: Female,
       Id: 59,
-      Label: Person,
+      Label: RichVertex,
       PartitionKey: PartitionKey
     },
     Item2: {
       Gender: Female,
       Id: 59,
-      Label: Person,
+      Label: RichVertex,
       PartitionKey: PartitionKey
     }
   },
@@ -163,7 +163,7 @@
         Value: Marko
       },
       Id: 62,
-      Label: Person,
+      Label: RichVertex,
       PartitionKey: PartitionKey
     },
     Item2: {
@@ -175,7 +175,7 @@
         Value: Marko
       },
       Id: 62,
-      Label: Person,
+      Label: RichVertex,
       PartitionKey: PartitionKey
     }
   }

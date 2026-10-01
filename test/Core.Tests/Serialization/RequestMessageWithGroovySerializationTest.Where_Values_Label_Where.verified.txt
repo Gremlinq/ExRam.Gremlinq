@@ -8,7 +8,7 @@
     },
     bindings: {
       _a: MetaPropertyVertex,
-      _b: Person,
+      _b: RichVertex,
       _c: ScalarVertex,
       _d: SiblingVertex,
       _e: SimpleVertex,

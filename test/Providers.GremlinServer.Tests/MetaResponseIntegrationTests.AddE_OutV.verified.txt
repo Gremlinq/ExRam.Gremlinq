@@ -4,7 +4,7 @@
     Data: [
       {
         Id: 19,
-        Label: Person,
+        Label: RichVertex,
         PartitionKey: PartitionKey
       }
     ],

@@ -8,7 +8,7 @@
     },
     bindings: {
       _a: _a,
-      _b: Person
+      _b: RichVertex
     },
     gremlin: g.V().fold().as(_a).V().hasLabel(_b).where(within(_a)).count()
   }

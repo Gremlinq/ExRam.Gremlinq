@@ -8,7 +8,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
               "label": "WorksFor",
               "type": "edge",
               "inVLabel": "SiblingVertex",
-              "outVLabel": "Person",
+              "outVLabel": "RichVertex",
               "inV": "companyId",
               "outV": "personId",
               "properties": {
@@ -26,7 +26,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                 "id": { "@type": "g:Int32", "@value": 9 },
                 "label": "WorksFor",
                 "inVLabel": "SiblingVertex",
-                "outVLabel": "Person",
+                "outVLabel": "RichVertex",
                 "inV": { "@type": "g:Int32", "@value": 10 },
                 "outV": { "@type": "g:Int32", "@value": 1 },
                 "properties": {
@@ -342,7 +342,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                         "@type":"g:Int32",
                         "@value":1
                       },
-                      "label":"person",
+                      "label":"richvertex",
                       "properties":{
                         "name":[
                          {
@@ -527,7 +527,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                   "@type": "g:Int32",
                   "@value": 1
                 },
-                "label": "person",
+                "label": "richvertex",
                 "properties": {
                   "name": [
                     {
@@ -633,7 +633,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             {
               "key": {
                 "id": 16,
-                "label": "Person",
+                "label": "RichVertex",
                 "type": "vertex",
                 "properties": {
                   "Name": [
@@ -798,7 +798,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                   "@type": "g:T",
                   "@value": "label"
                 },
-                "Person",
+                "RichVertex",
                 "RegistrationDate",
                 {
                   "@type": "g:Date",
@@ -818,7 +818,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public static readonly string Single_Person = """
             {
               "id": 13,
-              "label": "Person",
+              "label": "RichVertex",
               "type": "vertex",
               "properties": {
                 "Age": [
@@ -856,7 +856,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public static readonly string Single_Person_lowercase_properties = """
             {
               "id": 14,
-              "label": "Person",
+              "label": "RichVertex",
               "type": "vertex",
               "properties": {
                 "age": [
@@ -888,7 +888,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public static readonly string Single_Person_String_Id = """
             {
               "id": "13",
-              "label": "Person",
+              "label": "RichVertex",
               "type": "vertex",
               "properties": {
                 "Age": [
@@ -926,7 +926,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public static readonly string Single_Person_with_null = """
             {
               "id": 13,
-              "label": "Person",
+              "label": "RichVertex",
               "type": "vertex",
               "properties": {
                 "Age": [
@@ -959,7 +959,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public static readonly string Single_Person_without_PhoneNumbers = """
             {
               "id": 15,
-              "label": "Person",
+              "label": "RichVertex",
               "type": "vertex",
               "properties": {
                 "Age": [
@@ -1038,7 +1038,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             {
               "Item1": {
                 "id": 16,
-                "label": "Person",
+                "label": "RichVertex",
                 "type": "vertex",
                 "properties": {
                   "Name": [
@@ -1314,7 +1314,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
               "9c64eed3-cdfe-4bfb-8e44-769146ace9e0": {
                 "key": {
                   "id": "9c64eed3-cdfe-4bfb-8e44-769146ace9e0",
-                  "label": "Person",
+                  "label": "RichVertex",
                   "type": "vertex",
                   "properties": {
                     "Age": [
@@ -1355,7 +1355,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                       "@type": "g:Int64",
                       "@value": 0
                     },
-                    "label": "Person",
+                    "label": "RichVertex",
                     "properties": {
                       "PartitionKey": [
                         {
@@ -1423,7 +1423,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                       "@type": "g:Int64",
                       "@value": 3
                     },
-                    "label": "Person",
+                    "label": "RichVertex",
                     "properties": {
                       "PartitionKey": [
                         {

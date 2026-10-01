@@ -19,7 +19,7 @@ namespace ExRam.Gremlinq.Benchmarks
 
         [Benchmark]
         public object ComplexTraversalQuery() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Where(p => p.Age > 25)
             .Out<WorksFor>()
             .OfType<SiblingVertex>()

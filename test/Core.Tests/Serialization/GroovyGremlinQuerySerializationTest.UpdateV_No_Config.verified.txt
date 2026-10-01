@@ -1,7 +1,7 @@
 ﻿{
   Script: g.V().hasLabel(_a).sideEffect(__.properties(_b,_c,_d,_e).drop()).property(single,_f,_g).property(single,_h,_i).property(single,_j,_k).property(list,_c,_l).property(single,_m,_n).project(_o,_p,_q).by(id).by(label).by(__.properties().group().by(label).by(__.project(_o,_p,_r,_q).by(id).by(label).by(value).by(__.valueMap()).fold())),
   Bindings: {
-    _a: Person,
+    _a: RichVertex,
     _b: Image,
     _c: PhoneNumbers,
     _d: _Etag,

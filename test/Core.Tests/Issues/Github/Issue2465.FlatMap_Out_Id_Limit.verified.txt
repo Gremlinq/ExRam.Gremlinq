@@ -1,1 +1,1 @@
-﻿g.V().hasLabel('Person').flatMap(__.out('WorksFor').id().limit(1))
+﻿g.V().hasLabel('RichVertex').flatMap(__.out('WorksFor').id().limit(1))

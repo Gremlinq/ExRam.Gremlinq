@@ -1,6 +1,6 @@
 ﻿{
   Age: 36,
   Id: 2,
-  Label: Person,
+  Label: RichVertex,
   PartitionKey: PartitionKey
 }

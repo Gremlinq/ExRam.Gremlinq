@@ -19,7 +19,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
         [Fact]
         public Task Map_Values_Limit() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Map(__ => __
                 .Values(x => x.Name!)
                 .Limit(1))
@@ -27,7 +27,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
         [Fact]
         public Task Map_Out_Id_Limit_Limit() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Map(__ => __
                 .Out<WorksFor>()
                 .Id()
@@ -37,7 +37,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
         [Fact]
         public Task Map_Out_Id_Limit_Fold() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Map(__ => __
                 .Out<WorksFor>()
                 .Id()
@@ -47,7 +47,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
         [Fact]
         public Task Map_Out_Id_Limit_of_two() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Map(__ => __
                 .Out<WorksFor>()
                 .Id()
@@ -56,7 +56,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
         [Fact]
         public Task Map_Limit() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Id()
             .Map(__ => __
                 .Limit(1))
@@ -64,7 +64,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
         [Fact]
         public Task Local_Out_Id_Limit() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Local(__ => __
                 .Out<WorksFor>()
                 .Id()
@@ -73,7 +73,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
         [Fact]
         public Task FlatMap_Out_Id_Limit() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .FlatMap(__ => __
                 .Out<WorksFor>()
                 .Id()
@@ -82,7 +82,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
         [Fact]
         public Task By_Out_Id_Limit() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Project(__ => __
                 .ToTuple()
                 .By(__ => __
@@ -95,7 +95,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
         [Fact]
         public Task By_Out_Id_Limit_Limit() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Project(__ => __
                 .ToTuple()
                 .By(__ => __
@@ -109,7 +109,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
         [Fact]
         public Task By_Values_Limit() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Project(__ => __
                 .ToTuple()
                 .By(__ => __
@@ -121,7 +121,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
         [Fact]
         public Task By_Map_Values_Limit() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Project(__ => __
                 .ToTuple()
                 .By(__ => __
@@ -134,7 +134,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
         [Fact]
         public Task By_Local_Out_Id_Limit() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Project(__ => __
                 .ToTuple()
                 .By(__ => __
@@ -148,7 +148,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
         [Fact]
         public Task By_Map_Out_Id_followed_by_Limit() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Project(__ => __
                 .ToTuple()
                 .By(__ => __
@@ -162,7 +162,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
         [Fact]
         public Task By_Out_Id_Limit_Fold() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Project(__ => __
                 .ToTuple()
                 .By(__ => __
@@ -176,7 +176,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
         [Fact]
         public Task By_Out_Id_Limit_of_two() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Project(__ => __
                 .ToTuple()
                 .By(__ => __
@@ -189,7 +189,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
         [Fact]
         public Task By_Limit() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Id()
             .Project(__ => __
                 .ToTuple()
@@ -204,7 +204,7 @@ namespace ExRam.Gremlinq.Core.Tests
             .ConfigureEnvironment(env => env
                 .ConfigureOptions(options => options
                     .SetValue(GremlinqOption.EnableEmptyProjectionValueProtection, true)))
-            .V<Person>()
+            .V<RichVertex>()
             .Project(__ => __
                 .ToTuple()
                 .By(__ => __

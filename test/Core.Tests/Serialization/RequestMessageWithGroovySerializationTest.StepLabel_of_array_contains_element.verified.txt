@@ -11,7 +11,7 @@
       _b: 2,
       _c: 3,
       _d: _a,
-      _e: Person,
+      _e: RichVertex,
       _f: Age,
       _g: id,
       _h: label,

@@ -10,7 +10,7 @@
       _a: 36,
       _b: 37,
       _c: 38,
-      _d: Person,
+      _d: RichVertex,
       _e: id,
       _f: label,
       _g: properties,

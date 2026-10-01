@@ -23,7 +23,7 @@
       OperatorName: hasLabel,
       Arguments: [
         MetaPropertyVertex,
-        Person,
+        RichVertex,
         ScalarVertex,
         SiblingVertex,
         SimpleVertex
@@ -36,7 +36,7 @@
           EnumName: T,
           EnumValue: label
         },
-        Person
+        RichVertex
       ]
     },
     {

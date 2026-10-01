@@ -1,7 +1,7 @@
 {
   Script: g.V().hasLabel(_a).outE(_b).project(_c,_d,_e).by(id).by(label).by(__.valueMap()),
   Bindings: {
-    _a: Person,
+    _a: RichVertex,
     _b: WorksFor,
     _c: id,
     _d: label,

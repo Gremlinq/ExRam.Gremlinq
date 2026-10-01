@@ -5,7 +5,7 @@
       Value: Bob
     },
     Id: 10,
-    Label: Person,
+    Label: RichVertex,
     PartitionKey: PartitionKey
   }
 ]

@@ -6,7 +6,7 @@
       Value: Name of some base entity
     },
     Id: 16,
-    Label: Person,
+    Label: RichVertex,
     PartitionKey: PartitionKey
   },
   Item2: {

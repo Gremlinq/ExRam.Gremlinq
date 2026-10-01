@@ -2,7 +2,7 @@
   Script: g.V().hasLabel(_a,_b,_c,_d,_e).has(label,_b).project(_f,_g,_h).by(id).by(label).by(__.properties().group().by(label).by(__.project(_f,_g,_i,_h).by(id).by(label).by(value).by(__.valueMap()).fold())),
   Bindings: {
     _a: MetaPropertyVertex,
-    _b: Person,
+    _b: RichVertex,
     _c: ScalarVertex,
     _d: SiblingVertex,
     _e: SimpleVertex,

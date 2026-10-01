@@ -233,10 +233,10 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         // as valueMap() returns it. A name the enum does not have leaves the member as it was, and
         // costs nothing but itself.
         [Fact]
-        public virtual Task Person_with_Gender_name() => Verify<Person>("""
+        public virtual Task Person_with_Gender_name() => Verify<RichVertex>("""
             {
               "id": 1,
-              "label": "Person",
+              "label": "RichVertex",
               "properties": {
                 "Gender": [ { "id": 2, "value": "Female" } ]
               }
@@ -244,12 +244,12 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             """);
 
         [Fact]
-        public virtual Task Person_with_Gender_name_typed() => Verify<Person>("""
+        public virtual Task Person_with_Gender_name_typed() => Verify<RichVertex>("""
             {
               "@type": "g:Vertex",
               "@value": {
                 "id": { "@type": "g:Int64", "@value": 1 },
-                "label": "Person",
+                "label": "RichVertex",
                 "properties": {
                   "Gender": [
                     {
@@ -267,7 +267,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             """);
 
         [Fact]
-        public virtual Task Person_from_map_with_Gender_name() => Verify<Person>("""
+        public virtual Task Person_from_map_with_Gender_name() => Verify<RichVertex>("""
             {
               "@type": "g:Map",
               "@value": [ "Gender", [ "Female" ] ]
@@ -275,10 +275,10 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             """);
 
         [Fact]
-        public virtual Task Person_with_unknown_Gender_name() => Verify<Person>("""
+        public virtual Task Person_with_unknown_Gender_name() => Verify<RichVertex>("""
             {
               "id": 1,
-              "label": "Person",
+              "label": "RichVertex",
               "properties": {
                 "Age": [ { "id": 2, "value": 36 } ],
                 "Gender": [ { "id": 3, "value": "Other" } ]
@@ -594,12 +594,12 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual Task Ints_from_Bulk_set_with_odd_length() => Verify<int[]>(Typed_BulkSet_With_Odd_Length);
 
         [Fact]
-        public virtual Task Configured_property_name() => Verify<Person>(
-            "{ \"id\": 13, \"label\": \"Person\", \"type\": \"vertex\", \"properties\": { \"replacement\": [ { \"id\": 1, \"value\": \"nameValue\" } ] } }",
+        public virtual Task Configured_property_name() => Verify<RichVertex>(
+            "{ \"id\": 13, \"label\": \"RichVertex\", \"type\": \"vertex\", \"properties\": { \"replacement\": [ { \"id\": 1, \"value\": \"nameValue\" } ] } }",
             env => env
                 .ConfigureModel(model => model
                     .ConfigureVertices(_ => _
-                        .ConfigureElement<Person>(conf => conf
+                        .ConfigureElement<RichVertex>(conf => conf
                             .ConfigureName(x => x.Name, "replacement")))));
 
         [Fact]
@@ -710,15 +710,15 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             }
             """);
 
-        // An entity says what each of its properties is. Person.RegistrationDate is a date, and the
-        // string is read as one, as it is on its own. Person.Name is a string, and the same string
+        // An entity says what each of its properties is. RichVertex.RegistrationDate is a date, and the
+        // string is read as one, as it is on its own. RichVertex.Name is a string, and the same string
         // stays what it came as. And a RegistrationDate that is no date costs the property, not
         // the person.
         [Fact]
-        public virtual Task Person_with_RegistrationDate_from_string_with_offset() => Verify<Person>("""
+        public virtual Task Person_with_RegistrationDate_from_string_with_offset() => Verify<RichVertex>("""
             {
               "id": 13,
-              "label": "Person",
+              "label": "RichVertex",
               "type": "vertex",
               "properties": {
                 "RegistrationDate": [ { "id": 1, "value": "2020-01-02T03:04:05+02:00" } ]
@@ -727,10 +727,10 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             """);
 
         [Fact]
-        public virtual Task Person_with_date_like_Name() => Verify<Person>("""
+        public virtual Task Person_with_date_like_Name() => Verify<RichVertex>("""
             {
               "id": 13,
-              "label": "Person",
+              "label": "RichVertex",
               "type": "vertex",
               "properties": {
                 "Name": [ { "id": 1, "value": "2020-01-02T03:04:05+02:00" } ]
@@ -739,10 +739,10 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             """);
 
         [Fact]
-        public virtual Task Person_with_RegistrationDate_from_invalid_string() => Verify<Person>("""
+        public virtual Task Person_with_RegistrationDate_from_invalid_string() => Verify<RichVertex>("""
             {
               "id": 13,
-              "label": "Person",
+              "label": "RichVertex",
               "type": "vertex",
               "properties": {
                 "RegistrationDate": [ { "id": 1, "value": "not a date" } ]
@@ -785,13 +785,13 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual Task Empty1() => Verify<object[]>("[]");
 
         [Fact]
-        public virtual Task Empty2() => Verify<Person[]>("[]");
+        public virtual Task Empty2() => Verify<RichVertex[]>("[]");
 
         [Fact]
         public virtual Task Graphson2Path() => Verify<Path>(Graphson2_Paths);
 
         [Fact]
-        public virtual Task GraphSon3_Tuple() => Verify<(Person, SimpleVertex)[]>(Graphson3_Tuple_of_Person_Language);
+        public virtual Task GraphSon3_Tuple() => Verify<(RichVertex, SimpleVertex)[]>(Graphson3_Tuple_of_Person_Language);
 
         [Fact]
         public virtual Task Graphson3Path() => Verify<Path>(Graphson3_Paths);
@@ -1147,12 +1147,12 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         // Nested rather than top level, as Verify snapshots a bare byte[] as a binary file.
         // The nested form is the better coverage anyway - it drives gx:ByteBuffer through the
-        // Newtonsoft serializer and back into the pipeline, Person.Image being a byte[].
+        // Newtonsoft serializer and back into the pipeline, RichVertex.Image being a byte[].
         [Fact]
-        public virtual Task Person_with_typed_ByteBuffer_image() => Verify<Person>("""
+        public virtual Task Person_with_typed_ByteBuffer_image() => Verify<RichVertex>("""
             {
               "id": 13,
-              "label": "Person",
+              "label": "RichVertex",
               "type": "vertex",
               "properties": {
                 "Image": [
@@ -1338,12 +1338,12 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         // "id", "label" and "properties" are GraphSON's names for an element's parts, and an object
         // is only taken for an element when it spells them that way. This one is a map of the
         // caller's own that happens to have members of those names, and stays one - it is not
-        // looked up as a Person.
+        // looked up as a RichVertex.
         [Fact]
         public virtual Task Object_with_capitalized_id_label_and_properties_as_object() => Verify<object>("""
             {
               "Id": 1,
-              "Label": "Person",
+              "Label": "RichVertex",
               "Properties": { "Age": 36 }
             }
             """);
@@ -1369,17 +1369,17 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         // An element map's id and label are the g:T values "id" and "label", spelled the way GraphSON
         // spells them. "ID" and "LABEL" are T values of their own, neither of those, so this map has
-        // no id and no label and is no element. Asked for as a Person, it has an Age and nothing to
+        // no id and no label and is no element. Asked for as a RichVertex, it has an Age and nothing to
         // say about the rest - and a T value Gremlin has no name for is no reason to throw.
         [Fact]
-        public virtual Task Person_from_element_map_with_uppercase_T_values() => VerifyAttempt<Person>("""
+        public virtual Task Person_from_element_map_with_uppercase_T_values() => VerifyAttempt<RichVertex>("""
             {
               "@type": "g:Map",
               "@value": [
                 { "@type": "g:T", "@value": "ID" },
                 { "@type": "g:Int64", "@value": 1 },
                 { "@type": "g:T", "@value": "LABEL" },
-                "Person",
+                "RichVertex",
                 "Age",
                 36
               ]
@@ -1464,7 +1464,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual Task Nullable_null_at_top_level() => VerifyAttempt<int?>("null");
 
         // A string can hold a null where an int cannot, and that changes nothing here: at the top
-        // level a null is no string, as it is no int?, no Uri and no Person. It is not the empty
+        // level a null is no string, as it is no int?, no Uri and no RichVertex. It is not the empty
         // string either - that would be a value where there was none.
         [Fact]
         public virtual Task String_from_null() => VerifyAttempt<string>("null");
@@ -1473,7 +1473,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual Task Uri_from_null() => VerifyAttempt<Uri>("null");
 
         [Fact]
-        public virtual Task Person_from_null() => VerifyAttempt<Person>("null");
+        public virtual Task Person_from_null() => VerifyAttempt<RichVertex>("null");
 
         // Unwrapping does not change it. A single item array, a typed value, a property - each
         // hands on what it wraps, and what it wraps is still a null with nothing around it to
@@ -1562,25 +1562,25 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual Task Object_from_true() => Verify<object>("true");
 
         [Fact]
-        public virtual Task Person_lowercase_strongly_typed() => Verify<Person>(Single_Person_lowercase_properties);
+        public virtual Task Person_lowercase_strongly_typed() => Verify<RichVertex>(Single_Person_lowercase_properties);
 
         // A member of a type the caller asks for is found however its name is spelled, so a name
         // spelled two ways is found twice. The last one in the document is the one that counts - not
         // the one spelled like the member: the second test is the first one reversed, and answers
         // the other value.
         [Fact]
-        public virtual Task Person_from_object_with_age_twice_in_different_case() => Verify<Person>("""{ "age": 1, "Age": 2 }""");
+        public virtual Task Person_from_object_with_age_twice_in_different_case() => Verify<RichVertex>("""{ "age": 1, "Age": 2 }""");
 
         [Fact]
-        public virtual Task Person_from_object_with_age_twice_in_different_case_reversed() => Verify<Person>("""{ "Age": 2, "age": 1 }""");
+        public virtual Task Person_from_object_with_age_twice_in_different_case_reversed() => Verify<RichVertex>("""{ "Age": 2, "age": 1 }""");
 
         // Gremlin's property keys are case sensitive, so a vertex can have an "age" and an "Age" -
         // the one place where a server sends a name spelled two ways. The last one counts here too.
         [Fact]
-        public virtual Task Person_from_vertex_with_age_property_twice_in_different_case() => Verify<Person>("""
+        public virtual Task Person_from_vertex_with_age_property_twice_in_different_case() => Verify<RichVertex>("""
             {
               "id": 1,
-              "label": "Person",
+              "label": "RichVertex",
               "properties": {
                 "age": [ { "id": 2, "value": 1 } ],
                 "Age": [ { "id": 3, "value": 2 } ]
@@ -1590,7 +1590,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         // The same vertex as valueMap() returns it: a g:Map with both keys.
         [Fact]
-        public virtual Task Person_from_map_with_age_twice_in_different_case() => Verify<Person>("""
+        public virtual Task Person_from_map_with_age_twice_in_different_case() => Verify<RichVertex>("""
             {
               "@type": "g:Map",
               "@value": [ "age", 1, "Age", 2 ]
@@ -1609,13 +1609,13 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         // occurrence, and nothing throws. That goes for a member of a plain object, for a property
         // of a vertex, and for a key of the g:Map that valueMap() returns.
         [Fact]
-        public virtual Task Person_from_object_with_age_twice() => Verify<Person>("""{ "Age": 1, "Age": 2 }""");
+        public virtual Task Person_from_object_with_age_twice() => Verify<RichVertex>("""{ "Age": 1, "Age": 2 }""");
 
         [Fact]
-        public virtual Task Person_from_vertex_with_age_property_twice() => Verify<Person>("""
+        public virtual Task Person_from_vertex_with_age_property_twice() => Verify<RichVertex>("""
             {
               "id": 1,
-              "label": "Person",
+              "label": "RichVertex",
               "properties": {
                 "Age": [ { "id": 2, "value": 1 } ],
                 "Age": [ { "id": 3, "value": 2 } ]
@@ -1624,7 +1624,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             """);
 
         [Fact]
-        public virtual Task Person_from_map_with_age_twice() => Verify<Person>("""
+        public virtual Task Person_from_map_with_age_twice() => Verify<RichVertex>("""
             {
               "@type": "g:Map",
               "@value": [ "Age", 1, "Age", 2 ]
@@ -1640,10 +1640,10 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual Task Int_from_typed_value_with_value_twice() => Verify<int>("""{ "@type": "g:Int32", "@value": 1, "@value": 2 }""");
 
         // Nor are the g:T keys of an element map. An id that is there twice is the last one, asked
-        // for as a Person or as an object - and of two labels it is the last one that says what the
-        // element is: a Person here, not a SimpleVertex.
+        // for as a RichVertex or as an object - and of two labels it is the last one that says what the
+        // element is: a RichVertex here, not a SimpleVertex.
         [Fact]
-        public virtual Task Person_from_element_map_with_id_twice() => Verify<Person>("""
+        public virtual Task Person_from_element_map_with_id_twice() => Verify<RichVertex>("""
             {
               "@type": "g:Map",
               "@value": [
@@ -1652,7 +1652,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                 { "@type": "g:T", "@value": "id" },
                 { "@type": "g:Int64", "@value": 2 },
                 { "@type": "g:T", "@value": "label" },
-                "Person",
+                "RichVertex",
                 "Age",
                 36
               ]
@@ -1686,7 +1686,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                 { "@type": "g:T", "@value": "label" },
                 "SimpleVertex",
                 { "@type": "g:T", "@value": "label" },
-                "Person",
+                "RichVertex",
                 "Age",
                 36
               ]
@@ -1878,22 +1878,22 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             """);
 
         [Fact]
-        public virtual Task Person_From_ElementMap() => Verify<Person>(Single_Person_ElementMap);
+        public virtual Task Person_From_ElementMap() => Verify<RichVertex>(Single_Person_ElementMap);
 
         [Fact]
         public virtual Task Person_From_ElementMap_untyped() => Verify<object>(Single_Person_ElementMap);
 
         [Fact]
-        public virtual Task Person_StringId() => Verify<Person>(Single_Person_String_Id);
+        public virtual Task Person_StringId() => Verify<RichVertex>(Single_Person_String_Id);
 
         [Fact]
-        public virtual Task Person_strongly_typed() => Verify<Person>(Single_Person);
+        public virtual Task Person_strongly_typed() => Verify<RichVertex>(Single_Person);
 
         [Fact]
-        public virtual Task Person_with_null() => Verify<Person>(Single_Person_with_null);
+        public virtual Task Person_with_null() => Verify<RichVertex>(Single_Person_with_null);
 
         [Fact]
-        public virtual Task Person_without_PhoneNumbers_strongly_typed() => Verify<Person>(Single_Person_without_PhoneNumbers);
+        public virtual Task Person_without_PhoneNumbers_strongly_typed() => Verify<RichVertex>(Single_Person_without_PhoneNumbers);
 
         [Fact]
         public virtual Task Property_as_object() => Verify<object>("{ \"value\": 1540202009475, \"key\": \"Property1\" }");
@@ -2175,7 +2175,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             """);
 
         [Fact]
-        public virtual Task Tuple() => Verify<(Person, SimpleVertex)>(Tuple_of_Person_Language);
+        public virtual Task Tuple() => Verify<(RichVertex, SimpleVertex)>(Tuple_of_Person_Language);
 
         [Fact]
         public virtual Task Tuple_vertex_vertex() => Verify<(Vertex, Vertex)>(Tuple_of_Person_Language);
@@ -2203,7 +2203,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual Task Lifted_Entity() => Verify<IAuthority>("""
             {
               "id": "123",
-              "label": "Person",
+              "label": "RichVertex",
               "properties":
               {
                 "age": 42
@@ -2245,13 +2245,13 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual Task Object_from_Branching_scalar_tree() => Verify<object>(GraphSonStrings.Branching_scalar_tree);
 
         [Fact]
-        public virtual Task Mixed_entity_and_scalar_tree() => Verify<Tree<Person, Tree<int>>>(GraphSonStrings.Mixed_entity_and_scalar_tree);
+        public virtual Task Mixed_entity_and_scalar_tree() => Verify<Tree<RichVertex, Tree<int>>>(GraphSonStrings.Mixed_entity_and_scalar_tree);
 
         [Fact]
         public virtual Task Mixed_entity_and_scalar_as_object_tree() => Verify<Tree<object>>(GraphSonStrings.Mixed_entity_and_scalar_tree);
 
         [Fact]
-        public virtual Task Mixed_entity_and_scalar_tree_CosmosDb() => Verify<Tree<Person, Tree<int>>>(GraphSonStrings.Mixed_entity_and_scalar_tree_CosmosDb);
+        public virtual Task Mixed_entity_and_scalar_tree_CosmosDb() => Verify<Tree<RichVertex, Tree<int>>>(GraphSonStrings.Mixed_entity_and_scalar_tree_CosmosDb);
 
         [Fact]
         public virtual Task Mixed_entity_and_scalar_as_object_tree_CosmosDb() => Verify<Tree<object>>(GraphSonStrings.Mixed_entity_and_scalar_tree_CosmosDb);

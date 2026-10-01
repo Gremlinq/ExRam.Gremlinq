@@ -10,7 +10,7 @@
     _g: SiblingVertex,
     _h: FoundingDate,
     _i: Date_MinValue,
-    _j: Person,
+    _j: RichVertex,
     _k: Age,
     _l: 0,
     _m: id,

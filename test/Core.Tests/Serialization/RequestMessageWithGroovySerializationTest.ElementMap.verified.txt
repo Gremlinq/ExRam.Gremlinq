@@ -8,7 +8,7 @@
     },
     bindings: {
       _a: 10,
-      _b: Person
+      _b: RichVertex
     },
     gremlin: g.V(_a).hasLabel(_b).elementMap()
   }

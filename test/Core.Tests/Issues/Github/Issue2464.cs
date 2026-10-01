@@ -19,7 +19,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
         [Fact]
         public Task Repro() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Project(__ => __
                 .ToTuple()
                 .By(__ => __
@@ -33,7 +33,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
         [Fact]
         public Task Map_Out_Count() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Project(__ => __
                 .ToTuple()
                 .By(__ => __
@@ -46,7 +46,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
         [Fact]
         public Task Map_Map_Out_Count() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Project(__ => __
                 .ToTuple()
                 .By(__ => __
@@ -60,7 +60,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
         [Fact]
         public Task Map_Values() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Project(__ => __
                 .ToTuple()
                 .By(__ => __
@@ -72,7 +72,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
         [Fact]
         public Task Map_Out() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Project(__ => __
                 .ToTuple()
                 .By(__ => __
@@ -84,7 +84,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
         [Fact]
         public Task Local_Out_Count() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Project(__ => __
                 .ToTuple()
                 .By(__ => __
@@ -100,7 +100,7 @@ namespace ExRam.Gremlinq.Core.Tests
             .ConfigureEnvironment(env => env
                 .ConfigureOptions(options => options
                     .SetValue(GremlinqOption.EnableEmptyProjectionValueProtection, true)))
-            .V<Person>()
+            .V<RichVertex>()
             .Project(__ => __
                 .ToTuple()
                 .By(__ => __
@@ -113,7 +113,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
         [Fact]
         public Task Local_Values() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Project(__ => __
                 .ToTuple()
                 .By(__ => __
@@ -125,7 +125,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
         [Fact]
         public Task Map_Local_Values() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Project(__ => __
                 .ToTuple()
                 .By(__ => __
@@ -138,7 +138,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
         [Fact]
         public Task Local_Map_Out_Count() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Project(__ => __
                 .ToTuple()
                 .By(__ => __
@@ -152,7 +152,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
         [Fact]
         public Task Map_Out_Count_followed_by_step() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Project(__ => __
                 .ToTuple()
                 .By(__ => __
@@ -169,7 +169,7 @@ namespace ExRam.Gremlinq.Core.Tests
             .ConfigureEnvironment(env => env
                 .ConfigureOptions(options => options
                     .SetValue(GremlinqOption.EnableEmptyProjectionValueProtection, true)))
-            .V<Person>()
+            .V<RichVertex>()
             .Project(__ => __
                 .ToTuple()
                 .By(__ => __
@@ -182,7 +182,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
         [Fact]
         public Task Map_Out_Count_by_name() => _g
-            .V<Person>()
+            .V<RichVertex>()
             .Project(__ => __
                 .ToDynamic()
                 .By("count", __ => __

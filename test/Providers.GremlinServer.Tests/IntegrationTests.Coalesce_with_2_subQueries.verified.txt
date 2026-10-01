@@ -8,7 +8,7 @@
       Value: Bob
     },
     Id: 10,
-    Label: Person,
+    Label: RichVertex,
     PartitionKey: PartitionKey
   },
   {
@@ -38,7 +38,7 @@
   {
     Age: 43,
     Id: 7,
-    Label: Person,
+    Label: RichVertex,
     PartitionKey: PartitionKey
   },
   {
@@ -53,7 +53,7 @@
   },
   {
     Id: 15,
-    Label: Person,
+    Label: RichVertex,
     PartitionKey: PartitionKey
   },
   {
@@ -63,7 +63,7 @@
   },
   {
     Id: 19,
-    Label: Person,
+    Label: RichVertex,
     PartitionKey: PartitionKey
   },
   {
@@ -73,12 +73,12 @@
   },
   {
     Id: 23,
-    Label: Person,
+    Label: RichVertex,
     PartitionKey: PartitionKey
   },
   {
     Id: 29,
-    Label: Person,
+    Label: RichVertex,
     PartitionKey: PartitionKey
   },
   {
@@ -100,7 +100,7 @@
   },
   {
     Id: 44,
-    Label: Person,
+    Label: RichVertex,
     PartitionKey: PartitionKey
   },
   {
