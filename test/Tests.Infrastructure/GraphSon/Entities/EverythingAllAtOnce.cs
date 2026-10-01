@@ -3,9 +3,10 @@ using Path = ExRam.Gremlinq.Core.GraphElements.Path;
 using System.Collections.Immutable;
 using System.Collections.Concurrent;
 using System.Collections;
+using ExRam.Gremlinq.Tests.Entities;
 
-namespace ExRam.Gremlinq.Tests.Entities
-{ 
+namespace ExRam.Gremlinq.Tests.Infrastructure.GraphSon.Entities
+{
     public sealed class EverythingAllAtOnce
     {
         public int Int_from_double { get; set; }
