@@ -2,7 +2,7 @@ using ExRam.Gremlinq.Core.GraphElements;
 
 namespace ExRam.Gremlinq.Tests.Entities
 {
-    public class RichVertex : Authority
+    public class RichVertex : AbstractVertex
     {
         public int Age { get; set; }
 

@@ -1514,20 +1514,20 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task Not3() => _g
             .V()
-            .Not(__ => __.OfType<Authority>())
+            .Not(__ => __.OfType<AbstractVertex>())
             .Verify();
 
         [Fact]
         public virtual Task OfType_abstract() => _g
             .V()
-            .OfType<Authority>()
+            .OfType<AbstractVertex>()
             .Verify();
 
         [Fact]
         public virtual Task OfType_redundant1() => _g
             .V()
             .OfType<SiblingVertex>()
-            .OfType<Authority>()
+            .OfType<AbstractVertex>()
             .Verify();
 
         [Fact]
@@ -1542,13 +1542,13 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .V()
             .OfType<SiblingVertex>()
             .Cast<object>()
-            .OfType<Authority>()
+            .OfType<AbstractVertex>()
             .Verify();
 
         [Fact]
         public virtual Task OfType_redundant4() => _g
             .V()
-            .OfType<Authority>()
+            .OfType<AbstractVertex>()
             .OfType<SiblingVertex>()
             .Verify();
 
@@ -3879,9 +3879,9 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .ConfigureEnvironment(env => env
                 .ConfigureModel(model => model
                     .ConfigureVertices(_ => _
-                        .ConfigureElement<Authority>(__ => __
+                        .ConfigureElement<AbstractVertex>(__ => __
                             .ConfigureName(x => x.Name, "n")))))
-            .V<IAuthority>()
+            .V<IAbstractVertex>()
             .Where(x => x.Name!.Value == "some name")
             .Verify();
 
@@ -4347,7 +4347,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task V_of_abstract_type() => _g
-            .V<Authority>()
+            .V<AbstractVertex>()
             .Verify();
 
         [Fact]
@@ -4680,7 +4680,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task Where_identity_with_type_change() => _g
             .V<RichVertex>()
-            .Where(_ => _.OfType<Authority>())
+            .Where(_ => _.OfType<AbstractVertex>())
             .Verify();
 
         [Fact]

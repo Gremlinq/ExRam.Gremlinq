@@ -121,7 +121,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
         [Fact]
         public Task OfType_after_OfType() => VerifySteps(_g
-            .V<Authority>()
+            .V<AbstractVertex>()
             .Coalesce(__ => __
                 .OfType<RichVertex>()));
 

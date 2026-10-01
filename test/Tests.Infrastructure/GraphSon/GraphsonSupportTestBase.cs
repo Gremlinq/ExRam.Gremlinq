@@ -2200,7 +2200,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual Task VertexPropertyWithoutProperties() => Verify<VertexProperty<object, object>>("{ \"id\": 166, \"value\": \"bob\", \"label\": \"Name\" }");
 
         [Fact]
-        public virtual Task Lifted_Entity() => Verify<IAuthority>("""
+        public virtual Task Lifted_Entity() => Verify<IAbstractVertex>("""
             {
               "id": "123",
               "label": "RichVertex",

@@ -2,7 +2,7 @@ using ExRam.Gremlinq.Core.GraphElements;
 
 namespace ExRam.Gremlinq.Tests.Entities
 {
-    public class SiblingVertex : Authority
+    public class SiblingVertex : AbstractVertex
     {
         public DateTime FoundingDate { get; set; }
 

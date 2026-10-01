@@ -43,7 +43,7 @@ namespace ExRam.Gremlinq.Core.Tests
             var model = GraphModel.FromBaseTypes<Vertex, Edge>();
 
             await Verify(model.VerticesModel
-                .GetFilterLabels(FilterTypesCache<Authority>.Types, FilterLabelsVerbosity.Maximum));
+                .GetFilterLabels(FilterTypesCache<AbstractVertex>.Types, FilterLabelsVerbosity.Maximum));
         }
 
         [Fact]
@@ -195,13 +195,13 @@ namespace ExRam.Gremlinq.Core.Tests
                 .ConfigureElement<RichVertex>(conf => conf
                     .IgnoreOnUpdate(p => p.Name)))
             .VerticesModel
-            .GetMetadata(typeof(Authority).GetProperty(nameof(Authority.Name))!));
+            .GetMetadata(typeof(AbstractVertex).GetProperty(nameof(AbstractVertex.Name))!));
 
         [Fact]
         public async Task Configuration_can_be_found_for_derived_class() => await Verify(GraphModel
             .FromBaseTypes<Vertex, Edge>()
             .ConfigureVertices(pm => pm
-                .ConfigureElement<Authority>(conf => conf
+                .ConfigureElement<AbstractVertex>(conf => conf
                     .IgnoreOnUpdate(p => p.Name)))
             .VerticesModel
             .GetMetadata(typeof(RichVertex).GetProperty(nameof(RichVertex.Name))!));
