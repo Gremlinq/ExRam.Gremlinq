@@ -1,6 +1,6 @@
 {
   Age: 36,
-  Gender: Female,
+  Gender: One,
   PhoneNumbers: [
     {
       Id: 4,

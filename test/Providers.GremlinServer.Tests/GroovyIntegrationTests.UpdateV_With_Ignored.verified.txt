@@ -1,7 +1,7 @@
 ﻿[
   {
     Age: 21,
-    Gender: Male,
+    Gender: Zero,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
       Id: 222,
@@ -15,7 +15,7 @@
   },
   {
     Age: 21,
-    Gender: Male,
+    Gender: Zero,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
       Id: 224,
@@ -29,7 +29,7 @@
   },
   {
     Age: 21,
-    Gender: Male,
+    Gender: Zero,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
       Id: 226,
@@ -43,7 +43,7 @@
   },
   {
     Age: 21,
-    Gender: Male,
+    Gender: Zero,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
       Id: 228,
@@ -57,7 +57,7 @@
   },
   {
     Age: 21,
-    Gender: Male,
+    Gender: Zero,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
       Id: 230,
@@ -71,7 +71,7 @@
   },
   {
     Age: 21,
-    Gender: Male,
+    Gender: Zero,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
       Id: 232,
@@ -85,7 +85,7 @@
   },
   {
     Age: 21,
-    Gender: Male,
+    Gender: Zero,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
       Id: 234,
@@ -99,7 +99,7 @@
   },
   {
     Age: 21,
-    Gender: Male,
+    Gender: Zero,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
       Id: 236,
@@ -113,7 +113,7 @@
   },
   {
     Age: 21,
-    Gender: Male,
+    Gender: Zero,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
       Id: 238,
@@ -127,7 +127,7 @@
   },
   {
     Age: 21,
-    Gender: Male,
+    Gender: Zero,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
       Id: 240,
@@ -141,7 +141,7 @@
   },
   {
     Age: 21,
-    Gender: Male,
+    Gender: Zero,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
       Id: 242,

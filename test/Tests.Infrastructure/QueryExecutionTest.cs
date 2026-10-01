@@ -232,14 +232,14 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task AddV_with_enum_property() => _g
-            .AddV(new RichVertex { Gender = Gender.Female })
+            .AddV(new RichVertex { Gender = SomeEnum.One })
             .Verify();
 
         [Fact]
         public virtual async Task AddV_With_Ignored()
         {
             var now = new DateTimeOffset(2020, 4, 7, 14, 43, 36, TimeSpan.Zero);
-            var person = new RichVertex { Age = 21, Gender = Gender.Male, Name = "Marko", RegistrationDate = now };
+            var person = new RichVertex { Age = 21, Gender = SomeEnum.Zero, Name = "Marko", RegistrationDate = now };
 
             await _g
                 .ConfigureEnvironment(env => env
@@ -3066,7 +3066,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual async Task ReplaceV()
         {
             var now = new DateTimeOffset(2020, 4, 7, 14, 43, 36, TimeSpan.Zero);
-            var person = new RichVertex { Id = 0, Age = 21, Gender = Gender.Male, Name = "Marko", RegistrationDate = now };
+            var person = new RichVertex { Id = 0, Age = 21, Gender = SomeEnum.Zero, Name = "Marko", RegistrationDate = now };
 
             await _g
                 .ReplaceV(person)
@@ -3077,7 +3077,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual async Task ReplaceV_With_Config()
         {
             var now = new DateTimeOffset(2020, 4, 7, 14, 43, 36, TimeSpan.Zero);
-            var person = new RichVertex { Id = 0, Age = 21, Gender = Gender.Male, Name = "Marko", RegistrationDate = now };
+            var person = new RichVertex { Id = 0, Age = 21, Gender = SomeEnum.Zero, Name = "Marko", RegistrationDate = now };
 
             await _g
                 .ConfigureEnvironment(env => env
@@ -3672,7 +3672,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         {
             var now = new DateTimeOffset(2020, 4, 7, 14, 43, 36, TimeSpan.Zero);
             var edgeNow = new DateTime(2020, 4, 7, 14, 43, 36, DateTimeKind.Utc);
-            var person = new RichVertex { Age = 21, Gender = Gender.Male, Name = "Marko", RegistrationDate = now };
+            var person = new RichVertex { Age = 21, Gender = SomeEnum.Zero, Name = "Marko", RegistrationDate = now };
             var worksFor = new RichEdge { From = edgeNow, To = edgeNow, Role = "Admin" };
 
             await _g
@@ -3688,7 +3688,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         {
             var now = new DateTimeOffset(2020, 4, 7, 14, 43, 36, TimeSpan.Zero);
             var edgeNow = new DateTime(2020, 4, 7, 14, 43, 36, DateTimeKind.Utc);
-            var person = new RichVertex { Age = 21, Gender = Gender.Male, Name = "Marko", RegistrationDate = now };
+            var person = new RichVertex { Age = 21, Gender = SomeEnum.Zero, Name = "Marko", RegistrationDate = now };
             var worksFor = new RichEdge { From = edgeNow, To = edgeNow, Role = "Admin" };
 
             await _g
@@ -3767,7 +3767,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
             await _g
                 .V<RichVertex>()
-                .Update(new RichVertex { Age = 21, Gender = Gender.Male, Name = "Marko", RegistrationDate = now, PhoneNumbers = [new VertexProperty<string>("012345")]
+                .Update(new RichVertex { Age = 21, Gender = SomeEnum.Zero, Name = "Marko", RegistrationDate = now, PhoneNumbers = [new VertexProperty<string>("012345")]
                 })
                 .Verify();
         }
@@ -3776,7 +3776,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual async Task UpdateV_With_Ignored()
         {
             var now = new DateTimeOffset(2020, 4, 7, 14, 43, 36, TimeSpan.Zero);
-            var person = new RichVertex { Age = 21, Gender = Gender.Male, Name = "Marko", RegistrationDate = now };
+            var person = new RichVertex { Age = 21, Gender = SomeEnum.Zero, Name = "Marko", RegistrationDate = now };
 
             await _g
                 .ConfigureEnvironment(env => env
@@ -3794,7 +3794,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual async Task UpdateV_With_Mixed()
         {
             var now = new DateTimeOffset(2020, 4, 7, 14, 43, 36, TimeSpan.Zero);
-            var person = new RichVertex { Age = 21, Gender = Gender.Male, Name = "Marko", RegistrationDate = now };
+            var person = new RichVertex { Age = 21, Gender = SomeEnum.Zero, Name = "Marko", RegistrationDate = now };
 
             await _g
                 .ConfigureEnvironment(env => env
@@ -3812,7 +3812,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual async Task UpdateV_With_Readonly()
         {
             var now = new DateTimeOffset(2020, 4, 7, 14, 43, 36, TimeSpan.Zero);
-            var person = new RichVertex { Age = 21, Gender = Gender.Male, Name = "Marko", RegistrationDate = now };
+            var person = new RichVertex { Age = 21, Gender = SomeEnum.Zero, Name = "Marko", RegistrationDate = now };
 
             await _g
                 .ConfigureEnvironment(env => env

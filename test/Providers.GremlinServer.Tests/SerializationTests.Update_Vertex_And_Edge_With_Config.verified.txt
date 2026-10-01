@@ -38,7 +38,7 @@
           EnumValue: single
         },
         Gender,
-        Male
+        Zero
       ]
     },
     {

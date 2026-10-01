@@ -1,4 +1,4 @@
 ﻿[
-  Female,
-  NonBinary
+  One,
+  Two
 ]

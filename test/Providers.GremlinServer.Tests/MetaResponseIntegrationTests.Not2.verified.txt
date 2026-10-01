@@ -163,7 +163,7 @@
         PartitionKey: PartitionKey
       },
       {
-        Gender: Female,
+        Gender: One,
         Id: 59,
         Label: RichVertex,
         PartitionKey: PartitionKey

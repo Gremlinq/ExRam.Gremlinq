@@ -3,7 +3,7 @@
     log: {
       Level: Debug,
       Category: LoggingFixture,
-      Message: Executing Gremlin query 12345678-9012-3456-7890-123456789012 with groovy script g.V().hasLabel(_a).sideEffect(__.properties(_b,_c,_d,_e).drop()).property(single,_f,_g).property(single,_h,_i).property(single,_j,_k).property(list,_l,_m).property(single,_n,_o).project(_p,_q,_r).by(id).by(label).by(__.properties().group().by(label).by(__.project(_s,_t,_u,_v).by(id).by(label).by(value).by(__.valueMap()).fold())) and parameter bindings [_a, RichVertex], [_b, Image], [_c, PhoneNumbers], [_d, _Etag], [_e, _Self], [_f, Age], [_g, 21], [_h, Gender], [_i, Male], [_j, Name], [_k, Marko], [_l, PhoneNumbers], [_m, 012345], [_n, RegistrationDate], [_o, 04/07/2020 14:43:36 +00:00], [_p, id], [_q, label], [_r, properties], [_s, id], [_t, label], [_u, value], [_v, properties].,
+      Message: Executing Gremlin query 12345678-9012-3456-7890-123456789012 with groovy script g.V().hasLabel(_a).sideEffect(__.properties(_b,_c,_d,_e).drop()).property(single,_f,_g).property(single,_h,_i).property(single,_j,_k).property(list,_l,_m).property(single,_n,_o).project(_p,_q,_r).by(id).by(label).by(__.properties().group().by(label).by(__.project(_s,_t,_u,_v).by(id).by(label).by(value).by(__.valueMap()).fold())) and parameter bindings [_a, RichVertex], [_b, Image], [_c, PhoneNumbers], [_d, _Etag], [_e, _Self], [_f, Age], [_g, 21], [_h, Gender], [_i, Zero], [_j, Name], [_k, Marko], [_l, PhoneNumbers], [_m, 012345], [_n, RegistrationDate], [_o, 04/07/2020 14:43:36 +00:00], [_p, id], [_q, label], [_r, properties], [_s, id], [_t, label], [_u, value], [_v, properties].,
       State: [
         {
           requestId: 12345678-9012-3456-7890-123456789012

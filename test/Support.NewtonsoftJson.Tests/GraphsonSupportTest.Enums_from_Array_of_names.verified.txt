@@ -1,6 +1,6 @@
 ﻿[
-  Female,
-  NonBinary,
-  Female,
-  Male
+  One,
+  Two,
+  One,
+  Zero
 ]

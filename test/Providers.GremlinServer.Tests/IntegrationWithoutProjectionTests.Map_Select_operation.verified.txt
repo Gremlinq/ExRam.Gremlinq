@@ -137,13 +137,13 @@
   },
   {
     Item1: {
-      Gender: Female,
+      Gender: One,
       Id: 59,
       Label: RichVertex,
       PartitionKey: PartitionKey
     },
     Item2: {
-      Gender: Female,
+      Gender: One,
       Id: 59,
       Label: RichVertex,
       PartitionKey: PartitionKey

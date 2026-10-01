@@ -6,7 +6,7 @@ namespace ExRam.Gremlinq.Tests.Entities
     {
         public int Age { get; set; }
 
-        public Gender? Gender { get; set; }
+        public SomeEnum? Gender { get; set; }
 
         public byte[]? Image { get; set; }
 

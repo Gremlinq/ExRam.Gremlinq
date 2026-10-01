@@ -4,7 +4,7 @@
     Data: [
       {
         Age: 21,
-        Gender: Male,
+        Gender: Zero,
         RegistrationDate: 2020-04-07 14:43:36 +0,
         Name: {
           Id: 266,
@@ -18,7 +18,7 @@
       },
       {
         Age: 21,
-        Gender: Male,
+        Gender: Zero,
         RegistrationDate: 2020-04-07 14:43:36 +0,
         Name: {
           Id: 268,
@@ -32,7 +32,7 @@
       },
       {
         Age: 21,
-        Gender: Male,
+        Gender: Zero,
         RegistrationDate: 2020-04-07 14:43:36 +0,
         Name: {
           Id: 270,
@@ -46,7 +46,7 @@
       },
       {
         Age: 21,
-        Gender: Male,
+        Gender: Zero,
         RegistrationDate: 2020-04-07 14:43:36 +0,
         Name: {
           Id: 272,
@@ -60,7 +60,7 @@
       },
       {
         Age: 21,
-        Gender: Male,
+        Gender: Zero,
         RegistrationDate: 2020-04-07 14:43:36 +0,
         Name: {
           Id: 274,
@@ -74,7 +74,7 @@
       },
       {
         Age: 21,
-        Gender: Male,
+        Gender: Zero,
         RegistrationDate: 2020-04-07 14:43:36 +0,
         Name: {
           Id: 276,
@@ -88,7 +88,7 @@
       },
       {
         Age: 21,
-        Gender: Male,
+        Gender: Zero,
         RegistrationDate: 2020-04-07 14:43:36 +0,
         Name: {
           Id: 278,
@@ -102,7 +102,7 @@
       },
       {
         Age: 21,
-        Gender: Male,
+        Gender: Zero,
         RegistrationDate: 2020-04-07 14:43:36 +0,
         Name: {
           Id: 280,
@@ -116,7 +116,7 @@
       },
       {
         Age: 21,
-        Gender: Male,
+        Gender: Zero,
         RegistrationDate: 2020-04-07 14:43:36 +0,
         Name: {
           Id: 282,
@@ -130,7 +130,7 @@
       },
       {
         Age: 21,
-        Gender: Male,
+        Gender: Zero,
         RegistrationDate: 2020-04-07 14:43:36 +0,
         Name: {
           Id: 284,
@@ -144,7 +144,7 @@
       },
       {
         Age: 21,
-        Gender: Male,
+        Gender: Zero,
         RegistrationDate: 2020-04-07 14:43:36 +0,
         Name: {
           Id: 286,

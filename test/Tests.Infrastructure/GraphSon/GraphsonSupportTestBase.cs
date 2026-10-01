@@ -109,19 +109,19 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         // and whatever whitespace surrounds it. A name the enum does not have is no value of it,
         // and neither is no name at all.
         [Fact]
-        public virtual Task Enum_from_name() => Verify<Gender>("\"Female\"");
+        public virtual Task Enum_from_name() => Verify<SomeEnum>("\"One\"");
 
         [Fact]
-        public virtual Task Enum_from_name_in_other_case() => Verify<Gender>("\"female\"");
+        public virtual Task Enum_from_name_in_other_case() => Verify<SomeEnum>("\"one\"");
 
         [Fact]
-        public virtual Task Enum_from_name_in_whitespace() => Verify<Gender>("\" Female \"");
+        public virtual Task Enum_from_name_in_whitespace() => Verify<SomeEnum>("\" One \"");
 
         [Fact]
-        public virtual Task Enum_from_unknown_name() => VerifyAttempt<Gender>("\"Other\"");
+        public virtual Task Enum_from_unknown_name() => VerifyAttempt<SomeEnum>("\"Other\"");
 
         [Fact]
-        public virtual Task Enum_from_empty_string() => VerifyAttempt<Gender>("\"\"");
+        public virtual Task Enum_from_empty_string() => VerifyAttempt<SomeEnum>("\"\"");
 
         // Found however it is spelled, a name is found twice in an enum with two values that differ
         // in nothing but case. The one spelled exactly is the one that counts - here the second of
@@ -136,13 +136,13 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         // enum has a name for it or not. One that does not fit the type underlying the enum is no
         // value of it.
         [Fact]
-        public virtual Task Enum_from_number_in_string() => Verify<Gender>("\"1\"");
+        public virtual Task Enum_from_number_in_string() => Verify<SomeEnum>("\"1\"");
 
         [Fact]
-        public virtual Task Enum_from_number_without_name_in_string() => Verify<Gender>("\"42\"");
+        public virtual Task Enum_from_number_without_name_in_string() => Verify<SomeEnum>("\"42\"");
 
         [Fact]
-        public virtual Task Enum_from_number_out_of_range_in_string() => VerifyAttempt<Gender>("\"4294967296\"");
+        public virtual Task Enum_from_number_out_of_range_in_string() => VerifyAttempt<SomeEnum>("\"4294967296\"");
 
         // Names separated by commas are their values combined, each name found the way a single one
         // is. One among them that the enum does not have leaves nothing to read, and so does a comma
@@ -156,10 +156,10 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task Flags_enum_from_names_with_trailing_comma() => VerifyAttempt<FlagsEnum>("\"Read,\"");
 
-        // Whether the enum is [Flags] is not asked, as Enum.Parse does not ask either: Female and
-        // NonBinary are 1 and 2, and combine into a 3 that Gender has no name for.
+        // Whether the enum is [Flags] is not asked, as Enum.Parse does not ask either: One and
+        // Two are 1 and 2, and combine into a 3 that SomeEnum has no name for.
         [Fact]
-        public virtual Task Enum_without_Flags_from_names() => Verify<Gender>("\"Female, NonBinary\"");
+        public virtual Task Enum_without_Flags_from_names() => Verify<SomeEnum>("\"One, Two\"");
 
         // A value with an [EnumMember] is read from the name given there, and still from its own.
         // The name given there may be anything a string can be, so the whole text is looked for
@@ -182,49 +182,49 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         // A nullable enum is read the way the enum is. A name it does not have is not read as null:
         // there is a token to read and the enum cannot read it, which is a decline.
         [Fact]
-        public virtual Task Nullable_enum_from_name() => Verify<Gender?>("\"female\"");
+        public virtual Task Nullable_enum_from_name() => Verify<SomeEnum?>("\"one\"");
 
         [Fact]
-        public virtual Task Nullable_enum_from_unknown_name() => VerifyAttempt<Gender?>("\"Other\"");
+        public virtual Task Nullable_enum_from_unknown_name() => VerifyAttempt<SomeEnum?>("\"Other\"");
 
         [Fact]
-        public virtual Task Nullable_enum_from_empty_string() => VerifyAttempt<Gender?>("\"\"");
+        public virtual Task Nullable_enum_from_empty_string() => VerifyAttempt<SomeEnum?>("\"\"");
 
         // GraphSON has no type for an enum, so inside a typed value there is a number to read, and
         // it is read as the bare number is.
         [Fact]
-        public virtual Task Enum_from_typed_Int32() => Verify<Gender>("""{ "@type": "g:Int32", "@value": 1 }""");
+        public virtual Task Enum_from_typed_Int32() => Verify<SomeEnum>("""{ "@type": "g:Int32", "@value": 1 }""");
 
         // An enum is read from a name wherever one is read. As an element of an array, where a name
         // the enum does not have is dropped like any item that cannot be converted, and a null is
         // kept where the item type can hold one.
         [Fact]
-        public virtual Task Enums_from_Array_of_names() => Verify<Gender[]>("""[ "Female", "nonbinary", 1, "Other", "0" ]""");
+        public virtual Task Enums_from_Array_of_names() => Verify<SomeEnum[]>("""[ "One", "two", 1, "Other", "0" ]""");
 
         [Fact]
-        public virtual Task Nullable_enums_from_Array_of_names() => Verify<Gender?[]>("""[ "Female", null, "Other", "nonbinary" ]""");
+        public virtual Task Nullable_enums_from_Array_of_names() => Verify<SomeEnum?[]>("""[ "One", null, "Other", "two" ]""");
 
         [Fact]
-        public virtual Task Enums_from_typed_List_of_names() => Verify<Gender[]>("""{ "@type": "g:List", "@value": [ "Female", "nonbinary" ] }""");
+        public virtual Task Enums_from_typed_List_of_names() => Verify<SomeEnum[]>("""{ "@type": "g:List", "@value": [ "One", "two" ] }""");
 
         // As a value of a dictionary, read from an object or from a g:Map - where an entry whose
         // value is a name the enum does not have is left out, as the array leaves out the item.
         [Fact]
-        public virtual Task Enum_dictionary_from_object_with_names() => Verify<Dictionary<string, Gender>>("""{ "first": "Female", "second": "nonbinary", "third": 1 }""");
+        public virtual Task Enum_dictionary_from_object_with_names() => Verify<Dictionary<string, SomeEnum>>("""{ "first": "One", "second": "two", "third": 1 }""");
 
         [Fact]
-        public virtual Task Enum_dictionary_from_map_with_names() => Verify<Dictionary<string, Gender>>("""
+        public virtual Task Enum_dictionary_from_map_with_names() => Verify<Dictionary<string, SomeEnum>>("""
             {
               "@type": "g:Map",
-              "@value": [ "first", "Female", "second", "nonbinary", "third", { "@type": "g:Int32", "@value": 1 } ]
+              "@value": [ "first", "One", "second", "two", "third", { "@type": "g:Int32", "@value": 1 } ]
             }
             """);
 
         [Fact]
-        public virtual Task Enum_dictionary_from_map_with_unknown_name() => Verify<Dictionary<string, Gender>>("""
+        public virtual Task Enum_dictionary_from_map_with_unknown_name() => Verify<Dictionary<string, SomeEnum>>("""
             {
               "@type": "g:Map",
-              "@value": [ "first", "Female", "second", "Other" ]
+              "@value": [ "first", "One", "second", "Other" ]
             }
             """);
 
@@ -238,7 +238,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
               "id": 1,
               "label": "RichVertex",
               "properties": {
-                "Gender": [ { "id": 2, "value": "Female" } ]
+                "Gender": [ { "id": 2, "value": "One" } ]
               }
             }
             """);
@@ -256,7 +256,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                       "@type": "g:VertexProperty",
                       "@value": {
                         "id": { "@type": "g:Int64", "@value": 2 },
-                        "value": "female",
+                        "value": "one",
                         "label": "Gender"
                       }
                     }
@@ -270,7 +270,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual Task Person_from_map_with_Gender_name() => Verify<RichVertex>("""
             {
               "@type": "g:Map",
-              "@value": [ "Gender", [ "Female" ] ]
+              "@value": [ "Gender", [ "One" ] ]
             }
             """);
 
@@ -287,7 +287,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             """);
 
         [Fact]
-        public virtual Task VertexProperty_with_enum_name() => Verify<VertexProperty<Gender>>("""{ "id": 2, "value": "Female", "label": "Gender" }""");
+        public virtual Task VertexProperty_with_enum_name() => Verify<VertexProperty<SomeEnum>>("""{ "id": 2, "value": "One", "label": "Gender" }""");
 
         // Bug_1884 with the enum under its name: ValueA, where the entity sets ValueB by itself.
         [Fact]
@@ -301,7 +301,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         // Constructor arguments are read the same way as members are.
         [Fact]
-        public virtual Task Constructor_with_enum_names() => Verify<ClassWithEnumConstructor>("""{ "gender": "Female", "nullableGender": "nonbinary" }""");
+        public virtual Task Constructor_with_enum_names() => Verify<ClassWithEnumConstructor>("""{ "gender": "One", "nullableGender": "two" }""");
 
         [Fact]
         public virtual Task Constructor_assertion_1() => Verify<ClassWithFieldsAndConstructor>("{ }");

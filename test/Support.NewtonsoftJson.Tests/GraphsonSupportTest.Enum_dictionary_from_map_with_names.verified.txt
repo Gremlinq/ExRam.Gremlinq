@@ -1,5 +1,5 @@
 ﻿{
-  first: Female,
-  second: NonBinary,
-  third: Female
+  first: One,
+  second: Two,
+  third: One
 }

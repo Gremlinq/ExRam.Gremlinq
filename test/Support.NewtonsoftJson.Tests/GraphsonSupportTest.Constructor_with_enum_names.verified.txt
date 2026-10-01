@@ -1,4 +1,4 @@
 ﻿{
-  Gender: Female,
-  NullableGender: NonBinary
+  Gender: One,
+  NullableGender: Two
 }

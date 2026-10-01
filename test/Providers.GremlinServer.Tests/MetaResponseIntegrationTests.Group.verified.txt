@@ -5,7 +5,7 @@
       {
         ExRam.Gremlinq.Tests.Entities.RichVertex: [
           {
-            Gender: Female,
+            Gender: One,
             Id: 59,
             Label: RichVertex,
             PartitionKey: PartitionKey

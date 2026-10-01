@@ -1,5 +1,5 @@
 ﻿{
-  Gender: Female,
+  Gender: One,
   Id: 1,
   Label: RichVertex,
   PartitionKey: PartitionKey

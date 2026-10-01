@@ -4,13 +4,13 @@ namespace ExRam.Gremlinq.Tests.Infrastructure.GraphSon.Entities
 {
     public class ClassWithEnumConstructor
     {
-        public ClassWithEnumConstructor(Gender gender, Gender? nullableGender)
+        public ClassWithEnumConstructor(SomeEnum gender, SomeEnum? nullableGender)
         {
             Gender = gender;
             NullableGender = nullableGender;
         }
 
-        public Gender Gender { get; }
-        public Gender? NullableGender { get; }
+        public SomeEnum Gender { get; }
+        public SomeEnum? NullableGender { get; }
     }
 }

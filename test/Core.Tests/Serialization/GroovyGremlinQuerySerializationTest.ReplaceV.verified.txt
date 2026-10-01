@@ -10,7 +10,7 @@
     _g: Age,
     _h: 21,
     _i: Gender,
-    _j: Male,
+    _j: Zero,
     _k: Name,
     _l: Marko,
     _m: RegistrationDate,
