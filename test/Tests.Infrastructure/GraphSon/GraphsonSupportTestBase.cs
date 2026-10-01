@@ -1444,7 +1444,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual Task Mixed_Ids() => Verify<object[]>("[ 1, \"id2\" ]");
 
         [Fact]
-        public virtual Task NamedTuple() => Verify<PersonLanguageTuple>(Named_tuple_of_Person_Language);
+        public virtual Task NamedTuple() => Verify<RichVertexSimpleVertexTuple>(Named_tuple_of_Person_Language);
 
         [Fact]
         public virtual Task Nested_Array() => Verify<SimpleVertex[][]>(Nested_array_of_Languages);

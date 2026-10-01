@@ -72,7 +72,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure.GraphSon.Entities
         public MetaPropertyVertex? Meta_Properties { get; set; }
         public Property<object>[]? MetaProperties { get; set; }
         public object[]? Mixed_Ids { get; set; }
-        public PersonLanguageTuple? NamedTuple { get; set; }
+        public RichVertexSimpleVertexTuple? NamedTuple { get; set; }
         public SimpleVertex[][]? Nested_Array { get; set; }
         public int? Nullable { get; set; }
         public int?[]? Nullable_null { get; set; }
