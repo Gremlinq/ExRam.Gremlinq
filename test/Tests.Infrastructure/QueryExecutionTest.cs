@@ -5519,8 +5519,8 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Where_source_expression_on_both_sides2() => _g
-            .V<EntityWithTwoIntProperties>()
-            .Where(x => x.IntProperty1 > x.IntProperty2)
+            .E<WorksFor>()
+            .Where(x => x.From < x.To)
             .Verify();
 
         [Fact]

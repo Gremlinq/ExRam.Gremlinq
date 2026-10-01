@@ -16,7 +16,6 @@
           Arguments: [
             Company,
             Country,
-            EntityWithTwoIntProperties,
             Language,
             Person,
             TimeFrame

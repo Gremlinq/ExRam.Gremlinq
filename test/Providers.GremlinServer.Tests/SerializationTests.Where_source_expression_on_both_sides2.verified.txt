@@ -1,12 +1,12 @@
 {
   StepInstructions: [
     {
-      OperatorName: V
+      OperatorName: E
     },
     {
       OperatorName: hasLabel,
       Arguments: [
-        EntityWithTwoIntProperties
+        WorksFor
       ]
     },
     {
@@ -19,7 +19,7 @@
       OperatorName: where,
       Arguments: [
         {
-          OperatorName: gt,
+          OperatorName: lt,
           Value: _a
         }
       ]
@@ -27,13 +27,13 @@
     {
       OperatorName: by,
       Arguments: [
-        IntProperty1
+        From
       ]
     },
     {
       OperatorName: by,
       Arguments: [
-        IntProperty2
+        To
       ]
     },
     {
@@ -68,79 +68,7 @@
         {
           StepInstructions: [
             {
-              OperatorName: properties
-            },
-            {
-              OperatorName: group
-            },
-            {
-              OperatorName: by,
-              Arguments: [
-                {
-                  EnumName: T,
-                  EnumValue: label
-                }
-              ]
-            },
-            {
-              OperatorName: by,
-              Arguments: [
-                {
-                  StepInstructions: [
-                    {
-                      OperatorName: project,
-                      Arguments: [
-                        id,
-                        label,
-                        value,
-                        properties
-                      ]
-                    },
-                    {
-                      OperatorName: by,
-                      Arguments: [
-                        {
-                          EnumName: T,
-                          EnumValue: id
-                        }
-                      ]
-                    },
-                    {
-                      OperatorName: by,
-                      Arguments: [
-                        {
-                          EnumName: T,
-                          EnumValue: label
-                        }
-                      ]
-                    },
-                    {
-                      OperatorName: by,
-                      Arguments: [
-                        {
-                          EnumName: T,
-                          EnumValue: value
-                        }
-                      ]
-                    },
-                    {
-                      OperatorName: by,
-                      Arguments: [
-                        {
-                          StepInstructions: [
-                            {
-                              OperatorName: valueMap
-                            }
-                          ]
-                        }
-                      ]
-                    },
-                    {
-                      OperatorName: fold
-                    }
-                  ]
-                }
-              ]
+              OperatorName: valueMap
             }
           ]
         }

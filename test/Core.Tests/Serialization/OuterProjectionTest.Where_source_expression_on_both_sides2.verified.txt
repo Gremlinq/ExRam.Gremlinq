@@ -24,7 +24,7 @@
   },
   {
     Traversal: {
-      Count: 4,
+      Count: 1,
       Projection: {
         Name: ExRam.Gremlinq.Core.Projections.EmptyProjection
       }
