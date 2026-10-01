@@ -7,7 +7,7 @@
       OperatorName: bothE,
       Arguments: [
         EmptyEdge,
-        LivesIn,
+        PropertyEdge,
         WorksFor
       ]
     },

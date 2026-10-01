@@ -6,7 +6,7 @@
     {
       OperatorName: hasLabel,
       Arguments: [
-        LivesIn
+        PropertyEdge
       ]
     },
     {

@@ -4,7 +4,7 @@
     Data: [
       {
         Id: 41,
-        Label: LivesIn
+        Label: PropertyEdge
       }
     ],
     ResponseStatus: {

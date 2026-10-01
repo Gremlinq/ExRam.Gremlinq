@@ -10,7 +10,7 @@
       _a: RichVertex,
       _b: Age,
       _c: 0,
-      _d: LivesIn,
+      _d: PropertyEdge,
       _e: Since,
       _f: DateTimeOffset_1,
       _g: MetaPropertyVertex,

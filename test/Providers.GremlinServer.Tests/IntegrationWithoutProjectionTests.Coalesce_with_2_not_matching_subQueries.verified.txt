@@ -5,7 +5,7 @@
   },
   {
     Id: 14,
-    Label: LivesIn
+    Label: PropertyEdge
   },
   {
     CountryCallingCode: +49,
@@ -34,7 +34,7 @@
   },
   {
     Id: 18,
-    Label: LivesIn
+    Label: PropertyEdge
   },
   {
     Id: 15,
@@ -43,7 +43,7 @@
   },
   {
     Id: 22,
-    Label: LivesIn
+    Label: PropertyEdge
   },
   {
     Id: 19,
@@ -56,7 +56,7 @@
       Key: Since
     },
     Id: 26,
-    Label: LivesIn
+    Label: PropertyEdge
   },
   {
     Id: 23,
@@ -87,7 +87,7 @@
   },
   {
     Id: 41,
-    Label: LivesIn
+    Label: PropertyEdge
   },
   {
     Id: 44,

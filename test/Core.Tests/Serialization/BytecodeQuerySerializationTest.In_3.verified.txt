@@ -13,7 +13,7 @@
       OperatorName: in,
       Arguments: [
         EmptyEdge,
-        LivesIn,
+        PropertyEdge,
         WorksFor
       ]
     },

@@ -10,7 +10,7 @@
       _a: RichVertex,
       _b: Age,
       _c: 0,
-      _d: LivesIn,
+      _d: PropertyEdge,
       _e: MetaPropertyVertex,
       _f: id,
       _g: label,

@@ -14,7 +14,7 @@
       _e: Bob,
       _f: RegistrationDate,
       _g: DateTimeOffset_1,
-      _h: LivesIn,
+      _h: PropertyEdge,
       _i: MetaPropertyVertex,
       _j: CountryCallingCode,
       _k: +49,

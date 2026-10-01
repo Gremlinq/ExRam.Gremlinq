@@ -28,7 +28,7 @@
     {
       OperatorName: inE,
       Arguments: [
-        LivesIn,
+        PropertyEdge,
         WorksFor
       ]
     },

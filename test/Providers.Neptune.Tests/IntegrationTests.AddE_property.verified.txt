@@ -4,6 +4,6 @@
       Value: 2020-04-07 14:43:36 +0
     },
     Id: 26,
-    Label: LivesIn
+    Label: PropertyEdge
   }
 ]

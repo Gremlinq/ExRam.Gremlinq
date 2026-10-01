@@ -5,6 +5,6 @@
       Key: Since
     },
     Id: 26,
-    Label: LivesIn
+    Label: PropertyEdge
   }
 ]

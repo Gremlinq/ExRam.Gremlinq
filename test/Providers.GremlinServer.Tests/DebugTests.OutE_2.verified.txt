@@ -1,1 +1,1 @@
-g.V().hasLabel('RichVertex').outE('LivesIn','WorksFor').project('id','label','properties').by(id).by(label).by(__.valueMap())
+g.V().hasLabel('RichVertex').outE('PropertyEdge','WorksFor').project('id','label','properties').by(id).by(label).by(__.valueMap())

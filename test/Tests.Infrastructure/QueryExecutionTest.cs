@@ -110,7 +110,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                     Name = "Bob",
                     RegistrationDate = now
                 })
-                .AddE(new LivesIn())
+                .AddE(new PropertyEdge())
                 .From(__ => __
                     .V<MetaPropertyVertex>()
                     .Where(t => t.CountryCallingCode == "+49"))
@@ -120,7 +120,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task AddE_InV() => _g
             .AddV<RichVertex>()
-            .AddE<LivesIn>()
+            .AddE<PropertyEdge>()
             .To(__ => __
                 .AddV<MetaPropertyVertex>())
             .InV()
@@ -129,7 +129,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task AddE_OutV() => _g
             .AddV<RichVertex>()
-            .AddE<LivesIn>()
+            .AddE<PropertyEdge>()
             .To(__ => __
                 .AddV<MetaPropertyVertex>())
             .OutV()
@@ -138,7 +138,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task AddE_property() => _g
             .AddV<RichVertex>()
-            .AddE(new LivesIn
+            .AddE(new PropertyEdge
             {
                 Since = new DateTimeOffset(2020, 4, 7, 14, 43, 36, TimeSpan.Zero)
             })
@@ -178,7 +178,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                     Name = "Bob",
                     RegistrationDate = now
                 })
-                .AddE(new LivesIn())
+                .AddE(new PropertyEdge())
                 .To(__ => __
                     .V<MetaPropertyVertex>()
                     .Where(t => t.CountryCallingCode == "+49"))
@@ -442,7 +442,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                 __ => __
                     .InE<WorksFor>(),
                 __ => __
-                    .OutE<LivesIn>())
+                    .OutE<PropertyEdge>())
             .Verify();
 
         [Fact]
@@ -457,7 +457,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .V<RichVertex>()
             .And(
                 __ => __
-                    .OutE<LivesIn>(),
+                    .OutE<PropertyEdge>(),
                 __ => __
                     .And(
                         __ => __
@@ -1021,7 +1021,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task E_Properties_member() => _g
-            .E<LivesIn>()
+            .E<PropertyEdge>()
             .Properties(x => x.Since!)
             .Verify();
 
@@ -1210,7 +1210,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                 .ByKey(_ => _
                     .Label())
                 .ByValue(_ => _
-                    .Out<LivesIn>()
+                    .Out<PropertyEdge>()
                     .OfType<MetaPropertyVertex>()))
             .Verify();
 
@@ -1260,13 +1260,13 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task In_2() => _g
             .V<RichVertex>()
-            .In<WorksFor, LivesIn>()
+            .In<WorksFor, PropertyEdge>()
             .Verify();
 
         [Fact]
         public virtual Task In_3() => _g
             .V<RichVertex>()
-            .In<WorksFor, LivesIn, EmptyEdge>()
+            .In<WorksFor, PropertyEdge, EmptyEdge>()
             .Verify();
 
         [Fact]
@@ -1293,13 +1293,13 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task InE_2() => _g
             .V<RichVertex>()
-            .InE<WorksFor, LivesIn>()
+            .InE<WorksFor, PropertyEdge>()
             .Verify();
 
         [Fact]
         public virtual Task InE_3() => _g
             .V<RichVertex>()
-            .InE<WorksFor, LivesIn, EmptyEdge>()
+            .InE<WorksFor, PropertyEdge, EmptyEdge>()
             .Verify();
 
         [Fact]
@@ -1566,7 +1566,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                 __ => __
                     .InE<WorksFor>(),
                 __ => __
-                    .OutE<LivesIn>())
+                    .OutE<PropertyEdge>())
             .Verify();
 
         [Fact]
@@ -1575,7 +1575,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Or(
                 __ => __,
                 __ => __
-                    .OutE<LivesIn>())
+                    .OutE<PropertyEdge>())
             .Verify();
 
         [Fact]
@@ -1583,7 +1583,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .V<RichVertex>()
             .Or(
                 __ => __
-                    .OutE<LivesIn>(),
+                    .OutE<PropertyEdge>(),
                 __ => __
                     .Or(
                         __ => __
@@ -1597,7 +1597,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .V<RichVertex>()
             .Or(
                 __ => __
-                    .OutE<LivesIn>(),
+                    .OutE<PropertyEdge>(),
                 __ => __
                     .And(
                         __ => __,
@@ -1641,9 +1641,9 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .V<RichVertex>()
             .Or(
                 __ => __
-                    .Out<LivesIn>(),
+                    .Out<PropertyEdge>(),
                 __ => __
-                    .OutE<LivesIn>()
+                    .OutE<PropertyEdge>()
                     .InV())
             .Verify();
 
@@ -1793,13 +1793,13 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task Out_2() => _g
             .V<RichVertex>()
-            .Out<WorksFor, LivesIn>()
+            .Out<WorksFor, PropertyEdge>()
             .Verify();
 
         [Fact]
         public virtual Task Out_3() => _g
             .V<RichVertex>()
-            .Out<WorksFor, LivesIn, EmptyEdge>()
+            .Out<WorksFor, PropertyEdge, EmptyEdge>()
             .Verify();
 
         [Fact]
@@ -1832,13 +1832,13 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task OutE_2() => _g
             .V<RichVertex>()
-            .OutE<WorksFor, LivesIn>()
+            .OutE<WorksFor, PropertyEdge>()
             .Verify();
 
         [Fact]
         public virtual Task OutE_3() => _g
             .V<RichVertex>()
-            .OutE<WorksFor, LivesIn, EmptyEdge>()
+            .OutE<WorksFor, PropertyEdge, EmptyEdge>()
             .Verify();
 
         [Fact]
@@ -3568,7 +3568,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .V<RichVertex>()
             .Union(
                 __ => __.Out<WorksFor>(),
-                __ => __.Out<LivesIn>())
+                __ => __.Out<PropertyEdge>())
             .Verify();
 
         [Fact]
@@ -3576,7 +3576,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .V<RichVertex>()
             .Union(
                 __ => __.Out<WorksFor>(),
-                __ => __.OutE<LivesIn>())
+                __ => __.OutE<PropertyEdge>())
             .Verify();
 
         [Fact]
@@ -3587,7 +3587,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                     .Out<WorksFor>()
                     .Lower(),
                 __ => __
-                    .OutE<LivesIn>()
+                    .OutE<PropertyEdge>()
                     .Lower()
                     .Lower()
                     .Cast<object>())
@@ -3841,7 +3841,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task V_Both_3() => _g
            .V()
-           .Both<WorksFor, EmptyEdge, LivesIn>()
+           .Both<WorksFor, EmptyEdge, PropertyEdge>()
            .Verify();
 
         [Fact]
@@ -3865,7 +3865,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task V_BothE_3() => _g
             .V()
-            .BothE<WorksFor, EmptyEdge, LivesIn>()
+            .BothE<WorksFor, EmptyEdge, PropertyEdge>()
             .Verify();
 
         [Fact]
@@ -4423,7 +4423,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Values_of_Edge() => _g
-            .E<LivesIn>()
+            .E<PropertyEdge>()
             .Values(x => x.Since!)
             .Verify();
 
@@ -5593,7 +5593,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task Where_traversal() => _g
             .V<RichVertex>()
-            .Where(_ => _.Out<LivesIn>())
+            .Where(_ => _.Out<PropertyEdge>())
             .Verify();
 
         [Fact]

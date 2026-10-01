@@ -7,7 +7,7 @@
       g: g
     },
     bindings: {
-      _a: LivesIn,
+      _a: PropertyEdge,
       _b: Since
     },
     gremlin: g.E().hasLabel(_a).properties(_b)

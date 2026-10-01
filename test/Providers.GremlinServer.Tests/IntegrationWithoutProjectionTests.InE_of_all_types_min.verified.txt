@@ -1,7 +1,7 @@
 ﻿[
   {
     Id: 41,
-    Label: LivesIn
+    Label: PropertyEdge
   },
   {
     Id: 4,
@@ -16,15 +16,15 @@
   },
   {
     Id: 14,
-    Label: LivesIn
+    Label: PropertyEdge
   },
   {
     Id: 18,
-    Label: LivesIn
+    Label: PropertyEdge
   },
   {
     Id: 22,
-    Label: LivesIn
+    Label: PropertyEdge
   },
   {
     Since: {
@@ -32,7 +32,7 @@
       Key: Since
     },
     Id: 26,
-    Label: LivesIn
+    Label: PropertyEdge
   },
   {
     Role: Admin,

@@ -53,7 +53,7 @@
     {
       OperatorName: addE,
       Arguments: [
-        LivesIn
+        PropertyEdge
       ]
     },
     {

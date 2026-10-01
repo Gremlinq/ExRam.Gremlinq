@@ -3,7 +3,7 @@
   Bindings: {
     _a: RichVertex,
     _b: EmptyEdge,
-    _c: LivesIn,
+    _c: PropertyEdge,
     _d: WorksFor,
     _e: id,
     _f: label,

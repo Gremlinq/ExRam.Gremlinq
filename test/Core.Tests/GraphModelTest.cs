@@ -91,7 +91,7 @@ namespace ExRam.Gremlinq.Core.Tests
             .ConfigureElements(em => em
                 .UseCamelCaseLabels())
             .EdgesModel
-            .GetMetadata(typeof(LivesIn)));
+            .GetMetadata(typeof(PropertyEdge)));
 
         [Fact]
         public async Task Camelcase_Identifier_By_MemberExpression() => await Verify(GraphModel

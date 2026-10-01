@@ -9,19 +9,19 @@
   },
   {
     Id: 14,
-    Label: LivesIn
+    Label: PropertyEdge
   },
   {
     Id: 14,
-    Label: LivesIn
+    Label: PropertyEdge
   },
   {
     Id: 41,
-    Label: LivesIn
+    Label: PropertyEdge
   },
   {
     Id: 41,
-    Label: LivesIn
+    Label: PropertyEdge
   },
   {
     Role: Admin,
@@ -39,33 +39,33 @@
   },
   {
     Id: 18,
-    Label: LivesIn
+    Label: PropertyEdge
   },
   {
     Id: 18,
-    Label: LivesIn
+    Label: PropertyEdge
   },
   {
     Id: 22,
-    Label: LivesIn
+    Label: PropertyEdge
   },
   {
     Id: 22,
-    Label: LivesIn
+    Label: PropertyEdge
   },
   {
     Since: {
       Value: 2020-04-07 14:43:36 +0
     },
     Id: 26,
-    Label: LivesIn
+    Label: PropertyEdge
   },
   {
     Since: {
       Value: 2020-04-07 14:43:36 +0
     },
     Id: 26,
-    Label: LivesIn
+    Label: PropertyEdge
   },
   {
     Role: Admin,

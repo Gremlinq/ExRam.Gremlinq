@@ -9,7 +9,7 @@
     bindings: {
       _a: RichVertex,
       _b: WorksFor,
-      _c: LivesIn,
+      _c: PropertyEdge,
       _d: id,
       _e: label,
       _f: properties,

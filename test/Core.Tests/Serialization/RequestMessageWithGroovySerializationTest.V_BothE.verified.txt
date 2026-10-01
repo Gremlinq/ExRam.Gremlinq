@@ -8,7 +8,7 @@
     },
     bindings: {
       _a: EmptyEdge,
-      _b: LivesIn,
+      _b: PropertyEdge,
       _c: WorksFor,
       _d: id,
       _e: label,

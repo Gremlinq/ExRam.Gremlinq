@@ -3,6 +3,6 @@
   Bindings: {
     _a: RichVertex,
     _b: WorksFor,
-    _c: LivesIn
+    _c: PropertyEdge
   }
 }

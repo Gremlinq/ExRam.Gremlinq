@@ -17,7 +17,7 @@
             {
               OperatorName: out,
               Arguments: [
-                LivesIn
+                PropertyEdge
               ]
             }
           ]

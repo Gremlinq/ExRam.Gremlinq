@@ -29,7 +29,7 @@
       OperatorName: outE,
       Arguments: [
         EmptyEdge,
-        LivesIn,
+        PropertyEdge,
         WorksFor
       ]
     },

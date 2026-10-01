@@ -33,7 +33,7 @@
             {
               OperatorName: out,
               Arguments: [
-                LivesIn
+                PropertyEdge
               ]
             }
           ]
@@ -43,7 +43,7 @@
             {
               OperatorName: outE,
               Arguments: [
-                LivesIn
+                PropertyEdge
               ]
             },
             {

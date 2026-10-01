@@ -1,7 +1,7 @@
 {
   Script: g.E().hasLabel(_a).properties(_b),
   Bindings: {
-    _a: LivesIn,
+    _a: PropertyEdge,
     _b: Since
   }
 }
