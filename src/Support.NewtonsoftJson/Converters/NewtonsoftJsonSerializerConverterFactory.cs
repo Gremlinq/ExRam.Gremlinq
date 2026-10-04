@@ -158,6 +158,16 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                 {
 
                 }
+                // Newtonsoft's reader converts a number or a string without catching what .NET throws
+                // when it cannot, so these two arrive as they are.
+                catch (OverflowException)
+                {
+                    // Declined, used to throw: OverflowException from BigInteger.op_Explicit in JsonReader.ReadAsInt32 for 9223372036854775808 as a byte or a short, and from Convert.ToByte in JsonReader.ReadArrayIntoByteArray for [ 300 ] or [ -1 ] as a byte[].
+                }
+                catch (FormatException)
+                {
+                    // Declined, used to throw: FormatException from Convert.FromBase64String in JsonReader.ReadAsBytes for "not base64!" as a byte[].
+                }
 
                 value = default;
                 return false;
