@@ -108,6 +108,38 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
             {
                 ContractResolver = new GremlinContractResolver(environment.Model);
                 Converters.Add(new JTokenConverterConverter(environment));
+                // JTokenConverterConverter answers null for a value no converter can read, and the
+                // serializer then fails to put that null where it does not fit. Such an entry of a
+                // dictionary, or member of an object, is skipped, and the serializer carries on with the
+                // next one. The event is raised again for every object around the failing one as the
+                // error travels outwards; it is handled only where the failing entry or member is, so
+                // that an object that cannot be read itself is still declined as a whole. A key that
+                // cannot be read is skipped the same way. Only these failures are handled - any other
+                // exception, one a converter of the caller's throws say, still takes the
+                // deserialization down.
+                Error += (_, args) =>
+                {
+                    if (args.ErrorContext.Error is JsonSerializationException or ArgumentNullException && args.CurrentObject is { } currentObject && ReferenceEquals(args.ErrorContext.OriginalObject, currentObject) && args.ErrorContext.Member is not null)
+                    {
+                        switch (ContractResolver.ResolveContract(currentObject.GetType()))
+                        {
+                            case JsonDictionaryContract:
+                            {
+                                // Declined, used to throw: ArgumentNullException from IDictionary.set_Item in JsonSerializerInternalReader.PopulateDictionary for { "a": 1, "b": null } as a Dictionary<string, int>.
+                                args.ErrorContext.Handled = true;
+                                break;
+                            }
+                            case JsonObjectContract:
+                            {
+                                // Used to decline the whole object: a JsonSerializationException from
+                                // DynamicValueProvider.SetValue for { "Name": "x", "Age": null } as an object
+                                // with an int Age. The member keeps the value the object was made with.
+                                args.ErrorContext.Handled = true;
+                                break;
+                            }
+                        }
+                    }
+                };
             }
 
             public static GraphsonJsonSerializer From(IGremlinQueryEnvironment environment) => Serializers.GetValue(
