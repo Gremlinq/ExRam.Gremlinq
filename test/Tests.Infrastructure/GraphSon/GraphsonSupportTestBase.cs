@@ -393,26 +393,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         // string key alike, so the types are recorded alongside it: a map that only kept its entries
         // by turning 1 into "1" would not have kept them.
         [Fact]
-        public virtual Task Map_of_typed_int_keys_as_object()
-        {
-            var subject = _environment
-                .Deserializer
-                .TransformTo<object>()
-                .From(CreateNativeToken(Map_of_Typed_Int_Keys_Typed_String_Values), _environment);
-
-            return Verifier
-                .Verify(
-                    new
-                    {
-                        Type = subject.GetType(),
-                        KeyTypes = subject is IDictionary dictionary
-                            ? dictionary.Keys.Cast<object>().Select(static key => key.GetType()).ToArray()
-                            : null,
-                        Value = subject
-                    },
-                    sourceFile: _sourceFile)
-                .DontScrubDateTimes();
-        }
+        public virtual Task Map_of_typed_int_keys_as_object() => VerifyWithKeyTypes<object>(Map_of_Typed_Int_Keys_Typed_String_Values);
 
         // Asked for as anything but an object, such a map is read the way a map keyed by names is:
         // the members are looked up by name, and an entry whose key cannot be one is left out. It
@@ -1072,6 +1053,26 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Untyped_IEnumerable_from_Map_of_string_keys() => VerifyAttemptWithRuntimeType<IEnumerable>(Map_of_String_Keys_Typed_Int_Values);
+
+        // A map whose keys are not names is the Dictionary<object, object> it is as an object -
+        // Map_of_typed_int_keys_as_object - to everything such a dictionary can stand in for: the
+        // non-generic IDictionary, ICollection and IEnumerable. It keeps all its entries, keys as
+        // they were typed.
+        [Fact]
+        public virtual Task IUntypedDictionary_from_map_of_typed_int_keys() => VerifyWithKeyTypes<IDictionary>(Map_of_Typed_Int_Keys_Typed_String_Values);
+
+        [Fact]
+        public virtual Task IUntypedCollection_from_map_of_typed_int_keys() => VerifyWithKeyTypes<ICollection>(Map_of_Typed_Int_Keys_Typed_String_Values);
+
+        [Fact]
+        public virtual Task Untyped_IEnumerable_from_map_of_typed_int_keys() => VerifyWithKeyTypes<IEnumerable>(Map_of_Typed_Int_Keys_Typed_String_Values);
+
+        // Has to go with ExRam.Gremlinq#2502: an IEnumerable of KeyValuePair<string, object> is a
+        // Dictionary<string, object>, and today both implementations read the int keys of this map
+        // as the strings "1" and "2" for it. No key that is not a name is to be a string key; then
+        // this map gives an empty dictionary, and this test records the wrong answer until then.
+        [Fact]
+        public virtual Task IEnumerable_of_pairs_from_map_of_typed_int_keys_until_2502() => VerifyWithKeyTypes<IEnumerable<KeyValuePair<string, object>>>(Map_of_Typed_Int_Keys_Typed_String_Values);
 
         // A typed value is no map, whatever it is asked for as - only a g:Map is one. Read as a map,
         // it would be a dictionary of its @type and its @value, and that is of no use to anybody.
@@ -2622,6 +2623,29 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                         Keys = entries?.Select(static entry => entry.Key).ToArray(),
                         KeyTypes = entries?.Select(static entry => entry.Key.GetType()).ToArray(),
                         ValueTypes = entries?.Select(static entry => entry.Value?.GetType()).ToArray(),
+                        Value = subject
+                    },
+                    sourceFile: _sourceFile)
+                .DontScrubDateTimes();
+        }
+
+        // The runtime type of a dictionary and the types of its keys alongside its value: a
+        // snapshot writes an int key, a string key and a Key alike.
+        private SettingsTask VerifyWithKeyTypes<T>(string token)
+        {
+            var subject = _environment
+                .Deserializer
+                .TransformTo<T>()
+                .From(CreateNativeToken(token), _environment);
+
+            return Verifier
+                .Verify(
+                    new
+                    {
+                        Type = subject!.GetType(),
+                        KeyTypes = subject is IDictionary dictionary
+                            ? dictionary.Keys.Cast<object>().Select(static key => key.GetType()).ToArray()
+                            : null,
                         Value = subject
                     },
                     sourceFile: _sourceFile)

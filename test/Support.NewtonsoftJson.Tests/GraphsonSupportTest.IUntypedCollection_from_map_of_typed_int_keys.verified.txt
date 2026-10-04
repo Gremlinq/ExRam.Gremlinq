@@ -1,0 +1,11 @@
+﻿{
+  Type: Dictionary<object, object>,
+  KeyTypes: [
+    int,
+    int
+  ],
+  Value: {
+    1: value1,
+    2: value2
+  }
+}
