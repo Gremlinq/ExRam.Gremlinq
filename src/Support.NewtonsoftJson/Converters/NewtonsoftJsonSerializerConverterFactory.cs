@@ -8,6 +8,7 @@ using Newtonsoft.Json.Serialization;
 using System.Reflection;
 using ExRam.Gremlinq.Core.GraphElements;
 using System.Runtime.CompilerServices;
+using System.Collections;
 
 namespace ExRam.Gremlinq.Support.NewtonsoftJson
 {
@@ -143,6 +144,11 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
         private sealed class NewtonsoftJsonSerializerConverter<TSource, TTarget> : IConverter<TSource, TTarget>
             where TSource : JToken
         {
+            // Every dictionary is a collection, and so is every collection interface the JObject of a
+            // typed value implements itself - ICollection, IEnumerable. A JToken asked for as what it
+            // is stays what it is.
+            private static readonly bool TargetIsCollection = typeof(IEnumerable).IsAssignableFrom(typeof(TTarget)) && !typeof(JToken).IsAssignableFrom(typeof(TTarget));
+
             private readonly GraphsonJsonSerializer _serializer;
 
             public NewtonsoftJsonSerializerConverter(IGremlinQueryEnvironment environment)
@@ -154,6 +160,15 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
             {
                 ArgumentNullException.ThrowIfNull(defer);
                 ArgumentNullException.ThrowIfNull(recurse);
+
+                // A typed value gets here when TypedValueConverter could not read its @value as the
+                // type asked for. Asked for as a collection, the serializer would read its @type and
+                // its @value as two entries, and the JObject would stand in for one as it is.
+                if (TargetIsCollection && source is JObject jObject && jObject.IsTypedValueOtherThanMap())
+                {
+                    value = default;
+                    return false;
+                }
 
                 if (source is TTarget alreadyRequestedValue)
                 {

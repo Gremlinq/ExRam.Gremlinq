@@ -112,6 +112,11 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
         // A null, bare or as the @value of a typed value - which is a null of its type.
         public static bool IsNullValue(this JToken token) => token.Type == JTokenType.Null || token is JObject typed && typed.ContainsKey("@type") && typed.TryGetValue("@value", out var value) && value.Type == JTokenType.Null;
 
+        // A typed value is no map, though a JObject holds it: read as one, it is a dictionary of its
+        // @type and its @value, which is of no use to anybody. A g:Map is the one typed value that
+        // is a map, and the converters that read it know it by its @type.
+        public static bool IsTypedValueOtherThanMap(this JObject jObject) => jObject.TryGetValue("@type", out var typeToken) && typeToken.Type == JTokenType.String && jObject.ContainsKey("@value") && !"g:Map".Equals(typeToken.Value<string>(), StringComparison.OrdinalIgnoreCase);
+
         public static bool LooksLikeProperty(this JObject jObject) => jObject.TryGetValue("value", out _) && jObject.TryGetValue("key", out var keyToken) && keyToken.Type == JTokenType.String;
 
         public static bool LooksLikeVertexProperty(this JObject jObject)

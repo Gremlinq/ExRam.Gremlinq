@@ -24,6 +24,14 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                 ArgumentNullException.ThrowIfNull(defer);
                 ArgumentNullException.ThrowIfNull(recurse);
 
+                // A typed value gets here when TypedValueConverter could not read its @value as the
+                // dictionary asked for, and then it is no dictionary at all.
+                if (serialized.IsTypedValueOtherThanMap())
+                {
+                    value = null;
+                    return false;
+                }
+
                 var ret = new Dictionary<string, object?>();
 
                 // A null value is kept as a null, never as the JValue that holds it, which an object
