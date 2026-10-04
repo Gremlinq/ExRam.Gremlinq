@@ -13,6 +13,8 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
         {
             private readonly IGremlinQueryEnvironment _environment;
 
+            private static readonly bool CanBeObjectDictionary = typeof(TTarget).IsAssignableFrom(typeof(Dictionary<object, object>));
+
             public MapDeferralConverter(IGremlinQueryEnvironment environment)
             {
                 _environment = environment;
@@ -29,9 +31,11 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                     if (serialized.TryGetValue("@value", out var valueToken) && valueToken is JArray mapArray)
                     {
                         // A JObject can only hold keys that are names, so a map with any other key
-                        // would lose those entries on its way through one. Asked for as an object,
-                        // such a map is built as the dictionary it is, keys as they were typed.
-                        if (typeof(TTarget) == typeof(object))
+                        // would lose those entries on its way through one. Asked for as anything a
+                        // Dictionary<object, object> can stand in for - an object, the non-generic
+                        // IDictionary, ICollection or IEnumerable - such a map is built as the
+                        // dictionary it is, keys as they were typed.
+                        if (CanBeObjectDictionary)
                         {
                             for (var i = 0; i < mapArray.Count / 2; i++)
                             {
