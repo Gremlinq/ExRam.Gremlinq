@@ -50,13 +50,10 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
         {
             ArgumentNullException.ThrowIfNull(environment);
 
-            if (typeof(TSource) == typeof(JValue) && typeof(Property).IsAssignableFrom(typeof(TTarget)) && typeof(TTarget).IsGenericType)
+            if (typeof(TSource) == typeof(JValue) && typeof(TTarget).TryGetGenericArgumentsOf(typeof(Property<>)) is [var targetPropertyValueType])
             {
-                if (typeof(TTarget).GetGenericArguments() is [var targetPropertyValueType])
-                {
-                    if (typeof(TTarget).GetConstructor([targetPropertyValueType]) is { } constructor)
-                        return (IConverter<TSource, TTarget>?)Activator.CreateInstance(typeof(ScalarToPropertyConverter<,>).MakeGenericType(typeof(TTarget), targetPropertyValueType), environment, constructor);
-                }
+                if (typeof(TTarget).GetConstructor([targetPropertyValueType]) is { } constructor)
+                    return (IConverter<TSource, TTarget>?)Activator.CreateInstance(typeof(ScalarToPropertyConverter<,>).MakeGenericType(typeof(TTarget), targetPropertyValueType), environment, constructor);
             }
 
             return null;

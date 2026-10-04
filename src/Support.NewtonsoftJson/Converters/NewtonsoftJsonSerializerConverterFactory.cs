@@ -31,20 +31,6 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                     if ((_model.VerticesModel.TryGetMetadata(member) ?? _model.EdgesModel.TryGetMetadata(member)) is { Key.RawKey: string name })
                         property.PropertyName = name;
 
-                    if (member.DeclaringType is { } declaringType)
-                    {
-                        if (declaringType == typeof(Property))
-                        {
-                            if (member.Name == nameof(Property.Key))
-                                property.Writable = true;
-                        }
-                        else if (declaringType.IsGenericType && declaringType.GetGenericTypeDefinition() == typeof(VertexProperty<,>))
-                        {
-                            if (member.Name == nameof(VertexProperty<>.Id) || member.Name == nameof(VertexProperty<>.Label))
-                                property.Writable = true;
-                        }
-                    }
-
                     property.Readable = false;
 
                     return property;
@@ -210,7 +196,12 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
         {
             ArgumentNullException.ThrowIfNull(environment);
 
-            return typeof(JToken).IsAssignableFrom(typeof(TSource))
+            // Not for a property: PropertyConverterFactory reads one from an object and
+            // ScalarToPropertyConverterFactory from a scalar, and what they decline stays declined.
+            // The serializer would call the property's constructor with a null for a value it cannot
+            // read, and that throws.
+            // Declined, used to throw: ArgumentNullException from the constructor of Property<TValue> for { "key": "k", "value": null } as a Property<string>.
+            return typeof(JToken).IsAssignableFrom(typeof(TSource)) && !typeof(Property).IsAssignableFrom(typeof(TTarget))
                 ? (IConverter<TSource, TTarget>?)Activator.CreateInstance(typeof(NewtonsoftJsonSerializerConverter<,>).MakeGenericType(typeof(TSource), typeof(TTarget)), environment)
                 : null;
         }
