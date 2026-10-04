@@ -1,0 +1,7 @@
+﻿{
+  Success: true,
+  Value: {
+    Name: x,
+    Initialized: 42
+  }
+}

@@ -1600,6 +1600,29 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task Dictionary_from_object_with_null_value() => VerifyAttempt<Dictionary<string, int>>("""{ "a": 1, "b": null }""");
 
+        // A member of an object that cannot be read is left out the same way: it keeps the value
+        // the object was made with, its initializer's or the default of its type, and the members
+        // around it are read as ever. A null is no int, and neither is a string that is no number
+        // or an object. A single item array is the item it holds, and a number is read as a string -
+        // these two are here to compare.
+        [Fact]
+        public virtual Task Object_with_int_member_that_is_no_number() => VerifyAttempt<ClassWithInitializedMember>("""{ "Name": "x", "Age": "abc" }""");
+
+        [Fact]
+        public virtual Task Object_with_int_member_that_is_null() => VerifyAttempt<ClassWithInitializedMember>("""{ "Name": "x", "Age": null }""");
+
+        [Fact]
+        public virtual Task Object_with_int_member_that_is_an_object() => VerifyAttempt<ClassWithInitializedMember>("""{ "Name": "x", "Age": {} }""");
+
+        [Fact]
+        public virtual Task Object_with_int_member_in_single_item_array() => VerifyAttempt<ClassWithInitializedMember>("""{ "Name": "x", "Age": [ 1 ] }""");
+
+        [Fact]
+        public virtual Task Object_with_string_member_from_number_in_single_item_array() => VerifyAttempt<ClassWithInitializedMember>("""{ "Name": [ 1 ], "Age": 5 }""");
+
+        [Fact]
+        public virtual Task Object_with_initialized_member_that_is_no_number() => VerifyAttempt<ClassWithInitializedMember>("""{ "Name": "x", "Age": 5, "Initialized": "abc" }""");
+
         [Fact]
         public virtual Task Object_from_double() => Verify<object>("1.2");
 

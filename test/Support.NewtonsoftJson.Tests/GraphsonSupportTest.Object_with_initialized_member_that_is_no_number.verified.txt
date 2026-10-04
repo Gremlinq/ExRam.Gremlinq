@@ -1,0 +1,8 @@
+﻿{
+  Success: true,
+  Value: {
+    Name: x,
+    Age: 5,
+    Initialized: 42
+  }
+}
