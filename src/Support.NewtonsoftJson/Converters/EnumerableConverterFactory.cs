@@ -244,7 +244,9 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
 
             // JToken, not JArray: a bulk set arrives as a JObject, and the collections have to be
             // buildable from it too. Every converter below declines a JObject that is not one.
-            if (typeof(JToken).IsAssignableFrom(typeof(TSource)))
+            // A collection of key-value pairs is a dictionary, and KeyValuePairCollectionConverterFactory
+            // reads it as one. A list of pairs read from an array is not what a dictionary would be.
+            if (typeof(JToken).IsAssignableFrom(typeof(TSource)) && !KeyValuePairCollectionConverterFactory.IsKeyValuePairCollection(typeof(TTarget), out _, out _))
             {
                 if (typeof(TTarget).IsAssignableFrom(typeof(object[])))
                     return (IConverter<TSource, TTarget>?)Activator.CreateInstance(typeof(ArrayConverter<,>).MakeGenericType(typeof(TTarget), typeof(object)), environment);

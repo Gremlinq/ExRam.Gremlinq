@@ -216,7 +216,11 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
             // The serializer would call the property's constructor with a null for a value it cannot
             // read, and that throws.
             // Declined, used to throw: ArgumentNullException from the constructor of Property<TValue> for { "key": "k", "value": null } as a Property<string>.
-            return typeof(JToken).IsAssignableFrom(typeof(TSource)) && !typeof(Property).IsAssignableFrom(typeof(TTarget))
+            //
+            // Nor for a collection of key-value pairs, which KeyValuePairCollectionConverterFactory
+            // reads as the dictionary it is. The serializer would read an array into a list of pairs,
+            // and throw an ArgumentNullException for an item that is no pair.
+            return typeof(JToken).IsAssignableFrom(typeof(TSource)) && !typeof(Property).IsAssignableFrom(typeof(TTarget)) && !KeyValuePairCollectionConverterFactory.IsKeyValuePairCollection(typeof(TTarget), out _, out _)
                 ? (IConverter<TSource, TTarget>?)Activator.CreateInstance(typeof(NewtonsoftJsonSerializerConverter<,>).MakeGenericType(typeof(TSource), typeof(TTarget)), environment)
                 : null;
         }
