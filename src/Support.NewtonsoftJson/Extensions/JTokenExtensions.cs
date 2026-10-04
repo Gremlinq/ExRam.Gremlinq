@@ -109,6 +109,9 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
             return false;
         }
 
+        // A null, bare or as the @value of a typed value - which is a null of its type.
+        public static bool IsNullValue(this JToken token) => token.Type == JTokenType.Null || token is JObject typed && typed.ContainsKey("@type") && typed.TryGetValue("@value", out var value) && value.Type == JTokenType.Null;
+
         public static bool LooksLikeProperty(this JObject jObject) => jObject.TryGetValue("value", out _) && jObject.TryGetValue("key", out var keyToken) && keyToken.Type == JTokenType.String;
 
         public static bool LooksLikeVertexProperty(this JObject jObject)

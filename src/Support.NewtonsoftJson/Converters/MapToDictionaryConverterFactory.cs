@@ -14,6 +14,8 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
         {
             private readonly IGremlinQueryEnvironment _environment;
 
+            private static readonly bool ValueCanBeNull = !typeof(TValue).IsValueType || Nullable.GetUnderlyingType(typeof(TValue)) is not null;
+
             protected MapConverter(IGremlinQueryEnvironment environment)
             {
                 _environment = environment;
@@ -41,11 +43,21 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                         // read, there is no entry: the earlier one is not what the map says. The
                         // keys are compared as what they are read as, so a g:Int32 1 and a g:Int64 1
                         // are the same key when longs are asked for.
+                        //
+                        // A null value is a value where the dictionary's values can hold a null, as
+                        // it is for a plain object, and the entry is kept with a null - never with
+                        // the JValue that holds it. TryTransform cannot answer a null, so it is the
+                        // dictionary that decides this, before anything reads the value, as an array
+                        // does for its items.
                         for (var i = 0; i < mapArray.Count / 2; i++)
                         {
                             if (recurse.TryTransform(mapArray[i * 2], _environment, out TKey? key))
                             {
-                                if (recurse.TryTransform(mapArray[i * 2 + 1], _environment, out TValue? entry))
+                                var entryToken = mapArray[i * 2 + 1];
+
+                                if (ValueCanBeNull && entryToken.IsNullValue())
+                                    dictionary[key] = default!;
+                                else if (recurse.TryTransform(entryToken, _environment, out TValue? entry))
                                     dictionary[key] = entry;
                                 else
                                     dictionary.Remove(key);

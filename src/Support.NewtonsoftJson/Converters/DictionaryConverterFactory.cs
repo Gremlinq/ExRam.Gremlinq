@@ -26,10 +26,17 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
 
                 var ret = new Dictionary<string, object?>();
 
+                // A null value is kept as a null, never as the JValue that holds it, which an object
+                // could otherwise be read as.
                 foreach (var property in serialized)
                 {
-                    if (property.Value is { } propertyValue && recurse.TryTransform(propertyValue, _environment, out object? item))
-                        ret.TryAdd(property.Key, item);
+                    if (property.Value is { } propertyValue)
+                    {
+                        if (propertyValue.IsNullValue())
+                            ret.TryAdd(property.Key, null);
+                        else if (recurse.TryTransform(propertyValue, _environment, out object? item))
+                            ret.TryAdd(property.Key, item);
+                    }
                 }
 
                 value = Unsafe.As<TTarget>(ret);
