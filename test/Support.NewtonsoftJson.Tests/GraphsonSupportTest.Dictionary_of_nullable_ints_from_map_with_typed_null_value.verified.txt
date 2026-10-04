@@ -1,0 +1,18 @@
+﻿{
+  Keys: [
+    a,
+    b
+  ],
+  KeyTypes: [
+    string,
+    string
+  ],
+  ValueTypes: [
+    null,
+    int
+  ],
+  Value: {
+    a: null,
+    b: 1
+  }
+}

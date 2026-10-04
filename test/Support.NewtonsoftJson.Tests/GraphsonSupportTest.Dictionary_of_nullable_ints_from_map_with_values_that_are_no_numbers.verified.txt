@@ -1,0 +1,14 @@
+﻿{
+  Keys: [
+    d
+  ],
+  KeyTypes: [
+    string
+  ],
+  ValueTypes: [
+    int
+  ],
+  Value: {
+    d: 1
+  }
+}

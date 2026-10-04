@@ -1600,6 +1600,59 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task Dictionary_from_object_with_null_value() => VerifyAttempt<Dictionary<string, int>>("""{ "a": 1, "b": null }""");
 
+        // The same for a g:Map, which is the other way a dictionary arrives.
+        [Fact]
+        public virtual Task Dictionary_from_map_with_null_value() => VerifyAttempt<Dictionary<string, int>>("""{ "@type": "g:Map", "@value": [ "a", 1, "b", null ] }""");
+
+        // Where the values can hold a null, the null is the value, and the entry is kept: a string,
+        // an int? - and a typed value whose @value is null, which is a null of its type. A plain
+        // object and a g:Map give the same dictionary, whatever its keys are.
+        [Fact]
+        public virtual Task Dictionary_of_strings_from_object_with_null_value() => VerifyWithValueTypes<Dictionary<string, string>>("""{ "a": null, "b": "x" }""");
+
+        [Fact]
+        public virtual Task Dictionary_of_nullable_ints_from_object_with_null_value() => VerifyWithValueTypes<Dictionary<string, int?>>("""{ "a": null, "b": 1 }""");
+
+        [Fact]
+        public virtual Task Dictionary_of_nullable_ints_from_object_with_typed_null_value() => VerifyWithValueTypes<Dictionary<string, int?>>("""{ "a": { "@type": "g:Int32", "@value": null }, "b": 1 }""");
+
+        [Fact]
+        public virtual Task Dictionary_of_strings_from_map_with_null_value() => VerifyWithValueTypes<Dictionary<string, string>>("""{ "@type": "g:Map", "@value": [ "a", null, "b", "x" ] }""");
+
+        [Fact]
+        public virtual Task Dictionary_of_nullable_ints_from_map_with_null_value() => VerifyWithValueTypes<Dictionary<string, int?>>("""{ "@type": "g:Map", "@value": [ "a", null, "b", 1 ] }""");
+
+        [Fact]
+        public virtual Task Dictionary_of_nullable_ints_from_map_with_typed_null_value() => VerifyWithValueTypes<Dictionary<string, int?>>("""{ "@type": "g:Map", "@value": [ "a", { "@type": "g:Int32", "@value": null }, "b", 1 ] }""");
+
+        [Fact]
+        public virtual Task Dictionary_of_strings_from_map_of_int_keys_with_null_value() => VerifyWithValueTypes<Dictionary<int, string>>("""{ "@type": "g:Map", "@value": [ 1, null, 2, "x" ] }""");
+
+        // Only a null is a null, though. A value that cannot be read is no null value but no value,
+        // and its entry is left out, whether the values could hold a null or not: a string that is
+        // no number, a typed value whose @value is no number, an object.
+        [Fact]
+        public virtual Task Dictionary_of_nullable_ints_from_map_with_values_that_are_no_numbers() => VerifyWithValueTypes<Dictionary<string, int?>>("""{ "@type": "g:Map", "@value": [ "a", "abc", "b", { "@type": "g:Int32", "@value": "abc" }, "c", {}, "d", 1 ] }""");
+
+        // An object can hold a null as well, and the entry is kept with a null - never with a
+        // serializer's own token that holds the null, though such a token could be an object. The
+        // same goes for the non-generic IDictionary, whose values are objects, and for a plain
+        // object asked for as an object, whose members are its entries.
+        [Fact]
+        public virtual Task Dictionary_of_objects_from_object_with_null_value() => VerifyWithValueTypes<Dictionary<string, object>>("""{ "a": null, "b": "x" }""");
+
+        [Fact]
+        public virtual Task Dictionary_of_objects_from_map_with_null_value() => VerifyWithValueTypes<Dictionary<string, object>>("""{ "@type": "g:Map", "@value": [ "a", null, "b", "x" ] }""");
+
+        [Fact]
+        public virtual Task IUntypedDictionary_from_object_with_null_value() => VerifyWithValueTypes<IDictionary>("""{ "a": null, "b": "x" }""");
+
+        [Fact]
+        public virtual Task IUntypedDictionary_from_map_with_null_value() => VerifyWithValueTypes<IDictionary>("""{ "@type": "g:Map", "@value": [ "a", null, "b", "x" ] }""");
+
+        [Fact]
+        public virtual Task Object_from_object_with_null_value() => VerifyWithValueTypes<object>("""{ "a": null, "b": "x" }""");
+
         // A member of an object that cannot be read is left out the same way: it keeps the value
         // the object was made with, its initializer's or the default of its type, and the members
         // around it are read as ever. A null is no int, and neither is a string that is no number
@@ -2380,5 +2433,38 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
               ]
             }
             """);
+
+        // A snapshot of a dictionary does not tell a null value from a missing entry, nor a null from
+        // a token that holds one, so the keys and the type of each value are recorded alongside it,
+        // in the same order.
+        private SettingsTask VerifyWithValueTypes<T>(string token)
+        {
+            var subject = _environment
+                .Deserializer
+                .TransformTo<T>()
+                .From(CreateNativeToken(token), _environment);
+
+            var entries = (subject switch
+            {
+                IDictionary dictionary => dictionary.Keys.Cast<object>().Select(key => (Key: key, Value: dictionary[key])),
+                IDictionary<string, object?> dictionary => dictionary.Select(static pair => (Key: (object)pair.Key, pair.Value)),
+                _ => null
+            })?
+                .OrderBy(static entry => entry.Key.ToString(), StringComparer.Ordinal)
+                .ThenBy(static entry => entry.Key.GetType().FullName, StringComparer.Ordinal)
+                .ToArray();
+
+            return Verifier
+                .Verify(
+                    new
+                    {
+                        Keys = entries?.Select(static entry => entry.Key).ToArray(),
+                        KeyTypes = entries?.Select(static entry => entry.Key.GetType()).ToArray(),
+                        ValueTypes = entries?.Select(static entry => entry.Value?.GetType()).ToArray(),
+                        Value = subject
+                    },
+                    sourceFile: _sourceFile)
+                .DontScrubDateTimes();
+        }
     }
 }
