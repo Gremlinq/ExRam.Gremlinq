@@ -1,0 +1,7 @@
+﻿{
+  Success: true,
+  Value: {
+    Value: x,
+    Key: k
+  }
+}

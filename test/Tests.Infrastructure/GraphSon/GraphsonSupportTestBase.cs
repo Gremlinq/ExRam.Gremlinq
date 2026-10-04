@@ -228,6 +228,9 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             }
             """);
 
+        [Fact]
+        public virtual Task Enum_dictionary_from_object_with_unknown_name() => VerifyAttempt<Dictionary<string, SomeEnum>>("""{ "a": "One", "b": "nope" }""");
+
         // And as a member of an entity, which is where an enum stored under its name comes back
         // from a graph: as the property of a vertex, however the vertex arrives - plain, typed, or
         // as valueMap() returns it. A name the enum does not have leaves the member as it was, and
@@ -1498,6 +1501,42 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task VertexProperty_of_string_from_null() => VerifyAttempt<VertexProperty<string>>("null");
 
+        // A property holds a value, never a null, so one whose value is null is no property - not a
+        // property of a null. Nor is one without a value, or with one that cannot be read: it is not
+        // a property of the default of its type.
+        [Fact]
+        public virtual Task Property_of_string_with_null_value() => VerifyAttempt<Property<string>>("""{ "key": "k", "value": null }""");
+
+        [Fact]
+        public virtual Task VertexProperty_of_string_with_null_value() => VerifyAttempt<VertexProperty<string>>("""{ "id": 1, "label": "k", "value": null }""");
+
+        [Fact]
+        public virtual Task Property_of_string_without_value() => VerifyAttempt<Property<string>>("""{ "key": "k" }""");
+
+        [Fact]
+        public virtual Task Property_of_int_with_value_that_is_no_number() => VerifyAttempt<Property<int>>("""{ "key": "k", "value": "abc" }""");
+
+        // A property of a type of its own is read as the property it derives from, from an object
+        // as from a scalar, as long as it is made from its value alone.
+        [Fact]
+        public virtual Task CustomProperty_from_object() => VerifyAttempt<CustomProperty>("""{ "key": "k", "value": "x" }""");
+
+        [Fact]
+        public virtual Task CustomProperty_from_scalar() => VerifyAttempt<CustomProperty>("\"x\"");
+
+        [Fact]
+        public virtual Task CustomProperty_with_null_value() => VerifyAttempt<CustomProperty>("""{ "key": "k", "value": null }""");
+
+        [Fact]
+        public virtual Task CustomVertexProperty_from_object() => VerifyAttempt<CustomVertexProperty>("""{ "id": 1, "label": "k", "value": "x", "properties": { "a": 1 } }""");
+
+        [Fact]
+        public virtual Task CustomVertexProperty_from_scalar() => VerifyAttempt<CustomVertexProperty>("\"x\"");
+
+        // A vertex property comes with an id and a label, and keeps a key when it comes with one too.
+        [Fact]
+        public virtual Task VertexProperty_of_string_with_key() => VerifyAttempt<VertexProperty<string>>("""{ "id": 1, "label": "name", "key": "name", "value": "x" }""");
+
         // Inside an array the null has somewhere to be, and is there - as a null, the way
         // Nullable_null has it for an int?.
         [Fact]
@@ -1555,6 +1594,12 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task Objects_from_Array_with_null() => Verify<object[]>("[ 1, null, 3 ]");
 
+        // A dictionary has no place for a null where its values cannot hold one: an entry is its key
+        // and its value, and with no value there is no entry. It is left out, and the entries
+        // around it are kept.
+        [Fact]
+        public virtual Task Dictionary_from_object_with_null_value() => VerifyAttempt<Dictionary<string, int>>("""{ "a": 1, "b": null }""");
+
         [Fact]
         public virtual Task Object_from_double() => Verify<object>("1.2");
 
@@ -1601,9 +1646,18 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task Constructor_argument_twice_in_different_case() => Verify<ClassWithFieldsAndConstructor>("""{ "stringArg": "a", "StringArg": "b", "intArg": 1 }""");
 
-        // And so are the members of Gremlinq's own Property<T>, when the caller asks for one.
+        // The members of Gremlinq's own Property<T> are the exception, when the caller asks for one:
+        // TinkerPop spells them in lower case, and the name spelled that way counts wherever it
+        // stands. Only without it is a name spelled another way taken, and then the first of them -
+        // data like that is far enough from the standard to do without the rule of the last one.
         [Fact]
         public virtual Task Property_with_value_twice_in_different_case() => Verify<Property<int>>("""{ "key": "p", "value": 1, "Value": 2 }""");
+
+        [Fact]
+        public virtual Task Property_with_value_twice_in_different_case_lower_case_last() => Verify<Property<int>>("""{ "key": "p", "Value": 2, "value": 1 }""");
+
+        [Fact]
+        public virtual Task Property_with_capitalized_key_and_value() => Verify<Property<int>>("""{ "Key": "p", "Value": 2, "VALUE": 3 }""");
 
         // A name spelled the same way twice is taken like one spelled two ways: from its last
         // occurrence, and nothing throws. That goes for a member of a plain object, for a property
@@ -1853,6 +1907,11 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             }
             """);
 
+        // The same for a plain object, whose keys are its names: a name that cannot be read as the
+        // key type leaves its member out, and the members around it are kept.
+        [Fact]
+        public virtual Task Dictionary_from_object_with_unreadable_key() => VerifyWithKeys<Dictionary<int, string>>("""{ "1": "a", "not a number": "b", "2": "c" }""");
+
         // A tree's entries are keyed as well, and a key that is there twice is its last subtree.
         [Fact]
         public virtual Task Tree_with_key_twice() => Verify<Tree<string>>("""
@@ -2008,8 +2067,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         // rather than throws - so each of these arrays is empty. The last number of each is within
         // the range until it is rounded, or, for the two widest types, until it is read as a double.
         // A long has one more: written as an integer it is out of range, however close the nearest
-        // double comes. An int is not among these: asked for one from a number out of its range, the
-        // two implementations do not agree yet.
+        // double comes.
         [Fact]
         public virtual Task SBytes_from_numbers_out_of_range() => Verify<List<sbyte>>("[ 128.0, -129.0, 127.5 ]");
 
@@ -2023,6 +2081,9 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual Task UShorts_from_numbers_out_of_range() => Verify<ushort[]>("[ 65536.0, -1.0, 65535.5 ]");
 
         [Fact]
+        public virtual Task Ints_from_numbers_out_of_range() => Verify<int[]>("[ 2147483648.0, -2147483649.0, 2147483647.5 ]");
+
+        [Fact]
         public virtual Task UInts_from_numbers_out_of_range() => Verify<uint[]>("[ 4294967296.0, -1.0, 4294967295.5 ]");
 
         [Fact]
@@ -2030,6 +2091,21 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task ULongs_from_numbers_out_of_range() => Verify<ulong[]>("[ 1e20, -1.0, 18446744073709551615.0 ]");
+
+        // Asked for on its own rather than as an item of an array, a number out of range is declined
+        // just the same, whether it comes bare or in a typed value - and so is an integer too big
+        // even for a long.
+        [Fact]
+        public virtual Task Int_from_typed_Int64_out_of_range() => VerifyAttempt<int>("""{ "@type": "g:Int64", "@value": 5000000000 }""");
+
+        [Fact]
+        public virtual Task Int_from_number_out_of_range() => VerifyAttempt<int>("1e19");
+
+        [Fact]
+        public virtual Task Byte_from_integer_out_of_range_of_long() => VerifyAttempt<byte>("9223372036854775808");
+
+        [Fact]
+        public virtual Task Short_from_integer_out_of_range_of_long() => VerifyAttempt<short>("9223372036854775808");
 
         // The same through a typed value, which is the number it holds whatever type it names, and
         // into a nullable. Asked for as an object, a typed value is what its type says, so a g:Int64
@@ -2130,6 +2206,17 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Byte_array_from_numbers_and_null() => VerifyAttempt<byte[]>("[ 1, null ]");
+
+        // A number that is no byte is not one in a byte[] either, and a string that is no Base64 is
+        // no byte[] at all.
+        [Fact]
+        public virtual Task Byte_array_from_number_out_of_range() => VerifyAttempt<byte[]>("[ 300 ]");
+
+        [Fact]
+        public virtual Task Byte_array_from_negative_number() => VerifyAttempt<byte[]>("[ -1 ]");
+
+        [Fact]
+        public virtual Task Byte_array_from_string_that_is_no_Base64() => VerifyAttempt<byte[]>("\"not base64!\"");
 
         [Fact]
         public virtual Task Byte_array_from_typed_List() => VerifyAttempt<byte[]>("""{ "@type": "g:List", "@value": [ 1, 2, 3 ] }""");

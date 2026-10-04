@@ -1,0 +1,6 @@
+﻿{
+  Success: true,
+  Value: {
+    Value: x
+  }
+}

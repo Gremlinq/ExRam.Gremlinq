@@ -1,0 +1,11 @@
+﻿{
+  Success: true,
+  Value: {
+    Id: 1,
+    Label: k,
+    Properties: {
+      a: 1
+    },
+    Value: x
+  }
+}

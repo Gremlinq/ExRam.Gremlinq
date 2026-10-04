@@ -1,0 +1,9 @@
+﻿{
+  Success: true,
+  Value: {
+    Id: 1,
+    Label: name,
+    Value: x,
+    Key: name
+  }
+}
