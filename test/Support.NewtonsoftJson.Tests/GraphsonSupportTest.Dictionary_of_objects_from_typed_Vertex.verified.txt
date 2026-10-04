@@ -1,0 +1,50 @@
+﻿{
+  Success: true,
+  Type: Dictionary<string, object>,
+  Value: {
+    location: [
+      {
+        Id: 6,
+        Label: location,
+        Properties: {
+          endTime: 2001,
+          startTime: 1997
+        },
+        Value: san diego
+      },
+      {
+        Id: 7,
+        Label: location,
+        Properties: {
+          endTime: 2004,
+          startTime: 2001
+        },
+        Value: santa cruz
+      },
+      {
+        Id: 8,
+        Label: location,
+        Properties: {
+          endTime: 2005,
+          startTime: 2004
+        },
+        Value: brussels
+      },
+      {
+        Id: 9,
+        Label: location,
+        Properties: {
+          startTime: 2005
+        },
+        Value: santa fe
+      }
+    ],
+    name: [
+      {
+        Id: 0,
+        Label: name,
+        Value: marko
+      }
+    ]
+  }
+}

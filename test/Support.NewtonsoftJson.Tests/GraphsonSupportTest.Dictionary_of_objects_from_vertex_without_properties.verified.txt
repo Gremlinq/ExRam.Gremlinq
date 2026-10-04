@@ -1,0 +1,4 @@
+﻿{
+  Success: true,
+  Type: Dictionary<string, object>
+}

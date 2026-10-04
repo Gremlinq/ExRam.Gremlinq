@@ -1,0 +1,8 @@
+﻿{
+  Success: true,
+  Type: Dictionary<string, object>,
+  Value: {
+    a: 1,
+    b: x
+  }
+}

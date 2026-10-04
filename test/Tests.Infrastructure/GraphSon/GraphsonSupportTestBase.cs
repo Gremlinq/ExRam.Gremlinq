@@ -27,6 +27,9 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         private const string Typed_UUID = """{ "@type": "g:UUID", "@value": "41d2e28a-20a4-4ab0-b379-d810dede3786" }""";
         private const string Typed_T = """{ "@type": "g:T", "@value": "id" }""";
         private const string Typed_List = """{ "@type": "g:List", "@value": [ { "@type": "g:Int32", "@value": 1 }, "abc" ] }""";
+        private const string Object_with_typed_value = """{ "a": { "@type": "g:Int32", "@value": 1 }, "b": "x" }""";
+        private const string Map_with_typed_value = """{ "@type": "g:Map", "@value": [ "a", { "@type": "g:Int32", "@value": 1 }, "b", "x" ] }""";
+        private const string Element_map = """{ "@type": "g:Map", "@value": [ { "@type": "g:T", "@value": "id" }, { "@type": "g:Int64", "@value": 1 }, { "@type": "g:T", "@value": "label" }, "person", "name", "marko" ] }""";
 
         private readonly string _sourceFile;
         protected readonly IGremlinQueryEnvironment _environment;
@@ -1159,6 +1162,69 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task IEnumerable_of_pairs_from_typed_List() => VerifyAttemptWithRuntimeType<IEnumerable<KeyValuePair<string, object>>>(Typed_List);
+
+        // A collection of key-value pairs is a dictionary to whatever a dictionary is: an
+        // IEnumerable, an ICollection or an IReadOnlyCollection of KeyValuePair<string, object> gets
+        // the very Dictionary<string, object> that is the answer for a Dictionary<string, object>
+        // itself - for an object, a g:Map, an element map and a g:Vertex alike - and declines what
+        // that declines. A g:Vertex is read into a Dictionary<string, object> the way a vertex is
+        // read into any class: its properties are the entries, and a dictionary has no member to
+        // take the id or the label.
+        [Fact]
+        public virtual Task Dictionary_of_objects_from_object() => VerifyAttemptWithRuntimeType<Dictionary<string, object>>(Object_with_typed_value);
+
+        [Fact]
+        public virtual Task IEnumerable_of_pairs_from_object() => VerifyAttemptWithRuntimeType<IEnumerable<KeyValuePair<string, object>>>(Object_with_typed_value);
+
+        [Fact]
+        public virtual Task ICollection_of_pairs_from_object() => VerifyAttemptWithRuntimeType<ICollection<KeyValuePair<string, object>>>(Object_with_typed_value);
+
+        [Fact]
+        public virtual Task IReadOnlyCollection_of_pairs_from_object() => VerifyAttemptWithRuntimeType<IReadOnlyCollection<KeyValuePair<string, object>>>(Object_with_typed_value);
+
+        [Fact]
+        public virtual Task Dictionary_of_objects_from_map() => VerifyAttemptWithRuntimeType<Dictionary<string, object>>(Map_with_typed_value);
+
+        [Fact]
+        public virtual Task IEnumerable_of_pairs_from_map() => VerifyAttemptWithRuntimeType<IEnumerable<KeyValuePair<string, object>>>(Map_with_typed_value);
+
+        [Fact]
+        public virtual Task ICollection_of_pairs_from_map() => VerifyAttemptWithRuntimeType<ICollection<KeyValuePair<string, object>>>(Map_with_typed_value);
+
+        [Fact]
+        public virtual Task IReadOnlyCollection_of_pairs_from_map() => VerifyAttemptWithRuntimeType<IReadOnlyCollection<KeyValuePair<string, object>>>(Map_with_typed_value);
+
+        [Fact]
+        public virtual Task Dictionary_of_objects_from_element_map() => VerifyAttemptWithRuntimeType<Dictionary<string, object>>(Element_map);
+
+        [Fact]
+        public virtual Task IEnumerable_of_pairs_from_element_map() => VerifyAttemptWithRuntimeType<IEnumerable<KeyValuePair<string, object>>>(Element_map);
+
+        [Fact]
+        public virtual Task ICollection_of_pairs_from_element_map() => VerifyAttemptWithRuntimeType<ICollection<KeyValuePair<string, object>>>(Element_map);
+
+        [Fact]
+        public virtual Task IReadOnlyCollection_of_pairs_from_element_map() => VerifyAttemptWithRuntimeType<IReadOnlyCollection<KeyValuePair<string, object>>>(Element_map);
+
+        [Fact]
+        public virtual Task Dictionary_of_objects_from_typed_Vertex() => VerifyAttemptWithRuntimeType<Dictionary<string, object>>(Graphson3ReferenceVertex);
+
+        [Fact]
+        public virtual Task IEnumerable_of_pairs_from_typed_Vertex() => VerifyAttemptWithRuntimeType<IEnumerable<KeyValuePair<string, object>>>(Graphson3ReferenceVertex);
+
+        [Fact]
+        public virtual Task ICollection_of_pairs_from_typed_Vertex() => VerifyAttemptWithRuntimeType<ICollection<KeyValuePair<string, object>>>(Graphson3ReferenceVertex);
+
+        [Fact]
+        public virtual Task IReadOnlyCollection_of_pairs_from_typed_Vertex() => VerifyAttemptWithRuntimeType<IReadOnlyCollection<KeyValuePair<string, object>>>(Graphson3ReferenceVertex);
+
+        // A vertex without properties gives an empty dictionary. One whose properties are no map is
+        // no vertex to read that way, and is read as the plain object it is.
+        [Fact]
+        public virtual Task Dictionary_of_objects_from_vertex_without_properties() => VerifyAttemptWithRuntimeType<Dictionary<string, object>>("""{ "id": 1, "label": "person" }""");
+
+        [Fact]
+        public virtual Task Dictionary_of_objects_from_vertex_whose_properties_are_no_map() => VerifyAttemptWithRuntimeType<Dictionary<string, object>>("""{ "id": 1, "label": "person", "properties": { "@type": "g:Int32", "@value": 5 } }""");
 
         [Fact]
         public virtual Task Object_from_typed_Direction() => Verify<object>("""{ "@type": "g:Direction", "@value": "OUT" }""");

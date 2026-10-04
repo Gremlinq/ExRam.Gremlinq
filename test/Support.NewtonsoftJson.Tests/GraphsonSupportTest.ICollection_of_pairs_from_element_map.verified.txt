@@ -1,0 +1,9 @@
+﻿{
+  Success: true,
+  Type: Dictionary<string, object>,
+  Value: {
+    id: 1,
+    label: person,
+    name: marko
+  }
+}
