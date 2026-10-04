@@ -23,6 +23,11 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
     // having to hold two answers at once.
     public abstract class GraphsonSupportTestBase<TNativeToken>
     {
+        private const string Typed_Int32 = """{ "@type": "g:Int32", "@value": 5 }""";
+        private const string Typed_UUID = """{ "@type": "g:UUID", "@value": "41d2e28a-20a4-4ab0-b379-d810dede3786" }""";
+        private const string Typed_T = """{ "@type": "g:T", "@value": "id" }""";
+        private const string Typed_List = """{ "@type": "g:List", "@value": [ { "@type": "g:Int32", "@value": 1 }, "abc" ] }""";
+
         private readonly string _sourceFile;
         protected readonly IGremlinQueryEnvironment _environment;
 
@@ -1064,6 +1069,96 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Untyped_IEnumerable_from_Map_of_string_keys() => VerifyAttemptWithRuntimeType<IEnumerable>(Map_of_String_Keys_Typed_Int_Values);
+
+        // A typed value is no map, whatever it is asked for as - only a g:Map is one. Read as a map,
+        // it would be a dictionary of its @type and its @value, and that is of no use to anybody.
+        // Where its @value can stand in for the requested type, the @value is the answer: a g:List
+        // is its items to an ICollection. Otherwise the typed value is declined. A g:List asked for
+        // as an IEnumerable is Untyped_IEnumerable_from_typed_List above.
+        //
+        // Nor is a typed value a collection of its @type and its @value, and no serializer hands out
+        // a token of its own - not the JObject that holds a typed value as an ICollection, nor the
+        // JValue of a g:Int32's @value as an IEnumerable, though each is one.
+        [Fact]
+        public virtual Task IUntypedDictionary_from_typed_Int32() => VerifyAttemptWithRuntimeType<IDictionary>(Typed_Int32);
+
+        [Fact]
+        public virtual Task IDictionary_of_objects_from_typed_Int32() => VerifyAttemptWithRuntimeType<IDictionary<string, object>>(Typed_Int32);
+
+        [Fact]
+        public virtual Task IReadOnlyDictionary_of_objects_from_typed_Int32() => VerifyAttemptWithRuntimeType<IReadOnlyDictionary<string, object>>(Typed_Int32);
+
+        [Fact]
+        public virtual Task IDictionary_of_objects_by_objects_from_typed_Int32() => VerifyAttemptWithRuntimeType<IDictionary<object, object>>(Typed_Int32);
+
+        [Fact]
+        public virtual Task IUntypedCollection_from_typed_Int32() => VerifyAttemptWithRuntimeType<ICollection>(Typed_Int32);
+
+        [Fact]
+        public virtual Task Untyped_IEnumerable_from_typed_Int32() => VerifyAttemptWithRuntimeType<IEnumerable>(Typed_Int32);
+
+        [Fact]
+        public virtual Task IEnumerable_of_pairs_from_typed_Int32() => VerifyAttemptWithRuntimeType<IEnumerable<KeyValuePair<string, object>>>(Typed_Int32);
+
+        [Fact]
+        public virtual Task IUntypedDictionary_from_typed_UUID() => VerifyAttemptWithRuntimeType<IDictionary>(Typed_UUID);
+
+        [Fact]
+        public virtual Task IDictionary_of_objects_from_typed_UUID() => VerifyAttemptWithRuntimeType<IDictionary<string, object>>(Typed_UUID);
+
+        [Fact]
+        public virtual Task IReadOnlyDictionary_of_objects_from_typed_UUID() => VerifyAttemptWithRuntimeType<IReadOnlyDictionary<string, object>>(Typed_UUID);
+
+        [Fact]
+        public virtual Task IDictionary_of_objects_by_objects_from_typed_UUID() => VerifyAttemptWithRuntimeType<IDictionary<object, object>>(Typed_UUID);
+
+        [Fact]
+        public virtual Task IUntypedCollection_from_typed_UUID() => VerifyAttemptWithRuntimeType<ICollection>(Typed_UUID);
+
+        [Fact]
+        public virtual Task Untyped_IEnumerable_from_typed_UUID() => VerifyAttemptWithRuntimeType<IEnumerable>(Typed_UUID);
+
+        [Fact]
+        public virtual Task IEnumerable_of_pairs_from_typed_UUID() => VerifyAttemptWithRuntimeType<IEnumerable<KeyValuePair<string, object>>>(Typed_UUID);
+
+        [Fact]
+        public virtual Task IUntypedDictionary_from_typed_T() => VerifyAttemptWithRuntimeType<IDictionary>(Typed_T);
+
+        [Fact]
+        public virtual Task IDictionary_of_objects_from_typed_T() => VerifyAttemptWithRuntimeType<IDictionary<string, object>>(Typed_T);
+
+        [Fact]
+        public virtual Task IReadOnlyDictionary_of_objects_from_typed_T() => VerifyAttemptWithRuntimeType<IReadOnlyDictionary<string, object>>(Typed_T);
+
+        [Fact]
+        public virtual Task IDictionary_of_objects_by_objects_from_typed_T() => VerifyAttemptWithRuntimeType<IDictionary<object, object>>(Typed_T);
+
+        [Fact]
+        public virtual Task IUntypedCollection_from_typed_T() => VerifyAttemptWithRuntimeType<ICollection>(Typed_T);
+
+        [Fact]
+        public virtual Task Untyped_IEnumerable_from_typed_T() => VerifyAttemptWithRuntimeType<IEnumerable>(Typed_T);
+
+        [Fact]
+        public virtual Task IEnumerable_of_pairs_from_typed_T() => VerifyAttemptWithRuntimeType<IEnumerable<KeyValuePair<string, object>>>(Typed_T);
+
+        [Fact]
+        public virtual Task IUntypedDictionary_from_typed_List() => VerifyAttemptWithRuntimeType<IDictionary>(Typed_List);
+
+        [Fact]
+        public virtual Task IDictionary_of_objects_from_typed_List() => VerifyAttemptWithRuntimeType<IDictionary<string, object>>(Typed_List);
+
+        [Fact]
+        public virtual Task IReadOnlyDictionary_of_objects_from_typed_List() => VerifyAttemptWithRuntimeType<IReadOnlyDictionary<string, object>>(Typed_List);
+
+        [Fact]
+        public virtual Task IDictionary_of_objects_by_objects_from_typed_List() => VerifyAttemptWithRuntimeType<IDictionary<object, object>>(Typed_List);
+
+        [Fact]
+        public virtual Task IUntypedCollection_from_typed_List() => VerifyAttemptWithRuntimeType<ICollection>(Typed_List);
+
+        [Fact]
+        public virtual Task IEnumerable_of_pairs_from_typed_List() => VerifyAttemptWithRuntimeType<IEnumerable<KeyValuePair<string, object>>>(Typed_List);
 
         [Fact]
         public virtual Task Object_from_typed_Direction() => Verify<object>("""{ "@type": "g:Direction", "@value": "OUT" }""");

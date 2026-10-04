@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Text;
 
 using ExRam.Gremlinq.Tests.Infrastructure;
@@ -67,6 +68,23 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
                         ? new NativeType(jValue.Value<int>())
                         : default));
         }
+
+        // A typed value is no map, nor a collection of its @type and its @value, and no serializer
+        // hands out a token of its own. Newtonsoft still does, until ExRam.Gremlinq#2495 lets it
+        // stop Core's transformer from giving the source token as it is: the JObject that holds a
+        // typed value is an ICollection, and the JValue of a g:Int32's @value an IEnumerable. These
+        // record that answer under a name of their own, next to the declines the contract asks for.
+        public override Task IUntypedCollection_from_typed_Int32() => VerifyAttemptWithRuntimeType<ICollection>("""{ "@type": "g:Int32", "@value": 5 }""")
+            .UseMethodName($"{nameof(IUntypedCollection_from_typed_Int32)}_until_2495");
+
+        public override Task IUntypedCollection_from_typed_UUID() => VerifyAttemptWithRuntimeType<ICollection>("""{ "@type": "g:UUID", "@value": "41d2e28a-20a4-4ab0-b379-d810dede3786" }""")
+            .UseMethodName($"{nameof(IUntypedCollection_from_typed_UUID)}_until_2495");
+
+        public override Task IUntypedCollection_from_typed_T() => VerifyAttemptWithRuntimeType<ICollection>("""{ "@type": "g:T", "@value": "id" }""")
+            .UseMethodName($"{nameof(IUntypedCollection_from_typed_T)}_until_2495");
+
+        public override Task Untyped_IEnumerable_from_typed_Int32() => VerifyAttemptWithRuntimeType<IEnumerable>("""{ "@type": "g:Int32", "@value": 5 }""")
+            .UseMethodName($"{nameof(Untyped_IEnumerable_from_typed_Int32)}_until_2495");
 
         // Reads the JSON of a test the way DeferToNewtonsoftConverterFactory reads a response, so
         // that the converters are handed here what they are handed there. JToken.Parse is not
