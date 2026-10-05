@@ -28,7 +28,7 @@
     {
       OperatorName: as,
       Arguments: [
-        _c
+        _a
       ]
     },
     {
@@ -43,7 +43,7 @@
     {
       OperatorName: as,
       Arguments: [
-        _d
+        _b
       ]
     },
     {
@@ -61,7 +61,7 @@
             {
               OperatorName: select,
               Arguments: [
-                _c
+                _a
               ]
             }
           ]
@@ -76,7 +76,7 @@
             {
               OperatorName: select,
               Arguments: [
-                _d
+                _b
               ]
             }
           ]

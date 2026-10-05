@@ -28,19 +28,19 @@
     {
       OperatorName: aggregate,
       Arguments: [
-        _c
+        _a
       ]
     },
     {
       OperatorName: cap,
       Arguments: [
-        _c
+        _a
       ]
     },
     {
       OperatorName: select,
       Arguments: [
-        _c
+        _a
       ]
     },
     {

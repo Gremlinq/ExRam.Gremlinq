@@ -44,14 +44,17 @@ namespace ExRam.Gremlinq.Core.Serialization
                 ArgumentNullException.ThrowIfNull(defer);
                 ArgumentNullException.ThrowIfNull(recurse);
 
+                if (stepLabel.Identity is string { Length: > 0 } stringIdentity && !stringIdentity.StartsWith('_'))
+                {
+                    value = Unsafe.As<TTarget>(stringIdentity);
+                    return true;
+                }
+
                 var stepLabelNames = _stepLabelNames ??= new Dictionary<StepLabel, Label>();
 
                 if (!stepLabelNames.TryGetValue(stepLabel, out var stepLabelMapping))
                 {
-                    stepLabelMapping = stepLabel.Identity is string { Length: > 0 } stringIdentity && !stringIdentity.StartsWith('_')
-                        ? stringIdentity
-                        : stepLabelNames.Count;
-
+                    stepLabelMapping = stepLabelNames.Count;
                     stepLabelNames.Add(stepLabel, stepLabelMapping);
                 }
 

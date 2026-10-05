@@ -25,7 +25,7 @@
     {
       OperatorName: as,
       Arguments: [
-        _c
+        _a
       ]
     },
     {
@@ -50,7 +50,7 @@
             {
               OperatorName: select,
               Arguments: [
-                _c
+                _a
               ]
             }
           ]

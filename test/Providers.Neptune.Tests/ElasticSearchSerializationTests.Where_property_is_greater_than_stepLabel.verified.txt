@@ -34,7 +34,7 @@
     {
       OperatorName: as,
       Arguments: [
-        _c
+        _a
       ]
     },
     {
@@ -57,7 +57,7 @@
               Arguments: [
                 {
                   OperatorName: gt,
-                  Value: _c
+                  Value: _a
                 }
               ]
             }

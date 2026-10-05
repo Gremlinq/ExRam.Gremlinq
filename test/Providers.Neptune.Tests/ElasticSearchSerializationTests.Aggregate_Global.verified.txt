@@ -28,7 +28,7 @@
     {
       OperatorName: aggregate,
       Arguments: [
-        _c
+        _a
       ]
     },
     {

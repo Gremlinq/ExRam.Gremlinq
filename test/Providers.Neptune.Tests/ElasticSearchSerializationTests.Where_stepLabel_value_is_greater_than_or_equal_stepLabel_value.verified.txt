@@ -28,7 +28,7 @@
     {
       OperatorName: as,
       Arguments: [
-        _c
+        _a
       ]
     },
     {
@@ -43,16 +43,16 @@
     {
       OperatorName: as,
       Arguments: [
-        _d
+        _b
       ]
     },
     {
       OperatorName: where,
       Arguments: [
-        _c,
+        _a,
         {
           OperatorName: gte,
-          Value: _d
+          Value: _b
         }
       ]
     },

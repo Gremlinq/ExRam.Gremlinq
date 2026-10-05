@@ -17,7 +17,7 @@
     {
       OperatorName: withSideEffect,
       Arguments: [
-        _c,
+        _a,
         36
       ]
     }
@@ -29,7 +29,7 @@
     {
       OperatorName: select,
       Arguments: [
-        _c
+        _a
       ]
     }
   ]

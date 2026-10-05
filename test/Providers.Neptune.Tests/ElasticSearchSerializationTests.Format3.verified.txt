@@ -41,13 +41,13 @@
     {
       OperatorName: as,
       Arguments: [
-        _c
+        _a
       ]
     },
     {
       OperatorName: format,
       Arguments: [
-        _%{_}_%{_}_%{_c}_
+        _%{_}_%{_}_%{_a}_
       ]
     },
     {

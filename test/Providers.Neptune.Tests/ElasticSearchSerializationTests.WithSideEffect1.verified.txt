@@ -17,7 +17,7 @@
     {
       OperatorName: withSideEffect,
       Arguments: [
-        _c,
+        _a,
         36
       ]
     }
