@@ -44,7 +44,7 @@ namespace ExRam.Gremlinq.Core.Serialization
                 ArgumentNullException.ThrowIfNull(defer);
                 ArgumentNullException.ThrowIfNull(recurse);
 
-                if (stepLabel.Identity is string { Length: > 0 } stringIdentity && !stringIdentity.StartsWith('_'))
+                if (stepLabel.Identity is string and [not '_', ..] stringIdentity)
                 {
                     value = Unsafe.As<TTarget>(stringIdentity);
                     return true;
