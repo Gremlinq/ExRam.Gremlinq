@@ -8,11 +8,6 @@ namespace ExRam.Gremlinq.Core.Serialization
 
         private readonly string? _stringKey;
 
-        public Label(string key)
-        {
-            _stringKey = key;
-        }
-
         public Label(int key)
         {
             if (key >= 0 && key < Keys?.Length)
@@ -44,8 +39,6 @@ namespace ExRam.Gremlinq.Core.Serialization
         public static implicit operator Label(int key) => new(key);
 
         public static implicit operator string(Label key) => key._stringKey ?? throw new ArgumentException(null, nameof(key));
-
-        public static implicit operator Label(string key) => new(key);
 
         public override int GetHashCode() => _stringKey?.GetHashCode() ?? 0;
 
