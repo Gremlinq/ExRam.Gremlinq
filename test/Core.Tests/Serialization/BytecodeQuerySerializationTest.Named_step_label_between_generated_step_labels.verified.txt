@@ -1,0 +1,140 @@
+{
+  SourceInstructions: [
+    {
+      OperatorName: withSideEffect,
+      Arguments: [
+        _a,
+        1
+      ]
+    },
+    {
+      OperatorName: withSideEffect,
+      Arguments: [
+        sideEffectLabel,
+        2
+      ]
+    },
+    {
+      OperatorName: withSideEffect,
+      Arguments: [
+        _b,
+        3
+      ]
+    }
+  ],
+  StepInstructions: [
+    {
+      OperatorName: V
+    },
+    {
+      OperatorName: project,
+      Arguments: [
+        id,
+        label,
+        properties
+      ]
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        {
+          EnumName: T,
+          EnumValue: id
+        }
+      ]
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        {
+          EnumName: T,
+          EnumValue: label
+        }
+      ]
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        {
+          StepInstructions: [
+            {
+              OperatorName: properties
+            },
+            {
+              OperatorName: group
+            },
+            {
+              OperatorName: by,
+              Arguments: [
+                {
+                  EnumName: T,
+                  EnumValue: label
+                }
+              ]
+            },
+            {
+              OperatorName: by,
+              Arguments: [
+                {
+                  StepInstructions: [
+                    {
+                      OperatorName: project,
+                      Arguments: [
+                        id,
+                        label,
+                        value,
+                        properties
+                      ]
+                    },
+                    {
+                      OperatorName: by,
+                      Arguments: [
+                        {
+                          EnumName: T,
+                          EnumValue: id
+                        }
+                      ]
+                    },
+                    {
+                      OperatorName: by,
+                      Arguments: [
+                        {
+                          EnumName: T,
+                          EnumValue: label
+                        }
+                      ]
+                    },
+                    {
+                      OperatorName: by,
+                      Arguments: [
+                        {
+                          EnumName: T,
+                          EnumValue: value
+                        }
+                      ]
+                    },
+                    {
+                      OperatorName: by,
+                      Arguments: [
+                        {
+                          StepInstructions: [
+                            {
+                              OperatorName: valueMap
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      OperatorName: fold
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

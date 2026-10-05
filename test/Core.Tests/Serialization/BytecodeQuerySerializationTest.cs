@@ -29,6 +29,21 @@ namespace ExRam.Gremlinq.Core.Tests
             .Verify();
 
         [Fact]
+        public Task Generated_step_label_after_named_step_label() => _g
+            .WithSideEffect("sideEffectLabel", 36)
+            .WithSideEffect(new StepLabel<int>(), 37)
+            .V()
+            .Verify();
+
+        [Fact]
+        public Task Named_step_label_between_generated_step_labels() => _g
+            .WithSideEffect(new StepLabel<int>(), 1)
+            .WithSideEffect("sideEffectLabel", 2)
+            .WithSideEffect(new StepLabel<int>(), 3)
+            .V()
+            .Verify();
+
+        [Fact]
         public Task Traversal_detour_serialization() => _g
             .ConfigureEnvironment(env => env
                 .ConfigureSerializer(ser => ser
