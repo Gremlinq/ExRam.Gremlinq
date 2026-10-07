@@ -55,6 +55,15 @@ jobs:
         printf '%s\n' "$RELEASE_BODY" >> $fileName
 
         git add $fileName
+
+        # An 'edited' event does not have to change the body: publishing a release can fire
+        # one right after 'published', with the same text. The post is then already up to
+        # date, and 'git commit' would fail with nothing to commit.
+        if git diff --cached --quiet; then
+          echo "The post for ${{ github.event.release.tag_name }} is already up to date." >> "$GITHUB_STEP_SUMMARY"
+          exit 0
+        fi
+
         git commit -m "${{ github.event.repository.name }} ${{ github.event.release.tag_name }} ${{ github.event.action }}"
         git push origin
 
