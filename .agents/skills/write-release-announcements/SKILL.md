@@ -51,7 +51,9 @@ That is why this skill commits its own output rather than leaving it staged.
    curation -- see below.
 3. Propose a grouping of the remaining pull requests into Features / Fixes / Performance /
    Maintenance, together with anything you think should be dropped, and get agreement
-   before writing.
+   before writing. Propose dropping every pull request with `tests_only` set: its lead
+   says "Tests only", so it changes nothing a reader of the notes would notice. Check
+   the lead, since the flag only matches the words.
 4. Write the texts into `releases/<version>/` following
    [the channel style guide](references/channel-style.md). `release_kind` in the JSON says
    whether this is a `patch`, `minor` or `major` release: a patch gets `release-notes.md`
@@ -61,6 +63,7 @@ That is why this skill commits its own output rather than leaving it staged.
    with only the notes. A Discord text over 2000 characters is rejected by Discord
    outright.
 6. Commit: `git add releases/<version> && git commit -m "Add release notes and announcements for <version>"`.
+   When only `release-notes.md` was written, say so: `"Add release notes for <version>"`.
 
 ## Curation is not automatic
 
@@ -73,6 +76,12 @@ about.
 
 So: propose, show what you would drop and why, and let the user decide. Do not quietly
 truncate, and do not pad the notes with everything in range either.
+
+The range for 14.1.2 shows what the label misses. Eight pull requests there only added
+contract tests ("Say that a bulk set may shout its type name", "Tests only."), and none
+carried `skip-changelog`. They described behaviour the library already had, so a release
+note for them would have announced a change that never happened. `tests_only` catches
+that case; reading the leads still catches the rest.
 
 ## Writing the entries
 

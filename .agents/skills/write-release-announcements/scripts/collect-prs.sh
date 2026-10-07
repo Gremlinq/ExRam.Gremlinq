@@ -10,9 +10,13 @@
 # Usage: collect-prs.sh [<previous tag>]
 #
 # Writes JSON to stdout:
-#   { "previous_tag", "previous_tag_date", "version", "base", "compare_url",
-#     "pull_requests": [ { number, title, body, url, labels, mergedAt } ],
+#   { "previous_tag", "previous_tag_date", "version", "release_kind", "base", "compare_url",
+#     "pull_requests": [ { number, title, body, url, labels, mergedAt, lead, tests_only } ],
 #     "excluded":      [ { number, title, reason } ] }
+#
+# 'tests_only' is true when the lead says "Tests only". Such a pull request adds tests and
+# changes nothing a user of the library sees, so it is a candidate for dropping -- but only
+# a candidate: the flag reads the text, not the diff.
 
 set -euo pipefail
 
@@ -107,7 +111,7 @@ jq \
         base: $base,
         compare_url: $compare_url,
         pull_requests: [ $all[] | select(excluded_reason == null)
-            | . + { lead: lead } ]
+            | . + { lead: lead } | . + { tests_only: (.lead | test("\\bTests only\\b")) } ]
             | sort_by(.number),
         excluded: [ $all[] | select(excluded_reason != null)
             | { number, title, reason: excluded_reason } ]
