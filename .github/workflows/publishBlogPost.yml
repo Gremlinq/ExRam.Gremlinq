@@ -18,6 +18,14 @@ jobs:
     # coerce both to numbers -- true becomes 1, 'true' becomes NaN -- so the condition was
     # always satisfied and guarded nothing.
     if: ${{ !github.event.release.draft }}
+    # Publishing a release can fire 'published' and 'edited' within a second, and both
+    # write the same post. Runs for the same release wait for each other instead of
+    # overlapping, so no run pushes from a checkout that is already out of date. A running
+    # run is never cancelled. GitHub keeps only the newest waiting run, which carries the
+    # latest body.
+    concurrency:
+      group: publish-blog-post-${{ github.event.release.tag_name }}
+      cancel-in-progress: false
 
     steps:
     - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # 7.0.1
