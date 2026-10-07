@@ -186,6 +186,12 @@ they scroll past.
 
 Keep the prose tight -- the snippet eats a large part of the character budget.
 
+**When there is nothing new to show.** A release made of fixes has no new capability to
+put in a snippet. Write the text anyway, but do not make up a snippet to fill the gap: a
+query that already worked and now gives the right result reads as random. Leave the
+snippet out and say in two or three bullets what works better now. Whether this text, or
+any other, gets posted is the maintainer's call, made from the announcement checklist.
+
 **Example**
 
 ````
