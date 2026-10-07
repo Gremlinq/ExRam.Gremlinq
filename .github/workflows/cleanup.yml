@@ -31,9 +31,19 @@ jobs:
       run: |
         set -euo pipefail
         cutoff=$(date -u -d "-${KEEP_DAYS} days" +%s)
-        gh api --paginate "/orgs/${OWNER}/packages/nuget/${PACKAGE_NAME}/versions" \
-          --jq '.[] | [.id, .name, .created_at] | @tsv' |
+
+        # A package that does not give this repository's workflows access is reported as
+        # missing, not as forbidden. In Gremlinq.Extensions three packages failed this way on
+        # every run while the other thirteen succeeded, so the error says where to look.
+        if ! versions="$(gh api --paginate "/orgs/${OWNER}/packages/nuget/${PACKAGE_NAME}/versions" \
+            --jq '.[] | [.id, .name, .created_at] | @tsv')"; then
+          echo "::error title=Cannot list the versions of ${PACKAGE_NAME}::If GitHub answered 404, the package most likely does not give ${GITHUB_REPOSITORY} access. Open the package's settings on GitHub, and under 'Manage Actions access' add ${GITHUB_REPOSITORY} with the Admin role, which deleting versions needs."
+          exit 1
+        fi
+
+        printf '%s\n' "$versions" |
         while IFS=$'\t' read -r id name created; do
+          [ -n "$id" ] || continue
           [[ "$name" == *-preview* ]] || continue
           created_ts=$(date -u -d "$created" +%s)
           if [ "$created_ts" -lt "$cutoff" ]; then
