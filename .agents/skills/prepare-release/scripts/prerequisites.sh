@@ -36,6 +36,17 @@ branch="$(git rev-parse --abbrev-ref HEAD)"
 [ "$branch" != 'HEAD' ] \
     || fail "Detached HEAD. A previous run probably died mid-rebase; sort that out first."
 
+# A branch that is behind its remote is released without the commits it is missing, and
+# nothing later in the pipeline notices. This happened once: a checkout four commits behind
+# passed every check here and would have tagged a release without the last pull request.
+# Fetching first makes "behind" mean behind the remote as it is now, and brings in tags
+# created elsewhere, which the tag check below needs to see.
+git fetch --quiet --tags "$remote" "$branch" \
+    || fail "Could not fetch '$branch' from '$remote'. A release is prepared on a branch that exists there."
+behind="$(git rev-list --count "HEAD..$remote/$branch")"
+[ "$behind" -eq 0 ] \
+    || fail "'$branch' is $behind commit(s) behind '$remote/$branch'. Bring it up to date first: git merge --ff-only $remote/$branch"
+
 # prepare.sh makes two commits, a branch and a tag in one go, and can die between them --
 # an unavailable signing key, or a rebase conflict that -Xtheirs cannot resolve, such as
 # add/add or modify/delete. The three checks below are what a half-finished run leaves
@@ -50,7 +61,7 @@ done
 version="$(nbgv get-version --format json | jq -r '.SimpleVersion')"
 
 if git rev-parse --verify --quiet "refs/tags/$version" >/dev/null; then
-    fail "Tag '$version' already exists locally. This release has already been prepared."
+    fail "Tag '$version' already exists. This release has already been prepared."
 fi
 
 # 'nbgv prepare-release' names its temporary branch after the version, and prepare.sh
