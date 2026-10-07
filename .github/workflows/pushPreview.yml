@@ -22,7 +22,7 @@ jobs:
       with:
         dotnet-version: 10
           
-    - uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16 # 4.1.8
+    - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # 8.0.2
       with:
         name: NuGetPackages
         github-token: ${{ secrets.DOWNLOAD_ARTIFACTS_PAT }}

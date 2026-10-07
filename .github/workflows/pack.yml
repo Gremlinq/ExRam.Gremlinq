@@ -55,7 +55,7 @@ jobs:
       run: dotnet pack ./${{ github.event.repository.name }}.slnx -c Release --no-build
 
     - name: Copy NuGet packages to artifacts
-      uses: actions/upload-artifact@50769540e7f4bd5e21e526ee35c689e35e0d6874 # 4.4.0
+      uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # 7.0.2
       with:
         name: NuGetPackages
         path: './**/*Gremlinq*.nupkg'
@@ -64,7 +64,7 @@ jobs:
     - run: echo ${{ steps.nbgv.outputs.NuGetPackageVersion }} > Version
 
     - name: Output version to artifacts
-      uses: actions/upload-artifact@50769540e7f4bd5e21e526ee35c689e35e0d6874 # 4.4.0
+      uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # 7.0.2
       with:
         name: Version
         path: Version
@@ -76,7 +76,7 @@ jobs:
     runs-on: ubuntu-24.04
     
     steps:
-    - uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16 # 4.1.8
+    - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # 8.0.2
       with:
         name: NuGetPackages
         
@@ -111,7 +111,7 @@ jobs:
         sparse-checkout: releases
         persist-credentials: false
 
-    - uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16 # 4.1.8
+    - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # 8.0.2
       with:
         name: NuGetPackages
         path: packages
