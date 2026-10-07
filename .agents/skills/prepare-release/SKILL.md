@@ -75,5 +75,6 @@ release, and it carries everything the workflows read.
 
 ## References
 
-- [Workflow Details](references/workflow.md) - what each script does, and what the release
-  pipeline does afterwards
+- [Workflow Details](references/workflow.md) - what each script does, how to change the
+  texts after `prepare.sh`, what the release pipeline does afterwards, and what to do when
+  it fails

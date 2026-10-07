@@ -30,6 +30,27 @@ Prints `remote=`, `branch=` and `version=` on success.
 pipeline reads out of the repository -- `releases/<version>/release-notes.md` and the
 announcement texts -- must therefore be committed *before* this script runs.
 
+## Changing the texts after `prepare.sh`
+
+Until the tag is pushed, everything is local and can be redone. The texts sit in the
+commit *below* the two version commits, so they cannot simply be amended. Undo the
+version bump, fix the texts, and prepare again:
+
+    git tag -d <version>
+    git reset --keep HEAD~2          # drops the two version commits
+    # edit, add or remove files in releases/<version>/
+    git add -A releases/<version>
+    git commit --amend --no-edit -S
+    scripts/prepare.sh
+
+`prepare.sh` makes the same two version commits again, from the same `version.json`, and
+tags the new one. Rebuilding the commits by hand -- amending, cherry-picking both version
+commits and moving the tag -- gives the same result with more room for mistakes.
+
+Once the tag is pushed, `pack.yml` has already created the draft release from it. Changing
+the texts then means deleting that draft and the remote tag first, and that is only safe
+while the draft is unpublished.
+
 ## After the tag is pushed
 
     git push <remote> <version>
@@ -55,6 +76,19 @@ If `releases/<version>/release-notes.md` is missing, `pack.yml` falls back to Gi
 generated notes and warns. That is a safety net, not the intended outcome -- and it cannot
 be corrected after the fact without deleting and re-pushing the tag, because the notes are
 read from the tagged commit. Write them before tagging.
+
+## Troubleshooting
+
+**"Bad credentials" in *Publish blog post*.** The `DOCS_TOKEN` secret has expired or was
+revoked. It is a personal access token that `publishBlogPost.yml` uses to check out and
+push to `Gremlinq/docs.gremlinq.net`. Create a new fine-grained token with the Gremlinq
+organisation as resource owner, access to `docs.gremlinq.net` only, and **Contents: read
+and write**. Then replace the secret and re-run the failed job (`gh run rerun <run id>
+--failed`); it reads the body of the published release, so nothing else has to be redone.
+
+Every repository that calls `publishBlogPost.yml` has its own copy of the secret --
+ExRam.Gremlinq and Gremlinq.Extensions both do. They were set on the same day and expired
+on the same day, a year later, in the middle of a release. Replace all of them at once.
 
 ## Constraints
 
