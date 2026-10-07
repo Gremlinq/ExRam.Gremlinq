@@ -50,23 +50,24 @@ version="$(nbgv get-version --format json | jq -r '.SimpleVersion')"
 
 # 'merged:>' takes the tag's commit date. Anything merged at or before it is in the
 # previous release. The base filter keeps pull requests targeting other release lines out.
-all="$(gh pr list \
+# Piped into jq rather than passed with --argjson: the bodies of 60 pull requests came to
+# about 150 KB, and a single argument that long fails with "Argument list too long".
+#
+# Excluded rather than silently dropped, so the agent can see what it is not writing about
+# and can catch a chore that was mislabelled.
+gh pr list \
     --state merged \
     --base "$base" \
     --search "merged:>$previous_tag_date" \
     --limit 200 \
-    --json number,title,body,url,labels,mergedAt)"
-
-# Excluded rather than silently dropped, so the agent can see what it is not writing about
-# and can catch a chore that was mislabelled.
-jq -n \
+    --json number,title,body,url,labels,mergedAt |
+jq \
     --arg previous_tag "$previous_tag" \
     --arg previous_tag_date "$previous_tag_date" \
     --arg version "$version" \
     --arg base "$base" \
     --arg compare_url "https://github.com/$repo/compare/$previous_tag...$version" \
-    --argjson all "$all" \
-    '
+    '. as $all |
     def excluded_reason:
         if ([.labels[].name] | index("skip-changelog")) then "skip-changelog label"
         elif (.title | test("^Prepare release$")) then "release preparation"
@@ -105,7 +106,8 @@ jq -n \
         release_kind: release_kind($previous_tag; $version),
         base: $base,
         compare_url: $compare_url,
-        pull_requests: [ $all[] | select(excluded_reason == null) | . + { lead: lead } ]
+        pull_requests: [ $all[] | select(excluded_reason == null)
+            | . + { lead: lead } ]
             | sort_by(.number),
         excluded: [ $all[] | select(excluded_reason != null)
             | { number, title, reason: excluded_reason } ]
