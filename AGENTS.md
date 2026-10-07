@@ -194,14 +194,14 @@ previous tag:
 | `release-notes.md` | the GitHub release body, and from there the blog post |
 | `linkedin.md` | a manual LinkedIn post |
 | `discord-tinkerpop.md` | a manual post in the TinkerPop Discord |
-| `discord-dotnet.md` | a post in the .NET Discord, optionally sent by webhook |
+| `discord-dotnet.md` | a manual post in the .NET Discord |
 
 Pushing the tag triggers `.github/workflows/pack.yml`, which builds, packs, attests and
 creates a **draft** release using `releases/<version>/release-notes.md` as its body
 (falling back to GitHub's generated notes if that file is missing). Nothing is public
 until that draft is published by hand.
 
-Publishing it fires four workflows, one responsibility each:
+Publishing it fires three workflows, one responsibility each:
 
 - **`.github/workflows/pushStable.yml`** — pushes stable packages to NuGet.org.
 - **`.github/workflows/publishBlogPost.yml`** — checks out `Gremlinq/docs.gremlinq.net`
@@ -212,10 +212,11 @@ Publishing it fires four workflows, one responsibility each:
 - **`.github/workflows/openAnnouncementChecklist.yml`** — checks out the tag, reads the
   announcement texts and opens an issue with one checkbox and one collapsed text per
   channel.
-- **`.github/workflows/postDiscordAnnouncement.yml`** — posts the .NET Discord text
-  through a webhook, if a `DISCORD_WEBHOOK_URL` secret is configured. TinkerPop and
-  LinkedIn are always manual: those servers are not ours to automate, and LinkedIn member
-  tokens expire every 60 days.
+
+Every announcement is posted by hand, from that issue. Whether a text gets posted at all is
+the maintainer's call: a text that reads well in the repository can still be wrong for a
+room. The .NET Discord text used to be posted by webhook as soon as a release was
+published, and was the one text nobody could hold back.
 
 Separately, **`.github/workflows/pushPreview.yml`** pushes preview packages to GitHub
 Packages using a PAT secret (`PUSH_TO_PACKAGES_PAT`) whenever `Pack` succeeds.

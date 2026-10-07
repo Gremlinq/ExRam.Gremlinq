@@ -25,8 +25,8 @@ Prepares a release of ExRam.Gremlinq: the texts first, then the version bump and
 prepare-release` creates a branch carrying the "Set version to 'X'" commit, and
 `prepare.sh` tags that branch and rebases the current branch *onto* it. The tag therefore
 points at the earlier of the two version commits, and anything committed afterwards is not
-reachable from it. In ExRam.Gremlinq, `pack.yml`, `openAnnouncementChecklist.yml` and
-`postDiscordAnnouncement.yml` all read `releases/<version>/` out of the tagged commit; a
+reachable from it. In ExRam.Gremlinq, `pack.yml` and `openAnnouncementChecklist.yml` both read
+`releases/<version>/` out of the tagged commit; a
 repository that shares this skill but not those workflows still benefits from the same
 ordering, since `pack.yml`'s release-body fallback is worse than having written the notes.
 Prepare the texts late and they will simply not be there.
@@ -42,9 +42,8 @@ The skill pushes nothing. Report these steps and let the user run them:
 3. What publishing fires next is repository-specific -- check that repository's
    `.github/workflows/` rather than assuming. In ExRam.Gremlinq it is `pushStable.yml`
    (NuGet.org via Trusted Publishing), `publishBlogPost.yml` (copies the release body into
-   the blog on docs.gremlinq.net), `openAnnouncementChecklist.yml` (opens an issue with the
-   three channel texts, ready to post) and `postDiscordAnnouncement.yml` (posts the .NET
-   one by webhook, if configured). A repository that only reuses ExRam.Gremlinq's `pack.yml`
+   the blog on docs.gremlinq.net) and `openAnnouncementChecklist.yml` (opens an issue with
+   the three channel texts, to be posted by hand). A repository that only reuses ExRam.Gremlinq's `pack.yml`
    and `announce.yml` via `workflow_call` may fire a different subset of these effects, or
    none of them beyond the NuGet push -- report what you can confirm, not this list by
    default.

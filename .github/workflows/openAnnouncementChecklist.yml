@@ -55,12 +55,12 @@ jobs:
         {
           printf 'Announcement texts for [%s](%s), from `releases/%s/`.\n\n' \
             "$TAG" "$RELEASE_URL" "$TAG"
-          printf 'Tick each channel off as you post it. The TinkerPop server is not one we\n'
-          printf 'administer, so that one is always posted by hand.\n\n'
+          printf 'Every text is posted by hand, and only if it should be. Tick each channel\n'
+          printf 'off as you post it.\n\n'
         } >> "$body"
 
         emit() {
-          local label="$1" file="$2" note="${3:-}"
+          local label="$1" file="$2"
 
           if [ ! -s "$file" ]; then
             # A release may legitimately ship without every text -- a patch release gets
@@ -71,9 +71,6 @@ jobs:
           fi
 
           printf -- '- [ ] **%s**\n\n' "$label" >> "$body"
-          if [ -n "$note" ]; then
-            printf '  %s\n\n' "$note" >> "$body"
-          fi
 
           # Four backticks so that a three-backtick fence inside the text (the .NET post
           # contains a C# snippet) does not terminate the block early.
@@ -86,11 +83,7 @@ jobs:
 
         emit 'LinkedIn'            "releases/$TAG/linkedin.md"
         emit 'Discord (TinkerPop)' "releases/$TAG/discord-tinkerpop.md"
-        # The box stays unticked even though 'Post Discord announcement' tries to post this
-        # one on its own: that run can decline to post -- a missing file, or a text over
-        # Discord's 2000 character limit -- and a pre-ticked box would then be a lie.
-        emit 'Discord (.NET)'      "releases/$TAG/discord-dotnet.md" \
-          'The *Post Discord announcement* workflow attempts this automatically. Check that run before posting by hand.'
+        emit 'Discord (.NET)'      "releases/$TAG/discord-dotnet.md"
 
         cat "$body" >> "$GITHUB_STEP_SUMMARY"
         echo "body=$body" >> "$GITHUB_OUTPUT"
