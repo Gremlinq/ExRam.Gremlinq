@@ -42,7 +42,7 @@ jobs:
           8
 
     - name: Determine semantic version
-      uses: dotnet/nbgv@f088059084cb5d872e9d1a994433ca6440c2bf72 # 0.4.2
+      uses: dotnet/nbgv@705dad19ab067f12f4e9eeaa60812e01edef5d25 # 0.5.2
       id: nbgv
 
     - name: Replace NuGet version default value in templates
