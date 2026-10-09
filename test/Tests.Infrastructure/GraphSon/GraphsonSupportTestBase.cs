@@ -1926,6 +1926,32 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task Object_from_double() => Verify<object>("1.2");
 
+        // An integer too big for a long is a BigInteger, with every digit it has, to an object and
+        // to anything else that can hold one. A number with a decimal point or an exponent stays a
+        // double, however big it is.
+        [Fact]
+        public virtual Task Object_from_integer_beyond_long() => VerifyAttemptWithRuntimeType<object>("18446744073709551615");
+
+        [Fact]
+        public virtual Task Object_from_negative_integer_beyond_long() => VerifyAttemptWithRuntimeType<object>("-18446744073709551616");
+
+        [Fact]
+        public virtual Task Object_from_number_beyond_long_with_decimal_point() => VerifyAttemptWithRuntimeType<object>("18446744073709551615.0");
+
+        [Fact]
+        public virtual Task Object_from_number_beyond_long_with_exponent() => VerifyAttemptWithRuntimeType<object>("1e20");
+
+        [Fact]
+        public virtual Task IFormattable_from_integer_beyond_long() => VerifyAttemptWithRuntimeType<IFormattable>("18446744073709551615");
+
+        // Also to what only a BigInteger can hold, as an IComparable<BigInteger>. A bare 5 is a long
+        // there as it is to an object, and no IComparable<BigInteger> for being small enough to be one.
+        [Fact]
+        public virtual Task IComparable_of_BigInteger_from_integer_beyond_long() => VerifyAttemptWithRuntimeType<IComparable<BigInteger>>("18446744073709551615");
+
+        [Fact]
+        public virtual Task IComparable_of_BigInteger_from_int() => VerifyAttemptWithRuntimeType<IComparable<BigInteger>>("5");
+
         [Fact]
         public virtual Task Object_from_true() => Verify<object>("true");
 
