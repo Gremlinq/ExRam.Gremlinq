@@ -1,5 +1,3 @@
 {
-  Key: {
-    RawKey: Name
-  }
+  Key: Name
 }

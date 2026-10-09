@@ -1,9 +1,4 @@
 {
-  Key: {
-    RawKey: {
-      EnumName: T,
-      EnumValue: id
-    }
-  },
+  Key: T.id,
   SerializationBehaviour: IgnoreAlways
 }

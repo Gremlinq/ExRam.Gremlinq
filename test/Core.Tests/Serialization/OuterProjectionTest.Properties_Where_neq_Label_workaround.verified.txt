@@ -8,28 +8,13 @@
     ]
   },
   {
-    Key: {
-      RawKey: {
-        EnumName: T,
-        EnumValue: id
-      }
-    }
+    Key: T.id
   },
   {
-    Key: {
-      RawKey: {
-        EnumName: T,
-        EnumValue: label
-      }
-    }
+    Key: T.label
   },
   {
-    Key: {
-      RawKey: {
-        EnumName: T,
-        EnumValue: value
-      }
-    }
+    Key: T.value
   },
   {
     Traversal: {

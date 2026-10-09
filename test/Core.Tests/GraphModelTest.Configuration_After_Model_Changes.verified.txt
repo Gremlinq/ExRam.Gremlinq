@@ -3,14 +3,10 @@
     Label: scalarVertex
   },
   Item2: {
-    Key: {
-      RawKey: registrationDate
-    }
+    Key: registrationDate
   },
   Item3: {
-    Key: {
-      RawKey: name
-    },
+    Key: name,
     SerializationBehaviour: IgnoreAlways
   }
 }

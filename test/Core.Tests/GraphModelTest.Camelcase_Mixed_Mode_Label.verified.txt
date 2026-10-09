@@ -3,8 +3,6 @@
     Label: ScalarVertex
   },
   Item2: {
-    Key: {
-      RawKey: registrationDate
-    }
+    Key: registrationDate
   }
 }
