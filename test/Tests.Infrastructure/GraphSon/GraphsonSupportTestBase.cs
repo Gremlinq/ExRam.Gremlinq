@@ -8,6 +8,7 @@ using Path = ExRam.Gremlinq.Core.GraphElements.Path;
 using static ExRam.Gremlinq.Tests.Infrastructure.GraphSonStrings;
 using System.Collections.Immutable;
 using System.Collections.Concurrent;
+using System.Collections.ObjectModel;
 using System.Collections;
 using System.ComponentModel;
 using System.Numerics;
@@ -2164,6 +2165,46 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task Dictionary_of_Key_keys_from_object() => VerifyWithKeys<Dictionary<Key, object>>("""{ "a": 1, "b": "x" }""");
+
+        // Any dictionary that can be made empty is filled from a map or an object, not only the
+        // ones Dictionary<,> or ImmutableDictionary<,> stand in for: one that sorts itself, and one
+        // derived from Dictionary<,> that inherits none of its other constructors. Each is the
+        // type asked for, with its keys read as what it is keyed by - also where they are not
+        // names, as the g:Int32 keys of a map.
+        [Fact]
+        public virtual Task SortedDictionary_from_object() => VerifyWithKeyTypes<SortedDictionary<string, int>>(String_Keys_Typed_Int_Values);
+
+        [Fact]
+        public virtual Task SortedDictionary_from_map() => VerifyWithKeyTypes<SortedDictionary<string, int>>(Map_of_String_Keys_Typed_Int_Values);
+
+        [Fact]
+        public virtual Task SortedDictionary_of_int_keys_from_map() => VerifyWithKeyTypes<SortedDictionary<int, string>>(Map_of_Typed_Int_Keys_Typed_String_Values);
+
+        [Fact]
+        public virtual Task SortedList_from_object() => VerifyWithKeyTypes<SortedList<string, int>>(String_Keys_Typed_Int_Values);
+
+        [Fact]
+        public virtual Task SortedList_from_map() => VerifyWithKeyTypes<SortedList<string, int>>(Map_of_String_Keys_Typed_Int_Values);
+
+        [Fact]
+        public virtual Task SortedList_of_int_keys_from_map() => VerifyWithKeyTypes<SortedList<int, string>>(Map_of_Typed_Int_Keys_Typed_String_Values);
+
+        [Fact]
+        public virtual Task Class_derived_from_Dictionary_from_object() => VerifyWithKeyTypes<ClassDerivedFromDictionary>(String_Keys_Typed_Int_Values);
+
+        [Fact]
+        public virtual Task Class_derived_from_Dictionary_from_map() => VerifyWithKeyTypes<ClassDerivedFromDictionary>(Map_of_String_Keys_Typed_Int_Values);
+
+        // A dictionary that cannot be made empty, or that does not say what it is a dictionary of,
+        // is not built from a map that way.
+        [Fact]
+        public virtual Task ReadOnlyDictionary_from_map() => VerifyAttemptWithRuntimeType<ReadOnlyDictionary<string, int>>(Map_of_String_Keys_Typed_Int_Values);
+
+        [Fact]
+        public virtual Task Abstract_class_derived_from_Dictionary_from_map() => VerifyAttemptWithRuntimeType<AbstractClassDerivedFromDictionary>(Map_of_String_Keys_Typed_Int_Values);
+
+        [Fact]
+        public virtual Task Class_with_two_dictionary_interfaces_from_map() => VerifyAttemptWithRuntimeType<ClassWithTwoDictionaryInterfaces>(Map_of_String_Keys_Typed_Int_Values);
 
         // A tree's entries are keyed as well, and a key that is there twice is its last subtree.
         [Fact]

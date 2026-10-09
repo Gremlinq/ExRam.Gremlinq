@@ -1,0 +1,11 @@
+﻿{
+  Type: ClassDerivedFromDictionary,
+  KeyTypes: [
+    string,
+    string
+  ],
+  Value: {
+    key1: 1,
+    key2: 2
+  }
+}
