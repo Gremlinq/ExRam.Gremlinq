@@ -9,6 +9,7 @@ using static ExRam.Gremlinq.Tests.Infrastructure.GraphSonStrings;
 using System.Collections.Immutable;
 using System.Collections.Concurrent;
 using System.Collections;
+using System.ComponentModel;
 using System.Numerics;
 using ExRam.Gremlinq.Tests.Infrastructure.GraphSon.Entities;
 using Direction = Gremlin.Net.Process.Traversal.Direction;
@@ -1989,7 +1990,9 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         // looked up in it - and a key that is there twice must not cost the whole map there either.
         // Its entry gets the value of the last occurrence. In which order a dictionary's keys come
         // is not promised - the members of a JSON object have none - so they are recorded sorted,
-        // each with the type it was read as, which the snapshot of a dictionary does not say.
+        // each with the type it was read as, which the snapshot of a dictionary does not say. They
+        // are sorted by how the snapshot writes them, which for a Key is its name - its ToString()
+        // is the type name, the same for every Key.
         private SettingsTask VerifyWithKeys<T>(string token)
         {
             var subject = _environment
@@ -2003,7 +2006,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                 IDictionary<string, object?> dictionary => dictionary.Keys,
                 _ => null
             })?
-                .OrderBy(static key => key.ToString(), StringComparer.Ordinal)
+                .OrderBy(static key => TypeDescriptor.GetConverter(key).ConvertToInvariantString(key), StringComparer.Ordinal)
                 .ThenBy(static key => key.GetType().FullName, StringComparer.Ordinal)
                 .ToArray();
 
@@ -2149,6 +2152,18 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         // key type leaves its member out, and the members around it are kept.
         [Fact]
         public virtual Task Dictionary_from_object_with_unreadable_key() => VerifyWithKeys<Dictionary<int, string>>("""{ "1": "a", "not a number": "b", "2": "c" }""");
+
+        // A name is read as whatever the dictionary is keyed by, not only as a string: an enum is
+        // keyed by the names of its values, and a name it does not have leaves its member out like
+        // any other name that cannot be read. A Key, which holds a name, is keyed by the names.
+        [Fact]
+        public virtual Task Dictionary_of_enum_keys_from_object() => VerifyWithKeys<Dictionary<SomeEnum, int>>("""{ "Zero": 1, "One": 2 }""");
+
+        [Fact]
+        public virtual Task Dictionary_of_enum_keys_from_object_with_unknown_name() => VerifyWithKeys<Dictionary<SomeEnum, int>>("""{ "Zero": 1, "Other": 3, "One": 2 }""");
+
+        [Fact]
+        public virtual Task Dictionary_of_Key_keys_from_object() => VerifyWithKeys<Dictionary<Key, object>>("""{ "a": 1, "b": "x" }""");
 
         // A tree's entries are keyed as well, and a key that is there twice is its last subtree.
         [Fact]

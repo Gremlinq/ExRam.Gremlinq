@@ -1,0 +1,14 @@
+﻿{
+  Keys: [
+    One,
+    Zero
+  ],
+  KeyTypes: [
+    SomeEnum,
+    SomeEnum
+  ],
+  Value: {
+    Zero: 1,
+    One: 2
+  }
+}
