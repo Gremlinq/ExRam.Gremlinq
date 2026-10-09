@@ -3,11 +3,11 @@
     RequestId: 12345678-9012-3456-7890-123456789012,
     Data: [
       {
-        ExRam.Gremlinq.Core.Key: 10,
-        ExRam.Gremlinq.Core.Key: RichVertex,
-        ExRam.Gremlinq.Core.Key: 2020-04-07 14:43:36 +0,
-        ExRam.Gremlinq.Core.Key: 0,
-        ExRam.Gremlinq.Core.Key: Bob
+        T.id: 10,
+        T.label: RichVertex,
+        RegistrationDate: 2020-04-07 14:43:36 +0,
+        Age: 0,
+        Name: Bob
       }
     ],
     ResponseStatus: {
