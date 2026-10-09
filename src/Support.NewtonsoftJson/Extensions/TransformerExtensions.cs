@@ -1,10 +1,7 @@
 using System.Collections.Concurrent;
 using System.Reflection;
 
-using ExRam.Gremlinq.Core;
-using ExRam.Gremlinq.Core.Transformation;
-
-namespace ExRam.Gremlinq.Support.NewtonsoftJson
+namespace ExRam.Gremlinq.Core.Transformation
 {
     internal static class TransformerExtensions
     {
