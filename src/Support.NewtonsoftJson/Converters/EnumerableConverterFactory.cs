@@ -171,6 +171,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
         // stream, lazily, so a traverser is still converted once and its value yielded as often as
         // its bulk says - no expanded array in between.
         private sealed class SequenceConverter<TTarget, TTargetItem> : EnumerableConverter<TTargetItem>, IConverter<JToken, TTarget>
+            where TTarget : notnull
         {
             private readonly Func<IEnumerable<TTargetItem>, TTarget> _create;
 
@@ -188,11 +189,17 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                 ArgumentNullException.ThrowIfNull(defer);
                 ArgumentNullException.ThrowIfNull(recurse);
 
-                value = TryGetEnumerable(serialized, recurse) is { } enumerable
-                    ? _create(enumerable)
-                    : default;
+                // Success is whether there was a sequence, not whether the value is null: the default
+                // of a struct is not null, and an ImmutableArray<T> that was never filled throws
+                // when used. Declining a g:List instead lets TypedValueConverter read its @value.
+                if (TryGetEnumerable(serialized, recurse) is { } enumerable)
+                {
+                    value = _create(enumerable);
+                    return true;
+                }
 
-                return value is not null;
+                value = default;
+                return false;
             }
         }
 
