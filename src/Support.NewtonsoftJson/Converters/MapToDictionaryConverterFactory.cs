@@ -129,6 +129,28 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
             }
         }
 
+        private sealed class MapToConstructibleDictionaryConverter<TKey, TValue, TTarget> : MapConverter<TKey, TValue>, IConverter<JObject, TTarget>
+            where TKey : notnull
+            where TTarget : class, IDictionary<TKey, TValue>, new()
+        {
+            public MapToConstructibleDictionaryConverter(IGremlinQueryEnvironment environment) : base(environment)
+            {
+            }
+
+            bool IConverter<JObject, TTarget>.TryConvert(JObject serialized, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
+            {
+                ArgumentNullException.ThrowIfNull(serialized);
+                ArgumentNullException.ThrowIfNull(defer);
+                ArgumentNullException.ThrowIfNull(recurse);
+
+                // No capacity: the parameterless constructor is the one constructor every such
+                // dictionary is known to have.
+                value = TryBuild(serialized, recurse, static _ => new TTarget());
+
+                return value is not null;
+            }
+        }
+
         IConverter<TSource, TTarget>? IConverterFactory.TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment)
         {
             ArgumentNullException.ThrowIfNull(environment);
@@ -158,6 +180,14 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
 
                 if (maybeMatch is ({ } keyType, { } valueType, { } converterType))
                     return (IConverter<TSource, TTarget>?)Activator.CreateInstance(converterType.MakeGenericType(keyType, valueType, typeof(TTarget)), environment);
+
+                // Where neither stands in for it, the type itself is built if it can be made empty and
+                // filled through its IDictionary<TKey, TValue> - a SortedDictionary<,>, say, or a class
+                // derived from Dictionary<,>, which inherits none of its other constructors. The keys
+                // and the values are read as that interface says. A type that implements it more than
+                // once does not say which, and is left to the converters behind this one.
+                if (typeof(TTarget) is { IsClass: true, IsAbstract: false } && typeof(TTarget).GetConstructor(Type.EmptyTypes) is not null && typeof(TTarget).GetInterfaces().Where(static type => type.IsGenericType && type.GetGenericTypeDefinition() == typeof(IDictionary<,>)).ToArray() is [{ } dictionaryInterface])
+                    return (IConverter<TSource, TTarget>?)Activator.CreateInstance(typeof(MapToConstructibleDictionaryConverter<,,>).MakeGenericType([.. dictionaryInterface.GetGenericArguments(), typeof(TTarget)]), environment);
             }
 
             return null;
