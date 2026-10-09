@@ -149,6 +149,11 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
             // is stays what it is.
             private static readonly bool TargetIsCollection = typeof(IEnumerable).IsAssignableFrom(typeof(TTarget)) && !typeof(JToken).IsAssignableFrom(typeof(TTarget));
 
+            // EnumConverterFactory reads an enum from a number, and NullableConverterFactory a
+            // nullable one through it. What both decline is no value of the enum, so of the scalars
+            // only a string, which holds a name, is left to the serializer.
+            private static readonly bool TargetIsEnum = (Nullable.GetUnderlyingType(typeof(TTarget)) ?? typeof(TTarget)).IsEnum;
+
             private readonly GraphsonJsonSerializer _serializer;
 
             public NewtonsoftJsonSerializerConverter(IGremlinQueryEnvironment environment)
@@ -166,6 +171,15 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                 // its @value as two entries, and the JObject would stand in for one as it is.
                 if (TargetIsCollection && source is JObject jObject && jObject.IsTypedValueOtherThanMap())
                 {
+                    value = default;
+                    return false;
+                }
+
+                // The serializer cuts a number to the size of the type underlying the enum, and reads
+                // true and false as 1 and 0.
+                if (TargetIsEnum && source is JValue { Type: not JTokenType.String })
+                {
+                    // Declined, used to read: 4294967297 as the One of an int enum, -1 as the 255 of a byte enum, true as One, for the enum and for a nullable one.
                     value = default;
                     return false;
                 }
