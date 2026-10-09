@@ -1,0 +1,8 @@
+﻿{
+  Success: true,
+  Type: List<object>,
+  Value: [
+    1,
+    abc
+  ]
+}

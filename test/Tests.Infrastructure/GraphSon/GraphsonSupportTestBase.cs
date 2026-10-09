@@ -28,6 +28,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         private const string Typed_Int32 = """{ "@type": "g:Int32", "@value": 5 }""";
         private const string Typed_UUID = """{ "@type": "g:UUID", "@value": "41d2e28a-20a4-4ab0-b379-d810dede3786" }""";
         private const string Typed_T = """{ "@type": "g:T", "@value": "id" }""";
+        private const string Array_with_typed_value = """[ { "@type": "g:Int32", "@value": 1 }, "abc" ]""";
         private const string Typed_List = """{ "@type": "g:List", "@value": [ { "@type": "g:Int32", "@value": 1 }, "abc" ] }""";
         private const string Object_with_typed_value = """{ "a": { "@type": "g:Int32", "@value": 1 }, "b": "x" }""";
         private const string Map_with_typed_value = """{ "@type": "g:Map", "@value": [ "a", { "@type": "g:Int32", "@value": 1 }, "b", "x" ] }""";
@@ -1021,19 +1022,43 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         // an object[] implements - to IEnumerable no less than to ICollection and IList. So is
         // a g:List, and a bulk set.
         [Fact]
-        public virtual Task Untyped_IEnumerable_from_array() => VerifyAttemptWithRuntimeType<IEnumerable>("""[ { "@type": "g:Int32", "@value": 1 }, "abc" ]""");
+        public virtual Task Untyped_IEnumerable_from_array() => VerifyAttemptWithRuntimeType<IEnumerable>(Array_with_typed_value);
 
         [Fact]
-        public virtual Task IUntypedCollection_from_array() => VerifyAttemptWithRuntimeType<ICollection>("""[ { "@type": "g:Int32", "@value": 1 }, "abc" ]""");
+        public virtual Task IUntypedCollection_from_array() => VerifyAttemptWithRuntimeType<ICollection>(Array_with_typed_value);
 
         [Fact]
-        public virtual Task IUntypedList_from_array() => VerifyAttemptWithRuntimeType<IList>("""[ { "@type": "g:Int32", "@value": 1 }, "abc" ]""");
+        public virtual Task IUntypedList_from_array() => VerifyAttemptWithRuntimeType<IList>(Array_with_typed_value);
 
         [Fact]
         public virtual Task Untyped_IEnumerable_from_typed_List() => VerifyAttemptWithRuntimeType<IEnumerable>("""{ "@type": "g:List", "@value": [ { "@type": "g:Int32", "@value": 1 }, "abc" ] }""");
 
         [Fact]
         public virtual Task Untyped_IEnumerable_from_Bulk_set_is_an_array() => VerifyAttemptWithRuntimeType<IEnumerable>(Typed_BulkSet);
+
+        // To the generic collection interfaces of object, though, an array is a List<object>, as
+        // it is a List<T> to those of any other item type: an IList<object> the caller can add
+        // to and remove from, which an object[] cannot do. So is a g:List, and a bulk set.
+        [Fact]
+        public virtual Task IEnumerable_of_objects_from_array() => VerifyAttemptWithRuntimeType<IEnumerable<object>>(Array_with_typed_value);
+
+        [Fact]
+        public virtual Task ICollection_of_objects_from_array() => VerifyAttemptWithRuntimeType<ICollection<object>>(Array_with_typed_value);
+
+        [Fact]
+        public virtual Task IList_of_objects_from_array() => VerifyAttemptWithRuntimeType<IList<object>>(Array_with_typed_value);
+
+        [Fact]
+        public virtual Task IReadOnlyCollection_of_objects_from_array() => VerifyAttemptWithRuntimeType<IReadOnlyCollection<object>>(Array_with_typed_value);
+
+        [Fact]
+        public virtual Task IReadOnlyList_of_objects_from_array() => VerifyAttemptWithRuntimeType<IReadOnlyList<object>>(Array_with_typed_value);
+
+        [Fact]
+        public virtual Task IList_of_objects_from_typed_List() => VerifyAttemptWithRuntimeType<IList<object>>(Typed_List);
+
+        [Fact]
+        public virtual Task IList_of_objects_from_Bulk_set() => VerifyAttemptWithRuntimeType<IList<object>>(Typed_BulkSet);
 
         // An object is a Dictionary<string, object> to the non-generic IDictionary, and to an
         // ICollection or an IEnumerable, which a dictionary is as well. So is a map whose keys are
