@@ -1356,6 +1356,11 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task ImmutableArray_typed_ints() => Verify<ImmutableArray<int>>(Typed_Ints);
 
+        // A g:List is a list of its items to an ImmutableArray as well, the struct among the
+        // collections: one that is never filled is not null but an array that throws when used.
+        [Fact]
+        public virtual Task ImmutableArray_from_typed_List() => Verify<ImmutableArray<int>>("""{ "@type": "g:List", "@value": [ { "@type": "g:Int32", "@value": 1 } ] }""");
+
         [Fact]
         public virtual Task ImmutableDictionary_map_of_string_keys_typed_int_values() => Verify<ImmutableDictionary<string, int>>(Map_of_String_Keys_Typed_Int_Values);
 
