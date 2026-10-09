@@ -155,6 +155,59 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task Enum_from_number_out_of_range_in_string() => VerifyAttempt<SomeEnum>("\"4294967296\"");
 
+        // The number itself is a value of the enum if it fits the type underlying the enum, whether
+        // the enum has a name for it or not - -1 included, where that type is an int. One that does
+        // not fit is no value of it, not even the one it would wrap around to, bare or in a typed
+        // value, and neither is a number with a fraction or a decimal point.
+        [Fact]
+        public virtual Task Enum_from_negative_number() => VerifyAttempt<SomeEnum>("-1");
+
+        [Fact]
+        public virtual Task Enum_from_number_out_of_range() => VerifyAttempt<SomeEnum>("4294967296");
+
+        [Fact]
+        public virtual Task Enum_from_number_out_of_range_that_wraps_around_to_a_name() => VerifyAttempt<SomeEnum>("4294967297");
+
+        [Fact]
+        public virtual Task Enum_from_typed_Int64_out_of_range() => VerifyAttempt<SomeEnum>("""{ "@type": "g:Int64", "@value": 4294967297 }""");
+
+        [Fact]
+        public virtual Task Enum_from_number_with_fraction() => VerifyAttempt<SomeEnum>("1.5");
+
+        [Fact]
+        public virtual Task Enum_from_whole_number_with_decimal_point() => VerifyAttempt<SomeEnum>("1.0");
+
+        // Whether a number fits is asked of the type underlying the enum, not of an int: a byte has
+        // no 256 and no -1, and a ulong has an 18446744073709551615 that even a long has not.
+        [Fact]
+        public virtual Task Byte_enum_from_number_out_of_range() => VerifyAttempt<ByteEnum>("256");
+
+        [Fact]
+        public virtual Task Byte_enum_from_number_out_of_range_that_wraps_around_to_a_name() => VerifyAttempt<ByteEnum>("257");
+
+        [Fact]
+        public virtual Task Byte_enum_from_negative_number() => VerifyAttempt<ByteEnum>("-1");
+
+        [Fact]
+        public virtual Task ULong_enum_from_negative_number() => VerifyAttempt<ULongEnum>("-1");
+
+        [Fact]
+        public virtual Task ULong_enum_from_largest_number() => VerifyAttempt<ULongEnum>("18446744073709551615");
+
+        // true and false are no numbers, so they are no value of an enum, nor of a nullable one -
+        // which is read from a number as the enum is.
+        [Fact]
+        public virtual Task Enum_from_true() => VerifyAttempt<SomeEnum>("true");
+
+        [Fact]
+        public virtual Task Enum_from_false() => VerifyAttempt<SomeEnum>("false");
+
+        [Fact]
+        public virtual Task Nullable_enum_from_true() => VerifyAttempt<SomeEnum?>("true");
+
+        [Fact]
+        public virtual Task Nullable_enum_from_number() => VerifyAttempt<SomeEnum?>("1");
+
         // Names separated by commas are their values combined, each name found the way a single one
         // is. One among them that the enum does not have leaves nothing to read, and so does a comma
         // with no name after it.
