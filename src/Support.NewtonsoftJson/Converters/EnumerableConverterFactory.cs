@@ -255,12 +255,9 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
             // reads it as one. A list of pairs read from an array is not what a dictionary would be.
             if (typeof(JToken).IsAssignableFrom(typeof(TSource)) && !KeyValuePairCollectionConverterFactory.IsKeyValuePairCollection(typeof(TTarget), out _, out _))
             {
-                if (typeof(TTarget).IsAssignableFrom(typeof(object[])))
-                    return (IConverter<TSource, TTarget>?)Activator.CreateInstance(typeof(ArrayConverter<,>).MakeGenericType(typeof(TTarget), typeof(object)), environment);
-
-                if (typeof(TTarget).IsArray)
-                    return (IConverter<TSource, TTarget>?)Activator.CreateInstance(typeof(ArrayConverter<,>).MakeGenericType(typeof(TTarget), typeof(TTarget).GetElementType()!), environment);
-
+                // The generic collections first: an object[] is an IList<object> as well, but one
+                // that throws on Add, and the generic interfaces of object are a List<object>, like
+                // those of every other item type. What is left for an object[] is not generic.
                 if (typeof(TTarget).IsConstructedGenericType && typeof(IEnumerable).IsAssignableFrom(typeof(TTarget)))
                 {
                     if (typeof(TTarget).GenericTypeArguments is [ var elementType ])
@@ -278,6 +275,12 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                             return (IConverter<TSource, TTarget>?)Activator.CreateInstance(typeof(SequenceConverter<,>).MakeGenericType(typeof(TTarget), elementType), factory, environment);
                     }
                 }
+
+                if (typeof(TTarget).IsAssignableFrom(typeof(object[])))
+                    return (IConverter<TSource, TTarget>?)Activator.CreateInstance(typeof(ArrayConverter<,>).MakeGenericType(typeof(TTarget), typeof(object)), environment);
+
+                if (typeof(TTarget).IsArray)
+                    return (IConverter<TSource, TTarget>?)Activator.CreateInstance(typeof(ArrayConverter<,>).MakeGenericType(typeof(TTarget), typeof(TTarget).GetElementType()!), environment);
 
                 // The non-generic collections - ArrayList, Queue, Stack - are assignable from
                 // nothing we build, but they all take an ICollection. Without this they end up at
