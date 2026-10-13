@@ -32,6 +32,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         private const string Typed_List = """{ "@type": "g:List", "@value": [ { "@type": "g:Int32", "@value": 1 }, "abc" ] }""";
         private const string Object_with_typed_value = """{ "a": { "@type": "g:Int32", "@value": 1 }, "b": "x" }""";
         private const string Map_with_typed_value = """{ "@type": "g:Map", "@value": [ "a", { "@type": "g:Int32", "@value": 1 }, "b", "x" ] }""";
+        private const string Map_of_Typed_Int_Keys_Typed_Int_Values = """{ "@type": "g:Map", "@value": [ { "@type": "g:Int32", "@value": 1 }, { "@type": "g:Int32", "@value": 1 }, { "@type": "g:Int32", "@value": 2 }, { "@type": "g:Int32", "@value": 2 } ] }""";
         private const string Element_map = """{ "@type": "g:Map", "@value": [ { "@type": "g:T", "@value": "id" }, { "@type": "g:Int64", "@value": 1 }, { "@type": "g:T", "@value": "label" }, "person", "name", "marko" ] }""";
 
         private readonly string _sourceFile;
@@ -2319,7 +2320,8 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         // for concurrent use, and one derived from Dictionary<,> that inherits none of its other
         // constructors. Each is the type asked for, with its keys read as what it is keyed by -
         // also where they are not names, as the g:Int32 keys of a map. An immutable one that sorts
-        // itself, ImmutableSortedDictionary<,>, is built from a map or an object as well.
+        // itself, ImmutableSortedDictionary<,>, is built from a map or an object as well, and keeps
+        // the g:Int32 keys of a map as ints too.
         [Fact]
         public virtual Task SortedDictionary_from_object() => VerifyWithKeyTypes<SortedDictionary<string, int>>(String_Keys_Typed_Int_Values);
 
@@ -2354,20 +2356,29 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual Task ImmutableSortedDictionary_from_map() => VerifyWithKeyTypes<ImmutableSortedDictionary<string, int>>(Map_of_String_Keys_Typed_Int_Values);
 
         [Fact]
+        public virtual Task ImmutableSortedDictionary_of_int_keys_from_map() => VerifyWithKeyTypes<ImmutableSortedDictionary<int, string>>(Map_of_Typed_Int_Keys_Typed_String_Values);
+
+        [Fact]
         public virtual Task Class_derived_from_Dictionary_from_object() => VerifyWithKeyTypes<ClassDerivedFromDictionary>(String_Keys_Typed_Int_Values);
 
         [Fact]
         public virtual Task Class_derived_from_Dictionary_from_map() => VerifyWithKeyTypes<ClassDerivedFromDictionary>(Map_of_String_Keys_Typed_Int_Values);
 
         // A dictionary that cannot be made empty is still built from a map or an object, through a
-        // constructor that takes a dictionary of what it holds, as ReadOnlyDictionary<,> has one. A
-        // class that is a dictionary of more than one kind is built as the first of them that its
-        // type lists (Type.GetInterfaces()). An abstract class is not built at all.
+        // constructor that takes a dictionary of what it holds, as ReadOnlyDictionary<,> has one -
+        // with its keys read as what it is keyed by, also where they are not names, as the g:Int32
+        // keys of a map. A class that is a dictionary of more than one kind is built as the first
+        // of them that its type lists (Type.GetInterfaces()), and its keys are read as that one is
+        // keyed by: the g:Int32 keys of a map become names where it is keyed by names. An abstract
+        // class is not built at all.
         [Fact]
         public virtual Task ReadOnlyDictionary_from_object() => VerifyAttemptWithRuntimeType<ReadOnlyDictionary<string, int>>(String_Keys_Typed_Int_Values);
 
         [Fact]
         public virtual Task ReadOnlyDictionary_from_map() => VerifyAttemptWithRuntimeType<ReadOnlyDictionary<string, int>>(Map_of_String_Keys_Typed_Int_Values);
+
+        [Fact]
+        public virtual Task ReadOnlyDictionary_of_int_keys_from_map() => VerifyWithKeyTypes<ReadOnlyDictionary<int, string>>(Map_of_Typed_Int_Keys_Typed_String_Values);
 
         [Fact]
         public virtual Task Abstract_class_derived_from_Dictionary_from_map() => VerifyAttemptWithRuntimeType<AbstractClassDerivedFromDictionary>(Map_of_String_Keys_Typed_Int_Values);
@@ -2378,10 +2389,17 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task Class_with_two_dictionary_interfaces_from_map() => VerifyAttemptWithRuntimeType<ClassWithTwoDictionaryInterfaces>(Map_of_String_Keys_Typed_Int_Values);
 
-        // The constructor must take what an IDictionary<,> can be passed as. One that takes an
-        // IReadOnlyDictionary<,> does not, and the dictionary is not built. Where more than one
+        [Fact]
+        public virtual Task Class_with_two_dictionary_interfaces_from_map_of_int_keys() => VerifyWithKeyTypes<ClassWithTwoDictionaryInterfaces>(Map_of_Typed_Int_Keys_Typed_Int_Values);
+
+        // The constructor must take nothing but what an IDictionary<,> can be passed as. One that
+        // takes an IReadOnlyDictionary<,> does not, nor one that takes a capacity or more than one
+        // argument, and where no constructor does, the dictionary is not built. Where more than one
         // will do, the one that takes the dictionary's pairs, IEnumerable<KeyValuePair<,>>, is
         // taken, wherever it is declared; otherwise the first of them.
+        [Fact]
+        public virtual Task Class_derived_from_Dictionary_with_capacity_constructors_from_map() => VerifyAttemptWithRuntimeType<ClassDerivedFromDictionaryWithCapacityConstructors>(Map_of_String_Keys_Typed_Int_Values);
+
         [Fact]
         public virtual Task Class_derived_from_Dictionary_with_read_only_dictionary_constructor_from_object() => VerifyAttemptWithRuntimeType<ClassDerivedFromDictionaryWithReadOnlyDictionaryConstructor>(String_Keys_Typed_Int_Values);
 

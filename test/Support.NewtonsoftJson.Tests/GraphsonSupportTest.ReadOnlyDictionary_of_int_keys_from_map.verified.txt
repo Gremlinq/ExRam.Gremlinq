@@ -1,0 +1,11 @@
+﻿{
+  Type: ReadOnlyDictionary<int, string>,
+  KeyTypes: [
+    int,
+    int
+  ],
+  Value: {
+    1: value1,
+    2: value2
+  }
+}
