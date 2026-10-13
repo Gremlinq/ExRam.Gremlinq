@@ -2315,10 +2315,11 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual Task Dictionary_of_Key_keys_from_object() => VerifyWithKeys<Dictionary<Key, object>>("""{ "a": 1, "b": "x" }""");
 
         // Any dictionary that can be made empty is filled from a map or an object, not only the
-        // ones Dictionary<,> or ImmutableDictionary<,> stand in for: one that sorts itself, and one
-        // derived from Dictionary<,> that inherits none of its other constructors. Each is the
-        // type asked for, with its keys read as what it is keyed by - also where they are not
-        // names, as the g:Int32 keys of a map.
+        // ones Dictionary<,> or ImmutableDictionary<,> stand in for: one that sorts itself, one made
+        // for concurrent use, and one derived from Dictionary<,> that inherits none of its other
+        // constructors. Each is the type asked for, with its keys read as what it is keyed by -
+        // also where they are not names, as the g:Int32 keys of a map. An immutable one that sorts
+        // itself, ImmutableSortedDictionary<,>, is built from a map or an object as well.
         [Fact]
         public virtual Task SortedDictionary_from_object() => VerifyWithKeyTypes<SortedDictionary<string, int>>(String_Keys_Typed_Int_Values);
 
@@ -2336,6 +2337,21 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task SortedList_of_int_keys_from_map() => VerifyWithKeyTypes<SortedList<int, string>>(Map_of_Typed_Int_Keys_Typed_String_Values);
+
+        [Fact]
+        public virtual Task ConcurrentDictionary_from_object() => VerifyWithKeyTypes<ConcurrentDictionary<string, int>>(String_Keys_Typed_Int_Values);
+
+        [Fact]
+        public virtual Task ConcurrentDictionary_from_map() => VerifyWithKeyTypes<ConcurrentDictionary<string, int>>(Map_of_String_Keys_Typed_Int_Values);
+
+        [Fact]
+        public virtual Task ConcurrentDictionary_of_int_keys_from_map() => VerifyWithKeyTypes<ConcurrentDictionary<int, string>>(Map_of_Typed_Int_Keys_Typed_String_Values);
+
+        [Fact]
+        public virtual Task ImmutableSortedDictionary_from_object() => VerifyWithKeyTypes<ImmutableSortedDictionary<string, int>>(String_Keys_Typed_Int_Values);
+
+        [Fact]
+        public virtual Task ImmutableSortedDictionary_from_map() => VerifyWithKeyTypes<ImmutableSortedDictionary<string, int>>(Map_of_String_Keys_Typed_Int_Values);
 
         [Fact]
         public virtual Task Class_derived_from_Dictionary_from_object() => VerifyWithKeyTypes<ClassDerivedFromDictionary>(String_Keys_Typed_Int_Values);
