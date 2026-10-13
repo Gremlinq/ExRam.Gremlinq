@@ -27,6 +27,13 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void MemberMetadata_does_not_equal_an_object_of_another_type() => MemberMetadata
+            .Default("name")
+            .Equals((object)"name")
+            .Should()
+            .BeFalse();
+
+        [Fact]
         public void ElementMetadata_name_cannot_be_null()
         {
             var m = default(ElementMetadata);
