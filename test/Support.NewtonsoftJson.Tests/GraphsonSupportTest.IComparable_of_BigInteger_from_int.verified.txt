@@ -1,3 +1,5 @@
 ﻿{
-  Success: false
+  Success: true,
+  Type: BigInteger,
+  Value: 5
 }

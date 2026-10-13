@@ -425,6 +425,11 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task Int_from_double() => Verify<int>("4.2");
 
+        // A half is rounded to the even int next to it, whichever way that is: 2.5 is 2, 3.5 is 4
+        // and -2.5 is -2.
+        [Fact]
+        public virtual Task Ints_from_numbers_with_half() => Verify<int[]>("[ 2.5, 3.5, -2.5 ]");
+
         [Fact]
         public virtual Task Init_property() => Verify<ClassWithInitProperty>("""{ "Property": "Value" }""");
 
@@ -994,8 +999,10 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task IComparable_from_typed_Int32_with_string_value() => VerifyAttemptWithRuntimeType<IComparable>("""{ "@type": "g:Int32", "@value": "abc" }""");
 
-        // And where neither can be held, there is nothing to answer with: a g:Int64 is a long,
-        // its bare @value is one too, and a long is no IEquatable<int>.
+        // Neither is needed where the requested type is a generic interface whose type argument is
+        // a scalar type implementing it, as IEquatable<int> is: only an int can be one, so an int is
+        // what it asks for. A g:Int64 is a long, and so is its bare @value, and still it is read as
+        // the int it would be were an int asked for.
         [Fact]
         public virtual Task IEquatable_of_int_from_typed_Int64() => VerifyAttemptWithRuntimeType<IEquatable<int>>("""{ "@type": "g:Int64", "@value": 5 }""");
 
@@ -1034,10 +1041,41 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task ValueType_from_bool() => VerifyAttemptWithRuntimeType<ValueType>("false");
 
-        // What the requested type cannot hold is no answer. A bare 5 is a long, as it is to an
-        // object, and no IEquatable<int> for being small enough to be an int.
+        // What a value is when an object is asked for is one question, what it is when an
+        // IEquatable<int> is asked for another: only an int can be one. A generic interface whose
+        // one type argument is a scalar type implementing it asks for that type, and the value is
+        // read as that type is read when asked for itself. A bare 5 is an int there, and so are
+        // 5.5, rounded as an int is, and "5"; a number beyond an int and "abc" are none, and there
+        // is no answer. The answer's type is the requested type's alone - an IEquatable<long> above
+        // gets a long, an IEquatable<double> a double, whatever the number looks like.
         [Fact]
         public virtual Task IEquatable_of_int_from_int() => VerifyAttemptWithRuntimeType<IEquatable<int>>("5");
+
+        [Fact]
+        public virtual Task IEquatable_of_double_from_int() => VerifyAttemptWithRuntimeType<IEquatable<double>>("5");
+
+        [Fact]
+        public virtual Task IEquatable_of_int_from_integer_beyond_int() => VerifyAttemptWithRuntimeType<IEquatable<int>>("4294967296");
+
+        [Fact]
+        public virtual Task IEquatable_of_int_from_double() => VerifyAttemptWithRuntimeType<IEquatable<int>>("5.5");
+
+        [Fact]
+        public virtual Task IEquatable_of_int_from_numeric_string() => VerifyAttemptWithRuntimeType<IEquatable<int>>("\"5\"");
+
+        [Fact]
+        public virtual Task IEquatable_of_int_from_string_that_is_no_number() => VerifyAttemptWithRuntimeType<IEquatable<int>>("\"abc\"");
+
+        [Fact]
+        public virtual Task IEquatable_of_Guid_from_string() => VerifyAttemptWithRuntimeType<IEquatable<Guid>>("\"41d2e28a-20a4-4ab0-b379-d810dede3786\"");
+
+        [Fact]
+        public virtual Task INumber_of_int_from_int() => VerifyAttemptWithRuntimeType(typeof(INumber<int>), "5");
+
+        // An interface with more than one type argument asks for none of them, though each of them
+        // may be the int: IComparisonOperators<int, int, bool> has three.
+        [Fact]
+        public virtual Task IComparisonOperators_of_int_from_int() => VerifyAttemptWithRuntimeType(typeof(IComparisonOperators<int, int, bool>), "5");
 
         // All of the above holds for the items of an array as it does for a value on its own.
         [Fact]
@@ -1944,8 +1982,9 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task IFormattable_from_integer_beyond_long() => VerifyAttemptWithRuntimeType<IFormattable>("18446744073709551615");
 
-        // Also to what only a BigInteger can hold, as an IComparable<BigInteger>. A bare 5 is a long
-        // there as it is to an object, and no IComparable<BigInteger> for being small enough to be one.
+        // Also to what only a BigInteger can be, as an IComparable<BigInteger>, which asks for a
+        // BigInteger as an IEquatable<int> asks for an int. A bare 5 is a BigInteger there too, small
+        // as it is.
         [Fact]
         public virtual Task IComparable_of_BigInteger_from_integer_beyond_long() => VerifyAttemptWithRuntimeType<IComparable<BigInteger>>("18446744073709551615");
 
@@ -2816,5 +2855,14 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                     sourceFile: _sourceFile)
                 .DontScrubDateTimes();
         }
+
+        // C# takes no interface with a static abstract member - INumber<int> say - as a type
+        // argument, but the runtime does, and a member of a class can be of such a type. So the
+        // tests asking for one call VerifyAttemptWithRuntimeType through reflection.
+        private SettingsTask VerifyAttemptWithRuntimeType(Type type, string token) => (SettingsTask)new Func<string, SettingsTask>(VerifyAttemptWithRuntimeType<object>)
+            .Method
+            .GetGenericMethodDefinition()
+            .MakeGenericMethod(type)
+            .Invoke(this, [token])!;
     }
 }
