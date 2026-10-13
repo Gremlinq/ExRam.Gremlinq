@@ -2362,6 +2362,22 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task Class_with_two_dictionary_interfaces_from_map() => VerifyAttemptWithRuntimeType<ClassWithTwoDictionaryInterfaces>(Map_of_String_Keys_Typed_Int_Values);
 
+        // The constructor must take what an IDictionary<,> can be passed as. One that takes an
+        // IReadOnlyDictionary<,> does not, and the dictionary is not built. Where more than one
+        // will do, the one that takes the dictionary's pairs, IEnumerable<KeyValuePair<,>>, is
+        // taken, wherever it is declared; otherwise the first of them.
+        [Fact]
+        public virtual Task Class_derived_from_Dictionary_with_read_only_dictionary_constructor_from_object() => VerifyAttemptWithRuntimeType<ClassDerivedFromDictionaryWithReadOnlyDictionaryConstructor>(String_Keys_Typed_Int_Values);
+
+        [Fact]
+        public virtual Task Class_derived_from_Dictionary_with_read_only_dictionary_constructor_from_map() => VerifyAttemptWithRuntimeType<ClassDerivedFromDictionaryWithReadOnlyDictionaryConstructor>(Map_of_String_Keys_Typed_Int_Values);
+
+        [Fact]
+        public virtual Task Class_derived_from_Dictionary_with_dictionary_and_pairs_constructors_from_object() => VerifyAttemptWithRuntimeType<ClassDerivedFromDictionaryWithDictionaryAndPairsConstructors>(String_Keys_Typed_Int_Values);
+
+        [Fact]
+        public virtual Task Class_derived_from_Dictionary_with_dictionary_and_pairs_constructors_from_map() => VerifyAttemptWithRuntimeType<ClassDerivedFromDictionaryWithDictionaryAndPairsConstructors>(Map_of_String_Keys_Typed_Int_Values);
+
         // A tree's entries are keyed as well, and a key that is there twice is its last subtree.
         [Fact]
         public virtual Task Tree_with_key_twice() => Verify<Tree<string>>("""

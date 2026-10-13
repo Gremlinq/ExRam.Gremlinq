@@ -1,0 +1,9 @@
+﻿{
+  Success: true,
+  Type: ClassDerivedFromDictionaryWithDictionaryAndPairsConstructors,
+  Value: {
+    fromPairs: 0,
+    key1: 1,
+    key2: 2
+  }
+}
