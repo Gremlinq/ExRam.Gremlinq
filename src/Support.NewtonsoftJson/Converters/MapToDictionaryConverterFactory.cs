@@ -248,27 +248,25 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                 if (maybeMatch is ({ } keyType, { } valueType, { } converterType))
                     return (IConverter<TSource, TTarget>?)Activator.CreateInstance(converterType.MakeGenericType(keyType, valueType, typeof(TTarget)), environment);
 
-                if (typeof(TTarget) is { IsClass: true, IsAbstract: false })
+                // Where none of them stands in for it, the type itself is built, filled through the
+                // first IDictionary<TKey, TValue> that Type.GetInterfaces() lists, as Newtonsoft's
+                // contract resolver picks it - which one depends on the requested type alone, though
+                // .NET does not document that order. The keys and the values are read as that
+                // interface says.
+                if (typeof(TTarget) is { IsClass: true, IsAbstract: false } && typeof(TTarget).GetInterfaces().FirstOrDefault(static type => type.IsGenericType && type.GetGenericTypeDefinition() == typeof(IDictionary<,>)) is { } dictionaryInterface)
                 {
-                    var dictionaryInterfaces = typeof(TTarget).GetInterfaces().Where(static type => type.IsGenericType && type.GetGenericTypeDefinition() == typeof(IDictionary<,>)).ToArray();
-
-                    // Where none of them stands in for it, the type itself is built if it can be made
-                    // empty and filled through its IDictionary<TKey, TValue> - a SortedDictionary<,>, say,
-                    // or a class derived from Dictionary<,>, which inherits none of its other
-                    // constructors. The keys and the values are read as that interface says. A type that
-                    // implements it more than once does not say which, and is not filled this way.
-                    if (typeof(TTarget).GetConstructor(Type.EmptyTypes) is not null && dictionaryInterfaces is [{ } dictionaryInterface])
+                    // One that can be made empty is filled through that interface - a
+                    // SortedDictionary<,>, say, or a class derived from Dictionary<,>, which inherits
+                    // none of its other constructors.
+                    if (typeof(TTarget).GetConstructor(Type.EmptyTypes) is not null)
                         return (IConverter<TSource, TTarget>?)Activator.CreateInstance(typeof(MapToConstructibleDictionaryConverter<,,>).MakeGenericType([.. dictionaryInterface.GetGenericArguments(), typeof(TTarget)]), environment);
 
                     // Otherwise it is built where a public constructor takes nothing but a dictionary of
                     // what it holds, as a ReadOnlyDictionary<,> has one: a Dictionary<TKey, TValue> is
                     // filled and passed to it. Which constructor that is, TryGetDictionaryConstructor
-                    // says. TKey and TValue are those of the first IDictionary<,> that
-                    // Type.GetInterfaces() lists, as Newtonsoft's contract resolver picks it - which one
-                    // depends on the requested type alone, though .NET does not document that order.
-                    // The constructor is looked for once, here.
-                    if (dictionaryInterfaces is [{ } firstDictionaryInterface, ..] && TryGetDictionaryConstructor(typeof(TTarget), firstDictionaryInterface) is { } dictionaryConstructor)
-                        return (IConverter<TSource, TTarget>?)Activator.CreateInstance(typeof(MapToConstructedDictionaryConverter<,,>).MakeGenericType([.. firstDictionaryInterface.GetGenericArguments(), typeof(TTarget)]), environment, dictionaryConstructor);
+                    // says. The constructor is looked for once, here.
+                    if (TryGetDictionaryConstructor(typeof(TTarget), dictionaryInterface) is { } dictionaryConstructor)
+                        return (IConverter<TSource, TTarget>?)Activator.CreateInstance(typeof(MapToConstructedDictionaryConverter<,,>).MakeGenericType([.. dictionaryInterface.GetGenericArguments(), typeof(TTarget)]), environment, dictionaryConstructor);
                 }
             }
 
