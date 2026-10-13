@@ -1,6 +1,7 @@
 using Newtonsoft.Json.Linq;
 using System.Collections.Immutable;
 using System.Diagnostics.CodeAnalysis;
+using System.Reflection;
 using ExRam.Gremlinq.Core.Transformation;
 using ExRam.Gremlinq.Core;
 using System.Runtime.CompilerServices;
@@ -129,6 +130,35 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
             }
         }
 
+        private sealed class MapToImmutableSortedDictionaryConverter<TKey, TValue, TTarget> : MapConverter<TKey, TValue>, IConverter<JObject, TTarget>
+            where TKey : notnull
+            where TTarget : class
+        {
+            public MapToImmutableSortedDictionaryConverter(IGremlinQueryEnvironment environment) : base(environment)
+            {
+            }
+
+            bool IConverter<JObject, TTarget>.TryConvert(JObject serialized, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
+            {
+                ArgumentNullException.ThrowIfNull(serialized);
+                ArgumentNullException.ThrowIfNull(defer);
+                ArgumentNullException.ThrowIfNull(recurse);
+
+                // A builder, as for an ImmutableDictionary<,>: the type itself has no constructor
+                // to make it empty with.
+                if (TryBuild(serialized, recurse, static _ => ImmutableSortedDictionary.CreateBuilder<TKey, TValue>()) is { } builder)
+                {
+                    value = Unsafe.As<TTarget>(builder.ToImmutable());
+
+                    return true;
+                }
+
+                value = null;
+
+                return false;
+            }
+        }
+
         private sealed class MapToConstructibleDictionaryConverter<TKey, TValue, TTarget> : MapConverter<TKey, TValue>, IConverter<JObject, TTarget>
             where TKey : notnull
             where TTarget : class, IDictionary<TKey, TValue>, new()
@@ -151,6 +181,38 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
             }
         }
 
+        private sealed class MapToConstructedDictionaryConverter<TKey, TValue, TTarget> : MapConverter<TKey, TValue>, IConverter<JObject, TTarget>
+            where TKey : notnull
+            where TTarget : class
+        {
+            private readonly ConstructorInfo _constructor;
+
+            public MapToConstructedDictionaryConverter(IGremlinQueryEnvironment environment, ConstructorInfo constructor) : base(environment)
+            {
+                _constructor = constructor;
+            }
+
+            bool IConverter<JObject, TTarget>.TryConvert(JObject serialized, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
+            {
+                ArgumentNullException.ThrowIfNull(serialized);
+                ArgumentNullException.ThrowIfNull(defer);
+                ArgumentNullException.ThrowIfNull(recurse);
+
+                // A Dictionary<TKey, TValue> is filled and handed to the constructor of what is asked
+                // for. Whatever that constructor throws is the caller's, and fails the query unwrapped.
+                if (TryBuild(serialized, recurse, static capacity => new Dictionary<TKey, TValue>(capacity)) is { } dictionary)
+                {
+                    value = (TTarget)_constructor.Invoke(BindingFlags.DoNotWrapExceptions, null, [dictionary], null);
+
+                    return true;
+                }
+
+                value = null;
+
+                return false;
+            }
+        }
+
         IConverter<TSource, TTarget>? IConverterFactory.TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment)
         {
             ArgumentNullException.ThrowIfNull(environment);
@@ -159,7 +221,9 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
             {
                 // A g:Map carries its keys as tokens, so it is this converter that has to build the
                 // dictionary - the deferral to a JObject can only represent keys that are strings.
-                // Hence both concrete types worth building are looked for, not just Dictionary<,>.
+                // Hence the concrete types worth building are looked for, not just Dictionary<,>:
+                // ImmutableDictionary<,> for what it stands in for, and ImmutableSortedDictionary<,>,
+                // which neither of the other two stands in for and which cannot be made empty.
                 var maybeMatch = typeof(TTarget)
                     .GetInterfaces()
                     .Prepend(typeof(TTarget))
@@ -172,6 +236,9 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
 
                             if (typeof(TTarget).IsAssignableFrom(typeof(ImmutableDictionary<,>).MakeGenericType(keyType, valueType)))
                                 return (keyType, valueType, converterType: typeof(MapToImmutableDictionaryConverter<,,>));
+
+                            if (typeof(TTarget).IsAssignableFrom(typeof(ImmutableSortedDictionary<,>).MakeGenericType(keyType, valueType)))
+                                return (keyType, valueType, converterType: typeof(MapToImmutableSortedDictionaryConverter<,,>));
                         }
 
                         return default((Type keyType, Type valueType, Type converterType)?);
@@ -181,16 +248,46 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                 if (maybeMatch is ({ } keyType, { } valueType, { } converterType))
                     return (IConverter<TSource, TTarget>?)Activator.CreateInstance(converterType.MakeGenericType(keyType, valueType, typeof(TTarget)), environment);
 
-                // Where neither stands in for it, the type itself is built if it can be made empty and
-                // filled through its IDictionary<TKey, TValue> - a SortedDictionary<,>, say, or a class
-                // derived from Dictionary<,>, which inherits none of its other constructors. The keys
-                // and the values are read as that interface says. A type that implements it more than
-                // once does not say which, and is left to the converters behind this one.
-                if (typeof(TTarget) is { IsClass: true, IsAbstract: false } && typeof(TTarget).GetConstructor(Type.EmptyTypes) is not null && typeof(TTarget).GetInterfaces().Where(static type => type.IsGenericType && type.GetGenericTypeDefinition() == typeof(IDictionary<,>)).ToArray() is [{ } dictionaryInterface])
-                    return (IConverter<TSource, TTarget>?)Activator.CreateInstance(typeof(MapToConstructibleDictionaryConverter<,,>).MakeGenericType([.. dictionaryInterface.GetGenericArguments(), typeof(TTarget)]), environment);
+                if (typeof(TTarget) is { IsClass: true, IsAbstract: false })
+                {
+                    var dictionaryInterfaces = typeof(TTarget).GetInterfaces().Where(static type => type.IsGenericType && type.GetGenericTypeDefinition() == typeof(IDictionary<,>)).ToArray();
+
+                    // Where none of them stands in for it, the type itself is built if it can be made
+                    // empty and filled through its IDictionary<TKey, TValue> - a SortedDictionary<,>, say,
+                    // or a class derived from Dictionary<,>, which inherits none of its other
+                    // constructors. The keys and the values are read as that interface says. A type that
+                    // implements it more than once does not say which, and is not filled this way.
+                    if (typeof(TTarget).GetConstructor(Type.EmptyTypes) is not null && dictionaryInterfaces is [{ } dictionaryInterface])
+                        return (IConverter<TSource, TTarget>?)Activator.CreateInstance(typeof(MapToConstructibleDictionaryConverter<,,>).MakeGenericType([.. dictionaryInterface.GetGenericArguments(), typeof(TTarget)]), environment);
+
+                    // Otherwise it is built where a public constructor takes nothing but a dictionary of
+                    // what it holds, as a ReadOnlyDictionary<,> has one: a Dictionary<TKey, TValue> is
+                    // filled and passed to it. Which constructor that is, TryGetDictionaryConstructor
+                    // says. TKey and TValue are those of the first IDictionary<,> that
+                    // Type.GetInterfaces() lists, as Newtonsoft's contract resolver picks it - which one
+                    // depends on the requested type alone, though .NET does not document that order.
+                    // The constructor is looked for once, here.
+                    if (dictionaryInterfaces is [{ } firstDictionaryInterface, ..] && TryGetDictionaryConstructor(typeof(TTarget), firstDictionaryInterface) is { } dictionaryConstructor)
+                        return (IConverter<TSource, TTarget>?)Activator.CreateInstance(typeof(MapToConstructedDictionaryConverter<,,>).MakeGenericType([.. firstDictionaryInterface.GetGenericArguments(), typeof(TTarget)]), environment, dictionaryConstructor);
+                }
             }
 
             return null;
+        }
+
+        // The constructor Newtonsoft's serializer builds such a dictionary through: one whose one
+        // parameter an IDictionary<TKey, TValue> can be passed as - not an IReadOnlyDictionary<,>,
+        // though a Dictionary<,> could be. Of several, the one that takes exactly
+        // IEnumerable<KeyValuePair<TKey, TValue>>, wherever it is declared, otherwise the first.
+        private static ConstructorInfo? TryGetDictionaryConstructor(Type type, Type dictionaryInterface)
+        {
+            var pairsType = typeof(IEnumerable<>).MakeGenericType(typeof(KeyValuePair<,>).MakeGenericType(dictionaryInterface.GetGenericArguments()));
+            var constructors = type
+                .GetConstructors()
+                .Where(constructor => constructor.GetParameters() is [{ } parameter] && parameter.ParameterType.IsAssignableFrom(dictionaryInterface))
+                .ToArray();
+
+            return constructors.FirstOrDefault(constructor => constructor.GetParameters()[0].ParameterType == pairsType) ?? constructors.FirstOrDefault();
         }
     }
 }
