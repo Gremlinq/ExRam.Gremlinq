@@ -2343,13 +2343,21 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task Class_derived_from_Dictionary_from_map() => VerifyWithKeyTypes<ClassDerivedFromDictionary>(Map_of_String_Keys_Typed_Int_Values);
 
-        // A dictionary that cannot be made empty, or that does not say what it is a dictionary of,
-        // is not built from a map that way.
+        // A dictionary that cannot be made empty is still built from a map or an object, through a
+        // constructor that takes a dictionary of what it holds, as ReadOnlyDictionary<,> has one. A
+        // class that is a dictionary of more than one kind is built as the first of them that its
+        // type lists (Type.GetInterfaces()). An abstract class is not built at all.
+        [Fact]
+        public virtual Task ReadOnlyDictionary_from_object() => VerifyAttemptWithRuntimeType<ReadOnlyDictionary<string, int>>(String_Keys_Typed_Int_Values);
+
         [Fact]
         public virtual Task ReadOnlyDictionary_from_map() => VerifyAttemptWithRuntimeType<ReadOnlyDictionary<string, int>>(Map_of_String_Keys_Typed_Int_Values);
 
         [Fact]
         public virtual Task Abstract_class_derived_from_Dictionary_from_map() => VerifyAttemptWithRuntimeType<AbstractClassDerivedFromDictionary>(Map_of_String_Keys_Typed_Int_Values);
+
+        [Fact]
+        public virtual Task Class_with_two_dictionary_interfaces_from_object() => VerifyAttemptWithRuntimeType<ClassWithTwoDictionaryInterfaces>(String_Keys_Typed_Int_Values);
 
         [Fact]
         public virtual Task Class_with_two_dictionary_interfaces_from_map() => VerifyAttemptWithRuntimeType<ClassWithTwoDictionaryInterfaces>(Map_of_String_Keys_Typed_Int_Values);
