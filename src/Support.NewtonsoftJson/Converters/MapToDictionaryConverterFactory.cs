@@ -252,20 +252,30 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                 // first IDictionary<TKey, TValue> that Type.GetInterfaces() lists, as Newtonsoft's
                 // contract resolver picks it - which one depends on the requested type alone, though
                 // .NET does not document that order. The keys and the values are read as that
-                // interface says.
-                if (typeof(TTarget) is { IsClass: true, IsAbstract: false } && typeof(TTarget).GetInterfaces().FirstOrDefault(static type => type.IsGenericType && type.GetGenericTypeDefinition() == typeof(IDictionary<,>)) is { } dictionaryInterface)
+                // interface says. Only a type without one is read as the first
+                // IReadOnlyDictionary<TKey, TValue> it lists, as the contract resolver falls back to
+                // it as well.
+                if (typeof(TTarget) is { IsClass: true, IsAbstract: false })
                 {
+                    var interfaces = typeof(TTarget).GetInterfaces();
+                    var dictionaryInterface = interfaces.FirstOrDefault(static type => type.IsGenericType && type.GetGenericTypeDefinition() == typeof(IDictionary<,>));
+
                     // One that can be made empty is filled through that interface - a
                     // SortedDictionary<,>, say, or a class derived from Dictionary<,>, which inherits
-                    // none of its other constructors.
-                    if (typeof(TTarget).GetConstructor(Type.EmptyTypes) is not null)
+                    // none of its other constructors. An IReadOnlyDictionary<,> cannot be filled, so
+                    // a type that is only that is never made empty.
+                    if (dictionaryInterface is not null && typeof(TTarget).GetConstructor(Type.EmptyTypes) is not null)
                         return (IConverter<TSource, TTarget>?)Activator.CreateInstance(typeof(MapToConstructibleDictionaryConverter<,,>).MakeGenericType([.. dictionaryInterface.GetGenericArguments(), typeof(TTarget)]), environment);
+
+                    dictionaryInterface ??= interfaces.FirstOrDefault(static type => type.IsGenericType && type.GetGenericTypeDefinition() == typeof(IReadOnlyDictionary<,>)) is { } readOnlyDictionaryInterface
+                        ? typeof(IDictionary<,>).MakeGenericType(readOnlyDictionaryInterface.GetGenericArguments())
+                        : null;
 
                     // Otherwise it is built where a public constructor takes nothing but a dictionary of
                     // what it holds, as a ReadOnlyDictionary<,> has one: a Dictionary<TKey, TValue> is
                     // filled and passed to it. Which constructor that is, TryGetDictionaryConstructor
                     // says. The constructor is looked for once, here.
-                    if (TryGetDictionaryConstructor(typeof(TTarget), dictionaryInterface) is { } dictionaryConstructor)
+                    if (dictionaryInterface is not null && TryGetDictionaryConstructor(typeof(TTarget), dictionaryInterface) is { } dictionaryConstructor)
                         return (IConverter<TSource, TTarget>?)Activator.CreateInstance(typeof(MapToConstructedDictionaryConverter<,,>).MakeGenericType([.. dictionaryInterface.GetGenericArguments(), typeof(TTarget)]), environment, dictionaryConstructor);
                 }
             }
@@ -277,6 +287,8 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
         // parameter an IDictionary<TKey, TValue> can be passed as - not an IReadOnlyDictionary<,>,
         // though a Dictionary<,> could be. Of several, the one that takes exactly
         // IEnumerable<KeyValuePair<TKey, TValue>>, wherever it is declared, otherwise the first.
+        // That IDictionary<TKey, TValue> need not be one the type implements: for a type that is
+        // only an IReadOnlyDictionary<TKey, TValue>, it is made from that one's arguments.
         private static ConstructorInfo? TryGetDictionaryConstructor(Type type, Type dictionaryInterface)
         {
             var pairsType = typeof(IEnumerable<>).MakeGenericType(typeof(KeyValuePair<,>).MakeGenericType(dictionaryInterface.GetGenericArguments()));
