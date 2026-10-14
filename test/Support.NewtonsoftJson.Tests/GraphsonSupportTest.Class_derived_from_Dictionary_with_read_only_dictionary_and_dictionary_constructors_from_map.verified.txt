@@ -1,0 +1,9 @@
+﻿{
+  Success: true,
+  Type: ClassDerivedFromDictionaryWithReadOnlyDictionaryAndDictionaryConstructors,
+  Value: {
+    fromDictionary: 0,
+    key1: 1,
+    key2: 2
+  }
+}

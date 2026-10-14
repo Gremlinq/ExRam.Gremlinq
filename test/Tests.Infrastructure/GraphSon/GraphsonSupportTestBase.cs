@@ -2370,7 +2370,8 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         // keys of a map. A class that is a dictionary of more than one kind is built as the first
         // of them that its type lists (Type.GetInterfaces()), and its keys are read as that one is
         // keyed by: the g:Int32 keys of a map become names where it is keyed by names. An abstract
-        // class is not built at all.
+        // class is not built at all, and a typed value other than a map, which is no dictionary of
+        // anything, builds no such dictionary either.
         [Fact]
         public virtual Task ReadOnlyDictionary_from_object() => VerifyAttemptWithRuntimeType<ReadOnlyDictionary<string, int>>(String_Keys_Typed_Int_Values);
 
@@ -2379,6 +2380,9 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task ReadOnlyDictionary_of_int_keys_from_map() => VerifyWithKeyTypes<ReadOnlyDictionary<int, string>>(Map_of_Typed_Int_Keys_Typed_String_Values);
+
+        [Fact]
+        public virtual Task ReadOnlyDictionary_from_typed_Int32() => VerifyAttemptWithRuntimeType<ReadOnlyDictionary<string, int>>(Typed_Int32);
 
         [Fact]
         public virtual Task Abstract_class_derived_from_Dictionary_from_map() => VerifyAttemptWithRuntimeType<AbstractClassDerivedFromDictionary>(Map_of_String_Keys_Typed_Int_Values);
@@ -2392,11 +2396,13 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task Class_with_two_dictionary_interfaces_from_map_of_int_keys() => VerifyWithKeyTypes<ClassWithTwoDictionaryInterfaces>(Map_of_Typed_Int_Keys_Typed_Int_Values);
 
-        // The constructor must take nothing but what an IDictionary<,> can be passed as. One that
-        // takes an IReadOnlyDictionary<,> does not, nor one that takes a capacity or more than one
-        // argument, and where no constructor does, the dictionary is not built. Where more than one
-        // will do, the one that takes the dictionary's pairs, IEnumerable<KeyValuePair<,>>, is
-        // taken, wherever it is declared; otherwise the first of them.
+        // The constructor must take nothing but a dictionary of what it holds: what an
+        // IDictionary<,> or an IReadOnlyDictionary<,> can be passed as. One that takes a capacity or
+        // more than one argument does not, and where no constructor does, the dictionary is not
+        // built. Where more than one will do, the one that takes the dictionary's pairs,
+        // IEnumerable<KeyValuePair<,>>, is taken, wherever it is declared; otherwise the first that
+        // takes an IDictionary<,>, and only where none does, the first that takes an
+        // IReadOnlyDictionary<,>.
         [Fact]
         public virtual Task Class_derived_from_Dictionary_with_capacity_constructors_from_map() => VerifyAttemptWithRuntimeType<ClassDerivedFromDictionaryWithCapacityConstructors>(Map_of_String_Keys_Typed_Int_Values);
 
@@ -2412,12 +2418,19 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task Class_derived_from_Dictionary_with_dictionary_and_pairs_constructors_from_map() => VerifyAttemptWithRuntimeType<ClassDerivedFromDictionaryWithDictionaryAndPairsConstructors>(Map_of_String_Keys_Typed_Int_Values);
 
+        [Fact]
+        public virtual Task Class_derived_from_Dictionary_with_read_only_dictionary_and_dictionary_constructors_from_object() => VerifyAttemptWithRuntimeType<ClassDerivedFromDictionaryWithReadOnlyDictionaryAndDictionaryConstructors>(String_Keys_Typed_Int_Values);
+
+        [Fact]
+        public virtual Task Class_derived_from_Dictionary_with_read_only_dictionary_and_dictionary_constructors_from_map() => VerifyAttemptWithRuntimeType<ClassDerivedFromDictionaryWithReadOnlyDictionaryAndDictionaryConstructors>(Map_of_String_Keys_Typed_Int_Values);
+
         // A class that is a read-only dictionary and no other, IReadOnlyDictionary<,> but no
         // IDictionary<,>, is built from a map or an object as one that cannot be made empty, through
         // the same constructor - with its keys read as the first IReadOnlyDictionary<,> that its
         // type lists is keyed by, also where they are not names, as the g:Int32 keys of a map.
-        // A parameterless constructor does not help: what it makes cannot be filled. So where no
-        // constructor takes a dictionary, the dictionary is not built.
+        // That constructor may take an IReadOnlyDictionary<,> as well. A parameterless constructor
+        // does not help: what it makes cannot be filled. So where no constructor takes a
+        // dictionary of either kind, the dictionary is not built.
         [Fact]
         public virtual Task Class_implementing_IReadOnlyDictionary_with_pairs_constructor_from_object() => VerifyAttemptWithRuntimeType<ClassImplementingIReadOnlyDictionaryWithPairsConstructor<string, int>>(String_Keys_Typed_Int_Values);
 
