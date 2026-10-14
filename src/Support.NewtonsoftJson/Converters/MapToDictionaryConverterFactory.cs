@@ -285,7 +285,14 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                     // filled and passed to it - from a g:Map, and from a plain object as well, so that
                     // both are built through the same constructor. Which constructor that is,
                     // TryGetDictionaryConstructor says. The constructor is looked for once, here.
-                    if (dictionaryInterface is not null && TryGetDictionaryConstructor(typeof(TTarget), dictionaryInterface) is { } dictionaryConstructor)
+                    //
+                    // Not so a tree: Gremlinq's own Tree<> is only an IReadOnlyDictionary<,>, and its
+                    // constructor, which takes one, would qualify. TreeConverterFactory is registered
+                    // before this factory, so it is tried after it, and would never see a tree that
+                    // this converter reads as a dictionary - its items, { key, value } objects,
+                    // would become entries named after those two members. A tree is read by
+                    // TreeConverterFactory alone.
+                    if (dictionaryInterface is not null && !typeof(ITree).IsAssignableFrom(typeof(TTarget)) && TryGetDictionaryConstructor(typeof(TTarget), dictionaryInterface) is { } dictionaryConstructor)
                         return (IConverter<TSource, TTarget>?)Activator.CreateInstance(typeof(MapToConstructedDictionaryConverter<,,>).MakeGenericType([.. dictionaryInterface.GetGenericArguments(), typeof(TTarget)]), environment, dictionaryConstructor);
                 }
             }
@@ -293,21 +300,28 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
             return null;
         }
 
-        // The constructor Newtonsoft's serializer builds such a dictionary through: one whose one
-        // parameter an IDictionary<TKey, TValue> can be passed as - not an IReadOnlyDictionary<,>,
-        // though a Dictionary<,> could be. Of several, the one that takes exactly
-        // IEnumerable<KeyValuePair<TKey, TValue>>, wherever it is declared, otherwise the first.
-        // That IDictionary<TKey, TValue> need not be one the type implements: for a type that is
-        // only an IReadOnlyDictionary<TKey, TValue>, it is made from that one's arguments.
+        // The constructor such a dictionary is built through: one whose one parameter a
+        // Dictionary<TKey, TValue> can be passed as, either as an IDictionary<TKey, TValue> or as an
+        // IReadOnlyDictionary<TKey, TValue>. Of several, the one that takes exactly
+        // IEnumerable<KeyValuePair<TKey, TValue>>, wherever it is declared; otherwise the first that
+        // takes an IDictionary<TKey, TValue>, as Newtonsoft's serializer picks them; and only where
+        // none does, the first that takes an IReadOnlyDictionary<TKey, TValue>, which the serializer
+        // does not build through at all. That IDictionary<TKey, TValue> need not be one the type
+        // implements: for a type that is only an IReadOnlyDictionary<TKey, TValue>, it is made from
+        // that one's arguments, and the IReadOnlyDictionary<TKey, TValue> from its own.
         private static ConstructorInfo? TryGetDictionaryConstructor(Type type, Type dictionaryInterface)
         {
-            var pairsType = typeof(IEnumerable<>).MakeGenericType(typeof(KeyValuePair<,>).MakeGenericType(dictionaryInterface.GetGenericArguments()));
+            var genericArguments = dictionaryInterface.GetGenericArguments();
+            var pairsType = typeof(IEnumerable<>).MakeGenericType(typeof(KeyValuePair<,>).MakeGenericType(genericArguments));
+            var readOnlyDictionaryInterface = typeof(IReadOnlyDictionary<,>).MakeGenericType(genericArguments);
             var constructors = type
                 .GetConstructors()
-                .Where(constructor => constructor.GetParameters() is [{ } parameter] && parameter.ParameterType.IsAssignableFrom(dictionaryInterface))
+                .Where(constructor => constructor.GetParameters() is [{ } parameter] && (parameter.ParameterType.IsAssignableFrom(dictionaryInterface) || parameter.ParameterType.IsAssignableFrom(readOnlyDictionaryInterface)))
                 .ToArray();
 
-            return constructors.FirstOrDefault(constructor => constructor.GetParameters()[0].ParameterType == pairsType) ?? constructors.FirstOrDefault();
+            return constructors.FirstOrDefault(constructor => constructor.GetParameters()[0].ParameterType == pairsType)
+                ?? constructors.FirstOrDefault(constructor => constructor.GetParameters()[0].ParameterType.IsAssignableFrom(dictionaryInterface))
+                ?? constructors.FirstOrDefault();
         }
     }
 }
