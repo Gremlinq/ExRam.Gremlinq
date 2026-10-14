@@ -27,6 +27,11 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                 ArgumentNullException.ThrowIfNull(defer);
                 ArgumentNullException.ThrowIfNull(recurse);
 
+                // A typed g:Tree holds its items in @value. This converter unwraps it itself
+                // rather than rely on TypedValueConverterFactory having done so.
+                if (source is JObject typedTree && typedTree.TryGetValue("@type", out var typeName) && typeName.Type == JTokenType.String && "g:Tree".Equals(typeName.Value<string>(), StringComparison.OrdinalIgnoreCase) && typedTree.TryGetValue("@value", out var items))
+                    source = items;
+
                 if (source is JArray { Count: 0 } || source is JObject { Count: 0 })
                     value = Create(ImmutableDictionary<TKey, TValue>.Empty);
                 else
