@@ -2412,6 +2412,48 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task Class_derived_from_Dictionary_with_dictionary_and_pairs_constructors_from_map() => VerifyAttemptWithRuntimeType<ClassDerivedFromDictionaryWithDictionaryAndPairsConstructors>(Map_of_String_Keys_Typed_Int_Values);
 
+        // A class that is a read-only dictionary and no other, IReadOnlyDictionary<,> but no
+        // IDictionary<,>, is built from a map or an object as one that cannot be made empty, through
+        // the same constructor - with its keys read as the first IReadOnlyDictionary<,> that its
+        // type lists is keyed by, also where they are not names, as the g:Int32 keys of a map.
+        // A parameterless constructor does not help: what it makes cannot be filled. So where no
+        // constructor takes a dictionary, the dictionary is not built.
+        [Fact]
+        public virtual Task Class_implementing_IReadOnlyDictionary_with_pairs_constructor_from_object() => VerifyAttemptWithRuntimeType<ClassImplementingIReadOnlyDictionaryWithPairsConstructor<string, int>>(String_Keys_Typed_Int_Values);
+
+        [Fact]
+        public virtual Task Class_implementing_IReadOnlyDictionary_with_pairs_constructor_from_map() => VerifyAttemptWithRuntimeType<ClassImplementingIReadOnlyDictionaryWithPairsConstructor<string, int>>(Map_of_String_Keys_Typed_Int_Values);
+
+        [Fact]
+        public virtual Task Class_implementing_IReadOnlyDictionary_with_pairs_constructor_from_map_of_int_keys() => VerifyAttemptWithRuntimeType<ClassImplementingIReadOnlyDictionaryWithPairsConstructor<int, string>>(Map_of_Typed_Int_Keys_Typed_String_Values);
+
+        [Fact]
+        public virtual Task Class_implementing_IReadOnlyDictionary_with_dictionary_constructor_from_object() => VerifyAttemptWithRuntimeType<ClassImplementingIReadOnlyDictionaryWithDictionaryConstructor<string, int>>(String_Keys_Typed_Int_Values);
+
+        [Fact]
+        public virtual Task Class_implementing_IReadOnlyDictionary_with_dictionary_constructor_from_map() => VerifyAttemptWithRuntimeType<ClassImplementingIReadOnlyDictionaryWithDictionaryConstructor<string, int>>(Map_of_String_Keys_Typed_Int_Values);
+
+        [Fact]
+        public virtual Task Class_implementing_IReadOnlyDictionary_with_dictionary_constructor_from_map_of_int_keys() => VerifyAttemptWithRuntimeType<ClassImplementingIReadOnlyDictionaryWithDictionaryConstructor<int, string>>(Map_of_Typed_Int_Keys_Typed_String_Values);
+
+        [Fact]
+        public virtual Task Class_implementing_IReadOnlyDictionary_with_read_only_dictionary_constructor_from_object() => VerifyAttemptWithRuntimeType<ClassImplementingIReadOnlyDictionaryWithReadOnlyDictionaryConstructor<string, int>>(String_Keys_Typed_Int_Values);
+
+        [Fact]
+        public virtual Task Class_implementing_IReadOnlyDictionary_with_read_only_dictionary_constructor_from_map() => VerifyAttemptWithRuntimeType<ClassImplementingIReadOnlyDictionaryWithReadOnlyDictionaryConstructor<string, int>>(Map_of_String_Keys_Typed_Int_Values);
+
+        [Fact]
+        public virtual Task Class_implementing_IReadOnlyDictionary_with_read_only_dictionary_constructor_from_map_of_int_keys() => VerifyAttemptWithRuntimeType<ClassImplementingIReadOnlyDictionaryWithReadOnlyDictionaryConstructor<int, string>>(Map_of_Typed_Int_Keys_Typed_String_Values);
+
+        [Fact]
+        public virtual Task Class_implementing_IReadOnlyDictionary_with_parameterless_constructor_from_object() => VerifyAttemptWithRuntimeType<ClassImplementingIReadOnlyDictionaryWithParameterlessConstructor<string, int>>(String_Keys_Typed_Int_Values);
+
+        [Fact]
+        public virtual Task Class_implementing_IReadOnlyDictionary_with_parameterless_constructor_from_map() => VerifyAttemptWithRuntimeType<ClassImplementingIReadOnlyDictionaryWithParameterlessConstructor<string, int>>(Map_of_String_Keys_Typed_Int_Values);
+
+        [Fact]
+        public virtual Task Class_implementing_IReadOnlyDictionary_with_parameterless_constructor_from_map_of_int_keys() => VerifyAttemptWithRuntimeType<ClassImplementingIReadOnlyDictionaryWithParameterlessConstructor<int, string>>(Map_of_Typed_Int_Keys_Typed_String_Values);
+
         // A tree's entries are keyed as well, and a key that is there twice is its last subtree.
         [Fact]
         public virtual Task Tree_with_key_twice() => Verify<Tree<string>>("""

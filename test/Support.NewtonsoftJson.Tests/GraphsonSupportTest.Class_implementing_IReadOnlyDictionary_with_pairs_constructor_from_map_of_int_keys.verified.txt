@@ -1,0 +1,8 @@
+﻿{
+  Success: true,
+  Type: ClassImplementingIReadOnlyDictionaryWithPairsConstructor<int, string>,
+  Value: {
+    1: value1,
+    2: value2
+  }
+}
