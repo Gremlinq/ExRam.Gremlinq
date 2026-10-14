@@ -123,11 +123,12 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
 
                 .Add(new VertexOrEdgeConverterFactory())
                 .Add(new LabelLookupConverterFactory())
-                .Add(new TreeConverterFactory())
 
                 .Add(new TypedValueConverterFactory())
                 .Add(new MapDeferralConverterFactory())
                 .Add(new MapToDictionaryConverterFactory())
+                // Tried before the dictionary converters, which would otherwise build a Tree<> through its constructor.
+                .Add(new TreeConverterFactory())
                 .Add(new EnumerableConverterFactory())
                 .Add(new KeyValuePairCollectionConverterFactory())
 

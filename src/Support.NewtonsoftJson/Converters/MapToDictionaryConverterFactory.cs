@@ -285,14 +285,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                     // filled and passed to it - from a g:Map, and from a plain object as well, so that
                     // both are built through the same constructor. Which constructor that is,
                     // TryGetDictionaryConstructor says. The constructor is looked for once, here.
-                    //
-                    // Not so a tree: Gremlinq's own Tree<> is only an IReadOnlyDictionary<,>, and its
-                    // constructor, which takes one, would qualify. TreeConverterFactory is registered
-                    // before this factory, so it is tried after it, and would never see a tree that
-                    // this converter reads as a dictionary - its items, { key, value } objects,
-                    // would become entries named after those two members. A tree is read by
-                    // TreeConverterFactory alone.
-                    if (dictionaryInterface is not null && !typeof(ITree).IsAssignableFrom(typeof(TTarget)) && TryGetDictionaryConstructor(typeof(TTarget), dictionaryInterface) is { } dictionaryConstructor)
+                    if (dictionaryInterface is not null && TryGetDictionaryConstructor(typeof(TTarget), dictionaryInterface) is { } dictionaryConstructor)
                         return (IConverter<TSource, TTarget>?)Activator.CreateInstance(typeof(MapToConstructedDictionaryConverter<,,>).MakeGenericType([.. dictionaryInterface.GetGenericArguments(), typeof(TTarget)]), environment, dictionaryConstructor);
                 }
             }
