@@ -2865,6 +2865,20 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task Empty_tree_2() => Verify<Tree<object, Tree<object>>>(Empty_typed_tree);
 
+        // A tree that is asked for is never declined, though the token holds no tree items: a
+        // dictionary converter would build it otherwise, with entries named "key", "value" or "@type".
+        [Fact]
+        public virtual Task Empty_tree_from_typed_map() => VerifyAttempt<Tree<string>>(Map_of_String_Keys_Typed_Int_Values);
+
+        [Fact]
+        public virtual Task Empty_tree_from_typed_tree_without_value() => VerifyAttempt<Tree<string>>("""{ "@type": "g:Tree" }""");
+
+        [Fact]
+        public virtual Task Empty_tree_from_object() => VerifyAttempt<Tree<string>>("""{ "a": 1 }""");
+
+        [Fact]
+        public virtual Task Empty_tree_from_object_with_number_as_type() => VerifyAttempt<Tree<string>>("""{ "@type": 1 }""");
+
         [Fact]
         public virtual Task RootOnly_string_tree() => Verify<Tree<string>>(GraphSonStrings.RootOnly_string_tree);
 
