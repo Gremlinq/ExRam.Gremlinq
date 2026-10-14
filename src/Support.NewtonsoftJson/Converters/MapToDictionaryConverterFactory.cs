@@ -186,10 +186,12 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
             where TTarget : class
         {
             private readonly ConstructorInfo _constructor;
+            private readonly IGremlinQueryEnvironment _environment;
 
             public MapToConstructedDictionaryConverter(IGremlinQueryEnvironment environment, ConstructorInfo constructor) : base(environment)
             {
                 _constructor = constructor;
+                _environment = environment;
             }
 
             bool IConverter<JObject, TTarget>.TryConvert(JObject serialized, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
@@ -199,8 +201,15 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                 ArgumentNullException.ThrowIfNull(recurse);
 
                 // A Dictionary<TKey, TValue> is filled and handed to the constructor of what is asked
-                // for. Whatever that constructor throws is the caller's, and fails the query unwrapped.
-                if (TryBuild(serialized, recurse, static capacity => new Dictionary<TKey, TValue>(capacity)) is { } dictionary)
+                // for: from a g:Map here, and from anything else - a plain object, whose keys are its
+                // names - by whatever reads that as a Dictionary<TKey, TValue>. Newtonsoft's serializer
+                // would build a plain object itself, by rules of its own; this way, a map and an object
+                // are built through the same constructor. What cannot be read as a
+                // Dictionary<TKey, TValue> is declined, and left to the converters behind this one.
+                // Whatever the constructor throws is the caller's, and fails the query unwrapped.
+                var dictionary = TryBuild(serialized, recurse, static capacity => new Dictionary<TKey, TValue>(capacity));
+
+                if (dictionary is not null || recurse.TryTransform(serialized, _environment, out dictionary))
                 {
                     value = (TTarget)_constructor.Invoke(BindingFlags.DoNotWrapExceptions, null, [dictionary], null);
 
@@ -273,8 +282,9 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
 
                     // Otherwise it is built where a public constructor takes nothing but a dictionary of
                     // what it holds, as a ReadOnlyDictionary<,> has one: a Dictionary<TKey, TValue> is
-                    // filled and passed to it. Which constructor that is, TryGetDictionaryConstructor
-                    // says. The constructor is looked for once, here.
+                    // filled and passed to it - from a g:Map, and from a plain object as well, so that
+                    // both are built through the same constructor. Which constructor that is,
+                    // TryGetDictionaryConstructor says. The constructor is looked for once, here.
                     if (dictionaryInterface is not null && TryGetDictionaryConstructor(typeof(TTarget), dictionaryInterface) is { } dictionaryConstructor)
                         return (IConverter<TSource, TTarget>?)Activator.CreateInstance(typeof(MapToConstructedDictionaryConverter<,,>).MakeGenericType([.. dictionaryInterface.GetGenericArguments(), typeof(TTarget)]), environment, dictionaryConstructor);
                 }
