@@ -11,6 +11,47 @@
     PartitionKey: PartitionKey
   },
   {
+    LocalizableDescription: {
+      Id: 128,
+      Label: LocalizableDescription,
+      Value: 
+    },
+    Id: 17,
+    Label: MetaPropertyVertex,
+    PartitionKey: PartitionKey
+  },
+  {
+    LocalizableDescription: {
+      Id: 129,
+      Label: LocalizableDescription,
+      Value: 
+    },
+    Id: 21,
+    Label: MetaPropertyVertex,
+    PartitionKey: PartitionKey
+  },
+  {
+    LocalizableDescription: {
+      Id: 130,
+      Label: LocalizableDescription,
+      Value: 
+    },
+    Id: 25,
+    Label: MetaPropertyVertex,
+    PartitionKey: PartitionKey
+  },
+  {
+    CountryCallingCode: +49,
+    LocalizableDescription: {
+      Id: 131,
+      Label: LocalizableDescription,
+      Value: 
+    },
+    Id: 34,
+    Label: MetaPropertyVertex,
+    PartitionKey: PartitionKey
+  },
+  {
     Name: {
       Id: 72,
       Label: Name,
@@ -18,7 +59,7 @@
       Value: GER
     },
     LocalizableDescription: {
-      Id: 128,
+      Id: 132,
       Label: LocalizableDescription,
       Value: 
     },
@@ -34,52 +75,11 @@
       Value: GER
     },
     LocalizableDescription: {
-      Id: 129,
-      Label: LocalizableDescription,
-      Value: 
-    },
-    Id: 73,
-    Label: MetaPropertyVertex,
-    PartitionKey: PartitionKey
-  },
-  {
-    LocalizableDescription: {
-      Id: 130,
-      Label: LocalizableDescription,
-      Value: 
-    },
-    Id: 17,
-    Label: MetaPropertyVertex,
-    PartitionKey: PartitionKey
-  },
-  {
-    LocalizableDescription: {
-      Id: 131,
-      Label: LocalizableDescription,
-      Value: 
-    },
-    Id: 21,
-    Label: MetaPropertyVertex,
-    PartitionKey: PartitionKey
-  },
-  {
-    LocalizableDescription: {
-      Id: 132,
-      Label: LocalizableDescription,
-      Value: 
-    },
-    Id: 25,
-    Label: MetaPropertyVertex,
-    PartitionKey: PartitionKey
-  },
-  {
-    CountryCallingCode: +49,
-    LocalizableDescription: {
       Id: 133,
       Label: LocalizableDescription,
       Value: 
     },
-    Id: 34,
+    Id: 73,
     Label: MetaPropertyVertex,
     PartitionKey: PartitionKey
   }

@@ -12,6 +12,25 @@
           OperatorName: V
         },
         {
+          OperatorName: order
+        },
+        {
+          OperatorName: by,
+          Arguments: [
+            {
+              StepInstructions: [
+                {
+                  OperatorName: id
+                }
+              ]
+            },
+            {
+              EnumName: Order,
+              EnumValue: asc
+            }
+          ]
+        },
+        {
           OperatorName: group
         },
         {
@@ -33,6 +52,9 @@
               StepInstructions: [
                 {
                   OperatorName: values
+                },
+                {
+                  OperatorName: fold
                 }
               ]
             }

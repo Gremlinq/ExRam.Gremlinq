@@ -1,9 +1,53 @@
 [
   {
-    MetaPropertyVertex: +49,
-    RichVertex: 2020-04-07 14:43:36 +0,
-    ScalarVertex: 28800000.0,
-    SiblingVertex: 0001-01-01 +0,
-    SimpleVertex: en
+    MetaPropertyVertex: [
+      +49,
+      +49,
+      GER,
+      GER
+    ],
+    RichVertex: [
+      43,
+      2020-04-07 14:43:36 +0,
+      0,
+      Bob,
+      0,
+      0,
+      0,
+      0,
+      2020-04-07 14:43:36 +0,
+      0,
+      Bob,
+      0,
+      AQIDBAUGBwg=,
+      0,
+      1,
+      0,
+      2020-04-07 14:43:36 +0,
+      Marko
+    ],
+    ScalarVertex: [
+      28800000.0,
+      false,
+      7200000.0
+    ],
+    SiblingVertex: [
+      0001-01-01 +0,
+      0001-01-01 +0,
+      0001-01-01 +0,
+      0001-01-01 +0,
+      Aachen,
+      +4912345,
+      +4923456,
+      0001-01-01 +0
+    ],
+    SimpleVertex: [
+      en,
+      en,
+      en,
+      en,
+      en,
+      en
+    ]
   }
 ]

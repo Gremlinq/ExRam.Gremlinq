@@ -10,6 +10,22 @@
       ]
     },
     {
+      OperatorName: order
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        {
+          EnumName: T,
+          EnumValue: id
+        },
+        {
+          EnumName: Order,
+          EnumValue: asc
+        }
+      ]
+    },
+    {
       OperatorName: property,
       Arguments: [
         {

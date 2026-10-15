@@ -39,7 +39,7 @@
   },
   {
     LocalizableDescription: {
-      Id: 130,
+      Id: 128,
       Label: LocalizableDescription,
       Properties: {
         someKey: value
@@ -52,7 +52,7 @@
   },
   {
     LocalizableDescription: {
-      Id: 131,
+      Id: 129,
       Label: LocalizableDescription,
       Properties: {
         someKey: value
@@ -65,7 +65,7 @@
   },
   {
     LocalizableDescription: {
-      Id: 132,
+      Id: 130,
       Label: LocalizableDescription,
       Properties: {
         someKey: value

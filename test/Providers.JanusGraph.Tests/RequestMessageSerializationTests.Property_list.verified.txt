@@ -18,6 +18,22 @@
           ]
         },
         {
+          OperatorName: order
+        },
+        {
+          OperatorName: by,
+          Arguments: [
+            {
+              EnumName: T,
+              EnumValue: id
+            },
+            {
+              EnumName: Order,
+              EnumValue: asc
+            }
+          ]
+        },
+        {
           OperatorName: limit,
           Arguments: [
             1

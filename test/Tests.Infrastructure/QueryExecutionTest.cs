@@ -1217,9 +1217,13 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task Group_with_key_and_value2() => _g
             .V()
+            .Order(b => b
+                .By(__ => __.Id()))
             .Group(_ => _
                 .ByKey(_ => _.Label())
-                .ByValue(_ => _.Values()))
+                .ByValue(_ => _
+                    .Values()
+                    .Fold()))
             .Verify();
 
         [Fact]
@@ -3036,6 +3040,8 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task Property_list() => _g
             .V<SiblingVertex>()
+            .Order(b => b
+                .By(x => x.Id))
             .Limit(1)
             .Property(x => x.PhoneNumbers!, "+4912345")
             .Verify();
@@ -3043,6 +3049,8 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task Property_null() => _g
             .V<SiblingVertex>()
+            .Order(b => b
+                .By(x => x.Id))
             .Limit(1)
             .Property(x => x.PhoneNumbers!, null!)
             .Verify();
@@ -3073,6 +3081,8 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual Task Property_single_with_dictionary_meta1() => _g
             .V<MetaPropertyVertex>()
+            .Order(b => b
+                .By(x => x.Id))
             .Property(x => x.LocalizableDescription, new VertexProperty<object, IDictionary<string, string>>("")
             {
                 Properties = new Dictionary<string, string>
