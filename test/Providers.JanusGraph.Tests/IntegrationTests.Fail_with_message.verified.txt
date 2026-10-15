@@ -21,37 +21,9 @@ Message  > There's been an error.
   Bulk   > 1
 Traversal> V().fail("There's been an error.")
 Metadata > {}
-=============================================,
-      stackTrace:
-org.apache.tinkerpop.gremlin.process.traversal.step.sideEffect.FailStep$FailException: There's been an error.
-	at org.apache.tinkerpop.gremlin.process.traversal.step.sideEffect.FailStep.sideEffect(FailStep.java:57)
-	at org.apache.tinkerpop.gremlin.process.traversal.step.sideEffect.SideEffectStep.processNextStart(SideEffectStep.java:39)
-	at org.apache.tinkerpop.gremlin.process.traversal.step.util.AbstractStep.hasNext(AbstractStep.java:155)
-	at org.apache.tinkerpop.gremlin.process.traversal.util.DefaultTraversal.hasNext(DefaultTraversal.java:192)
-	at org.apache.tinkerpop.gremlin.server.util.TraverserIterator.fillBulker(TraverserIterator.java:63)
-	at org.apache.tinkerpop.gremlin.server.util.TraverserIterator.hasNext(TraverserIterator.java:50)
-	at org.apache.tinkerpop.gremlin.server.op.traversal.TraversalOpProcessor.handleIterator(TraversalOpProcessor.java:350)
-	at org.apache.tinkerpop.gremlin.server.op.traversal.TraversalOpProcessor.lambda$iterateBytecodeTraversal$0(TraversalOpProcessor.java:223)
-	at java.base/java.util.concurrent.FutureTask.run(Unknown Source)
-	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Unknown Source)
-	at java.base/java.util.concurrent.FutureTask.run(Unknown Source)
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
-	at java.base/java.lang.Thread.run(Unknown Source)
-
+=============================================
     },
     Message: ServerErrorFailStep: There's been an error.,
     Data: {}
-  },
-  StackTrace:
-at ExRam.Gremlinq.Providers.Core.GremlinqClientFactory.GremlinQueryExecutorImpl.<>c__5`1.<Execute>b__5_0(GremlinQueryExecutionContext context, RequestMessage _, ResponseMessage`1 response)
-at ExRam.Gremlinq.Providers.Core.GremlinqClientFactory.GremlinQueryExecutorImpl.Execute[TResult,TTransformedResult](GremlinQueryExecutionContext context, Func`4 resultTransformation, CancellationToken ct)
-at ExRam.Gremlinq.Providers.Core.GremlinqClientFactory.GremlinQueryExecutorImpl.Execute[TResult,TTransformedResult](GremlinQueryExecutionContext context, Func`4 resultTransformation, CancellationToken ct)
-at ExRam.Gremlinq.Providers.Core.GremlinqClientFactory.GremlinQueryExecutorImpl.Execute[TResult,TTransformedResult](GremlinQueryExecutionContext context, Func`4 resultTransformation, CancellationToken ct)
-at System.Linq.AsyncEnumerableEx.<IgnoreElements>g__Core|98_0[TSource](IAsyncEnumerable`1 source, CancellationToken cancellationToken)
-at System.Linq.AsyncEnumerableEx.<IgnoreElements>g__Core|98_0[TSource](IAsyncEnumerable`1 source, CancellationToken cancellationToken)
-at System.Linq.AsyncEnumerableEx.<IgnoreElements>g__Core|98_0[TSource](IAsyncEnumerable`1 source, CancellationToken cancellationToken)
-at System.Linq.AsyncEnumerable.<ToArrayAsync>g__Impl|179_0[TSource](ConfiguredCancelableAsyncEnumerable`1 source)
-at System.Linq.AsyncEnumerable.<ToArrayAsync>g__Impl|179_0[TSource](ConfiguredCancelableAsyncEnumerable`1 source)
-at ExRam.Gremlinq.Tests.Infrastructure.ExecutingVerifier.Verify[TElement](IGremlinQueryBase`1 query)
+  }
 }

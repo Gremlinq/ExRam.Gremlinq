@@ -50,7 +50,9 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
             protected override SettingsTask ModifySettingsTask(SettingsTask task) => base
                 .ModifySettingsTask(task)
                 .DontScrubGuids()
-                .ScrubGuidsWithConstant();
+                .ScrubGuidsWithConstant()
+                .IgnoreStackTrace()
+                .IgnoreMember("stackTrace");
         }
 
         public LoggingIntegrationTests(LoggingFixture fixture) : base(

@@ -13,53 +13,9 @@
     StatusAttributes: {
       exceptions: [
         java.lang.NumberFormatException
-      ],
-      stackTrace:
-java.lang.NumberFormatException: For input string: "12345678-9012-3456-7890-123456789012"
-	at java.base/java.lang.NumberFormatException.forInputString(Unknown Source)
-	at java.base/java.lang.Long.parseLong(Unknown Source)
-	at java.base/java.lang.Long.valueOf(Unknown Source)
-	at org.janusgraph.graphdb.transaction.StandardJanusGraphTx.getVertices(StandardJanusGraphTx.java:532)
-	at org.janusgraph.graphdb.tinkerpop.JanusGraphBlueprintsTransaction.vertices(JanusGraphBlueprintsTransaction.java:154)
-	at org.janusgraph.graphdb.tinkerpop.JanusGraphBlueprintsGraph.vertices(JanusGraphBlueprintsGraph.java:148)
-	at org.janusgraph.graphdb.tinkerpop.optimize.step.JanusGraphStep.lambda$new$1(JanusGraphStep.java:84)
-	at org.apache.tinkerpop.gremlin.process.traversal.step.map.GraphStep.processNextStart(GraphStep.java:158)
-	at org.apache.tinkerpop.gremlin.process.traversal.step.util.AbstractStep.hasNext(AbstractStep.java:155)
-	at org.apache.tinkerpop.gremlin.process.traversal.step.util.ExpandableStepIterator.next(ExpandableStepIterator.java:55)
-	at org.janusgraph.graphdb.tinkerpop.optimize.step.JanusGraphMultiQueryStep.processNextStart(JanusGraphMultiQueryStep.java:111)
-	at org.apache.tinkerpop.gremlin.process.traversal.step.util.AbstractStep.hasNext(AbstractStep.java:155)
-	at org.apache.tinkerpop.gremlin.process.traversal.step.util.ExpandableStepIterator.hasNext(ExpandableStepIterator.java:47)
-	at org.janusgraph.graphdb.tinkerpop.optimize.step.JanusGraphNoOpBarrierVertexOnlyStep.processAllStarts(JanusGraphNoOpBarrierVertexOnlyStep.java:49)
-	at org.apache.tinkerpop.gremlin.process.traversal.step.map.NoOpBarrierStep.processNextStart(NoOpBarrierStep.java:60)
-	at org.apache.tinkerpop.gremlin.process.traversal.step.util.AbstractStep.hasNext(AbstractStep.java:155)
-	at org.apache.tinkerpop.gremlin.process.traversal.step.util.ExpandableStepIterator.next(ExpandableStepIterator.java:55)
-	at org.apache.tinkerpop.gremlin.process.traversal.step.map.ScalarMapStep.processNextStart(ScalarMapStep.java:39)
-	at org.apache.tinkerpop.gremlin.process.traversal.step.util.AbstractStep.hasNext(AbstractStep.java:155)
-	at org.apache.tinkerpop.gremlin.process.traversal.util.DefaultTraversal.hasNext(DefaultTraversal.java:192)
-	at org.apache.tinkerpop.gremlin.server.util.TraverserIterator.fillBulker(TraverserIterator.java:63)
-	at org.apache.tinkerpop.gremlin.server.util.TraverserIterator.hasNext(TraverserIterator.java:50)
-	at org.apache.tinkerpop.gremlin.server.op.traversal.TraversalOpProcessor.handleIterator(TraversalOpProcessor.java:350)
-	at org.apache.tinkerpop.gremlin.server.op.traversal.TraversalOpProcessor.lambda$iterateBytecodeTraversal$0(TraversalOpProcessor.java:223)
-	at java.base/java.util.concurrent.FutureTask.run(Unknown Source)
-	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Unknown Source)
-	at java.base/java.util.concurrent.FutureTask.run(Unknown Source)
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
-	at java.base/java.lang.Thread.run(Unknown Source)
-
+      ]
     },
     Message: ServerError: For input string: "12345678-9012-3456-7890-123456789012",
     Data: {}
-  },
-  StackTrace:
-at ExRam.Gremlinq.Providers.Core.GremlinqClientFactory.GremlinQueryExecutorImpl.<>c__5`1.<Execute>b__5_0(GremlinQueryExecutionContext context, RequestMessage _, ResponseMessage`1 response)
-at ExRam.Gremlinq.Providers.Core.GremlinqClientFactory.GremlinQueryExecutorImpl.Execute[TResult,TTransformedResult](GremlinQueryExecutionContext context, Func`4 resultTransformation, CancellationToken ct)
-at ExRam.Gremlinq.Providers.Core.GremlinqClientFactory.GremlinQueryExecutorImpl.Execute[TResult,TTransformedResult](GremlinQueryExecutionContext context, Func`4 resultTransformation, CancellationToken ct)
-at ExRam.Gremlinq.Providers.Core.GremlinqClientFactory.GremlinQueryExecutorImpl.Execute[TResult,TTransformedResult](GremlinQueryExecutionContext context, Func`4 resultTransformation, CancellationToken ct)
-at System.Linq.AsyncEnumerableEx.<IgnoreElements>g__Core|98_0[TSource](IAsyncEnumerable`1 source, CancellationToken cancellationToken)
-at System.Linq.AsyncEnumerableEx.<IgnoreElements>g__Core|98_0[TSource](IAsyncEnumerable`1 source, CancellationToken cancellationToken)
-at System.Linq.AsyncEnumerableEx.<IgnoreElements>g__Core|98_0[TSource](IAsyncEnumerable`1 source, CancellationToken cancellationToken)
-at System.Linq.AsyncEnumerable.<ToArrayAsync>g__Impl|179_0[TSource](ConfiguredCancelableAsyncEnumerable`1 source)
-at System.Linq.AsyncEnumerable.<ToArrayAsync>g__Impl|179_0[TSource](ConfiguredCancelableAsyncEnumerable`1 source)
-at ExRam.Gremlinq.Tests.Infrastructure.ExecutingVerifier.Verify[TElement](IGremlinQueryBase`1 query)
+  }
 }
