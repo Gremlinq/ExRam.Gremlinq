@@ -1,0 +1,53 @@
+﻿{
+  RequestId: 12345678-9012-3456-7890-123456789012,
+  Operation: bytecode,
+  Processor: traversal,
+  Arguments: {
+    aliases: {
+      g: a
+    },
+    gremlin: {
+      StepInstructions: [
+        {
+          OperatorName: inject,
+          Arguments: [
+            42,
+            43,
+            44
+          ]
+        },
+        {
+          OperatorName: limit,
+          Arguments: [
+            0
+          ]
+        },
+        {
+          OperatorName: fold
+        },
+        {
+          OperatorName: map,
+          Arguments: [
+            {
+              StepInstructions: [
+                {
+                  OperatorName: unfold
+                },
+                {
+                  OperatorName: range,
+                  Arguments: [
+                    0,
+                    1
+                  ]
+                },
+                {
+                  OperatorName: fold
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

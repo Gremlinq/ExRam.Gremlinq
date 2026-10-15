@@ -1329,6 +1329,222 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Verify();
 
         [Fact]
+        public virtual Task Inject_Limit0_Fold_LimitLocal_0() => _g
+            .Inject(42, 43, 44)
+            .Limit(0)
+            .Fold()
+            .LimitLocal(0)
+            .Verify();
+
+        [Fact]
+        public virtual Task Inject_Limit0_Fold_LimitLocal_1() => _g
+            .Inject(42, 43, 44)
+            .Limit(0)
+            .Fold()
+            .LimitLocal(1)
+            .Verify();
+
+        [Fact]
+        public virtual Task Inject_Limit0_Fold_LimitLocal_2() => _g
+            .Inject(42, 43, 44)
+            .Limit(0)
+            .Fold()
+            .LimitLocal(2)
+            .Verify();
+
+        [Fact]
+        public virtual Task Inject_Limit0_Fold_RangeLocal_0() => _g
+            .Inject(42, 43, 44)
+            .Limit(0)
+            .Fold()
+            .RangeLocal(0, 0)
+            .Verify();
+
+        [Fact]
+        public virtual Task Inject_Limit0_Fold_RangeLocal_1() => _g
+            .Inject(42, 43, 44)
+            .Limit(0)
+            .Fold()
+            .RangeLocal(0, 1)
+            .Verify();
+
+        [Fact]
+        public virtual Task Inject_Limit0_Fold_RangeLocal_2() => _g
+            .Inject(42, 43, 44)
+            .Limit(0)
+            .Fold()
+            .RangeLocal(0, 2)
+            .Verify();
+
+        [Fact]
+        public virtual Task Inject_Limit0_Fold_TailLocal_0() => _g
+            .Inject(42, 43, 44)
+            .Limit(0)
+            .Fold()
+            .TailLocal(0)
+            .Verify();
+
+        [Fact]
+        public virtual Task Inject_Limit0_Fold_TailLocal_1() => _g
+            .Inject(42, 43, 44)
+            .Limit(0)
+            .Fold()
+            .TailLocal(1)
+            .Verify();
+
+        [Fact]
+        public virtual Task Inject_Limit0_Fold_TailLocal_2() => _g
+            .Inject(42, 43, 44)
+            .Limit(0)
+            .Fold()
+            .TailLocal(2)
+            .Verify();
+
+        [Fact]
+        public virtual Task Inject_Limit1_Fold_LimitLocal_0() => _g
+            .Inject(42, 43, 44)
+            .Limit(1)
+            .Fold()
+            .LimitLocal(0)
+            .Verify();
+
+        [Fact]
+        public virtual Task Inject_Limit1_Fold_LimitLocal_1() => _g
+            .Inject(42, 43, 44)
+            .Limit(1)
+            .Fold()
+            .LimitLocal(1)
+            .Verify();
+
+        [Fact]
+        public virtual Task Inject_Limit1_Fold_LimitLocal_2() => _g
+            .Inject(42, 43, 44)
+            .Limit(1)
+            .Fold()
+            .LimitLocal(2)
+            .Verify();
+
+        [Fact]
+        public virtual Task Inject_Limit1_Fold_RangeLocal_0() => _g
+            .Inject(42, 43, 44)
+            .Limit(1)
+            .Fold()
+            .RangeLocal(0, 0)
+            .Verify();
+
+        [Fact]
+        public virtual Task Inject_Limit1_Fold_RangeLocal_1() => _g
+            .Inject(42, 43, 44)
+            .Limit(1)
+            .Fold()
+            .RangeLocal(0, 1)
+            .Verify();
+
+        [Fact]
+        public virtual Task Inject_Limit1_Fold_RangeLocal_2() => _g
+            .Inject(42, 43, 44)
+            .Limit(1)
+            .Fold()
+            .RangeLocal(0, 2)
+            .Verify();
+
+        [Fact]
+        public virtual Task Inject_Limit1_Fold_TailLocal_0() => _g
+            .Inject(42, 43, 44)
+            .Limit(1)
+            .Fold()
+            .TailLocal(0)
+            .Verify();
+
+        [Fact]
+        public virtual Task Inject_Limit1_Fold_TailLocal_1() => _g
+            .Inject(42, 43, 44)
+            .Limit(1)
+            .Fold()
+            .TailLocal(1)
+            .Verify();
+
+        [Fact]
+        public virtual Task Inject_Limit1_Fold_TailLocal_2() => _g
+            .Inject(42, 43, 44)
+            .Limit(1)
+            .Fold()
+            .TailLocal(2)
+            .Verify();
+
+        [Fact]
+        public virtual Task Inject_Limit2_Fold_LimitLocal_0() => _g
+            .Inject(42, 43, 44)
+            .Limit(2)
+            .Fold()
+            .LimitLocal(0)
+            .Verify();
+
+        [Fact]
+        public virtual Task Inject_Limit2_Fold_LimitLocal_1() => _g
+            .Inject(42, 43, 44)
+            .Limit(2)
+            .Fold()
+            .LimitLocal(1)
+            .Verify();
+
+        [Fact]
+        public virtual Task Inject_Limit2_Fold_LimitLocal_2() => _g
+            .Inject(42, 43, 44)
+            .Limit(2)
+            .Fold()
+            .LimitLocal(2)
+            .Verify();
+
+        [Fact]
+        public virtual Task Inject_Limit2_Fold_RangeLocal_0() => _g
+            .Inject(42, 43, 44)
+            .Limit(2)
+            .Fold()
+            .RangeLocal(0, 0)
+            .Verify();
+
+        [Fact]
+        public virtual Task Inject_Limit2_Fold_RangeLocal_1() => _g
+            .Inject(42, 43, 44)
+            .Limit(2)
+            .Fold()
+            .RangeLocal(0, 1)
+            .Verify();
+
+        [Fact]
+        public virtual Task Inject_Limit2_Fold_RangeLocal_2() => _g
+            .Inject(42, 43, 44)
+            .Limit(2)
+            .Fold()
+            .RangeLocal(0, 2)
+            .Verify();
+
+        [Fact]
+        public virtual Task Inject_Limit2_Fold_TailLocal_0() => _g
+            .Inject(42, 43, 44)
+            .Limit(2)
+            .Fold()
+            .TailLocal(0)
+            .Verify();
+
+        [Fact]
+        public virtual Task Inject_Limit2_Fold_TailLocal_1() => _g
+            .Inject(42, 43, 44)
+            .Limit(2)
+            .Fold()
+            .TailLocal(1)
+            .Verify();
+
+        [Fact]
+        public virtual Task Inject_Limit2_Fold_TailLocal_2() => _g
+            .Inject(42, 43, 44)
+            .Limit(2)
+            .Fold()
+            .TailLocal(2)
+            .Verify();
+
+        [Fact]
         public virtual Task Label() => _g
             .V()
             .Label()
@@ -1349,7 +1565,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task LimitGlobal() => _g
-            .V()
+            .Inject(42, 43, 44)
             .Limit(1)
             .Verify();
 
@@ -2894,7 +3110,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task RangeGlobal() => _g
-            .V()
+            .Inject(42, 43, 44)
             .Range(1, 3)
             .Verify();
 
@@ -3172,7 +3388,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task SkipGlobal() => _g
-            .V()
+            .Inject(42, 43, 44)
             .Skip(1)
             .Verify();
 
@@ -3373,7 +3589,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual Task TailGlobal() => _g
-            .V()
+            .Inject(42, 43, 44)
             .Tail(1)
             .Verify();
 
@@ -3912,438 +4128,6 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
            .InE()
            .OtherV<RichVertex>()
            .Verify();
-
-        [Fact]
-        public virtual Task V_Limit0_Fold_LimitLocal_0() => _g
-            .V()
-            .Limit(0)
-            .Fold()
-            .LimitLocal(0)
-            .Verify();
-
-        [Fact]
-        public virtual Task V_Limit0_Fold_LimitLocal_1() => _g
-            .V()
-            .Limit(0)
-            .Fold()
-            .LimitLocal(1)
-            .Verify();
-
-        [Fact]
-        public virtual Task V_Limit0_Fold_LimitLocal_2() => _g
-            .V()
-            .Limit(0)
-            .Fold()
-            .LimitLocal(2)
-            .Verify();
-
-        [Fact]
-        public virtual Task V_Limit0_Fold_RangeLocal_0() => _g
-            .V()
-            .Limit(0)
-            .Fold()
-            .RangeLocal(0, 0)
-            .Verify();
-
-        [Fact]
-        public virtual Task V_Limit0_Fold_RangeLocal_1() => _g
-            .V()
-            .Limit(0)
-            .Fold()
-            .RangeLocal(0, 1)
-            .Verify();
-
-        [Fact]
-        public virtual Task V_Limit0_Fold_RangeLocal_2() => _g
-            .V()
-            .Limit(0)
-            .Fold()
-            .RangeLocal(0, 2)
-            .Verify();
-
-        [Fact]
-        public virtual Task V_Limit0_Fold_TailLocal_0() => _g
-            .V()
-            .Limit(0)
-            .Fold()
-            .TailLocal(0)
-            .Verify();
-
-        [Fact]
-        public virtual Task V_Limit0_Fold_TailLocal_1() => _g
-            .V()
-            .Limit(0)
-            .Fold()
-            .TailLocal(1)
-            .Verify();
-
-        [Fact]
-        public virtual Task V_Limit0_Fold_TailLocal_2() => _g
-            .V()
-            .Limit(0)
-            .Fold()
-            .TailLocal(2)
-            .Verify();
-
-        [Fact]
-        public virtual Task V_Limit0_V_LimitLocal_0() => _g
-            .V()
-            .Limit(0)
-            .Fold()
-            .LimitLocal(0)
-            .Verify();
-
-        [Fact]
-        public virtual Task V_Limit0_V_LimitLocal_1() => _g
-            .V()
-            .Limit(0)
-            .Fold()
-            .LimitLocal(1)
-            .Verify();
-
-        [Fact]
-        public virtual Task V_Limit0_V_LimitLocal_2() => _g
-             .V()
-             .Limit(0)
-             .Fold()
-             .LimitLocal(2)
-             .Verify();
-
-        [Fact]
-        public virtual Task V_Limit0_V_RangeLocal_0() => _g
-            .V()
-            .Limit(0)
-            .Fold()
-            .RangeLocal(0, 0)
-            .Verify();
-
-        [Fact]
-        public virtual Task V_Limit0_V_RangeLocal_1() => _g
-            .V()
-            .Limit(0)
-            .Fold()
-            .RangeLocal(0, 1)
-            .Verify();
-
-        [Fact]
-        public virtual Task V_Limit0_V_RangeLocal_2() => _g
-            .V()
-            .Limit(0)
-            .Fold()
-            .RangeLocal(0, 2)
-            .Verify();
-
-        [Fact]
-        public virtual Task V_Limit0_V_TailLocal_0() => _g
-            .V()
-            .Limit(0)
-            .Fold()
-            .TailLocal(0)
-            .Verify();
-
-        [Fact]
-        public virtual Task V_Limit0_V_TailLocal_1() => _g
-            .V()
-            .Limit(0)
-            .Fold()
-            .TailLocal(1)
-            .Verify();
-
-        [Fact]
-        public virtual Task V_Limit0_V_TailLocal_2() => _g
-            .V()
-            .Limit(0)
-            .Fold()
-            .TailLocal(2)
-            .Verify();
-
-        [Fact]
-        public virtual Task V_Limit1_Fold_LimitLocal_0() => _g
-            .V()
-            .Limit(1)
-            .Fold()
-            .LimitLocal(0)
-            .Verify();
-
-        [Fact]
-        public virtual Task V_Limit1_Fold_LimitLocal_1() => _g
-            .V()
-            .Limit(1)
-            .Fold()
-            .LimitLocal(1)
-            .Verify();
-
-        [Fact]
-        public virtual Task V_Limit1_Fold_LimitLocal_2() => _g
-            .V()
-            .Limit(1)
-            .Fold()
-            .LimitLocal(2)
-            .Verify();
-
-        [Fact]
-        public virtual Task V_Limit1_Fold_RangeLocal_0() => _g
-            .V()
-            .Limit(1)
-            .Fold()
-            .RangeLocal(0, 0)
-            .Verify();
-
-        [Fact]
-        public virtual Task V_Limit1_Fold_RangeLocal_1() => _g
-            .V()
-            .Limit(1)
-            .Fold()
-            .RangeLocal(0, 1)
-            .Verify();
-
-        [Fact]
-        public virtual Task V_Limit1_Fold_RangeLocal_2() => _g
-            .V()
-            .Limit(1)
-            .Fold()
-            .RangeLocal(0, 2)
-            .Verify();
-
-        [Fact]
-        public virtual Task V_Limit1_Fold_TailLocal_0() => _g
-            .V()
-            .Limit(1)
-            .Fold()
-            .TailLocal(0)
-            .Verify();
-
-        [Fact]
-        public virtual Task V_Limit1_Fold_TailLocal_1() => _g
-            .V()
-            .Limit(1)
-            .Fold()
-            .TailLocal(1)
-            .Verify();
-
-        [Fact]
-        public virtual Task V_Limit1_Fold_TailLocal_2() => _g
-            .V()
-            .Limit(1)
-            .Fold()
-            .TailLocal(2)
-            .Verify();
-
-        [Fact]
-        public virtual Task V_Limit1_V_LimitLocal_0() => _g
-            .V()
-            .Limit(1)
-            .Fold()
-            .LimitLocal(0)
-            .Verify();
-
-        [Fact]
-        public virtual Task V_Limit1_V_LimitLocal_1() => _g
-            .V()
-            .Limit(1)
-            .Fold()
-            .LimitLocal(1)
-            .Verify();
-
-        [Fact]
-        public virtual Task V_Limit1_V_LimitLocal_2() => _g
-            .V()
-            .Limit(1)
-            .Fold()
-            .LimitLocal(2)
-            .Verify();
-
-        [Fact]
-        public virtual Task V_Limit1_V_RangeLocal_0() => _g
-            .V()
-            .Limit(1)
-            .Fold()
-            .RangeLocal(0, 0)
-            .Verify();
-
-        [Fact]
-        public virtual Task V_Limit1_V_RangeLocal_1() => _g
-            .V()
-            .Limit(1)
-            .Fold()
-            .RangeLocal(0, 1)
-            .Verify();
-
-        [Fact]
-        public virtual Task V_Limit1_V_RangeLocal_2() => _g
-            .V()
-            .Limit(1)
-            .Fold()
-            .RangeLocal(0, 2)
-            .Verify();
-
-        [Fact]
-        public virtual Task V_Limit1_V_TailLocal_0() => _g
-            .V()
-            .Limit(1)
-            .Fold()
-            .TailLocal(0)
-            .Verify();
-
-        [Fact]
-        public virtual Task V_Limit1_V_TailLocal_1() => _g
-            .V()
-            .Limit(1)
-            .Fold()
-            .TailLocal(1)
-            .Verify();
-
-        [Fact]
-        public virtual Task V_Limit1_V_TailLocal_2() => _g
-            .V()
-            .Limit(1)
-            .Fold()
-            .TailLocal(2)
-            .Verify();
-
-        [Fact]
-        public virtual Task V_Limit2_Fold_LimitLocal_0() => _g
-            .V()
-            .Limit(2)
-            .Fold()
-            .LimitLocal(0)
-            .Verify();
-
-        [Fact]
-        public virtual Task V_Limit2_Fold_LimitLocal_1() => _g
-            .V()
-            .Limit(2)
-            .Fold()
-            .LimitLocal(1)
-            .Verify();
-
-        [Fact]
-        public virtual Task V_Limit2_Fold_LimitLocal_2() => _g
-            .V()
-            .Limit(2)
-            .Fold()
-            .LimitLocal(2)
-            .Verify();
-
-        [Fact]
-        public virtual Task V_Limit2_Fold_RangeLocal_0() => _g
-            .V()
-            .Limit(2)
-            .Fold()
-            .RangeLocal(0, 0)
-            .Verify();
-
-        [Fact]
-        public virtual Task V_Limit2_Fold_RangeLocal_1() => _g
-            .V()
-            .Limit(2)
-            .Fold()
-            .RangeLocal(0, 1)
-            .Verify();
-
-        [Fact]
-        public virtual Task V_Limit2_Fold_RangeLocal_2() => _g
-            .V()
-            .Limit(2)
-            .Fold()
-            .RangeLocal(0, 2)
-            .Verify();
-
-        [Fact]
-        public virtual Task V_Limit2_Fold_TailLocal_0() => _g
-            .V()
-            .Limit(2)
-            .Fold()
-            .TailLocal(0)
-            .Verify();
-
-        [Fact]
-        public virtual Task V_Limit2_Fold_TailLocal_1() => _g
-            .V()
-            .Limit(2)
-            .Fold()
-            .TailLocal(1)
-            .Verify();
-
-        [Fact]
-        public virtual Task V_Limit2_Fold_TailLocal_2() => _g
-            .V()
-            .Limit(2)
-            .Fold()
-            .TailLocal(2)
-            .Verify();
-
-        [Fact]
-        public virtual Task V_Limit2_V_LimitLocal_0() => _g
-            .V()
-            .Limit(2)
-            .Fold()
-            .LimitLocal(0)
-            .Verify();
-
-        [Fact]
-        public virtual Task V_Limit2_V_LimitLocal_1() => _g
-            .V()
-            .Limit(2)
-            .Fold()
-            .LimitLocal(1)
-            .Verify();
-
-        [Fact]
-        public virtual Task V_Limit2_V_LimitLocal_2() => _g
-            .V()
-            .Limit(2)
-            .Fold()
-            .LimitLocal(2)
-            .Verify();
-
-        [Fact]
-        public virtual Task V_Limit2_V_RangeLocal_0() => _g
-            .V()
-            .Limit(2)
-            .Fold()
-            .RangeLocal(0, 0)
-            .Verify();
-
-        [Fact]
-        public virtual Task V_Limit2_V_RangeLocal_1() => _g
-            .V()
-            .Limit(2)
-            .Fold()
-            .RangeLocal(0, 1)
-            .Verify();
-
-        [Fact]
-        public virtual Task V_Limit2_V_RangeLocal_2() => _g
-            .V()
-            .Limit(2)
-            .Fold()
-            .RangeLocal(0, 2)
-            .Verify();
-
-        [Fact]
-        public virtual Task V_Limit2_V_TailLocal_0() => _g
-            .V()
-            .Limit(2)
-            .Fold()
-            .TailLocal(0)
-            .Verify();
-
-        [Fact]
-        public virtual Task V_Limit2_V_TailLocal_1() => _g
-            .V()
-            .Limit(2)
-            .Fold()
-            .TailLocal(1)
-            .Verify();
-
-        [Fact]
-        public virtual Task V_Limit2_V_TailLocal_2() => _g
-            .V()
-            .Limit(2)
-            .Fold()
-            .TailLocal(2)
-            .Verify();
 
         [Fact]
         public virtual Task V_of_abstract_type() => _g

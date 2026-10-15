@@ -1,0 +1,1 @@
+﻿g.inject(42,43,44).limit(0).fold().tail(local,2)

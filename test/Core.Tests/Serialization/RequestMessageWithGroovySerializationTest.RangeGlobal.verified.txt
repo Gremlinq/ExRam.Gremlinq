@@ -7,13 +7,12 @@
       g: g
     },
     bindings: {
-      _a: 1,
-      _b: 3,
-      _c: id,
-      _d: label,
-      _e: properties,
-      _f: value
+      _a: 42,
+      _b: 43,
+      _c: 44,
+      _d: 1,
+      _e: 3
     },
-    gremlin: g.V().range(_a,_b).project(_c,_d,_e).by(id).by(label).by(__.properties().group().by(label).by(__.project(_c,_d,_f,_e).by(id).by(label).by(value).by(__.valueMap()).fold()))
+    gremlin: g.inject(_a,_b,_c).range(_d,_e)
   }
 }

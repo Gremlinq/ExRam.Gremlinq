@@ -1,0 +1,18 @@
+﻿{
+  RequestId: 12345678-9012-3456-7890-123456789012,
+  Operation: eval,
+  Processor: ,
+  Arguments: {
+    aliases: {
+      g: g
+    },
+    bindings: {
+      _a: 42,
+      _b: 43,
+      _c: 44,
+      _d: 0,
+      _e: 2
+    },
+    gremlin: g.inject(_a,_b,_c).limit(_d).fold().tail(local,_e)
+  }
+}

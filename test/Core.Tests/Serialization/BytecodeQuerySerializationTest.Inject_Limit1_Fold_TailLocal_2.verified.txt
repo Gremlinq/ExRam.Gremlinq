@@ -1,0 +1,31 @@
+﻿{
+  StepInstructions: [
+    {
+      OperatorName: inject,
+      Arguments: [
+        42,
+        43,
+        44
+      ]
+    },
+    {
+      OperatorName: limit,
+      Arguments: [
+        1
+      ]
+    },
+    {
+      OperatorName: fold
+    },
+    {
+      OperatorName: tail,
+      Arguments: [
+        {
+          EnumName: Scope,
+          EnumValue: local
+        },
+        2
+      ]
+    }
+  ]
+}

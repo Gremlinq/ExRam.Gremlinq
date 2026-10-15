@@ -1,0 +1,1 @@
+﻿g.inject(42,43,44).limit(2).fold().map(__.unfold().range(0,1).fold())
