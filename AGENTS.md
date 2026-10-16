@@ -100,6 +100,32 @@ There are ~24,000 `.verified.txt` and `.verified.cs` snapshot files. When changi
    - Files follow naming pattern: `PublicApiTests.Core.DotNet10_0.verified.cs`
    - Run in Release mode to get modified snapshots for all target frameworks
 
+3. **Verifying against another class's snapshots**:
+   - `query.Verify()` returns Verify's `SettingsTask`, after the verifier's own settings, so a
+     test can chain further settings onto it. A test method may still declare `Task`; the
+     `SettingsTask` converts implicitly.
+   - A test class that answers like another class verifies against that class's snapshots with
+     `UseSnapshotDirectoryAndNameOf<T>()`. Adding `UseCanonicalComparer()`
+     (`test/Tests.Infrastructure/Snapshots/`) compares the canonical forms of both texts: the order
+     of array items and object members is ignored, and an exception document is compared as
+     `EXCEPTION`. This is for another implementation of the same semantics, which may answer in
+     another order where Gremlin defines none, and fail with an exception of its own.
+   - Under `UseCanonicalComparer()`, the class overrides every fact whose query has an `order()`
+     step, repeats the query and chains `.UseDefaultComparer()`, since sorting would hide the order:
+
+     ```csharp
+     public override Task Order_scalars() => _g
+         .V<RichVertex>()
+         .Local(__ => __.Count())
+         .Order(b => b
+             .By(__ => __))
+         .Verify()
+         .UseDefaultComparer();
+     ```
+
+   - A received file in another class's snapshot directory is never accepted: the snapshot belongs
+     to that class.
+
 ### Code Coverage
 
 Uses **Coverlet** (`coverlet.MTP`) with Microsoft.Testing.Platform runner:
