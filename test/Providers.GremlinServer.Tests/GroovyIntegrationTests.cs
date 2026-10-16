@@ -13,7 +13,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 {
     [IntegrationTest("Linux", true)]
     [IntegrationTest("Windows")]
-    public class GroovyIntegrationTests : QueryExecutionTest, IClassFixture<GroovyIntegrationTests.Fixture>
+    public class GroovyIntegrationTests : QueryExecutionTest, IClassFixture<GroovyIntegrationTests.Fixture>, ISourceFileNameProvider<GroovyIntegrationTests>
     {
         public class Fixture : CustomGremlinServerContainerFixture
         {
@@ -32,5 +32,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
             new ExecutingVerifier())
         {
         }
+
+        public static string GetSourceFileName() => SourceFileName.OfThis();
     }
 }
