@@ -19,7 +19,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 
             }
 
-            public override Task Verify<TElement>(IGremlinQueryBase<TElement> query) => base
+            public override SettingsTask Verify<TElement>(IGremlinQueryBase<TElement> query) => base
                 .Verify(query.Cast<MetaResponse<TElement>>());
 
             protected override SettingsTask ModifySettingsTask(SettingsTask task) => base

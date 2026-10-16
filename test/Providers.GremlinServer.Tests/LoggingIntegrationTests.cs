@@ -28,7 +28,16 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
             {
             }
 
-            public override async Task Verify<TElement>(IGremlinQueryBase<TElement> query)
+            public override SettingsTask Verify<TElement>(IGremlinQueryBase<TElement> query) => InnerVerify(Record(query));
+
+            protected override SettingsTask ModifySettingsTask(SettingsTask task) => base
+                .ModifySettingsTask(task)
+                .DontScrubGuids()
+                .ScrubGuidsWithConstant()
+                .IgnoreStackTrace()
+                .IgnoreMember("stackTrace");
+
+            private static async Task<IReadOnlyCollection<ToAppend>> Record<TElement>(IGremlinQueryBase<TElement> query)
             {
                 Recording.Start();
 
@@ -41,18 +50,9 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
                 catch
                 {
                 }
-                finally
-                {
-                    await InnerVerify(Recording.Stop());
-                }
-            }
 
-            protected override SettingsTask ModifySettingsTask(SettingsTask task) => base
-                .ModifySettingsTask(task)
-                .DontScrubGuids()
-                .ScrubGuidsWithConstant()
-                .IgnoreStackTrace()
-                .IgnoreMember("stackTrace");
+                return Recording.Stop();
+            }
         }
 
         public LoggingIntegrationTests(LoggingFixture fixture) : base(

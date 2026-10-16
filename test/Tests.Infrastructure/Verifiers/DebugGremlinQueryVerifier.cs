@@ -10,6 +10,6 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         }
 
-        public override Task Verify<TElement>(IGremlinQueryBase<TElement> query) => InnerVerify(query.Debug());
+        public override SettingsTask Verify<TElement>(IGremlinQueryBase<TElement> query) => InnerVerify(query.Debug());
     }
 }
