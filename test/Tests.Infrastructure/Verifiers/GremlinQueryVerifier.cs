@@ -13,8 +13,8 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         }
 
         // A SettingsTask instead of a Task, so that a test can configure its verification further,
-        // after ModifySettingsTask: a test class that overrides a fact can repeat its query and chain
-        // a setting onto query.Verify().
+        // after ModifySettingsTask: the facts of QueryExecutionTest return it, so a test class that
+        // overrides a fact can chain a setting onto base.Fact().
         public abstract SettingsTask Verify<TElement>(IGremlinQueryBase<TElement> query);
 
         protected virtual SettingsTask ModifySettingsTask(SettingsTask task) => task/*.AutoVerify()*/;
