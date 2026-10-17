@@ -74,16 +74,16 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
         // stop Core's transformer from giving the source token as it is: the JObject that holds a
         // typed value is an ICollection, and the JValue of a g:Int32's @value an IEnumerable. These
         // record that answer under a name of their own, next to the declines the contract asks for.
-        public override Task IUntypedCollection_from_typed_Int32() => VerifyAttemptWithRuntimeType<ICollection>("""{ "@type": "g:Int32", "@value": 5 }""")
+        public override SettingsTask IUntypedCollection_from_typed_Int32() => VerifyAttemptWithRuntimeType<ICollection>("""{ "@type": "g:Int32", "@value": 5 }""")
             .UseMethodName($"{nameof(IUntypedCollection_from_typed_Int32)}_until_2495");
 
-        public override Task IUntypedCollection_from_typed_UUID() => VerifyAttemptWithRuntimeType<ICollection>("""{ "@type": "g:UUID", "@value": "41d2e28a-20a4-4ab0-b379-d810dede3786" }""")
+        public override SettingsTask IUntypedCollection_from_typed_UUID() => VerifyAttemptWithRuntimeType<ICollection>("""{ "@type": "g:UUID", "@value": "41d2e28a-20a4-4ab0-b379-d810dede3786" }""")
             .UseMethodName($"{nameof(IUntypedCollection_from_typed_UUID)}_until_2495");
 
-        public override Task IUntypedCollection_from_typed_T() => VerifyAttemptWithRuntimeType<ICollection>("""{ "@type": "g:T", "@value": "id" }""")
+        public override SettingsTask IUntypedCollection_from_typed_T() => VerifyAttemptWithRuntimeType<ICollection>("""{ "@type": "g:T", "@value": "id" }""")
             .UseMethodName($"{nameof(IUntypedCollection_from_typed_T)}_until_2495");
 
-        public override Task Untyped_IEnumerable_from_typed_Int32() => VerifyAttemptWithRuntimeType<IEnumerable>("""{ "@type": "g:Int32", "@value": 5 }""")
+        public override SettingsTask Untyped_IEnumerable_from_typed_Int32() => VerifyAttemptWithRuntimeType<IEnumerable>("""{ "@type": "g:Int32", "@value": 5 }""")
             .UseMethodName($"{nameof(Untyped_IEnumerable_from_typed_Int32)}_until_2495");
 
         // Reads the JSON of a test the way DeferToNewtonsoftConverterFactory reads a response, so

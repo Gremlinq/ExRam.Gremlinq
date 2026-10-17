@@ -54,7 +54,8 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         // SettingsTask rather than Task: a derived class that adds a test of its own has nowhere to
         // put that test's snapshot, the directory being fixed at construction for the whole class.
         // Handing back the SettingsTask lets it redirect just that one, e.g. through
-        // UseSnapshotDirectoryAndNameOf<T>(). Test methods can still declare Task; it converts.
+        // UseSnapshotDirectoryAndNameOf<T>(). The facts return that SettingsTask, so an override can
+        // configure the verification of the base fact by chaining onto it.
         protected virtual SettingsTask Verify<T>(string token, Func<IGremlinQueryEnvironment, IGremlinQueryEnvironment> environmentTransformation)
         {
             var environment = environmentTransformation
@@ -108,7 +109,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         protected abstract TNativeToken CreateNativeToken(string str);
 
         [Fact]
-        public virtual Task Bug_1884() => Verify<Bug_1884_Entity>("""
+        public virtual SettingsTask Bug_1884() => Verify<Bug_1884_Entity>("""
             {
                 "CreatedAt": 123456789,
                 "MyEnum1": 0,
@@ -121,164 +122,164 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         // and whatever whitespace surrounds it. A name the enum does not have is no value of it,
         // and neither is no name at all.
         [Fact]
-        public virtual Task Enum_from_name() => Verify<SomeEnum>("\"One\"");
+        public virtual SettingsTask Enum_from_name() => Verify<SomeEnum>("\"One\"");
 
         [Fact]
-        public virtual Task Enum_from_name_in_other_case() => Verify<SomeEnum>("\"one\"");
+        public virtual SettingsTask Enum_from_name_in_other_case() => Verify<SomeEnum>("\"one\"");
 
         [Fact]
-        public virtual Task Enum_from_name_in_whitespace() => Verify<SomeEnum>("\" One \"");
+        public virtual SettingsTask Enum_from_name_in_whitespace() => Verify<SomeEnum>("\" One \"");
 
         [Fact]
-        public virtual Task Enum_from_unknown_name() => VerifyAttempt<SomeEnum>("\"Other\"");
+        public virtual SettingsTask Enum_from_unknown_name() => VerifyAttempt<SomeEnum>("\"Other\"");
 
         [Fact]
-        public virtual Task Enum_from_empty_string() => VerifyAttempt<SomeEnum>("\"\"");
+        public virtual SettingsTask Enum_from_empty_string() => VerifyAttempt<SomeEnum>("\"\"");
 
         // Found however it is spelled, a name is found twice in an enum with two values that differ
         // in nothing but case. The one spelled exactly is the one that counts - here the second of
         // the two - and where none is, the first.
         [Fact]
-        public virtual Task Enum_from_name_spelled_as_one_of_two() => Verify<EnumWithNamesInTwoCases>("\"VALUE\"");
+        public virtual SettingsTask Enum_from_name_spelled_as_one_of_two() => Verify<EnumWithNamesInTwoCases>("\"VALUE\"");
 
         [Fact]
-        public virtual Task Enum_from_name_spelled_as_none_of_two() => Verify<EnumWithNamesInTwoCases>("\"value\"");
+        public virtual SettingsTask Enum_from_name_spelled_as_none_of_two() => Verify<EnumWithNamesInTwoCases>("\"value\"");
 
         // A number in a string is the value of that number, as the number itself is - whether the
         // enum has a name for it or not. One that does not fit the type underlying the enum is no
         // value of it.
         [Fact]
-        public virtual Task Enum_from_number_in_string() => Verify<SomeEnum>("\"1\"");
+        public virtual SettingsTask Enum_from_number_in_string() => Verify<SomeEnum>("\"1\"");
 
         [Fact]
-        public virtual Task Enum_from_number_without_name_in_string() => Verify<SomeEnum>("\"42\"");
+        public virtual SettingsTask Enum_from_number_without_name_in_string() => Verify<SomeEnum>("\"42\"");
 
         [Fact]
-        public virtual Task Enum_from_number_out_of_range_in_string() => VerifyAttempt<SomeEnum>("\"4294967296\"");
+        public virtual SettingsTask Enum_from_number_out_of_range_in_string() => VerifyAttempt<SomeEnum>("\"4294967296\"");
 
         // The number itself is a value of the enum if it fits the type underlying the enum, whether
         // the enum has a name for it or not - -1 included, where that type is an int. One that does
         // not fit is no value of it, not even the one it would wrap around to, bare or in a typed
         // value, and neither is a number with a fraction or a decimal point.
         [Fact]
-        public virtual Task Enum_from_negative_number() => VerifyAttempt<SomeEnum>("-1");
+        public virtual SettingsTask Enum_from_negative_number() => VerifyAttempt<SomeEnum>("-1");
 
         [Fact]
-        public virtual Task Enum_from_number_out_of_range() => VerifyAttempt<SomeEnum>("4294967296");
+        public virtual SettingsTask Enum_from_number_out_of_range() => VerifyAttempt<SomeEnum>("4294967296");
 
         [Fact]
-        public virtual Task Enum_from_number_out_of_range_that_wraps_around_to_a_name() => VerifyAttempt<SomeEnum>("4294967297");
+        public virtual SettingsTask Enum_from_number_out_of_range_that_wraps_around_to_a_name() => VerifyAttempt<SomeEnum>("4294967297");
 
         [Fact]
-        public virtual Task Enum_from_typed_Int64_out_of_range() => VerifyAttempt<SomeEnum>("""{ "@type": "g:Int64", "@value": 4294967297 }""");
+        public virtual SettingsTask Enum_from_typed_Int64_out_of_range() => VerifyAttempt<SomeEnum>("""{ "@type": "g:Int64", "@value": 4294967297 }""");
 
         [Fact]
-        public virtual Task Enum_from_number_with_fraction() => VerifyAttempt<SomeEnum>("1.5");
+        public virtual SettingsTask Enum_from_number_with_fraction() => VerifyAttempt<SomeEnum>("1.5");
 
         [Fact]
-        public virtual Task Enum_from_whole_number_with_decimal_point() => VerifyAttempt<SomeEnum>("1.0");
+        public virtual SettingsTask Enum_from_whole_number_with_decimal_point() => VerifyAttempt<SomeEnum>("1.0");
 
         // Whether a number fits is asked of the type underlying the enum, not of an int: a byte has
         // no 256 and no -1, and a ulong has an 18446744073709551615 that even a long has not.
         [Fact]
-        public virtual Task Byte_enum_from_number_out_of_range() => VerifyAttempt<ByteEnum>("256");
+        public virtual SettingsTask Byte_enum_from_number_out_of_range() => VerifyAttempt<ByteEnum>("256");
 
         [Fact]
-        public virtual Task Byte_enum_from_number_out_of_range_that_wraps_around_to_a_name() => VerifyAttempt<ByteEnum>("257");
+        public virtual SettingsTask Byte_enum_from_number_out_of_range_that_wraps_around_to_a_name() => VerifyAttempt<ByteEnum>("257");
 
         [Fact]
-        public virtual Task Byte_enum_from_negative_number() => VerifyAttempt<ByteEnum>("-1");
+        public virtual SettingsTask Byte_enum_from_negative_number() => VerifyAttempt<ByteEnum>("-1");
 
         [Fact]
-        public virtual Task ULong_enum_from_negative_number() => VerifyAttempt<ULongEnum>("-1");
+        public virtual SettingsTask ULong_enum_from_negative_number() => VerifyAttempt<ULongEnum>("-1");
 
         [Fact]
-        public virtual Task ULong_enum_from_largest_number() => VerifyAttempt<ULongEnum>("18446744073709551615");
+        public virtual SettingsTask ULong_enum_from_largest_number() => VerifyAttempt<ULongEnum>("18446744073709551615");
 
         // true and false are no numbers, so they are no value of an enum, nor of a nullable one -
         // which is read from a number as the enum is.
         [Fact]
-        public virtual Task Enum_from_true() => VerifyAttempt<SomeEnum>("true");
+        public virtual SettingsTask Enum_from_true() => VerifyAttempt<SomeEnum>("true");
 
         [Fact]
-        public virtual Task Enum_from_false() => VerifyAttempt<SomeEnum>("false");
+        public virtual SettingsTask Enum_from_false() => VerifyAttempt<SomeEnum>("false");
 
         [Fact]
-        public virtual Task Nullable_enum_from_true() => VerifyAttempt<SomeEnum?>("true");
+        public virtual SettingsTask Nullable_enum_from_true() => VerifyAttempt<SomeEnum?>("true");
 
         [Fact]
-        public virtual Task Nullable_enum_from_number() => VerifyAttempt<SomeEnum?>("1");
+        public virtual SettingsTask Nullable_enum_from_number() => VerifyAttempt<SomeEnum?>("1");
 
         // Names separated by commas are their values combined, each name found the way a single one
         // is. One among them that the enum does not have leaves nothing to read, and so does a comma
         // with no name after it.
         [Fact]
-        public virtual Task Flags_enum_from_names() => Verify<FlagsEnum>("\"Read, execute\"");
+        public virtual SettingsTask Flags_enum_from_names() => Verify<FlagsEnum>("\"Read, execute\"");
 
         [Fact]
-        public virtual Task Flags_enum_from_names_with_unknown_name() => VerifyAttempt<FlagsEnum>("\"Read, Other\"");
+        public virtual SettingsTask Flags_enum_from_names_with_unknown_name() => VerifyAttempt<FlagsEnum>("\"Read, Other\"");
 
         [Fact]
-        public virtual Task Flags_enum_from_names_with_trailing_comma() => VerifyAttempt<FlagsEnum>("\"Read,\"");
+        public virtual SettingsTask Flags_enum_from_names_with_trailing_comma() => VerifyAttempt<FlagsEnum>("\"Read,\"");
 
         // Whether the enum is [Flags] is not asked, as Enum.Parse does not ask either: One and
         // Two are 1 and 2, and combine into a 3 that SomeEnum has no name for.
         [Fact]
-        public virtual Task Enum_without_Flags_from_names() => Verify<SomeEnum>("\"One, Two\"");
+        public virtual SettingsTask Enum_without_Flags_from_names() => Verify<SomeEnum>("\"One, Two\"");
 
         // A value with an [EnumMember] is read from the name given there, and still from its own.
         // The name given there may be anything a string can be, so the whole text is looked for
         // among those names before a comma in it separates anything.
         [Fact]
-        public virtual Task Enum_from_EnumMember_name() => Verify<EnumWithEnumMembers>("\"not-started\"");
+        public virtual SettingsTask Enum_from_EnumMember_name() => Verify<EnumWithEnumMembers>("\"not-started\"");
 
         [Fact]
-        public virtual Task Enum_from_EnumMember_name_in_other_case() => Verify<EnumWithEnumMembers>("\"NOT-STARTED\"");
+        public virtual SettingsTask Enum_from_EnumMember_name_in_other_case() => Verify<EnumWithEnumMembers>("\"NOT-STARTED\"");
 
         [Fact]
-        public virtual Task Enum_from_own_name_despite_EnumMember() => Verify<EnumWithEnumMembers>("\"NotStarted\"");
+        public virtual SettingsTask Enum_from_own_name_despite_EnumMember() => Verify<EnumWithEnumMembers>("\"NotStarted\"");
 
         [Fact]
-        public virtual Task Enum_from_EnumMember_name_with_comma() => Verify<EnumWithEnumMembers>("\"started, not done\"");
+        public virtual SettingsTask Enum_from_EnumMember_name_with_comma() => Verify<EnumWithEnumMembers>("\"started, not done\"");
 
         [Fact]
-        public virtual Task Enum_from_EnumMember_name_with_comma_in_other_case() => Verify<EnumWithEnumMembers>("\"STARTED, NOT DONE\"");
+        public virtual SettingsTask Enum_from_EnumMember_name_with_comma_in_other_case() => Verify<EnumWithEnumMembers>("\"STARTED, NOT DONE\"");
 
         // A nullable enum is read the way the enum is. A name it does not have is not read as null:
         // there is a token to read and the enum cannot read it, which is a decline.
         [Fact]
-        public virtual Task Nullable_enum_from_name() => Verify<SomeEnum?>("\"one\"");
+        public virtual SettingsTask Nullable_enum_from_name() => Verify<SomeEnum?>("\"one\"");
 
         [Fact]
-        public virtual Task Nullable_enum_from_unknown_name() => VerifyAttempt<SomeEnum?>("\"Other\"");
+        public virtual SettingsTask Nullable_enum_from_unknown_name() => VerifyAttempt<SomeEnum?>("\"Other\"");
 
         [Fact]
-        public virtual Task Nullable_enum_from_empty_string() => VerifyAttempt<SomeEnum?>("\"\"");
+        public virtual SettingsTask Nullable_enum_from_empty_string() => VerifyAttempt<SomeEnum?>("\"\"");
 
         // GraphSON has no type for an enum, so inside a typed value there is a number to read, and
         // it is read as the bare number is.
         [Fact]
-        public virtual Task Enum_from_typed_Int32() => Verify<SomeEnum>("""{ "@type": "g:Int32", "@value": 1 }""");
+        public virtual SettingsTask Enum_from_typed_Int32() => Verify<SomeEnum>("""{ "@type": "g:Int32", "@value": 1 }""");
 
         // An enum is read from a name wherever one is read. As an element of an array, where a name
         // the enum does not have is dropped like any item that cannot be converted, and a null is
         // kept where the item type can hold one.
         [Fact]
-        public virtual Task Enums_from_Array_of_names() => Verify<SomeEnum[]>("""[ "One", "two", 1, "Other", "0" ]""");
+        public virtual SettingsTask Enums_from_Array_of_names() => Verify<SomeEnum[]>("""[ "One", "two", 1, "Other", "0" ]""");
 
         [Fact]
-        public virtual Task Nullable_enums_from_Array_of_names() => Verify<SomeEnum?[]>("""[ "One", null, "Other", "two" ]""");
+        public virtual SettingsTask Nullable_enums_from_Array_of_names() => Verify<SomeEnum?[]>("""[ "One", null, "Other", "two" ]""");
 
         [Fact]
-        public virtual Task Enums_from_typed_List_of_names() => Verify<SomeEnum[]>("""{ "@type": "g:List", "@value": [ "One", "two" ] }""");
+        public virtual SettingsTask Enums_from_typed_List_of_names() => Verify<SomeEnum[]>("""{ "@type": "g:List", "@value": [ "One", "two" ] }""");
 
         // As a value of a dictionary, read from an object or from a g:Map - where an entry whose
         // value is a name the enum does not have is left out, as the array leaves out the item.
         [Fact]
-        public virtual Task Enum_dictionary_from_object_with_names() => Verify<Dictionary<string, SomeEnum>>("""{ "first": "One", "second": "two", "third": 1 }""");
+        public virtual SettingsTask Enum_dictionary_from_object_with_names() => Verify<Dictionary<string, SomeEnum>>("""{ "first": "One", "second": "two", "third": 1 }""");
 
         [Fact]
-        public virtual Task Enum_dictionary_from_map_with_names() => Verify<Dictionary<string, SomeEnum>>("""
+        public virtual SettingsTask Enum_dictionary_from_map_with_names() => Verify<Dictionary<string, SomeEnum>>("""
             {
               "@type": "g:Map",
               "@value": [ "first", "One", "second", "two", "third", { "@type": "g:Int32", "@value": 1 } ]
@@ -286,7 +287,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             """);
 
         [Fact]
-        public virtual Task Enum_dictionary_from_map_with_unknown_name() => Verify<Dictionary<string, SomeEnum>>("""
+        public virtual SettingsTask Enum_dictionary_from_map_with_unknown_name() => Verify<Dictionary<string, SomeEnum>>("""
             {
               "@type": "g:Map",
               "@value": [ "first", "One", "second", "Other" ]
@@ -294,14 +295,14 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             """);
 
         [Fact]
-        public virtual Task Enum_dictionary_from_object_with_unknown_name() => VerifyAttempt<Dictionary<string, SomeEnum>>("""{ "a": "One", "b": "nope" }""");
+        public virtual SettingsTask Enum_dictionary_from_object_with_unknown_name() => VerifyAttempt<Dictionary<string, SomeEnum>>("""{ "a": "One", "b": "nope" }""");
 
         // And as a member of an entity, which is where an enum stored under its name comes back
         // from a graph: as the property of a vertex, however the vertex arrives - plain, typed, or
         // as valueMap() returns it. A name the enum does not have leaves the member as it was, and
         // costs nothing but itself.
         [Fact]
-        public virtual Task Person_with_Gender_name() => Verify<RichVertex>("""
+        public virtual SettingsTask Person_with_Gender_name() => Verify<RichVertex>("""
             {
               "id": 1,
               "label": "RichVertex",
@@ -312,7 +313,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             """);
 
         [Fact]
-        public virtual Task Person_with_Gender_name_typed() => Verify<RichVertex>("""
+        public virtual SettingsTask Person_with_Gender_name_typed() => Verify<RichVertex>("""
             {
               "@type": "g:Vertex",
               "@value": {
@@ -335,7 +336,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             """);
 
         [Fact]
-        public virtual Task Person_from_map_with_Gender_name() => Verify<RichVertex>("""
+        public virtual SettingsTask Person_from_map_with_Gender_name() => Verify<RichVertex>("""
             {
               "@type": "g:Map",
               "@value": [ "Enum", [ "One" ] ]
@@ -343,7 +344,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             """);
 
         [Fact]
-        public virtual Task Person_with_unknown_Gender_name() => Verify<RichVertex>("""
+        public virtual SettingsTask Person_with_unknown_Gender_name() => Verify<RichVertex>("""
             {
               "id": 1,
               "label": "RichVertex",
@@ -355,11 +356,11 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             """);
 
         [Fact]
-        public virtual Task VertexProperty_with_enum_name() => Verify<VertexProperty<SomeEnum>>("""{ "id": 2, "value": "One", "label": "Enum" }""");
+        public virtual SettingsTask VertexProperty_with_enum_name() => Verify<VertexProperty<SomeEnum>>("""{ "id": 2, "value": "One", "label": "Enum" }""");
 
         // Bug_1884 with the enum under its name: ValueA, where the entity sets ValueB by itself.
         [Fact]
-        public virtual Task Bug_1884_with_enum_name() => Verify<Bug_1884_Entity>("""
+        public virtual SettingsTask Bug_1884_with_enum_name() => Verify<Bug_1884_Entity>("""
             {
                 "CreatedAt": 123456789,
                 "MyEnum1": "ValueA",
@@ -369,13 +370,13 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         // Constructor arguments are read the same way as members are.
         [Fact]
-        public virtual Task Constructor_with_enum_names() => Verify<ClassWithEnumConstructor>("""{ "enum": "One", "nullableEnum": "two" }""");
+        public virtual SettingsTask Constructor_with_enum_names() => Verify<ClassWithEnumConstructor>("""{ "enum": "One", "nullableEnum": "two" }""");
 
         [Fact]
-        public virtual Task Constructor_assertion_1() => Verify<ClassWithFieldsAndConstructor>("{ }");
+        public virtual SettingsTask Constructor_assertion_1() => Verify<ClassWithFieldsAndConstructor>("{ }");
 
         [Fact]
-        public virtual Task Constructor_assertion_2() => Verify<ClassWithFieldsAndConstructor>("""
+        public virtual SettingsTask Constructor_assertion_2() => Verify<ClassWithFieldsAndConstructor>("""
             {
                 "stringArg": "stringValue",
                 "intArg": 42
@@ -383,7 +384,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             """);
 
         [Fact]
-        public virtual Task Constructor_assertion_3() => Verify<ClassWithFieldsAndConstructor>("""
+        public virtual SettingsTask Constructor_assertion_3() => Verify<ClassWithFieldsAndConstructor>("""
             {
                 "stringArg": "stringValue",
                 "intArg": 42,
@@ -392,10 +393,10 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             """);
 
         [Fact]
-        public virtual Task String_from_int() => Verify<string>("42");
+        public virtual SettingsTask String_from_int() => Verify<string>("42");
 
         [Fact]
-        public virtual Task Id_Key() => Verify<Key>("""
+        public virtual SettingsTask Id_Key() => Verify<Key>("""
             {
                 "@type": "g:T",
                 "@value": "id"
@@ -403,7 +404,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             """);
 
         [Fact]
-        public virtual Task Label_Key() => Verify<Key>("""
+        public virtual SettingsTask Label_Key() => Verify<Key>("""
             {
                 "@type": "g:T",
                 "@value": "label"
@@ -411,43 +412,43 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             """);
 
         [Fact]
-        public virtual Task Id_Key_from_string() => Verify<Key>("""
+        public virtual SettingsTask Id_Key_from_string() => Verify<Key>("""
             "someId"
             """);
 
         [Fact]
-        public virtual Task Label_Key_from_string() => Verify<Key>("""
+        public virtual SettingsTask Label_Key_from_string() => Verify<Key>("""
             "someLabel"
             """);
 
         [Fact]
-        public virtual Task Everything() => Verify<EverythingAllAtOnce>(EverythingAllAtOnceData);
+        public virtual SettingsTask Everything() => Verify<EverythingAllAtOnce>(EverythingAllAtOnceData);
 
         [Fact]
-        public virtual Task Int_from_double() => Verify<int>("4.2");
+        public virtual SettingsTask Int_from_double() => Verify<int>("4.2");
 
         // A half is rounded to the even int next to it, whichever way that is: 2.5 is 2, 3.5 is 4
         // and -2.5 is -2.
         [Fact]
-        public virtual Task Ints_from_numbers_with_half() => Verify<int[]>("[ 2.5, 3.5, -2.5 ]");
+        public virtual SettingsTask Ints_from_numbers_with_half() => Verify<int[]>("[ 2.5, 3.5, -2.5 ]");
 
         [Fact]
-        public virtual Task Init_property() => Verify<ClassWithInitProperty>("""{ "Property": "Value" }""");
+        public virtual SettingsTask Init_property() => Verify<ClassWithInitProperty>("""{ "Property": "Value" }""");
 
         [Fact]
-        public virtual Task Field() => Verify<ClassWithField>("""{ "Property": "Value" }""");
+        public virtual SettingsTask Field() => Verify<ClassWithField>("""{ "Property": "Value" }""");
 
         [Fact]
-        public virtual Task IImmutableDictionary_string_keys_typed_int_values() => Verify<IImmutableDictionary<string, int>>(String_Keys_Typed_Int_Values);
+        public virtual SettingsTask IImmutableDictionary_string_keys_typed_int_values() => Verify<IImmutableDictionary<string, int>>(String_Keys_Typed_Int_Values);
 
         [Fact]
-        public virtual Task Dictionary_typed_int_keys_string_values() => Verify<Dictionary<int, string>>(Map_of_Typed_Int_Keys_Typed_String_Values);
+        public virtual SettingsTask Dictionary_typed_int_keys_string_values() => Verify<Dictionary<int, string>>(Map_of_Typed_Int_Keys_Typed_String_Values);
 
         [Fact]
-        public virtual Task IUntypedDictionary_string_keys_typed_int_values() => Verify<IDictionary>(String_Keys_Typed_Int_Values);
+        public virtual SettingsTask IUntypedDictionary_string_keys_typed_int_values() => Verify<IDictionary>(String_Keys_Typed_Int_Values);
 
         [Fact]
-        public virtual Task IImmutableDictionary_typed_int_keys_string_values() => Verify<IImmutableDictionary<int, string>>(Map_of_Typed_Int_Keys_Typed_String_Values);
+        public virtual SettingsTask IImmutableDictionary_typed_int_keys_string_values() => Verify<IImmutableDictionary<int, string>>(Map_of_Typed_Int_Keys_Typed_String_Values);
 
         // The same map with nothing said about its type. Its keys are not names, so it cannot become
         // a dynamic object the way a string-keyed map does - but it is still a map, and it keeps its
@@ -455,13 +456,13 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         // string key alike, so the types are recorded alongside it: a map that only kept its entries
         // by turning 1 into "1" would not have kept them.
         [Fact]
-        public virtual Task Map_of_typed_int_keys_as_object() => VerifyWithKeyTypes<object>(Map_of_Typed_Int_Keys_Typed_String_Values);
+        public virtual SettingsTask Map_of_typed_int_keys_as_object() => VerifyWithKeyTypes<object>(Map_of_Typed_Int_Keys_Typed_String_Values);
 
         // Asked for as anything but an object, such a map is read the way a map keyed by names is:
         // the members are looked up by name, and an entry whose key cannot be one is left out. It
         // costs nothing but itself.
         [Fact]
-        public virtual Task Constructor_arguments_from_map_with_int_key() => Verify<ClassWithFieldsAndConstructor>(Map_Of_Constructor_Arguments_With_Int_Key);
+        public virtual SettingsTask Constructor_arguments_from_map_with_int_key() => Verify<ClassWithFieldsAndConstructor>(Map_Of_Constructor_Arguments_With_Int_Key);
 
         // The same tolerance the bulk set gets, for the same reason: every other GraphSON type name
         // is matched case insensitively, so a map that shouts is still a map. There are two roads
@@ -470,164 +471,164 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         // second pair, which reads Constructor_assertion_2's arguments out of a map instead of out
         // of a plain object, once as g:Map and once as G:MAP.
         [Fact]
-        public virtual Task Map_with_uppercase_type() => Verify<Dictionary<int, string>>(Map_With_Uppercase_Type);
+        public virtual SettingsTask Map_with_uppercase_type() => Verify<Dictionary<int, string>>(Map_With_Uppercase_Type);
 
         [Fact]
-        public virtual Task Constructor_arguments_from_map() => Verify<ClassWithFieldsAndConstructor>(Map_Of_Constructor_Arguments);
+        public virtual SettingsTask Constructor_arguments_from_map() => Verify<ClassWithFieldsAndConstructor>(Map_Of_Constructor_Arguments);
 
         [Fact]
-        public virtual Task Constructor_arguments_from_map_with_uppercase_type() => Verify<ClassWithFieldsAndConstructor>(Map_Of_Constructor_Arguments_With_Uppercase_Type);
+        public virtual SettingsTask Constructor_arguments_from_map_with_uppercase_type() => Verify<ClassWithFieldsAndConstructor>(Map_Of_Constructor_Arguments_With_Uppercase_Type);
 
         [Fact]
-        public virtual Task IEnumerable_from_Typed_Ints() => Verify<IEnumerable<int>>(Typed_Ints);
+        public virtual SettingsTask IEnumerable_from_Typed_Ints() => Verify<IEnumerable<int>>(Typed_Ints);
 
         [Fact]
-        public virtual Task Untyped_IEnumerable_from_Typed_Ints() => Verify<IEnumerable>(Typed_Ints);
+        public virtual SettingsTask Untyped_IEnumerable_from_Typed_Ints() => Verify<IEnumerable>(Typed_Ints);
 
         [Fact]
-        public virtual Task ISet_Typed_Ints() => Verify<ISet<int>>(Typed_Ints);
+        public virtual SettingsTask ISet_Typed_Ints() => Verify<ISet<int>>(Typed_Ints);
 
         [Fact]
-        public virtual Task ISet_from_typed_Set() => Verify<ISet<int>>(Typed_Set_of_Ints);
+        public virtual SettingsTask ISet_from_typed_Set() => Verify<ISet<int>>(Typed_Set_of_Ints);
 
         [Fact]
-        public virtual Task IList_Typed_Ints() => Verify<IImmutableList<int>>(Typed_Ints);
+        public virtual SettingsTask IList_Typed_Ints() => Verify<IImmutableList<int>>(Typed_Ints);
 
         [Fact]
-        public virtual Task IImmutableList_Ints() => Verify<IImmutableList<int>>(Typed_Ints);
+        public virtual SettingsTask IImmutableList_Ints() => Verify<IImmutableList<int>>(Typed_Ints);
 
         [Fact]
-        public virtual Task IImmutableQueue_Ints() => Verify<IImmutableQueue<int>>(Typed_Ints);
+        public virtual SettingsTask IImmutableQueue_Ints() => Verify<IImmutableQueue<int>>(Typed_Ints);
 
         [Fact]
-        public virtual Task IImmutableSet_Ints() => Verify<IImmutableSet<int>>(Typed_Ints);
+        public virtual SettingsTask IImmutableSet_Ints() => Verify<IImmutableSet<int>>(Typed_Ints);
 
         [Fact]
-        public virtual Task IImmutableStack_Ints() => Verify<IImmutableStack<int>>(Typed_Ints);
+        public virtual SettingsTask IImmutableStack_Ints() => Verify<IImmutableStack<int>>(Typed_Ints);
 
         [Fact]
-        public virtual Task ConcurrentQueue_from_typed_Ints() => Verify<ConcurrentQueue<int>>(Typed_Ints);
+        public virtual SettingsTask ConcurrentQueue_from_typed_Ints() => Verify<ConcurrentQueue<int>>(Typed_Ints);
 
         [Fact]
-        public virtual Task ConcurrentStack_from_typed_Ints() => Verify<ConcurrentStack<int>>(Typed_Ints);
+        public virtual SettingsTask ConcurrentStack_from_typed_Ints() => Verify<ConcurrentStack<int>>(Typed_Ints);
 
         [Fact]
-        public virtual Task ImmutableQueue_from_typed_Ints() => Verify<ImmutableQueue<int>>(Typed_Ints);
+        public virtual SettingsTask ImmutableQueue_from_typed_Ints() => Verify<ImmutableQueue<int>>(Typed_Ints);
 
         [Fact]
-        public virtual Task ImmutableStack_from_typed_Ints() => Verify<ImmutableStack<int>>(Typed_Ints);
+        public virtual SettingsTask ImmutableStack_from_typed_Ints() => Verify<ImmutableStack<int>>(Typed_Ints);
 
         [Fact]
-        public virtual Task IReadOnlyList_from_Ints() => Verify<IReadOnlyList<int>>(Ints);
+        public virtual SettingsTask IReadOnlyList_from_Ints() => Verify<IReadOnlyList<int>>(Ints);
 
         [Fact]
-        public virtual Task IReadOnlyList_from_Typed_Ints() => Verify<IReadOnlyList<int>>(Typed_Ints);
+        public virtual SettingsTask IReadOnlyList_from_Typed_Ints() => Verify<IReadOnlyList<int>>(Typed_Ints);
 
         [Fact]
-        public virtual Task Queue_from_typed_Ints() => Verify<Queue<int>>(Typed_Ints);
+        public virtual SettingsTask Queue_from_typed_Ints() => Verify<Queue<int>>(Typed_Ints);
 
         [Fact]
-        public virtual Task Stack_from_typed_Ints() => Verify<Stack<int>>(Typed_Ints);
+        public virtual SettingsTask Stack_from_typed_Ints() => Verify<Stack<int>>(Typed_Ints);
 
         [Fact]
-        public virtual Task ArrayList_from_typed_Ints() => Verify<ArrayList>(Typed_Ints);
+        public virtual SettingsTask ArrayList_from_typed_Ints() => Verify<ArrayList>(Typed_Ints);
 
         [Fact]
-        public virtual Task Untyped_Queue_from_typed_Ints() => Verify<Queue>(Typed_Ints);
+        public virtual SettingsTask Untyped_Queue_from_typed_Ints() => Verify<Queue>(Typed_Ints);
 
         [Fact]
-        public virtual Task Untyped_Stack_from_typed_Ints() => Verify<Stack>(Typed_Ints);
+        public virtual SettingsTask Untyped_Stack_from_typed_Ints() => Verify<Stack>(Typed_Ints);
 
         [Fact]
-        public virtual Task Array() => Verify<SimpleVertex[]>(ArrayOfLanguages);
+        public virtual SettingsTask Array() => Verify<SimpleVertex[]>(ArrayOfLanguages);
 
         [Fact]
-        public virtual Task Bulk_set() => Verify<string[]>(BulkSet);
+        public virtual SettingsTask Bulk_set() => Verify<string[]>(BulkSet);
 
         [Fact]
-        public virtual Task Bulk_set_as_object() => Verify<object>(BulkSet);
+        public virtual SettingsTask Bulk_set_as_object() => Verify<object>(BulkSet);
 
         // Every other GraphSON type name in either implementation is matched case insensitively, so
         // the bulk set is expected to be too - and it has to be for the same reason the array does:
         // the converter that unwraps a typed value refuses g:BulkSet insensitively, so a spelling
         // only one of the two recognises falls between them and is answered by neither.
         [Fact]
-        public virtual Task Bulk_set_with_uppercase_type() => Verify<string[]>(BulkSet_With_Uppercase_Type);
+        public virtual SettingsTask Bulk_set_with_uppercase_type() => Verify<string[]>(BulkSet_With_Uppercase_Type);
 
         [Fact]
-        public virtual Task Bulk_set_with_uppercase_type_as_object() => Verify<object>(BulkSet_With_Uppercase_Type);
+        public virtual SettingsTask Bulk_set_with_uppercase_type_as_object() => Verify<object>(BulkSet_With_Uppercase_Type);
 
         // An array is not the only thing a bulk set can be read into. One test per way of building a
         // collection, as the traversers have below - and the answer is the expanded sequence every
         // time, 10 once, 20 twice, 30 three times, exactly as Ints_from_Bulk_set gets it.
         [Fact]
-        public virtual Task Ints_from_Bulk_set() => Verify<int[]>(Typed_BulkSet);
+        public virtual SettingsTask Ints_from_Bulk_set() => Verify<int[]>(Typed_BulkSet);
 
         [Fact]
-        public virtual Task List_Of_Ints_from_Bulk_set() => Verify<List<int>>(Typed_BulkSet);
+        public virtual SettingsTask List_Of_Ints_from_Bulk_set() => Verify<List<int>>(Typed_BulkSet);
 
         [Fact]
-        public virtual Task IEnumerable_Of_Ints_from_Bulk_set() => Verify<IEnumerable<int>>(Typed_BulkSet);
+        public virtual SettingsTask IEnumerable_Of_Ints_from_Bulk_set() => Verify<IEnumerable<int>>(Typed_BulkSet);
 
         [Fact]
-        public virtual Task ISet_Of_Ints_from_Bulk_set() => Verify<ISet<int>>(Typed_BulkSet);
+        public virtual SettingsTask ISet_Of_Ints_from_Bulk_set() => Verify<ISet<int>>(Typed_BulkSet);
 
         [Fact]
-        public virtual Task ImmutableList_Of_Ints_from_Bulk_set() => Verify<ImmutableList<int>>(Typed_BulkSet);
+        public virtual SettingsTask ImmutableList_Of_Ints_from_Bulk_set() => Verify<ImmutableList<int>>(Typed_BulkSet);
 
         [Fact]
-        public virtual Task Queue_Of_Ints_from_Bulk_set() => Verify<Queue<int>>(Typed_BulkSet);
+        public virtual SettingsTask Queue_Of_Ints_from_Bulk_set() => Verify<Queue<int>>(Typed_BulkSet);
 
         // The other half of the same sweep: the collections that are not generic. They are built
         // differently - from an ICollection, or as an object[] standing in for an interface - and so
         // are reached by a different road, but the answer is the same expanded sequence, reversed
         // only where a stack reverses it. Each mirrors the plain array test of the same shape.
         [Fact]
-        public virtual Task ArrayList_from_Bulk_set() => Verify<ArrayList>(Typed_BulkSet);
+        public virtual SettingsTask ArrayList_from_Bulk_set() => Verify<ArrayList>(Typed_BulkSet);
 
         [Fact]
-        public virtual Task Untyped_Queue_from_Bulk_set() => Verify<Queue>(Typed_BulkSet);
+        public virtual SettingsTask Untyped_Queue_from_Bulk_set() => Verify<Queue>(Typed_BulkSet);
 
         [Fact]
-        public virtual Task Untyped_Stack_from_Bulk_set() => Verify<Stack>(Typed_BulkSet);
+        public virtual SettingsTask Untyped_Stack_from_Bulk_set() => Verify<Stack>(Typed_BulkSet);
 
         [Fact]
-        public virtual Task Untyped_IEnumerable_from_Bulk_set() => Verify<IEnumerable>(Typed_BulkSet);
+        public virtual SettingsTask Untyped_IEnumerable_from_Bulk_set() => Verify<IEnumerable>(Typed_BulkSet);
 
         [Fact]
-        public virtual Task IUntypedList_from_Bulk_set() => Verify<IList>(Typed_BulkSet);
+        public virtual SettingsTask IUntypedList_from_Bulk_set() => Verify<IList>(Typed_BulkSet);
 
         [Fact]
-        public virtual Task IUntypedCollection_from_Bulk_set() => Verify<ICollection>(Typed_BulkSet);
+        public virtual SettingsTask IUntypedCollection_from_Bulk_set() => Verify<ICollection>(Typed_BulkSet);
 
         // And a bulk set is not a scalar. Asked for one, the typed value unwrapper leaves it alone
         // rather than handing on the pair array, so nothing converts and the attempt declines -
         // which is the honest answer for a collection of six asked to be a single int.
         [Fact]
-        public virtual Task Int_from_Bulk_set() => VerifyAttempt<int>(Typed_BulkSet);
+        public virtual SettingsTask Int_from_Bulk_set() => VerifyAttempt<int>(Typed_BulkSet);
 
         // A null in a bulk set is a null item repeated by its bulk, the same rule an array follows
         // and for the same reason - TryTransform reporting a conversion to null as a failure, which
         // is indistinguishable from a converter declining. Three, because the item type decides what
         // the null becomes: null where one fits, and the cost of it where none does.
         [Fact]
-        public virtual Task Nullable_Ints_from_Bulk_set_with_null() => Verify<int?[]>(Typed_BulkSet_With_Null);
+        public virtual SettingsTask Nullable_Ints_from_Bulk_set_with_null() => Verify<int?[]>(Typed_BulkSet_With_Null);
 
         [Fact]
-        public virtual Task Ints_from_Bulk_set_with_null() => Verify<int[]>(Typed_BulkSet_With_Null);
+        public virtual SettingsTask Ints_from_Bulk_set_with_null() => Verify<int[]>(Typed_BulkSet_With_Null);
 
         // Requested as object, the null used to come back as the JValue token itself, that being
         // assignable to object and so taken by the transformer's own fallback before any converter
         // could look at it. It is a null now, like it is for every other item type.
         [Fact]
-        public virtual Task Objects_from_Bulk_set_with_null() => Verify<object[]>(Typed_BulkSet_With_Null);
+        public virtual SettingsTask Objects_from_Bulk_set_with_null() => Verify<object[]>(Typed_BulkSet_With_Null);
 
         // The other way out of that condition, and the one a null no longer takes: an element the
         // requested type cannot read is still skipped, its bulk with it. Keeping a null and dropping
         // this are the same decision seen from either side - a converter that declines has said
         // there is no item here, where a null token says there is one and it is null.
         [Fact]
-        public virtual Task Ints_from_Bulk_set_with_unreadable_element() => Verify<int[]>(Typed_BulkSet_With_Unreadable_Element);
+        public virtual SettingsTask Ints_from_Bulk_set_with_unreadable_element() => Verify<int[]>(Typed_BulkSet_With_Unreadable_Element);
 
         // The bulk half of the same question, and the same answer: a bulk nothing can read is not a
         // bulk of one, it is an unknown count, and an item repeated an unknown number of times
@@ -636,7 +637,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         // stands on its own and the bulk only multiplies it, where here the two arrive as a pair and
         // neither half means anything without the other.
         [Fact]
-        public virtual Task Ints_from_Bulk_set_with_unreadable_bulk() => Verify<int[]>(Typed_BulkSet_With_Unreadable_Bulk);
+        public virtual SettingsTask Ints_from_Bulk_set_with_unreadable_bulk() => Verify<int[]>(Typed_BulkSet_With_Unreadable_Bulk);
 
         // A bulk set is read in pairs, so an odd number of entries leaves a last element with
         // nothing to say how often it occurs. Both implementations used to reach past the end of
@@ -645,10 +646,10 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         // The well formed prefix is the answer, and the dangling element goes the way of any other
         // half a converter cannot make sense of.
         [Fact]
-        public virtual Task Ints_from_Bulk_set_with_odd_length() => Verify<int[]>(Typed_BulkSet_With_Odd_Length);
+        public virtual SettingsTask Ints_from_Bulk_set_with_odd_length() => Verify<int[]>(Typed_BulkSet_With_Odd_Length);
 
         [Fact]
-        public virtual Task Configured_property_name() => Verify<RichVertex>(
+        public virtual SettingsTask Configured_property_name() => Verify<RichVertex>(
             "{ \"id\": 13, \"label\": \"RichVertex\", \"type\": \"vertex\", \"properties\": { \"replacement\": [ { \"id\": 1, \"value\": \"nameValue\" } ] } }",
             env => env
                 .ConfigureModel(model => model
@@ -657,45 +658,45 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                             .ConfigureName(x => x.Name, "replacement")))));
 
         [Fact]
-        public virtual Task DateTime_from_double() => Verify<DateTime>("123456789.2");
+        public virtual SettingsTask DateTime_from_double() => Verify<DateTime>("123456789.2");
 
         [Fact]
-        public virtual Task DateTime_from_number() => Verify<DateTime>("123456789");
+        public virtual SettingsTask DateTime_from_number() => Verify<DateTime>("123456789");
 
         [Fact]
-        public virtual Task DateTime_from_string() => Verify<DateTime>("\"2018-12-17T08:00:00Z\"");
+        public virtual SettingsTask DateTime_from_string() => Verify<DateTime>("\"2018-12-17T08:00:00Z\"");
 
         [Fact]
-        public virtual Task DateTime_is_UTC() => Verify<SiblingVertex>(Single_Company);
+        public virtual SettingsTask DateTime_is_UTC() => Verify<SiblingVertex>(Single_Company);
 
         [Fact]
-        public virtual Task DateTimeOffset_from_number() => Verify<DateTimeOffset>("123456789");
+        public virtual SettingsTask DateTimeOffset_from_number() => Verify<DateTimeOffset>("123456789");
 
         [Fact]
-        public virtual Task DateTimeOffset_from_string() => Verify<DateTimeOffset>("\"2018-12-17T08:00:00Z\"");
+        public virtual SettingsTask DateTimeOffset_from_string() => Verify<DateTimeOffset>("\"2018-12-17T08:00:00Z\"");
 
         [Fact]
-        public virtual Task DateTime_from_invalid_string() => VerifyAttempt<DateTime>("\"not a date\"");
+        public virtual SettingsTask DateTime_from_invalid_string() => VerifyAttempt<DateTime>("\"not a date\"");
 
         [Fact]
-        public virtual Task DateTimeOffset_from_invalid_string() => VerifyAttempt<DateTimeOffset>("\"not a date\"");
+        public virtual SettingsTask DateTimeOffset_from_invalid_string() => VerifyAttempt<DateTimeOffset>("\"not a date\"");
 
         // The strings above name UTC. One that names an offset is read as the instant it names and
         // handed back in UTC, as a DateTimeOffset too: the offset is what it takes to find the
         // instant, and is not kept. A fraction of a second is, down to the tick.
         [Fact]
-        public virtual Task DateTimeOffset_from_string_with_offset() => Verify<DateTimeOffset>("\"2020-01-02T03:04:05+02:00\"");
+        public virtual SettingsTask DateTimeOffset_from_string_with_offset() => Verify<DateTimeOffset>("\"2020-01-02T03:04:05+02:00\"");
 
         [Fact]
-        public virtual Task DateTime_from_string_with_offset() => Verify<DateTime>("\"2020-01-02T03:04:05+02:00\"");
+        public virtual SettingsTask DateTime_from_string_with_offset() => Verify<DateTime>("\"2020-01-02T03:04:05+02:00\"");
 
         [Fact]
-        public virtual Task DateTimeOffset_from_string_with_fraction_of_a_second() => Verify<DateTimeOffset>("\"2020-01-02T03:04:05.1234567+02:00\"");
+        public virtual SettingsTask DateTimeOffset_from_string_with_fraction_of_a_second() => Verify<DateTimeOffset>("\"2020-01-02T03:04:05.1234567+02:00\"");
 
         // What DateTime_from_double says of a DateTime: a number is milliseconds since 1970, and
         // what is less than one of them is cut off.
         [Fact]
-        public virtual Task DateTimeOffset_from_double() => Verify<DateTimeOffset>("123456789.2");
+        public virtual SettingsTask DateTimeOffset_from_double() => Verify<DateTimeOffset>("123456789.2");
 
         // A string that names no offset names no instant either. It is taken as the local time of
         // the machine reading it, so the instant it is read as is another one wherever that machine
@@ -703,7 +704,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         // the day's midnight, here. A DateTimeOffset is compared by its instant alone - the offset
         // it comes back with is UTC on one implementation and the machine's own on the other.
         [Fact]
-        public virtual Task DateTime_from_date_only_string()
+        public virtual SettingsTask DateTime_from_date_only_string()
         {
             var subject = _environment
                 .Deserializer
@@ -721,7 +722,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         }
 
         [Fact]
-        public virtual Task DateTimeOffset_from_date_only_string()
+        public virtual SettingsTask DateTimeOffset_from_date_only_string()
         {
             var subject = _environment
                 .Deserializer
@@ -742,22 +743,22 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         // value of a map. A snapshot writes a string the way it is spelled, its T and its offset
         // included, and that is how these tell it from a date.
         [Fact]
-        public virtual Task String_from_date_like_string() => Verify<string>("\"2020-01-02T03:04:05+02:00\"");
+        public virtual SettingsTask String_from_date_like_string() => Verify<string>("\"2020-01-02T03:04:05+02:00\"");
 
         [Fact]
-        public virtual Task Object_from_date_like_string() => Verify<object>("\"2020-01-02T03:04:05Z\"");
+        public virtual SettingsTask Object_from_date_like_string() => Verify<object>("\"2020-01-02T03:04:05Z\"");
 
         [Fact]
-        public virtual Task Object_from_date_like_string_with_offset() => Verify<object>("\"2020-01-02T03:04:05+02:00\"");
+        public virtual SettingsTask Object_from_date_like_string_with_offset() => Verify<object>("\"2020-01-02T03:04:05+02:00\"");
 
         [Fact]
-        public virtual Task Object_from_date_only_string() => Verify<object>("\"2020-01-02\"");
+        public virtual SettingsTask Object_from_date_only_string() => Verify<object>("\"2020-01-02\"");
 
         [Fact]
-        public virtual Task Objects_from_Array_with_date_like_strings() => Verify<object[]>("""[ "2020-01-02T03:04:05+02:00", "2020-01-02T03:04:05Z" ]""");
+        public virtual SettingsTask Objects_from_Array_with_date_like_strings() => Verify<object[]>("""[ "2020-01-02T03:04:05+02:00", "2020-01-02T03:04:05Z" ]""");
 
         [Fact]
-        public virtual Task Object_from_map_with_date_like_string() => Verify<object>("""
+        public virtual SettingsTask Object_from_map_with_date_like_string() => Verify<object>("""
             {
               "@type": "g:Map",
               "@value": [ "name", "Bob", "registered", "2020-01-02T03:04:05+02:00" ]
@@ -769,7 +770,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         // stays what it came as. And a RegistrationDate that is no date costs the property, not
         // the person.
         [Fact]
-        public virtual Task Person_with_RegistrationDate_from_string_with_offset() => Verify<RichVertex>("""
+        public virtual SettingsTask Person_with_RegistrationDate_from_string_with_offset() => Verify<RichVertex>("""
             {
               "id": 13,
               "label": "RichVertex",
@@ -781,7 +782,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             """);
 
         [Fact]
-        public virtual Task Person_with_date_like_Name() => Verify<RichVertex>("""
+        public virtual SettingsTask Person_with_date_like_Name() => Verify<RichVertex>("""
             {
               "id": 13,
               "label": "RichVertex",
@@ -793,7 +794,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             """);
 
         [Fact]
-        public virtual Task Person_with_RegistrationDate_from_invalid_string() => Verify<RichVertex>("""
+        public virtual SettingsTask Person_with_RegistrationDate_from_invalid_string() => Verify<RichVertex>("""
             {
               "id": 13,
               "label": "RichVertex",
@@ -805,24 +806,24 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             """);
 
         [Fact]
-        public virtual Task TimeSpan_from_invalid_string() => VerifyAttempt<TimeSpan>("\"not a duration\"");
+        public virtual SettingsTask TimeSpan_from_invalid_string() => VerifyAttempt<TimeSpan>("\"not a duration\"");
 
         // Items that cannot be converted are silently dropped, the rest of the array surviving.
         [Fact]
-        public virtual Task Array_with_unconvertible_item() => Verify<DateTime[]>("[ \"2018-12-17T08:00:00Z\", \"not a date\" ]");
+        public virtual SettingsTask Array_with_unconvertible_item() => Verify<DateTime[]>("[ \"2018-12-17T08:00:00Z\", \"not a date\" ]");
 
         [Fact]
-        public virtual Task DynamicData() => Verify<dynamic>("{ \"values\": [ ], \"count\": { \"@type\": \"g:Int32\", \"@value\": 36 } }");
+        public virtual SettingsTask DynamicData() => Verify<dynamic>("{ \"values\": [ ], \"count\": { \"@type\": \"g:Int32\", \"@value\": 36 } }");
 
         [Fact]
-        public virtual Task Edge() => Verify<RichEdge>(UntypedEdge);
+        public virtual SettingsTask Edge() => Verify<RichEdge>(UntypedEdge);
 
         // Should agree with Edge above: the typed and untyped wire forms must converge.
         [Fact]
-        public virtual Task Edge_from_typed_Edge() => Verify<RichEdge>(Graphson3_Edge);
+        public virtual SettingsTask Edge_from_typed_Edge() => Verify<RichEdge>(Graphson3_Edge);
 
         [Fact]
-        public virtual Task Property_from_typed_Property() => Verify<Property<int>>("""
+        public virtual SettingsTask Property_from_typed_Property() => Verify<Property<int>>("""
             {
               "@type": "g:Property",
               "@value": {
@@ -833,55 +834,55 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             """);
 
         [Fact]
-        public virtual Task Empty_to_ints() => Verify<(int[] ints, string[] strings)>("{ \"Item1\": [], \"Item2\": [] }");
+        public virtual SettingsTask Empty_to_ints() => Verify<(int[] ints, string[] strings)>("{ \"Item1\": [], \"Item2\": [] }");
 
         [Fact]
-        public virtual Task Empty1() => Verify<object[]>("[]");
+        public virtual SettingsTask Empty1() => Verify<object[]>("[]");
 
         [Fact]
-        public virtual Task Empty2() => Verify<RichVertex[]>("[]");
+        public virtual SettingsTask Empty2() => Verify<RichVertex[]>("[]");
 
         [Fact]
-        public virtual Task Graphson2Path() => Verify<Path>(Graphson2_Paths);
+        public virtual SettingsTask Graphson2Path() => Verify<Path>(Graphson2_Paths);
 
         [Fact]
-        public virtual Task GraphSon3_Tuple() => Verify<(RichVertex, SimpleVertex)[]>(Graphson3_Tuple_of_Person_Language);
+        public virtual SettingsTask GraphSon3_Tuple() => Verify<(RichVertex, SimpleVertex)[]>(Graphson3_Tuple_of_Person_Language);
 
         [Fact]
-        public virtual Task Graphson3Path() => Verify<Path>(Graphson3_Paths);
+        public virtual SettingsTask Graphson3Path() => Verify<Path>(Graphson3_Paths);
 
         [Fact]
-        public virtual Task GraphSon3ReferenceVertex() => Verify<object>(Graphson3ReferenceVertex);
+        public virtual SettingsTask GraphSon3ReferenceVertex() => Verify<object>(Graphson3ReferenceVertex);
 
         [Fact]
-        public virtual Task Guid() => Verify<Guid>("\"FCE0765A-454F-4D00-83DA-D76790156E29\"");
+        public virtual SettingsTask Guid() => Verify<Guid>("\"FCE0765A-454F-4D00-83DA-D76790156E29\"");
 
         [Fact]
-        public virtual Task Guid_from_typed_UUID() => Verify<Guid>("""{ "@type": "g:UUID", "@value": "41d2e28a-20a4-4ab0-b379-d810dede3786" }""");
+        public virtual SettingsTask Guid_from_typed_UUID() => Verify<Guid>("""{ "@type": "g:UUID", "@value": "41d2e28a-20a4-4ab0-b379-d810dede3786" }""");
 
         // The only test taking the "more specific type" route of TypedValueConverterFactory
         // for a value type, i.e. TransformerExtensions.FluentForType.FromStruct.
         [Fact]
-        public virtual Task Object_from_typed_UUID() => Verify<object>("""{ "@type": "g:UUID", "@value": "41d2e28a-20a4-4ab0-b379-d810dede3786" }""");
+        public virtual SettingsTask Object_from_typed_UUID() => Verify<object>("""{ "@type": "g:UUID", "@value": "41d2e28a-20a4-4ab0-b379-d810dede3786" }""");
 
         [Fact]
-        public virtual Task Float_from_typed_value() => Verify<float>("""{ "@type": "g:Float", "@value": 1.5 }""");
+        public virtual SettingsTask Float_from_typed_value() => Verify<float>("""{ "@type": "g:Float", "@value": 1.5 }""");
 
         // 16777217 is 2^24 + 1, the smallest positive integer a float cannot represent. A
         // snapshot of 16777216 proves the g:Float row really did route through float.
         [Fact]
-        public virtual Task Object_from_typed_float() => Verify<object>("""{ "@type": "g:Float", "@value": 16777217 }""");
+        public virtual SettingsTask Object_from_typed_float() => Verify<object>("""{ "@type": "g:Float", "@value": 16777217 }""");
 
         [Fact]
-        public virtual Task Object_from_typed_double() => Verify<object>("""{ "@type": "g:Double", "@value": 16777217 }""");
+        public virtual SettingsTask Object_from_typed_double() => Verify<object>("""{ "@type": "g:Double", "@value": 16777217 }""");
 
         [Fact]
-        public virtual Task DateTimeOffset_from_typed_Date() => Verify<DateTimeOffset>("""{ "@type": "g:Date", "@value": 1657527969000 }""");
+        public virtual SettingsTask DateTimeOffset_from_typed_Date() => Verify<DateTimeOffset>("""{ "@type": "g:Date", "@value": 1657527969000 }""");
 
         // DateTime is not assignable from DateTimeOffset, so this is the only test taking
         // TypedValueConverterFactory's fall-through, where @value is re-dispatched untyped.
         [Fact]
-        public virtual Task DateTime_from_typed_Timestamp() => Verify<DateTime>("""{ "@type": "g:Timestamp", "@value": 1657527969000 }""");
+        public virtual SettingsTask DateTime_from_typed_Timestamp() => Verify<DateTime>("""{ "@type": "g:Timestamp", "@value": 1657527969000 }""");
 
         // The tests below ask for a base type or an interface, which more than one type could
         // stand in for - an IComparable is given an int, a long or a string alike, and a snapshot
@@ -914,133 +915,133 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         // g:Float a float, a g:UUID a Guid. Its bare @value, read without the name, would be a
         // long, a double and a string.
         [Fact]
-        public virtual Task IComparable_from_typed_Int32() => VerifyAttemptWithRuntimeType<IComparable>("""{ "@type": "g:Int32", "@value": 5 }""");
+        public virtual SettingsTask IComparable_from_typed_Int32() => VerifyAttemptWithRuntimeType<IComparable>("""{ "@type": "g:Int32", "@value": 5 }""");
 
         [Fact]
-        public virtual Task ValueType_from_typed_Int32() => VerifyAttemptWithRuntimeType<ValueType>("""{ "@type": "g:Int32", "@value": 5 }""");
+        public virtual SettingsTask ValueType_from_typed_Int32() => VerifyAttemptWithRuntimeType<ValueType>("""{ "@type": "g:Int32", "@value": 5 }""");
 
         [Fact]
-        public virtual Task IEquatable_of_int_from_typed_Int32() => VerifyAttemptWithRuntimeType<IEquatable<int>>("""{ "@type": "g:Int32", "@value": 5 }""");
+        public virtual SettingsTask IEquatable_of_int_from_typed_Int32() => VerifyAttemptWithRuntimeType<IEquatable<int>>("""{ "@type": "g:Int32", "@value": 5 }""");
 
         [Fact]
-        public virtual Task IFormattable_from_typed_Float() => VerifyAttemptWithRuntimeType<IFormattable>("""{ "@type": "g:Float", "@value": 1.5 }""");
+        public virtual SettingsTask IFormattable_from_typed_Float() => VerifyAttemptWithRuntimeType<IFormattable>("""{ "@type": "g:Float", "@value": 1.5 }""");
 
         [Fact]
-        public virtual Task IEquatable_of_float_from_typed_Float() => VerifyAttemptWithRuntimeType<IEquatable<float>>("""{ "@type": "g:Float", "@value": 1.5 }""");
+        public virtual SettingsTask IEquatable_of_float_from_typed_Float() => VerifyAttemptWithRuntimeType<IEquatable<float>>("""{ "@type": "g:Float", "@value": 1.5 }""");
 
         [Fact]
-        public virtual Task IConvertible_from_typed_Double() => VerifyAttemptWithRuntimeType<IConvertible>("""{ "@type": "g:Double", "@value": 5 }""");
+        public virtual SettingsTask IConvertible_from_typed_Double() => VerifyAttemptWithRuntimeType<IConvertible>("""{ "@type": "g:Double", "@value": 5 }""");
 
         [Fact]
-        public virtual Task IComparable_from_typed_UUID() => VerifyAttemptWithRuntimeType<IComparable>("""{ "@type": "g:UUID", "@value": "41d2e28a-20a4-4ab0-b379-d810dede3786" }""");
+        public virtual SettingsTask IComparable_from_typed_UUID() => VerifyAttemptWithRuntimeType<IComparable>("""{ "@type": "g:UUID", "@value": "41d2e28a-20a4-4ab0-b379-d810dede3786" }""");
 
         [Fact]
-        public virtual Task ValueType_from_typed_UUID() => VerifyAttemptWithRuntimeType<ValueType>("""{ "@type": "g:UUID", "@value": "41d2e28a-20a4-4ab0-b379-d810dede3786" }""");
+        public virtual SettingsTask ValueType_from_typed_UUID() => VerifyAttemptWithRuntimeType<ValueType>("""{ "@type": "g:UUID", "@value": "41d2e28a-20a4-4ab0-b379-d810dede3786" }""");
 
         [Fact]
-        public virtual Task ValueType_from_typed_Date() => VerifyAttemptWithRuntimeType<ValueType>("""{ "@type": "g:Date", "@value": 1657527969000 }""");
+        public virtual SettingsTask ValueType_from_typed_Date() => VerifyAttemptWithRuntimeType<ValueType>("""{ "@type": "g:Date", "@value": 1657527969000 }""");
 
         [Fact]
-        public virtual Task IFormattable_from_typed_Timestamp() => VerifyAttemptWithRuntimeType<IFormattable>("""{ "@type": "g:Timestamp", "@value": 1657527969000 }""");
+        public virtual SettingsTask IFormattable_from_typed_Timestamp() => VerifyAttemptWithRuntimeType<IFormattable>("""{ "@type": "g:Timestamp", "@value": 1657527969000 }""");
 
         [Fact]
-        public virtual Task IComparable_from_typed_BigDecimal() => VerifyAttemptWithRuntimeType<IComparable>("""{ "@type": "gx:BigDecimal", "@value": 1.5 }""");
+        public virtual SettingsTask IComparable_from_typed_BigDecimal() => VerifyAttemptWithRuntimeType<IComparable>("""{ "@type": "gx:BigDecimal", "@value": 1.5 }""");
 
         [Fact]
-        public virtual Task ValueType_from_typed_Duration() => VerifyAttemptWithRuntimeType<ValueType>("""{ "@type": "gx:Duration", "@value": "PT1H" }""");
+        public virtual SettingsTask ValueType_from_typed_Duration() => VerifyAttemptWithRuntimeType<ValueType>("""{ "@type": "gx:Duration", "@value": "PT1H" }""");
 
         [Fact]
-        public virtual Task IFormattable_from_typed_BigInteger() => VerifyAttemptWithRuntimeType<IFormattable>("""{ "@type": "gx:BigInteger", "@value": 5 }""");
+        public virtual SettingsTask IFormattable_from_typed_BigInteger() => VerifyAttemptWithRuntimeType<IFormattable>("""{ "@type": "gx:BigInteger", "@value": 5 }""");
 
         [Fact]
-        public virtual Task IComparable_from_typed_Byte() => VerifyAttemptWithRuntimeType<IComparable>("""{ "@type": "gx:Byte", "@value": 5 }""");
+        public virtual SettingsTask IComparable_from_typed_Byte() => VerifyAttemptWithRuntimeType<IComparable>("""{ "@type": "gx:Byte", "@value": 5 }""");
 
         [Fact]
-        public virtual Task IConvertible_from_typed_Int16() => VerifyAttemptWithRuntimeType<IConvertible>("""{ "@type": "gx:Int16", "@value": 5 }""");
+        public virtual SettingsTask IConvertible_from_typed_Int16() => VerifyAttemptWithRuntimeType<IConvertible>("""{ "@type": "gx:Int16", "@value": 5 }""");
 
         [Fact]
-        public virtual Task IComparable_from_typed_Char() => VerifyAttemptWithRuntimeType<IComparable>("""{ "@type": "gx:Char", "@value": "x" }""");
+        public virtual SettingsTask IComparable_from_typed_Char() => VerifyAttemptWithRuntimeType<IComparable>("""{ "@type": "gx:Char", "@value": "x" }""");
 
         // The same for Gremlin's enumerations, whose base type is Gremlin.Net's EnumWrapper: a g:T
         // is a T to it, a value Gremlin.Net has no name for included.
         [Fact]
-        public virtual Task EnumWrapper_from_typed_T() => VerifyAttemptWithRuntimeType<Gremlin.Net.Process.Traversal.EnumWrapper>("""{ "@type": "g:T", "@value": "id" }""");
+        public virtual SettingsTask EnumWrapper_from_typed_T() => VerifyAttemptWithRuntimeType<Gremlin.Net.Process.Traversal.EnumWrapper>("""{ "@type": "g:T", "@value": "id" }""");
 
         [Fact]
-        public virtual Task EnumWrapper_from_unknown_typed_T() => VerifyAttemptWithRuntimeType<Gremlin.Net.Process.Traversal.EnumWrapper>("""{ "@type": "g:T", "@value": "unknown" }""");
+        public virtual SettingsTask EnumWrapper_from_unknown_typed_T() => VerifyAttemptWithRuntimeType<Gremlin.Net.Process.Traversal.EnumWrapper>("""{ "@type": "g:T", "@value": "unknown" }""");
 
         [Fact]
-        public virtual Task EnumWrapper_from_typed_Direction() => VerifyAttemptWithRuntimeType<Gremlin.Net.Process.Traversal.EnumWrapper>("""{ "@type": "g:Direction", "@value": "OUT" }""");
+        public virtual SettingsTask EnumWrapper_from_typed_Direction() => VerifyAttemptWithRuntimeType<Gremlin.Net.Process.Traversal.EnumWrapper>("""{ "@type": "g:Direction", "@value": "OUT" }""");
 
         [Fact]
-        public virtual Task EnumWrapper_from_typed_Merge() => VerifyAttemptWithRuntimeType<Gremlin.Net.Process.Traversal.EnumWrapper>("""{ "@type": "g:Merge", "@value": "onCreate" }""");
+        public virtual SettingsTask EnumWrapper_from_typed_Merge() => VerifyAttemptWithRuntimeType<Gremlin.Net.Process.Traversal.EnumWrapper>("""{ "@type": "g:Merge", "@value": "onCreate" }""");
 
         [Fact]
-        public virtual Task IEquatable_of_EnumWrapper_from_typed_T() => VerifyAttemptWithRuntimeType<IEquatable<Gremlin.Net.Process.Traversal.EnumWrapper>>("""{ "@type": "g:T", "@value": "id" }""");
+        public virtual SettingsTask IEquatable_of_EnumWrapper_from_typed_T() => VerifyAttemptWithRuntimeType<IEquatable<Gremlin.Net.Process.Traversal.EnumWrapper>>("""{ "@type": "g:T", "@value": "id" }""");
 
         // And for a g:Tree, which the non-generic IEnumerable can hold as the tree it is, rather
         // than as the array its @value is.
         [Fact]
-        public virtual Task Untyped_IEnumerable_from_typed_Tree() => VerifyAttemptWithRuntimeType<IEnumerable>(GraphSonStrings.RootOnly_string_tree);
+        public virtual SettingsTask Untyped_IEnumerable_from_typed_Tree() => VerifyAttemptWithRuntimeType<IEnumerable>(GraphSonStrings.RootOnly_string_tree);
 
         // Where the requested type cannot hold the type the name stands for - a Guid is no
         // IConvertible, a DateTimeOffset neither, and a T is no IComparable - the bare @value is
         // all there is to go by, and it is read as it would be without the name around it.
         [Fact]
-        public virtual Task IConvertible_from_typed_UUID() => VerifyAttemptWithRuntimeType<IConvertible>("""{ "@type": "g:UUID", "@value": "41d2e28a-20a4-4ab0-b379-d810dede3786" }""");
+        public virtual SettingsTask IConvertible_from_typed_UUID() => VerifyAttemptWithRuntimeType<IConvertible>("""{ "@type": "g:UUID", "@value": "41d2e28a-20a4-4ab0-b379-d810dede3786" }""");
 
         [Fact]
-        public virtual Task IConvertible_from_typed_Date() => VerifyAttemptWithRuntimeType<IConvertible>("""{ "@type": "g:Date", "@value": 1657527969000 }""");
+        public virtual SettingsTask IConvertible_from_typed_Date() => VerifyAttemptWithRuntimeType<IConvertible>("""{ "@type": "g:Date", "@value": 1657527969000 }""");
 
         [Fact]
-        public virtual Task IComparable_from_typed_T() => VerifyAttemptWithRuntimeType<IComparable>("""{ "@type": "g:T", "@value": "id" }""");
+        public virtual SettingsTask IComparable_from_typed_T() => VerifyAttemptWithRuntimeType<IComparable>("""{ "@type": "g:T", "@value": "id" }""");
 
         // So it is where the @value does not fit the type the name stands for. That is no error:
         // "abc" is no int, but it is a string, and an IComparable can hold one.
         [Fact]
-        public virtual Task IComparable_from_typed_Int32_with_string_value() => VerifyAttemptWithRuntimeType<IComparable>("""{ "@type": "g:Int32", "@value": "abc" }""");
+        public virtual SettingsTask IComparable_from_typed_Int32_with_string_value() => VerifyAttemptWithRuntimeType<IComparable>("""{ "@type": "g:Int32", "@value": "abc" }""");
 
         // Neither is needed where the requested type is a generic interface whose type argument is
         // a scalar type implementing it, as IEquatable<int> is: only an int can be one, so an int is
         // what it asks for. A g:Int64 is a long, and so is its bare @value, and still it is read as
         // the int it would be were an int asked for.
         [Fact]
-        public virtual Task IEquatable_of_int_from_typed_Int64() => VerifyAttemptWithRuntimeType<IEquatable<int>>("""{ "@type": "g:Int64", "@value": 5 }""");
+        public virtual SettingsTask IEquatable_of_int_from_typed_Int64() => VerifyAttemptWithRuntimeType<IEquatable<int>>("""{ "@type": "g:Int64", "@value": 5 }""");
 
         // A bare scalar is to everything that could hold it what it is to an object: a string a
         // string, a number a long or a double, true and false a bool.
         [Fact]
-        public virtual Task IComparable_from_string() => VerifyAttemptWithRuntimeType<IComparable>("\"abc\"");
+        public virtual SettingsTask IComparable_from_string() => VerifyAttemptWithRuntimeType<IComparable>("\"abc\"");
 
         [Fact]
-        public virtual Task IConvertible_from_string() => VerifyAttemptWithRuntimeType<IConvertible>("\"abc\"");
+        public virtual SettingsTask IConvertible_from_string() => VerifyAttemptWithRuntimeType<IConvertible>("\"abc\"");
 
         [Fact]
-        public virtual Task IEquatable_of_string_from_string() => VerifyAttemptWithRuntimeType<IEquatable<string>>("\"abc\"");
+        public virtual SettingsTask IEquatable_of_string_from_string() => VerifyAttemptWithRuntimeType<IEquatable<string>>("\"abc\"");
 
         [Fact]
-        public virtual Task IComparable_from_int() => VerifyAttemptWithRuntimeType<IComparable>("5");
+        public virtual SettingsTask IComparable_from_int() => VerifyAttemptWithRuntimeType<IComparable>("5");
 
         [Fact]
-        public virtual Task IFormattable_from_int() => VerifyAttemptWithRuntimeType<IFormattable>("5");
+        public virtual SettingsTask IFormattable_from_int() => VerifyAttemptWithRuntimeType<IFormattable>("5");
 
         [Fact]
-        public virtual Task ValueType_from_int() => VerifyAttemptWithRuntimeType<ValueType>("5");
+        public virtual SettingsTask ValueType_from_int() => VerifyAttemptWithRuntimeType<ValueType>("5");
 
         [Fact]
-        public virtual Task IEquatable_of_long_from_int() => VerifyAttemptWithRuntimeType<IEquatable<long>>("5");
+        public virtual SettingsTask IEquatable_of_long_from_int() => VerifyAttemptWithRuntimeType<IEquatable<long>>("5");
 
         [Fact]
-        public virtual Task IConvertible_from_double() => VerifyAttemptWithRuntimeType<IConvertible>("5.5");
+        public virtual SettingsTask IConvertible_from_double() => VerifyAttemptWithRuntimeType<IConvertible>("5.5");
 
         [Fact]
-        public virtual Task ValueType_from_double() => VerifyAttemptWithRuntimeType<ValueType>("5.5");
+        public virtual SettingsTask ValueType_from_double() => VerifyAttemptWithRuntimeType<ValueType>("5.5");
 
         [Fact]
-        public virtual Task IComparable_from_bool() => VerifyAttemptWithRuntimeType<IComparable>("true");
+        public virtual SettingsTask IComparable_from_bool() => VerifyAttemptWithRuntimeType<IComparable>("true");
 
         [Fact]
-        public virtual Task ValueType_from_bool() => VerifyAttemptWithRuntimeType<ValueType>("false");
+        public virtual SettingsTask ValueType_from_bool() => VerifyAttemptWithRuntimeType<ValueType>("false");
 
         // What a value is when an object is asked for is one question, what it is when an
         // IEquatable<int> is asked for another: only an int can be one. A generic interface whose
@@ -1050,37 +1051,37 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         // is no answer. The answer's type is the requested type's alone - an IEquatable<long> above
         // gets a long, an IEquatable<double> a double, whatever the number looks like.
         [Fact]
-        public virtual Task IEquatable_of_int_from_int() => VerifyAttemptWithRuntimeType<IEquatable<int>>("5");
+        public virtual SettingsTask IEquatable_of_int_from_int() => VerifyAttemptWithRuntimeType<IEquatable<int>>("5");
 
         [Fact]
-        public virtual Task IEquatable_of_double_from_int() => VerifyAttemptWithRuntimeType<IEquatable<double>>("5");
+        public virtual SettingsTask IEquatable_of_double_from_int() => VerifyAttemptWithRuntimeType<IEquatable<double>>("5");
 
         [Fact]
-        public virtual Task IEquatable_of_int_from_integer_beyond_int() => VerifyAttemptWithRuntimeType<IEquatable<int>>("4294967296");
+        public virtual SettingsTask IEquatable_of_int_from_integer_beyond_int() => VerifyAttemptWithRuntimeType<IEquatable<int>>("4294967296");
 
         [Fact]
-        public virtual Task IEquatable_of_int_from_double() => VerifyAttemptWithRuntimeType<IEquatable<int>>("5.5");
+        public virtual SettingsTask IEquatable_of_int_from_double() => VerifyAttemptWithRuntimeType<IEquatable<int>>("5.5");
 
         [Fact]
-        public virtual Task IEquatable_of_int_from_numeric_string() => VerifyAttemptWithRuntimeType<IEquatable<int>>("\"5\"");
+        public virtual SettingsTask IEquatable_of_int_from_numeric_string() => VerifyAttemptWithRuntimeType<IEquatable<int>>("\"5\"");
 
         [Fact]
-        public virtual Task IEquatable_of_int_from_string_that_is_no_number() => VerifyAttemptWithRuntimeType<IEquatable<int>>("\"abc\"");
+        public virtual SettingsTask IEquatable_of_int_from_string_that_is_no_number() => VerifyAttemptWithRuntimeType<IEquatable<int>>("\"abc\"");
 
         [Fact]
-        public virtual Task IEquatable_of_Guid_from_string() => VerifyAttemptWithRuntimeType<IEquatable<Guid>>("\"41d2e28a-20a4-4ab0-b379-d810dede3786\"");
+        public virtual SettingsTask IEquatable_of_Guid_from_string() => VerifyAttemptWithRuntimeType<IEquatable<Guid>>("\"41d2e28a-20a4-4ab0-b379-d810dede3786\"");
 
         [Fact]
-        public virtual Task INumber_of_int_from_int() => VerifyAttemptWithRuntimeType(typeof(INumber<int>), "5");
+        public virtual SettingsTask INumber_of_int_from_int() => VerifyAttemptWithRuntimeType(typeof(INumber<int>), "5");
 
         // An interface with more than one type argument asks for none of them, though each of them
         // may be the int: IComparisonOperators<int, int, bool> has three.
         [Fact]
-        public virtual Task IComparisonOperators_of_int_from_int() => VerifyAttemptWithRuntimeType(typeof(IComparisonOperators<int, int, bool>), "5");
+        public virtual SettingsTask IComparisonOperators_of_int_from_int() => VerifyAttemptWithRuntimeType(typeof(IComparisonOperators<int, int, bool>), "5");
 
         // All of the above holds for the items of an array as it does for a value on its own.
         [Fact]
-        public virtual Task IComparable_array_from_typed_and_bare_scalars()
+        public virtual SettingsTask IComparable_array_from_typed_and_bare_scalars()
         {
             var subject = _environment
                 .Deserializer
@@ -1114,84 +1115,84 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         // an object[] implements - to IEnumerable no less than to ICollection and IList. So is
         // a g:List, and a bulk set.
         [Fact]
-        public virtual Task Untyped_IEnumerable_from_array() => VerifyAttemptWithRuntimeType<IEnumerable>(Array_with_typed_value);
+        public virtual SettingsTask Untyped_IEnumerable_from_array() => VerifyAttemptWithRuntimeType<IEnumerable>(Array_with_typed_value);
 
         [Fact]
-        public virtual Task IUntypedCollection_from_array() => VerifyAttemptWithRuntimeType<ICollection>(Array_with_typed_value);
+        public virtual SettingsTask IUntypedCollection_from_array() => VerifyAttemptWithRuntimeType<ICollection>(Array_with_typed_value);
 
         [Fact]
-        public virtual Task IUntypedList_from_array() => VerifyAttemptWithRuntimeType<IList>(Array_with_typed_value);
+        public virtual SettingsTask IUntypedList_from_array() => VerifyAttemptWithRuntimeType<IList>(Array_with_typed_value);
 
         [Fact]
-        public virtual Task Untyped_IEnumerable_from_typed_List() => VerifyAttemptWithRuntimeType<IEnumerable>("""{ "@type": "g:List", "@value": [ { "@type": "g:Int32", "@value": 1 }, "abc" ] }""");
+        public virtual SettingsTask Untyped_IEnumerable_from_typed_List() => VerifyAttemptWithRuntimeType<IEnumerable>("""{ "@type": "g:List", "@value": [ { "@type": "g:Int32", "@value": 1 }, "abc" ] }""");
 
         [Fact]
-        public virtual Task Untyped_IEnumerable_from_Bulk_set_is_an_array() => VerifyAttemptWithRuntimeType<IEnumerable>(Typed_BulkSet);
+        public virtual SettingsTask Untyped_IEnumerable_from_Bulk_set_is_an_array() => VerifyAttemptWithRuntimeType<IEnumerable>(Typed_BulkSet);
 
         // To the generic collection interfaces of object, though, an array is a List<object>, as
         // it is a List<T> to those of any other item type: an IList<object> the caller can add
         // to and remove from, which an object[] cannot do. So is a g:List, and a bulk set.
         [Fact]
-        public virtual Task IEnumerable_of_objects_from_array() => VerifyAttemptWithRuntimeType<IEnumerable<object>>(Array_with_typed_value);
+        public virtual SettingsTask IEnumerable_of_objects_from_array() => VerifyAttemptWithRuntimeType<IEnumerable<object>>(Array_with_typed_value);
 
         [Fact]
-        public virtual Task ICollection_of_objects_from_array() => VerifyAttemptWithRuntimeType<ICollection<object>>(Array_with_typed_value);
+        public virtual SettingsTask ICollection_of_objects_from_array() => VerifyAttemptWithRuntimeType<ICollection<object>>(Array_with_typed_value);
 
         [Fact]
-        public virtual Task IList_of_objects_from_array() => VerifyAttemptWithRuntimeType<IList<object>>(Array_with_typed_value);
+        public virtual SettingsTask IList_of_objects_from_array() => VerifyAttemptWithRuntimeType<IList<object>>(Array_with_typed_value);
 
         [Fact]
-        public virtual Task IReadOnlyCollection_of_objects_from_array() => VerifyAttemptWithRuntimeType<IReadOnlyCollection<object>>(Array_with_typed_value);
+        public virtual SettingsTask IReadOnlyCollection_of_objects_from_array() => VerifyAttemptWithRuntimeType<IReadOnlyCollection<object>>(Array_with_typed_value);
 
         [Fact]
-        public virtual Task IReadOnlyList_of_objects_from_array() => VerifyAttemptWithRuntimeType<IReadOnlyList<object>>(Array_with_typed_value);
+        public virtual SettingsTask IReadOnlyList_of_objects_from_array() => VerifyAttemptWithRuntimeType<IReadOnlyList<object>>(Array_with_typed_value);
 
         [Fact]
-        public virtual Task IList_of_objects_from_typed_List() => VerifyAttemptWithRuntimeType<IList<object>>(Typed_List);
+        public virtual SettingsTask IList_of_objects_from_typed_List() => VerifyAttemptWithRuntimeType<IList<object>>(Typed_List);
 
         [Fact]
-        public virtual Task IList_of_objects_from_Bulk_set() => VerifyAttemptWithRuntimeType<IList<object>>(Typed_BulkSet);
+        public virtual SettingsTask IList_of_objects_from_Bulk_set() => VerifyAttemptWithRuntimeType<IList<object>>(Typed_BulkSet);
 
         // An object is a Dictionary<string, object> to the non-generic IDictionary, and to an
         // ICollection or an IEnumerable, which a dictionary is as well. So is a map whose keys are
         // all strings, which is read the way an object is.
         [Fact]
-        public virtual Task IUntypedDictionary_from_object() => VerifyAttemptWithRuntimeType<IDictionary>(String_Keys_Typed_Int_Values);
+        public virtual SettingsTask IUntypedDictionary_from_object() => VerifyAttemptWithRuntimeType<IDictionary>(String_Keys_Typed_Int_Values);
 
         [Fact]
-        public virtual Task IUntypedCollection_from_object() => VerifyAttemptWithRuntimeType<ICollection>(String_Keys_Typed_Int_Values);
+        public virtual SettingsTask IUntypedCollection_from_object() => VerifyAttemptWithRuntimeType<ICollection>(String_Keys_Typed_Int_Values);
 
         [Fact]
-        public virtual Task Untyped_IEnumerable_from_object() => VerifyAttemptWithRuntimeType<IEnumerable>(String_Keys_Typed_Int_Values);
+        public virtual SettingsTask Untyped_IEnumerable_from_object() => VerifyAttemptWithRuntimeType<IEnumerable>(String_Keys_Typed_Int_Values);
 
         [Fact]
-        public virtual Task IUntypedDictionary_from_Map_of_string_keys() => VerifyAttemptWithRuntimeType<IDictionary>(Map_of_String_Keys_Typed_Int_Values);
+        public virtual SettingsTask IUntypedDictionary_from_Map_of_string_keys() => VerifyAttemptWithRuntimeType<IDictionary>(Map_of_String_Keys_Typed_Int_Values);
 
         [Fact]
-        public virtual Task IUntypedCollection_from_Map_of_string_keys() => VerifyAttemptWithRuntimeType<ICollection>(Map_of_String_Keys_Typed_Int_Values);
+        public virtual SettingsTask IUntypedCollection_from_Map_of_string_keys() => VerifyAttemptWithRuntimeType<ICollection>(Map_of_String_Keys_Typed_Int_Values);
 
         [Fact]
-        public virtual Task Untyped_IEnumerable_from_Map_of_string_keys() => VerifyAttemptWithRuntimeType<IEnumerable>(Map_of_String_Keys_Typed_Int_Values);
+        public virtual SettingsTask Untyped_IEnumerable_from_Map_of_string_keys() => VerifyAttemptWithRuntimeType<IEnumerable>(Map_of_String_Keys_Typed_Int_Values);
 
         // A map whose keys are not names is the Dictionary<object, object> it is as an object -
         // Map_of_typed_int_keys_as_object - to everything such a dictionary can stand in for: the
         // non-generic IDictionary, ICollection and IEnumerable. It keeps all its entries, keys as
         // they were typed.
         [Fact]
-        public virtual Task IUntypedDictionary_from_map_of_typed_int_keys() => VerifyWithKeyTypes<IDictionary>(Map_of_Typed_Int_Keys_Typed_String_Values);
+        public virtual SettingsTask IUntypedDictionary_from_map_of_typed_int_keys() => VerifyWithKeyTypes<IDictionary>(Map_of_Typed_Int_Keys_Typed_String_Values);
 
         [Fact]
-        public virtual Task IUntypedCollection_from_map_of_typed_int_keys() => VerifyWithKeyTypes<ICollection>(Map_of_Typed_Int_Keys_Typed_String_Values);
+        public virtual SettingsTask IUntypedCollection_from_map_of_typed_int_keys() => VerifyWithKeyTypes<ICollection>(Map_of_Typed_Int_Keys_Typed_String_Values);
 
         [Fact]
-        public virtual Task Untyped_IEnumerable_from_map_of_typed_int_keys() => VerifyWithKeyTypes<IEnumerable>(Map_of_Typed_Int_Keys_Typed_String_Values);
+        public virtual SettingsTask Untyped_IEnumerable_from_map_of_typed_int_keys() => VerifyWithKeyTypes<IEnumerable>(Map_of_Typed_Int_Keys_Typed_String_Values);
 
         // Has to go with ExRam.Gremlinq#2502: an IEnumerable of KeyValuePair<string, object> is a
         // Dictionary<string, object>, and today both implementations read the int keys of this map
         // as the strings "1" and "2" for it. No key that is not a name is to be a string key; then
         // this map gives an empty dictionary, and this test records the wrong answer until then.
         [Fact]
-        public virtual Task IEnumerable_of_pairs_from_map_of_typed_int_keys_until_2502() => VerifyWithKeyTypes<IEnumerable<KeyValuePair<string, object>>>(Map_of_Typed_Int_Keys_Typed_String_Values);
+        public virtual SettingsTask IEnumerable_of_pairs_from_map_of_typed_int_keys_until_2502() => VerifyWithKeyTypes<IEnumerable<KeyValuePair<string, object>>>(Map_of_Typed_Int_Keys_Typed_String_Values);
 
         // A typed value is no map, whatever it is asked for as - only a g:Map is one. Read as a map,
         // it would be a dictionary of its @type and its @value, and that is of no use to anybody.
@@ -1203,85 +1204,85 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         // a token of its own - not the JObject that holds a typed value as an ICollection, nor the
         // JValue of a g:Int32's @value as an IEnumerable, though each is one.
         [Fact]
-        public virtual Task IUntypedDictionary_from_typed_Int32() => VerifyAttemptWithRuntimeType<IDictionary>(Typed_Int32);
+        public virtual SettingsTask IUntypedDictionary_from_typed_Int32() => VerifyAttemptWithRuntimeType<IDictionary>(Typed_Int32);
 
         [Fact]
-        public virtual Task IDictionary_of_objects_from_typed_Int32() => VerifyAttemptWithRuntimeType<IDictionary<string, object>>(Typed_Int32);
+        public virtual SettingsTask IDictionary_of_objects_from_typed_Int32() => VerifyAttemptWithRuntimeType<IDictionary<string, object>>(Typed_Int32);
 
         [Fact]
-        public virtual Task IReadOnlyDictionary_of_objects_from_typed_Int32() => VerifyAttemptWithRuntimeType<IReadOnlyDictionary<string, object>>(Typed_Int32);
+        public virtual SettingsTask IReadOnlyDictionary_of_objects_from_typed_Int32() => VerifyAttemptWithRuntimeType<IReadOnlyDictionary<string, object>>(Typed_Int32);
 
         [Fact]
-        public virtual Task IDictionary_of_objects_by_objects_from_typed_Int32() => VerifyAttemptWithRuntimeType<IDictionary<object, object>>(Typed_Int32);
+        public virtual SettingsTask IDictionary_of_objects_by_objects_from_typed_Int32() => VerifyAttemptWithRuntimeType<IDictionary<object, object>>(Typed_Int32);
 
         [Fact]
-        public virtual Task IUntypedCollection_from_typed_Int32() => VerifyAttemptWithRuntimeType<ICollection>(Typed_Int32);
+        public virtual SettingsTask IUntypedCollection_from_typed_Int32() => VerifyAttemptWithRuntimeType<ICollection>(Typed_Int32);
 
         [Fact]
-        public virtual Task Untyped_IEnumerable_from_typed_Int32() => VerifyAttemptWithRuntimeType<IEnumerable>(Typed_Int32);
+        public virtual SettingsTask Untyped_IEnumerable_from_typed_Int32() => VerifyAttemptWithRuntimeType<IEnumerable>(Typed_Int32);
 
         [Fact]
-        public virtual Task IEnumerable_of_pairs_from_typed_Int32() => VerifyAttemptWithRuntimeType<IEnumerable<KeyValuePair<string, object>>>(Typed_Int32);
+        public virtual SettingsTask IEnumerable_of_pairs_from_typed_Int32() => VerifyAttemptWithRuntimeType<IEnumerable<KeyValuePair<string, object>>>(Typed_Int32);
 
         [Fact]
-        public virtual Task IUntypedDictionary_from_typed_UUID() => VerifyAttemptWithRuntimeType<IDictionary>(Typed_UUID);
+        public virtual SettingsTask IUntypedDictionary_from_typed_UUID() => VerifyAttemptWithRuntimeType<IDictionary>(Typed_UUID);
 
         [Fact]
-        public virtual Task IDictionary_of_objects_from_typed_UUID() => VerifyAttemptWithRuntimeType<IDictionary<string, object>>(Typed_UUID);
+        public virtual SettingsTask IDictionary_of_objects_from_typed_UUID() => VerifyAttemptWithRuntimeType<IDictionary<string, object>>(Typed_UUID);
 
         [Fact]
-        public virtual Task IReadOnlyDictionary_of_objects_from_typed_UUID() => VerifyAttemptWithRuntimeType<IReadOnlyDictionary<string, object>>(Typed_UUID);
+        public virtual SettingsTask IReadOnlyDictionary_of_objects_from_typed_UUID() => VerifyAttemptWithRuntimeType<IReadOnlyDictionary<string, object>>(Typed_UUID);
 
         [Fact]
-        public virtual Task IDictionary_of_objects_by_objects_from_typed_UUID() => VerifyAttemptWithRuntimeType<IDictionary<object, object>>(Typed_UUID);
+        public virtual SettingsTask IDictionary_of_objects_by_objects_from_typed_UUID() => VerifyAttemptWithRuntimeType<IDictionary<object, object>>(Typed_UUID);
 
         [Fact]
-        public virtual Task IUntypedCollection_from_typed_UUID() => VerifyAttemptWithRuntimeType<ICollection>(Typed_UUID);
+        public virtual SettingsTask IUntypedCollection_from_typed_UUID() => VerifyAttemptWithRuntimeType<ICollection>(Typed_UUID);
 
         [Fact]
-        public virtual Task Untyped_IEnumerable_from_typed_UUID() => VerifyAttemptWithRuntimeType<IEnumerable>(Typed_UUID);
+        public virtual SettingsTask Untyped_IEnumerable_from_typed_UUID() => VerifyAttemptWithRuntimeType<IEnumerable>(Typed_UUID);
 
         [Fact]
-        public virtual Task IEnumerable_of_pairs_from_typed_UUID() => VerifyAttemptWithRuntimeType<IEnumerable<KeyValuePair<string, object>>>(Typed_UUID);
+        public virtual SettingsTask IEnumerable_of_pairs_from_typed_UUID() => VerifyAttemptWithRuntimeType<IEnumerable<KeyValuePair<string, object>>>(Typed_UUID);
 
         [Fact]
-        public virtual Task IUntypedDictionary_from_typed_T() => VerifyAttemptWithRuntimeType<IDictionary>(Typed_T);
+        public virtual SettingsTask IUntypedDictionary_from_typed_T() => VerifyAttemptWithRuntimeType<IDictionary>(Typed_T);
 
         [Fact]
-        public virtual Task IDictionary_of_objects_from_typed_T() => VerifyAttemptWithRuntimeType<IDictionary<string, object>>(Typed_T);
+        public virtual SettingsTask IDictionary_of_objects_from_typed_T() => VerifyAttemptWithRuntimeType<IDictionary<string, object>>(Typed_T);
 
         [Fact]
-        public virtual Task IReadOnlyDictionary_of_objects_from_typed_T() => VerifyAttemptWithRuntimeType<IReadOnlyDictionary<string, object>>(Typed_T);
+        public virtual SettingsTask IReadOnlyDictionary_of_objects_from_typed_T() => VerifyAttemptWithRuntimeType<IReadOnlyDictionary<string, object>>(Typed_T);
 
         [Fact]
-        public virtual Task IDictionary_of_objects_by_objects_from_typed_T() => VerifyAttemptWithRuntimeType<IDictionary<object, object>>(Typed_T);
+        public virtual SettingsTask IDictionary_of_objects_by_objects_from_typed_T() => VerifyAttemptWithRuntimeType<IDictionary<object, object>>(Typed_T);
 
         [Fact]
-        public virtual Task IUntypedCollection_from_typed_T() => VerifyAttemptWithRuntimeType<ICollection>(Typed_T);
+        public virtual SettingsTask IUntypedCollection_from_typed_T() => VerifyAttemptWithRuntimeType<ICollection>(Typed_T);
 
         [Fact]
-        public virtual Task Untyped_IEnumerable_from_typed_T() => VerifyAttemptWithRuntimeType<IEnumerable>(Typed_T);
+        public virtual SettingsTask Untyped_IEnumerable_from_typed_T() => VerifyAttemptWithRuntimeType<IEnumerable>(Typed_T);
 
         [Fact]
-        public virtual Task IEnumerable_of_pairs_from_typed_T() => VerifyAttemptWithRuntimeType<IEnumerable<KeyValuePair<string, object>>>(Typed_T);
+        public virtual SettingsTask IEnumerable_of_pairs_from_typed_T() => VerifyAttemptWithRuntimeType<IEnumerable<KeyValuePair<string, object>>>(Typed_T);
 
         [Fact]
-        public virtual Task IUntypedDictionary_from_typed_List() => VerifyAttemptWithRuntimeType<IDictionary>(Typed_List);
+        public virtual SettingsTask IUntypedDictionary_from_typed_List() => VerifyAttemptWithRuntimeType<IDictionary>(Typed_List);
 
         [Fact]
-        public virtual Task IDictionary_of_objects_from_typed_List() => VerifyAttemptWithRuntimeType<IDictionary<string, object>>(Typed_List);
+        public virtual SettingsTask IDictionary_of_objects_from_typed_List() => VerifyAttemptWithRuntimeType<IDictionary<string, object>>(Typed_List);
 
         [Fact]
-        public virtual Task IReadOnlyDictionary_of_objects_from_typed_List() => VerifyAttemptWithRuntimeType<IReadOnlyDictionary<string, object>>(Typed_List);
+        public virtual SettingsTask IReadOnlyDictionary_of_objects_from_typed_List() => VerifyAttemptWithRuntimeType<IReadOnlyDictionary<string, object>>(Typed_List);
 
         [Fact]
-        public virtual Task IDictionary_of_objects_by_objects_from_typed_List() => VerifyAttemptWithRuntimeType<IDictionary<object, object>>(Typed_List);
+        public virtual SettingsTask IDictionary_of_objects_by_objects_from_typed_List() => VerifyAttemptWithRuntimeType<IDictionary<object, object>>(Typed_List);
 
         [Fact]
-        public virtual Task IUntypedCollection_from_typed_List() => VerifyAttemptWithRuntimeType<ICollection>(Typed_List);
+        public virtual SettingsTask IUntypedCollection_from_typed_List() => VerifyAttemptWithRuntimeType<ICollection>(Typed_List);
 
         [Fact]
-        public virtual Task IEnumerable_of_pairs_from_typed_List() => VerifyAttemptWithRuntimeType<IEnumerable<KeyValuePair<string, object>>>(Typed_List);
+        public virtual SettingsTask IEnumerable_of_pairs_from_typed_List() => VerifyAttemptWithRuntimeType<IEnumerable<KeyValuePair<string, object>>>(Typed_List);
 
         // A collection of key-value pairs is a dictionary to whatever a dictionary is: an
         // IEnumerable, an ICollection or an IReadOnlyCollection of KeyValuePair<string, object> gets
@@ -1291,117 +1292,117 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         // read into any class: its properties are the entries, and a dictionary has no member to
         // take the id or the label.
         [Fact]
-        public virtual Task Dictionary_of_objects_from_object() => VerifyAttemptWithRuntimeType<Dictionary<string, object>>(Object_with_typed_value);
+        public virtual SettingsTask Dictionary_of_objects_from_object() => VerifyAttemptWithRuntimeType<Dictionary<string, object>>(Object_with_typed_value);
 
         [Fact]
-        public virtual Task IEnumerable_of_pairs_from_object() => VerifyAttemptWithRuntimeType<IEnumerable<KeyValuePair<string, object>>>(Object_with_typed_value);
+        public virtual SettingsTask IEnumerable_of_pairs_from_object() => VerifyAttemptWithRuntimeType<IEnumerable<KeyValuePair<string, object>>>(Object_with_typed_value);
 
         [Fact]
-        public virtual Task ICollection_of_pairs_from_object() => VerifyAttemptWithRuntimeType<ICollection<KeyValuePair<string, object>>>(Object_with_typed_value);
+        public virtual SettingsTask ICollection_of_pairs_from_object() => VerifyAttemptWithRuntimeType<ICollection<KeyValuePair<string, object>>>(Object_with_typed_value);
 
         [Fact]
-        public virtual Task IReadOnlyCollection_of_pairs_from_object() => VerifyAttemptWithRuntimeType<IReadOnlyCollection<KeyValuePair<string, object>>>(Object_with_typed_value);
+        public virtual SettingsTask IReadOnlyCollection_of_pairs_from_object() => VerifyAttemptWithRuntimeType<IReadOnlyCollection<KeyValuePair<string, object>>>(Object_with_typed_value);
 
         [Fact]
-        public virtual Task Dictionary_of_objects_from_map() => VerifyAttemptWithRuntimeType<Dictionary<string, object>>(Map_with_typed_value);
+        public virtual SettingsTask Dictionary_of_objects_from_map() => VerifyAttemptWithRuntimeType<Dictionary<string, object>>(Map_with_typed_value);
 
         [Fact]
-        public virtual Task IEnumerable_of_pairs_from_map() => VerifyAttemptWithRuntimeType<IEnumerable<KeyValuePair<string, object>>>(Map_with_typed_value);
+        public virtual SettingsTask IEnumerable_of_pairs_from_map() => VerifyAttemptWithRuntimeType<IEnumerable<KeyValuePair<string, object>>>(Map_with_typed_value);
 
         [Fact]
-        public virtual Task ICollection_of_pairs_from_map() => VerifyAttemptWithRuntimeType<ICollection<KeyValuePair<string, object>>>(Map_with_typed_value);
+        public virtual SettingsTask ICollection_of_pairs_from_map() => VerifyAttemptWithRuntimeType<ICollection<KeyValuePair<string, object>>>(Map_with_typed_value);
 
         [Fact]
-        public virtual Task IReadOnlyCollection_of_pairs_from_map() => VerifyAttemptWithRuntimeType<IReadOnlyCollection<KeyValuePair<string, object>>>(Map_with_typed_value);
+        public virtual SettingsTask IReadOnlyCollection_of_pairs_from_map() => VerifyAttemptWithRuntimeType<IReadOnlyCollection<KeyValuePair<string, object>>>(Map_with_typed_value);
 
         [Fact]
-        public virtual Task Dictionary_of_objects_from_element_map() => VerifyAttemptWithRuntimeType<Dictionary<string, object>>(Element_map);
+        public virtual SettingsTask Dictionary_of_objects_from_element_map() => VerifyAttemptWithRuntimeType<Dictionary<string, object>>(Element_map);
 
         [Fact]
-        public virtual Task IEnumerable_of_pairs_from_element_map() => VerifyAttemptWithRuntimeType<IEnumerable<KeyValuePair<string, object>>>(Element_map);
+        public virtual SettingsTask IEnumerable_of_pairs_from_element_map() => VerifyAttemptWithRuntimeType<IEnumerable<KeyValuePair<string, object>>>(Element_map);
 
         [Fact]
-        public virtual Task ICollection_of_pairs_from_element_map() => VerifyAttemptWithRuntimeType<ICollection<KeyValuePair<string, object>>>(Element_map);
+        public virtual SettingsTask ICollection_of_pairs_from_element_map() => VerifyAttemptWithRuntimeType<ICollection<KeyValuePair<string, object>>>(Element_map);
 
         [Fact]
-        public virtual Task IReadOnlyCollection_of_pairs_from_element_map() => VerifyAttemptWithRuntimeType<IReadOnlyCollection<KeyValuePair<string, object>>>(Element_map);
+        public virtual SettingsTask IReadOnlyCollection_of_pairs_from_element_map() => VerifyAttemptWithRuntimeType<IReadOnlyCollection<KeyValuePair<string, object>>>(Element_map);
 
         [Fact]
-        public virtual Task Dictionary_of_objects_from_typed_Vertex() => VerifyAttemptWithRuntimeType<Dictionary<string, object>>(Graphson3ReferenceVertex);
+        public virtual SettingsTask Dictionary_of_objects_from_typed_Vertex() => VerifyAttemptWithRuntimeType<Dictionary<string, object>>(Graphson3ReferenceVertex);
 
         [Fact]
-        public virtual Task IEnumerable_of_pairs_from_typed_Vertex() => VerifyAttemptWithRuntimeType<IEnumerable<KeyValuePair<string, object>>>(Graphson3ReferenceVertex);
+        public virtual SettingsTask IEnumerable_of_pairs_from_typed_Vertex() => VerifyAttemptWithRuntimeType<IEnumerable<KeyValuePair<string, object>>>(Graphson3ReferenceVertex);
 
         [Fact]
-        public virtual Task ICollection_of_pairs_from_typed_Vertex() => VerifyAttemptWithRuntimeType<ICollection<KeyValuePair<string, object>>>(Graphson3ReferenceVertex);
+        public virtual SettingsTask ICollection_of_pairs_from_typed_Vertex() => VerifyAttemptWithRuntimeType<ICollection<KeyValuePair<string, object>>>(Graphson3ReferenceVertex);
 
         [Fact]
-        public virtual Task IReadOnlyCollection_of_pairs_from_typed_Vertex() => VerifyAttemptWithRuntimeType<IReadOnlyCollection<KeyValuePair<string, object>>>(Graphson3ReferenceVertex);
+        public virtual SettingsTask IReadOnlyCollection_of_pairs_from_typed_Vertex() => VerifyAttemptWithRuntimeType<IReadOnlyCollection<KeyValuePair<string, object>>>(Graphson3ReferenceVertex);
 
         // A vertex without properties gives an empty dictionary. One whose properties are no map is
         // no vertex to read that way, and is read as the plain object it is.
         [Fact]
-        public virtual Task Dictionary_of_objects_from_vertex_without_properties() => VerifyAttemptWithRuntimeType<Dictionary<string, object>>("""{ "id": 1, "label": "person" }""");
+        public virtual SettingsTask Dictionary_of_objects_from_vertex_without_properties() => VerifyAttemptWithRuntimeType<Dictionary<string, object>>("""{ "id": 1, "label": "person" }""");
 
         [Fact]
-        public virtual Task Dictionary_of_objects_from_vertex_whose_properties_are_no_map() => VerifyAttemptWithRuntimeType<Dictionary<string, object>>("""{ "id": 1, "label": "person", "properties": { "@type": "g:Int32", "@value": 5 } }""");
+        public virtual SettingsTask Dictionary_of_objects_from_vertex_whose_properties_are_no_map() => VerifyAttemptWithRuntimeType<Dictionary<string, object>>("""{ "id": 1, "label": "person", "properties": { "@type": "g:Int32", "@value": 5 } }""");
 
         [Fact]
-        public virtual Task Object_from_typed_Direction() => Verify<object>("""{ "@type": "g:Direction", "@value": "OUT" }""");
+        public virtual SettingsTask Object_from_typed_Direction() => Verify<object>("""{ "@type": "g:Direction", "@value": "OUT" }""");
 
         [Fact]
-        public virtual Task Direction_from_typed_Direction() => Verify<Direction>("""{ "@type": "g:Direction", "@value": "OUT" }""");
+        public virtual SettingsTask Direction_from_typed_Direction() => Verify<Direction>("""{ "@type": "g:Direction", "@value": "OUT" }""");
 
         // A value Gremlin.Net has no static instance for is still a value of that enumeration - a
         // newer server may send one this Gremlin.Net does not know yet. It is read as a Direction
         // with that value, rather than as no Direction at all, or as the bare string when asked for
         // as an object. It equals no Direction Gremlin.Net knows.
         [Fact]
-        public virtual Task Direction_from_unknown_typed_Direction() => VerifyAttempt<Direction>("""{ "@type": "g:Direction", "@value": "SIDEWAYS" }""");
+        public virtual SettingsTask Direction_from_unknown_typed_Direction() => VerifyAttempt<Direction>("""{ "@type": "g:Direction", "@value": "SIDEWAYS" }""");
 
         [Fact]
-        public virtual Task Object_from_unknown_typed_Direction() => VerifyAttempt<object>("""{ "@type": "g:Direction", "@value": "SIDEWAYS" }""");
+        public virtual SettingsTask Object_from_unknown_typed_Direction() => VerifyAttempt<object>("""{ "@type": "g:Direction", "@value": "SIDEWAYS" }""");
 
         // An enumeration's value is a string. A number is none, so there is no Direction to read.
         [Fact]
-        public virtual Task Direction_from_typed_Direction_with_number_value() => VerifyAttempt<Direction>("""{ "@type": "g:Direction", "@value": 1 }""");
+        public virtual SettingsTask Direction_from_typed_Direction_with_number_value() => VerifyAttempt<Direction>("""{ "@type": "g:Direction", "@value": 1 }""");
 
         // An enumeration without the constructor taking the value - which the test below says no
         // Gremlin.Net one lacks today - cannot hold a value it has no name for. Asked for one, it
         // declines, as every enumeration did before. So it does where its GetByValue answers null.
         [Fact]
-        public virtual Task Enumeration_without_value_constructor_from_its_known_value() => VerifyAttempt<EnumerationWithoutValueConstructor>("\"known\"");
+        public virtual SettingsTask Enumeration_without_value_constructor_from_its_known_value() => VerifyAttempt<EnumerationWithoutValueConstructor>("\"known\"");
 
         [Fact]
-        public virtual Task Enumeration_without_value_constructor_from_unknown_value() => VerifyAttempt<EnumerationWithoutValueConstructor>("\"unknown\"");
+        public virtual SettingsTask Enumeration_without_value_constructor_from_unknown_value() => VerifyAttempt<EnumerationWithoutValueConstructor>("\"unknown\"");
 
         [Fact]
-        public virtual Task Enumeration_without_value_constructor_from_value_answered_with_null() => VerifyAttempt<EnumerationWithoutValueConstructor>("\"none\"");
+        public virtual SettingsTask Enumeration_without_value_constructor_from_value_answered_with_null() => VerifyAttempt<EnumerationWithoutValueConstructor>("\"none\"");
 
         [Fact]
-        public virtual Task Object_from_typed_Merge() => Verify<object>("""{ "@type": "g:Merge", "@value": "onCreate" }""");
+        public virtual SettingsTask Object_from_typed_Merge() => Verify<object>("""{ "@type": "g:Merge", "@value": "onCreate" }""");
 
         [Fact]
-        public virtual Task Merge_from_typed_Merge() => Verify<Merge>("""{ "@type": "g:Merge", "@value": "onCreate" }""");
+        public virtual SettingsTask Merge_from_typed_Merge() => Verify<Merge>("""{ "@type": "g:Merge", "@value": "onCreate" }""");
 
         [Fact]
-        public virtual Task Object_from_typed_T() => Verify<object>("""{ "@type": "g:T", "@value": "id" }""");
+        public virtual SettingsTask Object_from_typed_T() => Verify<object>("""{ "@type": "g:T", "@value": "id" }""");
 
         [Fact]
-        public virtual Task T_from_typed_T() => Verify<T>("""{ "@type": "g:T", "@value": "id" }""");
+        public virtual SettingsTask T_from_typed_T() => Verify<T>("""{ "@type": "g:T", "@value": "id" }""");
 
         // The same for a T.
         [Fact]
-        public virtual Task T_from_unknown_typed_T() => VerifyAttempt<T>("""{ "@type": "g:T", "@value": "unknown" }""");
+        public virtual SettingsTask T_from_unknown_typed_T() => VerifyAttempt<T>("""{ "@type": "g:T", "@value": "unknown" }""");
 
         [Fact]
-        public virtual Task Object_from_unknown_typed_T() => VerifyAttempt<object>("""{ "@type": "g:T", "@value": "unknown" }""");
+        public virtual SettingsTask Object_from_unknown_typed_T() => VerifyAttempt<object>("""{ "@type": "g:T", "@value": "unknown" }""");
 
         // Both implementations build such a value through the private constructor every Gremlin.Net
         // enumeration has, taking the value. That is not Gremlin.Net's public surface, so this says
         // when an upgrade takes it away: it lists the enumerations that have none.
         [Fact]
-        public virtual Task Every_Gremlin_enumeration_can_hold_a_value_it_has_no_name_for() => Verifier
+        public virtual SettingsTask Every_Gremlin_enumeration_can_hold_a_value_it_has_no_name_for() => Verifier
             .Verify(
                 typeof(Gremlin.Net.Process.Traversal.EnumWrapper).Assembly
                     .GetTypes()
@@ -1412,28 +1413,28 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                 sourceFile: _sourceFile);
 
         [Fact]
-        public virtual Task Decimal_from_typed_BigDecimal() => Verify<decimal>("""{ "@type": "gx:BigDecimal", "@value": 123.456 }""");
+        public virtual SettingsTask Decimal_from_typed_BigDecimal() => Verify<decimal>("""{ "@type": "gx:BigDecimal", "@value": 123.456 }""");
 
         [Fact]
-        public virtual Task Decimal_from_typed_BigDecimal_with_high_precision() => Verify<decimal>("""{ "@type": "gx:BigDecimal", "@value": 0.1234567890123456789012345 }""");
+        public virtual SettingsTask Decimal_from_typed_BigDecimal_with_high_precision() => Verify<decimal>("""{ "@type": "gx:BigDecimal", "@value": 0.1234567890123456789012345 }""");
 
         [Fact]
-        public virtual Task BigInteger_from_typed_BigInteger() => Verify<BigInteger>("""{ "@type": "gx:BigInteger", "@value": 123456789987654321123456789987654321 }""");
+        public virtual SettingsTask BigInteger_from_typed_BigInteger() => Verify<BigInteger>("""{ "@type": "gx:BigInteger", "@value": 123456789987654321123456789987654321 }""");
 
         [Fact]
-        public virtual Task Byte_from_typed_Byte() => Verify<byte>("""{ "@type": "gx:Byte", "@value": 255 }""");
+        public virtual SettingsTask Byte_from_typed_Byte() => Verify<byte>("""{ "@type": "gx:Byte", "@value": 255 }""");
 
         [Fact]
-        public virtual Task Short_from_typed_Int16() => Verify<short>("""{ "@type": "gx:Int16", "@value": 32767 }""");
+        public virtual SettingsTask Short_from_typed_Int16() => Verify<short>("""{ "@type": "gx:Int16", "@value": 32767 }""");
 
         [Fact]
-        public virtual Task Char_from_typed_Char() => Verify<char>("""{ "@type": "gx:Char", "@value": "x" }""");
+        public virtual SettingsTask Char_from_typed_Char() => Verify<char>("""{ "@type": "gx:Char", "@value": "x" }""");
 
         // Nested rather than top level, as Verify snapshots a bare byte[] as a binary file.
         // The nested form is the better coverage anyway - it drives gx:ByteBuffer through the
         // Newtonsoft serializer and back into the pipeline, RichVertex.Image being a byte[].
         [Fact]
-        public virtual Task Person_with_typed_ByteBuffer_image() => Verify<RichVertex>("""
+        public virtual SettingsTask Person_with_typed_ByteBuffer_image() => Verify<RichVertex>("""
             {
               "id": 13,
               "label": "RichVertex",
@@ -1450,119 +1451,119 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             """);
 
         [Fact]
-        public virtual Task TimeSpan_from_typed_Duration() => Verify<TimeSpan>("""{ "@type": "gx:Duration", "@value": "P1DT2H3M4S" }""");
+        public virtual SettingsTask TimeSpan_from_typed_Duration() => Verify<TimeSpan>("""{ "@type": "gx:Duration", "@value": "P1DT2H3M4S" }""");
 
         [Fact]
-        public virtual Task IDictionary_string_keys_typed_int_values() => Verify<IDictionary<string, int>>(String_Keys_Typed_Int_Values);
+        public virtual SettingsTask IDictionary_string_keys_typed_int_values() => Verify<IDictionary<string, int>>(String_Keys_Typed_Int_Values);
 
         [Fact]
-        public virtual Task IReadOnlyDictionary_string_keys_typed_int_values() => Verify<IReadOnlyDictionary<string, int>>(String_Keys_Typed_Int_Values);
+        public virtual SettingsTask IReadOnlyDictionary_string_keys_typed_int_values() => Verify<IReadOnlyDictionary<string, int>>(String_Keys_Typed_Int_Values);
 
         [Fact]
-        public virtual Task IUntypedList_Typed_Ints() => Verify<IList>(Typed_Ints);
+        public virtual SettingsTask IUntypedList_Typed_Ints() => Verify<IList>(Typed_Ints);
 
         [Fact]
-        public virtual Task IUntypedCollection_from_typed_ints() => Verify<ICollection>(Typed_Ints);
+        public virtual SettingsTask IUntypedCollection_from_typed_ints() => Verify<ICollection>(Typed_Ints);
 
         [Fact]
-        public virtual Task ICollection_from_typed_ints() => Verify<ICollection<int>>(Typed_Ints);
+        public virtual SettingsTask ICollection_from_typed_ints() => Verify<ICollection<int>>(Typed_Ints);
 
         [Fact]
-        public virtual Task ImmutableArray() => Verify<ImmutableArray<int>>("[ 1, 3, 5 ]");
+        public virtual SettingsTask ImmutableArray() => Verify<ImmutableArray<int>>("[ 1, 3, 5 ]");
 
         [Fact]
-        public virtual Task ImmutableArray_typed_ints() => Verify<ImmutableArray<int>>(Typed_Ints);
+        public virtual SettingsTask ImmutableArray_typed_ints() => Verify<ImmutableArray<int>>(Typed_Ints);
 
         // A g:List is a list of its items to an ImmutableArray as well, the struct among the
         // collections: one that is never filled is not null but an array that throws when used.
         [Fact]
-        public virtual Task ImmutableArray_from_typed_List() => Verify<ImmutableArray<int>>("""{ "@type": "g:List", "@value": [ { "@type": "g:Int32", "@value": 1 } ] }""");
+        public virtual SettingsTask ImmutableArray_from_typed_List() => Verify<ImmutableArray<int>>("""{ "@type": "g:List", "@value": [ { "@type": "g:Int32", "@value": 1 } ] }""");
 
         [Fact]
-        public virtual Task ImmutableDictionary_map_of_string_keys_typed_int_values() => Verify<ImmutableDictionary<string, int>>(Map_of_String_Keys_Typed_Int_Values);
+        public virtual SettingsTask ImmutableDictionary_map_of_string_keys_typed_int_values() => Verify<ImmutableDictionary<string, int>>(Map_of_String_Keys_Typed_Int_Values);
 
         [Fact]
-        public virtual Task ImmutableDictionary_string_keys_int_values() => Verify<ImmutableDictionary<string, int>>(String_Keys_Int_Values);
+        public virtual SettingsTask ImmutableDictionary_string_keys_int_values() => Verify<ImmutableDictionary<string, int>>(String_Keys_Int_Values);
 
         [Fact]
-        public virtual Task ImmutableDictionary_string_keys_typed_int_values() => Verify<ImmutableDictionary<string, int>>(String_Keys_Typed_Int_Values);
+        public virtual SettingsTask ImmutableDictionary_string_keys_typed_int_values() => Verify<ImmutableDictionary<string, int>>(String_Keys_Typed_Int_Values);
 
         [Fact]
-        public virtual Task ImmutableList_ints() => Verify<ImmutableList<int>>(Ints);
+        public virtual SettingsTask ImmutableList_ints() => Verify<ImmutableList<int>>(Ints);
 
         [Fact]
-        public virtual Task ImmutableList_typed_ints() => Verify<ImmutableList<int>>(Typed_Ints);
+        public virtual SettingsTask ImmutableList_typed_ints() => Verify<ImmutableList<int>>(Typed_Ints);
 
         [Fact]
-        public virtual Task Int_Ids() => Verify<object[]>("[ 1, 2 ]");
+        public virtual SettingsTask Int_Ids() => Verify<object[]>("[ 1, 2 ]");
 
         // Every traverser test is array-shaped because that is the only shape there is. A response
         // carries its results as a g:List of traversers, so a traverser is always an element of an
         // array, and bulk is applied at the terminal step, never deeper in the payload.
         [Fact]
-        public virtual Task Ints_from_Traverser() => Verify<int[]>(Array_With_Traverser_With_Ints);
+        public virtual SettingsTask Ints_from_Traverser() => Verify<int[]>(Array_With_Traverser_With_Ints);
 
         [Fact]
-        public virtual Task List_Of_Ints_from_Traverser() => Verify<List<int>>(Array_With_Traverser_With_Ints);
+        public virtual SettingsTask List_Of_Ints_from_Traverser() => Verify<List<int>>(Array_With_Traverser_With_Ints);
 
         [Fact]
-        public virtual Task IList_Of_Ints_from_Traverser() => Verify<IList<int>>(Array_With_Traverser_With_Ints);
+        public virtual SettingsTask IList_Of_Ints_from_Traverser() => Verify<IList<int>>(Array_With_Traverser_With_Ints);
 
         // The three above are assignable from List<int> and are the only shapes expansion used to
         // reach. Everything below fell through to Newtonsoft, which builds the collection but
         // expands no bulk - and, the traverser converting to nothing an int collection will take,
         // threw rather than returning a short answer. One test per way of building a collection.
         [Fact]
-        public virtual Task ImmutableList_Of_Ints_from_Traverser() => Verify<ImmutableList<int>>(Array_With_Traverser_With_Ints);
+        public virtual SettingsTask ImmutableList_Of_Ints_from_Traverser() => Verify<ImmutableList<int>>(Array_With_Traverser_With_Ints);
 
         [Fact]
-        public virtual Task IImmutableList_Of_Ints_from_Traverser() => Verify<IImmutableList<int>>(Array_With_Traverser_With_Ints);
+        public virtual SettingsTask IImmutableList_Of_Ints_from_Traverser() => Verify<IImmutableList<int>>(Array_With_Traverser_With_Ints);
 
         [Fact]
-        public virtual Task ImmutableArray_Of_Ints_from_Traverser() => Verify<ImmutableArray<int>>(Array_With_Traverser_With_Ints);
+        public virtual SettingsTask ImmutableArray_Of_Ints_from_Traverser() => Verify<ImmutableArray<int>>(Array_With_Traverser_With_Ints);
 
         [Fact]
-        public virtual Task IImmutableSet_Of_Ints_from_Traverser() => Verify<IImmutableSet<int>>(Array_With_Traverser_With_Ints);
+        public virtual SettingsTask IImmutableSet_Of_Ints_from_Traverser() => Verify<IImmutableSet<int>>(Array_With_Traverser_With_Ints);
 
         [Fact]
-        public virtual Task ImmutableSortedSet_Of_Ints_from_Traverser() => Verify<ImmutableSortedSet<int>>(Array_With_Traverser_With_Ints);
+        public virtual SettingsTask ImmutableSortedSet_Of_Ints_from_Traverser() => Verify<ImmutableSortedSet<int>>(Array_With_Traverser_With_Ints);
 
         [Fact]
-        public virtual Task ImmutableQueue_Of_Ints_from_Traverser() => Verify<ImmutableQueue<int>>(Array_With_Traverser_With_Ints);
+        public virtual SettingsTask ImmutableQueue_Of_Ints_from_Traverser() => Verify<ImmutableQueue<int>>(Array_With_Traverser_With_Ints);
 
         [Fact]
-        public virtual Task ImmutableStack_Of_Ints_from_Traverser() => Verify<ImmutableStack<int>>(Array_With_Traverser_With_Ints);
+        public virtual SettingsTask ImmutableStack_Of_Ints_from_Traverser() => Verify<ImmutableStack<int>>(Array_With_Traverser_With_Ints);
 
         // A set collapses the seven 42s into one, so these two pin down that the value survives at
         // all, not that the bulk does.
         [Fact]
-        public virtual Task ISet_Of_Ints_from_Traverser() => Verify<ISet<int>>(Array_With_Traverser_With_Ints);
+        public virtual SettingsTask ISet_Of_Ints_from_Traverser() => Verify<ISet<int>>(Array_With_Traverser_With_Ints);
 
         [Fact]
-        public virtual Task Queue_Of_Ints_from_Traverser() => Verify<Queue<int>>(Array_With_Traverser_With_Ints);
+        public virtual SettingsTask Queue_Of_Ints_from_Traverser() => Verify<Queue<int>>(Array_With_Traverser_With_Ints);
 
         [Fact]
-        public virtual Task Stack_Of_Ints_from_Traverser() => Verify<Stack<int>>(Array_With_Traverser_With_Ints);
+        public virtual SettingsTask Stack_Of_Ints_from_Traverser() => Verify<Stack<int>>(Array_With_Traverser_With_Ints);
 
         [Fact]
-        public virtual Task ConcurrentQueue_Of_Ints_from_Traverser() => Verify<ConcurrentQueue<int>>(Array_With_Traverser_With_Ints);
+        public virtual SettingsTask ConcurrentQueue_Of_Ints_from_Traverser() => Verify<ConcurrentQueue<int>>(Array_With_Traverser_With_Ints);
 
         // Traversers standing among plain values, twice over, so that what comes before the first
         // one survives and the second one is expanded too.
         [Fact]
-        public virtual Task ImmutableList_from_Array_with_Traversers_and_plain_values() => Verify<ImmutableList<int>>(Array_With_Traversers_Among_Plain_Ints);
+        public virtual SettingsTask ImmutableList_from_Array_with_Traversers_and_plain_values() => Verify<ImmutableList<int>>(Array_With_Traversers_Among_Plain_Ints);
 
         // An envelope is matched exactly, as every other "@type" and "@value" is on both
         // implementations: an object that spells them otherwise is no traverser, and an int array
         // has no place for it. The type name inside is a different matter - "G:TRAVERSER" would
         // still be one, as "G:BULKSET" is a bulk set.
         [Fact]
-        public virtual Task Ints_from_Traverser_with_uppercase_envelope() => Verify<int[]>(Array_With_Traverser_With_Uppercase_Envelope);
+        public virtual SettingsTask Ints_from_Traverser_with_uppercase_envelope() => Verify<int[]>(Array_With_Traverser_With_Uppercase_Envelope);
 
         // The members inside the envelope are GraphSON's own as well, and matched exactly like it:
         // spelled "Bulk" and "Value", this is no traverser either.
         [Fact]
-        public virtual Task Ints_from_Traverser_with_capitalized_members() => Verify<int[]>("""
+        public virtual SettingsTask Ints_from_Traverser_with_capitalized_members() => Verify<int[]>("""
             [
               {
                 "@type": "g:Traverser",
@@ -1574,7 +1575,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         // A bulk that is no number says nothing about how often the value is there, so it is there
         // once, as it is when a traverser has no bulk at all.
         [Fact]
-        public virtual Task Ints_from_Traverser_with_bulk_that_is_no_number() => Verify<int[]>("""
+        public virtual SettingsTask Ints_from_Traverser_with_bulk_that_is_no_number() => Verify<int[]>("""
             [
               {
                 "@type": "g:Traverser",
@@ -1586,34 +1587,34 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         // A traverser wrapping null is null as often as its bulk says - the one place a null
         // survives into a deserialized array.
         [Fact]
-        public virtual Task ImmutableList_Of_Nullable_Ints_from_Traverser_with_null() => Verify<ImmutableList<int?>>(Array_With_Traverser_With_Null);
+        public virtual SettingsTask ImmutableList_Of_Nullable_Ints_from_Traverser_with_null() => Verify<ImmutableList<int?>>(Array_With_Traverser_With_Null);
 
         // An expanded traverser runs the ordinary pipeline, vertex heuristics included - a bulk of
         // 3 around a vertex is three companies.
         [Fact]
-        public virtual Task ImmutableList_Of_Companies_from_Traverser() => Verify<ImmutableList<SiblingVertex>>(Array_With_Traverser_With_Company);
+        public virtual SettingsTask ImmutableList_Of_Companies_from_Traverser() => Verify<ImmutableList<SiblingVertex>>(Array_With_Traverser_With_Company);
 
         [Fact]
-        public virtual Task Language_by_vertex_inheritance() => Verify<object>(Single_Language);
+        public virtual SettingsTask Language_by_vertex_inheritance() => Verify<object>(Single_Language);
 
         [Fact]
-        public virtual Task Language_strongly_typed() => Verify<SimpleVertex>(Single_Language);
+        public virtual SettingsTask Language_strongly_typed() => Verify<SimpleVertex>(Single_Language);
 
         [Fact]
-        public virtual Task Language_to_generic_vertex() => Verify<Vertex>(Single_Language);
+        public virtual SettingsTask Language_to_generic_vertex() => Verify<Vertex>(Single_Language);
 
         // FromBaseTypes<SiblingVertex, Edge>() is a valid model whose vertex set excludes SimpleVertex,
         // so the label lookup misses. Id and Label should still be set, as MemberMetadata
         // maps them to T.Id and T.Label independently of the model.
         [Fact]
-        public virtual Task Language_strongly_typed_without_matching_model() => Verify<SimpleVertex>(
+        public virtual SettingsTask Language_strongly_typed_without_matching_model() => Verify<SimpleVertex>(
             Single_Language,
             env => env
                 .UseModel(GraphModel
                     .FromBaseTypes<SiblingVertex, Edge>()));
 
         [Fact]
-        public virtual Task Vertex_with_unknown_label_as_object() => Verify<object>("""
+        public virtual SettingsTask Vertex_with_unknown_label_as_object() => Verify<object>("""
             {
               "id": 1,
               "label": "SomeUnknownLabel",
@@ -1629,7 +1630,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         // caller's own that happens to have members of those names, and stays one - it is not
         // looked up as a RichVertex.
         [Fact]
-        public virtual Task Object_with_capitalized_id_label_and_properties_as_object() => Verify<object>("""
+        public virtual SettingsTask Object_with_capitalized_id_label_and_properties_as_object() => Verify<object>("""
             {
               "Id": 1,
               "Label": "RichVertex",
@@ -1642,7 +1643,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         // an entity from it, and asked for as an object it is still an element - id and label kept,
         // everything else under properties, the shape the plain vertex above keeps as well.
         [Fact]
-        public virtual Task Element_map_with_unknown_label_as_object() => Verify<object>("""
+        public virtual SettingsTask Element_map_with_unknown_label_as_object() => Verify<object>("""
             {
               "@type": "g:Map",
               "@value": [
@@ -1661,7 +1662,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         // no id and no label and is no element. Asked for as a RichVertex, it has an Age and nothing to
         // say about the rest - and a T value Gremlin has no name for is no reason to throw.
         [Fact]
-        public virtual Task Person_from_element_map_with_uppercase_T_values() => VerifyAttempt<RichVertex>("""
+        public virtual SettingsTask Person_from_element_map_with_uppercase_T_values() => VerifyAttempt<RichVertex>("""
             {
               "@type": "g:Map",
               "@value": [
@@ -1681,7 +1682,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         // values T.ID and T.LABEL, not the strings "ID" and "LABEL". The snapshot of a dictionary
         // writes its keys alike whatever their type, so the types are recorded alongside it.
         [Fact]
-        public virtual Task Element_map_with_uppercase_T_values_as_object()
+        public virtual SettingsTask Element_map_with_uppercase_T_values_as_object()
         {
             var subject = _environment
                 .Deserializer
@@ -1715,34 +1716,34 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         }
 
         [Fact]
-        public virtual Task Language_unknown_type() => Verify<object>(Single_Language);
+        public virtual SettingsTask Language_unknown_type() => Verify<object>(Single_Language);
 
         [Fact]
-        public virtual Task Languages_to_object() => Verify<object>(ArrayOfLanguages);
+        public virtual SettingsTask Languages_to_object() => Verify<object>(ArrayOfLanguages);
 
         [Fact]
-        public virtual Task List_ints() => Verify<List<int>>("[ 1, 2, 3 ]");
+        public virtual SettingsTask List_ints() => Verify<List<int>>("[ 1, 2, 3 ]");
 
         [Fact]
-        public virtual Task Meta_Properties() => Verify<MetaPropertyVertex>(Country_with_meta_properties);
+        public virtual SettingsTask Meta_Properties() => Verify<MetaPropertyVertex>(Country_with_meta_properties);
 
         [Fact]
-        public virtual Task MetaProperties() => Verify<Property<object>[]>(Properties);
+        public virtual SettingsTask MetaProperties() => Verify<Property<object>[]>(Properties);
 
         [Fact]
-        public virtual Task Mixed_Ids() => Verify<object[]>("[ 1, \"id2\" ]");
+        public virtual SettingsTask Mixed_Ids() => Verify<object[]>("[ 1, \"id2\" ]");
 
         [Fact]
-        public virtual Task NamedTuple() => Verify<RichVertexSimpleVertexTuple>(Named_tuple_of_Person_Language);
+        public virtual SettingsTask NamedTuple() => Verify<RichVertexSimpleVertexTuple>(Named_tuple_of_Person_Language);
 
         [Fact]
-        public virtual Task Nested_Array() => Verify<SimpleVertex[][]>(Nested_array_of_Languages);
+        public virtual SettingsTask Nested_Array() => Verify<SimpleVertex[][]>(Nested_array_of_Languages);
 
         [Fact]
-        public virtual Task Nullable() => Verify<int?>("42");
+        public virtual SettingsTask Nullable() => Verify<int?>("42");
 
         [Fact]
-        public virtual Task Nullable_null() => Verify<int?[]>("[ 42, null ]");
+        public virtual SettingsTask Nullable_null() => Verify<int?[]>("[ 42, null ]");
 
         // The other side of the rule that lets a null survive inside an array: at the top level
         // there is no enclosing structure to hold it, so the null would have to be the
@@ -1750,90 +1751,90 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         // answers with a successful null and it is discarded, being indistinguishable from a
         // decline. Which is the whole reason an array has to decide for itself.
         [Fact]
-        public virtual Task Nullable_null_at_top_level() => VerifyAttempt<int?>("null");
+        public virtual SettingsTask Nullable_null_at_top_level() => VerifyAttempt<int?>("null");
 
         // A string can hold a null where an int cannot, and that changes nothing here: at the top
         // level a null is no string, as it is no int?, no Uri and no RichVertex. It is not the empty
         // string either - that would be a value where there was none.
         [Fact]
-        public virtual Task String_from_null() => VerifyAttempt<string>("null");
+        public virtual SettingsTask String_from_null() => VerifyAttempt<string>("null");
 
         [Fact]
-        public virtual Task Uri_from_null() => VerifyAttempt<Uri>("null");
+        public virtual SettingsTask Uri_from_null() => VerifyAttempt<Uri>("null");
 
         [Fact]
-        public virtual Task Person_from_null() => VerifyAttempt<RichVertex>("null");
+        public virtual SettingsTask Person_from_null() => VerifyAttempt<RichVertex>("null");
 
         // Unwrapping does not change it. A single item array, a typed value, a property - each
         // hands on what it wraps, and what it wraps is still a null with nothing around it to
         // hold it.
         [Fact]
-        public virtual Task String_from_single_item_array_with_null() => VerifyAttempt<string>("[ null ]");
+        public virtual SettingsTask String_from_single_item_array_with_null() => VerifyAttempt<string>("[ null ]");
 
         [Fact]
-        public virtual Task String_from_typed_value_with_null() => VerifyAttempt<string>("""{ "@type": "g:UUID", "@value": null }""");
+        public virtual SettingsTask String_from_typed_value_with_null() => VerifyAttempt<string>("""{ "@type": "g:UUID", "@value": null }""");
 
         [Fact]
-        public virtual Task String_from_Property_with_null_value() => VerifyAttempt<string>("""{ "key": "name", "value": null }""");
+        public virtual SettingsTask String_from_Property_with_null_value() => VerifyAttempt<string>("""{ "key": "name", "value": null }""");
 
         [Fact]
-        public virtual Task String_from_VertexProperty_with_null_value() => VerifyAttempt<string>("""{ "id": 1, "label": "name", "value": null }""");
+        public virtual SettingsTask String_from_VertexProperty_with_null_value() => VerifyAttempt<string>("""{ "id": 1, "label": "name", "value": null }""");
 
         // Nor does wrapping: a scalar asked for as a property is that property's value, and a null
         // is none.
         [Fact]
-        public virtual Task Property_of_string_from_null() => VerifyAttempt<Property<string>>("null");
+        public virtual SettingsTask Property_of_string_from_null() => VerifyAttempt<Property<string>>("null");
 
         [Fact]
-        public virtual Task VertexProperty_of_string_from_null() => VerifyAttempt<VertexProperty<string>>("null");
+        public virtual SettingsTask VertexProperty_of_string_from_null() => VerifyAttempt<VertexProperty<string>>("null");
 
         // A property holds a value, never a null, so one whose value is null is no property - not a
         // property of a null. Nor is one without a value, or with one that cannot be read: it is not
         // a property of the default of its type.
         [Fact]
-        public virtual Task Property_of_string_with_null_value() => VerifyAttempt<Property<string>>("""{ "key": "k", "value": null }""");
+        public virtual SettingsTask Property_of_string_with_null_value() => VerifyAttempt<Property<string>>("""{ "key": "k", "value": null }""");
 
         [Fact]
-        public virtual Task VertexProperty_of_string_with_null_value() => VerifyAttempt<VertexProperty<string>>("""{ "id": 1, "label": "k", "value": null }""");
+        public virtual SettingsTask VertexProperty_of_string_with_null_value() => VerifyAttempt<VertexProperty<string>>("""{ "id": 1, "label": "k", "value": null }""");
 
         [Fact]
-        public virtual Task Property_of_string_without_value() => VerifyAttempt<Property<string>>("""{ "key": "k" }""");
+        public virtual SettingsTask Property_of_string_without_value() => VerifyAttempt<Property<string>>("""{ "key": "k" }""");
 
         [Fact]
-        public virtual Task Property_of_int_with_value_that_is_no_number() => VerifyAttempt<Property<int>>("""{ "key": "k", "value": "abc" }""");
+        public virtual SettingsTask Property_of_int_with_value_that_is_no_number() => VerifyAttempt<Property<int>>("""{ "key": "k", "value": "abc" }""");
 
         // A property of a type of its own is read as the property it derives from, from an object
         // as from a scalar, as long as it is made from its value alone.
         [Fact]
-        public virtual Task CustomProperty_from_object() => VerifyAttempt<CustomProperty>("""{ "key": "k", "value": "x" }""");
+        public virtual SettingsTask CustomProperty_from_object() => VerifyAttempt<CustomProperty>("""{ "key": "k", "value": "x" }""");
 
         [Fact]
-        public virtual Task CustomProperty_from_scalar() => VerifyAttempt<CustomProperty>("\"x\"");
+        public virtual SettingsTask CustomProperty_from_scalar() => VerifyAttempt<CustomProperty>("\"x\"");
 
         [Fact]
-        public virtual Task CustomProperty_with_null_value() => VerifyAttempt<CustomProperty>("""{ "key": "k", "value": null }""");
+        public virtual SettingsTask CustomProperty_with_null_value() => VerifyAttempt<CustomProperty>("""{ "key": "k", "value": null }""");
 
         [Fact]
-        public virtual Task CustomVertexProperty_from_object() => VerifyAttempt<CustomVertexProperty>("""{ "id": 1, "label": "k", "value": "x", "properties": { "a": 1 } }""");
+        public virtual SettingsTask CustomVertexProperty_from_object() => VerifyAttempt<CustomVertexProperty>("""{ "id": 1, "label": "k", "value": "x", "properties": { "a": 1 } }""");
 
         [Fact]
-        public virtual Task CustomVertexProperty_from_scalar() => VerifyAttempt<CustomVertexProperty>("\"x\"");
+        public virtual SettingsTask CustomVertexProperty_from_scalar() => VerifyAttempt<CustomVertexProperty>("\"x\"");
 
         // A vertex property comes with an id and a label, and keeps a key when it comes with one too.
         [Fact]
-        public virtual Task VertexProperty_of_string_with_key() => VerifyAttempt<VertexProperty<string>>("""{ "id": 1, "label": "name", "key": "name", "value": "x" }""");
+        public virtual SettingsTask VertexProperty_of_string_with_key() => VerifyAttempt<VertexProperty<string>>("""{ "id": 1, "label": "name", "key": "name", "value": "x" }""");
 
         // Inside an array the null has somewhere to be, and is there - as a null, the way
         // Nullable_null has it for an int?.
         [Fact]
-        public virtual Task Strings_from_Array_with_null() => Verify<string[]>("[ \"a\", null ]");
+        public virtual SettingsTask Strings_from_Array_with_null() => Verify<string[]>("[ \"a\", null ]");
 
         // An object is somewhere to be as well. A constructor argument that is null is passed as
         // one, and a member that is null is left as it was - neither is handed the empty string. A
         // snapshot leaves out a member that is null and writes one that is empty, so these tell
         // the two apart.
         [Fact]
-        public virtual Task Constructor_arguments_from_null() => Verify<ClassWithFieldsAndConstructor>("""
+        public virtual SettingsTask Constructor_arguments_from_null() => Verify<ClassWithFieldsAndConstructor>("""
             {
                 "stringArg": null,
                 "nullableStringArg": null,
@@ -1842,7 +1843,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             """);
 
         [Fact]
-        public virtual Task Member_from_null() => Verify<ClassWithFieldsAndConstructor>("""
+        public virtual SettingsTask Member_from_null() => Verify<ClassWithFieldsAndConstructor>("""
             {
                 "stringArg": "stringValue",
                 "intArg": 42,
@@ -1852,7 +1853,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         // The same for the member of a vertex, whose null arrives inside a vertex property.
         [Fact]
-        public virtual Task Language_with_null_property_value() => Verify<SimpleVertex>("""
+        public virtual SettingsTask Language_with_null_property_value() => Verify<SimpleVertex>("""
             {
               "id": 1,
               "label": "SimpleVertex",
@@ -1866,78 +1867,78 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         // The other way a nullable can come to nothing, and a different one: here the token is
         // there to be read and the requested type simply cannot read it.
         [Fact]
-        public virtual Task Nullable_from_invalid_string() => VerifyAttempt<int?>("\"not a number\"");
+        public virtual SettingsTask Nullable_from_invalid_string() => VerifyAttempt<int?>("\"not a number\"");
 
         // What default! means when the item type cannot hold a null. The alternative is to drop the
         // element, which is worse: an array's length is an answer of its own, and shortening it
         // silently reports fewer results than came back.
         [Fact]
-        public virtual Task Ints_from_Array_with_null() => Verify<int[]>("[ 1, null, 3 ]");
+        public virtual SettingsTask Ints_from_Array_with_null() => Verify<int[]>("[ 1, null, 3 ]");
 
         // Requested as object, a null element used to come back as the JValue token itself, that
         // being assignable to object and so accepted by the Newtonsoft converter before anything
         // else could look at it. It is a null now, like it is for every other item type.
         [Fact]
-        public virtual Task Objects_from_Array_with_null() => Verify<object[]>("[ 1, null, 3 ]");
+        public virtual SettingsTask Objects_from_Array_with_null() => Verify<object[]>("[ 1, null, 3 ]");
 
         // A dictionary has no place for a null where its values cannot hold one: an entry is its key
         // and its value, and with no value there is no entry. It is left out, and the entries
         // around it are kept.
         [Fact]
-        public virtual Task Dictionary_from_object_with_null_value() => VerifyAttempt<Dictionary<string, int>>("""{ "a": 1, "b": null }""");
+        public virtual SettingsTask Dictionary_from_object_with_null_value() => VerifyAttempt<Dictionary<string, int>>("""{ "a": 1, "b": null }""");
 
         // The same for a g:Map, which is the other way a dictionary arrives.
         [Fact]
-        public virtual Task Dictionary_from_map_with_null_value() => VerifyAttempt<Dictionary<string, int>>("""{ "@type": "g:Map", "@value": [ "a", 1, "b", null ] }""");
+        public virtual SettingsTask Dictionary_from_map_with_null_value() => VerifyAttempt<Dictionary<string, int>>("""{ "@type": "g:Map", "@value": [ "a", 1, "b", null ] }""");
 
         // Where the values can hold a null, the null is the value, and the entry is kept: a string,
         // an int? - and a typed value whose @value is null, which is a null of its type. A plain
         // object and a g:Map give the same dictionary, whatever its keys are.
         [Fact]
-        public virtual Task Dictionary_of_strings_from_object_with_null_value() => VerifyWithValueTypes<Dictionary<string, string>>("""{ "a": null, "b": "x" }""");
+        public virtual SettingsTask Dictionary_of_strings_from_object_with_null_value() => VerifyWithValueTypes<Dictionary<string, string>>("""{ "a": null, "b": "x" }""");
 
         [Fact]
-        public virtual Task Dictionary_of_nullable_ints_from_object_with_null_value() => VerifyWithValueTypes<Dictionary<string, int?>>("""{ "a": null, "b": 1 }""");
+        public virtual SettingsTask Dictionary_of_nullable_ints_from_object_with_null_value() => VerifyWithValueTypes<Dictionary<string, int?>>("""{ "a": null, "b": 1 }""");
 
         [Fact]
-        public virtual Task Dictionary_of_nullable_ints_from_object_with_typed_null_value() => VerifyWithValueTypes<Dictionary<string, int?>>("""{ "a": { "@type": "g:Int32", "@value": null }, "b": 1 }""");
+        public virtual SettingsTask Dictionary_of_nullable_ints_from_object_with_typed_null_value() => VerifyWithValueTypes<Dictionary<string, int?>>("""{ "a": { "@type": "g:Int32", "@value": null }, "b": 1 }""");
 
         [Fact]
-        public virtual Task Dictionary_of_strings_from_map_with_null_value() => VerifyWithValueTypes<Dictionary<string, string>>("""{ "@type": "g:Map", "@value": [ "a", null, "b", "x" ] }""");
+        public virtual SettingsTask Dictionary_of_strings_from_map_with_null_value() => VerifyWithValueTypes<Dictionary<string, string>>("""{ "@type": "g:Map", "@value": [ "a", null, "b", "x" ] }""");
 
         [Fact]
-        public virtual Task Dictionary_of_nullable_ints_from_map_with_null_value() => VerifyWithValueTypes<Dictionary<string, int?>>("""{ "@type": "g:Map", "@value": [ "a", null, "b", 1 ] }""");
+        public virtual SettingsTask Dictionary_of_nullable_ints_from_map_with_null_value() => VerifyWithValueTypes<Dictionary<string, int?>>("""{ "@type": "g:Map", "@value": [ "a", null, "b", 1 ] }""");
 
         [Fact]
-        public virtual Task Dictionary_of_nullable_ints_from_map_with_typed_null_value() => VerifyWithValueTypes<Dictionary<string, int?>>("""{ "@type": "g:Map", "@value": [ "a", { "@type": "g:Int32", "@value": null }, "b", 1 ] }""");
+        public virtual SettingsTask Dictionary_of_nullable_ints_from_map_with_typed_null_value() => VerifyWithValueTypes<Dictionary<string, int?>>("""{ "@type": "g:Map", "@value": [ "a", { "@type": "g:Int32", "@value": null }, "b", 1 ] }""");
 
         [Fact]
-        public virtual Task Dictionary_of_strings_from_map_of_int_keys_with_null_value() => VerifyWithValueTypes<Dictionary<int, string>>("""{ "@type": "g:Map", "@value": [ 1, null, 2, "x" ] }""");
+        public virtual SettingsTask Dictionary_of_strings_from_map_of_int_keys_with_null_value() => VerifyWithValueTypes<Dictionary<int, string>>("""{ "@type": "g:Map", "@value": [ 1, null, 2, "x" ] }""");
 
         // Only a null is a null, though. A value that cannot be read is no null value but no value,
         // and its entry is left out, whether the values could hold a null or not: a string that is
         // no number, a typed value whose @value is no number, an object.
         [Fact]
-        public virtual Task Dictionary_of_nullable_ints_from_map_with_values_that_are_no_numbers() => VerifyWithValueTypes<Dictionary<string, int?>>("""{ "@type": "g:Map", "@value": [ "a", "abc", "b", { "@type": "g:Int32", "@value": "abc" }, "c", {}, "d", 1 ] }""");
+        public virtual SettingsTask Dictionary_of_nullable_ints_from_map_with_values_that_are_no_numbers() => VerifyWithValueTypes<Dictionary<string, int?>>("""{ "@type": "g:Map", "@value": [ "a", "abc", "b", { "@type": "g:Int32", "@value": "abc" }, "c", {}, "d", 1 ] }""");
 
         // An object can hold a null as well, and the entry is kept with a null - never with a
         // serializer's own token that holds the null, though such a token could be an object. The
         // same goes for the non-generic IDictionary, whose values are objects, and for a plain
         // object asked for as an object, whose members are its entries.
         [Fact]
-        public virtual Task Dictionary_of_objects_from_object_with_null_value() => VerifyWithValueTypes<Dictionary<string, object>>("""{ "a": null, "b": "x" }""");
+        public virtual SettingsTask Dictionary_of_objects_from_object_with_null_value() => VerifyWithValueTypes<Dictionary<string, object>>("""{ "a": null, "b": "x" }""");
 
         [Fact]
-        public virtual Task Dictionary_of_objects_from_map_with_null_value() => VerifyWithValueTypes<Dictionary<string, object>>("""{ "@type": "g:Map", "@value": [ "a", null, "b", "x" ] }""");
+        public virtual SettingsTask Dictionary_of_objects_from_map_with_null_value() => VerifyWithValueTypes<Dictionary<string, object>>("""{ "@type": "g:Map", "@value": [ "a", null, "b", "x" ] }""");
 
         [Fact]
-        public virtual Task IUntypedDictionary_from_object_with_null_value() => VerifyWithValueTypes<IDictionary>("""{ "a": null, "b": "x" }""");
+        public virtual SettingsTask IUntypedDictionary_from_object_with_null_value() => VerifyWithValueTypes<IDictionary>("""{ "a": null, "b": "x" }""");
 
         [Fact]
-        public virtual Task IUntypedDictionary_from_map_with_null_value() => VerifyWithValueTypes<IDictionary>("""{ "@type": "g:Map", "@value": [ "a", null, "b", "x" ] }""");
+        public virtual SettingsTask IUntypedDictionary_from_map_with_null_value() => VerifyWithValueTypes<IDictionary>("""{ "@type": "g:Map", "@value": [ "a", null, "b", "x" ] }""");
 
         [Fact]
-        public virtual Task Object_from_object_with_null_value() => VerifyWithValueTypes<object>("""{ "a": null, "b": "x" }""");
+        public virtual SettingsTask Object_from_object_with_null_value() => VerifyWithValueTypes<object>("""{ "a": null, "b": "x" }""");
 
         // A member of an object that cannot be read is left out the same way: it keeps the value
         // the object was made with, its initializer's or the default of its type, and the members
@@ -1945,73 +1946,73 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         // or an object. A single item array is the item it holds, and a number is read as a string -
         // these two are here to compare.
         [Fact]
-        public virtual Task Object_with_int_member_that_is_no_number() => VerifyAttempt<ClassWithInitializedMember>("""{ "Name": "x", "Age": "abc" }""");
+        public virtual SettingsTask Object_with_int_member_that_is_no_number() => VerifyAttempt<ClassWithInitializedMember>("""{ "Name": "x", "Age": "abc" }""");
 
         [Fact]
-        public virtual Task Object_with_int_member_that_is_null() => VerifyAttempt<ClassWithInitializedMember>("""{ "Name": "x", "Age": null }""");
+        public virtual SettingsTask Object_with_int_member_that_is_null() => VerifyAttempt<ClassWithInitializedMember>("""{ "Name": "x", "Age": null }""");
 
         [Fact]
-        public virtual Task Object_with_int_member_that_is_an_object() => VerifyAttempt<ClassWithInitializedMember>("""{ "Name": "x", "Age": {} }""");
+        public virtual SettingsTask Object_with_int_member_that_is_an_object() => VerifyAttempt<ClassWithInitializedMember>("""{ "Name": "x", "Age": {} }""");
 
         [Fact]
-        public virtual Task Object_with_int_member_in_single_item_array() => VerifyAttempt<ClassWithInitializedMember>("""{ "Name": "x", "Age": [ 1 ] }""");
+        public virtual SettingsTask Object_with_int_member_in_single_item_array() => VerifyAttempt<ClassWithInitializedMember>("""{ "Name": "x", "Age": [ 1 ] }""");
 
         [Fact]
-        public virtual Task Object_with_string_member_from_number_in_single_item_array() => VerifyAttempt<ClassWithInitializedMember>("""{ "Name": [ 1 ], "Age": 5 }""");
+        public virtual SettingsTask Object_with_string_member_from_number_in_single_item_array() => VerifyAttempt<ClassWithInitializedMember>("""{ "Name": [ 1 ], "Age": 5 }""");
 
         [Fact]
-        public virtual Task Object_with_initialized_member_that_is_no_number() => VerifyAttempt<ClassWithInitializedMember>("""{ "Name": "x", "Age": 5, "Initialized": "abc" }""");
+        public virtual SettingsTask Object_with_initialized_member_that_is_no_number() => VerifyAttempt<ClassWithInitializedMember>("""{ "Name": "x", "Age": 5, "Initialized": "abc" }""");
 
         [Fact]
-        public virtual Task Object_from_double() => Verify<object>("1.2");
+        public virtual SettingsTask Object_from_double() => Verify<object>("1.2");
 
         // An integer too big for a long is a BigInteger, with every digit it has, to an object and
         // to anything else that can hold one. A number with a decimal point or an exponent stays a
         // double, however big it is.
         [Fact]
-        public virtual Task Object_from_integer_beyond_long() => VerifyAttemptWithRuntimeType<object>("18446744073709551615");
+        public virtual SettingsTask Object_from_integer_beyond_long() => VerifyAttemptWithRuntimeType<object>("18446744073709551615");
 
         [Fact]
-        public virtual Task Object_from_negative_integer_beyond_long() => VerifyAttemptWithRuntimeType<object>("-18446744073709551616");
+        public virtual SettingsTask Object_from_negative_integer_beyond_long() => VerifyAttemptWithRuntimeType<object>("-18446744073709551616");
 
         [Fact]
-        public virtual Task Object_from_number_beyond_long_with_decimal_point() => VerifyAttemptWithRuntimeType<object>("18446744073709551615.0");
+        public virtual SettingsTask Object_from_number_beyond_long_with_decimal_point() => VerifyAttemptWithRuntimeType<object>("18446744073709551615.0");
 
         [Fact]
-        public virtual Task Object_from_number_beyond_long_with_exponent() => VerifyAttemptWithRuntimeType<object>("1e20");
+        public virtual SettingsTask Object_from_number_beyond_long_with_exponent() => VerifyAttemptWithRuntimeType<object>("1e20");
 
         [Fact]
-        public virtual Task IFormattable_from_integer_beyond_long() => VerifyAttemptWithRuntimeType<IFormattable>("18446744073709551615");
+        public virtual SettingsTask IFormattable_from_integer_beyond_long() => VerifyAttemptWithRuntimeType<IFormattable>("18446744073709551615");
 
         // Also to what only a BigInteger can be, as an IComparable<BigInteger>, which asks for a
         // BigInteger as an IEquatable<int> asks for an int. A bare 5 is a BigInteger there too, small
         // as it is.
         [Fact]
-        public virtual Task IComparable_of_BigInteger_from_integer_beyond_long() => VerifyAttemptWithRuntimeType<IComparable<BigInteger>>("18446744073709551615");
+        public virtual SettingsTask IComparable_of_BigInteger_from_integer_beyond_long() => VerifyAttemptWithRuntimeType<IComparable<BigInteger>>("18446744073709551615");
 
         [Fact]
-        public virtual Task IComparable_of_BigInteger_from_int() => VerifyAttemptWithRuntimeType<IComparable<BigInteger>>("5");
+        public virtual SettingsTask IComparable_of_BigInteger_from_int() => VerifyAttemptWithRuntimeType<IComparable<BigInteger>>("5");
 
         [Fact]
-        public virtual Task Object_from_true() => Verify<object>("true");
+        public virtual SettingsTask Object_from_true() => Verify<object>("true");
 
         [Fact]
-        public virtual Task Person_lowercase_strongly_typed() => Verify<RichVertex>(Single_Person_lowercase_properties);
+        public virtual SettingsTask Person_lowercase_strongly_typed() => Verify<RichVertex>(Single_Person_lowercase_properties);
 
         // A member of a type the caller asks for is found however its name is spelled, so a name
         // spelled two ways is found twice. The last one in the document is the one that counts - not
         // the one spelled like the member: the second test is the first one reversed, and answers
         // the other value.
         [Fact]
-        public virtual Task Person_from_object_with_age_twice_in_different_case() => Verify<RichVertex>("""{ "age": 1, "Age": 2 }""");
+        public virtual SettingsTask Person_from_object_with_age_twice_in_different_case() => Verify<RichVertex>("""{ "age": 1, "Age": 2 }""");
 
         [Fact]
-        public virtual Task Person_from_object_with_age_twice_in_different_case_reversed() => Verify<RichVertex>("""{ "Age": 2, "age": 1 }""");
+        public virtual SettingsTask Person_from_object_with_age_twice_in_different_case_reversed() => Verify<RichVertex>("""{ "Age": 2, "age": 1 }""");
 
         // Gremlin's property keys are case sensitive, so a vertex can have an "age" and an "Age" -
         // the one place where a server sends a name spelled two ways. The last one counts here too.
         [Fact]
-        public virtual Task Person_from_vertex_with_age_property_twice_in_different_case() => Verify<RichVertex>("""
+        public virtual SettingsTask Person_from_vertex_with_age_property_twice_in_different_case() => Verify<RichVertex>("""
             {
               "id": 1,
               "label": "RichVertex",
@@ -2024,7 +2025,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         // The same vertex as valueMap() returns it: a g:Map with both keys.
         [Fact]
-        public virtual Task Person_from_map_with_age_twice_in_different_case() => Verify<RichVertex>("""
+        public virtual SettingsTask Person_from_map_with_age_twice_in_different_case() => Verify<RichVertex>("""
             {
               "@type": "g:Map",
               "@value": [ "age", 1, "Age", 2 ]
@@ -2033,29 +2034,29 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         // Constructor arguments are found the same way as members are.
         [Fact]
-        public virtual Task Constructor_argument_twice_in_different_case() => Verify<ClassWithFieldsAndConstructor>("""{ "stringArg": "a", "StringArg": "b", "intArg": 1 }""");
+        public virtual SettingsTask Constructor_argument_twice_in_different_case() => Verify<ClassWithFieldsAndConstructor>("""{ "stringArg": "a", "StringArg": "b", "intArg": 1 }""");
 
         // The members of Gremlinq's own Property<T> are the exception, when the caller asks for one:
         // TinkerPop spells them in lower case, and the name spelled that way counts wherever it
         // stands. Only without it is a name spelled another way taken, and then the first of them -
         // data like that is far enough from the standard to do without the rule of the last one.
         [Fact]
-        public virtual Task Property_with_value_twice_in_different_case() => Verify<Property<int>>("""{ "key": "p", "value": 1, "Value": 2 }""");
+        public virtual SettingsTask Property_with_value_twice_in_different_case() => Verify<Property<int>>("""{ "key": "p", "value": 1, "Value": 2 }""");
 
         [Fact]
-        public virtual Task Property_with_value_twice_in_different_case_lower_case_last() => Verify<Property<int>>("""{ "key": "p", "Value": 2, "value": 1 }""");
+        public virtual SettingsTask Property_with_value_twice_in_different_case_lower_case_last() => Verify<Property<int>>("""{ "key": "p", "Value": 2, "value": 1 }""");
 
         [Fact]
-        public virtual Task Property_with_capitalized_key_and_value() => Verify<Property<int>>("""{ "Key": "p", "Value": 2, "VALUE": 3 }""");
+        public virtual SettingsTask Property_with_capitalized_key_and_value() => Verify<Property<int>>("""{ "Key": "p", "Value": 2, "VALUE": 3 }""");
 
         // A name spelled the same way twice is taken like one spelled two ways: from its last
         // occurrence, and nothing throws. That goes for a member of a plain object, for a property
         // of a vertex, and for a key of the g:Map that valueMap() returns.
         [Fact]
-        public virtual Task Person_from_object_with_age_twice() => Verify<RichVertex>("""{ "Age": 1, "Age": 2 }""");
+        public virtual SettingsTask Person_from_object_with_age_twice() => Verify<RichVertex>("""{ "Age": 1, "Age": 2 }""");
 
         [Fact]
-        public virtual Task Person_from_vertex_with_age_property_twice() => Verify<RichVertex>("""
+        public virtual SettingsTask Person_from_vertex_with_age_property_twice() => Verify<RichVertex>("""
             {
               "id": 1,
               "label": "RichVertex",
@@ -2067,7 +2068,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             """);
 
         [Fact]
-        public virtual Task Person_from_map_with_age_twice() => Verify<RichVertex>("""
+        public virtual SettingsTask Person_from_map_with_age_twice() => Verify<RichVertex>("""
             {
               "@type": "g:Map",
               "@value": [ "Age", 1, "Age", 2 ]
@@ -2077,16 +2078,16 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         // GraphSON's own names are no different, be it a property's "value" or an envelope's
         // "@value".
         [Fact]
-        public virtual Task Property_with_value_twice() => Verify<Property<int>>("""{ "key": "p", "value": 1, "value": 2 }""");
+        public virtual SettingsTask Property_with_value_twice() => Verify<Property<int>>("""{ "key": "p", "value": 1, "value": 2 }""");
 
         [Fact]
-        public virtual Task Int_from_typed_value_with_value_twice() => Verify<int>("""{ "@type": "g:Int32", "@value": 1, "@value": 2 }""");
+        public virtual SettingsTask Int_from_typed_value_with_value_twice() => Verify<int>("""{ "@type": "g:Int32", "@value": 1, "@value": 2 }""");
 
         // Nor are the g:T keys of an element map. An id that is there twice is the last one, asked
         // for as a RichVertex or as an object - and of two labels it is the last one that says what the
         // element is: a RichVertex here, not a SimpleVertex.
         [Fact]
-        public virtual Task Person_from_element_map_with_id_twice() => Verify<RichVertex>("""
+        public virtual SettingsTask Person_from_element_map_with_id_twice() => Verify<RichVertex>("""
             {
               "@type": "g:Map",
               "@value": [
@@ -2103,7 +2104,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             """);
 
         [Fact]
-        public virtual Task Element_map_with_id_twice_as_object() => Verify<object>("""
+        public virtual SettingsTask Element_map_with_id_twice_as_object() => Verify<object>("""
             {
               "@type": "g:Map",
               "@value": [
@@ -2120,7 +2121,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             """);
 
         [Fact]
-        public virtual Task Vertex_from_element_map_with_label_twice() => Verify<Vertex>("""
+        public virtual SettingsTask Vertex_from_element_map_with_label_twice() => Verify<Vertex>("""
             {
               "@type": "g:Map",
               "@value": [
@@ -2173,7 +2174,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         }
 
         [Fact]
-        public virtual Task Map_with_key_twice_as_object() => VerifyWithKeys<object>("""
+        public virtual SettingsTask Map_with_key_twice_as_object() => VerifyWithKeys<object>("""
             {
               "@type": "g:Map",
               "@value": [ "a", 1, "b", 2, "a", 3 ]
@@ -2181,7 +2182,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             """);
 
         [Fact]
-        public virtual Task Dictionary_from_map_with_key_twice() => VerifyWithKeys<Dictionary<string, int>>("""
+        public virtual SettingsTask Dictionary_from_map_with_key_twice() => VerifyWithKeys<Dictionary<string, int>>("""
             {
               "@type": "g:Map",
               "@value": [ "a", 1, "b", 2, "a", 3 ]
@@ -2189,7 +2190,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             """);
 
         [Fact]
-        public virtual Task ImmutableDictionary_from_map_with_key_twice() => Verify<ImmutableDictionary<string, int>>("""
+        public virtual SettingsTask ImmutableDictionary_from_map_with_key_twice() => Verify<ImmutableDictionary<string, int>>("""
             {
               "@type": "g:Map",
               "@value": [ "a", 1, "b", 2, "a", 3 ]
@@ -2198,19 +2199,19 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         // The same for a plain object, whose members are the entries.
         [Fact]
-        public virtual Task Object_with_member_twice_as_object() => VerifyWithKeys<object>("""{ "a": 1, "b": 2, "a": 3 }""");
+        public virtual SettingsTask Object_with_member_twice_as_object() => VerifyWithKeys<object>("""{ "a": 1, "b": 2, "a": 3 }""");
 
         [Fact]
-        public virtual Task Dictionary_from_object_with_member_twice() => VerifyWithKeys<Dictionary<string, int>>("""{ "a": 1, "b": 2, "a": 3 }""");
+        public virtual SettingsTask Dictionary_from_object_with_member_twice() => VerifyWithKeys<Dictionary<string, int>>("""{ "a": 1, "b": 2, "a": 3 }""");
 
         [Fact]
-        public virtual Task ImmutableDictionary_from_object_with_member_twice() => Verify<ImmutableDictionary<string, int>>("""{ "a": 1, "b": 2, "a": 3 }""");
+        public virtual SettingsTask ImmutableDictionary_from_object_with_member_twice() => Verify<ImmutableDictionary<string, int>>("""{ "a": 1, "b": 2, "a": 3 }""");
 
         // Two places where a server's answer ends up in a dictionary without the caller asking for
         // one: the properties of a vertex whose label the model does not know, and the meta
         // properties of a vertex property.
         [Fact]
-        public virtual Task Vertex_with_unknown_label_and_property_twice_as_object() => Verify<object>("""
+        public virtual SettingsTask Vertex_with_unknown_label_and_property_twice_as_object() => Verify<object>("""
             {
               "id": 1,
               "label": "SomeUnknownLabel",
@@ -2223,11 +2224,11 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             """);
 
         [Fact]
-        public virtual Task VertexProperty_with_meta_property_twice() => Verify<VertexProperty<object>>("""{ "id": 166, "value": "bob", "label": "Name", "properties": { "metaKey": "MetaValue", "metaKey": "OtherMetaValue" } }""");
+        public virtual SettingsTask VertexProperty_with_meta_property_twice() => Verify<VertexProperty<object>>("""{ "id": 166, "value": "bob", "label": "Name", "properties": { "metaKey": "MetaValue", "metaKey": "OtherMetaValue" } }""");
 
         // A key that is no name is found twice just the same, typed as it was.
         [Fact]
-        public virtual Task Map_with_typed_int_key_twice_as_object() => VerifyWithKeys<object>("""
+        public virtual SettingsTask Map_with_typed_int_key_twice_as_object() => VerifyWithKeys<object>("""
             {
               "@type": "g:Map",
               "@value": [
@@ -2245,7 +2246,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         // g:Int64 1 are two keys of a map read as an object, where each stays what it is, and one
         // key when longs are asked for. The same goes for a "1" and a 1 when strings are asked for.
         [Fact]
-        public virtual Task Map_with_int_and_long_key_as_object() => VerifyWithKeys<object>("""
+        public virtual SettingsTask Map_with_int_and_long_key_as_object() => VerifyWithKeys<object>("""
             {
               "@type": "g:Map",
               "@value": [
@@ -2258,7 +2259,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             """);
 
         [Fact]
-        public virtual Task Dictionary_of_long_keys_from_map_with_int_and_long_key() => VerifyWithKeys<Dictionary<long, string>>("""
+        public virtual SettingsTask Dictionary_of_long_keys_from_map_with_int_and_long_key() => VerifyWithKeys<Dictionary<long, string>>("""
             {
               "@type": "g:Map",
               "@value": [
@@ -2271,7 +2272,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             """);
 
         [Fact]
-        public virtual Task Dictionary_of_string_keys_from_map_with_string_and_number_key() => VerifyWithKeys<Dictionary<string, string>>("""
+        public virtual SettingsTask Dictionary_of_string_keys_from_map_with_string_and_number_key() => VerifyWithKeys<Dictionary<string, string>>("""
             {
               "@type": "g:Map",
               "@value": [ "1", "value1", 1, "value2" ]
@@ -2281,7 +2282,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         // The last occurrence counts even when its value cannot be read. The map says "a" is
         // something that is no int, so there is no "a" - the 1 it said before is not what it says.
         [Fact]
-        public virtual Task Dictionary_from_map_with_key_twice_and_unreadable_last_value() => VerifyWithKeys<Dictionary<string, int>>("""
+        public virtual SettingsTask Dictionary_from_map_with_key_twice_and_unreadable_last_value() => VerifyWithKeys<Dictionary<string, int>>("""
             {
               "@type": "g:Map",
               "@value": [ "a", 1, "b", 2, "a", "not a number" ]
@@ -2291,7 +2292,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         // A key that cannot be read as what the dictionary is keyed by is no occurrence of any key:
         // its entry is left out, and the entries around it are kept.
         [Fact]
-        public virtual Task Dictionary_from_map_with_unreadable_key() => VerifyWithKeys<Dictionary<int, string>>("""
+        public virtual SettingsTask Dictionary_from_map_with_unreadable_key() => VerifyWithKeys<Dictionary<int, string>>("""
             {
               "@type": "g:Map",
               "@value": [ 1, "a", "not a number", "b", 2, "c" ]
@@ -2301,19 +2302,19 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         // The same for a plain object, whose keys are its names: a name that cannot be read as the
         // key type leaves its member out, and the members around it are kept.
         [Fact]
-        public virtual Task Dictionary_from_object_with_unreadable_key() => VerifyWithKeys<Dictionary<int, string>>("""{ "1": "a", "not a number": "b", "2": "c" }""");
+        public virtual SettingsTask Dictionary_from_object_with_unreadable_key() => VerifyWithKeys<Dictionary<int, string>>("""{ "1": "a", "not a number": "b", "2": "c" }""");
 
         // A name is read as whatever the dictionary is keyed by, not only as a string: an enum is
         // keyed by the names of its values, and a name it does not have leaves its member out like
         // any other name that cannot be read. A Key, which holds a name, is keyed by the names.
         [Fact]
-        public virtual Task Dictionary_of_enum_keys_from_object() => VerifyWithKeys<Dictionary<SomeEnum, int>>("""{ "Zero": 1, "One": 2 }""");
+        public virtual SettingsTask Dictionary_of_enum_keys_from_object() => VerifyWithKeys<Dictionary<SomeEnum, int>>("""{ "Zero": 1, "One": 2 }""");
 
         [Fact]
-        public virtual Task Dictionary_of_enum_keys_from_object_with_unknown_name() => VerifyWithKeys<Dictionary<SomeEnum, int>>("""{ "Zero": 1, "Other": 3, "One": 2 }""");
+        public virtual SettingsTask Dictionary_of_enum_keys_from_object_with_unknown_name() => VerifyWithKeys<Dictionary<SomeEnum, int>>("""{ "Zero": 1, "Other": 3, "One": 2 }""");
 
         [Fact]
-        public virtual Task Dictionary_of_Key_keys_from_object() => VerifyWithKeys<Dictionary<Key, object>>("""{ "a": 1, "b": "x" }""");
+        public virtual SettingsTask Dictionary_of_Key_keys_from_object() => VerifyWithKeys<Dictionary<Key, object>>("""{ "a": 1, "b": "x" }""");
 
         // Any dictionary that can be made empty is filled from a map or an object, not only the
         // ones Dictionary<,> or ImmutableDictionary<,> stand in for: one that sorts itself, one made
@@ -2323,46 +2324,46 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         // itself, ImmutableSortedDictionary<,>, is built from a map or an object as well, and keeps
         // the g:Int32 keys of a map as ints too.
         [Fact]
-        public virtual Task SortedDictionary_from_object() => VerifyWithKeyTypes<SortedDictionary<string, int>>(String_Keys_Typed_Int_Values);
+        public virtual SettingsTask SortedDictionary_from_object() => VerifyWithKeyTypes<SortedDictionary<string, int>>(String_Keys_Typed_Int_Values);
 
         [Fact]
-        public virtual Task SortedDictionary_from_map() => VerifyWithKeyTypes<SortedDictionary<string, int>>(Map_of_String_Keys_Typed_Int_Values);
+        public virtual SettingsTask SortedDictionary_from_map() => VerifyWithKeyTypes<SortedDictionary<string, int>>(Map_of_String_Keys_Typed_Int_Values);
 
         [Fact]
-        public virtual Task SortedDictionary_of_int_keys_from_map() => VerifyWithKeyTypes<SortedDictionary<int, string>>(Map_of_Typed_Int_Keys_Typed_String_Values);
+        public virtual SettingsTask SortedDictionary_of_int_keys_from_map() => VerifyWithKeyTypes<SortedDictionary<int, string>>(Map_of_Typed_Int_Keys_Typed_String_Values);
 
         [Fact]
-        public virtual Task SortedList_from_object() => VerifyWithKeyTypes<SortedList<string, int>>(String_Keys_Typed_Int_Values);
+        public virtual SettingsTask SortedList_from_object() => VerifyWithKeyTypes<SortedList<string, int>>(String_Keys_Typed_Int_Values);
 
         [Fact]
-        public virtual Task SortedList_from_map() => VerifyWithKeyTypes<SortedList<string, int>>(Map_of_String_Keys_Typed_Int_Values);
+        public virtual SettingsTask SortedList_from_map() => VerifyWithKeyTypes<SortedList<string, int>>(Map_of_String_Keys_Typed_Int_Values);
 
         [Fact]
-        public virtual Task SortedList_of_int_keys_from_map() => VerifyWithKeyTypes<SortedList<int, string>>(Map_of_Typed_Int_Keys_Typed_String_Values);
+        public virtual SettingsTask SortedList_of_int_keys_from_map() => VerifyWithKeyTypes<SortedList<int, string>>(Map_of_Typed_Int_Keys_Typed_String_Values);
 
         [Fact]
-        public virtual Task ConcurrentDictionary_from_object() => VerifyWithKeyTypes<ConcurrentDictionary<string, int>>(String_Keys_Typed_Int_Values);
+        public virtual SettingsTask ConcurrentDictionary_from_object() => VerifyWithKeyTypes<ConcurrentDictionary<string, int>>(String_Keys_Typed_Int_Values);
 
         [Fact]
-        public virtual Task ConcurrentDictionary_from_map() => VerifyWithKeyTypes<ConcurrentDictionary<string, int>>(Map_of_String_Keys_Typed_Int_Values);
+        public virtual SettingsTask ConcurrentDictionary_from_map() => VerifyWithKeyTypes<ConcurrentDictionary<string, int>>(Map_of_String_Keys_Typed_Int_Values);
 
         [Fact]
-        public virtual Task ConcurrentDictionary_of_int_keys_from_map() => VerifyWithKeyTypes<ConcurrentDictionary<int, string>>(Map_of_Typed_Int_Keys_Typed_String_Values);
+        public virtual SettingsTask ConcurrentDictionary_of_int_keys_from_map() => VerifyWithKeyTypes<ConcurrentDictionary<int, string>>(Map_of_Typed_Int_Keys_Typed_String_Values);
 
         [Fact]
-        public virtual Task ImmutableSortedDictionary_from_object() => VerifyWithKeyTypes<ImmutableSortedDictionary<string, int>>(String_Keys_Typed_Int_Values);
+        public virtual SettingsTask ImmutableSortedDictionary_from_object() => VerifyWithKeyTypes<ImmutableSortedDictionary<string, int>>(String_Keys_Typed_Int_Values);
 
         [Fact]
-        public virtual Task ImmutableSortedDictionary_from_map() => VerifyWithKeyTypes<ImmutableSortedDictionary<string, int>>(Map_of_String_Keys_Typed_Int_Values);
+        public virtual SettingsTask ImmutableSortedDictionary_from_map() => VerifyWithKeyTypes<ImmutableSortedDictionary<string, int>>(Map_of_String_Keys_Typed_Int_Values);
 
         [Fact]
-        public virtual Task ImmutableSortedDictionary_of_int_keys_from_map() => VerifyWithKeyTypes<ImmutableSortedDictionary<int, string>>(Map_of_Typed_Int_Keys_Typed_String_Values);
+        public virtual SettingsTask ImmutableSortedDictionary_of_int_keys_from_map() => VerifyWithKeyTypes<ImmutableSortedDictionary<int, string>>(Map_of_Typed_Int_Keys_Typed_String_Values);
 
         [Fact]
-        public virtual Task Class_derived_from_Dictionary_from_object() => VerifyWithKeyTypes<ClassDerivedFromDictionary>(String_Keys_Typed_Int_Values);
+        public virtual SettingsTask Class_derived_from_Dictionary_from_object() => VerifyWithKeyTypes<ClassDerivedFromDictionary>(String_Keys_Typed_Int_Values);
 
         [Fact]
-        public virtual Task Class_derived_from_Dictionary_from_map() => VerifyWithKeyTypes<ClassDerivedFromDictionary>(Map_of_String_Keys_Typed_Int_Values);
+        public virtual SettingsTask Class_derived_from_Dictionary_from_map() => VerifyWithKeyTypes<ClassDerivedFromDictionary>(Map_of_String_Keys_Typed_Int_Values);
 
         // A dictionary that cannot be made empty is still built from a map or an object, through a
         // constructor that takes a dictionary of what it holds, as ReadOnlyDictionary<,> has one -
@@ -2373,28 +2374,28 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         // class is not built at all, and a typed value other than a map, which is no dictionary of
         // anything, builds no such dictionary either.
         [Fact]
-        public virtual Task ReadOnlyDictionary_from_object() => VerifyAttemptWithRuntimeType<ReadOnlyDictionary<string, int>>(String_Keys_Typed_Int_Values);
+        public virtual SettingsTask ReadOnlyDictionary_from_object() => VerifyAttemptWithRuntimeType<ReadOnlyDictionary<string, int>>(String_Keys_Typed_Int_Values);
 
         [Fact]
-        public virtual Task ReadOnlyDictionary_from_map() => VerifyAttemptWithRuntimeType<ReadOnlyDictionary<string, int>>(Map_of_String_Keys_Typed_Int_Values);
+        public virtual SettingsTask ReadOnlyDictionary_from_map() => VerifyAttemptWithRuntimeType<ReadOnlyDictionary<string, int>>(Map_of_String_Keys_Typed_Int_Values);
 
         [Fact]
-        public virtual Task ReadOnlyDictionary_of_int_keys_from_map() => VerifyWithKeyTypes<ReadOnlyDictionary<int, string>>(Map_of_Typed_Int_Keys_Typed_String_Values);
+        public virtual SettingsTask ReadOnlyDictionary_of_int_keys_from_map() => VerifyWithKeyTypes<ReadOnlyDictionary<int, string>>(Map_of_Typed_Int_Keys_Typed_String_Values);
 
         [Fact]
-        public virtual Task ReadOnlyDictionary_from_typed_Int32() => VerifyAttemptWithRuntimeType<ReadOnlyDictionary<string, int>>(Typed_Int32);
+        public virtual SettingsTask ReadOnlyDictionary_from_typed_Int32() => VerifyAttemptWithRuntimeType<ReadOnlyDictionary<string, int>>(Typed_Int32);
 
         [Fact]
-        public virtual Task Abstract_class_derived_from_Dictionary_from_map() => VerifyAttemptWithRuntimeType<AbstractClassDerivedFromDictionary>(Map_of_String_Keys_Typed_Int_Values);
+        public virtual SettingsTask Abstract_class_derived_from_Dictionary_from_map() => VerifyAttemptWithRuntimeType<AbstractClassDerivedFromDictionary>(Map_of_String_Keys_Typed_Int_Values);
 
         [Fact]
-        public virtual Task Class_with_two_dictionary_interfaces_from_object() => VerifyAttemptWithRuntimeType<ClassWithTwoDictionaryInterfaces>(String_Keys_Typed_Int_Values);
+        public virtual SettingsTask Class_with_two_dictionary_interfaces_from_object() => VerifyAttemptWithRuntimeType<ClassWithTwoDictionaryInterfaces>(String_Keys_Typed_Int_Values);
 
         [Fact]
-        public virtual Task Class_with_two_dictionary_interfaces_from_map() => VerifyAttemptWithRuntimeType<ClassWithTwoDictionaryInterfaces>(Map_of_String_Keys_Typed_Int_Values);
+        public virtual SettingsTask Class_with_two_dictionary_interfaces_from_map() => VerifyAttemptWithRuntimeType<ClassWithTwoDictionaryInterfaces>(Map_of_String_Keys_Typed_Int_Values);
 
         [Fact]
-        public virtual Task Class_with_two_dictionary_interfaces_from_map_of_int_keys() => VerifyWithKeyTypes<ClassWithTwoDictionaryInterfaces>(Map_of_Typed_Int_Keys_Typed_Int_Values);
+        public virtual SettingsTask Class_with_two_dictionary_interfaces_from_map_of_int_keys() => VerifyWithKeyTypes<ClassWithTwoDictionaryInterfaces>(Map_of_Typed_Int_Keys_Typed_Int_Values);
 
         // The constructor must take nothing but a dictionary of what it holds: what an
         // IDictionary<,> or an IReadOnlyDictionary<,> can be passed as. One that takes a capacity or
@@ -2404,25 +2405,25 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         // takes an IDictionary<,>, and only where none does, the first that takes an
         // IReadOnlyDictionary<,>.
         [Fact]
-        public virtual Task Class_derived_from_Dictionary_with_capacity_constructors_from_map() => VerifyAttemptWithRuntimeType<ClassDerivedFromDictionaryWithCapacityConstructors>(Map_of_String_Keys_Typed_Int_Values);
+        public virtual SettingsTask Class_derived_from_Dictionary_with_capacity_constructors_from_map() => VerifyAttemptWithRuntimeType<ClassDerivedFromDictionaryWithCapacityConstructors>(Map_of_String_Keys_Typed_Int_Values);
 
         [Fact]
-        public virtual Task Class_derived_from_Dictionary_with_read_only_dictionary_constructor_from_object() => VerifyAttemptWithRuntimeType<ClassDerivedFromDictionaryWithReadOnlyDictionaryConstructor>(String_Keys_Typed_Int_Values);
+        public virtual SettingsTask Class_derived_from_Dictionary_with_read_only_dictionary_constructor_from_object() => VerifyAttemptWithRuntimeType<ClassDerivedFromDictionaryWithReadOnlyDictionaryConstructor>(String_Keys_Typed_Int_Values);
 
         [Fact]
-        public virtual Task Class_derived_from_Dictionary_with_read_only_dictionary_constructor_from_map() => VerifyAttemptWithRuntimeType<ClassDerivedFromDictionaryWithReadOnlyDictionaryConstructor>(Map_of_String_Keys_Typed_Int_Values);
+        public virtual SettingsTask Class_derived_from_Dictionary_with_read_only_dictionary_constructor_from_map() => VerifyAttemptWithRuntimeType<ClassDerivedFromDictionaryWithReadOnlyDictionaryConstructor>(Map_of_String_Keys_Typed_Int_Values);
 
         [Fact]
-        public virtual Task Class_derived_from_Dictionary_with_dictionary_and_pairs_constructors_from_object() => VerifyAttemptWithRuntimeType<ClassDerivedFromDictionaryWithDictionaryAndPairsConstructors>(String_Keys_Typed_Int_Values);
+        public virtual SettingsTask Class_derived_from_Dictionary_with_dictionary_and_pairs_constructors_from_object() => VerifyAttemptWithRuntimeType<ClassDerivedFromDictionaryWithDictionaryAndPairsConstructors>(String_Keys_Typed_Int_Values);
 
         [Fact]
-        public virtual Task Class_derived_from_Dictionary_with_dictionary_and_pairs_constructors_from_map() => VerifyAttemptWithRuntimeType<ClassDerivedFromDictionaryWithDictionaryAndPairsConstructors>(Map_of_String_Keys_Typed_Int_Values);
+        public virtual SettingsTask Class_derived_from_Dictionary_with_dictionary_and_pairs_constructors_from_map() => VerifyAttemptWithRuntimeType<ClassDerivedFromDictionaryWithDictionaryAndPairsConstructors>(Map_of_String_Keys_Typed_Int_Values);
 
         [Fact]
-        public virtual Task Class_derived_from_Dictionary_with_read_only_dictionary_and_dictionary_constructors_from_object() => VerifyAttemptWithRuntimeType<ClassDerivedFromDictionaryWithReadOnlyDictionaryAndDictionaryConstructors>(String_Keys_Typed_Int_Values);
+        public virtual SettingsTask Class_derived_from_Dictionary_with_read_only_dictionary_and_dictionary_constructors_from_object() => VerifyAttemptWithRuntimeType<ClassDerivedFromDictionaryWithReadOnlyDictionaryAndDictionaryConstructors>(String_Keys_Typed_Int_Values);
 
         [Fact]
-        public virtual Task Class_derived_from_Dictionary_with_read_only_dictionary_and_dictionary_constructors_from_map() => VerifyAttemptWithRuntimeType<ClassDerivedFromDictionaryWithReadOnlyDictionaryAndDictionaryConstructors>(Map_of_String_Keys_Typed_Int_Values);
+        public virtual SettingsTask Class_derived_from_Dictionary_with_read_only_dictionary_and_dictionary_constructors_from_map() => VerifyAttemptWithRuntimeType<ClassDerivedFromDictionaryWithReadOnlyDictionaryAndDictionaryConstructors>(Map_of_String_Keys_Typed_Int_Values);
 
         // A class that is a read-only dictionary and no other, IReadOnlyDictionary<,> but no
         // IDictionary<,>, is built from a map or an object as one that cannot be made empty, through
@@ -2432,44 +2433,44 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         // does not help: what it makes cannot be filled. So where no constructor takes a
         // dictionary of either kind, the dictionary is not built.
         [Fact]
-        public virtual Task Class_implementing_IReadOnlyDictionary_with_pairs_constructor_from_object() => VerifyAttemptWithRuntimeType<ClassImplementingIReadOnlyDictionaryWithPairsConstructor<string, int>>(String_Keys_Typed_Int_Values);
+        public virtual SettingsTask Class_implementing_IReadOnlyDictionary_with_pairs_constructor_from_object() => VerifyAttemptWithRuntimeType<ClassImplementingIReadOnlyDictionaryWithPairsConstructor<string, int>>(String_Keys_Typed_Int_Values);
 
         [Fact]
-        public virtual Task Class_implementing_IReadOnlyDictionary_with_pairs_constructor_from_map() => VerifyAttemptWithRuntimeType<ClassImplementingIReadOnlyDictionaryWithPairsConstructor<string, int>>(Map_of_String_Keys_Typed_Int_Values);
+        public virtual SettingsTask Class_implementing_IReadOnlyDictionary_with_pairs_constructor_from_map() => VerifyAttemptWithRuntimeType<ClassImplementingIReadOnlyDictionaryWithPairsConstructor<string, int>>(Map_of_String_Keys_Typed_Int_Values);
 
         [Fact]
-        public virtual Task Class_implementing_IReadOnlyDictionary_with_pairs_constructor_from_map_of_int_keys() => VerifyAttemptWithRuntimeType<ClassImplementingIReadOnlyDictionaryWithPairsConstructor<int, string>>(Map_of_Typed_Int_Keys_Typed_String_Values);
+        public virtual SettingsTask Class_implementing_IReadOnlyDictionary_with_pairs_constructor_from_map_of_int_keys() => VerifyAttemptWithRuntimeType<ClassImplementingIReadOnlyDictionaryWithPairsConstructor<int, string>>(Map_of_Typed_Int_Keys_Typed_String_Values);
 
         [Fact]
-        public virtual Task Class_implementing_IReadOnlyDictionary_with_dictionary_constructor_from_object() => VerifyAttemptWithRuntimeType<ClassImplementingIReadOnlyDictionaryWithDictionaryConstructor<string, int>>(String_Keys_Typed_Int_Values);
+        public virtual SettingsTask Class_implementing_IReadOnlyDictionary_with_dictionary_constructor_from_object() => VerifyAttemptWithRuntimeType<ClassImplementingIReadOnlyDictionaryWithDictionaryConstructor<string, int>>(String_Keys_Typed_Int_Values);
 
         [Fact]
-        public virtual Task Class_implementing_IReadOnlyDictionary_with_dictionary_constructor_from_map() => VerifyAttemptWithRuntimeType<ClassImplementingIReadOnlyDictionaryWithDictionaryConstructor<string, int>>(Map_of_String_Keys_Typed_Int_Values);
+        public virtual SettingsTask Class_implementing_IReadOnlyDictionary_with_dictionary_constructor_from_map() => VerifyAttemptWithRuntimeType<ClassImplementingIReadOnlyDictionaryWithDictionaryConstructor<string, int>>(Map_of_String_Keys_Typed_Int_Values);
 
         [Fact]
-        public virtual Task Class_implementing_IReadOnlyDictionary_with_dictionary_constructor_from_map_of_int_keys() => VerifyAttemptWithRuntimeType<ClassImplementingIReadOnlyDictionaryWithDictionaryConstructor<int, string>>(Map_of_Typed_Int_Keys_Typed_String_Values);
+        public virtual SettingsTask Class_implementing_IReadOnlyDictionary_with_dictionary_constructor_from_map_of_int_keys() => VerifyAttemptWithRuntimeType<ClassImplementingIReadOnlyDictionaryWithDictionaryConstructor<int, string>>(Map_of_Typed_Int_Keys_Typed_String_Values);
 
         [Fact]
-        public virtual Task Class_implementing_IReadOnlyDictionary_with_read_only_dictionary_constructor_from_object() => VerifyAttemptWithRuntimeType<ClassImplementingIReadOnlyDictionaryWithReadOnlyDictionaryConstructor<string, int>>(String_Keys_Typed_Int_Values);
+        public virtual SettingsTask Class_implementing_IReadOnlyDictionary_with_read_only_dictionary_constructor_from_object() => VerifyAttemptWithRuntimeType<ClassImplementingIReadOnlyDictionaryWithReadOnlyDictionaryConstructor<string, int>>(String_Keys_Typed_Int_Values);
 
         [Fact]
-        public virtual Task Class_implementing_IReadOnlyDictionary_with_read_only_dictionary_constructor_from_map() => VerifyAttemptWithRuntimeType<ClassImplementingIReadOnlyDictionaryWithReadOnlyDictionaryConstructor<string, int>>(Map_of_String_Keys_Typed_Int_Values);
+        public virtual SettingsTask Class_implementing_IReadOnlyDictionary_with_read_only_dictionary_constructor_from_map() => VerifyAttemptWithRuntimeType<ClassImplementingIReadOnlyDictionaryWithReadOnlyDictionaryConstructor<string, int>>(Map_of_String_Keys_Typed_Int_Values);
 
         [Fact]
-        public virtual Task Class_implementing_IReadOnlyDictionary_with_read_only_dictionary_constructor_from_map_of_int_keys() => VerifyAttemptWithRuntimeType<ClassImplementingIReadOnlyDictionaryWithReadOnlyDictionaryConstructor<int, string>>(Map_of_Typed_Int_Keys_Typed_String_Values);
+        public virtual SettingsTask Class_implementing_IReadOnlyDictionary_with_read_only_dictionary_constructor_from_map_of_int_keys() => VerifyAttemptWithRuntimeType<ClassImplementingIReadOnlyDictionaryWithReadOnlyDictionaryConstructor<int, string>>(Map_of_Typed_Int_Keys_Typed_String_Values);
 
         [Fact]
-        public virtual Task Class_implementing_IReadOnlyDictionary_with_parameterless_constructor_from_object() => VerifyAttemptWithRuntimeType<ClassImplementingIReadOnlyDictionaryWithParameterlessConstructor<string, int>>(String_Keys_Typed_Int_Values);
+        public virtual SettingsTask Class_implementing_IReadOnlyDictionary_with_parameterless_constructor_from_object() => VerifyAttemptWithRuntimeType<ClassImplementingIReadOnlyDictionaryWithParameterlessConstructor<string, int>>(String_Keys_Typed_Int_Values);
 
         [Fact]
-        public virtual Task Class_implementing_IReadOnlyDictionary_with_parameterless_constructor_from_map() => VerifyAttemptWithRuntimeType<ClassImplementingIReadOnlyDictionaryWithParameterlessConstructor<string, int>>(Map_of_String_Keys_Typed_Int_Values);
+        public virtual SettingsTask Class_implementing_IReadOnlyDictionary_with_parameterless_constructor_from_map() => VerifyAttemptWithRuntimeType<ClassImplementingIReadOnlyDictionaryWithParameterlessConstructor<string, int>>(Map_of_String_Keys_Typed_Int_Values);
 
         [Fact]
-        public virtual Task Class_implementing_IReadOnlyDictionary_with_parameterless_constructor_from_map_of_int_keys() => VerifyAttemptWithRuntimeType<ClassImplementingIReadOnlyDictionaryWithParameterlessConstructor<int, string>>(Map_of_Typed_Int_Keys_Typed_String_Values);
+        public virtual SettingsTask Class_implementing_IReadOnlyDictionary_with_parameterless_constructor_from_map_of_int_keys() => VerifyAttemptWithRuntimeType<ClassImplementingIReadOnlyDictionaryWithParameterlessConstructor<int, string>>(Map_of_Typed_Int_Keys_Typed_String_Values);
 
         // A tree's entries are keyed as well, and a key that is there twice is its last subtree.
         [Fact]
-        public virtual Task Tree_with_key_twice() => Verify<Tree<string>>("""
+        public virtual SettingsTask Tree_with_key_twice() => Verify<Tree<string>>("""
             {
               "@type": "g:Tree",
               "@value": [
@@ -2492,36 +2493,36 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             """);
 
         [Fact]
-        public virtual Task Person_From_ElementMap() => Verify<RichVertex>(Single_Person_ElementMap);
+        public virtual SettingsTask Person_From_ElementMap() => Verify<RichVertex>(Single_Person_ElementMap);
 
         [Fact]
-        public virtual Task Person_From_ElementMap_untyped() => Verify<object>(Single_Person_ElementMap);
+        public virtual SettingsTask Person_From_ElementMap_untyped() => Verify<object>(Single_Person_ElementMap);
 
         [Fact]
-        public virtual Task Person_StringId() => Verify<RichVertex>(Single_Person_String_Id);
+        public virtual SettingsTask Person_StringId() => Verify<RichVertex>(Single_Person_String_Id);
 
         [Fact]
-        public virtual Task Person_strongly_typed() => Verify<RichVertex>(Single_Person);
+        public virtual SettingsTask Person_strongly_typed() => Verify<RichVertex>(Single_Person);
 
         [Fact]
-        public virtual Task Person_with_null() => Verify<RichVertex>(Single_Person_with_null);
+        public virtual SettingsTask Person_with_null() => Verify<RichVertex>(Single_Person_with_null);
 
         [Fact]
-        public virtual Task Person_without_PhoneNumbers_strongly_typed() => Verify<RichVertex>(Single_Person_without_PhoneNumbers);
+        public virtual SettingsTask Person_without_PhoneNumbers_strongly_typed() => Verify<RichVertex>(Single_Person_without_PhoneNumbers);
 
         [Fact]
-        public virtual Task Property_as_object() => Verify<object>("{ \"value\": 1540202009475, \"key\": \"Property1\" }");
+        public virtual SettingsTask Property_as_object() => Verify<object>("{ \"value\": 1540202009475, \"key\": \"Property1\" }");
 
         // A property is recognised by GraphSON's "key" and "value", spelled exactly. Spelled "Value",
         // this is an object like any other, and nothing reads an int from it.
         [Fact]
-        public virtual Task Int_from_object_with_key_and_capitalized_value() => VerifyAttempt<int>("""{ "key": "Property1", "Value": 42 }""");
+        public virtual SettingsTask Int_from_object_with_key_and_capitalized_value() => VerifyAttempt<int>("""{ "key": "Property1", "Value": 42 }""");
 
         // A Property<object> and a map with the same two members snapshot alike, so whether the
         // result is a property is recorded alongside it. A map of the caller's own whose members
         // happen to be named Key and Value is no property.
         [Fact]
-        public virtual Task Object_with_capitalized_key_and_value_as_object()
+        public virtual SettingsTask Object_with_capitalized_key_and_value_as_object()
         {
             var subject = _environment
                 .Deserializer
@@ -2540,53 +2541,53 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         }
 
         [Fact]
-        public virtual Task Property_from_Scalar() => Verify<Property<int>>("36");
+        public virtual SettingsTask Property_from_Scalar() => Verify<Property<int>>("36");
 
         [Fact]
-        public virtual Task Scalar() => Verify<int>("36");
+        public virtual SettingsTask Scalar() => Verify<int>("36");
 
         [Fact]
-        public virtual Task Scalar_as_object() => Verify<object>("36");
+        public virtual SettingsTask Scalar_as_object() => Verify<object>("36");
 
         [Fact]
-        public virtual Task String_Ids() => Verify<object[]>("[ \"id1\", \"id2\" ]");
+        public virtual SettingsTask String_Ids() => Verify<object[]>("[ \"id1\", \"id2\" ]");
 
         [Fact]
-        public virtual Task String_Ids2() => Verify<object[]>("[ \"1\", \"2\" ]");
+        public virtual SettingsTask String_Ids2() => Verify<object[]>("[ \"1\", \"2\" ]");
 
         [Fact]
-        public virtual Task TimeFrame_strongly_typed() => Verify<ScalarVertex>(Single_TimeFrame);
+        public virtual SettingsTask TimeFrame_strongly_typed() => Verify<ScalarVertex>(Single_TimeFrame);
 
         // Single_TimeFrame carries ISO 8601 durations, this one milliseconds, so together
         // they cover both string and integer arms of TimeSpanConverterFactory.
         [Fact]
-        public virtual Task TimeFrame_from_numbers() => Verify<ScalarVertex>(Single_TimeFrame_with_numbers);
+        public virtual SettingsTask TimeFrame_from_numbers() => Verify<ScalarVertex>(Single_TimeFrame_with_numbers);
 
         [Fact]
-        public virtual Task TimeSpan_from_double() => Verify<TimeSpan>("123456789.2");
+        public virtual SettingsTask TimeSpan_from_double() => Verify<TimeSpan>("123456789.2");
 
         [Fact]
-        public virtual Task TimeSpan_from_integer() => Verify<TimeSpan>("123456789");
+        public virtual SettingsTask TimeSpan_from_integer() => Verify<TimeSpan>("123456789");
 
         // A bool is read from a string the way .NET parses one - in any case, with white space
         // around it - which is what a bool kept in a string property looks like: .NET writes "True".
         // No other string is a bool, neither one that means yes nor a number in a string.
         [Fact]
-        public virtual Task Bools_from_strings() => Verify<bool[]>("""[ "true", "True", "TRUE", " true ", "false", "False", "FALSE" ]""");
+        public virtual SettingsTask Bools_from_strings() => Verify<bool[]>("""[ "true", "True", "TRUE", " true ", "false", "False", "FALSE" ]""");
 
         [Fact]
-        public virtual Task Bool_from_string_that_is_no_bool() => VerifyAttempt<bool>("\"yes\"");
+        public virtual SettingsTask Bool_from_string_that_is_no_bool() => VerifyAttempt<bool>("\"yes\"");
 
         [Fact]
-        public virtual Task Bool_from_numeric_string() => VerifyAttempt<bool>("\"1\"");
+        public virtual SettingsTask Bool_from_numeric_string() => VerifyAttempt<bool>("\"1\"");
 
         // And from a number: zero is false and every other number is true, whatever its sign and
         // whether it has a fraction. A typed value is the number it holds.
         [Fact]
-        public virtual Task Bools_from_numbers() => Verify<bool[]>("[ 0, 1, 2, -1, 1.5, 0.0 ]");
+        public virtual SettingsTask Bools_from_numbers() => Verify<bool[]>("[ 0, 1, 2, -1, 1.5, 0.0 ]");
 
         [Fact]
-        public virtual Task Bool_from_typed_Int32() => Verify<bool>("""{ "@type": "g:Int32", "@value": 1 }""");
+        public virtual SettingsTask Bool_from_typed_Int32() => Verify<bool>("""{ "@type": "g:Int32", "@value": 1 }""");
 
         // An integer is read from any number, not only from one written as an integer: GraphSON may
         // well carry a whole number as 3.0 or 1e2. A fraction is rounded to the nearest integer and
@@ -2595,28 +2596,28 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         // smallest are read into a List: a byte[] is not a collection of bytes to either
         // implementation - see below - and an sbyte[] is snapshotted as a binary file.
         [Fact]
-        public virtual Task SBytes_from_numbers_with_fraction_or_exponent() => Verify<List<sbyte>>("[ 3.0, 1e2, 3.5, 2.5, -2.5 ]");
+        public virtual SettingsTask SBytes_from_numbers_with_fraction_or_exponent() => Verify<List<sbyte>>("[ 3.0, 1e2, 3.5, 2.5, -2.5 ]");
 
         [Fact]
-        public virtual Task Bytes_from_numbers_with_fraction_or_exponent() => Verify<List<byte>>("[ 3.0, 1e2, 3.5, 2.5, -0.4 ]");
+        public virtual SettingsTask Bytes_from_numbers_with_fraction_or_exponent() => Verify<List<byte>>("[ 3.0, 1e2, 3.5, 2.5, -0.4 ]");
 
         [Fact]
-        public virtual Task Shorts_from_numbers_with_fraction_or_exponent() => Verify<short[]>("[ 3.0, 1e2, 3.5, 2.5, -2.5 ]");
+        public virtual SettingsTask Shorts_from_numbers_with_fraction_or_exponent() => Verify<short[]>("[ 3.0, 1e2, 3.5, 2.5, -2.5 ]");
 
         [Fact]
-        public virtual Task UShorts_from_numbers_with_fraction_or_exponent() => Verify<ushort[]>("[ 3.0, 1e2, 3.5, 2.5, -0.4 ]");
+        public virtual SettingsTask UShorts_from_numbers_with_fraction_or_exponent() => Verify<ushort[]>("[ 3.0, 1e2, 3.5, 2.5, -0.4 ]");
 
         [Fact]
-        public virtual Task Ints_from_numbers_with_fraction_or_exponent() => Verify<int[]>("[ 3.0, 1e2, 3.5, 2.5, -2.5 ]");
+        public virtual SettingsTask Ints_from_numbers_with_fraction_or_exponent() => Verify<int[]>("[ 3.0, 1e2, 3.5, 2.5, -2.5 ]");
 
         [Fact]
-        public virtual Task UInts_from_numbers_with_fraction_or_exponent() => Verify<uint[]>("[ 3.0, 1e2, 3.5, 2.5, -0.4 ]");
+        public virtual SettingsTask UInts_from_numbers_with_fraction_or_exponent() => Verify<uint[]>("[ 3.0, 1e2, 3.5, 2.5, -0.4 ]");
 
         [Fact]
-        public virtual Task Longs_from_numbers_with_fraction_or_exponent() => Verify<long[]>("[ 3.0, 1e2, 3.5, 2.5, -2.5 ]");
+        public virtual SettingsTask Longs_from_numbers_with_fraction_or_exponent() => Verify<long[]>("[ 3.0, 1e2, 3.5, 2.5, -2.5 ]");
 
         [Fact]
-        public virtual Task ULongs_from_numbers_with_fraction_or_exponent() => Verify<ulong[]>("[ 3.0, 1e2, 3.5, 2.5, -0.4 ]");
+        public virtual SettingsTask ULongs_from_numbers_with_fraction_or_exponent() => Verify<ulong[]>("[ 3.0, 1e2, 3.5, 2.5, -0.4 ]");
 
         // A number out of the requested type's range is no such integer, and the attempt declines
         // rather than throws - so each of these arrays is empty. The last number of each is within
@@ -2624,120 +2625,120 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         // A long has one more: written as an integer it is out of range, however close the nearest
         // double comes.
         [Fact]
-        public virtual Task SBytes_from_numbers_out_of_range() => Verify<List<sbyte>>("[ 128.0, -129.0, 127.5 ]");
+        public virtual SettingsTask SBytes_from_numbers_out_of_range() => Verify<List<sbyte>>("[ 128.0, -129.0, 127.5 ]");
 
         [Fact]
-        public virtual Task Bytes_from_numbers_out_of_range() => Verify<List<byte>>("[ 256.0, -1.0, 255.5 ]");
+        public virtual SettingsTask Bytes_from_numbers_out_of_range() => Verify<List<byte>>("[ 256.0, -1.0, 255.5 ]");
 
         [Fact]
-        public virtual Task Shorts_from_numbers_out_of_range() => Verify<short[]>("[ 32768.0, -32769.0, 32767.5 ]");
+        public virtual SettingsTask Shorts_from_numbers_out_of_range() => Verify<short[]>("[ 32768.0, -32769.0, 32767.5 ]");
 
         [Fact]
-        public virtual Task UShorts_from_numbers_out_of_range() => Verify<ushort[]>("[ 65536.0, -1.0, 65535.5 ]");
+        public virtual SettingsTask UShorts_from_numbers_out_of_range() => Verify<ushort[]>("[ 65536.0, -1.0, 65535.5 ]");
 
         [Fact]
-        public virtual Task Ints_from_numbers_out_of_range() => Verify<int[]>("[ 2147483648.0, -2147483649.0, 2147483647.5 ]");
+        public virtual SettingsTask Ints_from_numbers_out_of_range() => Verify<int[]>("[ 2147483648.0, -2147483649.0, 2147483647.5 ]");
 
         [Fact]
-        public virtual Task UInts_from_numbers_out_of_range() => Verify<uint[]>("[ 4294967296.0, -1.0, 4294967295.5 ]");
+        public virtual SettingsTask UInts_from_numbers_out_of_range() => Verify<uint[]>("[ 4294967296.0, -1.0, 4294967295.5 ]");
 
         [Fact]
-        public virtual Task Longs_from_numbers_out_of_range() => Verify<long[]>("[ 1e19, -1e19, 9223372036854775807.0, -9223372036854775809 ]");
+        public virtual SettingsTask Longs_from_numbers_out_of_range() => Verify<long[]>("[ 1e19, -1e19, 9223372036854775807.0, -9223372036854775809 ]");
 
         [Fact]
-        public virtual Task ULongs_from_numbers_out_of_range() => Verify<ulong[]>("[ 1e20, -1.0, 18446744073709551615.0 ]");
+        public virtual SettingsTask ULongs_from_numbers_out_of_range() => Verify<ulong[]>("[ 1e20, -1.0, 18446744073709551615.0 ]");
 
         // Asked for on its own rather than as an item of an array, a number out of range is declined
         // just the same, whether it comes bare or in a typed value - and so is an integer too big
         // even for a long.
         [Fact]
-        public virtual Task Int_from_typed_Int64_out_of_range() => VerifyAttempt<int>("""{ "@type": "g:Int64", "@value": 5000000000 }""");
+        public virtual SettingsTask Int_from_typed_Int64_out_of_range() => VerifyAttempt<int>("""{ "@type": "g:Int64", "@value": 5000000000 }""");
 
         [Fact]
-        public virtual Task Int_from_number_out_of_range() => VerifyAttempt<int>("1e19");
+        public virtual SettingsTask Int_from_number_out_of_range() => VerifyAttempt<int>("1e19");
 
         [Fact]
-        public virtual Task Byte_from_integer_out_of_range_of_long() => VerifyAttempt<byte>("9223372036854775808");
+        public virtual SettingsTask Byte_from_integer_out_of_range_of_long() => VerifyAttempt<byte>("9223372036854775808");
 
         [Fact]
-        public virtual Task Short_from_integer_out_of_range_of_long() => VerifyAttempt<short>("9223372036854775808");
+        public virtual SettingsTask Short_from_integer_out_of_range_of_long() => VerifyAttempt<short>("9223372036854775808");
 
         // The same through a typed value, which is the number it holds whatever type it names, and
         // into a nullable. Asked for as an object, a typed value is what its type says, so a g:Int64
         // holding 3.5 is the long 4 - where the bare number is the double 3.5, as Object_from_double
         // above says.
         [Fact]
-        public virtual Task Long_from_typed_Double() => Verify<long>("""{ "@type": "g:Double", "@value": 3.0 }""");
+        public virtual SettingsTask Long_from_typed_Double() => Verify<long>("""{ "@type": "g:Double", "@value": 3.0 }""");
 
         [Fact]
-        public virtual Task Nullable_long_from_number_with_fraction() => Verify<long?>("3.5");
+        public virtual SettingsTask Nullable_long_from_number_with_fraction() => Verify<long?>("3.5");
 
         [Fact]
-        public virtual Task Object_from_typed_Int64_with_fraction() => Verify<object>("""{ "@type": "g:Int64", "@value": 3.5 }""");
+        public virtual SettingsTask Object_from_typed_Int64_with_fraction() => Verify<object>("""{ "@type": "g:Int64", "@value": 3.5 }""");
 
         // A number in a string is read the way .NET parses one, whatever the culture of the machine:
         // white space around it is fine, and so is a sign - a plus before an unsigned integer too.
         [Fact]
-        public virtual Task SBytes_from_strings() => Verify<List<sbyte>>("""[ "42", " 42 ", "+42", "-42" ]""");
+        public virtual SettingsTask SBytes_from_strings() => Verify<List<sbyte>>("""[ "42", " 42 ", "+42", "-42" ]""");
 
         [Fact]
-        public virtual Task Bytes_from_strings() => Verify<List<byte>>("""[ "42", " 42 ", "+42" ]""");
+        public virtual SettingsTask Bytes_from_strings() => Verify<List<byte>>("""[ "42", " 42 ", "+42" ]""");
 
         [Fact]
-        public virtual Task Shorts_from_strings() => Verify<short[]>("""[ "42", " 42 ", "+42", "-42" ]""");
+        public virtual SettingsTask Shorts_from_strings() => Verify<short[]>("""[ "42", " 42 ", "+42", "-42" ]""");
 
         [Fact]
-        public virtual Task UShorts_from_strings() => Verify<ushort[]>("""[ "42", " 42 ", "+42" ]""");
+        public virtual SettingsTask UShorts_from_strings() => Verify<ushort[]>("""[ "42", " 42 ", "+42" ]""");
 
         [Fact]
-        public virtual Task Ints_from_strings() => Verify<int[]>("""[ "42", " 42 ", "+42", "-42" ]""");
+        public virtual SettingsTask Ints_from_strings() => Verify<int[]>("""[ "42", " 42 ", "+42", "-42" ]""");
 
         [Fact]
-        public virtual Task UInts_from_strings() => Verify<uint[]>("""[ "42", " 42 ", "+42" ]""");
+        public virtual SettingsTask UInts_from_strings() => Verify<uint[]>("""[ "42", " 42 ", "+42" ]""");
 
         [Fact]
-        public virtual Task Longs_from_strings() => Verify<long[]>("""[ "42", " 42 ", "+42", "-42" ]""");
+        public virtual SettingsTask Longs_from_strings() => Verify<long[]>("""[ "42", " 42 ", "+42", "-42" ]""");
 
         [Fact]
-        public virtual Task ULongs_from_strings() => Verify<ulong[]>("""[ "42", " 42 ", "+42" ]""");
+        public virtual SettingsTask ULongs_from_strings() => Verify<ulong[]>("""[ "42", " 42 ", "+42" ]""");
 
         // An integer in a string is written as one, though. A number is rounded, a string is not:
         // none of these is a long.
         [Fact]
-        public virtual Task Longs_from_strings_that_are_no_integers() => Verify<long[]>("""[ "3.0", "1e2", "1,000", "0x10", "" ]""");
+        public virtual SettingsTask Longs_from_strings_that_are_no_integers() => Verify<long[]>("""[ "3.0", "1e2", "1,000", "0x10", "" ]""");
 
         [Fact]
-        public virtual Task Floats_from_strings() => Verify<float[]>("""[ "1.5", " 1.5 ", "+1.5", "-1.5", "1e2" ]""");
+        public virtual SettingsTask Floats_from_strings() => Verify<float[]>("""[ "1.5", " 1.5 ", "+1.5", "-1.5", "1e2" ]""");
 
         [Fact]
-        public virtual Task Doubles_from_strings() => Verify<double[]>("""[ "1.5", " 1.5 ", "+1.5", "-1.5", "1e2" ]""");
+        public virtual SettingsTask Doubles_from_strings() => Verify<double[]>("""[ "1.5", " 1.5 ", "+1.5", "-1.5", "1e2" ]""");
 
         [Fact]
-        public virtual Task Decimals_from_strings() => Verify<decimal[]>("""[ "1.5", " 1.5 ", "+1.5", "-1.5", "1e2" ]""");
+        public virtual SettingsTask Decimals_from_strings() => Verify<decimal[]>("""[ "1.5", " 1.5 ", "+1.5", "-1.5", "1e2" ]""");
 
         // What is not a number is spelled as .NET spells it, in any case.
         [Fact]
-        public virtual Task Doubles_from_strings_naming_what_is_no_number() => Verify<double[]>("""[ "NaN", "nan", "Infinity", "-INFINITY" ]""");
+        public virtual SettingsTask Doubles_from_strings_naming_what_is_no_number() => Verify<double[]>("""[ "NaN", "nan", "Infinity", "-INFINITY" ]""");
 
         [Fact]
-        public virtual Task Doubles_from_strings_that_are_no_numbers() => Verify<double[]>("""[ "abc", "1.5f", "0x10", "" ]""");
+        public virtual SettingsTask Doubles_from_strings_that_are_no_numbers() => Verify<double[]>("""[ "abc", "1.5f", "0x10", "" ]""");
 
         // A BigInteger is read from any number as well. It has a fraction cut off where the integer
         // types above round it - 3.5 is 3, and -2.5 is -2 either way - each being what .NET makes of
         // a double when it converts one to that type.
         [Fact]
-        public virtual Task BigIntegers_from_numbers_with_fraction_or_exponent() => Verify<BigInteger[]>("[ 3.0, 1e2, 3.5, 2.5, -2.5 ]");
+        public virtual SettingsTask BigIntegers_from_numbers_with_fraction_or_exponent() => Verify<BigInteger[]>("[ 3.0, 1e2, 3.5, 2.5, -2.5 ]");
 
         // It is a number, though, or a string of digits, and nothing else: a JSON object is no
         // BigInteger - not zero - and neither is a typed value that holds none.
         [Fact]
-        public virtual Task BigInteger_from_object() => VerifyAttempt<BigInteger>("{ }");
+        public virtual SettingsTask BigInteger_from_object() => VerifyAttempt<BigInteger>("{ }");
 
         [Fact]
-        public virtual Task Nullable_BigInteger_from_object() => VerifyAttempt<BigInteger?>("{ }");
+        public virtual SettingsTask Nullable_BigInteger_from_object() => VerifyAttempt<BigInteger?>("{ }");
 
         [Fact]
-        public virtual Task BigInteger_from_typed_BigInteger_that_is_no_integer() => VerifyAttempt<BigInteger>("""{ "@type": "gx:BigInteger", "@value": "3.0" }""");
+        public virtual SettingsTask BigInteger_from_typed_BigInteger_that_is_no_integer() => VerifyAttempt<BigInteger>("""{ "@type": "gx:BigInteger", "@value": "3.0" }""");
 
         // A byte[] is a native type, not a collection of bytes: it arrives as a Base64 string, as
         // Person_with_typed_ByteBuffer_image above has it. It is read from an array of numbers too,
@@ -2745,40 +2746,40 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         // number written as an integer. Unlike any other array, it does not drop the items it
         // cannot read: a byte[] short of some of its bytes is another value, so it is none at all.
         [Fact]
-        public virtual Task Byte_array_from_numbers() => VerifyAttempt<byte[]>("[ 1, 2, 3 ]");
+        public virtual SettingsTask Byte_array_from_numbers() => VerifyAttempt<byte[]>("[ 1, 2, 3 ]");
 
         [Fact]
-        public virtual Task Byte_array_from_empty_array() => VerifyAttempt<byte[]>("[ ]");
+        public virtual SettingsTask Byte_array_from_empty_array() => VerifyAttempt<byte[]>("[ ]");
 
         [Fact]
-        public virtual Task Byte_array_from_single_number() => VerifyAttempt<byte[]>("[ 1 ]");
+        public virtual SettingsTask Byte_array_from_single_number() => VerifyAttempt<byte[]>("[ 1 ]");
 
         [Fact]
-        public virtual Task Byte_array_from_numbers_with_fraction() => VerifyAttempt<byte[]>("[ 1.0, 2 ]");
+        public virtual SettingsTask Byte_array_from_numbers_with_fraction() => VerifyAttempt<byte[]>("[ 1.0, 2 ]");
 
         [Fact]
-        public virtual Task Byte_array_from_numbers_and_strings() => VerifyAttempt<byte[]>("""[ 1, "2" ]""");
+        public virtual SettingsTask Byte_array_from_numbers_and_strings() => VerifyAttempt<byte[]>("""[ 1, "2" ]""");
 
         [Fact]
-        public virtual Task Byte_array_from_numbers_and_null() => VerifyAttempt<byte[]>("[ 1, null ]");
+        public virtual SettingsTask Byte_array_from_numbers_and_null() => VerifyAttempt<byte[]>("[ 1, null ]");
 
         // A number that is no byte is not one in a byte[] either, and a string that is no Base64 is
         // no byte[] at all.
         [Fact]
-        public virtual Task Byte_array_from_number_out_of_range() => VerifyAttempt<byte[]>("[ 300 ]");
+        public virtual SettingsTask Byte_array_from_number_out_of_range() => VerifyAttempt<byte[]>("[ 300 ]");
 
         [Fact]
-        public virtual Task Byte_array_from_negative_number() => VerifyAttempt<byte[]>("[ -1 ]");
+        public virtual SettingsTask Byte_array_from_negative_number() => VerifyAttempt<byte[]>("[ -1 ]");
 
         [Fact]
-        public virtual Task Byte_array_from_string_that_is_no_Base64() => VerifyAttempt<byte[]>("\"not base64!\"");
+        public virtual SettingsTask Byte_array_from_string_that_is_no_Base64() => VerifyAttempt<byte[]>("\"not base64!\"");
 
         [Fact]
-        public virtual Task Byte_array_from_typed_List() => VerifyAttempt<byte[]>("""{ "@type": "g:List", "@value": [ 1, 2, 3 ] }""");
+        public virtual SettingsTask Byte_array_from_typed_List() => VerifyAttempt<byte[]>("""{ "@type": "g:List", "@value": [ 1, 2, 3 ] }""");
 
         // The items are bare numbers. A typed one is not read, although it holds one.
         [Fact]
-        public virtual Task Byte_array_from_typed_List_of_typed_Int32() => VerifyAttempt<byte[]>("""
+        public virtual SettingsTask Byte_array_from_typed_List_of_typed_Int32() => VerifyAttempt<byte[]>("""
             {
               "@type": "g:List",
               "@value": [
@@ -2791,7 +2792,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         // All of the above as the members of a type the caller asks for, which is where they matter:
         // once from a plain object, once from the properties of a vertex.
         [Fact]
-        public virtual Task Scalar_members_from_tokens_of_another_kind() => Verify<ClassWithScalarMembers>("""
+        public virtual SettingsTask Scalar_members_from_tokens_of_another_kind() => Verify<ClassWithScalarMembers>("""
             {
               "Bool": "True",
               "Long": 3.5,
@@ -2802,7 +2803,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             """);
 
         [Fact]
-        public virtual Task Scalar_members_from_vertex_properties_of_another_kind() => Verify<ClassWithScalarMembers>("""
+        public virtual SettingsTask Scalar_members_from_vertex_properties_of_another_kind() => Verify<ClassWithScalarMembers>("""
             {
               "id": 1,
               "label": "ClassWithScalarMembers",
@@ -2817,32 +2818,32 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             """);
 
         [Fact]
-        public virtual Task Tuple() => Verify<(RichVertex, SimpleVertex)>(Tuple_of_Person_Language);
+        public virtual SettingsTask Tuple() => Verify<(RichVertex, SimpleVertex)>(Tuple_of_Person_Language);
 
         [Fact]
-        public virtual Task Tuple_vertex_vertex() => Verify<(Vertex, Vertex)>(Tuple_of_Person_Language);
+        public virtual SettingsTask Tuple_vertex_vertex() => Verify<(Vertex, Vertex)>(Tuple_of_Person_Language);
 
         [Fact]
-        public virtual Task VertexProperties() => Verify<VertexProperty<object>[]>(Vertex_Properties);
+        public virtual SettingsTask VertexProperties() => Verify<VertexProperty<object>[]>(Vertex_Properties);
 
         [Fact]
-        public virtual Task VertexProperties_with_model() => Verify<VertexProperty<object, MetaPoco>[]>(Vertex_Properties);
+        public virtual SettingsTask VertexProperties_with_model() => Verify<VertexProperty<object, MetaPoco>[]>(Vertex_Properties);
 
         [Fact]
-        public virtual Task VertexProperty_as_object() => Verify<object>("{ \"value\": 1540202009475, \"id\": 1, \"label\": \"Property1\", \"properties\": { \"metaKey\": \"MetaValue\" } }");
+        public virtual SettingsTask VertexProperty_as_object() => Verify<object>("{ \"value\": 1540202009475, \"id\": 1, \"label\": \"Property1\", \"properties\": { \"metaKey\": \"MetaValue\" } }");
 
         // The same for a vertex property: without a "value" spelled that way, there is none to read.
         [Fact]
-        public virtual Task Int_from_object_with_id_label_and_capitalized_value() => VerifyAttempt<int>("""{ "id": 1, "label": "Property1", "Value": 42 }""");
+        public virtual SettingsTask Int_from_object_with_id_label_and_capitalized_value() => VerifyAttempt<int>("""{ "id": 1, "label": "Property1", "Value": 42 }""");
 
         [Fact]
-        public virtual Task VertexPropertyWithDateTimeOffset() => Verify<VertexProperty<string, MetaModel>>("{ \"id\": 166, \"value\": \"bob\", \"label\": \"Name\", \"properties\": { \"ValidFrom\": 1548112365431 } }");
+        public virtual SettingsTask VertexPropertyWithDateTimeOffset() => Verify<VertexProperty<string, MetaModel>>("{ \"id\": 166, \"value\": \"bob\", \"label\": \"Name\", \"properties\": { \"ValidFrom\": 1548112365431 } }");
 
         [Fact]
-        public virtual Task VertexPropertyWithoutProperties() => Verify<VertexProperty<object, object>>("{ \"id\": 166, \"value\": \"bob\", \"label\": \"Name\" }");
+        public virtual SettingsTask VertexPropertyWithoutProperties() => Verify<VertexProperty<object, object>>("{ \"id\": 166, \"value\": \"bob\", \"label\": \"Name\" }");
 
         [Fact]
-        public virtual Task Lifted_Entity() => Verify<IAbstractVertex>("""
+        public virtual SettingsTask Lifted_Entity() => Verify<IAbstractVertex>("""
             {
               "id": "123",
               "label": "RichVertex",
@@ -2854,68 +2855,68 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             """);
 
         [Fact]
-        public virtual Task Empty_tree_from_untyped_array() => Verify<Tree<object>>("[]");
+        public virtual SettingsTask Empty_tree_from_untyped_array() => Verify<Tree<object>>("[]");
 
         [Fact]
-        public virtual Task Empty_tree_from_untyped_array_2() => Verify<Tree<object, Tree<object>>>("[]");
+        public virtual SettingsTask Empty_tree_from_untyped_array_2() => Verify<Tree<object, Tree<object>>>("[]");
 
         [Fact]
-        public virtual Task Empty_tree() => Verify<Tree<object>>(Empty_typed_tree);
+        public virtual SettingsTask Empty_tree() => Verify<Tree<object>>(Empty_typed_tree);
 
         [Fact]
-        public virtual Task Empty_tree_2() => Verify<Tree<object, Tree<object>>>(Empty_typed_tree);
+        public virtual SettingsTask Empty_tree_2() => Verify<Tree<object, Tree<object>>>(Empty_typed_tree);
 
         // A tree that is asked for is never declined, though the token holds no tree items: a
         // dictionary converter would build it otherwise, with entries named "key", "value" or "@type".
         [Fact]
-        public virtual Task Empty_tree_from_typed_map() => VerifyAttempt<Tree<string>>(Map_of_String_Keys_Typed_Int_Values);
+        public virtual SettingsTask Empty_tree_from_typed_map() => VerifyAttempt<Tree<string>>(Map_of_String_Keys_Typed_Int_Values);
 
         [Fact]
-        public virtual Task Empty_tree_from_typed_tree_without_value() => VerifyAttempt<Tree<string>>("""{ "@type": "g:Tree" }""");
+        public virtual SettingsTask Empty_tree_from_typed_tree_without_value() => VerifyAttempt<Tree<string>>("""{ "@type": "g:Tree" }""");
 
         [Fact]
-        public virtual Task Empty_tree_from_object() => VerifyAttempt<Tree<string>>("""{ "a": 1 }""");
+        public virtual SettingsTask Empty_tree_from_object() => VerifyAttempt<Tree<string>>("""{ "a": 1 }""");
 
         [Fact]
-        public virtual Task Empty_tree_from_object_with_number_as_type() => VerifyAttempt<Tree<string>>("""{ "@type": 1 }""");
+        public virtual SettingsTask Empty_tree_from_object_with_number_as_type() => VerifyAttempt<Tree<string>>("""{ "@type": 1 }""");
 
         [Fact]
-        public virtual Task RootOnly_string_tree() => Verify<Tree<string>>(GraphSonStrings.RootOnly_string_tree);
+        public virtual SettingsTask RootOnly_string_tree() => Verify<Tree<string>>(GraphSonStrings.RootOnly_string_tree);
 
         [Fact]
-        public virtual Task RootOnly_int_tree() => Verify<Tree<int>>(GraphSonStrings.RootOnly_int_tree);
+        public virtual SettingsTask RootOnly_int_tree() => Verify<Tree<int>>(GraphSonStrings.RootOnly_int_tree);
 
         [Fact]
-        public virtual Task RootOnly_int_tree_CosmosDb() => Verify<Tree<int>>(GraphSonStrings.RootOnly_int_tree_CosmosDb);
+        public virtual SettingsTask RootOnly_int_tree_CosmosDb() => Verify<Tree<int>>(GraphSonStrings.RootOnly_int_tree_CosmosDb);
 
         [Fact]
-        public virtual Task RootOnly_string_tree_2() => Verify<Tree<string, Tree<object>>>(GraphSonStrings.RootOnly_string_tree);
+        public virtual SettingsTask RootOnly_string_tree_2() => Verify<Tree<string, Tree<object>>>(GraphSonStrings.RootOnly_string_tree);
 
         [Fact]
-        public virtual Task Linear_string_tree() => Verify<Tree<string>>(GraphSonStrings.Linear_string_tree);
+        public virtual SettingsTask Linear_string_tree() => Verify<Tree<string>>(GraphSonStrings.Linear_string_tree);
 
         [Fact]
-        public virtual Task Branching_scalar_tree() => Verify<Tree<int, Tree<string>>>(GraphSonStrings.Branching_scalar_tree);
+        public virtual SettingsTask Branching_scalar_tree() => Verify<Tree<int, Tree<string>>>(GraphSonStrings.Branching_scalar_tree);
 
         [Fact]
-        public virtual Task Object_from_Branching_scalar_tree() => Verify<object>(GraphSonStrings.Branching_scalar_tree);
+        public virtual SettingsTask Object_from_Branching_scalar_tree() => Verify<object>(GraphSonStrings.Branching_scalar_tree);
 
         [Fact]
-        public virtual Task Mixed_entity_and_scalar_tree() => Verify<Tree<RichVertex, Tree<int>>>(GraphSonStrings.Mixed_entity_and_scalar_tree);
+        public virtual SettingsTask Mixed_entity_and_scalar_tree() => Verify<Tree<RichVertex, Tree<int>>>(GraphSonStrings.Mixed_entity_and_scalar_tree);
 
         [Fact]
-        public virtual Task Mixed_entity_and_scalar_as_object_tree() => Verify<Tree<object>>(GraphSonStrings.Mixed_entity_and_scalar_tree);
+        public virtual SettingsTask Mixed_entity_and_scalar_as_object_tree() => Verify<Tree<object>>(GraphSonStrings.Mixed_entity_and_scalar_tree);
 
         [Fact]
-        public virtual Task Mixed_entity_and_scalar_tree_CosmosDb() => Verify<Tree<RichVertex, Tree<int>>>(GraphSonStrings.Mixed_entity_and_scalar_tree_CosmosDb);
+        public virtual SettingsTask Mixed_entity_and_scalar_tree_CosmosDb() => Verify<Tree<RichVertex, Tree<int>>>(GraphSonStrings.Mixed_entity_and_scalar_tree_CosmosDb);
 
         [Fact]
-        public virtual Task Mixed_entity_and_scalar_as_object_tree_CosmosDb() => Verify<Tree<object>>(GraphSonStrings.Mixed_entity_and_scalar_tree_CosmosDb);
+        public virtual SettingsTask Mixed_entity_and_scalar_as_object_tree_CosmosDb() => Verify<Tree<object>>(GraphSonStrings.Mixed_entity_and_scalar_tree_CosmosDb);
 
         // A tree's entries are GraphSON's "key" and "value" pairs, spelled exactly. Spelled "Key"
         // and "Value", an entry is not one.
         [Fact]
-        public virtual Task Tree_with_capitalized_key_and_value() => VerifyAttempt<Tree<string>>("""
+        public virtual SettingsTask Tree_with_capitalized_key_and_value() => VerifyAttempt<Tree<string>>("""
             {
               "@type": "g:Tree",
               "@value": [
