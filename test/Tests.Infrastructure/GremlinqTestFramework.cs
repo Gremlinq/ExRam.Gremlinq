@@ -45,6 +45,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         static GremlinqTestFramework()
         {
             CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
+            XunitTestRunner.Instance = new GremlinqTestRunner();
         }
 
         public override string TestFrameworkDisplayName => nameof(GremlinqTestFramework);
