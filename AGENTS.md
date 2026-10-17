@@ -102,8 +102,14 @@ There are ~24,000 `.verified.txt` and `.verified.cs` snapshot files. When changi
 
 3. **Verifying against another class's snapshots**:
    - `query.Verify()` returns Verify's `SettingsTask`, after the verifier's own settings, so a
-     test can chain further settings onto it. A test method may still declare `Task`; the
-     `SettingsTask` converts implicitly.
+     test can chain further settings onto it.
+   - The facts of `QueryExecutionTest` and `GraphsonSupportTestBase` return that `SettingsTask`.
+     An override chains its settings onto `base.Fact()`.
+   - xUnit awaits only `Task` and `ValueTask`. It would pass a `SettingsTask` fact without
+     verifying. `GremlinqTestRunner` (`test/Tests.Infrastructure/`) awaits the `SettingsTask`
+     instead. `GremlinqTestFramework` installs it.
+   - `xUnit1028` rejects `SettingsTask` as a return type. It is off for the test projects
+     (`test/Directory.Build.props`).
    - A test class that answers like another class verifies against that class's snapshots with
      `UseSnapshotDirectoryAndNameOf<T>()`. Adding `UseCanonicalComparer()`
      (`test/Tests.Infrastructure/Snapshots/`) compares the canonical forms of both texts: the order
@@ -111,16 +117,10 @@ There are ~24,000 `.verified.txt` and `.verified.cs` snapshot files. When changi
      `EXCEPTION`. This is for another implementation of the same semantics, which may answer in
      another order where Gremlin defines none, and fail with an exception of its own.
    - Under `UseCanonicalComparer()`, the class overrides every fact whose query has an `order()`
-     step, repeats the query and chains `.UseDefaultComparer()`, since sorting would hide the order:
+     step and chains `.UseDefaultComparer()` onto the base fact, since sorting would hide the order:
 
      ```csharp
-     public override Task Order_scalars() => _g
-         .V<RichVertex>()
-         .Local(__ => __.Count())
-         .Order(b => b
-             .By(__ => __))
-         .Verify()
-         .UseDefaultComparer();
+     public override SettingsTask Order_scalars() => base.Order_scalars().UseDefaultComparer();
      ```
 
    - A received file in another class's snapshot directory is never accepted: the snapshot belongs
