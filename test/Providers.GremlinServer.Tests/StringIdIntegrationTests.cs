@@ -1,3 +1,5 @@
+using System.Globalization;
+
 using ExRam.Gremlinq.Tests.Fixtures;
 using ExRam.Gremlinq.Tests.Infrastructure;
 
@@ -12,5 +14,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
             new ExecutingVerifier())
         {
         }
+
+        protected override object GetId(long n) => n.ToString(CultureInfo.InvariantCulture);
     }
 }
