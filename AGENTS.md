@@ -312,6 +312,10 @@ Each provider follows a consistent pattern:
 
 Test classes inherit from `QueryExecutionTest` in `Tests.Infrastructure` which provides ~200 shared test methods for query serialization verification.
 
+The facts of `QueryExecutionTest` that name an element by its id take that id from
+`GetId(long)`. Its default is the number itself. A test class for a provider with string ids
+overrides `GetId` once, as `StringIdIntegrationTests` does.
+
 ## Coding Conventions
 
 - Private fields use `_camelCase` prefix
