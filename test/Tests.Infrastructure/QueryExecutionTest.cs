@@ -32,6 +32,8 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             _g = fixture.GetQuerySource();
         }
 
+        protected virtual object GetId(long n) => n;
+
         [Fact]
         public virtual SettingsTask AddDate_1_day() => _g
             .Inject(1690934400000)
@@ -1027,13 +1029,13 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual SettingsTask ElementMap() => _g
-            .V<RichVertex>(10L)
+            .V<RichVertex>(GetId(10))
             .ElementMap()
             .Verify();
 
         [Fact]
         public virtual SettingsTask ElementMap_Cast() => _g
-            .V<RichVertex>(10L)
+            .V<RichVertex>(GetId(10))
             .ElementMap()
             .Cast<RichVertex>()
             .Verify();
@@ -3265,7 +3267,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         {
             var now = new DateTime(2020, 4, 7, 14, 43, 36, DateTimeKind.Utc);
 
-            var worksFor = new RichEdge { Id = 0, From = now, To = now, Role = "Admin" };
+            var worksFor = new RichEdge { Id = GetId(0), From = now, To = now, Role = "Admin" };
 
             return _g
                 .ReplaceE(worksFor)
@@ -3276,7 +3278,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual SettingsTask ReplaceE_With_Config()
         {
             var now = new DateTime(2020, 4, 7, 14, 43, 36, DateTimeKind.Utc);
-            var worksFor = new RichEdge { Id = 0, From = now, To = now, Role = "Admin" };
+            var worksFor = new RichEdge { Id = GetId(0), From = now, To = now, Role = "Admin" };
 
             return _g
                 .ConfigureEnvironment(env => env
@@ -3292,7 +3294,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual SettingsTask ReplaceV()
         {
             var now = new DateTimeOffset(2020, 4, 7, 14, 43, 36, TimeSpan.Zero);
-            var person = new RichVertex { Id = 0, Age = 21, Enum = SomeEnum.Zero, Name = "Marko", RegistrationDate = now };
+            var person = new RichVertex { Id = GetId(0), Age = 21, Enum = SomeEnum.Zero, Name = "Marko", RegistrationDate = now };
 
             return _g
                 .ReplaceV(person)
@@ -3303,7 +3305,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual SettingsTask ReplaceV_With_Config()
         {
             var now = new DateTimeOffset(2020, 4, 7, 14, 43, 36, TimeSpan.Zero);
-            var person = new RichVertex { Id = 0, Age = 21, Enum = SomeEnum.Zero, Name = "Marko", RegistrationDate = now };
+            var person = new RichVertex { Id = GetId(0), Age = 21, Enum = SomeEnum.Zero, Name = "Marko", RegistrationDate = now };
 
             return _g
                 .ConfigureEnvironment(env => env
@@ -4163,7 +4165,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual SettingsTask V_single_untyped() => _g
-            .V(0)
+            .V(GetId(0))
             .Verify();
 
         [Fact]
@@ -4456,7 +4458,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual SettingsTask Where_Id_equals_constant() => _g
             .V<SimpleVertex>()
-            .Where(t => t.Id == (object)1)
+            .Where(t => t.Id == GetId(1))
             .Verify();
 
         [Fact]
@@ -4591,7 +4593,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .ConfigureEnvironment(env => env
                 .UseModel(GraphModel.FromBaseTypes<VertexWithStringId, EdgeWithStringId>()))
             .V<VertexWithStringId>()
-            .Where(x => x.Id == (object)0)
+            .Where(x => x.Id == (object)GetId(0))
             .Verify();
 
         [Fact]
@@ -4874,11 +4876,11 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual SettingsTask Where_property_equals_local_string_constant()
         {
-            const int local = 1;
+            var local = GetId(1);
 
             return _g
                 .V<SimpleVertex>()
-                .Where(t => t.Id == (object)local)
+                .Where(t => t.Id == local)
                 .Verify();
         }
 
@@ -4901,11 +4903,11 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual SettingsTask Where_property_equals_value_of_anonymous_object()
         {
-            var local = new { Value = 1 };
+            var local = new { Value = GetId(1) };
 
             return _g
                 .V<SimpleVertex>()
-                .Where(t => t.Id == (object)local.Value)
+                .Where(t => t.Id == local.Value)
                 .Verify();
         }
 

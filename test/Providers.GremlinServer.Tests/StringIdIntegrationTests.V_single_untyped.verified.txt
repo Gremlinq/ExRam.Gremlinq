@@ -15,7 +15,7 @@
         java.lang.IllegalArgumentException
       ]
     },
-    Message: ServerError: Expected an id that is convertible to class java.lang.String but received class java.lang.Integer - [0],
+    Message: ServerError: Expected an id that is convertible to class java.lang.String but received class java.lang.Long - [0],
     Data: {}
   }
 }
