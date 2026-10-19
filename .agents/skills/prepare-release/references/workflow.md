@@ -63,7 +63,7 @@ rather than assuming this list applies verbatim.
 | Trigger | Workflow | Effect |
 |---|---|---|
 | tag push | `pack.yml` | builds, packs, attests, creates a **draft** release with `releases/<version>/release-notes.md` as its body and the packages as assets |
-| tag push | `pushPreview.yml` | pushes packages to GitHub Packages once `Pack` succeeds |
+| tag push | `pushPreview.yml` | pushes packages to GitHub Packages once `Pack` succeeds, with the `PUSH_TO_PACKAGES_PAT` secret |
 | release published (manual) | `pushStable.yml` | pushes to NuGet.org via Trusted Publishing (OIDC) |
 | release published (manual) | `publishBlogPost.yml` | copies the release body verbatim into `docs/blog/posts/` in `Gremlinq/docs.gremlinq.net`; also runs on `edited`, overwriting the same post |
 | release published (manual) | `openAnnouncementChecklist.yml` | opens an issue with the three channel texts, one checkbox each |

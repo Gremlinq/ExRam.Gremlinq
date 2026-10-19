@@ -12,7 +12,6 @@ ExRam.Gremlinq is a .NET object-graph-mapper (OGM) for Apache TinkerPop™ Greml
 - **Solution file:** `ExRam.Gremlinq.slnx` (XML-based slnx format)
 - **Versioning:** Nerdbank.GitVersioning (`version.json`)
 - **Package management:** Central Package Management via `Directory.Packages.props` files in src/, test/, and analyzers/ directories
-- **Projects:** ~37 projects (17 src, 16 test, 1 templates, 3 test infrastructure)
 
 ## Agent Skills
 
@@ -52,8 +51,6 @@ dotnet build ExRam.Gremlinq.slnx -c Release
 
 **Important Build Notes:**
 - `TreatWarningsAsErrors` is enabled globally - all warnings must be resolved
-- Source Generators in `src/Core.Generators` target `netstandard2.0`
-- Source Analyzers in `src/Analyzers` target `netstandard2.0`
 
 ## Testing Guidelines
 
@@ -88,7 +85,7 @@ Report file names default to the deterministic `{asm}_{tfm}_{arch}` form (MTP 2.
 
 ### Snapshot Testing
 
-There are ~24,000 `.verified.txt` and `.verified.cs` snapshot files. When changing:
+When changing:
 
 1. **Query serialization** or **public API surface**:
    - Run affected tests → creates `.received.txt`/`.received.cs` files
@@ -134,15 +131,6 @@ Uses **Coverlet** (`coverlet.MTP`) with Microsoft.Testing.Platform runner:
 # Generate local coverage report
 dotnet test -c Release --solution ExRam.Gremlinq.slnx --coverlet --coverlet-output-format opencover
 ```
-
-**Coverage Metrics:**
-- **Line Coverage:** Percentage of code lines executed
-- **Branch Coverage:** Percentage of code branches exercised
-- **Method Coverage:** Percentage of methods with coverage
-
-**Coverage Exclusions:**
-- Test projects and infrastructure are excluded from coverage (see `codecov.yml`)
-- Use Coverlet exclusion rules in `Directory.Packages.props` or `.csproj` files
 
 ## CI / Pull Request Checks
 
@@ -195,113 +183,20 @@ release preparation included.
 ## Release / Publishing Workflow
 
 Use the `prepare-release` skill. It writes the texts first, then bumps the version and
-creates the tag, and it pushes nothing.
+creates the tag, and it pushes nothing. Its `references/workflow.md` covers what the tag and
+the published release trigger, the secrets those workflows rely on, and what a failed run
+looks like. Minor and major bumps are never made at release time; see
+[For Public API Changes](#for-public-api-changes).
 
-**A release never chooses its own version number.** It drops the `-preview` suffix from
-whatever `version.json` says, tags that, and moves the branch on by one build number.
-Minor and major bumps are made in the pull request that changes the public API — see
-[For Public API Changes](#for-public-api-changes). There is no argument, flag or prompt at
-release time that can produce one.
+### Modifying `pushStable.yml`
 
-**The tag is what drives a release.** `prepare-release` produces two version commits and a
-tag; only the tag is pushed. The version commits reach the release branch later, carried
-by whatever pull request is opened next. Everything the pipeline reads out of the
-repository is read from the tagged commit, which is why `releases/<version>/` has to be
-committed *before* `nbgv prepare-release` runs -- that command creates the branch the tag
-is placed on, and the current branch is rebased onto it, so the tag points at the earlier
-state.
-
-`releases/<version>/` holds the four texts a release needs, written by the
-`write-release-announcements` skill from the bodies of the pull requests merged since the
-previous tag:
-
-| File | Becomes |
-|---|---|
-| `release-notes.md` | the GitHub release body, and from there the blog post |
-| `linkedin.md` | a manual LinkedIn post |
-| `discord-tinkerpop.md` | a manual post in the TinkerPop Discord |
-| `discord-dotnet.md` | a manual post in the .NET Discord |
-
-Pushing the tag triggers `.github/workflows/pack.yml`, which builds, packs, attests and
-creates a **draft** release using `releases/<version>/release-notes.md` as its body
-(falling back to GitHub's generated notes if that file is missing). Nothing is public
-until that draft is published by hand.
-
-Publishing it fires three workflows, one responsibility each:
-
-- **`.github/workflows/pushStable.yml`** — pushes stable packages to NuGet.org.
-- **`.github/workflows/publishBlogPost.yml`** — checks out `Gremlinq/docs.gremlinq.net`
-  with a PAT (`DOCS_TOKEN`) and writes the release body **verbatim** into
-  `docs/blog/posts/`. This is why the release notes have to read as published prose, not
-  as internal notes. It also runs on `edited`, overwriting the same post, which is how a
-  correction to a published release body reaches the blog.
-- **`.github/workflows/openAnnouncementChecklist.yml`** — checks out the tag, reads the
-  announcement texts and opens an issue with one checkbox and one collapsed text per
-  channel.
-
-Every announcement is posted by hand, from that issue. Whether a text gets posted at all is
-the maintainer's call: a text that reads well in the repository can still be wrong for a
-room. The .NET Discord text used to be posted by webhook as soon as a release was
-published, and was the one text nobody could hold back.
-
-Separately, **`.github/workflows/pushPreview.yml`** pushes preview packages to GitHub
-Packages using a PAT secret (`PUSH_TO_PACKAGES_PAT`) whenever `Pack` succeeds.
-
-`pushStable.yml` publishes to NuGet.org using **NuGet Trusted Publishing (OIDC)** instead of a long-lived API key:
-
-1. The job requests a GitHub OIDC token (`permissions: id-token: write`).
-2. The `NuGet/login` action exchanges that token for a short-lived (1-hour) NuGet.org API key.
-3. `dotnet nuget push` uses that temporary key to publish the packages.
-
-This requires a one-time setup on nuget.org (a Trusted Publishing policy scoped to this repository and the `pushStable.yml` workflow file) and a `NUGET_USER` repository secret containing the nuget.org account name used for that policy. There is no long-lived NuGet API key secret to rotate or leak.
-
-When modifying `pushStable.yml`, keep in mind:
-- The workflow file name itself (`pushStable.yml`) is part of the nuget.org Trusted Publishing policy — renaming the file requires updating the policy on nuget.org.
+`pushStable.yml` publishes to NuGet.org through **NuGet Trusted Publishing (OIDC)** instead
+of a long-lived API key: the job exchanges a GitHub OIDC token for a one-hour NuGet.org key
+via `NuGet/login`. Keep in mind:
+- The workflow file name is part of the Trusted Publishing policy on nuget.org — renaming
+  the file requires updating the policy.
 - `id-token: write` permission must remain on the job/workflow for the OIDC exchange to work.
-
-## Project Structure
-
-```
-├── analyzers/
-│   ├── Analyzers/                   # Roslyn source analyzers (netstandard2.0)
-│   ├── Core.Generators/             # Roslyn source generators (netstandard2.0)
-│   └── Testing.AirRoutes.Generators/
-├── src/
-│   ├── Core/                        # Core OGM library (query building, serialization, models)
-│   ├── Core.AspNet/                 # ASP.NET Core DI integration for Core
-│   ├── Providers.Core/              # Base provider infrastructure
-│   ├── Providers.CosmosDb/          # Azure CosmosDb provider
-│   ├── Providers.CosmosDb.AspNet/   # CosmosDb + ASP.NET Core DI
-│   ├── Providers.GremlinServer/     # Apache TinkerPop Gremlin Server provider
-│   ├── Providers.GremlinServer.AspNet/
-│   ├── Providers.JanusGraph/        # JanusGraph provider
-│   ├── Providers.JanusGraph.AspNet/
-│   ├── Providers.Neptune/           # AWS Neptune provider
-│   ├── Providers.Neptune.AspNet/
-│   ├── Support.NewtonsoftJson/      # Newtonsoft.Json serialization support
-│   ├── Support.NewtonsoftJson.AspNet/
-│   ├── Support.TestContainers/      # Testcontainers integration
-│   ├── Testing.AirRoutes/           # Air routes test data
-│   └── Testing.AirRoutes.Generator/ # Generator for air routes data
-├── test/
-│   ├── Tests.Entities/              # Shared test entity model
-│   ├── Tests.Fixtures/              # Test fixtures (GremlinqFixture subclasses)
-│   ├── Tests.Infrastructure/        # Test base classes, verifiers, extensions
-│   ├── Core.Tests/                  # Core library tests
-│   ├── PublicApi.Tests/             # Public API surface verification
-│   ├── Providers.*.Tests/           # Provider-specific tests
-│   └── Benchmarks/                  # BenchmarkDotNet benchmarks
-├── templates/                       # dotnet new templates
-├── Directory.Build.props            # Root build props
-├── src/
-│   └── Directory.Packages.props     # Central package versions for src projects
-├── test/
-│   └── Directory.Packages.props     # Central package versions for test projects
-├── analyzers/
-│   └── Directory.Packages.props     # Central package versions for analyzers
-├── global.json                      # SDK version pin
-└── .editorconfig                    # Code style
-```
+- The `NUGET_USER` repository secret holds the nuget.org account name the policy is scoped to.
 
 ## Architecture Patterns
 
@@ -322,16 +217,10 @@ overrides `GetId` once, as `StringIdIntegrationTests` does.
 - `var` is preferred everywhere
 - Braces are optional for single-line blocks
 - Fluent API chaining is the dominant style
-- `ConfigureAwait` is not used (suppressed via `CA2007` in test projects)
+- `ConfigureAwait(false)` is applied to awaited Tasks and ValueTasks in src; `CA2007` enforces it there and is off in test projects
 - Solution and project names are added as preprocessor symbols (dots replaced with underscores)
 
 ## Task-Specific Agent Guidance
-
-### For Query Serialization Changes
-1. Update query building logic in relevant provider/core projects
-2. Run affected snapshot tests to generate `.received.txt` files
-3. Review and accept changes by updating `.verified.txt` files
-4. Ensure both positive and edge-case scenarios are covered
 
 ### For Public API Changes
 1. Modify the API in the appropriate src project
@@ -343,35 +232,6 @@ overrides `GetId` once, as `StringIdIntegrationTests` does.
    (e.g. `14.1.2-preview.{height}` → `14.2.0-preview.{height}`). This is the only place
    the decision is ever made. Preparing a release just drops the preview suffix and moves
    on by one build number, so it can neither make nor recover a minor or major bump.
-
-### For Provider-Specific Changes
-1. Modify the provider project (`Providers.X`)
-2. Update provider-specific tests (`Providers.X.Tests`)
-3. Test with actual backend services where applicable (use Testcontainers)
-4. Ensure cross-framework compatibility (net8.0+)
-
-### For Source Generator/Analyzer Changes
-1. Modify generator/analyzer in respective project
-2. Test with `Core.Tests` to ensure proper integration
-3. Verify analyzer warnings/errors are properly surfaced
-
-## Verification Steps
-
-Before submitting changes, agents should verify:
-
-1. **Build succeeds:** `dotnet build ExRam.Gremlinq.slnx`
-2. **Tests pass:** `dotnet test --solution ExRam.Gremlinq.slnx --ignore-exit-code 8`
-3. **No warnings:** All projects compile with `TreatWarningsAsErrors` enabled
-4. **Code style:** Follows existing conventions (private fields, var usage, etc.)
-5. **Snapshot tests:** Updated for any serialization or API changes
-6. **Coverage:** New code paths have appropriate test coverage
-
-## Additional Resources
-
-- **Documentation:** https://docs.gremlinq.net
-- **NuGet packages:** https://www.nuget.org/packages?q=ExRam.Gremlinq
-- **Issue tracker:** GitHub Issues
-- **Discussions:** GitHub Discussions
 
 ## Trust These Instructions
 
