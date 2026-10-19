@@ -1555,14 +1555,14 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Verify();
 
         [Fact]
-        public SettingsTask Length() => _g
+        public virtual SettingsTask Length() => _g
             .Inject("aBcDeFg")
             .AsString()
             .Length()
             .Verify();
 
         [Fact]
-        public SettingsTask Length_with_extension() => _g
+        public virtual SettingsTask Length_with_extension() => _g
             .Inject("aBcDeFg")
             .Length()
             .Verify();
@@ -1659,7 +1659,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Verify();
 
         [Fact]
-        public SettingsTask Multi_step_serialization() => _g
+        public virtual SettingsTask Multi_step_serialization() => _g
             .ConfigureEnvironment(env => env
                 .ConfigureSerializer(ser => ser
                     .Add(Create<EStep, Step[]>((_, env, _, recurse) => recurse
@@ -1675,7 +1675,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Verify();
 
         [Fact]
-        public SettingsTask Multi_step_serialization_with_forgotten_serialize() => _g
+        public virtual SettingsTask Multi_step_serialization_with_forgotten_serialize() => _g
             .ConfigureEnvironment(env => env
                 .ConfigureSerializer(ser => ser
                     .Add(Create<EStep, Step[]>((_, _, _, _) =>
@@ -2489,7 +2489,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Verify();
 
         [Fact]
-        public SettingsTask Project2_guarded() => _g
+        public virtual SettingsTask Project2_guarded() => _g
             .ConfigureEnvironment(_ => _
                 .ConfigureOptions(o => o.SetValue(GremlinqOption.EnableEmptyProjectionValueProtection, true)))
             .Inject(42)
@@ -2533,7 +2533,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Verify();
 
         [Fact]
-        public SettingsTask Project2_with_Property_unguarded() => _g
+        public virtual SettingsTask Project2_with_Property_unguarded() => _g
             .ConfigureEnvironment(_ => _
                 .ConfigureOptions(o => o.SetValue(GremlinqOption.EnableEmptyProjectionValueProtection, true)))
             .V<RichVertex>()
@@ -2568,7 +2568,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Verify();
 
         [Fact]
-        public SettingsTask Project3_Select1_unguarded() => _g
+        public virtual SettingsTask Project3_Select1_unguarded() => _g
             .ConfigureEnvironment(_ => _
                 .ConfigureOptions(o => o.SetValue(GremlinqOption.EnableEmptyProjectionValueProtection, true)))
             .Inject(42)
@@ -2594,7 +2594,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Verify();
 
         [Fact]
-        public SettingsTask Project3_Select2_unguarded() => _g
+        public virtual SettingsTask Project3_Select2_unguarded() => _g
             .ConfigureEnvironment(_ => _
                 .ConfigureOptions(o => o.SetValue(GremlinqOption.EnableEmptyProjectionValueProtection, true)))
             .Inject(42)
@@ -2609,7 +2609,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Verify();
 
         [Fact]
-        public SettingsTask Project3_unguarded() => _g
+        public virtual SettingsTask Project3_unguarded() => _g
             .ConfigureEnvironment(_ => _
                 .ConfigureOptions(o => o.SetValue(GremlinqOption.EnableEmptyProjectionValueProtection, true)))
             .Inject(42)
@@ -2650,7 +2650,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Verify();
 
         [Fact]
-        public SettingsTask Project3_with_Property_Select2_unguarded() => _g
+        public virtual SettingsTask Project3_with_Property_Select2_unguarded() => _g
             .ConfigureEnvironment(_ => _
                 .ConfigureOptions(o => o.SetValue(GremlinqOption.EnableEmptyProjectionValueProtection, true)))
             .V<RichVertex>()
@@ -2679,7 +2679,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Verify();
 
         [Fact]
-        public SettingsTask Project4_unguarded() => _g
+        public virtual SettingsTask Project4_unguarded() => _g
             .ConfigureEnvironment(_ => _
                 .ConfigureOptions(o => o.SetValue(GremlinqOption.EnableEmptyProjectionValueProtection, true)))
             .Inject(42)
@@ -2706,7 +2706,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Verify();
 
         [Fact]
-        public SettingsTask Project4_with_Property_unguarded() => _g
+        public virtual SettingsTask Project4_with_Property_unguarded() => _g
             .ConfigureEnvironment(_ => _
                 .ConfigureOptions(o => o.SetValue(GremlinqOption.EnableEmptyProjectionValueProtection, true)))
             .V<RichVertex>()
@@ -3458,107 +3458,107 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Verify();
 
         [Fact]
-        public SettingsTask StringKey() => _g
+        public virtual SettingsTask StringKey() => _g
             .V<RichVertex>("id")
             .Verify();
 
         [Fact]
-        public SettingsTask Substring1() => _g
+        public virtual SettingsTask Substring1() => _g
             .Inject("1234567890")
             .AsString()
             .Substring(2)
             .Verify();
 
         [Fact]
-        public SettingsTask Substring1_with_extension() => _g
+        public virtual SettingsTask Substring1_with_extension() => _g
             .Inject("1234567890")
             .Substring(2)
             .Verify();
 
         [Fact]
-        public SettingsTask Substring10() => _g
+        public virtual SettingsTask Substring10() => _g
             .Inject("1234567890")
             .AsString()
             .Substring(^6..^2)
             .Verify();
 
         [Fact]
-        public SettingsTask Substring11() => _g
+        public virtual SettingsTask Substring11() => _g
             .Inject("1234567890")
             .AsString()
             .Substring(^0..^6)
             .Verify();
 
         [Fact]
-        public SettingsTask Substring12() => _g
+        public virtual SettingsTask Substring12() => _g
             .Inject("1234567890")
             .AsString()
             .Substring(6..^2)
             .Verify();
 
         [Fact]
-        public SettingsTask Substring2() => _g
+        public virtual SettingsTask Substring2() => _g
             .Inject("1234567890")
             .AsString()
             .Substring(2, 3)
             .Verify();
 
         [Fact]
-        public SettingsTask Substring2_with_extension() => _g
+        public virtual SettingsTask Substring2_with_extension() => _g
             .Inject("1234567890")
             .Substring(2, 3)
             .Verify();
 
         [Fact]
-        public SettingsTask Substring3() => _g
+        public virtual SettingsTask Substring3() => _g
             .Inject("1234567890")
             .AsString()
             .Substring(2..6)
             .Verify();
 
         [Fact]
-        public SettingsTask Substring3_with_extension() => _g
+        public virtual SettingsTask Substring3_with_extension() => _g
             .Inject("1234567890")
             .Substring(2..6)
             .Verify();
 
         [Fact]
-        public SettingsTask Substring4() => _g
+        public virtual SettingsTask Substring4() => _g
             .Inject("1234567890")
             .AsString()
             .Substring(2..^3)
             .Verify();
 
         [Fact]
-        public SettingsTask Substring5() => _g
+        public virtual SettingsTask Substring5() => _g
             .Inject("1234567890")
             .AsString()
             .Substring(^2..^6)
             .Verify();
 
         [Fact]
-        public SettingsTask Substring6() => _g
+        public virtual SettingsTask Substring6() => _g
             .Inject("1234567890")
             .AsString()
             .Substring(^6..)
             .Verify();
 
         [Fact]
-        public SettingsTask Substring7() => _g
+        public virtual SettingsTask Substring7() => _g
             .Inject("1234567890")
             .AsString()
             .Substring(2..^6)
             .Verify();
 
         [Fact]
-        public SettingsTask Substring8() => _g
+        public virtual SettingsTask Substring8() => _g
             .Inject("1234567890")
             .AsString()
             .Substring(6..2)
             .Verify();
 
         [Fact]
-        public SettingsTask Substring9() => _g
+        public virtual SettingsTask Substring9() => _g
             .Inject("1234567890")
             .AsString()
             .Substring(3..^2)
@@ -3611,27 +3611,27 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Verify();
 
         [Fact]
-        public SettingsTask ToLower() => _g
+        public virtual SettingsTask ToLower() => _g
             .Inject("aBcDeFg")
             .AsString()
             .ToLower()
             .Verify();
 
         [Fact]
-        public SettingsTask ToLower_with_extension() => _g
+        public virtual SettingsTask ToLower_with_extension() => _g
             .Inject("aBcDeFg")
             .ToLower()
             .Verify();
 
         [Fact]
-        public SettingsTask ToUpper() => _g
+        public virtual SettingsTask ToUpper() => _g
             .Inject("aBcDeFg")
             .AsString()
             .ToUpper()
             .Verify();
 
         [Fact]
-        public SettingsTask ToUpper_with_extension() => _g
+        public virtual SettingsTask ToUpper_with_extension() => _g
             .Inject("aBcDeFg")
             .ToUpper()
             .Verify();
@@ -3751,40 +3751,40 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Verify();
 
         [Fact]
-        public SettingsTask Trim() => _g
+        public virtual SettingsTask Trim() => _g
             .Inject("  aBcDeFg  ")
             .AsString()
             .Trim()
             .Verify();
 
         [Fact]
-        public SettingsTask Trim_with_extension() => _g
+        public virtual SettingsTask Trim_with_extension() => _g
             .Inject("  aBcDeFg  ")
             .Trim()
             .Verify();
 
         [Fact]
-        public SettingsTask TrimEnd() => _g
+        public virtual SettingsTask TrimEnd() => _g
             .Inject("  aBcDeFg  ")
             .AsString()
             .TrimEnd()
             .Verify();
 
         [Fact]
-        public SettingsTask TrimEnd_with_extension() => _g
+        public virtual SettingsTask TrimEnd_with_extension() => _g
             .Inject("  aBcDeFg  ")
             .TrimEnd()
             .Verify();
 
         [Fact]
-        public SettingsTask TrimStart() => _g
+        public virtual SettingsTask TrimStart() => _g
             .Inject("  aBcDeFg  ")
             .AsString()
             .TrimStart()
             .Verify();
 
         [Fact]
-        public SettingsTask TrimStart_with_extension() => _g
+        public virtual SettingsTask TrimStart_with_extension() => _g
             .Inject("  aBcDeFg  ")
             .TrimStart()
             .Verify();
