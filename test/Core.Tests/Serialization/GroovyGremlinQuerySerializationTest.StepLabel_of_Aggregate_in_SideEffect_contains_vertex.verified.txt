@@ -1,0 +1,9 @@
+﻿{
+  Script: g.inject(_a).sideEffect(__.V().hasLabel(_b).limit(_c).aggregate(_d)).V().hasLabel(_b).where(within(_d)).count(),
+  Bindings: {
+    _a: 0,
+    _b: RichVertex,
+    _c: 1,
+    _d: _a
+  }
+}

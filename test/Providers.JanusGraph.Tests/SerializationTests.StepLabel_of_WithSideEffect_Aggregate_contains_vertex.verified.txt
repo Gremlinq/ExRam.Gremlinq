@@ -1,0 +1,56 @@
+﻿{
+  SourceInstructions: [
+    {
+      OperatorName: withSideEffect,
+      Arguments: [
+        _a
+      ]
+    }
+  ],
+  StepInstructions: [
+    {
+      OperatorName: V
+    },
+    {
+      OperatorName: hasLabel,
+      Arguments: [
+        RichVertex
+      ]
+    },
+    {
+      OperatorName: limit,
+      Arguments: [
+        1
+      ]
+    },
+    {
+      OperatorName: aggregate,
+      Arguments: [
+        _a
+      ]
+    },
+    {
+      OperatorName: V
+    },
+    {
+      OperatorName: hasLabel,
+      Arguments: [
+        RichVertex
+      ]
+    },
+    {
+      OperatorName: where,
+      Arguments: [
+        {
+          OperatorName: within,
+          Value: [
+            _a
+          ]
+        }
+      ]
+    },
+    {
+      OperatorName: count
+    }
+  ]
+}

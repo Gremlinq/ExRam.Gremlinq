@@ -1,0 +1,8 @@
+﻿{
+  Script: g.V().hasLabel(_a).limit(_b).aggregate(_c).V().hasLabel(_a).not(__.where(within(_c))).count(),
+  Bindings: {
+    _a: RichVertex,
+    _b: 1,
+    _c: _a
+  }
+}

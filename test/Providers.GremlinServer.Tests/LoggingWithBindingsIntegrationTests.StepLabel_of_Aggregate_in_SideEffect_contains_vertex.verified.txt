@@ -1,0 +1,23 @@
+﻿[
+  {
+    log: {
+      Level: Debug,
+      Category: LoggingFixture,
+      Message: Executing Gremlin query 12345678-9012-3456-7890-123456789012 with groovy script g.inject(_a).sideEffect(__.V().hasLabel(_b).limit(_c).aggregate(_d)).V().hasLabel(_e).where(within(_f)).count() and parameter bindings [_a, 0], [_b, RichVertex], [_c, 1], [_d, _a], [_e, RichVertex], [_f, _a].,
+      State: [
+        {
+          requestId: 12345678-9012-3456-7890-123456789012
+        },
+        {
+          script: g.inject(_a).sideEffect(__.V().hasLabel(_b).limit(_c).aggregate(_d)).V().hasLabel(_e).where(within(_f)).count()
+        },
+        {
+          bindings: {}
+        },
+        {
+          {OriginalFormat}: Executing Gremlin query {requestId} with groovy script {script} and parameter bindings {bindings}.
+        }
+      ]
+    }
+  }
+]

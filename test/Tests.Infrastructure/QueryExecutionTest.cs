@@ -3412,6 +3412,60 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Verify();
 
         [Fact]
+        public virtual SettingsTask StepLabel_of_Aggregate_contains_vertex() => _g
+            .V<RichVertex>()
+            .Limit(1)
+            .Aggregate((__, aggregated) => __
+                .V<RichVertex>()
+                .Where(person => aggregated.Value.Contains(person)))
+            .Count()
+            .Verify();
+
+        [Fact]
+        public virtual SettingsTask StepLabel_of_Aggregate_does_not_contain_vertex() => _g
+            .V<RichVertex>()
+            .Limit(1)
+            .Aggregate((__, aggregated) => __
+                .V<RichVertex>()
+                .Where(person => !aggregated.Value.Contains(person)))
+            .Count()
+            .Verify();
+
+        [Fact]
+        public virtual SettingsTask StepLabel_of_Aggregate_in_SideEffect_contains_vertex()
+        {
+            var stepLabel = new StepLabel<IArrayGremlinQuery<RichVertex[], RichVertex, IVertexGremlinQuery<RichVertex>>, RichVertex[]>();
+
+            return _g
+                .Inject(0)
+                .SideEffect(__ => __
+                    .V<RichVertex>()
+                    .Limit(1)
+                    .Aggregate(stepLabel))
+                .V<RichVertex>()
+                .Where(person => stepLabel.Value.Contains(person))
+                .Count()
+                .Verify();
+        }
+
+        [Fact]
+        public virtual SettingsTask StepLabel_of_Aggregate_in_SideEffect_does_not_contain_vertex()
+        {
+            var stepLabel = new StepLabel<IArrayGremlinQuery<RichVertex[], RichVertex, IVertexGremlinQuery<RichVertex>>, RichVertex[]>();
+
+            return _g
+                .Inject(0)
+                .SideEffect(__ => __
+                    .V<RichVertex>()
+                    .Limit(1)
+                    .Aggregate(stepLabel))
+                .V<RichVertex>()
+                .Where(person => !stepLabel.Value.Contains(person))
+                .Count()
+                .Verify();
+        }
+
+        [Fact]
         public virtual SettingsTask StepLabel_of_array_contains_element() => _g
             .Inject(1, 2, 3)
             .Fold()
@@ -3458,6 +3512,22 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                 .V<RichVertex>()
                 .Where(person => ints.Value.Contains(person.Age)))
             .Verify();
+
+        [Fact]
+        public virtual SettingsTask StepLabel_of_WithSideEffect_Aggregate_contains_vertex()
+        {
+            var stepLabel = new StepLabel<IArrayGremlinQuery<RichVertex[], RichVertex, IVertexGremlinQuery<RichVertex>>, RichVertex[]>();
+
+            return _g
+                .WithSideEffect(stepLabel, [])
+                .V<RichVertex>()
+                .Limit(1)
+                .Aggregate(stepLabel)
+                .V<RichVertex>()
+                .Where(person => stepLabel.Value.Contains(person))
+                .Count()
+                .Verify();
+        }
 
         [Fact]
         public virtual SettingsTask StringKey() => _g

@@ -1,0 +1,1 @@
+﻿g.inject(0).sideEffect(__.V().hasLabel('RichVertex').limit(1).aggregate('_a')).V().hasLabel('RichVertex').where(within('_a')).count()
