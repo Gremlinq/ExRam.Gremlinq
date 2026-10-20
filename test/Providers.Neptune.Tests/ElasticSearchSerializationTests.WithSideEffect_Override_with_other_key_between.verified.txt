@@ -1,0 +1,56 @@
+﻿{
+  SourceInstructions: [
+    {
+      OperatorName: withSideEffect,
+      Arguments: [
+        Neptune#fts.endpoint,
+        http://elastic.search.server
+      ]
+    },
+    {
+      OperatorName: withSideEffect,
+      Arguments: [
+        Neptune#fts.queryType,
+        query_string
+      ]
+    },
+    {
+      OperatorName: withSideEffect,
+      Arguments: [
+        _a
+      ]
+    },
+    {
+      OperatorName: withSideEffect,
+      Arguments: [
+        _b
+      ]
+    },
+    {
+      OperatorName: withSideEffect,
+      Arguments: [
+        _a,
+        [
+          2
+        ]
+      ]
+    }
+  ],
+  StepInstructions: [
+    {
+      OperatorName: inject,
+      Arguments: [
+        0
+      ]
+    },
+    {
+      OperatorName: select,
+      Arguments: [
+        _a
+      ]
+    },
+    {
+      OperatorName: unfold
+    }
+  ]
+}

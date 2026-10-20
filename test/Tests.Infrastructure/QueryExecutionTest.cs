@@ -5714,6 +5714,23 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Verify();
 
         [Fact]
+        public virtual SettingsTask WithSideEffect_Override_with_other_key_between()
+        {
+            var x = new StepLabel<IArrayGremlinQuery<int[], int, IGremlinQuery<int>>, int[]>();
+            var y = new StepLabel<int[]>();
+
+            // The other key keeps the two withSideEffect() of x apart, so that both reach the server.
+            return _g
+                .WithSideEffect(x, [])
+                .WithSideEffect(y, [])
+                .WithSideEffect(x, [2])
+                .Inject(0)
+                .Select(x)
+                .Unfold()
+                .Verify();
+        }
+
+        [Fact]
         public virtual SettingsTask WithSideEffect_Single_Inject_V() => _g
             .WithSideEffect("stepLabel", "sideEffect")
             .Inject(42)

@@ -1,0 +1,42 @@
+﻿{
+  SourceInstructions: [
+    {
+      OperatorName: withSideEffect,
+      Arguments: [
+        _a
+      ]
+    },
+    {
+      OperatorName: withSideEffect,
+      Arguments: [
+        _b
+      ]
+    },
+    {
+      OperatorName: withSideEffect,
+      Arguments: [
+        _a,
+        [
+          2
+        ]
+      ]
+    }
+  ],
+  StepInstructions: [
+    {
+      OperatorName: inject,
+      Arguments: [
+        0
+      ]
+    },
+    {
+      OperatorName: select,
+      Arguments: [
+        _a
+      ]
+    },
+    {
+      OperatorName: unfold
+    }
+  ]
+}

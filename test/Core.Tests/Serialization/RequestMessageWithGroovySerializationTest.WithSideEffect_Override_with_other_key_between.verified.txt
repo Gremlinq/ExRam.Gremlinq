@@ -1,0 +1,17 @@
+﻿{
+  RequestId: 12345678-9012-3456-7890-123456789012,
+  Operation: eval,
+  Processor: ,
+  Arguments: {
+    aliases: {
+      g: g
+    },
+    bindings: {
+      _a: _a,
+      _b: _b,
+      _c: 2,
+      _d: 0
+    },
+    gremlin: g.withSideEffect(_a,[]).withSideEffect(_b,[]).withSideEffect(_a,[_c]).inject(_d).select(_a).unfold()
+  }
+}
