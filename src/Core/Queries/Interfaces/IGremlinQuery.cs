@@ -385,6 +385,8 @@ namespace ExRam.Gremlinq.Core
         /// Filter out all traversers. No traversers pass through this step. <see cref="None"/> behaves the same:
         /// either can be used, and Gremlinq always sends the step the server expects.
         /// Corresponds to the Gremlin <c>discard()</c> step, which was named <c>none()</c> before TinkerPop 3.8.
+        /// Gremlinq sends <c>none()</c> as long as the lowest version of <see cref="IGremlinQueryEnvironment.ServerCompatibilityRange"/> is below
+        /// TinkerPop 3.8, and <c>discard()</c> once it is 3.8 or higher.
         /// </summary>
         TSelf Discard();
 
@@ -463,6 +465,8 @@ namespace ExRam.Gremlinq.Core
         /// Filter out all traversers. No traversers pass through this step. Behaves the same as <see cref="Discard"/>, which replaces it:
         /// either can be used, and Gremlinq always sends the step the server expects.
         /// Corresponds to the Gremlin <c>none()</c> step, which TinkerPop 3.8 renamed to <c>discard()</c>.
+        /// Gremlinq sends <c>none()</c> as long as the lowest version of <see cref="IGremlinQueryEnvironment.ServerCompatibilityRange"/> is below
+        /// TinkerPop 3.8, and <c>discard()</c> once it is 3.8 or higher.
         /// </summary>
         [Obsolete("Use Discard(). TinkerPop 3.8 renamed none() to discard().")]
         TSelf None();

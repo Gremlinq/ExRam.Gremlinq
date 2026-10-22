@@ -499,7 +499,9 @@ namespace ExRam.Gremlinq.Core.Serialization
             .Add<MinStep>((step, env, _, recurse) => step.Scope.Equals(Scope.Local)
                 ? CreateInstruction("min", recurse, env, step.Scope)
                 : min)
-            .Add<NoneStep>((_, _, _, _) => none)
+            .Add<NoneStep>((_, env, _, _) => env.ServerCompatibilityRange.IsAtLeast(TinkerPopVersions.V3_8_0)
+                ? discard
+                : none)
             .Add<NotStep>((step, env, _, recurse) => CreateInstruction("not", recurse, env, step.Traversal))
             .Add<OptionalStep>((step, env, _, recurse) => CreateInstruction("optional", recurse, env, step.Traversal))
             .Add<OptionTraversalStep>((step, env, _, recurse) => CreateInstruction("option", recurse, env, step.Guard ?? Pick.None, step.OptionTraversal))

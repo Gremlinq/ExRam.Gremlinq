@@ -11,6 +11,7 @@ namespace ExRam.Gremlinq.Core.Serialization
         public static readonly Instruction by = new(nameof(by));
         public static readonly Instruction count = new(nameof(count));
         public static readonly Instruction cyclicPath = new(nameof(cyclicPath));
+        public static readonly Instruction discard = new(nameof(discard));
         public static readonly Instruction drop = new(nameof(drop));
         public static readonly Instruction emit = new(nameof(emit));
         public static readonly Instruction explain = new(nameof(explain));
