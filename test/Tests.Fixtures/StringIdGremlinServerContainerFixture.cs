@@ -11,7 +11,7 @@ namespace ExRam.Gremlinq.Tests.Fixtures
     {
         protected override IGremlinQuerySource TransformQuerySource(IGremlinQuerySource g) => g
             .UseGremlinServer<Vertex, Edge>(_ => _
-                .UseGremlinServerModContainer("3.7.6")
+                .UseGremlinServerModContainer("3.7.7")
                 .UseNewtonsoftJson())
             .ConfigureEnvironment(environment => environment
                 .ConfigureExecutor(_ => _
