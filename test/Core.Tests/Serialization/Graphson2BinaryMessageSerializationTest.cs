@@ -12,5 +12,15 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         public static string GetSourceFileName() => SourceFileName.OfThis();
+
+        [Fact]
+        public Task Inject_byte() => _g
+            .Inject((byte)200)
+            .Verify();
+
+        [Fact]
+        public Task Inject_sbyte() => _g
+            .Inject((sbyte)-56)
+            .Verify();
     }
 }

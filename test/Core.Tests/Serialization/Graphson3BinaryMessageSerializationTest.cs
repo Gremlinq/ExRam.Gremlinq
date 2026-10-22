@@ -19,6 +19,16 @@ namespace ExRam.Gremlinq.Core.Tests
             .Map(GetLambda(29))
             .Verify();
 
+        [Fact]
+        public Task Inject_byte() => _g
+            .Inject((byte)200)
+            .Verify();
+
+        [Fact]
+        public Task Inject_sbyte() => _g
+            .Inject((sbyte)-56)
+            .Verify();
+
         private Func<IGremlinQuery<int>, IGremlinQuery<int>> GetLambda(int i) => i == 0
             ? __ => __.Constant(1)
             : __ => __.Map(GetLambda(i - 1));
