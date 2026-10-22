@@ -190,8 +190,8 @@
       },
       "Gremlin.Net": {
         "type": "Transitive",
-        "resolved": "3.7.6",
-        "contentHash": "ZMO3fPrsneZQnQc5ks1xbq66ZPuIVVkO2RBiQzhbPn2GENqh5JCQ16dHo1sjRV76m9VP/lYrsSsTFYYo8vZjYA==",
+        "resolved": "3.7.7",
+        "contentHash": "ZrXwCyKDwpg1lvlcIsIiJz7u9of9a7VeMG7xv8ANrcMpRslDWUPuu3Ys1DpawekLtU0ycN3/ed3zMMfqXxF/FQ==",
         "dependencies": {
           "Microsoft.Extensions.Logging.Abstractions": "8.0.2",
           "Polly": "8.5.1"
@@ -492,7 +492,7 @@
         "type": "Project",
         "dependencies": {
           "CommunityToolkit.HighPerformance": "[8.4.2, )",
-          "Gremlin.Net": "[3.7.6, )"
+          "Gremlin.Net": "[3.7.7, )"
         }
       },
       "exram.gremlinq.core.aspnet": {
@@ -814,8 +814,8 @@
       },
       "Gremlin.Net": {
         "type": "Transitive",
-        "resolved": "3.7.6",
-        "contentHash": "ZMO3fPrsneZQnQc5ks1xbq66ZPuIVVkO2RBiQzhbPn2GENqh5JCQ16dHo1sjRV76m9VP/lYrsSsTFYYo8vZjYA==",
+        "resolved": "3.7.7",
+        "contentHash": "ZrXwCyKDwpg1lvlcIsIiJz7u9of9a7VeMG7xv8ANrcMpRslDWUPuu3Ys1DpawekLtU0ycN3/ed3zMMfqXxF/FQ==",
         "dependencies": {
           "Microsoft.Extensions.Logging.Abstractions": "8.0.2",
           "Polly": "8.5.1"
@@ -1141,7 +1141,7 @@
         "type": "Project",
         "dependencies": {
           "CommunityToolkit.HighPerformance": "[8.4.2, )",
-          "Gremlin.Net": "[3.7.6, )",
+          "Gremlin.Net": "[3.7.7, )",
           "System.Text.Json": "[9.0.10, )"
         }
       },
@@ -1466,8 +1466,8 @@
       },
       "Gremlin.Net": {
         "type": "Transitive",
-        "resolved": "3.7.6",
-        "contentHash": "ZMO3fPrsneZQnQc5ks1xbq66ZPuIVVkO2RBiQzhbPn2GENqh5JCQ16dHo1sjRV76m9VP/lYrsSsTFYYo8vZjYA==",
+        "resolved": "3.7.7",
+        "contentHash": "ZrXwCyKDwpg1lvlcIsIiJz7u9of9a7VeMG7xv8ANrcMpRslDWUPuu3Ys1DpawekLtU0ycN3/ed3zMMfqXxF/FQ==",
         "dependencies": {
           "Microsoft.Extensions.Logging.Abstractions": "8.0.2",
           "Polly": "8.5.1"
@@ -1793,7 +1793,7 @@
         "type": "Project",
         "dependencies": {
           "CommunityToolkit.HighPerformance": "[8.4.2, )",
-          "Gremlin.Net": "[3.7.6, )"
+          "Gremlin.Net": "[3.7.7, )"
         }
       },
       "exram.gremlinq.core.aspnet": {
