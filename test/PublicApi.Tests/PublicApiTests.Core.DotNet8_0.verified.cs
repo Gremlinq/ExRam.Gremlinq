@@ -1987,6 +1987,17 @@ namespace ExRam.Gremlinq.Core
         IntegerValues = 262144,
         All = 524287,
     }
+    public readonly struct VersionRange : System.IEquatable<ExRam.Gremlinq.Core.VersionRange>
+    {
+        public System.Version Highest { get; }
+        public System.Version Lowest { get; }
+        public bool Equals(ExRam.Gremlinq.Core.VersionRange other) { }
+        public override bool Equals(object? obj) { }
+        public override int GetHashCode() { }
+        public static ExRam.Gremlinq.Core.VersionRange From(System.Version lowest, System.Version highest) { }
+        public static bool operator !=(ExRam.Gremlinq.Core.VersionRange left, ExRam.Gremlinq.Core.VersionRange right) { }
+        public static bool operator ==(ExRam.Gremlinq.Core.VersionRange left, ExRam.Gremlinq.Core.VersionRange right) { }
+    }
     [System.Flags]
     public enum VertexFeatures
     {
