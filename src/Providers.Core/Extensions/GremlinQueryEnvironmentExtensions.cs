@@ -37,8 +37,8 @@ namespace ExRam.Gremlinq.Providers.Core
             ArgumentNullException.ThrowIfNull(environment);
 
             return environment
-                .AddGraphSonBinarySupport(new GraphSON2Writer(), GraphSon2Header, owner => new GraphSon2BinaryMessage(owner))
-                .AddGraphSonBinarySupport(new GraphSON3Writer(), GraphSon3Header, owner => new GraphSon3BinaryMessage(owner));
+                .AddGraphSonBinarySupport(new TinkerPop37GraphSon2Writer(), GraphSon2Header, owner => new GraphSon2BinaryMessage(owner))
+                .AddGraphSonBinarySupport(new TinkerPop37GraphSon3Writer(), GraphSon3Header, owner => new GraphSon3BinaryMessage(owner));
         }
 
         private static byte[] GetHeader(string mimeType) => mimeType.Length <= 255
