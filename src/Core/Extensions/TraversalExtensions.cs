@@ -22,7 +22,7 @@ namespace ExRam.Gremlinq.Core
 
         public static Traversal Rewrite(this Traversal traversal, ContinuationFlags flags)
         {
-            if (traversal is [NoneStep, ..])
+            if (traversal is [NoneStep or DiscardStep, ..])
             {
                 return Traversal
                     .Create(
@@ -178,7 +178,7 @@ namespace ExRam.Gremlinq.Core
 
         public static bool IsIdentity(this Traversal traversal) => traversal is [] || (traversal is [IdentityStep, .. var remainder] && remainder.IsIdentity());
 
-        public static bool IsNone(this Traversal traversal) => traversal.PeekOrDefault() is NoneStep;
+        public static bool IsNone(this Traversal traversal) => traversal.PeekOrDefault() is NoneStep or DiscardStep;
 
         // True if every step of the traversal behaves the same whether the traversal is evaluated
         // once per element, as a local child of e.g. coalesce(), or inlined into the parent's stream.

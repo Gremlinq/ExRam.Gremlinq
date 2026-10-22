@@ -594,7 +594,7 @@ namespace ExRam.Gremlinq.Core
         private GremlinQuery<T1, T2, T3, T4> Discard() => this
             .Continue()
             .Build(static builder => builder
-                .None()
+                .Discard()
                 .BuildAuto<T1, T2, T3, T4>());
 
         private GremlinQuery<object, object, object, IGremlinQueryBase> Drop() => this
@@ -928,7 +928,7 @@ namespace ExRam.Gremlinq.Core
             .With(continuation, state)
             .Build(static (builder, innerTraversal) => innerTraversal.IsIdentity()
                 ? builder
-                    .None()
+                    .Discard()
                 : innerTraversal.IsNone()
                     ? builder
                     : builder
@@ -1393,7 +1393,7 @@ namespace ExRam.Gremlinq.Core
             .Build(static (builder, filterTraversal) => filterTraversal.IsIdentity()
                 ? builder
                 : filterTraversal.IsNone() && filterTraversal.SideEffectSemantics == SideEffectSemantics.Read
-                    ? builder.None()
+                    ? builder.Discard()
                     : builder.Where(filterTraversal))
             .BuildAuto<T1, T2, T3, T4>();
 
@@ -1507,7 +1507,7 @@ namespace ExRam.Gremlinq.Core
                 if (maybeEffectivePredicate?.WorkaroundLimitations(Environment) is { } effectivePredicate)
                 {
                     if (effectivePredicate.EqualsConstant(false))
-                        return traversal.Push(NoneStep.Instance);
+                        return traversal.Push(Environment.GetDiscardStep());
 
                     if (left.RefersToParameter(out _))
                     {

@@ -2698,6 +2698,11 @@ namespace ExRam.Gremlinq.Core.Steps
         protected DerivedLabelNamesStep(System.Collections.Immutable.ImmutableArray<string> labels) { }
         public System.Collections.Immutable.ImmutableArray<string> Labels { get; }
     }
+    public sealed class DiscardStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public static readonly ExRam.Gremlinq.Core.Steps.DiscardStep Instance;
+        public DiscardStep() { }
+    }
     public sealed class DropStep : ExRam.Gremlinq.Core.Steps.Step
     {
         public static readonly ExRam.Gremlinq.Core.Steps.DropStep Instance;

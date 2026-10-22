@@ -27,10 +27,12 @@ namespace ExRam.Gremlinq.Core
                     ? traversal.Steps
                     : [new FilterStep.ByTraversalStep(traversal)]);
 
-            public FinalContinuationBuilder None() => builder
-                .WithSteps(static traversal => traversal.IsIdentity()
-                    ? NoneStep.Instance
-                    : traversal.Push(NoneStep.Instance));
+            public FinalContinuationBuilder Discard() => builder
+                .WithSteps(
+                    static (traversal, discardStep) => traversal.IsIdentity()
+                        ? discardStep
+                        : traversal.Push(discardStep),
+                    builder.OuterQuery.Environment.GetDiscardStep());
 
             public FinalContinuationBuilder OfType(FilterTypes filterTypes, IGraphElementModel model)
             {
@@ -71,7 +73,7 @@ namespace ExRam.Gremlinq.Core
                 }
 
                 if (containsNoneStep && !containsWriteStep)
-                    builder = builder.None();
+                    builder = builder.Discard();
                 else
                 {
                     var fusedTraversals = traversals[..count]
@@ -131,7 +133,7 @@ namespace ExRam.Gremlinq.Core
                     builder = fusedTraversals switch
                     {
                         [] => builder
-                            .None(),
+                            .Discard(),
                         [var singleTraversal] => builder
                             .Where(singleTraversal),
                         _ => builder

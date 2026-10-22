@@ -233,13 +233,13 @@ namespace ExRam.Gremlinq.Core.Serialization
 
                                 i = j - 1;
                             }
-                            else if (step is NoneStep noneStep)
+                            else if (step is NoneStep or DiscardStep)
                             {
-                                AddStep(noneStep, byteCode, isSourceStep, env, recurse);
+                                AddStep(step, byteCode, isSourceStep, env, recurse);
 
                                 for (; j < steps.Length; j++)
                                 {
-                                    if (steps[j] is NoneStep)
+                                    if (steps[j] is NoneStep or DiscardStep)
                                         continue;
 
                                     break;
@@ -263,7 +263,7 @@ namespace ExRam.Gremlinq.Core.Serialization
 
                                             newStep = intersection.Length > 0
                                                 ? new HasLabelStep(intersection)
-                                                : NoneStep.Instance;
+                                                : env.GetDiscardStep();
                                         }
 
                                         continue;
@@ -409,6 +409,7 @@ namespace ExRam.Gremlinq.Core.Serialization
             .Add<DedupStep>((step, env, _, recurse) => step.Scope.Equals(Scope.Local)
                 ? CreateInstruction("dedup", recurse, env, step.Scope)
                 : dedup)
+            .Add<DiscardStep>((_, _, _, _) => discard)
             .Add<DropStep>((_, _, _, _) => drop)
             .Add<ElementMapStep>((step, env, _, recurse) => elementMap)
             .Add<EmitStep>((_, _, _, _) => emit)
@@ -499,9 +500,7 @@ namespace ExRam.Gremlinq.Core.Serialization
             .Add<MinStep>((step, env, _, recurse) => step.Scope.Equals(Scope.Local)
                 ? CreateInstruction("min", recurse, env, step.Scope)
                 : min)
-            .Add<NoneStep>((_, env, _, _) => env.ServerCompatibilityRange.IsAtLeast(TinkerPopVersions.V3_8_0)
-                ? discard
-                : none)
+            .Add<NoneStep>((_, _, _, _) => none)
             .Add<NotStep>((step, env, _, recurse) => CreateInstruction("not", recurse, env, step.Traversal))
             .Add<OptionalStep>((step, env, _, recurse) => CreateInstruction("optional", recurse, env, step.Traversal))
             .Add<OptionTraversalStep>((step, env, _, recurse) => CreateInstruction("option", recurse, env, step.Guard ?? Pick.None, step.OptionTraversal))

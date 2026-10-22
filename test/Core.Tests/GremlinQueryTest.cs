@@ -4,6 +4,7 @@ using ExRam.Gremlinq.Core.Models;
 using ExRam.Gremlinq.Core.Steps;
 using ExRam.Gremlinq.Tests.Entities;
 using FluentAssertions;
+using Gremlin.Net.Process.Traversal;
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Core.Tests
@@ -124,6 +125,53 @@ namespace ExRam.Gremlinq.Core.Tests
                     .Discard()
                     .AsAdmin()
                     .Steps[^1]);
+        }
+
+        [Fact]
+        public void Discard_adds_NoneStep_below_TinkerPop_3_8() => _g
+            .V()
+            .Discard()
+            .AsAdmin()
+            .Steps[^1]
+            .Should()
+            .BeSameAs(NoneStep.Instance);
+
+        [Fact]
+        public void Discard_adds_DiscardStep_from_TinkerPop_3_8() => _g
+            .ConfigureEnvironment(environment => environment
+                .ConfigureServerCompatibilityRange(_ => VersionRange.From(TinkerPopVersions.V3_8_2, TinkerPopVersions.V3_8_2)))
+            .V()
+            .Discard()
+            .AsAdmin()
+            .Steps[^1]
+            .Should()
+            .BeSameAs(DiscardStep.Instance);
+
+        [Fact]
+        public void Disjoint_labels_serialize_as_discard_from_TinkerPop_3_8()
+        {
+            var query = _g
+                .ConfigureEnvironment(environment => environment
+                    .ConfigureServerCompatibilityRange(_ => VersionRange.From(TinkerPopVersions.V3_8_2, TinkerPopVersions.V3_8_2)))
+                .V()
+                .AsAdmin()
+                .AddStep<IVertexGremlinQuery<object>>(new HasLabelStep(["Person"]))
+                .AsAdmin()
+                .AddStep<IVertexGremlinQuery<object>>(new HasLabelStep(["Company"]));
+
+            var environment = query.AsAdmin().Environment;
+
+            environment.Serializer
+                .TransformTo<Bytecode>()
+                .From(query, environment)
+                .StepInstructions
+                .Select(instruction => instruction.OperatorName)
+                .Should()
+                .Contain("discard")
+                .And
+                .NotContain("hasLabel")
+                .And
+                .NotContain("none");
         }
 
         [Fact]

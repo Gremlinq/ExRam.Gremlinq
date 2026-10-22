@@ -18,6 +18,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
             new AndStep([GlobalLimit]),
             new CoinStep(0.5),
+            DiscardStep.Instance,
             new FilterStep.ByTraversalStep(GlobalLimit),
             new HasKeyStep("key"),
             new HasLabelStep(["label"]),

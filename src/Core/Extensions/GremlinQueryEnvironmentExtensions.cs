@@ -1,3 +1,5 @@
+using ExRam.Gremlinq.Core.Steps;
+
 namespace ExRam.Gremlinq.Core
 {
     /// <summary>Extension methods for <see cref="IGremlinQueryEnvironment"/>.</summary>
@@ -37,5 +39,11 @@ namespace ExRam.Gremlinq.Core
 
             return environment.NativeTypes.Contains(type);
         }
+
+        // The step that filters out all traversers on the server: none() as long as the server understands
+        // TinkerPop versions below 3.8, discard() once it does not.
+        internal static Step GetDiscardStep(this IGremlinQueryEnvironment environment) => environment.ServerCompatibilityRange.IsAtLeast(TinkerPopVersions.V3_8_0)
+            ? DiscardStep.Instance
+            : NoneStep.Instance;
     }
 }
