@@ -12,7 +12,8 @@ namespace ExRam.Gremlinq.Tests.Fixtures
         protected override IGremlinQuerySource TransformQuerySource(IGremlinQuerySource g) => g
             .UseGremlinServer<Vertex, Edge>(_ => _
                 .UseGremlinServerContainer("3.8.2")
-                .UseNewtonsoftJson())
+                .UseNewtonsoftJson()
+                .WithCompatibility(VersionRange.From(TinkerPopVersions.V3_8_2, TinkerPopVersions.V3_8_2)))
             .IgnoreCosmosDbSpecificProperties();
     }
 }
