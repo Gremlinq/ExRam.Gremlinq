@@ -127,8 +127,8 @@
       },
       "Gremlin.Net": {
         "type": "Transitive",
-        "resolved": "3.7.7",
-        "contentHash": "ZrXwCyKDwpg1lvlcIsIiJz7u9of9a7VeMG7xv8ANrcMpRslDWUPuu3Ys1DpawekLtU0ycN3/ed3zMMfqXxF/FQ==",
+        "resolved": "3.8.2",
+        "contentHash": "2HKV3RpzMjPyB46Olvv5IJAtRa23U1wpsEBWE1wSKRJls2EQJlIUUKbp4NAL1llmIZXo8fv5AXs2731PEwhnwg==",
         "dependencies": {
           "Microsoft.Extensions.Logging.Abstractions": "8.0.2",
           "Polly": "8.5.1"
@@ -576,7 +576,7 @@
         "type": "Project",
         "dependencies": {
           "CommunityToolkit.HighPerformance": "[8.4.2, )",
-          "Gremlin.Net": "[3.7.7, )"
+          "Gremlin.Net": "[3.8.2, )"
         }
       },
       "exram.gremlinq.providers.core": {
