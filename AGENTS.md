@@ -142,6 +142,12 @@ The PR workflow (`.github/workflows/checkPullRequest.yml`) runs on `ubuntu-24.04
 4. Run tests in Release mode with coverage and MTP reporting (TRX, GitHub Actions annotations)
 5. Upload coverage reports to Codecov
 
+On CI, `IntegrationTestAttribute` leaves out the `ValidPlatform` trait on every target framework
+but the last one in `TargetFrameworks` (the `LATEST_TARGET_FRAMEWORK` symbol of
+`Tests.Infrastructure`), so integration tests run on net10.0 only; all other tests run on every
+target framework. Locally, integration tests run on all of them. A new push to a pull request
+cancels the check still running for it.
+
 **Required Commands:**
 ```bash
 dotnet test -c Release --solution ./ExRam.Gremlinq.slnx --coverlet --coverlet-output-format opencover --ignore-exit-code 8 --report-trx --report-gh

@@ -5,6 +5,12 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
     public sealed class IntegrationTestAttribute : Attribute, ITraitAttribute
     {
+#if LATEST_TARGET_FRAMEWORK
+        private static readonly bool IsLatestTargetFramework = true;
+#else
+        private static readonly bool IsLatestTargetFramework = false;
+#endif
+
         public IntegrationTestAttribute(string validPlatform, bool canRunOnCI = false)
         {
             CanRunOnCI = canRunOnCI;
@@ -21,7 +27,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
                 yield return new KeyValuePair<string, string>("Category", "IntegrationTest");
 
-                if (CanRunOnCI || !isCi)
+                if (!isCi || CanRunOnCI && IsLatestTargetFramework)
                     yield return new KeyValuePair<string, string>("ValidPlatform", ValidPlatform);
             }
         }

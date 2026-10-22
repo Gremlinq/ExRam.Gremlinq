@@ -15,6 +15,12 @@ on:
 permissions:
   contents: read
 
+# A new push to a pull request cancels the check still running for it. The group name must
+# differ from the one of a calling workflow, or caller and callee block each other.
+concurrency:
+  group: ${{ github.repository }}-checkPullRequest-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
 jobs:
 
   test:
