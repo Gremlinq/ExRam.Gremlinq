@@ -591,6 +591,12 @@ namespace ExRam.Gremlinq.Core
                 .AddStep(DedupStep.Local)
                 .BuildAuto<T1, T2, T3, T4>());
 
+        private GremlinQuery<T1, T2, T3, T4> Discard() => this
+            .Continue()
+            .Build(static builder => builder
+                .None()
+                .BuildAuto<T1, T2, T3, T4>());
+
         private GremlinQuery<object, object, object, IGremlinQueryBase> Drop() => this
             .Continue()
             .Build(static builder => builder
@@ -916,12 +922,6 @@ namespace ExRam.Gremlinq.Core
             .Build(static builder => builder
                 .AddStep(MinStep.Local)
                 .BuildAs<TNewQuery>());
-
-        private GremlinQuery<T1, T2, T3, T4> None() => this
-            .Continue()
-            .Build(static builder => builder
-                .None()
-                .BuildAuto<T1, T2, T3, T4>());
 
         private GremlinQuery<T1, T2, T3, T4> Not<TState>(Func<GremlinQuery<T1, T2, T3, T4>, TState, IGremlinQueryBase> continuation, TState state) => this
             .Continue()
@@ -1407,11 +1407,11 @@ namespace ExRam.Gremlinq.Core
                 {
                     ConstantExpression { Value: bool value } => value
                         ? this
-                        : None(),
+                        : Discard(),
 
                     MemberExpression memberExpression when memberExpression.Type == typeof(bool) && !memberExpression.RefersToParameter(out _) => (bool)memberExpression.GetValue()!
                         ? this
-                        : None(),
+                        : Discard(),
 
                     LambdaExpression lambdaExpression => Where(lambdaExpression.Body),
 
@@ -1432,7 +1432,7 @@ namespace ExRam.Gremlinq.Core
                     _ when expression.TryParseWhereExpression() is { } whereExpression => whereExpression.Equals(WhereExpression.True)
                         ? this
                         : whereExpression.Equals(WhereExpression.False)
-                            ? None()
+                            ? Discard()
                             : this
                                 .Continue()
                                 .Build(

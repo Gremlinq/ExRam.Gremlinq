@@ -107,6 +107,26 @@ namespace ExRam.Gremlinq.Core.Tests
             .Projection);
 
         [Fact]
+        public void None_adds_the_step_of_Discard()
+        {
+#pragma warning disable CS0618 // None() stays until the next major version and must behave like Discard().
+            var steps = _g
+                .V()
+                .None()
+                .AsAdmin()
+                .Steps;
+#pragma warning restore CS0618
+
+            steps[^1]
+                .Should()
+                .BeSameAs(_g
+                    .V()
+                    .Discard()
+                    .AsAdmin()
+                    .Steps[^1]);
+        }
+
+        [Fact]
         public void Lower_chain_from_value() => _g
             .Inject(0)
             .Lower();

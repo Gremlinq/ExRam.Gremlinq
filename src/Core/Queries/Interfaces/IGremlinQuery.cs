@@ -382,6 +382,13 @@ namespace ExRam.Gremlinq.Core
         TSelf DedupLocal();
 
         /// <summary>
+        /// Filter out all traversers. No traversers pass through this step. <see cref="None"/> behaves the same:
+        /// either can be used, and Gremlinq always sends the step the server expects.
+        /// Corresponds to the Gremlin <c>discard()</c> step, which was named <c>none()</c> before TinkerPop 3.8.
+        /// </summary>
+        TSelf Discard();
+
+        /// <summary>
         /// Map the traverser to some object and flatten the result into the traversal stream.
         /// Corresponds to the Gremlin <c>flatMap()</c> step.
         /// </summary>
@@ -453,9 +460,11 @@ namespace ExRam.Gremlinq.Core
         TSelf Not(Func<TSelf, IGremlinQueryBase> notTraversal);
 
         /// <summary>
-        /// Filter out all traversers. No traversers pass through this step.
-        /// Corresponds to the Gremlin <c>none()</c> step.
+        /// Filter out all traversers. No traversers pass through this step. Behaves the same as <see cref="Discard"/>, which replaces it:
+        /// either can be used, and Gremlinq always sends the step the server expects.
+        /// Corresponds to the Gremlin <c>none()</c> step, which TinkerPop 3.8 renamed to <c>discard()</c>.
         /// </summary>
+        [Obsolete("Use Discard(). TinkerPop 3.8 renamed none() to discard().")]
         TSelf None();
 
         /// <summary>

@@ -481,7 +481,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual SettingsTask And_none() => _g
             .V<RichVertex>()
             .And(
-                __ => __.None())
+                __ => __.Discard())
             .Verify();
 
         [Fact]
@@ -490,7 +490,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .And(
                 __ => __
                     .Aggregate((__, _) => __
-                        .None()),
+                        .Discard()),
                 __ => __
                     .OutE())
             .Verify();
@@ -1711,14 +1711,14 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual SettingsTask None() => _g
             .V<RichVertex>()
-            .None()
+            .Discard()
             .Verify();
 
         [Fact]
         public virtual SettingsTask None_None() => _g
             .V<RichVertex>()
-            .None()
-            .None()
+            .Discard()
+            .Discard()
             .Verify();
 
         [Fact]
@@ -1832,7 +1832,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Or(
                 __ => __
                     .OutE()
-                    .None(),
+                    .Discard(),
                 __ => __
                     .OutE())
             .Verify();
@@ -1842,7 +1842,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .V<RichVertex>()
             .Or(
                 __ => __
-                    .None(),
+                    .Discard(),
                 __ => __
                     .Where(x => x.Age > 36))
             .Verify();
@@ -1853,7 +1853,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Or(
                 __ => __
                     .Aggregate((__, _) => __
-                        .None()),
+                        .Discard()),
                 __ => __
                     .OutE())
             .Verify();
@@ -2498,7 +2498,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Project(__ => __
                 .ToTuple()
                 .By(__ => __.Constant("item1"))
-                .By(__ => __.None()))
+                .By(__ => __.Discard()))
             .Verify();
 
         [Fact]
@@ -2604,7 +2604,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                 .ToTuple()
                 .By(__ => __.Constant("item1"))
                 .By(__ => __.Constant("item2"))
-                .By(__ => __.None()))
+                .By(__ => __.Discard()))
             .Select(
                 x => x.Item1,
                 x => x.Item2)
@@ -2619,7 +2619,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                 .ToTuple()
                 .By(__ => __.Constant("item1"))
                 .By(__ => __.Constant("item2"))
-                .By(__ => __.None()))
+                .By(__ => __.Discard()))
             .Verify();
 
         [Fact]
@@ -2690,7 +2690,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                 .By(__ => __.Constant("item1"))
                 .By(__ => __.Constant("item2"))
                 .By(__ => __.Constant("item3"))
-                .By(__ => __.None()))
+                .By(__ => __.Discard()))
             .Verify();
 
         [Fact]
@@ -4552,7 +4552,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual SettingsTask Where_none_traversal() => _g
             .V<RichVertex>()
-            .Where(_ => _.None())
+            .Where(_ => _.Discard())
             .Verify();
 
         [Fact]
@@ -4560,7 +4560,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .V<RichVertex>()
             .Where(_ => _
                 .Not(_ => _
-                    .None()))
+                    .Discard()))
             .Verify();
 
         [Fact]
@@ -4645,7 +4645,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .V<RichVertex>()
             .Where(_ => _
                 .Or(_ => _
-                    .None()))
+                    .Discard()))
             .Verify();
 
         [Fact]

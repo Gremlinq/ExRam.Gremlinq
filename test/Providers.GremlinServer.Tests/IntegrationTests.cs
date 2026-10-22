@@ -66,7 +66,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
         [Fact]
         public async Task FirstAsync_empty() => await _g
             .Inject(42)
-            .None()
+            .Discard()
             .Awaiting(_ => _
                 .FirstAsync(TestContext.Current.CancellationToken))
             .Should()
@@ -82,7 +82,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
         [Fact]
         public async Task FirstOrDefaultAsync_empty() => (await _g
             .Inject(42)
-            .None()
+            .Discard()
             .FirstOrDefaultAsync(TestContext.Current.CancellationToken))
                 .Should()
                 .Be(0);
@@ -97,7 +97,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
         [Fact]
         public async Task SingleAsync_empty() => await _g
             .Inject(42)
-            .None()
+            .Discard()
             .Awaiting(_ => _
                 .SingleAsync(TestContext.Current.CancellationToken))
             .Should()
@@ -121,7 +121,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
         [Fact]
         public async Task SingleOrDefaultAsync_empty() => (await _g
             .Inject(42)
-            .None()
+            .Discard()
             .SingleOrDefaultAsync(TestContext.Current.CancellationToken))
                 .Should()
                 .Be(0);
@@ -151,7 +151,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
         [Fact]
         public async Task LastAsync_empty() => await _g
             .Inject(42)
-            .None()
+            .Discard()
             .Awaiting(_ => _
                 .LastAsync(TestContext.Current.CancellationToken))
             .Should()
@@ -174,7 +174,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
         [Fact]
         public async Task LastOrDefaultAsync_empty() => (await _g
             .Inject(42)
-            .None()
+            .Discard()
             .LastOrDefaultAsync(TestContext.Current.CancellationToken))
                 .Should()
                 .Be(0);
@@ -344,7 +344,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
                 .By(__ => __
                     .Label())
                 .By(__ => __
-                    .None()))
+                    .Discard()))
             .Verify();
 
         [Fact]

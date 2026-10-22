@@ -525,6 +525,7 @@ namespace ExRam.Gremlinq.Core
         TSelf CyclicPath();
         TSelf Dedup();
         TSelf DedupLocal();
+        TSelf Discard();
         TTargetQuery FlatMap<TTargetQuery>(System.Func<TSelf, TTargetQuery> mapping)
             where TTargetQuery : ExRam.Gremlinq.Core.IGremlinQueryBase;
         TSelf Identity();
@@ -537,6 +538,7 @@ namespace ExRam.Gremlinq.Core
         TSelf Max();
         TSelf Mean();
         TSelf Min();
+        [System.Obsolete("Use Discard(). TinkerPop 3.8 renamed none() to discard().")]
         TSelf None();
         TSelf Not(System.Func<TSelf, ExRam.Gremlinq.Core.IGremlinQueryBase> notTraversal);
         TSelf Optional(System.Func<TSelf, TSelf> optionalTraversal);
