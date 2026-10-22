@@ -79,5 +79,21 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
         public override SettingsTask Where_property_is_contained_in_empty_enumerable() => base.Where_property_is_contained_in_empty_enumerable().UseSnapshotDirectoryAndNameOf<IntegrationTests38>();
 
         public override SettingsTask Where_variable_bool_property_false() => base.Where_variable_bool_property_false().UseSnapshotDirectoryAndNameOf<IntegrationTests38>();
+
+        // 3.8 removed has(key, traversal). The server still accepts it, but the traversal never matches:
+        // https://tinkerpop.apache.org/docs/3.8.0/upgrade/#removal-of-has-key-traversal
+        public override SettingsTask Where_property_array_contains_stepLabel() => base.Where_property_array_contains_stepLabel().UseSnapshotDirectoryAndNameOf<IntegrationTests38>();
+
+        public override SettingsTask Where_property_array_intersects_stepLabel1() => base.Where_property_array_intersects_stepLabel1().UseSnapshotDirectoryAndNameOf<IntegrationTests38>();
+
+        public override SettingsTask Where_property_array_intersects_stepLabel2() => base.Where_property_array_intersects_stepLabel2().UseSnapshotDirectoryAndNameOf<IntegrationTests38>();
+
+        public override SettingsTask Where_property_equals_stepLabel() => base.Where_property_equals_stepLabel().UseSnapshotDirectoryAndNameOf<IntegrationTests38>();
+
+        public override SettingsTask Where_property_is_greater_than_or_equal_stepLabel() => base.Where_property_is_greater_than_or_equal_stepLabel().UseSnapshotDirectoryAndNameOf<IntegrationTests38>();
+
+        public override SettingsTask Where_property_is_lower_than_or_equal_stepLabel() => base.Where_property_is_lower_than_or_equal_stepLabel().UseSnapshotDirectoryAndNameOf<IntegrationTests38>();
+
+        public override SettingsTask Where_property_traversal() => base.Where_property_traversal().UseSnapshotDirectoryAndNameOf<IntegrationTests38>();
     }
 }
