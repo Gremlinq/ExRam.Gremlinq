@@ -95,5 +95,11 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
         public override SettingsTask Where_property_is_lower_than_or_equal_stepLabel() => base.Where_property_is_lower_than_or_equal_stepLabel().UseSnapshotDirectoryAndNameOf<IntegrationTests38>();
 
         public override SettingsTask Where_property_traversal() => base.Where_property_traversal().UseSnapshotDirectoryAndNameOf<IntegrationTests38>();
+
+        // 3.8 removed aggregate(local, …), the server knows no such method:
+        // https://tinkerpop.apache.org/docs/3.8.0/upgrade/#removal-of-aggregate-with-scope-and-store
+        public override SettingsTask Aggregate_Local() => base.Aggregate_Local().UseSnapshotDirectoryAndNameOf<IntegrationTests38>();
+
+        public override SettingsTask Aggregate_Local_with_existing_step() => base.Aggregate_Local_with_existing_step().UseSnapshotDirectoryAndNameOf<IntegrationTests38>();
     }
 }
