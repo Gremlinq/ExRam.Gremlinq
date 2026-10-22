@@ -31,5 +31,53 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
         }
 
         public static string GetSourceFileName() => SourceFileName.OfThis();
+
+        // 3.8 renamed none() to discard(), and the server knows no none() without a predicate:
+        // https://tinkerpop.apache.org/docs/3.8.0/upgrade/#none-and-discard
+        public override SettingsTask And_none() => base.And_none().UseSnapshotDirectoryAndNameOf<IntegrationTests38>();
+
+        public override SettingsTask And_none_with_sideEffect() => base.And_none_with_sideEffect().UseSnapshotDirectoryAndNameOf<IntegrationTests38>();
+
+        public override SettingsTask None() => base.None().UseSnapshotDirectoryAndNameOf<IntegrationTests38>();
+
+        public override SettingsTask None_None() => base.None_None().UseSnapshotDirectoryAndNameOf<IntegrationTests38>();
+
+        public override SettingsTask Or_none_with_sideEffect() => base.Or_none_with_sideEffect().UseSnapshotDirectoryAndNameOf<IntegrationTests38>();
+
+        public override SettingsTask Project2_guarded() => base.Project2_guarded().UseSnapshotDirectoryAndNameOf<IntegrationTests38>();
+
+        public override SettingsTask Project3_Select2_unguarded() => base.Project3_Select2_unguarded().UseSnapshotDirectoryAndNameOf<IntegrationTests38>();
+
+        public override SettingsTask Project3_unguarded() => base.Project3_unguarded().UseSnapshotDirectoryAndNameOf<IntegrationTests38>();
+
+        public override SettingsTask Project4_unguarded() => base.Project4_unguarded().UseSnapshotDirectoryAndNameOf<IntegrationTests38>();
+
+        public override SettingsTask Where_constant_bool_false() => base.Where_constant_bool_false().UseSnapshotDirectoryAndNameOf<IntegrationTests38>();
+
+        public override SettingsTask Where_constant_bool_field_false() => base.Where_constant_bool_field_false().UseSnapshotDirectoryAndNameOf<IntegrationTests38>();
+
+        public override SettingsTask Where_empty_array_intersects_property_array() => base.Where_empty_array_intersects_property_array().UseSnapshotDirectoryAndNameOf<IntegrationTests38>();
+
+        public override SettingsTask Where_none_traversal() => base.Where_none_traversal().UseSnapshotDirectoryAndNameOf<IntegrationTests38>();
+
+        public override SettingsTask Where_or_dead_traversal() => base.Where_or_dead_traversal().UseSnapshotDirectoryAndNameOf<IntegrationTests38>();
+
+        public override SettingsTask Where_or_none_traversal() => base.Where_or_none_traversal().UseSnapshotDirectoryAndNameOf<IntegrationTests38>();
+
+        public override SettingsTask Where_property_array_intersects_empty_array() => base.Where_property_array_intersects_empty_array().UseSnapshotDirectoryAndNameOf<IntegrationTests38>();
+
+        public override SettingsTask Where_property_compared_to_string_always_false() => base.Where_property_compared_to_string_always_false().UseSnapshotDirectoryAndNameOf<IntegrationTests38>();
+
+        public override SettingsTask Where_property_comparison_to_string_always_false() => base.Where_property_comparison_to_string_always_false().UseSnapshotDirectoryAndNameOf<IntegrationTests38>();
+
+        public override SettingsTask Where_property_comparison_to_string_always_false_2() => base.Where_property_comparison_to_string_always_false_2().UseSnapshotDirectoryAndNameOf<IntegrationTests38>();
+
+        public override SettingsTask Where_property_comparison_to_string_always_false_3() => base.Where_property_comparison_to_string_always_false_3().UseSnapshotDirectoryAndNameOf<IntegrationTests38>();
+
+        public override SettingsTask Where_property_comparison_to_string_always_false_4() => base.Where_property_comparison_to_string_always_false_4().UseSnapshotDirectoryAndNameOf<IntegrationTests38>();
+
+        public override SettingsTask Where_property_is_contained_in_empty_enumerable() => base.Where_property_is_contained_in_empty_enumerable().UseSnapshotDirectoryAndNameOf<IntegrationTests38>();
+
+        public override SettingsTask Where_variable_bool_property_false() => base.Where_variable_bool_property_false().UseSnapshotDirectoryAndNameOf<IntegrationTests38>();
     }
 }
