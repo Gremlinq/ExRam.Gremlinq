@@ -78,5 +78,31 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
         public override SettingsTask Where_property_is_contained_in_empty_enumerable() => base.Where_property_is_contained_in_empty_enumerable().UseSnapshotDirectoryAndNameOf<SerializationTests38>();
 
         public override SettingsTask Where_variable_bool_property_false() => base.Where_variable_bool_property_false().UseSnapshotDirectoryAndNameOf<SerializationTests38>();
+
+        // 3.8 removed has(key, traversal). The server still accepts it, but the traversal never matches:
+        // https://tinkerpop.apache.org/docs/3.8.0/upgrade/#removal-of-has-key-traversal
+        public override SettingsTask StepLabel_of_array_contains_element() => base.StepLabel_of_array_contains_element().UseSnapshotDirectoryAndNameOf<SerializationTests38>();
+
+        public override SettingsTask StepLabel_of_array_contains_element_graphson() => base.StepLabel_of_array_contains_element_graphson().UseSnapshotDirectoryAndNameOf<SerializationTests38>();
+
+        public override SettingsTask StepLabel_of_object_array_contains_element() => base.StepLabel_of_object_array_contains_element().UseSnapshotDirectoryAndNameOf<SerializationTests38>();
+
+        public override SettingsTask Where_property_array_contains_stepLabel() => base.Where_property_array_contains_stepLabel().UseSnapshotDirectoryAndNameOf<SerializationTests38>();
+
+        public override SettingsTask Where_property_array_intersects_stepLabel1() => base.Where_property_array_intersects_stepLabel1().UseSnapshotDirectoryAndNameOf<SerializationTests38>();
+
+        public override SettingsTask Where_property_array_intersects_stepLabel2() => base.Where_property_array_intersects_stepLabel2().UseSnapshotDirectoryAndNameOf<SerializationTests38>();
+
+        public override SettingsTask Where_property_equals_stepLabel() => base.Where_property_equals_stepLabel().UseSnapshotDirectoryAndNameOf<SerializationTests38>();
+
+        public override SettingsTask Where_property_is_greater_than_or_equal_stepLabel() => base.Where_property_is_greater_than_or_equal_stepLabel().UseSnapshotDirectoryAndNameOf<SerializationTests38>();
+
+        public override SettingsTask Where_property_is_greater_than_stepLabel() => base.Where_property_is_greater_than_stepLabel().UseSnapshotDirectoryAndNameOf<SerializationTests38>();
+
+        public override SettingsTask Where_property_is_lower_than_or_equal_stepLabel() => base.Where_property_is_lower_than_or_equal_stepLabel().UseSnapshotDirectoryAndNameOf<SerializationTests38>();
+
+        public override SettingsTask Where_property_is_lower_than_stepLabel() => base.Where_property_is_lower_than_stepLabel().UseSnapshotDirectoryAndNameOf<SerializationTests38>();
+
+        public override SettingsTask Where_property_traversal() => base.Where_property_traversal().UseSnapshotDirectoryAndNameOf<SerializationTests38>();
     }
 }

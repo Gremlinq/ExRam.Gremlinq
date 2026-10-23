@@ -175,6 +175,91 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void Where_on_the_id_adds_HasTraversalStep_below_TinkerPop_3_8() => _g
+            .V<RichVertex>()
+            .Where(x => x.Id, _ => _.Fold())
+            .AsAdmin()
+            .Steps[^1]
+            .Should()
+            .BeOfType<HasTraversalStep>()
+            .Which
+            .Key
+            .Should()
+            .Be(new Key(T.Id));
+
+        [Fact]
+        public void Where_on_the_id_filters_by_id_from_TinkerPop_3_8() => _g
+            .ConfigureEnvironment(environment => environment
+                .ConfigureServerCompatibilityRange(_ => VersionRange.From(TinkerPopVersions.V3_8_2, TinkerPopVersions.V3_8_2)))
+            .V<RichVertex>()
+            .Where(x => x.Id, _ => _.Fold())
+            .AsAdmin()
+            .Steps[^1]
+            .Should()
+            .BeOfType<WhereTraversalStep>()
+            .Which
+            .Traversal
+            .Steps
+            .ToArray()
+            .Should()
+            .Equal(IdStep.Instance, FoldStep.Instance);
+
+        [Fact]
+        public void Where_on_the_label_adds_HasTraversalStep_below_TinkerPop_3_8() => _g
+            .V<RichVertex>()
+            .Where(x => x.Label, _ => _.Fold())
+            .AsAdmin()
+            .Steps[^1]
+            .Should()
+            .BeOfType<HasTraversalStep>()
+            .Which
+            .Key
+            .Should()
+            .Be(new Key(T.Label));
+
+        [Fact]
+        public void Where_on_the_label_filters_by_label_from_TinkerPop_3_8() => _g
+            .ConfigureEnvironment(environment => environment
+                .ConfigureServerCompatibilityRange(_ => VersionRange.From(TinkerPopVersions.V3_8_2, TinkerPopVersions.V3_8_2)))
+            .V<RichVertex>()
+            .Where(x => x.Label, _ => _.Fold())
+            .AsAdmin()
+            .Steps[^1]
+            .Should()
+            .BeOfType<WhereTraversalStep>()
+            .Which
+            .Traversal
+            .Steps
+            .ToArray()
+            .Should()
+            .Equal(LabelStep.Instance, FoldStep.Instance);
+
+        [Fact]
+        public void Where_on_a_member_with_key_T_key_filters_by_its_values_from_TinkerPop_3_8() => _g
+            .ConfigureEnvironment(environment => environment
+                .UseModel(GraphModel
+                    .FromBaseTypes<Vertex, Edge>()
+                    .ConfigureVertices(model => model
+                        .ConfigureMetadata(
+                            typeof(RichVertex).GetProperty(nameof(RichVertex.Age))!,
+                            metadata => new MemberMetadata(T.Key, metadata.SerializationBehaviour))))
+                .ConfigureServerCompatibilityRange(_ => VersionRange.From(TinkerPopVersions.V3_8_2, TinkerPopVersions.V3_8_2)))
+            .V<RichVertex>()
+            .Where(x => x.Age, _ => _.Fold())
+            .AsAdmin()
+            .Steps[^1]
+            .Should()
+            .BeOfType<WhereTraversalStep>()
+            .Which
+            .Traversal[0]
+            .Should()
+            .BeOfType<ValuesStep>()
+            .Which
+            .Keys
+            .Should()
+            .Equal("key");
+
+        [Fact]
         public void Lower_chain_from_value() => _g
             .Inject(0)
             .Lower();
