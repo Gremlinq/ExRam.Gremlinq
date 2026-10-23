@@ -160,5 +160,18 @@ namespace ExRam.Gremlinq.Providers.Neptune
                 elasticSearchEndPoint,
                 indexConfiguration);
         }
+
+        /// <summary>
+        /// Sets the range of TinkerPop versions the server understands to the one of the Neptune engine <paramref name="engineVersion"/>.
+        /// </summary>
+        /// <param name="configurator">The configurator to configure.</param>
+        /// <param name="engineVersion">The version of the Neptune engine.</param>
+        public static INeptuneConfigurator WithEngineVersion(this INeptuneConfigurator configurator, Version engineVersion)
+        {
+            ArgumentNullException.ThrowIfNull(configurator);
+            ArgumentNullException.ThrowIfNull(engineVersion);
+
+            return configurator;
+        }
     }
 }

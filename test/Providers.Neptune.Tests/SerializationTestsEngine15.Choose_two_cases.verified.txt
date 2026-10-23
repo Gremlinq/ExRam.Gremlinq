@@ -1,0 +1,98 @@
+{
+  StepInstructions: [
+    {
+      OperatorName: V
+    },
+    {
+      OperatorName: filter,
+      Arguments: [
+        {
+          StepInstructions: [
+            {
+              OperatorName: properties
+            }
+          ]
+        }
+      ]
+    },
+    {
+      OperatorName: choose,
+      Arguments: [
+        {
+          StepInstructions: [
+            {
+              OperatorName: values
+            }
+          ]
+        }
+      ]
+    },
+    {
+      OperatorName: option,
+      Arguments: [
+        3,
+        {
+          StepInstructions: [
+            {
+              OperatorName: constant,
+              Arguments: [
+                1
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      OperatorName: option,
+      Arguments: [
+        4,
+        {
+          StepInstructions: [
+            {
+              OperatorName: constant,
+              Arguments: [
+                2
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      OperatorName: option,
+      Arguments: [
+        {
+          EnumName: Pick,
+          EnumValue: none
+        },
+        {
+          StepInstructions: [
+            {
+              OperatorName: discard
+            }
+          ]
+        }
+      ]
+    },
+    {
+      OperatorName: option,
+      Arguments: [
+        {
+          EnumName: Pick,
+          EnumValue: unproductive
+        },
+        {
+          StepInstructions: [
+            {
+              OperatorName: fail,
+              Arguments: [
+                The choice traversal of choose() yielded nothing
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
