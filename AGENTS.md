@@ -223,11 +223,13 @@ overrides `GetId` once, as `StringIdIntegrationTests` does.
 server understands, a `VersionRange` (`VersionRange.From(lowest, highest)`, with the released
 versions in `TinkerPopVersions`; default 3.7.1 to 3.7.7). `ConfigureServerCompatibilityRange`
 changes it on the environment; a provider configurator sets it with `WithCompatibility(...)`,
-which wins over a provider's default. A server that understands every version of the range
-understands the forms of its lowest version, so every consumer of the range (a step or a
+which wins over a provider's default. Neptune's `WithEngineVersion(Version)` sets the range AWS
+documents for an engine line (1.3.2 to 1.4.x: 3.7.1; 1.5.x: 3.8.0 to 3.8.1) through
+`WithCompatibility`, so the one called last wins. A server that understands every version of the
+range understands the forms of its lowest version, so every consumer of the range (a step or a
 GraphSON type whose form changed in TinkerPop 3.8) follows one rule: the form before 3.8 as long
-as `Lowest` is below 3.8, the 3.8 form once it is 3.8 or higher. The internal helper
-`IsAtLeast` compares `Lowest` on major and minor version only.
+as `Lowest` is below 3.8, the 3.8 form once it is 3.8 or higher. The internal helper `IsAtLeast`
+compares `Lowest` on major and minor version only.
 
 A consumer decides when the query is built, by the step it adds, not in the serializer: a
 query for a server from 3.8 on holds a `DiscardStep` where others hold a `NoneStep`
@@ -247,6 +249,9 @@ A consumer's difference shows as an override in three classes of
 `test/Providers.GremlinServer.Tests`: `SerializationTests38` (3.8.2 only) and
 `SerializationTests37To38` (3.7.7 to 3.8.2) serialize against `SerializationTests`' snapshots,
 and `IntegrationTests38` executes on Gremlin Server 3.8.2 against `IntegrationTests`' snapshots.
+`test/Providers.Neptune.Tests` has the same pair for Neptune engines: `SerializationTestsEngine15`
+(engine 1.5, 3.8.0 to 3.8.1) overrides like `SerializationTests38`, `SerializationTestsEngine14`
+(engine 1.4, 3.7.1) stays without overrides; both serialize against Neptune's `SerializationTests`.
 Each override carries a comment naming the section of the
 [3.8 upgrade notes](https://tinkerpop.apache.org/docs/3.8.0/upgrade/) it follows. A GraphSON
 type's difference shows in the contract tests of `GraphsonSupportTestBase` (facts ending in

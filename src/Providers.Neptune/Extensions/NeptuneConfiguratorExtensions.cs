@@ -11,6 +11,9 @@ namespace ExRam.Gremlinq.Providers.Neptune
     /// </summary>
     public static class NeptuneConfiguratorExtensions
     {
+        private static readonly VersionRange TinkerPop37Compatibility = VersionRange.From(TinkerPopVersions.V3_7_1, TinkerPopVersions.V3_7_1);
+        private static readonly VersionRange TinkerPop38Compatibility = VersionRange.From(TinkerPopVersions.V3_8_0, TinkerPopVersions.V3_8_1);
+
         private sealed class ElasticSearchAwareNeptuneConfigurator : INeptuneConfigurator
         {
             private sealed class ElasticSearchAwarePFactory : IPFactory
@@ -159,6 +162,35 @@ namespace ExRam.Gremlinq.Providers.Neptune
                 configurator,
                 elasticSearchEndPoint,
                 indexConfiguration);
+        }
+
+        /// <summary>
+        /// Sets the range of TinkerPop versions the server understands (<see cref="IGremlinQueryEnvironment.ServerCompatibilityRange"/>)
+        /// to the one AWS documents in its <see href="https://docs.aws.amazon.com/neptune/latest/userguide/engine-releases.html">engine
+        /// release notes</see> for the line of <paramref name="engineVersion"/>: TinkerPop 3.7.1 for the engines from 1.3.2.0 up to 1.4.x,
+        /// and TinkerPop 3.8.0 to 3.8.1 for 1.5.x. Only the major and minor version of the engine select the line, except that a 1.3 engine
+        /// must be at least 1.3.2. Without this call, Neptune keeps the default range. Of this call and
+        /// <see cref="GremlinqConfiguratorExtensions.WithCompatibility{TConfigurator}(TConfigurator, VersionRange)"/>, the one called last wins.
+        /// </summary>
+        /// <param name="configurator">The configurator to configure.</param>
+        /// <param name="engineVersion">The version of the Neptune engine, e.g. <c>1.4.8.1</c>.</param>
+        /// <exception cref="ArgumentNullException"><paramref name="configurator"/> or <paramref name="engineVersion"/> is <see langword="null"/>.</exception>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="engineVersion"/> is older than 1.3.2.0 or belongs to a line newer than 1.5.</exception>
+        public static INeptuneConfigurator WithEngineVersion(this INeptuneConfigurator configurator, Version engineVersion)
+        {
+            ArgumentNullException.ThrowIfNull(configurator);
+            ArgumentNullException.ThrowIfNull(engineVersion);
+
+            var compatibility = (engineVersion.Major, engineVersion.Minor) switch
+            {
+                (1, 3) when engineVersion.Build >= 2 => TinkerPop37Compatibility,
+                (1, 4) => TinkerPop37Compatibility,
+                (1, 5) => TinkerPop38Compatibility,
+                _ => throw new ArgumentOutOfRangeException(nameof(engineVersion), engineVersion, "Only the TinkerPop versions of the Neptune engines from 1.3.2.0 up to 1.5.x are known.")
+            };
+
+            return configurator
+                .WithCompatibility(compatibility);
         }
     }
 }
