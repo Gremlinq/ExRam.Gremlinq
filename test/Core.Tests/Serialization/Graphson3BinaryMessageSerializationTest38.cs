@@ -54,10 +54,54 @@ namespace ExRam.Gremlinq.Core.Tests
             .UseSnapshotDirectoryAndNameOf<Graphson3BinaryMessageSerializationTest>()
             .UseMethodName(nameof(Graphson3BinaryMessageSerializationTest.Inject_sbyte));
 
-        // A DateTimeOffset still goes out as g:Date, as to a server below 3.8.
+        // A DateTimeOffset goes out as gx:OffsetDateTime with its offset, seconds always and a fraction
+        // of a second only when there is one, as in https://tinkerpop.apache.org/docs/3.8.0/dev/io/.
+        // A DateTime goes out as a DateTimeOffset in UTC.
         [Fact]
         public Task Inject_DateTimeOffset() => _g
             .Inject(new DateTimeOffset(2023, 8, 2, 2, 0, 0, TimeSpan.FromHours(2)))
             .Verify();
+
+        [Fact]
+        public Task Inject_DateTimeOffset_in_UTC() => _g
+            .Inject(new DateTimeOffset(2023, 8, 2, 0, 0, 0, TimeSpan.Zero))
+            .Verify();
+
+        [Fact]
+        public Task Inject_DateTimeOffset_with_fraction_of_a_second() => _g
+            .Inject(new DateTimeOffset(2007, 12, 3, 10, 15, 30, 123, TimeSpan.FromHours(1)))
+            .Verify();
+
+        [Fact]
+        public Task Inject_DateTime() => _g
+            .Inject(new DateTime(2023, 8, 2, 0, 0, 0, DateTimeKind.Utc))
+            .Verify();
+
+        [Fact]
+        public Task Inject_DateTimeOffset_from_TinkerPop_3_7_to_3_8() => _g
+            .ConfigureEnvironment(env => env
+                .ConfigureServerCompatibilityRange(_ => VersionRange.From(TinkerPopVersions.V3_7_7, TinkerPopVersions.V3_8_2)))
+            .Inject(new DateTimeOffset(2023, 8, 2, 2, 0, 0, TimeSpan.FromHours(2)))
+            .Verify()
+            .UseSnapshotDirectoryAndNameOf<Graphson3BinaryMessageSerializationTest>()
+            .UseMethodName(nameof(Graphson3BinaryMessageSerializationTest.Inject_DateTimeOffset));
+
+        [Fact]
+        public Task Inject_DateTimeOffset_with_fraction_of_a_second_from_TinkerPop_3_7_to_3_8() => _g
+            .ConfigureEnvironment(env => env
+                .ConfigureServerCompatibilityRange(_ => VersionRange.From(TinkerPopVersions.V3_7_7, TinkerPopVersions.V3_8_2)))
+            .Inject(new DateTimeOffset(2007, 12, 3, 10, 15, 30, 123, TimeSpan.FromHours(1)))
+            .Verify()
+            .UseSnapshotDirectoryAndNameOf<Graphson3BinaryMessageSerializationTest>()
+            .UseMethodName(nameof(Graphson3BinaryMessageSerializationTest.Inject_DateTimeOffset_with_fraction_of_a_second));
+
+        [Fact]
+        public Task Inject_DateTime_from_TinkerPop_3_7_to_3_8() => _g
+            .ConfigureEnvironment(env => env
+                .ConfigureServerCompatibilityRange(_ => VersionRange.From(TinkerPopVersions.V3_7_7, TinkerPopVersions.V3_8_2)))
+            .Inject(new DateTime(2023, 8, 2, 0, 0, 0, DateTimeKind.Utc))
+            .Verify()
+            .UseSnapshotDirectoryAndNameOf<Graphson3BinaryMessageSerializationTest>()
+            .UseMethodName(nameof(Graphson3BinaryMessageSerializationTest.Inject_DateTime));
     }
 }
