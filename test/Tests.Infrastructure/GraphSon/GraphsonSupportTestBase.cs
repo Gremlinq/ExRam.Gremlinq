@@ -920,15 +920,18 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         // stand in for - an IComparable is given an int, a long or a string alike, and a snapshot
         // of 5 does not say which. There the type is the answer, so it is recorded alongside the
         // value, the way Map_of_typed_int_keys_as_object does it.
-        protected SettingsTask VerifyAttemptWithRuntimeType<T>(string token)
+        protected SettingsTask VerifyAttemptWithRuntimeType<T>(string token, Func<IGremlinQueryEnvironment, IGremlinQueryEnvironment> environmentTransformation)
         {
+            var environment = environmentTransformation
+                .Invoke(_environment);
+
             object outcome;
 
             try
             {
-                outcome = _environment
+                outcome = environment
                     .Deserializer
-                    .TryTransform<TNativeToken, T>(CreateNativeToken(token), _environment, out var value)
+                    .TryTransform<TNativeToken, T>(CreateNativeToken(token), environment, out var value)
                         ? new { Success = true, Type = (Type?)value.GetType(), Value = (object?)value }
                         : new { Success = false, Type = (Type?)null, Value = (object?)null };
             }
@@ -941,6 +944,8 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                 .Verify(outcome, sourceFile: _sourceFile)
                 .DontScrubDateTimes();
         }
+
+        protected SettingsTask VerifyAttemptWithRuntimeType<T>(string token) => VerifyAttemptWithRuntimeType<T>(token, _ => _);
 
         // A typed value is the type its name stands for to everything that could hold that type,
         // not only to an object: a g:Int32 is an int to an IComparable and to a ValueType, a
@@ -1468,6 +1473,58 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual SettingsTask Byte_from_typed_Byte() => Verify<byte>("""{ "@type": "gx:Byte", "@value": 255 }""");
+
+        // TinkerPop's Byte is signed (TINKERPOP-3161): a server answers a gx:Byte of 200 with -56.
+        // Gremlin.Net 3.8 follows that and reads a gx:Byte as an sbyte. For a server below 3.8 a
+        // gx:Byte stays a byte, as it always was: an object or an IComparable is given a byte, or,
+        // where the number is negative, its bare @value, a long. Once the lowest version of the
+        // compatibility range is 3.8, they are given an sbyte. A range that spans both reads as
+        // below 3.8. An sbyte that is asked for reads either from the number, and so does a byte,
+        // which declines a negative one at every level.
+        [Fact]
+        public virtual SettingsTask Byte_from_negative_typed_Byte() => VerifyAttempt<byte>("""{ "@type": "gx:Byte", "@value": -56 }""");
+
+        [Fact]
+        public virtual SettingsTask SByte_from_typed_Byte() => Verify<sbyte>("""{ "@type": "gx:Byte", "@value": 5 }""");
+
+        [Fact]
+        public virtual SettingsTask SByte_from_negative_typed_Byte() => Verify<sbyte>("""{ "@type": "gx:Byte", "@value": -56 }""");
+
+        [Fact]
+        public virtual SettingsTask Object_from_typed_Byte() => VerifyAttemptWithRuntimeType<object>("""{ "@type": "gx:Byte", "@value": 5 }""");
+
+        [Fact]
+        public virtual SettingsTask Object_from_negative_typed_Byte() => VerifyAttemptWithRuntimeType<object>("""{ "@type": "gx:Byte", "@value": -56 }""");
+
+        [Fact]
+        public virtual SettingsTask IComparable_from_negative_typed_Byte() => VerifyAttemptWithRuntimeType<IComparable>("""{ "@type": "gx:Byte", "@value": -56 }""");
+
+        [Fact]
+        public virtual SettingsTask Object_from_typed_Byte_from_TinkerPop_3_7_to_3_8() => VerifyAttemptWithRuntimeType<object>("""{ "@type": "gx:Byte", "@value": 5 }""", FromTinkerPop37To38);
+
+        [Fact]
+        public virtual SettingsTask Byte_from_typed_Byte_from_TinkerPop_3_8() => Verify<byte>("""{ "@type": "gx:Byte", "@value": 5 }""", FromTinkerPop38);
+
+        [Fact]
+        public virtual SettingsTask Byte_from_negative_typed_Byte_from_TinkerPop_3_8() => VerifyAttempt<byte>("""{ "@type": "gx:Byte", "@value": -56 }""", FromTinkerPop38);
+
+        [Fact]
+        public virtual SettingsTask SByte_from_typed_Byte_from_TinkerPop_3_8() => Verify<sbyte>("""{ "@type": "gx:Byte", "@value": 5 }""", FromTinkerPop38);
+
+        [Fact]
+        public virtual SettingsTask SByte_from_negative_typed_Byte_from_TinkerPop_3_8() => Verify<sbyte>("""{ "@type": "gx:Byte", "@value": -56 }""", FromTinkerPop38);
+
+        [Fact]
+        public virtual SettingsTask Object_from_typed_Byte_from_TinkerPop_3_8() => VerifyAttemptWithRuntimeType<object>("""{ "@type": "gx:Byte", "@value": 5 }""", FromTinkerPop38);
+
+        [Fact]
+        public virtual SettingsTask Object_from_negative_typed_Byte_from_TinkerPop_3_8() => VerifyAttemptWithRuntimeType<object>("""{ "@type": "gx:Byte", "@value": -56 }""", FromTinkerPop38);
+
+        [Fact]
+        public virtual SettingsTask IComparable_from_typed_Byte_from_TinkerPop_3_8() => VerifyAttemptWithRuntimeType<IComparable>("""{ "@type": "gx:Byte", "@value": 5 }""", FromTinkerPop38);
+
+        [Fact]
+        public virtual SettingsTask IComparable_from_negative_typed_Byte_from_TinkerPop_3_8() => VerifyAttemptWithRuntimeType<IComparable>("""{ "@type": "gx:Byte", "@value": -56 }""", FromTinkerPop38);
 
         [Fact]
         public virtual SettingsTask Short_from_typed_Int16() => Verify<short>("""{ "@type": "gx:Int16", "@value": 32767 }""");
@@ -3037,5 +3094,11 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .GetGenericMethodDefinition()
             .MakeGenericMethod(type)
             .Invoke(this, [token])!;
+
+        private static IGremlinQueryEnvironment FromTinkerPop38(IGremlinQueryEnvironment environment) => environment
+            .ConfigureServerCompatibilityRange(_ => VersionRange.From(TinkerPopVersions.V3_8_2, TinkerPopVersions.V3_8_2));
+
+        private static IGremlinQueryEnvironment FromTinkerPop37To38(IGremlinQueryEnvironment environment) => environment
+            .ConfigureServerCompatibilityRange(_ => VersionRange.From(TinkerPopVersions.V3_7_7, TinkerPopVersions.V3_8_2));
     }
 }

@@ -29,6 +29,27 @@ namespace ExRam.Gremlinq.Providers.Core.Tests
         [Fact]
         public Task GraphSon3_withoutStrategies() => VerifyMessage<GraphSon3BinaryMessage>(GetWithoutStrategiesBytecode());
 
+        // A server from TinkerPop 3.8 on is sent strategies in the same form as one below 3.8.
+        [Fact]
+        public Task GraphSon2_withStrategies_from_TinkerPop_3_8() => VerifyMessage<GraphSon2BinaryMessage>(GetWithStrategiesBytecode(), FromTinkerPop38)
+            .UseMethodName(nameof(GraphSon2_withStrategies))
+            .DisableRequireUniquePrefix();
+
+        [Fact]
+        public Task GraphSon3_withStrategies_from_TinkerPop_3_8() => VerifyMessage<GraphSon3BinaryMessage>(GetWithStrategiesBytecode(), FromTinkerPop38)
+            .UseMethodName(nameof(GraphSon3_withStrategies))
+            .DisableRequireUniquePrefix();
+
+        [Fact]
+        public Task GraphSon2_withoutStrategies_from_TinkerPop_3_8() => VerifyMessage<GraphSon2BinaryMessage>(GetWithoutStrategiesBytecode(), FromTinkerPop38)
+            .UseMethodName(nameof(GraphSon2_withoutStrategies))
+            .DisableRequireUniquePrefix();
+
+        [Fact]
+        public Task GraphSon3_withoutStrategies_from_TinkerPop_3_8() => VerifyMessage<GraphSon3BinaryMessage>(GetWithoutStrategiesBytecode(), FromTinkerPop38)
+            .UseMethodName(nameof(GraphSon3_withoutStrategies))
+            .DisableRequireUniquePrefix();
+
         [Fact]
         public void Type_without_instance_in_withoutStrategies_cannot_be_written()
         {
@@ -63,14 +84,20 @@ namespace ExRam.Gremlinq.Providers.Core.Tests
         }
 
         private static SettingsTask VerifyMessage<TBinaryMessage>(Bytecode bytecode)
-            where TBinaryMessage : IMemoryOwner<byte> => Verify(ToText<TBinaryMessage>(bytecode))
+            where TBinaryMessage : IMemoryOwner<byte> => VerifyMessage<TBinaryMessage>(bytecode, static environment => environment);
+
+        private static SettingsTask VerifyMessage<TBinaryMessage>(Bytecode bytecode, Func<IGremlinQueryEnvironment, IGremlinQueryEnvironment> environmentTransformation)
+            where TBinaryMessage : IMemoryOwner<byte> => Verify(ToText<TBinaryMessage>(bytecode, environmentTransformation))
                 .DontScrubGuids();
 
         private static string ToText<TBinaryMessage>(Bytecode bytecode)
+            where TBinaryMessage : IMemoryOwner<byte> => ToText<TBinaryMessage>(bytecode, static environment => environment);
+
+        private static string ToText<TBinaryMessage>(Bytecode bytecode, Func<IGremlinQueryEnvironment, IGremlinQueryEnvironment> environmentTransformation)
             where TBinaryMessage : IMemoryOwner<byte>
         {
-            var environment = GremlinQueryEnvironment.Invalid
-                .AddGraphSonBinarySupport();
+            var environment = environmentTransformation(GremlinQueryEnvironment.Invalid
+                .AddGraphSonBinarySupport());
 
             var requestMessage = RequestMessage
                 .Build(Tokens.OpsBytecode)
@@ -87,5 +114,8 @@ namespace ExRam.Gremlinq.Providers.Core.Tests
                 return Encoding.UTF8.GetString(binaryMessage.Memory.Span);
             }
         }
+
+        private static IGremlinQueryEnvironment FromTinkerPop38(IGremlinQueryEnvironment environment) => environment
+            .ConfigureServerCompatibilityRange(_ => VersionRange.From(TinkerPopVersions.V3_8_2, TinkerPopVersions.V3_8_2));
     }
 }

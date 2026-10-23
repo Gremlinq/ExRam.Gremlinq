@@ -224,22 +224,29 @@ server understands, a `VersionRange` (`VersionRange.From(lowest, highest)`, with
 versions in `TinkerPopVersions`; default 3.7.1 to 3.7.7). `ConfigureServerCompatibilityRange`
 changes it on the environment; a provider configurator sets it with `WithCompatibility(...)`,
 which wins over a provider's default. A server that understands every version of the range
-understands the forms of its lowest version, so every consumer of the range (a step whose form
-changed in TinkerPop 3.8) follows one rule: the form before 3.8 as long as `Lowest` is below
-3.8, the 3.8 form once it is 3.8 or higher. The internal helper `IsAtLeast` compares `Lowest` on
-major and minor version only.
+understands the forms of its lowest version, so every consumer of the range (a step or a
+GraphSON type whose form changed in TinkerPop 3.8) follows one rule: the form before 3.8 as long
+as `Lowest` is below 3.8, the 3.8 form once it is 3.8 or higher. The internal helper
+`IsAtLeast` compares `Lowest` on major and minor version only.
 
 A consumer decides when the query is built, by the step it adds, not in the serializer: a
 query for a server from 3.8 on holds a `DiscardStep` where others hold a `NoneStep`
 (`Traversal.Discard(environment)`), and the serializer translates each step to its own
-instruction.
+instruction. A GraphSON type has no step to carry the choice, so the request writers and the
+deserializers choose by the range of the environment they write or read for: Providers.Core's
+request converter takes `TinkerPop38GraphSon{2,3}Writer` instead of
+`TinkerPop37GraphSon{2,3}Writer`, and Newtonsoft's type table reads a `gx:Byte` as an `sbyte`
+instead of a `byte`. `IsAtLeast` is not accessible outside Core and stays internal; each of
+those assemblies has an internal `VersionRangeExtensions.IsAtLeast` that compares the same way.
 
 A consumer's difference shows as an override in three classes of
 `test/Providers.GremlinServer.Tests`: `SerializationTests38` (3.8.2 only) and
 `SerializationTests37To38` (3.7.7 to 3.8.2) serialize against `SerializationTests`' snapshots,
 and `IntegrationTests38` executes on Gremlin Server 3.8.2 against `IntegrationTests`' snapshots.
 Each override carries a comment naming the section of the
-[3.8 upgrade notes](https://tinkerpop.apache.org/docs/3.8.0/upgrade/) it follows.
+[3.8 upgrade notes](https://tinkerpop.apache.org/docs/3.8.0/upgrade/) it follows. A GraphSON
+type's difference shows in the contract tests of `GraphsonSupportTestBase` (facts ending in
+`_from_TinkerPop_3_8`) and in `Graphson{2,3}BinaryMessageSerializationTest38` of `test/Core.Tests`.
 
 ## Coding Conventions
 
