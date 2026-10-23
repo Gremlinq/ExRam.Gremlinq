@@ -45,5 +45,10 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
         // 3.8's asString() rejects a null instead of passing it on. Gremlinq does not make up for it, so this
         // override stays: https://tinkerpop.apache.org/docs/3.8.0/upgrade/#asstring-no-longer-allow-nulls
         public override SettingsTask Concat_strings_to_null() => base.Concat_strings_to_null().UseSnapshotDirectoryAndNameOf<IntegrationTests38>();
+
+        // 3.7's choose() fails on a traverser for which the choice traversal yields nothing. 3.8 passes it through, and
+        // Gremlinq fails on it with option(unproductive, fail(…)) instead, so this fact fails with another error than on 3.7:
+        // https://tinkerpop.apache.org/docs/3.8.0/upgrade/#choose-semantics
+        public override SettingsTask Choose_unproductive() => base.Choose_unproductive().UseSnapshotDirectoryAndNameOf<IntegrationTests38>();
     }
 }

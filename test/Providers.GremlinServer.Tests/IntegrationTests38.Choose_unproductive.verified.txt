@@ -1,0 +1,31 @@
+{
+  Type: GremlinQueryExecutionException,
+  ExecutionContext: {
+    ExecutionId: 12345678-9012-3456-7890-123456789012,
+    Query: {}
+  },
+  Message: Executing query 12345678-9012-3456-7890-123456789012 failed.,
+  Data: {},
+  InnerException: {
+    $type: ResponseException,
+    Type: ResponseException,
+    StatusCode: ServerErrorFailStep,
+    StatusAttributes: {
+      exceptions: [
+        org.apache.tinkerpop.gremlin.process.traversal.step.sideEffect.FailStep$FailException
+      ],
+      failStepMessage:
+fail() Step Triggered
+=========================================================================================================================================================================================================
+Message  > The choice traversal of choose() yielded nothing
+Traverser> v[scrubbed]
+  Bulk   > 1
+Traversal> fail("The choice traversal of choose() yielded nothing")
+Parent   > ChooseStep [V().choose(__.values()).option((int) 3,__.constant((int) 1)).option(Pick.none,__.discard()).option(Pick.unproductive,__.fail("The choice traversal of choose() yielded nothing"))]
+Metadata > {}
+=========================================================================================================================================================================================================
+    },
+    Message: ServerErrorFailStep: The choice traversal of choose() yielded nothing,
+    Data: {}
+  }
+}
