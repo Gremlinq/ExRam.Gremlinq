@@ -1465,7 +1465,7 @@ namespace ExRam.Gremlinq.Core
                 .With(propertyContinuation)
                 .Build(
                     static (builder, propertyTraversal, key) => builder
-                        .AddStep(new HasTraversalStep(key, propertyTraversal))
+                        .AddStep(builder.OuterQuery.Environment.GetHasTraversalStep(key, propertyTraversal))
                         .BuildAuto<T1, T2, T3, T4>(),
                     GetKey(memberExpression))
             : throw new ExpressionNotSupportedException(predicate);
@@ -1574,7 +1574,7 @@ namespace ExRam.Gremlinq.Core
                                     }
 
                                     return traversal
-                                        .Push(new HasTraversalStep(
+                                        .Push(Environment.GetHasTraversalStep(
                                             leftMemberExpressionKey,
                                             new WherePredicateStep(effectivePredicate)));
                                 }

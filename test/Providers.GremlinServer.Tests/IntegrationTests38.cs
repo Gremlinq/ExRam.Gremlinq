@@ -32,22 +32,6 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 
         public static string GetSourceFileName() => SourceFileName.OfThis();
 
-        // 3.8 removed has(key, traversal). The server still accepts it, but the traversal never matches:
-        // https://tinkerpop.apache.org/docs/3.8.0/upgrade/#removal-of-has-key-traversal
-        public override SettingsTask Where_property_array_contains_stepLabel() => base.Where_property_array_contains_stepLabel().UseSnapshotDirectoryAndNameOf<IntegrationTests38>();
-
-        public override SettingsTask Where_property_array_intersects_stepLabel1() => base.Where_property_array_intersects_stepLabel1().UseSnapshotDirectoryAndNameOf<IntegrationTests38>();
-
-        public override SettingsTask Where_property_array_intersects_stepLabel2() => base.Where_property_array_intersects_stepLabel2().UseSnapshotDirectoryAndNameOf<IntegrationTests38>();
-
-        public override SettingsTask Where_property_equals_stepLabel() => base.Where_property_equals_stepLabel().UseSnapshotDirectoryAndNameOf<IntegrationTests38>();
-
-        public override SettingsTask Where_property_is_greater_than_or_equal_stepLabel() => base.Where_property_is_greater_than_or_equal_stepLabel().UseSnapshotDirectoryAndNameOf<IntegrationTests38>();
-
-        public override SettingsTask Where_property_is_lower_than_or_equal_stepLabel() => base.Where_property_is_lower_than_or_equal_stepLabel().UseSnapshotDirectoryAndNameOf<IntegrationTests38>();
-
-        public override SettingsTask Where_property_traversal() => base.Where_property_traversal().UseSnapshotDirectoryAndNameOf<IntegrationTests38>();
-
         // 3.8 removed aggregate(local, …), the server knows no such method:
         // https://tinkerpop.apache.org/docs/3.8.0/upgrade/#removal-of-aggregate-with-scope-and-store
         public override SettingsTask Aggregate_Local() => base.Aggregate_Local().UseSnapshotDirectoryAndNameOf<IntegrationTests38>();
