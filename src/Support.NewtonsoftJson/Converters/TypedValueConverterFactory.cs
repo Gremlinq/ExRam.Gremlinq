@@ -35,13 +35,24 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
             { "gx:Int16", typeof(short) }
         };
 
+        // TinkerPop's Byte is signed (TINKERPOP-3161). A server from 3.8 on is read as Gremlin.Net 3.8
+        // reads it, a gx:Byte as an sbyte. Below 3.8 it stays a byte.
+        private static readonly Dictionary<string, Type> TinkerPop38GraphSONTypes = new(GraphSONTypes)
+        {
+            ["gx:Byte"] = typeof(sbyte)
+        };
+
         public sealed class TypedValueConverter<TTarget> : IConverter<JObject, TTarget>
         {
             private readonly IGremlinQueryEnvironment _environment;
+            private readonly Dictionary<string, Type> _graphSONTypes;
 
             public TypedValueConverter(IGremlinQueryEnvironment environment)
             {
                 _environment = environment;
+                _graphSONTypes = environment.ServerCompatibilityRange.IsAtLeast(TinkerPopVersions.V3_8_0)
+                    ? TinkerPop38GraphSONTypes
+                    : GraphSONTypes;
             }
 
             bool IConverter<JObject, TTarget>.TryConvert(JObject serialized, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
@@ -65,7 +76,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                             return true;
                         }
 
-                        if (GraphSONTypes.TryGetValue(typeNameString, out var moreSpecificType))
+                        if (_graphSONTypes.TryGetValue(typeNameString, out var moreSpecificType))
                         {
                             if (typeof(TTarget) != moreSpecificType && typeof(TTarget).IsAssignableFrom(moreSpecificType))
                             {
