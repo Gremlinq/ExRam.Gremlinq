@@ -776,6 +776,15 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Verify();
 
         [Fact]
+        public virtual SettingsTask Choose_unproductive() => _g
+            .V()
+            .Choose(_ => _
+                .On(__ => __.Values())
+                .Case(3, __ => __.Constant(1)))
+            .Verify()
+            .ScrubVertexIds();
+
+        [Fact]
         public virtual SettingsTask Coalesce() => _g
             .V()
             .Coalesce(

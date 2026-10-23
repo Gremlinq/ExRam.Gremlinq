@@ -9,6 +9,8 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         public static SettingsTask ScrubGuidsWithConstant(this SettingsTask task) => task.ScrubRegex(GuidRegex(), "12345678-9012-3456-7890-123456789012");
 
+        public static SettingsTask ScrubVertexIds(this SettingsTask task) => task.ScrubRegex(VertexIdRegex(), "v[scrubbed]");
+
         public static SettingsTask UseSnapshotDirectoryAndNameOf<T>(this SettingsTask task) where T : ISourceFileNameProvider<T>
         {
             if (Path.GetDirectoryName(Of<T>()) is { } directory)
@@ -38,5 +40,8 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [GeneratedRegex("[0-9a-f]{8}[-]?([0-9a-f]{4}[-]?){3}[0-9a-f]{12}", RegexOptions.IgnoreCase | RegexOptions.Compiled, "de-DE")]
         private static partial Regex GuidRegex();
+
+        [GeneratedRegex("v\\[[0-9]+\\]")]
+        private static partial Regex VertexIdRegex();
     }
 }

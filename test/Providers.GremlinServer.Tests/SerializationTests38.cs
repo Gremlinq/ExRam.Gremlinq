@@ -110,5 +110,19 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
         public override SettingsTask Aggregate_Local() => base.Aggregate_Local().UseSnapshotDirectoryAndNameOf<SerializationTests38>();
 
         public override SettingsTask Aggregate_Local_with_existing_step() => base.Aggregate_Local_with_existing_step().UseSnapshotDirectoryAndNameOf<SerializationTests38>();
+
+        // 3.8's choose() passes unmatched and unproductive traversers through, where 3.7 filters the unmatched ones and fails
+        // on the unproductive ones. option(none, discard()) without a default filters the unmatched ones and
+        // option(unproductive, fail(…)) fails on the unproductive ones:
+        // https://tinkerpop.apache.org/docs/3.8.0/upgrade/#choose-semantics
+        public override SettingsTask Choose_one_case() => base.Choose_one_case().UseSnapshotDirectoryAndNameOf<SerializationTests38>();
+
+        public override SettingsTask Choose_only_default_case() => base.Choose_only_default_case().UseSnapshotDirectoryAndNameOf<SerializationTests38>();
+
+        public override SettingsTask Choose_two_cases() => base.Choose_two_cases().UseSnapshotDirectoryAndNameOf<SerializationTests38>();
+
+        public override SettingsTask Choose_two_cases_default() => base.Choose_two_cases_default().UseSnapshotDirectoryAndNameOf<SerializationTests38>();
+
+        public override SettingsTask Choose_unproductive() => base.Choose_unproductive().UseSnapshotDirectoryAndNameOf<SerializationTests38>();
     }
 }
