@@ -13,19 +13,23 @@ namespace ExRam.Gremlinq.Core
         IDateGremlinQuery<TDate> Add(TimeSpan duration);
 
         /// <summary>
-        /// Returns the difference between the traverser's date/time value and <paramref name="other"/> in epoch seconds.
-        /// Corresponds to the Gremlin <c>dateDiff()</c> step.
+        /// Returns the difference between the traverser's date/time value and <paramref name="other"/>.
+        /// Corresponds to the Gremlin <c>dateDiff()</c> step. The result is in the unit the server uses: seconds up to TinkerPop 3.7,
+        /// milliseconds from 3.8 on. Gremlinq passes the server's value on unchanged.
         /// </summary>
         /// <param name="other">The date/time value to subtract.</param>
         /// <seealso href="https://tinkerpop.apache.org/docs/current/reference/#datediff-step">Reference Documentation - DateDiff Step</seealso>
+        /// <seealso href="https://tinkerpop.apache.org/docs/3.8.0/upgrade/#datediff-step-returns-milliseconds">Upgrade Documentation - dateDiff() Step Returns Milliseconds</seealso>
         IGremlinQuery<long> Diff(DateTimeOffset other);
 
         /// <summary>
-        /// Returns the difference between the traverser's date/time value and the result of <paramref name="other"/> in epoch seconds.
-        /// Corresponds to the Gremlin <c>dateDiff()</c> step.
+        /// Returns the difference between the traverser's date/time value and the result of <paramref name="other"/>.
+        /// Corresponds to the Gremlin <c>dateDiff()</c> step. The result is in the unit the server uses: seconds up to TinkerPop 3.7,
+        /// milliseconds from 3.8 on. Gremlinq passes the server's value on unchanged.
         /// </summary>
         /// <param name="other">A traversal that produces the date/time value to subtract.</param>
         /// <seealso href="https://tinkerpop.apache.org/docs/current/reference/#datediff-step">Reference Documentation - DateDiff Step</seealso>
+        /// <seealso href="https://tinkerpop.apache.org/docs/3.8.0/upgrade/#datediff-step-returns-milliseconds">Upgrade Documentation - dateDiff() Step Returns Milliseconds</seealso>
         IGremlinQuery<long> Diff(Func<IDateGremlinQuery<TDate>, IGremlinQueryBase<DateTimeOffset>> other);
     }
 }

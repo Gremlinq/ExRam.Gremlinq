@@ -32,8 +32,8 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 
         public static string GetSourceFileName() => SourceFileName.OfThis();
 
-        // 3.8's dateDiff() returns milliseconds instead of seconds:
-        // https://tinkerpop.apache.org/docs/3.8.0/upgrade/#datediff-step-returns-milliseconds
+        // 3.8's dateDiff() returns milliseconds instead of seconds. Gremlinq does not make up for it, so these
+        // overrides stay: https://tinkerpop.apache.org/docs/3.8.0/upgrade/#datediff-step-returns-milliseconds
         public override SettingsTask DateDiff_constant() => base.DateDiff_constant().UseSnapshotDirectoryAndNameOf<IntegrationTests38>();
 
         public override SettingsTask DateDiff_constant_through_extension() => base.DateDiff_constant_through_extension().UseSnapshotDirectoryAndNameOf<IntegrationTests38>();
