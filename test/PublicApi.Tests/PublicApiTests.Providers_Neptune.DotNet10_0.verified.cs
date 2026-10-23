@@ -42,6 +42,7 @@ namespace ExRam.Gremlinq.Providers.Neptune
             where TConfigurator : ExRam.Gremlinq.Providers.Core.IProviderConfigurator<TConfigurator, ExRam.Gremlinq.Providers.Core.IPoolGremlinqClientFactory<ExRam.Gremlinq.Providers.Core.IWebSocketGremlinqClientFactory>> { }
         public static TConfigurator UseIAMAuthentication<TConfigurator>(this TConfigurator configurator, System.Func<ExRam.Gremlinq.Providers.Neptune.IDisabledAWSSigner, ExRam.Gremlinq.Providers.Neptune.IAWSSigner> builderTransformation)
             where TConfigurator : ExRam.Gremlinq.Providers.Core.IProviderConfigurator<TConfigurator, ExRam.Gremlinq.Providers.Core.IPoolGremlinqClientFactory<ExRam.Gremlinq.Providers.Core.IWebSocketGremlinqClientFactory>> { }
+        public static ExRam.Gremlinq.Providers.Neptune.INeptuneConfigurator WithEngineVersion(this ExRam.Gremlinq.Providers.Neptune.INeptuneConfigurator configurator, System.Version engineVersion) { }
     }
     public enum NeptuneElasticSearchIndexConfiguration
     {
