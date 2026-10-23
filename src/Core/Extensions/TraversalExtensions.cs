@@ -22,7 +22,7 @@ namespace ExRam.Gremlinq.Core
 
         public static Traversal Rewrite(this Traversal traversal, ContinuationFlags flags)
         {
-            if (traversal is [NoneStep or DiscardStep, ..])
+            if (traversal is [var firstStep, ..] && firstStep.IsDiscard())
             {
                 return Traversal
                     .Create(
@@ -88,7 +88,7 @@ namespace ExRam.Gremlinq.Core
         {
             if (traversals is [var first, .. var remainder])
             {
-                if (first.IsNone())
+                if (first.IsDiscard())
                     return remainder.LowestProjection();
 
                 if (remainder.LowestProjection() is { } lowestRemainder)
@@ -178,7 +178,21 @@ namespace ExRam.Gremlinq.Core
 
         public static bool IsIdentity(this Traversal traversal) => traversal is [] || (traversal is [IdentityStep, .. var remainder] && remainder.IsIdentity());
 
-        public static bool IsNone(this Traversal traversal) => traversal.PeekOrDefault() is NoneStep or DiscardStep;
+        public static bool IsDiscard(this Traversal traversal) => traversal.PeekOrDefault() is { } lastStep && lastStep.IsDiscard();
+
+        // Whether the step filters out all traversers: a NoneStep or a DiscardStep, whichever the environment chose.
+        public static bool IsDiscard(this Step step) => step is NoneStep or DiscardStep;
+
+        // Filters out all traversers with the step the environment asks for. An identity traversal is
+        // replaced by that step rather than extended with it.
+        public static Traversal Discard(this Traversal traversal, IGremlinQueryEnvironment environment)
+        {
+            var discardStep = environment.GetDiscardStep();
+
+            return traversal.IsIdentity()
+                ? discardStep
+                : traversal.Push(discardStep);
+        }
 
         // True if every step of the traversal behaves the same whether the traversal is evaluated
         // once per element, as a local child of e.g. coalesce(), or inlined into the parent's stream.

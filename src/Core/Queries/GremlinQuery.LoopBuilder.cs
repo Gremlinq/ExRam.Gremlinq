@@ -121,7 +121,7 @@ namespace ExRam.Gremlinq.Core
                     untilCondition)
                 .Build(static (builder, innerTraversal) =>
                 {
-                    if (!innerTraversal.IsNone())
+                    if (!innerTraversal.IsDiscard())
                     {
                         builder = builder
                             .AddStep(new UntilStep(innerTraversal));

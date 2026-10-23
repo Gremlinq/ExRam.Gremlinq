@@ -929,7 +929,7 @@ namespace ExRam.Gremlinq.Core
             .Build(static (builder, innerTraversal) => innerTraversal.IsIdentity()
                 ? builder
                     .Discard()
-                : innerTraversal.IsNone()
+                : innerTraversal.IsDiscard()
                     ? builder
                     : builder
                         .AddStep(new NotStep(innerTraversal)))
@@ -1392,7 +1392,7 @@ namespace ExRam.Gremlinq.Core
             .With(filterContinuation)
             .Build(static (builder, filterTraversal) => filterTraversal.IsIdentity()
                 ? builder
-                : filterTraversal.IsNone() && filterTraversal.SideEffectSemantics == SideEffectSemantics.Read
+                : filterTraversal.IsDiscard() && filterTraversal.SideEffectSemantics == SideEffectSemantics.Read
                     ? builder.Discard()
                     : builder.Where(filterTraversal))
             .BuildAuto<T1, T2, T3, T4>();
@@ -1507,7 +1507,7 @@ namespace ExRam.Gremlinq.Core
                 if (maybeEffectivePredicate?.WorkaroundLimitations(Environment) is { } effectivePredicate)
                 {
                     if (effectivePredicate.EqualsConstant(false))
-                        return traversal.Push(Environment.GetDiscardStep());
+                        return traversal.Discard(Environment);
 
                     if (left.RefersToParameter(out _))
                     {

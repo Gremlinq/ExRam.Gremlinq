@@ -29,10 +29,8 @@ namespace ExRam.Gremlinq.Core
 
             public FinalContinuationBuilder Discard() => builder
                 .WithSteps(
-                    static (traversal, discardStep) => traversal.IsIdentity()
-                        ? discardStep
-                        : traversal.Push(discardStep),
-                    builder.OuterQuery.Environment.GetDiscardStep());
+                    static (traversal, environment) => traversal.Discard(environment),
+                    builder.OuterQuery.Environment);
 
             public FinalContinuationBuilder OfType(FilterTypes filterTypes, IGraphElementModel model)
             {
@@ -61,7 +59,7 @@ namespace ExRam.Gremlinq.Core
                 {
                     var traversal = traversals[i];
 
-                    if (traversal.IsNone())
+                    if (traversal.IsDiscard())
                         containsNoneStep = true;
 
                     if (traversal.SideEffectSemantics == SideEffectSemantics.Write)
@@ -119,7 +117,7 @@ namespace ExRam.Gremlinq.Core
                         containsIdentityStep = true;
                     else if (traversal.SideEffectSemantics == SideEffectSemantics.Write)
                         containsWriteStep = true;
-                    else if (traversal.IsNone())
+                    else if (traversal.IsDiscard())
                         continue;
 
                     traversals[count++] = traversal;

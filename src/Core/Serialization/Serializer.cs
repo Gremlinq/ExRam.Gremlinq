@@ -233,13 +233,13 @@ namespace ExRam.Gremlinq.Core.Serialization
 
                                 i = j - 1;
                             }
-                            else if (step is NoneStep or DiscardStep)
+                            else if (step.IsDiscard())
                             {
                                 AddStep(step, byteCode, isSourceStep, env, recurse);
 
                                 for (; j < steps.Length; j++)
                                 {
-                                    if (steps[j] is NoneStep or DiscardStep)
+                                    if (steps[j].IsDiscard())
                                         continue;
 
                                     break;
