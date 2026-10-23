@@ -3,6 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 using ExRam.Gremlinq.Core.Transformation;
 using ExRam.Gremlinq.Core;
 using Gremlin.Net.Process.Traversal;
+using System.Globalization;
 using System.Numerics;
 using System.Runtime.CompilerServices;
 
@@ -56,6 +57,14 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                     // bulks as items. EnumerableConverterFactory reads it in pairs instead.
                     if (!"g:Map".Equals(typeNameString, StringComparison.OrdinalIgnoreCase) && !"g:BulkSet".Equals(typeNameString, StringComparison.OrdinalIgnoreCase))
                     {
+                        // A gx:OffsetDateTime keeps the offset it was written in. Read through the
+                        // type table, its bare @value would be moved to UTC like any other string.
+                        if ("gx:OffsetDateTime".Equals(typeNameString, StringComparison.OrdinalIgnoreCase) && valueToken is JValue { Value: string offsetDateTimeString } && DateTimeOffset.TryParse(offsetDateTimeString, CultureInfo.InvariantCulture, DateTimeStyles.None, out var offsetDateTime) && offsetDateTime is TTarget offsetDateTimeTarget)
+                        {
+                            value = offsetDateTimeTarget;
+                            return true;
+                        }
+
                         if (GraphSONTypes.TryGetValue(typeNameString, out var moreSpecificType))
                         {
                             if (typeof(TTarget) != moreSpecificType && typeof(TTarget).IsAssignableFrom(moreSpecificType))
