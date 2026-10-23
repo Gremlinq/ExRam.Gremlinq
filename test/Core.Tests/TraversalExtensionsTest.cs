@@ -173,6 +173,33 @@ namespace ExRam.Gremlinq.Core.Tests
         ];
 
         [Fact]
+        public void IsDiscard_empty() => Traversal.Empty
+            .IsDiscard()
+            .Should()
+            .BeFalse();
+
+        [Fact]
+        public void IsDiscard_ending_in_NoneStep() => Traversal.Empty
+            .Push(OutStep.NoLabels, NoneStep.Instance)
+            .IsDiscard()
+            .Should()
+            .BeTrue();
+
+        [Fact]
+        public void IsDiscard_ending_in_DiscardStep() => Traversal.Empty
+            .Push(OutStep.NoLabels, DiscardStep.Instance)
+            .IsDiscard()
+            .Should()
+            .BeTrue();
+
+        [Fact]
+        public void IsDiscard_ending_in_another_step() => Traversal.Empty
+            .Push(NoneStep.Instance, OutStep.NoLabels)
+            .IsDiscard()
+            .Should()
+            .BeFalse();
+
+        [Fact]
         public void IsLocal_empty() => Traversal.Empty
             .IsLocal()
             .Should()
