@@ -173,7 +173,7 @@ namespace ExRam.Gremlinq.Providers.Neptune
         /// <see cref="GremlinqConfiguratorExtensions.ConfigureServerCompatibilityRange{TConfigurator}(TConfigurator, Func{VersionRange, VersionRange})"/>, the one called last wins.
         /// </summary>
         /// <param name="configurator">The configurator to configure.</param>
-        /// <param name="engineVersion">The version of the Neptune engine, e.g. <c>1.4.8.1</c>.</param>
+        /// <param name="engineVersion">The version of the Neptune engine, e.g. <see cref="NeptuneEngineVersions.V1_4_8_1"/>.</param>
         /// <exception cref="ArgumentNullException"><paramref name="configurator"/> or <paramref name="engineVersion"/> is <see langword="null"/>.</exception>
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="engineVersion"/> is older than 1.3.2.0 or belongs to a line newer than 1.5.</exception>
         public static INeptuneConfigurator WithEngineVersion(this INeptuneConfigurator configurator, Version engineVersion)
