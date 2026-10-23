@@ -66,6 +66,19 @@ namespace ExRam.Gremlinq.Core
         /// <param name="executorTransformation">A function that transforms the current executor.</param>
         IGremlinQueryEnvironment ConfigureExecutor(Func<IGremlinQueryExecutor, IGremlinQueryExecutor> executorTransformation);
 
+        // The default implementation only keeps 14.x non-breaking for other implementations of this
+        // interface. Remove it with the next breaking change.
+        /// <summary>
+        /// Configures the range of TinkerPop versions the server understands by applying the specified transformation.
+        /// </summary>
+        /// <param name="compatibilityTransformation">A function that transforms the current range.</param>
+        IGremlinQueryEnvironment ConfigureServerCompatibilityRange(Func<VersionRange, VersionRange> compatibilityTransformation)
+        {
+            ArgumentNullException.ThrowIfNull(compatibilityTransformation);
+
+            return this;
+        }
+
 
         /// <summary>
         /// Gets the logger used for query diagnostics.
@@ -111,5 +124,15 @@ namespace ExRam.Gremlinq.Core
         /// Gets the set of types that are natively supported by the target graph database.
         /// </summary>
         IImmutableSet<Type> NativeTypes { get; }
+
+        // The default implementation only keeps 14.x non-breaking for other implementations of this
+        // interface. Remove it with the next breaking change.
+        /// <summary>
+        /// Gets the range of TinkerPop versions the server understands. Defaults to <see cref="TinkerPopVersions.V3_7_1"/> to
+        /// <see cref="TinkerPopVersions.V3_7_7"/>.
+        /// Where TinkerPop 3.8 changed a step, Gremlinq generates the form before 3.8 as long as the lowest version of the range is
+        /// below 3.8, and the 3.8 form once it is 3.8 or higher.
+        /// </summary>
+        VersionRange ServerCompatibilityRange => GremlinQueryEnvironment.DefaultServerCompatibilityRange;
     }
 }

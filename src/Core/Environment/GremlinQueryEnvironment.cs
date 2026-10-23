@@ -15,6 +15,8 @@ namespace ExRam.Gremlinq.Core
     /// </summary>
     public static class GremlinQueryEnvironment
     {
+        internal static readonly VersionRange DefaultServerCompatibilityRange = VersionRange.From(TinkerPopVersions.V3_7_1, TinkerPopVersions.V3_7_7);
+
         private static readonly IImmutableSet<Type> DefaultNativeTypes = new[]
             {
                 typeof(bool),
@@ -47,7 +49,8 @@ namespace ExRam.Gremlinq.Core
                 IFeatureSet featureSet,
                 IGremlinqOptions options,
                 IImmutableSet<Type> nativeTypes,
-                ILogger logger)
+                ILogger logger,
+                VersionRange compatibility)
             {
                 Model = model;
                 Logger = logger;
@@ -58,25 +61,28 @@ namespace ExRam.Gremlinq.Core
                 Serializer = serializer;
                 NativeTypes = nativeTypes;
                 Deserializer = deserializer;
+                ServerCompatibilityRange = compatibility;
             }
 
-            public IGremlinQueryEnvironment ConfigureModel(Func<IGraphModel, IGraphModel> modelTransformation) => new GremlinQueryEnvironmentImpl(modelTransformation(Model), Serializer, Executor, Deserializer, Debugger, FeatureSet, Options, NativeTypes, Logger);
+            public IGremlinQueryEnvironment ConfigureModel(Func<IGraphModel, IGraphModel> modelTransformation) => new GremlinQueryEnvironmentImpl(modelTransformation(Model), Serializer, Executor, Deserializer, Debugger, FeatureSet, Options, NativeTypes, Logger, ServerCompatibilityRange);
 
-            public IGremlinQueryEnvironment ConfigureOptions(Func<IGremlinqOptions, IGremlinqOptions> optionsTransformation) => new GremlinQueryEnvironmentImpl(Model, Serializer, Executor, Deserializer, Debugger, FeatureSet, optionsTransformation(Options), NativeTypes, Logger);
+            public IGremlinQueryEnvironment ConfigureOptions(Func<IGremlinqOptions, IGremlinqOptions> optionsTransformation) => new GremlinQueryEnvironmentImpl(Model, Serializer, Executor, Deserializer, Debugger, FeatureSet, optionsTransformation(Options), NativeTypes, Logger, ServerCompatibilityRange);
 
-            public IGremlinQueryEnvironment ConfigureFeatureSet(Func<IFeatureSet, IFeatureSet> featureSetTransformation) => new GremlinQueryEnvironmentImpl(Model, Serializer, Executor, Deserializer, Debugger, featureSetTransformation(FeatureSet), Options, NativeTypes, Logger);
+            public IGremlinQueryEnvironment ConfigureFeatureSet(Func<IFeatureSet, IFeatureSet> featureSetTransformation) => new GremlinQueryEnvironmentImpl(Model, Serializer, Executor, Deserializer, Debugger, featureSetTransformation(FeatureSet), Options, NativeTypes, Logger, ServerCompatibilityRange);
 
-            public IGremlinQueryEnvironment ConfigureLogger(Func<ILogger, ILogger> loggerTransformation) => new GremlinQueryEnvironmentImpl(Model, Serializer, Executor, Deserializer, Debugger, FeatureSet, Options, NativeTypes, loggerTransformation(Logger));
+            public IGremlinQueryEnvironment ConfigureLogger(Func<ILogger, ILogger> loggerTransformation) => new GremlinQueryEnvironmentImpl(Model, Serializer, Executor, Deserializer, Debugger, FeatureSet, Options, NativeTypes, loggerTransformation(Logger), ServerCompatibilityRange);
 
-            public IGremlinQueryEnvironment ConfigureDeserializer(Func<ITransformer, ITransformer> configurator) => new GremlinQueryEnvironmentImpl(Model, Serializer, Executor, configurator(Deserializer), Debugger, FeatureSet, Options, NativeTypes, Logger);
+            public IGremlinQueryEnvironment ConfigureDeserializer(Func<ITransformer, ITransformer> configurator) => new GremlinQueryEnvironmentImpl(Model, Serializer, Executor, configurator(Deserializer), Debugger, FeatureSet, Options, NativeTypes, Logger, ServerCompatibilityRange);
 
-            public IGremlinQueryEnvironment ConfigureSerializer(Func<ITransformer, ITransformer> configurator) => new GremlinQueryEnvironmentImpl(Model, configurator(Serializer), Executor, Deserializer, Debugger, FeatureSet, Options, NativeTypes, Logger);
+            public IGremlinQueryEnvironment ConfigureSerializer(Func<ITransformer, ITransformer> configurator) => new GremlinQueryEnvironmentImpl(Model, configurator(Serializer), Executor, Deserializer, Debugger, FeatureSet, Options, NativeTypes, Logger, ServerCompatibilityRange);
 
-            public IGremlinQueryEnvironment ConfigureExecutor(Func<IGremlinQueryExecutor, IGremlinQueryExecutor> configurator) => new GremlinQueryEnvironmentImpl(Model, Serializer, configurator(Executor), Deserializer, Debugger, FeatureSet, Options, NativeTypes, Logger);
+            public IGremlinQueryEnvironment ConfigureExecutor(Func<IGremlinQueryExecutor, IGremlinQueryExecutor> configurator) => new GremlinQueryEnvironmentImpl(Model, Serializer, configurator(Executor), Deserializer, Debugger, FeatureSet, Options, NativeTypes, Logger, ServerCompatibilityRange);
 
-            public IGremlinQueryEnvironment ConfigureDebugger(Func<IGremlinQueryDebugger, IGremlinQueryDebugger> debuggerTransformation) => new GremlinQueryEnvironmentImpl(Model, Serializer, Executor, Deserializer, debuggerTransformation(Debugger), FeatureSet, Options, NativeTypes, Logger);
+            public IGremlinQueryEnvironment ConfigureDebugger(Func<IGremlinQueryDebugger, IGremlinQueryDebugger> debuggerTransformation) => new GremlinQueryEnvironmentImpl(Model, Serializer, Executor, Deserializer, debuggerTransformation(Debugger), FeatureSet, Options, NativeTypes, Logger, ServerCompatibilityRange);
 
-            public IGremlinQueryEnvironment ConfigureNativeTypes(Func<IImmutableSet<Type>, IImmutableSet<Type>> transformation) => new GremlinQueryEnvironmentImpl(Model, Serializer, Executor, Deserializer, Debugger, FeatureSet, Options, transformation(NativeTypes), Logger);
+            public IGremlinQueryEnvironment ConfigureNativeTypes(Func<IImmutableSet<Type>, IImmutableSet<Type>> transformation) => new GremlinQueryEnvironmentImpl(Model, Serializer, Executor, Deserializer, Debugger, FeatureSet, Options, transformation(NativeTypes), Logger, ServerCompatibilityRange);
+
+            public IGremlinQueryEnvironment ConfigureServerCompatibilityRange(Func<VersionRange, VersionRange> compatibilityTransformation) => new GremlinQueryEnvironmentImpl(Model, Serializer, Executor, Deserializer, Debugger, FeatureSet, Options, NativeTypes, Logger, compatibilityTransformation(ServerCompatibilityRange));
 
 
             public ILogger Logger { get; }
@@ -88,6 +94,7 @@ namespace ExRam.Gremlinq.Core
             public IGremlinQueryDebugger Debugger { get; }
             public IGremlinQueryExecutor Executor { get; }
             public IImmutableSet<Type> NativeTypes { get; }
+            public VersionRange ServerCompatibilityRange { get; }
         }
 
         /// <summary>
@@ -102,7 +109,8 @@ namespace ExRam.Gremlinq.Core
             FeatureSet.Full,
             GremlinqOptions.Empty,
             DefaultNativeTypes,
-            NullLogger.Instance);
+            NullLogger.Instance,
+            DefaultServerCompatibilityRange);
 
         /// <summary>
         /// Replaces the graph model on the environment.

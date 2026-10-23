@@ -143,6 +143,11 @@ namespace ExRam.Gremlinq.Core
     {
         public static readonly ExRam.Gremlinq.Core.IGremlinQuerySource g;
     }
+    public static class GremlinqConfiguratorExtensions
+    {
+        public static TConfigurator WithCompatibility<TConfigurator>(this TConfigurator configurator, ExRam.Gremlinq.Core.VersionRange compatibility)
+            where TConfigurator : ExRam.Gremlinq.Core.IGremlinqConfigurator<TConfigurator> { }
+    }
     public static class GremlinqOption
     {
         public static readonly ExRam.Gremlinq.Core.GremlinqOption<string> Alias;
@@ -619,6 +624,7 @@ namespace ExRam.Gremlinq.Core
         System.Collections.Immutable.IImmutableSet<System.Type> NativeTypes { get; }
         ExRam.Gremlinq.Core.IGremlinqOptions Options { get; }
         ExRam.Gremlinq.Core.Transformation.ITransformer Serializer { get; }
+        ExRam.Gremlinq.Core.VersionRange ServerCompatibilityRange { get; }
         ExRam.Gremlinq.Core.IGremlinQueryEnvironment ConfigureDebugger(System.Func<ExRam.Gremlinq.Core.IGremlinQueryDebugger, ExRam.Gremlinq.Core.IGremlinQueryDebugger> debuggerTransformation);
         ExRam.Gremlinq.Core.IGremlinQueryEnvironment ConfigureDeserializer(System.Func<ExRam.Gremlinq.Core.Transformation.ITransformer, ExRam.Gremlinq.Core.Transformation.ITransformer> deserializerTransformation);
         ExRam.Gremlinq.Core.IGremlinQueryEnvironment ConfigureExecutor(System.Func<ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor, ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor> executorTransformation);
@@ -628,6 +634,7 @@ namespace ExRam.Gremlinq.Core
         ExRam.Gremlinq.Core.IGremlinQueryEnvironment ConfigureNativeTypes(System.Func<System.Collections.Immutable.IImmutableSet<System.Type>, System.Collections.Immutable.IImmutableSet<System.Type>> transformation);
         ExRam.Gremlinq.Core.IGremlinQueryEnvironment ConfigureOptions(System.Func<ExRam.Gremlinq.Core.IGremlinqOptions, ExRam.Gremlinq.Core.IGremlinqOptions> optionsTransformation);
         ExRam.Gremlinq.Core.IGremlinQueryEnvironment ConfigureSerializer(System.Func<ExRam.Gremlinq.Core.Transformation.ITransformer, ExRam.Gremlinq.Core.Transformation.ITransformer> serializerTransformation);
+        ExRam.Gremlinq.Core.IGremlinQueryEnvironment ConfigureServerCompatibilityRange(System.Func<ExRam.Gremlinq.Core.VersionRange, ExRam.Gremlinq.Core.VersionRange> compatibilityTransformation);
     }
     public interface IGremlinQuerySource : ExRam.Gremlinq.Core.IStartGremlinQuery
     {

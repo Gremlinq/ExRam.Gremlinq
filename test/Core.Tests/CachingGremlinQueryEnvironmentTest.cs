@@ -114,6 +114,15 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Contain(typeof(decimal));
         }
 
+        [Fact]
+        public void ServerCompatibilityRange_delegates_to_inner()
+        {
+            CachingGremlinQueryEnvironment.Invalid
+                .ServerCompatibilityRange
+                .Should()
+                .Be(VersionRange.From(TinkerPopVersions.V3_7_1, TinkerPopVersions.V3_7_7));
+        }
+
         // ── Configure* methods ──────────────────────────────────────────────────
 
         [Fact]
@@ -197,6 +206,18 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void ConfigureServerCompatibilityRange_delegates_to_inner()
+        {
+            var compatibility = VersionRange.From(TinkerPopVersions.V3_8_2, TinkerPopVersions.V3_8_2);
+
+            CachingGremlinQueryEnvironment.Invalid
+                .ConfigureServerCompatibilityRange(_ => compatibility)
+                .ServerCompatibilityRange
+                .Should()
+                .Be(compatibility);
+        }
+
+        [Fact]
         public void ConfigureDebugger_delegates_to_inner()
         {
             var debugger = Substitute.For<IGremlinQueryDebugger>();
@@ -245,6 +266,10 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public void ConfigureNativeTypes_returns_ICachingGremlinQueryEnvironment()
             => CachingGremlinQueryEnvironment.Invalid.ConfigureNativeTypes(x => x).Should().BeAssignableTo<ICachingGremlinQueryEnvironment>();
+
+        [Fact]
+        public void ConfigureServerCompatibilityRange_returns_ICachingGremlinQueryEnvironment()
+            => CachingGremlinQueryEnvironment.Invalid.ConfigureServerCompatibilityRange(x => x).Should().BeAssignableTo<ICachingGremlinQueryEnvironment>();
 
         [Fact]
         public void ConfigureDebugger_returns_ICachingGremlinQueryEnvironment()

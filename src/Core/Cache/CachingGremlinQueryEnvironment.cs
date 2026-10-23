@@ -38,6 +38,7 @@ namespace ExRam.Gremlinq.Core
         public IGremlinQueryEnvironment ConfigureNativeTypes(Func<IImmutableSet<Type>, IImmutableSet<Type>> transformation) => new CachingGremlinQueryEnvironment(_environment.ConfigureNativeTypes(transformation), _members, _typeProperties, ModelTypes);
         public IGremlinQueryEnvironment ConfigureDebugger(Func<IGremlinQueryDebugger, IGremlinQueryDebugger> debuggerTransformation) => new CachingGremlinQueryEnvironment(_environment.ConfigureDebugger(debuggerTransformation), _members, _typeProperties, ModelTypes);
         public IGremlinQueryEnvironment ConfigureExecutor(Func<IGremlinQueryExecutor, IGremlinQueryExecutor> executorTransformation) => new CachingGremlinQueryEnvironment(_environment.ConfigureExecutor(executorTransformation), _members, _typeProperties, ModelTypes);
+        public IGremlinQueryEnvironment ConfigureServerCompatibilityRange(Func<VersionRange, VersionRange> compatibilityTransformation) => new CachingGremlinQueryEnvironment(_environment.ConfigureServerCompatibilityRange(compatibilityTransformation), _members, _typeProperties, ModelTypes);
 
         public ILogger Logger => _environment.Logger;
         public IGraphModel Model => _environment.Model;
@@ -48,6 +49,7 @@ namespace ExRam.Gremlinq.Core
         public IGremlinQueryDebugger Debugger => _environment.Debugger;
         public IGremlinQueryExecutor Executor => _environment.Executor;
         public IImmutableSet<Type> NativeTypes => _environment.NativeTypes;
+        public VersionRange ServerCompatibilityRange => _environment.ServerCompatibilityRange;
 
         public (PropertyInfo propertyInfo, MemberMetadata metadata)[] GetSerializationData(Type type) => _typeProperties
             .GetOrAdd(
