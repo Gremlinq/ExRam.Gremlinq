@@ -884,6 +884,38 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual SettingsTask DateTime_from_typed_Timestamp() => Verify<DateTime>("""{ "@type": "g:Timestamp", "@value": 1657527969000 }""");
 
+        // A gx:OffsetDateTime, which a TinkerPop 3.8 server answers asDate() and dateAdd() with, is
+        // ISO 8601 with the offset it was written in, as Java's OffsetDateTime.toString() writes it:
+        // seconds left out when zero, a fraction of a second only when there is one, up to nine
+        // digits of it, and Z for UTC. Unlike a g:Date, it is read as a DateTimeOffset that keeps
+        // that offset - also by a DateTimeOffset?, and by an object, to which its bare @value would
+        // be a string. A fraction of a second is rounded to the tick, the finest a DateTimeOffset holds.
+        [Fact]
+        public virtual SettingsTask DateTimeOffset_from_typed_OffsetDateTime() => Verify<DateTimeOffset>("""{ "@type": "gx:OffsetDateTime", "@value": "2023-08-02T02:00+02:00" }""");
+
+        [Fact]
+        public virtual SettingsTask DateTimeOffset_from_typed_OffsetDateTime_in_UTC() => Verify<DateTimeOffset>("""{ "@type": "gx:OffsetDateTime", "@value": "2023-08-02T00:00Z" }""");
+
+        [Fact]
+        public virtual SettingsTask DateTimeOffset_from_typed_OffsetDateTime_with_fraction_of_a_second() => Verify<DateTimeOffset>("""{ "@type": "gx:OffsetDateTime", "@value": "2023-08-02T02:00:01.123456789+02:00" }""");
+
+        [Fact]
+        public virtual SettingsTask Nullable_DateTimeOffset_from_typed_OffsetDateTime() => Verify<DateTimeOffset?>("""{ "@type": "gx:OffsetDateTime", "@value": "2023-08-02T02:00+02:00" }""");
+
+        [Fact]
+        public virtual SettingsTask Object_from_typed_OffsetDateTime() => VerifyAttemptWithRuntimeType<object>("""{ "@type": "gx:OffsetDateTime", "@value": "2023-08-02T02:00+02:00" }""");
+
+        // A DateTime has no offset to keep. It is the instant in UTC, as it is of a g:Timestamp.
+        [Fact]
+        public virtual SettingsTask DateTime_from_typed_OffsetDateTime() => Verify<DateTime>("""{ "@type": "gx:OffsetDateTime", "@value": "2023-08-02T02:00+02:00" }""");
+
+        // A gx:OffsetDateTime whose @value names no instant is no DateTimeOffset.
+        [Fact]
+        public virtual SettingsTask DateTimeOffset_from_invalid_typed_OffsetDateTime() => VerifyAttempt<DateTimeOffset>("""{ "@type": "gx:OffsetDateTime", "@value": "not a date" }""");
+
+        [Fact]
+        public virtual SettingsTask DateTimeOffset_from_typed_OffsetDateTime_with_number_value() => VerifyAttempt<DateTimeOffset>("""{ "@type": "gx:OffsetDateTime", "@value": 5 }""");
+
         // The tests below ask for a base type or an interface, which more than one type could
         // stand in for - an IComparable is given an int, a long or a string alike, and a snapshot
         // of 5 does not say which. There the type is the answer, so it is recorded alongside the
@@ -945,6 +977,15 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual SettingsTask IFormattable_from_typed_Timestamp() => VerifyAttemptWithRuntimeType<IFormattable>("""{ "@type": "g:Timestamp", "@value": 1657527969000 }""");
 
         [Fact]
+        public virtual SettingsTask ValueType_from_typed_OffsetDateTime() => VerifyAttemptWithRuntimeType<ValueType>("""{ "@type": "gx:OffsetDateTime", "@value": "2023-08-02T02:00+02:00" }""");
+
+        [Fact]
+        public virtual SettingsTask IFormattable_from_typed_OffsetDateTime() => VerifyAttemptWithRuntimeType<IFormattable>("""{ "@type": "gx:OffsetDateTime", "@value": "2023-08-02T02:00+02:00" }""");
+
+        [Fact]
+        public virtual SettingsTask IComparable_from_typed_OffsetDateTime() => VerifyAttemptWithRuntimeType<IComparable>("""{ "@type": "gx:OffsetDateTime", "@value": "2023-08-02T02:00+02:00" }""");
+
+        [Fact]
         public virtual SettingsTask IComparable_from_typed_BigDecimal() => VerifyAttemptWithRuntimeType<IComparable>("""{ "@type": "gx:BigDecimal", "@value": 1.5 }""");
 
         [Fact]
@@ -992,6 +1033,10 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual SettingsTask IConvertible_from_typed_Date() => VerifyAttemptWithRuntimeType<IConvertible>("""{ "@type": "g:Date", "@value": 1657527969000 }""");
+
+        // A gx:OffsetDateTime is a DateTimeOffset as well, so its bare @value is read: a string.
+        [Fact]
+        public virtual SettingsTask IConvertible_from_typed_OffsetDateTime() => VerifyAttemptWithRuntimeType<IConvertible>("""{ "@type": "gx:OffsetDateTime", "@value": "2023-08-02T02:00+02:00" }""");
 
         [Fact]
         public virtual SettingsTask IComparable_from_typed_T() => VerifyAttemptWithRuntimeType<IComparable>("""{ "@type": "g:T", "@value": "id" }""");
