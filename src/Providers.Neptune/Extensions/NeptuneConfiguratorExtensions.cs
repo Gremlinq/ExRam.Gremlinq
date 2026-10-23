@@ -170,10 +170,10 @@ namespace ExRam.Gremlinq.Providers.Neptune
         /// release notes</see> for the line of <paramref name="engineVersion"/>: TinkerPop 3.7.1 for the engines from 1.3.2.0 up to 1.4.x,
         /// and TinkerPop 3.8.0 to 3.8.1 for 1.5.x. Only the major and minor version of the engine select the line, except that a 1.3 engine
         /// must be at least 1.3.2. Without this call, Neptune keeps the default range. Of this call and
-        /// <see cref="GremlinqConfiguratorExtensions.WithCompatibility{TConfigurator}(TConfigurator, VersionRange)"/>, the one called last wins.
+        /// <see cref="GremlinqConfiguratorExtensions.ConfigureServerCompatibilityRange{TConfigurator}(TConfigurator, Func{VersionRange, VersionRange})"/>, the one called last wins.
         /// </summary>
         /// <param name="configurator">The configurator to configure.</param>
-        /// <param name="engineVersion">The version of the Neptune engine, e.g. <c>1.4.8.1</c>.</param>
+        /// <param name="engineVersion">The version of the Neptune engine, e.g. <see cref="NeptuneEngineVersions.V1_4_8_1"/>.</param>
         /// <exception cref="ArgumentNullException"><paramref name="configurator"/> or <paramref name="engineVersion"/> is <see langword="null"/>.</exception>
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="engineVersion"/> is older than 1.3.2.0 or belongs to a line newer than 1.5.</exception>
         public static INeptuneConfigurator WithEngineVersion(this INeptuneConfigurator configurator, Version engineVersion)
@@ -190,7 +190,7 @@ namespace ExRam.Gremlinq.Providers.Neptune
             };
 
             return configurator
-                .WithCompatibility(compatibility);
+                .ConfigureServerCompatibilityRange(_ => compatibility);
         }
     }
 }

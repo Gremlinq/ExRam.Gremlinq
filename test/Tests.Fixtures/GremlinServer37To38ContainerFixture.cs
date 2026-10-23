@@ -13,7 +13,7 @@ namespace ExRam.Gremlinq.Tests.Fixtures
             .UseGremlinServer<Vertex, Edge>(_ => _
                 .UseGremlinServerContainer("3.8.2")
                 .UseNewtonsoftJson()
-                .WithCompatibility(VersionRange.From(TinkerPopVersions.V3_7_7, TinkerPopVersions.V3_8_2)))
+                .ConfigureServerCompatibilityRange(_ => VersionRange.From(TinkerPopVersions.V3_7_7, TinkerPopVersions.V3_8_2)))
             .IgnoreCosmosDbSpecificProperties();
     }
 }

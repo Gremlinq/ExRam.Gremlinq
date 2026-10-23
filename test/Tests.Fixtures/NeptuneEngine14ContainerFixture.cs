@@ -18,7 +18,7 @@ namespace ExRam.Gremlinq.Tests.Fixtures
                     .WithSecretAccessKey("secretAccessKey"))
                 .UseGremlinServerContainer("3.7.7")
                 .UseNewtonsoftJson()
-                .WithEngineVersion(new Version(1, 4, 8, 1)))
+                .WithEngineVersion(NeptuneEngineVersions.V1_4_8_1))
             .IgnoreCosmosDbSpecificProperties();
     }
 }

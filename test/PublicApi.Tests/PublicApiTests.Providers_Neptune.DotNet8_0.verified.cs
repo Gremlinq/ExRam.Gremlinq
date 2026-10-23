@@ -49,6 +49,29 @@ namespace ExRam.Gremlinq.Providers.Neptune
         Standard = 0,
         LowercaseKeyword = 1,
     }
+    public static class NeptuneEngineVersions
+    {
+        public static readonly System.Version V1_3_2_0;
+        public static readonly System.Version V1_3_2_1;
+        public static readonly System.Version V1_3_3_0;
+        public static readonly System.Version V1_3_4_0;
+        public static readonly System.Version V1_4_0_0;
+        public static readonly System.Version V1_4_1_0;
+        public static readonly System.Version V1_4_2_0;
+        public static readonly System.Version V1_4_3_0;
+        public static readonly System.Version V1_4_4_0;
+        public static readonly System.Version V1_4_5_0;
+        public static readonly System.Version V1_4_5_1;
+        public static readonly System.Version V1_4_6_0;
+        public static readonly System.Version V1_4_6_1;
+        public static readonly System.Version V1_4_6_2;
+        public static readonly System.Version V1_4_6_3;
+        public static readonly System.Version V1_4_7_0;
+        public static readonly System.Version V1_4_7_1;
+        public static readonly System.Version V1_4_8_0;
+        public static readonly System.Version V1_4_8_1;
+        public static readonly System.Version V1_5_0_0;
+    }
     public readonly struct NeptuneErrorCode : System.IEquatable<ExRam.Gremlinq.Providers.Neptune.NeptuneErrorCode>
     {
         public static readonly ExRam.Gremlinq.Providers.Neptune.NeptuneErrorCode AccessDeniedException;

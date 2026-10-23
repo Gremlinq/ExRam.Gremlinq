@@ -16,17 +16,17 @@ namespace ExRam.Gremlinq.Providers.Neptune.Tests
             .Be(GremlinQuerySource.g.AsAdmin().Environment.ServerCompatibilityRange);
 
         [Fact]
-        public void WithEngineVersion_1_3_2_0_understands_TinkerPop_3_7_1() => GetCompatibility(new Version(1, 3, 2, 0))
+        public void WithEngineVersion_1_3_2_0_understands_TinkerPop_3_7_1() => GetCompatibility(NeptuneEngineVersions.V1_3_2_0)
             .Should()
             .Be(TinkerPop37Compatibility);
 
         [Fact]
-        public void WithEngineVersion_1_4_0_0_understands_TinkerPop_3_7_1() => GetCompatibility(new Version(1, 4, 0, 0))
+        public void WithEngineVersion_1_4_0_0_understands_TinkerPop_3_7_1() => GetCompatibility(NeptuneEngineVersions.V1_4_0_0)
             .Should()
             .Be(TinkerPop37Compatibility);
 
         [Fact]
-        public void WithEngineVersion_1_4_8_1_understands_TinkerPop_3_7_1() => GetCompatibility(new Version(1, 4, 8, 1))
+        public void WithEngineVersion_1_4_8_1_understands_TinkerPop_3_7_1() => GetCompatibility(NeptuneEngineVersions.V1_4_8_1)
             .Should()
             .Be(TinkerPop37Compatibility);
 
@@ -36,7 +36,7 @@ namespace ExRam.Gremlinq.Providers.Neptune.Tests
             .Be(TinkerPop37Compatibility);
 
         [Fact]
-        public void WithEngineVersion_1_5_0_0_understands_TinkerPop_3_8_0_to_3_8_1() => GetCompatibility(new Version(1, 5, 0, 0))
+        public void WithEngineVersion_1_5_0_0_understands_TinkerPop_3_8_0_to_3_8_1() => GetCompatibility(NeptuneEngineVersions.V1_5_0_0)
             .Should()
             .Be(TinkerPop38Compatibility);
 
@@ -71,21 +71,21 @@ namespace ExRam.Gremlinq.Providers.Neptune.Tests
             .Throw<ArgumentNullException>();
 
         [Fact]
-        public void WithCompatibility_after_WithEngineVersion_wins()
+        public void ConfigureServerCompatibilityRange_after_WithEngineVersion_wins()
         {
             var compatibility = VersionRange.From(TinkerPopVersions.V3_7_7, TinkerPopVersions.V3_8_2);
 
             GetCompatibility(configurator => configurator
-                    .WithEngineVersion(new Version(1, 5, 0, 0))
-                    .WithCompatibility(compatibility))
+                    .WithEngineVersion(NeptuneEngineVersions.V1_5_0_0)
+                    .ConfigureServerCompatibilityRange(_ => compatibility))
                 .Should()
                 .Be(compatibility);
         }
 
         [Fact]
-        public void WithEngineVersion_after_WithCompatibility_wins() => GetCompatibility(configurator => configurator
-                .WithCompatibility(VersionRange.From(TinkerPopVersions.V3_7_7, TinkerPopVersions.V3_8_2))
-                .WithEngineVersion(new Version(1, 5, 0, 0)))
+        public void WithEngineVersion_after_ConfigureServerCompatibilityRange_wins() => GetCompatibility(configurator => configurator
+                .ConfigureServerCompatibilityRange(_ => VersionRange.From(TinkerPopVersions.V3_7_7, TinkerPopVersions.V3_8_2))
+                .WithEngineVersion(NeptuneEngineVersions.V1_5_0_0))
             .Should()
             .Be(TinkerPop38Compatibility);
 
