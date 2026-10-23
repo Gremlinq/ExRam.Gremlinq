@@ -187,7 +187,7 @@ namespace ExRam.Gremlinq.Core
                 .Continue()
                 .Build(
                     static (builder, tuple) => builder
-                        .AddStep(new AggregateStep(tuple.scope, tuple.stepLabel))
+                        .AddStep(builder.OuterQuery.Environment.GetAggregateStep(tuple.scope, tuple.stepLabel))
                         .WithNewLabelProjections(
                             static (existingProjections, tuple) => existingProjections.Set(
                                 tuple.stepLabel,

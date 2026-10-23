@@ -32,12 +32,6 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 
         public static string GetSourceFileName() => SourceFileName.OfThis();
 
-        // 3.8 removed aggregate(local, …), the server knows no such method:
-        // https://tinkerpop.apache.org/docs/3.8.0/upgrade/#removal-of-aggregate-with-scope-and-store
-        public override SettingsTask Aggregate_Local() => base.Aggregate_Local().UseSnapshotDirectoryAndNameOf<IntegrationTests38>();
-
-        public override SettingsTask Aggregate_Local_with_existing_step() => base.Aggregate_Local_with_existing_step().UseSnapshotDirectoryAndNameOf<IntegrationTests38>();
-
         // 3.8's dateDiff() returns milliseconds instead of seconds:
         // https://tinkerpop.apache.org/docs/3.8.0/upgrade/#datediff-step-returns-milliseconds
         public override SettingsTask DateDiff_constant() => base.DateDiff_constant().UseSnapshotDirectoryAndNameOf<IntegrationTests38>();

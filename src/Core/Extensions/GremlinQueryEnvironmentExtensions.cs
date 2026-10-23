@@ -70,5 +70,11 @@ namespace ExRam.Gremlinq.Core
                 .Push(valueStep)
                 .Push(traversal.Steps));
         }
+
+        // The step that aggregates into a side-effect: aggregate(scope, x) as long as the server understands TinkerPop versions
+        // below 3.8. 3.8 removed aggregate(local, x), so from then on the local scope becomes local(aggregate(x)).
+        internal static Step GetAggregateStep(this IGremlinQueryEnvironment environment, Scope scope, StepLabel stepLabel) => Scope.Local.Equals(scope) && environment.ServerCompatibilityRange.IsAtLeast(TinkerPopVersions.V3_8_0)
+            ? new LocalStep(Traversal.Empty.Push(new AggregateStep(Scope.Global, stepLabel)))
+            : new AggregateStep(scope, stepLabel);
     }
 }
