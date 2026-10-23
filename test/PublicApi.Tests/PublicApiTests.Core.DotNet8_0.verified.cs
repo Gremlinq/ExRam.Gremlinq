@@ -1893,6 +1893,81 @@ namespace ExRam.Gremlinq.Core
         public static ExRam.Gremlinq.Core.IStringGremlinQuery<string> TrimEnd(this ExRam.Gremlinq.Core.IGremlinQueryBase<string> query) { }
         public static ExRam.Gremlinq.Core.IStringGremlinQuery<string> TrimStart(this ExRam.Gremlinq.Core.IGremlinQueryBase<string> query) { }
     }
+    public static class TinkerPopVersions
+    {
+        public static readonly System.Version V3_1_3;
+        public static readonly System.Version V3_1_4;
+        public static readonly System.Version V3_1_5;
+        public static readonly System.Version V3_1_6;
+        public static readonly System.Version V3_1_7;
+        public static readonly System.Version V3_1_8;
+        public static readonly System.Version V3_2_1;
+        public static readonly System.Version V3_2_10;
+        public static readonly System.Version V3_2_11;
+        public static readonly System.Version V3_2_2;
+        public static readonly System.Version V3_2_3;
+        public static readonly System.Version V3_2_4;
+        public static readonly System.Version V3_2_5;
+        public static readonly System.Version V3_2_6;
+        public static readonly System.Version V3_2_7;
+        public static readonly System.Version V3_2_8;
+        public static readonly System.Version V3_2_9;
+        public static readonly System.Version V3_3_0;
+        public static readonly System.Version V3_3_1;
+        public static readonly System.Version V3_3_10;
+        public static readonly System.Version V3_3_11;
+        public static readonly System.Version V3_3_2;
+        public static readonly System.Version V3_3_3;
+        public static readonly System.Version V3_3_4;
+        public static readonly System.Version V3_3_5;
+        public static readonly System.Version V3_3_6;
+        public static readonly System.Version V3_3_7;
+        public static readonly System.Version V3_3_8;
+        public static readonly System.Version V3_3_9;
+        public static readonly System.Version V3_4_0;
+        public static readonly System.Version V3_4_1;
+        public static readonly System.Version V3_4_10;
+        public static readonly System.Version V3_4_11;
+        public static readonly System.Version V3_4_12;
+        public static readonly System.Version V3_4_13;
+        public static readonly System.Version V3_4_2;
+        public static readonly System.Version V3_4_3;
+        public static readonly System.Version V3_4_4;
+        public static readonly System.Version V3_4_5;
+        public static readonly System.Version V3_4_6;
+        public static readonly System.Version V3_4_7;
+        public static readonly System.Version V3_4_8;
+        public static readonly System.Version V3_4_9;
+        public static readonly System.Version V3_5_0;
+        public static readonly System.Version V3_5_1;
+        public static readonly System.Version V3_5_2;
+        public static readonly System.Version V3_5_3;
+        public static readonly System.Version V3_5_4;
+        public static readonly System.Version V3_5_5;
+        public static readonly System.Version V3_5_6;
+        public static readonly System.Version V3_5_7;
+        public static readonly System.Version V3_5_8;
+        public static readonly System.Version V3_6_0;
+        public static readonly System.Version V3_6_1;
+        public static readonly System.Version V3_6_2;
+        public static readonly System.Version V3_6_3;
+        public static readonly System.Version V3_6_4;
+        public static readonly System.Version V3_6_5;
+        public static readonly System.Version V3_6_6;
+        public static readonly System.Version V3_6_7;
+        public static readonly System.Version V3_6_8;
+        public static readonly System.Version V3_7_0;
+        public static readonly System.Version V3_7_1;
+        public static readonly System.Version V3_7_2;
+        public static readonly System.Version V3_7_3;
+        public static readonly System.Version V3_7_4;
+        public static readonly System.Version V3_7_5;
+        public static readonly System.Version V3_7_6;
+        public static readonly System.Version V3_7_7;
+        public static readonly System.Version V3_8_0;
+        public static readonly System.Version V3_8_1;
+        public static readonly System.Version V3_8_2;
+    }
     public static class TransformerClassExtensions
     {
         public static ExRam.Gremlinq.Core.TransformerClassExtensions.TryTransformToBuilder<TTarget> TryTransformTo<TTarget>(this ExRam.Gremlinq.Core.Transformation.ITransformer transformer)
