@@ -145,7 +145,7 @@ namespace ExRam.Gremlinq.Core
     }
     public static class GremlinqConfiguratorExtensions
     {
-        public static TConfigurator WithCompatibility<TConfigurator>(this TConfigurator configurator, ExRam.Gremlinq.Core.VersionRange compatibility)
+        public static TConfigurator ConfigureServerCompatibilityRange<TConfigurator>(this TConfigurator configurator, System.Func<ExRam.Gremlinq.Core.VersionRange, ExRam.Gremlinq.Core.VersionRange> compatibilityTransformation)
             where TConfigurator : ExRam.Gremlinq.Core.IGremlinqConfigurator<TConfigurator> { }
     }
     public static class GremlinqOption

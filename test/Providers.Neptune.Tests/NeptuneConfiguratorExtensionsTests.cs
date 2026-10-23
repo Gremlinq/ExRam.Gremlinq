@@ -71,20 +71,20 @@ namespace ExRam.Gremlinq.Providers.Neptune.Tests
             .Throw<ArgumentNullException>();
 
         [Fact]
-        public void WithCompatibility_after_WithEngineVersion_wins()
+        public void ConfigureServerCompatibilityRange_after_WithEngineVersion_wins()
         {
             var compatibility = VersionRange.From(TinkerPopVersions.V3_7_7, TinkerPopVersions.V3_8_2);
 
             GetCompatibility(configurator => configurator
                     .WithEngineVersion(new Version(1, 5, 0, 0))
-                    .WithCompatibility(compatibility))
+                    .ConfigureServerCompatibilityRange(_ => compatibility))
                 .Should()
                 .Be(compatibility);
         }
 
         [Fact]
-        public void WithEngineVersion_after_WithCompatibility_wins() => GetCompatibility(configurator => configurator
-                .WithCompatibility(VersionRange.From(TinkerPopVersions.V3_7_7, TinkerPopVersions.V3_8_2))
+        public void WithEngineVersion_after_ConfigureServerCompatibilityRange_wins() => GetCompatibility(configurator => configurator
+                .ConfigureServerCompatibilityRange(_ => VersionRange.From(TinkerPopVersions.V3_7_7, TinkerPopVersions.V3_8_2))
                 .WithEngineVersion(new Version(1, 5, 0, 0)))
             .Should()
             .Be(TinkerPop38Compatibility);
