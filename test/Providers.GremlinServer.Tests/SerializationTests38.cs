@@ -124,5 +124,30 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
         public override SettingsTask Choose_two_cases_default() => base.Choose_two_cases_default().UseSnapshotDirectoryAndNameOf<SerializationTests38>();
 
         public override SettingsTask Choose_unproductive() => base.Choose_unproductive().UseSnapshotDirectoryAndNameOf<SerializationTests38>();
+
+        // 3.8's limit(local, 1), tail(local, 1) and range(local, n, n + 1) return their single result in a list, as the workaround
+        // map(unfold().limit(1).fold()) and its like do on 3.7. The plain step takes the workaround's place:
+        // https://tinkerpop.apache.org/docs/3.8.0/upgrade/#consistent-output-for-range-limit-tail
+        public override SettingsTask Inject_Limit0_Fold_LimitLocal_1() => base.Inject_Limit0_Fold_LimitLocal_1().UseSnapshotDirectoryAndNameOf<SerializationTests38>();
+
+        public override SettingsTask Inject_Limit0_Fold_RangeLocal_1() => base.Inject_Limit0_Fold_RangeLocal_1().UseSnapshotDirectoryAndNameOf<SerializationTests38>();
+
+        public override SettingsTask Inject_Limit0_Fold_TailLocal_1() => base.Inject_Limit0_Fold_TailLocal_1().UseSnapshotDirectoryAndNameOf<SerializationTests38>();
+
+        public override SettingsTask Inject_Limit1_Fold_LimitLocal_1() => base.Inject_Limit1_Fold_LimitLocal_1().UseSnapshotDirectoryAndNameOf<SerializationTests38>();
+
+        public override SettingsTask Inject_Limit1_Fold_RangeLocal_1() => base.Inject_Limit1_Fold_RangeLocal_1().UseSnapshotDirectoryAndNameOf<SerializationTests38>();
+
+        public override SettingsTask Inject_Limit1_Fold_TailLocal_1() => base.Inject_Limit1_Fold_TailLocal_1().UseSnapshotDirectoryAndNameOf<SerializationTests38>();
+
+        public override SettingsTask Inject_Limit2_Fold_LimitLocal_1() => base.Inject_Limit2_Fold_LimitLocal_1().UseSnapshotDirectoryAndNameOf<SerializationTests38>();
+
+        public override SettingsTask Inject_Limit2_Fold_RangeLocal_1() => base.Inject_Limit2_Fold_RangeLocal_1().UseSnapshotDirectoryAndNameOf<SerializationTests38>();
+
+        public override SettingsTask Inject_Limit2_Fold_TailLocal_1() => base.Inject_Limit2_Fold_TailLocal_1().UseSnapshotDirectoryAndNameOf<SerializationTests38>();
+
+        public override SettingsTask LimitLocal() => base.LimitLocal().UseSnapshotDirectoryAndNameOf<SerializationTests38>();
+
+        public override SettingsTask TailLocal() => base.TailLocal().UseSnapshotDirectoryAndNameOf<SerializationTests38>();
     }
 }
