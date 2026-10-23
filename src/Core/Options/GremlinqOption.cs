@@ -107,6 +107,11 @@ namespace ExRam.Gremlinq.Core
         /// <summary>
         /// Enables a workaround for range step inconsistencies across different graph databases.
         /// </summary>
+        /// <remarks>
+        /// The workaround keeps the single result of <c>limit(local, 1)</c>, <c>tail(local, 1)</c> and <c>range(local, n, n + 1)</c>
+        /// in a list. It has no effect for a server from TinkerPop 3.8 on, that is, when the lowest version of
+        /// <see cref="IGremlinQueryEnvironment.ServerCompatibilityRange"/> is 3.8 or higher: these steps return a list there themselves.
+        /// </remarks>
         public static readonly GremlinqOption<bool> WorkaroundRangeInconsistencies = Create(false);
 
         /// <summary>

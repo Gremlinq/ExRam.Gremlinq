@@ -76,5 +76,10 @@ namespace ExRam.Gremlinq.Core
         internal static Step GetAggregateStep(this IGremlinQueryEnvironment environment, Scope scope, StepLabel stepLabel) => Scope.Local.Equals(scope) && environment.ServerCompatibilityRange.IsAtLeast(TinkerPopVersions.V3_8_0)
             ? new LocalStep(Traversal.Empty.Push(new AggregateStep(Scope.Global, stepLabel)))
             : new AggregateStep(scope, stepLabel);
+
+        // Whether limit(local, 1), tail(local, 1) and range(local, n, n + 1) go to the server as map(unfold().limit(1).fold())
+        // and its like, so that they keep their single result in a list: where the option asks for it, as long as the server
+        // understands TinkerPop versions below 3.8. From 3.8 on, these steps return a list themselves.
+        internal static bool WorksAroundRangeInconsistencies(this IGremlinQueryEnvironment environment) => environment.Options.GetValue(GremlinqOption.WorkaroundRangeInconsistencies) && !environment.ServerCompatibilityRange.IsAtLeast(TinkerPopVersions.V3_8_0);
     }
 }
