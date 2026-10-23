@@ -37,19 +37,24 @@ namespace ExRam.Gremlinq.Providers.Core
             ArgumentNullException.ThrowIfNull(environment);
 
             return environment
-                .AddGraphSonBinarySupport(new TinkerPop37GraphSon2Writer(), GraphSon2Header, owner => new GraphSon2BinaryMessage(owner))
-                .AddGraphSonBinarySupport(new TinkerPop37GraphSon3Writer(), GraphSon3Header, owner => new GraphSon3BinaryMessage(owner));
+                .AddGraphSonBinarySupport(new TinkerPop37GraphSon2Writer(), new TinkerPop38GraphSon2Writer(), GraphSon2Header, owner => new GraphSon2BinaryMessage(owner))
+                .AddGraphSonBinarySupport(new TinkerPop37GraphSon3Writer(), new TinkerPop38GraphSon3Writer(), GraphSon3Header, owner => new GraphSon3BinaryMessage(owner));
         }
 
         private static byte[] GetHeader(string mimeType) => mimeType.Length <= 255
             ? Encoding.UTF8.GetBytes($"{(char)mimeType.Length}{mimeType}")
             : throw new ArgumentException();
 
-        private static IGremlinQueryEnvironment AddGraphSonBinarySupport<TBinaryMessage>(this IGremlinQueryEnvironment environment, GraphSONWriter writer, byte[] header, Func<IMemoryOwner<byte>, TBinaryMessage> bufferFactory)
+        // A server is written to in the forms of the lowest version of its compatibility range.
+        private static IGremlinQueryEnvironment AddGraphSonBinarySupport<TBinaryMessage>(this IGremlinQueryEnvironment environment, GraphSONWriter tinkerPop37Writer, GraphSONWriter tinkerPop38Writer, byte[] header, Func<IMemoryOwner<byte>, TBinaryMessage> bufferFactory)
             where TBinaryMessage : struct, IMemoryOwner<byte> => environment
                 .ConfigureSerializer(serializer => serializer
-                    .Add(Create<RequestMessage, TBinaryMessage>((message, _, _, _) =>
+                    .Add(Create<RequestMessage, TBinaryMessage>((message, env, _, _) =>
                     {
+                        var writer = env.ServerCompatibilityRange.IsAtLeast(TinkerPopVersions.V3_8_0)
+                            ? tinkerPop38Writer
+                            : tinkerPop37Writer;
+
                         var bufferWriter = new ArrayPoolBufferWriter<byte>();
 
                         try
