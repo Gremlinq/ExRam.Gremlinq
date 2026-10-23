@@ -132,6 +132,9 @@ namespace ExRam.Gremlinq.Core
         /// <see cref="TinkerPopVersions.V3_7_7"/>.
         /// Where TinkerPop 3.8 changed a step, Gremlinq generates the form before 3.8 as long as the lowest version of the range is
         /// below 3.8, and the 3.8 form once it is 3.8 or higher.
+        /// Likewise, a <see cref="DateTimeOffset"/> is sent as <c>gx:OffsetDateTime</c> rather than <c>g:Date</c> once the lowest version
+        /// is 3.8 or higher. How a server stores and compares the two depends on the server, so check this before moving the range of a
+        /// graph that already holds dates to 3.8.
         /// </summary>
         VersionRange ServerCompatibilityRange => GremlinQueryEnvironment.DefaultServerCompatibilityRange;
     }

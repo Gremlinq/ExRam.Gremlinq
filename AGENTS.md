@@ -236,8 +236,12 @@ instruction. A GraphSON type has no step to carry the choice, so the request wri
 deserializers choose by the range of the environment they write or read for: Providers.Core's
 request converter takes `TinkerPop38GraphSon{2,3}Writer` instead of
 `TinkerPop37GraphSon{2,3}Writer`, and Newtonsoft's type table reads a `gx:Byte` as an `sbyte`
-instead of a `byte`. `IsAtLeast` is not accessible outside Core and stays internal; each of
-those assemblies has an internal `VersionRangeExtensions.IsAtLeast` that compares the same way.
+instead of a `byte`. The 3.8 writers write an `sbyte` as `gx:Byte` and a `DateTimeOffset` as
+`gx:OffsetDateTime`, through Gremlinq's own `TinkerPop38Serializers.OffsetDateTime` in the text of
+TinkerPop's IO sample (`2007-12-03T10:15:30+01:00`); the 3.7 writers keep `g:Date`. The date
+form follows the range like every other GraphSON type. How a server stores and compares the two
+forms depends on the server. `IsAtLeast` is not accessible outside Core and stays internal; each
+of those assemblies has an internal `VersionRangeExtensions.IsAtLeast` that compares the same way.
 
 A consumer's difference shows as an override in three classes of
 `test/Providers.GremlinServer.Tests`: `SerializationTests38` (3.8.2 only) and
@@ -246,7 +250,8 @@ and `IntegrationTests38` executes on Gremlin Server 3.8.2 against `IntegrationTe
 Each override carries a comment naming the section of the
 [3.8 upgrade notes](https://tinkerpop.apache.org/docs/3.8.0/upgrade/) it follows. A GraphSON
 type's difference shows in the contract tests of `GraphsonSupportTestBase` (facts ending in
-`_from_TinkerPop_3_8`) and in `Graphson{2,3}BinaryMessageSerializationTest38` of `test/Core.Tests`.
+`_from_TinkerPop_3_8`) and in `Graphson{2,3}BinaryMessageSerializationTest38` of `test/Core.Tests`,
+and where the server answers differently for it, as for stored dates, in `IntegrationTests38`.
 
 ## Coding Conventions
 

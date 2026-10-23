@@ -6,6 +6,9 @@ namespace ExRam.Gremlinq.Core
         /// <summary>
         /// Sets the range of TinkerPop versions the server understands (<see cref="IGremlinQueryEnvironment.ServerCompatibilityRange"/>).
         /// It takes precedence over a provider's default.
+        /// Once the lowest version of the range is TinkerPop 3.8 or higher, a <see cref="DateTimeOffset"/> is sent as
+        /// <c>gx:OffsetDateTime</c> rather than <c>g:Date</c>. How a server stores and compares the two depends on the server, so check
+        /// this before moving the range of a graph that already holds dates to 3.8.
         /// </summary>
         /// <typeparam name="TConfigurator">The configurator type.</typeparam>
         /// <param name="configurator">The configurator.</param>
