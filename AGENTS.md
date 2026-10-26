@@ -244,8 +244,11 @@ instead of a `byte`. The 3.8 writers write an `sbyte` as `gx:Byte` and a `DateTi
 `gx:OffsetDateTime`, through Gremlinq's own `TinkerPop38Serializers.OffsetDateTime` in the text of
 TinkerPop's IO sample (`2007-12-03T10:15:30+01:00`); the 3.7 writers keep `g:Date`. The date
 form follows the range like every other GraphSON type. How a server stores and compares the two
-forms depends on the server. `IsAtLeast` is not accessible outside Core and stays internal; each
-of those assemblies has an internal `VersionRangeExtensions.IsAtLeast` that compares the same way.
+forms depends on the server. The 3.8 writers also write a strategy as `{"fqcn":…,"conf":{…}}` and
+a strategy type as `g:Class`, as Gremlin.Net 3.8 writes them; the 3.7 writers keep a strategy's
+configuration as its value and a type as an instance with `{}`. `IsAtLeast` is not accessible
+outside Core and stays internal; each of those assemblies has an internal
+`VersionRangeExtensions.IsAtLeast` that compares the same way.
 
 A consumer's difference shows as an override in three classes of
 `test/Providers.GremlinServer.Tests`: `SerializationTests38` (3.8.2 only) and
@@ -258,6 +261,7 @@ Each override carries a comment naming the section of the
 [3.8 upgrade notes](https://tinkerpop.apache.org/docs/3.8.0/upgrade/) it follows. A GraphSON
 type's difference shows in the contract tests of `GraphsonSupportTestBase` (facts ending in
 `_from_TinkerPop_3_8`) and in `Graphson{2,3}BinaryMessageSerializationTest38` of `test/Core.Tests`,
+for strategies and strategy types in `GraphSonBinarySupportTest` of `test/Providers.Core.Tests`,
 and where the server answers differently for it, as for stored dates, in `IntegrationTests38`.
 
 ## Coding Conventions
