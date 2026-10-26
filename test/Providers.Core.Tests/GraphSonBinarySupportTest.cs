@@ -29,24 +29,39 @@ namespace ExRam.Gremlinq.Providers.Core.Tests
         [Fact]
         public Task GraphSon3_withoutStrategies() => VerifyMessage<GraphSon3BinaryMessage>(GetWithoutStrategiesBytecode());
 
-        // A server from TinkerPop 3.8 on is sent strategies in the same form as one below 3.8.
+        // A server from TinkerPop 3.8 on is sent a strategy as {"fqcn":…,"conf":{…}} and a strategy
+        // type as g:Class, as Gremlin.Net 3.8 writes them.
         [Fact]
-        public Task GraphSon2_withStrategies_from_TinkerPop_3_8() => VerifyMessage<GraphSon2BinaryMessage>(GetWithStrategiesBytecode(), FromTinkerPop38)
+        public Task GraphSon2_withStrategies_from_TinkerPop_3_8() => VerifyMessage<GraphSon2BinaryMessage>(GetWithStrategiesBytecode(), FromTinkerPop38);
+
+        [Fact]
+        public Task GraphSon3_withStrategies_from_TinkerPop_3_8() => VerifyMessage<GraphSon3BinaryMessage>(GetWithStrategiesBytecode(), FromTinkerPop38);
+
+        [Fact]
+        public Task GraphSon2_withoutStrategies_from_TinkerPop_3_8() => VerifyMessage<GraphSon2BinaryMessage>(GetWithoutStrategiesBytecode(), FromTinkerPop38);
+
+        [Fact]
+        public Task GraphSon3_withoutStrategies_from_TinkerPop_3_8() => VerifyMessage<GraphSon3BinaryMessage>(GetWithoutStrategiesBytecode(), FromTinkerPop38);
+
+        // A range that starts below TinkerPop 3.8 is sent strategies and strategy types in the form
+        // before 3.8.
+        [Fact]
+        public Task GraphSon2_withStrategies_from_TinkerPop_3_7_to_3_8() => VerifyMessage<GraphSon2BinaryMessage>(GetWithStrategiesBytecode(), FromTinkerPop37To38)
             .UseMethodName(nameof(GraphSon2_withStrategies))
             .DisableRequireUniquePrefix();
 
         [Fact]
-        public Task GraphSon3_withStrategies_from_TinkerPop_3_8() => VerifyMessage<GraphSon3BinaryMessage>(GetWithStrategiesBytecode(), FromTinkerPop38)
+        public Task GraphSon3_withStrategies_from_TinkerPop_3_7_to_3_8() => VerifyMessage<GraphSon3BinaryMessage>(GetWithStrategiesBytecode(), FromTinkerPop37To38)
             .UseMethodName(nameof(GraphSon3_withStrategies))
             .DisableRequireUniquePrefix();
 
         [Fact]
-        public Task GraphSon2_withoutStrategies_from_TinkerPop_3_8() => VerifyMessage<GraphSon2BinaryMessage>(GetWithoutStrategiesBytecode(), FromTinkerPop38)
+        public Task GraphSon2_withoutStrategies_from_TinkerPop_3_7_to_3_8() => VerifyMessage<GraphSon2BinaryMessage>(GetWithoutStrategiesBytecode(), FromTinkerPop37To38)
             .UseMethodName(nameof(GraphSon2_withoutStrategies))
             .DisableRequireUniquePrefix();
 
         [Fact]
-        public Task GraphSon3_withoutStrategies_from_TinkerPop_3_8() => VerifyMessage<GraphSon3BinaryMessage>(GetWithoutStrategiesBytecode(), FromTinkerPop38)
+        public Task GraphSon3_withoutStrategies_from_TinkerPop_3_7_to_3_8() => VerifyMessage<GraphSon3BinaryMessage>(GetWithoutStrategiesBytecode(), FromTinkerPop37To38)
             .UseMethodName(nameof(GraphSon3_withoutStrategies))
             .DisableRequireUniquePrefix();
 
@@ -59,6 +74,19 @@ namespace ExRam.Gremlinq.Providers.Core.Tests
             bytecode.AddStep("V");
 
             ((Action)(() => ToText<GraphSon3BinaryMessage>(bytecode)))
+                .Should()
+                .Throw<IOException>();
+        }
+
+        [Fact]
+        public void Type_without_instance_in_withoutStrategies_cannot_be_written_from_TinkerPop_3_8()
+        {
+            var bytecode = new Bytecode();
+
+            bytecode.AddSource("withoutStrategies", typeof(int?));
+            bytecode.AddStep("V");
+
+            ((Action)(() => ToText<GraphSon3BinaryMessage>(bytecode, FromTinkerPop38)))
                 .Should()
                 .Throw<IOException>();
         }
@@ -117,5 +145,8 @@ namespace ExRam.Gremlinq.Providers.Core.Tests
 
         private static IGremlinQueryEnvironment FromTinkerPop38(IGremlinQueryEnvironment environment) => environment
             .ConfigureServerCompatibilityRange(_ => VersionRange.From(TinkerPopVersions.V3_8_2, TinkerPopVersions.V3_8_2));
+
+        private static IGremlinQueryEnvironment FromTinkerPop37To38(IGremlinQueryEnvironment environment) => environment
+            .ConfigureServerCompatibilityRange(_ => VersionRange.From(TinkerPopVersions.V3_7_7, TinkerPopVersions.V3_8_2));
     }
 }
