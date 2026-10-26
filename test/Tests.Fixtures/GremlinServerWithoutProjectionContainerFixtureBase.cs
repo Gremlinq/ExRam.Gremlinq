@@ -7,12 +7,20 @@ using ExRam.Gremlinq.Tests.Infrastructure;
 
 namespace ExRam.Gremlinq.Tests.Fixtures
 {
-    public class GremlinServerWithoutProjectionContainerFixture : GremlinqFixture
+    public abstract class GremlinServerWithoutProjectionContainerFixtureBase : GremlinqFixture
     {
+        private readonly Version _version;
+
+        protected GremlinServerWithoutProjectionContainerFixtureBase(Version version)
+        {
+            _version = version;
+        }
+
         protected override IGremlinQuerySource TransformQuerySource(IGremlinQuerySource g) => g
             .UseGremlinServer<Vertex, Edge>(_ => _
-                .UseGremlinServerContainer("3.7.7")
-                .UseNewtonsoftJson())
+                .UseGremlinServerContainer(_version.ToString())
+                .UseNewtonsoftJson()
+                .ConfigureServerCompatibilityRange(_ => VersionRange.From(_version, _version)))
             .ConfigureEnvironment(env => env
                 .ConfigureOptions(options => options
                     .SetValue(GremlinqOption.VertexProjectionSteps, Traversal.Empty)
