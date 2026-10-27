@@ -41,5 +41,24 @@ namespace ExRam.Gremlinq.Providers.JanusGraph.AspNet.Tests
             .GetRequiredService<IGremlinQuerySource>()
             .Should()
             .NotBeNull();
+
+        [Fact]
+        public void ServerCompatibilityRange() => new ServiceCollection()
+            .AddSingleton<IConfiguration>(new ConfigurationBuilder()
+                .AddInMemoryCollection(new Dictionary<string, string?>
+                {
+                    { "Gremlinq:ServerCompatibilityRange:Lowest", "3.7.7" },
+                    { "Gremlinq:ServerCompatibilityRange:Highest", "3.8.2" }
+                })
+                .Build())
+            .AddGremlinq(setup => setup
+                .UseJanusGraph<Vertex, Edge>())
+            .BuildServiceProvider()
+            .GetRequiredService<IGremlinQuerySource>()
+            .AsAdmin()
+            .Environment
+            .ServerCompatibilityRange
+            .Should()
+            .Be(VersionRange.From(TinkerPopVersions.V3_7_7, TinkerPopVersions.V3_8_2));
     }
 }

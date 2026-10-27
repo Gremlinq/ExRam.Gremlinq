@@ -124,7 +124,23 @@ namespace ExRam.Gremlinq.Core.AspNet
                     providerChoice,
                     s.GetRequiredService<IEnumerable<IGremlinqConfiguratorTransformation<TConfigurator>>>()));
 
-            return new GremlinqProviderServicesBuilder<TConfigurator>(setup);
+            return new GremlinqProviderServicesBuilder<TConfigurator>(setup)
+                .Configure(static (configurator, section) => configurator
+                    .ConfigureServerCompatibilityRange(section));
+        }
+
+        private static TConfigurator ConfigureServerCompatibilityRange<TConfigurator>(this TConfigurator configurator, IConfigurationSection section)
+            where TConfigurator : IGremlinqConfigurator<TConfigurator>
+        {
+            var rangeSection = section.GetSection("ServerCompatibilityRange");
+
+            return (rangeSection.GetSection("Lowest").GetVersion(), rangeSection.GetSection("Highest").GetVersion()) switch
+            {
+                ({ } lowest, { } highest) => configurator.ConfigureServerCompatibilityRange(_ => VersionRange.From(lowest, highest)),
+                ({ } lowest, _) => configurator.ConfigureServerCompatibilityRange(range => VersionRange.From(lowest, range.Highest)),
+                (_, { } highest) => configurator.ConfigureServerCompatibilityRange(range => VersionRange.From(range.Lowest, highest)),
+                _ => configurator
+            };
         }
     }
 }
