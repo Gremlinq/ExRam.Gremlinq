@@ -18,18 +18,6 @@ namespace ExRam.Gremlinq.Core.ExpressionParsing
 
         public static bool IsVertexPropertyId(this Expression expression, [NotNullWhen(true)] out Expression? sourceExpression) => expression.IsMemberAndNamed<IVertexProperty>(nameof(VertexProperty<>.Id), out sourceExpression);
 
-        public static bool IsArrayLength(this Expression expression, [NotNullWhen(true)] out Expression? sourceExpression)
-        {
-            if (expression is UnaryExpression { NodeType: ExpressionType.ArrayLength, Operand: { } operand })
-            {
-                sourceExpression = operand.Strip();
-                return true;
-            }
-
-            sourceExpression = null;
-            return false;
-        }
-
         public static bool IsEquals(this Expression expression, [NotNullWhen(true)] out Expression? argument)
         {
             if (expression is MethodCallExpression { Method: { Name: nameof(object.Equals) } methodInfo, Arguments: [{ } argumentExpression] } && methodInfo.GetParameters().Length == 1 && methodInfo.ReturnType == typeof(bool))

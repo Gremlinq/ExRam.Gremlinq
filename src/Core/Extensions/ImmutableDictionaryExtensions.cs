@@ -45,12 +45,6 @@ namespace ExRam.Gremlinq.Core
                 static projections => projections.SideEffectLabelProjection,
                 static (projections, projection) => projections.WithSideEffectLabelProjection(projection));
 
-        internal static IImmutableDictionary<StepLabel, LabelProjections> MergeStepLabelProjections(this IImmutableDictionary<StepLabel, LabelProjections> projections, IImmutableDictionary<StepLabel, LabelProjections> newProjections) => projections
-            .MergeLabelProjections(
-                newProjections,
-                static projections => projections.StepLabelProjection,
-                static (projections, projection) => projections.WithStepLabelProjection(projection));
-
         internal static IImmutableDictionary<StepLabel, LabelProjections> MergeLabelProjections(this IImmutableDictionary<StepLabel, LabelProjections> projections, IImmutableDictionary<StepLabel, LabelProjections> newProjections, Func<LabelProjections, Projection?> projectionMap, Func<LabelProjections, Projection, LabelProjections> projectionMapper)
         {
             foreach (var kvp in newProjections)
