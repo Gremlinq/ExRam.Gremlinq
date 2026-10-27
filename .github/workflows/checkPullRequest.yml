@@ -52,7 +52,7 @@ jobs:
           parameter_string: "-Timeout 600 -EnableGremlin"
 
     - name: Test
-      run: dotnet test -c Release --solution ./${{ github.event.repository.name }}.slnx --coverlet --coverlet-output-format opencover --ignore-exit-code 8
+      run: dotnet test -c Release --solution ./${{ github.event.repository.name }}.slnx --coverlet --coverlet-output-format opencover --coverlet-include "[ExRam.Gremlinq.*]*" --ignore-exit-code 8
         --report-trx --report-gh
 
     - name: Collect coverage

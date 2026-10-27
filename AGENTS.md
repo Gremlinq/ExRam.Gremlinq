@@ -129,8 +129,14 @@ Uses **Coverlet** (`coverlet.MTP`) with Microsoft.Testing.Platform runner:
 
 ```bash
 # Generate local coverage report
-dotnet test -c Release --solution ExRam.Gremlinq.slnx --coverlet --coverlet-output-format opencover
+dotnet test -c Release --solution ExRam.Gremlinq.slnx --coverlet --coverlet-output-format opencover --coverlet-include "[ExRam.Gremlinq.*]*"
 ```
+
+Without an include filter, coverlet instruments every dependency that ships a PDB
+(CommunityToolkit.HighPerformance, Verify, Testcontainers …). Codecov then maps their sources
+onto files of the same name here: lines of CommunityToolkit's `SpanExtensions.cs` show up as
+missed lines of `src/Core/Extensions/SpanExtensions.cs`. The PR workflow therefore includes
+`ExRam.Gremlinq.*` only.
 
 ## CI / Pull Request Checks
 
@@ -150,7 +156,7 @@ cancels the check still running for it.
 
 **Required Commands:**
 ```bash
-dotnet test -c Release --solution ./ExRam.Gremlinq.slnx --coverlet --coverlet-output-format opencover --ignore-exit-code 8 --report-trx --report-gh
+dotnet test -c Release --solution ./ExRam.Gremlinq.slnx --coverlet --coverlet-output-format opencover --coverlet-include "[ExRam.Gremlinq.*]*" --ignore-exit-code 8 --report-trx --report-gh
 ```
 
 `.github/workflows/checkPullRequestDescription.yml` runs a second, cheap check named
