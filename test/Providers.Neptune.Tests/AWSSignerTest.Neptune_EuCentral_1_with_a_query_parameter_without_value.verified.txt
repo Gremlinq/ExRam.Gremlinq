@@ -1,0 +1,6 @@
+﻿{
+  Authorization: AWS4-HMAC-SHA256 Credential=accessKeyId/20210101/eu-central-1/neptune-db/aws4_request, SignedHeaders=host;x-amz-date;x-amz-expires, Signature=45bc682e7fa5fc550b249a763ac0ac7f73d7aa7e13a41425507a51a2eda11020,
+  host: some.host.com,
+  x-amz-date: 20210101T090000Z,
+  x-amz-expires: 300
+}

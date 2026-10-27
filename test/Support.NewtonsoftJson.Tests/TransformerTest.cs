@@ -270,5 +270,34 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
                 .Should()
                 .Be(TimeSpan.FromHours(2));
         }
+
+        [Fact]
+        public void RegisterNativeType_serializes_by_the_serializer()
+        {
+            var environment = WithNativeDateTimeKind();
+
+            environment
+                .Serializer
+                .TryTransformTo<object>().From(DateTimeKind.Utc, environment)
+                .Should()
+                .Be("utc");
+        }
+
+        [Fact]
+        public void RegisterNativeType_deserializes_by_the_deserializer()
+        {
+            var environment = WithNativeDateTimeKind();
+
+            environment
+                .Deserializer
+                .TryTransformTo<DateTimeKind>().From(new JValue("Utc"), environment)
+                .Should()
+                .Be(DateTimeKind.Utc);
+        }
+
+        private IGremlinQueryEnvironment WithNativeDateTimeKind() => _environment
+            .RegisterNativeType<DateTimeKind, string>(
+                static (kind, _, _, _) => kind.ToString().ToLower(),
+                static (token, _, _, _) => Enum.Parse<DateTimeKind>(token.Value<string>()!, true));
     }
 }

@@ -1,5 +1,7 @@
 using FluentAssertions;
 
+using Gremlin.Net.Driver.Messages;
+
 using NSubstitute;
 
 namespace ExRam.Gremlinq.Providers.Core.Tests
@@ -81,6 +83,38 @@ namespace ExRam.Gremlinq.Providers.Core.Tests
             FluentActions.Invoking(() => GremlinqClientExtensions.Throttle(null!, 4))
                 .Should()
                 .Throw<ArgumentNullException>();
+        }
+
+        [Fact]
+        public async Task ObserveResultStatusAttributes_submits_to_the_inner_client()
+        {
+            var inner = Substitute.For<IGremlinqClient>();
+            var requestMessage = RequestMessage.Build("op").Create();
+
+            inner
+                .SubmitAsync<int>(requestMessage)
+                .Returns(AsyncEnumerableEx.Return(new ResponseMessage<int>(default, new ResponseStatus(ResponseStatusCode.Success), new ResponseResult<int>(12))));
+
+            await inner
+                .ObserveResultStatusAttributes((_, _) => { })
+                .SubmitAsync<int>(requestMessage)
+                .GetAsyncEnumerator(TestContext.Current.CancellationToken)
+                .MoveNextAsync();
+
+            inner
+                .Received(1)
+                .SubmitAsync<int>(requestMessage);
+        }
+
+        [Fact]
+        public void Retry_dispose_propagates()
+        {
+            var inner = Substitute.For<IGremlinqClient>();
+
+            var wrapped = inner.Retry(static (_, _) => false);
+            wrapped.Dispose();
+
+            inner.Received(1).Dispose();
         }
     }
 }

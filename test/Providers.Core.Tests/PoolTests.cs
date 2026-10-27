@@ -276,5 +276,39 @@ namespace ExRam.Gremlinq.Providers.Core.Tests
                 .Should()
                 .ThrowAsync<ObjectDisposedException>();
         }
+
+        [Fact]
+        public void Pool_disposes_its_subClients()
+        {
+            var neverClient = Substitute
+                .For<IGremlinqClient>();
+
+            var baseFactory = Substitute
+                .For<IGremlinqClientFactory>();
+
+            neverClient
+                .SubmitAsync<int>(Arg.Any<RequestMessage>())
+                .Returns(AsyncEnumerableEx.Never<ResponseMessage<int>>());
+
+            baseFactory
+                .Create(Arg.Any<IGremlinQueryEnvironment>())
+                .Returns(neverClient);
+
+            var poolClient = baseFactory
+                .Pool()
+                .Create(GremlinQueryEnvironment.Invalid);
+
+            poolClient
+                .SubmitAsync<int>(RequestMessage.Build("op").Create())
+                .AsAsyncEnumerable()
+                .GetAsyncEnumerator(TestContext.Current.CancellationToken)
+                .MoveNextAsync();
+
+            poolClient.Dispose();
+
+            neverClient
+                .Received(1)
+                .Dispose();
+        }
     }
 }

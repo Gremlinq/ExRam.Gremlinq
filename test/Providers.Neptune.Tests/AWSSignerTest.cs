@@ -199,5 +199,17 @@ namespace ExRam.Gremlinq.Providers.Neptune.Tests
                 .Throw<InvalidOperationException>()
                 .WithMessage("*SecretAccessKey*");
         }
+
+        [Fact]
+        public Task Neptune_EuCentral_1_with_a_query_parameter_without_value() => Verify(_signer
+            .ConfigureUri(uri => new UriBuilder(uri) { Path = "/gremlin/stream", Query = "limit=1&flag" }.Uri)
+            .GetIAMHeaders(DateTimeOffset.Parse("01.01.2021 09:00")));
+
+        [Fact]
+        public void Empty_region_throws() => _signer
+            .Invoking(s => s.ConfigureRegion(_ => ""))
+            .Should()
+            .ThrowExactly<ArgumentException>()
+            .WithParameterName("region");
     }
 }
