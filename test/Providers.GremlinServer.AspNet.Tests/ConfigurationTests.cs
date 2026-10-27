@@ -50,8 +50,8 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.AspNet.Tests
             .AddSingleton<IConfiguration>(new ConfigurationBuilder()
                 .AddInMemoryCollection(new Dictionary<string, string?>
                 {
-                    { "Gremlinq:GremlinServer:Username", "user" },
-                    { "Gremlinq:GremlinServer:Password", "pass" }
+                    { "Gremlinq:GremlinServer:Authentication:Username", "user" },
+                    { "Gremlinq:GremlinServer:Authentication:Password", "pass" }
                 })
                 .Build())
             .AddGremlinq(setup => setup
@@ -60,5 +60,50 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.AspNet.Tests
             .GetRequiredService<IGremlinQuerySource>()
             .Should()
             .NotBeNull();
+
+        [Fact]
+        public void FromBaseSection_after_provider() => new ServiceCollection()
+            .AddSingleton<IConfiguration>(new ConfigurationBuilder()
+                .AddInMemoryCollection(new Dictionary<string, string?>
+                {
+                    { "Gremlinq:Alias", "a" },
+                    { "MyApp:Gremlinq:Alias", "b" }
+                })
+                .Build())
+            .AddGremlinq(setup => setup
+                .UseGremlinServer<Vertex, Edge>()
+                .FromBaseSection("MyApp"))
+            .BuildServiceProvider()
+            .GetRequiredService<IGremlinQuerySource>()
+            .AsAdmin()
+            .Environment
+            .Options
+            .GetValue(GremlinqOption.Alias)
+            .Should()
+            .Be("b");
+
+        [Fact]
+        public void ConfigureQuerySource_generic_after_provider() => new ServiceCollection()
+            .AddSingleton<IConfiguration>(new ConfigurationBuilder()
+                .Build())
+            .AddGremlinq(setup => setup
+                .UseGremlinServer<Vertex, Edge>()
+                .ConfigureQuerySource<AliasTransformation>())
+            .BuildServiceProvider()
+            .GetRequiredService<IGremlinQuerySource>()
+            .AsAdmin()
+            .Environment
+            .Options
+            .GetValue(GremlinqOption.Alias)
+            .Should()
+            .Be("c");
+
+        private sealed class AliasTransformation : IGremlinQuerySourceTransformation
+        {
+            public IGremlinQuerySource Transform(IGremlinQuerySource source) => source
+                .ConfigureEnvironment(environment => environment
+                    .ConfigureOptions(options => options
+                        .SetValue(GremlinqOption.Alias, "c")));
+        }
     }
 }

@@ -25,5 +25,21 @@ namespace ExRam.Gremlinq.Providers.JanusGraph.AspNet.Tests
             .GetRequiredService<IGremlinQuerySource>()
             .Should()
             .NotBeNull();
+
+        [Fact]
+        public void With_authentication() => new ServiceCollection()
+            .AddSingleton<IConfiguration>(new ConfigurationBuilder()
+                .AddInMemoryCollection(new Dictionary<string, string?>
+                {
+                    { "Gremlinq:JanusGraph:Authentication:Username", "user" },
+                    { "Gremlinq:JanusGraph:Authentication:Password", "pass" }
+                })
+                .Build())
+            .AddGremlinq(setup => setup
+                .UseJanusGraph<Vertex, Edge>())
+            .BuildServiceProvider()
+            .GetRequiredService<IGremlinQuerySource>()
+            .Should()
+            .NotBeNull();
     }
 }
