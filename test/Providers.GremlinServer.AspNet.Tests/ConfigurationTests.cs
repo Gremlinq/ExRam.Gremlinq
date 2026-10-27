@@ -31,15 +31,19 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.AspNet.Tests
             .AddSingleton<IConfiguration>(new ConfigurationBuilder()
                 .AddInMemoryCollection(new Dictionary<string, string?>
                 {
-                    { "Gremlinq:Alias", "g" },
+                    { "Gremlinq:Alias", "a" },
                 })
                 .Build())
             .AddGremlinq(setup => setup
                 .UseGremlinServer<Vertex, Edge>())
             .BuildServiceProvider()
             .GetRequiredService<IGremlinQuerySource>()
+            .AsAdmin()
+            .Environment
+            .Options
+            .GetValue(GremlinqOption.Alias)
             .Should()
-            .NotBeNull();
+            .Be("a");
 
         [Fact]
         public void With_authentication() => new ServiceCollection()

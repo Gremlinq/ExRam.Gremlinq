@@ -2,6 +2,7 @@ using FluentAssertions;
 
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace ExRam.Gremlinq.Core.AspNet.Tests
 {
@@ -76,6 +77,28 @@ namespace ExRam.Gremlinq.Core.AspNet.Tests
                 .GetRequiredService<IGremlinQuerySource>();
 
             source.Should().NotBeNull();
+        }
+
+        [Fact]
+        public void QueryLogging()
+        {
+            var options = new ServiceCollection()
+                .AddSingleton<IConfiguration>(new ConfigurationBuilder()
+                    .AddInMemoryCollection(new Dictionary<string, string?>
+                    {
+                        { "Gremlinq:QueryLogging:Verbosity", "IncludeBindings" },
+                        { "Gremlinq:QueryLogging:LogLevel", "Warning" }
+                    })
+                    .Build())
+                .AddGremlinq(_ => { })
+                .BuildServiceProvider()
+                .GetRequiredService<IGremlinQuerySource>()
+                .AsAdmin()
+                .Environment
+                .Options;
+
+            options.GetValue(GremlinqOption.QueryLogVerbosity).Should().Be(QueryLogVerbosity.IncludeBindings);
+            options.GetValue(GremlinqOption.QueryLogLogLevel).Should().Be(LogLevel.Warning);
         }
 
         private class NoOpTransformation : IGremlinQuerySourceTransformation
