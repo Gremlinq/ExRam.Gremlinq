@@ -44,10 +44,10 @@ namespace ExRam.Gremlinq.Core.Models
         public static IGraphModel FromBaseTypes<TVertexBaseType, TEdgeBaseType>()
         {
             if (typeof(TVertexBaseType).IsAssignableFrom(typeof(TEdgeBaseType)))
-                throw new ArgumentException($"{typeof(TVertexBaseType)} may not be in the inheritance hierarchy of {typeof(TEdgeBaseType)}.");
+                throw new ArgumentException($"The vertex base type {typeof(TVertexBaseType)} may not be in the inheritance hierarchy of the edge base type {typeof(TEdgeBaseType)}.");
 
             if (typeof(TEdgeBaseType).IsAssignableFrom(typeof(TVertexBaseType)))
-                throw new ArgumentException($"{typeof(TEdgeBaseType)} may not be in the inheritance hierarchy of {typeof(TVertexBaseType)}.");
+                throw new ArgumentException($"The edge base type {typeof(TEdgeBaseType)} may not be in the inheritance hierarchy of the vertex base type {typeof(TVertexBaseType)}.");
 
             return new GraphModelImpl(
                 GraphElementModel.FromBaseType<TVertexBaseType>(),

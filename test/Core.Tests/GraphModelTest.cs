@@ -352,14 +352,14 @@ namespace ExRam.Gremlinq.Core.Tests
             .FromBaseTypes<Vertex, RichVertex>())
             .Should()
             .ThrowExactly<ArgumentException>()
-            .WithMessage($"{typeof(Vertex)} may not be in the inheritance hierarchy of {typeof(RichVertex)}.");
+            .WithMessage($"The vertex base type {typeof(Vertex)} may not be in the inheritance hierarchy of the edge base type {typeof(RichVertex)}.");
 
         [Fact]
         public void FromBaseTypes_rejects_a_vertex_base_type_derived_from_the_edge_base_type() => new Action(() => GraphModel
             .FromBaseTypes<RichVertex, Vertex>())
             .Should()
             .ThrowExactly<ArgumentException>()
-            .WithMessage($"{typeof(Vertex)} may not be in the inheritance hierarchy of {typeof(RichVertex)}.");
+            .WithMessage($"The edge base type {typeof(Vertex)} may not be in the inheritance hierarchy of the vertex base type {typeof(RichVertex)}.");
 
         [Fact]
         public void Invalid_model_throws_on_every_member()
