@@ -324,5 +324,68 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Should()
                 .NotThrow();
         }
+
+        [Fact]
+        public void Order_by_traversal_through_the_builder_without_element_type()
+        {
+            IGremlinQueryBaseRec<IVertexGremlinQuery<RichVertex>> query = _g.V<RichVertex>();
+
+            query
+                .Order(b => b.By(__ => __.Out()))
+                .Debug()
+                .Should()
+                .StartWith("g.V().hasLabel('RichVertex').order().by(__.out(),asc).");
+        }
+
+        [Fact]
+        public void Order_by_traversal_descending_through_the_builder_without_element_type()
+        {
+            IGremlinQueryBaseRec<IVertexGremlinQuery<RichVertex>> query = _g.V<RichVertex>();
+
+            query
+                .Order(b => b.ByDescending(__ => __.Out()))
+                .Debug()
+                .Should()
+                .StartWith("g.V().hasLabel('RichVertex').order().by(__.out(),desc).");
+        }
+
+        [Fact]
+        public void Concat_traversal_array_on_a_string_query() => _g
+            .Inject("a")
+            .Concat(new Func<IStringGremlinQuery<string>, IGremlinQueryBase<string>>[] { __ => __.Constant("b") })
+            .Debug()
+            .Should()
+            .Be("g.inject('a').concat(__.constant('b'))");
+
+        [Fact]
+        public void Project_dynamic_by_name_and_traversal() => _g
+            .V<RichVertex>()
+            .Project(p => p
+                .ToDynamic()
+                .By("out", __ => __.Out()))
+            .Debug()
+            .Should()
+            .StartWith("g.V().hasLabel('RichVertex').project('out').by(__.out()).");
+
+        [Fact]
+        public void Project_dynamic_with_empty_projection_protection() => _g
+            .V<RichVertex>()
+            .Project(p => p
+                .WithEmptyProjectionProtection()
+                .ToDynamic()
+                .By("out", __ => __.Out()))
+            .Debug()
+            .Should()
+            .StartWith("g.V().hasLabel('RichVertex').project('out').by(__.out().limit(1).fold()).map(__.unfold().group().by(__.select(keys)).by(__.select(values).unfold())).");
+
+        [Fact]
+        public void Project_dynamic_by_name_and_member_expression() => _g
+            .V<RichVertex>()
+            .Project(p => p
+                .ToDynamic()
+                .By("age", x => x.Age))
+            .Debug()
+            .Should()
+            .StartWith("g.V().hasLabel('RichVertex').project('age').by('Age')");
     }
 }

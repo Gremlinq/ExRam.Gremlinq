@@ -126,6 +126,13 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void EndsWith_Flip_returns_IsSuffixOf_CaseInsensitive()
+        {
+            EndsWithExpressionSemantics.CaseInsensitive.Flip()
+                .Should().BeSameAs(IsSuffixOfExpressionSemantics.CaseInsensitive);
+        }
+
+        [Fact]
         public void IsSuffixOf_Flip_returns_EndsWith()
         {
             IsSuffixOfExpressionSemantics.CaseInsensitive.Flip()

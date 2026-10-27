@@ -181,5 +181,13 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Where(c => c.CountryCallingCode!.EndsWith("7890")))
             .Should()
             .Throw<ExpressionNotSupportedException>();
+
+        [Fact]
+        public virtual void Where_constant_ends_with_property_is_not_supported() => _g
+            .V<MetaPropertyVertex>()
+            .Invoking(_ => _
+                .Where(c => "+49".EndsWith(c.CountryCallingCode!)))
+            .Should()
+            .Throw<ExpressionNotSupportedException>();
     }
 }

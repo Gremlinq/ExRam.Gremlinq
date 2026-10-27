@@ -103,5 +103,19 @@ namespace ExRam.Gremlinq.Core.Tests
             }))
             .Add(Create<DateTime, string>((_, _, _, _) => "success"))
             .TryTransformTo<string>().From("serialized", GremlinQueryEnvironment.Invalid));
+
+        [Fact]
+        public void Struct_converter_returning_null_does_not_transform() => Transformer.Empty
+            .Add(Create<string, int>((_, _, _, _) => null))
+            .TryTransform<string, int>("serialized", GremlinQueryEnvironment.Invalid, out _)
+            .Should()
+            .BeFalse();
+
+        [Fact]
+        public void Struct_converter_returning_null_does_not_transform_to_ValueType() => Transformer.Empty
+            .Add(Create<string, int>((_, _, _, _) => null))
+            .TryTransform<string, ValueType>("serialized", GremlinQueryEnvironment.Invalid, out _)
+            .Should()
+            .BeFalse();
     }
 }
