@@ -211,6 +211,12 @@ Each provider follows a consistent pattern:
 - ASP.NET integration: `Providers.X.AspNet`
 - Tests mirror this structure: `Providers.X.Tests` and `Providers.X.AspNet.Tests`
 
+A `Providers.X.AspNet.Tests` fact proves that a configuration value arrives: it resolves
+`IGremlinQuerySource` from a `ServiceCollection` with an in-memory `IConfiguration` and reads
+the value from `AsAdmin().Environment` (`Options.GetValue(...)`, `ServerCompatibilityRange`),
+or verifies the `Debug()` output of a query for values that end up in the query. Values of the
+client factory (Uri, connection pool, authentication) cannot be read without a server.
+
 Test classes inherit from `QueryExecutionTest` in `Tests.Infrastructure` which provides ~200 shared test methods for query serialization verification.
 
 The facts of `QueryExecutionTest` that name an element by its id take that id from
@@ -227,11 +233,16 @@ environment and, with the same name and shape, on a provider configurator, where
 provider's default and wins over it. Neptune's `WithEngineVersion(Version)`, with the known
 engines in `NeptuneEngineVersions`, sets the range AWS documents for an engine line (1.3.2 to
 1.4.x: 3.7.1; 1.5.x: 3.8.0 to 3.8.1) through `ConfigureServerCompatibilityRange`, so the one
-called last wins. A server that understands every version of the range understands the forms of
-its lowest version, so every consumer of the range (a step or a GraphSON type whose form changed
-in TinkerPop 3.8) follows one rule: the form before 3.8 as long as `Lowest` is below 3.8, the
-3.8 form once it is 3.8 or higher. The internal helper `IsAtLeast` compares `Lowest` on major
-and minor version only.
+called last wins. The AspNet packages read `Gremlinq:ServerCompatibilityRange:Lowest` and
+`:Highest` (on the Gremlinq level, an end left out stays at the provider's default): `UseProvider`
+applies them for every provider as the first configurator transformation, after the provider's
+default and before the `Configure` of its AspNet package. Neptune's
+`Gremlinq:Neptune:EngineVersion` goes to `WithEngineVersion` in that `Configure` and so overrides
+the range, just as calling both in that order in code does. A server that understands every
+version of the range understands the forms of its lowest version, so every consumer of the range
+(a step or a GraphSON type whose form changed in TinkerPop 3.8) follows one rule: the form
+before 3.8 as long as `Lowest` is below 3.8, the 3.8 form once it is 3.8 or higher. The internal
+helper `IsAtLeast` compares `Lowest` on major and minor version only.
 
 A consumer decides when the query is built, by the step it adds, not in the serializer: a
 query for a server from 3.8 on holds a `DiscardStep` where others hold a `NoneStep`
