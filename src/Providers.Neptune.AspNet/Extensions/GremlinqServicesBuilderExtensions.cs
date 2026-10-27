@@ -73,6 +73,12 @@ namespace ExRam.Gremlinq.Providers.Neptune.AspNet
                                 .UseDFE(useDFE));
                     }
 
+                    if (providerSection.GetSection("EngineVersion").GetVersion() is { } engineVersion)
+                    {
+                        configurator = configurator
+                            .WithEngineVersion(engineVersion);
+                    }
+
                     return configurator;
                 });
         }
