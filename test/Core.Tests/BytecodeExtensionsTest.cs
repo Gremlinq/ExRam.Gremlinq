@@ -1,4 +1,5 @@
 using ExRam.Gremlinq.Core.Serialization;
+using FluentAssertions;
 using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Core.Tests
@@ -60,5 +61,11 @@ namespace ExRam.Gremlinq.Core.Tests
 
             return Verify(bytecode.ToGroovyScript(GremlinQueryEnvironment.Invalid, false));
         }
+
+        [Fact]
+        public void GroovyExpression_rejects_an_empty_identifier() => new Action(() => GroovyExpression.From("", []))
+            .Should()
+            .ThrowExactly<ArgumentException>()
+            .WithMessage("A GroovyExpression must have a non-empty identifier.");
     }
 }

@@ -1,3 +1,4 @@
+using System.Reflection;
 using ExRam.Gremlinq.Core.Models;
 using ExRam.Gremlinq.Tests.Entities;
 using FluentAssertions;
@@ -345,5 +346,80 @@ namespace ExRam.Gremlinq.Core.Tests
                 .VerticesModel
                 .GetFilterLabels(FilterTypesCache<NonAbstractBaseVertex>.Types, FilterLabelsVerbosity.Maximum));
         }
+
+        [Fact]
+        public void FromBaseTypes_rejects_an_edge_base_type_derived_from_the_vertex_base_type() => new Action(() => GraphModel
+            .FromBaseTypes<Vertex, RichVertex>())
+            .Should()
+            .ThrowExactly<ArgumentException>()
+            .WithMessage($"{typeof(Vertex)} may not be in the inheritance hierarchy of {typeof(RichVertex)}.");
+
+        [Fact]
+        public void FromBaseTypes_rejects_a_vertex_base_type_derived_from_the_edge_base_type() => new Action(() => GraphModel
+            .FromBaseTypes<RichVertex, Vertex>())
+            .Should()
+            .ThrowExactly<ArgumentException>()
+            .WithMessage($"{typeof(Vertex)} may not be in the inheritance hierarchy of {typeof(RichVertex)}.");
+
+        [Fact]
+        public void Invalid_model_throws_on_every_member()
+        {
+            var model = GraphModel.Invalid.VerticesModel;
+            var member = typeof(Vertex).GetProperty(nameof(Vertex.Id))!;
+
+            model.Invoking(_ => _.ElementTypes).Should().ThrowExactly<InvalidOperationException>().WithMessage("ElementTypes must not be called on GraphElementModel.Invalid.*");
+            model.Invoking(_ => _.Members).Should().ThrowExactly<InvalidOperationException>().WithMessage("Members must not be called on GraphElementModel.Invalid.*");
+            model.Invoking(_ => _.AddAssemblies()).Should().ThrowExactly<InvalidOperationException>().WithMessage("AddAssemblies must not be called on GraphElementModel.Invalid.*");
+            model.Invoking(_ => _.ConfigureMetadata(member, static metadata => metadata)).Should().ThrowExactly<InvalidOperationException>().WithMessage("ConfigureMetadata must not be called on GraphElementModel.Invalid.*");
+            model.Invoking(_ => _.ConfigureMetadata(static (MemberInfo _, MemberMetadata metadata) => metadata)).Should().ThrowExactly<InvalidOperationException>().WithMessage("ConfigureMetadata must not be called on GraphElementModel.Invalid.*");
+            model.Invoking(_ => _.ConfigureMetadata(typeof(Vertex), static metadata => metadata)).Should().ThrowExactly<InvalidOperationException>().WithMessage("ConfigureMetadata must not be called on GraphElementModel.Invalid.*");
+            model.Invoking(_ => _.ConfigureMetadata(static (Type _, ElementMetadata metadata) => metadata)).Should().ThrowExactly<InvalidOperationException>().WithMessage("ConfigureMetadata must not be called on GraphElementModel.Invalid.*");
+            model.Invoking(_ => _.TryGetMetadata(typeof(Vertex))).Should().ThrowExactly<InvalidOperationException>().WithMessage("TryGetMetadata must not be called on GraphElementModel.Invalid.*");
+            model.Invoking(_ => _.TryGetMetadata(member)).Should().ThrowExactly<InvalidOperationException>().WithMessage("TryGetMetadata must not be called on GraphElementModel.Invalid.*");
+        }
+
+        [Fact]
+        public void ConfigureMetadata_of_an_element_type() => GraphModel
+            .FromBaseTypes<Vertex, Edge>()
+            .VerticesModel
+            .ConfigureMetadata(typeof(RichVertex), static _ => new ElementMetadata("Rich"))
+            .GetMetadata(typeof(RichVertex))
+            .Label
+            .Should()
+            .Be("Rich");
+
+        [Fact]
+        public void ConfigureMetadata_of_a_type_outside_the_model() => GraphModel
+            .FromBaseTypes<Vertex, Edge>()
+            .VerticesModel
+            .Invoking(_ => _.ConfigureMetadata(typeof(string), static metadata => metadata))
+            .Should()
+            .ThrowExactly<InvalidOperationException>()
+            .WithMessage($"The type {typeof(string).FullName} is outside of the model.");
+
+        [Fact]
+        public void ResetSerializationBehaviour_undoes_IgnoreAlways() => GraphModel
+            .FromBaseTypes<Vertex, Edge>()
+            .ConfigureVertices(pm => pm
+                .ConfigureElement<RichVertex>(conf => conf
+                    .IgnoreAlways(p => p.Name)
+                    .ResetSerializationBehaviour(p => p.Name)))
+            .VerticesModel
+            .GetMetadata(typeof(RichVertex).GetProperty(nameof(RichVertex.Name))!)
+            .SerializationBehaviour
+            .Should()
+            .Be(SerializationBehaviour.Default);
+
+        [Fact]
+        public void Equal_MemberMetadata_have_equal_hash_codes() => new MemberMetadata("name", SerializationBehaviour.IgnoreAlways)
+            .GetHashCode()
+            .Should()
+            .Be(new MemberMetadata("name", SerializationBehaviour.IgnoreAlways).GetHashCode());
+
+        [Fact]
+        public void Equal_ElementMetadata_have_equal_hash_codes() => new ElementMetadata("label")
+            .GetHashCode()
+            .Should()
+            .Be(new ElementMetadata("label").GetHashCode());
     }
 }

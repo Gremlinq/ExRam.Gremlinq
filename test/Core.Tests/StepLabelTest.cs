@@ -70,5 +70,43 @@ namespace ExRam.Gremlinq.Core.Tests
             .GetHashCode()
             .Should()
             .NotBe(0);
+
+        [Fact]
+        public void Equals_object_null() => new StepLabel<object>()
+            .Equals((object?)null)
+            .Should()
+            .BeFalse();
+
+        [Fact]
+        public void Equals_object_identity()
+        {
+            var stepLabel = new StepLabel<object>();
+
+            stepLabel
+                .Equals((object)stepLabel)
+                .Should()
+                .BeTrue();
+        }
+
+        [Fact]
+        public void Equals_object_of_another_type() => new StepLabel<object>()
+            .Equals((object)"stepLabel")
+            .Should()
+            .BeFalse();
+
+        [Fact]
+        public void Value_is_not_intended_to_be_called() => new StepLabel<object>()
+            .Invoking(_ => _.Value)
+            .Should()
+            .ThrowExactly<NotImplementedException>();
+
+        [Fact]
+        public void Identity_is_preserved_when_a_query_typed_step_label_is_created_from_string()
+        {
+            StepLabel<IGremlinQuery<object>, object> stepLabel1 = "stepLabel";
+            StepLabel<IGremlinQuery<object>, object> stepLabel2 = "stepLabel";
+
+            stepLabel1.Should().Be(stepLabel2);
+        }
     }
 }
