@@ -41,7 +41,9 @@ namespace ExRam.Gremlinq.Core
             ArgumentNullException.ThrowIfNull(environment);
             ArgumentNullException.ThrowIfNull(type);
 
-            return environment.NativeTypes.Contains(type);
+            return environment is ICachingGremlinQueryEnvironment cachingEnvironment
+                ? cachingEnvironment.FrozenNativeTypes.Contains(type)
+                : environment.NativeTypes.Contains(type);
         }
 
         // The step that filters out all traversers on the server: none() as long as the server understands

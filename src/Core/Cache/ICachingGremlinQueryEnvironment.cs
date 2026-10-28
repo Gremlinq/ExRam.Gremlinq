@@ -10,5 +10,7 @@ namespace ExRam.Gremlinq.Core
         (PropertyInfo propertyInfo, MemberMetadata metadata)[] GetSerializationData(Type type);
 
         FrozenSet<Type> ModelTypes { get; }
+
+        FrozenSet<Type> FrozenNativeTypes { get; }
     }
 }
