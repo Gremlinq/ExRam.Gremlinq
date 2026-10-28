@@ -12,7 +12,7 @@ namespace ExRam.Gremlinq.Core.Projections
         {
             _projections = projections;
         }
-              
+
         /// <summary>Selects a subset of projections by key.</summary>
         /// <param name="keys">The keys to select.</param>
         public Projection Select(ImmutableArray<Key> keys)
@@ -42,36 +42,38 @@ namespace ExRam.Gremlinq.Core.Projections
                 ? 2
                 : 1;
 
-            var projectionTraversals = _projections
-                .Select(projection =>
-                {
-                    var projectionTraversal = projection.Projection
-                        .ToTraversal(environment);
+            var allEmpty = true;
+            var projectionTraversals = new Traversal[_projections.Length];
 
-                    return Traversal.Create(
-                        projectionTraversal.Count + overhead,
-                        (projection, projectionTraversal, emptyProjectionProtection),
-                        static (steps, state) =>
-                        {
-                            var (projection, projectionTraversal, emptyProjectionProtection) = state;
+            for (var i = 0; i < _projections.Length; i++)
+            {
+                var projectionTraversal = _projections[i].Projection
+                    .ToTraversal(environment);
 
-                            steps[0] = new SelectKeysStep(projection.Key);
+                projectionTraversals[i] = Traversal.Create(
+                    projectionTraversal.Count + overhead,
+                    (new SelectKeysStep(_projections[i].Key), projectionTraversal, emptyProjectionProtection),
+                    static (steps, state) =>
+                    {
+                        var (selectKeysStep, projectionTraversal, emptyProjectionProtection) = state;
 
-                            projectionTraversal.Steps
-                                .CopyTo(steps[1..]);
+                        steps[0] = selectKeysStep;
 
-                            if (emptyProjectionProtection is not null)
-                                steps[^1] = FoldStep.Instance;
-                        });
-                })
-                .ToArray();
+                        projectionTraversal.Steps
+                            .CopyTo(steps[1..]);
 
-            if (projectionTraversals.AsSpan().All(static (x, overhead) => x.Count == overhead, overhead))
+                        if (emptyProjectionProtection is not null)
+                            steps[^1] = FoldStep.Instance;
+                    });
+
+                if (projectionTraversals[i].Count != overhead)
+                    allEmpty = false;
+            }
+
+            if (allEmpty)
                 return Traversal.Empty;
 
-            var projectStep = new ProjectStep(_projections
-                .Select(static x => x.Key)
-                .ToImmutableArray());
+            var projectStep = CreateProjectStep();
 
             return Traversal.Create(
                 emptyProjectionProtection is { } protection
@@ -99,5 +101,17 @@ namespace ExRam.Gremlinq.Core.Projections
 
         /// <inheritdoc />
         public override Projection Lower() => Empty;
+
+        private ProjectStep CreateProjectStep()
+        {
+            var keys = new string[_projections.Length];
+
+            for (var i = 0; i < keys.Length; i++)
+            {
+                keys[i] = _projections[i].Key;
+            }
+
+            return new ProjectStep(keys.UnsafeToImmutableArray());
+        }
     }
 }
