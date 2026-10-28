@@ -336,17 +336,17 @@ namespace ExRam.Gremlinq.Core.Serialization
                 if (p.Value is null)
                     throw new NotSupportedException("Cannot serialize a P-predicate with a null-value.");
 
-                return new P(
-                    p.OperatorName,
-                    p.Value is IEnumerable enumerable && !env.SupportsType(enumerable.GetType())
-                        ? enumerable
-                            .Cast<object>()
-                            .Select(x => recurse.TransformTo<object>().From(x, env))
-                            .ToArray()
-                        : recurse.TransformTo<object>().From((object)p.Value, env),
-                    p.Other is { } other
-                        ? recurse.TransformTo<object>().From(other, env) as P
-                        : null);
+                var value = p.Value is IEnumerable enumerable && !env.SupportsType(enumerable.GetType())
+                    ? SerializeItems(enumerable, recurse, env)
+                    : recurse.TransformTo<object>().From((object)p.Value, env);
+
+                var other = p.Other is { } otherP
+                    ? recurse.TransformTo<object>().From(otherP, env) as P
+                    : null;
+
+                return ReferenceEquals(value, p.Value) && ReferenceEquals(other, p.Other)
+                    ? p
+                    : new P(p.OperatorName, value, other);
             }))
             .Add(Create<TextP, TextP>((textP, _, _, _) => textP))
             .Add(Create<Type, Type>((type, _, _, _) => type));
@@ -683,6 +683,43 @@ namespace ExRam.Gremlinq.Core.Serialization
         private static object? NullAwareSerialize<TParam>(this ITransformer serializer, TParam maybeParameter, IGremlinQueryEnvironment env) => maybeParameter is { } parameter
             ? serializer.TransformTo<object>().From(parameter, env)
             : null;
+
+        private static object[] SerializeItems(IEnumerable enumerable, ITransformer recurse, IGremlinQueryEnvironment env)
+        {
+            if (enumerable is IList list)
+            {
+                var items = new object[list.Count];
+
+                for (var i = 0; i < items.Length; i++)
+                {
+                    items[i] = recurse.TransformTo<object>().From(list[i], env);
+                }
+
+                return items;
+            }
+
+            if (enumerable is ICollection collection)
+            {
+                var items = new object[collection.Count];
+                var i = 0;
+
+                foreach (var item in collection)
+                {
+                    items[i++] = recurse.TransformTo<object>().From(item, env);
+                }
+
+                return items;
+            }
+
+            var collectedItems = new List<object>();
+
+            foreach (var item in enumerable)
+            {
+                collectedItems.Add(recurse.TransformTo<object>().From(item, env));
+            }
+
+            return collectedItems.ToArray();
+        }
     }
 }
 
