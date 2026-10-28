@@ -47,6 +47,10 @@ namespace ExRam.Gremlinq.Core
 
         internal static IImmutableDictionary<StepLabel, LabelProjections> MergeLabelProjections(this IImmutableDictionary<StepLabel, LabelProjections> projections, IImmutableDictionary<StepLabel, LabelProjections> newProjections, Func<LabelProjections, Projection?> projectionMap, Func<LabelProjections, Projection, LabelProjections> projectionMapper)
         {
+            // Nothing to merge, or the projections themselves, as a continuation that added no label gives back.
+            if (newProjections.Count == 0 || ReferenceEquals(projections, newProjections))
+                return projections;
+
             foreach (var kvp in newProjections)
             {
                 if (projectionMap(kvp.Value) is { } newLabelProjection)
