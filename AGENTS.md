@@ -267,13 +267,17 @@ configuration as its value and a type as an instance with `{}`. `IsAtLeast` is n
 outside Core and stays internal; each of those assemblies has an internal
 `VersionRangeExtensions.IsAtLeast` that compares the same way.
 
-A consumer's difference shows as an override in four classes of
+A consumer's difference shows as an override in six classes of
 `test/Providers.GremlinServer.Tests`: `SerializationTests38` (3.8.2 only) and
 `SerializationTests37To38` (3.7.7 to 3.8.2) serialize against `SerializationTests`' snapshots,
-`IntegrationTests38` executes on Gremlin Server 3.8.2 against `IntegrationTests`' snapshots, and
+`IntegrationTests38` executes on Gremlin Server 3.8.2 against `IntegrationTests`' snapshots,
 `IntegrationWithoutProjectionTests38` executes the facts without element projection on Gremlin
-Server 3.8.2 against `IntegrationWithoutProjectionTests`' snapshots. The in-memory provider of
-Gremlinq.Extensions verifies against the answers of `IntegrationWithoutProjectionTests38`.
+Server 3.8.2 against `IntegrationWithoutProjectionTests`' snapshots,
+`ObjectQueryIntegrationTests38` executes on Gremlin Server 3.8.2 against
+`ObjectQueryIntegrationTests`' snapshots, and `GroovyIntegrationTests38` executes on the
+customized Gremlin Server 3.8.2 against `GroovyIntegrationTests`' snapshots. The in-memory
+provider of Gremlinq.Extensions verifies against the answers of
+`IntegrationWithoutProjectionTests38`.
 `test/Providers.Neptune.Tests` has the same pair for Neptune engines: `SerializationTestsEngine15`
 (engine 1.5, 3.8.0 to 3.8.1) overrides like `SerializationTests38`, `SerializationTestsEngine14`
 (engine 1.4, 3.7.1) stays without overrides; both serialize against Neptune's `SerializationTests`.
@@ -282,8 +286,9 @@ Each override carries a comment naming the section of the
 type's difference shows in the contract tests of `GraphsonSupportTestBase` (facts ending in
 `_from_TinkerPop_3_8`) and in `Graphson{2,3}BinaryMessageSerializationTest38` of `test/Core.Tests`,
 for strategies and strategy types in `GraphSonBinarySupportTest` of `test/Providers.Core.Tests`,
-and where the server answers differently for it, as for stored dates, in `IntegrationTests38` and
-`IntegrationWithoutProjectionTests38`.
+and where the server answers differently for it, as for stored dates, in `IntegrationTests38`,
+`IntegrationWithoutProjectionTests38`, `ObjectQueryIntegrationTests38` and
+`GroovyIntegrationTests38`.
 
 ## Coding Conventions
 
