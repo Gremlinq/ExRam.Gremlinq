@@ -124,7 +124,7 @@ namespace ExRam.Gremlinq.Core.Transformation
                                         deferTransformer = existingDeferTransformer;
                                     else
                                     {
-                                        deferTransformer = new TransformerImpl(_converterFactories[..i], this);
+                                        deferTransformer = new TransformerImpl(_converterFactories[..i], _recurse);
 
                                         if (Interlocked.CompareExchange(ref deferTransformers[i], deferTransformer, null) is { } otherDeferTransformer)
                                             deferTransformer = otherDeferTransformer;

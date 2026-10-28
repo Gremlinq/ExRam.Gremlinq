@@ -74,6 +74,26 @@ namespace ExRam.Gremlinq.Core.Tests
             .TryTransformTo<string>().From("serialized", GremlinQueryEnvironment.Invalid));
 
         [Fact]
+        public async Task Defer_3_with_recurse() => await Verify(Transformer.Empty
+            .Add(Create<string, string>((serialized, env, _, recurse) => serialized switch
+            {
+                "deferred twice" => recurse.TransformTo<string>().From("recursed", env),
+                _ => throw new InvalidOperationException()
+            }))
+            .Add(Create<string, string>((serialized, env, defer, _) => serialized switch
+            {
+                "deferred once" => defer.TransformTo<string>().From("deferred twice", env),
+                _ => throw new InvalidOperationException()
+            }))
+            .Add(Create<string, string>((serialized, env, defer, _) => serialized switch
+            {
+                "serialized" => defer.TransformTo<string>().From("deferred once", env),
+                "recursed" => "success",
+                _ => throw new InvalidOperationException()
+            }))
+            .TryTransformTo<string>().From("serialized", GremlinQueryEnvironment.Invalid));
+
+        [Fact]
         public async Task Defer_with_recurse() => await Verify(Transformer.Empty
             .Add(Create<string, string>((serialized, env, _, recurse) => serialized switch
             {
