@@ -1149,7 +1149,7 @@ namespace ExRam.Gremlinq.Core
                     return builder
                         .AddStep(new SelectKeysStep(keys))
                         .WithNewProjection(
-                            static (projection, keys) => projection.If<TupleProjection>(tuple => tuple.Select(keys)),
+                            static (projection, keys) => projection.If<TupleProjection, ImmutableArray<Key>>(static (tuple, keys) => tuple.Select(keys), keys),
                             keys)
                         .BuildAs<TTargetQuery>();
                 },

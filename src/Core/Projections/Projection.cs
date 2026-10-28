@@ -76,13 +76,14 @@ namespace ExRam.Gremlinq.Core.Projections
         }
 
         internal Projection If<TProjection>(Func<TProjection, Projection> transformation)
-            where TProjection : Projection
-        {
-            if (this is TProjection projection)
-                return transformation(projection);
+            where TProjection : Projection => this is TProjection projection
+                ? transformation(projection)
+                : this;
 
-            return this;
-        }
+        internal Projection If<TProjection, TState>(Func<TProjection, TState, Projection> transformation, TState state)
+            where TProjection : Projection => this is TProjection projection
+                ? transformation(projection, state)
+                : this;
 
         internal Projection Lowest(Projection other)
         {
