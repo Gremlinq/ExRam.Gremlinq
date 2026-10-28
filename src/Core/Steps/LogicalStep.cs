@@ -15,11 +15,11 @@ namespace ExRam.Gremlinq.Core.Steps
 
         internal static ImmutableArray<Traversal> FlattenLogicalTraversals(ReadOnlySpan<Traversal> traversals)
         {
-            var builder = ImmutableArray.CreateBuilder<Traversal>();
+            var builder = ImmutableArray.CreateBuilder<Traversal>(traversals.Length);
 
             FlattenLogicalTraversals(builder, traversals);
 
-            return builder.ToImmutableArray();
+            return builder.DrainToImmutable();
 
             static void FlattenLogicalTraversals(ImmutableArray<Traversal>.Builder builder, ReadOnlySpan<Traversal> traversals)
             {
