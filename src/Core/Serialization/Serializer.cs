@@ -528,26 +528,26 @@ namespace ExRam.Gremlinq.Core.Serialization
                     throw new NotSupportedException("Cannot have an id property on non-single cardinality.");
 
                 var i = 0;
-                object[] parameters;
+                object?[] arguments;
 
                 if (step.Cardinality != null && !T.Id.Equals(step.Key.RawKey))
                 {
-                    parameters = new object[step.MetaProperties.Length * 2 + 3];
-                    parameters[i++] = step.Cardinality;
+                    arguments = new object?[step.MetaProperties.Length * 2 + 3];
+                    arguments[i++] = recurse.NullAwareSerialize(step.Cardinality, env);
                 }
                 else
-                    parameters = new object[step.MetaProperties.Length * 2 + 2];
+                    arguments = new object?[step.MetaProperties.Length * 2 + 2];
 
-                parameters[i++] = step.Key;
-                parameters[i++] = step.Value;
+                arguments[i++] = recurse.NullAwareSerialize(step.Key, env);
+                arguments[i++] = recurse.NullAwareSerialize(step.Value, env);
 
                 for (var j = 0; j < step.MetaProperties.Length; j++)
                 {
-                    parameters[i++] = step.MetaProperties[j].Key;
-                    parameters[i++] = step.MetaProperties[j].Value;
+                    arguments[i++] = recurse.NullAwareSerialize(step.MetaProperties[j].Key, env);
+                    arguments[i++] = recurse.NullAwareSerialize(step.MetaProperties[j].Value, env);
                 }
 
-                return CreateInstruction("property", recurse, env, parameters);
+                return new Instruction("property", arguments);
             })
             .Add<ProjectStep>((step, env, _, recurse) => CreateInstruction("project", recurse, env, step.Projections))
             .Add<ProjectStep.ByTraversalStep>((step, env, _, recurse) => CreateInstruction("by", recurse, env, step.Traversal))
