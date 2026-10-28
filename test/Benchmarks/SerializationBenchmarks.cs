@@ -19,12 +19,14 @@ namespace ExRam.Gremlinq.Benchmarks
         private IGremlinQuerySource _g = null!;
         private IGremlinQueryBase _v = null!;
         private IGremlinQueryBase _vTyped = null!;
+        private IGremlinQueryBase _vTypedWithoutProjection = null!;
         private IGremlinQueryBase _whereOne = null!;
         private IGremlinQueryBase _whereTwo = null!;
         private IGremlinQueryBase _addV = null!;
         private IGremlinQueryBase _project = null!;
         private IGremlinQueryBase _subTraversal = null!;
         private IGremlinQueryEnvironment _environment = null!;
+        private IGremlinQueryEnvironment _environmentWithoutProjection = null!;
 
         [GlobalSetup]
         public void Setup()
@@ -34,6 +36,15 @@ namespace ExRam.Gremlinq.Benchmarks
                     .UseModel(GraphModel.FromBaseTypes<Vertex, Edge>()));
 
             _environment = _g.AsAdmin().Environment;
+
+            var gWithoutProjection = _g
+                .ConfigureEnvironment(env => env
+                    .ConfigureOptions(options => options
+                        .SetValue(GremlinqOption.VertexProjectionSteps, Traversal.Empty)
+                        .SetValue(GremlinqOption.VertexProjectionWithoutMetaPropertiesSteps, Traversal.Empty)));
+
+            _environmentWithoutProjection = gWithoutProjection.AsAdmin().Environment;
+            _vTypedWithoutProjection = gWithoutProjection.V<RichVertex>();
 
             _v = _g.V();
             _vTyped = _g.V<RichVertex>();
@@ -53,6 +64,12 @@ namespace ExRam.Gremlinq.Benchmarks
 
         [Benchmark]
         public Bytecode V_typed_to_bytecode() => Serialize<Bytecode>(_vTyped);
+
+        // The same query with the vertex projection turned off, for the projection's share.
+        [Benchmark]
+        public Bytecode V_typed_without_projection_to_bytecode() => _environmentWithoutProjection.Serializer
+            .TransformTo<Bytecode>()
+            .From(_vTypedWithoutProjection, _environmentWithoutProjection);
 
         [Benchmark]
         public Bytecode Where_one_to_bytecode() => Serialize<Bytecode>(_whereOne);
