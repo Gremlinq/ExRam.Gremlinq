@@ -26,14 +26,15 @@ jobs:
       - name: Run benchmarks
         run: |
           cd test/Benchmarks
-          dotnet run -c Release -- --filter '*' --exporters json --join
+          dotnet run -c Release -f net10.0 -- --filter '*' --exporters json --join
+          cp BenchmarkDotNet.Artifacts/results/BenchmarkRun-joined-*-report-full-compressed.json BenchmarkDotNet.Artifacts/results/joined-report-full-compressed.json
 
       - name: Store benchmark result
         uses: benchmark-action/github-action-benchmark@4bdcce38c94cec68da58d012ac24b7b1155efe8b # v1.20.7
         with:
           name: ExRam.Gremlinq Benchmarks
           tool: 'benchmarkdotnet'
-          output-file-path: test/Benchmarks/BenchmarkDotNet.Artifacts/results/ExRam.Gremlinq.Benchmarks.QueryBuildingBenchmarks-report-full-compressed.json
+          output-file-path: test/Benchmarks/BenchmarkDotNet.Artifacts/results/joined-report-full-compressed.json
           github-token: ${{ secrets.PUSH_TO_GH_PAGES_BRANCH_PAT }}
           auto-push: true
           gh-pages-branch: gh-pages
