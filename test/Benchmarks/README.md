@@ -9,6 +9,7 @@ This project contains performance benchmarks for ExRam.Gremlinq using BenchmarkD
   Every benchmark but the last serializes the same query instance again and again.
 - `TransformerBenchmarks`: one `TryTransform` call on a transformer whose converters exist
   already, so the lookup of the converter chain and its call, not its creation.
+- `EnvironmentBenchmarks`: the lookups the serializer makes on the environment for every value.
 - `FastImmutableListBenchmarks`: pushing to the list that holds a traversal's steps.
 
 ## Running Benchmarks Locally
