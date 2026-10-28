@@ -140,15 +140,20 @@ namespace ExRam.Gremlinq.Core.Serialization
                                 byteCode.StepInstructions.Add(instruction);
                         }
 
-                        if (recurse.TryTransform(instruction, env, out Instruction[]? expandedInnerInstructions))
+                        if (recurse.TryTransform(instruction, env, out object? expansion))
                         {
-                            foreach (var expandedInnerInstruction in expandedInnerInstructions)
+                            if (expansion is Instruction[] expandedInnerInstructions)
                             {
-                                AddInnerInstruction(expandedInnerInstruction, byteCode, isSourceInstruction);
+                                foreach (var expandedInnerInstruction in expandedInnerInstructions)
+                                {
+                                    AddInnerInstruction(expandedInnerInstruction, byteCode, isSourceInstruction);
+                                }
                             }
+                            else if (expansion is Instruction expandedInstruction)
+                                AddInnerInstruction(expandedInstruction, byteCode, isSourceInstruction);
+                            else
+                                AddInnerInstruction(instruction, byteCode, isSourceInstruction);
                         }
-                        else if (recurse.TryTransform(instruction, env, out Instruction? expandedInstruction))
-                            AddInnerInstruction(expandedInstruction, byteCode, isSourceInstruction);
                         else
                             AddInnerInstruction(instruction, byteCode, isSourceInstruction);
                     }
