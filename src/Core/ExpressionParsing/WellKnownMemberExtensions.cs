@@ -105,7 +105,7 @@ namespace ExRam.Gremlinq.Core.ExpressionParsing
         {
             if (expression is MemberExpression { Expression: { } memberExpressionExpression, Member: { } member })
             {
-                if (typeof(T).IsAssignableFrom(member.DeclaringType) && member.Name == name)
+                if (member.Name == name && typeof(T).IsAssignableFrom(member.DeclaringType))
                 {
                     propertyExpression = memberExpressionExpression.Strip();
                     return true;
