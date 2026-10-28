@@ -2,6 +2,7 @@ using System.Buffers;
 using System.Collections.Concurrent;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 
 namespace ExRam.Gremlinq.Core.Transformation
 {
@@ -48,7 +49,7 @@ namespace ExRam.Gremlinq.Core.Transformation
             private readonly TransformerImpl _recurse;
             private TransformerImpl?[]? _deferTransformers;
             private readonly FastImmutableList<IConverterFactory> _converterFactories;
-            private readonly ConcurrentDictionary<(IGremlinQueryEnvironment, Type, Type, Type), object> _unifiedConverters = new();
+            private readonly ConcurrentDictionary<ConverterKey, object> _unifiedConverters = new();
 
             public TransformerImpl(FastImmutableList<IConverterFactory> converterFactories)
             {
@@ -67,21 +68,16 @@ namespace ExRam.Gremlinq.Core.Transformation
             {
                 if (source is { } actualSerialized)
                 {
-                    var maybeUnifiedConverter = _unifiedConverters
+                    // The key fixes the unified converter's type: UnifiedConverter<TSource, TActualSource, TTarget>.
+                    var unifiedConverter = Unsafe.As<IConverter<TSource, TTarget>>(_unifiedConverters
                         .GetOrAdd(
-                            (environment, typeof(TSource), actualSerialized.GetType(), typeof(TTarget)),
-                            static (typeTuple, @this) =>
-                            {
-                                var (environment, staticSerializedType, actualSerializedType, requestedType) = typeTuple;
+                            new ConverterKey(environment, typeof(TSource), actualSerialized.GetType(), typeof(TTarget)),
+                            static (key, @this) => GetConverterMethodInfo
+                                .MakeGenericMethod(key.StaticSourceType, key.ActualSourceType, key.TargetType)
+                                .Invoke(@this, [key.Environment])!,
+                            this));
 
-                                return GetConverterMethodInfo
-                                    .MakeGenericMethod(staticSerializedType, actualSerializedType, requestedType)
-                                    .Invoke(@this, [environment])!;
-                            },
-                            this);
-
-                    // ReSharper disable once ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
-                    if ((maybeUnifiedConverter as IConverter<TSource, TTarget>)?.TryConvert(source, this, this, out var optionValue) is true && optionValue is not null)
+                    if (unifiedConverter.TryConvert(source, this, this, out var optionValue) && optionValue is not null)
                     {
                         value = optionValue;
                         return true;
@@ -151,6 +147,25 @@ namespace ExRam.Gremlinq.Core.Transformation
                         .Return(tuples);
                 }
             }
+        }
+
+        // The key of a unified converter. Its parts are compared by reference: an environment is the
+        // instance the converters captured, and typeof and GetType() give one Type instance per type.
+        internal readonly struct ConverterKey(IGremlinQueryEnvironment environment, Type staticSourceType, Type actualSourceType, Type targetType) : IEquatable<ConverterKey>
+        {
+            public bool Equals(ConverterKey other) => ReferenceEquals(Environment, other.Environment) && ReferenceEquals(StaticSourceType, other.StaticSourceType) && ReferenceEquals(ActualSourceType, other.ActualSourceType) && ReferenceEquals(TargetType, other.TargetType);
+
+            public override bool Equals(object? obj) => obj is ConverterKey other && Equals(other);
+
+            public override int GetHashCode() => HashCode.Combine(RuntimeHelpers.GetHashCode(Environment), RuntimeHelpers.GetHashCode(StaticSourceType), RuntimeHelpers.GetHashCode(ActualSourceType), RuntimeHelpers.GetHashCode(TargetType));
+
+            public IGremlinQueryEnvironment Environment { get; } = environment;
+
+            public Type StaticSourceType { get; } = staticSourceType;
+
+            public Type ActualSourceType { get; } = actualSourceType;
+
+            public Type TargetType { get; } = targetType;
         }
 
         /// <summary>

@@ -137,5 +137,16 @@ namespace ExRam.Gremlinq.Core.Tests
             .TryTransform<string, ValueType>("serialized", GremlinQueryEnvironment.Invalid, out _)
             .Should()
             .BeFalse();
+
+        [Fact]
+        public void ConverterKey_equals_an_object_with_the_same_parts()
+        {
+            var environment = GremlinQueryEnvironment.Invalid;
+            var key = new Transformer.ConverterKey(environment, typeof(string), typeof(string), typeof(object));
+
+            key.Equals((object)new Transformer.ConverterKey(environment, typeof(string), typeof(string), typeof(object))).Should().BeTrue();
+            key.Equals((object)new Transformer.ConverterKey(environment.ConfigureOptions(options => options), typeof(string), typeof(string), typeof(object))).Should().BeFalse();
+            key.Equals("key").Should().BeFalse();
+        }
     }
 }
