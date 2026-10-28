@@ -1,3 +1,5 @@
-﻿FROM tinkerpop/gremlin-server:3.7.7
+﻿ARG GREMLIN_SERVER_VERSION=3.7.7
+
+FROM tinkerpop/gremlin-server:${GREMLIN_SERVER_VERSION}
 
 RUN sed -i '/processors:/a\ \ - { className: org.apache.tinkerpop.gremlin.server.op.standard.StandardOpProcessor, config: { maxParameters: 64 }}'  /opt/gremlin-server/conf/gremlin-server.yaml

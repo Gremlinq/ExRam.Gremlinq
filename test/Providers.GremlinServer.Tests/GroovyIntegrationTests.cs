@@ -17,6 +17,14 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
     {
         public class Fixture : CustomGremlinServerContainerFixture
         {
+            public Fixture() : base()
+            {
+            }
+
+            protected Fixture(Version version) : base(version)
+            {
+            }
+
             protected override IGremlinQuerySource TransformQuerySource(IContainer container, IGremlinQuerySource g) => base
                 .TransformQuerySource(container, g)
                 .ConfigureEnvironment(env => env
