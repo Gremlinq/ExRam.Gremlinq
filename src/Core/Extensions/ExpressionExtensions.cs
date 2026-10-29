@@ -64,7 +64,11 @@ namespace ExRam.Gremlinq.Core
             MemberExpression { Member: FieldInfo fieldInfo } fieldExpression => fieldInfo.GetValue(fieldExpression.Expression?.GetValue()),
             NewExpression { Constructor: { } constructor, Members: null } newExpression => constructor.Invoke(newExpression.GetArguments()),
             NewArrayExpression newArrayExpression => newArrayExpression.GetValue(),
-            _ => Expression.Lambda<Func<object>>(expression.Type.IsClass ? expression : Expression.Convert(expression, typeof(object))).Compile()()
+            // The interpreter runs the expression without emitting and jitting a method for it, which Compile() did for
+            // every query whose constant was not read directly.
+            _ => Expression
+                .Lambda<Func<object?>>(expression.Type.IsClass ? expression : Expression.Convert(expression, typeof(object)))
+                .Compile(preferInterpretation: true)()
         };
 
         public static bool RefersToStepLabel(this Expression expression, [NotNullWhen(true)] out StepLabel? stepLabel, out MemberExpression? stepLabelValueMemberExpression)
