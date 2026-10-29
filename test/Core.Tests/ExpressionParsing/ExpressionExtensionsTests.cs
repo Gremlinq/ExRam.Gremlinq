@@ -166,6 +166,46 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Throw<DivideByZeroException>();
         }
 
+        [Fact]
+        public void Add_of_decimals()
+        {
+            var price = 1.5m;
+
+            ValueOf(() => price + 2.25m)
+                .Should()
+                .Be(3.75m);
+        }
+
+        [Fact]
+        public void Divide_of_floats()
+        {
+            var half = 0.5f;
+
+            ValueOf(() => _age / half)
+                .Should()
+                .Be(50f);
+        }
+
+        [Fact]
+        public void Modulo_of_ints()
+        {
+            var seven = 7;
+
+            ValueOf(() => _age % seven)
+                .Should()
+                .Be(4);
+        }
+
+        [Fact]
+        public void Negate_of_decimal()
+        {
+            var price = 1.5m;
+
+            ValueOf(() => -price)
+                .Should()
+                .Be(-1.5m);
+        }
+
         private static object? ValueOf<T>(Expression<Func<T>> expression) => expression.Body.GetValue();
     }
 }

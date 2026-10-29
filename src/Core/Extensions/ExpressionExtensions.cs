@@ -1,5 +1,6 @@
-using System.Diagnostics.CodeAnalysis;
+using System.Collections.Concurrent;using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
+using System.Numerics;
 using System.Reflection;
 using ExRam.Gremlinq.Core.ExpressionParsing;
 
@@ -7,6 +8,38 @@ namespace ExRam.Gremlinq.Core
 {
     internal static class ExpressionExtensions
     {
+        private sealed record NumberOperators(Func<object, object> Negate, Func<object, object, object> Add, Func<object, object, object> Subtract, Func<object, object, object> Multiply, Func<object, object, object> Divide, Func<object, object, object> Modulo)
+        {
+            public object Apply(BinaryExpression binaryExpression)
+            {
+                var left = binaryExpression.Left.GetValue()!;
+                var right = binaryExpression.Right.GetValue()!;
+
+                return binaryExpression.NodeType switch
+                {
+                    ExpressionType.Add => Add(left, right),
+                    ExpressionType.Subtract => Subtract(left, right),
+                    ExpressionType.Multiply => Multiply(left, right),
+                    ExpressionType.Divide => Divide(left, right),
+                    _ => Modulo(left, right)
+                };
+            }
+        }
+
+        private static class Number<T>
+            where T : INumber<T>
+        {
+            public static readonly NumberOperators Operators = new(
+                static value => -(T)value,
+                static (left, right) => (T)left + (T)right,
+                static (left, right) => (T)left - (T)right,
+                static (left, right) => (T)left * (T)right,
+                static (left, right) => (T)left / (T)right,
+                static (left, right) => (T)left % (T)right);
+        }
+
+        private static readonly ConcurrentDictionary<Type, NumberOperators?> NumberOperatorsByType = new();
+
         public static Expression Strip(this Expression expression)
         {
             while (true)
@@ -65,33 +98,22 @@ namespace ExRam.Gremlinq.Core
             NewExpression { Constructor: { } constructor, Members: null } newExpression => constructor.Invoke(newExpression.GetArguments()),
             NewArrayExpression newArrayExpression => newArrayExpression.GetValue(),
             UnaryExpression { NodeType: ExpressionType.Convert or ExpressionType.ConvertChecked, Method: null } convertExpression => convertExpression.GetConvertedValue(),
-            UnaryExpression { NodeType: ExpressionType.Negate, Method: null, Operand: { } operandExpression } negateExpression when negateExpression.Type == typeof(int) => unchecked(-(int)operandExpression.GetValue()!),
-            UnaryExpression { NodeType: ExpressionType.Negate, Method: null, Operand: { } operandExpression } negateExpression when negateExpression.Type == typeof(long) => unchecked(-(long)operandExpression.GetValue()!),
-            UnaryExpression { NodeType: ExpressionType.Negate, Method: null, Operand: { } operandExpression } negateExpression when negateExpression.Type == typeof(double) => -(double)operandExpression.GetValue()!,
+            UnaryExpression { NodeType: ExpressionType.Negate, Method: null } negateExpression when GetNumberOperators(negateExpression.Type) is { } operators => operators.Negate(negateExpression.Operand.GetValue()!),
             ConditionalExpression conditionalExpression => (bool)conditionalExpression.Test.GetValue()!
                 ? conditionalExpression.IfTrue.GetValue()
                 : conditionalExpression.IfFalse.GetValue(),
             BinaryExpression { NodeType: ExpressionType.ArrayIndex, Left: { } arrayExpression, Right: { } indexExpression } => ((Array)arrayExpression.GetValue()!).GetValue((int)indexExpression.GetValue()!),
-            BinaryExpression { NodeType: ExpressionType.Add or ExpressionType.Subtract or ExpressionType.Multiply, Method: null } binaryExpression when binaryExpression.Type == typeof(int) && binaryExpression.Left.Type == typeof(int) && binaryExpression.Right.Type == typeof(int) => binaryExpression.NodeType switch
-            {
-                ExpressionType.Add => unchecked((int)binaryExpression.Left.GetValue()! + (int)binaryExpression.Right.GetValue()!),
-                ExpressionType.Subtract => unchecked((int)binaryExpression.Left.GetValue()! - (int)binaryExpression.Right.GetValue()!),
-                _ => unchecked((int)binaryExpression.Left.GetValue()! * (int)binaryExpression.Right.GetValue()!)
-            },
-            BinaryExpression { NodeType: ExpressionType.Add or ExpressionType.Subtract or ExpressionType.Multiply, Method: null } binaryExpression when binaryExpression.Type == typeof(long) && binaryExpression.Left.Type == typeof(long) && binaryExpression.Right.Type == typeof(long) => binaryExpression.NodeType switch
-            {
-                ExpressionType.Add => unchecked((long)binaryExpression.Left.GetValue()! + (long)binaryExpression.Right.GetValue()!),
-                ExpressionType.Subtract => unchecked((long)binaryExpression.Left.GetValue()! - (long)binaryExpression.Right.GetValue()!),
-                _ => unchecked((long)binaryExpression.Left.GetValue()! * (long)binaryExpression.Right.GetValue()!)
-            },
-            BinaryExpression { NodeType: ExpressionType.Add or ExpressionType.Subtract or ExpressionType.Multiply, Method: null } binaryExpression when binaryExpression.Type == typeof(double) && binaryExpression.Left.Type == typeof(double) && binaryExpression.Right.Type == typeof(double) => binaryExpression.NodeType switch
-            {
-                ExpressionType.Add => (double)binaryExpression.Left.GetValue()! + (double)binaryExpression.Right.GetValue()!,
-                ExpressionType.Subtract => (double)binaryExpression.Left.GetValue()! - (double)binaryExpression.Right.GetValue()!,
-                _ => (double)binaryExpression.Left.GetValue()! * (double)binaryExpression.Right.GetValue()!
-            },
+            BinaryExpression { NodeType: ExpressionType.Add or ExpressionType.Subtract or ExpressionType.Multiply or ExpressionType.Divide or ExpressionType.Modulo, Method: null } binaryExpression when GetNumberOperators(binaryExpression.Type) is { } operators => operators.Apply(binaryExpression),
             _ => expression.Interpret()
         };
+
+        // The operators of a number type, closed over the type once per type the parser meets: INumber<T> gives every
+        // number type the unchecked operators of Expression.Add and the others. A type that is no number has none.
+        private static NumberOperators? GetNumberOperators(Type type) => NumberOperatorsByType.GetOrAdd(
+            type,
+            static type => type.IsValueType && type.GetInterfaces().Any(implementedInterface => implementedInterface.IsGenericType && implementedInterface.GetGenericTypeDefinition() == typeof(INumber<>) && implementedInterface.GetGenericArguments()[0] == type)
+                ? (NumberOperators?)typeof(Number<>).MakeGenericType(type).GetField(nameof(Number<int>.Operators), BindingFlags.Public | BindingFlags.Static)!.GetValue(null)
+                : null);
 
         // A conversion that boxes the value, widens it to a base type or an interface or wraps it into a nullable
         // leaves the object as it is. Every other conversion, as of a number to a wider number or of an enum to its
