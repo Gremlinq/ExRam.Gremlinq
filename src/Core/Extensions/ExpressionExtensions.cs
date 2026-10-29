@@ -64,12 +64,54 @@ namespace ExRam.Gremlinq.Core
             MemberExpression { Member: FieldInfo fieldInfo } fieldExpression => fieldInfo.GetValue(fieldExpression.Expression?.GetValue()),
             NewExpression { Constructor: { } constructor, Members: null } newExpression => constructor.Invoke(newExpression.GetArguments()),
             NewArrayExpression newArrayExpression => newArrayExpression.GetValue(),
-            // The interpreter runs the expression without emitting and jitting a method for it, which Compile() did for
-            // every query whose constant was not read directly.
-            _ => Expression
-                .Lambda<Func<object?>>(expression.Type.IsClass ? expression : Expression.Convert(expression, typeof(object)))
-                .Compile(preferInterpretation: true)()
+            UnaryExpression { NodeType: ExpressionType.Convert or ExpressionType.ConvertChecked, Method: null } convertExpression => convertExpression.GetConvertedValue(),
+            UnaryExpression { NodeType: ExpressionType.Negate, Method: null, Operand: { } operandExpression } negateExpression when negateExpression.Type == typeof(int) => unchecked(-(int)operandExpression.GetValue()!),
+            UnaryExpression { NodeType: ExpressionType.Negate, Method: null, Operand: { } operandExpression } negateExpression when negateExpression.Type == typeof(long) => unchecked(-(long)operandExpression.GetValue()!),
+            UnaryExpression { NodeType: ExpressionType.Negate, Method: null, Operand: { } operandExpression } negateExpression when negateExpression.Type == typeof(double) => -(double)operandExpression.GetValue()!,
+            ConditionalExpression conditionalExpression => (bool)conditionalExpression.Test.GetValue()!
+                ? conditionalExpression.IfTrue.GetValue()
+                : conditionalExpression.IfFalse.GetValue(),
+            BinaryExpression { NodeType: ExpressionType.ArrayIndex, Left: { } arrayExpression, Right: { } indexExpression } => ((Array)arrayExpression.GetValue()!).GetValue((int)indexExpression.GetValue()!),
+            BinaryExpression { NodeType: ExpressionType.Add or ExpressionType.Subtract or ExpressionType.Multiply, Method: null } binaryExpression when binaryExpression.Type == typeof(int) && binaryExpression.Left.Type == typeof(int) && binaryExpression.Right.Type == typeof(int) => binaryExpression.NodeType switch
+            {
+                ExpressionType.Add => unchecked((int)binaryExpression.Left.GetValue()! + (int)binaryExpression.Right.GetValue()!),
+                ExpressionType.Subtract => unchecked((int)binaryExpression.Left.GetValue()! - (int)binaryExpression.Right.GetValue()!),
+                _ => unchecked((int)binaryExpression.Left.GetValue()! * (int)binaryExpression.Right.GetValue()!)
+            },
+            BinaryExpression { NodeType: ExpressionType.Add or ExpressionType.Subtract or ExpressionType.Multiply, Method: null } binaryExpression when binaryExpression.Type == typeof(long) && binaryExpression.Left.Type == typeof(long) && binaryExpression.Right.Type == typeof(long) => binaryExpression.NodeType switch
+            {
+                ExpressionType.Add => unchecked((long)binaryExpression.Left.GetValue()! + (long)binaryExpression.Right.GetValue()!),
+                ExpressionType.Subtract => unchecked((long)binaryExpression.Left.GetValue()! - (long)binaryExpression.Right.GetValue()!),
+                _ => unchecked((long)binaryExpression.Left.GetValue()! * (long)binaryExpression.Right.GetValue()!)
+            },
+            BinaryExpression { NodeType: ExpressionType.Add or ExpressionType.Subtract or ExpressionType.Multiply, Method: null } binaryExpression when binaryExpression.Type == typeof(double) && binaryExpression.Left.Type == typeof(double) && binaryExpression.Right.Type == typeof(double) => binaryExpression.NodeType switch
+            {
+                ExpressionType.Add => (double)binaryExpression.Left.GetValue()! + (double)binaryExpression.Right.GetValue()!,
+                ExpressionType.Subtract => (double)binaryExpression.Left.GetValue()! - (double)binaryExpression.Right.GetValue()!,
+                _ => (double)binaryExpression.Left.GetValue()! * (double)binaryExpression.Right.GetValue()!
+            },
+            _ => expression.Interpret()
         };
+
+        // A conversion that boxes the value, widens it to a base type or an interface or wraps it into a nullable
+        // leaves the object as it is. Every other conversion, as of a number to a wider number or of an enum to its
+        // underlying type, is interpreted on the value already read, so that the operand is read once.
+        private static object? GetConvertedValue(this UnaryExpression convertExpression)
+        {
+            var maybeValue = convertExpression.Operand.GetValue();
+
+            return maybeValue is { } value && convertExpression.Type.IsAssignableFrom(value.GetType())
+                ? value
+                : Expression
+                    .MakeUnary(convertExpression.NodeType, Expression.Constant(maybeValue, convertExpression.Operand.Type), convertExpression.Type)
+                    .Interpret();
+        }
+
+        // The interpreter runs an expression without emitting and jitting a method for it, which is what
+        // Compile() did for every query whose constant was not read directly.
+        private static object? Interpret(this Expression expression) => Expression
+            .Lambda<Func<object?>>(expression.Type.IsClass ? expression : Expression.Convert(expression, typeof(object)))
+            .Compile(preferInterpretation: true)();
 
         public static bool RefersToStepLabel(this Expression expression, [NotNullWhen(true)] out StepLabel? stepLabel, out MemberExpression? stepLabelValueMemberExpression)
         {
