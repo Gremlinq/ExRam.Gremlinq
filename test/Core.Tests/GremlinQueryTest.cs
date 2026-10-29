@@ -387,5 +387,37 @@ namespace ExRam.Gremlinq.Core.Tests
             .Debug()
             .Should()
             .StartWith("g.V().hasLabel('RichVertex').project('age').by('Age')");
+
+        [Fact]
+        public void ChangeQueryType_to_array_query() => _g
+            .V()
+            .AsAdmin()
+            .ChangeQueryType<IGremlinQuery<int[]>>()
+            .Should()
+            .NotBeNull();
+
+        [Fact]
+        public void ChangeQueryType_to_unsupported_generic_type_throws() => _g
+            .V()
+            .AsAdmin()
+            .Invoking(admin => admin.ChangeQueryType<IUnsupportedQuery<int>>())
+            .Should()
+            .Throw<NotSupportedException>();
+
+        [Fact]
+        public void ChangeQueryType_to_unsupported_type_throws() => _g
+            .V()
+            .AsAdmin()
+            .Invoking(admin => admin.ChangeQueryType<IUnsupportedQuery>())
+            .Should()
+            .Throw<NotSupportedException>();
+
+        private interface IUnsupportedQuery : IStartGremlinQuery
+        {
+        }
+
+        private interface IUnsupportedQuery<T> : IStartGremlinQuery
+        {
+        }
     }
 }
