@@ -329,39 +329,39 @@ namespace ExRam.Gremlinq.Providers.Core
 
                 private async Task SendCore(RequestMessage requestMessage)
                 {
-                    await _sendLock
-                        .WaitAsync(_cts.Token)
-                        .ConfigureAwait(false);
-
                     try
                     {
-                        try
+                        if (_environment.Serializer.TryTransform(requestMessage, _environment, out TBinaryMessage? buffer))
                         {
-                            if (_client.State == WebSocketState.None)
+                            using (buffer)
                             {
-                                await _client
-                                    .ConnectAsync(_factory._uri, _cts.Token)
+                                await _sendLock
+                                    .WaitAsync(_cts.Token)
                                     .ConfigureAwait(false);
 
-                                _loopTcs.SetResult(Loop());
-                            }
-
-                            if (_environment.Serializer.TryTransform(requestMessage, _environment, out TBinaryMessage? buffer))
-                            {
-                                using (buffer)
+                                try
                                 {
+                                    if (_client.State == WebSocketState.None)
+                                    {
+                                        await _client
+                                            .ConnectAsync(_factory._uri, _cts.Token)
+                                            .ConfigureAwait(false);
+
+                                        _loopTcs.SetResult(Loop());
+                                    }
+
                                     await _client
                                         .SendAsync(buffer.Memory, WebSocketMessageType.Binary, true, _cts.Token)
                                         .ConfigureAwait(false);
                                 }
+                                finally
+                                {
+                                    _sendLock.Release();
+                                }
                             }
-                            else
-                                throw new InvalidOperationException();
                         }
-                        finally
-                        {
-                            _sendLock.Release();
-                        }
+                        else
+                            throw new InvalidOperationException();
                     }
                     catch
                     {
