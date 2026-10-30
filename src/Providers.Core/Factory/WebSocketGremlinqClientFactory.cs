@@ -8,8 +8,6 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks.Sources;
 
-using CommunityToolkit.HighPerformance.Buffers;
-
 using ExRam.Gremlinq.Core;
 
 using Gremlin.Net.Driver;
@@ -375,20 +373,25 @@ namespace ExRam.Gremlinq.Providers.Core
 
                     using (this)
                     {
-                        Task<MemoryOwner<byte>>? maybeReceiveTask = null;
+                        // A pooled ValueTask is awaited at most once: the receive started in one iteration is
+                        // awaited at the top of the next, or once in the catch below, which only sees a receive
+                        // that was started in this iteration. Clearing the local before the await keeps it so.
+                        ValueTask<ReceivedMessage>? maybeReceiveTask = null;
 
                         while (true)
                         {
-                            MemoryOwner<byte>? maybeBytes = null;
+                            ReceivedMessage? maybeBytes = null;
 
                             try
                             {
                                 if (maybeReceiveTask is { } receiveTask)
                                 {
+                                    maybeReceiveTask = null;
+
                                     maybeBytes = await receiveTask
                                         .ConfigureAwait(false);
                                 }
-                                
+
                                 if (!ct.IsCancellationRequested)
                                     maybeReceiveTask = _client.ReceiveAsync(ct);
                             }
