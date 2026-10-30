@@ -103,7 +103,10 @@ namespace ExRam.Gremlinq.Providers.Core
                 {
                     private readonly WebSocketGremlinqClient _client;
 
-                    private ValueTaskSourceCore<SingleOrQueue<T>> _valueTaskSource;
+                    // No continuation of Signal ever runs on the receive loop: the continuation of the
+                    // ValueTask is queued to the thread pool, and SemaphoreSlim.WaitAsync, which the
+                    // multi-response path awaits, completes its waiters asynchronously as well.
+                    private ValueTaskSourceCore<SingleOrQueue<T>> _valueTaskSource = new(runContinuationsAsynchronously: true);
 
                     public Channel(WebSocketGremlinqClient client)
                     {
@@ -295,11 +298,6 @@ namespace ExRam.Gremlinq.Providers.Core
 
                                         throw;
                                     }
-
-                                    // Since the below yield return is what effectively yields control back to user code,
-                                    // the receive loop may stall if user code blocks. Although technically not Gremlinq's
-                                    // fault, we take this measure.
-                                    await Task.Yield();
 
                                     yield return e.Current;
                                 }

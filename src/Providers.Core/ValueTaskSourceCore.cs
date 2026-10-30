@@ -9,6 +9,11 @@ namespace ExRam.Gremlinq.Providers.Core
         private int _isSet;
         private ManualResetValueTaskSourceCore<TResult> _valueTaskSource;
 
+        public ValueTaskSourceCore(bool runContinuationsAsynchronously)
+        {
+            _valueTaskSource.RunContinuationsAsynchronously = runContinuationsAsynchronously;
+        }
+
         public bool TrySetResult(TResult result)
         {
             var wasSet = Interlocked.CompareExchange(ref _isSet, 1, 0) == 0;
