@@ -192,7 +192,15 @@ namespace ExRam.Gremlinq.Providers.Core
 
         private sealed class GremlinQueryExecutorImpl : IGremlinQueryExecutor, IAsyncDisposable
         {
-            private static readonly ConcurrentDictionary<Type, Func<GremlinQueryExecutorImpl, GremlinQueryExecutionContext, object>> MetaResponseDelegates = new();
+            private static class MetaResponseExecution<T>
+            {
+                public static readonly Func<GremlinQueryExecutorImpl, GremlinQueryExecutionContext, IAsyncEnumerable<T>>? Delegate = typeof(T).IsGenericType && typeof(T).GetGenericTypeDefinition() == typeof(MetaResponse<>)
+                    ? typeof(GremlinQueryExecutorImpl)
+                        .GetMethod(nameof(ExecuteMetaResponse), BindingFlags.NonPublic | BindingFlags.Static)!
+                        .MakeGenericMethod(typeof(T).GenericTypeArguments[0])
+                        .CreateDelegate<Func<GremlinQueryExecutorImpl, GremlinQueryExecutionContext, IAsyncEnumerable<T>>>()
+                    : null;
+            }
 
             private readonly IGremlinqClientFactory _clientFactory;
             private readonly ConcurrentDictionary<IGremlinQueryEnvironment, IGremlinqClient> _clients = new();
@@ -208,18 +216,8 @@ namespace ExRam.Gremlinq.Providers.Core
 
             public IAsyncEnumerable<T> Execute<T>(GremlinQueryExecutionContext context)
             {
-                if (typeof(T).IsGenericType && typeof(T).GetGenericTypeDefinition() == typeof(MetaResponse<>) && typeof(T).GenericTypeArguments is [var metaArgumentType])
-                {
-                    var del = MetaResponseDelegates
-                        .GetOrAdd(
-                            metaArgumentType,
-                            static metaArgumentType => (Func<GremlinQueryExecutorImpl, GremlinQueryExecutionContext, object>)typeof(GremlinQueryExecutorImpl)
-                                .GetMethod(nameof(CreateExecuteMetaResponseDelegate), BindingFlags.NonPublic | BindingFlags.Static)!
-                                .MakeGenericMethod(metaArgumentType)
-                                .Invoke(null, [])!);
-
-                    return (IAsyncEnumerable<T>)del.Invoke(this, context);
-                }
+                if (MetaResponseExecution<T>.Delegate is { } execute)
+                    return execute(this, context);
 
                 return Execute<T, T>(
                     context,
@@ -287,7 +285,7 @@ namespace ExRam.Gremlinq.Providers.Core
                 }
             }
 
-            private static Func<GremlinQueryExecutorImpl, GremlinQueryExecutionContext, object> CreateExecuteMetaResponseDelegate<T>() => (executor, context) => executor.Execute<T, MetaResponse<T>>(context, static (_, request, response) => [new MetaResponse<T>(request.RequestId, response.Result.Data?.ToArray(), response.Status)]);
+            private static IAsyncEnumerable<MetaResponse<T>> ExecuteMetaResponse<T>(GremlinQueryExecutorImpl executor, GremlinQueryExecutionContext context) => executor.Execute<T, MetaResponse<T>>(context, static (_, request, response) => [new MetaResponse<T>(request.RequestId, response.Result.Data?.ToArray(), response.Status)]);
         }
 
         /// <summary>
