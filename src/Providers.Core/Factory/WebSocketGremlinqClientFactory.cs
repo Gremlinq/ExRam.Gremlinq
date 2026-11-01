@@ -323,7 +323,8 @@ namespace ExRam.Gremlinq.Providers.Core
                     }
                 }
 
-                private async Task SendCore(RequestMessage requestMessage)
+                [AsyncMethodBuilder(typeof(PoolingAsyncValueTaskMethodBuilder))]
+                private async ValueTask SendCore(RequestMessage requestMessage)
                 {
                     try
                     {
