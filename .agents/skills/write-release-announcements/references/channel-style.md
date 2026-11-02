@@ -74,6 +74,34 @@ LinkedIn post; they remember that the project is alive and maintained.
 | Hashtags | 3-5, on their own line at the end |
 | Image | optional, 1200x627 landscape or 1200x1200 square |
 
+**How a LinkedIn post works**
+
+The reader is scrolling a feed, between a job change and a conference photo, and decides
+within two lines whether to keep reading. They are a .NET developer or an architect who
+chooses the libraries a team uses, or a manager who cannot judge the content but notices
+that the project is alive. None of them knows Gremlin, and none of them is reading to learn
+it. The post is therefore written in a different register from the other three texts:
+
+- **Say what the reader can now do, not what the code does.** "Works with Amazon Neptune
+  1.5" is a LinkedIn sentence; "sends `discard()` instead of `none()`" is a Discord sentence.
+  Every item is translated to its effect on an application, a team or a deadline.
+- **No identifiers.** No method, type or step names, no configuration keys, no GraphSON
+  types, no version ranges in dotted notation. If a sentence needs a backtick to be correct,
+  it belongs in another channel. Product names stay: Cosmos DB, Neptune, TinkerPop 3.8.
+- **Talk to the reader**, as you would explain the release to a colleague from another team
+  at lunch: "you", "your team", plain sentences, no passive voice about what "is now
+  supported".
+- **One idea per paragraph, short lines.** LinkedIn shows the raw text, so whitespace is
+  the only structure there is.
+- **The marker lines are benefits, not changelog entries.** Each one names a thing that
+  got better and, at most, how much. A count or a rounded scale ("a third faster") is fine;
+  a microsecond, an allocation or an interface name is not.
+- **Say what happens to someone who does nothing.** On LinkedIn, an upgrade without
+  surprises is news in itself.
+- **The test:** read the post to someone who has never heard of Gremlin. If they can say
+  back what is new and why it matters, it is a LinkedIn post. If they ask what a word means,
+  it is not.
+
 **Structure**
 
 1. **Hook, 1-2 lines.** LinkedIn truncates at roughly 200 characters behind a "...more"
@@ -103,9 +131,11 @@ DB, Neptune, JanusGraph or a plain Gremlin Server.
 
 This release is mostly about the sharp edges you only hit in a real test suite:
 
-- Deterministic container teardown through IAsyncDisposable
-- A dispose/creation race during container creation, fixed
-- Fewer allocations in traversal building
+- Test containers are torn down with the query source, every time
+- A rare startup race in test setups, fixed
+- Queries are built faster and with less garbage
+
+If you are on 14.1 already, nothing changes until you ask for it.
 
 https://github.com/Gremlinq/ExRam.Gremlinq/releases/tag/14.2.0
 
@@ -222,6 +252,8 @@ https://github.com/Gremlinq/ExRam.Gremlinq/releases/tag/14.2.0
 
 - Both Discord texts under 2000 characters. `scripts/check-lengths.sh` measures them.
 - The LinkedIn text contains no `*`, `_`, `#` or backtick used as markup.
+- The LinkedIn text names no method, type, step or configuration key. If it does, that
+  sentence is for a Discord text, not for LinkedIn.
 - Every text links to the release, and every link is the real tag URL.
 - No author names anywhere.
 - The C# snippet compiles conceptually against the API this release actually ships -- do
