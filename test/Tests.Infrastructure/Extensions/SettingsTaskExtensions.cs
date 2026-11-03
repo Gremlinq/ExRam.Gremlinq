@@ -25,6 +25,15 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         }
 
         /// <summary>
+        /// Every fact of the class verifies against the one snapshot <c>&lt;Class&gt;.&lt;name&gt;.verified.txt</c>: for a class that
+        /// ignores the results and only executes, so that its answer is <c>[]</c> unless a query fails. A fact that fails chains
+        /// <c>UseMethodName(nameof(Fact))</c> onto the base fact and keeps its exception as a snapshot of its own.
+        /// </summary>
+        public static SettingsTask UseSingleSnapshot(this SettingsTask task, string name) => task
+            .UseMethodName(name)
+            .DisableRequireUniquePrefix();
+
+        /// <summary>
         /// Verify compares the canonical forms of the received and the verified text: the order of array items and
         /// object members is ignored, and an exception is compared as <see cref="SnapshotParser.Exception"/>. For a test
         /// class that verifies against the snapshots of another implementation of the same semantics, which may answer
