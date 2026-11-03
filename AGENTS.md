@@ -97,29 +97,79 @@ When changing:
    - Files follow naming pattern: `PublicApiTests.Core.DotNet10_0.verified.cs`
    - Run in Release mode to get modified snapshots for all target frameworks
 
-3. **Verifying against another class's snapshots**:
-   - `query.Verify()` returns Verify's `SettingsTask`, after the verifier's own settings, so a
-     test can chain further settings onto it.
-   - The facts of `QueryExecutionTestsBase` and `GraphsonSupportTestsBase` return that `SettingsTask`.
-     An override chains its settings onto `base.Fact()`.
-   - xUnit awaits only `Task` and `ValueTask`. It would pass a `SettingsTask` fact without
-     verifying. `GremlinqTestRunner` (`test/Tests.Infrastructure/`) awaits the `SettingsTask`
-     instead. `GremlinqTestFramework` installs it.
-   - `xUnit1028` rejects `SettingsTask` as a return type. It is off for the test projects
-     (`test/Directory.Build.props`).
-   - A test class that answers like another class verifies against that class's snapshots with
-     `UseSnapshotDirectoryAndNameOf<T>()`. Adding `UseCanonicalComparer()`
-     (`test/Tests.Infrastructure/Snapshots/`) compares the canonical forms of both texts: the order
-     of array items and object members is ignored, and an exception document is compared as
-     `EXCEPTION`. This is for another implementation of the same semantics, which may answer in
-     another order where Gremlin defines none, and fail with an exception of its own.
-   - Under `UseCanonicalComparer()`, the class overrides every fact whose query has an `order()`
-     step and chains `.UseDefaultComparer()` onto the base fact, since sorting would hide the order:
+3. **Test classes, verifiers, fixtures and snapshots** (`test/Tests.Infrastructure`,
+   `test/Tests.Fixtures`):
+   - A concrete test class ends in `Tests`, an abstract one in `TestsBase`: the base of `X` is
+     `XBase`. A version is a suffix before `Base` (`IntegrationTests38`, `IntegrationTests38Base`,
+     `SerializationTests37To38`, `SerializationTestsEngine15`). A class is named for what its project
+     name does not say: the project names the provider, the class the variant
+     (`ObjectQueryIntegrationTests38`, `PasswordSecuredIntegrationTests`).
+   - `QueryExecutionTestsBase` holds the 662 facts every provider answers, `GraphsonSupportTestsBase`
+     the GraphSON contract both JSON stacks read. A fact for every provider goes there; a fact of
+     one feature goes to that feature's `…TestsBase`.
+   - A test class takes a `GremlinqFixture` and a `GremlinQueryVerifier`. There are five verifiers:
+     `ExecutingVerifier` and `ObjectQueryExecutingVerifier` (the result, the latter after
+     `Cast<object>()`), `SerializingVerifier<T>`, `BinaryMessageSerializingVerifier<T>` and
+     `DebugVerifier`. Settings are composed onto them, never inherited:
+     `new ExecutingVerifier().WithSettings(task => task.ScrubLinesContaining("…"))`. A verifier of
+     its own exists only where *what* is verified differs (`LoggingVerifier`,
+     `MetaResponseExecutingVerifier`).
+   - `query.Verify()` returns Verify's `SettingsTask`, after the verifier's settings, so a test can
+     chain further settings onto it. The facts of `QueryExecutionTestsBase` and
+     `GraphsonSupportTestsBase` return that `SettingsTask`, and an override chains its settings onto
+     `base.Fact()`. xUnit awaits only `Task` and `ValueTask` and would pass a `SettingsTask` fact
+     without verifying; `GremlinqTestRunner` awaits it instead, `GremlinqTestFramework` installs
+     that runner, and `xUnit1028` is off for the test projects (`test/Directory.Build.props`).
+   - A concrete class `X` that owns snapshots implements `ISourceFileNameProvider<X>`; its snapshots
+     are named `X.<Fact>.verified.txt` and lie next to its file. A second class that answers like
+     `X` never copies them: `X` is split into `XBase`, whose constructor applies
+     `verifier.WithSnapshotsOf<X>()` and which holds **every** override of that answer set, and the
+     leaf `X`, which declares the fixture and the verifier, and besides them only facts that no other
+     environment runs (`IntegrationTests` keeps the facts on Newtonsoft.Json's converters and on
+     the `…Async` methods). The second class derives from `XBase` with a fixture and a verifier of its
+     own. Reading rule: *derives from `XBase` = answers like `X`*. The bases stack:
+     `IntegrationTests38Base : IntegrationTestsBase` adds the overrides for Gremlin Server 3.8.2 and
+     redirects them to `IntegrationTests38`, the leaf that owns those answers, with
+     `base.Fact().UseSnapshotDirectoryAndNameOf<IntegrationTests38>()`.
+     A fact that answers byte-identically to another owner's snapshot redirects there instead of
+     keeping a copy (`ObjectQueryIntegrationTests38Base` redirects to `IntegrationTests38`). An
+     override that holds for one leaf only (string ids, say) stays in that leaf, with a comment. A
+     class with overrides that no other class reuses stays a plain leaf of `QueryExecutionTestsBase`
+     and is split when the first reuser appears. An answer-set base is recognized by
+     `WithSnapshotsOf<X>()` in its constructor; a `…TestsBase` without it (`QueryExecutionTestsBase`,
+     `GraphsonSupportTestsBase`) only holds facts, and its leaves own their snapshots.
+   - The owners in `test/Providers.GremlinServer.Tests` are `IntegrationTests` (3.7.7),
+     `IntegrationTests38`, `ObjectQueryIntegrationTests`, `GroovyIntegrationTests`,
+     `GroovyIntegrationTests38`, `IntegrationWithoutProjectionTests`, `SerializationTests` and
+     `SerializationTests38`; `DebugTests`, `SerializationTests` and `RequestMessageSerializationTests`
+     derive from the Core bases `DefaultDebugGremlinQuerySerializationTestsBase`,
+     `BytecodeQuerySerializationTestsBase` and `RequestMessageSerializationTestsBase` and keep only the
+     answers the provider serializes differently. A class that ignores the results
+     (`StringIdIntegrationTests`, JanusGraph's `IntegrationTests`) verifies every fact against the
+     one snapshot `Executes` through `UseSingleSnapshot("Executes")` and names the facts that fail
+     in overrides with `UseMethodName(nameof(Fact))`.
+   - `UseCanonicalComparer()` (`test/Tests.Infrastructure/Snapshots/`) compares the canonical forms
+     of both texts: the order of array items and object members is ignored, and an exception
+     document is compared as `EXCEPTION`. This is for another implementation of the same semantics,
+     which may answer in another order where Gremlin defines none, and fail with an exception of
+     its own. Under it, the class overrides every fact whose query has an `order()` step and chains
+     `.UseDefaultComparer()` onto the base fact, since sorting would hide the order:
 
      ```csharp
      public override SettingsTask Order_scalars() => base.Order_scalars().UseDefaultComparer();
      ```
 
+   - A fixture that classes of several projects use lives in `test/Tests.Fixtures`; one that
+     several classes of one project use lives in that project
+     (`GroovyGremlinServerContainerFixture`, `LoggingGremlinServerContainerFixture`); one that a
+     single class uses is nested in that class as `Fixture`. Only a sealed leaf declares a class
+     fixture, since xUnit creates the fixture of every class in the chain. A provider fixture
+     configures the provider in `ConfigureProvider` (container or address, compatibility range) and
+     the JSON stack in `AddJsonSupport`, and changes the environment in `TransformQuerySource`;
+     `GremlinServerContainerFixture(version, range)`, `NeptuneContainerFixture(server, engine)` and
+     `PasswordSecuredGremlinServerContainerFixture(password)` take their variant through a protected
+     constructor. `GremlinServerFixture` is the provider without a server, for the classes that only
+     serialize; `GremlinServerContainerFixture` derives from it and adds the container.
    - A received file in another class's snapshot directory is never accepted: the snapshot belongs
      to that class.
 
@@ -223,7 +273,9 @@ the value from `AsAdmin().Environment` (`Options.GetValue(...)`, `ServerCompatib
 or verifies the `Debug()` output of a query for values that end up in the query. Values of the
 client factory (Uri, connection pool, authentication) cannot be read without a server.
 
-Test classes inherit from `QueryExecutionTestsBase` in `Tests.Infrastructure` which provides ~200 shared test methods for query serialization verification.
+Every provider's test classes derive from `QueryExecutionTestsBase` in `Tests.Infrastructure`, which
+holds the 662 facts every provider answers; [Snapshot Testing](#snapshot-testing) names the bases
+and the owners of the snapshots.
 
 The facts of `QueryExecutionTestsBase` that name an element by its id take that id from
 `GetId(long)`. Its default is the number itself. A test class for a provider with string ids
@@ -267,28 +319,26 @@ configuration as its value and a type as an instance with `{}`. `IsAtLeast` is n
 outside Core and stays internal; each of those assemblies has an internal
 `VersionRangeExtensions.IsAtLeast` that compares the same way.
 
-A consumer's difference shows as an override in six classes of
-`test/Providers.GremlinServer.Tests`: `SerializationTests38` (3.8.2 only) and
-`SerializationTests37To38` (3.7.7 to 3.8.2) serialize against `SerializationTests`' snapshots,
-`IntegrationTests38` executes on Gremlin Server 3.8.2 against `IntegrationTests`' snapshots,
-`IntegrationWithoutProjectionTests38` executes the facts without element projection on Gremlin
-Server 3.8.2 against `IntegrationWithoutProjectionTests`' snapshots,
-`ObjectQueryIntegrationTests38` executes on Gremlin Server 3.8.2 against
-`ObjectQueryIntegrationTests`' snapshots, and `GroovyIntegrationTests38` executes on the
-customized Gremlin Server 3.8.2 against `GroovyIntegrationTests`' snapshots. The in-memory
-provider of Gremlinq.Extensions verifies against the answers of
-`IntegrationWithoutProjectionTests38`.
-`test/Providers.Neptune.Tests` has the same pair for Neptune engines: `SerializationTestsEngine15`
-(engine 1.5, 3.8.0 to 3.8.1) overrides like `SerializationTests38`, `SerializationTestsEngine14`
-(engine 1.4, 3.7.1) stays without overrides; both serialize against Neptune's `SerializationTests`.
+A consumer's difference shows as an override in a `…38Base` class of
+`test/Providers.GremlinServer.Tests`, written once and inherited by every class that answers like
+its owner: `SerializationTests38Base` (3.8.2 only; `SerializationTests37To38`, for 3.7.7 to 3.8.2,
+has none), `IntegrationTests38Base` (Gremlin Server 3.8.2, owner `IntegrationTests38`),
+`IntegrationWithoutProjectionTests38Base` (without element projection, every override redirects to
+`IntegrationTests38`), `ObjectQueryIntegrationTests38Base` (every override redirects to
+`IntegrationTests38`) and `GroovyIntegrationTests38Base` (the customized server 3.8.2, owner
+`GroovyIntegrationTests38` where the answer differs from `IntegrationTests38`). The in-memory
+provider of Gremlinq.Extensions derives from `IntegrationWithoutProjectionTests38Base`.
+`test/Providers.Neptune.Tests` has the same pair for Neptune engines: `SerializationTestsEngine15Base`
+(engine 1.5, 3.8.0 to 3.8.1) overrides like `SerializationTests38Base`, `SerializationTestsEngine14`
+(engine 1.4, 3.7.1) stays without overrides; both derive from Neptune's `SerializationTestsBase`.
 Each override carries a comment naming the section of the
 [3.8 upgrade notes](https://tinkerpop.apache.org/docs/3.8.0/upgrade/) it follows. A GraphSON
 type's difference shows in the contract tests of `GraphsonSupportTestsBase` (facts ending in
-`_from_TinkerPop_3_8`) and in `Graphson{2,3}BinaryMessageSerializationTest38` of `test/Core.Tests`,
+`_from_TinkerPop_3_8`) and in `Graphson{2,3}BinaryMessageSerializationTests38Base` of `test/Core.Tests`
+(`Graphson{2,3}BinaryMessageSerializationTests37To38` check that a range spanning both gets 3.7's form),
 for strategies and strategy types in `GraphSonBinarySupportTests` of `test/Providers.Core.Tests`,
-and where the server answers differently for it, as for stored dates, in `IntegrationTests38`,
-`IntegrationWithoutProjectionTests38`, `ObjectQueryIntegrationTests38` and
-`GroovyIntegrationTests38`.
+and where the server answers differently for it, as for stored dates, in `IntegrationTests38Base`
+and the bases that stack on it.
 
 ## Coding Conventions
 
