@@ -1,1 +1,0 @@
-g.V().hasLabel('RichVertex').count(local).aggregate('_a').cap('_a').select('_a')

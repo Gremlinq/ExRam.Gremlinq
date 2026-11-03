@@ -1,1 +1,0 @@
-g.V().hasLabel('RichVertex').order().by('Age',asc).as('_a').map(__.V().hasLabel('RichVertex').where(gte('_a')).by('Age').order().by('Age',asc).values('Age').fold())

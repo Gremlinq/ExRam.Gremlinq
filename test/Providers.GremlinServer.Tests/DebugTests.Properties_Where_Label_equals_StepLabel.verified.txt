@@ -1,1 +1,0 @@
-g.inject('label').as('_a').V().hasLabel('MetaPropertyVertex').properties('Languages').filter(__.label().where(eq('_a'))).project('id','label','value','properties').by(id).by(label).by(value).by(__.valueMap())

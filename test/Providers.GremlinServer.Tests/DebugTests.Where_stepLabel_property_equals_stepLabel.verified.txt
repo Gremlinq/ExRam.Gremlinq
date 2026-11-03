@@ -1,1 +1,0 @@
-g.V().hasLabel('RichVertex').as('_a').V().hasLabel('RichVertex').values('Age').as('_b').where('_a',lt('_b')).by('Age').by()

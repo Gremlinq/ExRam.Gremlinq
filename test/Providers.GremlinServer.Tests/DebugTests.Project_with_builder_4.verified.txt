@@ -1,1 +1,0 @@
-g.inject(42).project('item1!','item2!','item3!','item4!').by(__.constant('item1')).by(__.constant('item2')).by(__.constant('item3')).by(__.constant('item4'))

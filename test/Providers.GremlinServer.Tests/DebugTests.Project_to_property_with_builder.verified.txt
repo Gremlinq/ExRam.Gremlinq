@@ -1,1 +1,0 @@
-g.V().hasLabel('RichVertex').order().by(id,asc).limit(1).project('item1!','Id').by(__.constant('item1')).by(id)

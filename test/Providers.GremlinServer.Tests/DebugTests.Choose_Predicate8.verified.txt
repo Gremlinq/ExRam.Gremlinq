@@ -1,1 +1,0 @@
-g.V().hasLabel('MetaPropertyVertex','RichVertex','ScalarVertex','SiblingVertex','SimpleVertex').choose(__.has(id,42),__.constant(true),__.constant(false))

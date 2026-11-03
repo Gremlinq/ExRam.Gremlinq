@@ -8,20 +8,22 @@ using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
-    public class BytecodeQuerySerializationTests : QueryExecutionTestsBase, IClassFixture<GremlinqFixture>
+    public sealed class BytecodeQuerySerializationTests : BytecodeQuerySerializationTestsBase, IClassFixture<GremlinqFixture>, ISourceFileNameProvider<BytecodeQuerySerializationTests>
     {
         public BytecodeQuerySerializationTests(GremlinqFixture fixture) : base(fixture, new SerializingVerifier<Bytecode>())
         {
         }
 
+        public static string GetSourceFileName() => SourceFileName.OfThis();
+
         [Fact]
-        public virtual Task Drop() => _g
+        public Task Drop() => _g
             .V<RichVertex>()
             .Drop()
             .Verify();
 
         [Fact]
-        public virtual Task Drop_in_local() => _g
+        public Task Drop_in_local() => _g
             .Inject(1)
             .Local(__ => __
                 .V()

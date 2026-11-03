@@ -489,6 +489,20 @@
           "Gremlin.Net": "[3.8.2, )"
         }
       },
+      "exram.gremlinq.core.tests": {
+        "type": "Project",
+        "dependencies": {
+          "ExRam.Gremlinq.Tests.Fixtures": "[1.0.0, )",
+          "FluentAssertions": "[7.2.2, 7.2.2]",
+          "Microsoft.Testing.Extensions.GitHubActionsReport": "[1.0.0-alpha.26377.5, )",
+          "Microsoft.Testing.Extensions.TrxReport": "[2.3.3, )",
+          "NSubstitute": "[5.3.0, )",
+          "System.Reactive": "[6.1.0, )",
+          "Verify.XunitV3": "[31.17.0, )",
+          "coverlet.MTP": "[10.0.1, )",
+          "xunit.v3.mtp-v2": "[3.2.2, )"
+        }
+      },
       "exram.gremlinq.providers.core": {
         "type": "Project",
         "dependencies": {
@@ -602,6 +616,12 @@
         "requested": "[10.0.11, )",
         "resolved": "10.0.11",
         "contentHash": "XJm7L8ie8wOGuPsu4+26Cr2Jk1kxRi1Z2AAuXhqvQBWGA/52/Nrt+UQwFud685rugPuZvwUP0FXdDTVwns1y4Q=="
+      },
+      "System.Reactive": {
+        "type": "CentralTransitive",
+        "requested": "[6.1.0, )",
+        "resolved": "6.1.0",
+        "contentHash": "M5cCC1ZMkZr9jbSQGTHnVkb5TDN67qWCV7AP8TAHdGkvDlu0puT5NzemESNn9+HkYIDpWpocP68/i+/ame2/2w=="
       }
     },
     "net8.0": {
@@ -1125,6 +1145,20 @@
           "System.Text.Json": "[9.0.10, )"
         }
       },
+      "exram.gremlinq.core.tests": {
+        "type": "Project",
+        "dependencies": {
+          "ExRam.Gremlinq.Tests.Fixtures": "[1.0.0, )",
+          "FluentAssertions": "[7.2.2, 7.2.2]",
+          "Microsoft.Testing.Extensions.GitHubActionsReport": "[1.0.0-alpha.26377.5, )",
+          "Microsoft.Testing.Extensions.TrxReport": "[2.3.3, )",
+          "NSubstitute": "[5.3.0, )",
+          "System.Reactive": "[6.1.0, )",
+          "Verify.XunitV3": "[31.17.0, )",
+          "coverlet.MTP": "[10.0.1, )",
+          "xunit.v3.mtp-v2": "[3.2.2, )"
+        }
+      },
       "exram.gremlinq.providers.core": {
         "type": "Project",
         "dependencies": {
@@ -1244,6 +1278,12 @@
         "dependencies": {
           "System.Text.Json": "10.0.11"
         }
+      },
+      "System.Reactive": {
+        "type": "CentralTransitive",
+        "requested": "[6.1.0, )",
+        "resolved": "6.1.0",
+        "contentHash": "M5cCC1ZMkZr9jbSQGTHnVkb5TDN67qWCV7AP8TAHdGkvDlu0puT5NzemESNn9+HkYIDpWpocP68/i+/ame2/2w=="
       }
     },
     "net9.0": {
@@ -1765,6 +1805,20 @@
           "Gremlin.Net": "[3.8.2, )"
         }
       },
+      "exram.gremlinq.core.tests": {
+        "type": "Project",
+        "dependencies": {
+          "ExRam.Gremlinq.Tests.Fixtures": "[1.0.0, )",
+          "FluentAssertions": "[7.2.2, 7.2.2]",
+          "Microsoft.Testing.Extensions.GitHubActionsReport": "[1.0.0-alpha.26377.5, )",
+          "Microsoft.Testing.Extensions.TrxReport": "[2.3.3, )",
+          "NSubstitute": "[5.3.0, )",
+          "System.Reactive": "[6.1.0, )",
+          "Verify.XunitV3": "[31.17.0, )",
+          "coverlet.MTP": "[10.0.1, )",
+          "xunit.v3.mtp-v2": "[3.2.2, )"
+        }
+      },
       "exram.gremlinq.providers.core": {
         "type": "Project",
         "dependencies": {
@@ -1884,6 +1938,12 @@
         "dependencies": {
           "System.Text.Json": "10.0.11"
         }
+      },
+      "System.Reactive": {
+        "type": "CentralTransitive",
+        "requested": "[6.1.0, )",
+        "resolved": "6.1.0",
+        "contentHash": "M5cCC1ZMkZr9jbSQGTHnVkb5TDN67qWCV7AP8TAHdGkvDlu0puT5NzemESNn9+HkYIDpWpocP68/i+/ame2/2w=="
       }
     }
   }

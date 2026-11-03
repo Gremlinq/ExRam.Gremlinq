@@ -7,21 +7,20 @@ using Gremlin.Net.Process.Traversal;
 namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 {
     /// <summary>
-    /// The facts of <see cref="QueryExecutionTestsBase"/>, serialized for a server that understands TinkerPop 3.7.7 to 3.8.2 and verified
-    /// against the answers of <see cref="SerializationTests"/>. Such a server understands every form before 3.8, so no fact differs.
+    /// The facts of <see cref="QueryExecutionTestsBase"/> serialized to bytecode by the Gremlin Server provider for a server that
+    /// understands TinkerPop 3.7.7 to 3.8.2. Such a server understands every form before 3.8, so every fact answers like
+    /// <see cref="SerializationTests"/>.
     /// </summary>
-    public class SerializationTests37To38 : QueryExecutionTestsBase, IClassFixture<SerializationTests37To38.Fixture>
+    public sealed class SerializationTests37To38 : SerializationTestsBase, IClassFixture<SerializationTests37To38.Fixture>
     {
-        public sealed class Fixture : GremlinServerContainerFixture
+        public sealed class Fixture : GremlinServerFixture
         {
-            public Fixture() : base(TinkerPopVersions.V3_8_2, VersionRange.From(TinkerPopVersions.V3_7_7, TinkerPopVersions.V3_8_2))
-            {
-            }
+            protected override IGremlinServerConfigurator ConfigureProvider(IGremlinServerConfigurator configurator) => base
+                .ConfigureProvider(configurator)
+                .ConfigureServerCompatibilityRange(_ => VersionRange.From(TinkerPopVersions.V3_7_7, TinkerPopVersions.V3_8_2));
         }
 
-        public SerializationTests37To38(Fixture fixture) : base(
-            fixture,
-            new SerializingVerifier<Bytecode>().WithSnapshotsOf<SerializationTests>())
+        public SerializationTests37To38(Fixture fixture) : base(fixture, new SerializingVerifier<Bytecode>())
         {
         }
     }

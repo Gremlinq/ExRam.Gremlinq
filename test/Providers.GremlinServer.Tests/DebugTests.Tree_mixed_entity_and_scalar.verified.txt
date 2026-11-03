@@ -1,1 +1,0 @@
-g.V().hasLabel('RichVertex').outE('RichEdge').inV().hasLabel('SiblingVertex').values('FoundingDate').tree()

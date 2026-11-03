@@ -7,10 +7,10 @@ using Gremlin.Net.Process.Traversal;
 namespace ExRam.Gremlinq.Providers.Neptune.Tests
 {
     /// <summary>
-    /// The facts of <see cref="QueryExecutionTestsBase"/>, serialized for Neptune engine 1.4.8.1 and verified against the answers of
-    /// <see cref="SerializationTests"/>. That engine understands TinkerPop 3.7.1 only, so no fact differs.
+    /// The facts of <see cref="QueryExecutionTestsBase"/> serialized to bytecode by the Neptune provider for engine 1.4.8.1, which
+    /// understands TinkerPop 3.7.1 only, so every fact answers like <see cref="SerializationTests"/>.
     /// </summary>
-    public class SerializationTestsEngine14 : QueryExecutionTestsBase, IClassFixture<SerializationTestsEngine14.Fixture>
+    public sealed class SerializationTestsEngine14 : SerializationTestsBase, IClassFixture<SerializationTestsEngine14.Fixture>
     {
         public sealed class Fixture : NeptuneContainerFixture
         {
@@ -19,9 +19,7 @@ namespace ExRam.Gremlinq.Providers.Neptune.Tests
             }
         }
 
-        public SerializationTestsEngine14(Fixture fixture) : base(
-            fixture,
-            new SerializingVerifier<Bytecode>().WithSnapshotsOf<SerializationTests>())
+        public SerializationTestsEngine14(Fixture fixture) : base(fixture, new SerializingVerifier<Bytecode>())
         {
         }
     }

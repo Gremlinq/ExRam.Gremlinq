@@ -1,1 +1,0 @@
-g.V().hasLabel('RichVertex').local(__.count()).order().by(__.identity(),asc)

@@ -1,1 +1,0 @@
-g.E().hasLabel('RichEdge').as('_a').where(lt('_a')).by('From').by('To').project('id','label','properties').by(id).by(label).by(__.valueMap())

@@ -1,1 +1,0 @@
-g.V().hasLabel('RichVertex').outE('RichEdge').has('Role').tree().by().by('Role').by()

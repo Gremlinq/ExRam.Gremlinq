@@ -1,1 +1,0 @@
-g.V().hasLabel('RichVertex').values('Age').fold().sum(local).is(lt(100))

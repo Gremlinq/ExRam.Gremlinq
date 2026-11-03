@@ -1,1 +1,0 @@
-g.V().fold().as('_a').V().hasLabel('RichVertex').where(within('_a')).count()

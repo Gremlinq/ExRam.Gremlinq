@@ -1,1 +1,0 @@
-g.V().hasLabel('RichVertex').as('_a').V().hasLabel('RichVertex').as('_b').where('_a',gte('_b')).by('Age').by('Age').count()
