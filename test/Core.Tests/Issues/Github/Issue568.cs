@@ -17,7 +17,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
         }
 
-        public Issue568() : base(new DebugGremlinQueryVerifier())
+        public Issue568() : base(new DebugVerifier())
         {
 
         }

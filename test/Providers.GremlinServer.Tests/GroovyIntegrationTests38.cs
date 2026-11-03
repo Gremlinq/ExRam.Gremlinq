@@ -20,21 +20,9 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
             }
         }
 
-        public new class Verifier : ExecutingVerifier
-        {
-            public Verifier() : base()
-            {
-
-            }
-
-            protected override SettingsTask ModifySettingsTask(SettingsTask task) => base
-                .ModifySettingsTask(task)
-                .UseSnapshotDirectoryAndNameOf<GroovyIntegrationTests>();
-        }
-
         public GroovyIntegrationTests38(Fixture fixture) : base(
             fixture,
-            new Verifier())
+            new ExecutingVerifier().WithSnapshotsOf<GroovyIntegrationTests>())
         {
         }
 

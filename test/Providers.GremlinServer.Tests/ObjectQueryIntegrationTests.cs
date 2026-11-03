@@ -9,7 +9,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
     {
         public ObjectQueryIntegrationTests(GremlinServerContainerFixture fixture) : base(
             fixture,
-            new ObjectQueryExecutingGremlinqVerifier())
+            new ObjectQueryExecutingVerifier())
         {
         }
 

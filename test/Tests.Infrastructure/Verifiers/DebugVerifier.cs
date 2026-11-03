@@ -3,9 +3,9 @@ using ExRam.Gremlinq.Core;
 
 namespace ExRam.Gremlinq.Tests.Infrastructure
 {
-    public class DebugGremlinQueryVerifier : GremlinQueryVerifier
+    public class DebugVerifier : GremlinQueryVerifier
     {
-        public DebugGremlinQueryVerifier([CallerFilePath] string sourceFile = "") : base(sourceFile)
+        public DebugVerifier([CallerFilePath] string sourceFile = "") : base(sourceFile)
         {
 
         }

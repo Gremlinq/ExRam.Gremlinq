@@ -7,7 +7,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
     {
         public DebugTests(GremlinServerContainerFixture fixture) : base(
             fixture,
-            new DebugGremlinQueryVerifier())
+            new DebugVerifier())
         {
         }
     }

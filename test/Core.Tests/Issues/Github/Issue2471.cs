@@ -10,7 +10,7 @@ namespace ExRam.Gremlinq.Core.Tests
     {
         private readonly IGremlinQuerySource _g;
 
-        public Issue2471() : base(new DebugGremlinQueryVerifier())
+        public Issue2471() : base(new DebugVerifier())
         {
             _g = g
                 .ConfigureEnvironment(env => env

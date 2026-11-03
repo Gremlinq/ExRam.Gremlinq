@@ -3,9 +3,9 @@ using ExRam.Gremlinq.Core;
 
 namespace ExRam.Gremlinq.Tests.Infrastructure
 {
-    public class ObjectQueryExecutingGremlinqVerifier : ExecutingVerifier
+    public class ObjectQueryExecutingVerifier : ExecutingVerifier
     {
-        public ObjectQueryExecutingGremlinqVerifier([CallerFilePath] string sourceFile = "") : base(sourceFile)
+        public ObjectQueryExecutingVerifier([CallerFilePath] string sourceFile = "") : base(sourceFile)
         {
         }
 

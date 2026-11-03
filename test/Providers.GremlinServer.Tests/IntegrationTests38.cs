@@ -12,21 +12,9 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
     [IntegrationTest("Windows")]
     public class IntegrationTests38 : QueryExecutionTest, IClassFixture<GremlinServer38ContainerFixture>, ISourceFileNameProvider<IntegrationTests38>
     {
-        public new class Verifier : ExecutingVerifier
-        {
-            public Verifier() : base()
-            {
-
-            }
-
-            protected override SettingsTask ModifySettingsTask(SettingsTask task) => base
-                .ModifySettingsTask(task)
-                .UseSnapshotDirectoryAndNameOf<IntegrationTests>();
-        }
-
         public IntegrationTests38(GremlinServer38ContainerFixture fixture) : base(
             fixture,
-            new Verifier())
+            new ExecutingVerifier().WithSnapshotsOf<IntegrationTests>())
         {
         }
 

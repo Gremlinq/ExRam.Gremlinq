@@ -6,7 +6,7 @@ namespace ExRam.Gremlinq.Core.Tests
     {
         public DefaultDebugGremlinQuerySerializationTest(GremlinqFixture fixture) : base(
             fixture,
-            new DebugGremlinQueryVerifier())
+            new DebugVerifier())
         {
         }
     }

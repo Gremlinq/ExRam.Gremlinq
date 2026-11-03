@@ -11,21 +11,9 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
     /// </summary>
     public class SerializationTests37To38 : QueryExecutionTest, IClassFixture<GremlinServer37To38ContainerFixture>
     {
-        public new class Verifier : SerializingVerifier<Bytecode>
-        {
-            public Verifier() : base()
-            {
-
-            }
-
-            protected override SettingsTask ModifySettingsTask(SettingsTask task) => base
-                .ModifySettingsTask(task)
-                .UseSnapshotDirectoryAndNameOf<SerializationTests>();
-        }
-
         public SerializationTests37To38(GremlinServer37To38ContainerFixture fixture) : base(
             fixture,
-            new Verifier())
+            new SerializingVerifier<Bytecode>().WithSnapshotsOf<SerializationTests>())
         {
         }
     }

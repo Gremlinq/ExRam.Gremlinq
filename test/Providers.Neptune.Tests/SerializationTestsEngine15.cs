@@ -12,21 +12,9 @@ namespace ExRam.Gremlinq.Providers.Neptune.Tests
     /// </summary>
     public class SerializationTestsEngine15 : QueryExecutionTest, IClassFixture<NeptuneEngine15ContainerFixture>, ISourceFileNameProvider<SerializationTestsEngine15>
     {
-        public new class Verifier : SerializingVerifier<Bytecode>
-        {
-            public Verifier() : base()
-            {
-
-            }
-
-            protected override SettingsTask ModifySettingsTask(SettingsTask task) => base
-                .ModifySettingsTask(task)
-                .UseSnapshotDirectoryAndNameOf<SerializationTests>();
-        }
-
         public SerializationTestsEngine15(NeptuneEngine15ContainerFixture fixture) : base(
             fixture,
-            new Verifier())
+            new SerializingVerifier<Bytecode>().WithSnapshotsOf<SerializationTests>())
         {
         }
 
