@@ -100,7 +100,7 @@ When changing:
 3. **Verifying against another class's snapshots**:
    - `query.Verify()` returns Verify's `SettingsTask`, after the verifier's own settings, so a
      test can chain further settings onto it.
-   - The facts of `QueryExecutionTest` and `GraphsonSupportTestBase` return that `SettingsTask`.
+   - The facts of `QueryExecutionTestsBase` and `GraphsonSupportTestsBase` return that `SettingsTask`.
      An override chains its settings onto `base.Fact()`.
    - xUnit awaits only `Task` and `ValueTask`. It would pass a `SettingsTask` fact without
      verifying. `GremlinqTestRunner` (`test/Tests.Infrastructure/`) awaits the `SettingsTask`
@@ -223,9 +223,9 @@ the value from `AsAdmin().Environment` (`Options.GetValue(...)`, `ServerCompatib
 or verifies the `Debug()` output of a query for values that end up in the query. Values of the
 client factory (Uri, connection pool, authentication) cannot be read without a server.
 
-Test classes inherit from `QueryExecutionTest` in `Tests.Infrastructure` which provides ~200 shared test methods for query serialization verification.
+Test classes inherit from `QueryExecutionTestsBase` in `Tests.Infrastructure` which provides ~200 shared test methods for query serialization verification.
 
-The facts of `QueryExecutionTest` that name an element by its id take that id from
+The facts of `QueryExecutionTestsBase` that name an element by its id take that id from
 `GetId(long)`. Its default is the number itself. A test class for a provider with string ids
 overrides `GetId` once, as `StringIdIntegrationTests` does.
 
@@ -283,9 +283,9 @@ provider of Gremlinq.Extensions verifies against the answers of
 (engine 1.4, 3.7.1) stays without overrides; both serialize against Neptune's `SerializationTests`.
 Each override carries a comment naming the section of the
 [3.8 upgrade notes](https://tinkerpop.apache.org/docs/3.8.0/upgrade/) it follows. A GraphSON
-type's difference shows in the contract tests of `GraphsonSupportTestBase` (facts ending in
+type's difference shows in the contract tests of `GraphsonSupportTestsBase` (facts ending in
 `_from_TinkerPop_3_8`) and in `Graphson{2,3}BinaryMessageSerializationTest38` of `test/Core.Tests`,
-for strategies and strategy types in `GraphSonBinarySupportTest` of `test/Providers.Core.Tests`,
+for strategies and strategy types in `GraphSonBinarySupportTests` of `test/Providers.Core.Tests`,
 and where the server answers differently for it, as for stored dates, in `IntegrationTests38`,
 `IntegrationWithoutProjectionTests38`, `ObjectQueryIntegrationTests38` and
 `GroovyIntegrationTests38`.

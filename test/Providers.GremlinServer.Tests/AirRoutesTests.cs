@@ -9,7 +9,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 {
     [IntegrationTest("Linux", true)]
     [IntegrationTest("Windows")]
-    public class AirRoutesTests : IClassFixture<AirRoutesTests.Fixture>
+    public sealed class AirRoutesTests : IClassFixture<AirRoutesTests.Fixture>
     {
         internal abstract class Element
         {

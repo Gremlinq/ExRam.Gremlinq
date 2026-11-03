@@ -5,7 +5,7 @@ namespace ExRam.Gremlinq.Providers.Neptune.Tests
 {
     [IntegrationTest("Linux", true)]
     [IntegrationTest("Windows")]
-    public class IntegrationTests : QueryExecutionTest, IClassFixture<NeptuneContainerFixture>
+    public sealed class IntegrationTests : QueryExecutionTestsBase, IClassFixture<NeptuneContainerFixture>
     {
         public IntegrationTests(NeptuneContainerFixture fixture) : base(
             fixture,

@@ -4,14 +4,14 @@ using ExRam.Gremlinq.Tests.Infrastructure;
 namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 {
     /// <summary>
-    /// The facts of <see cref="QueryExecutionTest"/>, sent as Groovy scripts, against the customized Gremlin Server 3.8.2,
+    /// The facts of <see cref="QueryExecutionTestsBase"/>, sent as Groovy scripts, against the customized Gremlin Server 3.8.2,
     /// verified against the answers of <see cref="GroovyIntegrationTests"/>. A fact that answers differently on 3.8 is
     /// overridden and verified against the answer of <see cref="IntegrationTests38"/> where it is the same, with its own
     /// answer otherwise.
     /// </summary>
     [IntegrationTest("Linux", true)]
     [IntegrationTest("Windows")]
-    public class GroovyIntegrationTests38 : QueryExecutionTest, IClassFixture<GroovyIntegrationTests38.Fixture>, ISourceFileNameProvider<GroovyIntegrationTests38>
+    public class GroovyIntegrationTests38 : QueryExecutionTestsBase, IClassFixture<GroovyIntegrationTests38.Fixture>, ISourceFileNameProvider<GroovyIntegrationTests38>
     {
         public class Fixture : GroovyIntegrationTests.Fixture
         {

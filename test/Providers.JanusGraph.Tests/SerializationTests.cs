@@ -4,7 +4,7 @@ using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Providers.JanusGraph.Tests
 {
-    public class SerializationTests : QueryExecutionTest, IClassFixture<JanusGraphContainerFixture>
+    public sealed class SerializationTests : QueryExecutionTestsBase, IClassFixture<JanusGraphContainerFixture>
     {
         public SerializationTests(JanusGraphContainerFixture fixture) : base(
             fixture,

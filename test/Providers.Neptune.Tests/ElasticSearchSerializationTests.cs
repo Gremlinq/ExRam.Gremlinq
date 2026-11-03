@@ -5,7 +5,7 @@ using ExRam.Gremlinq.Tests.Infrastructure;
 
 namespace ExRam.Gremlinq.Providers.Neptune.Tests
 {
-    public class ElasticSearchSerializationTests : QueryExecutionTest, IClassFixture<ElasticSearchNeptuneFixture>
+    public sealed class ElasticSearchSerializationTests : QueryExecutionTestsBase, IClassFixture<ElasticSearchNeptuneFixture>
     {
         public ElasticSearchSerializationTests(ElasticSearchNeptuneFixture fixture) : base(
             fixture,

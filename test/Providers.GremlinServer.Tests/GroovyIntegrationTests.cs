@@ -13,7 +13,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 {
     [IntegrationTest("Linux", true)]
     [IntegrationTest("Windows")]
-    public class GroovyIntegrationTests : QueryExecutionTest, IClassFixture<GroovyIntegrationTests.Fixture>, ISourceFileNameProvider<GroovyIntegrationTests>
+    public class GroovyIntegrationTests : QueryExecutionTestsBase, IClassFixture<GroovyIntegrationTests.Fixture>, ISourceFileNameProvider<GroovyIntegrationTests>
     {
         public class Fixture : CustomGremlinServerContainerFixture
         {

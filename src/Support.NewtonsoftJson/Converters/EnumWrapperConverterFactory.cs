@@ -22,7 +22,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
             // A value GetByValue does not know - "ID" for a T, or one a newer server sends - is still a
             // value of that enumeration, just not one Gremlin.Net has a name for. Every Gremlin.Net
             // enumeration has a private constructor taking the value, and it builds one with that
-            // value, equal to none of the known ones. GraphsonSupportTestBase says when an upgrade
+            // value, equal to none of the known ones. GraphsonSupportTestsBase says when an upgrade
             // takes that constructor away; until then, a missing one makes this converter decline.
             private static readonly ConstructorInfo? ValueConstructor = typeof(TTarget).GetConstructor(BindingFlags.NonPublic | BindingFlags.Instance, [typeof(string)]);
 

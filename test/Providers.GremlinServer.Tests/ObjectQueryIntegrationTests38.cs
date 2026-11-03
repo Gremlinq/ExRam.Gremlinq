@@ -4,13 +4,13 @@ using ExRam.Gremlinq.Tests.Infrastructure;
 namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 {
     /// <summary>
-    /// The facts of <see cref="QueryExecutionTest"/>, cast to <see cref="object"/>, against Gremlin Server 3.8.2, verified against
+    /// The facts of <see cref="QueryExecutionTestsBase"/>, cast to <see cref="object"/>, against Gremlin Server 3.8.2, verified against
     /// the answers of <see cref="ObjectQueryIntegrationTests"/>. A fact that answers differently on 3.8 is overridden and
     /// verified against the answer of <see cref="IntegrationTests38"/>, which is the same.
     /// </summary>
     [IntegrationTest("Linux", true)]
     [IntegrationTest("Windows")]
-    public class ObjectQueryIntegrationTests38 : QueryExecutionTest, IClassFixture<GremlinServer38ContainerFixture>, ISourceFileNameProvider<ObjectQueryIntegrationTests38>
+    public class ObjectQueryIntegrationTests38 : QueryExecutionTestsBase, IClassFixture<GremlinServer38ContainerFixture>, ISourceFileNameProvider<ObjectQueryIntegrationTests38>
     {
         public ObjectQueryIntegrationTests38(GremlinServer38ContainerFixture fixture) : base(
             fixture,

@@ -15,7 +15,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 {
     [IntegrationTest("Linux", true)]
     [IntegrationTest("Windows")]
-    public class IntegrationTests : QueryExecutionTest, IClassFixture<GremlinServerContainerFixture>, ISourceFileNameProvider<IntegrationTests>
+    public class IntegrationTests : QueryExecutionTestsBase, IClassFixture<GremlinServerContainerFixture>, ISourceFileNameProvider<IntegrationTests>
     {
         private sealed class BoomException : Exception
         {

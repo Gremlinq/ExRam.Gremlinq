@@ -5,7 +5,7 @@ using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 {
-    public class SerializationTests : QueryExecutionTest, IClassFixture<GremlinServerContainerFixture>, ISourceFileNameProvider<SerializationTests>
+    public class SerializationTests : QueryExecutionTestsBase, IClassFixture<GremlinServerContainerFixture>, ISourceFileNameProvider<SerializationTests>
     {
         public SerializationTests(GremlinServerContainerFixture fixture) : base(
             fixture,

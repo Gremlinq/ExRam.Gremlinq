@@ -6,10 +6,10 @@ using Gremlin.Net.Process.Traversal;
 namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 {
     /// <summary>
-    /// The facts of <see cref="QueryExecutionTest"/>, serialized for TinkerPop 3.8.2 only and verified against the answers of
+    /// The facts of <see cref="QueryExecutionTestsBase"/>, serialized for TinkerPop 3.8.2 only and verified against the answers of
     /// <see cref="SerializationTests"/>. A fact whose query TinkerPop 3.8 needs in another form is overridden with its own answer.
     /// </summary>
-    public class SerializationTests38 : QueryExecutionTest, IClassFixture<GremlinServer38ContainerFixture>, ISourceFileNameProvider<SerializationTests38>
+    public class SerializationTests38 : QueryExecutionTestsBase, IClassFixture<GremlinServer38ContainerFixture>, ISourceFileNameProvider<SerializationTests38>
     {
         public SerializationTests38(GremlinServer38ContainerFixture fixture) : base(
             fixture,

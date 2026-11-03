@@ -5,13 +5,13 @@ using ExRam.Gremlinq.Tests.Infrastructure;
 namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 {
     /// <summary>
-    /// The facts of <see cref="QueryExecutionTest"/> without element projection against Gremlin Server 3.8.2, verified
+    /// The facts of <see cref="QueryExecutionTestsBase"/> without element projection against Gremlin Server 3.8.2, verified
     /// against the answers of <see cref="IntegrationWithoutProjectionTests"/>. A fact that answers differently on 3.8 is
     /// overridden with its own answer. The in-memory provider of Gremlinq.Extensions verifies against these answers.
     /// </summary>
     [IntegrationTest("Linux", true)]
     [IntegrationTest("Windows")]
-    public class IntegrationWithoutProjectionTests38 : QueryExecutionTest, IClassFixture<IntegrationWithoutProjectionTests38.Fixture>, ISourceFileNameProvider<IntegrationWithoutProjectionTests38>
+    public class IntegrationWithoutProjectionTests38 : QueryExecutionTestsBase, IClassFixture<IntegrationWithoutProjectionTests38.Fixture>, ISourceFileNameProvider<IntegrationWithoutProjectionTests38>
     {
         public class Fixture : GremlinServerWithoutProjectionContainerFixtureBase
         {

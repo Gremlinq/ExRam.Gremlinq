@@ -8,7 +8,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 {
     [IntegrationTest("Linux", true)]
     [IntegrationTest("Windows")]
-    public partial class MetaResponseIntegrationTests : QueryExecutionTest, IClassFixture<GremlinServerContainerFixture>
+    public sealed partial class MetaResponseIntegrationTests : QueryExecutionTestsBase, IClassFixture<GremlinServerContainerFixture>
     {
         private static readonly Regex HostRegex = HostRegexImpl();
 

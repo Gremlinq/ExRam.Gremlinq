@@ -5,7 +5,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 {
     [IntegrationTest("Linux", true)]
     [IntegrationTest("Windows")]
-    public class PasswordSecuredIntegrationTests : QueryExecutionTest, IClassFixture<PasswordSecuredGremlinServerContainerFixture>
+    public class PasswordSecuredIntegrationTests : QueryExecutionTestsBase, IClassFixture<PasswordSecuredGremlinServerContainerFixture>
     {
         public PasswordSecuredIntegrationTests(PasswordSecuredGremlinServerContainerFixture fixture) : base(
             fixture,

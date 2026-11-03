@@ -5,7 +5,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 {
     [IntegrationTest("Linux", true)]
     [IntegrationTest("Windows")]
-    public class ObjectQueryIntegrationTests : QueryExecutionTest, IClassFixture<GremlinServerContainerFixture>, ISourceFileNameProvider<ObjectQueryIntegrationTests>
+    public class ObjectQueryIntegrationTests : QueryExecutionTestsBase, IClassFixture<GremlinServerContainerFixture>, ISourceFileNameProvider<ObjectQueryIntegrationTests>
     {
         public ObjectQueryIntegrationTests(GremlinServerContainerFixture fixture) : base(
             fixture,

@@ -4,7 +4,7 @@ using ExRam.Gremlinq.Tests.Infrastructure;
 
 namespace ExRam.Gremlinq.Providers.Neptune.Tests
 {
-    public class RealNeptuneAssertions : GremlinqTestBase, IClassFixture<NeptuneFixture>
+    public sealed class RealNeptuneAssertions : GremlinqTestBase, IClassFixture<NeptuneFixture>
     {
         private readonly IGremlinQuerySource _source;
 

@@ -5,7 +5,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 {
     [IntegrationTest("Linux", true)]
     [IntegrationTest("Windows")]
-    public class LoggingWithBindingsIntegrationTests : QueryExecutionTest, IClassFixture<LoggingWithBindingsIntegrationTests.LoggingFixture>
+    public sealed class LoggingWithBindingsIntegrationTests : QueryExecutionTestsBase, IClassFixture<LoggingWithBindingsIntegrationTests.LoggingFixture>
     {
         public class LoggingFixture : LoggingIntegrationTests.LoggingFixture
         {

@@ -6,11 +6,11 @@ using Gremlin.Net.Process.Traversal;
 namespace ExRam.Gremlinq.Providers.Neptune.Tests
 {
     /// <summary>
-    /// The facts of <see cref="QueryExecutionTest"/>, serialized for Neptune engine 1.5.0.0 and verified against the answers of
+    /// The facts of <see cref="QueryExecutionTestsBase"/>, serialized for Neptune engine 1.5.0.0 and verified against the answers of
     /// <see cref="SerializationTests"/>. That engine understands TinkerPop 3.8.0 to 3.8.1 only. A fact whose query TinkerPop 3.8 needs
     /// in another form is overridden with its own answer.
     /// </summary>
-    public class SerializationTestsEngine15 : QueryExecutionTest, IClassFixture<NeptuneEngine15ContainerFixture>, ISourceFileNameProvider<SerializationTestsEngine15>
+    public class SerializationTestsEngine15 : QueryExecutionTestsBase, IClassFixture<NeptuneEngine15ContainerFixture>, ISourceFileNameProvider<SerializationTestsEngine15>
     {
         public SerializationTestsEngine15(NeptuneEngine15ContainerFixture fixture) : base(
             fixture,

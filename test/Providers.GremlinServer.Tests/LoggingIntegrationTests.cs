@@ -12,7 +12,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 {
     [IntegrationTest("Linux", true)]
     [IntegrationTest("Windows")]
-    public class LoggingIntegrationTests : QueryExecutionTest, IClassFixture<LoggingFixture>
+    public sealed class LoggingIntegrationTests : QueryExecutionTestsBase, IClassFixture<LoggingFixture>
     {
         public class LoggingFixture : GremlinServerContainerFixture
         {
