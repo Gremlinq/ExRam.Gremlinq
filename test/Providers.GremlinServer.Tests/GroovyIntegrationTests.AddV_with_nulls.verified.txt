@@ -1,7 +1,0 @@
-﻿[
-  {
-    Id: 79,
-    Label: SimpleVertex,
-    PartitionKey: PartitionKey
-  }
-]

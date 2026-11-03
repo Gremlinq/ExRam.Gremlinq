@@ -1,6 +1,0 @@
-﻿[
-  {
-    Id: 41,
-    Label: PropertyEdge
-  }
-]

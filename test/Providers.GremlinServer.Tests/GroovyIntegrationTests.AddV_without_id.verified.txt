@@ -1,8 +1,0 @@
-﻿[
-  {
-    IetfLanguageTag: en,
-    Id: 54,
-    Label: SimpleVertex,
-    PartitionKey: PartitionKey
-  }
-]

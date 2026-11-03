@@ -1,7 +1,0 @@
-﻿[
-  {
-    Id: 5,
-    Label: SiblingVertex,
-    PartitionKey: PartitionKey
-  }
-]

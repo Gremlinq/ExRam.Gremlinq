@@ -1,8 +1,0 @@
-﻿[
-  {
-    Enum: One,
-    Id: 59,
-    Label: RichVertex,
-    PartitionKey: PartitionKey
-  }
-]

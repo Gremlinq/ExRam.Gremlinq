@@ -1,8 +1,0 @@
-﻿[
-  {
-    Image: AQIDBAUGBwg=,
-    Id: 56,
-    Label: RichVertex,
-    PartitionKey: PartitionKey
-  }
-]

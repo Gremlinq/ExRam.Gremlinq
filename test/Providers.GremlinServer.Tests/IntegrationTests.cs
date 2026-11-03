@@ -15,7 +15,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 {
     [IntegrationTest("Linux", true)]
     [IntegrationTest("Windows")]
-    public class IntegrationTests : QueryExecutionTestsBase, IClassFixture<GremlinServerContainerFixture>, ISourceFileNameProvider<IntegrationTests>
+    public sealed class IntegrationTests : IntegrationTestsBase, IClassFixture<GremlinServerContainerFixture>, ISourceFileNameProvider<IntegrationTests>
     {
         private sealed class BoomException : Exception
         {
@@ -348,7 +348,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
             .Verify();
 
         [Fact]
-        public virtual async Task RegisterNativeType() => await _g
+        public async Task RegisterNativeType() => await _g
             .ConfigureEnvironment(env => env
                 .RegisterNativeType(
                     (languageCode, _, _, _) => languageCode.ToString().ToLower(),

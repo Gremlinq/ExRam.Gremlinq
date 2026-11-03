@@ -1,8 +1,0 @@
-[
-  {
-    CountryCallingCode: +49,
-    Id: 0,
-    Label: MetaPropertyVertex,
-    PartitionKey: PartitionKey
-  }
-]

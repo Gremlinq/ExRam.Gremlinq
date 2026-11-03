@@ -1,7 +1,0 @@
-﻿[
-  {
-    Id: 17,
-    Label: MetaPropertyVertex,
-    PartitionKey: PartitionKey
-  }
-]

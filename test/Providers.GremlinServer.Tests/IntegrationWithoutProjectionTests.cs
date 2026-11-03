@@ -4,9 +4,12 @@ using ExRam.Gremlinq.Tests.Infrastructure;
 
 namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 {
+    /// <summary>
+    /// The facts of <see cref="QueryExecutionTestsBase"/> without element projection against Gremlin Server 3.7.7. Owns the snapshots.
+    /// </summary>
     [IntegrationTest("Linux", true)]
     [IntegrationTest("Windows")]
-    public class IntegrationWithoutProjectionTests : QueryExecutionTestsBase, IClassFixture<IntegrationWithoutProjectionTests.Fixture>, ISourceFileNameProvider<IntegrationWithoutProjectionTests>
+    public sealed class IntegrationWithoutProjectionTests : IntegrationWithoutProjectionTestsBase, IClassFixture<IntegrationWithoutProjectionTests.Fixture>, ISourceFileNameProvider<IntegrationWithoutProjectionTests>
     {
         public sealed class Fixture : GremlinServerContainerFixture
         {
@@ -15,9 +18,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
                 .WithoutElementProjection();
         }
 
-        public IntegrationWithoutProjectionTests(Fixture fixture) : base(
-            fixture,
-            new ExecutingVerifier())
+        public IntegrationWithoutProjectionTests(Fixture fixture) : base(fixture, new ExecutingVerifier())
         {
         }
 

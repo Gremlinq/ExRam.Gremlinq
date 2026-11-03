@@ -1,7 +1,0 @@
-﻿[
-  {
-    Id: 19,
-    Label: RichVertex,
-    PartitionKey: PartitionKey
-  }
-]
