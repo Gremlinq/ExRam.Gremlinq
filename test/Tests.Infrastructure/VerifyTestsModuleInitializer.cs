@@ -45,6 +45,8 @@ internal static class VerifyTestsModuleInitializer
     {
         TypeDescriptor.AddAttributes(typeof(Key), new TypeConverterAttribute(typeof(KeyTypeConverter)));
 
+        VerifierSettings.UseUtf8NoBom();
+
         VerifierSettings
             .AddExtraSettings(settings =>
             {

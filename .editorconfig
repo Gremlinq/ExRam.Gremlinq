@@ -9,13 +9,14 @@ root = true
 indent_style = space
 trim_trailing_whitespace = true
 # (Please don't specify an indent_size here; that has too many unintended consequences.)
+# UTF-8 without BOM for every file: a BOM is unwanted.
+charset = utf-8
 
 # Code files
 [*.{cs,csx,vb,vbx}]
 indent_size = 4
 insert_final_newline = true
 
-charset = utf-8
 # Xml project files
 [*.{csproj,vbproj,vcxproj,vcxproj.filters,proj,projitems,shproj}]
 indent_size = 2

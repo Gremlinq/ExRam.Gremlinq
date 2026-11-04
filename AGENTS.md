@@ -348,6 +348,7 @@ and the bases that stack on it.
 - Fluent API chaining is the dominant style
 - `ConfigureAwait(false)` is applied to awaited Tasks and ValueTasks in src; `CA2007` enforces it there and is off in test projects
 - Solution and project names are added as preprocessor symbols (dots replaced with underscores)
+- Every file is UTF-8 without BOM; a BOM is unwanted. `.editorconfig` sets `charset = utf-8` for every file, and `VerifyTestsModuleInitializer` calls `VerifierSettings.UseUtf8NoBom()`, since Verify writes snapshots with a BOM by default. Strip a BOM that an editor or a tool adds.
 
 ## Task-Specific Agent Guidance
 
