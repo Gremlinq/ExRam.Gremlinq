@@ -1,4 +1,4 @@
-﻿{
+{
   Bool: true,
   Long: 3,
   Double: 1.5,

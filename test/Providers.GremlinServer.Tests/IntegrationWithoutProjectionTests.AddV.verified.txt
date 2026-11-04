@@ -1,4 +1,4 @@
-﻿[
+[
   {
     IetfLanguageTag: en,
     Id: 47,

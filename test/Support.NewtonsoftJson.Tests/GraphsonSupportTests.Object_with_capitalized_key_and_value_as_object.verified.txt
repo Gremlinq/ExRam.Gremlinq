@@ -1,4 +1,4 @@
-﻿{
+{
   IsProperty: false,
   Value: {
     Key: Property1,

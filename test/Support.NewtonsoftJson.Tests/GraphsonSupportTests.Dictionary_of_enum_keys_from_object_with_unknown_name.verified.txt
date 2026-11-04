@@ -1,4 +1,4 @@
-﻿{
+{
   Keys: [
     One,
     Zero

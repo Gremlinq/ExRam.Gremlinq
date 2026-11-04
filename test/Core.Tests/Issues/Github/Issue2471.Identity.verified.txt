@@ -1,1 +1,1 @@
-﻿g.V().hasLabel('RichVertex')
+g.V().hasLabel('RichVertex')

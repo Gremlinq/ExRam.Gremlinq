@@ -1,4 +1,4 @@
-﻿{
+{
   Success: true,
   Type: double,
   Value: 5.0

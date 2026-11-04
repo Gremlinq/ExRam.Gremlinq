@@ -1,4 +1,4 @@
-﻿{
+{
   Type: ConcurrentDictionary<string, int>,
   KeyTypes: [
     string,

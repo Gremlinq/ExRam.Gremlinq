@@ -1,4 +1,4 @@
-﻿{
+{
   Id: 2,
   Label: Enum,
   Value: One

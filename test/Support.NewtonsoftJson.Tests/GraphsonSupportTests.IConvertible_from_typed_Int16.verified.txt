@@ -1,4 +1,4 @@
-﻿{
+{
   Success: true,
   Type: short,
   Value: 5

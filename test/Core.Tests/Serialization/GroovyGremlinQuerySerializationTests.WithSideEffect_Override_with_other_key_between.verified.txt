@@ -1,4 +1,4 @@
-﻿{
+{
   Script: g.withSideEffect(_a,[]).withSideEffect(_b,[]).withSideEffect(_a,[_c]).inject(_d).select(_a).unfold(),
   Bindings: {
     _a: _a,

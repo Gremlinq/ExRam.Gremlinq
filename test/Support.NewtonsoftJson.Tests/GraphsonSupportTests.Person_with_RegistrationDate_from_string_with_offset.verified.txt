@@ -1,4 +1,4 @@
-﻿{
+{
   RegistrationDate: 2020-01-02 01:04:05 +0,
   Id: 13,
   Label: RichVertex,

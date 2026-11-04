@@ -1,4 +1,4 @@
-﻿{
+{
   Type: SortedDictionary<string, int>,
   KeyTypes: [
     string,

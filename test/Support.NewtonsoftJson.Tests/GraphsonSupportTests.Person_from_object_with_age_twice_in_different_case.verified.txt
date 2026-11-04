@@ -1,4 +1,4 @@
-﻿{
+{
   Age: 2,
   PartitionKey: PartitionKey
 }

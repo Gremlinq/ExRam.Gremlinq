@@ -1,4 +1,4 @@
-﻿{
+{
   Success: true,
   Type: double,
   Value: 1.8446744073709552E+19

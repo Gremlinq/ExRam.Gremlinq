@@ -1,4 +1,4 @@
-﻿{
+{
   first: One,
   second: Two,
   third: One

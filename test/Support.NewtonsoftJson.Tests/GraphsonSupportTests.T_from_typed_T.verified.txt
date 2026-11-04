@@ -1,4 +1,4 @@
-﻿{
+{
   EnumName: T,
   EnumValue: id
 }

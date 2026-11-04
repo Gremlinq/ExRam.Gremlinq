@@ -1,1 +1,1 @@
-﻿g.V().hasLabel('RichVertex').coalesce(__.out('RichEdge').limit(1),__.in('RichEdge'))
+g.V().hasLabel('RichVertex').coalesce(__.out('RichEdge').limit(1),__.in('RichEdge'))

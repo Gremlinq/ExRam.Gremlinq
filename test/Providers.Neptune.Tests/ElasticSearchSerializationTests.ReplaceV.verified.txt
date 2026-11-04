@@ -1,4 +1,4 @@
-﻿{
+{
   SourceInstructions: [
     {
       OperatorName: withSideEffect,

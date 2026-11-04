@@ -1,4 +1,4 @@
-﻿{
+{
   Script: g.inject(_a,_b,_c).limit(_d).fold().limit(local,_d),
   Bindings: {
     _a: 42,

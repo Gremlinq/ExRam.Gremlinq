@@ -1,4 +1,4 @@
-﻿{
+{
   Type: ReadOnlyDictionary<int, string>,
   KeyTypes: [
     int,

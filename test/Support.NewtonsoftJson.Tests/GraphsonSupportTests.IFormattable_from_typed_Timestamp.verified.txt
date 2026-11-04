@@ -1,4 +1,4 @@
-﻿{
+{
   Success: true,
   Type: DateTimeOffset,
   Value: 2022-07-11 08:26:09 +0

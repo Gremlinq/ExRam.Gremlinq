@@ -1,4 +1,4 @@
-﻿[
+[
   "NaN",
   "NaN",
   "Infinity",

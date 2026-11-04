@@ -1,4 +1,4 @@
-﻿{
+{
   Type: Dictionary<object, object>,
   KeyTypes: [
     T,

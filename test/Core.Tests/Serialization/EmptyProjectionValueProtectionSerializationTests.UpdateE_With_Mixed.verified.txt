@@ -1,4 +1,4 @@
-﻿{
+{
   StepInstructions: [
     {
       OperatorName: E

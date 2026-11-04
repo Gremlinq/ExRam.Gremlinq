@@ -1,1 +1,1 @@
-﻿g.V(10).hasLabel('RichVertex').elementMap()
+g.V(10).hasLabel('RichVertex').elementMap()

@@ -1,4 +1,4 @@
-﻿[
+[
   {
     T.id: 10,
     T.label: RichVertex,

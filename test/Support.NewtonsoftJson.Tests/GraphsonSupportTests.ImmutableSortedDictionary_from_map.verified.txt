@@ -1,4 +1,4 @@
-﻿{
+{
   Type: ImmutableSortedDictionary<string, int>,
   KeyTypes: [
     string,
