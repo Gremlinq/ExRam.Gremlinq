@@ -37,7 +37,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
             public long Distance { get; set; }
         }
 
-        public class Fixture : GremlinqFixture
+        public sealed class Fixture : GremlinqFixture
         {
             protected override IGremlinQuerySource TransformQuerySource(IGremlinQuerySource g) => g
                 .UseGremlinServer<Airport, Route>(_ => _

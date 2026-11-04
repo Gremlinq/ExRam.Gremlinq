@@ -1,3 +1,4 @@
+using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Tests.Fixtures;
 using ExRam.Gremlinq.Tests.Infrastructure;
 
@@ -10,9 +11,16 @@ namespace ExRam.Gremlinq.Providers.Neptune.Tests
     /// <see cref="SerializationTests"/>. That engine understands TinkerPop 3.8.0 to 3.8.1 only. A fact whose query TinkerPop 3.8 needs
     /// in another form is overridden with its own answer.
     /// </summary>
-    public class SerializationTestsEngine15 : QueryExecutionTestsBase, IClassFixture<NeptuneEngine15ContainerFixture>, ISourceFileNameProvider<SerializationTestsEngine15>
+    public class SerializationTestsEngine15 : QueryExecutionTestsBase, IClassFixture<SerializationTestsEngine15.Fixture>, ISourceFileNameProvider<SerializationTestsEngine15>
     {
-        public SerializationTestsEngine15(NeptuneEngine15ContainerFixture fixture) : base(
+        public sealed class Fixture : NeptuneContainerFixture
+        {
+            public Fixture() : base(TinkerPopVersions.V3_8_2, NeptuneEngineVersions.V1_5_0_0)
+            {
+            }
+        }
+
+        public SerializationTestsEngine15(Fixture fixture) : base(
             fixture,
             new SerializingVerifier<Bytecode>().WithSnapshotsOf<SerializationTests>())
         {

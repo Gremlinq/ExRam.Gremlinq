@@ -13,11 +13,11 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
     [IntegrationTest("Windows")]
     public class IntegrationWithoutProjectionTests38 : QueryExecutionTestsBase, IClassFixture<IntegrationWithoutProjectionTests38.Fixture>, ISourceFileNameProvider<IntegrationWithoutProjectionTests38>
     {
-        public class Fixture : GremlinServerWithoutProjectionContainerFixtureBase
+        public sealed class Fixture : GremlinServer38ContainerFixture
         {
-            public Fixture() : base(TinkerPopVersions.V3_8_2)
-            {
-            }
+            protected override IGremlinQuerySource TransformQuerySource(IGremlinQuerySource g) => base
+                .TransformQuerySource(g)
+                .WithoutElementProjection();
         }
 
         public IntegrationWithoutProjectionTests38(Fixture fixture) : base(

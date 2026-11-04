@@ -13,7 +13,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
     [IntegrationTest("Windows")]
     public class GroovyIntegrationTests38 : QueryExecutionTestsBase, IClassFixture<GroovyIntegrationTests38.Fixture>, ISourceFileNameProvider<GroovyIntegrationTests38>
     {
-        public class Fixture : GroovyIntegrationTests.Fixture
+        public sealed class Fixture : GroovyGremlinServerContainerFixture
         {
             public Fixture() : base(TinkerPopVersions.V3_8_2)
             {

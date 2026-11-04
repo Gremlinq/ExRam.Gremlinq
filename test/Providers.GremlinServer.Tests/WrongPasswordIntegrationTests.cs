@@ -10,11 +10,18 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 {
     [IntegrationTest("Linux", true)]
     [IntegrationTest("Windows")]
-    public sealed class WrongPasswordIntegrationTests : GremlinqTestBase, IClassFixture<WrongPasswordGremlinServerContainerFixture>
+    public sealed class WrongPasswordIntegrationTests : GremlinqTestBase, IClassFixture<WrongPasswordIntegrationTests.Fixture>
     {
+        public sealed class Fixture : PasswordSecuredGremlinServerContainerFixture
+        {
+            public Fixture() : base("wrongPassword")
+            {
+            }
+        }
+
         private readonly IGremlinQuerySource _g;
 
-        public WrongPasswordIntegrationTests(WrongPasswordGremlinServerContainerFixture fixture) : base(new ExecutingVerifier())
+        public WrongPasswordIntegrationTests(Fixture fixture) : base(new ExecutingVerifier())
         {
             _g = fixture.GetQuerySource();
         }

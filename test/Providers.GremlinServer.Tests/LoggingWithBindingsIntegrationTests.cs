@@ -5,9 +5,9 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 {
     [IntegrationTest("Linux", true)]
     [IntegrationTest("Windows")]
-    public sealed class LoggingWithBindingsIntegrationTests : QueryExecutionTestsBase, IClassFixture<LoggingWithBindingsIntegrationTests.LoggingFixture>
+    public sealed class LoggingWithBindingsIntegrationTests : QueryExecutionTestsBase, IClassFixture<LoggingWithBindingsIntegrationTests.Fixture>
     {
-        public class LoggingFixture : LoggingIntegrationTests.LoggingFixture
+        public sealed class Fixture : LoggingGremlinServerContainerFixture
         {
             public override IGremlinQuerySource GetQuerySource() => base
                 .GetQuerySource()
@@ -16,7 +16,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
                         .SetValue(GremlinqOption.QueryLogVerbosity, QueryLogVerbosity.IncludeBindings)));
         }
 
-        public LoggingWithBindingsIntegrationTests(LoggingFixture fixture) : base(fixture, new LoggingIntegrationTests.LoggingVerifier())
+        public LoggingWithBindingsIntegrationTests(Fixture fixture) : base(fixture, new LoggingVerifier())
         {
         }
     }

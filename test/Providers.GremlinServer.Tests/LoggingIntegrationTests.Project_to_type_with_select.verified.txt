@@ -2,7 +2,7 @@
   {
     log: {
       Level: Debug,
-      Category: LoggingFixture,
+      Category: LoggingGremlinServerContainerFixture,
       Message: Executing Gremlin query 12345678-9012-3456-7890-123456789012 with groovy script g.inject(_a).project(_b,_c,_d,_e).by(__.constant(_f)).by(__.constant(_g)).by(__.constant(_h)).by(__.constant(_i)).project(_j,_k).by(__.select(_l)).by(__.select(_m)).,
       State: [
         {

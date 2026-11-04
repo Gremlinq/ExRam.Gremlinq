@@ -1,19 +1,14 @@
 using ExRam.Gremlinq.Core;
-using ExRam.Gremlinq.Providers.GremlinServer;
-using ExRam.Gremlinq.Support.NewtonsoftJson;
-using ExRam.Gremlinq.Support.TestContainers;
-using ExRam.Gremlinq.Tests.Entities;
-using ExRam.Gremlinq.Tests.Infrastructure;
 
 namespace ExRam.Gremlinq.Tests.Fixtures
 {
-    public class GremlinServer38ContainerFixture : GremlinqFixture
+    /// <summary>
+    /// A Gremlin Server 3.8.2 in a container, for a compatibility range of 3.8.2 only.
+    /// </summary>
+    public class GremlinServer38ContainerFixture : GremlinServerContainerFixture
     {
-        protected override IGremlinQuerySource TransformQuerySource(IGremlinQuerySource g) => g
-            .UseGremlinServer<Vertex, Edge>(_ => _
-                .UseGremlinServerContainer("3.8.2")
-                .UseNewtonsoftJson()
-                .ConfigureServerCompatibilityRange(_ => VersionRange.From(TinkerPopVersions.V3_8_2, TinkerPopVersions.V3_8_2)))
-            .IgnoreCosmosDbSpecificProperties();
+        public GremlinServer38ContainerFixture() : base(TinkerPopVersions.V3_8_2, VersionRange.From(TinkerPopVersions.V3_8_2, TinkerPopVersions.V3_8_2))
+        {
+        }
     }
 }
