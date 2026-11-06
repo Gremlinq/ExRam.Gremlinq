@@ -1,0 +1,6 @@
+[
+  {
+    idOfTheNextVertex: 356,
+    verticesOfTheFailedQuery: 0
+  }
+]

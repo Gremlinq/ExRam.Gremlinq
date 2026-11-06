@@ -1,0 +1,30 @@
+{
+  Type: GremlinQueryExecutionException,
+  ExecutionContext: {
+    ExecutionId: 12345678-9012-3456-7890-123456789012,
+    Query: {}
+  },
+  Message: Executing query 12345678-9012-3456-7890-123456789012 failed.,
+  Data: {},
+  InnerException: {
+    $type: ResponseException,
+    Type: ResponseException,
+    StatusCode: ServerErrorFailStep,
+    StatusAttributes: {
+      exceptions: [
+        org.apache.tinkerpop.gremlin.process.traversal.step.sideEffect.FailStep$FailException
+      ],
+      failStepMessage:
+fail() Step Triggered
+============================================================================================================================================================
+Message  > The vertex of this query is rolled back.
+Traverser> v[354]
+  Bulk   > 1
+Traversal> addV("SimpleVertex").property(VertexProperty.Cardinality.single,"IetfLanguageTag","rolled-back").fail("The vertex of this query is rolled back.")
+Metadata > {}
+============================================================================================================================================================
+    },
+    Message: ServerErrorFailStep: The vertex of this query is rolled back.,
+    Data: {}
+  }
+}

@@ -9,12 +9,13 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 {
     /// <summary>
     /// The facts of <see cref="QueryExecutionTestsBase"/> without element projection against Gremlin Server 3.8.2 with
-    /// <c>TinkerTransactionGraph</c>. Owns no snapshots: <see cref="TransactionIntegrationWithoutProjectionTests38Base"/> verifies every
-    /// fact against the snapshots of <see cref="IntegrationWithoutProjectionTests38Base"/>.
+    /// <c>TinkerTransactionGraph</c>. Owns the snapshots of the facts on a failed write, which only
+    /// <see cref="TransactionIntegrationWithoutProjectionTests38Base"/> holds; every other fact verifies against the snapshots of
+    /// <see cref="IntegrationWithoutProjectionTests38Base"/>.
     /// </summary>
     [IntegrationTest("Linux", true)]
     [IntegrationTest("Windows")]
-    public sealed class TransactionIntegrationWithoutProjectionTests38 : TransactionIntegrationWithoutProjectionTests38Base, IClassFixture<TransactionIntegrationWithoutProjectionTests38.Fixture>
+    public sealed class TransactionIntegrationWithoutProjectionTests38 : TransactionIntegrationWithoutProjectionTests38Base, IClassFixture<TransactionIntegrationWithoutProjectionTests38.Fixture>, ISourceFileNameProvider<TransactionIntegrationWithoutProjectionTests38>
     {
         public sealed class Fixture : GremlinServerFixture
         {
@@ -41,5 +42,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
         public TransactionIntegrationWithoutProjectionTests38(Fixture fixture) : base(fixture, new ExecutingVerifier())
         {
         }
+
+        public static string GetSourceFileName() => SourceFileName.OfThis();
     }
 }
