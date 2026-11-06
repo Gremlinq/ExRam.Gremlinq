@@ -140,11 +140,13 @@ When changing:
      `GraphsonSupportTestsBase`) only holds facts, and its leaves own their snapshots.
    - The owners in `test/Providers.GremlinServer.Tests` are `IntegrationTests` (3.7.7),
      `IntegrationTests38`, `ObjectQueryIntegrationTests`, `GroovyIntegrationTests`,
-     `GroovyIntegrationTests38`, `IntegrationWithoutProjectionTests`, `SerializationTests` and
-     `SerializationTests38`; `DebugTests`, `SerializationTests` and `RequestMessageSerializationTests`
-     derive from the Core bases `DefaultDebugGremlinQuerySerializationTestsBase`,
-     `BytecodeQuerySerializationTestsBase` and `RequestMessageSerializationTestsBase` and keep only the
-     answers the provider serializes differently. A class that ignores the results
+     `GroovyIntegrationTests38`, `IntegrationWithoutProjectionTests`,
+     `TransactionIntegrationWithoutProjectionTests38` (3.8.2 with `TinkerTransactionGraph`),
+     `SerializationTests` and `SerializationTests38`; `DebugTests`, `SerializationTests` and
+     `RequestMessageSerializationTests` derive from the Core bases
+     `DefaultDebugGremlinQuerySerializationTestsBase`, `BytecodeQuerySerializationTestsBase` and
+     `RequestMessageSerializationTestsBase` and keep only the answers the provider serializes
+     differently. A class that ignores the results
      (`StringIdIntegrationTests`, JanusGraph's `IntegrationTests`) verifies every fact against the
      one snapshot `Executes` through `UseSingleSnapshot("Executes")` and names the facts that fail
      in overrides with `UseMethodName(nameof(Fact))`.
@@ -152,7 +154,9 @@ When changing:
      of both texts: the order of array items and object members is ignored, and an exception
      document is compared as `EXCEPTION`. This is for another implementation of the same semantics,
      which may answer in another order where Gremlin defines none, and fail with an exception of
-     its own. Under it, the class overrides every fact whose query has an `order()` step and chains
+     its own. A single fact can chain it onto its base fact, where another graph lists the same
+     items in another order (`TransactionIntegrationWithoutProjectionTests38Base`). Under it, the
+     class overrides every fact whose query has an `order()` step and chains
      `.UseDefaultComparer()` onto the base fact, since sorting would hide the order:
 
      ```csharp
@@ -324,7 +328,12 @@ A consumer's difference shows as an override in a `…38Base` class of
 its owner: `SerializationTests38Base` (3.8.2 only; `SerializationTests37To38`, for 3.7.7 to 3.8.2,
 has none), `IntegrationTests38Base` (Gremlin Server 3.8.2, owner `IntegrationTests38`),
 `IntegrationWithoutProjectionTests38Base` (without element projection, every override redirects to
-`IntegrationTests38`), `ObjectQueryIntegrationTests38Base` (every override redirects to
+`IntegrationTests38`), `TransactionIntegrationWithoutProjectionTests38Base` (the same on
+`TinkerTransactionGraph`, where every request runs in a transaction, as on Neptune; the facts that
+list a vertex's properties compare canonically, since they come in another order there, and owner
+`TransactionIntegrationWithoutProjectionTests38` only for its two `Write_of_a_failed_query_*` facts:
+a failed query is rolled back, its ids stay used up), `ObjectQueryIntegrationTests38Base` (every
+override redirects to
 `IntegrationTests38`) and `GroovyIntegrationTests38Base` (the customized server 3.8.2, owner
 `GroovyIntegrationTests38` where the answer differs from `IntegrationTests38`). The in-memory
 provider of Gremlinq.Extensions derives from `IntegrationWithoutProjectionTests38Base`.
