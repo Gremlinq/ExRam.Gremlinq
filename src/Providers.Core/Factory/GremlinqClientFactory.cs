@@ -179,15 +179,24 @@ namespace ExRam.Gremlinq.Providers.Core
 
                 private IAsyncEnumerable<ResponseMessage<T>> SubmitInSession<T>(string sessionId, RequestMessage message, int currentRequestsInUse)
                 {
+                    if (message.Operation == Tokens.OpsClose)
+                    {
+                        return _sessions.TryRemove(sessionId, out var boundConnection)
+                            ? SubmitInSession<T>(sessionId, message, boundConnection)
+                            : _slots[GetSlotIndex(currentRequestsInUse)].SubmitAsync<T>(message);
+                    }
+
                     var connection = _sessions.GetOrAdd(
                         sessionId,
                         static (_, state) => state.@this._slots[state.@this.GetSlotIndex(state.currentRequestsInUse)].GetOrCreateConnection(),
                         (@this: this, currentRequestsInUse));
 
-                    return connection.IsCurrent
-                        ? connection.SubmitAsync<T>(message)
-                        : throw new InvalidOperationException($"The connection of session {sessionId} was closed.");
+                    return SubmitInSession<T>(sessionId, message, connection);
                 }
+
+                private static IAsyncEnumerable<ResponseMessage<T>> SubmitInSession<T>(string sessionId, RequestMessage message, PoolConnectionGremlinqClient connection) => connection.IsCurrent
+                    ? connection.SubmitAsync<T>(message)
+                    : throw new InvalidOperationException($"The connection of session {sessionId} was closed.");
 
                 private int GetSlotIndex(int currentRequestsInUse)
                 {
