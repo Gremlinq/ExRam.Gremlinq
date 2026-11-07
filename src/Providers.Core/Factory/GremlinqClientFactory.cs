@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Execution;
 
+using Gremlin.Net.Driver;
 using Gremlin.Net.Driver.Exceptions;
 using Gremlin.Net.Driver.Messages;
 
@@ -33,67 +34,92 @@ namespace ExRam.Gremlinq.Providers.Core
                     {
                         _outerClient = outerClient;
                     }
-                    
-                    public IAsyncEnumerable<ResponseMessage<T>> SubmitAsync<T>(RequestMessage message)
+
+                    public IAsyncEnumerable<ResponseMessage<T>> SubmitAsync<T>(RequestMessage message) => GetOrCreateConnection().SubmitAsync<T>(message);
+
+                    public PoolConnectionGremlinqClient GetOrCreateConnection()
                     {
-                        return Core(this, message);
-
-                        static async IAsyncEnumerable<ResponseMessage<T>> Core(PoolSlotGremlinqClient @this, RequestMessage message, [EnumeratorCancellation] CancellationToken ct = default)
+                        while (true)
                         {
-                            while (true)
-                            {
-                                if (Volatile.Read(ref @this._currentClient) is { } client)
-                                {
-                                    if (client == GremlinqClient.Disposed)
-                                        throw new ObjectDisposedException(nameof(PoolGremlinqClient));
+                            if (Volatile.Read(ref _currentClient) is { } currentConnection)
+                                return currentConnection as PoolConnectionGremlinqClient ?? throw new ObjectDisposedException(nameof(PoolGremlinqClient));
 
-#pragma warning disable CA2007 // Consider calling ConfigureAwait on the awaited task
-                                    await using (var e = client.SubmitAsync<T>(message).WithCancellation(ct).ConfigureAwait(false).GetAsyncEnumerator())
-#pragma warning restore CA2007
-                                    {
-                                        while (true)
-                                        {
-                                            try
-                                            {
-                                                if (!await e.MoveNextAsync())
-                                                    break;
-                                            }
-                                            catch (Exception ex) when (ex is not OperationCanceledException)
-                                            {
-                                                using (client)
-                                                {
-                                                    Interlocked.CompareExchange(ref @this._currentClient, null, client);
-                                                }
+                            var newConnection = new PoolConnectionGremlinqClient(
+                                this,
+                                _outerClient._baseFactory
+                                    .Create(_outerClient._environment)
+                                    .Throttle(_outerClient._maxInProcessPerConnection));
 
-                                                throw;
-                                            }
+                            if (Interlocked.CompareExchange(ref _currentClient, newConnection, null) != null)
+                                newConnection.Dispose();
+                        }
+                    }
 
-                                            yield return e.Current;
-                                        }
+                    public bool Holds(PoolConnectionGremlinqClient connection) => Volatile.Read(ref _currentClient) == connection;
 
-                                        break;
-                                    }
-                                }
-                                else
-                                {
-                                    var newClient = @this._outerClient._baseFactory
-                                        .Create(@this._outerClient._environment)
-                                        .Throttle(@this._outerClient._maxInProcessPerConnection);
-
-                                    if (Interlocked.CompareExchange(ref @this._currentClient, newClient, null) != null)
-                                        newClient.Dispose();
-                                }
-                            }
+                    public void Drop(PoolConnectionGremlinqClient connection)
+                    {
+                        using (connection)
+                        {
+                            Interlocked.CompareExchange(ref _currentClient, null, connection);
                         }
                     }
 
                     public void Dispose() => Interlocked.Exchange(ref _currentClient, GremlinqClient.Disposed)?.Dispose();
                 }
 
-                private readonly IGremlinqClient[] _slots;
+                private sealed class PoolConnectionGremlinqClient : IGremlinqClient
+                {
+                    private readonly IGremlinqClient _client;
+                    private readonly PoolSlotGremlinqClient _slot;
+
+                    public PoolConnectionGremlinqClient(PoolSlotGremlinqClient slot, IGremlinqClient client)
+                    {
+                        _slot = slot;
+                        _client = client;
+                    }
+
+                    public IAsyncEnumerable<ResponseMessage<T>> SubmitAsync<T>(RequestMessage message)
+                    {
+                        return Core(this, message);
+
+                        static async IAsyncEnumerable<ResponseMessage<T>> Core(PoolConnectionGremlinqClient @this, RequestMessage message, [EnumeratorCancellation] CancellationToken ct = default)
+                        {
+#pragma warning disable CA2007 // Consider calling ConfigureAwait on the awaited task
+                            await using (var e = @this._client.SubmitAsync<T>(message).WithCancellation(ct).ConfigureAwait(false).GetAsyncEnumerator())
+#pragma warning restore CA2007
+                            {
+                                while (true)
+                                {
+                                    try
+                                    {
+                                        if (!await e.MoveNextAsync())
+                                            break;
+                                    }
+                                    catch (Exception ex) when (ex is not OperationCanceledException)
+                                    {
+                                        @this._slot.Drop(@this);
+
+                                        throw;
+                                    }
+
+                                    yield return e.Current;
+                                }
+                            }
+                        }
+                    }
+
+                    public bool IsCurrent => _slot.Holds(this);
+
+                    public void Dispose() => _client.Dispose();
+                }
+
+                private readonly PoolSlotGremlinqClient[] _slots;
+                private readonly IGremlinqClient[] _retryingSlots;
                 private readonly int _maxInProcessPerConnection;
                 private readonly IGremlinqClientFactory _baseFactory;
                 private readonly IGremlinQueryEnvironment _environment;
+                private readonly ConcurrentDictionary<string, PoolConnectionGremlinqClient> _sessions = new();
 
                 private int _maxRequestsInUse;
                 private int _currentRequestsInUse;
@@ -103,12 +129,14 @@ namespace ExRam.Gremlinq.Providers.Core
                 {
                     _baseFactory = baseFactory;
                     _environment = environment;
-                    _slots = new IGremlinqClient[poolSize];
+                    _slots = new PoolSlotGremlinqClient[poolSize];
+                    _retryingSlots = new IGremlinqClient[poolSize];
                     _maxInProcessPerConnection = maxInProcessPerConnection;
 
                     for (var i = 0; i < poolSize; i++)
                     {
-                        _slots[i] = new PoolSlotGremlinqClient(this)
+                        _slots[i] = new PoolSlotGremlinqClient(this);
+                        _retryingSlots[i] = _slots[i]
                             .Retry(static (retry, ex) => ex is ObjectDisposedException && retry == 0);
                     }
                 }
@@ -123,23 +151,13 @@ namespace ExRam.Gremlinq.Providers.Core
 
                         try
                         {
-                            while (true)
+                            var responses = message.Processor == Tokens.ProcessorSession && message.Arguments.TryGetValue(Tokens.ArgsSession, out var maybeSession) && maybeSession?.ToString() is { } sessionId
+                                ? @this.SubmitInSession<T>(sessionId, message, currentRequestsInUse)
+                                : @this._retryingSlots[@this.GetSlotIndex(currentRequestsInUse)].SubmitAsync<T>(message);
+
+                            await foreach (var item in responses.WithCancellation(ct).ConfigureAwait(false))
                             {
-                                var maxRequestsInUse = Volatile.Read(ref @this._maxRequestsInUse);
-                                var newMaxRequestsInUse = Math.Min(currentRequestsInUse, @this._slots.Length);
-
-                                if (currentRequestsInUse < 0 || currentRequestsInUse <= maxRequestsInUse || newMaxRequestsInUse == maxRequestsInUse || Interlocked.CompareExchange(ref @this._maxRequestsInUse, newMaxRequestsInUse, maxRequestsInUse) == maxRequestsInUse)
-                                {
-                                    var slotIndex = Math.Abs(Interlocked.Increment(ref @this._currentSlotIndex) % newMaxRequestsInUse);
-                                    var client = @this._slots[slotIndex];
-
-                                    await foreach (var item in client.SubmitAsync<T>(message).WithCancellation(ct).ConfigureAwait(false))
-                                    {
-                                        yield return item;
-                                    }
-
-                                    break;
-                                }
+                                yield return item;
                             }
                         }
                         finally
@@ -154,6 +172,32 @@ namespace ExRam.Gremlinq.Providers.Core
                     for (var i = 0; i < _slots.Length; i++)
                     {
                         _slots[i].Dispose();
+                    }
+
+                    _sessions.Clear();
+                }
+
+                private IAsyncEnumerable<ResponseMessage<T>> SubmitInSession<T>(string sessionId, RequestMessage message, int currentRequestsInUse)
+                {
+                    var connection = _sessions.GetOrAdd(
+                        sessionId,
+                        static (_, state) => state.@this._slots[state.@this.GetSlotIndex(state.currentRequestsInUse)].GetOrCreateConnection(),
+                        (@this: this, currentRequestsInUse));
+
+                    return connection.IsCurrent
+                        ? connection.SubmitAsync<T>(message)
+                        : throw new InvalidOperationException($"The connection of session {sessionId} was closed.");
+                }
+
+                private int GetSlotIndex(int currentRequestsInUse)
+                {
+                    while (true)
+                    {
+                        var maxRequestsInUse = Volatile.Read(ref _maxRequestsInUse);
+                        var newMaxRequestsInUse = Math.Min(currentRequestsInUse, _slots.Length);
+
+                        if (currentRequestsInUse < 0 || currentRequestsInUse <= maxRequestsInUse || newMaxRequestsInUse == maxRequestsInUse || Interlocked.CompareExchange(ref _maxRequestsInUse, newMaxRequestsInUse, maxRequestsInUse) == maxRequestsInUse)
+                            return Math.Abs(Interlocked.Increment(ref _currentSlotIndex) % newMaxRequestsInUse);
                     }
                 }
             }
