@@ -1,6 +1,7 @@
 using System.Collections.Immutable;
 
 using ExRam.Gremlinq.Core.Models;
+using ExRam.Gremlinq.Core.Projections;
 using ExRam.Gremlinq.Core.Steps;
 using ExRam.Gremlinq.Tests.Entities;
 using FluentAssertions;
@@ -411,6 +412,176 @@ namespace ExRam.Gremlinq.Core.Tests
             .Invoking(admin => admin.ChangeQueryType<IUnsupportedQuery>())
             .Should()
             .Throw<NotSupportedException>();
+
+        [Fact]
+        public void Coalesce_leaves_a_failing_branch_out_of_the_projection() => _g
+            .V<RichVertex>()
+            .Coalesce(
+                __ => __.Where(x => x.Age == 36),
+                __ => __.Fail("No vertex of age 36"))
+            .ToTraversal()
+            .Projection
+            .Should()
+            .BeSameAs(Projection.Vertex);
+
+        [Fact]
+        public void Coalesce_of_unproductive_branches_only_projects_to_Empty() => _g
+            .V<RichVertex>()
+            .Coalesce(
+                __ => __.OutE().Discard(),
+                __ => __.Fail())
+            .ToTraversal()
+            .Projection
+            .Should()
+            .BeSameAs(Projection.Empty);
+
+        [Fact]
+        public void Property_after_Coalesce_with_a_failing_branch_has_cardinality_single() => _g
+            .V<RichVertex>(1)
+            .Coalesce(
+                __ => __.Where(x => x.Age == 36),
+                __ => __
+                    .Fail("No vertex of age 36")
+                    .AsAdmin()
+                    .ChangeQueryType<IVertexGremlinQuery<RichVertex>>())
+            .Property(x => x.Age, 37)
+            .AsAdmin()
+            .Steps[^1]
+            .Should()
+            .BeOfType<PropertyStep.ByKeyStep>()
+            .Which
+            .Cardinality
+            .Should()
+            .Be(Cardinality.Single);
+
+        [Fact]
+        public void Union_leaves_a_failing_branch_out_of_the_projection() => _g
+            .V<RichVertex>()
+            .Union(
+                __ => __.OutE(),
+                __ => __.Fail())
+            .ToTraversal()
+            .Projection
+            .Should()
+            .BeSameAs(Projection.Edge);
+
+        [Fact]
+        public void Union_of_unproductive_branches_only_projects_to_Empty() => _g
+            .V<RichVertex>()
+            .Union(
+                __ => __.OutE().Discard(),
+                __ => __.Fail())
+            .ToTraversal()
+            .Projection
+            .Should()
+            .BeSameAs(Projection.Empty);
+
+        [Fact]
+        public void Choose_leaves_a_failing_false_branch_out_of_the_projection() => _g
+            .V<RichVertex>()
+            .Choose<IGremlinQueryBase>(
+                __ => __.Out(),
+                __ => __.OutE(),
+                __ => __.Fail())
+            .ToTraversal()
+            .Projection
+            .Should()
+            .BeSameAs(Projection.Edge);
+
+        [Fact]
+        public void Choose_leaves_a_failing_true_branch_out_of_the_projection() => _g
+            .V<RichVertex>()
+            .Choose<IGremlinQueryBase>(
+                __ => __.Out(),
+                __ => __.Fail(),
+                __ => __.OutE())
+            .ToTraversal()
+            .Projection
+            .Should()
+            .BeSameAs(Projection.Edge);
+
+        [Fact]
+        public void Choose_leaves_a_discarding_branch_out_of_the_projection() => _g
+            .V<RichVertex>()
+            .Choose<IGremlinQueryBase>(
+                __ => __.Out(),
+                __ => __.OutE(),
+                __ => __.Out().Discard())
+            .ToTraversal()
+            .Projection
+            .Should()
+            .BeSameAs(Projection.Edge);
+
+        [Fact]
+        public void Choose_of_unproductive_branches_only_takes_the_lowest_projection_of_both() => _g
+            .V<RichVertex>()
+            .Choose<IGremlinQueryBase>(
+                __ => __.Out(),
+                __ => __.OutE().Discard(),
+                __ => __.Out().Discard())
+            .ToTraversal()
+            .Projection
+            .Should()
+            .BeSameAs(Projection.EdgeOrVertex);
+
+        [Fact]
+        public void Choose_with_a_failing_true_branch_only_keeps_the_outer_projection() => _g
+            .V<RichVertex>()
+            .Choose(
+                __ => __.Out(),
+                __ => __.Fail())
+            .ToTraversal()
+            .Projection
+            .Should()
+            .BeSameAs(Projection.Vertex);
+
+        [Fact]
+        public void Choose_between_the_identity_and_a_failing_branch_keeps_the_outer_projection() => _g
+            .V<RichVertex>()
+            .Choose<IGremlinQueryBase>(
+                __ => __.Out(),
+                __ => __,
+                __ => __.Fail())
+            .ToTraversal()
+            .Projection
+            .Should()
+            .BeSameAs(Projection.Vertex);
+
+        [Fact]
+        public void Choose_builder_leaves_an_unproductive_choice_traversal_out_of_the_projection() => _g
+            .Inject(36)
+            .Choose(c => c
+                .On(__ => __.Fail())
+                .Case<IGremlinQueryBase>(36, __ => __.Constant(37))
+                .Default(__ => __.Constant(38)))
+            .ToTraversal()
+            .Projection
+            .Should()
+            .BeSameAs(Projection.Value);
+
+        [Fact]
+        public void Choose_builder_leaves_an_unproductive_case_out_of_the_projection() => _g
+            .Inject(36)
+            .Choose(c => c
+                .On(__ => __.Identity())
+                .Case<IGremlinQueryBase>(36, __ => __.Fold().Discard())
+                .Default(__ => __.Constant(38)))
+            .ToTraversal()
+            .Projection
+            .Should()
+            .BeSameAs(Projection.Value);
+
+        [Fact]
+        public void Choose_builder_leaves_an_unproductive_default_out_of_the_projection() => _g
+            .Inject(36)
+            .Choose(c => c
+                .On(__ => __.Identity())
+                .Case<IGremlinQueryBase>(36, __ => __.Constant(37))
+                .Default(__ => __.Fail()))
+            .ToTraversal()
+            .Projection
+            .Should()
+            .BeSameAs(Projection.Value);
 
         private interface IUnsupportedQuery : IStartGremlinQuery
         {
