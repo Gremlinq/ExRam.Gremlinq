@@ -88,7 +88,7 @@ namespace ExRam.Gremlinq.Core
         {
             if (traversals is [var first, .. var remainder])
             {
-                if (first.IsDiscard())
+                if (first.IsUnproductive())
                     return remainder.LowestProjection();
 
                 if (remainder.LowestProjection() is { } lowestRemainder)
@@ -182,6 +182,11 @@ namespace ExRam.Gremlinq.Core
 
         // Whether the step filters out all traversers: a NoneStep or a DiscardStep, whichever the environment chose.
         public static bool IsDiscard(this Step step) => step is NoneStep or DiscardStep;
+
+        // Whether the traversal never emits a traverser: its last step discards all of them or fails. Such a branch
+        // takes no part in the projection of the step that combines the branches. Unlike IsDiscard, by which a branch
+        // is simplified or dropped, it also counts fail(), which must stay in the query.
+        public static bool IsUnproductive(this Traversal traversal) => traversal.IsDiscard() || traversal.PeekOrDefault() is FailStep;
 
         // Filters out all traversers with the step the environment asks for. An identity traversal is
         // replaced by that step rather than extended with it.
