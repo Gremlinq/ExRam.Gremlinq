@@ -44,7 +44,7 @@ namespace ExRam.Gremlinq.Core
                     _steps
                         .Push(new ChooseOptionTraversalStep(traversal)),
                     _projection
-                        .Lowest(traversal.Projection));
+                        .Lowest(traversal));
             }
              
             public IChooseBuilderWithCase<GremlinQuery<T1, T2, T3, T4>, TPickElement, TNewTargetQuery> Case<TNewTargetQuery>(TPickElement element, Func<GremlinQuery<T1, T2, T3, T4>, TNewTargetQuery> continuation) where TNewTargetQuery : IGremlinQueryBase
@@ -59,7 +59,7 @@ namespace ExRam.Gremlinq.Core
                     _steps
                         .Push(new OptionTraversalStep(element, traversal)),
                     _projection
-                        .Lowest(traversal.Projection));
+                        .Lowest(traversal));
             }
 
             public IChooseBuilderWithCaseOrDefault<TNewTargetQuery> Default<TNewTargetQuery>(Func<GremlinQuery<T1, T2, T3, T4>, TNewTargetQuery> continuation) where TNewTargetQuery : IGremlinQueryBase
@@ -74,7 +74,7 @@ namespace ExRam.Gremlinq.Core
                     _steps
                         .Push(new OptionTraversalStep(null, traversal)),
                     _projection
-                        .Lowest(traversal.Projection));
+                        .Lowest(traversal));
             }
 
             public IChooseBuilderWithCase<GremlinQuery<T1, T2, T3, T4>, TPickElement, TTargetQuery> Case(TPickElement element, Func<GremlinQuery<T1, T2, T3, T4>, TTargetQuery> continuation) => Case<TTargetQuery>(element, continuation);

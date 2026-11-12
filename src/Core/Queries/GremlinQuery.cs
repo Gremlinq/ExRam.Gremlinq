@@ -402,8 +402,8 @@ namespace ExRam.Gremlinq.Core
                                                     trueTraversal,
                                                     falseTraversal))
                                             .WithNewProjection(
-                                                static (_, state) => state.falseTraversal.Projection
-                                                    .Lowest(state.trueTraversal.Projection),
+                                                static (_, state) => state.falseTraversal
+                                                    .LowestProjection(state.trueTraversal),
                                                 (falseTraversal, trueTraversal))
                                             .BuildAs<TTargetQuery>();
                                     },
@@ -417,9 +417,9 @@ namespace ExRam.Gremlinq.Core
                                         state.predicateTraversal,
                                         trueTraversal))
                                 .WithNewProjection(
-                                    static (projection, otherProjection) => projection
-                                        .Lowest(otherProjection),
-                                    trueTraversal.Projection)
+                                    static (projection, trueTraversal) => projection
+                                        .Lowest(trueTraversal),
+                                    trueTraversal)
                                 .BuildAs<TTargetQuery>();
                     },
                     (predicateTraversal, maybeFalseContinuation, @this: this));

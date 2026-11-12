@@ -188,6 +188,19 @@ namespace ExRam.Gremlinq.Core
         // is simplified or dropped, it also counts fail(), which must stay in the query.
         public static bool IsUnproductive(this Traversal traversal) => traversal.IsDiscard() || traversal.PeekOrDefault() is FailStep;
 
+        // Lowers the projection by the projection of a branch, unless the branch never emits a traverser.
+        public static Projection Lowest(this Projection projection, Traversal branch) => branch.IsUnproductive()
+            ? projection
+            : projection.Lowest(branch.Projection);
+
+        // The lowest projection of two branches. An unproductive branch is left out, unless both are.
+        public static Projection LowestProjection(this Traversal traversal, Traversal other) => (traversal.IsUnproductive(), other.IsUnproductive()) switch
+        {
+            (true, false) => other.Projection,
+            (false, true) => traversal.Projection,
+            _ => traversal.Projection.Lowest(other.Projection)
+        };
+
         // Filters out all traversers with the step the environment asks for. An identity traversal is
         // replaced by that step rather than extended with it.
         public static Traversal Discard(this Traversal traversal, IGremlinQueryEnvironment environment)
