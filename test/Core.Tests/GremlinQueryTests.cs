@@ -425,6 +425,31 @@ namespace ExRam.Gremlinq.Core.Tests
             .BeSameAs(Projection.Vertex);
 
         [Fact]
+        public Task Coalesce_drops_the_branches_after_an_identity_branch() => Verify(_g
+            .V<RichVertex>()
+            .Coalesce(
+                __ => __.Where(x => x.Age == 36),
+                __ => __,
+                __ => __.Fail())
+            .Debug());
+
+        [Fact]
+        public Task Coalesce_with_a_leading_identity_branch_is_a_coalesce_of_the_identity() => Verify(_g
+            .V<RichVertex>()
+            .Coalesce(
+                __ => __,
+                __ => __.Fail())
+            .Debug());
+
+        [Fact]
+        public Task Coalesce_leaves_the_branches_after_an_identity_branch_out_of_the_projection() => Verify(_g
+            .V<RichVertex>()
+            .Coalesce(
+                __ => __,
+                __ => __.OutE())
+            .Debug());
+
+        [Fact]
         public void Coalesce_of_unproductive_branches_only_projects_to_Empty() => _g
             .V<RichVertex>()
             .Coalesce(
