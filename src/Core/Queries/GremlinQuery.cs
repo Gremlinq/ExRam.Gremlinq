@@ -456,10 +456,23 @@ namespace ExRam.Gremlinq.Core
                         }
                         else
                         {
+                            var length = traversals.Length;
+
+                            for (var i = 0; i < traversals.Length; i++)
+                            {
+                                if (traversals[i].IsIdentity())
+                                {
+                                    length = i + 1;
+                                    break;
+                                }
+                            }
+
+                            // The branches after an identity branch are never evaluated. The step stays, even for
+                            // the identity alone: coalesce adds an entry to the path of the traverser.
                             builder = builder
-                                .AddStep(new CoalesceStep(traversalsMemory
+                                .AddStep(new CoalesceStep(traversalsMemory[..length]
                                     .UnsafeToImmutableArray()))
-                                .WithNewProjection(traversals.LowestProjection() ?? Projection.Empty);
+                                .WithNewProjection(traversals[..length].LowestProjection() ?? Projection.Empty);
                         }
                     }
 
