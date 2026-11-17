@@ -7,9 +7,9 @@
       g: g
     },
     bindings: {
-      _a: 1,
-      _b: 2,
-      _c: 3,
+      _a: 36,
+      _b: 37,
+      _c: 38,
       _d: _a,
       _e: RichVertex,
       _f: Age,

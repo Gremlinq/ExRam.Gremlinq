@@ -31,7 +31,7 @@
         Age,
         {
           OperatorName: gt,
-          Value: 36
+          Value: 20
         }
       ]
     },

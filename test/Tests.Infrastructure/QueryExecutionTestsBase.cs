@@ -3489,7 +3489,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual SettingsTask StepLabel_of_array_contains_element() => _g
-            .Inject(1, 2, 3)
+            .Inject(36, 37, 38)
             .Fold()
             .As((_, ints) => _
                 .V<RichVertex>()
@@ -3498,7 +3498,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual SettingsTask StepLabel_of_array_contains_element_graphson() => _g
-            .Inject(1, 2, 3)
+            .Inject(36, 37, 38)
             .Fold()
             .As((_, ints) => _
                 .V<RichVertex>()
@@ -3527,7 +3527,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual SettingsTask StepLabel_of_object_array_contains_element() => _g
-            .Inject(1, 2, 3)
+            .Inject(36, 37, 38)
             .Cast<object>()
             .Fold()
             .As((_, ints) => _
@@ -3675,8 +3675,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual SettingsTask SumLocal_Where1() => _g
-            .V<RichVertex>()
-            .Values(x => x.Age)
+            .Inject(30, 70)
             .Fold()
             .SumLocal()
             .Where(x => x == 100)
@@ -3684,8 +3683,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual SettingsTask SumLocal_Where2() => _g
-            .V<RichVertex>()
-            .Values(x => x.Age)
+            .Inject(30, 60)
             .Fold()
             .SumLocal()
             .Where(x => x < 100)
@@ -4510,7 +4508,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual SettingsTask Where_disjunction() => _g
             .V<RichVertex>()
-            .Where(t => t.Age == 36 || t.Age == 42)
+            .Where(t => t.Age == 21 || t.Age == 42)
             .Verify();
 
         [Fact]
@@ -4535,7 +4533,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual SettingsTask Where_Has() => _g
             .V<RichVertex>()
             .Where(__ => __
-               .Where(t => t.Age == 36))
+               .Where(t => t.Age == 21))
             .Verify();
 
         [Fact]
@@ -4547,14 +4545,14 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual SettingsTask Where_has_disjunction_of_three() => _g
             .V<RichVertex>()
-            .Where(t => t.Age == 36 || t.Age == 42 || t.Age == 99)
+            .Where(t => t.Age == 21 || t.Age == 42 || t.Age == 99)
             .Verify();
 
         [Fact]
         public virtual SettingsTask Where_has_disjunction_of_three_with_or() => _g
             .V<RichVertex>()
             .Or(
-                __ => __.Where(t => t.Age == 36),
+                __ => __.Where(t => t.Age == 21),
                 __ => __.Where(t => t.Age == 42),
                 __ => __.Where(t => t.Age == 99))
             .Verify();
@@ -4951,19 +4949,19 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual SettingsTask Where_property_equals_constant() => _g
             .V<RichVertex>()
-            .Where(t => t.Age == 36)
+            .Where(t => t.Age == 21)
             .Verify();
 
         [Fact]
         public virtual SettingsTask Where_property_equals_constant_with_Equals() => _g
             .V<RichVertex>()
-            .Where(t => t.Age.Equals(36))
+            .Where(t => t.Age.Equals(21))
             .Verify();
 
         [Fact]
         public virtual SettingsTask Where_property_equals_converted_expression() => _g
             .V<RichVertex>()
-            .Where(t => (object)t.Age == (object)36)
+            .Where(t => (object)t.Age == (object)21)
             .Verify();
 
         [Fact]
@@ -4973,7 +4971,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
             return _g
                 .V<RichVertex>()
-                .Where(t => t.Age == i + i)
+                .Where(t => t.Age == i + 3)
                 .Verify();
         }
 
@@ -5055,7 +5053,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual SettingsTask Where_property_is_contained_in_array() => _g
             .V<RichVertex>()
-            .Where(t => new[] { 36, 37, 38 }.Contains(t.Age))
+            .Where(t => new[] { 21, 37, 38 }.Contains(t.Age))
             .Verify();
 
         [Fact]
@@ -5072,7 +5070,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual SettingsTask Where_property_is_contained_in_enumerable()
         {
-            var enumerable = new[] { "36", "37", "38" }
+            var enumerable = new[] { "21", "37", "38" }
                 .Select(int.Parse);
 
             return _g
@@ -5084,19 +5082,19 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual SettingsTask Where_property_is_contained_in_list() => _g
             .V<RichVertex>()
-            .Where(t => new List<int> { 36, 37, 38 }.Contains(t.Age))
+            .Where(t => new List<int> { 21, 37, 38 }.Contains(t.Age))
             .Verify();
 
         [Fact]
         public virtual SettingsTask Where_property_is_greater_or_equal_than_constant() => _g
             .V<RichVertex>()
-            .Where(t => t.Age >= 36)
+            .Where(t => t.Age >= 21)
             .Verify();
 
         [Fact]
         public virtual SettingsTask Where_property_is_greater_than_constant() => _g
             .V<RichVertex>()
-            .Where(t => t.Age > 36)
+            .Where(t => t.Age > 20)
             .Verify();
 
         [Fact]
@@ -5399,7 +5397,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual SettingsTask Where_scalar_element_equals_constant() => _g
             .V<RichVertex>()
             .Values(x => x.Age)
-            .Where(_ => _ == 36)
+            .Where(_ => _ == 21)
             .Verify();
 
         [Fact]
@@ -5619,7 +5617,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .V<RichVertex>()
             .Where(__ => __
                 .Values(x => x.Age)
-                .Where(age => age > 36))
+                .Where(age => age > 20))
             .Verify();
 
         [Fact]

@@ -3,6 +3,6 @@
   Bindings: {
     _a: RichVertex,
     _b: Age,
-    _c: 36
+    _c: 21
   }
 }

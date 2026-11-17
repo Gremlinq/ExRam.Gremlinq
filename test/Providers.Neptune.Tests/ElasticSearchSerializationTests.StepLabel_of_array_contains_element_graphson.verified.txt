@@ -19,9 +19,9 @@
     {
       OperatorName: inject,
       Arguments: [
-        1,
-        2,
-        3
+        36,
+        37,
+        38
       ]
     },
     {

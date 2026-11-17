@@ -1,1 +1,1 @@
-g.V().hasLabel('RichVertex').values('Age').fold().sum(local).is(100)
+g.inject(30,70).fold().sum(local).is(100)

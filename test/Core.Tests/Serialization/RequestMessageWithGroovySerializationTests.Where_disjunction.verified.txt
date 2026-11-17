@@ -9,7 +9,7 @@
     bindings: {
       _a: RichVertex,
       _b: Age,
-      _c: 36,
+      _c: 21,
       _d: 42,
       _e: id,
       _f: label,
