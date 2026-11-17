@@ -23,7 +23,7 @@
             CountryCallingCode,
             {
               OperatorName: regex,
-              Value: (?i)7890$
+              Value: (?i)49$
             }
           ]
         },

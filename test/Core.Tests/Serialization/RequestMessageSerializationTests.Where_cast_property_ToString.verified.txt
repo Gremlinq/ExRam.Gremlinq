@@ -21,7 +21,7 @@
           OperatorName: has,
           Arguments: [
             CountryCallingCode,
-            some_string
+            +49
           ]
         },
         {

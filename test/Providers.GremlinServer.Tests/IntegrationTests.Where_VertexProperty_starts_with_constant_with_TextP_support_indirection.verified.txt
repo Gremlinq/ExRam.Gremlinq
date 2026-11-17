@@ -1,1 +1,43 @@
-[]
+[
+  {
+    Name: {
+      Id: 72,
+      Label: Name,
+      Properties: {},
+      Value: GER
+    },
+    LocalizableDescription: {
+      Id: 142,
+      Label: LocalizableDescription,
+      Properties: {
+        someKey: value
+      },
+      Value: 
+    },
+    Id: 71,
+    Label: MetaPropertyVertex,
+    PartitionKey: PartitionKey
+  },
+  {
+    Name: {
+      Id: 74,
+      Label: Name,
+      Properties: {
+        de: Deutschland,
+        en: Germany
+      },
+      Value: GER
+    },
+    LocalizableDescription: {
+      Id: 143,
+      Label: LocalizableDescription,
+      Properties: {
+        someKey: value
+      },
+      Value: 
+    },
+    Id: 73,
+    Label: MetaPropertyVertex,
+    PartitionKey: PartitionKey
+  }
+]

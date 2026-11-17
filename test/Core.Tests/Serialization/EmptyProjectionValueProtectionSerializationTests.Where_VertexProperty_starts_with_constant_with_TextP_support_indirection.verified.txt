@@ -15,7 +15,7 @@
         Name,
         {
           OperatorName: startingWith,
-          Value: 456
+          Value: GE
         }
       ]
     },

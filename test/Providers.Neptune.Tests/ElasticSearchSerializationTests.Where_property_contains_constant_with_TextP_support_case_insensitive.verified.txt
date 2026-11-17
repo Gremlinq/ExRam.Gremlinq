@@ -29,7 +29,7 @@
       OperatorName: has,
       Arguments: [
         CountryCallingCode,
-        Neptune#fts *456*
+        Neptune#fts *49*
       ]
     },
     {

@@ -4396,7 +4396,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual SettingsTask Where_cast_property_ToString() => _g
             .V<MetaPropertyVertex>()
-            .Where(x => ((Exception)(object)x.CountryCallingCode!).ToString() == "some_string")
+            .Where(x => ((Exception)(object)x.CountryCallingCode!).ToString() == "+49")
             .Verify();
 
         [Fact]
@@ -4883,13 +4883,13 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual SettingsTask Where_property_contains_constant_with_TextP_support() => _g
             .V<MetaPropertyVertex>()
-            .Where(c => c.CountryCallingCode!.Contains("456"))
+            .Where(c => c.CountryCallingCode!.Contains("49"))
             .Verify();
 
         [Fact]
         public virtual SettingsTask Where_property_contains_constant_with_TextP_support_case_insensitive() => _g
             .V<MetaPropertyVertex>()
-            .Where(c => c.CountryCallingCode!.Contains("456", StringComparison.OrdinalIgnoreCase))
+            .Where(c => c.CountryCallingCode!.Contains("49", StringComparison.OrdinalIgnoreCase))
             .Verify();
 
         [Fact]
@@ -4916,13 +4916,13 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual SettingsTask Where_property_ends_with_constant_with_TextP_support() => _g
             .V<MetaPropertyVertex>()
-            .Where(c => c.CountryCallingCode!.EndsWith("7890"))
+            .Where(c => c.CountryCallingCode!.EndsWith("49"))
             .Verify();
 
         [Fact]
         public virtual SettingsTask Where_property_ends_with_constant_with_TextP_support_case_insensitive() => _g
             .V<MetaPropertyVertex>()
-            .Where(c => c.CountryCallingCode!.EndsWith("7890", StringComparison.OrdinalIgnoreCase))
+            .Where(c => c.CountryCallingCode!.EndsWith("49", StringComparison.OrdinalIgnoreCase))
             .Verify();
 
         [Fact]
@@ -5244,7 +5244,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual SettingsTask Where_property_is_prefix_of_UriToString()
         {
-            var uri = new Uri("tel:+49123");
+            var uri = new Uri("+49123", UriKind.Relative);
 
             return _g
                 .V<MetaPropertyVertex>()
@@ -5351,7 +5351,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual SettingsTask Where_property_starts_with_constant_with_TextP_support() => _g
             .V<MetaPropertyVertex>()
-            .Where(c => c.CountryCallingCode!.StartsWith("+49123"))
+            .Where(c => c.CountryCallingCode!.StartsWith("+4"))
             .Verify();
 
         [Fact]
@@ -5360,7 +5360,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                 .ConfigureOptions(c => c
                     .SetValue(GremlinqOption.DisabledTextPredicates, DisabledTextPredicates.StartingWith)))
             .V<MetaPropertyVertex>()
-            .Where(c => c.CountryCallingCode!.StartsWith("+49123"))
+            .Where(c => c.CountryCallingCode!.StartsWith("+4"))
             .Verify();
 
         [Fact]
@@ -5381,7 +5381,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual SettingsTask Where_property_ToString() => _g
             .V<MetaPropertyVertex>()
-            .Where(x => x.CountryCallingCode!.ToString() == "some_string")
+            .Where(x => x.CountryCallingCode!.ToString() == "+49")
             .Verify();
 
         [Fact]
@@ -5467,25 +5467,25 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual SettingsTask Where_string_property_equals() => _g
             .V<MetaPropertyVertex>()
-            .Where(c => c.CountryCallingCode!.Equals("+49123"))
+            .Where(c => c.CountryCallingCode!.Equals("+49"))
             .Verify();
 
         [Fact]
         public virtual SettingsTask Where_string_property_equals_case_insensitive() => _g
             .V<MetaPropertyVertex>()
-            .Where(c => c.CountryCallingCode!.Equals("+49123", StringComparison.OrdinalIgnoreCase))
+            .Where(c => c.CountryCallingCode!.Equals("+49", StringComparison.OrdinalIgnoreCase))
             .Verify();
 
         [Fact]
         public virtual SettingsTask Where_string_property_startsWith() => _g
             .V<MetaPropertyVertex>()
-            .Where(c => c.CountryCallingCode!.StartsWith("+49123"))
+            .Where(c => c.CountryCallingCode!.StartsWith("+4"))
             .Verify();
 
         [Fact]
         public virtual SettingsTask Where_string_property_startsWith_case_insensitive() => _g
             .V<MetaPropertyVertex>()
-            .Where(c => c.CountryCallingCode!.StartsWith("+49123", StringComparison.OrdinalIgnoreCase))
+            .Where(c => c.CountryCallingCode!.StartsWith("+4", StringComparison.OrdinalIgnoreCase))
             .Verify();
 
         [Fact]
@@ -5668,7 +5668,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual SettingsTask Where_VertexProperty_starts_with_constant_with_TextP_support_indirection()
         {
-            var tuple = ("456", 36);
+            var tuple = ("GE", 36);
 
             return _g
                 .V<MetaPropertyVertex>()

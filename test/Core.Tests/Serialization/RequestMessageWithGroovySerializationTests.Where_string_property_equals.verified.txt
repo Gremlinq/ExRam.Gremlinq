@@ -9,7 +9,7 @@
     bindings: {
       _a: MetaPropertyVertex,
       _b: CountryCallingCode,
-      _c: +49123,
+      _c: +49,
       _d: id,
       _e: label,
       _f: properties,

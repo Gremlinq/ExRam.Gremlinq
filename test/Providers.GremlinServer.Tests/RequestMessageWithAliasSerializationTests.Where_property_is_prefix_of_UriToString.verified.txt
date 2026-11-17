@@ -25,16 +25,12 @@
               OperatorName: within,
               Value: [
                 ,
-                t,
-                te,
-                tel,
-                tel:,
-                tel:+,
-                tel:+4,
-                tel:+49,
-                tel:+491,
-                tel:+4912,
-                tel:+49123
+                +,
+                +4,
+                +49,
+                +491,
+                +4912,
+                +49123
               ]
             }
           ]

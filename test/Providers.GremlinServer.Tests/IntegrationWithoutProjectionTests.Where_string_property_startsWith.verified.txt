@@ -1,1 +1,30 @@
-[]
+[
+  {
+    CountryCallingCode: +49,
+    LocalizableDescription: {
+      Id: 137,
+      Label: LocalizableDescription,
+      Properties: {
+        someKey: value
+      },
+      Value: 
+    },
+    Id: 0,
+    Label: MetaPropertyVertex,
+    PartitionKey: PartitionKey
+  },
+  {
+    CountryCallingCode: +49,
+    LocalizableDescription: {
+      Id: 141,
+      Label: LocalizableDescription,
+      Properties: {
+        someKey: value
+      },
+      Value: 
+    },
+    Id: 34,
+    Label: MetaPropertyVertex,
+    PartitionKey: PartitionKey
+  }
+]

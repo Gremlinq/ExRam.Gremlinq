@@ -3,7 +3,7 @@
   Bindings: {
     _a: MetaPropertyVertex,
     _b: CountryCallingCode,
-    _c: (?i)7890$,
+    _c: (?i)49$,
     _d: id,
     _e: label,
     _f: properties,

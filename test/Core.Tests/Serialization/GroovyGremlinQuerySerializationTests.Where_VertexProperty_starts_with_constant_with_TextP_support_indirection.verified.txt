@@ -3,7 +3,7 @@
   Bindings: {
     _a: MetaPropertyVertex,
     _b: Name,
-    _c: 456,
+    _c: GE,
     _d: id,
     _e: label,
     _f: properties,

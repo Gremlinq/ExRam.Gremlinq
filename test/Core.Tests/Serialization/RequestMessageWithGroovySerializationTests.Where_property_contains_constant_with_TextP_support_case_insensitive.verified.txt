@@ -9,7 +9,7 @@
     bindings: {
       _a: MetaPropertyVertex,
       _b: CountryCallingCode,
-      _c: (?i)456,
+      _c: (?i)49,
       _d: id,
       _e: label,
       _f: properties,
