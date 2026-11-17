@@ -1,0 +1,7 @@
+## Fixes
+
+- The connection pool now keeps every request of a Gremlin Server session on the connection of its first request, close request included. Before, overlapping requests of one session were spread over the pool's connections, and a session whose connection was dropped silently started anew under the same id; now every later request of such a session throws an `InvalidOperationException` naming it, before anything is sent. Sessionless requests are unchanged. ([#2598](https://github.com/Gremlinq/ExRam.Gremlinq/pull/2598))
+- A branch that ends in `Fail()` no longer lowers the projection of `Coalesce`, `Union` and `Choose`, just like a branch that ends in `Discard()`. Before, the usual assertion `Coalesce(__ => __.Where(…), __ => __.Fail(…))` projected to `Empty`, so a following `Property(…)` lost its cardinality `single` and the result lost its vertex projection. `Choose` now also skips a branch that ends in `Discard()`. ([#2601](https://github.com/Gremlinq/ExRam.Gremlinq/pull/2601))
+- `Coalesce` leaves out every branch after its first identity branch, since those branches never run. Before, they were still sent to the server and could lower the projection of the query. The `coalesce` step itself stays, as it adds an entry to the path of a traverser. ([#2604](https://github.com/Gremlinq/ExRam.Gremlinq/pull/2604))
+
+**Full changelog**: https://github.com/Gremlinq/ExRam.Gremlinq/compare/14.2.0...14.2.1
