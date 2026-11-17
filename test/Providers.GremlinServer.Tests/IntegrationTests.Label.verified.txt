@@ -31,5 +31,7 @@
   RichVertex,
   RichVertex,
   RichVertex,
+  RichVertex,
+  RichVertex,
   ScalarVertex
 ]

@@ -332,6 +332,19 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Verify();
 
         [Fact]
+        public virtual SettingsTask AddV_with_user_supplied_ids()
+        {
+            var now = new DateTime(2020, 4, 7, 14, 43, 36, DateTimeKind.Utc);
+
+            return _g
+                .AddV(new RichVertex { Id = GetId(1000) })
+                .AddE(new RichEdge { Id = GetId(1002), From = now })
+                .To(__ => __
+                    .AddV(new RichVertex { Id = GetId(1001) }))
+                .Verify();
+        }
+
+        [Fact]
         public virtual SettingsTask AddV_without_id() => _g
             .AddV(new SimpleVertex { IetfLanguageTag = "en" })
             .Verify();
@@ -3276,7 +3289,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         {
             var now = new DateTime(2020, 4, 7, 14, 43, 36, DateTimeKind.Utc);
 
-            var worksFor = new RichEdge { Id = GetId(0), From = now, To = now, Role = "Admin" };
+            var worksFor = new RichEdge { Id = GetId(1002), From = now, To = now, Role = "Admin" };
 
             return _g
                 .ReplaceE(worksFor)
@@ -3287,7 +3300,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual SettingsTask ReplaceE_With_Config()
         {
             var now = new DateTime(2020, 4, 7, 14, 43, 36, DateTimeKind.Utc);
-            var worksFor = new RichEdge { Id = GetId(0), From = now, To = now, Role = "Admin" };
+            var worksFor = new RichEdge { Id = GetId(1002), From = now, To = now, Role = "Admin" };
 
             return _g
                 .ConfigureEnvironment(env => env
@@ -3303,7 +3316,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual SettingsTask ReplaceV()
         {
             var now = new DateTimeOffset(2020, 4, 7, 14, 43, 36, TimeSpan.Zero);
-            var person = new RichVertex { Id = GetId(0), Age = 21, Enum = SomeEnum.Zero, Name = "Marko", RegistrationDate = now };
+            var person = new RichVertex { Id = GetId(1000), Age = 21, Enum = SomeEnum.Zero, Name = "Marko", RegistrationDate = now };
 
             return _g
                 .ReplaceV(person)
@@ -3314,7 +3327,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual SettingsTask ReplaceV_With_Config()
         {
             var now = new DateTimeOffset(2020, 4, 7, 14, 43, 36, TimeSpan.Zero);
-            var person = new RichVertex { Id = GetId(0), Age = 21, Enum = SomeEnum.Zero, Name = "Marko", RegistrationDate = now };
+            var person = new RichVertex { Id = GetId(1000), Age = 21, Enum = SomeEnum.Zero, Name = "Marko", RegistrationDate = now };
 
             return _g
                 .ConfigureEnvironment(env => env
@@ -3984,6 +3997,8 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
             return _g
                 .V<RichVertex>()
+                .Order(b => b
+                    .By(x => x.Id))
                 .Update(person)
                 .OutE<RichEdge>()
                 .Update(worksFor)
@@ -4010,6 +4025,8 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                                 .IgnoreAlways(p => p.From)
                                 .IgnoreOnUpdate(p => p.Role)))))
                 .V<RichVertex>()
+                .Order(b => b
+                    .By(x => x.Id))
                 .Update(person)
                 .OutE<RichEdge>()
                 .Update(worksFor)
@@ -4074,6 +4091,8 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
             return _g
                 .V<RichVertex>()
+                .Order(b => b
+                    .By(x => x.Id))
                 .Update(new RichVertex { Age = 21, Enum = SomeEnum.Zero, Name = "Marko", RegistrationDate = now, PhoneNumbers = [new VertexProperty<string>("012345")]
                 })
                 .Verify();
@@ -4093,6 +4112,8 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                                 .IgnoreAlways(p => p.Age)
                                 .IgnoreAlways(p => p.Enum)))))
                 .V<RichVertex>()
+                .Order(b => b
+                    .By(x => x.Id))
                 .Update(person)
                 .Verify();
         }
@@ -4111,6 +4132,8 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                                 .IgnoreOnUpdate(p => p.Age)
                                 .IgnoreAlways(p => p.Enum)))))
                 .V<RichVertex>()
+                .Order(b => b
+                    .By(x => x.Id))
                 .Update(person)
                 .Verify();
         }
@@ -4129,6 +4152,8 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                                 .IgnoreOnUpdate(p => p.Age)
                                 .IgnoreOnUpdate(p => p.Enum)))))
                 .V<RichVertex>()
+                .Order(b => b
+                    .By(x => x.Id))
                 .Update(person)
                 .Verify();
         }

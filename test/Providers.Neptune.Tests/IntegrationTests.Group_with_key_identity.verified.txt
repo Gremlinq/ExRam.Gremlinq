@@ -154,6 +154,13 @@
         PartitionKey: PartitionKey
       }
     ],
+    ExRam.Gremlinq.Tests.Entities.RichVertex: [
+      {
+        Id: 1000,
+        Label: RichVertex,
+        PartitionKey: PartitionKey
+      }
+    ],
     ExRam.Gremlinq.Tests.Entities.SimpleVertex: [
       {
         Id: 80,
@@ -259,6 +266,13 @@
       {
         Id: 27,
         Label: SiblingVertex,
+        PartitionKey: PartitionKey
+      }
+    ],
+    ExRam.Gremlinq.Tests.Entities.RichVertex: [
+      {
+        Id: 1001,
+        Label: RichVertex,
         PartitionKey: PartitionKey
       }
     ],

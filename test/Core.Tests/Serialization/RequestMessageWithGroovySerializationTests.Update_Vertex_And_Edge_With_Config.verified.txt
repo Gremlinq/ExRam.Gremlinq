@@ -22,6 +22,6 @@
       _m: label,
       _n: properties
     },
-    gremlin: g.V().hasLabel(_a).sideEffect(__.properties(_b,_c,_d,_e).drop()).property(single,_f,_g).property(single,_h,_i).outE(_j).sideEffect(__.properties(_d,_e).drop()).property(_k,_i).project(_l,_m,_n).by(id).by(label).by(__.valueMap())
+    gremlin: g.V().hasLabel(_a).order().by(id,asc).sideEffect(__.properties(_b,_c,_d,_e).drop()).property(single,_f,_g).property(single,_h,_i).outE(_j).sideEffect(__.properties(_d,_e).drop()).property(_k,_i).project(_l,_m,_n).by(id).by(label).by(__.valueMap())
   }
 }

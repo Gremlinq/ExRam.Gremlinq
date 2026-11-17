@@ -10,7 +10,7 @@
     Enum: Zero,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: 294,
+      Id: 339,
       Label: Name,
       Value: Marko
     },
@@ -23,7 +23,7 @@
     Enum: Zero,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: 314,
+      Id: 359,
       Label: Name,
       Value: Marko
     },
@@ -34,7 +34,7 @@
   {
     CountryCallingCode: +49,
     LocalizableDescription: {
-      Id: 127,
+      Id: 137,
       Label: LocalizableDescription,
       Value: 
     },
@@ -45,7 +45,7 @@
   {
     CountryCallingCode: +49,
     LocalizableDescription: {
-      Id: 127,
+      Id: 137,
       Label: LocalizableDescription,
       Value: 
     },
@@ -56,7 +56,7 @@
   {
     CountryCallingCode: +49,
     LocalizableDescription: {
-      Id: 127,
+      Id: 137,
       Label: LocalizableDescription,
       Value: 
     },
@@ -69,7 +69,7 @@
     Enum: Zero,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: 290,
+      Id: 335,
       Label: Name,
       Value: Marko
     },
@@ -84,7 +84,7 @@
   },
   {
     LocalizableDescription: {
-      Id: 128,
+      Id: 138,
       Label: LocalizableDescription,
       Value: 
     },
@@ -97,7 +97,7 @@
     Enum: Zero,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: 298,
+      Id: 343,
       Label: Name,
       Value: Marko
     },
@@ -107,7 +107,7 @@
   },
   {
     LocalizableDescription: {
-      Id: 129,
+      Id: 139,
       Label: LocalizableDescription,
       Value: 
     },
@@ -120,7 +120,7 @@
     Enum: Zero,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: 302,
+      Id: 347,
       Label: Name,
       Value: Marko
     },
@@ -130,7 +130,7 @@
   },
   {
     LocalizableDescription: {
-      Id: 130,
+      Id: 140,
       Label: LocalizableDescription,
       Value: 
     },
@@ -143,7 +143,7 @@
     Enum: Zero,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: 306,
+      Id: 351,
       Label: Name,
       Value: Marko
     },
@@ -156,7 +156,7 @@
     Enum: Zero,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: 310,
+      Id: 355,
       Label: Name,
       Value: Marko
     },
@@ -172,7 +172,7 @@
   {
     CountryCallingCode: +49,
     LocalizableDescription: {
-      Id: 131,
+      Id: 141,
       Label: LocalizableDescription,
       Value: 
     },
@@ -191,7 +191,33 @@
     Enum: Zero,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: 318,
+      Id: 383,
+      Label: Name,
+      Value: Marko
+    },
+    Id: 1001,
+    Label: RichVertex,
+    PartitionKey: PartitionKey
+  },
+  {
+    Age: 21,
+    Enum: Zero,
+    RegistrationDate: 2020-04-07 14:43:36 +0,
+    Name: {
+      Id: 379,
+      Label: Name,
+      Value: Marko
+    },
+    Id: 1000,
+    Label: RichVertex,
+    PartitionKey: PartitionKey
+  },
+  {
+    Age: 21,
+    Enum: Zero,
+    RegistrationDate: 2020-04-07 14:43:36 +0,
+    Name: {
+      Id: 363,
       Label: Name,
       Value: Marko
     },

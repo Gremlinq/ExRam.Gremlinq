@@ -5,14 +5,14 @@
     RegistrationDate: 2020-04-07 14:43:36 +0,
     PhoneNumbers: [
       {
-        Id: 170,
+        Id: 193,
         Label: PhoneNumbers,
         Properties: {},
         Value: 012345
       }
     ],
     Name: {
-      Id: 169,
+      Id: 192,
       Label: Name,
       Properties: {},
       Value: Marko
@@ -27,14 +27,14 @@
     RegistrationDate: 2020-04-07 14:43:36 +0,
     PhoneNumbers: [
       {
-        Id: 175,
+        Id: 198,
         Label: PhoneNumbers,
         Properties: {},
         Value: 012345
       }
     ],
     Name: {
-      Id: 174,
+      Id: 197,
       Label: Name,
       Properties: {},
       Value: Marko
@@ -49,14 +49,14 @@
     RegistrationDate: 2020-04-07 14:43:36 +0,
     PhoneNumbers: [
       {
-        Id: 180,
+        Id: 203,
         Label: PhoneNumbers,
         Properties: {},
         Value: 012345
       }
     ],
     Name: {
-      Id: 179,
+      Id: 202,
       Label: Name,
       Properties: {},
       Value: Marko
@@ -71,14 +71,14 @@
     RegistrationDate: 2020-04-07 14:43:36 +0,
     PhoneNumbers: [
       {
-        Id: 185,
+        Id: 208,
         Label: PhoneNumbers,
         Properties: {},
         Value: 012345
       }
     ],
     Name: {
-      Id: 184,
+      Id: 207,
       Label: Name,
       Properties: {},
       Value: Marko
@@ -93,14 +93,14 @@
     RegistrationDate: 2020-04-07 14:43:36 +0,
     PhoneNumbers: [
       {
-        Id: 190,
+        Id: 213,
         Label: PhoneNumbers,
         Properties: {},
         Value: 012345
       }
     ],
     Name: {
-      Id: 189,
+      Id: 212,
       Label: Name,
       Properties: {},
       Value: Marko
@@ -115,14 +115,14 @@
     RegistrationDate: 2020-04-07 14:43:36 +0,
     PhoneNumbers: [
       {
-        Id: 195,
+        Id: 218,
         Label: PhoneNumbers,
         Properties: {},
         Value: 012345
       }
     ],
     Name: {
-      Id: 194,
+      Id: 217,
       Label: Name,
       Properties: {},
       Value: Marko
@@ -137,14 +137,14 @@
     RegistrationDate: 2020-04-07 14:43:36 +0,
     PhoneNumbers: [
       {
-        Id: 200,
+        Id: 223,
         Label: PhoneNumbers,
         Properties: {},
         Value: 012345
       }
     ],
     Name: {
-      Id: 199,
+      Id: 222,
       Label: Name,
       Properties: {},
       Value: Marko
@@ -159,14 +159,14 @@
     RegistrationDate: 2020-04-07 14:43:36 +0,
     PhoneNumbers: [
       {
-        Id: 205,
+        Id: 228,
         Label: PhoneNumbers,
         Properties: {},
         Value: 012345
       }
     ],
     Name: {
-      Id: 204,
+      Id: 227,
       Label: Name,
       Properties: {},
       Value: Marko
@@ -181,14 +181,14 @@
     RegistrationDate: 2020-04-07 14:43:36 +0,
     PhoneNumbers: [
       {
-        Id: 210,
+        Id: 233,
         Label: PhoneNumbers,
         Properties: {},
         Value: 012345
       }
     ],
     Name: {
-      Id: 209,
+      Id: 232,
       Label: Name,
       Properties: {},
       Value: Marko
@@ -203,14 +203,14 @@
     RegistrationDate: 2020-04-07 14:43:36 +0,
     PhoneNumbers: [
       {
-        Id: 215,
+        Id: 238,
         Label: PhoneNumbers,
         Properties: {},
         Value: 012345
       }
     ],
     Name: {
-      Id: 214,
+      Id: 237,
       Label: Name,
       Properties: {},
       Value: Marko
@@ -225,19 +225,63 @@
     RegistrationDate: 2020-04-07 14:43:36 +0,
     PhoneNumbers: [
       {
-        Id: 220,
+        Id: 243,
         Label: PhoneNumbers,
         Properties: {},
         Value: 012345
       }
     ],
     Name: {
-      Id: 219,
+      Id: 242,
       Label: Name,
       Properties: {},
       Value: Marko
     },
     Id: 62,
+    Label: RichVertex,
+    PartitionKey: PartitionKey
+  },
+  {
+    Age: 21,
+    Enum: Zero,
+    RegistrationDate: 2020-04-07 14:43:36 +0,
+    PhoneNumbers: [
+      {
+        Id: 248,
+        Label: PhoneNumbers,
+        Properties: {},
+        Value: 012345
+      }
+    ],
+    Name: {
+      Id: 247,
+      Label: Name,
+      Properties: {},
+      Value: Marko
+    },
+    Id: 1000,
+    Label: RichVertex,
+    PartitionKey: PartitionKey
+  },
+  {
+    Age: 21,
+    Enum: Zero,
+    RegistrationDate: 2020-04-07 14:43:36 +0,
+    PhoneNumbers: [
+      {
+        Id: 253,
+        Label: PhoneNumbers,
+        Properties: {},
+        Value: 012345
+      }
+    ],
+    Name: {
+      Id: 252,
+      Label: Name,
+      Properties: {},
+      Value: Marko
+    },
+    Id: 1001,
     Label: RichVertex,
     PartitionKey: PartitionKey
   }

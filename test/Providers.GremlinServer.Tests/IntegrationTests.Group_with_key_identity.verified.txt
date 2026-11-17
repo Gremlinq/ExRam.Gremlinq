@@ -255,6 +255,13 @@
         PartitionKey: PartitionKey
       }
     ],
+    ExRam.Gremlinq.Tests.Entities.RichVertex: [
+      {
+        Id: 1000,
+        Label: RichVertex,
+        PartitionKey: PartitionKey
+      }
+    ],
     ExRam.Gremlinq.Tests.Entities.ScalarVertex: [
       {
         Enabled: false,
@@ -262,6 +269,13 @@
         Duration: 02:00:00,
         Id: 50,
         Label: ScalarVertex,
+        PartitionKey: PartitionKey
+      }
+    ],
+    ExRam.Gremlinq.Tests.Entities.RichVertex: [
+      {
+        Id: 1001,
+        Label: RichVertex,
         PartitionKey: PartitionKey
       }
     ],

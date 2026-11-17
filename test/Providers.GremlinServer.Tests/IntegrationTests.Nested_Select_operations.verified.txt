@@ -179,6 +179,44 @@
   },
   {
     Item1: {
+      Id: 1000,
+      Label: RichVertex,
+      PartitionKey: PartitionKey
+    },
+    Item2: {
+      Item1: {
+        Id: 1000,
+        Label: RichVertex,
+        PartitionKey: PartitionKey
+      },
+      Item2: {
+        Id: 1000,
+        Label: RichVertex,
+        PartitionKey: PartitionKey
+      }
+    }
+  },
+  {
+    Item1: {
+      Id: 1001,
+      Label: RichVertex,
+      PartitionKey: PartitionKey
+    },
+    Item2: {
+      Item1: {
+        Id: 1001,
+        Label: RichVertex,
+        PartitionKey: PartitionKey
+      },
+      Item2: {
+        Id: 1001,
+        Label: RichVertex,
+        PartitionKey: PartitionKey
+      }
+    }
+  },
+  {
+    Item1: {
       Id: 44,
       Label: RichVertex,
       PartitionKey: PartitionKey

@@ -30,6 +30,12 @@
     Label: PropertyEdge
   },
   {
+    Age: 36,
+    Id: 1001,
+    Label: RichVertex,
+    PartitionKey: PartitionKey
+  },
+  {
     Id: 42,
     Label: SiblingVertex,
     PartitionKey: PartitionKey

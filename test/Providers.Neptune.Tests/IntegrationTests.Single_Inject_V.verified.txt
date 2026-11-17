@@ -2,7 +2,7 @@
   {
     CountryCallingCode: +49,
     LocalizableDescription: {
-      Id: 127,
+      Id: 137,
       Label: LocalizableDescription,
       Value: 
     },
@@ -58,7 +58,7 @@
       Value: GER
     },
     LocalizableDescription: {
-      Id: 132,
+      Id: 142,
       Label: LocalizableDescription,
       Value: 
     },
@@ -74,7 +74,7 @@
       Value: GER
     },
     LocalizableDescription: {
-      Id: 133,
+      Id: 143,
       Label: LocalizableDescription,
       Value: 
     },
@@ -121,7 +121,7 @@
   },
   {
     LocalizableDescription: {
-      Id: 128,
+      Id: 138,
       Label: LocalizableDescription,
       Value: 
     },
@@ -137,7 +137,7 @@
   },
   {
     LocalizableDescription: {
-      Id: 129,
+      Id: 139,
       Label: LocalizableDescription,
       Value: 
     },
@@ -153,7 +153,7 @@
   },
   {
     LocalizableDescription: {
-      Id: 130,
+      Id: 140,
       Label: LocalizableDescription,
       Value: 
     },
@@ -181,7 +181,7 @@
   {
     CountryCallingCode: +49,
     LocalizableDescription: {
-      Id: 131,
+      Id: 141,
       Label: LocalizableDescription,
       Value: 
     },
@@ -198,6 +198,25 @@
       Value: Bob
     },
     Id: 37,
+    Label: RichVertex,
+    PartitionKey: PartitionKey
+  },
+  {
+    Age: 21,
+    Enum: Zero,
+    RegistrationDate: 2020-04-07 14:43:36 +0,
+    Name: {
+      Id: 189,
+      Label: Name,
+      Value: Marko
+    },
+    Id: 1000,
+    Label: RichVertex,
+    PartitionKey: PartitionKey
+  },
+  {
+    Age: 36,
+    Id: 1001,
     Label: RichVertex,
     PartitionKey: PartitionKey
   },

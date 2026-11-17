@@ -2,7 +2,7 @@
   {
     CountryCallingCode: +49,
     LocalizableDescription: {
-      Id: 127,
+      Id: 137,
       Label: LocalizableDescription,
       Properties: {
         someKey: value
@@ -29,7 +29,7 @@
     Enum: Zero,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: 294,
+      Id: 339,
       Label: Name,
       Value: Marko
     },
@@ -39,7 +39,7 @@
   },
   {
     LocalizableDescription: {
-      Id: 128,
+      Id: 138,
       Label: LocalizableDescription,
       Properties: {
         someKey: value
@@ -52,7 +52,7 @@
   },
   {
     LocalizableDescription: {
-      Id: 129,
+      Id: 139,
       Label: LocalizableDescription,
       Properties: {
         someKey: value
@@ -65,7 +65,7 @@
   },
   {
     LocalizableDescription: {
-      Id: 130,
+      Id: 140,
       Label: LocalizableDescription,
       Properties: {
         someKey: value
@@ -85,6 +85,19 @@
     IetfLanguageTag: en,
     Id: 32,
     Label: SimpleVertex,
+    PartitionKey: PartitionKey
+  },
+  {
+    Age: 21,
+    Enum: Zero,
+    RegistrationDate: 2020-04-07 14:43:36 +0,
+    Name: {
+      Id: 383,
+      Label: Name,
+      Value: Marko
+    },
+    Id: 1001,
+    Label: RichVertex,
     PartitionKey: PartitionKey
   },
   {

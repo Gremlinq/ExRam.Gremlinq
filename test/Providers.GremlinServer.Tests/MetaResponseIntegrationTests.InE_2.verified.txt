@@ -5,6 +5,11 @@
       {
         Id: 14,
         Label: PropertyEdge
+      },
+      {
+        From: 2020-04-07 14:43:36 Utc,
+        Id: 1002,
+        Label: RichEdge
       }
     ],
     ResponseStatus: {

@@ -40,6 +40,9 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 
         public override SettingsTask Emit_Repeat_Times() => base.Emit_Repeat_Times().UseSnapshotDirectoryAndNameOf<GroovyIntegrationTests>();
 
+        // Sent as a script, this query lists the vertices with user-supplied ids in another order.
+        public override SettingsTask Emit_Repeat_Until() => base.Emit_Repeat_Until().UseCanonicalComparer();
+
         public override SettingsTask Label() => base.Label().UseSnapshotDirectoryAndNameOf<GroovyIntegrationTests>();
 
         public override SettingsTask Multi_Inject_V() => base.Multi_Inject_V().UseSnapshotDirectoryAndNameOf<GroovyIntegrationTests>();

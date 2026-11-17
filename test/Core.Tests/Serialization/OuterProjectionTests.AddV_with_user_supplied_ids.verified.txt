@@ -1,0 +1,23 @@
+[
+  {
+    Projections: [
+      id,
+      label,
+      properties
+    ]
+  },
+  {
+    Key: T.id
+  },
+  {
+    Key: T.label
+  },
+  {
+    Traversal: {
+      Count: 1,
+      Projection: {
+        Name: ExRam.Gremlinq.Core.Projections.EmptyProjection
+      }
+    }
+  }
+]

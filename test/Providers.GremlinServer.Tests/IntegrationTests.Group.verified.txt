@@ -9,15 +9,7 @@
     ],
     ExRam.Gremlinq.Tests.Entities.RichVertex: [
       {
-        Image: AQIDBAUGBwg=,
-        Id: 56,
-        Label: RichVertex,
-        PartitionKey: PartitionKey
-      }
-    ],
-    ExRam.Gremlinq.Tests.Entities.RichVertex: [
-      {
-        Id: 19,
+        Id: 15,
         Label: RichVertex,
         PartitionKey: PartitionKey
       }
@@ -25,6 +17,37 @@
     ExRam.Gremlinq.Tests.Entities.RichVertex: [
       {
         Id: 23,
+        Label: RichVertex,
+        PartitionKey: PartitionKey
+      }
+    ],
+    ExRam.Gremlinq.Tests.Entities.RichVertex: [
+      {
+        Id: 44,
+        Label: RichVertex,
+        PartitionKey: PartitionKey
+      }
+    ],
+    ExRam.Gremlinq.Tests.Entities.RichVertex: [
+      {
+        Age: 43,
+        Id: 7,
+        Label: RichVertex,
+        PartitionKey: PartitionKey
+      }
+    ],
+    ExRam.Gremlinq.Tests.Entities.RichVertex: [
+      {
+        Enum: One,
+        Id: 59,
+        Label: RichVertex,
+        PartitionKey: PartitionKey
+      }
+    ],
+    ExRam.Gremlinq.Tests.Entities.RichVertex: [
+      {
+        Image: AQIDBAUGBwg=,
+        Id: 56,
         Label: RichVertex,
         PartitionKey: PartitionKey
       }
@@ -45,14 +68,14 @@
     ],
     ExRam.Gremlinq.Tests.Entities.RichVertex: [
       {
-        Id: 15,
+        Id: 19,
         Label: RichVertex,
         PartitionKey: PartitionKey
       }
     ],
     ExRam.Gremlinq.Tests.Entities.RichVertex: [
       {
-        Id: 44,
+        Id: 1000,
         Label: RichVertex,
         PartitionKey: PartitionKey
       }
@@ -73,6 +96,13 @@
     ],
     ExRam.Gremlinq.Tests.Entities.RichVertex: [
       {
+        Id: 1001,
+        Label: RichVertex,
+        PartitionKey: PartitionKey
+      }
+    ],
+    ExRam.Gremlinq.Tests.Entities.RichVertex: [
+      {
         RegistrationDate: 2020-04-07 14:43:36 +0,
         Name: {
           Id: 39,
@@ -81,22 +111,6 @@
           Value: Bob
         },
         Id: 37,
-        Label: RichVertex,
-        PartitionKey: PartitionKey
-      }
-    ],
-    ExRam.Gremlinq.Tests.Entities.RichVertex: [
-      {
-        Age: 43,
-        Id: 7,
-        Label: RichVertex,
-        PartitionKey: PartitionKey
-      }
-    ],
-    ExRam.Gremlinq.Tests.Entities.RichVertex: [
-      {
-        Enum: One,
-        Id: 59,
         Label: RichVertex,
         PartitionKey: PartitionKey
       }

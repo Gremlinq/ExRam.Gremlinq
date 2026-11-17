@@ -1,0 +1,25 @@
+{
+  RequestId: 12345678-9012-3456-7890-123456789012,
+  Operation: eval,
+  Processor: ,
+  Arguments: {
+    aliases: {
+      g: g
+    },
+    bindings: {
+      _a: RichVertex,
+      _b: 1000,
+      _c: Age,
+      _d: 0,
+      _e: RichEdge,
+      _f: 1002,
+      _g: From,
+      _h: DateTimeOffset_1,
+      _i: 1001,
+      _j: id,
+      _k: label,
+      _l: properties
+    },
+    gremlin: g.addV(_a).property(id,_b).property(single,_c,_d).addE(_e).property(id,_f).property(_g,_h).to(__.addV(_a).property(id,_i).property(single,_c,_d)).project(_j,_k,_l).by(id).by(label).by(__.valueMap())
+  }
+}

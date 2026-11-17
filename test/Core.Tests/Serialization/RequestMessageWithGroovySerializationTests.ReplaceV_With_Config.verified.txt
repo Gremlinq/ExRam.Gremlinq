@@ -7,7 +7,7 @@
       g: g
     },
     bindings: {
-      _a: 0,
+      _a: 1000,
       _b: RichVertex,
       _c: Image,
       _d: PhoneNumbers,

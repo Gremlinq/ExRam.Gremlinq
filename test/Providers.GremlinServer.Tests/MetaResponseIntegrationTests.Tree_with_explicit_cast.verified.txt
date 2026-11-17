@@ -6,15 +6,6 @@
         {
           Key: {
             Age: 36,
-            Id: 19,
-            Label: RichVertex,
-            PartitionKey: PartitionKey
-          },
-          Value: []
-        },
-        {
-          Key: {
-            Age: 36,
             RegistrationDate: 2020-04-07 14:43:36 +0,
             Name: {
               Id: 39,
@@ -34,6 +25,79 @@
           Key: {
             Age: 36,
             Id: 7,
+            Label: RichVertex,
+            PartitionKey: PartitionKey
+          },
+          Value: []
+        },
+        {
+          Key: {
+            Age: 21,
+            Enum: Zero,
+            RegistrationDate: 2020-04-07 14:43:36 +0,
+            Name: {
+              Id: 189,
+              Label: Name,
+              Properties: {
+                ValidFrom: 2020-04-07 14:43:36 +0
+              },
+              Value: Marko
+            },
+            Id: 1000,
+            Label: RichVertex,
+            PartitionKey: PartitionKey
+          },
+          Value: []
+        },
+        {
+          Key: {
+            Age: 36,
+            Id: 1001,
+            Label: RichVertex,
+            PartitionKey: PartitionKey
+          },
+          Value: []
+        },
+        {
+          Key: {
+            Age: 36,
+            RegistrationDate: 2020-04-07 14:43:36 +0,
+            Name: {
+              Id: 12,
+              Label: Name,
+              Properties: {
+                ValidFrom: 2020-04-07 14:43:36 +0
+              },
+              Value: Bob
+            },
+            Id: 10,
+            Label: RichVertex,
+            PartitionKey: PartitionKey
+          },
+          Value: []
+        },
+        {
+          Key: {
+            Age: 36,
+            Id: 44,
+            Label: RichVertex,
+            PartitionKey: PartitionKey
+          },
+          Value: []
+        },
+        {
+          Key: {
+            Age: 36,
+            Id: 15,
+            Label: RichVertex,
+            PartitionKey: PartitionKey
+          },
+          Value: []
+        },
+        {
+          Key: {
+            Age: 36,
+            Id: 19,
             Label: RichVertex,
             PartitionKey: PartitionKey
           },
@@ -61,35 +125,8 @@
         {
           Key: {
             Age: 36,
-            RegistrationDate: 2020-04-07 14:43:36 +0,
-            Name: {
-              Id: 12,
-              Label: Name,
-              Properties: {
-                ValidFrom: 2020-04-07 14:43:36 +0
-              },
-              Value: Bob
-            },
-            Id: 10,
-            Label: RichVertex,
-            PartitionKey: PartitionKey
-          },
-          Value: []
-        },
-        {
-          Key: {
-            Age: 36,
             Enum: One,
             Id: 59,
-            Label: RichVertex,
-            PartitionKey: PartitionKey
-          },
-          Value: []
-        },
-        {
-          Key: {
-            Age: 36,
-            Id: 44,
             Label: RichVertex,
             PartitionKey: PartitionKey
           },
@@ -117,15 +154,6 @@
               Value: Marko
             },
             Id: 62,
-            Label: RichVertex,
-            PartitionKey: PartitionKey
-          },
-          Value: []
-        },
-        {
-          Key: {
-            Age: 36,
-            Id: 15,
             Label: RichVertex,
             PartitionKey: PartitionKey
           },

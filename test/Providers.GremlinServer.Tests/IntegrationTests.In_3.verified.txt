@@ -4,5 +4,10 @@
     Id: 0,
     Label: MetaPropertyVertex,
     PartitionKey: PartitionKey
+  },
+  {
+    Id: 1000,
+    Label: RichVertex,
+    PartitionKey: PartitionKey
   }
 ]

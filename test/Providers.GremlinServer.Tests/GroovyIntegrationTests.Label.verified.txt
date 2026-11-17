@@ -23,6 +23,8 @@
   SimpleVertex,
   MetaPropertyVertex,
   RichVertex,
+  RichVertex,
+  RichVertex,
   SiblingVertex,
   RichVertex,
   SimpleVertex,

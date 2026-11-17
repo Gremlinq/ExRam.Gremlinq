@@ -68,6 +68,21 @@
     PartitionKey: PartitionKey
   },
   {
+    Id: 1000,
+    Label: RichVertex,
+    PartitionKey: PartitionKey
+  },
+  {
+    Id: 1000,
+    Label: RichVertex,
+    PartitionKey: PartitionKey
+  },
+  {
+    Id: 1001,
+    Label: RichVertex,
+    PartitionKey: PartitionKey
+  },
+  {
     Id: 44,
     Label: RichVertex,
     PartitionKey: PartitionKey

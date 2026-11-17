@@ -4,12 +4,26 @@
     Enum: Zero,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: 294,
+      Id: 339,
       Label: Name,
       Properties: {},
       Value: Marko
     },
     Id: 10,
+    Label: RichVertex,
+    PartitionKey: PartitionKey
+  },
+  {
+    Age: 21,
+    Enum: Zero,
+    RegistrationDate: 2020-04-07 14:43:36 +0,
+    Name: {
+      Id: 383,
+      Label: Name,
+      Properties: {},
+      Value: Marko
+    },
+    Id: 1001,
     Label: RichVertex,
     PartitionKey: PartitionKey
   }
