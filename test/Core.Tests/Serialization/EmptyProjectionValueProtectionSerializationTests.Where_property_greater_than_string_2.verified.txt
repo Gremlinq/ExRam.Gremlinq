@@ -15,7 +15,7 @@
         Name,
         {
           OperatorName: gt,
-          Value: Some name
+          Value: Bob
         }
       ]
     },

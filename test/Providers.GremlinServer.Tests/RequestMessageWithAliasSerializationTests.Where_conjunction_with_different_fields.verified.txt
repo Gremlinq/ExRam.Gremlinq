@@ -21,14 +21,14 @@
           OperatorName: has,
           Arguments: [
             Name,
-            Some name
+            Marko
           ]
         },
         {
           OperatorName: has,
           Arguments: [
             Age,
-            42
+            21
           ]
         },
         {

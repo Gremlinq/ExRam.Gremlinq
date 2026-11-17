@@ -29,7 +29,7 @@
       OperatorName: has,
       Arguments: [
         Name,
-        Some name
+        Marko
       ]
     },
     {
@@ -40,7 +40,7 @@
           OperatorName: or,
           Value: {
             OperatorName: eq,
-            Value: 42
+            Value: 21
           },
           Other: {
             OperatorName: eq,

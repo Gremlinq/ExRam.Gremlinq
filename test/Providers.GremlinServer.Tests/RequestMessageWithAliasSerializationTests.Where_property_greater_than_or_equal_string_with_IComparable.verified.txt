@@ -23,7 +23,7 @@
             Name,
             {
               OperatorName: gte,
-              Value: Some name
+              Value: Marko
             }
           ]
         },

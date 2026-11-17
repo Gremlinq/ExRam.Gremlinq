@@ -34,7 +34,7 @@
               OperatorName: has,
               Arguments: [
                 Name,
-                Some name
+                Marko
               ]
             }
           ]

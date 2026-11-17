@@ -3,9 +3,9 @@
   Bindings: {
     _a: RichVertex,
     _b: Name,
-    _c: Some name,
+    _c: Marko,
     _d: Age,
-    _e: 42,
+    _e: 21,
     _f: id,
     _g: label,
     _h: properties,

@@ -4402,7 +4402,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual SettingsTask Where_complex_logical_expression() => _g
             .V<RichVertex>()
-            .Where(t => t.Name!.Value == "Some name" && (t.Age == 42 || t.Age == 99))
+            .Where(t => t.Name!.Value == "Marko" && (t.Age == 21 || t.Age == 99))
             .Verify();
 
         [Fact]
@@ -4426,7 +4426,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual SettingsTask Where_conjunction_with_different_fields() => _g
             .V<RichVertex>()
-            .Where(t => t.Name!.Value == "Some name" && t.Age == 42)
+            .Where(t => t.Name!.Value == "Marko" && t.Age == 21)
             .Verify();
 
         [Fact]
@@ -4514,7 +4514,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual SettingsTask Where_disjunction_with_different_fields() => _g
             .V<RichVertex>()
-            .Where(t => t.Name!.Value == "Some name" || t.Age == 42)
+            .Where(t => t.Name!.Value == "Marko" || t.Age == 42)
             .Verify();
 
         [Fact]
@@ -4854,7 +4854,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
             return _g
                 .V<RichVertex>()
-                .Where(t => t.Name!.Value.CompareTo("Some name") == (int)variable.Field)
+                .Where(t => t.Name!.Value.CompareTo("Marko") == (int)variable.Field)
                 .Verify();
         }
 
@@ -4865,7 +4865,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
             return _g
                 .V<RichVertex>()
-                .Where(t => t.Name!.Value.CompareTo("Some name") == (int)variable)
+                .Where(t => t.Name!.Value.CompareTo("Marko") == (int)variable)
                 .Verify();
         }
 
@@ -4876,7 +4876,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
             return _g
                 .V<RichVertex>()
-                .Where(t => t.Name!.Value.CompareTo("Some name") == variable)
+                .Where(t => t.Name!.Value.CompareTo("Marko") == variable)
                 .Verify();
         }
 
@@ -4999,7 +4999,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual SettingsTask Where_property_equals_string() => _g
             .V<RichVertex>()
-            .Where(t => t.Name!.Value.CompareTo("Some name") == 0)
+            .Where(t => t.Name!.Value.CompareTo("Marko") == 0)
             .Verify();
 
         [Fact]
@@ -5016,38 +5016,38 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual SettingsTask Where_property_greater_or_equal_string_2() => _g
             .V<RichVertex>()
-            .Where(t => t.Name!.Value.CompareTo("Some name") > -1)
+            .Where(t => t.Name!.Value.CompareTo("Marko") > -1)
             .Verify();
 
         [Fact]
         public virtual SettingsTask Where_property_greater_than_or_equal_string() => _g
             .V<RichVertex>()
-            .Where(t => t.Name!.Value.CompareTo("Some name") >= 0)
+            .Where(t => t.Name!.Value.CompareTo("Marko") >= 0)
             .Verify();
 
         [Fact]
         public virtual SettingsTask Where_property_greater_than_or_equal_string_with_IComparable() => _g
             .V<RichVertex>()
             // ReSharper disable once RedundantCast
-            .Where(t => ((IComparable<string>)t.Name!.Value).CompareTo("Some name") >= 0)
+            .Where(t => ((IComparable<string>)t.Name!.Value).CompareTo("Marko") >= 0)
             .Verify();
 
         [Fact]
         public virtual SettingsTask Where_property_greater_than_string() => _g
             .V<RichVertex>()
-            .Where(t => t.Name!.Value.CompareTo("Some name") > 0)
+            .Where(t => t.Name!.Value.CompareTo("Bob") > 0)
             .Verify();
 
         [Fact]
         public virtual SettingsTask Where_property_greater_than_string_2() => _g
             .V<RichVertex>()
-            .Where(t => t.Name!.Value.CompareTo("Some name") == 1)
+            .Where(t => t.Name!.Value.CompareTo("Bob") == 1)
             .Verify();
 
         [Fact]
         public virtual SettingsTask Where_property_greater_than_string_3() => _g
             .V<RichVertex>()
-            .Where(t => t.Name!.Value.CompareTo("Some name") >= 1)
+            .Where(t => t.Name!.Value.CompareTo("Bob") >= 1)
             .Verify();
 
         [Fact]
@@ -5339,7 +5339,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual SettingsTask Where_property_not_lower_than_string_3() => _g
             .V<RichVertex>()
-            .Where(t => t.Name!.Value.CompareTo("Some name") != -1)
+            .Where(t => t.Name!.Value.CompareTo("Marko") != -1)
             .Verify();
 
         [Fact]
@@ -5526,7 +5526,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .V<RichVertex>()
             .Where(__ => __
                 .Values(x => x.Name!.Value)
-                .Where(x => x != null! && x == "hello"))
+                .Where(x => x != null! && x == "Marko"))
             .Verify();
 
         [Fact]
@@ -5575,7 +5575,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .V<RichVertex>()
             .Where(__ => __
                 .Values(x => x.Name!.Value)
-                .Where(x => x == null! || x == "hello"))
+                .Where(x => x == null! || x == "Marko"))
             .Verify();
 
         [Fact]
@@ -5583,7 +5583,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .V<RichVertex>()
             .Where(__ => __
                 .Values(x => x.Name!.Value)
-                .Where(x => x == "hello" || x == null!))
+                .Where(x => x == "Marko" || x == null!))
             .Verify();
 
         [Fact]
@@ -5679,13 +5679,13 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual SettingsTask Where_VertexProperty_Value1() => _g
             .V<RichVertex>()
-            .Where(x => x.Name!.Value == "SomeName")
+            .Where(x => x.Name!.Value == "Marko")
             .Verify();
 
         [Fact]
         public virtual SettingsTask Where_VertexProperty_Value2() => _g
             .V<RichVertex>()
-            .Where(x => ((string)(object)x.Name!.Value) == "SomeName")
+            .Where(x => ((string)(object)x.Name!.Value) == "Marko")
             .Verify();
 
         [Fact]
