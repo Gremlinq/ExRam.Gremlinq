@@ -36,15 +36,13 @@ jobs:
       run: |
         set -uo pipefail
 
-        # A patch release ships release notes and nothing else, by design -- see
-        # references/channel-style.md in the write-release-announcements skill. Opening an
-        # issue then would be an action item to do the thing the process says not to do,
-        # on every patch release forever. Absence of all three texts is the signal; there
-        # is no need to parse the version to recognise it.
+        # Every release gets the three channel texts (references/channel-style.md in the
+        # write-release-announcements skill). A release without any of them is one where all
+        # were declined; an issue would then be an action item for texts nobody wants.
         if [ ! -s "releases/$TAG/linkedin.md" ] \
             && [ ! -s "releases/$TAG/discord-tinkerpop.md" ] \
             && [ ! -s "releases/$TAG/discord-dotnet.md" ]; then
-          echo "::notice title=No announcement texts::releases/$TAG/ holds no channel texts, so this looks like a patch release. No announcement issue opened."
+          echo "::notice title=No announcement texts::releases/$TAG/ holds no channel texts. No announcement issue opened."
           echo "No announcement texts in \`releases/$TAG/\` -- nothing to announce beyond the release notes." >> "$GITHUB_STEP_SUMMARY"
           exit 0
         fi
@@ -63,8 +61,7 @@ jobs:
           local label="$1" file="$2"
 
           if [ ! -s "$file" ]; then
-            # A release may legitimately ship without every text -- a patch release gets
-            # notes only. Warn, never fail.
+            # A text may have been declined. Warn, never fail.
             echo "::warning title=Missing announcement text::$file not found, $label has to be written by hand."
             printf -- '- [ ] **%s** -- `%s` is missing, write it by hand.\n\n' "$label" "$file" >> "$body"
             return

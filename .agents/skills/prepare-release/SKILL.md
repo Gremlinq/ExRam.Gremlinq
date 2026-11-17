@@ -67,8 +67,8 @@ release, and it carries everything the workflows read.
   about it if the bump had been forgotten.
 - Whether *this* release is a patch, minor or major is reported as `release_kind` by
   `write-release-announcements`, which derives it by comparing the previous tag with the
-  version being released. That is the only signal for it, and it decides whether the
-  announcement texts are needed.
+  version being released. That is the only signal for it. It does not decide whether the
+  announcement texts are written: every release gets them.
 - Do not write the release notes yourself. That is `write-release-announcements`, and it
   is the skill that knows the channel formats.
 

@@ -25,7 +25,7 @@ check() {
             echo "MISSING  $label ($file)  <-- REQUIRED FOR EVERY RELEASE"
             status=1
         else
-            # A patch release legitimately ships without the three channel texts.
+            # Every release gets the three channel texts, but the user may decline one.
             echo "missing  $label ($file)"
         fi
         return

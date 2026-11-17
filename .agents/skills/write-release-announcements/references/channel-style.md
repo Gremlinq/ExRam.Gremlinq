@@ -17,11 +17,13 @@ product and communities rather than reusing these verbatim.
 |---|---|---|---|
 | Major (`15.0.0`) | yes | yes | yes |
 | Minor (`14.2.0`) | yes | yes | yes |
-| Patch (`14.1.2`) | yes | no | no |
+| Patch (`14.1.2`) | yes | yes | yes |
 
-Patch releases get notes and nothing else. Both Discord servers belong to communities the
-maintainer does not run, and in a room you are a guest in, frequency is the thing that
-turns an announcement into spam -- not the content. Ask before deviating.
+Every release gets all four texts, a patch release included. Whether a text is posted is
+decided later, from the announcement checklist, not by leaving it unwritten: both Discord
+servers belong to communities the maintainer does not run, and in a room you are a guest
+in, frequency is the thing that turns an announcement into spam -- not the content. A patch
+release made of fixes gets short texts that say what works better now.
 
 ---
 

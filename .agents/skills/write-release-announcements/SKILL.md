@@ -54,13 +54,12 @@ That is why this skill commits its own output rather than leaving it staged.
    says "Tests only", so it changes nothing a reader of the notes would notice. Check
    the lead, since the flag only matches the words.
 4. Write the texts into `releases/<version>/` following
-   [the channel style guide](references/channel-style.md). `release_kind` in the JSON says
-   whether this is a `patch`, `minor` or `major` release: a patch gets `release-notes.md`
-   only, unless the user asks for the rest.
+   [the channel style guide](references/channel-style.md): all four, whatever
+   `release_kind` in the JSON says. A patch release gets the channel texts too; whether
+   they are posted is decided from the announcement checklist.
 5. Run `scripts/check-lengths.sh releases/<version>` and fix what it reports. Missing
-   release notes fail it; the three channel texts are optional, so a patch release passes
-   with only the notes. A Discord text over 2000 characters is rejected by Discord
-   outright.
+   release notes fail it; a missing channel text is only reported, for the case where the
+   user declined it. A Discord text over 2000 characters is rejected by Discord outright.
 6. Commit: `git add releases/<version> && git commit -m "Add release notes and announcements for <version>"`.
    When only `release-notes.md` was written, say so: `"Add release notes for <version>"`.
 
