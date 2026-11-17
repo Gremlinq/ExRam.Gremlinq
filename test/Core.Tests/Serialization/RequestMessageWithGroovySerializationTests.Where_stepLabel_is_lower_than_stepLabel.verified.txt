@@ -7,16 +7,18 @@
       g: g
     },
     bindings: {
-      _a: RichVertex,
-      _b: _a,
-      _c: Enum,
-      _d: _b,
-      _e: _c,
-      _f: id,
-      _g: label,
-      _h: properties,
-      _i: value
+      _a: Zero,
+      _b: One,
+      _c: _a,
+      _d: RichVertex,
+      _e: _b,
+      _f: Enum,
+      _g: _c,
+      _h: id,
+      _i: label,
+      _j: properties,
+      _k: value
     },
-    gremlin: g.V().hasLabel(_a).filter(__.as(_b).values(_c).as(_d).V().hasLabel(_a).values(_c).as(_e).where(_d,lt(_e))).project(_f,_g,_h).by(id).by(label).by(__.properties().group().by(label).by(__.project(_f,_g,_i,_h).by(id).by(label).by(value).by(__.valueMap()).fold()))
+    gremlin: g.inject(_a,_b).as(_c).V().hasLabel(_d).filter(__.as(_e).values(_f).as(_g).where(_g,lt(_c))).project(_h,_i,_j).by(id).by(label).by(__.properties().group().by(label).by(__.project(_h,_i,_k,_j).by(id).by(label).by(value).by(__.valueMap()).fold()))
   }
 }

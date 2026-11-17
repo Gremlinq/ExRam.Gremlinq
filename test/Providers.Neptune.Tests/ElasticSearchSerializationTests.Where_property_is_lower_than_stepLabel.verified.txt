@@ -17,18 +17,10 @@
   ],
   StepInstructions: [
     {
-      OperatorName: V
-    },
-    {
-      OperatorName: hasLabel,
+      OperatorName: inject,
       Arguments: [
-        RichVertex
-      ]
-    },
-    {
-      OperatorName: values,
-      Arguments: [
-        Age
+        20,
+        22
       ]
     },
     {

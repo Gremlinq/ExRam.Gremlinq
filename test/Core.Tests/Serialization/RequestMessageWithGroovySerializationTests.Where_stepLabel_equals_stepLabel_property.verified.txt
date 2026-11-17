@@ -7,11 +7,17 @@
       g: g
     },
     bindings: {
-      _a: RichVertex,
-      _b: _a,
-      _c: Age,
-      _d: _b
+      _a: 20,
+      _b: 22,
+      _c: _a,
+      _d: RichVertex,
+      _e: _b,
+      _f: Age,
+      _g: id,
+      _h: label,
+      _i: properties,
+      _j: value
     },
-    gremlin: g.V().hasLabel(_a).as(_b).V().hasLabel(_a).values(_c).as(_d).where(_d,lt(_b)).by().by(_c)
+    gremlin: g.inject(_a,_b).as(_c).V().hasLabel(_d).as(_e).where(_c,lt(_e)).by().by(_f).project(_g,_h,_i).by(id).by(label).by(__.properties().group().by(label).by(__.project(_g,_h,_j,_i).by(id).by(label).by(value).by(__.valueMap()).fold()))
   }
 }

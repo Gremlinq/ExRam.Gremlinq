@@ -5129,8 +5129,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual SettingsTask Where_property_is_greater_than_stepLabel() => _g
-            .V<RichVertex>()
-            .Values(x => x.Age)
+            .Inject(20, 22)
             .As((__, a) => __
                 .V<RichVertex>()
                 .Where(l2 => l2.Age > a.Value))
@@ -5159,8 +5158,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual SettingsTask Where_property_is_lower_than_stepLabel() => _g
-            .V<RichVertex>()
-            .Values(x => x.Age)
+            .Inject(20, 22)
             .As((__, a) => __
                 .V<RichVertex>()
                 .Where(l2 => l2.Age < a.Value))
@@ -5429,35 +5427,32 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual SettingsTask Where_stepLabel_equals_stepLabel_property() => _g
-            .V<RichVertex>()
-            .As((__, person) => __
+            .Inject(20, 22)
+            .As((__, age) => __
                 .V<RichVertex>()
-                .Values(x => x.Age)
-                    .As((__, age) => __
-                        .Where(p => age.Value < person.Value.Age)))
+                .As((__, person) => __
+                    .Where(p => age.Value < person.Value.Age)))
             .Verify();
 
         [Fact]
         public virtual SettingsTask Where_stepLabel_is_lower_than_stepLabel() => _g
-            .V<RichVertex>()
-            .Where(__ => __
-                .As((__, _) => __
-                    .Values(x => x.Enum!)
-                    .As((__, gender1) => __
-                        .V<RichVertex>()
+            .Inject(SomeEnum.Zero, SomeEnum.One)
+            .As((__, gender2) => __
+                .V<RichVertex>()
+                .Where(__ => __
+                    .As((__, _) => __
                         .Values(x => x.Enum!)
-                            .As((__, gender2) => __
-                                .Where(p => gender1.Value < gender2.Value)))))
+                        .As((__, gender1) => __
+                            .Where(p => gender1.Value < gender2.Value)))))
             .Verify();
 
         [Fact]
         public virtual SettingsTask Where_stepLabel_property_equals_stepLabel() => _g
-            .V<RichVertex>()
-            .As((__, person) => __
+            .Inject(20, 22)
+            .As((__, age) => __
                 .V<RichVertex>()
-                .Values(x => x.Age)
-                    .As((__, age) => __
-                        .Where(p => person.Value.Age < age.Value)))
+                .As((__, person) => __
+                    .Where(p => person.Value.Age < age.Value)))
             .Verify();
 
         [Fact]

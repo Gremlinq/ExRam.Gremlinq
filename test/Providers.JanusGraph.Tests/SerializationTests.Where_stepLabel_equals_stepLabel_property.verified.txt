@@ -1,12 +1,10 @@
 {
   StepInstructions: [
     {
-      OperatorName: V
-    },
-    {
-      OperatorName: hasLabel,
+      OperatorName: inject,
       Arguments: [
-        RichVertex
+        20,
+        22
       ]
     },
     {
@@ -25,12 +23,6 @@
       ]
     },
     {
-      OperatorName: values,
-      Arguments: [
-        Age
-      ]
-    },
-    {
       OperatorName: as,
       Arguments: [
         _b
@@ -39,10 +31,10 @@
     {
       OperatorName: where,
       Arguments: [
-        _b,
+        _a,
         {
           OperatorName: lt,
-          Value: _a
+          Value: _b
         }
       ]
     },
@@ -53,6 +45,103 @@
       OperatorName: by,
       Arguments: [
         Age
+      ]
+    },
+    {
+      OperatorName: project,
+      Arguments: [
+        id,
+        label,
+        properties
+      ]
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        {
+          EnumName: T,
+          EnumValue: id
+        }
+      ]
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        {
+          EnumName: T,
+          EnumValue: label
+        }
+      ]
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        {
+          StepInstructions: [
+            {
+              OperatorName: properties
+            },
+            {
+              OperatorName: group
+            },
+            {
+              OperatorName: by,
+              Arguments: [
+                {
+                  EnumName: T,
+                  EnumValue: label
+                }
+              ]
+            },
+            {
+              OperatorName: by,
+              Arguments: [
+                {
+                  StepInstructions: [
+                    {
+                      OperatorName: project,
+                      Arguments: [
+                        id,
+                        label,
+                        value
+                      ]
+                    },
+                    {
+                      OperatorName: by,
+                      Arguments: [
+                        {
+                          EnumName: T,
+                          EnumValue: id
+                        }
+                      ]
+                    },
+                    {
+                      OperatorName: by,
+                      Arguments: [
+                        {
+                          EnumName: T,
+                          EnumValue: label
+                        }
+                      ]
+                    },
+                    {
+                      OperatorName: by,
+                      Arguments: [
+                        {
+                          EnumName: T,
+                          EnumValue: value
+                        }
+                      ]
+                    },
+                    {
+                      OperatorName: fold
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
       ]
     }
   ]

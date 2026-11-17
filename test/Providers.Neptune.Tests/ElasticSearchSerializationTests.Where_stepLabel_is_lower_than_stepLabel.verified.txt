@@ -17,6 +17,19 @@
   ],
   StepInstructions: [
     {
+      OperatorName: inject,
+      Arguments: [
+        Zero,
+        One
+      ]
+    },
+    {
+      OperatorName: as,
+      Arguments: [
+        _a
+      ]
+    },
+    {
       OperatorName: V
     },
     {
@@ -33,28 +46,7 @@
             {
               OperatorName: as,
               Arguments: [
-                _a
-              ]
-            },
-            {
-              OperatorName: values,
-              Arguments: [
-                Enum
-              ]
-            },
-            {
-              OperatorName: as,
-              Arguments: [
                 _b
-              ]
-            },
-            {
-              OperatorName: V
-            },
-            {
-              OperatorName: hasLabel,
-              Arguments: [
-                RichVertex
               ]
             },
             {
@@ -72,10 +64,10 @@
             {
               OperatorName: where,
               Arguments: [
-                _b,
+                _c,
                 {
                   OperatorName: lt,
-                  Value: _c
+                  Value: _a
                 }
               ]
             }
