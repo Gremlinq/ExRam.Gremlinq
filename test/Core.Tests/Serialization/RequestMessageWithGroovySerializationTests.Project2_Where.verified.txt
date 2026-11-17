@@ -11,7 +11,7 @@
       _b: Item1,
       _c: Item2,
       _d: item1,
-      _e: 3
+      _e: 1
     },
     gremlin: g.inject(_a).project(_b,_c).by(__.constant(_d)).by(__.fold()).filter(__.select(_c).count(local).is(_e))
   }

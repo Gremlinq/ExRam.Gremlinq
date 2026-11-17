@@ -9,18 +9,11 @@
     gremlin: {
       StepInstructions: [
         {
-          OperatorName: V
-        },
-        {
-          OperatorName: filter,
+          OperatorName: inject,
           Arguments: [
-            {
-              StepInstructions: [
-                {
-                  OperatorName: properties
-                }
-              ]
-            }
+            3,
+            4,
+            5
           ]
         },
         {
@@ -29,7 +22,7 @@
             {
               StepInstructions: [
                 {
-                  OperatorName: values
+                  OperatorName: identity
                 }
               ]
             }

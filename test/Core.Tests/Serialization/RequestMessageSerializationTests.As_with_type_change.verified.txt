@@ -24,7 +24,7 @@
           ]
         },
         {
-          OperatorName: count
+          OperatorName: label
         },
         {
           OperatorName: select,

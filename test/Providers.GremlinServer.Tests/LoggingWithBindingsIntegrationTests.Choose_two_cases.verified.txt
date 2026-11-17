@@ -3,13 +3,13 @@
     log: {
       Level: Debug,
       Category: LoggingGremlinServerContainerFixture,
-      Message: Executing Gremlin query 12345678-9012-3456-7890-123456789012 with groovy script g.V().filter(__.properties()).choose(__.values()).option(_a,__.constant(_b)).option(_c,__.constant(_d)) and parameter bindings [_a, 3], [_b, 1], [_c, 4], [_d, 2].,
+      Message: Executing Gremlin query 12345678-9012-3456-7890-123456789012 with groovy script g.inject(_a,_b,_c).choose(__.identity()).option(_d,__.constant(_e)).option(_f,__.constant(_g)) and parameter bindings [_a, 3], [_b, 4], [_c, 5], [_d, 3], [_e, 1], [_f, 4], [_g, 2].,
       State: [
         {
           requestId: 12345678-9012-3456-7890-123456789012
         },
         {
-          script: g.V().filter(__.properties()).choose(__.values()).option(_a,__.constant(_b)).option(_c,__.constant(_d))
+          script: g.inject(_a,_b,_c).choose(__.identity()).option(_d,__.constant(_e)).option(_f,__.constant(_g))
         },
         {
           bindings: {}

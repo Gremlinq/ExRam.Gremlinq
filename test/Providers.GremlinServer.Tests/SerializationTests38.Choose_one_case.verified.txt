@@ -1,18 +1,10 @@
 {
   StepInstructions: [
     {
-      OperatorName: V
-    },
-    {
-      OperatorName: filter,
+      OperatorName: inject,
       Arguments: [
-        {
-          StepInstructions: [
-            {
-              OperatorName: properties
-            }
-          ]
-        }
+        3,
+        5
       ]
     },
     {
@@ -21,7 +13,7 @@
         {
           StepInstructions: [
             {
-              OperatorName: values
+              OperatorName: identity
             }
           ]
         }

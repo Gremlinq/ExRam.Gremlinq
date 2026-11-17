@@ -79,7 +79,7 @@
             {
               OperatorName: is,
               Arguments: [
-                3
+                1
               ]
             }
           ]

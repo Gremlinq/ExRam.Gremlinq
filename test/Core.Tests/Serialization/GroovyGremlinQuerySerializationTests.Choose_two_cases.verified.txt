@@ -1,9 +1,10 @@
 {
-  Script: g.V().filter(__.properties()).choose(__.values()).option(_a,__.constant(_b)).option(_c,__.constant(_d)),
+  Script: g.inject(_a,_b,_c).choose(__.identity()).option(_a,__.constant(_d)).option(_b,__.constant(_e)),
   Bindings: {
     _a: 3,
-    _b: 1,
-    _c: 4,
-    _d: 2
+    _b: 4,
+    _c: 5,
+    _d: 1,
+    _e: 2
   }
 }

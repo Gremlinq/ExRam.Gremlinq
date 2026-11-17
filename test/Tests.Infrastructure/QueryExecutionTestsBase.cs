@@ -621,7 +621,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
             return g
                 .As((_, stepLabel1) => _
-                    .Count()
+                    .Label()
                     .Select(stepLabel1))
                 .Verify();
         }
@@ -652,10 +652,9 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual SettingsTask Choose_one_case() => _g
-            .V()
-            .Where(__ => __.Properties())
+            .Inject(3, 5)
             .Choose(_ => _
-                .On(__ => __.Values())
+                .On(__ => __.Identity())
                 .Case(3, __ => __.Constant(1)))
             .Verify();
 
@@ -770,10 +769,9 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual SettingsTask Choose_two_cases() => _g
-            .V()
-            .Where(__ => __.Properties())
+            .Inject(3, 4, 5)
             .Choose(_ => _
-                .On(__ => __.Values())
+                .On(__ => __.Identity())
                 .Case(3, __ => __.Constant(1))
                 .Case(4, __ => __.Constant(2)))
             .Verify();
@@ -2531,7 +2529,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                 .ToTuple()
                 .By(__ => __.Constant("item1"))
                 .By(__ => __.Fold()))
-            .Where(x => x.Item2.Length == 3)
+            .Where(x => x.Item2.Length == 1)
             .Verify();
 
         [Fact]
