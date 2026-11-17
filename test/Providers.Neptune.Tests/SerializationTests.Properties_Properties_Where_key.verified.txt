@@ -29,7 +29,7 @@
             {
               OperatorName: is,
               Arguments: [
-                someKey
+                ValidFrom
               ]
             }
           ]

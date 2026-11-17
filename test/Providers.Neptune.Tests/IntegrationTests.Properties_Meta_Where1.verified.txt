@@ -1,1 +1,7 @@
-[]
+[
+  {
+    Id: 70,
+    Label: Locations,
+    Value: Aachen
+  }
+]

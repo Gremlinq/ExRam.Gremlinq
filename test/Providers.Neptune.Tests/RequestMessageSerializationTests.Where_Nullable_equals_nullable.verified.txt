@@ -21,7 +21,7 @@
           OperatorName: has,
           Arguments: [
             RegistrationDate,
-            Date_MinValue
+            DateTimeOffset_1
           ]
         },
         {

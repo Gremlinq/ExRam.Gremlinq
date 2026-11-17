@@ -9,12 +9,11 @@
     bindings: {
       _a: SiblingVertex,
       _b: Locations,
-      _c: someKey,
-      _d: id,
-      _e: label,
-      _f: value,
-      _g: properties
+      _c: id,
+      _d: label,
+      _e: value,
+      _f: properties
     },
-    gremlin: g.V().hasLabel(_a).properties(_b).hasKey(_c).project(_d,_e,_f,_g).by(id).by(label).by(value).by(__.valueMap())
+    gremlin: g.V().hasLabel(_a).properties(_b).hasKey(_b).project(_c,_d,_e,_f).by(id).by(label).by(value).by(__.valueMap())
   }
 }

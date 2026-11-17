@@ -9,7 +9,7 @@
     bindings: {
       _a: RichVertex,
       _b: RegistrationDate,
-      _c: Date_MinValue,
+      _c: DateTimeOffset_1,
       _d: id,
       _e: label,
       _f: properties,

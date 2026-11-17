@@ -9,7 +9,7 @@
     bindings: {
       _a: SiblingVertex,
       _b: Locations,
-      _c: someKey
+      _c: ValidFrom
     },
     gremlin: g.V().hasLabel(_a).properties(_b).properties().filter(__.key().is(_c))
   }

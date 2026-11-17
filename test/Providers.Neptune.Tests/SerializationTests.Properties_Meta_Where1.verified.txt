@@ -6,14 +6,11 @@
     {
       OperatorName: hasLabel,
       Arguments: [
-        MetaPropertyVertex
+        SiblingVertex
       ]
     },
     {
-      OperatorName: properties,
-      Arguments: [
-        Name
-      ]
+      OperatorName: properties
     },
     {
       OperatorName: has,

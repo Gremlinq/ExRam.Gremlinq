@@ -34,7 +34,7 @@
     {
       OperatorName: hasKey,
       Arguments: [
-        someKey
+        Locations
       ]
     },
     {

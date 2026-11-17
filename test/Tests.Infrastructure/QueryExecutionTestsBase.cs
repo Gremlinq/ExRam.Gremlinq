@@ -1,5 +1,6 @@
 using System.Collections.Immutable;
 using System.ComponentModel;
+using System.Globalization;
 using ExRam.Gremlinq.Core.GraphElements;
 using ExRam.Gremlinq.Core.Models;
 using ExRam.Gremlinq.Core.Steps;
@@ -2778,8 +2779,8 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual SettingsTask Properties_Meta_Where1() => _g
-            .V<MetaPropertyVertex>()
-            .Properties(x => x.Name!)
+            .V<SiblingVertex>()
+            .Properties()
             .Meta<MetaModel>()
             .Where(x => x.Properties!.ValidFrom >= new DateTimeOffset(2019, 01, 01, 01, 00, 00, TimeSpan.Zero))
             .Verify();
@@ -2845,12 +2846,12 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .V<SiblingVertex>()
             .Properties(x => x.Locations!)
             .Properties()
-            .Where(x => x.Key == "someKey")
+            .Where(x => x.Key == "ValidFrom")
             .Verify();
 
         [Fact]
         public virtual SettingsTask Properties_Properties_Where_key_equals_stepLabel() => _g
-            .Inject("hello")
+            .Inject("ValidFrom")
             .As((__, stepLabel) => __
                 .V<SiblingVertex>()
                 .Properties(x => x.Locations!)
@@ -4347,7 +4348,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual SettingsTask VertexProperties_Where_label() => _g
             .V<SiblingVertex>()
             .Properties(x => x.Locations!)
-            .Where(x => x.Label == "someKey")
+            .Where(x => x.Label == "Locations")
             .Verify();
 
         [Fact]
@@ -4468,10 +4469,15 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         }
 
         [Fact]
-        public virtual SettingsTask Where_converted_Id_equals_constant() => _g
-            .V<SimpleVertex>()
-            .Where(t => (int)t.Id! == 1)
-            .Verify();
+        public virtual SettingsTask Where_converted_Id_equals_constant()
+        {
+            var id = Convert.ToInt32(GetId(1000), CultureInfo.InvariantCulture);
+
+            return _g
+                .V<RichVertex>()
+                .Where(t => (int)t.Id! == id)
+                .Verify();
+        }
 
         [Fact]
         public virtual SettingsTask Where_current_element_equals_stepLabel1() => _g
@@ -4559,8 +4565,8 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual SettingsTask Where_Id_equals_constant() => _g
-            .V<SimpleVertex>()
-            .Where(t => t.Id == GetId(1))
+            .V<RichVertex>()
+            .Where(t => t.Id == GetId(1000))
             .Verify();
 
         [Fact]
@@ -4610,7 +4616,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual SettingsTask Where_Nullable_equals_nullable()
         {
-            DateTime? dateTime = DateTime.MinValue;
+            DateTime? dateTime = new DateTime(2020, 4, 7, 14, 43, 36, DateTimeKind.Utc);
 
             return _g
                 .V<RichVertex>()
@@ -4643,7 +4649,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual SettingsTask Where_Nullable_equals_nullable_Value()
         {
-            DateTime? dateTime = DateTime.MinValue;
+            DateTime? dateTime = new DateTime(2020, 4, 7, 14, 43, 36, DateTimeKind.Utc);
 
             return _g
                 .V<RichVertex>()
@@ -4654,7 +4660,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual SettingsTask Where_Nullable_Value() => _g
             .V<RichVertex>()
-            .Where(t => t.RegistrationDate!.Value == DateTime.MinValue)
+            .Where(t => t.RegistrationDate!.Value == new DateTime(2020, 4, 7, 14, 43, 36, DateTimeKind.Utc))
             .Verify();
 
         [Fact]
@@ -4978,10 +4984,10 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual SettingsTask Where_property_equals_local_string_constant()
         {
-            var local = GetId(1);
+            var local = GetId(1001);
 
             return _g
-                .V<SimpleVertex>()
+                .V<RichVertex>()
                 .Where(t => t.Id == local)
                 .Verify();
         }
@@ -5005,10 +5011,10 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual SettingsTask Where_property_equals_value_of_anonymous_object()
         {
-            var local = new { Value = GetId(1) };
+            var local = new { Value = GetId(1001) };
 
             return _g
-                .V<SimpleVertex>()
+                .V<RichVertex>()
                 .Where(t => t.Id == local.Value)
                 .Verify();
         }
@@ -5587,12 +5593,17 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .Verify();
 
         [Fact]
-        public virtual SettingsTask Where_Values_Id_Where() => _g
-            .V<RichVertex>()
-            .Where(x => x
-                .Values(x => x.Id!)
-                .Where(id => (long)id! == 1L))
-            .Verify();
+        public virtual SettingsTask Where_Values_Id_Where()
+        {
+            var vertexId = Convert.ToInt64(GetId(1000), CultureInfo.InvariantCulture);
+
+            return _g
+                .V<RichVertex>()
+                .Where(x => x
+                    .Values(x => x.Id!)
+                    .Where(id => (long)id! == vertexId))
+                .Verify();
+        }
 
         [Fact]
         public virtual SettingsTask Where_Values_Label_Where() => _g

@@ -7,7 +7,7 @@
       g: g
     },
     bindings: {
-      _a: hello,
+      _a: ValidFrom,
       _b: _a,
       _c: SiblingVertex,
       _d: Locations
