@@ -104,7 +104,7 @@ When changing:
      `SerializationTests37To38`, `SerializationTestsEngine15`). A class is named for what its project
      name does not say: the project names the provider, the class the variant
      (`ObjectQueryIntegrationTests38`, `PasswordSecuredIntegrationTests`).
-   - `QueryExecutionTestsBase` holds the 662 facts every provider answers, `GraphsonSupportTestsBase`
+   - `QueryExecutionTestsBase` holds the 663 facts every provider answers, `GraphsonSupportTestsBase`
      the GraphSON contract both JSON stacks read. A fact for every provider goes there; a fact of
      one feature goes to that feature's `…TestsBase`.
    - A test class takes a `GremlinqFixture` and a `GremlinQueryVerifier`. There are five verifiers:
@@ -278,12 +278,15 @@ or verifies the `Debug()` output of a query for values that end up in the query.
 client factory (Uri, connection pool, authentication) cannot be read without a server.
 
 Every provider's test classes derive from `QueryExecutionTestsBase` in `Tests.Infrastructure`, which
-holds the 662 facts every provider answers; [Snapshot Testing](#snapshot-testing) names the bases
+holds the 663 facts every provider answers; [Snapshot Testing](#snapshot-testing) names the bases
 and the owners of the snapshots.
 
 The facts of `QueryExecutionTestsBase` that name an element by its id take that id from
 `GetId(long)`. Its default is the number itself. A test class for a provider with string ids
-overrides `GetId` once, as `StringIdIntegrationTests` does.
+overrides `GetId` once, as `StringIdIntegrationTests` does. `AddV_with_user_supplied_ids` adds two
+RichVertex and a RichEdge with the ids `GetId(1000)`, `GetId(1001)` and `GetId(1002)`; a fact that
+names an existing element names one of these, since the ids the graph draws itself move whenever a
+fact writes.
 
 ### TinkerPop Compatibility Range
 
