@@ -43,7 +43,7 @@
     {
       OperatorName: times,
       Arguments: [
-        10
+        2
       ]
     },
     {

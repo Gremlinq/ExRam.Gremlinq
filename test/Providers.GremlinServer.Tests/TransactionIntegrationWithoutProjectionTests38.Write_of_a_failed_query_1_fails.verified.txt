@@ -18,7 +18,7 @@
 fail() Step Triggered
 ============================================================================================================================================================
 Message  > The vertex of this query is rolled back.
-Traverser> v[207]
+Traverser> v[209]
   Bulk   > 1
 Traversal> addV("SimpleVertex").property(VertexProperty.Cardinality.single,"IetfLanguageTag","rolled-back").fail("The vertex of this query is rolled back.")
 Metadata > {}

@@ -1,0 +1,407 @@
+{
+  RequestId: 12345678-9012-3456-7890-123456789012,
+  Operation: bytecode,
+  Processor: traversal,
+  Arguments: {
+    aliases: {
+      g: g
+    },
+    gremlin: {
+      StepInstructions: [
+        {
+          OperatorName: addV,
+          Arguments: [
+            SiblingVertex
+          ]
+        },
+        {
+          OperatorName: property,
+          Arguments: [
+            {
+              EnumName: T,
+              EnumValue: id
+            },
+            1003
+          ]
+        },
+        {
+          OperatorName: property,
+          Arguments: [
+            {
+              EnumName: Cardinality,
+              EnumValue: single
+            },
+            FoundingDate,
+            Date_MinValue
+          ]
+        },
+        {
+          OperatorName: property,
+          Arguments: [
+            {
+              EnumName: Cardinality,
+              EnumValue: single
+            },
+            Name,
+            MyCompany
+          ]
+        },
+        {
+          OperatorName: as,
+          Arguments: [
+            _a
+          ]
+        },
+        {
+          OperatorName: sideEffect,
+          Arguments: [
+            {
+              StepInstructions: [
+                {
+                  OperatorName: V,
+                  Arguments: [
+                    1001
+                  ]
+                },
+                {
+                  OperatorName: hasLabel,
+                  Arguments: [
+                    RichVertex
+                  ]
+                },
+                {
+                  OperatorName: addE,
+                  Arguments: [
+                    RichEdge
+                  ]
+                },
+                {
+                  OperatorName: property,
+                  Arguments: [
+                    {
+                      EnumName: T,
+                      EnumValue: id
+                    },
+                    1004
+                  ]
+                },
+                {
+                  OperatorName: property,
+                  Arguments: [
+                    From,
+                    DateTimeOffset_1
+                  ]
+                },
+                {
+                  OperatorName: to,
+                  Arguments: [
+                    _a
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          OperatorName: sideEffect,
+          Arguments: [
+            {
+              StepInstructions: [
+                {
+                  OperatorName: V,
+                  Arguments: [
+                    1001
+                  ]
+                },
+                {
+                  OperatorName: hasLabel,
+                  Arguments: [
+                    RichVertex
+                  ]
+                },
+                {
+                  OperatorName: addE,
+                  Arguments: [
+                    PropertyEdge
+                  ]
+                },
+                {
+                  OperatorName: property,
+                  Arguments: [
+                    {
+                      EnumName: T,
+                      EnumValue: id
+                    },
+                    1005
+                  ]
+                },
+                {
+                  OperatorName: to,
+                  Arguments: [
+                    _a
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          OperatorName: sideEffect,
+          Arguments: [
+            {
+              StepInstructions: [
+                {
+                  OperatorName: V,
+                  Arguments: [
+                    1000
+                  ]
+                },
+                {
+                  OperatorName: hasLabel,
+                  Arguments: [
+                    RichVertex
+                  ]
+                },
+                {
+                  OperatorName: addE,
+                  Arguments: [
+                    EmptyEdge
+                  ]
+                },
+                {
+                  OperatorName: property,
+                  Arguments: [
+                    {
+                      EnumName: T,
+                      EnumValue: id
+                    },
+                    1007
+                  ]
+                },
+                {
+                  OperatorName: from,
+                  Arguments: [
+                    {
+                      StepInstructions: [
+                        {
+                          OperatorName: addV,
+                          Arguments: [
+                            SimpleVertex
+                          ]
+                        },
+                        {
+                          OperatorName: property,
+                          Arguments: [
+                            {
+                              EnumName: T,
+                              EnumValue: id
+                            },
+                            1006
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          OperatorName: sideEffect,
+          Arguments: [
+            {
+              StepInstructions: [
+                {
+                  OperatorName: addV,
+                  Arguments: [
+                    SimpleVertex
+                  ]
+                },
+                {
+                  OperatorName: property,
+                  Arguments: [
+                    {
+                      EnumName: T,
+                      EnumValue: id
+                    },
+                    1008
+                  ]
+                },
+                {
+                  OperatorName: as,
+                  Arguments: [
+                    _b
+                  ]
+                },
+                {
+                  OperatorName: addE,
+                  Arguments: [
+                    EmptyEdge
+                  ]
+                },
+                {
+                  OperatorName: property,
+                  Arguments: [
+                    {
+                      EnumName: T,
+                      EnumValue: id
+                    },
+                    1010
+                  ]
+                },
+                {
+                  OperatorName: to,
+                  Arguments: [
+                    {
+                      StepInstructions: [
+                        {
+                          OperatorName: addV,
+                          Arguments: [
+                            SimpleVertex
+                          ]
+                        },
+                        {
+                          OperatorName: property,
+                          Arguments: [
+                            {
+                              EnumName: T,
+                              EnumValue: id
+                            },
+                            1009
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  OperatorName: inV
+                },
+                {
+                  OperatorName: addE,
+                  Arguments: [
+                    EmptyEdge
+                  ]
+                },
+                {
+                  OperatorName: property,
+                  Arguments: [
+                    {
+                      EnumName: T,
+                      EnumValue: id
+                    },
+                    1011
+                  ]
+                },
+                {
+                  OperatorName: to,
+                  Arguments: [
+                    _b
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          OperatorName: project,
+          Arguments: [
+            id,
+            label,
+            properties
+          ]
+        },
+        {
+          OperatorName: by,
+          Arguments: [
+            {
+              EnumName: T,
+              EnumValue: id
+            }
+          ]
+        },
+        {
+          OperatorName: by,
+          Arguments: [
+            {
+              EnumName: T,
+              EnumValue: label
+            }
+          ]
+        },
+        {
+          OperatorName: by,
+          Arguments: [
+            {
+              StepInstructions: [
+                {
+                  OperatorName: properties
+                },
+                {
+                  OperatorName: group
+                },
+                {
+                  OperatorName: by,
+                  Arguments: [
+                    {
+                      EnumName: T,
+                      EnumValue: label
+                    }
+                  ]
+                },
+                {
+                  OperatorName: by,
+                  Arguments: [
+                    {
+                      StepInstructions: [
+                        {
+                          OperatorName: project,
+                          Arguments: [
+                            id,
+                            label,
+                            value
+                          ]
+                        },
+                        {
+                          OperatorName: by,
+                          Arguments: [
+                            {
+                              EnumName: T,
+                              EnumValue: id
+                            }
+                          ]
+                        },
+                        {
+                          OperatorName: by,
+                          Arguments: [
+                            {
+                              EnumName: T,
+                              EnumValue: label
+                            }
+                          ]
+                        },
+                        {
+                          OperatorName: by,
+                          Arguments: [
+                            {
+                              EnumName: T,
+                              EnumValue: value
+                            }
+                          ]
+                        },
+                        {
+                          OperatorName: fold
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

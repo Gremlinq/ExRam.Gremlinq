@@ -33,6 +33,13 @@
         PartitionKey: PartitionKey
       }
     ],
+    ExRam.Gremlinq.Tests.Entities.SimpleVertex: [
+      {
+        Id: 1009,
+        Label: SimpleVertex,
+        PartitionKey: PartitionKey
+      }
+    ],
     ExRam.Gremlinq.Tests.Entities.RichVertex: [
       {
         Id: 29,
@@ -235,6 +242,13 @@
         PartitionKey: PartitionKey
       }
     ],
+    ExRam.Gremlinq.Tests.Entities.SimpleVertex: [
+      {
+        Id: 1006,
+        Label: SimpleVertex,
+        PartitionKey: PartitionKey
+      }
+    ],
     ExRam.Gremlinq.Tests.Entities.SiblingVertex: [
       {
         Id: 5,
@@ -246,6 +260,13 @@
       {
         Id: 42,
         Label: SiblingVertex,
+        PartitionKey: PartitionKey
+      }
+    ],
+    ExRam.Gremlinq.Tests.Entities.SimpleVertex: [
+      {
+        Id: 1008,
+        Label: SimpleVertex,
         PartitionKey: PartitionKey
       }
     ],
@@ -273,6 +294,18 @@
       {
         Id: 1001,
         Label: RichVertex,
+        PartitionKey: PartitionKey
+      }
+    ],
+    ExRam.Gremlinq.Tests.Entities.SiblingVertex: [
+      {
+        Name: {
+          Id: 85,
+          Label: Name,
+          Value: MyCompany
+        },
+        Id: 1003,
+        Label: SiblingVertex,
         PartitionKey: PartitionKey
       }
     ],

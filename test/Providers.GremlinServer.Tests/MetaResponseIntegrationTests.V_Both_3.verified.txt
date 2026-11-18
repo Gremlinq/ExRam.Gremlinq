@@ -41,7 +41,7 @@
       {
         CountryCallingCode: +49,
         LocalizableDescription: {
-          Id: 137,
+          Id: 139,
           Label: LocalizableDescription,
           Properties: {
             someKey: value
@@ -55,7 +55,7 @@
       {
         CountryCallingCode: +49,
         LocalizableDescription: {
-          Id: 137,
+          Id: 139,
           Label: LocalizableDescription,
           Properties: {
             someKey: value
@@ -69,7 +69,7 @@
       {
         CountryCallingCode: +49,
         LocalizableDescription: {
-          Id: 137,
+          Id: 139,
           Label: LocalizableDescription,
           Properties: {
             someKey: value
@@ -93,7 +93,7 @@
       },
       {
         LocalizableDescription: {
-          Id: 138,
+          Id: 140,
           Label: LocalizableDescription,
           Properties: {
             someKey: value
@@ -112,7 +112,7 @@
       },
       {
         LocalizableDescription: {
-          Id: 139,
+          Id: 141,
           Label: LocalizableDescription,
           Properties: {
             someKey: value
@@ -131,7 +131,7 @@
       },
       {
         LocalizableDescription: {
-          Id: 140,
+          Id: 142,
           Label: LocalizableDescription,
           Properties: {
             someKey: value
@@ -162,7 +162,7 @@
       {
         CountryCallingCode: +49,
         LocalizableDescription: {
-          Id: 141,
+          Id: 143,
           Label: LocalizableDescription,
           Properties: {
             someKey: value
@@ -186,11 +186,64 @@
         PartitionKey: PartitionKey
       },
       {
+        Age: 36,
+        Id: 1001,
+        Label: RichVertex,
+        PartitionKey: PartitionKey
+      },
+      {
+        Age: 36,
+        Id: 1001,
+        Label: RichVertex,
+        PartitionKey: PartitionKey
+      },
+      {
+        Id: 1006,
+        Label: SimpleVertex,
+        PartitionKey: PartitionKey
+      },
+      {
+        Name: {
+          Id: 85,
+          Label: Name,
+          Properties: {},
+          Value: MyCompany
+        },
+        Id: 1003,
+        Label: SiblingVertex,
+        PartitionKey: PartitionKey
+      },
+      {
+        Name: {
+          Id: 85,
+          Label: Name,
+          Properties: {},
+          Value: MyCompany
+        },
+        Id: 1003,
+        Label: SiblingVertex,
+        PartitionKey: PartitionKey
+      },
+      {
         Age: 21,
         Enum: Zero,
         RegistrationDate: 2020-04-07 14:43:36 +0,
         Name: {
-          Id: 203,
+          Id: 205,
+          Label: Name,
+          Properties: {},
+          Value: Marko
+        },
+        Id: 1000,
+        Label: RichVertex,
+        PartitionKey: PartitionKey
+      },
+      {
+        Age: 21,
+        Enum: Zero,
+        RegistrationDate: 2020-04-07 14:43:36 +0,
+        Name: {
+          Id: 205,
           Label: Name,
           Properties: {},
           Value: Marko
@@ -208,6 +261,26 @@
       {
         Id: 42,
         Label: SiblingVertex,
+        PartitionKey: PartitionKey
+      },
+      {
+        Id: 1009,
+        Label: SimpleVertex,
+        PartitionKey: PartitionKey
+      },
+      {
+        Id: 1009,
+        Label: SimpleVertex,
+        PartitionKey: PartitionKey
+      },
+      {
+        Id: 1008,
+        Label: SimpleVertex,
+        PartitionKey: PartitionKey
+      },
+      {
+        Id: 1008,
+        Label: SimpleVertex,
         PartitionKey: PartitionKey
       }
     ],

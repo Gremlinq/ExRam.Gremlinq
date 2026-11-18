@@ -179,6 +179,18 @@
     Value: 0001-01-01T00:00Z
   },
   {
+    Id: 84,
+    Label: FoundingDate,
+    Properties: {},
+    Value: 0001-01-01T00:00Z
+  },
+  {
+    Id: 85,
+    Label: Name,
+    Properties: {},
+    Value: MyCompany
+  },
+  {
     Id: 45,
     Label: Age,
     Properties: {},

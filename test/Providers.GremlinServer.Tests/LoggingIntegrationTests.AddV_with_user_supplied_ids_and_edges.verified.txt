@@ -1,0 +1,20 @@
+[
+  {
+    log: {
+      Level: Debug,
+      Category: LoggingGremlinServerContainerFixture,
+      Message: Executing Gremlin query 12345678-9012-3456-7890-123456789012 with groovy script g.addV(_a).property(id,_b).property(single,_c,_d).property(single,_e,_f).as(_g).sideEffect(__.V(_h).hasLabel(_i).addE(_j).property(id,_k).property(_l,_m).to(_n)).sideEffect(__.V(_o).hasLabel(_p).addE(_q).property(id,_r).to(_s)).sideEffect(__.V(_t).hasLabel(_u).addE(_v).property(id,_w).from(__.addV(_x).property(id,_y))).sideEffect(__.addV(_z).property(id,_ba).as(_bb).addE(_bc).property(id,_bd).to(__.addV(_be).property(id,_bf)).inV().addE(_bg).property(id,_bh).to(_bi)).project(_bj,_bk,_bl).by(id).by(label).by(__.properties().group().by(label).by(__.project(_bm,_bn,_bo,_bp).by(id).by(label).by(value).by(__.valueMap()).fold())).,
+      State: [
+        {
+          requestId: 12345678-9012-3456-7890-123456789012
+        },
+        {
+          script: g.addV(_a).property(id,_b).property(single,_c,_d).property(single,_e,_f).as(_g).sideEffect(__.V(_h).hasLabel(_i).addE(_j).property(id,_k).property(_l,_m).to(_n)).sideEffect(__.V(_o).hasLabel(_p).addE(_q).property(id,_r).to(_s)).sideEffect(__.V(_t).hasLabel(_u).addE(_v).property(id,_w).from(__.addV(_x).property(id,_y))).sideEffect(__.addV(_z).property(id,_ba).as(_bb).addE(_bc).property(id,_bd).to(__.addV(_be).property(id,_bf)).inV().addE(_bg).property(id,_bh).to(_bi)).project(_bj,_bk,_bl).by(id).by(label).by(__.properties().group().by(label).by(__.project(_bm,_bn,_bo,_bp).by(id).by(label).by(value).by(__.valueMap()).fold()))
+        },
+        {
+          {OriginalFormat}: Executing Gremlin query {requestId} with groovy script {script}.
+        }
+      ]
+    }
+  }
+]

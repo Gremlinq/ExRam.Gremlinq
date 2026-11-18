@@ -98,9 +98,13 @@
         Label: RichEdge
       },
       {
-        Id: 1000,
-        Label: RichVertex,
-        PartitionKey: PartitionKey
+        From: 2020-04-07 14:43:36 Utc,
+        Id: 1004,
+        Label: RichEdge
+      },
+      {
+        Id: 1005,
+        Label: PropertyEdge
       },
       {
         Id: 44,
@@ -108,9 +112,31 @@
         PartitionKey: PartitionKey
       },
       {
+        Id: 1001,
+        Label: RichVertex,
+        PartitionKey: PartitionKey
+      },
+      {
+        Id: 1001,
+        Label: RichVertex,
+        PartitionKey: PartitionKey
+      },
+      {
         To: 2020-04-07 14:43:36 Utc,
         Id: 46,
         Label: RichEdge
+      },
+      {
+        Id: 1007,
+        Label: EmptyEdge
+      },
+      {
+        Id: 1010,
+        Label: EmptyEdge
+      },
+      {
+        Id: 1011,
+        Label: EmptyEdge
       }
     ],
     ResponseStatus: {

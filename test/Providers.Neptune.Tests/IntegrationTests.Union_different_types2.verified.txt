@@ -36,6 +36,20 @@
     PartitionKey: PartitionKey
   },
   {
+    Name: {
+      Id: 85,
+      Label: Name,
+      Value: MyCompany
+    },
+    Id: 1003,
+    Label: SiblingVertex,
+    PartitionKey: PartitionKey
+  },
+  {
+    Id: 1005,
+    Label: PropertyEdge
+  },
+  {
     Id: 42,
     Label: SiblingVertex,
     PartitionKey: PartitionKey

@@ -2,7 +2,7 @@
   {
     CountryCallingCode: +49,
     LocalizableDescription: {
-      Id: 137,
+      Id: 139,
       Label: LocalizableDescription,
       Properties: {
         someKey: value
@@ -64,7 +64,7 @@
       Value: GER
     },
     LocalizableDescription: {
-      Id: 142,
+      Id: 144,
       Label: LocalizableDescription,
       Properties: {
         someKey: value
@@ -86,7 +86,7 @@
       Value: GER
     },
     LocalizableDescription: {
-      Id: 143,
+      Id: 145,
       Label: LocalizableDescription,
       Properties: {
         someKey: value
@@ -139,7 +139,7 @@
   },
   {
     LocalizableDescription: {
-      Id: 138,
+      Id: 140,
       Label: LocalizableDescription,
       Properties: {
         someKey: value
@@ -158,7 +158,7 @@
   },
   {
     LocalizableDescription: {
-      Id: 139,
+      Id: 141,
       Label: LocalizableDescription,
       Properties: {
         someKey: value
@@ -177,7 +177,7 @@
   },
   {
     LocalizableDescription: {
-      Id: 140,
+      Id: 142,
       Label: LocalizableDescription,
       Properties: {
         someKey: value
@@ -208,7 +208,7 @@
   {
     CountryCallingCode: +49,
     LocalizableDescription: {
-      Id: 141,
+      Id: 143,
       Label: LocalizableDescription,
       Properties: {
         someKey: value
@@ -239,7 +239,7 @@
     Enum: Zero,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: 203,
+      Id: 205,
       Label: Name,
       Value: Marko
     },
@@ -259,9 +259,24 @@
     PartitionKey: PartitionKey
   },
   {
+    Name: {
+      Id: 85,
+      Label: Name,
+      Value: MyCompany
+    },
+    Id: 1003,
+    Label: SiblingVertex,
+    PartitionKey: PartitionKey
+  },
+  {
     Age: 36,
     Id: 44,
     Label: RichVertex,
+    PartitionKey: PartitionKey
+  },
+  {
+    Id: 1006,
+    Label: SimpleVertex,
     PartitionKey: PartitionKey
   },
   {
@@ -271,7 +286,17 @@
     PartitionKey: PartitionKey
   },
   {
+    Id: 1008,
+    Label: SimpleVertex,
+    PartitionKey: PartitionKey
+  },
+  {
     Id: 49,
+    Label: SimpleVertex,
+    PartitionKey: PartitionKey
+  },
+  {
+    Id: 1009,
     Label: SimpleVertex,
     PartitionKey: PartitionKey
   },

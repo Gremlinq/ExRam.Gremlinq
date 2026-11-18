@@ -25,5 +25,10 @@
     Id: 37,
     Label: RichVertex,
     PartitionKey: PartitionKey
+  },
+  {
+    Id: 1001,
+    Label: RichVertex,
+    PartitionKey: PartitionKey
   }
 ]

@@ -97,6 +97,16 @@
     PartitionKey: PartitionKey
   },
   {
+    Name: {
+      Id: 85,
+      Label: Name,
+      Value: MyCompany
+    },
+    Id: 1003,
+    Label: SiblingVertex,
+    PartitionKey: PartitionKey
+  },
+  {
     Id: 44,
     Label: RichVertex,
     PartitionKey: PartitionKey

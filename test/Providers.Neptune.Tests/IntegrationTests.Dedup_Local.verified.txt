@@ -177,8 +177,23 @@
       PartitionKey: PartitionKey
     },
     {
+      Name: {
+        Id: 85,
+        Label: Name,
+        Value: MyCompany
+      },
+      Id: 1003,
+      Label: SiblingVertex,
+      PartitionKey: PartitionKey
+    },
+    {
       Id: 44,
       Label: RichVertex,
+      PartitionKey: PartitionKey
+    },
+    {
+      Id: 1006,
+      Label: SimpleVertex,
       PartitionKey: PartitionKey
     },
     {
@@ -188,7 +203,17 @@
       PartitionKey: PartitionKey
     },
     {
+      Id: 1008,
+      Label: SimpleVertex,
+      PartitionKey: PartitionKey
+    },
+    {
       Id: 49,
+      Label: SimpleVertex,
+      PartitionKey: PartitionKey
+    },
+    {
+      Id: 1009,
       Label: SimpleVertex,
       PartitionKey: PartitionKey
     },

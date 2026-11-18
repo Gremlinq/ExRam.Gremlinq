@@ -1,0 +1,23 @@
+[
+  {
+    log: {
+      Level: Debug,
+      Category: LoggingGremlinServerContainerFixture,
+      Message: Executing Gremlin query 12345678-9012-3456-7890-123456789012 with groovy script g.addV(_a).property(id,_b).property(single,_c,_d).property(single,_e,_f).as(_g).sideEffect(__.V(_h).hasLabel(_i).addE(_j).property(id,_k).property(_l,_m).to(_n)).sideEffect(__.V(_o).hasLabel(_p).addE(_q).property(id,_r).to(_s)).sideEffect(__.V(_t).hasLabel(_u).addE(_v).property(id,_w).from(__.addV(_x).property(id,_y))).sideEffect(__.addV(_z).property(id,_ba).as(_bb).addE(_bc).property(id,_bd).to(__.addV(_be).property(id,_bf)).inV().addE(_bg).property(id,_bh).to(_bi)).project(_bj,_bk,_bl).by(id).by(label).by(__.properties().group().by(label).by(__.project(_bm,_bn,_bo,_bp).by(id).by(label).by(value).by(__.valueMap()).fold())) and parameter bindings [_a, SiblingVertex], [_b, 1003], [_c, FoundingDate], [_d, 01/01/0001 00:00:00 +00:00], [_e, Name], [_f, MyCompany], [_g, _a], [_h, 1001], [_i, RichVertex], [_j, RichEdge], [_k, 1004], [_l, From], [_m, 04/07/2020 14:43:36 +00:00], [_n, _a], [_o, 1001], [_p, RichVertex], [_q, PropertyEdge], [_r, 1005], [_s, _a], [_t, 1000], [_u, RichVertex], [_v, EmptyEdge], [_w, 1007], [_x, SimpleVertex], [_y, 1006], [_z, SimpleVertex], [_ba, 1008], [_bb, _b], [_bc, EmptyEdge], [_bd, 1010], [_be, SimpleVertex], [_bf, 1009], [_bg, EmptyEdge], [_bh, 1011], [_bi, _b], [_bj, id], [_bk, label], [_bl, properties], [_bm, id], [_bn, label], [_bo, value], [_bp, properties].,
+      State: [
+        {
+          requestId: 12345678-9012-3456-7890-123456789012
+        },
+        {
+          script: g.addV(_a).property(id,_b).property(single,_c,_d).property(single,_e,_f).as(_g).sideEffect(__.V(_h).hasLabel(_i).addE(_j).property(id,_k).property(_l,_m).to(_n)).sideEffect(__.V(_o).hasLabel(_p).addE(_q).property(id,_r).to(_s)).sideEffect(__.V(_t).hasLabel(_u).addE(_v).property(id,_w).from(__.addV(_x).property(id,_y))).sideEffect(__.addV(_z).property(id,_ba).as(_bb).addE(_bc).property(id,_bd).to(__.addV(_be).property(id,_bf)).inV().addE(_bg).property(id,_bh).to(_bi)).project(_bj,_bk,_bl).by(id).by(label).by(__.properties().group().by(label).by(__.project(_bm,_bn,_bo,_bp).by(id).by(label).by(value).by(__.valueMap()).fold()))
+        },
+        {
+          bindings: {}
+        },
+        {
+          {OriginalFormat}: Executing Gremlin query {requestId} with groovy script {script} and parameter bindings {bindings}.
+        }
+      ]
+    }
+  }
+]

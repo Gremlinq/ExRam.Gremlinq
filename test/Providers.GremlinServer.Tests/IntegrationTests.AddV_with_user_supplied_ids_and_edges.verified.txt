@@ -1,0 +1,13 @@
+[
+  {
+    Name: {
+      Id: 85,
+      Label: Name,
+      Properties: {},
+      Value: MyCompany
+    },
+    Id: 1003,
+    Label: SiblingVertex,
+    PartitionKey: PartitionKey
+  }
+]

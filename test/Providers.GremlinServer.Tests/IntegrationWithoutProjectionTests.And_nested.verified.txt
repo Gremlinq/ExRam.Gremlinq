@@ -1,1 +1,7 @@
-[]
+[
+  {
+    Id: 1001,
+    Label: RichVertex,
+    PartitionKey: PartitionKey
+  }
+]

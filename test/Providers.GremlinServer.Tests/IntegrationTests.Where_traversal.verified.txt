@@ -31,5 +31,11 @@
     Id: 37,
     Label: RichVertex,
     PartitionKey: PartitionKey
+  },
+  {
+    Age: 36,
+    Id: 1001,
+    Label: RichVertex,
+    PartitionKey: PartitionKey
   }
 ]

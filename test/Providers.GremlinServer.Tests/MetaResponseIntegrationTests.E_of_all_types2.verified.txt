@@ -3,20 +3,12 @@
     RequestId: 12345678-9012-3456-7890-123456789012,
     Data: [
       {
-        Id: 18,
-        Label: PropertyEdge
-      },
-      {
         Id: 4,
         Label: EmptyEdge
       },
       {
         Id: 36,
         Label: EmptyEdge
-      },
-      {
-        Id: 22,
-        Label: PropertyEdge
       },
       {
         Role: Admin,
@@ -30,16 +22,18 @@
         Label: PropertyEdge
       },
       {
-        Since: {
-          Value: 2020-04-07 14:43:36 +0
-        },
-        Id: 26,
-        Label: PropertyEdge
-      },
-      {
         From: 2020-04-07 14:43:36 Utc,
         Id: 1002,
         Label: RichEdge
+      },
+      {
+        From: 2020-04-07 14:43:36 Utc,
+        Id: 1004,
+        Label: RichEdge
+      },
+      {
+        Id: 1005,
+        Label: PropertyEdge
       },
       {
         Id: 14,
@@ -49,6 +43,33 @@
         To: 2020-04-07 14:43:36 Utc,
         Id: 46,
         Label: RichEdge
+      },
+      {
+        Id: 1007,
+        Label: EmptyEdge
+      },
+      {
+        Id: 18,
+        Label: PropertyEdge
+      },
+      {
+        Id: 1010,
+        Label: EmptyEdge
+      },
+      {
+        Id: 1011,
+        Label: EmptyEdge
+      },
+      {
+        Id: 22,
+        Label: PropertyEdge
+      },
+      {
+        Since: {
+          Value: 2020-04-07 14:43:36 +0
+        },
+        Id: 26,
+        Label: PropertyEdge
       },
       {
         Role: Admin,

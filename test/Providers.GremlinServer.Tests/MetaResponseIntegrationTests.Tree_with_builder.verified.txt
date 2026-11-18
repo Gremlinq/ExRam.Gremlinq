@@ -39,6 +39,42 @@
         {
           Key: {
             Age: 36,
+            Id: 1001,
+            Label: RichVertex,
+            PartitionKey: PartitionKey
+          },
+          Value: [
+            {
+              Key: {
+                From: 2020-04-07 14:43:36 Utc,
+                Id: 1004,
+                Label: RichEdge
+              },
+              Value: [
+                {
+                  Key: {
+                    Name: {
+                      Id: 85,
+                      Label: Name,
+                      Value: MyCompany
+                    },
+                    Id: 1003,
+                    Label: SiblingVertex,
+                    PartitionKey: PartitionKey
+                  },
+                  Value: [
+                    {
+                      Value: []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          Key: {
+            Age: 36,
             Id: 44,
             Label: RichVertex,
             PartitionKey: PartitionKey

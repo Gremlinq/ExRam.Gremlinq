@@ -4,18 +4,6 @@
     Data: [
       {
         Age: 36,
-        Id: 15,
-        Label: RichVertex,
-        PartitionKey: PartitionKey
-      },
-      {
-        Age: 36,
-        Id: 19,
-        Label: RichVertex,
-        PartitionKey: PartitionKey
-      },
-      {
-        Age: 36,
         Id: 7,
         Label: RichVertex,
         PartitionKey: PartitionKey
@@ -36,8 +24,16 @@
         PartitionKey: PartitionKey
       },
       {
-        Age: 36,
-        Id: 23,
+        Age: 21,
+        Enum: Zero,
+        RegistrationDate: 2020-04-07 14:43:36 +0,
+        Name: {
+          Id: 205,
+          Label: Name,
+          Properties: {},
+          Value: Marko
+        },
+        Id: 1000,
         Label: RichVertex,
         PartitionKey: PartitionKey
       },
@@ -46,12 +42,24 @@
         Enum: Zero,
         RegistrationDate: 2020-04-07 14:43:36 +0,
         Name: {
-          Id: 203,
+          Id: 205,
           Label: Name,
           Properties: {},
           Value: Marko
         },
         Id: 1000,
+        Label: RichVertex,
+        PartitionKey: PartitionKey
+      },
+      {
+        Age: 36,
+        Id: 1001,
+        Label: RichVertex,
+        PartitionKey: PartitionKey
+      },
+      {
+        Age: 36,
+        Id: 1001,
         Label: RichVertex,
         PartitionKey: PartitionKey
       },
@@ -79,6 +87,24 @@
       {
         Age: 36,
         Id: 44,
+        Label: RichVertex,
+        PartitionKey: PartitionKey
+      },
+      {
+        Age: 36,
+        Id: 15,
+        Label: RichVertex,
+        PartitionKey: PartitionKey
+      },
+      {
+        Age: 36,
+        Id: 19,
+        Label: RichVertex,
+        PartitionKey: PartitionKey
+      },
+      {
+        Age: 36,
+        Id: 23,
         Label: RichVertex,
         PartitionKey: PartitionKey
       },

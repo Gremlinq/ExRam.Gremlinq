@@ -182,6 +182,18 @@
         Value: -62135596800000
       },
       {
+        Id: 84,
+        Label: FoundingDate,
+        Properties: {},
+        Value: -62135596800000
+      },
+      {
+        Id: 85,
+        Label: Name,
+        Properties: {},
+        Value: MyCompany
+      },
+      {
         Id: 45,
         Label: Age,
         Properties: {},

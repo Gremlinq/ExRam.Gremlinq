@@ -63,6 +63,9 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 
         public override SettingsTask V_BothE() => base.V_BothE().UseSnapshotDirectoryAndNameOf<GroovyIntegrationTests>();
 
+        // Sent as a script, this query lists the same elements in another order.
+        public override SettingsTask V_BothE_2() => base.V_BothE_2().UseCanonicalComparer();
+
         public override SettingsTask V_BothE_3() => base.V_BothE_3().UseSnapshotDirectoryAndNameOf<GroovyIntegrationTests>();
 
         public override SettingsTask Value() => base.Value().UseSnapshotDirectoryAndNameOf<GroovyIntegrationTests>();

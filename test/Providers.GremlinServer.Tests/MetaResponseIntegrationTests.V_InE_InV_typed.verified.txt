@@ -18,6 +18,20 @@
         PartitionKey: PartitionKey
       },
       {
+        Age: 21,
+        Enum: Zero,
+        RegistrationDate: 2020-04-07 14:43:36 +0,
+        Name: {
+          Id: 205,
+          Label: Name,
+          Properties: {},
+          Value: Marko
+        },
+        Id: 1000,
+        Label: RichVertex,
+        PartitionKey: PartitionKey
+      },
+      {
         Age: 36,
         Id: 1001,
         Label: RichVertex,

@@ -58,6 +58,26 @@
     Label: RichEdge
   },
   {
+    Id: 1007,
+    Label: EmptyEdge
+  },
+  {
+    Id: 1007,
+    Label: EmptyEdge
+  },
+  {
+    From: 2020-04-07 14:43:36 Utc,
+    To: 2020-04-07 14:43:36 Utc,
+    Id: 1004,
+    Label: RichEdge
+  },
+  {
+    From: 2020-04-07 14:43:36 Utc,
+    To: 2020-04-07 14:43:36 Utc,
+    Id: 1004,
+    Label: RichEdge
+  },
+  {
     To: 2020-04-07 14:43:36 Utc,
     Id: 46,
     Label: RichEdge
@@ -66,5 +86,21 @@
     To: 2020-04-07 14:43:36 Utc,
     Id: 46,
     Label: RichEdge
+  },
+  {
+    Id: 1010,
+    Label: EmptyEdge
+  },
+  {
+    Id: 1010,
+    Label: EmptyEdge
+  },
+  {
+    Id: 1011,
+    Label: EmptyEdge
+  },
+  {
+    Id: 1011,
+    Label: EmptyEdge
   }
 ]

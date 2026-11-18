@@ -38,6 +38,15 @@
     Label: RichEdge
   },
   {
+    Id: 1005,
+    Label: PropertyEdge
+  },
+  {
+    From: 2020-04-07 14:43:36 Utc,
+    Id: 1004,
+    Label: RichEdge
+  },
+  {
     To: 2020-04-07 14:43:36 Utc,
     Id: 46,
     Label: RichEdge

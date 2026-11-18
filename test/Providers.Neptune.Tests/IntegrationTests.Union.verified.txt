@@ -6,7 +6,7 @@
   },
   {
     LocalizableDescription: {
-      Id: 138,
+      Id: 140,
       Label: LocalizableDescription,
       Value: 
     },
@@ -16,7 +16,7 @@
   },
   {
     LocalizableDescription: {
-      Id: 139,
+      Id: 141,
       Label: LocalizableDescription,
       Value: 
     },
@@ -26,7 +26,7 @@
   },
   {
     LocalizableDescription: {
-      Id: 140,
+      Id: 142,
       Label: LocalizableDescription,
       Value: 
     },
@@ -42,7 +42,7 @@
   {
     CountryCallingCode: +49,
     LocalizableDescription: {
-      Id: 137,
+      Id: 139,
       Label: LocalizableDescription,
       Value: 
     },
@@ -54,6 +54,26 @@
     Age: 36,
     Id: 1001,
     Label: RichVertex,
+    PartitionKey: PartitionKey
+  },
+  {
+    Name: {
+      Id: 85,
+      Label: Name,
+      Value: MyCompany
+    },
+    Id: 1003,
+    Label: SiblingVertex,
+    PartitionKey: PartitionKey
+  },
+  {
+    Name: {
+      Id: 85,
+      Label: Name,
+      Value: MyCompany
+    },
+    Id: 1003,
+    Label: SiblingVertex,
     PartitionKey: PartitionKey
   },
   {

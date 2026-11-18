@@ -36,13 +36,28 @@
         PartitionKey: PartitionKey
       },
       {
+        Id: 1006,
+        Label: SimpleVertex,
+        PartitionKey: PartitionKey
+      },
+      {
         IetfLanguageTag: en,
         Id: 47,
         Label: SimpleVertex,
         PartitionKey: PartitionKey
       },
       {
+        Id: 1008,
+        Label: SimpleVertex,
+        PartitionKey: PartitionKey
+      },
+      {
         Id: 49,
+        Label: SimpleVertex,
+        PartitionKey: PartitionKey
+      },
+      {
+        Id: 1009,
         Label: SimpleVertex,
         PartitionKey: PartitionKey
       },

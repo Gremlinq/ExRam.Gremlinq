@@ -1,27 +1,8 @@
 [
   {
-    Age: 36,
-    Id: 15,
-    Label: RichVertex,
-    PartitionKey: PartitionKey
-  },
-  {
-    LocalizableDescription: {
-      Id: 138,
-      Label: LocalizableDescription,
-      Properties: {
-        someKey: value
-      },
-      Value: 
-    },
-    Id: 17,
-    Label: MetaPropertyVertex,
-    PartitionKey: PartitionKey
-  },
-  {
     CountryCallingCode: +49,
     LocalizableDescription: {
-      Id: 137,
+      Id: 139,
       Label: LocalizableDescription,
       Properties: {
         someKey: value
@@ -35,7 +16,7 @@
   {
     CountryCallingCode: +49,
     LocalizableDescription: {
-      Id: 137,
+      Id: 139,
       Label: LocalizableDescription,
       Properties: {
         someKey: value
@@ -49,7 +30,7 @@
   {
     CountryCallingCode: +49,
     LocalizableDescription: {
-      Id: 137,
+      Id: 139,
       Label: LocalizableDescription,
       Properties: {
         someKey: value
@@ -69,7 +50,7 @@
   {
     CountryCallingCode: +49,
     LocalizableDescription: {
-      Id: 141,
+      Id: 143,
       Label: LocalizableDescription,
       Properties: {
         someKey: value
@@ -84,25 +65,6 @@
     IetfLanguageTag: en,
     Id: 32,
     Label: SimpleVertex,
-    PartitionKey: PartitionKey
-  },
-  {
-    Age: 36,
-    Id: 19,
-    Label: RichVertex,
-    PartitionKey: PartitionKey
-  },
-  {
-    LocalizableDescription: {
-      Id: 139,
-      Label: LocalizableDescription,
-      Properties: {
-        someKey: value
-      },
-      Value: 
-    },
-    Id: 21,
-    Label: MetaPropertyVertex,
     PartitionKey: PartitionKey
   },
   {
@@ -132,22 +94,17 @@
     PartitionKey: PartitionKey
   },
   {
-    Age: 36,
-    Id: 23,
-    Label: RichVertex,
-    PartitionKey: PartitionKey
-  },
-  {
-    LocalizableDescription: {
-      Id: 140,
-      Label: LocalizableDescription,
-      Properties: {
-        someKey: value
-      },
-      Value: 
+    Age: 21,
+    Enum: Zero,
+    RegistrationDate: 2020-04-07 14:43:36 +0,
+    Name: {
+      Id: 205,
+      Label: Name,
+      Properties: {},
+      Value: Marko
     },
-    Id: 25,
-    Label: MetaPropertyVertex,
+    Id: 1000,
+    Label: RichVertex,
     PartitionKey: PartitionKey
   },
   {
@@ -155,7 +112,7 @@
     Enum: Zero,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: 203,
+      Id: 205,
       Label: Name,
       Properties: {},
       Value: Marko
@@ -168,6 +125,40 @@
     Age: 36,
     Id: 1001,
     Label: RichVertex,
+    PartitionKey: PartitionKey
+  },
+  {
+    Age: 36,
+    Id: 1001,
+    Label: RichVertex,
+    PartitionKey: PartitionKey
+  },
+  {
+    Age: 36,
+    Id: 1001,
+    Label: RichVertex,
+    PartitionKey: PartitionKey
+  },
+  {
+    Name: {
+      Id: 85,
+      Label: Name,
+      Properties: {},
+      Value: MyCompany
+    },
+    Id: 1003,
+    Label: SiblingVertex,
+    PartitionKey: PartitionKey
+  },
+  {
+    Name: {
+      Id: 85,
+      Label: Name,
+      Properties: {},
+      Value: MyCompany
+    },
+    Id: 1003,
+    Label: SiblingVertex,
     PartitionKey: PartitionKey
   },
   {
@@ -194,6 +185,88 @@
   {
     Id: 42,
     Label: SiblingVertex,
+    PartitionKey: PartitionKey
+  },
+  {
+    Id: 1006,
+    Label: SimpleVertex,
+    PartitionKey: PartitionKey
+  },
+  {
+    Age: 36,
+    Id: 15,
+    Label: RichVertex,
+    PartitionKey: PartitionKey
+  },
+  {
+    LocalizableDescription: {
+      Id: 140,
+      Label: LocalizableDescription,
+      Properties: {
+        someKey: value
+      },
+      Value: 
+    },
+    Id: 17,
+    Label: MetaPropertyVertex,
+    PartitionKey: PartitionKey
+  },
+  {
+    Id: 1008,
+    Label: SimpleVertex,
+    PartitionKey: PartitionKey
+  },
+  {
+    Id: 1008,
+    Label: SimpleVertex,
+    PartitionKey: PartitionKey
+  },
+  {
+    Id: 1009,
+    Label: SimpleVertex,
+    PartitionKey: PartitionKey
+  },
+  {
+    Id: 1009,
+    Label: SimpleVertex,
+    PartitionKey: PartitionKey
+  },
+  {
+    Age: 36,
+    Id: 19,
+    Label: RichVertex,
+    PartitionKey: PartitionKey
+  },
+  {
+    LocalizableDescription: {
+      Id: 141,
+      Label: LocalizableDescription,
+      Properties: {
+        someKey: value
+      },
+      Value: 
+    },
+    Id: 21,
+    Label: MetaPropertyVertex,
+    PartitionKey: PartitionKey
+  },
+  {
+    Age: 36,
+    Id: 23,
+    Label: RichVertex,
+    PartitionKey: PartitionKey
+  },
+  {
+    LocalizableDescription: {
+      Id: 142,
+      Label: LocalizableDescription,
+      Properties: {
+        someKey: value
+      },
+      Value: 
+    },
+    Id: 25,
+    Label: MetaPropertyVertex,
     PartitionKey: PartitionKey
   },
   {

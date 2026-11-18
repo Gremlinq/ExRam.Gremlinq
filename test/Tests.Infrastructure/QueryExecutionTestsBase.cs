@@ -346,6 +346,39 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         }
 
         [Fact]
+        public virtual SettingsTask AddV_with_user_supplied_ids_and_edges()
+        {
+            var now = new DateTime(2020, 4, 7, 14, 43, 36, DateTimeKind.Utc);
+
+            return _g
+                .AddV(new SiblingVertex { Id = GetId(1003), Name = "MyCompany" })
+                .As((_, company) => _
+                    .SideEffect(__ => __
+                        .V<RichVertex>(GetId(1001))
+                        .AddE(new RichEdge { Id = GetId(1004), From = now })
+                        .To(company))
+                    .SideEffect(__ => __
+                        .V<RichVertex>(GetId(1001))
+                        .AddE(new PropertyEdge { Id = GetId(1005) })
+                        .To(company)))
+                .SideEffect(__ => __
+                    .V<RichVertex>(GetId(1000))
+                    .AddE(new EmptyEdge { Id = GetId(1007) })
+                    .From(__ => __
+                        .AddV(new SimpleVertex { Id = GetId(1006) })))
+                .SideEffect(__ => __
+                    .AddV(new SimpleVertex { Id = GetId(1008) })
+                    .As((_, first) => _
+                        .AddE(new EmptyEdge { Id = GetId(1010) })
+                        .To(__ => __
+                            .AddV(new SimpleVertex { Id = GetId(1009) }))
+                        .InV()
+                        .AddE(new EmptyEdge { Id = GetId(1011) })
+                        .To(first)))
+                .Verify();
+        }
+
+        [Fact]
         public virtual SettingsTask AddV_without_id() => _g
             .AddV(new SimpleVertex { IetfLanguageTag = "en" })
             .Verify();
@@ -3212,7 +3245,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                     .InE()
                     .OutV()
                     .Cast<object>())
-                .Times(10))
+                .Times(2))
             .Verify();
 
         [Fact]

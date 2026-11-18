@@ -1,1 +1,12 @@
-[]
+[
+  {
+    Id: 1008,
+    Label: SimpleVertex,
+    PartitionKey: PartitionKey
+  },
+  {
+    Id: 1009,
+    Label: SimpleVertex,
+    PartitionKey: PartitionKey
+  }
+]

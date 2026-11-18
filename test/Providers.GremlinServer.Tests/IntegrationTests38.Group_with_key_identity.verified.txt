@@ -28,6 +28,13 @@
         PartitionKey: PartitionKey
       }
     ],
+    ExRam.Gremlinq.Tests.Entities.SimpleVertex: [
+      {
+        Id: 1009,
+        Label: SimpleVertex,
+        PartitionKey: PartitionKey
+      }
+    ],
     ExRam.Gremlinq.Tests.Entities.SiblingVertex: [
       {
         Id: 27,
@@ -237,11 +244,31 @@
         PartitionKey: PartitionKey
       }
     ],
+    ExRam.Gremlinq.Tests.Entities.SiblingVertex: [
+      {
+        Name: {
+          Id: 85,
+          Label: Name,
+          Properties: {},
+          Value: MyCompany
+        },
+        Id: 1003,
+        Label: SiblingVertex,
+        PartitionKey: PartitionKey
+      }
+    ],
     ExRam.Gremlinq.Tests.Entities.MetaPropertyVertex: [
       {
         CountryCallingCode: +49,
         Id: 34,
         Label: MetaPropertyVertex,
+        PartitionKey: PartitionKey
+      }
+    ],
+    ExRam.Gremlinq.Tests.Entities.SimpleVertex: [
+      {
+        Id: 1006,
+        Label: SimpleVertex,
         PartitionKey: PartitionKey
       }
     ],
@@ -280,6 +307,13 @@
       {
         Id: 1000,
         Label: RichVertex,
+        PartitionKey: PartitionKey
+      }
+    ],
+    ExRam.Gremlinq.Tests.Entities.SimpleVertex: [
+      {
+        Id: 1008,
+        Label: SimpleVertex,
         PartitionKey: PartitionKey
       }
     ],

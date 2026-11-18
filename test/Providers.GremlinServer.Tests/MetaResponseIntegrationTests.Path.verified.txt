@@ -70,6 +70,136 @@
             PartitionKey: PartitionKey
           }
         ]
+      },
+      {
+        Labels: [
+          [],
+          [],
+          []
+        ],
+        Objects: [
+          {
+            Id: 1000,
+            Label: RichVertex,
+            PartitionKey: PartitionKey
+          },
+          {
+            Id: 1001,
+            Label: RichVertex,
+            PartitionKey: PartitionKey
+          },
+          {
+            Name: {
+              Id: 85,
+              Label: Name,
+              Value: MyCompany
+            },
+            Id: 1003,
+            Label: SiblingVertex,
+            PartitionKey: PartitionKey
+          }
+        ]
+      },
+      {
+        Labels: [
+          [],
+          [],
+          []
+        ],
+        Objects: [
+          {
+            Id: 1000,
+            Label: RichVertex,
+            PartitionKey: PartitionKey
+          },
+          {
+            Id: 1001,
+            Label: RichVertex,
+            PartitionKey: PartitionKey
+          },
+          {
+            Name: {
+              Id: 85,
+              Label: Name,
+              Value: MyCompany
+            },
+            Id: 1003,
+            Label: SiblingVertex,
+            PartitionKey: PartitionKey
+          }
+        ]
+      },
+      {
+        Labels: [
+          [],
+          [],
+          []
+        ],
+        Objects: [
+          {
+            Id: 1006,
+            Label: SimpleVertex,
+            PartitionKey: PartitionKey
+          },
+          {
+            Id: 1000,
+            Label: RichVertex,
+            PartitionKey: PartitionKey
+          },
+          {
+            Id: 1001,
+            Label: RichVertex,
+            PartitionKey: PartitionKey
+          }
+        ]
+      },
+      {
+        Labels: [
+          [],
+          [],
+          []
+        ],
+        Objects: [
+          {
+            Id: 1008,
+            Label: SimpleVertex,
+            PartitionKey: PartitionKey
+          },
+          {
+            Id: 1009,
+            Label: SimpleVertex,
+            PartitionKey: PartitionKey
+          },
+          {
+            Id: 1008,
+            Label: SimpleVertex,
+            PartitionKey: PartitionKey
+          }
+        ]
+      },
+      {
+        Labels: [
+          [],
+          [],
+          []
+        ],
+        Objects: [
+          {
+            Id: 1009,
+            Label: SimpleVertex,
+            PartitionKey: PartitionKey
+          },
+          {
+            Id: 1008,
+            Label: SimpleVertex,
+            PartitionKey: PartitionKey
+          },
+          {
+            Id: 1009,
+            Label: SimpleVertex,
+            PartitionKey: PartitionKey
+          }
+        ]
       }
     ],
     ResponseStatus: {
