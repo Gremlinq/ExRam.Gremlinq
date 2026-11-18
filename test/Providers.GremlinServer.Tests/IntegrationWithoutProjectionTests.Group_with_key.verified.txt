@@ -238,6 +238,12 @@
         Id: 50,
         Label: ScalarVertex,
         PartitionKey: PartitionKey
+      },
+      {
+        Enabled: true,
+        Id: 1019,
+        Label: ScalarVertex,
+        PartitionKey: PartitionKey
       }
     ],
     SiblingVertex: [
@@ -361,6 +367,22 @@
         Id: 54,
         Label: SimpleVertex,
         PartitionKey: PartitionKey
+      }
+    ],
+    VertexWithStringId: [
+      {
+        id: 1020,
+        label: VertexWithStringId,
+        properties: {
+          PartitionKey: [
+            {
+              Id: 108,
+              Label: PartitionKey,
+              Properties: {},
+              Value: PartitionKey
+            }
+          ]
+        }
       }
     ]
   }

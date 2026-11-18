@@ -1,6 +1,6 @@
 [
   {
-    idOfTheNextVertex: 253,
+    idOfTheNextVertex: 257,
     verticesOfTheFailedQuery: 0
   }
 ]

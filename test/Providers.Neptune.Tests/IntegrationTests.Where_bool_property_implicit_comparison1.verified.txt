@@ -1,1 +1,8 @@
-[]
+[
+  {
+    Enabled: true,
+    Id: 1019,
+    Label: ScalarVertex,
+    PartitionKey: PartitionKey
+  }
+]

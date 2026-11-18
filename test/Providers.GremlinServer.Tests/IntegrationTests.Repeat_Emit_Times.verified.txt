@@ -2,7 +2,7 @@
   {
     CountryCallingCode: +49,
     LocalizableDescription: {
-      Id: 170,
+      Id: 174,
       Label: LocalizableDescription,
       Properties: {
         someKey: value
@@ -32,14 +32,14 @@
     PartitionKey: PartitionKey
   },
   {
-    Id: 1006,
-    Label: SimpleVertex,
-    PartitionKey: PartitionKey
-  },
-  {
     Age: 36,
     Id: 1000,
     Label: RichVertex,
+    PartitionKey: PartitionKey
+  },
+  {
+    Id: 1006,
+    Label: SimpleVertex,
     PartitionKey: PartitionKey
   },
   {

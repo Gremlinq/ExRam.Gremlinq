@@ -285,6 +285,26 @@
     PartitionKey: PartitionKey
   },
   {
+    Enabled: true,
+    Id: 1019,
+    Label: ScalarVertex,
+    PartitionKey: PartitionKey
+  },
+  {
+    id: 1020,
+    label: VertexWithStringId,
+    properties: {
+      PartitionKey: [
+        {
+          Id: 108,
+          Label: PartitionKey,
+          Properties: {},
+          Value: PartitionKey
+        }
+      ]
+    }
+  },
+  {
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
       Id: 63,

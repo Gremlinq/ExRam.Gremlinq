@@ -46,7 +46,9 @@
       RichVertex,
       RichVertex,
       RichVertex,
-      ScalarVertex
+      ScalarVertex,
+      ScalarVertex,
+      VertexWithStringId
     ],
     ResponseStatus: {
       Code: Success,

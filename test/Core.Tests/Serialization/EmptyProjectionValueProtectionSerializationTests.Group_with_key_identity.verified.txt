@@ -4,6 +4,16 @@
       OperatorName: V
     },
     {
+      OperatorName: hasLabel,
+      Arguments: [
+        MetaPropertyVertex,
+        RichVertex,
+        ScalarVertex,
+        SiblingVertex,
+        SimpleVertex
+      ]
+    },
+    {
       OperatorName: group
     },
     {

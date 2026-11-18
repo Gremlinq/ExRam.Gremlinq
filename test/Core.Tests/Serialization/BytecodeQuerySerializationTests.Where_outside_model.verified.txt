@@ -16,7 +16,7 @@
           EnumName: T,
           EnumValue: id
         },
-        0
+        1020
       ]
     },
     {

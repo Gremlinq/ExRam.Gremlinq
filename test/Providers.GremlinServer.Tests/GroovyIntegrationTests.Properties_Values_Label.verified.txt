@@ -59,6 +59,10 @@
   CountryCallingCode,
   Enum,
   Age,
+  StartTime,
+  Enabled,
+  Duration,
+  PartitionKey,
   RegistrationDate,
   Name
 ]

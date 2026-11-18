@@ -1,0 +1,16 @@
+{
+  Script: g.addV(_a).property(id,_b).property(single,_c,_d).property(single,_e,_f).property(single,_g,_d).project(_h,_i,_j).by(id).by(label).by(__.properties().group().by(label).by(__.project(_h,_i,_k,_j).by(id).by(label).by(value).by(__.valueMap()).fold())),
+  Bindings: {
+    _a: ScalarVertex,
+    _b: 1019,
+    _c: Duration,
+    _d: 00:00:00,
+    _e: Enabled,
+    _f: true,
+    _g: StartTime,
+    _h: id,
+    _i: label,
+    _j: properties,
+    _k: value
+  }
+}

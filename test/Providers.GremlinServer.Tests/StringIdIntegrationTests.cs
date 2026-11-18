@@ -38,11 +38,12 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
         protected override object GetId(long n) => n.ToString(CultureInfo.InvariantCulture);
 
         // These queries fail by design: fail() fails, and 3.7's choose() fails on an unproductive traverser.
+        // The vertex they fail on is the first one the server iterates, which depends on the hash order of its random ids, so its id is scrubbed.
         public override SettingsTask Choose_unproductive() => base.Choose_unproductive().UseMethodName(nameof(Choose_unproductive));
 
-        public override SettingsTask Fail_with_message() => base.Fail_with_message().UseMethodName(nameof(Fail_with_message));
+        public override SettingsTask Fail_with_message() => base.Fail_with_message().UseMethodName(nameof(Fail_with_message)).ScrubVertexIds();
 
-        public override SettingsTask Fail_without_message() => base.Fail_without_message().UseMethodName(nameof(Fail_without_message));
+        public override SettingsTask Fail_without_message() => base.Fail_without_message().UseMethodName(nameof(Fail_without_message)).ScrubVertexIds();
 
         // These queries compare an id with a number, which a string id never equals, and the server rejects the comparison.
         public override SettingsTask Where_converted_Id_equals_constant() => base.Where_converted_Id_equals_constant().UseMethodName(nameof(Where_converted_Id_equals_constant));

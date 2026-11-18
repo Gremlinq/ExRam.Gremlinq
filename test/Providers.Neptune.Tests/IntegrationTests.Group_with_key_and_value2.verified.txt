@@ -48,7 +48,10 @@
     ScalarVertex: [
       28800000.0,
       false,
-      7200000.0
+      7200000.0,
+      0.0,
+      true,
+      0.0
     ],
     SiblingVertex: [
       0001-01-01 +0,
@@ -71,6 +74,9 @@
       en,
       en,
       en
+    ],
+    VertexWithStringId: [
+      PartitionKey
     ]
   }
 ]

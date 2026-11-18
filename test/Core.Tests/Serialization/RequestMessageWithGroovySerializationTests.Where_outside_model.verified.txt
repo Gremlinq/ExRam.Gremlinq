@@ -8,7 +8,7 @@
     },
     bindings: {
       _a: VertexWithStringId,
-      _b: 0,
+      _b: 1020,
       _c: id,
       _d: label,
       _e: properties,

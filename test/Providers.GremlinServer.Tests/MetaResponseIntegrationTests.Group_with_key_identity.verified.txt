@@ -70,6 +70,14 @@
             PartitionKey: PartitionKey
           }
         ],
+        ExRam.Gremlinq.Tests.Entities.ScalarVertex: [
+          {
+            Enabled: true,
+            Id: 1019,
+            Label: ScalarVertex,
+            PartitionKey: PartitionKey
+          }
+        ],
         ExRam.Gremlinq.Tests.Entities.MetaPropertyVertex: [
           {
             Id: 21,

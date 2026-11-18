@@ -15,7 +15,7 @@
         java.lang.IllegalArgumentException
       ]
     },
-    Message: ServerError: The provided traverser does not map to a value: v[12345678-9012-3456-7890-123456789012][TinkerVertex]->[PropertiesStep(value)][DefaultGraphTraversal] parent[[TinkerGraphStep(vertex,[]), ChooseStep([PropertiesStep(value)],[[(eq(3)), [ConstantStep(1), EndStep]]]), ReferenceElementStep]],
+    Message: ServerError: The provided traverser does not map to a value: v[scrubbed][TinkerVertex]->[PropertiesStep(value)][DefaultGraphTraversal] parent[[TinkerGraphStep(vertex,[]), ChooseStep([PropertiesStep(value)],[[(eq(3)), [ConstantStep(1), EndStep]]]), ReferenceElementStep]],
     Data: {}
   }
 }

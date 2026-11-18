@@ -2,7 +2,7 @@
   {
     CountryCallingCode: +49,
     LocalizableDescription: {
-      Id: 170,
+      Id: 174,
       Label: LocalizableDescription,
       Properties: {
         someKey: value
@@ -64,7 +64,7 @@
       Value: GER
     },
     LocalizableDescription: {
-      Id: 175,
+      Id: 179,
       Label: LocalizableDescription,
       Properties: {
         someKey: value
@@ -86,7 +86,7 @@
       Value: GER
     },
     LocalizableDescription: {
-      Id: 176,
+      Id: 180,
       Label: LocalizableDescription,
       Properties: {
         someKey: value
@@ -139,7 +139,7 @@
   },
   {
     LocalizableDescription: {
-      Id: 171,
+      Id: 175,
       Label: LocalizableDescription,
       Properties: {
         someKey: value
@@ -158,7 +158,7 @@
   },
   {
     LocalizableDescription: {
-      Id: 172,
+      Id: 176,
       Label: LocalizableDescription,
       Properties: {
         someKey: value
@@ -177,7 +177,7 @@
   },
   {
     LocalizableDescription: {
-      Id: 173,
+      Id: 177,
       Label: LocalizableDescription,
       Properties: {
         someKey: value
@@ -208,7 +208,7 @@
   {
     CountryCallingCode: +49,
     LocalizableDescription: {
-      Id: 174,
+      Id: 178,
       Label: LocalizableDescription,
       Properties: {
         someKey: value
@@ -239,7 +239,7 @@
     Enum: Zero,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: 233,
+      Id: 237,
       Label: Name,
       Properties: {
         ValidFrom: 2020-04-07 14:43:36 +0
@@ -417,7 +417,7 @@
     ],
     CountryCallingCode: +43,
     LocalizableDescription: {
-      Id: 177,
+      Id: 181,
       Label: LocalizableDescription,
       Properties: {
         someKey: value
@@ -431,7 +431,7 @@
   {
     CountryCallingCode: ,
     LocalizableDescription: {
-      Id: 178,
+      Id: 182,
       Label: LocalizableDescription,
       Properties: {
         someKey: value
@@ -448,6 +448,26 @@
     Id: 59,
     Label: RichVertex,
     PartitionKey: PartitionKey
+  },
+  {
+    Enabled: true,
+    Id: 1019,
+    Label: ScalarVertex,
+    PartitionKey: PartitionKey
+  },
+  {
+    id: 1020,
+    label: VertexWithStringId,
+    properties: {
+      PartitionKey: [
+        {
+          Id: 108,
+          Label: PartitionKey,
+          Properties: {},
+          Value: PartitionKey
+        }
+      ]
+    }
   },
   {
     Age: 36,

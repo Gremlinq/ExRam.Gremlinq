@@ -2,7 +2,7 @@
   {
     CountryCallingCode: +49,
     LocalizableDescription: {
-      Id: 170,
+      Id: 174,
       Label: LocalizableDescription,
       Value: 
     },
@@ -58,7 +58,7 @@
       Value: GER
     },
     LocalizableDescription: {
-      Id: 175,
+      Id: 179,
       Label: LocalizableDescription,
       Value: 
     },
@@ -74,7 +74,7 @@
       Value: GER
     },
     LocalizableDescription: {
-      Id: 176,
+      Id: 180,
       Label: LocalizableDescription,
       Value: 
     },
@@ -121,7 +121,7 @@
   },
   {
     LocalizableDescription: {
-      Id: 171,
+      Id: 175,
       Label: LocalizableDescription,
       Value: 
     },
@@ -137,7 +137,7 @@
   },
   {
     LocalizableDescription: {
-      Id: 172,
+      Id: 176,
       Label: LocalizableDescription,
       Value: 
     },
@@ -153,7 +153,7 @@
   },
   {
     LocalizableDescription: {
-      Id: 173,
+      Id: 177,
       Label: LocalizableDescription,
       Value: 
     },
@@ -181,7 +181,7 @@
   {
     CountryCallingCode: +49,
     LocalizableDescription: {
-      Id: 174,
+      Id: 178,
       Label: LocalizableDescription,
       Value: 
     },
@@ -206,7 +206,7 @@
     Enum: Zero,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: 233,
+      Id: 237,
       Label: Name,
       Value: Marko
     },
@@ -370,7 +370,7 @@
     ],
     CountryCallingCode: +43,
     LocalizableDescription: {
-      Id: 177,
+      Id: 181,
       Label: LocalizableDescription,
       Value: 
     },
@@ -381,7 +381,7 @@
   {
     CountryCallingCode: ,
     LocalizableDescription: {
-      Id: 178,
+      Id: 182,
       Label: LocalizableDescription,
       Value: 
     },
@@ -395,6 +395,26 @@
     Id: 59,
     Label: RichVertex,
     PartitionKey: PartitionKey
+  },
+  {
+    Enabled: true,
+    Id: 1019,
+    Label: ScalarVertex,
+    PartitionKey: PartitionKey
+  },
+  {
+    id: 1020,
+    label: VertexWithStringId,
+    properties: {
+      PartitionKey: [
+        {
+          Id: 108,
+          Label: PartitionKey,
+          Properties: {},
+          Value: PartitionKey
+        }
+      ]
+    }
   },
   {
     Age: 36,

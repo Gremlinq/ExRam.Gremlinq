@@ -16,7 +16,9 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
     {
         protected sealed class VertexWithStringId
         {
-            public string? Id { get; }
+            public string? Id { get; init; }
+
+            public string PartitionKey { get; } = nameof(PartitionKey);
         }
 
         protected sealed class EdgeWithStringId
@@ -442,6 +444,18 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                     .AddV(new MetaPropertyVertex { Id = GetId(1018), CountryCallingCode = "" }))
                 .Verify();
         }
+
+        [Fact]
+        public virtual SettingsTask AddV_with_user_supplied_ids_and_types() => _g
+            .AddV(new ScalarVertex { Id = GetId(1019), Enabled = true })
+            .Verify();
+
+        [Fact]
+        public virtual SettingsTask AddV_with_user_supplied_ids_and_types_outside_model() => _g
+            .ConfigureEnvironment(env => env
+                .UseModel(GraphModel.FromBaseTypes<VertexWithStringId, EdgeWithStringId>()))
+            .AddV(new VertexWithStringId { Id = Convert.ToString(GetId(1020), CultureInfo.InvariantCulture) })
+            .Verify();
 
         [Fact]
         public virtual SettingsTask AddV_without_id() => _g
@@ -1349,7 +1363,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         [Fact]
         public virtual SettingsTask Group_with_key_identity() => _g
-            .V()
+            .V<Vertex>()
             .Group(_ => _
                 .ByKey(_ => _))
             .Verify();
@@ -4785,7 +4799,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             .ConfigureEnvironment(env => env
                 .UseModel(GraphModel.FromBaseTypes<VertexWithStringId, EdgeWithStringId>()))
             .V<VertexWithStringId>()
-            .Where(x => x.Id == (object)GetId(0))
+            .Where(x => x.Id == (object)GetId(1020))
             .Verify();
 
         [Fact]

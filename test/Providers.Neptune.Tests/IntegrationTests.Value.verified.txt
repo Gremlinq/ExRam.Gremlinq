@@ -121,5 +121,9 @@
   AQIDBAUGBwg=,
   +43,
   +43,
-  de
+  de,
+  0.0,
+  0.0,
+  true,
+  PartitionKey
 ]

@@ -46,6 +46,8 @@
       null,
       null,
       null,
+      null,
+      null,
       null
     ],
     ResponseStatus: {

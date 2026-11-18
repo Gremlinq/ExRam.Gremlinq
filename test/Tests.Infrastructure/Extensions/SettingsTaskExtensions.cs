@@ -50,7 +50,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [GeneratedRegex("[0-9a-f]{8}[-]?([0-9a-f]{4}[-]?){3}[0-9a-f]{12}", RegexOptions.IgnoreCase | RegexOptions.Compiled, "de-DE")]
         private static partial Regex GuidRegex();
 
-        [GeneratedRegex("v\\[[0-9]+\\]")]
+        [GeneratedRegex("v\\[[^\\]]+\\]")]
         private static partial Regex VertexIdRegex();
     }
 }

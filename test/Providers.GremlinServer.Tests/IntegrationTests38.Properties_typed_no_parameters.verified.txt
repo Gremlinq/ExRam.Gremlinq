@@ -370,6 +370,30 @@
     Value: 0
   },
   {
+    Id: 107,
+    Label: StartTime,
+    Properties: {},
+    Value: PT0S
+  },
+  {
+    Id: 106,
+    Label: Enabled,
+    Properties: {},
+    Value: True
+  },
+  {
+    Id: 105,
+    Label: Duration,
+    Properties: {},
+    Value: PT0S
+  },
+  {
+    Id: 108,
+    Label: PartitionKey,
+    Properties: {},
+    Value: PartitionKey
+  },
+  {
     Id: 64,
     Label: RegistrationDate,
     Properties: {},

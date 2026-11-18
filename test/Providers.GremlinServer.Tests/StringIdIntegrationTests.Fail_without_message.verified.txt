@@ -18,7 +18,7 @@
 fail() Step Triggered
 ==============================================================
 Message  > fail() step triggered
-Traverser> v[12345678-9012-3456-7890-123456789012]
+Traverser> v[scrubbed]
   Bulk   > 1
 Traversal> withStrategies(ReferenceElementStrategy).V().fail()
 Metadata > {}

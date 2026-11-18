@@ -43,5 +43,7 @@
   MetaPropertyVertex,
   MetaPropertyVertex,
   RichVertex,
+  ScalarVertex,
+  VertexWithStringId,
   RichVertex
 ]

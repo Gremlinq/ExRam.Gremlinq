@@ -52,7 +52,10 @@
   PhoneNumbers,
   lang,
   StartTime,
+  StartTime,
   Enabled,
+  Enabled,
+  Duration,
   Duration,
   n,
   Enum,
@@ -60,5 +63,6 @@
   Enum,
   Image,
   Languages,
-  Languages
+  Languages,
+  PartitionKey
 ]

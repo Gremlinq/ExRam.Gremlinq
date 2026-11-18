@@ -121,5 +121,9 @@
   AQIDBAUGBwg=,
   +43,
   +43,
-  de
+  de,
+  00:00:00,
+  00:00:00,
+  true,
+  PartitionKey
 ]
