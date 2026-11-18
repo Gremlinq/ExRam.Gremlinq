@@ -7,21 +7,22 @@
       g: g
     },
     bindings: {
-      _a: RichVertex,
-      _b: Image,
-      _c: PhoneNumbers,
-      _d: _Etag,
-      _e: _Self,
-      _f: Enum,
-      _g: Zero,
-      _h: RegistrationDate,
-      _i: DateTimeOffset_1,
-      _j: RichEdge,
-      _k: To,
-      _l: id,
-      _m: label,
-      _n: properties
+      _a: 1000,
+      _b: RichVertex,
+      _c: Image,
+      _d: PhoneNumbers,
+      _e: _Etag,
+      _f: _Self,
+      _g: Enum,
+      _h: Zero,
+      _i: RegistrationDate,
+      _j: DateTimeOffset_1,
+      _k: RichEdge,
+      _l: To,
+      _m: id,
+      _n: label,
+      _o: properties
     },
-    gremlin: g.V().hasLabel(_a).order().by(id,asc).sideEffect(__.properties(_b,_c,_d,_e).drop()).property(single,_f,_g).property(single,_h,_i).outE(_j).sideEffect(__.properties(_d,_e).drop()).property(_k,_i).project(_l,_m,_n).by(id).by(label).by(__.valueMap())
+    gremlin: g.V(_a).hasLabel(_b).sideEffect(__.properties(_c,_d,_e,_f).drop()).property(single,_g,_h).property(single,_i,_j).outE(_k).sideEffect(__.properties(_e,_f).drop()).property(_l,_j).project(_m,_n,_o).by(id).by(label).by(__.valueMap())
   }
 }

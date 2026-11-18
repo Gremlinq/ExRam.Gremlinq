@@ -67,11 +67,23 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 
         public override SettingsTask Value() => base.Value().UseSnapshotDirectoryAndNameOf<GroovyIntegrationTests>();
 
+        // Sent as a script, this query lists the RichVertex in another order.
+        public override SettingsTask ValueMap_typed() => base.ValueMap_typed().UseCanonicalComparer();
+
+        // Sent as a script, this query lists the RichVertex in another order.
+        public override SettingsTask Values_1_member() => base.Values_1_member().UseCanonicalComparer();
+
         public override SettingsTask Values_2_members() => base.Values_2_members().UseSnapshotDirectoryAndNameOf<GroovyIntegrationTests>();
 
         public override SettingsTask Values_3_members() => base.Values_3_members().UseSnapshotDirectoryAndNameOf<GroovyIntegrationTests>();
 
         public override SettingsTask Values_no_member() => base.Values_no_member().UseSnapshotDirectoryAndNameOf<GroovyIntegrationTests>();
         public override SettingsTask Where_Id_equals_toStringed_Guid() => base.Where_Id_equals_toStringed_Guid().UseSnapshotDirectoryAndNameOf<GroovyIntegrationTests>();
+
+        // Sent as a script, this query lists the RichVertex in another order.
+        public override SettingsTask Where_property_is_greater_than_or_equal_stepLabel() => base.Where_property_is_greater_than_or_equal_stepLabel().UseCanonicalComparer();
+
+        // Sent as a script, this query lists the RichVertex in another order.
+        public override SettingsTask Where_property_is_lower_than_or_equal_stepLabel() => base.Where_property_is_lower_than_or_equal_stepLabel().UseCanonicalComparer();
     }
 }

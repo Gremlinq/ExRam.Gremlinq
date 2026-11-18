@@ -17,28 +17,15 @@
   ],
   StepInstructions: [
     {
-      OperatorName: V
+      OperatorName: V,
+      Arguments: [
+        1000
+      ]
     },
     {
       OperatorName: hasLabel,
       Arguments: [
         RichVertex
-      ]
-    },
-    {
-      OperatorName: order
-    },
-    {
-      OperatorName: by,
-      Arguments: [
-        {
-          EnumName: T,
-          EnumValue: id
-        },
-        {
-          EnumName: Order,
-          EnumValue: asc
-        }
       ]
     },
     {

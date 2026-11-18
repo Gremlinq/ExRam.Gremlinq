@@ -3993,9 +3993,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             var worksFor = new RichEdge { From = edgeNow, To = edgeNow, Role = "Admin" };
 
             return _g
-                .V<RichVertex>()
-                .Order(b => b
-                    .By(x => x.Id))
+                .V<RichVertex>(GetId(1000))
                 .Update(person)
                 .OutE<RichEdge>()
                 .Update(worksFor)
@@ -4021,9 +4019,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                             .ConfigureElement<RichEdge>(conf => conf
                                 .IgnoreAlways(p => p.From)
                                 .IgnoreOnUpdate(p => p.Role)))))
-                .V<RichVertex>()
-                .Order(b => b
-                    .By(x => x.Id))
+                .V<RichVertex>(GetId(1000))
                 .Update(person)
                 .OutE<RichEdge>()
                 .Update(worksFor)
@@ -4087,9 +4083,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             var now = new DateTimeOffset(2020, 4, 7, 14, 43, 36, TimeSpan.Zero);
 
             return _g
-                .V<RichVertex>()
-                .Order(b => b
-                    .By(x => x.Id))
+                .V<RichVertex>(GetId(1000))
                 .Update(new RichVertex { Age = 21, Enum = SomeEnum.Zero, Name = "Marko", RegistrationDate = now, PhoneNumbers = [new VertexProperty<string>("012345")]
                 })
                 .Verify();
@@ -4108,9 +4102,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                             .ConfigureElement<RichVertex>(conf => conf
                                 .IgnoreAlways(p => p.Age)
                                 .IgnoreAlways(p => p.Enum)))))
-                .V<RichVertex>()
-                .Order(b => b
-                    .By(x => x.Id))
+                .V<RichVertex>(GetId(1000))
                 .Update(person)
                 .Verify();
         }
@@ -4128,9 +4120,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                             .ConfigureElement<RichVertex>(conf => conf
                                 .IgnoreOnUpdate(p => p.Age)
                                 .IgnoreAlways(p => p.Enum)))))
-                .V<RichVertex>()
-                .Order(b => b
-                    .By(x => x.Id))
+                .V<RichVertex>(GetId(1000))
                 .Update(person)
                 .Verify();
         }
@@ -4148,9 +4138,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                             .ConfigureElement<RichVertex>(conf => conf
                                 .IgnoreOnUpdate(p => p.Age)
                                 .IgnoreOnUpdate(p => p.Enum)))))
-                .V<RichVertex>()
-                .Order(b => b
-                    .By(x => x.Id))
+                .V<RichVertex>(GetId(1000))
                 .Update(person)
                 .Verify();
         }
@@ -5113,11 +5101,15 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual SettingsTask Where_property_is_greater_than_or_equal_stepLabel_value() => _g
             .V<RichVertex>()
+            .Where(_ => _
+                .Values(x => x.Age))
             .Order(b => b
                 .By(x => x.Age))
             .As((__, person1) => __
                 .Map(__ => __
                     .V<RichVertex>()
+                    .Where(_ => _
+                        .Values(x => x.Age))
                     .Where(person2 => person2.Age >= person1.Value.Age)
                     .Order(b => b
                         .By(x => x.Age))
@@ -5456,8 +5448,12 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual SettingsTask Where_stepLabel_value_is_greater_than_or_equal_stepLabel_value() => _g
             .V<RichVertex>()
+            .Where(_ => _
+                .Values(x => x.Age))
             .As((__, person1) => __
                 .V<RichVertex>()
+                .Where(_ => _
+                    .Values(x => x.Age))
                 .As((__, person2) => __
                     .Where(_ => person1.Value.Age >= person2.Value.Age)))
             .Count()

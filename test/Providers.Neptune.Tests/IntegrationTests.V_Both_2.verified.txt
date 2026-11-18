@@ -17,14 +17,7 @@
     PartitionKey: PartitionKey
   },
   {
-    Age: 21,
-    Enum: Zero,
-    RegistrationDate: 2020-04-07 14:43:36 +0,
-    Name: {
-      Id: 335,
-      Label: Name,
-      Value: Marko
-    },
+    Age: 36,
     Id: 7,
     Label: RichVertex,
     PartitionKey: PartitionKey
@@ -35,14 +28,7 @@
     PartitionKey: PartitionKey
   },
   {
-    Age: 21,
-    Enum: Zero,
-    RegistrationDate: 2020-04-07 14:43:36 +0,
-    Name: {
-      Id: 355,
-      Label: Name,
-      Value: Marko
-    },
+    Age: 36,
     Id: 29,
     Label: RichVertex,
     PartitionKey: PartitionKey
@@ -70,14 +56,7 @@
     PartitionKey: PartitionKey
   },
   {
-    Age: 21,
-    Enum: Zero,
-    RegistrationDate: 2020-04-07 14:43:36 +0,
-    Name: {
-      Id: 383,
-      Label: Name,
-      Value: Marko
-    },
+    Age: 36,
     Id: 1001,
     Label: RichVertex,
     PartitionKey: PartitionKey
@@ -87,7 +66,7 @@
     Enum: Zero,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: 379,
+      Id: 203,
       Label: Name,
       Value: Marko
     },
@@ -96,14 +75,7 @@
     PartitionKey: PartitionKey
   },
   {
-    Age: 21,
-    Enum: Zero,
-    RegistrationDate: 2020-04-07 14:43:36 +0,
-    Name: {
-      Id: 363,
-      Label: Name,
-      Value: Marko
-    },
+    Age: 36,
     Id: 44,
     Label: RichVertex,
     PartitionKey: PartitionKey

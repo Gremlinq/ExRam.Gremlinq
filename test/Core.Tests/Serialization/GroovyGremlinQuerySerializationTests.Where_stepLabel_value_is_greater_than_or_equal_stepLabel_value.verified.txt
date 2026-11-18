@@ -1,9 +1,9 @@
 {
-  Script: g.V().hasLabel(_a).as(_b).V().hasLabel(_a).as(_c).where(_b,gte(_c)).by(_d).by(_d).count(),
+  Script: g.V().hasLabel(_a).filter(__.values(_b)).as(_c).V().hasLabel(_a).filter(__.values(_b)).as(_d).where(_c,gte(_d)).by(_b).by(_b).count(),
   Bindings: {
     _a: RichVertex,
-    _b: _a,
-    _c: _b,
-    _d: Age
+    _b: Age,
+    _c: _a,
+    _d: _b
   }
 }

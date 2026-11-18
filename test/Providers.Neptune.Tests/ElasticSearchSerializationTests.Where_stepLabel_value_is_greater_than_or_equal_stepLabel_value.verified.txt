@@ -26,6 +26,21 @@
       ]
     },
     {
+      OperatorName: filter,
+      Arguments: [
+        {
+          StepInstructions: [
+            {
+              OperatorName: values,
+              Arguments: [
+                Age
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
       OperatorName: as,
       Arguments: [
         _a
@@ -38,6 +53,21 @@
       OperatorName: hasLabel,
       Arguments: [
         RichVertex
+      ]
+    },
+    {
+      OperatorName: filter,
+      Arguments: [
+        {
+          StepInstructions: [
+            {
+              OperatorName: values,
+              Arguments: [
+                Age
+              ]
+            }
+          ]
+        }
       ]
     },
     {

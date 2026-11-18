@@ -1,5 +1,5 @@
 {
-  Script: g.V().hasLabel(_a).order().by(_b,asc).as(_c).map(__.V().hasLabel(_a).where(gte(_c)).by(_b).order().by(_b,asc).values(_b).fold()),
+  Script: g.V().hasLabel(_a).filter(__.values(_b)).order().by(_b,asc).as(_c).map(__.V().hasLabel(_a).filter(__.values(_b)).where(gte(_c)).by(_b).order().by(_b,asc).values(_b).fold()),
   Bindings: {
     _a: RichVertex,
     _b: Age,
