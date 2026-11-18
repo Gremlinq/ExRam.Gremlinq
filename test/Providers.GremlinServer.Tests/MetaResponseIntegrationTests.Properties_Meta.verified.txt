@@ -13,6 +13,12 @@
         Label: Name,
         Properties: {},
         Value: GER
+      },
+      {
+        Id: 103,
+        Label: Name,
+        Properties: {},
+        Value: +43
       }
     ],
     ResponseStatus: {

@@ -2,7 +2,7 @@
   {
     CountryCallingCode: +49,
     LocalizableDescription: {
-      Id: 139,
+      Id: 170,
       Label: LocalizableDescription,
       Properties: {
         someKey: value
@@ -16,7 +16,7 @@
   {
     CountryCallingCode: +49,
     LocalizableDescription: {
-      Id: 143,
+      Id: 174,
       Label: LocalizableDescription,
       Properties: {
         someKey: value
@@ -24,6 +24,44 @@
       Value: 
     },
     Id: 34,
+    Label: MetaPropertyVertex,
+    PartitionKey: PartitionKey
+  },
+  {
+    Name: {
+      Id: 103,
+      Label: Name,
+      Properties: {},
+      Value: +43
+    },
+    Languages: [
+      de,
+      en
+    ],
+    CountryCallingCode: +43,
+    LocalizableDescription: {
+      Id: 177,
+      Label: LocalizableDescription,
+      Properties: {
+        someKey: value
+      },
+      Value: 
+    },
+    Id: 1017,
+    Label: MetaPropertyVertex,
+    PartitionKey: PartitionKey
+  },
+  {
+    CountryCallingCode: ,
+    LocalizableDescription: {
+      Id: 178,
+      Label: LocalizableDescription,
+      Properties: {
+        someKey: value
+      },
+      Value: 
+    },
+    Id: 1018,
     Label: MetaPropertyVertex,
     PartitionKey: PartitionKey
   }

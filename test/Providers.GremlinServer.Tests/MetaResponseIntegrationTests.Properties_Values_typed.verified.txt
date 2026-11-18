@@ -4,7 +4,10 @@
     Data: [
       1546304400000,
       Deutschland,
-      Germany
+      Germany,
+      MetaValue,
+      42,
+      4711
     ],
     ResponseStatus: {
       Code: Success,

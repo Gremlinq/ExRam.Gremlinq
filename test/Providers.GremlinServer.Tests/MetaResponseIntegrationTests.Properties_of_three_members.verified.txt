@@ -28,6 +28,36 @@
         Label: CountryCallingCode,
         Properties: {},
         Value: +49
+      },
+      {
+        Id: 100,
+        Label: CountryCallingCode,
+        Properties: {},
+        Value: +43
+      },
+      {
+        Id: 101,
+        Label: Languages,
+        Properties: {},
+        Value: de
+      },
+      {
+        Id: 102,
+        Label: Languages,
+        Properties: {},
+        Value: en
+      },
+      {
+        Id: 103,
+        Label: Name,
+        Properties: {},
+        Value: +43
+      },
+      {
+        Id: 104,
+        Label: CountryCallingCode,
+        Properties: {},
+        Value: 
       }
     ],
     ResponseStatus: {

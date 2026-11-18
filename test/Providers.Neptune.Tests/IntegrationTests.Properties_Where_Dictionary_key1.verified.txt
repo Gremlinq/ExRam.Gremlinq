@@ -1,1 +1,8 @@
-[]
+[
+  {
+    Id: 87,
+    Label: PhoneNumbers,
+    Properties: {},
+    Value: +4912345
+  }
+]

@@ -1,0 +1,45 @@
+{
+  RequestId: 12345678-9012-3456-7890-123456789012,
+  Operation: eval,
+  Processor: ,
+  Arguments: {
+    aliases: {
+      g: g
+    },
+    bindings: {
+      _a: RichVertex,
+      _b: 1014,
+      _ba: en,
+      _bb: 1018,
+      _bc: ,
+      _bd: id,
+      _be: label,
+      _bf: properties,
+      _c: Age,
+      _d: 0,
+      _e: Enum,
+      _f: One,
+      _g: Name,
+      _h: Alice,
+      _i: PhoneNumbers,
+      _j: +4934567,
+      _k: +4945678,
+      _l: +4956789,
+      _m: RichEdge,
+      _n: 1016,
+      _o: From,
+      _p: DateTimeOffset_1,
+      _q: To,
+      _r: DateTimeOffset_2,
+      _s: 1015,
+      _t: Two,
+      _u: MetaPropertyVertex,
+      _v: 1017,
+      _w: CountryCallingCode,
+      _x: +43,
+      _y: Languages,
+      _z: de
+    },
+    gremlin: g.addV(_a).property(id,_b).property(single,_c,_d).property(single,_e,_f).property(single,_g,_h).property(list,_i,_j).property(list,_i,_k).property(list,_i,_l).addE(_m).property(id,_n).property(_o,_p).property(_q,_r).to(__.addV(_a).property(id,_s).property(single,_c,_d).property(single,_e,_t).property(single,_g,_h)).sideEffect(__.addV(_u).property(id,_v).property(single,_w,_x).property(list,_y,_z).property(list,_y,_ba).property(single,_g,_x)).sideEffect(__.addV(_u).property(id,_bb).property(single,_w,_bc)).project(_bd,_be,_bf).by(id).by(label).by(__.valueMap())
+  }
+}

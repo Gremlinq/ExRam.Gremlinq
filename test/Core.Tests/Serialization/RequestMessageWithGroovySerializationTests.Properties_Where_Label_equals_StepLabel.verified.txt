@@ -7,14 +7,14 @@
       g: g
     },
     bindings: {
-      _a: label,
+      _a: Languages,
       _b: _a,
       _c: MetaPropertyVertex,
-      _d: Languages,
-      _e: id,
+      _d: id,
+      _e: label,
       _f: value,
       _g: properties
     },
-    gremlin: g.inject(_a).as(_b).V().hasLabel(_c).properties(_d).filter(__.label().where(eq(_b))).project(_e,_a,_f,_g).by(id).by(label).by(value).by(__.valueMap())
+    gremlin: g.inject(_a).as(_b).V().hasLabel(_c).properties(_a).filter(__.label().where(eq(_b))).project(_d,_e,_f,_g).by(id).by(label).by(value).by(__.valueMap())
   }
 }

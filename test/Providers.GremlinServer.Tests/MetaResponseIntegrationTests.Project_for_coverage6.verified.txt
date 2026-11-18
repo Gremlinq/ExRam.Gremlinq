@@ -17,6 +17,22 @@
         Item4: +49,
         Item5: +49,
         Item6: +49
+      },
+      {
+        Item1: +43,
+        Item2: +43,
+        Item3: +43,
+        Item4: +43,
+        Item5: +43,
+        Item6: +43
+      },
+      {
+        Item1: ,
+        Item2: ,
+        Item3: ,
+        Item4: ,
+        Item5: ,
+        Item6: 
       }
     ],
     ResponseStatus: {

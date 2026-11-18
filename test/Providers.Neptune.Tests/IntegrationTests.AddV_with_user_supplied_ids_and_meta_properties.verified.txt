@@ -1,0 +1,21 @@
+[
+  {
+    PhoneNumbers: [
+      {
+        Id: 87,
+        Label: PhoneNumbers,
+        Properties: {},
+        Value: +4912345
+      },
+      {
+        Id: 88,
+        Label: PhoneNumbers,
+        Properties: {},
+        Value: +4923456
+      }
+    ],
+    Id: 1012,
+    Label: RichVertex,
+    PartitionKey: PartitionKey
+  }
+]

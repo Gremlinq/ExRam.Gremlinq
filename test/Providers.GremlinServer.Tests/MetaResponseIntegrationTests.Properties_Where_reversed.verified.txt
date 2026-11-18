@@ -1,8 +1,16 @@
 [
   {
     RequestId: 12345678-9012-3456-7890-123456789012,
+    Data: [
+      {
+        Id: 101,
+        Label: Languages,
+        Properties: {},
+        Value: de
+      }
+    ],
     ResponseStatus: {
-      Code: NoContent,
+      Code: Success,
       Attributes: {
         host: (host)
       },

@@ -242,15 +242,90 @@
         PartitionKey: PartitionKey
       },
       {
+        PhoneNumbers: [
+          {
+            Id: 87,
+            Label: PhoneNumbers,
+            Properties: {
+              MetaKey: MetaValue
+            },
+            Value: +4912345
+          },
+          {
+            Id: 88,
+            Label: PhoneNumbers,
+            Properties: {
+              MetaKey: 42,
+              MetaProperty: 4711
+            },
+            Value: +4923456
+          }
+        ],
+        Id: 1012,
+        Label: RichVertex,
+        PartitionKey: PartitionKey
+      },
+      {
+        Id: 1013,
+        Label: SiblingVertex,
+        PartitionKey: PartitionKey
+      },
+      {
         IetfLanguageTag: en,
         Id: 54,
         Label: SimpleVertex,
         PartitionKey: PartitionKey
       },
       {
+        Enum: Two,
+        Name: {
+          Id: 99,
+          Label: Name,
+          Properties: {},
+          Value: Alice
+        },
+        Id: 1015,
+        Label: RichVertex,
+        PartitionKey: PartitionKey
+      },
+      {
+        Enum: Two,
+        Name: {
+          Id: 99,
+          Label: Name,
+          Properties: {},
+          Value: Alice
+        },
+        Id: 1015,
+        Label: RichVertex,
+        PartitionKey: PartitionKey
+      },
+      {
         Image: AQIDBAUGBwg=,
         Id: 56,
         Label: RichVertex,
+        PartitionKey: PartitionKey
+      },
+      {
+        Name: {
+          Id: 103,
+          Label: Name,
+          Properties: {},
+          Value: +43
+        },
+        Languages: [
+          de,
+          en
+        ],
+        CountryCallingCode: +43,
+        Id: 1017,
+        Label: MetaPropertyVertex,
+        PartitionKey: PartitionKey
+      },
+      {
+        CountryCallingCode: ,
+        Id: 1018,
+        Label: MetaPropertyVertex,
         PartitionKey: PartitionKey
       },
       {

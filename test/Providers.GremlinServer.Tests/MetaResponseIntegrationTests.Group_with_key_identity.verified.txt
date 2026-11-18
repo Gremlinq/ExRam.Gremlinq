@@ -43,6 +43,20 @@
         ],
         ExRam.Gremlinq.Tests.Entities.RichVertex: [
           {
+            Enum: Two,
+            Name: {
+              Id: 99,
+              Label: Name,
+              Properties: {},
+              Value: Alice
+            },
+            Id: 1015,
+            Label: RichVertex,
+            PartitionKey: PartitionKey
+          }
+        ],
+        ExRam.Gremlinq.Tests.Entities.RichVertex: [
+          {
             Id: 44,
             Label: RichVertex,
             PartitionKey: PartitionKey
@@ -152,6 +166,24 @@
         ],
         ExRam.Gremlinq.Tests.Entities.MetaPropertyVertex: [
           {
+            Name: {
+              Id: 103,
+              Label: Name,
+              Properties: {},
+              Value: +43
+            },
+            Languages: [
+              de,
+              en
+            ],
+            CountryCallingCode: +43,
+            Id: 1017,
+            Label: MetaPropertyVertex,
+            PartitionKey: PartitionKey
+          }
+        ],
+        ExRam.Gremlinq.Tests.Entities.MetaPropertyVertex: [
+          {
             Id: 17,
             Label: MetaPropertyVertex,
             PartitionKey: PartitionKey
@@ -165,6 +197,14 @@
             ],
             Id: 75,
             Label: SiblingVertex,
+            PartitionKey: PartitionKey
+          }
+        ],
+        ExRam.Gremlinq.Tests.Entities.MetaPropertyVertex: [
+          {
+            CountryCallingCode: ,
+            Id: 1018,
+            Label: MetaPropertyVertex,
             PartitionKey: PartitionKey
           }
         ],
@@ -185,6 +225,13 @@
               Value: MyCompany
             },
             Id: 1003,
+            Label: SiblingVertex,
+            PartitionKey: PartitionKey
+          }
+        ],
+        ExRam.Gremlinq.Tests.Entities.SiblingVertex: [
+          {
+            Id: 1013,
             Label: SiblingVertex,
             PartitionKey: PartitionKey
           }
@@ -228,6 +275,32 @@
           {
             Age: 43,
             Id: 7,
+            Label: RichVertex,
+            PartitionKey: PartitionKey
+          }
+        ],
+        ExRam.Gremlinq.Tests.Entities.RichVertex: [
+          {
+            PhoneNumbers: [
+              {
+                Id: 87,
+                Label: PhoneNumbers,
+                Properties: {
+                  MetaKey: MetaValue
+                },
+                Value: +4912345
+              },
+              {
+                Id: 88,
+                Label: PhoneNumbers,
+                Properties: {
+                  MetaKey: 42,
+                  MetaProperty: 4711
+                },
+                Value: +4923456
+              }
+            ],
+            Id: 1012,
             Label: RichVertex,
             PartitionKey: PartitionKey
           }
@@ -306,6 +379,40 @@
             Duration: 02:00:00,
             Id: 50,
             Label: ScalarVertex,
+            PartitionKey: PartitionKey
+          }
+        ],
+        ExRam.Gremlinq.Tests.Entities.RichVertex: [
+          {
+            Enum: One,
+            PhoneNumbers: [
+              {
+                Id: 94,
+                Label: PhoneNumbers,
+                Properties: {},
+                Value: +4934567
+              },
+              {
+                Id: 95,
+                Label: PhoneNumbers,
+                Properties: {},
+                Value: +4945678
+              },
+              {
+                Id: 96,
+                Label: PhoneNumbers,
+                Properties: {},
+                Value: +4956789
+              }
+            ],
+            Name: {
+              Id: 93,
+              Label: Name,
+              Properties: {},
+              Value: Alice
+            },
+            Id: 1014,
+            Label: RichVertex,
             PartitionKey: PartitionKey
           }
         ],

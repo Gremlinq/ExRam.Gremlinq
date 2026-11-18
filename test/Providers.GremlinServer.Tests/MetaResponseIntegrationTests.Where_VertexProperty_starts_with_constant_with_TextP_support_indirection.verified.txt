@@ -10,7 +10,7 @@
           Value: GER
         },
         LocalizableDescription: {
-          Id: 144,
+          Id: 175,
           Label: LocalizableDescription,
           Properties: {
             someKey: value
@@ -32,7 +32,7 @@
           Value: GER
         },
         LocalizableDescription: {
-          Id: 145,
+          Id: 176,
           Label: LocalizableDescription,
           Properties: {
             someKey: value

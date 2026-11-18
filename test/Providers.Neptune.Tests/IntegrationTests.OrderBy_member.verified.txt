@@ -1,5 +1,47 @@
 [
   {
+    Enum: One,
+    PhoneNumbers: [
+      {
+        Id: 94,
+        Label: PhoneNumbers,
+        Properties: {},
+        Value: +4934567
+      },
+      {
+        Id: 95,
+        Label: PhoneNumbers,
+        Properties: {},
+        Value: +4945678
+      },
+      {
+        Id: 96,
+        Label: PhoneNumbers,
+        Properties: {},
+        Value: +4956789
+      }
+    ],
+    Name: {
+      Id: 93,
+      Label: Name,
+      Value: Alice
+    },
+    Id: 1014,
+    Label: RichVertex,
+    PartitionKey: PartitionKey
+  },
+  {
+    Enum: Two,
+    Name: {
+      Id: 99,
+      Label: Name,
+      Value: Alice
+    },
+    Id: 1015,
+    Label: RichVertex,
+    PartitionKey: PartitionKey
+  },
+  {
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
       Id: 12,

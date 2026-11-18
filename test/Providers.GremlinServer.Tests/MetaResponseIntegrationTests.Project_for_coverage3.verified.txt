@@ -11,6 +11,16 @@
         Item1: +49,
         Item2: +49,
         Item3: +49
+      },
+      {
+        Item1: +43,
+        Item2: +43,
+        Item3: +43
+      },
+      {
+        Item1: ,
+        Item2: ,
+        Item3: 
       }
     ],
     ResponseStatus: {

@@ -34,7 +34,7 @@
     Enum: Zero,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: 205,
+      Id: 247,
       Label: Name,
       Value: Marko
     },
@@ -51,6 +51,31 @@
   {
     Age: 36,
     Id: 44,
+    Label: RichVertex,
+    PartitionKey: PartitionKey
+  },
+  {
+    Age: 36,
+    PhoneNumbers: [
+      {
+        Id: 87,
+        Label: PhoneNumbers,
+        Properties: {
+          MetaKey: MetaValue
+        },
+        Value: +4912345
+      },
+      {
+        Id: 88,
+        Label: PhoneNumbers,
+        Properties: {
+          MetaKey: 42,
+          MetaProperty: 4711
+        },
+        Value: +4923456
+      }
+    ],
+    Id: 1012,
     Label: RichVertex,
     PartitionKey: PartitionKey
   },

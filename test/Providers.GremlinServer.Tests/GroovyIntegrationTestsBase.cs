@@ -81,6 +81,16 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
         public override SettingsTask Values_3_members() => base.Values_3_members().UseSnapshotDirectoryAndNameOf<GroovyIntegrationTests>();
 
         public override SettingsTask Values_no_member() => base.Values_no_member().UseSnapshotDirectoryAndNameOf<GroovyIntegrationTests>();
+
+        // Sent as a script, this query lists the RichVertex in another order.
+        public override SettingsTask Values_of_Vertex1() => base.Values_of_Vertex1().UseCanonicalComparer();
+
+        // Sent as a script, this query lists the RichVertex in another order.
+        public override SettingsTask Values_of_Vertex2() => base.Values_of_Vertex2().UseCanonicalComparer();
+
+        // Sent as a script, this query lists the RichVertex in another order.
+        public override SettingsTask Values_ToString() => base.Values_ToString().UseCanonicalComparer();
+
         public override SettingsTask Where_Id_equals_toStringed_Guid() => base.Where_Id_equals_toStringed_Guid().UseSnapshotDirectoryAndNameOf<GroovyIntegrationTests>();
 
         // Sent as a script, this query lists the RichVertex in another order.

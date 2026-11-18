@@ -13,5 +13,23 @@
       en: Germany
     },
     Value: GER
+  },
+  {
+    Id: 101,
+    Label: Languages,
+    Properties: {},
+    Value: de
+  },
+  {
+    Id: 102,
+    Label: Languages,
+    Properties: {},
+    Value: en
+  },
+  {
+    Id: 103,
+    Label: Name,
+    Properties: {},
+    Value: +43
   }
 ]

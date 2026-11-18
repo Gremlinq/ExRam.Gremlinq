@@ -2,5 +2,7 @@
   Bob,
   Bob,
   Marko,
-  Marko
+  Marko,
+  Alice,
+  Alice
 ]

@@ -1,8 +1,21 @@
 [
   {
     RequestId: 12345678-9012-3456-7890-123456789012,
+    Data: [
+      {
+        Name: {
+          Id: 90,
+          Label: n,
+          Properties: {},
+          Value: some name
+        },
+        Id: 1013,
+        Label: SiblingVertex,
+        PartitionKey: PartitionKey
+      }
+    ],
     ResponseStatus: {
-      Code: NoContent,
+      Code: Success,
       Attributes: {
         host: (host)
       },

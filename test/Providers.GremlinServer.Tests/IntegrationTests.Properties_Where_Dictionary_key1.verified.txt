@@ -1,1 +1,10 @@
-[]
+[
+  {
+    Id: 87,
+    Label: PhoneNumbers,
+    Properties: {
+      MetaKey: MetaValue
+    },
+    Value: +4912345
+  }
+]

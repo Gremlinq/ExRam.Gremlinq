@@ -224,10 +224,99 @@
         Value: 02:00:00
       },
       {
+        Id: 87,
+        Label: PhoneNumbers,
+        Properties: {
+          MetaKey: MetaValue
+        },
+        Value: +4912345
+      },
+      {
+        Id: 88,
+        Label: PhoneNumbers,
+        Properties: {
+          MetaKey: 42,
+          MetaProperty: 4711
+        },
+        Value: +4923456
+      },
+      {
+        Id: 86,
+        Label: Age,
+        Properties: {},
+        Value: 0
+      },
+      {
+        Id: 89,
+        Label: FoundingDate,
+        Properties: {},
+        Value: 0001-01-01 +0
+      },
+      {
+        Id: 90,
+        Label: n,
+        Properties: {},
+        Value: some name
+      },
+      {
         Id: 55,
         Label: IetfLanguageTag,
         Properties: {},
         Value: en
+      },
+      {
+        Id: 92,
+        Label: Enum,
+        Properties: {},
+        Value: 1
+      },
+      {
+        Id: 94,
+        Label: PhoneNumbers,
+        Properties: {},
+        Value: +4934567
+      },
+      {
+        Id: 95,
+        Label: PhoneNumbers,
+        Properties: {},
+        Value: +4945678
+      },
+      {
+        Id: 96,
+        Label: PhoneNumbers,
+        Properties: {},
+        Value: +4956789
+      },
+      {
+        Id: 91,
+        Label: Age,
+        Properties: {},
+        Value: 0
+      },
+      {
+        Id: 93,
+        Label: Name,
+        Properties: {},
+        Value: Alice
+      },
+      {
+        Id: 98,
+        Label: Enum,
+        Properties: {},
+        Value: 2
+      },
+      {
+        Id: 97,
+        Label: Age,
+        Properties: {},
+        Value: 0
+      },
+      {
+        Id: 99,
+        Label: Name,
+        Properties: {},
+        Value: Alice
       },
       {
         Id: 58,
@@ -240,6 +329,36 @@
         Label: Age,
         Properties: {},
         Value: 0
+      },
+      {
+        Id: 100,
+        Label: CountryCallingCode,
+        Properties: {},
+        Value: +43
+      },
+      {
+        Id: 101,
+        Label: Languages,
+        Properties: {},
+        Value: de
+      },
+      {
+        Id: 102,
+        Label: Languages,
+        Properties: {},
+        Value: en
+      },
+      {
+        Id: 103,
+        Label: Name,
+        Properties: {},
+        Value: +43
+      },
+      {
+        Id: 104,
+        Label: CountryCallingCode,
+        Properties: {},
+        Value: 
       },
       {
         Id: 61,

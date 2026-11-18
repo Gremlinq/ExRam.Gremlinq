@@ -19,12 +19,28 @@
         Value: Bob
       },
       {
-        Id: 191,
+        Id: 233,
         Label: Name,
         Properties: {
           ValidFrom: 2020-04-07 14:43:36 +0
         },
         Value: Marko
+      },
+      {
+        Id: 93,
+        Label: Name,
+        Properties: {
+          ValidFrom: 2020-04-07 14:43:36 +0
+        },
+        Value: Alice
+      },
+      {
+        Id: 99,
+        Label: Name,
+        Properties: {
+          ValidFrom: 2020-04-07 14:43:36 +0
+        },
+        Value: Alice
       },
       {
         Id: 63,

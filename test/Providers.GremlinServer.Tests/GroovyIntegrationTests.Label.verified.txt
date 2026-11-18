@@ -34,8 +34,14 @@
   SimpleVertex,
   SimpleVertex,
   ScalarVertex,
+  RichVertex,
+  SiblingVertex,
   SimpleVertex,
   RichVertex,
+  RichVertex,
+  RichVertex,
+  MetaPropertyVertex,
+  MetaPropertyVertex,
   RichVertex,
   RichVertex
 ]

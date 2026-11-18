@@ -5,7 +5,9 @@
       Bob,
       Bob,
       Marko,
-      Marko
+      Marko,
+      Alice,
+      Alice
     ],
     ResponseStatus: {
       Code: Success,

@@ -1,5 +1,8 @@
 [
   2019-01-01T01:00Z,
   Deutschland,
-  Germany
+  Germany,
+  MetaValue,
+  42,
+  4711
 ]

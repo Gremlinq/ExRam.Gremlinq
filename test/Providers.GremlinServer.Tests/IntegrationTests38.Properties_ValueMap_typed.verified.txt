@@ -40,11 +40,35 @@
   {},
   {},
   {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
   {
     ValidFrom: 2019-01-01T01:00Z
   },
   {
     de: Deutschland,
     en: Germany
+  },
+  {
+    MetaKey: MetaValue
+  },
+  {
+    MetaKey: 42,
+    MetaProperty: 4711
   }
 ]

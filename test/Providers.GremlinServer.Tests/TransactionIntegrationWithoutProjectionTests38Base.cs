@@ -20,22 +20,18 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
         {
         }
 
-        // Gremlin defines no order for the properties of an element. TinkerTransactionGraph returns those of the vertex that has a
-        // FoundingDate and Locations in another order than TinkerGraph: Locations before FoundingDate. Values and ids are the same,
-        // so these facts compare canonically against the snapshots of TinkerGraph.
-        public override SettingsTask Group_with_key_and_value2() => base.Group_with_key_and_value2().UseCanonicalComparer();
-
-        public override SettingsTask Properties1() => base.Properties1().UseCanonicalComparer();
-
+        // TinkerTransactionGraph returns the properties of the vertex that has a FoundingDate and Locations in another order than
+        // TinkerGraph also where they are typed. Values and ids are the same, so this fact compares canonically against the snapshot
+        // of TinkerGraph, like the facts that IntegrationWithoutProjectionTestsBase compares canonically.
         public override SettingsTask Properties_typed_no_parameters() => base.Properties_typed_no_parameters().UseCanonicalComparer();
 
-        public override SettingsTask Properties_Values_Id() => base.Properties_Values_Id().UseCanonicalComparer();
+        // Gremlin defines no order for the meta properties of a vertex property either. TinkerTransactionGraph returns those
+        // of the phone number with a MetaKey and a MetaProperty in another order than TinkerGraph.
+        public override SettingsTask Properties_Meta_Values() => base.Properties_Meta_Values().UseCanonicalComparer();
 
-        public override SettingsTask Properties_Values_Id_Label() => base.Properties_Values_Id_Label().UseCanonicalComparer();
+        public override SettingsTask Properties_Values_typed() => base.Properties_Values_typed().UseCanonicalComparer();
 
-        public override SettingsTask Properties_Values_Label() => base.Properties_Values_Label().UseCanonicalComparer();
-
-        public override SettingsTask Value() => base.Value().UseCanonicalComparer();
+        public override SettingsTask Properties_Values_untyped() => base.Properties_Values_untyped().UseCanonicalComparer();
 
         // The Write facts sort after every fact of QueryExecutionTestsBase, so that the ids the failed query uses up move no other
         // fact's ids and no other fact reads their vertices. Nothing sorts between them.

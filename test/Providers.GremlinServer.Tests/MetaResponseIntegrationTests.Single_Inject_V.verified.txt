@@ -5,7 +5,7 @@
       {
         CountryCallingCode: +49,
         LocalizableDescription: {
-          Id: 139,
+          Id: 170,
           Label: LocalizableDescription,
           Properties: {
             someKey: value
@@ -67,7 +67,7 @@
           Value: GER
         },
         LocalizableDescription: {
-          Id: 144,
+          Id: 175,
           Label: LocalizableDescription,
           Properties: {
             someKey: value
@@ -89,7 +89,7 @@
           Value: GER
         },
         LocalizableDescription: {
-          Id: 145,
+          Id: 176,
           Label: LocalizableDescription,
           Properties: {
             someKey: value
@@ -142,7 +142,7 @@
       },
       {
         LocalizableDescription: {
-          Id: 140,
+          Id: 171,
           Label: LocalizableDescription,
           Properties: {
             someKey: value
@@ -161,7 +161,7 @@
       },
       {
         LocalizableDescription: {
-          Id: 141,
+          Id: 172,
           Label: LocalizableDescription,
           Properties: {
             someKey: value
@@ -180,7 +180,7 @@
       },
       {
         LocalizableDescription: {
-          Id: 142,
+          Id: 173,
           Label: LocalizableDescription,
           Properties: {
             someKey: value
@@ -211,7 +211,7 @@
       {
         CountryCallingCode: +49,
         LocalizableDescription: {
-          Id: 143,
+          Id: 174,
           Label: LocalizableDescription,
           Properties: {
             someKey: value
@@ -242,7 +242,7 @@
         Enum: Zero,
         RegistrationDate: 2020-04-07 14:43:36 +0,
         Name: {
-          Id: 191,
+          Id: 233,
           Label: Name,
           Properties: {
             ValidFrom: 2020-04-07 14:43:36 +0
@@ -316,6 +316,36 @@
         PartitionKey: PartitionKey
       },
       {
+        Age: 36,
+        PhoneNumbers: [
+          {
+            Id: 87,
+            Label: PhoneNumbers,
+            Properties: {
+              MetaKey: MetaValue
+            },
+            Value: +4912345
+          },
+          {
+            Id: 88,
+            Label: PhoneNumbers,
+            Properties: {
+              MetaKey: 42,
+              MetaProperty: 4711
+            },
+            Value: +4923456
+          }
+        ],
+        Id: 1012,
+        Label: RichVertex,
+        PartitionKey: PartitionKey
+      },
+      {
+        Id: 1013,
+        Label: SiblingVertex,
+        PartitionKey: PartitionKey
+      },
+      {
         IetfLanguageTag: en,
         Id: 54,
         Label: SimpleVertex,
@@ -323,9 +353,97 @@
       },
       {
         Age: 36,
+        Enum: One,
+        PhoneNumbers: [
+          {
+            Id: 94,
+            Label: PhoneNumbers,
+            Properties: {},
+            Value: +4934567
+          },
+          {
+            Id: 95,
+            Label: PhoneNumbers,
+            Properties: {},
+            Value: +4945678
+          },
+          {
+            Id: 96,
+            Label: PhoneNumbers,
+            Properties: {},
+            Value: +4956789
+          }
+        ],
+        Name: {
+          Id: 93,
+          Label: Name,
+          Properties: {
+            ValidFrom: 2020-04-07 14:43:36 +0
+          },
+          Value: Alice
+        },
+        Id: 1014,
+        Label: RichVertex,
+        PartitionKey: PartitionKey
+      },
+      {
+        Age: 36,
+        Enum: Two,
+        Name: {
+          Id: 99,
+          Label: Name,
+          Properties: {
+            ValidFrom: 2020-04-07 14:43:36 +0
+          },
+          Value: Alice
+        },
+        Id: 1015,
+        Label: RichVertex,
+        PartitionKey: PartitionKey
+      },
+      {
+        Age: 36,
         Image: AQIDBAUGBwg=,
         Id: 56,
         Label: RichVertex,
+        PartitionKey: PartitionKey
+      },
+      {
+        Name: {
+          Id: 103,
+          Label: Name,
+          Properties: {},
+          Value: +43
+        },
+        Languages: [
+          de,
+          en
+        ],
+        CountryCallingCode: +43,
+        LocalizableDescription: {
+          Id: 177,
+          Label: LocalizableDescription,
+          Properties: {
+            someKey: value
+          },
+          Value: 
+        },
+        Id: 1017,
+        Label: MetaPropertyVertex,
+        PartitionKey: PartitionKey
+      },
+      {
+        CountryCallingCode: ,
+        LocalizableDescription: {
+          Id: 178,
+          Label: LocalizableDescription,
+          Properties: {
+            someKey: value
+          },
+          Value: 
+        },
+        Id: 1018,
+        Label: MetaPropertyVertex,
         PartitionKey: PartitionKey
       },
       {

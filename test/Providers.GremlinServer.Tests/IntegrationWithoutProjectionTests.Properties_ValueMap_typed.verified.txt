@@ -40,11 +40,35 @@
   {},
   {},
   {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
   {
     ValidFrom: 1546304400000
   },
   {
     de: Deutschland,
     en: Germany
+  },
+  {
+    MetaKey: MetaValue
+  },
+  {
+    MetaKey: 42,
+    MetaProperty: 4711
   }
 ]

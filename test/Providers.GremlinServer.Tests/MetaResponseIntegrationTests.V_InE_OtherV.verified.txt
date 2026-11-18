@@ -20,7 +20,7 @@
       {
         CountryCallingCode: +49,
         LocalizableDescription: {
-          Id: 139,
+          Id: 170,
           Label: LocalizableDescription,
           Properties: {
             someKey: value
@@ -34,7 +34,7 @@
       {
         CountryCallingCode: +49,
         LocalizableDescription: {
-          Id: 139,
+          Id: 170,
           Label: LocalizableDescription,
           Properties: {
             someKey: value
@@ -78,7 +78,7 @@
       {
         CountryCallingCode: +49,
         LocalizableDescription: {
-          Id: 143,
+          Id: 174,
           Label: LocalizableDescription,
           Properties: {
             someKey: value
@@ -99,7 +99,7 @@
         Enum: Zero,
         RegistrationDate: 2020-04-07 14:43:36 +0,
         Name: {
-          Id: 205,
+          Id: 247,
           Label: Name,
           Properties: {},
           Value: Marko
@@ -134,6 +134,41 @@
       {
         Id: 1008,
         Label: SimpleVertex,
+        PartitionKey: PartitionKey
+      },
+      {
+        Age: 36,
+        Enum: One,
+        PhoneNumbers: [
+          {
+            Id: 94,
+            Label: PhoneNumbers,
+            Properties: {},
+            Value: +4934567
+          },
+          {
+            Id: 95,
+            Label: PhoneNumbers,
+            Properties: {},
+            Value: +4945678
+          },
+          {
+            Id: 96,
+            Label: PhoneNumbers,
+            Properties: {},
+            Value: +4956789
+          }
+        ],
+        Name: {
+          Id: 93,
+          Label: Name,
+          Properties: {
+            ValidFrom: 2020-04-07 14:43:36 +0
+          },
+          Value: Alice
+        },
+        Id: 1014,
+        Label: RichVertex,
         PartitionKey: PartitionKey
       }
     ],

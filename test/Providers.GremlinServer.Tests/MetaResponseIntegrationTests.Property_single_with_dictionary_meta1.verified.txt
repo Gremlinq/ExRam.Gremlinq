@@ -5,7 +5,7 @@
       {
         CountryCallingCode: +49,
         LocalizableDescription: {
-          Id: 139,
+          Id: 170,
           Label: LocalizableDescription,
           Properties: {
             someKey: value
@@ -18,7 +18,7 @@
       },
       {
         LocalizableDescription: {
-          Id: 140,
+          Id: 171,
           Label: LocalizableDescription,
           Properties: {
             someKey: value
@@ -31,7 +31,7 @@
       },
       {
         LocalizableDescription: {
-          Id: 141,
+          Id: 172,
           Label: LocalizableDescription,
           Properties: {
             someKey: value
@@ -44,7 +44,7 @@
       },
       {
         LocalizableDescription: {
-          Id: 142,
+          Id: 173,
           Label: LocalizableDescription,
           Properties: {
             someKey: value
@@ -58,7 +58,7 @@
       {
         CountryCallingCode: +49,
         LocalizableDescription: {
-          Id: 143,
+          Id: 174,
           Label: LocalizableDescription,
           Properties: {
             someKey: value
@@ -77,7 +77,7 @@
           Value: GER
         },
         LocalizableDescription: {
-          Id: 144,
+          Id: 175,
           Label: LocalizableDescription,
           Properties: {
             someKey: value
@@ -99,7 +99,7 @@
           Value: GER
         },
         LocalizableDescription: {
-          Id: 145,
+          Id: 176,
           Label: LocalizableDescription,
           Properties: {
             someKey: value
@@ -107,6 +107,44 @@
           Value: 
         },
         Id: 73,
+        Label: MetaPropertyVertex,
+        PartitionKey: PartitionKey
+      },
+      {
+        Name: {
+          Id: 103,
+          Label: Name,
+          Properties: {},
+          Value: +43
+        },
+        Languages: [
+          de,
+          en
+        ],
+        CountryCallingCode: +43,
+        LocalizableDescription: {
+          Id: 177,
+          Label: LocalizableDescription,
+          Properties: {
+            someKey: value
+          },
+          Value: 
+        },
+        Id: 1017,
+        Label: MetaPropertyVertex,
+        PartitionKey: PartitionKey
+      },
+      {
+        CountryCallingCode: ,
+        LocalizableDescription: {
+          Id: 178,
+          Label: LocalizableDescription,
+          Properties: {
+            someKey: value
+          },
+          Value: 
+        },
+        Id: 1018,
         Label: MetaPropertyVertex,
         PartitionKey: PartitionKey
       }

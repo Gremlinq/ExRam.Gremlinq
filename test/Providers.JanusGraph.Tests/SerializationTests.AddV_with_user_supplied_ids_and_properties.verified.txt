@@ -1,0 +1,267 @@
+{
+  StepInstructions: [
+    {
+      OperatorName: addV,
+      Arguments: [
+        RichVertex
+      ]
+    },
+    {
+      OperatorName: property,
+      Arguments: [
+        {
+          EnumName: Cardinality,
+          EnumValue: single
+        },
+        Age,
+        0
+      ]
+    },
+    {
+      OperatorName: property,
+      Arguments: [
+        {
+          EnumName: Cardinality,
+          EnumValue: single
+        },
+        Enum,
+        One
+      ]
+    },
+    {
+      OperatorName: property,
+      Arguments: [
+        {
+          EnumName: Cardinality,
+          EnumValue: single
+        },
+        Name,
+        Alice
+      ]
+    },
+    {
+      OperatorName: property,
+      Arguments: [
+        {
+          EnumName: Cardinality,
+          EnumValue: list
+        },
+        PhoneNumbers,
+        +4934567
+      ]
+    },
+    {
+      OperatorName: property,
+      Arguments: [
+        {
+          EnumName: Cardinality,
+          EnumValue: list
+        },
+        PhoneNumbers,
+        +4945678
+      ]
+    },
+    {
+      OperatorName: property,
+      Arguments: [
+        {
+          EnumName: Cardinality,
+          EnumValue: list
+        },
+        PhoneNumbers,
+        +4956789
+      ]
+    },
+    {
+      OperatorName: addE,
+      Arguments: [
+        RichEdge
+      ]
+    },
+    {
+      OperatorName: property,
+      Arguments: [
+        From,
+        DateTimeOffset_1
+      ]
+    },
+    {
+      OperatorName: property,
+      Arguments: [
+        To,
+        DateTimeOffset_2
+      ]
+    },
+    {
+      OperatorName: to,
+      Arguments: [
+        {
+          StepInstructions: [
+            {
+              OperatorName: addV,
+              Arguments: [
+                RichVertex
+              ]
+            },
+            {
+              OperatorName: property,
+              Arguments: [
+                {
+                  EnumName: Cardinality,
+                  EnumValue: single
+                },
+                Age,
+                0
+              ]
+            },
+            {
+              OperatorName: property,
+              Arguments: [
+                {
+                  EnumName: Cardinality,
+                  EnumValue: single
+                },
+                Enum,
+                Two
+              ]
+            },
+            {
+              OperatorName: property,
+              Arguments: [
+                {
+                  EnumName: Cardinality,
+                  EnumValue: single
+                },
+                Name,
+                Alice
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      OperatorName: sideEffect,
+      Arguments: [
+        {
+          StepInstructions: [
+            {
+              OperatorName: addV,
+              Arguments: [
+                MetaPropertyVertex
+              ]
+            },
+            {
+              OperatorName: property,
+              Arguments: [
+                {
+                  EnumName: Cardinality,
+                  EnumValue: single
+                },
+                CountryCallingCode,
+                +43
+              ]
+            },
+            {
+              OperatorName: property,
+              Arguments: [
+                {
+                  EnumName: Cardinality,
+                  EnumValue: list
+                },
+                Languages,
+                de
+              ]
+            },
+            {
+              OperatorName: property,
+              Arguments: [
+                {
+                  EnumName: Cardinality,
+                  EnumValue: list
+                },
+                Languages,
+                en
+              ]
+            },
+            {
+              OperatorName: property,
+              Arguments: [
+                {
+                  EnumName: Cardinality,
+                  EnumValue: single
+                },
+                Name,
+                +43
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      OperatorName: sideEffect,
+      Arguments: [
+        {
+          StepInstructions: [
+            {
+              OperatorName: addV,
+              Arguments: [
+                MetaPropertyVertex
+              ]
+            },
+            {
+              OperatorName: property,
+              Arguments: [
+                {
+                  EnumName: Cardinality,
+                  EnumValue: single
+                },
+                CountryCallingCode,
+                
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      OperatorName: project,
+      Arguments: [
+        id,
+        label,
+        properties
+      ]
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        {
+          EnumName: T,
+          EnumValue: id
+        }
+      ]
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        {
+          EnumName: T,
+          EnumValue: label
+        }
+      ]
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        {
+          StepInstructions: [
+            {
+              OperatorName: valueMap
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

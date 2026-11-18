@@ -379,6 +379,71 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         }
 
         [Fact]
+        public virtual SettingsTask AddV_with_user_supplied_ids_and_meta_properties() => _g
+            .AddV(new RichVertex
+            {
+                Id = GetId(1012),
+                PhoneNumbers =
+                [
+                    new VertexProperty<string>("+4912345")
+                    {
+                        Properties = new Dictionary<string, object>
+                        {
+                            { "MetaKey", "MetaValue" }
+                        }
+                    },
+                    new VertexProperty<string>("+4923456")
+                    {
+                        Properties = new Dictionary<string, object>
+                        {
+                            { "MetaKey", 42 },
+                            { "MetaProperty", 4711 }
+                        }
+                    }
+                ]
+            })
+            .Verify();
+
+        [Fact]
+        public virtual SettingsTask AddV_with_user_supplied_ids_and_overridden_name() => _g
+            .ConfigureEnvironment(env => env
+                .ConfigureModel(model => model
+                    .ConfigureVertices(_ => _
+                        .ConfigureElement<AbstractVertex>(__ => __
+                            .ConfigureName(x => x.Name, "n")))))
+            .AddV(new SiblingVertex { Id = GetId(1013), Name = "some name" })
+            .Verify();
+
+        [Fact]
+        public virtual SettingsTask AddV_with_user_supplied_ids_and_properties()
+        {
+            var from = new DateTime(2020, 4, 6, 14, 43, 36, DateTimeKind.Utc);
+            var to = new DateTime(2020, 4, 8, 14, 43, 36, DateTimeKind.Utc);
+
+            return _g
+                .AddV(new RichVertex
+                {
+                    Id = GetId(1014),
+                    Name = "Alice",
+                    Enum = SomeEnum.One,
+                    PhoneNumbers =
+                    [
+                        new VertexProperty<string>("+4934567"),
+                        new VertexProperty<string>("+4945678"),
+                        new VertexProperty<string>("+4956789")
+                    ]
+                })
+                .AddE(new RichEdge { Id = GetId(1016), From = from, To = to })
+                .To(__ => __
+                    .AddV(new RichVertex { Id = GetId(1015), Name = "Alice", Enum = SomeEnum.Two }))
+                .SideEffect(__ => __
+                    .AddV(new MetaPropertyVertex { Id = GetId(1017), Name = "+43", CountryCallingCode = "+43", Languages = ["de", "en"] }))
+                .SideEffect(__ => __
+                    .AddV(new MetaPropertyVertex { Id = GetId(1018), CountryCallingCode = "" }))
+                .Verify();
+        }
+
+        [Fact]
         public virtual SettingsTask AddV_without_id() => _g
             .AddV(new SimpleVertex { IetfLanguageTag = "en" })
             .Verify();
@@ -3006,12 +3071,12 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         public virtual SettingsTask Properties_Where_Label_2() => _g
             .V<MetaPropertyVertex>()
             .Properties(x => x.Languages!)
-            .Where(x => x.Label == "label")
+            .Where(x => x.Label == "Languages")
             .Verify();
 
         [Fact]
         public virtual SettingsTask Properties_Where_Label_equals_StepLabel() => _g
-            .Inject("label")
+            .Inject("Languages")
             .As((__, l) => __
                 .V<MetaPropertyVertex>()
                 .Properties(x => x.Languages!)
@@ -4428,7 +4493,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         [Fact]
         public virtual SettingsTask Where_complex_logical_expression_with_null() => _g
             .V<RichVertex>()
-            .Where(t => t.Name == null && (t.Age == 42 || t.Age == 99))
+            .Where(t => t.Name == null && (t.Age == 36 || t.Age == 99))
             .Verify();
 
         [Fact]

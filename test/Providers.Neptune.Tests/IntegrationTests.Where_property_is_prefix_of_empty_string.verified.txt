@@ -1,1 +1,13 @@
-[]
+[
+  {
+    CountryCallingCode: ,
+    LocalizableDescription: {
+      Id: 178,
+      Label: LocalizableDescription,
+      Value: 
+    },
+    Id: 1018,
+    Label: MetaPropertyVertex,
+    PartitionKey: PartitionKey
+  }
+]

@@ -42,6 +42,11 @@
         Id: 1003,
         Label: SiblingVertex,
         PartitionKey: PartitionKey
+      },
+      {
+        Id: 1013,
+        Label: SiblingVertex,
+        PartitionKey: PartitionKey
       }
     ],
     ResponseStatus: {

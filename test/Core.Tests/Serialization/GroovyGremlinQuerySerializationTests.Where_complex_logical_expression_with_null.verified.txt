@@ -4,7 +4,7 @@
     _a: RichVertex,
     _b: Name,
     _c: Age,
-    _d: 42,
+    _d: 36,
     _e: 99,
     _f: id,
     _g: label,

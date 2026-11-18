@@ -9,7 +9,7 @@
       },
       {
         LocalizableDescription: {
-          Id: 140,
+          Id: 171,
           Label: LocalizableDescription,
           Properties: {
             someKey: value
@@ -22,7 +22,7 @@
       },
       {
         LocalizableDescription: {
-          Id: 141,
+          Id: 172,
           Label: LocalizableDescription,
           Properties: {
             someKey: value
@@ -35,7 +35,7 @@
       },
       {
         LocalizableDescription: {
-          Id: 142,
+          Id: 173,
           Label: LocalizableDescription,
           Properties: {
             someKey: value
@@ -54,7 +54,7 @@
       {
         CountryCallingCode: +49,
         LocalizableDescription: {
-          Id: 139,
+          Id: 170,
           Label: LocalizableDescription,
           Properties: {
             someKey: value
@@ -96,6 +96,21 @@
       {
         Id: 42,
         Label: SiblingVertex,
+        PartitionKey: PartitionKey
+      },
+      {
+        Age: 36,
+        Enum: Two,
+        Name: {
+          Id: 99,
+          Label: Name,
+          Properties: {
+            ValidFrom: 2020-04-07 14:43:36 +0
+          },
+          Value: Alice
+        },
+        Id: 1015,
+        Label: RichVertex,
         PartitionKey: PartitionKey
       }
     ],

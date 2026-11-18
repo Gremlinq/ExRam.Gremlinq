@@ -127,5 +127,16 @@
     Id: 1009,
     Label: SimpleVertex,
     PartitionKey: PartitionKey
+  },
+  {
+    Enum: Two,
+    Name: {
+      Id: 99,
+      Label: Name,
+      Value: Alice
+    },
+    Id: 1015,
+    Label: RichVertex,
+    PartitionKey: PartitionKey
   }
 ]

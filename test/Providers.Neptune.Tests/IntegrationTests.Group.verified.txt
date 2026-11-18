@@ -44,6 +44,39 @@
     ],
     ExRam.Gremlinq.Tests.Entities.RichVertex: [
       {
+        Enum: One,
+        PhoneNumbers: [
+          {
+            Id: 94,
+            Label: PhoneNumbers,
+            Properties: {},
+            Value: +4934567
+          },
+          {
+            Id: 95,
+            Label: PhoneNumbers,
+            Properties: {},
+            Value: +4945678
+          },
+          {
+            Id: 96,
+            Label: PhoneNumbers,
+            Properties: {},
+            Value: +4956789
+          }
+        ],
+        Name: {
+          Id: 93,
+          Label: Name,
+          Value: Alice
+        },
+        Id: 1014,
+        Label: RichVertex,
+        PartitionKey: PartitionKey
+      }
+    ],
+    ExRam.Gremlinq.Tests.Entities.RichVertex: [
+      {
         Id: 19,
         Label: RichVertex,
         PartitionKey: PartitionKey
@@ -85,7 +118,41 @@
     ],
     ExRam.Gremlinq.Tests.Entities.RichVertex: [
       {
+        PhoneNumbers: [
+          {
+            Id: 87,
+            Label: PhoneNumbers,
+            Properties: {},
+            Value: +4912345
+          },
+          {
+            Id: 88,
+            Label: PhoneNumbers,
+            Properties: {},
+            Value: +4923456
+          }
+        ],
+        Id: 1012,
+        Label: RichVertex,
+        PartitionKey: PartitionKey
+      }
+    ],
+    ExRam.Gremlinq.Tests.Entities.RichVertex: [
+      {
         Id: 1001,
+        Label: RichVertex,
+        PartitionKey: PartitionKey
+      }
+    ],
+    ExRam.Gremlinq.Tests.Entities.RichVertex: [
+      {
+        Enum: Two,
+        Name: {
+          Id: 99,
+          Label: Name,
+          Value: Alice
+        },
+        Id: 1015,
         Label: RichVertex,
         PartitionKey: PartitionKey
       }

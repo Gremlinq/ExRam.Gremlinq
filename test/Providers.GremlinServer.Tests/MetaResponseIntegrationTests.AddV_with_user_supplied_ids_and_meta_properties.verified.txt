@@ -1,0 +1,38 @@
+[
+  {
+    RequestId: 12345678-9012-3456-7890-123456789012,
+    Data: [
+      {
+        PhoneNumbers: [
+          {
+            Id: 87,
+            Label: PhoneNumbers,
+            Properties: {
+              MetaKey: MetaValue
+            },
+            Value: +4912345
+          },
+          {
+            Id: 88,
+            Label: PhoneNumbers,
+            Properties: {
+              MetaKey: 42,
+              MetaProperty: 4711
+            },
+            Value: +4923456
+          }
+        ],
+        Id: 1012,
+        Label: RichVertex,
+        PartitionKey: PartitionKey
+      }
+    ],
+    ResponseStatus: {
+      Code: Success,
+      Attributes: {
+        host: (host)
+      },
+      Message: 
+    }
+  }
+]

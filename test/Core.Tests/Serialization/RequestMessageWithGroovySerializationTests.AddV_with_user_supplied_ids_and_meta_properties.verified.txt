@@ -1,0 +1,29 @@
+{
+  RequestId: 12345678-9012-3456-7890-123456789012,
+  Operation: eval,
+  Processor: ,
+  Arguments: {
+    aliases: {
+      g: g
+    },
+    bindings: {
+      _a: RichVertex,
+      _b: 1012,
+      _c: Age,
+      _d: 0,
+      _e: PhoneNumbers,
+      _f: +4912345,
+      _g: MetaKey,
+      _h: MetaValue,
+      _i: +4923456,
+      _j: 42,
+      _k: MetaProperty,
+      _l: 4711,
+      _m: id,
+      _n: label,
+      _o: properties,
+      _p: value
+    },
+    gremlin: g.addV(_a).property(id,_b).property(single,_c,_d).property(list,_e,_f,_g,_h).property(list,_e,_i,_g,_j,_k,_l).project(_m,_n,_o).by(id).by(label).by(__.properties().group().by(label).by(__.project(_m,_n,_p,_o).by(id).by(label).by(value).by(__.valueMap()).fold()))
+  }
+}

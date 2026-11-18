@@ -1,0 +1,172 @@
+{
+  SourceInstructions: [
+    {
+      OperatorName: withSideEffect,
+      Arguments: [
+        Neptune#fts.endpoint,
+        http://elastic.search.server
+      ]
+    },
+    {
+      OperatorName: withSideEffect,
+      Arguments: [
+        Neptune#fts.queryType,
+        query_string
+      ]
+    }
+  ],
+  StepInstructions: [
+    {
+      OperatorName: addV,
+      Arguments: [
+        RichVertex
+      ]
+    },
+    {
+      OperatorName: property,
+      Arguments: [
+        {
+          EnumName: T,
+          EnumValue: id
+        },
+        1012
+      ]
+    },
+    {
+      OperatorName: property,
+      Arguments: [
+        {
+          EnumName: Cardinality,
+          EnumValue: single
+        },
+        Age,
+        0
+      ]
+    },
+    {
+      OperatorName: property,
+      Arguments: [
+        {
+          EnumName: Cardinality,
+          EnumValue: set
+        },
+        PhoneNumbers,
+        +4912345,
+        MetaKey,
+        MetaValue
+      ]
+    },
+    {
+      OperatorName: property,
+      Arguments: [
+        {
+          EnumName: Cardinality,
+          EnumValue: set
+        },
+        PhoneNumbers,
+        +4923456,
+        MetaKey,
+        42,
+        MetaProperty,
+        4711
+      ]
+    },
+    {
+      OperatorName: project,
+      Arguments: [
+        id,
+        label,
+        properties
+      ]
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        {
+          EnumName: T,
+          EnumValue: id
+        }
+      ]
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        {
+          EnumName: T,
+          EnumValue: label
+        }
+      ]
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        {
+          StepInstructions: [
+            {
+              OperatorName: properties
+            },
+            {
+              OperatorName: group
+            },
+            {
+              OperatorName: by,
+              Arguments: [
+                {
+                  EnumName: T,
+                  EnumValue: label
+                }
+              ]
+            },
+            {
+              OperatorName: by,
+              Arguments: [
+                {
+                  StepInstructions: [
+                    {
+                      OperatorName: project,
+                      Arguments: [
+                        id,
+                        label,
+                        value
+                      ]
+                    },
+                    {
+                      OperatorName: by,
+                      Arguments: [
+                        {
+                          EnumName: T,
+                          EnumValue: id
+                        }
+                      ]
+                    },
+                    {
+                      OperatorName: by,
+                      Arguments: [
+                        {
+                          EnumName: T,
+                          EnumValue: label
+                        }
+                      ]
+                    },
+                    {
+                      OperatorName: by,
+                      Arguments: [
+                        {
+                          EnumName: T,
+                          EnumValue: value
+                        }
+                      ]
+                    },
+                    {
+                      OperatorName: fold
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

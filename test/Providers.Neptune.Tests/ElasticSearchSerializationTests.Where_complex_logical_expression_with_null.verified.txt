@@ -39,7 +39,7 @@
           OperatorName: or,
           Value: {
             OperatorName: eq,
-            Value: 42
+            Value: 36
           },
           Other: {
             OperatorName: eq,

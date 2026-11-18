@@ -1,8 +1,34 @@
 [
   {
     RequestId: 12345678-9012-3456-7890-123456789012,
+    Data: [
+      {
+        Name: {
+          Id: 103,
+          Label: Name,
+          Properties: {},
+          Value: +43
+        },
+        Languages: [
+          de,
+          en
+        ],
+        CountryCallingCode: +43,
+        LocalizableDescription: {
+          Id: 177,
+          Label: LocalizableDescription,
+          Properties: {
+            someKey: value
+          },
+          Value: 
+        },
+        Id: 1017,
+        Label: MetaPropertyVertex,
+        PartitionKey: PartitionKey
+      }
+    ],
     ResponseStatus: {
-      Code: NoContent,
+      Code: Success,
       Attributes: {
         host: (host)
       },

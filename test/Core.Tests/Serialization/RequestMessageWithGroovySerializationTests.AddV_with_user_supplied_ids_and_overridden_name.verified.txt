@@ -1,0 +1,23 @@
+{
+  RequestId: 12345678-9012-3456-7890-123456789012,
+  Operation: eval,
+  Processor: ,
+  Arguments: {
+    aliases: {
+      g: g
+    },
+    bindings: {
+      _a: SiblingVertex,
+      _b: 1013,
+      _c: FoundingDate,
+      _d: Date_MinValue,
+      _e: n,
+      _f: some name,
+      _g: id,
+      _h: label,
+      _i: properties,
+      _j: value
+    },
+    gremlin: g.addV(_a).property(id,_b).property(single,_c,_d).property(single,_e,_f).project(_g,_h,_i).by(id).by(label).by(__.properties().group().by(label).by(__.project(_g,_h,_j,_i).by(id).by(label).by(value).by(__.valueMap()).fold()))
+  }
+}

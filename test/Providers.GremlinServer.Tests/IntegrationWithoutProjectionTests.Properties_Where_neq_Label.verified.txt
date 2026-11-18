@@ -1,1 +1,14 @@
-[]
+[
+  {
+    Id: 101,
+    Label: Languages,
+    Properties: {},
+    Value: de
+  },
+  {
+    Id: 102,
+    Label: Languages,
+    Properties: {},
+    Value: en
+  }
+]

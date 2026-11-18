@@ -77,6 +77,12 @@
       {
         Id: 1011,
         Label: EmptyEdge
+      },
+      {
+        From: 2020-04-06 14:43:36 Utc,
+        To: 2020-04-08 14:43:36 Utc,
+        Id: 1016,
+        Label: RichEdge
       }
     ],
     ResponseStatus: {

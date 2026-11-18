@@ -19,6 +19,14 @@
           metaKey: 1
         },
         Value: GER
+      },
+      {
+        Id: 103,
+        Label: Name,
+        Properties: {
+          metaKey: 1
+        },
+        Value: +43
       }
     ],
     ResponseStatus: {
