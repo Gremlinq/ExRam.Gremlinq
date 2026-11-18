@@ -104,7 +104,7 @@ When changing:
      `SerializationTests37To38`, `SerializationTestsEngine15`). A class is named for what its project
      name does not say: the project names the provider, the class the variant
      (`ObjectQueryIntegrationTests38`, `PasswordSecuredIntegrationTests`).
-   - `QueryExecutionTestsBase` holds the 663 facts every provider answers, `GraphsonSupportTestsBase`
+   - `QueryExecutionTestsBase` holds the 669 facts every provider answers, `GraphsonSupportTestsBase`
      the GraphSON contract both JSON stacks read. A fact for every provider goes there; a fact of
      one feature goes to that feature's `…TestsBase`.
    - A test class takes a `GremlinqFixture` and a `GremlinQueryVerifier`. There are five verifiers:
@@ -278,7 +278,7 @@ or verifies the `Debug()` output of a query for values that end up in the query.
 client factory (Uri, connection pool, authentication) cannot be read without a server.
 
 Every provider's test classes derive from `QueryExecutionTestsBase` in `Tests.Infrastructure`, which
-holds the 663 facts every provider answers; [Snapshot Testing](#snapshot-testing) names the bases
+holds the 669 facts every provider answers; [Snapshot Testing](#snapshot-testing) names the bases
 and the owners of the snapshots.
 
 The facts of `QueryExecutionTestsBase` that name an element by its id take that id from
@@ -286,7 +286,27 @@ The facts of `QueryExecutionTestsBase` that name an element by its id take that 
 overrides `GetId` once, as `StringIdIntegrationTests` does. `AddV_with_user_supplied_ids` adds two
 RichVertex and a RichEdge with the ids `GetId(1000)`, `GetId(1001)` and `GetId(1002)`; a fact that
 names an existing element names one of these, since the ids the graph draws itself move whenever a
-fact writes.
+fact writes. The update facts update the RichVertex 1000 and its RichEdge 1002 only. Six Add* facts
+sort right after it and seed what other facts ask for, with ids from `GetId(1003)` on:
+
+- `AddV_with_user_supplied_ids_and_edges`: the SiblingVertex 1003 named MyCompany, the RichEdge 1004
+  and the PropertyEdge 1005 from 1001 to it, the SimpleVertex 1006 with the EmptyEdge 1007 to 1000,
+  and the SimpleVertices 1008 and 1009 with the EmptyEdges 1010 and 1011 between them, a cycle with
+  no edge to any other vertex.
+- `AddV_with_user_supplied_ids_and_meta_properties`: the RichVertex 1012 with two PhoneNumbers, one
+  with the meta property MetaKey `MetaValue`, one with MetaKey 42 and MetaProperty 4711.
+- `AddV_with_user_supplied_ids_and_overridden_name`: the SiblingVertex 1013 whose Name `some name`
+  is stored as `n`.
+- `AddV_with_user_supplied_ids_and_properties`: the RichVertex 1014 (Name Alice, Enum One, three
+  PhoneNumbers) and 1015 (Name Alice, Enum Two), the RichEdge 1016 from 1014 to 1015 (From
+  2020-04-06, To 2020-04-08), and the MetaPropertyVertex 1017 (Name and CountryCallingCode `+43`,
+  Languages `de` and `en`) and 1018 (an empty CountryCallingCode).
+- `AddV_with_user_supplied_ids_and_types`: the ScalarVertex 1019 with Enabled.
+- `AddV_with_user_supplied_ids_and_types_outside_model`: the VertexWithStringId 1020, in the model
+  of `Where_outside_model`.
+
+The repeat facts walk `inE().outV()` from every RichVertex without a bound, so no cycle may be
+reachable backwards from a RichVertex.
 
 ### TinkerPop Compatibility Range
 
