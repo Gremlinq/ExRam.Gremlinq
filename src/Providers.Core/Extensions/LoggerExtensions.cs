@@ -14,5 +14,8 @@ namespace ExRam.Gremlinq.Providers.Core
 
         [LoggerMessage(EventId = 0, Message = "Executing Gremlin query {requestId} with groovy script {script} and parameter bindings {bindings}.")]
         public static partial void LogQuery(this ILogger logger, LogLevel level, Guid requestId, string script, Bindings bindings);
+
+        [LoggerMessage(EventId = 0, Message = "Execution of Gremlin query {executionId} was cancelled.")]
+        public static partial void LogQueryCancelled(this ILogger logger, LogLevel level, Guid executionId);
     }
 }
