@@ -88,9 +88,51 @@ namespace ExRam.Gremlinq.Providers.Core.Tests
                 .Equal((LogLevel.Error, $"Execution of Gremlin query {context.ExecutionId} failed."));
         }
 
-        private static GremlinQueryExecutionContext CreateContext(ILogger logger) => GremlinQueryExecutionContext.Create(GremlinQuerySource.g
+        [Fact]
+        public async Task Query_cancelled_through_its_token_is_logged_at_the_query_log_level()
+        {
+            var logger = new CollectingLogger();
+            var context = CreateContext(logger);
+
+            await Cancel(context);
+
+            logger.Entries
+                .Should()
+                .Equal((LogLevel.Debug, $"Execution of Gremlin query {context.ExecutionId} was cancelled."));
+        }
+
+        [Fact]
+        public async Task Query_cancelled_through_its_token_is_logged_at_a_configured_query_log_level()
+        {
+            var logger = new CollectingLogger();
+            var context = CreateContext(logger, options => options
+                .SetValue(GremlinqOption.QueryLogLogLevel, LogLevel.Information));
+
+            await Cancel(context);
+
+            logger.Entries
+                .Should()
+                .Equal((LogLevel.Information, $"Execution of Gremlin query {context.ExecutionId} was cancelled."));
+        }
+
+        private static async Task Cancel(GremlinQueryExecutionContext context)
+        {
+            using var cts = CancellationTokenSource.CreateLinkedTokenSource(TestContext.Current.CancellationToken);
+
+            var execution = Execute(context, AsyncEnumerableEx.Never<ResponseMessage<List<object>>>(), cts.Token);
+
+            await cts.CancelAsync();
+
+            await FluentActions
+                .Awaiting(() => execution)
+                .Should()
+                .ThrowAsync<OperationCanceledException>();
+        }
+
+        private static GremlinQueryExecutionContext CreateContext(ILogger logger, Func<IGremlinqOptions, IGremlinqOptions>? optionsTransformation = null) => GremlinQueryExecutionContext.Create(GremlinQuerySource.g
             .ConfigureEnvironment(environment => environment
-                .UseLogger(logger))
+                .UseLogger(logger)
+                .ConfigureOptions(optionsTransformation ?? (options => options)))
             .V());
 
         private static async Task Execute(GremlinQueryExecutionContext context, IAsyncEnumerable<ResponseMessage<List<object>>> responses, CancellationToken ct)

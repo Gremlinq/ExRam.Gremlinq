@@ -322,6 +322,13 @@ namespace ExRam.Gremlinq.Providers.Core
 
                             data = resultTransformation(context, requestMessage, enumerator.Current);
                         }
+                        catch (OperationCanceledException) when (ct.IsCancellationRequested)
+                        {
+                            environment.Logger
+                                .LogQueryCancelled(environment.Options.GetValue(GremlinqOption.QueryLogLogLevel), context.ExecutionId);
+
+                            throw;
+                        }
                         catch (Exception ex)
                         {
                             environment.Logger
